@@ -1,22 +1,22 @@
 ﻿export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads, uploadHttpMethod) {
-	var inputElement = document.getElementById(inputElementId);
-	var dotnetReference = hxInputFileDotnetObjectReference;
-	var files = inputElement.files;
-	var totalSize = 0;
+	const inputElement = document.getElementById(inputElementId);
+	const dotnetReference = hxInputFileDotnetObjectReference;
+	const files = inputElement.files;
+	let totalSize = 0;
 
 	inputElement.requests = new Array();
 	inputElement.cancelled = false;
 
-	var nextFile = maxParallelUploads;
+	let nextFile = maxParallelUploads;
 
-	var completedUploads = 0;
+	let completedUploads = 0;
 
 	if (files.length === 0) {
 		dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', 0, 0);
 		return;
 	}
 
-	for (var i = 0; i < Math.min(files.length, maxParallelUploads); i++) {
+	for (let i = 0; i < Math.min(files.length, maxParallelUploads); i++) {
 		(function (curr) {
 			uploadFile(curr);
 		}(i));
@@ -28,10 +28,10 @@
 			return;
 		}
 
-		var file = files[index];
+		const file = files[index];
 
 		if (maxFileSize && (file.size > maxFileSize)) {
-			let msg = `[${index}]${file.name} client pre-check: File size ${file.size} bytes exceeds MaxFileSize limit ${maxFileSize} bytes.`;
+			const msg = `[${index}]${file.name} client pre-check: File size ${file.size} bytes exceeds MaxFileSize limit ${maxFileSize} bytes.`;
 			console.warn(msg);
 
 			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, 413, msg);
@@ -48,10 +48,10 @@
 			totalSize = totalSize + file.size;
 		}
 
-		var data = new FormData();
+		const data = new FormData();
 		data.append('file', file, file.name);
 
-		var request = new XMLHttpRequest();
+		const request = new XMLHttpRequest();
 		inputElement.requests.push(request);
 
 		request.open(uploadHttpMethod, uploadEndpointUrl, true);
@@ -83,13 +83,13 @@
 }
 
 export function getFiles(inputElementId) {
-	var inputElement = document.getElementById(inputElementId);
+	const inputElement = document.getElementById(inputElementId);
 	inputElement.hxInputFileNextFileIndex = 0;
 	return Array.from(inputElement.files).map(e => { return { index: inputElement.hxInputFileNextFileIndex++, name: e.name, lastModified: e.lastModified, size: e.size, type: e.type }; });
 }
 
 export function reset(inputElementId) {
-	var inputElement = document.getElementById(inputElementId);
+	const inputElement = document.getElementById(inputElementId);
 	if (!inputElement) {
 		return;
 	}
@@ -107,6 +107,6 @@ export function reset(inputElementId) {
 }
 
 export function dispose(inputElementId) {
-	var inputElement = document.getElementById(inputElementId);
+	const inputElement = document.getElementById(inputElementId);
 	inputElement.hxInputFileDotnetObjectReference = null;
 }

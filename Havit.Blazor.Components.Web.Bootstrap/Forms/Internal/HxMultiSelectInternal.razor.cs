@@ -253,7 +253,11 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	public async Task HandleJsShown()
 	{
 		_isShown = true;
-		await _filterInputReference.FocusAsync();
+
+		if (AllowFiltering)
+		{
+			await _filterInputReference.FocusAsync();
+		}
 	}
 
 	public async ValueTask DisposeAsync()

@@ -66,6 +66,20 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
+	/// Placeholder for the start-date input.
+	/// If not set, localized default is used ("From" + localizations).
+	/// </summary>
+	[Parameter] public string FromPlaceholder { get; set; }
+	public string FromPlaceholderEffective => FromPlaceholder ?? GetSettings()?.FromPlaceholder ?? GetDefaults().FromPlaceholder; // null = use localizations
+
+	/// <summary>
+	/// Placeholder for the end-date input.
+	/// If not set, localized default is used ("End" + localizations).
+	/// </summary>
+	[Parameter] public string ToPlaceholder { get; set; }
+	public string ToPlaceholderEffective => ToPlaceholder ?? GetSettings()?.ToPlaceholder ?? GetDefaults().ToPlaceholder; // null = use localizations
+
+	/// <summary>
 	/// Gets or sets the error message used when displaying a &quot;from&quot; parsing error.
 	/// Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by the Label property, <c>{1}</c> is replaced by the name of the bounded property.
 	/// </summary>
@@ -152,6 +166,8 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 		builder.AddAttribute(203, nameof(HxInputDateRangeInternal.InputSizeEffective), InputSizeEffective);
 		builder.AddAttribute(204, nameof(HxInputDateRangeInternal.CalendarIconEffective), CalendarIconEffective);
 		builder.AddAttribute(205, nameof(HxInputDateRangeInternal.EnabledEffective), EnabledEffective);
+		builder.AddAttribute(206, nameof(HxInputDateRangeInternal.FromPlaceholderEffective), FromPlaceholderEffective);
+		builder.AddAttribute(206, nameof(HxInputDateRangeInternal.ToPlaceholderEffective), ToPlaceholderEffective);
 		builder.AddAttribute(206, nameof(HxInputDateRangeInternal.FromParsingErrorMessageEffective), GetFromParsingErrorMessage());
 		builder.AddAttribute(207, nameof(HxInputDateRangeInternal.ToParsingErrorMessageEffective), GetToParsingErrorMessage());
 		builder.AddAttribute(208, nameof(HxInputDateRangeInternal.ValidationMessageModeEffective), ValidationMessageModeEffective);

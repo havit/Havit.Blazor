@@ -1,0 +1,11 @@
+<HxCard CssClass="rounded-4 h-100">
+	<BodyTemplate>
+		<HxCardTitle CssClass="d-flex gap-2 align-items-center fw-semibold">
+			<div style="width: 2.25rem; height: 2.25rem;" class="@CssClassHelper.Combine(@Color.ToBackgroundColorCss(true), "d-flex align-items-center justify-content-center rounded-3")">
+				<HxIcon CssClass="@Color.ToTextColorCss(true)" Icon="@Icon" />
+			</div>
+			@Title
+		</HxCardTitle>
+		<p class="opacity-75">@Description</p>
+	</BodyTemplate>
+</HxCard>

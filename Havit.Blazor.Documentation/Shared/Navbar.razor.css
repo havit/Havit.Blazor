@@ -1,0 +1,17 @@
+::deep .nav-link.active {
+    font-weight: 600;
+    --bs-link-opacity: 1;
+}
+
+::deep .container-fluid {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.nav-container {
+	--bs-bg-opacity: .8;
+	background-color: rgba(var(--bs-body-bg-rgb),var(--bs-bg-opacity)) !important;
+	backdrop-filter: saturate(120%) blur(20px);
+	-webkit-backdrop-filter: saturate(120%) blur(20px);
+	z-index: 1030;
+}

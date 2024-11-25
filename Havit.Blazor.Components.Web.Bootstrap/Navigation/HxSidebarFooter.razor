@@ -4,15 +4,14 @@
     <HxNavLink Href="@Href" 
                CssClass="@CssClassHelper.Combine(CssClass)" 
                Match="Match">
-        <div class="hx-sidebar-footer-navlink">
+        <div class="hx-sidebar-footer-item-navlink-content">
             @if (Icon != null)
             {
                 <HxIcon Icon="Icon" />
             }
-            <span class="@CssClassHelper.Combine("text", Icon == null ? null : "ms-3")">
+            <span class="@CssClassHelper.Combine("hx-sidebar-footer-item-navlink-content-inner", TextCssClass)">
                 @Text
             </span>
         </div>
-
     </HxNavLink>
 </div>

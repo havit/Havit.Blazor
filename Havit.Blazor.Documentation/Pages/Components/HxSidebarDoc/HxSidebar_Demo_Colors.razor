@@ -1,0 +1,36 @@
+<style>
+	/* Demonstration purposes only. Put this CSS into your application's CSS file or into the component's CSS file. */
+	.my-sidebar {
+		--hx-sidebar-item-hover-background-color: var(--bs-emphasis-color-rgb);
+		--hx-sidebar-item-active-background-color: var(--bs-emphasis-color-rgb);
+		--hx-sidebar-item-active-color: var(--bs-emphasis-color);
+		--hx-sidebar-item-hover-color: var(--bs-emphasis-color);
+		--hx-sidebar-item-icon-color: var(--bs-secondary-color);
+		--hx-sidebar-parent-item-active-icon-color: var(--bs-secondary-color);
+	}
+</style>
+<div class="my-sidebar d-flex border rounded-3 overflow-hidden">
+	<HxSidebar CssClass="bg-body-secondary">
+		<HeaderTemplate>
+			<HxSidebarBrand BrandName="Brand name" BrandNameShort="BN" />
+		</HeaderTemplate>
+
+		<ItemsTemplate>
+			<HxSidebarItem Text="Dashboard" Icon="BootstrapIcon.Columns" TooltipText="Dashboard" Href="/components/HxSidebar/dashboard" />
+			<HxSidebarItem Text="Employees" Icon="BootstrapIcon.People">
+				<HxSidebarItem Text="Overview" Href="/components/HxSidebar/employees" />
+				<HxSidebarItem Text="Absences" Href="/components/HxSidebar/absences" />
+			</HxSidebarItem>
+			<HxSidebarItem Text="Mine (with icons)" Icon="BootstrapIcon.Person">
+				<HxSidebarItem Text="Overview" Icon="BootstrapIcon.Wallet2" Href="/components/HxSidebar/mine" Match="NavLinkMatch.All" />
+				<HxSidebarItem Text="Timesheets" Icon="BootstrapIcon.Clock" Href="/components/HxSidebar/mine/timesheets" />
+				<HxSidebarItem Text="Absences" Icon="BootstrapIcon.Exclamation" Href="/components/HxSidebar/mine/absences" />
+			</HxSidebarItem>
+			<HxSidebarItem Text="Administration" Icon="BootstrapIcon.Gear" Href="/components/HxSidebar/admin" />
+		</ItemsTemplate>
+
+		<FooterTemplate>
+			<HxSidebarFooter Icon="BootstrapIcon.PersonCircle" TextCssClass="@(context.SidebarCollapsed ? "d-md-none" : null)" Text="Login" Href="/components/HxSidebar/login" />
+		</FooterTemplate>
+	</HxSidebar>
+</div>

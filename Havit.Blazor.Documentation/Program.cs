@@ -22,8 +22,15 @@ public class Program
 
 		builder.Services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
 		builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
-		builder.Services.AddSingleton<IDocPageNavigationItemsHolder, DocPageNavigationItemsHolder>();
-		builder.Services.AddSingleton<IDocColorModeResolver, DocColorModeClientResolver>();
+		builder.Services.AddSingleton<IDocPageNavigationItemsTracker, DocPageNavigationItemsTracker>();
+		builder.Services.AddSingleton<IHttpContextProxy, WebAssemblyHttpContextProxy>();
+
+		builder.Services.AddScoped<IDocColorModeProvider, DocColorModeProvider>();
+		builder.Services.AddCascadingValue<ColorMode>(services =>
+		{
+			var docColorModeStateProvider = services.GetRequiredService<IDocColorModeProvider>();
+			return new DocColorModeCascadingValueSource(docColorModeStateProvider);
+		});
 
 		builder.Services.AddTransient<IDemoDataService, DemoDataService>();
 

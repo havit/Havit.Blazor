@@ -25,7 +25,6 @@
 }
 
 ::deep .hx-grid {
-    --hx-context-menu-button-border-radius: .25rem;
     margin-bottom: 0;
     font-size: var(--hx-list-layout-table-font-size);
 }

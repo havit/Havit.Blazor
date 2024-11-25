@@ -1,37 +1,62 @@
 [
-	{
-		"Name": "Doc",
-		"Projects": [
-			{
-				"Path": "Havit.Blazor.Documentation.Server\\Havit.Blazor.Documentation.Server.csproj",
-				"Action": "Start",
-				"DebugTarget": "IIS Express"
-			}
-		]
-	},
-	{
-		"Name": "Doc \u002B BlazorAppTest",
-		"Projects": [
-			{
-				"Path": "BlazorAppTest\\BlazorAppTest.csproj",
-				"Action": "Start",
-				"DebugTarget": "IIS Express"
-			},
-			{
-				"Path": "Havit.Blazor.Documentation.Server\\Havit.Blazor.Documentation.Server.csproj",
-				"Action": "Start",
-				"DebugTarget": "IIS Express"
-			}
-		]
-	},
-	{
-		"Name": "BlazorAppTest",
-		"Projects": [
-			{
-				"Path": "BlazorAppTest\\BlazorAppTest.csproj",
-				"Action": "Start",
-				"DebugTarget": "IIS Express"
-			}
-		]
-	}
+  {
+    "Name": "Doc",
+    "Projects": [
+      {
+        "Path": "Havit.Blazor.Documentation.Server\\Havit.Blazor.Documentation.Server.csproj",
+        "Action": "Start",
+        "DebugTarget": "IIS Express"
+      }
+    ]
+  },
+  {
+    "Name": "Doc + BlazorAppTest",
+    "Projects": [
+      {
+        "Path": "BlazorAppTest\\BlazorAppTest.csproj",
+        "Action": "Start",
+        "DebugTarget": "IIS Express"
+      },
+      {
+        "Path": "Havit.Blazor.Documentation.Server\\Havit.Blazor.Documentation.Server.csproj",
+        "Action": "Start",
+        "DebugTarget": "IIS Express"
+      }
+    ]
+  },
+  {
+    "Name": "BlazorAppTest",
+    "Projects": [
+      {
+        "Path": "BlazorAppTest\\BlazorAppTest.csproj",
+        "Action": "Start",
+        "DebugTarget": "IIS Express"
+      }
+    ]
+  },
+  {
+    "Name": "TestApp",
+    "Projects": [
+      {
+        "Path": "Havit.Blazor.TestApp\\Havit.Blazor.TestApp\\Havit.Blazor.TestApp.csproj",
+        "Action": "Start",
+        "DebugTarget": "IIS Express"
+      }
+    ]
+  },
+  {
+    "Name": "Doc + TestApp",
+    "Projects": [
+      {
+        "Path": "Havit.Blazor.Documentation.Server\\Havit.Blazor.Documentation.Server.csproj",
+        "Action": "Start",
+        "DebugTarget": "IIS Express"
+      },
+      {
+        "Path": "Havit.Blazor.TestApp\\Havit.Blazor.TestApp\\Havit.Blazor.TestApp.csproj",
+        "Action": "Start",
+        "DebugTarget": "IIS Express"
+      }
+    ]
+  }
 ]

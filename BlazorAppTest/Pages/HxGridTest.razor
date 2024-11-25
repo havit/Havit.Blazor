@@ -44,7 +44,7 @@
 <p>Clicked context menu item: @clickedItem?.DisplayName</p>
 
 <h2>Server paging, server sorting</h2>
-<HxGrid TItem="CultureInfo" @ref="serverSideGrid" @bind-SelectedDataItem="@serverSideCurrentCultureInfo" DataProvider="@ServerCultureInfosDataProvider" @bind-CurrentUserState="serverSideGridUserState" PageSize="@PageSize" MultiSelectionEnabled="@multiSelectionEnabled" SelectionEnabled="false">
+<HxGrid TItem="CultureInfo" PreserveSelection="true" @ref="serverSideGrid" @bind-SelectedDataItem="@serverSideCurrentCultureInfo" DataProvider="@ServerCultureInfosDataProvider" @bind-CurrentUserState="serverSideGridUserState" PageSize="@PageSize" MultiSelectionEnabled="@multiSelectionEnabled" SelectionEnabled="false">
 	<Columns>
 		<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortString="@nameof(CultureInfo.DisplayName)" FooterText="This is a footer" />
 		<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortString="@nameof(CultureInfo.Name)" />

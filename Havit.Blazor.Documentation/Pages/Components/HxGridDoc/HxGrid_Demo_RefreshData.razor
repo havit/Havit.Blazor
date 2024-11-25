@@ -10,23 +10,24 @@
 	</Columns>
 </HxGrid>
 
-<HxButton Text="Refresh data" OnClick="HandleButtonClick" Color="ThemeColor.Primary" />
+<HxButton Text="Refresh data" OnClick="HandleRefreshButtonClick" Color="ThemeColor.Primary" />
 
 @code {
 	private HxGrid<EmployeeDto> gridComponent;
 
 	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
 	{
-		await Task.Delay(1000); // simulate 1s server delay in demo (do not put this in your code)
+		await Task.Delay(1000); // simulate slow 1s server response in demo (do not put this in your code)
 
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken);
 		return new GridDataProviderResult<EmployeeDto>()
 			{
-				Data = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken),
-				TotalCount = await DemoDataService.GetEmployeesCountAsync(request.CancellationToken)
+				Data = response.Data,
+				TotalCount = response.TotalCount
 			};
 	}
 
-	private async Task HandleButtonClick()
+	private async Task HandleRefreshButtonClick()
 	{
 		await gridComponent.RefreshDataAsync();
 	}

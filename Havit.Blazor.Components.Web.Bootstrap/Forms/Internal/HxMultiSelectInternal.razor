@@ -46,7 +46,7 @@
 								   id="@($"{InputId}_filter")"
 								   type="text"
 								   class="@CssClassHelper.Combine("form-control", InputSizeEffective.AsFormControlCssClass())"
-								   autocomplete="false"
+								   autocomplete="off"
 								   value="@_filterText"
 								   @oninput="HandleFilterInputChanged"
 							@onclick:stopPropagation

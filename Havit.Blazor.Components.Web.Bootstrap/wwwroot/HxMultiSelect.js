@@ -7,18 +7,18 @@
 	element.addEventListener('shown.bs.dropdown', handleDropdownShown);
 	element.addEventListener('hidden.bs.dropdown', handleDropdownHidden);
 
-	var d = new bootstrap.Dropdown(element);
+	const d = new bootstrap.Dropdown(element);
 }
 
 export function show(element) {
-	var d = bootstrap.Dropdown.getInstance(element);
+	const d = bootstrap.Dropdown.getInstance(element);
 	if (d) {
 		d.show();
 	}
 };
 
 export function hide(element) {
-	var d = bootstrap.Dropdown.getInstance(element);
+	const d = bootstrap.Dropdown.getInstance(element);
 	if (d) {
 		d.hide();
 	}
@@ -41,7 +41,7 @@ export function dispose(element) {
 	element.removeEventListener('hidden.bs.dropdown', handleDropdownHidden);
 	element.hxMultiSelectDotnetObjectReference = null;
 
-	var d = bootstrap.Dropdown.getInstance(element);
+	const d = bootstrap.Dropdown.getInstance(element);
 	if (d) {
 		d.dispose();
 	}

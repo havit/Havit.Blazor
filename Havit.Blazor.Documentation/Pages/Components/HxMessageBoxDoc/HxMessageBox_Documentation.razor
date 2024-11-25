@@ -3,32 +3,40 @@
 
 <ComponentApiDoc Type="typeof(HxMessageBox)">
 
-    <DocAlert Type="DocAlertType.Info">
-        <code>@nameof(HxMessageBox)</code> is an implementation component that you use directly only in rare specific cases.<br />
-        Usually, you use the message box by using the <code>@nameof(IHxMessageBoxService)</code> injected service and its
-        <code>ShowAsync</code> method (or derived extension methods).<br />
-    </DocAlert>
+	<DocAlert Type="DocAlertType.Info">
+		<code>@nameof(HxMessageBox)</code> is an implementation component that you use directly only in rare specific cases.<br />
+		Usually, you use the message box by using the <code>@nameof(IHxMessageBoxService)</code> injected service and its
+		<code>ShowAsync</code> method (or derived extension methods).<br />
+	</DocAlert>
 
-    <DocHeading Title="Basic usage" />
-    <p>Inject the <code>@nameof(IHxMessageBoxService)</code> into your code and use one of its methods to raise the message box:</p>
-    <ul>
-        <li><code>Task&lt;MessageBoxButtons&gt; ShowAsync(MessageBoxRequest request)</code> - original method</li>
-        <li><code>Task&lt;MessageBoxButtons&gt; ShowAsync(string title, string text, MessageBoxButtons buttons = MessageBoxButtons.Ok, MessageBoxButtons? primaryButton = null, string customButtonText = null)</code> - extension method</li>
-        <li><code>Task&lt;bool&gt; ConfirmAsync(string title, string text)</code> - extension method</li>
-        <li>...or you can add your own extension method</li>
-    </ul>
-    <Demo Type="typeof(HxMessageBoxService_Demo)" Tabs="false" />
+	<DocHeading Title="Basic usage" />
+	<p>Inject the <code>@nameof(IHxMessageBoxService)</code> into your code and use one of its methods to raise the message box:</p>
+	<ul>
+		<li><code>Task&lt;<a href="types/MessageBoxButtons">MessageBoxButtons</a>&gt; ShowAsync(<a href="types/MessageBoxRequest">MessageBoxRequest</a> request)</code> - original method</li>
+		<li><code>Task&lt;<a href="types/MessageBoxButtons">MessageBoxButtons</a>&gt; ShowAsync(string title, string text, <a href="types/MessageBoxButtons">MessageBoxButtons</a> buttons = <a href="types/MessageBoxButtons">MessageBoxButtons</a>.Ok, <a href="types/MessageBoxButtons">MessageBoxButtons</a>? primaryButton = null, string customButtonText = null)</code> - extension method</li>
+		<li><code>Task&lt;bool&gt; ConfirmAsync(string title, string text)</code> - extension method</li>
+		<li>...or you can add your own extension method</li>
+	</ul>
+	<Demo Type="typeof(HxMessageBoxService_Demo)" Tabs="false" />
 
-    <DocHeading Title="Required setup" />
-    <p>You should place the <code>@nameof(HxMessageBoxHost)</code> component in <code>MainLayout.razor</code> (or <code>App.razor</code>) to make it work!</p>
-    <CodeSnippet File="~\Pages\Components\HxMessageBoxDoc\HxMessageBox_HostDeployment.CodeSnippet.razor" />
+	<DocHeading Title="Required setup" />
+	<p>You should place the <code>@nameof(HxMessageBoxHost)</code> component in <code>MainLayout.razor</code> (or <code>App.razor</code>) to make it work!</p>
+	<CodeSnippet File="~\Pages\Components\HxMessageBoxDoc\HxMessageBox_HostDeployment.CodeSnippet.razor" />
 
-    <p>Register the required services using <code>services.AddHxMessageBoxHost()</code> from <code>Startup.cs</code> (Blazor Server) or <code>Program.cs</code> (Blazor WebAssembly).</p>
-    <CodeSnippet File="~\Pages\Components\HxMessageBoxDoc\HxMessageBox_RegisterService.CodeSnippet.cs" />
+	<p>Register the required services using <code>services.AddHxMessageBoxHost()</code> from <code>Startup.cs</code> (Blazor Server) or <code>Program.cs</code> (Blazor WebAssembly).</p>
+	<CodeSnippet File="~\Pages\Components\HxMessageBoxDoc\HxMessageBox_RegisterService.CodeSnippet.cs" />
 
-    <DocHeading Title="No heading" />
-    <p>If you clear the <code>Title</code>, <code>HeaderTemplate</code>, and set <code>ShowCloseButton="false"</code>, the header won't show up.</p>
-    <Demo Type="typeof(HxMessageBoxService_Demo_NoHeader)" />
+	<DocHeading Title="Customization" />
+	<p>
+		Customize the message box appearance and behavior by using the <code><a href="types/MessageBoxRequest">MessageBoxRequest</a></code>
+		and its <code><a href="types/MessageBoxSettings">Settings</a></code> property. This allows you to set custom button texts,
+		define a unique header, and more to suit your specific requirements.
+	</p>
+	<Demo Type="typeof(HxMessageBoxService_Demo_CustomButtonTexts)" />
+
+	<DocHeading Title="No heading" />
+	<p>If you clear the <code>Title</code>, <code>HeaderTemplate</code>, and set <code>ShowCloseButton="false"</code>, the header won't show up.</p>
+	<Demo Type="typeof(HxMessageBoxService_Demo_NoHeader)" />
 </ComponentApiDoc>
 
 <ComponentApiDoc Type="typeof(HxMessageBoxHost)" />

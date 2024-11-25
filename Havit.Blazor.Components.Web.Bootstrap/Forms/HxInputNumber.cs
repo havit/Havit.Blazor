@@ -71,6 +71,13 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	protected InputMode? InputModeEffective => InputMode ?? GetSettings()?.InputMode ?? GetDefaults()?.InputMode;
 
 	/// <summary>
+	/// Allows switching between textual and numeric input types.
+	/// Only <see cref="InputType.Text"/> (default) and <see cref="InputType.Number"/> are supported.
+	/// </summary>
+	[Parameter] public InputType? Type { get; set; } = InputType.Text;
+	protected InputType TypeEffective => Type ?? GetSettings()?.Type ?? GetDefaults()?.Type ?? InputType.Text;
+
+	/// <summary>
 	/// Placeholder for the input.
 	/// </summary>
 	[Parameter] public string Placeholder { get; set; }
@@ -160,11 +167,21 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	protected bool forceRenderValue = false;
 	private int _valueSequenceOffset = 0;
 
+	protected override void OnParametersSet()
+	{
+		if ((TypeEffective != InputType.Text) && (TypeEffective != InputType.Number))
+		{
+			throw new InvalidOperationException($"Only {nameof(InputType)}.{nameof(InputType.Text)} and {nameof(InputType)}.{nameof(InputType.Number)} are supported for {nameof(Type)} parameter.");
+		}
+
+		base.OnParametersSet();
+	}
+
 	/// <inheritdoc />
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
 		builder.OpenElement(0, "input");
-		BuildRenderInput_AddCommonAttributes(builder, "text");
+		BuildRenderInput_AddCommonAttributes(builder, TypeEffective.ToString().ToLowerInvariant());
 
 		var inputMode = InputModeEffective;
 		if ((inputMode is null) && (DecimalsEffective == 0))
@@ -181,18 +198,14 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 			builder.AddAttribute(1002, "onfocus", "this.select();");
 		}
 		builder.AddAttribute(1003, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-#if NET8_0_OR_GREATER
 		builder.SetUpdatesAttributeName("value");
-#endif
 
 		// Normalization of pasted value (applied only if the pasted value differs from the normalized value)
 		// - If we cancel the original paste event, Blazor does not recognize the change, so we fire change event manually.
 		// - This is kind of hack and causes the input to behave slightly differently when normalizing the value (the value is accepted immediately, not after the user leaves the input)
 		// - If this turns out to be a problem, we will have to implement the normalization in the Blazor-handled @onpaste event
 		builder.AddAttribute(1004, "onpaste", @"var clipboardValue = event.clipboardData.getData('text/plain'); var normalizedValue = clipboardValue.replace(/[^\d.,\-eE]/g, ''); if (+clipboardValue != +normalizedValue) { this.value = normalizedValue; this.dispatchEvent(new Event('change')); return false; }");
-#if NET8_0_OR_GREATER
 		builder.SetUpdatesAttributeName("value");
-#endif
 
 		builder.AddEventStopPropagationAttribute(1004, "onclick", true);
 
@@ -219,17 +232,24 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	/// <inheritdoc />
 	protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
 	{
-		CultureInfo culture = CultureInfo.CurrentCulture;
+		var culture = CultureInfo.CurrentCulture;
+		if (TypeEffective == InputType.Number)
+		{
+			culture = CultureInfo.InvariantCulture;
+		}
 
 		string workingValue = value;
 		bool success = true;
 		result = default;
 
-		// replace . with ,
-		if ((culture.NumberFormat.NumberDecimalSeparator == ",") // when decimal separator is ,
-			&& (culture.NumberFormat.NumberGroupSeparator != ".")) // and . is NOT used as group separator)
+		if (TypeEffective == InputType.Text)
 		{
-			workingValue = workingValue.Replace(".", ",");
+			// replace . with ,
+			if ((culture.NumberFormat.NumberDecimalSeparator == ",") // when decimal separator is ,
+				&& (culture.NumberFormat.NumberGroupSeparator != ".")) // and . is NOT used as group separator)
+			{
+				workingValue = workingValue.Replace(".", ",");
+			}
 		}
 
 		// limitation of the number of decimal places
@@ -287,6 +307,12 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	/// <returns>A string representation of the value.</returns>
 	protected override string FormatValueAsString(TValue value)
 	{
+		var culture = CultureInfo.CurrentCulture;
+		if (TypeEffective == InputType.Number)
+		{
+			culture = CultureInfo.InvariantCulture;
+		}
+
 		// integer types
 		switch (value)
 		{
@@ -295,29 +321,29 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 
 			// mostly used first
 			case int @int:
-				return @int.ToString(CultureInfo.CurrentCulture);
+				return @int.ToString(culture);
 
 			case long @long:
-				return @long.ToString(CultureInfo.CurrentCulture);
+				return @long.ToString(culture);
 
 			case short @short:
-				return @short.ToString(CultureInfo.CurrentCulture);
+				return @short.ToString(culture);
 
 			case byte @byte:
-				return @byte.ToString(CultureInfo.CurrentCulture);
+				return @byte.ToString(culture);
 
 			// signed/unsigned integer variants
 			case sbyte @sbyte:
-				return @sbyte.ToString(CultureInfo.CurrentCulture);
+				return @sbyte.ToString(culture);
 
 			case ushort @ushort:
-				return @ushort.ToString(CultureInfo.CurrentCulture);
+				return @ushort.ToString(culture);
 
 			case uint @uint:
-				return @uint.ToString(CultureInfo.CurrentCulture);
+				return @uint.ToString(culture);
 
 			case ulong @ulong:
-				return @ulong.ToString(CultureInfo.CurrentCulture);
+				return @ulong.ToString(culture);
 		}
 
 		// floating-point types
@@ -328,13 +354,13 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		switch (value)
 		{
 			case float @float:
-				return @float.ToString(format, CultureInfo.CurrentCulture);
+				return @float.ToString(format, culture);
 
 			case double @double:
-				return @double.ToString(format, CultureInfo.CurrentCulture);
+				return @double.ToString(format, culture);
 
 			case decimal @decimal:
-				return @decimal.ToString(format, CultureInfo.CurrentCulture);
+				return @decimal.ToString(format, culture);
 		}
 
 		throw new InvalidOperationException($"Unsupported type {value.GetType()}.");

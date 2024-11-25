@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net6.0</TargetFrameworks>
+		<TargetFrameworks>net9.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<!--  VSTHRD003: Avoid awaiting or returning a Task representing work that was not started within your context as that can lead to deadlocks. -->
 		<!--  VSTHRD200: Allow HandleXyClick methods (without Async) -> Suppress 'Use "Async" suffix in names of methods that return an awaitable type' -->
@@ -49,6 +49,20 @@
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
 		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.Bootstrap.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\xmldoc" />
+	</Target>
+
+	<!-- Causes CSS file to be included in the bundle of scoped CSS, even though it's not scoped -->
+	<Target Name="AttachCssAsScoped" BeforeTargets="ComputeCssScope">
+		<ItemGroup>
+			<_CssToAttach Include="wwwroot\*.lib.css" />
+			<_CssToAttachWithIntermediatePath Include="@(_CssToAttach)">
+				<IntermediatePath>$(IntermediateOutputPath)scopedcss\%(Filename).rz.scp.css</IntermediatePath>
+			</_CssToAttachWithIntermediatePath>
+		</ItemGroup>
+		<Copy SourceFiles="@(_CssToAttachWithIntermediatePath)" DestinationFiles="@(_CssToAttachWithIntermediatePath->'%(IntermediatePath)')" />
+		<ItemGroup>
+			<_ScopedCssCandidateFile Include="@(_CssToAttachWithIntermediatePath->'%(IntermediatePath)')" RelativePath="@(_CssToAttachWithIntermediatePath->'%(Filename).rz.scp.css')" OriginalItemSpec="@(_CssToAttachWithIntermediatePath->'%(Filename)')" />
+		</ItemGroup>
 	</Target>
 
 </Project>

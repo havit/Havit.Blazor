@@ -2,6 +2,7 @@
 
 public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 {
+	[Parameter, EditorRequired] public bool SelectDeselectAllHeaderVisible { get; set; }
 	[Parameter] public HashSet<TItem> SelectedDataItems { get; set; }
 	[Parameter] public bool AllDataItemsSelected { get; set; }
 	[Parameter] public EventCallback OnSelectAllClicked { get; set; }
@@ -18,30 +19,35 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 	/// <inheritdoc />
 	protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context)
 	{
-		return new GridCellTemplate
+		if (SelectDeselectAllHeaderVisible)
 		{
-			CssClass = "text-center",
-			Template = (RenderTreeBuilder builder) =>
+			return new GridCellTemplate
 			{
-				builder.OpenElement(100, "input");
-				builder.AddAttribute(101, "type", "checkbox");
-				builder.AddAttribute(102, "class", "form-check-input");
-
-				builder.AddAttribute(103, "checked", AllDataItemsSelected);
-				builder.AddAttribute(104, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectAllOrNoneClick));
-#if NET8_0_OR_GREATER
-				builder.SetUpdatesAttributeName("checked");
-#endif
-				builder.AddEventStopPropagationAttribute(105, "onclick", true);
-
-				if ((context.TotalCount is null) || (context.TotalCount == 0))
+				CssClass = "text-center",
+				Template = (RenderTreeBuilder builder) =>
 				{
-					builder.AddAttribute(102, "disabled");
-				}
+					builder.OpenElement(100, "input");
+					builder.AddAttribute(101, "type", "checkbox");
+					builder.AddAttribute(102, "class", "form-check-input");
 
-				builder.CloseElement(); // input
-			}
-		};
+					builder.AddAttribute(103, "checked", AllDataItemsSelected);
+					builder.AddAttribute(104, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectAllOrNoneClick));
+					builder.SetUpdatesAttributeName("checked");
+					builder.AddEventStopPropagationAttribute(105, "onclick", true);
+
+					if ((context.TotalCount is null) || (context.TotalCount == 0))
+					{
+						builder.AddAttribute(102, "disabled");
+					}
+
+					builder.CloseElement(); // input
+				}
+			};
+		}
+		else
+		{
+			return GridCellTemplate.Empty;
+		}
 	}
 
 	/// <inheritdoc />
@@ -59,9 +65,7 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 				bool selected = SelectedDataItems?.Contains(item) ?? false;
 				builder.AddAttribute(103, "checked", selected);
 				builder.AddAttribute(104, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectDataItemClick(item, selected)));
-#if NET8_0_OR_GREATER
 				builder.SetUpdatesAttributeName("checked");
-#endif
 				builder.AddEventStopPropagationAttribute(105, "onclick", true);
 
 				builder.CloseElement(); // input

@@ -6,7 +6,7 @@
 
 	private async Task OpenMessageBox()
 	{
-		_ = await MessageBox.ShowAsync(new MessageBoxRequest()
+		var selectedButton = await MessageBox.ShowAsync(new MessageBoxRequest()
         {
             Text = "This is the text",
             Title = null,

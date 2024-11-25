@@ -128,6 +128,11 @@ public partial class HxCollapse : IAsyncDisposable
 	/// </summary>
 	public async Task ShowAsync()
 	{
+		if (_isShown)
+		{
+			return;
+		}
+
 		if (_initialized)
 		{
 			await EnsureJsModuleAsync();
@@ -145,6 +150,11 @@ public partial class HxCollapse : IAsyncDisposable
 	/// </summary>
 	public async Task HideAsync()
 	{
+		if (!_isShown)
+		{
+			return;
+		}
+
 		await EnsureJsModuleAsync();
 		_hideInProgress = true;
 		await _jsModule.InvokeVoidAsync("hide", _collapseHtmlElement);

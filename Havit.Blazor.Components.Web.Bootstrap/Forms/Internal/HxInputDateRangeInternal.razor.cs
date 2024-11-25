@@ -20,6 +20,10 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 	[Parameter] public bool ShowPredefinedDateRangesEffective { get; set; }
 	[Parameter] public IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRangesEffective { get; set; }
 
+	[Parameter] public string FromPlaceholderEffective { get; set; }
+
+	[Parameter] public string ToPlaceholderEffective { get; set; }
+
 	[Parameter] public string FromParsingErrorMessageEffective { get; set; }
 
 	[Parameter] public string ToParsingErrorMessageEffective { get; set; }

@@ -1,4 +1,4 @@
-﻿.btn:not(.navbar-toggler) {
+﻿.btn:not(.navbar-toggler):not(.placeholder) {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;

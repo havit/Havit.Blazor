@@ -89,7 +89,16 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 		builder.AddAttribute(101, "role", "alert");
 		builder.AddAttribute(102, "aria-live", "assertive");
 		builder.AddAttribute(103, "aria-atomic", "true");
-		builder.AddAttribute(104, "class", CssClassHelper.Combine("toast", Color?.ToBackgroundColorCss(), HasContrastColor() ? "text-white" : "text-dark", CssClass));
+
+		// Known-issue: Pre-rendering flickering, see https://github.com/dotnet/aspnetcore/issues/42561
+		// Initialization during first (static) rendering and detecting the second rendering by using PersistentComponentState won't help, because the HTMLElement is replaced in DOM and diasappears.
+		var ssrInit = true; // TODO .NET9 - disable ssrInit for pre-rendering (keep for pure static SSR)
+		builder.AddAttribute(104, "class", CssClassHelper.Combine(
+			"hx-toast toast",
+			ssrInit ? "hx-toast-init" : null,
+			Color?.ToBackgroundColorCss(),
+			HasContrastColor() ? "text-white" : "text-dark",
+			CssClass));
 
 		if (AutohideDelay != null)
 		{
@@ -210,7 +219,7 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 			{
 				return;
 			}
-			await _jsModule.InvokeVoidAsync("show", _toastElement, _dotnetObjectReference);
+			await _jsModule.InvokeVoidAsync("init", _toastElement, _dotnetObjectReference);
 		}
 	}
 

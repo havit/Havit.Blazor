@@ -477,11 +477,6 @@
             Additional attributes to be splatted onto an underlying <c>&lt;button&gt;</c> element.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.StringLocalizerFactory">
-            <summary>
-            Localization service.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.CoreCssClass">
             <summary>
             Gets the basic CSS class(es) which get rendered to every single button. <br/>
@@ -2583,6 +2578,11 @@
             Prevents the default action for the onclick event. Default is <c>null</c>, which means <c>true</c> when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> is set.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSidebarItemNavLinkContentInternal">
+            <summary>
+            Inner content of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInputInternal.Offset">
             <summary>
             Offset between dropdown input and dropdown menu
@@ -2721,7 +2721,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.Sanitize">
             <summary>
-            Enable or disable the sanitization. If activated HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.3/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
+            Enable or disable the sanitization. If activated, HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.3/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
             Default is <c>true</c>.
             </summary>
         </member>
@@ -4161,6 +4161,18 @@
             Size of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromPlaceholder">
+            <summary>
+            Placeholder for the start-date input.
+            If not set, localized default is used ("From" + localizations).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ToPlaceholder">
+            <summary>
+            Placeholder for the end-date input.
+            If not set, localized default is used ("End" + localizations).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromParsingErrorMessage">
             <summary>
             Gets or sets the error message used when displaying a &quot;from&quot; parsing error.
@@ -4276,6 +4288,12 @@
             (is <kbd>,</kbd> in some locales and <kbd>.</kbd> in others).<br />
             Feel free to set the InputMode on your own as needed.
             </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.Type">
+            <summary>
+            Allows switching between textual and numeric input types.
+            Only <see cref="F:Havit.Blazor.Components.Web.InputType.Text"/> (default) and <see cref="F:Havit.Blazor.Components.Web.InputType.Number"/> are supported.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.Placeholder">
             <summary>
@@ -5173,6 +5191,16 @@
             Input size.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.FromPlaceholder">
+            <summary>
+            Placeholder for the start-date input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ToPlaceholder">
+            <summary>
+            Placeholder for the end-date input.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.CalendarIcon">
             <summary>
             Optional icon to display within the input.
@@ -5286,6 +5314,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.InputMode">
             <summary>
             A hint to browsers regarding the type of virtual keyboard configuration to use when editing.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.Type">
+            <summary>
+            Allows switching between textual and numeric input types.
+            Only <see cref="F:Havit.Blazor.Components.Web.InputType.Text"/> (default) and <see cref="F:Havit.Blazor.Components.Web.InputType.Number"/> are supported.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.SelectOnFocus">
@@ -6089,7 +6123,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ItemRowHeight">
             <summary>
-            Height of the item row used for infinite scroll calculations (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll"/>).
+            Height of the item row (in pixels) used for infinite scroll calculations (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll"/>).
+            The row height is not applied for other navigation modes, use CSS for that.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.OverscanCount">
@@ -6176,6 +6211,17 @@
             <summary>
             Settings for the "Load more" navigation button (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> or <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore"/>).
             </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PreserveSelection">
+            <summary>
+            Gets or sets a value indicating whether the current selection (either <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItem"/> for single selection
+            or <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
+            or manual invocation of <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync"/>.<br />
+            </summary>
+            <remarks>
+            This setting ensures that the selection remains intact during operations that refresh or modify the displayed data in the grid.
+            Note that preserving the selection requires that the underlying data items can still be matched in the updated dataset (e.g., by <c>item1.Equals(item2)</c>).
+            </remarks>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState">
             <summary>
@@ -6385,6 +6431,18 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemsChanged"/> event. This method can be overridden in derived components to implement custom logic before or after the event is triggered.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PreserveSelection">
+            <summary>
+            Gets or sets a value indicating whether the current selection (either <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItem"/> for single selection
+            or <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
+            or manual invocation of <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync"/>.<br />
+            Default value is <c>false</c> (can be set by using <c>HxGrid.Defaults</c>).
+            </summary>
+            <remarks>
+            This setting ensures that the selection remains intact during operations that refresh or modify the displayed data in the grid.
+            Note that preserving the selection requires that the underlying data items can still be matched in the updated dataset (e.g., by <c>item1.Equals(item2)</c>).
+            </remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ContentNavigationMode">
             <summary>
             The strategy for how data items are displayed and loaded into the grid. Supported modes include pagination, load more, and infinite scroll.
@@ -6468,8 +6526,9 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowHeight">
             <summary>
-            Height of each item row, used primarily in calculations for infinite scrolling.
+            Height of each item row, used in calculations for infinite scrolling (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll"/>).
             The default value (41px) corresponds to the typical row height in the Bootstrap 5 default theme.
+            The row height is not applied for other navigation modes, use CSS for that.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowCssClassSelector">
@@ -6538,6 +6597,48 @@
             <summary>
             Icon to indicate the descending sort direction in the column header. This icon is shown when a column is sorted in descending order.
             </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributesSelector">
+            <summary>
+            Defines a function that returns additional attributes for a specific <c>tr</c> element based on the item it represents.
+            This allows for custom behavior or event handling on a per-row basis.
+            </summary>
+            <remarks>
+            If both <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributesSelector"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributes"/> are specified,
+            both dictionaries are combined into one.
+            Note that there is no prevention of duplicate keys, which may result in a <see cref="T:System.ArgumentException"/>.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributes">
+            <summary>
+            Provides a dictionary of additional attributes to apply to all body <c>tr</c> elements in the grid.
+            These attributes can be used to customize the appearance or behavior of rows.
+            </summary>
+            <remarks>
+            If both <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributesSelector"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributes"/> are specified,
+            both dictionaries are combined into one.
+            Note that there is no prevention of duplicate keys, which may result in a <see cref="T:System.ArgumentException"/>.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.HeaderRowAdditionalAttributes">
+            <summary>
+            Provides a dictionary of additional attributes to apply to the header <c>tr</c> element of the grid.
+            This allows for custom styling or behavior of the header row.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.FooterRowAdditionalAttributes">
+            <summary>
+            Provides a dictionary of additional attributes to apply to the footer <c>tr</c> element of the grid.
+            This allows for custom styling or behavior of the footer row.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributesSelectorEffective(`0)">
+            <summary>
+            Determines the effective additional attributes for a given data row, combining both the global and per-item attributes.
+            </summary>
+            <param name="item">The data item for the current row.</param>
+            <returns>A dictionary of additional attributes to apply to the row.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when there are duplicate keys in the combined dictionaries.</exception>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetDefaults">
             <summary>
@@ -7079,6 +7180,11 @@
             Global settings for the Havit Blazor Components library.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSetup.BootstrapVersion">
+            <summary>
+            Bootstrap version used by the library.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSetup.RenderBootstrapJavaScriptReference">
             <summary>
             Renders the <c>&lt;script&gt;</c> tag that references the corresponding Bootstrap JavaScript bundle with Popper.<br/>
@@ -7599,7 +7705,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox">
             <summary>
             Component for displaying message boxes.<br/>
-            Usually used via <see cref="T:Havit.Blazor.Components.Web.HxMessageBoxService"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost"/>.<br />
+            Usually used via <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxService"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost"/>.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMessageBox">https://havit.blazor.eu/components/HxMessageBox</see>
             </summary>
         </member>
@@ -7613,6 +7719,19 @@
             Returns the defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox"/>.
             Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Title">
             <summary>
@@ -7642,7 +7761,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Buttons">
             <summary>
-            Buttons to show. The default is <see cref="F:Havit.Blazor.Components.Web.MessageBoxButtons.Ok"/>.
+            Buttons to show. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Ok"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.PrimaryButton">
@@ -7652,7 +7771,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.CustomButtonText">
             <summary>
-            Text for <see cref="F:Havit.Blazor.Components.Web.MessageBoxButtons.Custom"/>.
+            Text for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Custom"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.PrimaryButtonSettings">
@@ -7675,7 +7794,7 @@
             Raised when the message box gets closed. Returns the button clicked.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.InvokeOnClosedAsync(Havit.Blazor.Components.Web.MessageBoxButtons)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.InvokeOnClosedAsync(Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons)">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.OnClosed"/> event. Allows interception of the event in derived components.
             </summary>
@@ -7693,7 +7812,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost">
             <summary>
-            Displays message boxes initiated through <see cref="T:Havit.Blazor.Components.Web.IHxMessageBoxService"/>.
+            Displays message boxes initiated through <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/>.
             To be placed in the root application component / main layout.
             </summary>
         </member>
@@ -7897,6 +8016,71 @@
             Formats a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop"/> value for use in the <c>data-bs-backdrop</c> attribute.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest">
+            <summary>
+            Represents a request to display a message box with various customizable options.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Title">
+            <summary>
+            Title in the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.HeaderTemplate">
+            <summary>
+            Template for the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Text">
+            <summary>
+            Content (body) text.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.BodyTemplate">
+            <summary>
+            Body (content) template.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.ShowCloseButton">
+            <summary>
+            Indicates whether to show the close button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Buttons">
+            <summary>
+            Buttons to show.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.PrimaryButton">
+            <summary>
+            Primary button (if you want to override the default).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.CustomButtonText">
+            <summary>
+            Text for the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Custom"/> button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Settings">
+            <summary>
+            Settings for the message box.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying UI component (Bootstrap: HxMessageBox -> HxModal).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxServiceCollectionExtensions">
+            <summary>
+            Extension methods for installation of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/> support.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.MessageBoxServiceCollectionExtensions.AddHxMessageBoxHost(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/> support to be able to display message boxes using HxMessageBoxHost.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox"/> and derived components.
@@ -7915,6 +8099,41 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.ModalSettings">
             <summary>
             Settings for the underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.OkButtonText">
+            <summary>
+            Text for the OK button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.CancelButtonText">
+            <summary>
+            Text for the Cancel button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.AbortButtonText">
+            <summary>
+            Text for the Abort button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.YesButtonText">
+            <summary>
+            Text for the Yes button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.NoButtonText">
+            <summary>
+            Text for the No button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.RetryButtonText">
+            <summary>
+            Text for the Retry button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.IgnoreButtonText">
+            <summary>
+            Text for the Ignore button.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop">
@@ -8551,8 +8770,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.CssClass">
             <summary>
-            Allows you to disable the item with <c>false</c>.
-            The default value is <c>true</c>.
+            Any additional CSS class to add.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.TextCssClass">
+            <summary>
+            Any additional CSS class to add to inner text.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.ChildContent">

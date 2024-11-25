@@ -11,6 +11,13 @@ public partial class MainLayout
 
 	private string _title;
 
+	private DocHeadContentTracker _docHeadContentTracker;
+
+	protected override void OnInitialized()
+	{
+		_docHeadContentTracker = new DocHeadContentTracker(NavigationManager);
+	}
+
 	protected override void OnParametersSet()
 	{
 		var path = new Uri(NavigationManager.Uri).AbsolutePath.TrimEnd('/');

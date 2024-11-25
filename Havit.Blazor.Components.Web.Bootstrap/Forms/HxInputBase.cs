@@ -313,12 +313,10 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	{
 		builder.AddMultipleAttributes(1, AdditionalAttributes);
 		builder.AddAttribute(2, "id", InputId);
-#if NET8_0_OR_GREATER
 		if (!String.IsNullOrEmpty(NameAttributeValue))
 		{
 			builder.AddAttribute(3, "name", NameAttributeValue);
 		}
-#endif
 		builder.AddAttribute(4, "type", typeValue);
 		builder.AddAttribute(5, "class", GetInputCssClassToRender());
 		builder.AddAttribute(6, "disabled", !EnabledEffective);
