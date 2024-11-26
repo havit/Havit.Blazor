@@ -52,7 +52,7 @@
         <CodeSnippet File="~\Pages\Components\HxSidebarDoc\HxSidebar_Setup.CodeSnippet.css" />
     </MainContent>
 	<CssVariables>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-background-color" Default="transparent">
+		<ComponentApiDocCssVariable Name="--hx-sidebar-background-color" Default="var(--bs-body-bg)">
 			Background color.
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-collapsed-width" Default="72px">
@@ -72,6 +72,9 @@
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-item-padding" Default=".75rem">
 			Padding of the items.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-sidebar-item-margin" Default="0">
+			Margin of the items.
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-item-color" Default="var(--bs-body-color)">
 			Color of the items.
@@ -124,9 +127,6 @@
 		<ComponentApiDocCssVariable Name="--hx-sidebar-parent-item-active-font-weight" Default="600">
 			Font weight of the parent of active item.
 		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-margin" Default="0">
-			Margin of the items.
-		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-subitem-font-size" Default=".875rem">
 			Font size of the subitems.
 		</ComponentApiDocCssVariable>
@@ -144,9 +144,6 @@
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-body-nav-gap" Default=".25rem">
 			Gap of the sidebar body nav element.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-padding" Default="0 1rem 1rem 1rem">
-			Padding of the sidebar footer.
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-shortname-background-color" Default="var(--bs-primary)">
 			Background color of the brand short name.
@@ -184,6 +181,9 @@
 		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-name-font-weight" Default="600">
 			Font weight of the brand name.
 		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-padding" Default="0 1rem 1rem 1rem">
+			Padding of the sidebar footer.
+		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-padding" Default=".75rem">
 			Padding of the items in the footer.
 		</ComponentApiDocCssVariable>
@@ -193,11 +193,14 @@
 		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-font-size" Default="1rem">
 			Font size of the items in the footer.
 		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-color" Default="unset">
+		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-color" Default="var(--bs-body-color)">
 			Color of the items in the footer.
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-radius" Default="unset">
 			Radius of the items in the footer.
+		</ComponentApiDocCssVariable>
+		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-content-gap" Default=".75rem">
+			TODO
 		</ComponentApiDocCssVariable>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-hover-background-color" Default="unset">
 			Background color on hover of the items in the footer.
@@ -205,7 +208,7 @@
 		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-hover-background-opacity" Default="unset">
 			Background opacity on hover of the items in the footer.
 		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-hover-color" Default="unset">
+		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-hover-color" Default="var(--bs-body-color)">
 			Color on hover of the items in the footer.
 		</ComponentApiDocCssVariable>
 
