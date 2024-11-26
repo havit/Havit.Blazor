@@ -34,7 +34,7 @@
 
 		@if (LabelTypeEffective == LabelType.Floating)
 		{
-			<label for="@InputId">@LabelText</label>
+			<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
 		}
 
 		@* Must be always rendered otherwise does not work after disable->enabled scenario *@

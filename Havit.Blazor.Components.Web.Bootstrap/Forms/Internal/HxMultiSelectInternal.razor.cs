@@ -13,7 +13,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public string InputText { get; set; }
 
-	[Parameter] public string LabelText { get; set; }
+	[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
 	[Parameter] public bool EnabledEffective { get; set; }
 
