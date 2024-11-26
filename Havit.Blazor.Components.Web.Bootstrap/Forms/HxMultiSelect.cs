@@ -165,6 +165,21 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	[Parameter] public LabelType? LabelType { get; set; }
 	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
 	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
+	protected override LabelValueRenderOrder RenderOrder
+	{
+		get
+		{
+			if (LabelTypeEffective == Bootstrap.LabelType.Floating)
+			{
+				// Floating label type renders the label in HxMultiSelectInternal component.
+				return LabelValueRenderOrder.ValueOnly;
+			}
+			else
+			{
+				return LabelValueRenderOrder.LabelValue;
+			}
+		}
+	}
 
 	private List<TItem> _itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> _hxMultiSelectInternalComponent;
