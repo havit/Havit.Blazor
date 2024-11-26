@@ -3,7 +3,7 @@
 	flex-direction: row;
 	align-items: center;
 	align-self: stretch;
-	gap: .75rem;
+	gap: var(--hx-sidebar-item-content-gap);
 }
 
 .hx-sidebar-subitems.show .hx-sidebar-item-navlink-content-inner {

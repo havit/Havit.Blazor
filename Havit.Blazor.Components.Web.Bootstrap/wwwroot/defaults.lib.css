@@ -18,6 +18,7 @@
 	--hx-sidebar-max-height: 										100vh;
 	--hx-sidebar-toggler-background: 								var(--bs-gray-500);
 	--hx-sidebar-item-font-size: 									1rem;
+	--hx-sidebar-item-content-gap:									.75rem;
 	--hx-sidebar-item-padding: 										.75rem;
 	--hx-sidebar-item-color: 										var(--bs-body-color);
 	--hx-sidebar-item-icon-color: 									var(--bs-primary);
@@ -48,7 +49,7 @@
 	--hx-sidebar-brand-shortname-width: 							2.5rem;
 	--hx-sidebar-brand-shortname-height: 							2.5rem;
 	--hx-sidebar-brand-shortname-background-color: 					var(--bs-primary);
-	--hx-sidebar-brand-shortname-border-radius: 					.625rem;
+	--hx-sidebar-brand-shortname-border-radius: 					var(--bs-border-radius);
 	--hx-sidebar-brand-shortname-color: 							var(--bs-white);
 	--hx-sidebar-brand-shortname-font-weight: 						600;
 	--hx-sidebar-brand-name-color: 									var(--bs-body-color);
