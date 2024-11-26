@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// </summary>
 /// <typeparam name="TValue">Type of values.</typeparam>
 /// <typeparam name="TItem">Type of items.</typeparam>
-public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWithSize
+public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWithSize, IInputWithLabelType
 {
 	/// <summary>
 	/// Return <see cref="HxMultiSelect{TValue, TItem}"/> defaults.
@@ -161,6 +161,26 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	[Parameter] public IconBase FilterClearIcon { get; set; }
 	protected IconBase FilterClearIconEffective => FilterClearIcon ?? GetSettings()?.FilterClearIcon ?? GetDefaults().FilterClearIcon;
 
+	/// <inheritdoc cref="Bootstrap.LabelType" />
+	[Parameter] public LabelType? LabelType { get; set; }
+	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
+	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
+	protected override LabelValueRenderOrder RenderOrder
+	{
+		get
+		{
+			if (LabelTypeEffective == Bootstrap.LabelType.Floating)
+			{
+				// Floating label type renders the label in HxMultiSelectInternal component.
+				return LabelValueRenderOrder.ValueOnly;
+			}
+			else
+			{
+				return LabelValueRenderOrder.LabelValue;
+			}
+		}
+	}
+
 	private List<TItem> _itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> _hxMultiSelectInternalComponent;
 
@@ -212,6 +232,8 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(102, nameof(HxMultiSelectInternal<TValue, TItem>.InputCssClass), GetInputCssClassToRender());
 		builder.AddAttribute(103, nameof(HxMultiSelectInternal<TValue, TItem>.InputText), GetInputText());
 		builder.AddAttribute(104, nameof(HxMultiSelectInternal<TValue, TItem>.EnabledEffective), EnabledEffective);
+		builder.AddAttribute(125, nameof(HxMultiSelectInternal<TValue, TItem>.LabelTypeEffective), LabelTypeEffective);
+		builder.AddAttribute(126, nameof(HxMultiSelectInternal<TValue, TItem>.FormValueComponent), this);
 		builder.AddAttribute(105, nameof(HxMultiSelectInternal<TValue, TItem>.ItemsToRender), _itemsToRender);
 		builder.AddAttribute(106, nameof(HxMultiSelectInternal<TValue, TItem>.TextSelector), TextSelector);
 		builder.AddAttribute(107, nameof(HxMultiSelectInternal<TValue, TItem>.ValueSelector), ValueSelector);
