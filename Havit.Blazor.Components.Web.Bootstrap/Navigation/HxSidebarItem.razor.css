@@ -29,7 +29,7 @@
 
 ::deep .hx-sidebar-collapsed-nav {
 	flex-direction: column;
-	margin-block: .25rem;
+	padding-block: .25rem;
 }
 
 ::deep a.nav-link.active {
