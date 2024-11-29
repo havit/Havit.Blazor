@@ -31,7 +31,7 @@
 		}
 		else
 		{
-			<HxDropdown Direction="DropdownDirection.End" CssClass="@CssClassHelper.Combine("hx-sidebar-item d-none", ParentSidebar.Collapsed ? ParentSidebar.ResponsiveBreakpoint.GetCssClass("d-??-block") : null)">
+			<HxDropdown Direction="DropdownDirection.End" CssClass="@CssClassHelper.Combine("hx-sidebar-item", ParentSidebar.Collapsed ? ParentSidebar.ResponsiveBreakpoint.GetCssClass("d-??-block") : null)">
 				<HxNavLink Href="@Href"
 						   Match="Match"
 						   OnClick="@(OnClick.HasDelegate ? InvokeOnClickAsync : null)"

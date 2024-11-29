@@ -1,5 +1,9 @@
 ﻿::deep .hx-sidebar-item {
-	display: block; /*Overrides the inline flex from btn-group placed by HxDropdown*/
+	display: block; /* Overrides the inline flex from btn-group placed by HxDropdown */
+}
+
+::deep .hx-sidebar-item.dropend {
+	display: none; /* Dropdown is hidden by default and then shown whith ResponsiveBreakpoint.GetCssClass based on Sidebar settings */
 }
 
 ::deep .nav-link {
