@@ -4,53 +4,61 @@
 @attribute [Route("/components/" + nameof(HxSidebarBrand))]
 
 <ComponentApiDoc Type="typeof(HxSidebar)">
-    <MainContent>
-        <DocHeading Title="Basic usage" />
-        <Demo Type="typeof(HxSidebar_Demo)" />
+	<MainContent>
+		<DocHeading Title="Basic usage" />
+		<Demo Type="typeof(HxSidebar_Demo)" />
+		<DocAlert Type="DocAlertType.Warning">
+			The <code>HxSidebarItem</code> component renders its child content twice in the DOM
+			to ensure smooth responsive behavior. However, this duplication can lead
+			to issues when using complex content, such as <code>SectionOutlet</code>
+			or components that load data dynamically. To prevent such problems,
+			use only simple content (e.g., text, static markup, or basic components)
+			or design the content with this behavior in mind.
+		</DocAlert>
 
-        <DocHeading Title="Inverted (dark) variant" Id="dark" />
-        <p>Similarly to Bootstrap Navbar, the Sidebar color can be inverted with <code>data-bs-theme="dark"</code> attribute on parent <code>div</code>.</p>
-        <Demo Type="typeof(HxSidebar_Demo_Dark)" />
+		<DocHeading Title="Inverted (dark) variant" Id="dark" />
+		<p>Similarly to Bootstrap Navbar, the Sidebar color can be inverted with <code>data-bs-theme="dark"</code> attribute on parent <code>div</code>.</p>
+		<Demo Type="typeof(HxSidebar_Demo_Dark)" />
 
-        <DocHeading Title="Colors" />
-        <p>Similarly to Bootstrap Navbar, you can use utility classes to create any color variation eg. <code>bg-body-secondary</code>. Colors of the items and active/hover states need to be fine-tuned via CSS vars.</p>
-        <Demo Type="typeof(HxSidebar_Demo_Colors)" />
+		<DocHeading Title="Colors" />
+		<p>Similarly to Bootstrap Navbar, you can use utility classes to create any color variation eg. <code>bg-body-secondary</code>. Colors of the items and active/hover states need to be fine-tuned via CSS vars.</p>
+		<Demo Type="typeof(HxSidebar_Demo_Colors)" />
 
-        <DocHeading Title="Logo" />
-        <p>Use your own custom logo in the sidebar header by setting the <code>LogoTemplate</code> parameter (<code>RenderFragment</code>) on the <code>HxSidebarBrand</code> component.</p>
-        <Demo Type="typeof(HxSidebar_Demo_Logo)" />
+		<DocHeading Title="Logo" />
+		<p>Use your own custom logo in the sidebar header by setting the <code>LogoTemplate</code> parameter (<code>RenderFragment</code>) on the <code>HxSidebarBrand</code> component.</p>
+		<Demo Type="typeof(HxSidebar_Demo_Logo)" />
 
-        <DocHeading Title="Custom content for items" />
-        <p>If you'd like to include more than just an icon and text in the <code>HxSidebarItem</code>, you can do so with the <code>ContentTemplate</code> parameter.</p>
-        <Demo Type="typeof(HxSidebar_Demo_ItemCustomContent)" />
+		<DocHeading Title="Custom content for items" />
+		<p>If you'd like to include more than just an icon and text in the <code>HxSidebarItem</code>, you can do so with the <code>ContentTemplate</code> parameter.</p>
+		<Demo Type="typeof(HxSidebar_Demo_ItemCustomContent)" />
 
-        <DocHeading Title="Multiple items expansion" />
-        <p>If you set <code>MultipleItemsExpansion="false"</code>, upon item expansion, all other items are collapsed. If <code>true</code> (default), multiple items can be expanded at one time.</p>
-        <Demo Type="typeof(HxSidebar_Demo_MultipleItemsExpansion)" />
+		<DocHeading Title="Multiple items expansion" />
+		<p>If you set <code>MultipleItemsExpansion="false"</code>, upon item expansion, all other items are collapsed. If <code>true</code> (default), multiple items can be expanded at one time.</p>
+		<Demo Type="typeof(HxSidebar_Demo_MultipleItemsExpansion)" />
 
-        <DocHeading Title="Expand & collapse from code" Id="expand-collapse" />
-        <p>Use the bindable <code>Collapsed</code> parameter to set or track the sidebar state.</p>
-        <Demo Type="typeof(HxSidebar_Demo_ProgramaticallyExpandCollapse)" />
+		<DocHeading Title="Expand & collapse from code" Id="expand-collapse" />
+		<p>Use the bindable <code>Collapsed</code> parameter to set or track the sidebar state.</p>
+		<Demo Type="typeof(HxSidebar_Demo_ProgramaticallyExpandCollapse)" />
 
-        <DocHeading Title="Custom toggler" />
-        <p>
-            With the <code>TogglerTemplate</code>, you can set a custom toggler for the desktop version to be rendered instead of the default visual.
-            Render varying content based on the <a href="/types/SidebarTogglerTemplateContext">SidebarTogglerTemplateContext</a>.
-        </p>
-        <Demo Type="typeof(HxSidebar_Demo_TogglerTemplate)" />
+		<DocHeading Title="Custom toggler" />
+		<p>
+			With the <code>TogglerTemplate</code>, you can set a custom toggler for the desktop version to be rendered instead of the default visual.
+			Render varying content based on the <a href="/types/SidebarTogglerTemplateContext">SidebarTogglerTemplateContext</a>.
+		</p>
+		<Demo Type="typeof(HxSidebar_Demo_TogglerTemplate)" />
 
-        <DocHeading Title="Responsive layout sample" />
-        <p>
-            To achieve responsiveness of the sidebar (such as this documentation site has), you need to adjust the application layout.
-            The main layout might look like this:
-        </p>
-        <CodeSnippet File="~\Pages\Components\HxSidebarDoc\HxSidebar_Layout.CodeSnippet.razor" />
-        <DocAlert Type="DocAlertType.Warning">
-            If you are using the standard Blazor application template, you need to remove all unnecessary CSS rules from <code>site.css</code>.
-        </DocAlert>
-        <p>You don't need any other layout-related CSS in <code>site.css</code>:</p>
-        <CodeSnippet File="~\Pages\Components\HxSidebarDoc\HxSidebar_Setup.CodeSnippet.css" />
-    </MainContent>
+		<DocHeading Title="Responsive layout sample" />
+		<p>
+			To achieve responsiveness of the sidebar (such as this documentation site has), you need to adjust the application layout.
+			The main layout might look like this:
+		</p>
+		<CodeSnippet File="~\Pages\Components\HxSidebarDoc\HxSidebar_Layout.CodeSnippet.razor" />
+		<DocAlert Type="DocAlertType.Warning">
+			If you are using the standard Blazor application template, you need to remove all unnecessary CSS rules from <code>site.css</code>.
+		</DocAlert>
+		<p>You don't need any other layout-related CSS in <code>site.css</code>:</p>
+		<CodeSnippet File="~\Pages\Components\HxSidebarDoc\HxSidebar_Setup.CodeSnippet.css" />
+	</MainContent>
 	<CssVariables>
 		<ComponentApiDocCssVariable Name="--hx-sidebar-background-color" Default="var(--bs-body-bg)">
 			Background color.
