@@ -1,54 +1,54 @@
 <Project>
-	<PropertyGroup>
-		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-		<CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-		<AspNetCoreVersion8>8.0.11</AspNetCoreVersion8>
-		<AspNetCoreVersion9>9.0.0</AspNetCoreVersion9>
-	</PropertyGroup>
-	<ItemGroup>
-		<PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
-		<PackageVersion Include="bunit.web" Version="1.36.0" />
-		<PackageVersion Include="Grpc.AspNetCore.Web" Version="2.67.0" />
-		<PackageVersion Include="Grpc.Net.Client" Version="2.67.0" />
-		<PackageVersion Include="Grpc.Net.Client.Web" Version="2.67.0" />
-		<PackageVersion Include="Havit.Core" Version="2.0.31" />
-		<PackageVersion Include="Havit.AspNetCore" Version="2.0.22" />
-		<PackageVersion Include="LoxSmoke.DocXml" Version="3.8.0" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'"/>
-		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'"/>
-		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(AspNetCoreVersion9)" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(AspNetCoreVersion9)" />
-		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
-		<PackageVersion Include="Microsoft.Extensions.Localization" Version="9.0.0" />
-		<PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.0" />
-		<PackageVersion Include="Moq" Version="4.20.72" />
-		<PackageVersion Include="MSTest" Version="3.6.3" />
-		<PackageVersion Include="protobuf-net" Version="3.2.45" />
-		<PackageVersion Include="protobuf-net.Grpc" Version="1.2.2" />
-		<PackageVersion Include="protobuf-net.Grpc.AspNetCore" Version="1.2.2" />
-		<PackageVersion Include="protobuf-net.Grpc.ClientFactory" Version="1.2.2" />
-		<PackageVersion Include="SmartComponents.AspNetCore" Version="0.1.0-preview10148" />
-		<PackageVersion Include="SmartComponents.AspNetCore.Components" Version="0.1.0-preview10148" />
-		<PackageVersion Include="SmartComponents.Inference.OpenAI" Version="0.1.0-preview10148" />
-		<PackageVersion Include="SmartComponents.LocalEmbeddings" Version="0.1.0-preview10148" />
-		<PackageVersion Include="System.Text.Json" Version="9.0.0" />
-	</ItemGroup>
-	<ItemGroup>
-		<!-- https://github.com/microsoft/MSBuildSdks/tree/main/src/CopyOnWrite -->
-		<GlobalPackageReference Include="Microsoft.Build.CopyOnWrite" Version="1.0.334">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-		</GlobalPackageReference>
-	</ItemGroup>
-	<ItemGroup Condition="'$(ProjectName.EndsWith(`Tests`))' == 'False'">
-		<GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.12.19">
-			<PrivateAssets>all</PrivateAssets>
-			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-		</GlobalPackageReference>
-	</ItemGroup>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <AspNetCoreVersion8>8.0.11</AspNetCoreVersion8>
+    <AspNetCoreVersion9>9.0.0</AspNetCoreVersion9>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
+    <PackageVersion Include="bunit.web" Version="1.36.0" />
+    <PackageVersion Include="Grpc.AspNetCore.Web" Version="2.67.0" />
+    <PackageVersion Include="Grpc.Net.Client" Version="2.67.0" />
+    <PackageVersion Include="Grpc.Net.Client.Web" Version="2.67.0" />
+    <PackageVersion Include="Havit.Core" Version="2.0.31" />
+    <PackageVersion Include="Havit.AspNetCore" Version="2.0.22" />
+    <PackageVersion Include="LoxSmoke.DocXml" Version="3.8.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(AspNetCoreVersion9)" />
+    <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(AspNetCoreVersion9)" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Localization" Version="9.0.0" />
+    <PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.0" />
+    <PackageVersion Include="Moq" Version="4.20.72" />
+    <PackageVersion Include="MSTest" Version="3.6.4" />
+    <PackageVersion Include="protobuf-net" Version="3.2.45" />
+    <PackageVersion Include="protobuf-net.Grpc" Version="1.2.2" />
+    <PackageVersion Include="protobuf-net.Grpc.AspNetCore" Version="1.2.2" />
+    <PackageVersion Include="protobuf-net.Grpc.ClientFactory" Version="1.2.2" />
+    <PackageVersion Include="SmartComponents.AspNetCore" Version="0.1.0-preview10148" />
+    <PackageVersion Include="SmartComponents.AspNetCore.Components" Version="0.1.0-preview10148" />
+    <PackageVersion Include="SmartComponents.Inference.OpenAI" Version="0.1.0-preview10148" />
+    <PackageVersion Include="SmartComponents.LocalEmbeddings" Version="0.1.0-preview10148" />
+    <PackageVersion Include="System.Text.Json" Version="9.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- https://github.com/microsoft/MSBuildSdks/tree/main/src/CopyOnWrite -->
+    <GlobalPackageReference Include="Microsoft.Build.CopyOnWrite" Version="1.0.334">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </GlobalPackageReference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(ProjectName.EndsWith(`Tests`))' == 'False'">
+    <GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.12.19">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </GlobalPackageReference>
+  </ItemGroup>
 </Project>
