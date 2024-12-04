@@ -1,0 +1,50 @@
+@page "/showcase/detail"
+@layout HomeLayout
+
+<div class="showcase-detail-header hero" style="--hero-opacity: .15;">
+    <div class="container d-flex justify-content-between align-items-center" style="height: 200px;">
+        <ShowcaseNavigationLink Direction="Previous" Title="@PreviousTitle" IconStart="BootstrapIcon.ArrowLeft" Href="/showcase/detail" />
+
+        <div class="current text-center">
+            <div class="small text-primary">@Description</div>
+            <h1 class="fw-bold">@Title</h1>
+            
+        </div>
+        <ShowcaseNavigationLink Direction="Next" Title="@NextTitle" IconEnd="BootstrapIcon.ArrowRight" Href="/showcase/detail" />
+    </div>
+</div>
+<div class="showcase-detail bg-body-tertiary">
+    <div class="container d-flex gap-3 flex-wrap justify-content-center">
+        <img src="@ImageUrl" class="w-100 rounded-3 border shadow-lg" alt="@Title">
+    </div>
+</div>
+<div class="showcase-detail-meta">
+    <div class="container">
+        <div class="d-flex align-items-center justify-content-center gap-5 my-5 small opacity-75">
+            <div class="d-flex flex-column gap-2">
+                <div class="fw-medium">Author</div>
+                <div>@Author</div>
+            </div>
+            <div class="vr"></div>
+            <div class="d-flex flex-column gap-2">
+                <div class="fw-medium">Date</div>
+                <div>2021-09-01</div>
+            </div>
+            <div class="vr"></div>
+            <div class="d-flex flex-column gap-2">
+                <div class="fw-medium">URL</div>
+                <div><a href="#">havit.goran.cz</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code 
+{
+    [Parameter] public string Title { get; set; } = "Goran";
+    [Parameter] public string Author { get; set; } = "HAVIT";
+    [Parameter] public string Description { get; set; } = "SaaS ERP for SMBs";
+    [Parameter] public string ImageUrl { get; set; } = "/images/showcase/Goran.png";
+    [Parameter] public string PreviousTitle { get; set; } = "Edenred Extranet";
+    [Parameter] public string NextTitle { get; set; } = "Bety";
+}

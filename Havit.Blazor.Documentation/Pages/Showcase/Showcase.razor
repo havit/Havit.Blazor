@@ -1,0 +1,44 @@
+@page "/showcase"
+@layout HomeLayout
+
+<div class="hero py-5">
+    <div class="text-center py-4 my-4">
+        <h1 class="fw-bold display-3">You can build anything with HAVIT Blazor</h1>
+        <p class="lead">HAVIT Blazor gives you the tools to create amazing projects.<br/>It might not launch you into space, but it’s perfect for building the app to navigate your journey!</p>
+    </div>
+    <div class="d-flex align-items-center justify-content-center gap-3 my-4">    
+        <p class="lead mb-0">Feel like showing off?</p>
+        <a href="mailto:blazor@havit.cz" class="btn btn-dark btn-lg rounded-pill">
+            Submit your project
+            <HxIcon Icon="BootstrapIcon.SendFill" />
+        </a>
+    </div>
+</div>
+<div class="container">
+    <div class="showcase-list d-flex gap-3 flex-wrap justify-content-center">
+        @foreach (var item in _showcaseItems)
+        {
+            <ShowcaseItem Title="@item.Title" Description="@item.Description" ImageUrl="@item.ImageUrl" />
+        }
+    </div>
+</div>
+
+@code {
+
+    private class ShowcaseItem
+    {
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string ImageUrl { get; set; }    
+        public string Author { get; set; }
+    }
+
+    private readonly List<ShowcaseItem> _showcaseItems = new()
+    {
+        new ShowcaseItem { Title = "Goran", Description = "SaaS ERP for small businesses", ImageUrl = "/images/showcase/Goran.png", Author = "HAVIT" },
+        new ShowcaseItem { Title = "Bety", Description = "Broker pool CRM", ImageUrl = "/images/showcase/Bety.png", Author = "HAVIT" },
+        new ShowcaseItem { Title = "Autronic", Description = "B2B furniture e-shop", ImageUrl = "/images/showcase/Autronic.png", Author = "HAVIT" },
+        new ShowcaseItem { Title = "Web Trader", Description = "Forex trading platform", ImageUrl = "/images/showcase/Patria.png", Author = "HAVIT" },
+        new ShowcaseItem { Title = "Edenred", Description = "Fintech card management", ImageUrl = "/images/showcase/Edenred.png", Author = "HAVIT" },
+    };
+}

@@ -1,0 +1,18 @@
+<div class="showcase-item-container" style="flex-basis: 420px;">
+    <HxNavLink Href="/showcase/detail">
+        <div class="showcase-item p-4 bg-body-tertiary rounded-3 d-flex flex-column gap-3">
+            <img src="@ImageUrl" class="rounded-2 w-100 shadow" alt="@Title" />
+            <div class="d-flex flex-column gap-1">
+                <div class="title fw-medium">@Title</div>
+                <div class="description text-secondary small">@Description</div>
+            </div>
+        </div>
+    </HxNavLink>
+</div>
+
+@code
+{
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Description { get; set; }
+    [Parameter] public string ImageUrl { get; set; }
+}
