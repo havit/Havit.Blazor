@@ -9,9 +9,9 @@
 }
 
 .nav-container {
-	--bs-bg-opacity: .8;
+	--bs-bg-opacity: .5;
 	background-color: rgba(var(--bs-body-bg-rgb),var(--bs-bg-opacity)) !important;
-	backdrop-filter: saturate(120%) blur(20px);
 	-webkit-backdrop-filter: saturate(120%) blur(20px);
+	backdrop-filter: saturate(120%) blur(20px);
 	z-index: 1030;
 }
