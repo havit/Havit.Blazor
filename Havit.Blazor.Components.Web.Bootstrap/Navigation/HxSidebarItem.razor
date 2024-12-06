@@ -44,6 +44,7 @@
 						   onmouseleave="bootstrap.Dropdown.getInstance(event.target)?.hide()"
 						   data-bs-toggle="@(!String.IsNullOrEmpty(Href) ? null : "collapse")"
 						   data-bs-target="@(!ParentSidebar.Collapsed ? "#" + _id : null)"
+						   data-bs-offset="0,0"
 						   aria-expanded="@(expanded ? "true" : "false")">
 
 					<HxSidebarItemNavLinkContentInternal Text="@Text"
