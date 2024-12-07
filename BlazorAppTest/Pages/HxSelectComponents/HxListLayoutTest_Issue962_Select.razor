@@ -1,0 +1,35 @@
+﻿<HxSelect Label="@Label"
+          Data="data"
+          ValueSelector="@(x => x.Value)"
+          TextSelector="@(x => x.Text)"
+          @bind-Value="Value"
+          @bind-Value:after="HandleValueChangedAsync"
+          Nullable="false"/>
+
+@code {
+
+    [Parameter, EditorRequired] public bool? Value { get; set; }
+    [Parameter] public string Label { get; set; }
+    [Parameter] public EventCallback<bool?> ValueChanged { get; set; }
+    [Parameter] public bool Nullable { get; set; }
+    [Parameter] public string CssClass { get; set; }
+
+    private List<SelectDto> data = new();
+
+    protected override void OnInitialized()
+    {
+        data =
+        [
+            new SelectDto(true, "Yes"),
+            new SelectDto(false, "No"),
+            new SelectDto(null, "-- select --")
+        ];
+    }
+
+    private async Task HandleValueChangedAsync()
+    {
+        await ValueChanged.InvokeAsync(Value);
+    }
+
+    public record SelectDto(bool? Value, string Text);
+}
