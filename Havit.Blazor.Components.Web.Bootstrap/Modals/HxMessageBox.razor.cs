@@ -39,10 +39,18 @@ public partial class HxMessageBox : ComponentBase
 	/// </summary>
 	protected virtual MessageBoxSettings GetDefaults() => Defaults;
 
-	///// <summary>
-	///// Header icon.
-	///// </summary>
-	//[Parameter] public IconBase Icon { get; set; }
+	/// <summary>
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxMessageBox.Defaults"/>, overridden by individual parameters).
+	/// </summary>
+	[Parameter] public MessageBoxSettings Settings { get; set; }
+
+	/// <summary>
+	/// Returns an optional set of component settings.
+	/// </summary>
+	/// <remarks>
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
+	/// </remarks>
+	protected virtual MessageBoxSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Title text (Header).
@@ -89,19 +97,19 @@ public partial class HxMessageBox : ComponentBase
 	/// Settings for the dialog primary button.
 	/// </summary>
 	[Parameter] public ButtonSettings PrimaryButtonSettings { get; set; }
-	protected ButtonSettings PrimaryButtonSettingsEffective => PrimaryButtonSettings ?? GetDefaults().PrimaryButtonSettings ?? throw new InvalidOperationException(nameof(PrimaryButtonSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
+	protected ButtonSettings PrimaryButtonSettingsEffective => PrimaryButtonSettings ?? GetSettings()?.PrimaryButtonSettings ?? GetDefaults().PrimaryButtonSettings ?? throw new InvalidOperationException(nameof(PrimaryButtonSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
 
 	/// <summary>
 	/// Settings for dialog secondary button(s).
 	/// </summary>
 	[Parameter] public ButtonSettings SecondaryButtonSettings { get; set; }
-	protected ButtonSettings SecondaryButtonSettingsEffective => SecondaryButtonSettings ?? GetDefaults().SecondaryButtonSettings ?? throw new InvalidOperationException(nameof(SecondaryButtonSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
+	protected ButtonSettings SecondaryButtonSettingsEffective => SecondaryButtonSettings ?? GetSettings()?.SecondaryButtonSettings ?? GetDefaults().SecondaryButtonSettings ?? throw new InvalidOperationException(nameof(SecondaryButtonSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
 
 	/// <summary>
 	/// Settings for the underlying <see cref="HxModal"/> component.
 	/// </summary>
 	[Parameter] public ModalSettings ModalSettings { get; set; }
-	protected ModalSettings ModalSettingsEffective => ModalSettings ?? GetDefaults().ModalSettings ?? throw new InvalidOperationException(nameof(ModalSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
+	protected ModalSettings ModalSettingsEffective => ModalSettings ?? GetSettings()?.ModalSettings ?? GetDefaults().ModalSettings ?? throw new InvalidOperationException(nameof(ModalSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
 
 	/// <summary>
 	/// Raised when the message box gets closed. Returns the button clicked.
@@ -153,62 +161,62 @@ public partial class HxMessageBox : ComponentBase
 		{
 			case MessageBoxButtons.AbortRetryIgnore:
 				// no primary button (if not explicitly requested)
-				buttons.Add(new() { Id = MessageBoxButtons.Abort, Text = MessageBoxLocalizer["Abort"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Abort) });
-				buttons.Add(new() { Id = MessageBoxButtons.Retry, Text = MessageBoxLocalizer["Retry"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Retry) });
-				buttons.Add(new() { Id = MessageBoxButtons.Ignore, Text = MessageBoxLocalizer["Ignore"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Ignore) });
+				buttons.Add(new() { Id = MessageBoxButtons.Abort, Text = GetButtonTextEffective(MessageBoxButtons.Abort), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Abort) });
+				buttons.Add(new() { Id = MessageBoxButtons.Retry, Text = GetButtonTextEffective(MessageBoxButtons.Retry), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Retry) });
+				buttons.Add(new() { Id = MessageBoxButtons.Ignore, Text = GetButtonTextEffective(MessageBoxButtons.Ignore), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Ignore) });
 				break;
 			case MessageBoxButtons.OkCancel:
 				primaryButtonEffective ??= MessageBoxButtons.Ok;
-				buttons.Add(new() { Id = MessageBoxButtons.Cancel, Text = MessageBoxLocalizer["Cancel"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Cancel) });
-				buttons.Add(new() { Id = MessageBoxButtons.Ok, Text = MessageBoxLocalizer["OK"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Ok) });
+				buttons.Add(new() { Id = MessageBoxButtons.Cancel, Text = GetButtonTextEffective(MessageBoxButtons.Cancel), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Cancel) });
+				buttons.Add(new() { Id = MessageBoxButtons.Ok, Text = GetButtonTextEffective(MessageBoxButtons.Ok), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Ok) });
 				break;
 			case MessageBoxButtons.YesNo:
 				primaryButtonEffective ??= MessageBoxButtons.Yes;
-				buttons.Add(new() { Id = MessageBoxButtons.No, Text = MessageBoxLocalizer["No"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.No) });
-				buttons.Add(new() { Id = MessageBoxButtons.Yes, Text = MessageBoxLocalizer["Yes"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Yes) });
+				buttons.Add(new() { Id = MessageBoxButtons.No, Text = GetButtonTextEffective(MessageBoxButtons.No), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.No) });
+				buttons.Add(new() { Id = MessageBoxButtons.Yes, Text = GetButtonTextEffective(MessageBoxButtons.Yes), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Yes) });
 				break;
 			case MessageBoxButtons.RetryCancel:
 				primaryButtonEffective ??= MessageBoxButtons.Retry;
-				buttons.Add(new() { Id = MessageBoxButtons.Cancel, Text = MessageBoxLocalizer["Cancel"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Cancel) });
-				buttons.Add(new() { Id = MessageBoxButtons.Retry, Text = MessageBoxLocalizer["Retry"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Retry) });
+				buttons.Add(new() { Id = MessageBoxButtons.Cancel, Text = GetButtonTextEffective(MessageBoxButtons.Cancel), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Cancel) });
+				buttons.Add(new() { Id = MessageBoxButtons.Retry, Text = GetButtonTextEffective(MessageBoxButtons.Retry), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Retry) });
 				break;
 			case MessageBoxButtons.CustomCancel:
 				primaryButtonEffective ??= MessageBoxButtons.Custom;
-				buttons.Add(new() { Id = MessageBoxButtons.Cancel, Text = MessageBoxLocalizer["Cancel"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Cancel) });
-				buttons.Add(new() { Id = MessageBoxButtons.Custom, Text = CustomButtonText, IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Custom) });
+				buttons.Add(new() { Id = MessageBoxButtons.Cancel, Text = GetButtonTextEffective(MessageBoxButtons.Cancel), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Cancel) });
+				buttons.Add(new() { Id = MessageBoxButtons.Custom, Text = GetButtonTextEffective(MessageBoxButtons.Custom), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Custom) });
 				break;
 			default:
 				if (Buttons.HasFlag(MessageBoxButtons.Abort))
 				{
-					buttons.Add(new() { Id = MessageBoxButtons.Abort, Text = MessageBoxLocalizer["Abort"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Abort) });
+					buttons.Add(new() { Id = MessageBoxButtons.Abort, Text = GetButtonTextEffective(MessageBoxButtons.Abort), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Abort) });
 				}
 				if (Buttons.HasFlag(MessageBoxButtons.Retry))
 				{
-					buttons.Add(new() { Id = MessageBoxButtons.Retry, Text = MessageBoxLocalizer["Retry"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Retry) });
+					buttons.Add(new() { Id = MessageBoxButtons.Retry, Text = GetButtonTextEffective(MessageBoxButtons.Retry), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Retry) });
 				}
 				if (Buttons.HasFlag(MessageBoxButtons.Ignore))
 				{
-					buttons.Add(new() { Id = MessageBoxButtons.Ignore, Text = MessageBoxLocalizer["Ignore"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Ignore) });
+					buttons.Add(new() { Id = MessageBoxButtons.Ignore, Text = GetButtonTextEffective(MessageBoxButtons.Ignore), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Ignore) });
 				}
 				if (Buttons.HasFlag(MessageBoxButtons.Cancel))
 				{
-					buttons.Add(new() { Id = MessageBoxButtons.Cancel, Text = MessageBoxLocalizer["Cancel"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Cancel) });
+					buttons.Add(new() { Id = MessageBoxButtons.Cancel, Text = GetButtonTextEffective(MessageBoxButtons.Cancel), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Cancel) });
 				}
 				if (Buttons.HasFlag(MessageBoxButtons.Yes))
 				{
-					buttons.Add(new() { Id = MessageBoxButtons.Yes, Text = MessageBoxLocalizer["Yes"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Yes) });
+					buttons.Add(new() { Id = MessageBoxButtons.Yes, Text = GetButtonTextEffective(MessageBoxButtons.Yes), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Yes) });
 				}
 				if (Buttons.HasFlag(MessageBoxButtons.No))
 				{
-					buttons.Add(new() { Id = MessageBoxButtons.No, Text = MessageBoxLocalizer["No"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.No) });
+					buttons.Add(new() { Id = MessageBoxButtons.No, Text = GetButtonTextEffective(MessageBoxButtons.No), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.No) });
 				}
 				if (Buttons.HasFlag(MessageBoxButtons.Custom))
 				{
-					buttons.Add(new() { Id = MessageBoxButtons.Custom, Text = CustomButtonText, IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Custom) });
+					buttons.Add(new() { Id = MessageBoxButtons.Custom, Text = GetButtonTextEffective(MessageBoxButtons.Custom), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Custom) });
 				}
 				if (Buttons.HasFlag(MessageBoxButtons.Ok))
 				{
-					buttons.Add(new() { Id = MessageBoxButtons.Ok, Text = MessageBoxLocalizer["OK"], IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Ok) });
+					buttons.Add(new() { Id = MessageBoxButtons.Ok, Text = GetButtonTextEffective(MessageBoxButtons.Ok), IsPrimary = primaryButtonEffective?.HasFlag(MessageBoxButtons.Ok) });
 				}
 				break;
 		}
@@ -225,6 +233,22 @@ public partial class HxMessageBox : ComponentBase
 		}
 
 		return buttons;
+	}
+
+	private string GetButtonTextEffective(MessageBoxButtons button)
+	{
+		return button switch
+		{
+			MessageBoxButtons.Ok => GetSettings()?.OkButtonText ?? GetDefaults()?.OkButtonText ?? MessageBoxLocalizer["OK"],
+			MessageBoxButtons.Cancel => GetSettings()?.CancelButtonText ?? GetDefaults()?.CancelButtonText ?? MessageBoxLocalizer["Cancel"],
+			MessageBoxButtons.Retry => GetSettings()?.RetryButtonText ?? GetDefaults()?.RetryButtonText ?? MessageBoxLocalizer["Retry"],
+			MessageBoxButtons.Ignore => GetSettings()?.IgnoreButtonText ?? GetDefaults()?.IgnoreButtonText ?? MessageBoxLocalizer["Ignore"],
+			MessageBoxButtons.Abort => GetSettings()?.AbortButtonText ?? GetDefaults()?.AbortButtonText ?? MessageBoxLocalizer["Abort"],
+			MessageBoxButtons.Yes => GetSettings()?.YesButtonText ?? GetDefaults()?.YesButtonText ?? MessageBoxLocalizer["Yes"],
+			MessageBoxButtons.No => GetSettings()?.NoButtonText ?? GetDefaults()?.NoButtonText ?? MessageBoxLocalizer["No"],
+			MessageBoxButtons.Custom => CustomButtonText,
+			_ => throw new InvalidOperationException("Unsupported button type."),
+		};
 	}
 
 	private class ButtonDefinition

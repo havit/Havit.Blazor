@@ -145,9 +145,7 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 			// TODO VSTHRD101 via RuntimeHelpers.CreateInferredBindSetter?
 			builder.AddAttribute(11, "onchange", EventCallback.Factory.CreateBinder<string>(this, async (string value) => await InvokeValueChangedAsync(value), Value));
 #pragma warning restore VSTHRD101 // Avoid unsupported async delegates
-#if NET8_0_OR_GREATER
 			builder.SetUpdatesAttributeName("value");
-#endif
 		}
 
 		builder.AddMultipleAttributes(99, AdditionalAttributes);

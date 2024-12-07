@@ -1,10 +1,11 @@
-:root {
+.doc-sidebar {
 	--hx-sidebar-width: 					320px;
+	--hx-sidebar-collapsed-width: 			56px;
 	--hx-sidebar-max-height: 				calc(100vh - 56px);
 	--hx-sidebar-brand-logo-width: 			40px;
 	--hx-sidebar-brand-logo-height: 		30px;
-	--hx-sidebar-header-padding: 			.5rem;
-	--hx-sidebar-body-padding: 				0 1rem 0 .25rem;
+	--hx-sidebar-header-padding: 			.5rem 0;
+	--hx-sidebar-body-padding: 				0 1rem 0 0;
 }
 
 #blazor-error-ui {
@@ -65,26 +66,20 @@ pre[class*="language-"] {
 	margin-bottom: .25rem
 }
 
-	.doc-content > ul li > p ~ ul,
-	.doc-content > ol li > p ~ ul {
-		margin-top: -.5rem;
-		margin-bottom: 1rem
-	}
+.doc-content > ul li > p ~ ul,
+.doc-content > ol li > p ~ ul {
+	margin-top: -.5rem;
+	margin-bottom: 1rem
+}
 
-.sidebar .hx-sidebar-header {
+.doc-sidebar .hx-sidebar-header {
 	flex-wrap: wrap;
 }
 
 @media screen and (min-width: 992px) {
-	.sidebar {
+	.doc-sidebar {
 		top: 56px;
 	}	
-}
-
-
-.collapsed.sidebar .sidebar-search,
-.collapsed.sidebar .hx-sidebar-footer .hx-form-group {
-	display: none;
 }
 
 .calendar-demo {

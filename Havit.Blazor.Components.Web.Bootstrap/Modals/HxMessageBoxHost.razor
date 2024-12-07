@@ -2,13 +2,13 @@
 
 <HxMessageBox @ref="_messageBox"
 			  Title="@_request.Title"
-              HeaderTemplate="@_request.HeaderTemplate"
+			  HeaderTemplate="_request.HeaderTemplate"
 			  Text="@_request.Text"
-              BodyTemplate="@_request.BodyTemplate"
-			  Buttons="@_request.Buttons"
-			  PrimaryButton="@_request.PrimaryButton"
+			  BodyTemplate="_request.BodyTemplate"
+			  Buttons="_request.Buttons"
+			  PrimaryButton="_request.PrimaryButton"
 			  CustomButtonText="@_request.CustomButtonText"
-			  ShowCloseButton="@_request.ShowCloseButton"
+			  ShowCloseButton="_request.ShowCloseButton"
 			  OnClosed="HandleClosed"
-              @attributes="@_request.AdditionalAttributes">
-</HxMessageBox>
+			  Settings="_request.Settings"
+			  @attributes="_request.AdditionalAttributes" />

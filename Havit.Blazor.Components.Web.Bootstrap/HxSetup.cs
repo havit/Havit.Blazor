@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿using System.Diagnostics;
+
+namespace Havit.Blazor.Components.Web.Bootstrap;
 
 public static class HxSetup
 {
@@ -6,6 +8,11 @@ public static class HxSetup
 	/// Global settings for the Havit Blazor Components library.
 	/// </summary>
 	public static GlobalSettings Defaults { get; } = new GlobalSettings();
+
+	/// <summary>
+	/// Bootstrap version used by the library.
+	/// </summary>
+	public static string BootstrapVersion = "5.3.3";
 
 	/// <summary>
 	/// Renders the <c>&lt;script&gt;</c> tag that references the corresponding Bootstrap JavaScript bundle with Popper.<br/>

@@ -13,6 +13,11 @@ public record MultiSelectSettings : InputSettings
 	public InputSize? InputSize { get; set; }
 
 	/// <summary>
+	/// The label type.
+	/// </summary>
+	public LabelType? LabelType { get; set; }
+
+	/// <summary>
 	/// Enables filtering capabilities.
 	/// </summary>
 	public bool AllowFiltering { get; set; }

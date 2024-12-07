@@ -66,61 +66,6 @@
             <param name="millisecondsDelay">The delay in milliseconds for debouncing.</param>
             <param name="actionAsync">The asynchronous action to be executed. The <see cref="T:System.Threading.CancellationToken"/> gets canceled if the method is called again.</param>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Title">
-            <summary>
-            Title in the header.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.HeaderTemplate">
-            <summary>
-            Template for the header.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Text">
-            <summary>
-            Content (body) text.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.BodyTemplate">
-            <summary>
-            Body (content) template.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.ShowCloseButton">
-            <summary>
-            Indicates whether to show the close button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Buttons">
-            <summary>
-            Buttons to show.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.PrimaryButton">
-            <summary>
-            Primary button (if you want to override the default).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.CustomButtonText">
-            <summary>
-            Text for the <see cref="F:Havit.Blazor.Components.Web.MessageBoxButtons.Custom"/> button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.AdditionalAttributes">
-            <summary>
-            Additional attributes to be splatted onto an underlying UI component (Bootstrap: HxMessageBox -> HxModal).
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.MessageBoxServiceCollectionExtensions">
-            <summary>
-            Extension methods for installation of <see cref="T:Havit.Blazor.Components.Web.IHxMessageBoxService"/> support.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.MessageBoxServiceCollectionExtensions.AddHxMessageBoxHost(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            Adds <see cref="T:Havit.Blazor.Components.Web.IHxMessageBoxService"/> support to be able to display message boxes using HxMessageBoxHost.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.FileUploadedEventArgs">
             <summary>
             Arguments for <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded"/> event.

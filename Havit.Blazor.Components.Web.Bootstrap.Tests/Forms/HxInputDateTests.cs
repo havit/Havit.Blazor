@@ -71,9 +71,7 @@ public class HxInputDateTests : BunitTestBase
 
 		// Assert
 		Assert.AreEqual(new DateTime(2020, 2, 10), myValue, "Model value should remain unchanged.");
-#if NET8_0_OR_GREATER
 		Assert.AreEqual("", cut.Find("input").GetAttribute("value"), "Input value should be empty.");
-#endif
 		Assert.IsNotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"));
 		Assert.AreEqual("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent, "ParsingValidationError should be displayed.");
 	}

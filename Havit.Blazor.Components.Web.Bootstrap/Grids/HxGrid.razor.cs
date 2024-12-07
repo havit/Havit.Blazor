@@ -106,6 +106,19 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected virtual Task InvokeSelectedDataItemsChangedAsync(HashSet<TItem> selectedDataItems) => SelectedDataItemsChanged.InvokeAsync(selectedDataItems);
 
 	/// <summary>
+	/// Gets or sets a value indicating whether the current selection (either <see cref="SelectedDataItem"/> for single selection
+	/// or <see cref="SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
+	/// or manual invocation of <see cref="RefreshDataAsync"/>.<br />
+	/// Default value is <c>false</c> (can be set by using <c>HxGrid.Defaults</c>).
+	/// </summary>
+	/// <remarks>
+	/// This setting ensures that the selection remains intact during operations that refresh or modify the displayed data in the grid.
+	/// Note that preserving the selection requires that the underlying data items can still be matched in the updated dataset (e.g., by <c>item1.Equals(item2)</c>).
+	/// </remarks>
+	[Parameter] public bool? PreserveSelection { get; set; }
+	protected bool PreserveSelectionEffective => PreserveSelection ?? GetSettings()?.PreserveSelection ?? GetDefaults().PreserveSelection ?? throw new InvalidOperationException(nameof(PreserveSelection) + " default for " + nameof(HxGrid) + " has to be set.");
+
+	/// <summary>
 	/// The strategy for how data items are displayed and loaded into the grid. Supported modes include pagination, load more, and infinite scroll.
 	/// </summary>
 	[Parameter] public GridContentNavigationMode? ContentNavigationMode { get; set; }
@@ -280,6 +293,62 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected IconBase SortDescendingIconEffective => SortDescendingIcon ?? GetSettings()?.SortDescendingIcon ?? GetDefaults().SortDescendingIcon;
 
 	/// <summary>
+	/// Defines a function that returns additional attributes for a specific <c>tr</c> element based on the item it represents.
+	/// This allows for custom behavior or event handling on a per-row basis.
+	/// </summary>
+	/// <remarks>
+	/// If both <see cref="ItemRowAdditionalAttributesSelector"/> and <see cref="ItemRowAdditionalAttributes"/> are specified,
+	/// both dictionaries are combined into one.
+	/// Note that there is no prevention of duplicate keys, which may result in a <see cref="System.ArgumentException"/>.
+	/// </remarks>
+	[Parameter] public Func<TItem, Dictionary<string, object>> ItemRowAdditionalAttributesSelector { get; set; }
+
+	/// <summary>
+	/// Provides a dictionary of additional attributes to apply to all body <c>tr</c> elements in the grid.
+	/// These attributes can be used to customize the appearance or behavior of rows.
+	/// </summary>
+	/// <remarks>
+	/// If both <see cref="ItemRowAdditionalAttributesSelector"/> and <see cref="ItemRowAdditionalAttributes"/> are specified,
+	/// both dictionaries are combined into one.
+	/// Note that there is no prevention of duplicate keys, which may result in a <see cref="System.ArgumentException"/>.
+	/// </remarks>
+	[Parameter] public Dictionary<string, object> ItemRowAdditionalAttributes { get; set; }
+
+	/// <summary>
+	/// Provides a dictionary of additional attributes to apply to the header <c>tr</c> element of the grid.
+	/// This allows for custom styling or behavior of the header row.
+	/// </summary>
+	[Parameter] public Dictionary<string, object> HeaderRowAdditionalAttributes { get; set; }
+
+	/// <summary>
+	/// Provides a dictionary of additional attributes to apply to the footer <c>tr</c> element of the grid.
+	/// This allows for custom styling or behavior of the footer row.
+	/// </summary>
+	[Parameter] public Dictionary<string, object> FooterRowAdditionalAttributes { get; set; }
+
+	/// <summary>
+	/// Determines the effective additional attributes for a given data row, combining both the global and per-item attributes.
+	/// </summary>
+	/// <param name="item">The data item for the current row.</param>
+	/// <returns>A dictionary of additional attributes to apply to the row.</returns>
+	/// <exception cref="System.ArgumentException">Thrown when there are duplicate keys in the combined dictionaries.</exception>
+	private Dictionary<string, object> ItemRowAdditionalAttributesSelectorEffective(TItem item)
+	{
+		if (ItemRowAdditionalAttributesSelector == null)
+		{
+			return ItemRowAdditionalAttributes;
+		}
+		else if (ItemRowAdditionalAttributes == null)
+		{
+			return ItemRowAdditionalAttributesSelector(item);
+		}
+		else
+		{
+			return ItemRowAdditionalAttributes.Concat(ItemRowAdditionalAttributesSelector(item)).ToDictionary(x => x.Key, x => x.Value);
+		}
+	}
+
+	/// <summary>
 	/// Retrieves the default settings for the grid. This method can be overridden in derived classes
 	/// to provide different default settings or to use a derived settings class.
 	/// </summary>
@@ -328,7 +397,10 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 		Contract.Requires<InvalidOperationException>(DataProvider != null, $"Property {nameof(DataProvider)} on {GetType()} must have a value.");
 		Contract.Requires<InvalidOperationException>(CurrentUserState != null, $"Property {nameof(CurrentUserState)} on {GetType()} must have a value.");
-		Contract.Requires<InvalidOperationException>(!MultiSelectionEnabled || (ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll), $"Cannot use multi selection with infinite scroll on {GetType()}.");
+		if ((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) && MultiSelectionEnabled)
+		{
+			Contract.Requires<InvalidOperationException>(PreserveSelectionEffective, $"{nameof(PreserveSelection)} must be enabled on {nameof(HxGrid)} when using {nameof(GridContentNavigationMode.InfiniteScroll)} with {nameof(MultiSelectionEnabled)}.");
+		}
 
 		if (_previousUserState != CurrentUserState)
 		{
@@ -525,7 +597,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		}
 		else // MultiSelectionEnabled
 		{
-			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItem>();
+			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? [];
 			if (selectedDataItems.Add(clickedDataItem) // when the item was added
 				|| selectedDataItems.Remove(clickedDataItem)) // or removed... But because of || item removal is performed only when the item was not added!
 			{
@@ -739,18 +811,21 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			{
 				_paginationDataItemsToRender = result.Data?.ToList();
 
-				if (!EqualityComparer<TItem>.Default.Equals(SelectedDataItem, default))
+				if (!PreserveSelectionEffective)
 				{
-					if ((_paginationDataItemsToRender == null) || !_paginationDataItemsToRender.Contains(SelectedDataItem))
+					if (!EqualityComparer<TItem>.Default.Equals(SelectedDataItem, default))
 					{
-						await SetSelectedDataItemWithEventCallback(default);
+						if ((_paginationDataItemsToRender == null) || !_paginationDataItemsToRender.Contains(SelectedDataItem))
+						{
+							await SetSelectedDataItemWithEventCallback(default);
+						}
 					}
-				}
 
-				if (SelectedDataItems?.Count > 0)
-				{
-					HashSet<TItem> selectedDataItems = _paginationDataItemsToRender?.Intersect(SelectedDataItems).ToHashSet() ?? new HashSet<TItem>();
-					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
+					if (SelectedDataItems?.Count > 0)
+					{
+						HashSet<TItem> selectedDataItems = _paginationDataItemsToRender?.Intersect(SelectedDataItems).ToHashSet() ?? new HashSet<TItem>();
+						await SetSelectedDataItemsWithEventCallback(selectedDataItems);
+					}
 				}
 			}
 			else
@@ -859,9 +934,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private async Task HandleMultiSelectUnselectDataItemClicked(TItem selectedDataItem)
 	{
 		Contract.Requires(MultiSelectionEnabled);
-		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
 
-		var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItem>();
+		var selectedDataItems = SelectedDataItems?.ToHashSet() ?? [];
 		if (selectedDataItems.Remove(selectedDataItem))
 		{
 			await SetSelectedDataItemsWithEventCallback(selectedDataItems);
@@ -871,24 +945,48 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private async Task HandleMultiSelectSelectAllClicked()
 	{
 		Contract.Requires(MultiSelectionEnabled, nameof(MultiSelectionEnabled));
-		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
 
 		if (_paginationDataItemsToRender is null)
 		{
-			await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>());
+			await SetSelectedDataItemsWithEventCallback([]);
 		}
 		else
 		{
-			await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>(_paginationDataItemsToRender));
+			if (PreserveSelectionEffective)
+			{
+				var selectedDataItems = SelectedDataItems?.ToHashSet() ?? [];
+				int originalCount = selectedDataItems.Count;
+				selectedDataItems.UnionWith(_paginationDataItemsToRender);
+				if (selectedDataItems.Count != originalCount)
+				{
+					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
+				}
+			}
+			else
+			{
+				await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>(_paginationDataItemsToRender));
+			}
 		}
 	}
 
 	private async Task HandleMultiSelectSelectNoneClicked()
 	{
 		Contract.Requires(MultiSelectionEnabled);
-		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
 
-		await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>());
+		if (PreserveSelectionEffective)
+		{
+			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? [];
+			int originalCount = selectedDataItems.Count;
+			selectedDataItems.ExceptWith(_paginationDataItemsToRender);
+			if (selectedDataItems.Count != originalCount)
+			{
+				await SetSelectedDataItemsWithEventCallback(selectedDataItems);
+			}
+		}
+		else
+		{
+			await SetSelectedDataItemsWithEventCallback([]);
+		}
 	}
 	#endregion
 

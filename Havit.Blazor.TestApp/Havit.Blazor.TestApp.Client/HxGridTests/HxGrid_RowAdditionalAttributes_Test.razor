@@ -1,0 +1,44 @@
+﻿@page "/HxGrid_RowAdditionalAttributes"
+@rendermode InteractiveServer
+@inject IDemoDataService DemoDataService
+
+<h3>HxGrid_RowAdditionalAttributes</h3>
+
+Selectet phone: @clickedEmployee?.Phone
+<HxGrid TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true"
+		HeaderRowAdditionalAttributes="headerRowAdditionalAttributes"
+		FooterRowAdditionalAttributes="footerRowAdditionalAttributes"
+		ItemRowAdditionalAttributes="itemRowAdditionalAttributes"
+		ItemRowAdditionalAttributesSelector="EmployeeRowAttributes">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" ItemCssClass="text-end" HeaderCssClass="text-end" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+	</Columns>
+</HxGrid>
+
+@code {
+	EmployeeDto clickedEmployee;
+	Dictionary<string, object> headerRowAdditionalAttributes = new() { { "data-row-type", "header" } };
+	Dictionary<string, object> footerRowAdditionalAttributes = new() { { "data-row-type", "footer" } };
+	Dictionary<string, object> itemRowAdditionalAttributes = new() { { "data-row-type", "row" }, { "data-other", "dummy" } };
+
+	private Dictionary<string, object> EmployeeRowAttributes(EmployeeDto e)
+	{
+		return new() {
+		   { "data-name", e?.Name },
+		   { "onmouseup", EventCallback.Factory.Create<MouseEventArgs>(this,x =>  clickedEmployee = e) } };
+	}
+
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken);
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = response.Data,
+				TotalCount = response.TotalCount
+			};
+	}
+}

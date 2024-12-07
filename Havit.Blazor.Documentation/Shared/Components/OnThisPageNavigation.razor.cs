@@ -3,67 +3,71 @@ using Microsoft.AspNetCore.Components.Routing;
 
 namespace Havit.Blazor.Documentation.Shared.Components;
 
-public partial class OnThisPageNavigation : IDisposable
+public partial class OnThisPageNavigation(
+	IDocPageNavigationItemsTracker docPageNavigationItemsHolder,
+	NavigationManager navigationManager) : IDisposable
 {
-	[Inject] public IDocPageNavigationItemsHolder DocPageNavigationItemsHolder { get; set; }
-	[Inject] public NavigationManager NavigationManager { get; set; }
-
 	[Parameter] public string CssClass { get; set; }
 
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
-	private IEnumerable<IDocPageNavigationItem> Items { get; set; }
+	private readonly IDocPageNavigationItemsTracker _docPageNavigationItemsHolder = docPageNavigationItemsHolder;
+	private readonly NavigationManager _navigationManager = navigationManager;
+
+	private List<DocPageNavigationItem> _items;
 
 	protected override void OnInitialized()
 	{
-		NavigationManager.LocationChanged += LoadItems;
+		_navigationManager.LocationChanged += LoadItems;
 	}
 
 	protected override void OnAfterRender(bool firstRender)
 	{
 		if (firstRender)
 		{
-			Items = DocPageNavigationItemsHolder.RetrieveAll(NavigationManager.Uri);
+			_items = _docPageNavigationItemsHolder.GetPageNavigationItems(_navigationManager.Uri);
 			StateHasChanged();
 		}
 	}
 
 	private void LoadItems(object sender, LocationChangedEventArgs eventArgs)
 	{
-		Items = DocPageNavigationItemsHolder.RetrieveAll(eventArgs.Location);
+		_items = _docPageNavigationItemsHolder.GetPageNavigationItems(eventArgs.Location);
 		StateHasChanged();
 	}
 
 	private RenderFragment GenerateNavigationTree() => builder =>
 	{
-		if (!Items.Any())
+		if (!_items.Any())
 		{
 			return;
 		}
 
-		var items = Items.ToList();
-		var topLevel = items.Min(i => i.Level);
+		List<DocPageNavigationItem> itemsToRender;
+		int topLevel;
 
 		// if there is only single top-level item, we don't need to render the top-level list
-		if (items.Count(i => i.Level == topLevel) == 1)
+		if (_items.Count(i => i.Level == 1) == 1)
 		{
-			items = items.Where(i => i.Level != topLevel).ToList();
-			topLevel = items.Min(i => i.Level);
+			itemsToRender = _items.Where(i => i.Level != 1).ToList();
+			topLevel = 2;
+		}
+		else
+		{
+			itemsToRender = _items;
+			topLevel = 1;
 		}
 
 		var currentLevel = topLevel;
-		int sequence = 1;
-		for (int i = 0; i < items.Count; i++)
+		foreach (var item in itemsToRender)
 		{
-			IDocPageNavigationItem item = items[i];
-
 			// Handle level adjustments - nested lists.
 			int levelDifference = Math.Abs(item.Level - currentLevel);
 			if (item.Level > currentLevel)
 			{
 				for (int j = 0; j < levelDifference; j++)
 				{
-					builder.OpenElement(sequence++, "ul");
+					builder.OpenElement(71, "ul");
 				}
 			}
 			else if (item.Level < currentLevel)
@@ -76,13 +80,12 @@ public partial class OnThisPageNavigation : IDisposable
 			currentLevel = item.Level;
 
 			// Render the list item and a link to the heading.
-			builder.OpenElement(sequence++, "li");
+			builder.OpenElement(84, "li");
 
-			builder.OpenElement(sequence++, "a");
-			builder.AddAttribute(sequence++, "href", item.GetItemUrl(NavigationManager.Uri)); // TODO direct usage of HxAnchorFragmentNavigation.ScrollToAnchorAsync() ?
-			builder.AddAttribute(sequence++, "class", "text-secondary mb-1 text-truncate");
-			builder.AddContent(sequence++, item.Title);
-			builder.AddContent(sequence++, item.ChildContent);
+			builder.OpenElement(86, "a");
+			builder.AddAttribute(87, "href", item.GetItemUrl(_navigationManager.Uri)); // TODO direct usage of HxAnchorFragmentNavigation.ScrollToAnchorAsync() ?
+			builder.AddAttribute(88, "class", "text-secondary mb-1 text-truncate");
+			builder.AddContent(89, item.Title);
 			builder.CloseElement();
 
 			builder.CloseElement();
@@ -96,6 +99,6 @@ public partial class OnThisPageNavigation : IDisposable
 
 	public void Dispose()
 	{
-		NavigationManager.LocationChanged -= LoadItems;
+		_navigationManager.LocationChanged -= LoadItems;
 	}
 }

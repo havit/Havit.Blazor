@@ -1,43 +1,44 @@
-﻿<HxSidebar>
-	<TogglerTemplate>
-		<div class="d-flex">
-			@if (context.SidebarCollapsed)
-			{
-				<span style="transform: translateX(15px) rotate(-90deg); font-size: 0.5rem;">
-					OPEN
-				</span>
-				<HxIcon Icon="BootstrapIcon.CaretRight" />
-			}
-			else
-			{
-				<HxIcon Icon="BootstrapIcon.CaretLeft" />
-				<span style="transform: translateX(-15px) rotate(90deg); font-size: 0.5rem;">
-					CLOSE
-				</span>
-			}
-		</div>
-	</TogglerTemplate>
+﻿<div class="d-flex border rounded-3 overflow-hidden">
+	<HxSidebar>
+		<TogglerTemplate>
+			<div class="d-flex">
+				@if (context.SidebarCollapsed)
+				{
+					<span style="transform: translateX(15px) rotate(-90deg); font-size: 0.5rem;">
+						OPEN
+					</span>
+					<HxIcon Icon="BootstrapIcon.CaretRight" />
+				}
+				else
+				{
+					<HxIcon Icon="BootstrapIcon.CaretLeft" />
+					<span style="transform: translateX(-15px) rotate(90deg); font-size: 0.5rem;">
+						CLOSE
+					</span>
+				}
+			</div>
+		</TogglerTemplate>
 
-	<HeaderTemplate>
-        <HxSidebarBrand BrandName="Brand name" BrandNameShort="BN"/>
-    </HeaderTemplate>
+		<HeaderTemplate>
+			<HxSidebarBrand BrandName="Brand name" BrandNameShort="BN"/>
+		</HeaderTemplate>
 
-    <ItemsTemplate>
-		<HxSidebarItem Text="Dashboard" Icon="BootstrapIcon.Columns" TooltipText="Dashboard" Href="/components/HxSidebar/dashboard" />
-		<HxSidebarItem Text="Employees" Icon="BootstrapIcon.People">
-			<HxSidebarItem Text="Overview" Href="/components/HxSidebar/employees" />
-			<HxSidebarItem Text="Absences" Href="/components/HxSidebar/absences" />
-		</HxSidebarItem>
-		<HxSidebarItem Text="Mine (with icons)" Icon="BootstrapIcon.Person">
-			<HxSidebarItem Text="Overview" Icon="BootstrapIcon.Wallet2" Href="/components/HxSidebar/mine" Match="NavLinkMatch.All" />
-			<HxSidebarItem Text="Timesheets" Icon="BootstrapIcon.Clock" Href="/components/HxSidebar/mine/timesheets" />
-			<HxSidebarItem Text="Absences" Icon="BootstrapIcon.Exclamation" Href="/components/HxSidebar/mine/absences" />
-		</HxSidebarItem>
-		<HxSidebarItem Text="Administration" Icon="BootstrapIcon.Gear" Href="/components/HxSidebar/admin" />
-	</ItemsTemplate>
+		<ItemsTemplate>
+			<HxSidebarItem Text="Dashboard" Icon="BootstrapIcon.Columns" TooltipText="Dashboard" Href="/components/HxSidebar/dashboard" />
+			<HxSidebarItem Text="Employees" Icon="BootstrapIcon.People">
+				<HxSidebarItem Text="Overview" Href="/components/HxSidebar/employees" />
+				<HxSidebarItem Text="Absences" Href="/components/HxSidebar/absences" />
+			</HxSidebarItem>
+			<HxSidebarItem Text="Mine (with icons)" Icon="BootstrapIcon.Person">
+				<HxSidebarItem Text="Overview" Icon="BootstrapIcon.Wallet2" Href="/components/HxSidebar/mine" Match="NavLinkMatch.All" />
+				<HxSidebarItem Text="Timesheets" Icon="BootstrapIcon.Clock" Href="/components/HxSidebar/mine/timesheets" />
+				<HxSidebarItem Text="Absences" Icon="BootstrapIcon.Exclamation" Href="/components/HxSidebar/mine/absences" />
+			</HxSidebarItem>
+			<HxSidebarItem Text="Administration" Icon="BootstrapIcon.Gear" Href="/components/HxSidebar/admin" />
+		</ItemsTemplate>
 
-	<FooterTemplate>
-		<HxSidebarFooter Href="/components/HxSidebar/login" Icon="BootstrapIcon.Person" Text="@(context.SidebarCollapsed ? null : "Login")" />
-    </FooterTemplate>
-</HxSidebar>
-
+		<FooterTemplate>
+			<HxSidebarFooter Icon="BootstrapIcon.PersonCircle" TextCssClass="@(context.SidebarCollapsed ? "d-md-none" : null)" Text="Login" Href="/components/HxSidebar/login" />
+		</FooterTemplate>
+	</HxSidebar>
+</div>

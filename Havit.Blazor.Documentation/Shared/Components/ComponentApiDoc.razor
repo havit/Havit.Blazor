@@ -1,6 +1,6 @@
 ﻿@using Havit.Blazor.Documentation.Services
 
-<PageCanonicalUrl RelativeUrl="@GetRelativeCanonicalUrl(_plainTypeName)" />
+<DocHeadContent CanonicalRelativeUrl="@GetRelativeCanonicalUrl(_plainTypeName)" />
 
 <DocHeading Title="@_plainTypeName" Id="@_plainTypeName" Level="1" />
 @if (!String.IsNullOrWhiteSpace(_model.Class?.Comments?.Summary))

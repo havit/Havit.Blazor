@@ -7,14 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <base href="/" />
 
-	<!-- Bootstrap CSS (you can set the Bootstrap flavor with a parameter) -->
-	@((MarkupString)HxSetup.RenderBootstrapCssReference())
-
-	<!-- Default values for additional CSS Variables (+ import Bootstrap Icons) -->
-	<link href="_content/Havit.Blazor.Components.Web.Bootstrap/defaults.css" rel="stylesheet" />
-
-	<link rel="stylesheet" href="app.css" />
-    <link rel="stylesheet" href="Havit.Blazor.TestApp.styles.css" />
+	<link rel="stylesheet" href="@Assets["_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.min.css"]" />
+    <link rel="stylesheet" href="@Assets["Havit.Blazor.TestApp.styles.css"]" />
+	<link rel="stylesheet" href="@Assets["app.css"]" />
+	<ImportMap />
     <HeadOutlet />
 </head>
 

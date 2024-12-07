@@ -1,8 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net9.0</TargetFramework>
+		<AssemblyName>Havit.Blazor.Documentation</AssemblyName>
+		<RootNamespace>Havit.Blazor.Documentation</RootNamespace>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+		<StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
+		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
 		<!--  VSTHRD003: Avoid awaiting or returning a Task representing work that was not started within your context as that can lead to deadlocks. -->
 		<!--  VSTHRD200: Allow HandleXyClick methods (without Async) -> Suppress 'Use "Async" suffix in names of methods that return an awaitable type' -->
 		<NoWarn>$(NoWarn);1701;1702;SA1134;VSTHRD003;VSTHRD200</NoWarn>
@@ -11,9 +16,6 @@
 	<ItemGroup>
 		<PackageReference Include="LoxSmoke.DocXml" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all" />
-		<PackageReference Include="Microsoft.Extensions.Localization" />
-		<PackageReference Include="System.Text.Json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -39,20 +41,9 @@
 		<EmbeddedResource Include="**/*.CodeSnippet.*" />
 		<EmbeddedResource Remove="GenericTypePlaceholders\**" />
 		<None Remove="GenericTypePlaceholders\**" />
-		<None Remove="Pages\GettingStarted_HxSetupCshtmlPage.CodeSnippet.html" />
-		<None Remove="Pages\GettingStarted_HxSetupRazorPage.CodeSnippet.html" />
 		<EmbeddedResource Update="**/*.CodeSnippet.*">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Update="Pages\Components\HxAutosuggestDoc\HxAutosuggest_Demo_InitialSuggestions.razor">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	  </Content>
-	  <Content Update="Pages\Components\HxSearchBoxDoc\HxSearchBox_Demo_InitialSuggestions.razor">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	  </Content>
 	</ItemGroup>
 
 	<Target Name="EmbedDemos" BeforeTargets="PrepareForBuild">
@@ -62,8 +53,4 @@
 			<EmbeddedResource Include="Pages/Components/HxDialogBaseDoc/CustomDialog.razor" />
 		</ItemGroup>
 	</Target>
-
-	<PropertyGroup>
-		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
-	</PropertyGroup>
 </Project>

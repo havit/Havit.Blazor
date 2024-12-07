@@ -2,24 +2,30 @@
 @attribute [Route("/components/" + nameof(HxTab))]
 
 <ComponentApiDoc Type="typeof(HxTabPanel)">
-    <DocHeading Title="Basic usage" />
+	<DocHeading Title="Basic usage" />
 	<Demo Type="typeof(HxTabPanel_Demo_BasicUsage)" Tabs="false" />
+	<DocAlert Type="DocAlertType.Info">
+		Wrapping <code>HxTab</code> components with <code>&lt;AuthorizeView&gt;</code> or similar structures is not supported.
+		<code>HxTabPanel</code> expects <code>HxTab</code> components to be its direct children.
+		To dynamically control tab visibility, set the <code>HxTab.Visible</code> parameter
+		or use conditional rendering with an <code>@@if</code> condition.<br />
+	</DocAlert>
 
-    <DocHeading Title="Getting/setting active tab from code" Id="active-tab" />
+	<DocHeading Title="Getting/setting active tab from code" Id="active-tab" />
 	<Demo Type="typeof(HxTabPanel_Demo_ActiveTabId)" />
 
-    <DocHeading Title="Nav variants" />
-    <p>You can choose any variant of <code>nav</code> using the <code>@nameof(HxTabPanel.NavVariant)</code> parameter.</p>
-    <DocHeading Title="Tabs" Level="3" />
-    <Demo Type="typeof(HxTabPanel_Demo_NavVariantTabs)" />
-    <DocHeading Title="Pills" Level="3" />
-    <Demo Type="typeof(HxTabPanel_Demo_NavVariantPills)" />
-    <DocHeading Title="Standard" Level="3" />
-    <Demo Type="typeof(HxTabPanel_Demo_NavVariantStandard)" />
+	<DocHeading Title="Nav variants" />
+	<p>You can choose any variant of <code>nav</code> using the <code>@nameof(HxTabPanel.NavVariant)</code> parameter.</p>
+	<DocHeading Title="Tabs" Level="3" />
+	<Demo Type="typeof(HxTabPanel_Demo_NavVariantTabs)" />
+	<DocHeading Title="Pills" Level="3" />
+	<Demo Type="typeof(HxTabPanel_Demo_NavVariantPills)" />
+	<DocHeading Title="Standard" Level="3" />
+	<Demo Type="typeof(HxTabPanel_Demo_NavVariantStandard)" />
 
-    <DocHeading Title="Card with tabs" />
-    <p>When <code>Variant</code> is set to <code><a href="/types/TabPanelVariant#Card">TabPanelVariant.Card</a></code>, the tab navigation is placed in the card header and tab contents go into the card body.</p>
-    <Demo Type="typeof(HxTabPanel_Demo_CardMode)" />
+	<DocHeading Title="Card with tabs" />
+	<p>When <code>Variant</code> is set to <code><a href="/types/TabPanelVariant#Card">TabPanelVariant.Card</a></code>, the tab navigation is placed in the card header and tab contents go into the card body.</p>
+	<Demo Type="typeof(HxTabPanel_Demo_CardMode)" />
 
 	<DocHeading Id="render-mode" Title="Rendering only active tab contents" />
 	<p>

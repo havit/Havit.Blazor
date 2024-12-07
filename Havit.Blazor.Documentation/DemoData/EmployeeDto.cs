@@ -1,6 +1,6 @@
 ﻿namespace Havit.Blazor.Documentation.DemoData;
 
-public class EmployeeDto
+public record EmployeeDto
 {
 	public int Id { get; internal set; }
 	public string Name { get; internal set; }

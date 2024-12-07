@@ -6,11 +6,11 @@
 <HxMessageBoxHost />
 
 <Navbar CssClass="d-none d-lg-block" />
-<div class="container-fluid d-md-flex min-vh-100">
+<div class="doc-container container-fluid d-md-flex min-vh-100">
 	<Sidebar />
 
-	<div style="min-width: 0;" class="doc-content main p-4 pt-0 flex-grow-1 overflow-hidden">
-        <CascadingValue Value="_pageCanonicalUrlTracker" IsFixed="true">
+	<div style="min-width: 0;" class="doc-content main p-md-4 pt-0 flex-grow-1 overflow-hidden">
+        <CascadingValue Value="_docHeadContentTracker" IsFixed="true">
 		    @Body
         </CascadingValue>
 	</div>
@@ -19,6 +19,3 @@
 		<h6 class="mt-3 pb-1 border-bottom">On this page</h6>
 	</OnThisPageNavigation>
 </div>
-
-@* Workaround for https://github.com/dotnet/aspnetcore/issues/54533 *@
-<AntiforgeryToken />
