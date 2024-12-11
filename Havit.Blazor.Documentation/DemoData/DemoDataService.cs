@@ -173,4 +173,18 @@ public partial class DemoDataService : IDemoDataService
 		existingEmployee.Position = employee.Position;
 		existingEmployee.Location = employee.Location;
 	}
+
+	public async Task<int> CreateNewEmployeeAsync(EmployeeDto employee, CancellationToken cancellationToken = default)
+	{
+		_logger.LogInformation($"DemoDataService.CreateNewEmployeeAsync() called.");
+		Contract.Requires<ArgumentException>(employee.Id == 0, "Employee ID must be 0.");
+
+		// simulate server call
+		await Task.Delay(140, cancellationToken);
+
+		var newEmployee = employee with { Id = _employees.Max(e => e.Id) + 1 };
+		_employees.Add(newEmployee);
+
+		return newEmployee.Id;
+	}
 }

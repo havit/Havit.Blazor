@@ -64,11 +64,10 @@ export function destroy(inputElement) {
 
 	const d = bootstrap.Dropdown.getInstance(inputElement);
 	if (d) {
-		d.hide();
-
 		inputElement.addEventListener('hidden.bs.dropdown', event => {
-			dropdown.dispose()
+			d.dispose()
 		})
+		d.hide();
 	}
 }
 

@@ -16,4 +16,5 @@ public interface IDemoDataService
 
 	Task UpdateEmployeeAsync(EmployeeDto employee, CancellationToken cancellationToken = default);
 	Task DeleteEmployeeAsync(int employeeId, CancellationToken cancellationToken = default);
+	Task<int> CreateNewEmployeeAsync(EmployeeDto employee, CancellationToken cancellationToken = default);
 }
