@@ -1,6 +1,10 @@
 @page "/showcase/{Id}"
 @layout HomeLayout
 
+<PageTitle>@_showcase.Title Showcase | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
+<DocHeadContent CanonicalRelativeUrl="@($"showcase/{_showcase.Id}")" />
+
+
 <div class="showcase-detail-header hero" style="--hero-opacity: .15;">
 	<div class="container d-flex justify-content-between align-items-center" style="height: 200px;">
 		<ShowcaseNavigationLink Direction="Previous" Title="@_previousShowcase.Title" IconStart="BootstrapIcon.ArrowLeft" Href="@($"showcase/{_previousShowcase.Id}")" />
