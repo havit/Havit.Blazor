@@ -1,0 +1,29 @@
+@page "/showcase"
+@layout HomeLayout
+@inject IShowcaseDataService ShowcaseDataService
+
+<PageTitle>Showcase | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
+<DocHeadContent CanonicalRelativeUrl="showcase" />
+
+
+<div class="hero py-5">
+    <div class="text-center py-4 my-4">
+        <h1 class="fw-bold display-3">You can build anything with HAVIT Blazor</h1>
+        <p class="lead">HAVIT Blazor gives you the tools to create amazing projects.<br/>It might not launch you into space, but it’s perfect for building the app to navigate your journey!</p>
+    </div>
+    <div class="d-flex align-items-center justify-content-center gap-3 my-4">    
+        <p class="lead mb-0">Feel like showing off?</p>
+        <a href="mailto:blazor@havit.eu" class="btn btn-dark btn-lg rounded-pill">
+            Submit your project
+            <HxIcon Icon="BootstrapIcon.SendFill" />
+        </a>
+    </div>
+</div>
+<div class="container">
+    <div class="showcase-list d-flex gap-3 flex-wrap justify-content-center">
+        @foreach (var item in ShowcaseDataService.GetShowcases())
+        {
+            <ShowcaseListItem Showcase="item" />
+        }
+    </div>
+</div>

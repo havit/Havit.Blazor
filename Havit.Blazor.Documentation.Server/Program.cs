@@ -1,5 +1,6 @@
 using System.Globalization;
 using Havit.Blazor.Documentation.DemoData;
+using Havit.Blazor.Documentation.Pages.Showcase.Data;
 using Havit.Blazor.Documentation.Server.Services;
 using Havit.Blazor.Documentation.Services;
 using Havit.Blazor.Documentation.Shared.Components.DocColorMode;
@@ -43,6 +44,7 @@ public class Program
 			.WithInferenceBackend<OpenAIInferenceBackend>();
 		builder.Services.AddSingleton<LocalEmbedder>();
 
+		builder.Services.AddSingleton<IShowcaseDataService, ShowcaseDataService>();
 		builder.Services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
 		builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
 		builder.Services.AddSingleton<IDocPageNavigationItemsTracker, DocPageNavigationItemsTracker>();

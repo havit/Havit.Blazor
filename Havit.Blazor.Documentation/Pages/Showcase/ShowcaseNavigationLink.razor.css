@@ -1,0 +1,19 @@
+.showcase-navigation-link-text {
+    color: var(--bs-secondary);
+}
+
+.showcase-navigation-link:hover .showcase-navigation-link-text {
+    color: var(--bs-primary);
+}
+
+::deep .hx-icon {
+    transition: .2s ease-in-out transform;
+}
+
+.showcase-navigation-link:hover ::deep .bi-arrow-left {
+    transform: translate3d(-.25em,0,0);
+}
+
+.showcase-navigation-link:hover ::deep .bi-arrow-right {
+    transform: translate3d(.25em,0,0);
+}
