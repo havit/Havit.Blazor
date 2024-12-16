@@ -5,6 +5,7 @@
 ::deep .hx-grid:has(.sticky-top) {
 	border-collapse: separate;
 	border-spacing: 0;
+    isolation: isolate;
 }
 
 .hx-list-layout:has(.sticky-top) ::deep .dropdown-menu {
