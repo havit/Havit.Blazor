@@ -54,6 +54,11 @@
 	color: var(--hx-sidebar-parent-item-active-icon-color);
 }
 
+::deep a.nav-link:hover .hx-sidebar-item-icon,
+.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep .hx-sidebar-item:hover .hx-sidebar-item-icon {
+	color: var(--hx-sidebar-item-hover-icon-color);
+}
+
 ::deep a.nav-link:hover,
 .hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link:hover {
 	background-color: rgba(var(--hx-sidebar-item-hover-background-color), var(--hx-sidebar-item-hover-background-opacity));
@@ -63,4 +68,16 @@
 ::deep .dropdown-menu {
 	max-height: 75vh;
 	overflow: auto;
+}
+
+::deep .hx-sidebar-item-icon {
+	color: var(--hx-sidebar-item-icon-color);
+}
+
+::deep a.nav-link.active .hx-sidebar-item-icon {
+	color: var(--hx-sidebar-item-active-icon-color);
+}
+
+::deep a.nav-link.active:hover .hx-sidebar-item-icon {
+	color: var(--hx-sidebar-item-hover-icon-color);
 }

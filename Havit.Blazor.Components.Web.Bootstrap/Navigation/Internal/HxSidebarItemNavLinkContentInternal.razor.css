@@ -22,15 +22,3 @@
 	transition: transform .35s ease;
 	transform-origin: .5em 50%;
 }
-
-::deep .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-item-icon-color);
-}
-
-a.nav-link:hover ::deep .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-item-hover-icon-color);
-}
-
-a.nav-link.active ::deep .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-item-active-icon-color);
-}
