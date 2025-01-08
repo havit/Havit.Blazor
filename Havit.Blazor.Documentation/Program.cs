@@ -36,6 +36,10 @@ public class Program
 
 		builder.Services.AddTransient<IDemoDataService, DemoDataService>();
 
+#if DEBUG
+		builder.Logging.SetMinimumLevel(LogLevel.Debug);
+#endif
+
 		await builder.Build().RunAsync();
 	}
 }
