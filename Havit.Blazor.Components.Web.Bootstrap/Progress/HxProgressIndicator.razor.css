@@ -1,6 +1,5 @@
 .hx-progress-overlay {
     position: relative;
-    isolation: isolate;
 }
 
 .hx-progress-indicator {
