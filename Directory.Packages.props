@@ -2,8 +2,8 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-    <AspNetCoreVersion8>8.0.11</AspNetCoreVersion8>
-    <AspNetCoreVersion9>9.0.0</AspNetCoreVersion9>
+    <AspNetCoreVersion8>9.0.1</AspNetCoreVersion8>
+    <AspNetCoreVersion9>9.0.1</AspNetCoreVersion9>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
