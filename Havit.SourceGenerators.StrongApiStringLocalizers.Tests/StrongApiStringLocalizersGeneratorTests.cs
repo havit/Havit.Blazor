@@ -10,7 +10,7 @@ namespace Havit.SourceGenerators.StrongApiStringLocalizers.Tests;
 public class StrongApiStringLocalizersGeneratorTests
 {
 	[TestMethod]
-	public async Task LocalizerGenerator_Test()
+	public async Task StrongApiStringLocalizersGenerator_Test()
 	{
 		using var globalResxStream = File.OpenRead("Global.resx");
 
