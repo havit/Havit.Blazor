@@ -78,6 +78,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.TestApp", "Hav
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.TestApp.Client", "Havit.Blazor.TestApp\Havit.Blazor.TestApp.Client\Havit.Blazor.TestApp.Client.csproj", "{38D87399-13C1-4C86-9343-712EAE6095F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.SourceGenerators.StrongApiStringLocalizers.Tests", "Havit.SourceGenerators.StrongApiStringLocalizers.Tests\Havit.SourceGenerators.StrongApiStringLocalizers.Tests.csproj", "{9236499E-62FF-4C2F-92A0-408143D67E72}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -180,6 +182,10 @@ Global
 		{38D87399-13C1-4C86-9343-712EAE6095F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38D87399-13C1-4C86-9343-712EAE6095F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38D87399-13C1-4C86-9343-712EAE6095F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9236499E-62FF-4C2F-92A0-408143D67E72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9236499E-62FF-4C2F-92A0-408143D67E72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9236499E-62FF-4C2F-92A0-408143D67E72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9236499E-62FF-4C2F-92A0-408143D67E72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -196,6 +202,7 @@ Global
 		{E64B4752-B697-4B5A-91F0-8A8581B1ABE5} = {79C29E4F-EF98-4F43-9782-B0D58A533C4D}
 		{F6A546C8-60C3-47AC-A58B-66E3513DCC7A} = {79C29E4F-EF98-4F43-9782-B0D58A533C4D}
 		{45BC138B-4F00-43DD-BF5D-D2FC36972857} = {D7B56FC7-6322-4B66-B34F-A972805BF740}
+		{9236499E-62FF-4C2F-92A0-408143D67E72} = {201D627C-BC35-4971-95D0-5BA656E771F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA2F0FE2-9DA0-4C29-8772-0802E2E67119}
