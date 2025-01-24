@@ -30,7 +30,9 @@ internal class LocalizerInterfaceSourceBuilder
 		builder.AppendLine("{");
 		foreach (var property in _resxBuildData.Properties)
 		{
-			builder.AppendLine($"\tLocalizedString {property} {{ get; }}");
+			builder.AppendSummaryCommentLine(property.Comment);
+			builder.AppendLine($"\tLocalizedString {property.Name} {{ get; }}");
+			builder.AppendLine();
 		}
 		builder.AppendLine("}");
 

@@ -117,7 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CzechAndHtml" xml:space="preserve">
+    <value>Čeština je &lt;b&gt;skvělá&lt;/b&gt;!</value>
+  </data>
   <data name="HelloWorld" xml:space="preserve">
     <value>Hello world!!!</value>
+    <comment>Hello world resource comment.</comment>
   </data>
 </root>

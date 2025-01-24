@@ -11,5 +11,5 @@ internal class ResourceData
 	public string LocalizerImplementationClassName => $"{ResourceName}Localizer";
 	public string LocalizerInterfaceName => $"I{ResourceName}Localizer";
 
-	public List<string> Properties { get; set; }
+	public List<ResourcePropertyItem> Properties { get; set; }
 }

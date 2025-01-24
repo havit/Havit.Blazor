@@ -49,7 +49,16 @@ using Microsoft.Extensions.Localization;
 [GeneratedCode(""Havit.SourceGenerators.StrongApiStringLocalizers.StrongApiStringLocalizersGenerator"", ""2.0.0.0"")]
 public interface IGlobalLocalizer : IStringLocalizer
 {
+	/// <summary>
+	/// Čeština je &lt;b&gt;skvělá&lt;/b&gt;!
+	/// </summary>
+	LocalizedString CzechAndHtml { get; }
+
+	/// <summary>
+	/// Hello world resource comment.
+	/// </summary>
 	LocalizedString HelloWorld { get; }
+
 }
 "));
 
@@ -72,6 +81,14 @@ public class GlobalLocalizer : IGlobalLocalizer
 		_localizer = stringLocalizerFactory.Create(""MyResources.Global"", ""TestProject"");
 	}
 
+	/// <summary>
+	/// Čeština je &lt;b&gt;skvělá&lt;/b&gt;!
+	/// </summary>
+	public LocalizedString CzechAndHtml => _localizer[""CzechAndHtml""];
+
+	/// <summary>
+	/// Hello world resource comment.
+	/// </summary>
 	public LocalizedString HelloWorld => _localizer[""HelloWorld""];
 
 	LocalizedString IStringLocalizer.this[string name] => _localizer[name];

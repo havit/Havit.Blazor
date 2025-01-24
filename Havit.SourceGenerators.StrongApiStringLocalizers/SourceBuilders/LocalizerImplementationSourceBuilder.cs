@@ -43,9 +43,10 @@ internal class LocalizerImplementationSourceBuilder
 		// properties
 		foreach (var property in _resxBuildData.Properties)
 		{
-			builder.AppendLine($"\tpublic LocalizedString {property} => _localizer[\"{property}\"];");
+			builder.AppendSummaryCommentLine(property.Comment);
+			builder.AppendLine($"\tpublic LocalizedString {property.Name} => _localizer[\"{property.Name}\"];");
+			builder.AppendLine();
 		}
-		builder.AppendLine();
 
 		// IStringLocalizer
 		builder.AppendLine("\tLocalizedString IStringLocalizer.this[string name] => _localizer[name];");

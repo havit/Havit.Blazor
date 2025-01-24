@@ -114,14 +114,14 @@ public class StrongApiStringLocalizersGenerator : IIncrementalGenerator
 	}
 
 
-	private static List<string> GetResxPropertiesSafe(AdditionalText resx, CancellationToken cancellationToken)
+	private static List<ResourcePropertyItem> GetResxPropertiesSafe(AdditionalText resx, CancellationToken cancellationToken)
 	{
 		try
 		{
 			string resxContent = resx.GetText(cancellationToken).ToString();
 			var resxXmlDoc = XDocument.Parse(resxContent);
 
-			var result = new List<string>();
+			var result = new List<ResourcePropertyItem>();
 			foreach (var item in resxXmlDoc.Root.Elements("data"))
 			{
 				var nameAttribute = item.Attribute("name");
@@ -130,9 +130,16 @@ public class StrongApiStringLocalizersGenerator : IIncrementalGenerator
 					continue;
 				}
 
-				result.Add(nameAttribute.Value);
+				string comment = item.Element("comment")?.Value;
+				string value = item.Element("value")?.Value;
+
+				result.Add(new ResourcePropertyItem
+				{
+					Name = nameAttribute.Value,
+					Comment = comment ?? value,
+				});
 			}
-			return result.OrderBy(item => item, StringComparer.InvariantCultureIgnoreCase).ToList();
+			return result.OrderBy(item => item.Name, StringComparer.InvariantCultureIgnoreCase).ToList();
 		}
 		catch (XmlException)
 		{
