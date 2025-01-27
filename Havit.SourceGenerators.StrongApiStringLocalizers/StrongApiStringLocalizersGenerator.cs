@@ -12,8 +12,8 @@ namespace Havit.SourceGenerators.StrongApiStringLocalizers;
 [Generator]
 public class StrongApiStringLocalizersGenerator : IIncrementalGenerator
 {
-	private static readonly DiagnosticDescriptor s_noResx = new DiagnosticDescriptor(id: "HLG1001", title: "No resx file found", messageFormat: "There is not RESX file available to source generator. To enable RESX files to the source generator place <ItemGroup><AdditionalFiles Include=\"**\\*.resx\" /></ItemGroup> in the csproj file.", category: nameof(StrongApiStringLocalizersGenerator), DiagnosticSeverity.Warning, isEnabledByDefault: true);
-	private static readonly DiagnosticDescriptor s_xmlParseWarning = new DiagnosticDescriptor(id: "HLG1002", title: "Cannot parse RESX file", messageFormat: "Cannot parse RESX file '{0}'", category: nameof(StrongApiStringLocalizersGenerator), DiagnosticSeverity.Warning, isEnabledByDefault: true);
+	private static readonly DiagnosticDescriptor s_noResx = new DiagnosticDescriptor(id: "HLG1001", title: "No resx file found", messageFormat: "There is not RESX file available to source generator. To enable RESX files to the source generator place <ItemGroup><AdditionalFiles Include=\"**\\*.resx\" /></ItemGroup> in the csproj file.", category: "Usage", DiagnosticSeverity.Warning, isEnabledByDefault: true);
+	private static readonly DiagnosticDescriptor s_xmlParseWarning = new DiagnosticDescriptor(id: "HLG1002", title: "Cannot parse RESX file", messageFormat: "Cannot parse RESX file '{0}'", category: "Usage", DiagnosticSeverity.Warning, isEnabledByDefault: true);
 
 	public void Initialize(IncrementalGeneratorInitializationContext initializationContext)
 	{

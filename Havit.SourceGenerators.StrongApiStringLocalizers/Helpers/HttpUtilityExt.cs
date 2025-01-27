@@ -94,7 +94,7 @@ internal static partial class HttpUtilityExt
 						goto default;
 					}
 				default:
-					if (unicodeText[i] >= ' ' && unicodeText[i] <= 0x007E
+					if (((unicodeText[i] >= ' ') && (unicodeText[i] <= 0x007E))
 						|| opIgnoreNonASCIICharacters)
 					{
 						result.Append(unicodeText[i]);
