@@ -1,5 +1,16 @@
 ﻿export function show(element, hxModalDotnetObjectReference, closeOnEscape, subscribeToHideEvent) {
-	if (!element || bootstrap.Modal.getInstance(element)) {
+	if (window.modalElement) {
+		const previousModal = bootstrap.Modal.getInstance(window.modalElement);
+		if (previousModal) {
+			// Although opening a new offcanvas should close the previous one,
+			// we do not set previousOffcanvas.hidePreventionDisabled = true and force the hide() here (when handling the OnHiding event)
+			// We want the developer to handle such specific scenarios on their own.
+			// This might be subject to change in the future.
+			previousModal.hide();
+		}
+	}
+
+	if (!element) {
 		return;
 	}
 
@@ -9,6 +20,7 @@
 	}
 	element.addEventListener('hidden.bs.modal', handleModalHidden);
 	element.addEventListener('shown.bs.modal', handleModalShown);
+	window.modalElement = element;
 
 	const modal = new bootstrap.Modal(element, {
 		keyboard: closeOnEscape
