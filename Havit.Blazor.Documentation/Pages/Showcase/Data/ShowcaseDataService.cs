@@ -52,7 +52,7 @@ public class ShowcaseDataService : IShowcaseDataService
 			ImageUrl = "images/showcase/Edenred.png",
 			Author = "HAVIT",
 			AuthorUrl = "https://www.havit.eu",
-		},		
+		},	
 		new()
 		{
 			Id = "zachranka",
