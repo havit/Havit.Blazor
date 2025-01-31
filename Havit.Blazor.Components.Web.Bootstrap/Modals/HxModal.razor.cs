@@ -228,6 +228,8 @@ public partial class HxModal : IAsyncDisposable
 		{
 			_onAfterRenderTasksQueue.Enqueue(async () =>
 			{
+				Console.WriteLine($"{nameof(HxModal)}.{nameof(HxModal.ShowAsync)} elementId: {_modalElement.Id}, opened: {_opened}");
+
 				// Running JS interop is postponed to OnAfterRenderAsync to ensure modalElement is set
 				// and correct order of commands (Show/Hide) is preserved
 				_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxModal));
@@ -235,6 +237,7 @@ public partial class HxModal : IAsyncDisposable
 				{
 					return;
 				}
+
 				await _jsModule.InvokeVoidAsync("show", _modalElement, _dotnetObjectReference, CloseOnEscapeEffective, OnHiding.HasDelegate);
 			});
 		}
@@ -258,6 +261,8 @@ public partial class HxModal : IAsyncDisposable
 
 		_onAfterRenderTasksQueue.Enqueue(async () =>
 		{
+			Console.WriteLine($"{nameof(HxModal)}.{nameof(HxModal.HideAsync)} elementId: {_modalElement.Id}, opened: {_opened}");
+
 			// Running JS interop is postponed to OnAfterRenderAsync to ensure modalElement is set
 			// and correct order of commands (Show/Hide) is preserved
 			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxModal));
@@ -265,6 +270,7 @@ public partial class HxModal : IAsyncDisposable
 			{
 				return;
 			}
+
 			await _jsModule.InvokeVoidAsync("hide", _modalElement);
 		});
 		StateHasChanged(); // enforce rendering
@@ -306,6 +312,7 @@ public partial class HxModal : IAsyncDisposable
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
+		Console.WriteLine($"{nameof(HxModal)}.{nameof(HxModal.OnAfterRenderAsync)} - elementId: {_modalElement.Id}, opened: {_opened}");
 		while (_onAfterRenderTasksQueue.TryDequeue(out var task))
 		{
 			await task();
