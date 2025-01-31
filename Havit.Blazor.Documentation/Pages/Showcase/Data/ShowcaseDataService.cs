@@ -52,7 +52,26 @@ public class ShowcaseDataService : IShowcaseDataService
 			ImageUrl = "images/showcase/Edenred.png",
 			Author = "HAVIT",
 			AuthorUrl = "https://www.havit.eu",
+		},		
+		new()
+		{
+			Id = "zachranka",
+			Title = "NG-SOS",
+			Description = "Emergency communication platform",
+			ImageUrl = "images/showcase/Ngsos.jpg",
+			Author = "NG-SOS",
+			AuthorUrl = "https://ng-sos.com",
 		},
+		new()
+		{
+			Id = "skdoatube",
+			Title = "SkodaTube",
+			Description = "Digital media platform",
+			ImageUrl = "images/showcase/SkodaTube.png",
+			Author = "HAVIT",
+			AuthorUrl = "https://www.havit.eu",
+		},
+
 	};
 
 	public ShowcaseModel GetShowcase(string key)
