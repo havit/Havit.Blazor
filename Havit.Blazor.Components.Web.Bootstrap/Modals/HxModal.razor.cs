@@ -94,6 +94,12 @@ public partial class HxModal : IAsyncDisposable
 	protected ModalFullscreen FullscreenEffective => Fullscreen ?? GetSettings()?.Fullscreen ?? GetDefaults().Fullscreen ?? throw new InvalidOperationException(nameof(Fullscreen) + " default for " + nameof(HxModal) + " has to be set.");
 
 	/// <summary>
+	/// Determines whether the content is always rendered or only if the modal is open.<br />
+	/// The default is <see cref="ModalRenderMode.OpenOnly"/>.<br />
+	/// </summary>
+	[Parameter] public ModalRenderMode RenderMode { get; set; } = ModalRenderMode.OpenOnly;
+
+	/// <summary>
 	/// Indicates whether the modal shows close button in header.
 	/// Default value is <c>true</c>.
 	/// </summary>
@@ -228,8 +234,6 @@ public partial class HxModal : IAsyncDisposable
 		{
 			_onAfterRenderTasksQueue.Enqueue(async () =>
 			{
-				Console.WriteLine($"{nameof(HxModal)}.{nameof(HxModal.ShowAsync)} elementId: {_modalElement.Id}, opened: {_opened}");
-
 				// Running JS interop is postponed to OnAfterRenderAsync to ensure modalElement is set
 				// and correct order of commands (Show/Hide) is preserved
 				_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxModal));
@@ -261,8 +265,6 @@ public partial class HxModal : IAsyncDisposable
 
 		_onAfterRenderTasksQueue.Enqueue(async () =>
 		{
-			Console.WriteLine($"{nameof(HxModal)}.{nameof(HxModal.HideAsync)} elementId: {_modalElement.Id}, opened: {_opened}");
-
 			// Running JS interop is postponed to OnAfterRenderAsync to ensure modalElement is set
 			// and correct order of commands (Show/Hide) is preserved
 			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxModal));
@@ -312,7 +314,6 @@ public partial class HxModal : IAsyncDisposable
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		Console.WriteLine($"{nameof(HxModal)}.{nameof(HxModal.OnAfterRenderAsync)} - elementId: {_modalElement.Id}, opened: {_opened}");
 		while (_onAfterRenderTasksQueue.TryDequeue(out var task))
 		{
 			await task();

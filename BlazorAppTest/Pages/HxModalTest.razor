@@ -7,19 +7,27 @@
 <HxModal @ref="myModal" Title="Modal title">
 	<BodyTemplate>
 		Body
-		<HxButton OnClick="HandleShowNestedClick" Color="ThemeColor.Danger">Show nested (exception expected)</HxButton>
-
-		<HxModal @ref="myNestedModal" />
+		<HxButton OnClick="HandleShowSecondClick" Color="ThemeColor.Danger">Show second</HxButton>
 	</BodyTemplate>
 	<FooterTemplate>
 		<HxButton Text="Close" OnClick="HandleHideClick" Color="ThemeColor.Secondary" />
 	</FooterTemplate>
 </HxModal>
 
+<HxModal @ref="mySecondModal">
+	<BodyTemplate>
+		Second
+	</BodyTemplate>
+	<FooterTemplate>
+		<HxButton Text="Close" OnClick="HandleHideSecondClick" Color="ThemeColor.Secondary" />
+	</FooterTemplate>
+</HxModal>
+
+
 @code
 {
 	private HxModal myModal;
-	private HxModal myNestedModal;
+	private HxModal mySecondModal;
 
 	private async Task HandleShowClick()
 	{
@@ -31,10 +39,14 @@
 		await myModal.HideAsync();
 	}
 
-	private async Task HandleShowNestedClick()
+	private async Task HandleHideSecondClick()
 	{
-		await myNestedModal.ShowAsync();
+		await mySecondModal.HideAsync();
 	}
 
 
+	private async Task HandleShowSecondClick()
+	{
+		await mySecondModal.ShowAsync();
+	}
 }

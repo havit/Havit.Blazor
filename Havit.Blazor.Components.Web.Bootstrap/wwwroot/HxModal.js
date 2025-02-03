@@ -2,10 +2,6 @@
 	if (window.modalElement) {
 		const previousModal = bootstrap.Modal.getInstance(window.modalElement);
 		if (previousModal) {
-			// Although opening a new offcanvas should close the previous one,
-			// we do not set previousOffcanvas.hidePreventionDisabled = true and force the hide() here (when handling the OnHiding event)
-			// We want the developer to handle such specific scenarios on their own.
-			// This might be subject to change in the future.
 			previousModal.hide();
 		}
 	}
@@ -67,7 +63,7 @@ function handleModalHidden(event) {
 	event.target.hxModalHiding = false;
 
 	if (event.target.hxModalDisposing) {
-		// fix for #110 where the dispose() gets called while the offcanvas is still in hiding-transition
+		// fix for #110 where the dispose() gets called while the modal is still in hiding-transition
 		dispose(event.target, false);
 		return;
 	}
@@ -83,7 +79,7 @@ export function dispose(element, opened) {
 	element.hxModalDisposing = true;
 
 	if (element.hxModalHiding) {
-		// fix for #110 where the dispose() gets called while the offcanvas is still in hiding-transition
+		// fix for #110 where the dispose() gets called while the modal is still in hiding-transition
 		return;
 	}
 
