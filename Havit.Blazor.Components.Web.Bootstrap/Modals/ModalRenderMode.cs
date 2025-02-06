@@ -13,7 +13,7 @@ public enum ModalRenderMode
 
 	/// <summary>
 	/// Modal content is always rendered (and hidden with CSS if not open).
-	/// Needed for HxFilterForm with HxChipList.
+	/// Needed for rendering chips from filter, etc.
 	/// </summary>
 	Always = 1
 }
