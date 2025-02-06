@@ -96,8 +96,7 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 		builder.AddAttribute(104, "class", CssClassHelper.Combine(
 			"hx-toast toast",
 			ssrInit ? "hx-toast-init" : null,
-			Color?.ToBackgroundColorCss(),
-			HasContrastColor() ? "text-white" : "text-dark",
+			Color?.ToTextBackgroundColorCss(),
 			CssClass));
 
 		if (AutohideDelay != null)
@@ -113,7 +112,7 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 		if (renderHeader)
 		{
 			builder.OpenElement(200, "div");
-			builder.AddAttribute(201, "class", CssClassHelper.Combine("toast-header", Color?.ToBackgroundColorCss(), HasContrastColor() ? "text-white" : "text-dark"));
+			builder.AddAttribute(201, "class", CssClassHelper.Combine("toast-header", Color?.ToTextBackgroundColorCss()));
 
 			if (HeaderIcon != null)
 			{
