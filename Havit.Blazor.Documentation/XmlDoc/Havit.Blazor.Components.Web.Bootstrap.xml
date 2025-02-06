@@ -7888,6 +7888,12 @@
             Fullscreen behavior of the modal. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.Disabled"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.RenderMode">
+            <summary>
+            Determines whether the content is always rendered or only if the modal is open.<br />
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalRenderMode.OpenOnly"/>.<br />
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.ShowCloseButton">
             <summary>
             Indicates whether the modal shows close button in header.
@@ -8199,6 +8205,23 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalHidingEventArgs.Cancel">
             <summary>
             Set <c>true</c> to prevent modal hiding.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalRenderMode">
+            <summary>
+            Modal render mode.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalRenderMode.OpenOnly">
+            <summary>
+            Modal content is rendered only when it is open.
+            Suitable for item-detail, item-edit, etc.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalRenderMode.Always">
+            <summary>
+            Modal content is always rendered (and hidden with CSS if not open).
+            Needed for rendering chips from filter, etc.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalSettings">

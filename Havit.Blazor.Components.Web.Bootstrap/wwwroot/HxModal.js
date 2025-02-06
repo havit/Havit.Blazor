@@ -1,5 +1,12 @@
 ﻿export function show(element, hxModalDotnetObjectReference, closeOnEscape, subscribeToHideEvent) {
-	if (!element || bootstrap.Modal.getInstance(element)) {
+	if (window.modalElement) {
+		const previousModal = bootstrap.Modal.getInstance(window.modalElement);
+		if (previousModal) {
+			previousModal.hide();
+		}
+	}
+
+	if (!element) {
 		return;
 	}
 
@@ -9,6 +16,7 @@
 	}
 	element.addEventListener('hidden.bs.modal', handleModalHidden);
 	element.addEventListener('shown.bs.modal', handleModalShown);
+	window.modalElement = element;
 
 	const modal = new bootstrap.Modal(element, {
 		keyboard: closeOnEscape
@@ -55,7 +63,7 @@ function handleModalHidden(event) {
 	event.target.hxModalHiding = false;
 
 	if (event.target.hxModalDisposing) {
-		// fix for #110 where the dispose() gets called while the offcanvas is still in hiding-transition
+		// fix for #110 where the dispose() gets called while the modal is still in hiding-transition
 		dispose(event.target, false);
 		return;
 	}
@@ -71,7 +79,7 @@ export function dispose(element, opened) {
 	element.hxModalDisposing = true;
 
 	if (element.hxModalHiding) {
-		// fix for #110 where the dispose() gets called while the offcanvas is still in hiding-transition
+		// fix for #110 where the dispose() gets called while the modal is still in hiding-transition
 		return;
 	}
 

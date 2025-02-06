@@ -94,6 +94,12 @@ public partial class HxModal : IAsyncDisposable
 	protected ModalFullscreen FullscreenEffective => Fullscreen ?? GetSettings()?.Fullscreen ?? GetDefaults().Fullscreen ?? throw new InvalidOperationException(nameof(Fullscreen) + " default for " + nameof(HxModal) + " has to be set.");
 
 	/// <summary>
+	/// Determines whether the content is always rendered or only if the modal is open.<br />
+	/// The default is <see cref="ModalRenderMode.OpenOnly"/>.<br />
+	/// </summary>
+	[Parameter] public ModalRenderMode RenderMode { get; set; } = ModalRenderMode.OpenOnly;
+
+	/// <summary>
 	/// Indicates whether the modal shows close button in header.
 	/// Default value is <c>true</c>.
 	/// </summary>
@@ -235,6 +241,7 @@ public partial class HxModal : IAsyncDisposable
 				{
 					return;
 				}
+
 				await _jsModule.InvokeVoidAsync("show", _modalElement, _dotnetObjectReference, CloseOnEscapeEffective, OnHiding.HasDelegate);
 			});
 		}
@@ -265,6 +272,7 @@ public partial class HxModal : IAsyncDisposable
 			{
 				return;
 			}
+
 			await _jsModule.InvokeVoidAsync("hide", _modalElement);
 		});
 		StateHasChanged(); // enforce rendering
