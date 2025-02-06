@@ -32,7 +32,7 @@ public class DateHelperTests
 	}
 
 	[TestMethod]
-	public void DateHelper_TryParseDateFromString_ShortWithoutYear_CZ()
+	public void DateHelper_TryParseDateFromString_ShortDayMonth_CZ()
 	{
 		// arrange
 		var fixture = new Fixture().WithCulture("cs-CZ");
@@ -43,6 +43,16 @@ public class DateHelperTests
 		fixture.ExecuteTest<DateTime?>("07 08", expectedResult: true, expectedParsedDate: new DateTime(fixture.CurrentYear, 08, 07));
 		fixture.ExecuteTest<DateTime?>("0708", expectedResult: true, expectedParsedDate: new DateTime(fixture.CurrentYear, 08, 07));
 		// TODO "078"
+	}
+
+	[TestMethod]
+	public void DateHelper_TryParseDateFromString_ShortDayMonthYear_CZ()
+	{
+		// arrange
+		var fixture = new Fixture().WithCulture("cs-CZ");
+
+		// Act + Assert
+		fixture.ExecuteTest<DateTime?>("070824", expectedResult: true, expectedParsedDate: new DateTime(2024, 08, 07));
 	}
 
 	[TestMethod]

@@ -27,6 +27,29 @@ internal static class DateHelper
 
 		Match match;
 
+		// 010520 --> 01.05.2020
+		match = Regex.Match(value, "^(\\d{2})(\\d{2})(\\d{2})$");
+		if (match.Success)
+		{
+			if (int.TryParse(match.Groups[1].Value, out int day)
+			&& int.TryParse(match.Groups[2].Value, out int month)
+			&& int.TryParse(match.Groups[3].Value, out int year))
+			{
+				try
+				{
+					year += year < 50 ? 2000 : 1900; // Adjust year to be in the correct century
+					result = GetValueFromDateTimeOffset<TValue>(new DateTimeOffset(new DateTime(year, month, day)));
+					return true;
+				}
+				catch (ArgumentOutOfRangeException)
+				{
+					// NOOP
+				}
+			}
+			result = default;
+			return false;
+		}
+
 		// 0105 --> 01.05.ThisYear
 		match = Regex.Match(value, "^(\\d{2})(\\d{2})$");
 		if (match.Success)
