@@ -14,7 +14,7 @@
 		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>		
 
 		<!-- aligned NuGet PackageVersion for package-bundles -->
-		<ComponentsPackagesVersion>4.7.9</ComponentsPackagesVersion>
+		<ComponentsPackagesVersion>4.7.10</ComponentsPackagesVersion>
 		<GrpcPackagesVersion>1.6.1</GrpcPackagesVersion>
 	</PropertyGroup>
 
