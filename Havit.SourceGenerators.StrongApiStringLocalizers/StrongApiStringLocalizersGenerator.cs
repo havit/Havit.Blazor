@@ -13,7 +13,6 @@ namespace Havit.SourceGenerators.StrongApiStringLocalizers;
 [Generator]
 public class StrongApiStringLocalizersGenerator : IIncrementalGenerator
 {
-	private static readonly DiagnosticDescriptor s_noResx = new DiagnosticDescriptor(id: "HLG1001", title: "No resx file found", messageFormat: "There is not RESX file available to source generator. To enable RESX files to the source generator place <ItemGroup><AdditionalFiles Include=\"**\\*.resx\" /></ItemGroup> in the csproj file.", category: "Usage", DiagnosticSeverity.Warning, isEnabledByDefault: true);
 	private static readonly DiagnosticDescriptor s_xmlParseWarning = new DiagnosticDescriptor(id: "HLG1002", title: "Cannot parse RESX file", messageFormat: "Cannot parse RESX file '{0}'", category: "Usage", DiagnosticSeverity.Warning, isEnabledByDefault: true);
 
 	public void Initialize(IncrementalGeneratorInitializationContext initializationContext)
@@ -37,6 +36,8 @@ public class StrongApiStringLocalizersGenerator : IIncrementalGenerator
 			});
 
 		// get resx files (with all required data to generate localizers one by one)
+		// (resx files are available in initializationContext.AdditionalTextsProvider only when library references
+		// nuget package Microsoft.CodeAnalysis)
 		IncrementalValuesProvider<ResourceData> resxDataProvider = initializationContext.AdditionalTextsProvider
 			.Where(static file => string.Equals(Path.GetExtension(file.Path), ".resx", StringComparison.OrdinalIgnoreCase)) // .resx
 			.Where(static file => !Path.GetFileNameWithoutExtension(file.Path).Contains(".")) // skip language-specific files - take Resource.resx, skip Resource.cs.resx
@@ -87,11 +88,7 @@ public class StrongApiStringLocalizersGenerator : IIncrementalGenerator
 
 		initializationContext.RegisterSourceOutput(serviceCollectionExtensionsDataProvider, static (sourceContext, serviceCollectionExtensionsData) =>
 		{
-			if (serviceCollectionExtensionsData.Resources.Count == 0)
-			{
-				sourceContext.ReportDiagnostic(Diagnostic.Create(s_noResx, Location.None));
-			}
-			else
+			if (serviceCollectionExtensionsData.Resources.Count > 0)
 			{
 				// generate service collection externsion to register all generated localizers
 				var serviceRegistrationsSourceBuilder = new ServiceRegistrationsSourceBuilder(serviceCollectionExtensionsData);
