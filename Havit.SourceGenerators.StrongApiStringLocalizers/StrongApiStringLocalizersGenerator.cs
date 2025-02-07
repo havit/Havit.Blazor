@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using Havit.SourceGenerators.StrongApiStringLocalizers.Helpers;
 using Havit.SourceGenerators.StrongApiStringLocalizers.Model;
 using Havit.SourceGenerators.StrongApiStringLocalizers.SourceBuilders;
 using Microsoft.CodeAnalysis;
@@ -118,8 +119,8 @@ public class StrongApiStringLocalizersGenerator : IIncrementalGenerator
 	{
 		try
 		{
-			string resxContent = resx.GetText(cancellationToken).ToString();
-			var resxXmlDoc = XDocument.Parse(resxContent);
+			SourceText resxContent = resx.GetText(cancellationToken);
+			var resxXmlDoc = XDocument.Load(new SourceTextReader(resxContent));
 
 			var result = new List<ResourcePropertyItem>();
 			foreach (var item in resxXmlDoc.Root.Elements("data"))
