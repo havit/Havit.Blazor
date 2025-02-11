@@ -7372,6 +7372,16 @@
             Additional CSS classes for the wrapping <c>div</c>.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.ShowFilterOffcanvas">
+            <summary>
+            Opens the filter offcanvas.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.HideFilterOffcanvas">
+            <summary>
+            Closes the filter offcanvas.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent">
             <summary>
             Interface for column-sized components (e.g. <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder"/>).
