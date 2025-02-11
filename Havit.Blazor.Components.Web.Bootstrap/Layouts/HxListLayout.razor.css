@@ -16,6 +16,18 @@
 	overflow: hidden;
 }
 
+.hx-list-layout-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: stretch;
+    gap: .5rem;
+}
+
+::deep .hx-chip-list {
+    margin-top: .5rem;
+}
+
 .hx-list-layout-header ::deep button {
     white-space: nowrap;
 }
@@ -64,15 +76,12 @@
 	margin-right: auto;
 }
 
-.hx-list-layout-named-view .card-title {
+.card-title {
     display: flex;
     align-items: center;
+    margin-bottom: 0;
 }
 
 .hx-list-layout-named-view ::deep .hx-icon {
     font-size: .75rem;
-}
-
-.hx-list-layout-header .card-title {
-    margin-bottom: 0;
 }

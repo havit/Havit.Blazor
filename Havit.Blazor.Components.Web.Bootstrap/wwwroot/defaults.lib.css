@@ -75,11 +75,10 @@
 
 	/* HxChipList */
 	--hx-chip-list-chip-margin:										0.75rem 0.25rem .375rem 0;
-	--hx-chip-list-chip-remove-btn-margin: 							0 0 0 .25rem;
-	--hx-chip-list-chip-remove-btn-opacity: 							.75;
-	--hx-chip-list-chip-reset-btn-padding: 							.35em .65em;
+	--hx-chip-list-chip-gap:										.25rem;
+	--hx-chip-list-chip-remove-btn-opacity: 						.75;
+	--hx-chip-list-chip-reset-btn-padding: 							.45em .75em;
 	--hx-chip-list-chip-label-font-weight: 							400;
-	--hx-chip-list-chip-label-margin: 								.25rem;
 	--hx-chip-list-chip-label-opacity: 								.75;
     --hx-chip-list-gap:												.25rem;
 
