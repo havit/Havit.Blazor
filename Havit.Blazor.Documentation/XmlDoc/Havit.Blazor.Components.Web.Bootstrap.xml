@@ -3306,7 +3306,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Delay">
             <summary>
-            The debounce delay in milliseconds.
+            The debounce delay in milliseconds. Default is 300 ms.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Placeholder">

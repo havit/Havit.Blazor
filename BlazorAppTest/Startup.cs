@@ -1,6 +1,4 @@
 using System.Globalization;
-using BlazorAppTest.Resources;
-using Havit.Blazor.Components.Web;
 using Havit.Blazor.Documentation.DemoData;
 using Havit.Blazor.GoogleTagManager;
 
@@ -22,7 +20,6 @@ public class Startup
 		services.AddLogging();
 
 		services.AddLocalization();
-		services.AddGeneratedResourceWrappers();
 
 		services.AddRazorPages();
 		services.AddServerSideBlazor();

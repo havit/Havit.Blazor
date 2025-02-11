@@ -16,12 +16,17 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Havit.Blazor.Components.Web.Bootstrap\Havit.Blazor.Components.Web.Bootstrap.csproj" />
+		<ProjectReference Include="..\..\Havit.SourceGenerators.StrongApiStringLocalizers\Havit.SourceGenerators.StrongApiStringLocalizers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Compile Include="..\..\Havit.Blazor.Documentation\DemoData\**\*.*">
 			<Link>DemoData\%(RecursiveDir)%(FileName)%(Extension)</Link>
 		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="**\*.resx" />
 	</ItemGroup>
 
 </Project>

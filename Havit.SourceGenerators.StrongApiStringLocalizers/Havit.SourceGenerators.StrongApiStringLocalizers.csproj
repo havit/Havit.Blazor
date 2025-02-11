@@ -27,10 +27,6 @@
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Havit.Extensions.Localization\Havit.Extensions.Localization.csproj" />
-	</ItemGroup>
-
 	<Target Name="AddAnalyzerToNugetPackage" AfterTargets="Build" BeforeTargets="GenerateNuspec">
 		<ItemGroup>
 			<!-- Package the generator in the analyzer directory of the nuget package -->
