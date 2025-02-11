@@ -4,6 +4,7 @@
 	<SearchTemplate>
 		<HxInputText Placeholder="Search by name"
 					 Type="InputType.Search"
+					 CssClass="px-3 mx-auto flex-fill"
 					 @bind-Value="filterModel.Name"
 					 @bind-Value:after="gridComponent.RefreshDataAsync" />
 	</SearchTemplate>

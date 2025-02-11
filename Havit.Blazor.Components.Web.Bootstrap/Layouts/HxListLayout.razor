@@ -4,7 +4,7 @@
 <div class="@CssClassHelper.Combine("hx-list-layout", CssClassEffective)">
 	<HxCard Settings="CardSettingsEffective">
 		<BodyTemplate>
-			<div class="hx-list-layout-header hstack gap-2">
+			<div class="hx-list-layout-header">
 				@if ((NamedViews != null) && NamedViews.Any())
 				{
 					<div class="hx-list-layout-named-view dropdown">
@@ -51,13 +51,13 @@
 				{
 					@SearchTemplate
 				}
-				@if (FilterTemplate != null)
-				{
-					<HxButton Settings="FilterOpenButtonSettingsEffective" OnClick="HandleFilterButtonClick" />
-				}
 				@if (CommandsTemplate != null)
 				{
 					@CommandsTemplate
+				}
+				@if (FilterTemplate != null)
+				{
+					<HxButton Settings="FilterOpenButtonSettingsEffective" OnClick="HandleFilterButtonClick" />
 				}
 			</div>
 			@if (FilterModel != null)
