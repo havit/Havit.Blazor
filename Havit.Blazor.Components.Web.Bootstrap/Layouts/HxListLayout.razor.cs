@@ -172,7 +172,7 @@ public partial class HxListLayout<TFilterModel>
 	/// <summary>
 	/// Opens the filter offcanvas.
 	/// </summary>
-	public async Task ShowFilterOffcanvas()
+	public async Task ShowFilterOffcanvasAsync()
 	{
 		await _filterOffcanvasComponent.ShowAsync();
 	}
@@ -180,7 +180,7 @@ public partial class HxListLayout<TFilterModel>
 	/// <summary>
 	/// Closes the filter offcanvas.
 	/// </summary>
-	public async Task HideFilterOffcanvas()
+	public async Task HideFilterOffcanvasAsync()
 	{
 		await _filterOffcanvasComponent.HideAsync();
 	}

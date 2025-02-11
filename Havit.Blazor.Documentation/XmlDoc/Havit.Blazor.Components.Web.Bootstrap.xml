@@ -7372,12 +7372,12 @@
             Additional CSS classes for the wrapping <c>div</c>.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.ShowFilterOffcanvas">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.ShowFilterOffcanvasAsync">
             <summary>
             Opens the filter offcanvas.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.HideFilterOffcanvas">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.HideFilterOffcanvasAsync">
             <summary>
             Closes the filter offcanvas.
             </summary>
