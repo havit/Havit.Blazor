@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net9.0</TargetFrameworks>
+		<IsPackable>false</IsPackable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<EnableMSTestRunner>true</EnableMSTestRunner>
+		<OutputType>Exe</OutputType>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Remove="Global.resx" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Global.resx">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" />
+		<PackageReference Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing" />
+		<PackageReference Include="MSTest" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Havit.SourceGenerators.StrongApiStringLocalizers\Havit.SourceGenerators.StrongApiStringLocalizers.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
+	</ItemGroup>
+
+</Project>

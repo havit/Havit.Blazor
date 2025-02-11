@@ -22,6 +22,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<!-- Microsoft.CodeAnalysis enables Roslyn to se resx files in AdditionalTextsProvider. -->
+		<PackageReference Include="Microsoft.CodeAnalysis" />
 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
 	</ItemGroup>
 

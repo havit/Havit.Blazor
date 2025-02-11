@@ -28,4 +28,7 @@
 		</Compile>
 	</ItemGroup>
 
+	<ItemGroup>
+		<AdditionalFiles Include="**\*.resx" />
+	</ItemGroup>
 </Project>
