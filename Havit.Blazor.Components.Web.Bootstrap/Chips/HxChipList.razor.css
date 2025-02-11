@@ -4,14 +4,18 @@
     gap: var(--hx-chip-list-gap);
 }
 ::deep .badge {
+    --bs-badge-border-radius: var(--bs-border-radius-pill);
+    --bs-badge-padding-y: .45em;
+    --bs-badge-padding-x: .75em;
+    padding-right: .35rem;
     display: inline-flex;
     align-items: center;
+    gap: var(--hx-chip-list-chip-gap);
 }
 
- .hx-chip-list-remove-btn {
+.hx-chip-list-remove-btn {
     display: flex;
     align-items: center;
-    margin: var(--hx-chip-list-chip-remove-btn-margin);
     opacity: var(--hx-chip-list-chip-remove-btn-opacity);
 }
 
@@ -21,11 +25,13 @@
 
 ::deep .hx-chip-list-remove-btn:hover {
     opacity: 1;
+    border-radius: 50%;
+    color: var(--bs-white);
+    background-color: rgba(var(--bs-dark-rgb), .5);
 }
 
 ::deep .hx-chip-list-label {
     font-weight: var(--hx-chip-list-chip-label-font-weight);
-    margin-right: var(--hx-chip-list-chip-label-margin);
     opacity: var(--hx-chip-list-chip-label-opacity);
 }
 
