@@ -1,0 +1,18 @@
+﻿@page "/HxInputDate_Revalidation"
+@rendermode InteractiveServer
+
+https://github.com/dotnet/aspnetcore/issues/60334
+<ol>
+	<li>Type some invalid characters into the input => parsing error</li>
+	<li>Click <i>Set valid date</i> button => ?new value not accepted?</li>
+</ol>
+
+
+<div class="col-lg-3">
+	<HxInputDate Label="Date" @bind-Value="_value" CalendarIcon="BootstrapIcon.Calendar" />
+	<HxButton Text="Set valid value" OnClick="@(() => _value = DateTime.Today)" Color="ThemeColor.Primary" />
+</div>
+
+@code {
+	public DateTime _value;
+}
