@@ -250,14 +250,14 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 
 		if (OnClick.HasDelegate)
 		{
-			Contract.Requires<InvalidOperationException>(!OnValidClick.HasDelegate, $"Cannot use both {nameof(OnClick)} and {nameof(OnValidClick)} parameters.");
-			Contract.Requires<InvalidOperationException>(!OnInvalidClick.HasDelegate, $"Cannot use both {nameof(OnClick)} and {nameof(OnInvalidClick)} parameters.");
+			Contract.Requires<InvalidOperationException>(!OnValidClick.HasDelegate, $"[{this.GetType().Name}] Cannot use both {nameof(OnClick)} and {nameof(OnValidClick)} parameters.");
+			Contract.Requires<InvalidOperationException>(!OnInvalidClick.HasDelegate, $"[{this.GetType().Name}] Cannot use both {nameof(OnClick)} and {nameof(OnInvalidClick)} parameters.");
 
 			await InvokeOnClickAsync(mouseEventArgs);
 		}
 		else if (OnValidClick.HasDelegate || OnInvalidClick.HasDelegate)
 		{
-			Contract.Requires<InvalidOperationException>(EditContextEffective != null, $"{nameof(EditContext)} has to be supplied as cascading value or explicit parameter.");
+			Contract.Requires<InvalidOperationException>(EditContextEffective != null, $"[{this.GetType().Name}] To use {nameof(OnValidClick)}/{nameof(OnInvalidClick)}, {nameof(EditContext)} must be supplied as a cascading value or explicit parameter.");
 
 			var isValid = EditContextEffective.Validate(); // Original .NET comment: This will likely become ValidateAsync later
 

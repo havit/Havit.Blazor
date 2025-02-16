@@ -1,8 +1,12 @@
-﻿namespace Havit.Blazor.Documentation.DemoData;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Havit.Blazor.Documentation.DemoData;
 
 public record EmployeeDto
 {
 	public int Id { get; internal set; }
+
+	[Required]
 	public string Name { get; internal set; }
 	public string Email { get; internal set; }
 	public string Phone { get; internal set; }
