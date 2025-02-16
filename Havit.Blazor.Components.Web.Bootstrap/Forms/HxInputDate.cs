@@ -210,7 +210,7 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	{
 		if (_hxInputDateInternalComponent is null)
 		{
-			throw new InvalidOperationException($"Unable to focus {nameof(HxInputDate)}. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unable to focus. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 
 		return _hxInputDateInternalComponent.FocusAsync();

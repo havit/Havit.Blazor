@@ -212,7 +212,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 			if ((Value != null) && (_selectedItemIndex == -1))
 			{
-				throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
+				throw new InvalidOperationException($"[{GetType().Name}] Data does not contain item for current value '{Value}'.");
 			}
 		}
 		else

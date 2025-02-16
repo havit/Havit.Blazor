@@ -144,7 +144,7 @@ public class HxSmartPasteButton : SmartPasteButton
 					additionalAttributesParameter = (Dictionary<string, object>)parameter.Value;
 					break;
 				default:
-					throw new InvalidOperationException($"Parameter {parameter.Name} not supported.");
+					throw new InvalidOperationException($"[{GetType().Name}] Parameter {parameter.Name} not supported.");
 			}
 		}
 

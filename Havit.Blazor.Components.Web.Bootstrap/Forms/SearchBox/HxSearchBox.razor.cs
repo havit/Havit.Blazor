@@ -273,7 +273,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	{
 		if ((LabelTypeEffective == Bootstrap.LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
 		{
-			throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
+			throw new InvalidOperationException($"[{GetType().Name}] Cannot use {nameof(Placeholder)} with floating labels.");
 		}
 	}
 
@@ -305,7 +305,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	{
 		if (EqualityComparer<ElementReference>.Default.Equals(_inputElementReference, default))
 		{
-			throw new InvalidOperationException($"Unable to focus {nameof(HxSearchBox)}. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unable to focus. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 		await _inputElementReference.FocusAsync();
 	}

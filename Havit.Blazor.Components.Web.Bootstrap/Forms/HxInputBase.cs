@@ -208,7 +208,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 			&& (inputWithLabelType.LabelTypeEffective == LabelType.Floating)
 			&& !String.IsNullOrEmpty(inputWithPlaceholder.Placeholder))
 		{
-			throw new InvalidOperationException($"Cannot use {nameof(IInputWithPlaceholder.Placeholder)} with floating labels.");
+			throw new InvalidOperationException($"[{GetType().Name}] Cannot use {nameof(IInputWithPlaceholder.Placeholder)} with floating labels.");
 		}
 	}
 
@@ -431,7 +431,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	{
 		if (EqualityComparer<ElementReference>.Default.Equals(InputElement, default))
 		{
-			throw new InvalidOperationException($"Unable to focus {GetType().Name}, {nameof(InputElement)} reference not available.  You are most likely calling the method too early. The first render must complete before calling this method.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unable to focus, {nameof(InputElement)} reference not available.  You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 		await InputElement.FocusAsync();
 	}

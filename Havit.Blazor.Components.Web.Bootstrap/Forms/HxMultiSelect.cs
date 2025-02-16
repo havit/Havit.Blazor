@@ -216,7 +216,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	{
 		if (_hxMultiSelectInternalComponent == null)
 		{
-			throw new InvalidOperationException($"Unable to focus {nameof(HxMultiSelect)}. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unable to focus. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 
 		await _hxMultiSelectInternalComponent.FocusAsync();

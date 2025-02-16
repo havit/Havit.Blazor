@@ -74,7 +74,7 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 
 		if (!s_supportedTypes.Contains(underlyingType))
 		{
-			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unsupported type {typeof(TValue)}.");
 		}
 	}
 

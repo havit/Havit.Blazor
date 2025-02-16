@@ -639,7 +639,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			_columnIds ??= new HashSet<string>();
 			if (!_columnIds.Add(columnId))
 			{
-				throw new InvalidOperationException($"There is already registered another column with the '{columnId}' identifier.");
+				throw new InvalidOperationException($"[{GetType().Name}] There is already registered another column with the '{columnId}' identifier.");
 			}
 		}
 
@@ -706,7 +706,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 				}
 				break;
 
-			default: throw new InvalidOperationException(ContentNavigationModeEffective.ToString());
+			default:
+				throw new InvalidOperationException(ContentNavigationModeEffective.ToString());
 		}
 	}
 
@@ -792,17 +793,17 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 				if ((request.Count != null) && (dataCount > request.Count))
 				{
-					throw new InvalidOperationException($"{nameof(DataProvider)} returned more data items then it was requested.");
+					throw new InvalidOperationException($"[{GetType().Name}] {nameof(DataProvider)} returned more data items then it was requested.");
 				}
 
 				if ((request.Count != null) && (result.TotalCount == null))
 				{
-					throw new InvalidOperationException($"{nameof(DataProvider)} did not set {nameof(GridDataProviderResult<TItem>.TotalCount)}.");
+					throw new InvalidOperationException($"[{GetType().Name}] {nameof(DataProvider)} did not set {nameof(GridDataProviderResult<TItem>.TotalCount)}.");
 				}
 
 				if (result.TotalCount != null && (dataCount > result.TotalCount.Value))
 				{
-					throw new InvalidOperationException($"Invalid {nameof(DataProvider)} response. {nameof(GridDataProviderResult<TItem>.TotalCount)} value smaller than the number of returned data items.");
+					throw new InvalidOperationException($"[{GetType().Name}] Invalid {nameof(DataProvider)} response. {nameof(GridDataProviderResult<TItem>.TotalCount)} value smaller than the number of returned data items.");
 				}
 			}
 			#endregion

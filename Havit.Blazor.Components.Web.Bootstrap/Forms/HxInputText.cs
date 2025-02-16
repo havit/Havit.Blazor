@@ -39,7 +39,7 @@ public class HxInputText : HxInputTextBase
 			&& (Type != InputType.Password)
 			&& (Type != InputType.Url))
 		{
-			throw new InvalidOperationException($"Unsupported {nameof(Type)} parameter value {Type}.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unsupported {nameof(Type)} parameter value {Type}.");
 		}
 
 		base.OnParametersSet();

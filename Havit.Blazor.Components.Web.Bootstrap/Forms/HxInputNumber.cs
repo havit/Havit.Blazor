@@ -118,7 +118,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 			// TODO Move validation to OnParametersSet
 			if ((value != 0) && IsTValueIntegerType)
 			{
-				throw new InvalidOperationException($"{nameof(Decimals)} can be set only on floating point types (not on integer types).");
+				throw new InvalidOperationException($"[{GetType().Name}] {nameof(Decimals)} can be set only on floating point types (not on integer types).");
 			}
 			_decimals = value;
 		}
@@ -160,7 +160,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		Type underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
 		if (!s_supportedTypes.Contains(underlyingType))
 		{
-			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unsupported type {typeof(TValue)}.");
 		}
 	}
 
@@ -171,7 +171,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	{
 		if ((TypeEffective != InputType.Text) && (TypeEffective != InputType.Number))
 		{
-			throw new InvalidOperationException($"Only {nameof(InputType)}.{nameof(InputType.Text)} and {nameof(InputType)}.{nameof(InputType.Number)} are supported for {nameof(Type)} parameter.");
+			throw new InvalidOperationException($"[{GetType().Name}] Only {nameof(InputType)}.{nameof(InputType.Text)} and {nameof(InputType)}.{nameof(InputType.Number)} are supported for {nameof(Type)} parameter.");
 		}
 
 		base.OnParametersSet();
@@ -363,7 +363,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 				return @decimal.ToString(format, culture);
 		}
 
-		throw new InvalidOperationException($"Unsupported type {value.GetType()}.");
+		throw new InvalidOperationException($"[{GetType().Name}] Unsupported type {value.GetType()}.");
 
 	}
 
