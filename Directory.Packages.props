@@ -48,7 +48,7 @@
     </GlobalPackageReference>
   </ItemGroup>
   <ItemGroup Condition="'$(ProjectName.EndsWith(`Tests`))' == 'False'">
-    <GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.12.19">
+    <GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.13.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </GlobalPackageReference>
