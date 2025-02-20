@@ -4,7 +4,6 @@
 		<TargetFrameworks>net9.0;net8.0</TargetFrameworks>
 		<IsPackable>false</IsPackable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<EnableMSTestRunner>true</EnableMSTestRunner>
 		<OutputType>Exe</OutputType>
 	</PropertyGroup>
 
