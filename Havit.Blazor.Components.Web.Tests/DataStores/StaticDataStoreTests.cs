@@ -143,7 +143,6 @@ public class StaticDataStoreTests
 	}
 
 	[TestMethod]
-	[ExpectedException(typeof(InvalidOperationException))]
 	public void StaticDataStore_SyncThrowIfNotLoaded_ShouldRaiseException()
 	{
 		// arrange
@@ -153,7 +152,7 @@ public class StaticDataStoreTests
 		sut.Setup(s => s.ShouldRefresh()).Returns(false);
 
 		// act
-		var result = sut.Object.GetValue(throwIfNotLoaded: true);
+		Assert.ThrowsExactly<InvalidOperationException>(() => sut.Object.GetValue(throwIfNotLoaded: true));
 
 		// assert
 		// expected exception

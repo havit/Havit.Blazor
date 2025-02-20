@@ -103,7 +103,7 @@ public class DateHelperTests
 
 		// DateTime?
 		Assert.AreEqual(dateTimeOffset.DateTime, DateHelper.GetValueFromDateTimeOffset<DateTime?>(dateTimeOffset));
-		Assert.AreEqual(null, DateHelper.GetValueFromDateTimeOffset<DateTime?>(null));
+		Assert.IsNull(DateHelper.GetValueFromDateTimeOffset<DateTime?>(null));
 
 		// DateTimeOffset
 		Assert.AreEqual(dateTimeOffset, DateHelper.GetValueFromDateTimeOffset<DateTimeOffset>(dateTimeOffset));
@@ -111,7 +111,7 @@ public class DateHelperTests
 
 		// DateTimeOffset?
 		Assert.AreEqual(dateTimeOffset, DateHelper.GetValueFromDateTimeOffset<DateTimeOffset?>(dateTimeOffset));
-		Assert.AreEqual(null, DateHelper.GetValueFromDateTimeOffset<DateTimeOffset?>(null));
+		Assert.IsNull(DateHelper.GetValueFromDateTimeOffset<DateTimeOffset?>(null));
 	}
 
 	private class Fixture

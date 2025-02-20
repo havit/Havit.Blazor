@@ -167,7 +167,6 @@ public class DictionaryStaticDataStoreTests
 	}
 
 	[TestMethod]
-	[ExpectedException(typeof(InvalidOperationException))]
 	public void DictionaryStaticDataStore_SyncWithThrowIfNotLoaded_ShouldRaiseException()
 	{
 		// arrange
@@ -178,7 +177,7 @@ public class DictionaryStaticDataStoreTests
 		sut.Setup(s => s.ShouldRefresh()).Returns(false);
 
 		// act
-		var result = sut.Object.GetAll(throwIfNotLoaded: true);
+		Assert.ThrowsExactly<InvalidOperationException>(() => sut.Object.GetAll(throwIfNotLoaded: true));
 
 		// assert
 		// expected exception

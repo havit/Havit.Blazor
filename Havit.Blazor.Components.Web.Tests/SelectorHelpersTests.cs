@@ -17,7 +17,7 @@ public class SelectorHelpersTests
 	[TestMethod]
 	public void SelectorHelpers_GetValue()
 	{
-		Assert.AreEqual(null, SelectorHelpers.GetValue<int?, string>(i => "X" + i, null)); // use default
+		Assert.IsNull(SelectorHelpers.GetValue<int?, string>(i => "X" + i, null)); // use default
 		Assert.AreEqual("X1", SelectorHelpers.GetValue<int?, string>(i => "X" + i, 1)); // use value selector
 		Assert.AreEqual(1, SelectorHelpers.GetValue<int?, int?>(null, 1)); // use value selector
 	}
