@@ -1,5 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 using Havit.Blazor.Documentation.Services;
+using Havit.Blazor.Documentation.Shared.Components;
 
 namespace Havit.Blazor.Documentation.Model;
 
@@ -9,6 +10,8 @@ public abstract class MemberModel
 
 	private bool _generic;
 	private string _genericTypeSuffix;
+
+	private readonly IEnumerable<string> _searchItemTitles = SearchIndex.GetAllSearchItemTitles();
 
 	protected string TryFormatComment(string comment, Type enclosingType = null)
 	{
@@ -183,6 +186,11 @@ public abstract class MemberModel
 			}
 		}
 
+		if (!ContainedInSearchIndex(fullLink))
+		{
+			isComponent = false;
+		}
+
 		// Default case: if "Hx" wasn't found anywhere, it couldn't be detected what part to use in the link, so the default part will be chosen
 		if ((fullLink.Length == 0) || ((containsHx == false) && isType))
 		{
@@ -201,6 +209,11 @@ public abstract class MemberModel
 		fullLink += $"\">{seeName}</a></code>";
 
 		return fullLink;
+	}
+
+	private bool ContainedInSearchIndex(string fullLink)
+	{
+		return _searchItemTitles.Any(fullLink.Contains);
 	}
 
 	private string GenerateMicrosoftDocumentationLink(string[] splitLink)
