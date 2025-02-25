@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -6,7 +7,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Renders a multi-selection list of <see cref="HxCheckbox"/> controls.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckboxList">https://havit.blazor.eu/components/HxCheckboxList</see>
 /// </summary>
-public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot use an array: https://github.com/dotnet/aspnetcore/issues/15014
+public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>>, IInputWithToggleButton // cannot use an array: https://github.com/dotnet/aspnetcore/issues/15014
 {
 	/// <summary>
 	/// Items to display. 
@@ -18,6 +19,11 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	/// When not set, <c>ToString()</c> is used.
 	/// </summary>
 	[Parameter] public Func<TItem, string> ItemTextSelector { get; set; }
+
+	/// <summary>
+	/// Input as toggle or regular.
+	/// </summary>
+	[Parameter] public InputAsToggle? InputAsToggle { get; set; }
 
 	/// <summary>
 	/// Selects the value from the item.
@@ -106,6 +112,13 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 		}
 	}
 
+	/// <summary>
+	/// Bootstrap button style - theme color.<br />
+	/// The default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
+	/// </summary>
+	[Parameter] public ThemeColor? Color { get; set; }
+	protected ThemeColor ColorEffective => Color ?? ThemeColor.None;
+
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
@@ -113,6 +126,8 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 
 		if (_itemsToRender.Count > 0)
 		{
+			var inputAsToggleEffective = (this as IInputWithToggleButton).InputAsToggleEffective;
+
 			UglyHack uglyHack = new UglyHack(); // see comment below
 
 			foreach (var item in _itemsToRender)
@@ -127,8 +142,8 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 				builder.AddAttribute(5, nameof(HxCheckbox.Enabled), EnabledEffective);
 
 				builder.AddAttribute(6, nameof(HxCheckbox.CssClass), CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item)));
-				builder.AddAttribute(7, nameof(HxCheckbox.InputCssClass), CssClassHelper.Combine(ItemInputCssClass, ItemInputCssClassSelector?.Invoke(item)));
-				builder.AddAttribute(8, nameof(HxCheckbox.TextCssClass), CssClassHelper.Combine(ItemTextCssClass, ItemTextCssClassSelector?.Invoke(item)));
+				builder.AddAttribute(7, nameof(HxCheckbox.InputCssClass), CssClassHelper.Combine(inputAsToggleEffective == Bootstrap.InputAsToggle.Toggle ? "btn-check" : null, ItemInputCssClass, ItemInputCssClassSelector?.Invoke(item)));
+				builder.AddAttribute(8, nameof(HxCheckbox.TextCssClass), CssClassHelper.Combine(inputAsToggleEffective == Bootstrap.InputAsToggle.Toggle ? $"btn {ColorEffective.ToButtonColorCss(true)}" : null, ItemTextCssClass, ItemTextCssClassSelector?.Invoke(item)));
 
 				// We need ValueExpression. Ehm, HxCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 				// We have nothing to give the HxCheckbox. So we make own class with property which we assign to the ValueExpression.
