@@ -929,6 +929,11 @@
             Uses a lock to prevent multiple parallel loads.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.RefreshDataAsync">
+            <summary>
+            Refreshes the data. Discards all the data (if any) and loads it again.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2">
             <summary>
             Base interface for Blazor dictionary-based static data stores.
@@ -981,6 +986,11 @@
             Discards all the data.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.RefreshDataAsync">
+            <summary>
+            Refreshes the data. Discards all the data (if any) and loads it again.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.EnsureDataAsync">
             <summary>
             To be called before any data-retrieval to load/refresh the data.<br/>
@@ -1006,6 +1016,11 @@
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.GetValueAsync">
             <summary>
             Retrieves a value from the store (includes data load if needed).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.RefreshDataAsync">
+            <summary>
+            Refreshes the data. Discards all the data (if any) and loads it again.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1">
@@ -1060,6 +1075,11 @@
             You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any synchronous API.<br/>
             Uses <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.ShouldRefresh"/> to check for refreshment request.
             Uses a lock to prevent multiple parallel loads.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.RefreshDataAsync">
+            <summary>
+            Refreshes the data. Discards all the data (if any) and loads it again.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.StringLocalizerFactoryExtensions">
