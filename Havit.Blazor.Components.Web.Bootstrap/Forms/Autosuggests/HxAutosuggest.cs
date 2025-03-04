@@ -100,7 +100,7 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	/// Spell checking of the input.
 	/// </summary>
 	[Parameter] public bool? Spellcheck { get; set; }
-	protected bool SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck ?? true;
+	protected bool? SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck;
 	bool? IInputWithSpellcheck.SpellcheckEffective => SpellcheckEffective;
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
