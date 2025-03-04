@@ -64,6 +64,8 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 
 	[Parameter] public LabelType LabelTypeEffective { get; set; }
 
+	[Parameter] public bool? SpellcheckEffective { get; set; }
+
 	[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
 	/// <summary>

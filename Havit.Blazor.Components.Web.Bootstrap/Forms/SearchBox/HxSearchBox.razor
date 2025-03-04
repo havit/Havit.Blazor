@@ -47,6 +47,7 @@
 					   @onblur="HandleInputBlur"
 					   inputmode="search"
 					   disabled="@(!Enabled)"
+                       spellcheck="@SpellcheckEffective?.ToString().ToLower()"
 					   placeholder="@(LabelTypeEffective == Bootstrap.LabelType.Floating ? "placeholder" : Placeholder)"
 					   class="@CssClassHelper.Combine(
 									"form-control",
