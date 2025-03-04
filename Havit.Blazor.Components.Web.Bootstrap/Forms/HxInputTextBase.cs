@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Text-based (string) input base class.
 /// </summary>
-public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
+public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType, IInputWithSpellcheck
 {
 	/// <summary>
 	/// Return <see cref="HxInputText"/> defaults.
@@ -60,6 +60,13 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
+	/// Spell checking of the input.
+	/// </summary>
+	[Parameter] public bool? Spellcheck { get; set; }
+	protected bool? SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck;
+	bool? IInputWithSpellcheck.SpellcheckEffective => SpellcheckEffective;
+
+	/// <summary>
 	/// Determines whether all the text within the input field is automatically selected when it receives focus.
 	/// </summary>
 	[Parameter] public bool? SelectOnFocus { get; set; }
@@ -98,8 +105,14 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 		{
 			builder.AddAttribute(1005, "inputmode", InputModeEffective.Value.ToString("f").ToLower());
 		}
-		builder.AddEventStopPropagationAttribute(1006, "onclick", true);
-		builder.AddElementReferenceCapture(1007, elementReference => InputElement = elementReference);
+
+		if (SpellcheckEffective.HasValue)
+		{
+			builder.AddAttribute(1006, "spellcheck", SpellcheckEffective.Value.ToString().ToLower());
+		}
+
+		builder.AddEventStopPropagationAttribute(1007, "onclick", true);
+		builder.AddElementReferenceCapture(1008, elementReference => InputElement = elementReference);
 
 		builder.CloseElement();
 	}

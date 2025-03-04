@@ -24,4 +24,9 @@ public record InputTextSettings : InputSettings
 	/// Determines whether all the text within the input field is automatically selected when it receives focus.
 	/// </summary>
 	public bool? SelectOnFocus { get; set; }
+
+	/// <summary>
+	/// Hint to browsers regarding the spell checking of the input.
+	/// </summary>
+	public bool? Spellcheck { get; set; }
 }

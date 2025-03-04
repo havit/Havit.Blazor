@@ -10,7 +10,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <remarks>
 /// Defaults are located in a separate non-generic type <see cref="HxAutosuggest"/>.
 /// </remarks>
-public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
+public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType, IInputWithSpellcheck
 {
 	/// <summary>
 	/// Returns application-wide defaults for the component.
@@ -96,6 +96,13 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
+	/// <summary>
+	/// Spell checking of the input.
+	/// </summary>
+	[Parameter] public bool? Spellcheck { get; set; }
+	protected bool SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck ?? true;
+	bool? IInputWithSpellcheck.SpellcheckEffective => SpellcheckEffective;
+
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
 	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
@@ -175,6 +182,7 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 		builder.AddAttribute(1024, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndText), InputGroupEndText);
 		builder.AddAttribute(1025, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndTemplate), InputGroupEndTemplate);
 		builder.AddAttribute(1026, nameof(HxAutosuggestInternal<TItem, TValue>.NameAttributeValue), NameAttributeValue);
+		builder.AddAttribute(1027, nameof(HxAutosuggestInternal<TItem, TValue>.SpellcheckEffective), SpellcheckEffective);
 
 		builder.AddMultipleAttributes(2000, AdditionalAttributes);
 

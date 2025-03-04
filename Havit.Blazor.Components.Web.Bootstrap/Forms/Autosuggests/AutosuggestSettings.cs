@@ -34,4 +34,9 @@ public record AutosuggestSettings : InputSettings
 	/// The label type.
 	/// </summary>
 	public LabelType? LabelType { get; set; }
+
+	/// <summary>
+	/// Hint to browsers regarding the spell checking of the input.
+	/// </summary>
+	public bool? Spellcheck { get; set; }
 }
