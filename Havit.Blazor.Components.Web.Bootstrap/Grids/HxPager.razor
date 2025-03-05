@@ -15,9 +15,16 @@
 	@if (showFirstLast)
 	{
 		<li class="@previousPageItemDisabledCssClass">
-			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(0)" @onclick:stopPropagation role="button">
-				<HxIcon Icon="@FirstPageIconEffective" />
-			</a>
+            <a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(0)" @onclick:stopPropagation role="button">
+                @if (FirstPageContentTemplate != null)
+                {
+                    @FirstPageContentTemplateEffective
+                }
+                else
+                {
+                    <HxIcon Icon="@FirstPageIconEffective" />
+                }
+            </a>
 		</li>
 	}
 
@@ -25,7 +32,14 @@
 	{
 		<li class="@previousPageItemDisabledCssClass">
 			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(CurrentPageIndex - 1)" @onclick:stopPropagation role="button">
+                @if (PreviousPageContentTemplate != null)
+                {
+                    @PreviousPageContentTemplateEffective
+                }
+                else
+                {
 				<HxIcon Icon="@PreviousPageIconEffective" />
+                }
 			</a>
 		</li>
 	}
@@ -59,7 +73,14 @@
 	{
 		<li class="@nextPageItemDisabledCssClass">
 			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(CurrentPageIndex + 1)" @onclick:stopPropagation role="button">
+                @if (NextPageContentTemplate != null)
+                {
+                    @NextPageContentTemplateEffective
+                }
+                else
+                {
 				<HxIcon Icon="@NextPageIconEffective" />
+                }
 			</a>
 		</li>
 	}
@@ -68,7 +89,14 @@
 	{
 		<li class="@nextPageItemDisabledCssClass">
 			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(TotalPages - 1)" @onclick:stopPropagation role="button">
+                @if (LastPageContentTemplate != null)
+                {
+                    @LastPageContentTemplateEffective
+                }
+                else
+                {
 				<HxIcon Icon="@LastPageIconEffective" />
+                }
 			</a>
 		</li>
 	}

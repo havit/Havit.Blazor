@@ -7004,9 +7004,19 @@
             Icon for the "First page" button.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.FirstPageContentTemplate">
+            <summary>
+            Content for the "First page" button. If not set, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.FirstPageIcon"/> is used.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.LastPageIcon">
             <summary>
             Icon for the "Last page" button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.LastPageContentTemplate">
+            <summary>
+            Content for the "Last page" button. If not set, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.LastPageIcon"/> is used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.PreviousPageIcon">
@@ -7014,9 +7024,19 @@
             Icon for the "Previous page" button.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.PreviousPageContentTemplate">
+            <summary>
+            Content for the "Previous page" button. If not set, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.PreviousPageIcon"/> is used.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.NextPageIcon">
             <summary>
             Icon for the "Next page" button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.NextPageContentTemplate">
+            <summary>
+            Content for the "Next page" button. If not set, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.NextPageIcon"/> is used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.NumericButtonsCount">
