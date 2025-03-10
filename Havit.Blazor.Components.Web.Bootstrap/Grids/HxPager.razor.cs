@@ -69,10 +69,20 @@ public partial class HxPager : ComponentBase
 	protected IconBase FirstPageIconEffective => FirstPageIcon ?? GetSettings()?.FirstPageIcon ?? GetDefaults().FirstPageIcon ?? throw new InvalidOperationException(nameof(FirstPageIcon) + " default for " + nameof(HxPager) + " has to be set.");
 
 	/// <summary>
+	/// Content for the "First page" button. If not set, the <see cref="FirstPageIcon"/> is used.
+	/// </summary>
+	[Parameter] public RenderFragment FirstPageContentTemplate { get; set; }
+
+	/// <summary>
 	/// Icon for the "Last page" button.
 	/// </summary>
 	[Parameter] public IconBase LastPageIcon { get; set; }
 	protected IconBase LastPageIconEffective => LastPageIcon ?? GetSettings()?.LastPageIcon ?? GetDefaults().LastPageIcon ?? throw new InvalidOperationException(nameof(LastPageIcon) + " default for " + nameof(HxPager) + " has to be set.");
+
+	/// <summary>
+	/// Content for the "Last page" button. If not set, the <see cref="LastPageIcon"/> is used.
+	/// </summary>
+	[Parameter] public RenderFragment LastPageContentTemplate { get; set; }
 
 	/// <summary>
 	/// Icon for the "Previous page" button.
@@ -81,10 +91,20 @@ public partial class HxPager : ComponentBase
 	protected IconBase PreviousPageIconEffective => PreviousPageIcon ?? GetSettings()?.PreviousPageIcon ?? GetDefaults().PreviousPageIcon ?? throw new InvalidOperationException(nameof(PreviousPageIcon) + " default for " + nameof(HxPager) + " has to be set.");
 
 	/// <summary>
+	/// Content for the "Previous page" button. If not set, the <see cref="PreviousPageIcon"/> is used.
+	/// </summary>
+	[Parameter] public RenderFragment PreviousPageContentTemplate { get; set; }
+
+	/// <summary>
 	/// Icon for the "Next page" button.
 	/// </summary>
 	[Parameter] public IconBase NextPageIcon { get; set; }
 	protected IconBase NextPageIconEffective => NextPageIcon ?? GetSettings()?.NextPageIcon ?? GetDefaults().NextPageIcon ?? throw new InvalidOperationException(nameof(NextPageIcon) + " default for " + nameof(HxPager) + " has to be set.");
+
+	/// <summary>
+	/// Content for the "Next page" button. If not set, the <see cref="NextPageIcon"/> is used.
+	/// </summary>
+	[Parameter] public RenderFragment NextPageContentTemplate { get; set; }
 
 	/// <summary>
 	/// Count of numbers to display. The default value is 10.
