@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Text-based (string) input base class.
 /// </summary>
-public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType, IInputWithSpellcheck
+public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 {
 	/// <summary>
 	/// Return <see cref="HxInputText"/> defaults.
@@ -60,11 +60,10 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
-	/// Spell checking of the input.
+	/// Defines whether the input may be checked for spelling errors.
 	/// </summary>
 	[Parameter] public bool? Spellcheck { get; set; }
 	protected bool? SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck;
-	bool? IInputWithSpellcheck.SpellcheckEffective => SpellcheckEffective;
 
 	/// <summary>
 	/// Determines whether all the text within the input field is automatically selected when it receives focus.

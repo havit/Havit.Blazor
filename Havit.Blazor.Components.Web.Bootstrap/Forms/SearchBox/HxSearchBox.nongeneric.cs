@@ -20,6 +20,7 @@ public static class HxSearchBox
 			MinimumLength = 2,
 			Delay = 300,
 			ItemSelectionBehavior = SearchBoxItemSelectionBehavior.SelectAndClearTextQuery,
+			Spellcheck = false
 		};
 	}
 }

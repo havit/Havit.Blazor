@@ -102,6 +102,12 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	[Parameter] public string Placeholder { get; set; }
 
 	/// <summary>
+	/// Defines whether the input for new tag may be checked for spelling errors.
+	/// </summary>
+	[Parameter] public bool? Spellcheck { get; set; }
+	protected bool? SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck;
+
+	/// <summary>
 	/// The settings for the <see cref="HxBadge"/> used to render tags. The default is <c>Color="<see cref="ThemeColor.Light"/>"</c> and <c>TextColor="<see cref="ThemeColor.Dark"/>"</c>.
 	/// </summary>
 	[Parameter] public BadgeSettings TagBadgeSettings { get; set; }
@@ -178,6 +184,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 		builder.AddAttribute(1023, nameof(HxInputTagsInternal.InputGroupStartTemplate), InputGroupStartTemplate);
 		builder.AddAttribute(1024, nameof(HxInputTagsInternal.InputGroupEndTemplate), InputGroupEndTemplate);
 		builder.AddAttribute(1025, nameof(HxInputTagsInternal.InputGroupCssClass), InputGroupCssClass);
+		builder.AddAttribute(1026, nameof(HxInputTagsInternal.SpellcheckEffective), SpellcheckEffective);
 
 		builder.AddMultipleAttributes(1090, AdditionalAttributes);
 

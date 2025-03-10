@@ -10,7 +10,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <remarks>
 /// Defaults are located in a separate non-generic type <see cref="HxAutosuggest"/>.
 /// </remarks>
-public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType, IInputWithSpellcheck
+public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 {
 	/// <summary>
 	/// Returns application-wide defaults for the component.
@@ -97,11 +97,10 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
-	/// Spell checking of the input.
+	/// Defines whether the input may be checked for spelling errors. Default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool? Spellcheck { get; set; }
 	protected bool? SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck;
-	bool? IInputWithSpellcheck.SpellcheckEffective => SpellcheckEffective;
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }

@@ -26,7 +26,7 @@ public record InputTextSettings : InputSettings
 	public bool? SelectOnFocus { get; set; }
 
 	/// <summary>
-	/// Hint to browsers regarding the spell checking of the input.
+	/// Defines whether the input may be checked for spelling errors.
 	/// </summary>
 	public bool? Spellcheck { get; set; }
 }

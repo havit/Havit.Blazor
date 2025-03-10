@@ -20,6 +20,8 @@ public partial class HxInputTagsInputInternal
 
 	[Parameter] public bool EnabledEffective { get; set; }
 
+	[Parameter] public bool? SpellcheckEffective { get; set; }
+
 	/// <summary>
 	/// Offset between dropdown input and dropdown menu
 	/// </summary>

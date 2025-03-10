@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSearchBox">https://havit.blazor.eu/components/HxSearchBox</see>
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInputWithLabelType, IInputWithSpellcheck
+public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInputWithLabelType
 {
 	/// <summary>
 	/// Returns application-wide defaults for the component.
@@ -183,11 +183,10 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
-	/// Spell checking of the input.
+	/// Defines whether the input may be checked for spelling errors. Default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool? Spellcheck { get; set; }
 	protected bool? SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck;
-	bool? IInputWithSpellcheck.SpellcheckEffective => SpellcheckEffective;
 
 	/// <summary>
 	/// Minimum length to call the data provider (display any results). Default is <c>2</c>.
