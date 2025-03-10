@@ -96,10 +96,16 @@ public class HxCheckbox : HxInputBase<bool>
 		builder.OpenElement(0, "input");
 		BuildRenderInput_AddCommonAttributes(builder, "checkbox");
 		builder.AddAttribute(1000, "checked", BindConverter.FormatValue(CurrentValue));
-		builder.AddAttribute(1001, "onchange", value: EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
+
+		// HTML input sends the "on" value when the checkbox is checked, and nothing otherwise.
+		// We include the "value" attribute so that when this is posted by a form, "true"
+		// is included in the form fields.
+		builder.AddAttribute(1001, "value", bool.TrueString);
+
+		builder.AddAttribute(1002, "onchange", value: EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
 		builder.SetUpdatesAttributeName("checked");
-		builder.AddEventStopPropagationAttribute(1002, "onclick", true);
-		builder.AddElementReferenceCapture(1003, elementReference => InputElement = elementReference);
+		builder.AddEventStopPropagationAttribute(1003, "onclick", true);
+		builder.AddElementReferenceCapture(1004, elementReference => InputElement = elementReference);
 		builder.CloseElement(); // input
 
 		builder.OpenElement(2000, "label");
