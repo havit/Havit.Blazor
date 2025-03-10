@@ -3233,6 +3233,11 @@
             The label type.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.Spellcheck">
+            <summary>
+            Defines whether the input may be checked for spelling errors.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2">
             <summary>
             Component for single item selection with dynamic suggestions (based on typed characters).<br />
@@ -3317,6 +3322,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputSize">
             <summary>
             The size of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Spellcheck">
+            <summary>
+            Defines whether the input may be checked for spelling errors. Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.LabelType">
@@ -4526,6 +4536,11 @@
             Size of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.Spellcheck">
+            <summary>
+            Defines whether the input may be checked for spelling errors.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.SelectOnFocus">
             <summary>
             Determines whether all the text within the input field is automatically selected when it receives focus.
@@ -5407,6 +5422,11 @@
             Determines whether all the text within the input field is automatically selected when it receives focus.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.Spellcheck">
+            <summary>
+            Defines whether the input may be checked for spelling errors.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.LabelType">
             <summary>
             Label type.
@@ -5644,6 +5664,11 @@
             Input size of the input field.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Spellcheck">
+            <summary>
+            Defines whether the input may be checked for spelling errors. Default is <c>false</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.MinimumLength">
             <summary>
             Minimum length to call the data provider (display any results). Default is <c>2</c>.
@@ -5826,6 +5851,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.ItemSelectionBehavior">
             <summary>
             The behavior when the item is selected.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.Spellcheck">
+            <summary>
+            Defines whether the input may be checked for spelling errors.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectSettings">
@@ -10123,6 +10153,11 @@
             A short hint displayed in the input field before the user enters a value.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Spellcheck">
+            <summary>
+            Defines whether the input for new tag may be checked for spelling errors.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.TagBadgeSettings">
             <summary>
             The settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render tags. The default is <c>Color="<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>"</c> and <c>TextColor="<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Dark"/>"</c>.
@@ -10247,6 +10282,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.TagBadgeSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render tags.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.Spellcheck">
+            <summary>
+            Defines whether the input for new tag may be checked for spelling errors.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ThemeColor">

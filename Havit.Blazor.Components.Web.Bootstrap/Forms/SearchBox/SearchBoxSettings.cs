@@ -64,4 +64,9 @@ public class SearchBoxSettings
 	/// The behavior when the item is selected.
 	/// </summary>
 	public SearchBoxItemSelectionBehavior? ItemSelectionBehavior { get; set; }
+
+	/// <summary>
+	/// Defines whether the input may be checked for spelling errors.
+	/// </summary>
+	public bool? Spellcheck { get; set; }
 }

@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Settings for the <see cref="HxAutosuggest{TItem, TValue} "/> and derived components.
@@ -34,4 +36,9 @@ public record AutosuggestSettings : InputSettings
 	/// The label type.
 	/// </summary>
 	public LabelType? LabelType { get; set; }
+
+	/// <summary>
+	/// Defines whether the input may be checked for spelling errors.
+	/// </summary>
+	public bool? Spellcheck { get; set; }
 }

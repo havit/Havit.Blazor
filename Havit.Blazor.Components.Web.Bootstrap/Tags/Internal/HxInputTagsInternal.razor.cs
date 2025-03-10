@@ -111,6 +111,8 @@ public partial class HxInputTagsInternal
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
+	[Parameter] public bool? SpellcheckEffective { get; set; }
+
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML input.
 	/// </summary>

@@ -41,4 +41,9 @@ public record InputTagsSettings : InputSettings
 	/// Settings for the <see cref="HxBadge"/> used to render tags.
 	/// </summary>
 	public BadgeSettings TagBadgeSettings { get; set; }
+
+	/// <summary>
+	/// Defines whether the input for new tag may be checked for spelling errors.
+	/// </summary>
+	public bool? Spellcheck { get; set; }
 }

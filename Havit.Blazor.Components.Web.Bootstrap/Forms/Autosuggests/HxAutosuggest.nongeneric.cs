@@ -18,6 +18,7 @@ public class HxAutosuggest
 			ClearIcon = BootstrapIcon.XLg,
 			MinimumLength = 2,
 			Delay = 300,
+			Spellcheck = false
 		};
 	}
 }

@@ -6,6 +6,7 @@
        type="text"
        class="@CssClass hx-autosuggest-input"
        disabled="@(!EnabledEffective)"
+       spellcheck="@SpellcheckEffective?.ToString().ToLower()"
        autocomplete="off"
        data-bs-reference="parent"
        data-bs-offset="@($"{DropdownOffset.Skidding},{DropdownOffset.Distance}")"

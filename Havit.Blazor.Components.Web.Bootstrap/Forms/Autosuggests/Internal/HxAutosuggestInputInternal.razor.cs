@@ -22,6 +22,8 @@ public partial class HxAutosuggestInputInternal
 
 	[Parameter] public bool EnabledEffective { get; set; }
 
+	[Parameter] public bool? SpellcheckEffective { get; set; }
+
 	/// <summary>
 	/// Offset between the dropdown and the input.
 	/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>

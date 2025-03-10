@@ -183,6 +183,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
+	/// Defines whether the input may be checked for spelling errors. Default is <c>false</c>.
+	/// </summary>
+	[Parameter] public bool? Spellcheck { get; set; }
+	protected bool? SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck;
+
+	/// <summary>
 	/// Minimum length to call the data provider (display any results). Default is <c>2</c>.
 	/// </summary>
 	[Parameter] public int? MinimumLength { get; set; }
