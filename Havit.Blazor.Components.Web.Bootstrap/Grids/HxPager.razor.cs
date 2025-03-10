@@ -72,12 +72,6 @@ public partial class HxPager : ComponentBase
 	/// Content for the "First page" button. If not set, the <see cref="FirstPageIcon"/> is used.
 	/// </summary>
 	[Parameter] public RenderFragment FirstPageContentTemplate { get; set; }
-	protected RenderFragment FirstPageContentTemplateEffective => FirstPageContentTemplate ?? (builder =>
-	{
-		builder.OpenComponent<HxIcon>(0);
-		builder.AddAttribute(1, "Icon", FirstPageIconEffective);
-		builder.CloseComponent();
-	});
 
 	/// <summary>
 	/// Icon for the "Last page" button.
@@ -89,12 +83,6 @@ public partial class HxPager : ComponentBase
 	/// Content for the "Last page" button. If not set, the <see cref="LastPageIcon"/> is used.
 	/// </summary>
 	[Parameter] public RenderFragment LastPageContentTemplate { get; set; }
-	protected RenderFragment LastPageContentTemplateEffective => LastPageContentTemplate ?? (builder =>
-	{
-		builder.OpenComponent<HxIcon>(0);
-		builder.AddAttribute(1, "Icon", LastPageIconEffective);
-		builder.CloseComponent();
-	});
 
 	/// <summary>
 	/// Icon for the "Previous page" button.
@@ -106,12 +94,6 @@ public partial class HxPager : ComponentBase
 	/// Content for the "Previous page" button. If not set, the <see cref="PreviousPageIcon"/> is used.
 	/// </summary>
 	[Parameter] public RenderFragment PreviousPageContentTemplate { get; set; }
-	protected RenderFragment PreviousPageContentTemplateEffective => PreviousPageContentTemplate ?? (builder =>
-	{
-		builder.OpenComponent<HxIcon>(0);
-		builder.AddAttribute(1, "Icon", PreviousPageIconEffective);
-		builder.CloseComponent();
-	});
 
 	/// <summary>
 	/// Icon for the "Next page" button.
@@ -123,12 +105,6 @@ public partial class HxPager : ComponentBase
 	/// Content for the "Next page" button. If not set, the <see cref="NextPageIcon"/> is used.
 	/// </summary>
 	[Parameter] public RenderFragment NextPageContentTemplate { get; set; }
-	protected RenderFragment NextPageContentTemplateEffective => NextPageContentTemplate ?? (builder =>
-	{
-		builder.OpenComponent<HxIcon>(0);
-		builder.AddAttribute(1, "Icon", NextPageIconEffective);
-		builder.CloseComponent();
-	});
 
 	/// <summary>
 	/// Count of numbers to display. The default value is 10.

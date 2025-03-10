@@ -18,7 +18,7 @@
             <a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(0)" @onclick:stopPropagation role="button">
                 @if (FirstPageContentTemplate != null)
                 {
-                    @FirstPageContentTemplateEffective
+                    @FirstPageContentTemplate
                 }
                 else
                 {
@@ -34,11 +34,11 @@
 			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(CurrentPageIndex - 1)" @onclick:stopPropagation role="button">
                 @if (PreviousPageContentTemplate != null)
                 {
-                    @PreviousPageContentTemplateEffective
+                    @PreviousPageContentTemplate
                 }
                 else
                 {
-				<HxIcon Icon="@PreviousPageIconEffective" />
+					<HxIcon Icon="@PreviousPageIconEffective" />
                 }
 			</a>
 		</li>
@@ -75,11 +75,11 @@
 			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(CurrentPageIndex + 1)" @onclick:stopPropagation role="button">
                 @if (NextPageContentTemplate != null)
                 {
-                    @NextPageContentTemplateEffective
+                    @NextPageContentTemplate
                 }
                 else
                 {
-				<HxIcon Icon="@NextPageIconEffective" />
+					<HxIcon Icon="@NextPageIconEffective" />
                 }
 			</a>
 		</li>
@@ -91,11 +91,11 @@
 			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(TotalPages - 1)" @onclick:stopPropagation role="button">
                 @if (LastPageContentTemplate != null)
                 {
-                    @LastPageContentTemplateEffective
+                    @LastPageContentTemplate
                 }
                 else
                 {
-				<HxIcon Icon="@LastPageIconEffective" />
+					<HxIcon Icon="@LastPageIconEffective" />
                 }
 			</a>
 		</li>
