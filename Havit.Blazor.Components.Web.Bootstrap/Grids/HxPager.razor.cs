@@ -44,6 +44,7 @@ public partial class HxPager : ComponentBase
 
 	/// <summary>
 	/// Total number of pages of data items.
+	/// Has to be equal to or greater than <c>1</c>.
 	/// </summary>
 	[Parameter, EditorRequired] public int TotalPages { get; set; }
 
@@ -117,6 +118,16 @@ public partial class HxPager : ComponentBase
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
+
+	protected override void OnParametersSet()
+	{
+		if (TotalPages < 1)
+		{
+			throw new InvalidOperationException($"{nameof(TotalPages)} has to be greater than or equal to 1.");
+		}
+
+		base.OnParametersSet();
+	}
 
 	/// <summary>
 	/// Changes the current page index and fires the event.
