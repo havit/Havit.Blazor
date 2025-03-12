@@ -26,11 +26,13 @@ public static class GrpcClientServiceCollectionExtensions
 	/// </summary>
 	/// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
 	/// <param name="assemblyToScanForDataContracts">Assembly to scan for data contracts.</param>
+	/// <param name="grpcWebHandlerFactory">An optional factory method for the <see cref="GrpcWebHandler"/>.</param>
 	public static void AddGrpcClientInfrastructure(
 		this IServiceCollection services,
-		Assembly assemblyToScanForDataContracts)
+		Assembly assemblyToScanForDataContracts,
+		Func<IServiceProvider, GrpcWebHandler> grpcWebHandlerFactory = null)
 	{
-		AddGrpcClientInfrastructure(services, [assemblyToScanForDataContracts]);
+		AddGrpcClientInfrastructure(services, [assemblyToScanForDataContracts], grpcWebHandlerFactory);
 	}
 
 	/// <summary>
@@ -38,14 +40,16 @@ public static class GrpcClientServiceCollectionExtensions
 	/// </summary>
 	/// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
 	/// <param name="assembliesToScanForDataContracts">Assemblies to scan for data contracts.</param>
+	/// <param name="grpcWebHandlerFactory">An optional factory method for the <see cref="GrpcWebHandler"/>.</param>
 	public static void AddGrpcClientInfrastructure(
 		this IServiceCollection services,
-		Assembly[] assembliesToScanForDataContracts)
+		Assembly[] assembliesToScanForDataContracts,
+		Func<IServiceProvider, GrpcWebHandler> grpcWebHandlerFactory = null)
 	{
 		services.AddTransient<ServerExceptionsGrpcClientInterceptor>();
 		services.AddSingleton<GlobalizationLocalizationGrpcClientInterceptor>();
 		services.AddScoped<ClientUriGrpcClientInterceptor>();
-		services.AddTransient<GrpcWebHandler>(provider => new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
+		services.AddTransient<GrpcWebHandler>(grpcWebHandlerFactory ?? (provider => new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler())));
 		services.AddSingleton<ClientFactory>(ClientFactory.Create(BinderConfiguration.Create(
 			marshallerFactories: CreateMarshallerFactories(assembliesToScanForDataContracts),
 			binder: new ProtoBufServiceBinder())));
