@@ -7011,6 +7011,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.TotalPages">
             <summary>
             Total number of pages of data items.
+            Has to be equal to or greater than <c>1</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.CurrentPageIndex">
