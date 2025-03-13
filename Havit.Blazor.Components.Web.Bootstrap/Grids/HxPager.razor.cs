@@ -123,10 +123,8 @@ public partial class HxPager : ComponentBase
 	{
 		if (TotalPages < 1)
 		{
-			throw new InvalidOperationException($"{nameof(TotalPages)} has to be greater than or equal to 1.");
+			throw new InvalidOperationException($"{nameof(HxPager)} requires {nameof(TotalPages)} to be greater than or equal to 1.");
 		}
-
-		base.OnParametersSet();
 	}
 
 	/// <summary>
