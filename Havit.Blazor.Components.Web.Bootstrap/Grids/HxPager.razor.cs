@@ -123,7 +123,7 @@ public partial class HxPager : ComponentBase
 	{
 		if (TotalPages < 1)
 		{
-			throw new InvalidOperationException($"{nameof(HxPager)} requires {nameof(TotalPages)} to be greater than or equal to 1.");
+			throw new InvalidOperationException($"[{GetType().Name}] {nameof(TotalPages)} has to be greater than or equal to 1.");
 		}
 	}
 
@@ -132,8 +132,8 @@ public partial class HxPager : ComponentBase
 	/// </summary>
 	protected async Task SetCurrentPageIndexTo(int newPageIndex)
 	{
-		Contract.Requires(newPageIndex >= 0, nameof(newPageIndex));
-		Contract.Requires(newPageIndex < TotalPages, nameof(newPageIndex));
+		Contract.Requires<ArgumentException>(newPageIndex >= 0);
+		Contract.Requires<ArgumentException>(newPageIndex < TotalPages);
 
 		CurrentPageIndex = newPageIndex;
 		await InvokeCurrentPageIndexChangedAsync(CurrentPageIndex);
