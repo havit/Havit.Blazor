@@ -7,6 +7,9 @@
 <h1>Inputs</h1>
 
 <div class="card" @onclick="HandleCardClick">
+	<HxInputText Label="InputGroupStartText" @bind-Value="@inputGroupStartText" />
+	<HxInputText Label="InputGroupEndText" @bind-Value="@inputGroupEndText" />
+
 	<div class="card-header">OnClick propagation test</div>
 	<div class="card-body">
 
@@ -14,30 +17,30 @@
 			<DataAnnotationsValidator />
 			<ValidationSummary />
 
-			<HxInputText LabelType="LabelType.Floating" Label="Text (large)" InputSize="InputSize.Large" @bind-Value="@context.TextBasic" Hint="@context.TextBasic" />
+			<HxInputText LabelType="LabelType.Floating" Label="Text (large)" InputSize="InputSize.Large" @bind-Value="@context.TextBasic" Hint="@context.TextBasic" InputGroupStartText="@inputGroupStartText" InputGroupEndText="@inputGroupEndText" />
 
-			<HxInputText LabelType="LabelType.Floating" Label="Text (oninput)" @bind-Value="@context.TextOnInput" BindEvent="BindEvent.OnInput">
+			<HxInputText LabelType="LabelType.Floating" Label="Text (oninput)" @bind-Value="@context.TextOnInput" BindEvent="BindEvent.OnInput" InputGroupStartText="@inputGroupStartText" InputGroupEndText="@inputGroupEndText">
 				<HintTemplate>
 					Hint: @context.TextOnInput
 				</HintTemplate>
 			</HxInputText>
 
-			<HxInputText LabelType="LabelType.Floating" Label="Text (disabled)" Enabled="false" @bind-Value="@context.TextDisabled" />
-			<HxInputText LabelType="LabelType.Floating" Label="Text (password)" Type="InputType.Password" @bind-Value="@context.TextPassword" />
-			<HxInputText LabelType="LabelType.Floating" Label="Text (email)" Type="InputType.Email" @bind-Value="@context.TextEmail" />
+			<HxInputText LabelType="LabelType.Floating" Label="Text (disabled)" Enabled="false" @bind-Value="@context.TextDisabled" InputGroupStartText="@inputGroupStartText" InputGroupEndText="@inputGroupEndText" />
+			<HxInputText LabelType="LabelType.Floating" Label="Text (password)" Type="InputType.Password" @bind-Value="@context.TextPassword" InputGroupStartText="@inputGroupStartText" InputGroupEndText="@inputGroupEndText" />
+			<HxInputText LabelType="LabelType.Floating" Label="Text (email)" Type="InputType.Email" @bind-Value="@context.TextEmail" InputGroupStartText="@inputGroupStartText" InputGroupEndText="@inputGroupEndText" />
 
-			<HxInputTextArea LabelType="LabelType.Floating" Label="TextArea" @bind-Value="@context.TextLong" />
+			<HxInputTextArea LabelType="LabelType.Floating" Label="TextArea" @bind-Value="@context.TextLong" InputGroupStartText="@inputGroupStartText" InputGroupEndText="@inputGroupEndText" />
 
-			<HxInputNumber LabelType="LabelType.Floating" Label="Integer" @bind-Value="@context.IntegerValue" ParsingErrorMessage="Enter correct Integer." />
-			<HxInputNumber LabelType="LabelType.Floating" Label="Integer (nullable)" @bind-Value="@context.NullableIntegerValue" ParsingErrorMessage="Enter correct Integer." />
+			<HxInputNumber LabelType="LabelType.Floating" Label="Integer" @bind-Value="@context.IntegerValue" ParsingErrorMessage="Enter correct Integer." InputGroupStartText="@inputGroupStartText" InputGroupEndText="@inputGroupEndText" />
+			<HxInputNumber LabelType="LabelType.Floating" Label="Integer (nullable)" @bind-Value="@context.NullableIntegerValue" ParsingErrorMessage="Enter correct Integer." InputGroupStartText="@inputGroupStartText" InputGroupEndText="@inputGroupEndText" />
 
-			<HxInputNumber LabelType="LabelType.Floating" Label="Decimal" @bind-Value="@context.DecimalValue" ParsingErrorMessage="Enter correct Decimal." />
-			<HxInputNumber LabelType="LabelType.Floating" Label="Decimal (nullable)" @bind-Value="@context.NullableDecimalValue" ParsingErrorMessage="Enter correct Decimal." />
+			<HxInputNumber LabelType="LabelType.Floating" Label="Decimal" @bind-Value="@context.DecimalValue" ParsingErrorMessage="Enter correct Decimal." InputGroupStartText="@inputGroupStartText" InputGroupEndText="@inputGroupEndText" />
+			<HxInputNumber LabelType="LabelType.Floating" Label="Decimal (nullable)" @bind-Value="@context.NullableDecimalValue" ParsingErrorMessage="Enter correct Decimal." InputGroupStartText="@inputGroupStartText" InputGroupEndText="@inputGroupEndText" />
 
-			<HxInputPercent LabelType="LabelType.Floating" Label="Percent" @bind-Value="@context.PercentValue" ParsingErrorMessage="Enter correct Percent." InputGroupEndText="" />
+			<HxInputPercent LabelType="LabelType.Floating" Label="Percent" @bind-Value="@context.PercentValue" ParsingErrorMessage="Enter correct Percent." InputGroupStartText="@inputGroupStartText" InputGroupEndText="@inputGroupEndText" />
 
-			<HxInputDate LabelType="LabelType.Floating" Label="Date" @bind-Value="@context.DateValue" ParsingErrorMessage="Enter correct Date." />
-			<HxInputDate LabelType="LabelType.Floating" Label="Date (nullable)" @bind-Value="@context.NullableDateValue" ParsingErrorMessage="Enter correct Date." InputGroupEndTemplate="null" />
+			<HxInputDate LabelType="LabelType.Floating" Label="Date" @bind-Value="@context.DateValue" ParsingErrorMessage="Enter correct Date." InputGroupStartText="@inputGroupStartText" InputGroupEndText="@inputGroupEndText" />
+			<HxInputDate LabelType="LabelType.Floating" Label="Date (nullable)" @bind-Value="@context.NullableDateValue" ParsingErrorMessage="Enter correct Date." InputGroupStartText="@inputGroupStartText" InputGroupEndText="@inputGroupEndText" />
 
 			<HxSearchBox LabelType="LabelType.Floating"
 						 DataProvider="ProvideSearchResults"
@@ -57,14 +60,16 @@
 			<HxSelect LabelType="LabelType.Floating" Label="Select (TValueType: CultureInfo, small)" @bind-Value="@context.CultureInfoSelect" Data="@cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" />
 			<HxSelect LabelType="LabelType.Floating" Label="Select (Data == null, small)" TItem="CultureInfo" TValue="CultureInfo" @bind-Value="@context.CultureInfoSelect" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" />*@
 
-			<HxAutosuggest LabelType="LabelType.Floating" Label="Autosuggest (large)" @bind-Value="@context.CultureInfoAutosuggest" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider" InputSize="InputSize.Large">
+			<HxAutosuggest LabelType="LabelType.Floating" Label="Autosuggest (large)" @bind-Value="@context.CultureInfoAutosuggest" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider" InputSize="InputSize.Large" InputGroupStartText="@inputGroupStartText" InputGroupEndText="@inputGroupEndText">
 				<HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>
 			</HxAutosuggest>
 
 			<HxInputTags Label="Tags (Bootstrap theme colors suggested)"
 						 LabelType="LabelType.Floating"
 						 @bind-Value="values"
-						 DataProvider="GetNewItemSuggestions" />
+						 DataProvider="GetNewItemSuggestions"
+						 InputGroupStartText="@inputGroupStartText"
+						 InputGroupEndText="@inputGroupEndText" />
 
 			<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
 		</HxFilterForm>
@@ -83,6 +88,8 @@
 	private ChipItem[] chips;
 	private DateTime? lastCapturedClick = null;
 	private List<CultureInfo> cultureInfos = new List<CultureInfo> { CultureInfo.GetCultureInfo("cs-CZ"), CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sk-SK"), CultureInfo.GetCultureInfo("es-ES") };
+	private string inputGroupStartText;
+	private string inputGroupEndText;
 
 	private List<string> values = new List<string>() { "Blazor", "C#", "ASP.NET" };
 
