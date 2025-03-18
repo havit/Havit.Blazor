@@ -12,7 +12,6 @@ public class GrpcClientServiceCollectionExtensionsTests
 		// arrange
 		var services = new ServiceCollection();
 
-
 		// act
 		services.AddGrpcClientsByApiContractAttributes(typeof(Dto).Assembly);
 
