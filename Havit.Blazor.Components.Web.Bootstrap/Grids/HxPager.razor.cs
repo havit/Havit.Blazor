@@ -44,6 +44,7 @@ public partial class HxPager : ComponentBase
 
 	/// <summary>
 	/// Total number of pages of data items.
+	/// Has to be equal to or greater than <c>1</c>.
 	/// </summary>
 	[Parameter, EditorRequired] public int TotalPages { get; set; }
 
@@ -118,13 +119,21 @@ public partial class HxPager : ComponentBase
 	[Parameter] public string CssClass { get; set; }
 	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
+	protected override void OnParametersSet()
+	{
+		if (TotalPages < 1)
+		{
+			throw new InvalidOperationException($"[{GetType().Name}] {nameof(TotalPages)} has to be greater than or equal to 1.");
+		}
+	}
+
 	/// <summary>
 	/// Changes the current page index and fires the event.
 	/// </summary>
 	protected async Task SetCurrentPageIndexTo(int newPageIndex)
 	{
-		Contract.Requires(newPageIndex >= 0, nameof(newPageIndex));
-		Contract.Requires(newPageIndex < TotalPages, nameof(newPageIndex));
+		Contract.Requires<ArgumentException>(newPageIndex >= 0);
+		Contract.Requires<ArgumentException>(newPageIndex < TotalPages);
 
 		CurrentPageIndex = newPageIndex;
 		await InvokeCurrentPageIndexChangedAsync(CurrentPageIndex);
