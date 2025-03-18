@@ -45,7 +45,10 @@ public static class GrpcClientServiceCollectionExtensions
 		services.AddTransient<ServerExceptionsGrpcClientInterceptor>();
 		services.AddSingleton<GlobalizationLocalizationGrpcClientInterceptor>();
 		services.AddScoped<ClientUriGrpcClientInterceptor>();
-		services.AddTransient<GrpcWebHandler>(provider => new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
+
+		// we want to allow the application to provide its own GrpcWebHandler
+		services.TryAddTransient<GrpcWebHandler>((provider => new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler())));
+
 		services.AddSingleton<ClientFactory>(ClientFactory.Create(BinderConfiguration.Create(
 			marshallerFactories: CreateMarshallerFactories(assembliesToScanForDataContracts),
 			binder: new ProtoBufServiceBinder())));
