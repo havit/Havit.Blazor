@@ -48,12 +48,12 @@ public class HxFormValueComponentRenderer : ComponentBase
 
 			case LabelValueRenderOrder.ValueLabel:
 
-				// checkbox, etc.
+				// floating labels
 
-				if (FormValueComponent.ShouldRenderInputGroups())
-				{
-					throw new InvalidOperationException($"Cannot use Input Groups when {nameof(FormValueComponent.RenderOrder)} is {nameof(LabelValueRenderOrder.ValueLabel)}.");
-				}
+				//if (FormValueComponent.ShouldRenderInputGroups())
+				//{
+				//	throw new InvalidOperationException($"Cannot use Input Groups when {nameof(FormValueComponent.RenderOrder)} is {nameof(LabelValueRenderOrder.ValueLabel)}.");
+				//}
 
 				builder.OpenRegion(5);
 				BuildRenderInputGroups(builder, BuildRenderValue);
