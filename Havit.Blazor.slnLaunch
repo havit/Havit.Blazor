@@ -58,5 +58,20 @@
         "DebugTarget": "IIS Express"
       }
     ]
+  },
+  {
+    "Name": "TestApp + BlazorAppTest",
+    "Projects": [
+      {
+        "Path": "BlazorAppTest\\BlazorAppTest.csproj",
+        "Action": "Start",
+        "DebugTarget": "IIS Express"
+      },
+      {
+        "Path": "Havit.Blazor.TestApp\\Havit.Blazor.TestApp\\Havit.Blazor.TestApp.csproj",
+        "Action": "Start",
+        "DebugTarget": "IIS Express"
+      }
+    ]
   }
 ]
