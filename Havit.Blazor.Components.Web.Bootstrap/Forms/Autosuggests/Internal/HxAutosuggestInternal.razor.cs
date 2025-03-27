@@ -1,10 +1,12 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 {
+	[Inject] protected IStringLocalizer<HxAutosuggestInternal<TItem, TValue>> HxAutosuggestLocalizer { get; set; }
 	[Parameter] public TValue Value { get; set; }
 	[Parameter] public EventCallback<TValue> ValueChanged { get; set; }
 
