@@ -17,6 +17,10 @@
     display: flex;
     align-items: center;
     opacity: var(--hx-chip-list-chip-remove-btn-opacity);
+    background-color: unset;
+    padding: 0;
+    border: none;
+    color: currentColor;
 }
 
 ::deep .hx-chip-list-remove-btn .hx-icon {
