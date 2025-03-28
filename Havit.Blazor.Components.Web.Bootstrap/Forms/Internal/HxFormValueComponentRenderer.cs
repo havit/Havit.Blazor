@@ -50,17 +50,8 @@ public class HxFormValueComponentRenderer : ComponentBase
 
 				// floating labels
 
-				//if (FormValueComponent.ShouldRenderInputGroups())
-				//{
-				//	throw new InvalidOperationException($"Cannot use Input Groups when {nameof(FormValueComponent.RenderOrder)} is {nameof(LabelValueRenderOrder.ValueLabel)}.");
-				//}
-
 				builder.OpenRegion(5);
-				BuildRenderInputGroups(builder, BuildRenderValue);
-				builder.CloseRegion();
-
-				builder.OpenRegion(6);
-				BuildRenderLabel(builder);
+				BuildRenderInputGroups(builder, BuildRenderValueWithFloatingLabel);
 				builder.CloseRegion();
 
 				break;
@@ -89,6 +80,18 @@ public class HxFormValueComponentRenderer : ComponentBase
 		{
 			builder.CloseElement();
 		}
+	}
+
+	/// <summary>
+	/// Renders the value/input and floating label wrapper.
+	/// </summary>
+	protected virtual void BuildRenderValueWithFloatingLabel(RenderTreeBuilder builder)
+	{
+		builder.OpenElement(1, "div");
+		builder.AddAttribute(2, "class", "form-floating");
+		FormValueComponent.RenderValue(builder);
+		BuildRenderLabel(builder);
+		builder.CloseElement();
 	}
 
 	/// <summary>

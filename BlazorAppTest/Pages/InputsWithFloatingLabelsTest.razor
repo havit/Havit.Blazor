@@ -7,12 +7,9 @@
 <h1>Inputs</h1>
 
 <div class="card" @onclick="HandleCardClick">
-	<HxInputText Label="InputGroupStartText" @bind-Value="@inputGroupStartText" />
-	<HxInputText Label="InputGroupEndText" @bind-Value="@inputGroupEndText" />
 
 	<div class="card-header">OnClick propagation test</div>
 	<div class="card-body">
-
 		<HxFilterForm @ref="filterForm" TModel="FormModel" @bind-Model="@model" OnChipsUpdated="HandleChipUpdated">
 			<DataAnnotationsValidator />
 			<ValidationSummary />
@@ -88,8 +85,8 @@
 	private ChipItem[] chips;
 	private DateTime? lastCapturedClick = null;
 	private List<CultureInfo> cultureInfos = new List<CultureInfo> { CultureInfo.GetCultureInfo("cs-CZ"), CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sk-SK"), CultureInfo.GetCultureInfo("es-ES") };
-	private string inputGroupStartText;
-	private string inputGroupEndText;
+	private string inputGroupStartText = "Start";
+	private string inputGroupEndText = "End";
 
 	private List<string> values = new List<string>() { "Blazor", "C#", "ASP.NET" };
 
