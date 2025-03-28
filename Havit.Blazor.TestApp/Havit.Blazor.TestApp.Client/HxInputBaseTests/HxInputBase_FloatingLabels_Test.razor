@@ -1,0 +1,230 @@
+﻿@page "/HxInputBase_FloatingLabels"
+@rendermode InteractiveAuto
+
+<HxSwitch Label="Test InputGroupStart"
+		  @bind-Value="_inputGroupStartEnabled"
+		  @bind-Value:after="@(() => _inputGroupStartText = _inputGroupStartEnabled ? "Start" : null)" />
+<HxSwitch Label="Test InputGroupEnd"
+		  @bind-Value="_inputGroupEndEnabled"
+		  @bind-Value:after="@(() => _inputGroupEndText = _inputGroupEndEnabled ? "End" : null)" />
+
+<div class="card" @onclick="HandleCardClick">
+
+	<div class="card-header">OnClick propagation test</div>
+	<div class="card-body">
+		<HxFilterForm @ref="_filterForm" TModel="FormModel" @bind-Model="_model" OnChipsUpdated="HandleChipUpdated">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+
+			<HxInputText LabelType="LabelType.Floating" Label="Text (large)" InputSize="InputSize.Large" @bind-Value="@context.TextBasic" Hint="@context.TextBasic" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+
+			<HxInputText LabelType="LabelType.Floating" Label="Text (oninput)" @bind-Value="context.TextOnInput" BindEvent="BindEvent.OnInput" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText">
+				<HintTemplate>
+					Hint: @context.TextOnInput
+				</HintTemplate>
+			</HxInputText>
+
+			<HxInputText LabelType="LabelType.Floating" Label="Text (disabled)" Enabled="false" @bind-Value="context.TextDisabled" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+			<HxInputText LabelType="LabelType.Floating" Label="Text (password)" Type="InputType.Password" @bind-Value="context.TextPassword" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+			<HxInputText LabelType="LabelType.Floating" Label="Text (email)" Type="InputType.Email" @bind-Value="context.TextEmail" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+
+			<HxInputTextArea LabelType="LabelType.Floating" Label="TextArea" @bind-Value="context.TextLong" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+
+			<HxInputNumber LabelType="LabelType.Floating" Label="Integer" @bind-Value="context.IntegerValue" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+			<HxInputNumber LabelType="LabelType.Floating" Label="Integer (nullable)" @bind-Value="@context.NullableIntegerValue" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+
+			<HxInputNumber LabelType="LabelType.Floating" Label="Decimal" @bind-Value="context.DecimalValue" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+			<HxInputNumber LabelType="LabelType.Floating" Label="Decimal (nullable)" @bind-Value="context.NullableDecimalValue" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+
+			<HxInputPercent LabelType="LabelType.Floating" Label="Percent" @bind-Value="context.PercentValue" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+
+			<HxInputDate LabelType="LabelType.Floating" Label="Date" @bind-Value="context.DateValue" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+			<HxInputDate LabelType="LabelType.Floating" Label="Date (nullable)" @bind-Value="context.NullableDateValue" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+
+			@* HxInputDateRange does not have a label type support *@
+			@* <HxInputDateRange LabelType="LabelType.Floating" Label="DateRange" @bind-Value="@context.DateRange" /> *@
+
+			<HxSelect LabelType="LabelType.Floating" Label="Select (TValueType: string)" @bind-Value="@context.CultureInfoSelectName" ValueSelector="@(item => item.DisplayName)" Data="@_cultureInfos" TextSelector="@(item => item.DisplayName)" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+			<HxSelect LabelType="LabelType.Floating" Label="Select (TValueType: CultureInfo, small)" @bind-Value="@context.CultureInfoSelect" Data="@_cultureInfos" TextSelector="@(item => item.DisplayName)" InputSize="InputSize.Small" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+			<HxSelect LabelType="LabelType.Floating" Label="Select (Data == null, small)" TItem="CultureInfo" TValue="CultureInfo" @bind-Value="@context.CultureInfoSelect" TextSelector="@(item => item.DisplayName)" NullDataText="No data available." InputSize="InputSize.Small" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText" />
+
+			<HxAutosuggest LabelType="LabelType.Floating" Label="Autosuggest (large)" @bind-Value="context.CultureInfoAutosuggest" TextSelector="@(item => item.DisplayName)" DataProvider="CulturesAutosuggestDataProvider" InputSize="InputSize.Large" InputGroupStartText="@_inputGroupStartText" InputGroupEndText="@_inputGroupEndText">
+				<HintTemplate>@context.CultureInfoAutosuggest?.DisplayName</HintTemplate>
+			</HxAutosuggest>
+
+			@* HxSearchBox is not a regular HxInputBase, but anyway... *@
+			<HxSearchBox LabelType="LabelType.Floating"
+						 DataProvider="ProvideSearchResults"
+						 ItemTitleSelector="i => i.Title"
+						 ItemSubtitleSelector="i => i.Subtitle"
+						 ItemIconSelector="i => i.Icon"
+						 TItem="SearchBoxItem"
+						 Label="Search"
+						 OnItemSelected="OnItemSelected"
+						 AllowTextQuery="true"
+						 @bind-TextQuery="_textQuery"
+						 OnTextQueryTriggered="OnTextQueryTriggered" />
+
+
+			@* HxInputTags does not support input groups with floating labels *@
+			<HxInputTags Label="Tags (Bootstrap theme colors suggested)"
+						 LabelType="LabelType.Floating"
+						 @bind-Value="_values"
+						 DataProvider="GetNewItemSuggestions" />
+
+			<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
+		</HxFilterForm>
+
+	</div>
+	<div class="card-footer">
+		<p>Last captured click: @_lastCapturedClick</p>
+		<HxChipList Chips="_chips" OnChipRemoveClick="HandleChipRemoveClick" />
+	</div>
+</div>
+
+@code
+{
+	private FormModel _model = new FormModel();
+	private HxFilterForm<FormModel> _filterForm;
+	private ChipItem[] _chips;
+	private DateTime? _lastCapturedClick = null;
+	private List<CultureInfo> _cultureInfos = new List<CultureInfo> { CultureInfo.GetCultureInfo("cs-CZ"), CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sk-SK"), CultureInfo.GetCultureInfo("es-ES") };
+
+	private bool _inputGroupStartEnabled;
+	private bool _inputGroupEndEnabled;
+	private string _inputGroupStartText;
+	private string _inputGroupEndText;
+
+	private List<string> _values = new List<string>() { "Blazor", "C#", "ASP.NET" };
+
+	private async Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
+	{
+		await Task.Delay(50); // simulate server API call
+		return new InputTagsDataProviderResult()
+			{
+				Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString()).Where(v => v.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+			};
+	}
+
+	private Task HandleCardClick()
+	{
+		_lastCapturedClick = DateTime.Now;
+
+		return Task.CompletedTask;
+	}
+
+	private Task<AutosuggestDataProviderResult<CultureInfo>> CulturesAutosuggestDataProvider(AutosuggestDataProviderRequest request)
+	{
+		return Task.FromResult(new AutosuggestDataProviderResult<CultureInfo>
+			{
+				Data = _cultureInfos.Where(item => item.DisplayName.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase)).ToList()
+			});
+	}
+
+	private void HandleChipUpdated(ChipItem[] chips)
+	{
+		this._chips = chips;
+	}
+
+	private async Task HandleChipRemoveClick(ChipItem chipItemToRemove)
+	{
+		await _filterForm.RemoveChipAsync(chipItemToRemove);
+	}
+
+	private SearchBoxItem _selectedItem;
+	private string _triggeredTextQuery;
+	private string _textQuery;
+
+	List<SearchBoxItem> Data { get; set; } = new()
+		{
+			new() { Title = "Table", Subtitle = "50 000", Icon = BootstrapIcon.Table },
+			new() { Title = "Mouse", Subtitle = "400", Icon = BootstrapIcon.Mouse },
+			new() { Title = "Door", Subtitle = "1000", Icon = BootstrapIcon.DoorClosed }
+		};
+
+	private void OnItemSelected(SearchBoxItem item)
+	{
+		_selectedItem = item;
+	}
+
+	private void OnTextQueryTriggered(string text)
+	{
+		_triggeredTextQuery = text;
+	}
+
+	private async Task<SearchBoxDataProviderResult<SearchBoxItem>> ProvideSearchResults(SearchBoxDataProviderRequest request)
+	{
+		await Task.Delay(400); // imitate slower server API
+
+		return new()
+			{
+				Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+			};
+	}
+
+	class SearchBoxItem
+	{
+		public string Title { get; set; }
+		public string Subtitle { get; set; }
+		public BootstrapIcon Icon { get; set; }
+	}
+
+	public class FormModel : ICloneable
+	{
+		[Required]
+		[MaxLength(50)]
+		public string TextBasic { get; set; } = "Basic value";
+
+		[Required]
+		[MaxLength(50)]
+		public string TextOnInput { get; set; }
+
+		public string TextDisabled { get; set; }
+
+		[Required]
+		[MaxLength(50)]
+		public string TextPassword { get; set; } = "Password";
+
+		[Required]
+		[MaxLength(50)]
+		public string TextEmail { get; set; }
+
+		[Required]
+		public string TextLong { get; set; }
+
+		public int IntegerValue { get; set; }
+
+		public int? NullableIntegerValue { get; set; }
+
+		public decimal DecimalValue { get; set; }
+
+		public decimal? NullableDecimalValue { get; set; }
+
+		public float PercentValue { get; set; }
+
+		public string SearchBoxValue { get; set; }
+
+		public DateTime DateValue { get; set; } = DateTime.Today;
+
+		public DateTime? NullableDateValue { get; set; }
+
+		[Required]
+		public string CultureInfoSelectName { get; set; }
+
+		[Required]
+		public CultureInfo CultureInfoSelect { get; set; }
+
+		[Required]
+		public CultureInfo CultureInfoAutosuggest { get; set; }
+
+		[Required]
+		public bool BoolCheckbox { get; set; } = true;
+
+		[Required]
+		public bool BoolSwitch { get; set; } = true;
+
+		public DateTimeRange DateRange { get; set; }
+
+		object ICloneable.Clone() => MemberwiseClone();
+	}
+}
