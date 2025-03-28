@@ -649,7 +649,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxIcon.AriaLabel">
             <summary>
-            Label of assistive readers. If not set, the icon is hidden for the readers.
+            Label of assistive readers, if not set, the icon is hidden for the readers.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxIcon.CssClass">

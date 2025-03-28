@@ -103,7 +103,7 @@
 	/* HxInputFileDropZone */
 	--hx-input-file-drop-zone-border-width: 						1px;
 	--hx-input-file-drop-zone-box-shadow: 							none;
-	--hx-input-file-drop-zone-hover-box-shadow: 					0 0 0 .25rem rgba(var(--bs-primary-rgb), .25);
+	--hx-input-file-drop-zone-hover-box-shadow: 					0 0 0 var(--bs-focus-ring-width) var(--bs-focus-ring-color);
 	--hx-input-file-drop-zone-border-color: 						var(--bs-border-color);
 	--hx-input-file-drop-zone-disabled-color: 						var(--bs-secondary-color);
 	--hx-input-file-drop-zone-disabled-background-color: 			var(--bs-secondary-bg);
