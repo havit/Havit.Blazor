@@ -83,15 +83,22 @@ public class HxFormValueComponentRenderer : ComponentBase
 	}
 
 	/// <summary>
-	/// Renders the value/input and floating label wrapper.
+	/// Renders the value/input and label inside floating label wrapper.
 	/// </summary>
 	protected virtual void BuildRenderValueWithFloatingLabel(RenderTreeBuilder builder)
 	{
 		builder.OpenElement(1, "div");
 		builder.AddAttribute(2, "class", "form-floating");
-		FormValueComponent.RenderValue(builder);
+
+		builder.OpenRegion(3);
+		BuildRenderValue(builder);
+		builder.CloseRegion();
+
+		builder.OpenRegion(4);
 		BuildRenderLabel(builder);
-		builder.CloseElement();
+		builder.CloseRegion();
+
+		builder.CloseElement(); // div.form-floating
 	}
 
 	/// <summary>

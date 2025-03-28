@@ -108,7 +108,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// <summary>
 	/// The CSS class to be rendered with the wrapping div.
 	/// </summary>
-	private protected virtual string CoreCssClass => CssClassHelper.Combine("hx-form-group position-relative");
+	private protected virtual string CoreCssClass => "hx-form-group position-relative";
 
 	/// <summary>
 	/// The CSS class to be rendered with the input element.

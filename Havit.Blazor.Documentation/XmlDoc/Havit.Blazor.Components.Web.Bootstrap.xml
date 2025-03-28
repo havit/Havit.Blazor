@@ -2290,7 +2290,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.BuildRenderValueWithFloatingLabel(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
-            Renders the value/input and floating label wrapper.
+            Renders the value/input and label inside floating label wrapper.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.BuildRenderLabel(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
