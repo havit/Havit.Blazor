@@ -647,6 +647,11 @@
             The icon to display.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.HxIcon.AriaLabel">
+            <summary>
+            Label of assistive readers. If not set, the icon is hidden for the readers.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxIcon.CssClass">
             <summary>
             The CSS class to combine with the basic icon CSS class.
