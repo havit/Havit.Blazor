@@ -6,7 +6,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 {
-	[Inject] protected IStringLocalizer<HxAutosuggestInternal<TItem, TValue>> HxAutosuggestLocalizer { get; set; }
 	[Parameter] public TValue Value { get; set; }
 	[Parameter] public EventCallback<TValue> ValueChanged { get; set; }
 
@@ -109,6 +108,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
+	[Inject] protected IStringLocalizer<HxAutosuggest> HxAutosuggestLocalizer { get; set; }
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
