@@ -182,6 +182,7 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 		builder.AddAttribute(1025, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndTemplate), InputGroupEndTemplate);
 		builder.AddAttribute(1026, nameof(HxAutosuggestInternal<TItem, TValue>.NameAttributeValue), NameAttributeValue);
 		builder.AddAttribute(1027, nameof(HxAutosuggestInternal<TItem, TValue>.SpellcheckEffective), SpellcheckEffective);
+		builder.AddAttribute(1028, nameof(HxAutosuggestInternal<TItem, TValue>.InputSizeEffective), InputSizeEffective);
 
 		builder.AddMultipleAttributes(2000, AdditionalAttributes);
 

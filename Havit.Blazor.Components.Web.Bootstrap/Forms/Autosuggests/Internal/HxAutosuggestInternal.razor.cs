@@ -61,6 +61,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	[Parameter] public IconBase ClearIconEffective { get; set; }
 
 	[Parameter] public bool EnabledEffective { get; set; } = true;
+	[Parameter] public InputSize InputSizeEffective { get; set; }
 
 	[Parameter] public LabelType LabelTypeEffective { get; set; }
 
