@@ -4,7 +4,7 @@
 <HxSelect Label="LabelType"
 		  Data="Enum.GetValues<LabelType>()"
 		  @bind-Value="_labelType"
-		  Nullable="false"/>
+		  Nullable="false" />
 <HxSelect Label="InputSize"
 		  Data="Enum.GetValues<InputSize>()"
 		  @bind-Value="_inputSize"
@@ -99,7 +99,9 @@
 						 LabelType="_labelType"
 						 @bind-Value="_values"
 						 InputSize="_inputSize"
-						 DataProvider="GetNewItemSuggestions" />
+						 DataProvider="GetNewItemSuggestions"
+						 InputGroupStartText="@_inputGroupStartText"
+						 InputGroupEndText="@_inputGroupEndText" />
 
 			<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
 		</EditForm>
