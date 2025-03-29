@@ -18,64 +18,64 @@
 
 <div class="card m-5" @onclick="HandleCardClick">
 
-	<div class="card-header">OnClick propagation test</div>
+	<div class="card-header">OnClick propagation test (last captured click: @_lastCapturedClick)</div>
 	<div class="card-body">
-		<HxFilterForm @ref="_filterForm" TModel="FormModel" @bind-Model="_model" OnChipsUpdated="HandleChipUpdated">
+		<EditForm Model="_model">
 			<DataAnnotationsValidator />
 			<ValidationSummary />
 
 			<HxInputText Label="HxInputText"
 						 LabelType="_labelType"
 						 InputSize="_inputSize"
-						 @bind-Value="@context.TextBasic"
+						 @bind-Value="_model.TextBasic"
 						 InputGroupStartText="@_inputGroupStartText"
 						 InputGroupEndText="@_inputGroupEndText" />
 
 			<HxInputTextArea Label="HxInputTextArea"
 							 LabelType="_labelType"
 							 InputSize="_inputSize"
-							 @bind-Value="context.TextLong"
+							 @bind-Value="_model.TextLong"
 							 InputGroupStartText="@_inputGroupStartText"
 							 InputGroupEndText="@_inputGroupEndText" />
 
 			<HxInputNumber Label="HxInputNumber"
 						   LabelType="_labelType"
-						   @bind-Value="context.NullableIntegerValue"
+						   @bind-Value="_model.NullableIntegerValue"
 						   InputSize="_inputSize"
 						   InputGroupStartText="@_inputGroupStartText"
 						   InputGroupEndText="@_inputGroupEndText" />
 
 			<HxInputPercent Label="HxInputPercent"
 							LabelType="_labelType"
-							@bind-Value="context.PercentValue"
+							@bind-Value="_model.PercentValue"
 							InputSize="_inputSize"
 							InputGroupStartText="@_inputGroupStartText"
 							InputGroupEndText="@_inputGroupEndText" />
 
 			<HxInputDate Label="HxInputDate"
 						 LabelType="_labelType"
-						 @bind-Value="context.NullableDateValue"
+						 @bind-Value="_model.NullableDateValue"
 						 InputSize="_inputSize"
 						 InputGroupStartText="@_inputGroupStartText"
 						 InputGroupEndText="@_inputGroupEndText" />
 
 			@* HxInputDateRange does not have a label type support *@
-			@* <HxInputDateRange LabelType="LabelType.Floating" Label="DateRange" @bind-Value="@context.DateRange" /> *@
+			@* <HxInputDateRange LabelType="LabelType.Floating" Label="DateRange" @bind-Value="_model.DateRange" /> *@
 
 			<HxSelect Label="Select (HxSelect: string)"
 					  LabelType="_labelType"
-					  @bind-Value="@context.CultureInfoSelectName"
-					  ValueSelector="@(item => item.DisplayName)"
-					  Data="@_cultureInfos"
-					  TextSelector="@(item => item.DisplayName)"
+					  @bind-Value="_model.CultureInfoSelectName"
+					  ValueSelector="item => item.DisplayName"
+					  Data="_cultureInfos"
+					  TextSelector="item => item.DisplayName"
 					  InputSize="_inputSize"
 					  InputGroupStartText="@_inputGroupStartText"
 					  InputGroupEndText="@_inputGroupEndText" />
 
 			<HxAutosuggest Label="HxAutosuggest"
 						   LabelType="_labelType"
-						   @bind-Value="context.CultureInfoAutosuggest"
-						   TextSelector="@(item => item.DisplayName)"
+						   @bind-Value="_model.CultureInfoAutosuggest"
+						   TextSelector="item => item.DisplayName"
 						   DataProvider="CulturesAutosuggestDataProvider"
 						   InputSize="_inputSize"
 						   InputGroupStartText="@_inputGroupStartText"
@@ -102,20 +102,14 @@
 						 DataProvider="GetNewItemSuggestions" />
 
 			<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
-		</HxFilterForm>
+		</EditForm>
 
-	</div>
-	<div class="card-footer">
-		<p>Last captured click: @_lastCapturedClick</p>
-		<HxChipList Chips="_chips" OnChipRemoveClick="HandleChipRemoveClick" />
 	</div>
 </div>
 
 @code
 {
 	private FormModel _model = new FormModel();
-	private HxFilterForm<FormModel> _filterForm;
-	private ChipItem[] _chips;
 	private DateTime? _lastCapturedClick = null;
 	private List<CultureInfo> _cultureInfos = new List<CultureInfo> { CultureInfo.GetCultureInfo("cs-CZ"), CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sk-SK"), CultureInfo.GetCultureInfo("es-ES") };
 
@@ -126,6 +120,9 @@
 	private string _inputGroupStartText;
 	private string _inputGroupEndText;
 
+	private SearchBoxItem _selectedItem;
+	private string _triggeredTextQuery;
+	private string _textQuery;
 	private List<string> _values = new List<string>() { "Blazor", "C#", "ASP.NET" };
 
 	private async Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
@@ -152,19 +149,6 @@
 			});
 	}
 
-	private void HandleChipUpdated(ChipItem[] chips)
-	{
-		this._chips = chips;
-	}
-
-	private async Task HandleChipRemoveClick(ChipItem chipItemToRemove)
-	{
-		await _filterForm.RemoveChipAsync(chipItemToRemove);
-	}
-
-	private SearchBoxItem _selectedItem;
-	private string _triggeredTextQuery;
-	private string _textQuery;
 
 	List<SearchBoxItem> Data { get; set; } = new()
 		{
