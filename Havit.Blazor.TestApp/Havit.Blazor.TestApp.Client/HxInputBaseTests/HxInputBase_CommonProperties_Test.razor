@@ -59,10 +59,11 @@
 						 InputGroupStartText="@_inputGroupStartText"
 						 InputGroupEndText="@_inputGroupEndText" />
 
-			@* HxInputDateRange does not have a label type support *@
-			@* <HxInputDateRange LabelType="LabelType.Floating" Label="DateRange" @bind-Value="_model.DateRange" /> *@
+			<HxInputDateRange Label="HxInputDateRange (no LabelType, no input-groups)"
+							  @bind-Value="_model.DateRange"
+							  InputSize="_inputSize" />
 
-			<HxSelect Label="Select (HxSelect: string)"
+			<HxSelect Label="HxSelect"
 					  LabelType="_labelType"
 					  @bind-Value="_model.CultureInfoSelectName"
 					  ValueSelector="item => item.DisplayName"
