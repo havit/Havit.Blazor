@@ -220,11 +220,11 @@ public partial class HxCalendar
 				bool clickEnabled = (currentDay >= minDateEffective) // can click only days starting MinDate
 						&& (currentDay <= maxDateEffective) && (customization?.Enabled ?? true); // can click only days ending MaxDate
 				string cssClass = CssClassHelper.Combine(
-					clickEnabled ? "active" : "disabled",
-					(currentDay == valueDay) ? "selected" : null,  // currently selected day has "selected" class
-					((currentDay.Month == DisplayMonth.Month) && (currentDay.Year == DisplayMonth.Year)) ? "in" : "out",
-					(currentDay == today) ? "hx-calendar-today" : null,
-					((currentDay.DayOfWeek == DayOfWeek.Saturday) || (currentDay.DayOfWeek == DayOfWeek.Sunday)) ? "weekend" : null,
+					clickEnabled ? "hx-calendar-day-active" : "hx-calendar-day-disabled",
+					(currentDay == valueDay) ? "hx-calendar-day-selected" : null,  // currently selected day has "selected" class
+					((currentDay.Month == DisplayMonth.Month) && (currentDay.Year == DisplayMonth.Year)) ? "hx-calendar-day-in" : "hx-calendar-day-out",
+					(currentDay == today) ? "hx-calendar-day-today" : null,
+					((currentDay.DayOfWeek == DayOfWeek.Saturday) || (currentDay.DayOfWeek == DayOfWeek.Sunday)) ? "hx-calendar-day-weekend" : null,
 					customization?.CssClass
 				);
 

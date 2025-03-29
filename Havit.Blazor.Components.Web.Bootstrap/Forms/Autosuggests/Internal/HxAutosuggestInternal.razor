@@ -7,7 +7,7 @@
 											HasInputGroupsEffective ? InputSizeEffective.AsInputGroupCssClass() : null,
 											InputGroupCssClass)">
 
-    @if (InputGroupStartText is not null)
+	@if (InputGroupStartText is not null)
 	{
 		<span class="input-group-text">@InputGroupStartText</span>
 	}
@@ -36,8 +36,7 @@
 		}
 		@if (EnabledEffective)
 		{
-
-			@if (_dataProviderInProgress)
+			if (_dataProviderInProgress)
 			{
 				<div class="hx-autosuggest-input-icon">
 					<HxSpinner Size="SpinnerSize.Small" Type="SpinnerType.Border" />
@@ -47,9 +46,9 @@
 			{
 				if (ClearIconEffective is not null)
 				{
-					<div role="button" class="hx-autosuggest-input-icon" @onclick="ClearInputAsync" @onclick:stopPropagation>
+					<button class="hx-autosuggest-input-button" @onclick="ClearInputAsync" tabindex="0" aria-label="@HxAutosuggestLocalizer["Clear"]" @onclick:stopPropagation>
 						<HxIcon CssClass="hx-autosuggest-input-icon-clear" Icon="ClearIconEffective" />
-					</div>
+					</button>
 				}
 			}
 			else if (SearchIconEffective is not null)
