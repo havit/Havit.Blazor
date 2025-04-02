@@ -1,0 +1,58 @@
+﻿@page "/HxGrid_CurrentUserState"
+@rendermode InteractiveServer
+@using System.Text.Json
+@inject IDemoDataService DemoDataService
+
+<HxGrid TItem="EmployeeDto"
+		DataProvider="GetGridData"
+		@bind-CurrentUserState="gridUserState"
+		@bind-CurrentUserState:after="StoreGridUserState"
+		PageSize="5"
+		Responsive="true">
+	<Columns>
+		<HxGridColumn Id="Name" SortString="Name" HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+		<HxGridColumn Id="Phone" SortString="Phone" IsDefaultSortColumn="true" HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+	</Columns>
+</HxGrid>
+
+<HxInputTextArea Label="Grid user state JSON serialization (editable)" @bind-Value="serializedGridUserState" @bind-Value:after="LoadSerializedUserState" />
+
+@code {
+	private GridUserState gridUserState;
+	private string serializedGridUserState; // replace this field with your own storage (e.g. local storage or database)
+
+	protected override void OnParametersSet()
+	{
+		gridUserState = new() { PageIndex = 1, Sorting = [new() { ColumnId = "Name" }] };
+	}
+
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken);
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = response.Data,
+				TotalCount = response.TotalCount
+			};
+	}
+
+	private void StoreGridUserState()
+	{
+		serializedGridUserState = JsonSerializer.Serialize(gridUserState);
+	}
+
+	private void LoadSerializedUserState()
+	{
+		try
+		{
+			gridUserState = JsonSerializer.Deserialize<GridUserState>(serializedGridUserState);
+		}
+		catch (JsonException)
+		{
+			// invalid state serialization
+		}
+	}
+}
