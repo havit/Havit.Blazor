@@ -14,7 +14,7 @@ public class HxIcon : ComponentBase
 	[Parameter] public IconBase Icon { get; set; }
 
 	/// <summary>
-	/// Label of assistive readers, if not set, the icon is hidden for the readers.
+	/// Accessibility label for screen readers. Hides the icon from screen readers if not set.
 	/// </summary>
 	[Parameter] public string AriaLabel { get; set; }
 
