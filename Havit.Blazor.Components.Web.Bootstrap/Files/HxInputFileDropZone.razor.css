@@ -14,7 +14,10 @@
 	background-color: var(--hx-input-file-drop-zone-disabled-background-color);
 }
 
-.hx-input-file-drop-zone:not(.disabled):hover, .hx-input-file-drop-zone:not(.disabled):focus {
+.hx-input-file-drop-zone:not(.disabled):hover, 
+.hx-input-file-drop-zone:not(.disabled):focus,
+.hx-input-file-drop-zone:not(.disabled):active,
+.hx-input-file-drop-zone:not(.disabled):focus-within {
 	background-color: var(--hx-input-file-drop-zone-hover-background-color);
 	border-color: var(--hx-input-file-drop-zone-hover-border-color);
 	box-shadow: var(--hx-input-file-drop-zone-hover-box-shadow);

@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿using Microsoft.Extensions.Localization;
+
+namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Presents a list of chips as badges.<br/>
@@ -7,6 +9,7 @@
 /// </summary>
 public partial class HxChipList
 {
+	[Inject] protected IStringLocalizer<HxChipList> HxChipListLocalizer { get; set; }
 	/// <summary>
 	/// Application-wide defaults for the <see cref="HxChipList"/> component.
 	/// </summary>

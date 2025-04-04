@@ -2,7 +2,7 @@
 	--input-icon-button-width: 2.375rem
 }
 .hx-autosuggest-input-icon,
-::deep .hx-autosuggest-input-icon {
+.hx-autosuggest-input-button {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -12,6 +12,12 @@
 	justify-content: center;
 	z-index: 5;
 	width: var(--input-icon-button-width);
+}
+
+.hx-autosuggest-input-button {
+	background-color: transparent;
+	border: none;
+	padding: 0;
 }
 
 .hx-autosuggest-input-wrapper:focus-within {

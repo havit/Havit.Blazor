@@ -14,6 +14,11 @@ public class HxIcon : ComponentBase
 	[Parameter] public IconBase Icon { get; set; }
 
 	/// <summary>
+	/// Accessibility label for screen readers. Hides the icon from screen readers if not set.
+	/// </summary>
+	[Parameter] public string AriaLabel { get; set; }
+
+	/// <summary>
 	/// The CSS class to combine with the basic icon CSS class.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
@@ -28,7 +33,15 @@ public class HxIcon : ComponentBase
 	{
 		builder.OpenComponent(1, Icon.RendererComponentType);
 		builder.AddAttribute(2, "Icon", Icon);
-		builder.AddAttribute(2, "CssClass", CssClass);
+		builder.AddAttribute(3, "CssClass", CssClass);
+		if (!string.IsNullOrEmpty(AriaLabel))
+		{
+			builder.AddAttribute(4, "aria-label", AriaLabel);
+		}
+		else
+		{
+			builder.AddAttribute(5, "aria-hidden", true);
+		}
 		builder.AddMultipleAttributes(3, AdditionalAttributes);
 		builder.CloseComponent();
 	}
