@@ -15,7 +15,7 @@
 						   OnClick="@(OnClick.HasDelegate ? InvokeOnClickAsync : null)"
 						   OnClickStopPropagation="OnClickStopPropagation"
 						   OnClickPreventDefault="OnClickPreventDefault"
-						   CssClass="@CssClassHelper.Combine(DropdownContainer is not null ? "dropdown-item" : null, CssClass, "position-relative")"
+						   CssClass="@CssClassHelper.Combine(DropdownContainer is not null ? "dropdown-item" : null, CssClass, "hx-sidebar-item position-relative")"
 						   Enabled="Enabled">
 
 					@* To hide the nav-content in mobile view *@
