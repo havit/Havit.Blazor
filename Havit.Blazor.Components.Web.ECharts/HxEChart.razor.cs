@@ -25,8 +25,7 @@ public partial class HxEChart : IAsyncDisposable
 
 	[Parameter] public EventCallback<EChartsClickArgs> OnClick { get; set; }
 
-	[Inject] protected IJSRuntime JsRuntime { get; set; }
-
+	private readonly IJSRuntime _jsRuntime;
 	private IJSObjectReference _jsModule;
 	private DotNetObjectReference<HxEChart> _dotNetObjectReference;
 	private string _currentOptions;
@@ -47,9 +46,10 @@ public partial class HxEChart : IAsyncDisposable
 		};
 	}
 
-	public HxEChart()
+	public HxEChart(IJSRuntime jsRuntime)
 	{
 		_dotNetObjectReference = DotNetObjectReference.Create(this);
+		_jsRuntime = jsRuntime;
 	}
 
 	protected override void OnParametersSet()
@@ -83,7 +83,7 @@ public partial class HxEChart : IAsyncDisposable
 
 	private async Task EnsureJsModuleAsync()
 	{
-		_jsModule ??= await JsRuntime.InvokeAsync<IJSObjectReference>("import", Assets["HxEChart.js"]);
+		_jsModule ??= await _jsRuntime.InvokeAsync<IJSObjectReference>("import", Assets["HxEChart.js"]);
 	}
 
 	[JSInvokable("HandleClick")]
