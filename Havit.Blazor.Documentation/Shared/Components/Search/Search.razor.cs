@@ -58,6 +58,7 @@ public partial class Search
 		new("/components/HxDropdown", "HxDropdown", "collapse tooltip popover popup popper HxDropdownToggleElement HxDropdownMenu HxDropdownContent HxDropdownHeader HxDropdownItemNavLink HxDropdownItem HxDropdownItemText HxDropdownDivider"),
 		new("/components/HxDropdownButtonGroup", "HxDropdownButtonGroup", "collapse tooltip popover popup popper HxDropdownToggleButton"),
 		new("/components/HxDynamicElement", "HxDynamicElement", "dynamiccomponent html"),
+		new("/components/HxEChart", "HxEChart", "graph piechart barchart map apache echarts"),
 		new("/components/HxFilterForm", "HxFilterForm", "HxListLayout"),
 		new("/components/HxFormState", "HxFormState", "enabled disabled"),
 		new("/components/HxFormValue", "HxFormValue", "readonly"),
