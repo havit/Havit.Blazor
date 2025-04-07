@@ -1,6 +1,7 @@
-﻿using System;
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using Havit.Blazor.Components.Web.ECharts;
+using Havit.Blazor.Components.Web;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.ECharts;
@@ -12,7 +13,14 @@ public partial class HxEChart : IAsyncDisposable
 	[Parameter] public string ChartId { get; set; } = $"echart-{Guid.NewGuid()}";
 
 	[Parameter] public object Options { get; set; }
-	[Parameter] public string Height { get; set; } = "400px";
+	/// <summary>
+	/// The chart height. Default is <c>400</c> units.
+	/// </summary>
+	[Parameter] public float Height { get; set; } = 400;
+	/// <summary>
+	/// The height unit. Default is <c>px</c>.
+	/// </summary>
+	[Parameter] public string HeightUnit { get; set; } = "px";
 	[Parameter] public bool AutoResize { get; set; } = false;
 
 	[Parameter] public EventCallback<EChartsClickArgs> OnClick { get; set; }
@@ -124,5 +132,10 @@ public partial class HxEChart : IAsyncDisposable
 		{
 			writer.WriteRawValue(value.RawCode, true);
 		}
+	}
+
+	private string GetChartHeight()
+	{
+		return $"{Height}{HeightUnit}";
 	}
 }
