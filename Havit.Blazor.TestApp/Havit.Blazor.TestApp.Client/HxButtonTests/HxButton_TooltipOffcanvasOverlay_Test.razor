@@ -1,0 +1,25 @@
+@page "/HxButton_TooltipOffcanvasOverlay"
+@rendermode InteractiveAuto
+
+<div id="123" style="isolation: isolate;">
+	<HxButton Text="Show offcanvas" Tooltip="Show offcanvas" TooltipContainer="#123" OnClick="HandleShow" />
+</div>
+<HxOffcanvas @ref="offcanvasComponent" Title="Offcanvas title">
+	<BodyTemplate>
+		<p>Some content for the offcanvas.</p>
+	</BodyTemplate>
+</HxOffcanvas>
+
+@code {
+	private HxOffcanvas offcanvasComponent;
+
+	private async Task HandleShow()
+	{
+		await offcanvasComponent.ShowAsync();
+	}
+
+	private async Task HandleHide()
+	{
+		await offcanvasComponent.HideAsync();
+	}
+}

@@ -136,6 +136,11 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	[Parameter] public string TooltipCssClass { get; set; }
 
 	/// <summary>
+	/// Appends the tooltip to a specific element. Default is <c>body</c>.
+	/// </summary>
+	[Parameter] public string TooltipContainer { get; set; }
+
+	/// <summary>
 	/// Custom CSS class to render with the tooltip <c>span</c> wrapper of the <c>&lt;button /&gt;</c>.<br />
 	/// If set, the <c>span</c> wrapper will be rendered no matter whether the <see cref="Tooltip"/> text is set or not.
 	/// </summary>
