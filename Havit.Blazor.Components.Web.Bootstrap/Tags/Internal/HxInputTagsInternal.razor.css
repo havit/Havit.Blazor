@@ -38,7 +38,11 @@ input:focus {
 	display: inline-flex;
 	align-items: center;
 	margin: var(--hx-input-tags-remove-button-margin);
-	opacity: .6125;
+	opacity: .625;
+	background-color: transparent;
+	padding: 0;
+	border: 0;
+	color: currentColor;
 }
 
 .hx-tag-remove-button:hover {

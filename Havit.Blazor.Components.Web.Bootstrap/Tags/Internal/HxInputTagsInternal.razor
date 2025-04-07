@@ -26,9 +26,9 @@
 				@tag
 				@if (EnabledEffective)
 				{
-					<span class="hx-tag-remove-button" @onclick="async () => await HandleRemoveClickAsync(tag)" @onclick:stopPropagation role="button" tabindex="0">
+					<button class="hx-tag-remove-button" @onclick="async () => await HandleRemoveClickAsync(tag)" @onclick:stopPropagation aria-label="@HxInputTagsLocalizer["Remove"]" tabindex="0">
 						<HxIcon Icon="BootstrapIcon.X" />
-					</span>
+					</button>
 				}
 			</HxBadge>
 		}

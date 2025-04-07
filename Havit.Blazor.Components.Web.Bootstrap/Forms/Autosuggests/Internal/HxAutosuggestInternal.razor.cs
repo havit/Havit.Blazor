@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
@@ -107,6 +108,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
+	[Inject] protected IStringLocalizer<HxAutosuggest> HxAutosuggestLocalizer { get; set; }
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
