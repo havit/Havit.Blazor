@@ -121,7 +121,7 @@ public partial class HxEChart : IAsyncDisposable
 
 	public record JSFunc(string RawCode);
 
-	public class JSFuncConverter : JsonConverter<JSFunc>
+	private class JSFuncConverter : JsonConverter<JSFunc>
 	{
 		public override JSFunc Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
 		{
