@@ -4,5 +4,55 @@
         <name>Havit.Blazor.Components.Web.ECharts</name>
     </assembly>
     <members>
+        <member name="T:Havit.Blazor.Components.Web.ECharts.HxEChart">
+            <summary>
+            Component for rendering Apache ECharts.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.HxEChart.ChartId">
+            <summary>
+            Unique identifier for the HTML element representing the chart.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.HxEChart.Options">
+            <summary>
+            Options for the chart. See <a href="https://echarts.apache.org/en/option.html">ECharts Option</a> for more details.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.HxEChart.Height">
+            <summary>
+            The height of the chart. Default is <c>400</c> units.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.HxEChart.HeightUnit">
+            <summary>
+            The height units. Default is <c>px</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.HxEChart.AutoResize">
+            <summary>
+            Indicates whether the chart should automatically resize. Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.HxEChart.OnClick">
+            <summary>
+            Invoked when the chart is clicked.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.ECharts.HxEChart.JSFunc">
+            <summary>
+            Represents a JavaScript function to be passed to the ECharts options.
+            </summary>
+            <param name="RawCode">The raw JavaScript code.</param>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.ECharts.HxEChart.JSFunc.#ctor(System.String)">
+            <summary>
+            Represents a JavaScript function to be passed to the ECharts options.
+            </summary>
+            <param name="RawCode">The raw JavaScript code.</param>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.HxEChart.JSFunc.RawCode">
+            <summary>The raw JavaScript code.</summary>
+        </member>
     </members>
 </doc>

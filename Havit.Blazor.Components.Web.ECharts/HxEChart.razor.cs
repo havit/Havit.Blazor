@@ -6,23 +6,41 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.ECharts;
 
+/// <summary>
+/// Component for rendering Apache ECharts.
+/// </summary>
 public partial class HxEChart : IAsyncDisposable
 {
 	private static readonly JsonSerializerOptions s_JsonSerializerOptions;
 
+	/// <summary>
+	/// Unique identifier for the HTML element representing the chart.
+	/// </summary>
 	[Parameter] public string ChartId { get; set; } = $"echart-{Guid.NewGuid()}";
 
-	[Parameter] public object Options { get; set; }
 	/// <summary>
-	/// The chart height. Default is <c>400</c> units.
+	/// Options for the chart. See <a href="https://echarts.apache.org/en/option.html">ECharts Option</a> for more details.
+	/// </summary>
+	[Parameter, EditorRequired] public object Options { get; set; }
+
+	/// <summary>
+	/// The height of the chart. Default is <c>400</c> units.
 	/// </summary>
 	[Parameter] public float Height { get; set; } = 400;
+
 	/// <summary>
-	/// The height unit. Default is <c>px</c>.
+	/// The height units. Default is <c>px</c>.
 	/// </summary>
 	[Parameter] public string HeightUnit { get; set; } = "px";
+
+	/// <summary>
+	/// Indicates whether the chart should automatically resize. Default is <c>false</c>.
+	/// </summary>
 	[Parameter] public bool AutoResize { get; set; } = false;
 
+	/// <summary>
+	/// Invoked when the chart is clicked.
+	/// </summary>
 	[Parameter] public EventCallback<EChartsClickArgs> OnClick { get; set; }
 
 	private readonly IJSRuntime _jsRuntime;
@@ -119,6 +137,10 @@ public partial class HxEChart : IAsyncDisposable
 		_dotNetObjectReference?.Dispose();
 	}
 
+	/// <summary>
+	/// Represents a JavaScript function to be passed to the ECharts options.
+	/// </summary>
+	/// <param name="RawCode">The raw JavaScript code.</param>
 	public record JSFunc(string RawCode);
 
 	private class JSFuncConverter : JsonConverter<JSFunc>
