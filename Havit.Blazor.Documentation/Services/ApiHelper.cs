@@ -71,6 +71,16 @@ public static class ApiTypeHelper
 		}
 		catch { }
 
+		try
+		{
+			result = Type.GetType($"Havit.Blazor.Components.Web.ECharts.{typeName}, Havit.Blazor.Components.Web.ECharts");
+			if (result is not null)
+			{
+				return result;
+			}
+		}
+		catch { }
+
 		if (includeTypesContainingTypeName)
 		{
 			try
