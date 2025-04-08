@@ -1,16 +1,27 @@
-﻿<HxEChart Options="_options" OnClick="HandleClick" AutoResize="true" />
+﻿<HxEChart @ref="_chartComponent" Options="_options" OnClick="HandleClick" AutoResize="true" />
 @_lastClickEventArgs
 
 @code {
+	private HxEChart _chartComponent;
 	private object _options;
+	private int[] _data = Enumerable.Range(1, 7).Select(i => Random.Shared.Next(100, 300)).ToArray();
 	private EChartClickEventArgs _lastClickEventArgs;
 
 	private void HandleClick(EChartClickEventArgs args)
 	{
 		_lastClickEventArgs = args;
+
+		// showcase the animated data change
+		_data = Enumerable.Range(1, 7).Select(i => Random.Shared.Next(100, 300)).ToArray();
+		BuildOptions();
 	}
 
 	protected override void OnParametersSet()
+	{
+		BuildOptions();
+	}
+
+	private void BuildOptions()
 	{
 		_options = new
 		{
@@ -28,7 +39,7 @@
 				new
 				{
 					Type = "line",
-					Data = new int[] { 150, 230, 224, 218, 135, 147, 260 }
+					Data = _data
 				}
 			}
 		};
