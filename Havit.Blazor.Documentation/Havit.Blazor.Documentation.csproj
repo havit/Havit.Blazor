@@ -11,8 +11,6 @@
 		<!--  VSTHRD003: Avoid awaiting or returning a Task representing work that was not started within your context as that can lead to deadlocks. -->
 		<!--  VSTHRD200: Allow HandleXyClick methods (without Async) -> Suppress 'Use "Async" suffix in names of methods that return an awaitable type' -->
 		<NoWarn>$(NoWarn);1701;1702;SA1134;VSTHRD003;VSTHRD200</NoWarn>
-		<!-- Allows using raw string literals in .razor files -->
-		<features>use-roslyn-tokenizer</features>
 	</PropertyGroup>
 
 	<ItemGroup>
