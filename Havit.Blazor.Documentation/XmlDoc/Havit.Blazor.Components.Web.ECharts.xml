@@ -9,24 +9,44 @@
             Represents the arguments for the <see cref="P:Havit.Blazor.Components.Web.ECharts.HxEChart.OnClick" /> event callback.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.SeriesIndex">
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.ComponentType">
             <summary>
-            Gets or sets the index of the series.
+            Type of the component to which the clicked glyph belongs, e.g. "series", "markLine", "markPoint", "markArea".
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.DataIndex">
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.SeriesType">
             <summary>
-            Gets or sets the index of the data point.
+            Series type (make sense when <see cref="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.ComponentType"/> is 'series'), e.g. "line", "bar", "pie", ...
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.SeriesIndex">
+            <summary>
+            Series index in incoming <c>Options.Series</c> (make sense when <see cref="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.ComponentType"/> is "series").
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.SeriesName">
+            <summary>
+            Series name (make sense when <see cref="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.ComponentType"/> is "series").
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.Name">
             <summary>
-            Gets or sets the name of the data point.
+            Data name, category name.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.DataIndex">
+            <summary>
+            Data index in incoming data array.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.Value">
             <summary>
-            Gets or sets the value (string serialization) of the data point.
+            Incoming data value (string serialization).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.GetValue``1">
+            <summary>
+            Returns the <see cref="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.Value"/> as the specified type <typeparamref name="T"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.TargetType">

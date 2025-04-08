@@ -35,10 +35,14 @@ export function setupChart(id, dotnetReference, options, autoResize) {
 }
 
 function handleClick(dotnetReference, params) {
+	// we do not want to pass all the properties of the event
 	dotnetReference.invokeMethodAsync('HandleClick', {
-		dataIndex: params?.dataIndex,
-		name: params?.name,
+		componentType: params?.componentType,
+		seriesType: params?.seriesType,
+		seriesName: params?.seriesName,
 		seriesIndex: params?.seriesIndex,
+		name: params?.name,
+		dataIndex: params?.dataIndex,
 		value: params?.value,
 		targetType: params?.targetType,
 	});

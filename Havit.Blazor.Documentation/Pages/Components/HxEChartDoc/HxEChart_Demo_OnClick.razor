@@ -33,13 +33,15 @@
 			YAxis = new
 			{
 				Type = "value",
+				TriggerEvent = true
 			},
 			Series = new object[]
 			{
 				new
 				{
 					Type = "line",
-					Data = _data
+					Data = _data,
+					SymbolSize = 10
 				}
 			}
 		};
