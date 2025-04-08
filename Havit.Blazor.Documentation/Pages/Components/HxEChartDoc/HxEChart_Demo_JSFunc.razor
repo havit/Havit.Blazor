@@ -5,11 +5,11 @@
 
 	protected override void OnParametersSet()
 	{
-		// use anonymous object to pass options to the chart
 		_options = new
 		{
 			Legend = new
 			{
+				TextStyle = new { Color = "#888" },
 				Top = "bottom"
 			},
 			Series = new object[]
@@ -33,6 +33,7 @@
 					Label = new
 					{
 						Show = true,
+						TextStyle = new { Color = "#888" },
 						Formatter = new HxEChart.JSFunc($$"""
 							function (arg) {
 								const [hours, minutes] = [Math.floor(arg.value), Math.floor((arg.value % 1) * 60)];
