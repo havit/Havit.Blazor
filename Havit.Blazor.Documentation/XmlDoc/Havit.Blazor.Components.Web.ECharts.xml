@@ -4,27 +4,27 @@
         <name>Havit.Blazor.Components.Web.ECharts</name>
     </assembly>
     <members>
-        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartsClickArgs.SeriesIndex">
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.SeriesIndex">
             <summary>
             Gets or sets the index of the series.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartsClickArgs.DataIndex">
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.DataIndex">
             <summary>
             Gets or sets the index of the data point.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartsClickArgs.Name">
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.Name">
             <summary>
             Gets or sets the name of the data point.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartsClickArgs.Value">
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.Value">
             <summary>
             Gets or sets the value of the data point.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartsClickArgs.TargetType">
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.TargetType">
             <summary>
             Indicates what type of click event is it.
             </summary>

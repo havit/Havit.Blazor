@@ -1,6 +1,6 @@
 ﻿namespace Havit.Blazor.Components.Web.ECharts;
 
-public record EChartsClickArgs
+public record EChartClickEventArgs
 {
 	/// <summary>
 	/// Gets or sets the index of the series.

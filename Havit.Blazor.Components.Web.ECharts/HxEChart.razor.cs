@@ -34,7 +34,7 @@ public partial class HxEChart : IAsyncDisposable
 	/// <summary>
 	/// Invoked when the chart is clicked.
 	/// </summary>
-	[Parameter] public EventCallback<EChartsClickArgs> OnClick { get; set; }
+	[Parameter] public EventCallback<EChartClickEventArgs> OnClick { get; set; }
 
 	private readonly IJSRuntime _jsRuntime;
 	private IJSObjectReference _jsModule;
@@ -98,7 +98,7 @@ public partial class HxEChart : IAsyncDisposable
 	}
 
 	[JSInvokable("HandleClick")]
-	public async Task HandleClick(EChartsClickArgs eventParams)
+	public async Task HandleClick(EChartClickEventArgs eventParams)
 	{
 		await OnClick.InvokeAsync(eventParams);
 	}

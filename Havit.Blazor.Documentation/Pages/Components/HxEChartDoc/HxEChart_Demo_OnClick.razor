@@ -1,0 +1,36 @@
+﻿<HxEChart Options="_options" OnClick="HandleClick" AutoResize="true" />
+@_lastClickEventArgs
+
+@code {
+	private object _options;
+	private EChartClickEventArgs _lastClickEventArgs;
+
+	private void HandleClick(EChartClickEventArgs args)
+	{
+		_lastClickEventArgs = args;
+	}
+
+	protected override void OnParametersSet()
+	{
+		_options = new
+		{
+			XAxis = new
+			{
+				Type = "category",
+				data = new string[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" }
+			},
+			YAxis = new
+			{
+				Type = "value",
+			},
+			Series = new object[]
+			{
+				new
+				{
+					Type = "line",
+					Data = new int[] { 150, 230, 224, 218, 135, 147, 260 }
+				}
+			}
+		};
+	}
+}

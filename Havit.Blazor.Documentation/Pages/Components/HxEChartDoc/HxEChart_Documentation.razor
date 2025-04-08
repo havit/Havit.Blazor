@@ -24,9 +24,17 @@
 	<p>Add the following line at the end of your <code>App.razor</code> file, just before the closing <code>&lt;/body&gt;</code> tag:</p>
 	<CodeSnippet>@("""@((MarkupString)HxEChartsSetup.RenderEChartsJavaScriptReference())""")</CodeSnippet>
 
+	<DocHeading Title="Handling clicks" Id="handling-clicks" />
+	<p>
+		To handle clicks on the chart, use the <code>OnClick</code> event. The event handler receives an <a href="/types/@(nameof(EChartClickEventArgs))">@(nameof(EChartClickEventArgs))</a> object as a parameter.
+		The <code>EChartClickEventArgs</code> class contains properties such as <code>SeriesIndex</code>, <code>DataIndex</code>, <code>Name</code>, and <code>Value</code>.
+		Click to blank area of the chart will return <code>null</code> values for these properties.
+	</p>
+	<Demo Type="typeof(HxEChart_Demo_OnClick)" />
+
 	<DocHeading Title="Passing JS function" Id="passing-javascript-function" />
 	<p>Use <code>HxECharts.JSFunc</code> class to pass a raw JavaScript function as a parameter:</p>
-	<Demo Type="typeof(HxEChart_Demo_JSFunc)" Tabs="false" />
+	<Demo Type="typeof(HxEChart_Demo_JSFunc)" />
 
 	<DocHeading Title="More samples" />
 	<p>
