@@ -1,0 +1,56 @@
+﻿<HxEChart Options="_options" AutoResize="true" />
+
+@code {
+	private object _options;
+
+	protected override void OnParametersSet()
+	{
+		// use anonymous object to pass options to the chart
+		_options = new
+		{
+			Legend = new
+			{
+				Top = "bottom"
+			},
+			Series = new object[]
+			{
+				new
+				{
+					Name = "Access From",
+					Type = "pie",
+					RoseType = "area",
+					Radius = new int[] { 50, 150 },
+					Center = new string[] { "50%", "50%" },
+					ItemStyle = new
+					{
+						BorderRadius = 8,
+					},
+					LabelLine = new
+					{
+						Show = true,
+
+					},
+					Label = new
+					{
+						Show = true,
+						Formatter = new HxEChart.JSFunc($$"""
+							function (arg) {
+								const [hours, minutes] = [Math.floor(arg.value), Math.floor((arg.value % 1) * 60)];
+								return hours.toLocaleString('{{CultureInfo.CurrentUICulture.Name}}') + `:${String(minutes).padStart(2, '0')}`;
+							}
+							""")
+
+					},
+					Data = new object[]
+					{
+						new { Value = 1100.75, Name = "Search Engine" },
+						new { Value = 1203.25, Name = "Direct" },
+						new { Value = 700, Name = "Email" },
+						new { Value = 165.5, Name = "Union Ads" },
+						new { Value = 120.25, Name = "Video Ads" }
+					}
+				}
+			}
+		};
+	}
+}

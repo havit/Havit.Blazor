@@ -31,7 +31,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.ECharts.HxEChart">
             <summary>
-            Component for rendering Apache ECharts.
+            Component for convenient rendering of Apache ECharts.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.ECharts.HxEChart.ChartId">

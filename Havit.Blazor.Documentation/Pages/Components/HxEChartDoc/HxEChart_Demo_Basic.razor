@@ -1,11 +1,12 @@
-﻿<HxEChart Options="options" AutoResize="true" />
+﻿<HxEChart Options="_options" AutoResize="true" />
 
 @code {
-	private object options;
+	private object _options;
 
 	protected override void OnParametersSet()
 	{
-		options = new
+		// use anonymous object to pass options to the chart
+		_options = new
 		{
 			Tooltip = new
 			{

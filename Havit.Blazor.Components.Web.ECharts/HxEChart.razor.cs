@@ -1,13 +1,11 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using Havit.Blazor.Components.Web.ECharts;
-using Havit.Blazor.Components.Web;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.ECharts;
 
 /// <summary>
-/// Component for rendering Apache ECharts.
+/// Component for convenient rendering of Apache ECharts.
 /// </summary>
 public partial class HxEChart : IAsyncDisposable
 {
