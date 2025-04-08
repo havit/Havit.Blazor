@@ -1,8 +1,7 @@
-﻿<HxEChart @ref="_chartComponent" Options="_options" OnClick="HandleClick" AutoResize="true" />
+﻿<HxEChart Options="_options" OnClick="HandleClick" AutoResize="true" />
 @_lastClickEventArgs
 
 @code {
-	private HxEChart _chartComponent;
 	private object _options;
 	private int[] _data = Enumerable.Range(1, 7).Select(i => Random.Shared.Next(100, 300)).ToArray();
 	private EChartClickEventArgs _lastClickEventArgs;
