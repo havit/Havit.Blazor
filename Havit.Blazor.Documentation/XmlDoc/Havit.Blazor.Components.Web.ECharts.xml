@@ -4,6 +4,11 @@
         <name>Havit.Blazor.Components.Web.ECharts</name>
     </assembly>
     <members>
+        <member name="T:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs">
+            <summary>
+            Represents the arguments for the <see cref="P:Havit.Blazor.Components.Web.ECharts.HxEChart.OnClick" /> event callback.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.SeriesIndex">
             <summary>
             Gets or sets the index of the series.
@@ -21,7 +26,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.Value">
             <summary>
-            Gets or sets the value of the data point.
+            Gets or sets the value (string serialization) of the data point.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.TargetType">

@@ -1,5 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.ECharts;
 
+/// <summary>
+/// Represents the arguments for the <see cref="HxEChart.OnClick" /> event callback.
+/// </summary>
 public record EChartClickEventArgs
 {
 	/// <summary>
@@ -18,9 +21,9 @@ public record EChartClickEventArgs
 	public string Name { get; set; }
 
 	/// <summary>
-	/// Gets or sets the value of the data point.
+	/// Gets or sets the value (string serialization) of the data point.
 	/// </summary>
-	public decimal? Value { get; set; }
+	public string Value { get; set; }
 
 	/// <summary>
 	/// Indicates what type of click event is it.
