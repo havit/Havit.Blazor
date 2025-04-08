@@ -1,4 +1,5 @@
-﻿@using Havit.Blazor.Documentation.Shared.Components.DocColorMode
+﻿@using Havit.Blazor.Components.Web.ECharts
+@using Havit.Blazor.Documentation.Shared.Components.DocColorMode
 @inject IDocColorModeProvider DocColorModeProvider
 <!doctype html>
 <html lang="en" data-bs-theme="@DocColorModeProvider.GetColorMode().ToString("g").ToLowerInvariant()">
@@ -53,6 +54,7 @@
 	</script>
 
 	@((MarkupString)HxSetup.RenderBootstrapJavaScriptReference())
+	@((MarkupString)HxEChartsSetup.RenderEChartsJavaScriptReference())
 
 	@* Prism: Syntax Highlighting *@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.25.0/prism.min.js"></script>

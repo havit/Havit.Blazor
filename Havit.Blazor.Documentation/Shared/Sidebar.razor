@@ -1,4 +1,5 @@
-﻿<HxSidebar @bind-Collapsed="_isDesktopCollapsed" CssClass="sticky-md-top doc-sidebar">
+﻿@using Havit.Blazor.Components.Web.ECharts
+<HxSidebar @bind-Collapsed="_isDesktopCollapsed" CssClass="sticky-md-top doc-sidebar">
     <HeaderTemplate>
         <div class="d-flex flex-grow-1 d-lg-none">
             <HxSidebarBrand BrandName="HAVIT Blazor">
@@ -64,7 +65,8 @@
 
         <HxSidebarItem Text="Data & Grid" Icon="BootstrapIcon.Table">
             <HxSidebarItem Href="@($"/components/{nameof(HxGrid<object>)}")" Text="@nameof(HxGrid<object>)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxContextMenu)}")" Text="@(nameof(HxContextMenu))" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxEChart)}")" Text="@nameof(HxEChart)" />
+			<HxSidebarItem Href="@($"/components/{nameof(HxContextMenu)}")" Text="@(nameof(HxContextMenu))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxPager)}")" Text="@(nameof(HxPager))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxRepeater<object>)}")" Text="@nameof(HxRepeater<object>)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxTreeView<object>)}")" Text="@(nameof(HxTreeView<object>))" />
