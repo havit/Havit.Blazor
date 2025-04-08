@@ -16,7 +16,7 @@ public partial class HxEChart : IAsyncDisposable
 	/// <summary>
 	/// Unique identifier for the HTML element representing the chart.
 	/// </summary>
-	[Parameter] public string ChartId { get; set; } = $"echart-{Guid.NewGuid()}";
+	[Parameter] public string ChartId { get; set; } = $"hx-echart-{Guid.NewGuid()}";
 
 	/// <summary>
 	/// Options for the chart. See <a href="https://echarts.apache.org/en/option.html">ECharts Option</a> for more details.
@@ -24,14 +24,9 @@ public partial class HxEChart : IAsyncDisposable
 	[Parameter, EditorRequired] public object Options { get; set; }
 
 	/// <summary>
-	/// The height of the chart. Default is <c>400</c> units.
+	/// The height of the chart. Default is <c>400px</c>.
 	/// </summary>
-	[Parameter] public float Height { get; set; } = 400;
-
-	/// <summary>
-	/// The height units. Default is <c>px</c>.
-	/// </summary>
-	[Parameter] public string HeightUnit { get; set; } = "px";
+	[Parameter] public string Height { get; set; } = "400px";
 
 	/// <summary>
 	/// Indicates whether the chart should automatically resize. Default is <c>false</c>.
@@ -154,10 +149,5 @@ public partial class HxEChart : IAsyncDisposable
 		{
 			writer.WriteRawValue(value.RawCode, true);
 		}
-	}
-
-	private string GetChartHeight()
-	{
-		return $"{Height}{HeightUnit}";
 	}
 }

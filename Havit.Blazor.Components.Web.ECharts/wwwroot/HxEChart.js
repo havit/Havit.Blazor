@@ -14,8 +14,19 @@ export function setupChart(id, dotnetReference, options, autoResize) {
 			element.resizeObserver.observe(element);
 		}
 
+		chart.getZr().on('click', function (event) {
+			event.event.stopPropagation();
+			event.event.preventDefault();
+
+			if (!event.target) {
+				// blank click event
+				handleClick(dotnetReference);
+			}
+		});
+
 		chart.on('click', (params) => {
-			onClick(dotnetReference, params);
+			// echarts event
+			handleClick(dotnetReference, params);
 		});
 		element.echart = chart;
 	}
@@ -23,12 +34,13 @@ export function setupChart(id, dotnetReference, options, autoResize) {
 	element.echart.setOption(optionsObject);
 }
 
-function onClick(dotnetReference, params) {
+function handleClick(dotnetReference, params) {
 	dotnetReference.invokeMethodAsync('HandleClick', {
-		dataIndex: params.dataIndex,
-		name: params.name,
-		seriesIndex: params.seriesIndex,
-		value: params.value
+		dataIndex: params?.dataIndex,
+		name: params?.name,
+		seriesIndex: params?.seriesIndex,
+		value: params?.value,
+		targetType: params?.targetType,
 	});
 }
 
