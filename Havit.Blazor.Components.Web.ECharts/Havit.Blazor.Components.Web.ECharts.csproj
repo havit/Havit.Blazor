@@ -23,13 +23,12 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<!-- ComponentsPackagesVersion - variable from Directory.Build.props -->
-		<PackageVersion>$(ComponentsPackagesVersion)</PackageVersion>
+		<PackageVersion>1.0.0</PackageVersion>
 		<Description>HAVIT Blazor Library - ECharts extensions - Free components for ASP.NET Blazor</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://havit.blazor.eu</PackageProjectUrl>
 		<PackageReleaseNotes>https://github.com/havit/Havit.Blazor/releases</PackageReleaseNotes>
-		<PackageTags>blazor components webassembly wasm</PackageTags>
+		<PackageTags>blazor components webassembly wasm HxEChart charts graphs</PackageTags>
 	</PropertyGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
