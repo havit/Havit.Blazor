@@ -16,10 +16,6 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" />
 	</ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
-	</ItemGroup>
-
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>

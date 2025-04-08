@@ -41,7 +41,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.Value">
             <summary>
-            Incoming data value (string serialization).
+            Incoming data value. Use <see cref="M:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.GetValue``1"/> to extract the value as the specified type.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs.GetValue``1">
