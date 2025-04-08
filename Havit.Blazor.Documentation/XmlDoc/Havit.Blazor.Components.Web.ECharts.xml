@@ -54,5 +54,14 @@
         <member name="P:Havit.Blazor.Components.Web.ECharts.HxEChart.JSFunc.RawCode">
             <summary>The raw JavaScript code.</summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.ECharts.HxEChartsSetup.RenderEChartsJavaScriptReference">
+            <summary>it
+            Renders the <c>&lt;script&gt;</c> tag that references the corresponding Apache ECharts JavaScript.<br/>
+            To be used in <c>App.razor</c> as <c>@((MarkupString)HxSetup.RenderEChartsJavaScriptReference())</c>.
+            </summary>
+            <remarks>
+            We do not want to use TagHelper or HTML Helper here as we do not want to introduce a dependency on server-side ASP.NET Core (MVC/Razor) to our library (a separate NuGet package would have to be created).
+            </remarks>
+        </member>
     </members>
 </doc>
