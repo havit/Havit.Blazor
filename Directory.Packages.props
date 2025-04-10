@@ -2,12 +2,12 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-    <AspNetCoreVersion8>8.0.14</AspNetCoreVersion8>
-    <AspNetCoreVersion9>9.0.3</AspNetCoreVersion9>
+    <AspNetCoreVersion8>8.0.15</AspNetCoreVersion8>
+    <AspNetCoreVersion9>9.0.4</AspNetCoreVersion9>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
-    <PackageVersion Include="bunit.web" Version="1.38.5" />
+    <PackageVersion Include="bunit.web" Version="1.39.5" />
     <PackageVersion Include="Grpc.AspNetCore.Web" Version="2.70.0" />
     <PackageVersion Include="Grpc.Net.Client" Version="2.70.0" />
     <PackageVersion Include="Grpc.Net.Client.Web" Version="2.70.0" />
@@ -22,12 +22,12 @@
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(AspNetCoreVersion9)" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(AspNetCoreVersion9)" />
-	<PackageVersion Include="Microsoft.CodeAnalysis" Version="4.8.0" />
-    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis" Version="4.13.0" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.13.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing" Version="1.1.2" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.2" />
-    <PackageVersion Include="Microsoft.Extensions.Localization" Version="9.0.3" />
-    <PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.3" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.Extensions.Localization" Version="9.0.4" />
+    <PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.4" />
     <PackageVersion Include="Moq" Version="4.20.72" />
     <PackageVersion Include="MSTest" Version="3.8.3" />
     <PackageVersion Include="protobuf-net" Version="3.2.46" />
@@ -38,7 +38,7 @@
     <PackageVersion Include="SmartComponents.AspNetCore.Components" Version="0.1.0-preview10148" />
     <PackageVersion Include="SmartComponents.Inference.OpenAI" Version="0.1.0-preview10148" />
     <PackageVersion Include="SmartComponents.LocalEmbeddings" Version="0.1.0-preview10148" />
-    <PackageVersion Include="System.Text.Json" Version="9.0.2" />
+    <PackageVersion Include="System.Text.Json" Version="9.0.4" />
   </ItemGroup>
   <ItemGroup>
     <!-- https://github.com/microsoft/MSBuildSdks/tree/main/src/CopyOnWrite -->
