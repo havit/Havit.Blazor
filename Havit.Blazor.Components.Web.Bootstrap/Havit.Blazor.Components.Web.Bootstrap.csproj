@@ -35,7 +35,8 @@
 	    <Pack>True</Pack>
 	    <PackagePath>\</PackagePath>
 	  </None>
-	  <None Include="Icons\bootstrap-icons.json" />
+	  <!-- Source generator needs this file to be present in AdditionalFiles -->
+	  <AdditionalFiles Include="Icons\bootstrap-icons.json" />
 	</ItemGroup>
 	
 	<ItemGroup>
