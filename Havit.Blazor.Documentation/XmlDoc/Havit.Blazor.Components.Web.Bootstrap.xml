@@ -19,11 +19,13 @@
             <summary>
             IDs of the expanded items (if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <code>true</code>, several items can be expanded).
             Do not use a constant value as it resets the accordion on every roundtrip. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemIds"/> to set the initial state.
+            When <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <c>true</c>, this parameter must be used to manage expanded items, and the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIdsChanged"/> event callback will be invoked for changes.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemId">
             <summary>
-            ID of the single expanded item (if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <code>true</code>, use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIds" />, several items can be expanded).
+            ID of the single expanded item. If <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <c>true</c>, this parameter is ignored, and you must use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIds"/> instead.
+            When <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <c>true</c>, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIdChanged"/> event callback will not be invoked.
             Do not use a constant value as it reverts the accordion to that item on every roundtrip. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemId"/> to set the initial state.
             </summary>
         </member>
@@ -31,6 +33,7 @@
             <summary>
             Set to <c>true</c> to make accordion items stay open when another item is opened.
             The default is <c>false</c>, opening another item collapses the current item.
+            When <c>true</c>, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIds"/> must be used to manage expanded items.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemId">

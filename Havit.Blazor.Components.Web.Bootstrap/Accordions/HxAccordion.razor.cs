@@ -14,6 +14,7 @@ public partial class HxAccordion
 	/// <summary>
 	/// IDs of the expanded items (if <see cref="StayOpen"/> is <code>true</code>, several items can be expanded).
 	/// Do not use a constant value as it resets the accordion on every roundtrip. Use <see cref="InitialExpandedItemIds"/> to set the initial state.
+	/// When <see cref="StayOpen"/> is <c>true</c>, this parameter must be used to manage expanded items, and the <see cref="ExpandedItemIdsChanged"/> event callback will be invoked for changes.
 	/// </summary>
 	[Parameter] public List<string> ExpandedItemIds { get; set; } = new List<string>();
 	[Parameter] public EventCallback<List<string>> ExpandedItemIdsChanged { get; set; }
@@ -21,7 +22,8 @@ public partial class HxAccordion
 
 #pragma warning disable BL0007 // Component parameter 'Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemId' should be auto property
 	/// <summary>
-	/// ID of the single expanded item (if <see cref="StayOpen"/> is <code>true</code>, use <see cref="ExpandedItemIds" />, several items can be expanded).
+	/// ID of the single expanded item. If <see cref="StayOpen"/> is <c>true</c>, this parameter is ignored, and you must use <see cref="ExpandedItemIds"/> instead.
+	/// When <see cref="StayOpen"/> is <c>true</c>, the <see cref="ExpandedItemIdChanged"/> event callback will not be invoked.
 	/// Do not use a constant value as it reverts the accordion to that item on every roundtrip. Use <see cref="InitialExpandedItemId"/> to set the initial state.
 	/// </summary>
 	[Parameter]
@@ -49,6 +51,7 @@ public partial class HxAccordion
 	/// <summary>
 	/// Set to <c>true</c> to make accordion items stay open when another item is opened.
 	/// The default is <c>false</c>, opening another item collapses the current item.
+	/// When <c>true</c>, <see cref="ExpandedItemIds"/> must be used to manage expanded items.
 	/// </summary>
 	[Parameter] public bool StayOpen { get; set; }
 
