@@ -815,6 +815,12 @@
             Adds <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService"/> support to be able to add messages to HxMessenger.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.MessengerServiceCollectionExtensions.AddHxMessenger(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
+            <summary>
+            Adds <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService"/> support to be able to add messages to HxMessenger.
+            Allows to specify the <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceLifetime"/> of the <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService"/>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.RenderFragmentBuilder">
             <summary>
             Build render fragments for specific scenarios.
