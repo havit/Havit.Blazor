@@ -54,7 +54,7 @@
 
 						@if (day.ClickEnabled)
 						{
-                            <button  class="@CssClassHelper.Combine("btn hx-calendar-day", day.CssClass)" @key="@day.DayInMonth" @onclick="async () => await HandleDayClickAsync(day)" tabindex="@tabindexValue" @onclick:stopPropagation>
+							<button type="button" class="@CssClassHelper.Combine("btn hx-calendar-day", day.CssClass)" @key="@day.DayInMonth" @onclick="async () => await HandleDayClickAsync(day)" tabindex="@tabindexValue" @onclick:stopPropagation>
 								@day.DayInMonth
 							</button>
 						}
