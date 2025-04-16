@@ -66,7 +66,7 @@
                         <HxSpinner Size="SpinnerSize.Small" Type="SpinnerType.Border" />
 					</div>
 				}
-				else if (!string.IsNullOrEmpty(TextQuery) && (ClearIconEffective is not null))
+				else if (!string.IsNullOrEmpty(TextQuery) && (ClearIconEffective is not null) && (Enabled == true))
 				{
 					<div role="button" class="hx-search-box-input-icon hx-search-box-input-icon-end" @onclick="ClearInputAsync">
 						<HxIcon CssClass="hx-search-box-input-icon-clear" Icon="ClearIconEffective" />
@@ -74,7 +74,8 @@
 				}
 				else if ((SearchIconEffective is not null) && (SearchIconPlacementEffective == SearchBoxSearchIconPlacement.End))
 				{
-					<div class="hx-search-box-input-icon hx-search-box-input-icon-end">
+					// Pointer events are disabled when the search is disabled to prevent triggering the dropdown
+					<div class="@CssClassHelper.Combine("hx-search-box-input-icon hx-search-box-input-icon-end", Enabled == false ? "pe-none" : null)">
 						<HxIcon CssClass="hx-search-box-input-icon-search" Icon="SearchIconEffective" />
 					</div>
 				}
