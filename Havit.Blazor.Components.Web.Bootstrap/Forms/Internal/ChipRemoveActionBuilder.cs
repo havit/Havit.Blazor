@@ -14,8 +14,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 /// </summary>
 public class ChipRemoveActionBuilder
 {
-	private static readonly ConcurrentDictionary<string, Action<object>> _cachedActions = new();
-
 	private readonly LambdaExpression _valueExpression;
 	private readonly object _resetValue;
 
@@ -27,12 +25,6 @@ public class ChipRemoveActionBuilder
 	}
 
 	public Action<object> Build()
-	{
-		var cacheKey = string.Concat(_valueExpression.ToString(), ":", _resetValue);
-		return _cachedActions.GetOrAdd(cacheKey, _ => BuildDeferredAction());
-	}
-
-	private Action<object> BuildDeferredAction()
 	{
 		var valueExpression = _valueExpression;
 		var resetValue = _resetValue;
