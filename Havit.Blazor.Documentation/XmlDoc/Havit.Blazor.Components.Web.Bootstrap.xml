@@ -2262,6 +2262,16 @@
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.ChipRemoveActionBuilder">
+            <summary>
+            ChipRemoveActionBuilder is responsible for generating an Action that resets
+            a property referenced by a lambda expression to a specified value (typically default).
+            
+            Unlike most expression-based tools, this builder defers all expression analysis to the point
+            of action invocation. This enables fast action construction (suitable for per-render use)
+            and evaluates constraints and assumptions only when the action is actually executed.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueComponentExtensions">
             <summary>
             Extension methods for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" />.

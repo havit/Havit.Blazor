@@ -1,0 +1,42 @@
+﻿@page "/HxInputBase_GetChipRemoveAction_NestedModel"
+@rendermode InteractiveServer
+
+<ol>
+	<li>Enter value</li>
+	<li>Click submit</li>
+	<li>Click chip remove</li>
+</ol>
+
+<HxFilterForm @ref="_filterForm" @bind-Model="_model" OnChipsUpdated="HandleChipUpdated">
+	<HxInputText Label="InnerValue" @bind-Value="context.InnerModel.InnerValue" />
+	<HxSubmit Text="Submit" Color="ThemeColor.Primary" />
+</HxFilterForm>
+
+<HxChipList Chips="_chips" OnChipRemoveClick="HandleChipRemoveClick" />
+
+@_model
+
+@code {
+	private HxFilterForm<NestedModel> _filterForm;
+	private NestedModel _model = new NestedModel();
+	private ChipItem[] _chips;
+
+	private void HandleChipUpdated(ChipItem[] chips)
+	{
+		_chips = chips;
+	}
+
+	private async Task HandleChipRemoveClick(ChipItem chipItemToRemove)
+	{
+		await _filterForm.RemoveChipAsync(chipItemToRemove);
+	}
+
+	public record NestedModel
+	{
+		public InnerModel InnerModel { get; set; } = new();
+	}
+	public record InnerModel
+	{
+		public string InnerValue { get; set; }
+	}
+}
