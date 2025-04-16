@@ -74,7 +74,7 @@ public class ChipRemoveActionBuilderTests
 	public void ChipRemoveActionBuilder_ThrowsIfModelInstanceIsNull()
 	{
 		var model = new SimpleModel();
-		var builder = new ChipRemoveActionBuilder((Expression<Func<string>>)(() => model.Name));
+		var builder = new ChipRemoveActionBuilder(() => model.Name);
 		var action = builder.Build();
 
 		Assert.ThrowsExactly<ArgumentNullException>(() => action(null));
@@ -86,7 +86,7 @@ public class ChipRemoveActionBuilderTests
 		var model = new SimpleModel();
 		var unrelated = new Unrelated();
 
-		var builder = new ChipRemoveActionBuilder((Expression<Func<string>>)(() => model.Name));
+		var builder = new ChipRemoveActionBuilder(() => model.Name);
 		var action = builder.Build();
 
 		Assert.ThrowsExactly<InvalidOperationException>(() => action(unrelated));
@@ -96,7 +96,7 @@ public class ChipRemoveActionBuilderTests
 	public void ChipRemoveActionBuilder_ThrowsIfIntermediateIsNull()
 	{
 		var model = new NestedModel { Inner = null };
-		var builder = new ChipRemoveActionBuilder((Expression<Func<int>>)(() => model.Inner.Age));
+		var builder = new ChipRemoveActionBuilder(() => model.Inner.Age);
 		var action = builder.Build();
 
 		Assert.ThrowsExactly<NullReferenceException>(() => action(model));
@@ -106,10 +106,10 @@ public class ChipRemoveActionBuilderTests
 	public void ChipRemoveActionBuilder_ThrowsIfFinalMemberIsNotProperty()
 	{
 		var model = new WithField();
-		var builder = new ChipRemoveActionBuilder((Expression<Func<int>>)(() => model.Field));
+		var builder = new ChipRemoveActionBuilder(() => model.Field);
 		var action = builder.Build();
 
-		Assert.ThrowsExactly<InvalidOperationException>(() => action(model));
+		Assert.ThrowsExactly<NotSupportedException>(() => action(model));
 	}
 
 	private class WithField

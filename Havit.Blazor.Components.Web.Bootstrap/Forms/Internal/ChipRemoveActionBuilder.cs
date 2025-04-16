@@ -73,7 +73,7 @@ public class ChipRemoveActionBuilder
 				{
 					PropertyInfo prop => prop.GetValue(currentObject),
 					FieldInfo field => field.GetValue(currentObject),
-					_ => throw new InvalidOperationException("Failed to execute chip removal action. Unsupported member type in path.\nExpression: " + valueExpression)
+					_ => throw new NotSupportedException("Failed to execute chip removal action. Unsupported member type in path.\nExpression: " + valueExpression)
 				};
 
 				if (currentObject == null)
@@ -84,7 +84,7 @@ public class ChipRemoveActionBuilder
 
 			if (accessChain[^1] is not PropertyInfo propertyInfo)
 			{
-				throw new InvalidOperationException("Failed to execute chip removal action. Final member in expression must be a property.\nExpression: " + valueExpression);
+				throw new NotSupportedException("Failed to execute chip removal action. Final member in expression must be a property.\nExpression: " + valueExpression);
 			}
 
 			propertyInfo.SetValue(currentObject, resetValue);
