@@ -92,7 +92,7 @@ public class StrongApiStringLocalizersGenerator : IIncrementalGenerator
 			{
 				// generate service collection externsion to register all generated localizers
 				var serviceRegistrationsSourceBuilder = new ServiceRegistrationsSourceBuilder(serviceCollectionExtensionsData);
-				sourceContext.AddSource($"{serviceCollectionExtensionsData.RootNamespace}.ServiceCollectionExtensions.g.cs", SourceText.From(serviceRegistrationsSourceBuilder.BuildSource(), Encoding.UTF8));
+				sourceContext.AddSource($"{serviceCollectionExtensionsData.RootNamespace}.ResourcesServiceCollectionExtensions.g.cs", SourceText.From(serviceRegistrationsSourceBuilder.BuildSource(), Encoding.UTF8));
 			}
 		});
 	}

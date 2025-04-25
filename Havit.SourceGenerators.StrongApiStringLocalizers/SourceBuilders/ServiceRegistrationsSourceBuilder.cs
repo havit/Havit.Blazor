@@ -30,7 +30,7 @@ internal class ServiceRegistrationsSourceBuilder
 		builder.AppendLine();
 
 		builder.AppendGeneratedCodeAttributeLine();
-		builder.AppendLine("public static class ServiceCollectionExtensions");
+		builder.AppendLine("public static class ResourcesServiceCollectionExtensions");
 		builder.AppendLine("{");
 		builder.AppendLine("\tpublic static IServiceCollection AddGeneratedResourceWrappers(this IServiceCollection services)");
 		builder.AppendLine("\t{");
