@@ -8,9 +8,9 @@
   <ItemGroup>
     <PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
     <PackageVersion Include="bunit.web" Version="1.39.5" />
-    <PackageVersion Include="Grpc.AspNetCore.Web" Version="2.70.0" />
-    <PackageVersion Include="Grpc.Net.Client" Version="2.70.0" />
-    <PackageVersion Include="Grpc.Net.Client.Web" Version="2.70.0" />
+    <PackageVersion Include="Grpc.AspNetCore.Web" Version="2.71.0" />
+    <PackageVersion Include="Grpc.Net.Client" Version="2.71.0" />
+    <PackageVersion Include="Grpc.Net.Client.Web" Version="2.71.0" />
     <PackageVersion Include="Havit.Core" Version="2.0.32" />
     <PackageVersion Include="Havit.AspNetCore" Version="2.0.23" />
     <PackageVersion Include="LoxSmoke.DocXml" Version="3.8.0" />
