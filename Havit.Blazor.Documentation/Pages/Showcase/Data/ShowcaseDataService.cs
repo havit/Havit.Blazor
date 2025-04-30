@@ -71,6 +71,15 @@ public class ShowcaseDataService : IShowcaseDataService
 			Author = "HAVIT",
 			AuthorUrl = "https://www.havit.eu",
 		},
+		new()
+		{
+			Id = "tulipHeron",
+			Title = "TULIP Heron",
+			Description = "Attendance system",
+			ImageUrl = "images/showcase/TulipHeron.png",
+			Author = "Tulipize + HAVIT",
+			AuthorUrl = "https://tulipize.com/heron-attendance/",
+		},
 
 	};
 
