@@ -77,8 +77,8 @@ public class ShowcaseDataService : IShowcaseDataService
 			Title = "TULIP Heron",
 			Description = "Attendance system",
 			ImageUrl = "images/showcase/TulipHeron.png",
-			Author = "HAVIT",
-			AuthorUrl = "https://www.havit.eu",
+			Author = "Tulipize + HAVIT",
+			AuthorUrl = "https://tulipize.com/heron-attendance/",
 		},
 
 	};
