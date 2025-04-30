@@ -553,6 +553,9 @@
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClick"/> event. Allows interception of the event in derived components.
             </summary>
+            <remarks>
+            Please note, that this method is not called, when the <see cref="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClick"/> parameter is not set.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClickStopPropagation">
             <summary>
