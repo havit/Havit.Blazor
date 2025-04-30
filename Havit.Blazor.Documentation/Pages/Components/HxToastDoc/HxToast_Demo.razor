@@ -1,42 +1,29 @@
 ﻿<HxToastContainer>
-	@if (isVisible1)
-	{
-		<HxToast HeaderText="F20/00578" HeaderIcon="BootstrapIcon.InfoCircleFill" ContentText="Invoice has been created." CssClass="mb-2" />
-	}
+	<HxToast HeaderText="F20/00578" HeaderIcon="BootstrapIcon.InfoCircleFill" ContentText="Invoice has been created." CssClass="mb-2" />
 
-	@if (isVisible2)
-	{
-		<HxToast HeaderText="Confirmation" Color="ThemeColor.Warning" CssClass="mb-2">
-			<ContentTemplate>
-				<HxIcon Icon="BootstrapIcon.InfoCircleFill" CssClass="me-2" />
-				Hi! All messages have been deleted and cannot be restored.
-			</ContentTemplate>
-		</HxToast>
-	}
+	<HxToast HeaderText="Confirmation" Color="ThemeColor.Warning" CssClass="mb-2">
+		<ContentTemplate>
+			<HxIcon Icon="BootstrapIcon.InfoCircleFill" CssClass="me-2" />
+			Hi! All messages have been deleted and cannot be restored.
+		</ContentTemplate>
+	</HxToast>
 
-	@if (isVisible3)
+	@if (isVisible)
 	{
-		<HxToast AutohideDelay="5000" CssClass="mb-2">
+		<HxToast AutohideDelay="5000" CssClass="mb-2" OnToastHidden="() => isVisible = false">
 			<ContentTemplate>
 				This message should disappear after 5 sec.
 			</ContentTemplate>
 		</HxToast>
 	}
 
-	<HxToast ShowCloseButton="false" CssClass="mb-2">
-		<ContentTemplate>
-			Always visible. No close button here.
-		</ContentTemplate>
-	</HxToast>
+	<HxToast ShowCloseButton="false" CssClass="mb-2" ContentText="Always visible. No close button here." />
+
 </HxToastContainer>
 
 
-<HxButton Text="Toggle1" OnClick="() => { isVisible1 = !isVisible1; }" Color="ThemeColor.Primary" />
-<HxButton Text="Toggle2" OnClick="() => { isVisible2 = !isVisible2; }" Color="ThemeColor.Primary" />
-<HxButton Text="Toggle3" OnClick="() => { isVisible3 = !isVisible3; }" Color="ThemeColor.Primary" />
+<HxButton Text="Toggle" OnClick="() => { isVisible = !isVisible; }" Color="ThemeColor.Primary" />
 
 @code {
-	private bool isVisible1 = true;
-	private bool isVisible2 = true;
-	private bool isVisible3 = true;
+	private bool isVisible = true;
 }
