@@ -74,14 +74,29 @@
 
 .hx-list-layout-named-view {
 	margin-right: auto;
-}
-
-.card-title {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0;
+	min-width: 0;
 }
 
 .hx-list-layout-named-view ::deep .hx-icon {
     font-size: .75rem;
+}
+
+.card-title {
+    margin-bottom: 0;
+}
+
+@media(max-width: 767px) {
+	.search-template {
+		width: 100%;
+	}
+
+	::deep .hx-chip-list {
+		overflow-x: auto;
+	}
+
+	.hx-list-layout-named-view,
+	.card-title {
+		flex-basis: 0;
+		flex-grow: 1;
+	}
 }
