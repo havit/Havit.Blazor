@@ -90,7 +90,6 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 
 	private async Task HandleCurrentValueAsStringChanged(string newInputValue)
 	{
-		//CurrentValueAsString = newInputValue;
 		await CurrentValueAsStringChanged.InvokeAsync(newInputValue);
 	}
 
@@ -186,5 +185,7 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 		{
 			// NOOP
 		}
+
+		//Dispose(false);
 	}
 }
