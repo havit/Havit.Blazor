@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Text.RegularExpressions;
+using Havit.Blazor.Components.Web.Bootstrap.Forms.Internal;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.Extensions.Localization;
 
@@ -171,15 +170,15 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 		builder.OpenComponent(1, typeof(HxInputDateInternal<TValue>));
 
-		builder.AddAttribute(100, nameof(Value), Value);
-		builder.AddAttribute(101, nameof(ValueChanged), EventCallback.Factory.Create<TValue>(this, value => CurrentValue = value));
-		builder.AddAttribute(102, nameof(ValueExpression), ValueExpression);
+		builder.AddAttribute(100, nameof(HxInputDateInternal<TValue>.CurrentValue), CurrentValue);
+		builder.AddAttribute(100, nameof(HxInputDateInternal<TValue>.CurrentValueAsString), CurrentValueAsString);
+		builder.AddAttribute(101, nameof(HxInputDateInternal<TValue>.CurrentValueAsStringChanged), EventCallback.Factory.Create<string>(this, value => CurrentValueAsString = value));
 
 		builder.AddAttribute(200, nameof(HxInputDateInternal<TValue>.InputId), InputId);
 		builder.AddAttribute(201, nameof(HxInputDateInternal<TValue>.InputCssClass), GetInputCssClassToRender());
 		builder.AddAttribute(202, nameof(HxInputDateInternal<TValue>.EnabledEffective), EnabledEffective);
-		builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.ParsingErrorMessageEffective), GetParsingErrorMessage());
-		builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
+		builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
+		builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.NameAttributeValue), NameAttributeValue);
 
 		builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.InputSizeEffective), InputSizeEffective);
 		builder.AddAttribute(206, nameof(HxInputDateInternal<TValue>.CalendarIconEffective), CalendarIconEffective);
@@ -227,7 +226,18 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 	protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string validationErrorMessage)
 	{
-		throw new NotSupportedException();
+		if (DateHelper.TryParseDateFromString<TValue>(value, TimeProviderEffective, out var date))
+		{
+			result = date;
+			validationErrorMessage = null;
+			return true;
+		}
+		else
+		{
+			result = default;
+			validationErrorMessage = GetParsingErrorMessage();
+			return false;
+		}
 	}
 
 	/// <summary>
