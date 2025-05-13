@@ -59,14 +59,20 @@
                         @SearchTemplate
                     </div>
                 }
-                @if (CommandsTemplate != null)
-                {
-                    @CommandsTemplate
-                }
-                @if (FilterTemplate != null)
-                {
-                    <HxButton Settings="FilterOpenButtonSettingsEffective" OnClick="ShowFilterOffcanvasAsync" />
-                }
+				@if(CommandsTemplate != null || FilterTemplate != null)
+				{
+					<div class="hx-list-layout-header-buttons">
+						@if (CommandsTemplate != null)
+						{
+							@CommandsTemplate
+						}
+						@if (FilterTemplate != null)
+						{
+							<HxButton Settings="FilterOpenButtonSettingsEffective" OnClick="ShowFilterOffcanvasAsync" />
+						}
+					</div>
+				}
+				
             </div>
             @if (FilterModel != null)
             {

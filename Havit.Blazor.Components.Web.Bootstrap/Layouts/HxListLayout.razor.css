@@ -85,18 +85,14 @@
     margin-bottom: 0;
 }
 
-@media(max-width: 767px) {
-	.search-template {
-		width: 100%;
-	}
+.hx-list-layout-header-buttons {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: .5rem;
+}
 
-	::deep .hx-chip-list {
-		overflow-x: auto;
-	}
-
-	.hx-list-layout-named-view,
-	.card-title {
-		flex-basis: 0;
-		flex-grow: 1;
-	}
+.hx-list-layout-header > * {
+	flex-basis: 33%;
+	flex-grow: 1;
 }
