@@ -150,9 +150,16 @@ public partial class HxCalendar
 		bool lastKnownValueChanged = _lastKnownValue != Value;
 		_lastKnownValue = Value;
 
-		if (DisplayMonth == default)
+		if (DisplayMonth == default || lastKnownValueChanged)
 		{
-			await SetDisplayMonthAsync(Value ?? TimeProviderEffective.GetLocalNow().Date);
+			if (Value != null)
+			{
+				await SetDisplayMonthAsync(Value.Value);
+			}
+			else
+			{
+				await SetDisplayMonthAsync(TimeProviderEffective.GetLocalNow().Date, limitDisplayMonthByMinMaxDateEffective: true);
+			}
 		}
 		else if ((Value != null) && lastKnownValueChanged && ((DisplayMonth.Year != Value.Value.Year) || (DisplayMonth.Month != Value.Value.Month)))
 		{
@@ -185,7 +192,7 @@ public partial class HxCalendar
 		int minYear = minDateEffective.Year;
 		int maxYear = maxDateEffective.Year;
 
-		_renderData.Years = Enumerable.Range(minYear, maxYear - minYear + 1).Reverse().ToList();
+		_renderData.Years = Enumerable.Range(minYear, maxYear - minYear + 1).Union([DisplayMonth.Year]).Reverse().ToList();
 
 		for (int i = 0; i < 7; i++)
 		{
@@ -259,10 +266,13 @@ public partial class HxCalendar
 		});
 	}
 
-	private async Task SetDisplayMonthAsync(DateTime newDisplayMonth)
+	private async Task SetDisplayMonthAsync(DateTime newDisplayMonth, bool limitDisplayMonthByMinMaxDateEffective = false)
 	{
-		newDisplayMonth = new[] { newDisplayMonth, new DateTime(MinDateEffective.Year, MinDateEffective.Month, 1) }.Max();
-		newDisplayMonth = new[] { newDisplayMonth, new DateTime(MaxDateEffective.Year, MaxDateEffective.Month, 1) }.Min();
+		if (limitDisplayMonthByMinMaxDateEffective)
+		{
+			newDisplayMonth = new[] { newDisplayMonth, new DateTime(MinDateEffective.Year, MinDateEffective.Month, 1) }.Max();
+			newDisplayMonth = new[] { newDisplayMonth, new DateTime(MaxDateEffective.Year, MaxDateEffective.Month, 1) }.Min();
+		}
 
 		DisplayMonth = newDisplayMonth;
 		await InvokeDisplayMonthChangedAsync(newDisplayMonth);
