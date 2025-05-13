@@ -727,7 +727,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		// TODO Consider CancelAsync method for net8.0+
 		_paginationRefreshDataCancellationTokenSource?.Cancel();
 #pragma warning restore VSTHRD103 // Call async methods when in an async method
-		_paginationRefreshDataCancellationTokenSource?.Dispose();
+		// do not dispose the CTS here, there might be still some tasks running and they might throw ObjectDisposedException when using the CancellationToken
 		_paginationRefreshDataCancellationTokenSource = new CancellationTokenSource();
 		CancellationToken cancellationToken = _paginationRefreshDataCancellationTokenSource.Token;
 
@@ -1048,7 +1048,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		if (disposing)
 		{
 			_paginationRefreshDataCancellationTokenSource?.Cancel();
-			_paginationRefreshDataCancellationTokenSource?.Dispose();
+			// do not dispose the CTS here, there might be still some tasks running and they might throw ObjectDisposedException when using the CancellationToken
 			_paginationRefreshDataCancellationTokenSource = null;
 
 			_dataProviderInProgressDelayTimer?.Dispose();
