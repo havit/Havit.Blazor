@@ -4,7 +4,8 @@
 <div class="@CssClassHelper.Combine("hx-list-layout", CssClassEffective)">
     <HxCard Settings="CardSettingsEffective">
         <BodyTemplate>
-            <div class="hx-list-layout-header flex-wrap flex-md-nowrap">
+
+            <div class="hx-list-layout-header">
                 @if ((NamedViews != null) && NamedViews.Any())
                 {
                     <div class="hx-list-layout-named-view dropdown">
@@ -43,22 +44,22 @@
                 }
                 else if (TitleTemplate != null)
                 {
-                    <h5 class="card-title text-truncate me-auto">
-                        <span class="d-flex align-items-center">
-                            @TitleTemplate
-                        </span>
+                    <h5 class="hx-list-layout-title card-title d-flex align-items-center">
+                        @TitleTemplate
                     </h5>
                 }
                 else if (!String.IsNullOrEmpty(Title))
                 {
-                    <h5 class="card-title text-truncate me-auto">@Title</h5>
+                    <h5 class="hx-list-layout-title card-title text-truncate">@Title</h5>
                 }
+
                 @if (SearchTemplate != null)
                 {
-                    <div class="search-template order-1 order-md-0 flex-fill">
+                    <div class="hx-list-layout-header-search">
                         @SearchTemplate
                     </div>
                 }
+
 				@if(CommandsTemplate != null || FilterTemplate != null)
 				{
 					<div class="hx-list-layout-header-buttons">
@@ -72,11 +73,11 @@
 						}
 					</div>
 				}
-				
             </div>
+
             @if (FilterModel != null)
             {
-                <HxChipList Chips="_chips" OnChipRemoveClick="HandleChipRemoveClick" CssClass="flex-nowrap flex-md-wrap" />
+                <HxChipList Chips="_chips" OnChipRemoveClick="HandleChipRemoveClick" CssClass="flex-nowrap flex-md-wrap overflow-x-auto" />
             }
             @if (FilterTemplate != null)
             {
