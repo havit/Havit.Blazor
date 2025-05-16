@@ -4,8 +4,8 @@
 <h1>HxInputDate[Range]</h1>
 
 <EditForm EditContext="editContext">
-	<HxInputDate CssClass="col-3" Label="Date" @bind-Value="model.BirthDate" />
-	<HxInputDateRange CssClass="col-3" Label="DateRange" @bind-Value="model.DateRange" />
+    <HxInputDate CssClass="col-3" Label="Date" @bind-Value="model.BirthDate" />
+    <HxInputDateRange CssClass="col-3" Label="DateRange" @bind-Value="model.DateRange" />
 </EditForm>
 
 <p>OnFieldChanged counter: @counter</p>
@@ -27,6 +27,7 @@
     private void HandleFieldChanged(object sender, EventArgs eventArgs)
     {
         counter += 1;
+        StateHasChanged();
     }
 
 	public class Person

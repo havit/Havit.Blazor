@@ -1,5 +1,4 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
-@inherits Microsoft.AspNetCore.Components.Forms.InputBase<DateTimeRange>
 
 @if ((FieldIdentifier.Model != null) && (_fromFieldIdentifier.Model != null) && (_toFieldIdentifier.Model != null))
 {
@@ -18,8 +17,8 @@
                                                                         fromValid ? null : HxInputBase<object>.InvalidCssClass,
                                                                         "rounded-end-0")"
 										 Caret="false"
-										 Value="@(_fromPreviousParsingAttemptFailed ? _incomingFromValueBeforeParsing : FormatDate(Value.StartDate))"
-										 ValueChanged="HandleFromChanged"
+										 Value="@(_fromPreviousParsingAttemptFailed ? _incomingFromValueBeforeParsing : FormatDate(CurrentValue.StartDate))"
+										 ValueChanged="HandleFromChangedAsync"
 										 placeholder="@(FromPlaceholderEffective ?? StringLocalizerFactory.GetLocalizedValue("From", typeof(HxInputDateRange)))"
 										 disabled="@(!EnabledEffective)"
 										 onfocus="this.select();"
@@ -30,7 +29,7 @@
 					@if (EnabledEffective)
 					{
 						<div class="hx-input-date-range-calendar">
-							<HxCalendar Value="@Value.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationFrom" KeyboardNavigation="false" DisplayMonth="@GetFromCalendarDisplayMonthEffective" TimeProvider="TimeProviderEffective" />
+                                    <HxCalendar Value="@CurrentValue.StartDate" ValueChanged="HandleFromCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationFrom" KeyboardNavigation="false" DisplayMonth="@GetFromCalendarDisplayMonthEffective" TimeProvider="TimeProviderEffective" />
 						</div>
 						<div class="hx-input-date-range-buttons">
 							@if (ShowClearButtonEffective)
@@ -75,8 +74,8 @@
                                                                         ((IInputWithSize)this).GetInputSizeCssClass(),
                                                                         toValid ? null : HxInputBase<object>.InvalidCssClass,
                                                                         "rounded-start-0")"
-										 Value="@(_toPreviousParsingAttemptFailed ? _incomingToValueBeforeParsing : FormatDate(Value.EndDate))"
-										 ValueChanged="HandleToChanged"
+                                             Value="@(_toPreviousParsingAttemptFailed ? _incomingToValueBeforeParsing : FormatDate(CurrentValue.EndDate))"
+										 ValueChanged="HandleToChangedAsync"
 										 placeholder="@(ToPlaceholderEffective ?? StringLocalizerFactory.GetLocalizedValue("To", typeof(HxInputDateRange)))"
 										 disabled="@(!EnabledEffective)"
 										 onfocus="this.select()"
@@ -87,7 +86,7 @@
 					@if (EnabledEffective)
 					{
 						<div class="hx-input-date-range-calendar">
-							<HxCalendar Value="@Value.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationTo" KeyboardNavigation="false" DisplayMonth="@GetToCalendarDisplayMonthEffective" TimeProvider="TimeProviderEffective" />
+							<HxCalendar Value="@CurrentValue.EndDate" ValueChanged="HandleToCalendarValueChanged" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomizationTo" KeyboardNavigation="false" DisplayMonth="@GetToCalendarDisplayMonthEffective" TimeProvider="TimeProviderEffective" />
 						</div>
 						<div class="hx-input-date-range-buttons">
 							@if (ShowClearButtonEffective)
