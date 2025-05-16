@@ -72,7 +72,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{45BC
 		.github\FUNDING.yml = .github\FUNDING.yml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Bootstrap.EntifyFrameworkCore.Tests", "Havit.Blazor.Components.Web.Bootstrap.EntifyFrameworkCore.Tests\Havit.Blazor.Components.Web.Bootstrap.EntifyFrameworkCore.Tests.csproj", "{AD166DF7-CAFA-4471-B6F2-CA188BC96E5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web.Bootstrap.EntityFrameworkCore.Tests", "Havit.Blazor.Components.Web.Bootstrap.EntityFrameworkCore.Tests\Havit.Blazor.Components.Web.Bootstrap.EntityFrameworkCore.Tests.csproj", "{AD166DF7-CAFA-4471-B6F2-CA188BC96E5B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.TestApp", "Havit.Blazor.TestApp\Havit.Blazor.TestApp\Havit.Blazor.TestApp.csproj", "{9EF7E599-FF7D-4574-BF95-F439365F2B69}"
 EndProject
