@@ -206,14 +206,14 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 		builder.CloseComponent();
 	}
 
-	public override ValueTask FocusAsync()
+	public async ValueTask FocusAsync()
 	{
 		if (_hxInputDateInternalComponent is null)
 		{
 			throw new InvalidOperationException($"[{GetType().Name}] Unable to focus. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 
-		return _hxInputDateInternalComponent.FocusAsync();
+		await _hxInputDateInternalComponent.FocusAsync();
 	}
 
 	// For generating chips

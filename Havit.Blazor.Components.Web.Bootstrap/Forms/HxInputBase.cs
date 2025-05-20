@@ -134,12 +134,6 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	protected string InputId { get; private set; }
 
 	/// <summary>
-	/// The input ElementReference.
-	/// Can be <c>null</c>. 
-	/// </summary>
-	protected ElementReference InputElement { get; set; }
-
-	/// <summary>
 	/// Elements rendering order.
 	/// </summary>
 	protected virtual LabelValueRenderOrder RenderOrder =>
@@ -415,18 +409,6 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	protected virtual TValue GetChipRemoveValue()
 	{
 		return default(TValue);
-	}
-
-	/// <summary>
-	/// Gives focus to the input element.
-	/// </summary>
-	public virtual async ValueTask FocusAsync()
-	{
-		if (EqualityComparer<ElementReference>.Default.Equals(InputElement, default))
-		{
-			throw new InvalidOperationException($"[{GetType().Name}] Unable to focus, {nameof(InputElement)} reference not available.  You are most likely calling the method too early. The first render must complete before calling this method.");
-		}
-		await InputElement.FocusAsync();
 	}
 
 	/// <summary>

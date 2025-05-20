@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Localization;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
+using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -82,6 +83,12 @@ public class HxCheckbox : HxInputBase<bool>
 	/// </summary>
 	private protected bool NeedsFormCheckOuter => !NeedsInnerDiv && NeedsFormCheck;
 
+	/// <summary>
+	/// The input ElementReference.
+	/// Can be <c>null</c>. 
+	/// </summary>
+	protected ElementReference InputElement { get; set; }
+
 	/// <inheritdoc />
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
@@ -153,4 +160,9 @@ public class HxCheckbox : HxInputBase<bool>
 		}
 		builder.AddContent(0, CurrentValue ? positiveValue : Localizer["ChipValueFalse"]);
 	}
+
+	/// <summary>
+	/// Focuses the checkbox.
+	/// </summary>
+	public async ValueTask FocusAsync() => await InputElement.FocusIfPossibleAsync(this);
 }
