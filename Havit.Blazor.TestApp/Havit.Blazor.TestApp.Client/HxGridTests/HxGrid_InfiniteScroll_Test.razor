@@ -1,12 +1,15 @@
 ﻿@page "/HxGrid_InfiniteScroll_Test"
+@rendermode InteractiveServer
 @using System.Globalization
 @using Microsoft.Extensions.Logging
 
 <h1>HxGrid Infinite scroll</h1>
+<HxButton Text="Reset position" Color="ThemeColor.Secondary" OnClick="HandleResetPositionClickAsync" SingleClickProtection="false" />
 <div class="mb-5 overflow-auto">
 
 	<HxGrid TItem="CultureInfo" Responsive="true" PlaceholdersRowCount="100"
-		DataProvider="@ClientCultureInfosDataProvider" TableContainerCssClass="table-container overflow-auto" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"
+        @ref="infiniteScrollGrid"
+            DataProvider="@ClientCultureInfosDataProvider" TableContainerCssClass="table-container overflow-auto" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll" CurrentUserStateChanged="HandleCurrentUserStateChangedAsync"
 		ItemRowHeight="50">
 		<Columns>
 			<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
@@ -24,6 +27,7 @@
 		</Columns>
 	</HxGrid>
 </div>
+
 
 <div class="mb-5 overflow-auto">
 	<h1>HxGrid Infinite scroll + fixed layout</h1>
@@ -119,19 +123,32 @@
 @code {
     [Inject] private ILogger<HxGrid_InfiniteScroll_Test> Logger { get; set; }
 
-	private List<CultureInfo> GetCultureInfos()
-	{
-		return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).ToList();
-	}
+    private HxGrid<CultureInfo> infiniteScrollGrid;
 
-	private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
-	{
-		Logger.LogInformation($"Requesting culture infos[{request.StartIndex}, {request.Count}].");
-		await Task.Delay(500); // simulate server call
+    private List<CultureInfo> GetCultureInfos()
+    {
+        return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).ToList();
+    }
 
-		var cultures = GetCultureInfos();
-		Logger.LogInformation($"Culture infos loaded (cancelled: {request.CancellationToken.IsCancellationRequested}).");
+    private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+    {
+        Logger.LogInformation($"Requesting culture infos[{request.StartIndex}, {request.Count}].");
+        await Task.Delay(500); // simulate server call
 
-		return request.ApplyTo(cultures);
-	}
+        var cultures = GetCultureInfos();
+        Logger.LogInformation($"Culture infos loaded (cancelled: {request.CancellationToken.IsCancellationRequested}).");
+
+        return request.ApplyTo(cultures);
+    }
+
+    private async Task HandleResetPositionClickAsync()
+    {
+        await infiniteScrollGrid.RefreshDataAsync(resetPosition: true);
+    }
+
+    private async Task HandleCurrentUserStateChangedAsync()
+    {
+        // this should not happen during position reset
+        await Task.Delay(1000);
+    }
 }
