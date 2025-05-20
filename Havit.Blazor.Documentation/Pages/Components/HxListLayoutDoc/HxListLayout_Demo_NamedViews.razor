@@ -3,7 +3,7 @@
 <HxListLayout Title="Employees"
 			  TFilterModel="EmployeesFilterDto"
 			  @bind-FilterModel="filterModel"
-			  @bind-FilterModel:after="gridComponent.RefreshDataAsync"
+              @bind-FilterModel:after="async () => await gridComponent.RefreshDataAsync()"
 			  NamedViews="namedViews"
 			  @bind-SelectedNamedView="selectedNamedView"
 			  TitleFromNamedView="titleFromNamedView">

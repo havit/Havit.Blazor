@@ -1,6 +1,6 @@
 ﻿@inject IDemoDataService DemoDataService
 
-<HxListLayout Title="Employees" TFilterModel="EmployeesFilterDto" @bind-FilterModel="filterModel" @bind-FilterModel:after="gridComponent.RefreshDataAsync">
+<HxListLayout Title="Employees" TFilterModel="EmployeesFilterDto" @bind-FilterModel="filterModel" @bind-FilterModel:after="async () => await gridComponent.RefreshDataAsync()">
 	<CommandsTemplate>
 		<HxButton Text="Create employee" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" OnClick="HandleNewItemClicked" />
 	</CommandsTemplate>

@@ -1117,6 +1117,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 		}
 	}
 
+	/// <inheritdoc />
 	public async ValueTask DisposeAsync()
 	{
 		await DisposeAsyncCore();
