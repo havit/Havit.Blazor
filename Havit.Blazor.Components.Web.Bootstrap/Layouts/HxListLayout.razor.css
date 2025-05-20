@@ -1,5 +1,4 @@
 .hx-list-layout {
-	--hx-list-layout-header-spacer: .5rem;
 	container-name: hx-list-layout;
 	container-type: inline-size;
 }
