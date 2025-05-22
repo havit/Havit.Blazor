@@ -376,7 +376,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	private int _previousLoadMoreAdditionalItemsCount;
 
 	private Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem> _infiniteScrollVirtualizeComponent;
-	private bool _virtualizeItemsProvidedWaitsForStartIndexZero;
+	private bool _virtualizeItemsProviderWaitsForStartIndexZero;
 	private ElementReference _hxGridContainer;
 	private IJSObjectReference _jsModule;
 
@@ -758,7 +758,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 					// Unfortunately, this can lead to two VirtualizeItemsProvider calls (first is caused by the refresh data call,
 					// later the second call is caused by the scroll position reset), we are propagating just a single VirtualizeItemsProvider call.
 					await EnsureJsModuleAsync();
-					_virtualizeItemsProvidedWaitsForStartIndexZero = true;
+					_virtualizeItemsProviderWaitsForStartIndexZero = true;
 					await _jsModule.InvokeVoidAsync("resetScrollPosition", _hxGridContainer);
 				}
 				break;
@@ -890,14 +890,14 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 
 	private async ValueTask<Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderResult<TItem>> VirtualizeItemsProvider(Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderRequest request)
 	{
-		if (_virtualizeItemsProvidedWaitsForStartIndexZero)
+		if (_virtualizeItemsProviderWaitsForStartIndexZero)
 		{
 			if (request.StartIndex > 0)
 			{
 				// When OperationCanceledException is thrown WITH CANCELLATIONTOKEN, Virtualize component silently ends the request.
 				throw new OperationCanceledException("Expecting request with StartIndex equal to zero.", request.CancellationToken);
 			}
-			_virtualizeItemsProvidedWaitsForStartIndexZero = false;
+			_virtualizeItemsProviderWaitsForStartIndexZero = false;
 		}
 
 		GridDataProviderRequest<TItem> gridDataProviderRequest = new GridDataProviderRequest<TItem>
