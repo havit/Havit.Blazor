@@ -26,7 +26,7 @@
 }
 
 ::deep .hx-chip-list {
-	margin-top: var(--hx-list-layout-header-spacer);
+	margin-top: var(--hx-list-layout-header-gap);
 }
 
 .hx-list-layout-header ::deep button {
@@ -92,15 +92,15 @@
 		"title buttons"
 		"search search";
 	align-items: center;
+	gap: var(--hx-list-layout-header-gap);
 }
 
 .hx-list-layout-header-buttons {
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
-	gap: var(--hx-list-layout-header-spacer);
+	gap: var(--hx-list-layout-header-gap);
 	grid-area: buttons;
-	margin-left: var(--hx-list-layout-header-spacer);
 }
 
 .hx-list-layout-named-view,
@@ -110,16 +110,11 @@
 
 .hx-list-layout-header-search {
 	grid-area: search;
-	margin: var(--hx-list-layout-header-spacer) 0 0 0;
 }
 
 @container hx-list-layout (min-width: 768px) {
 	.hx-list-layout-header {
-		grid-template-columns: 1fr auto 1fr;
+		grid-template-columns: 1fr 1fr 1fr;
 		grid-template-areas: "title search buttons";
-	}
-
-	.hx-list-layout-header-search {
-		margin: 0 0 0 var(--hx-list-layout-header-spacer);
 	}
 }
