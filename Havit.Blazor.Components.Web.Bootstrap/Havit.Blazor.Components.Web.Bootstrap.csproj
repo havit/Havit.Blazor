@@ -48,6 +48,20 @@
 		<ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <EmbeddedResource Remove="Resources\HxSpinner.zh-CN.de-de.resx" />
+	  <EmbeddedResource Remove="Resources\HxSidebar.zh-CN.de-de.resx" />
+	  <EmbeddedResource Remove="Resources\HxMultiSelect.zh-CN.de-de.resx" />
+	  <EmbeddedResource Remove="Resources\HxListLayout.zh-CN.de-de.resx" />
+	  <EmbeddedResource Remove="Resources\HxInputNumber.zh-CN.de-de.resx" />
+	  <EmbeddedResource Remove="Resources\HxInputFileDropZone.zh-CN.de-de.resx" />
+	  <EmbeddedResource Remove="Resources\HxInputDateRange.zh-CN.de-de.resx" />
+	  <EmbeddedResource Remove="Resources\HxInputDate.zh-CN.de-de.resx" />
+	  <EmbeddedResource Remove="Resources\HxGrid.zh-CN.de-de.resx" />
+	  <EmbeddedResource Remove="Resources\HxCheckbox.zh-CN.de-de.resx" />
+	  <EmbeddedResource Remove="Resources\HxMessageBox.zh-CN.de-de.resx" />
+	</ItemGroup>
+
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
 		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.Bootstrap.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\xmldoc" />
 	</Target>
