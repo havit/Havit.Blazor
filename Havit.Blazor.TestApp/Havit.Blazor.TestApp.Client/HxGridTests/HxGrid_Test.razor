@@ -1,10 +1,11 @@
-﻿@page "/HxGridTest"
+﻿@page "/HxGrid_Test"
+@rendermode InteractiveServer
 @using System.Globalization
 
 <h1>HxGrid</h1>
 
 <h2>Client paging, auto sorting</h2>
-<HxGrid DataProvider="@ClientCultureInfosDataProvider" @bind-SelectedDataItem="@clientSideCurrentCultureInfo" PageSize="@PageSize" TableContainerCssClass="mt-5" HeaderRowCssClass="myheader" PagerSettings="pagerSettings" @bind-CurrentUserState="clientSideGridUserState">
+<HxGrid @ref="clientSideGrid" DataProvider="@ClientCultureInfosDataProvider" @bind-SelectedDataItem="@clientSideCurrentCultureInfo" PageSize="@PageSize" TableContainerCssClass="mt-5" HeaderRowCssClass="myheader" PagerSettings="pagerSettings" @bind-CurrentUserState="clientSideGridUserState" @bind-CurrentUserState:after="HandleCurrentUserStateChangedAsync">
 	<Columns>
 		<HxGridColumn Order="3" TItem="CultureInfo" HeaderText="Link">
 			<ItemTemplate>
@@ -39,6 +40,7 @@
 }
 <HxButton Text="Sort by name" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnId = name } } }" />
 <HxButton Text="Sort by name (reverse)" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnId = name, ReverseDirection = true } } }" />
+<HxButton Text="Reset position" Color="ThemeColor.Secondary" OnClick="HandleResetClientSideGridPositionClickAsync" />
 
 <p>Current CultureInfo: @clientSideCurrentCultureInfo?.DisplayName</p>
 <p>Clicked context menu item: @clickedItem?.DisplayName</p>
@@ -68,23 +70,24 @@
 </HxGrid>
 
 @code {
-	private const int PageSize = 10;
+    private const int PageSize = 10;
 
-	private HxGrid<CultureInfo> serverSideGrid;
+    private HxGrid<CultureInfo> clientSideGrid;
+    private HxGrid<CultureInfo> serverSideGrid;
 
-	private bool multiSelectionEnabled = true;
-	private int skip = 0;
+    private bool multiSelectionEnabled = true;
+    private int skip = 0;
 
-	// LOCAL
-	private CultureInfo clientSideCurrentCultureInfo = null;
-	private GridUserState clientSideGridUserState = new GridUserState { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnId = "Name" } } };
+    // LOCAL
+    private CultureInfo clientSideCurrentCultureInfo = null;
+    private GridUserState clientSideGridUserState = new GridUserState { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnId = "Name" } } };
 
-	// SERVER SIDE (simulation)
-	private GridUserState serverSideGridUserState = new GridUserState();
-	private CultureInfo serverSideCurrentCultureInfo = null;
-	private CultureInfo clickedItem = null;
+    // SERVER SIDE (simulation)
+    private GridUserState serverSideGridUserState = new GridUserState();
+    private CultureInfo serverSideCurrentCultureInfo = null;
+    private CultureInfo clickedItem = null;
 
-	private PagerSettings pagerSettings = new PagerSettings
+    private PagerSettings pagerSettings = new PagerSettings
 		{
 			FirstPageIcon = BootstrapIcon.ArrowLeftSquareFill,
 			PreviousPageIcon = BootstrapIcon.ArrowLeftSquare,
@@ -92,27 +95,27 @@
 			LastPageIcon = BootstrapIcon.ArrowRightSquareFill
 		};
 
-	private List<CultureInfo> GetCultureInfos()
-	{
-		return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).Skip(skip).ToList();
-	}
+    private List<CultureInfo> GetCultureInfos()
+    {
+        return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).Skip(skip).ToList();
+    }
 
-	private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
-	{
-		await Task.Delay(3000); // simulate server call
+    private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+    {
+        await Task.Delay(2000); // simulate server call
 
-		var cultures = GetCultureInfos();
-		return request.ApplyTo(cultures);
-	}
+        var cultures = GetCultureInfos();
+        return request.ApplyTo(cultures);
+    }
 
-	private async Task<GridDataProviderResult<CultureInfo>> ServerCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
-	{
-		await Task.Delay(3000); // simulate server call
+    private async Task<GridDataProviderResult<CultureInfo>> ServerCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+    {
+        await Task.Delay(2000); // simulate server call
 
-		var cultures = GetCultureInfos();
-		cultures.Sort(request.Sorting.ToGenericPropertyComparer());
+        var cultures = GetCultureInfos();
+        cultures.Sort(request.Sorting.ToGenericPropertyComparer());
 
-		return new GridDataProviderResult<CultureInfo>()
+        return new GridDataProviderResult<CultureInfo>()
 			{
 				TotalCount = cultures.Count(),
 				Data = cultures
@@ -120,27 +123,37 @@
 						.Take(PageSize)
 						.ToList()
 			};
-	}
+    }
 
-	//private void HandleServerSideGridNextPageButtonClick()
-	//{
-	//	serverSideGridUserState = serverSideGridUserState with { PageIndex = serverSideGridUserState.PageIndex + 1 };
-	//}
+    //private void HandleServerSideGridNextPageButtonClick()
+    //{
+    //	serverSideGridUserState = serverSideGridUserState with { PageIndex = serverSideGridUserState.PageIndex + 1 };
+    //}
 
-	private async Task<GridDataProviderResult<CultureInfo>> EmptyCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
-	{
-		await Task.Delay(3000);
-		return new GridDataProviderResult<CultureInfo>
+    private async Task<GridDataProviderResult<CultureInfo>> EmptyCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+    {
+        await Task.Delay(3000);
+        return new GridDataProviderResult<CultureInfo>
 			{
 				Data = new List<CultureInfo>(),
 				TotalCount = 0
 			};
-	}
+    }
 
+    private Task AlarmClicked(CultureInfo item)
+    {
+        clickedItem = item;
+        return Task.CompletedTask;
+    }
 
-	private Task AlarmClicked(CultureInfo item)
-	{
-		clickedItem = item;
-		return Task.CompletedTask;
-	}
+    private async Task HandleResetClientSideGridPositionClickAsync()
+    {
+        await clientSideGrid.RefreshDataAsync(resetPosition: true);
+    }
+
+    private async Task HandleCurrentUserStateChangedAsync()
+    {
+        // to check behavior of the HxGrid internals we need to have "true" async method here to add rendering
+        await Task.Delay(1000);
+    }
 }

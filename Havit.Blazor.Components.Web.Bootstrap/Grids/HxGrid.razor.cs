@@ -1,5 +1,6 @@
 ﻿using Havit.Collections;
 using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -9,7 +10,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// </summary>
 /// <typeparam name="TItem">Type of row data item.</typeparam>
 [CascadingTypeParameter(nameof(TItem))]
-public partial class HxGrid<TItem> : ComponentBase, IDisposable
+public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 {
 	/// <summary>
 	/// Represents a constant name for ColumnsRegistration cascading value.
@@ -355,6 +356,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected virtual GridSettings GetDefaults() => HxGrid.Defaults;
 
 	[Inject] protected IStringLocalizer<HxGrid> HxGridLocalizer { get; set; }
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	private List<IHxGridColumn<TItem>> _columnsList;
 	private HashSet<string> _columnIds;
@@ -374,6 +376,9 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private int _previousLoadMoreAdditionalItemsCount;
 
 	private Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem> _infiniteScrollVirtualizeComponent;
+	private bool _virtualizeItemsProviderWaitsForStartIndexZero;
+	private ElementReference _hxGridContainer;
+	private IJSObjectReference _jsModule;
 
 	private int? _totalCount;
 	private bool _dataProviderInProgress;
@@ -661,9 +666,18 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// Requests a data refresh from the <see cref="DataProvider"/>.
 	/// Useful for updating the grid when external data may have changed.
 	/// </summary>
+	/// <param name="resetPosition">
+	/// If <c>true</c>, resets the grid's position to the initial state (e.g., first page or top of the data set) before refreshing data.
+	/// If <c>false</c>, retains the current position in the grid when refreshing data.
+	/// </param>
 	/// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
-	public async Task RefreshDataAsync()
+	public async Task RefreshDataAsync(bool resetPosition = false)
 	{
+		if (resetPosition)
+		{
+			await ResetPositionAsync();
+		}
+
 		if (_firstRenderCompleted)
 		{
 			await RefreshDataCoreAsync();
@@ -717,6 +731,41 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 		await IncreaseCurrentLoadMoreAdditionalItemsCountWithEventCallback(PageSizeEffective);
 		await RefreshPaginationOrLoadMoreDataCoreAsync();
+	}
+
+	private async Task ResetPositionAsync()
+	{
+		switch (ContentNavigationModeEffective)
+		{
+			case GridContentNavigationMode.Pagination:
+			case GridContentNavigationMode.LoadMore:
+			case GridContentNavigationMode.PaginationAndLoadMore:
+				var newUserState = CurrentUserState with { PageIndex = 0, LoadMoreAdditionalItemsCount = 0 };
+				if (newUserState != CurrentUserState)
+				{
+					CurrentUserState = newUserState;
+					_previousUserState = newUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
+					await InvokeCurrentUserStateChangedAsync(CurrentUserState);
+				}
+				break;
+
+			case GridContentNavigationMode.InfiniteScroll:
+				if (_firstRenderCompleted)
+				{
+					// We can create new instance of Virtualize component but then it does not render its content until it knows the total number of items.
+					// So until first rendering of new instance of Virtualize component is rendered, the in progress indicator is not shown.
+					// Therefore we do not create new instance of Virtualize component but just reset the scroll position.
+					// Unfortunately, this can lead to two VirtualizeItemsProvider calls (first is caused by the refresh data call,
+					// later the second call is caused by the scroll position reset), we are propagating just a single VirtualizeItemsProvider call.
+					await EnsureJsModuleAsync();
+					_virtualizeItemsProviderWaitsForStartIndexZero = true;
+					await _jsModule.InvokeVoidAsync("resetScrollPosition", _hxGridContainer);
+				}
+				break;
+
+			default:
+				throw new InvalidOperationException(ContentNavigationModeEffective.ToString());
+		}
 	}
 
 	private async ValueTask RefreshPaginationOrLoadMoreDataCoreAsync(bool forceReloadAllPaginationOrLoadMoreData = false)
@@ -841,6 +890,16 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private async ValueTask<Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderResult<TItem>> VirtualizeItemsProvider(Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderRequest request)
 	{
+		if (_virtualizeItemsProviderWaitsForStartIndexZero)
+		{
+			if (request.StartIndex > 0)
+			{
+				// When OperationCanceledException is thrown WITH CANCELLATIONTOKEN, Virtualize component silently ends the request.
+				throw new OperationCanceledException("Expecting request with StartIndex equal to zero.", request.CancellationToken);
+			}
+			_virtualizeItemsProviderWaitsForStartIndexZero = false;
+		}
+
 		GridDataProviderRequest<TItem> gridDataProviderRequest = new GridDataProviderRequest<TItem>
 		{
 			StartIndex = request.StartIndex,
@@ -1037,25 +1096,9 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		return result;
 	}
 
-	/// <inheritdoc />
-	public void Dispose()
+	protected async Task EnsureJsModuleAsync()
 	{
-		Dispose(true);
-	}
-
-	protected virtual void Dispose(bool disposing)
-	{
-		if (disposing)
-		{
-			_paginationRefreshDataCancellationTokenSource?.Cancel();
-			// do not dispose the CTS here, there might be still some tasks running and they might throw ObjectDisposedException when using the CancellationToken
-			_paginationRefreshDataCancellationTokenSource = null;
-
-			_dataProviderInProgressDelayTimer?.Dispose();
-			_dataProviderInProgressDelayTimer = null;
-
-			_isDisposed = true;
-		}
+		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxGrid<TItem>));
 	}
 
 	internal static SortDirection GetSortIconDisplayDirection(bool isCurrentSorting, List<GridInternalStateSortingItem<TItem>> currentSorting, SortingItem<TItem>[] columnSorting)
@@ -1072,5 +1115,32 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 				? columnSorting[0].SortDirection.Reverse()
 				: columnSorting[0].SortDirection;
 		}
+	}
+
+	/// <inheritdoc />
+	public async ValueTask DisposeAsync()
+	{
+		await DisposeAsyncCore();
+	}
+
+	protected virtual async Task DisposeAsyncCore()
+	{
+		if (_paginationRefreshDataCancellationTokenSource != null)
+		{
+			await _paginationRefreshDataCancellationTokenSource.CancelAsync();
+			// do not dispose the CTS here, there might be still some tasks running and they might throw ObjectDisposedException when using the CancellationToken
+			_paginationRefreshDataCancellationTokenSource = null;
+		}
+
+		_dataProviderInProgressDelayTimer?.Dispose();
+		_dataProviderInProgressDelayTimer = null;
+
+		if (_jsModule != null)
+		{
+			await _jsModule.DisposeAsync();
+			_jsModule = null;
+		}
+
+		_isDisposed = true;
 	}
 }

@@ -6269,7 +6269,7 @@
             <summary>
             Gets or sets a value indicating whether the current selection (either <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItem"/> for single selection
             or <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
-            or manual invocation of <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync"/>.<br />
+            or manual invocation of <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync(System.Boolean)"/>.<br />
             </summary>
             <remarks>
             This setting ensures that the selection remains intact during operations that refresh or modify the displayed data in the grid.
@@ -6488,7 +6488,7 @@
             <summary>
             Gets or sets a value indicating whether the current selection (either <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItem"/> for single selection
             or <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
-            or manual invocation of <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync"/>.<br />
+            or manual invocation of <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync(System.Boolean)"/>.<br />
             Default value is <c>false</c> (can be set by using <c>HxGrid.Defaults</c>).
             </summary>
             <remarks>
@@ -6739,11 +6739,15 @@
             Returns grid footer cell context.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync(System.Boolean)">
             <summary>
             Requests a data refresh from the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/>.
             Useful for updating the grid when external data may have changed.
             </summary>
+            <param name="resetPosition">
+            If <c>true</c>, resets the grid's position to the initial state (e.g., first page or top of the data set) before refreshing data.
+            If <c>false</c>, retains the current position in the grid when refreshing data.
+            </param>
             <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataCoreAsync">
@@ -6752,7 +6756,7 @@
             Used in internal methods to implement the data-loading flow.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Dispose">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DisposeAsync">
             <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid">

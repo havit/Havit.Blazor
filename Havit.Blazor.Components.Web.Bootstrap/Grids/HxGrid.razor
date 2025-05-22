@@ -63,7 +63,7 @@
 								&& ((ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll) || _virtualizeDataProviderInProgressFromExplicitRefreshRequest)
 								&& !shouldRenderLoadingDataWithPlaceholders;
 
-			<div class="@CssClassHelper.Combine("hx-grid-container",
+			<div @ref="_hxGridContainer" class="@CssClassHelper.Combine("hx-grid-container",
 												ResponsiveEffective ? "table-responsive" : null,
 												progressIndicatorInProgress ? "hx-grid-progress-indicator" : null,
 												TableContainerCssClassEffective)">
