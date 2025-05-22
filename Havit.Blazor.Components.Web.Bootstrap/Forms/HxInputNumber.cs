@@ -131,6 +131,12 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	/// </summary>
 	protected virtual int DecimalsEffective => Decimals ?? (IsTValueIntegerType ? 0 : 2);
 
+	/// <summary>
+	/// The input ElementReference.
+	/// Can be <c>null</c>. 
+	/// </summary>
+	protected ElementReference InputElement { get; set; }
+
 	[Inject] private protected IStringLocalizer<HxInputNumber> StringLocalizer { get; set; }
 
 	/// <summary>
@@ -386,4 +392,9 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		}
 		return String.Format(message, DisplayName ?? Label ?? FieldIdentifier.FieldName);
 	}
+
+	/// <summary>
+	/// Focuses the input number.
+	/// </summary>
+	public async ValueTask FocusAsync() => await InputElement.FocusOrThrowAsync(this);
 }

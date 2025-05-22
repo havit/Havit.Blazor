@@ -76,6 +76,12 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
 	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
 
+	/// <summary>
+	/// The input ElementReference.
+	/// Can be <c>null</c>. 
+	/// </summary>
+	protected ElementReference InputElement { get; set; }
+
 	/// <inheritdoc />
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
@@ -133,4 +139,10 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 		validationErrorMessage = null;
 		return true;
 	}
+
+	/// <summary>
+	/// Focuses the component.
+	/// </summary>
+	public async ValueTask FocusAsync() => await InputElement.FocusOrThrowAsync(this);
+
 }

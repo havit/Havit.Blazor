@@ -211,8 +211,10 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		throw new NotSupportedException();
 	}
 
-	/// <inheritdoc cref="HxInputBase{TValue}.FocusAsync"/>
-	public override async ValueTask FocusAsync()
+	/// <summary>
+	/// Focuses the multi select component.
+	/// </summary>
+	public async ValueTask FocusAsync()
 	{
 		if (_hxMultiSelectInternalComponent == null)
 		{

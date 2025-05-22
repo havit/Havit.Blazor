@@ -189,14 +189,14 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 		builder.CloseComponent();
 	}
 
-	public override ValueTask FocusAsync()
+	public async ValueTask FocusAsync()
 	{
 		if (_hxInputDateRangeInternalComponent is null)
 		{
 			throw new InvalidOperationException($"[{GetType().Name}] Unable to focus. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 
-		return _hxInputDateRangeInternalComponent.FocusAsync();
+		await _hxInputDateRangeInternalComponent.FocusAsync();
 	}
 
 	protected override void BuildRenderValidationMessage(RenderTreeBuilder builder)

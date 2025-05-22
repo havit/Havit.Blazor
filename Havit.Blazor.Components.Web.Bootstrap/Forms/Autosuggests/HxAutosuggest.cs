@@ -203,7 +203,7 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	}
 
 	/// <inheritdoc />
-	public override async ValueTask FocusAsync()
+	public async ValueTask FocusAsync()
 	{
 		if (_hxAutosuggestInternalComponent == null)
 		{

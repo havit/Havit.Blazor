@@ -204,7 +204,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	}
 
 	/// <inheritdoc />
-	public override async ValueTask FocusAsync()
+	public async ValueTask FocusAsync()
 	{
 		if (_hxInputTagsInternalComponent == null)
 		{

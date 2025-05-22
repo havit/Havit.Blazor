@@ -130,6 +130,12 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 	/// <inheritdoc cref="HxInputBase{TValue}.EnabledEffective" />
 	protected override bool EnabledEffective => base.EnabledEffective && (_itemsToRender != null);
 
+	/// <summary>
+	/// The input ElementReference.
+	/// Can be <c>null</c>. 
+	/// </summary>
+	protected ElementReference InputElement { get; set; }
+
 	private protected override string CoreInputCssClass => "form-select";
 
 	private IEqualityComparer<TValue> _comparer = EqualityComparer<TValue>.Default;
@@ -266,4 +272,10 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 	}
 
 	string IInputWithSize.GetInputSizeCssClass() => InputSizeEffective.AsFormSelectCssClass();
+
+	/// <summary>
+	/// Focuses the component.
+	/// </summary>
+	public async ValueTask FocusAsync() => await InputElement.FocusOrThrowAsync(this);
+
 }

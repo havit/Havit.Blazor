@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -68,6 +69,12 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 
 	private protected override string CoreInputCssClass => "form-range";
 
+	/// <summary>
+	/// The input ElementReference.
+	/// Can be <c>null</c>. 
+	/// </summary>
+	protected ElementReference InputElement { get; set; }
+
 	public HxInputRange()
 	{
 		Type underlyingType = typeof(TValue);
@@ -120,4 +127,10 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 	{
 		throw new InvalidOperationException("HxInputRange displays no text value and receives the initial value as float, therefore, this method must not be called.");
 	}
+
+	/// <summary>
+	/// Focuses the input range.
+	/// </summary>
+	public async ValueTask FocusAsync() => await InputElement.FocusOrThrowAsync(this);
+
 }
