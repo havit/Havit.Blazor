@@ -2,8 +2,8 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-    <AspNetCoreVersion8>8.0.15</AspNetCoreVersion8>
-    <AspNetCoreVersion9>9.0.4</AspNetCoreVersion9>
+    <AspNetCoreVersion8>8.0.16</AspNetCoreVersion8>
+    <AspNetCoreVersion9>9.0.5</AspNetCoreVersion9>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
@@ -11,7 +11,7 @@
     <PackageVersion Include="Grpc.AspNetCore.Web" Version="2.71.0" />
     <PackageVersion Include="Grpc.Net.Client" Version="2.71.0" />
     <PackageVersion Include="Grpc.Net.Client.Web" Version="2.71.0" />
-    <PackageVersion Include="Havit.Core" Version="2.0.32" />
+    <PackageVersion Include="Havit.Core" Version="2.0.33" />
     <PackageVersion Include="Havit.AspNetCore" Version="2.0.23" />
     <PackageVersion Include="LoxSmoke.DocXml" Version="3.8.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
@@ -40,15 +40,8 @@
     <PackageVersion Include="SmartComponents.LocalEmbeddings" Version="0.1.0-preview10148" />
     <PackageVersion Include="System.Text.Json" Version="9.0.4" />
   </ItemGroup>
-  <ItemGroup>
-    <!-- https://github.com/microsoft/MSBuildSdks/tree/main/src/CopyOnWrite -->
-    <GlobalPackageReference Include="Microsoft.Build.CopyOnWrite" Version="1.0.334">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </GlobalPackageReference>
-  </ItemGroup>
   <ItemGroup Condition="'$(ProjectName.EndsWith(`Tests`))' == 'False'">
-    <GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.13.61">
+    <GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </GlobalPackageReference>
