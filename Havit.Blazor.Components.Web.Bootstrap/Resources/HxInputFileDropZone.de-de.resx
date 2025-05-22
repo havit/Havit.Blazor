@@ -1,0 +1,29 @@
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>1.3</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="MoreFiles" xml:space="preserve">
+		<value>und {0} weitere.</value>
+	</data>
+	<data name="MultipleFilesSelected" xml:space="preserve">
+		<value>{0} Dateien gewählt: {1}</value>
+	</data>
+	<data name="NoFiles" xml:space="preserve">
+		<value>Datei hierher ziehen oder klicken zum Durchsuchen</value>
+	</data>
+	<data name="NoFilesMultiple" xml:space="preserve">
+		<value>Dateien hierher ziehen oder klicken zum Durchsuchen.</value>
+	</data>
+	<data name="SingleFileSelected" xml:space="preserve">
+		<value>{0} ausgewählt</value>
+	</data>
+</root>

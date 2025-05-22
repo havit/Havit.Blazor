@@ -5,7 +5,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<!--  VSTHRD003: Avoid awaiting or returning a Task representing work that was not started within your context as that can lead to deadlocks. -->
 		<!--  VSTHRD200: Allow HandleXyClick methods (without Async) -> Suppress 'Use "Async" suffix in names of methods that return an awaitable type' -->
-		<NoWarn>$(NoWarn);1591;1701;1702;SA1134;VSTHRD003;VSTHRD200</NoWarn>		
+		<NoWarn>$(NoWarn);1591;1701;1702;SA1134;VSTHRD003;VSTHRD200</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	</PropertyGroup>
 
@@ -27,18 +27,18 @@
 		<PackageReleaseNotes>https://github.com/havit/Havit.Blazor/releases</PackageReleaseNotes>
 		<PackageTags>blazor bootstrap components webassembly wasm bootstrap5 BlazorBootstrap BootstrapBlazor</PackageTags>
 	</PropertyGroup>
-	
+
 	<ItemGroup>
-	  <!-- We need this to NOT distribute the file in the nuget. -->
-	  <Content Remove="Icons\bootstrap-icons.json" />
-	  <None Include="..\README.md">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
-	  <!-- Source generator needs this file to be present in AdditionalFiles -->
-	  <AdditionalFiles Include="Icons\bootstrap-icons.json" />
+		<!-- We need this to NOT distribute the file in the nuget. -->
+		<Content Remove="Icons\bootstrap-icons.json" />
+		<None Include="..\README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<!-- Source generator needs this file to be present in AdditionalFiles -->
+		<AdditionalFiles Include="Icons\bootstrap-icons.json" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Localization" />
 	</ItemGroup>
