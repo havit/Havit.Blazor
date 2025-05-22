@@ -5,11 +5,19 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
-public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsyncDisposable, IInputWithSize
+public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable, IInputWithSize
 {
 	[Parameter] public string FromInputId { get; set; }
 
 	[Parameter] public string InputCssClass { get; set; }
+
+	[Parameter] public DateTimeRange CurrentValue { get; set; }
+
+	[Parameter] public EventCallback<DateTimeRange> CurrentValueChanged { get; set; }
+
+	[Parameter] public EditContext EditContext { get; set; }
+
+	[Parameter] public FieldIdentifier FieldIdentifier { get; set; }
 
 	[Parameter] public InputSize InputSizeEffective { get; set; }
 
@@ -42,6 +50,8 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 	[Parameter] public TimeProvider TimeProviderEffective { get; set; }
 
 	[Parameter] public IconBase CalendarIconEffective { get; set; }
+
+	[Parameter(CaptureUnmatchedValues = true)] public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; }
 
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 
@@ -103,11 +113,11 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 		_validationFieldNames ??= new string[] { FieldIdentifier.FieldName, _fromFieldIdentifier.FieldName, _toFieldIdentifier.FieldName };
 
 		// clear parsing error after new value is set
-		if (_previousValue != Value)
+		if (_previousValue != CurrentValue)
 		{
 			ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
 			ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
-			_previousValue = Value;
+			_previousValue = CurrentValue;
 		}
 	}
 
@@ -131,11 +141,6 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 		await _fromDropdownToggleElement.ShowAsync();
 	}
 
-	protected override bool TryParseValueFromString(string value, out DateTimeRange result, out string validationErrorMessage)
-	{
-		throw new NotSupportedException();
-	}
-
 	private string FormatDate(DateTime? date)
 	{
 		// no 1.1.0001 etc.
@@ -157,7 +162,7 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 		return CalendarDateCustomizationProviderEffective?.Invoke(request with { Target = CalendarDateCustomizationTarget.InputDateRangeTo }) ?? null;
 	}
 
-	protected void HandleFromChanged(string newInputValue)
+	protected async Task HandleFromChangedAsync(string newInputValue)
 	{
 		_incomingFromValueBeforeParsing = newInputValue;
 		bool parsingFailed;
@@ -166,11 +171,12 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 		if (DateHelper.TryParseDateFromString<DateTime?>(newInputValue, TimeProviderEffective, out var fromDate))
 		{
-			DateTimeRange newValue = Value with { StartDate = fromDate };
+			DateTimeRange newValue = CurrentValue with { StartDate = fromDate };
 
 			parsingFailed = false;
 			_previousValue = newValue;
 			CurrentValue = newValue;
+			await CurrentValueChanged.InvokeAsync(newValue);
 			EditContext.NotifyFieldChanged(_fromFieldIdentifier);
 		}
 		else
@@ -187,7 +193,7 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 		}
 	}
 
-	protected void HandleToChanged(string newInputValue)
+	protected async Task HandleToChangedAsync(string newInputValue)
 	{
 		_incomingToValueBeforeParsing = newInputValue;
 		bool parsingFailed;
@@ -195,11 +201,12 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 		if (DateHelper.TryParseDateFromString<DateTime?>(newInputValue, TimeProviderEffective, out var toDate))
 		{
-			DateTimeRange newValue = Value with { EndDate = toDate };
+			DateTimeRange newValue = CurrentValue with { EndDate = toDate };
 
 			parsingFailed = false;
 			_previousValue = newValue;
 			CurrentValue = newValue;
+			await CurrentValueChanged.InvokeAsync(newValue);
 			EditContext.NotifyFieldChanged(_toFieldIdentifier);
 		}
 		else
@@ -218,10 +225,11 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	private async Task HandleFromClearClickAsync()
 	{
-		DateTimeRange newValue = Value with { StartDate = null };
+		DateTimeRange newValue = CurrentValue with { StartDate = null };
 
 		_previousValue = newValue;
 		CurrentValue = newValue;
+		await CurrentValueChanged.InvokeAsync(newValue);
 		EditContext.NotifyFieldChanged(_fromFieldIdentifier);
 		ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
 
@@ -230,10 +238,11 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	private async Task HandleToClearClickAsync()
 	{
-		DateTimeRange newValue = Value with { EndDate = null };
+		DateTimeRange newValue = CurrentValue with { EndDate = null };
 
 		_previousValue = newValue;
 		CurrentValue = newValue;
+		await CurrentValueChanged.InvokeAsync(newValue);
 		EditContext.NotifyFieldChanged(_toFieldIdentifier);
 		ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
 
@@ -254,10 +263,11 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	private async Task HandleFromCalendarValueChangedAsync(DateTime? date)
 	{
-		DateTimeRange newValue = Value with { StartDate = date };
+		DateTimeRange newValue = CurrentValue with { StartDate = date };
 
 		_previousValue = newValue;
 		CurrentValue = newValue;
+		await CurrentValueChanged.InvokeAsync(newValue);
 		EditContext.NotifyFieldChanged(_fromFieldIdentifier);
 		ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
 
@@ -267,10 +277,11 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 
 	private async Task HandleToCalendarValueChanged(DateTime? date)
 	{
-		DateTimeRange newValue = Value with { EndDate = date };
+		DateTimeRange newValue = CurrentValue with { EndDate = date };
 
 		_previousValue = newValue;
 		CurrentValue = newValue;
+		await CurrentValueChanged.InvokeAsync(newValue);
 		EditContext.NotifyFieldChanged(_toFieldIdentifier);
 		ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
 
@@ -281,6 +292,7 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 	{
 		// previousValue does not need to be set
 		CurrentValue = value;
+		await CurrentValueChanged.InvokeAsync(value);
 		EditContext.NotifyFieldChanged(_fromFieldIdentifier);
 		EditContext.NotifyFieldChanged(_toFieldIdentifier);
 
@@ -335,6 +347,6 @@ public partial class HxInputDateRangeInternal : InputBase<DateTimeRange>, IAsync
 			}
 		}
 
-		Dispose(false);
+		// Dispose(false);
 	}
 }

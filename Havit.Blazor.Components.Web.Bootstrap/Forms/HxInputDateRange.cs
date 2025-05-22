@@ -157,9 +157,11 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	{
 		builder.OpenComponent(1, typeof(HxInputDateRangeInternal));
 
-		builder.AddAttribute(100, nameof(Value), Value);
-		builder.AddAttribute(101, nameof(ValueChanged), EventCallback.Factory.Create<DateTimeRange>(this, value => CurrentValue = value));
-		builder.AddAttribute(102, nameof(ValueExpression), ValueExpression);
+		builder.AddAttribute(100, nameof(HxInputDateRangeInternal.CurrentValue), Value);
+		builder.AddAttribute(101, nameof(HxInputDateRangeInternal.CurrentValueChanged), EventCallback.Factory.Create<DateTimeRange>(this, value => CurrentValue = value));
+
+		builder.AddAttribute(110, nameof(HxInputDateRangeInternal.EditContext), EditContext);
+		builder.AddAttribute(111, nameof(HxInputDateRangeInternal.FieldIdentifier), FieldIdentifier);
 
 		builder.AddAttribute(200, nameof(HxInputDateRangeInternal.FromInputId), InputId);
 		builder.AddAttribute(201, nameof(HxInputDateRangeInternal.InputCssClass), GetInputCssClassToRender());

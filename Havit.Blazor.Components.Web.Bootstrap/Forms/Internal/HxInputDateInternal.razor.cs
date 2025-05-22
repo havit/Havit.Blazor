@@ -5,19 +5,23 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
-public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisposable, IInputWithSize, IInputWithLabelType
+public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposable, IInputWithSize, IInputWithLabelType
 {
 	[Parameter] public string InputId { get; set; }
 
 	[Parameter] public string InputCssClass { get; set; }
+
+	[Parameter] public TValue CurrentValue { get; set; }
+
+	[Parameter] public string CurrentValueAsString { get; set; }
+
+	[Parameter] public EventCallback<string> CurrentValueAsStringChanged { get; set; }
 
 	[Parameter] public bool EnabledEffective { get; set; } = true;
 
 	[Parameter] public bool ShowPredefinedDatesEffective { get; set; }
 
 	[Parameter] public IEnumerable<InputDatePredefinedDatesItem> PredefinedDatesEffective { get; set; }
-
-	[Parameter] public string ParsingErrorMessageEffective { get; set; }
 
 	[Parameter] public string Placeholder { get; set; }
 
@@ -63,6 +67,10 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	[Parameter] public DateTime CalendarDisplayMonth { get; set; }
 
+	[Parameter] public string NameAttributeValue { get; set; }
+
+	[Parameter] public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; }
+
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -80,27 +88,9 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 	private IJSObjectReference _jsModule;
 	private bool _firstRenderCompleted;
 
-	protected override string FormatValueAsString(TValue value) => HxInputDate<TValue>.FormatValue(value);
-
-	private void HandleValueChanged(string newInputValue)
+	private async Task HandleCurrentValueAsStringChanged(string newInputValue)
 	{
-		CurrentValueAsString = newInputValue;
-	}
-
-	protected override bool TryParseValueFromString(string value, out TValue result, out string validationErrorMessage)
-	{
-		if (DateHelper.TryParseDateFromString<TValue>(value, TimeProviderEffective, out var date))
-		{
-			result = date;
-			validationErrorMessage = null;
-			return true;
-		}
-		else
-		{
-			result = default;
-			validationErrorMessage = ParsingErrorMessageEffective;
-			return false;
-		}
+		await CurrentValueAsStringChanged.InvokeAsync(newInputValue);
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -129,7 +119,7 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	private async Task HandleClearClickAsync()
 	{
-		SetCurrentDate(null);
+		await SetCurrentDateAsync(null);
 		await CloseDropdownAsync();
 	}
 
@@ -141,19 +131,20 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 
 	private async Task HandleCalendarValueChangedAsync(DateTime? date)
 	{
-		SetCurrentDate(date);
+		await SetCurrentDateAsync(date);
 		await CloseDropdownAsync();
 	}
 
 	protected async Task HandleCustomDateClick(DateTime value)
 	{
-		SetCurrentDate(value);
+		await SetCurrentDateAsync(value);
 		await CloseDropdownAsync();
 	}
 
-	protected void SetCurrentDate(DateTime? date)
+	protected async Task SetCurrentDateAsync(DateTime? date)
 	{
-		CurrentValueAsString = date?.ToShortDateString(); // we need to trigger the logic in CurrentValueAsString setter
+		//CurrentValueAsString = date?.ToShortDateString();
+		await HandleCurrentValueAsStringChanged(CurrentValueAsString); // we need to trigger the logic in CurrentValueAsString setter
 	}
 
 	private string GetNameAttributeValue()
@@ -195,6 +186,6 @@ public partial class HxInputDateInternal<TValue> : InputBase<TValue>, IAsyncDisp
 			// NOOP
 		}
 
-		Dispose(false);
+		//Dispose(false);
 	}
 }
