@@ -1,4 +1,4 @@
-﻿export function resetScrollPosition(element) {
+export function resetScrollPosition(element) {
 	if (!element) {
 		return;
 	}
