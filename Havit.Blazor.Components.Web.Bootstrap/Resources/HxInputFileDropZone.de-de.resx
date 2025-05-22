@@ -18,7 +18,7 @@
 		<value>{0} Dateien gewählt: {1}</value>
 	</data>
 	<data name="NoFiles" xml:space="preserve">
-		<value> Datei hierher ziehen oder klicken zum Durchsuchen</value>
+		<value>Datei hierher ziehen oder klicken zum Durchsuchen</value>
 	</data>
 	<data name="NoFilesMultiple" xml:space="preserve">
 		<value>Dateien hierher ziehen oder klicken zum Durchsuchen.</value>
