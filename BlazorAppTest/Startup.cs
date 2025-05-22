@@ -66,8 +66,8 @@ public class Startup
 		{
 			CultureInfo cs = new CultureInfo("cs-CZ");
 			o.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture(cs);
-			o.AddSupportedCultures("cs", "en-US");
-			o.AddSupportedUICultures("cs", "en-US");
+			o.AddSupportedCultures("cs", "en-US", "de-de");
+			o.AddSupportedUICultures("cs", "en-US", "de-de");
 		});
 
 		app.UseRouting();
