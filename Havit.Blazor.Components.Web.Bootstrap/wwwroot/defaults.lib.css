@@ -149,6 +149,7 @@
 
 	/* ListLayout */
 	--hx-list-layout-table-font-size: 								.875rem;
+	--hx-list-layout-header-gap:									.5rem;
 
 	/* HxMultiSelect */
 	--hx-multi-select-background-color: 							var(--bs-body-bg);
