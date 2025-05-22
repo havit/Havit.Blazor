@@ -199,7 +199,8 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 		builder.AddAttribute(218, nameof(HxInputDateInternal<TValue>.InputGroupCssClass), InputGroupCssClass);
 		builder.AddAttribute(219, nameof(HxInputDateInternal<TValue>.CalendarDisplayMonth), CalendarDisplayMonth);
 
-		builder.AddMultipleAttributes(300, AdditionalAttributes);
+		builder.AddAttribute(300, nameof(HxInputDateInternal<TValue>.AdditionalAttributes), AdditionalAttributes);
+
 		builder.AddComponentReferenceCapture(301, (__value) => _hxInputDateInternalComponent = (HxInputDateInternal<TValue>)__value);
 
 		builder.CloseComponent();

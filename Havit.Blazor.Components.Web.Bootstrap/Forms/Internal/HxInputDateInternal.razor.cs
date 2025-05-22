@@ -69,7 +69,7 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 
 	[Parameter] public string NameAttributeValue { get; set; }
 
-	[Parameter(CaptureUnmatchedValues = true)] public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; }
+	[Parameter] public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; }
 
 	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
