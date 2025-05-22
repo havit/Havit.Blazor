@@ -276,6 +276,6 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 	/// <summary>
 	/// Focuses the component.
 	/// </summary>
-	public async ValueTask FocusAsync() => await InputElement.FocusIfPossibleAsync(this);
+	public async ValueTask FocusAsync() => await InputElement.FocusOrThrowAsync(this);
 
 }

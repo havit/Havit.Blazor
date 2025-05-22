@@ -131,6 +131,6 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 	/// <summary>
 	/// Focuses the input range.
 	/// </summary>
-	public async ValueTask FocusAsync() => await InputElement.FocusIfPossibleAsync(this);
+	public async ValueTask FocusAsync() => await InputElement.FocusOrThrowAsync(this);
 
 }

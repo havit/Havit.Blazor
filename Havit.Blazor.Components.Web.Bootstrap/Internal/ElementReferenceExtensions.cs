@@ -2,7 +2,7 @@
 
 internal static class ElementReferenceExtensions
 {
-	public static async ValueTask FocusIfPossibleAsync(this ElementReference inputElement, ComponentBase caller)
+	public static async ValueTask FocusOrThrowAsync(this ElementReference inputElement, ComponentBase caller)
 	{
 		if (EqualityComparer<ElementReference>.Default.Equals(inputElement, default))
 		{

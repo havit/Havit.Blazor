@@ -164,5 +164,5 @@ public class HxCheckbox : HxInputBase<bool>
 	/// <summary>
 	/// Focuses the checkbox.
 	/// </summary>
-	public async ValueTask FocusAsync() => await InputElement.FocusIfPossibleAsync(this);
+	public async ValueTask FocusAsync() => await InputElement.FocusOrThrowAsync(this);
 }

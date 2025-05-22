@@ -396,5 +396,5 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	/// <summary>
 	/// Focuses the input number.
 	/// </summary>
-	public async ValueTask FocusAsync() => await InputElement.FocusIfPossibleAsync(this);
+	public async ValueTask FocusAsync() => await InputElement.FocusOrThrowAsync(this);
 }

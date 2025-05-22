@@ -143,6 +143,6 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 	/// <summary>
 	/// Focuses the component.
 	/// </summary>
-	public async ValueTask FocusAsync() => await InputElement.FocusIfPossibleAsync(this);
+	public async ValueTask FocusAsync() => await InputElement.FocusOrThrowAsync(this);
 
 }
