@@ -148,7 +148,7 @@
 
     private async Task HandleResetClientSideGridPositionClickAsync()
     {
-        await clientSideGrid.RefreshDataAsync(resetPosition: true);
+        await clientSideGrid.RefreshDataAsync(GridStateResetOptions.ResetPosition);
     }
 
     private async Task HandleCurrentUserStateChangedAsync()

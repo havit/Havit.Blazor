@@ -1,6 +1,6 @@
 ﻿@inject IDemoDataService DemoDataService
 
-<HxListLayout Title="Employees" TFilterModel="EmployeesFilterDto" @bind-FilterModel="filterModel" @bind-FilterModel:after="async () => await gridComponent.RefreshDataAsync()">
+<HxListLayout Title="Employees" TFilterModel="EmployeesFilterDto" @bind-FilterModel="filterModel" @bind-FilterModel:after="HandleFilterModelChanged">
 	<CommandsTemplate>
 		<HxButton Text="Create employee" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" OnClick="HandleNewItemClicked" />
 	</CommandsTemplate>
@@ -41,8 +41,9 @@
 
 @code {
 	private EmployeeDto currentEmployee;
-	private EmployeesFilterDto filterModel = new() { SalaryMax = 20000 };
-	private HxGrid<EmployeeDto> gridComponent;
+
+    private EmployeesFilterDto filterModel = new() { SalaryMax = 20000 };
+    private HxGrid<EmployeeDto> gridComponent;
 
 	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
 	{
@@ -52,6 +53,11 @@
 				Data = response.Data,
 				TotalCount = response.TotalCount
 			};
+	}
+
+	private async Task HandleFilterModelChanged()
+	{
+		await gridComponent.RefreshDataAsync(GridStateResetOptions.ResetPosition);
 	}
 
 	private async Task HandleDeleteClick(EmployeeDto employee)

@@ -109,7 +109,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// <summary>
 	/// Gets or sets a value indicating whether the current selection (either <see cref="SelectedDataItem"/> for single selection
 	/// or <see cref="SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
-	/// or manual invocation of <see cref="RefreshDataAsync"/>.<br />
+	/// or manual invocation of <see cref="RefreshDataAsync()"/>.<br />
 	/// Default value is <c>false</c> (can be set by using <c>HxGrid.Defaults</c>).
 	/// </summary>
 	/// <remarks>
@@ -665,27 +665,32 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// <summary>
 	/// Requests a data refresh from the <see cref="DataProvider"/>.
 	/// Useful for updating the grid when external data may have changed.
+	/// To reset grid state (e.g., position), use <see cref="RefreshDataAsync(GridStateResetOptions)"/> instead.
 	/// </summary>
-	/// <param name="resetPosition">
-	/// If <c>true</c>, resets the grid's position to the initial state (e.g., first page or top of the data set) before refreshing data.
-	/// If <c>false</c>, retains the current position in the grid when refreshing data.
-	/// </param>
-	/// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
-	public async Task RefreshDataAsync(bool resetPosition = false)
+	public async Task RefreshDataAsync()
 	{
-		if (resetPosition)
+		await RefreshDataAsync(GridStateResetOptions.None);
+	}
+
+	/// <summary>
+	/// Requests a data refresh from the <see cref="DataProvider"/>.
+	/// Useful for updating the grid when external data may have changed.
+	/// </summary>
+	/// <param name="resetOptions">Specifies which aspects of the grid state should be reset before refreshing data (e.g., position).</param>
+	public async Task RefreshDataAsync(GridStateResetOptions resetOptions)
+	{
+		if (resetOptions.HasFlag(GridStateResetOptions.ResetPosition))
 		{
 			await ResetPositionAsync();
 		}
+
+		// TODO ResetSorting
 
 		if (_firstRenderCompleted)
 		{
 			await RefreshDataCoreAsync();
 		}
-		else
-		{
-			// first render is not completed yet, default sorting not resolved yet, will load data in OnAfterRenderAsync
-		}
+		// else: first render is not completed yet, default sorting not resolved yet, will load data in OnAfterRenderAsync
 	}
 
 	/// <summary>

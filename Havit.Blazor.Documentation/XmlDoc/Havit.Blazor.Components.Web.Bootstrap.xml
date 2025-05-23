@@ -6310,12 +6310,17 @@
             <summary>
             Gets or sets a value indicating whether the current selection (either <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItem"/> for single selection
             or <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
-            or manual invocation of <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync(System.Boolean)"/>.<br />
+            or manual invocation of <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync"/>.<br />
             </summary>
             <remarks>
             This setting ensures that the selection remains intact during operations that refresh or modify the displayed data in the grid.
             Note that preserving the selection requires that the underlying data items can still be matched in the updated dataset (e.g., by <c>item1.Equals(item2)</c>).
             </remarks>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions">
+            <summary>
+            Specifies which aspects of the grid state should be reset.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState">
             <summary>
@@ -6529,7 +6534,7 @@
             <summary>
             Gets or sets a value indicating whether the current selection (either <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItem"/> for single selection
             or <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
-            or manual invocation of <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync(System.Boolean)"/>.<br />
+            or manual invocation of <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync"/>.<br />
             Default value is <c>false</c> (can be set by using <c>HxGrid.Defaults</c>).
             </summary>
             <remarks>
@@ -6780,16 +6785,19 @@
             Returns grid footer cell context.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync(System.Boolean)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync">
+            <summary>
+            Requests a data refresh from the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/>.
+            Useful for updating the grid when external data may have changed.
+            To reset grid state (e.g., position), use <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync(Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions)"/> instead.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync(Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions)">
             <summary>
             Requests a data refresh from the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/>.
             Useful for updating the grid when external data may have changed.
             </summary>
-            <param name="resetPosition">
-            If <c>true</c>, resets the grid's position to the initial state (e.g., first page or top of the data set) before refreshing data.
-            If <c>false</c>, retains the current position in the grid when refreshing data.
-            </param>
-            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+            <param name="resetOptions">Specifies which aspects of the grid state should be reset before refreshing data (e.g., position).</param>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataCoreAsync">
             <summary>

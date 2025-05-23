@@ -114,7 +114,7 @@ public record GridSettings
 	/// <summary>
 	/// Gets or sets a value indicating whether the current selection (either <see cref="HxGrid{TItem}.SelectedDataItem"/> for single selection
 	/// or <see cref="HxGrid{TItem}.SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
-	/// or manual invocation of <see cref="HxGrid{TItem}.RefreshDataAsync"/>.<br />
+	/// or manual invocation of <see cref="HxGrid{TItem}.RefreshDataAsync()"/>.<br />
 	/// </summary>
 	/// <remarks>
 	/// This setting ensures that the selection remains intact during operations that refresh or modify the displayed data in the grid.

@@ -1,11 +1,11 @@
 ﻿@inject IDemoDataService DemoDataService
 
-<HxListLayout Title="Employees" TFilterModel="EmployeesFilterDto" @bind-FilterModel="filterModel" @bind-FilterModel:after="async () => await gridComponent.RefreshDataAsync()">
+<HxListLayout Title="Employees" TFilterModel="EmployeesFilterDto" @bind-FilterModel="filterModel" @bind-FilterModel:after="HandleFilterModelChanged">
 	<SearchTemplate>
 		<HxInputText Placeholder="Search by name"
 					 Type="InputType.Search"
 					 @bind-Value="filterModel.Name"
-                     @bind-Value:after="async () => await gridComponent.RefreshDataAsync()" />
+                     @bind-Value:after="HandleFilterModelChanged" />
 	</SearchTemplate>
 	<CommandsTemplate>
 		<HxButton Text="Create employee" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" OnClick="HandleNewItemClicked" />
@@ -52,6 +52,11 @@
 				Data = response.Data,
 				TotalCount = response.TotalCount
 			};
+	}
+
+	private async Task HandleFilterModelChanged()
+	{
+		await gridComponent.RefreshDataAsync(GridStateResetOptions.ResetPosition);
 	}
 
 	private Task HandleSelectedDataItemChanged()

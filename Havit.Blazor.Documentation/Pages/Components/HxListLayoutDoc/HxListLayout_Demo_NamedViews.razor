@@ -3,7 +3,7 @@
 <HxListLayout Title="Employees"
 			  TFilterModel="EmployeesFilterDto"
 			  @bind-FilterModel="filterModel"
-              @bind-FilterModel:after="async () => await gridComponent.RefreshDataAsync()"
+              @bind-FilterModel:after="HandleFilterModelChanged"
 			  NamedViews="namedViews"
 			  @bind-SelectedNamedView="selectedNamedView"
 			  TitleFromNamedView="titleFromNamedView">
@@ -60,5 +60,10 @@
 				Data = response.Data,
 				TotalCount = response.TotalCount
 			};
+	}
+
+	private async Task HandleFilterModelChanged()
+	{
+		await gridComponent.RefreshDataAsync(GridStateResetOptions.ResetPosition);
 	}
 }

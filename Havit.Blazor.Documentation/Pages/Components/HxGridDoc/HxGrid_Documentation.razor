@@ -56,14 +56,12 @@
 
 		<DocHeading Title="Refreshing data" Id="RefreshData" />
 		<p>
-			To refresh data in the grid, such as when there's a change in the filter being applied,
-			use the <code>gridComponent.RefreshDataAsync(bool resetPosition = false)</code> method.
-			This action informs the grid to request updated data from the <code>DataProvider</code>.
-			Use the optional <code>resetPosition</code> parameter to reset the current page to the first one,
-			e.g. when applying new filtering.
+			To refresh the grid's data—such as after changing a filter—call <code>gridComponent.RefreshDataAsync()</code>.
+			This method instructs the grid to retrieve updated data from its <code>DataProvider</code>.
+			To reset the grid's position (page, scroll, etc.) when refreshing,
+			use <code>gridComponent.RefreshDataAsync(GridStateResetOptions.ResetPosition)</code> overload.
 		</p>
 		<Demo Type="typeof(HxGrid_Demo_RefreshData)" />
-
 
 		<DocHeading Title="Empty data" />
 		<p>
@@ -71,8 +69,6 @@
 			If you do not set your own content, the <code>&lt;HxGridDefaultEmptyDataTemplateContent /&gt;</code> is used.
 		</p>
 		<Demo Type="typeof(HxGrid_Demo_EmptyData)" />
-
-
 
 		<DocHeading Title="Content navigation modes" />
 		<p>
