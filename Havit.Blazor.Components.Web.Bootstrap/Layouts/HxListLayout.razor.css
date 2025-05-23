@@ -8,8 +8,6 @@
 }
 
 ::deep .hx-grid:has(.sticky-top) {
-	border-collapse: separate;
-	border-spacing: 0;
     isolation: isolate;
 }
 
