@@ -14,17 +14,6 @@ internal static partial class DateHelper
 			return isNullable;
 		}
 
-		// it also works for "invalid dates" (with dots, commas, spaces...)
-		// ie. 09,09,2020 --> 9.9.2020
-		// ie. 09 09 2020 --> 9.9.2020
-		// ie. 06,05, --> 6.5.ThisYear
-		// ie. 06 05 --> 6.5.ThisYear
-		if (DateTimeOffset.TryParse(value, formatProvider: null, DateTimeStyles.AllowWhiteSpaces, out DateTimeOffset parsedValue) && (parsedValue.TimeOfDay == TimeSpan.Zero))
-		{
-			result = GetValueFromDateTimeOffset<TValue>(parsedValue);
-			return true;
-		}
-
 		// expecting date format with day, month, and year components
 		int dayIndex = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern.IndexOf("d");
 		int monthIndex = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern.IndexOf("M");
@@ -59,6 +48,36 @@ internal static partial class DateHelper
 
 			case "ydM":
 				regex = GetRegex_YearDayMonth_Strict();
+				break;
+
+			default:
+				// unsupported date format
+				regex = null;
+				break;
+		}
+
+		if (TryGetValue<TValue>(regex, value, timeProvider, out result))
+		{
+			return true;
+		}
+
+		// 01. 05. 20 --> 01.05.2020
+		switch (dateComponents)
+		{
+			case "dMy":
+				regex = GetRegex_DayMonthYear_Relaxed();
+				break;
+
+			case "Mdy":
+				regex = GetRegex_MonthDayYear_Relaxed();
+				break;
+
+			case "yMd":
+				regex = GetRegex_YearMonthDay_Relaxed();
+				break;
+
+			case "ydM":
+				regex = GetRegex_YearDayMonth_Relaxed();
 				break;
 
 			default:
@@ -148,22 +167,34 @@ internal static partial class DateHelper
 	[GeneratedRegex("^(?<year>\\d{2})(?<day>\\d{2})(?<month>\\d{2})$")]
 	private static partial Regex GetRegex_YearDayMonth_Strict();
 
+	[GeneratedRegex("^\\W*(?<day>\\d{1,2})\\W+(?<month>\\d{1,2})\\W+(?<year>\\d{2}|\\d{4})\\W*$")]
+	private static partial Regex GetRegex_DayMonthYear_Relaxed();
+
+	[GeneratedRegex("^\\W*(?<month>\\d{1,2})\\W+(?<day>\\d{1,2})\\W+(?<year>\\d{2}|\\d{4})\\W*$")]
+	private static partial Regex GetRegex_MonthDayYear_Relaxed();
+
+	[GeneratedRegex("^\\W*(?<year>\\d{2}|\\d{4})\\W+(?<month>\\d{1,2})\\W+(?<day>\\d{1,2})\\W*$")]
+	private static partial Regex GetRegex_YearMonthDay_Relaxed();
+
+	[GeneratedRegex("^\\W*(?<year>\\d{2}|\\d{4})\\W+(?<day>\\d{1,2})\\W+(?<month>\\d{1,2})\\W*$")]
+	private static partial Regex GetRegex_YearDayMonth_Relaxed();
+
 	[GeneratedRegex("^(?<day>\\d{2})(?<month>\\d{2})$")]
 	private static partial Regex GetRegex_DayMonth_Strict();
 
 	[GeneratedRegex("^(?<month>\\d{2})(?<day>\\d{2})$")]
 	private static partial Regex GetRegex_MonthDay_Strict();
 
-	[GeneratedRegex("^\\D*(?<day>\\d{1,2})\\D+(?<month>\\d{1,2})\\D*?$")]
+	[GeneratedRegex("^\\W*(?<day>\\d{1,2})\\W+(?<month>\\d{1,2})\\W*?$")]
 	private static partial Regex GetRegex_DayMonth_Relaxed();
 
-	[GeneratedRegex("^\\D*(?<month>\\d{1,2})\\D+(?<day>\\d{1,2})\\D*?$")]
+	[GeneratedRegex("^\\W*(?<month>\\d{1,2})\\W+(?<day>\\d{1,2})\\W*?$")]
 	private static partial Regex GetRegex_MonthDay_Relaxed();
 
 	[GeneratedRegex("^(?<day>\\d{1,2})$")]
 	private static partial Regex GetRegex_Day_Strict();
 
-	[GeneratedRegex("^\\D*(?<day>\\d{1,2})\\D+$")]
+	[GeneratedRegex("^\\W*(?<day>\\d{1,2})\\W+$")]
 	private static partial Regex GetRegex_Day_Relaxed();
 	#endregion
 

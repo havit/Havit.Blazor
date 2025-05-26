@@ -17,7 +17,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms.Internal;
 public class DateHelperTests
 {
 	[TestMethod]
-	public void DateHelper_TryParseDateFromString_FullDate()
+	public void DateHelper_TryParseDateFromString_DayMonthYear_Relaxed()
 	{
 		// Arrange
 		var fixture = new Fixture();
@@ -25,39 +25,27 @@ public class DateHelperTests
 		// Act + Assert
 		fixture.ExecuteTest<DateTime?>("cs-CZ", "10.02.1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 02, 10));
 		fixture.ExecuteTest<DateTime?>("cs-CZ", "   20. 3. 2020  ", expectedResult: true, expectedParsedDate: new DateTime(2020, 03, 20));
+		fixture.ExecuteTest<DateTime?>("cs-CZ", "05,06,2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
+		fixture.ExecuteTest<DateTime?>("cs-CZ", "05 06 1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 06, 05));
 		fixture.ExecuteTest<DateTime?>("cs-CZ", "31 02 2000", expectedResult: false, expectedParsedDate: default);
 
 		fixture.ExecuteTest<DateTime?>("en-GB", "10/02/1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 02, 10));
 		fixture.ExecuteTest<DateTime?>("en-GB", "   20/ 3/ 2020  ", expectedResult: true, expectedParsedDate: new DateTime(2020, 3, 20));
+		fixture.ExecuteTest<DateTime?>("en-GB", "05,06,2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
+		fixture.ExecuteTest<DateTime?>("en-GB", "05 06 1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 06, 05));
 		fixture.ExecuteTest<DateTime?>("cs-CZ", "31 02 2000", expectedResult: false, expectedParsedDate: default);
 
 		fixture.ExecuteTest<DateTime?>("en-US", "02/10/1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 02, 10));
 		fixture.ExecuteTest<DateTime?>("en-US", "   3/ 20/ 2020  ", expectedResult: true, expectedParsedDate: new DateTime(2020, 3, 20));
+		fixture.ExecuteTest<DateTime?>("en-US", "06,05,2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
+		fixture.ExecuteTest<DateTime?>("en-US", "06 05 1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 06, 05));
 		fixture.ExecuteTest<DateTime?>("cs-CZ", "02 31 2000", expectedResult: false, expectedParsedDate: default);
 
 		fixture.ExecuteTest<DateTime?>("ko-KR", "1980.02.10", expectedResult: true, expectedParsedDate: new DateTime(1980, 2, 10));
 		fixture.ExecuteTest<DateTime?>("ko-KR", "   2020 . 03. 10  ", expectedResult: true, expectedParsedDate: new DateTime(2020, 3, 10));
-		fixture.ExecuteTest<DateTime?>("cs-CZ", "2000 02 31", expectedResult: false, expectedParsedDate: default);
-	}
-
-	[TestMethod]
-	public void DateHelper_TryParseDateFromString_FullDate_VariousDelimiters()
-	{
-		// Arrange
-		var fixture = new Fixture();
-
-		// Act + Assert
-		fixture.ExecuteTest<DateTime?>("cs-CZ", "05,06,2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
-		fixture.ExecuteTest<DateTime?>("cs-CZ", "05 06 1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 06, 05));
-
-		fixture.ExecuteTest<DateTime?>("en-GB", "05,06,2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
-		fixture.ExecuteTest<DateTime?>("en-GB", "05 06 1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 06, 05));
-
-		fixture.ExecuteTest<DateTime?>("en-US", "06,05,2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
-		fixture.ExecuteTest<DateTime?>("en-US", "06 05 1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 06, 05));
-
 		fixture.ExecuteTest<DateTime?>("ko-KR", "2020,06,05", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
 		fixture.ExecuteTest<DateTime?>("ko-KR", "1980 06 05", expectedResult: true, expectedParsedDate: new DateTime(1980, 06, 05));
+		fixture.ExecuteTest<DateTime?>("cs-CZ", "2000 02 31", expectedResult: false, expectedParsedDate: default);
 	}
 
 	[TestMethod]
@@ -122,7 +110,7 @@ public class DateHelperTests
 	[TestMethod]
 	public void DateHelper_TryParseDateFromString_DayMonthYear_Strict()
 	{
-		// arrange
+		// Arrange
 		var fixture = new Fixture();
 
 		// Act + Assert
@@ -135,9 +123,7 @@ public class DateHelperTests
 		fixture.ExecuteTest<DateTime?>("en-GB", "7824", expectedResult: false, expectedParsedDate: default);
 		fixture.ExecuteTest<DateTime?>("en-US", "8724", expectedResult: false, expectedParsedDate: default);
 		fixture.ExecuteTest<DateTime?>("ko-KR", "2487", expectedResult: false, expectedParsedDate: default);
-
 	}
-
 
 	[TestMethod]
 	public void DateHelper_TryParseDateFromString_Day_Strict()
@@ -231,9 +217,37 @@ public class DateHelperTests
 		Assert.IsNull(DateHelper.GetValueFromDateTimeOffset<DateTimeOffset?>(null));
 	}
 
+	[TestMethod]
+	public void DateHelper_TryParseDateFromString_UnsupportedPatterns()
+	{
+		// Arrange
+		var fixture = new Fixture();
+
+		// Act + Assert
+		fixture.ExecuteTest<DateTime?>("cs-CZ", "002/07", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("cs-CZ", "5a5a2025", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("cs-CZ", "5a5a20", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("cs-CZ", "5a5", expectedResult: false, expectedParsedDate: default);
+
+		fixture.ExecuteTest<DateTime?>("en-GB", "002/07", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("en-GB", "5a5a2025", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("en-GB", "5a5a20", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("en-GB", "5a5", expectedResult: false, expectedParsedDate: default);
+
+		fixture.ExecuteTest<DateTime?>("en-US", "002/07", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("en-US", "2025a5a5", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("en-US", "20a5a5", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("en-US", "5a5", expectedResult: false, expectedParsedDate: default);
+
+		fixture.ExecuteTest<DateTime?>("ko-KR", "002/07", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("ko-KR", "2025a5a5", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("ko-KR", "20a5a5", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("ko-KR", "5a5", expectedResult: false, expectedParsedDate: default);
+	}
+
 	private class Fixture
 	{
-		public int CurrentYear { get; } = DateTime.Today.Year; // DateTime.Parse("08 07") uses DateTime.Now to supply the year :-(
+		public int CurrentYear { get; } = 2022;
 		public int CurrentMonth { get; } = 8;
 		public int CurrentDate { get; } = 7;
 
@@ -261,7 +275,7 @@ public class DateHelperTests
 			}
 
 			// Assert
-			//Assert.AreEqual(expectedResult, result, message: $"Culture {culture}, input '{input}'.");
+			Assert.AreEqual(expectedResult, result, message: $"Culture {culture}, input '{input}'.");
 			Assert.AreEqual(expectedParsedDate, parsedDate, message: $"Culture {culture}, input '{input}'.");
 
 		}
