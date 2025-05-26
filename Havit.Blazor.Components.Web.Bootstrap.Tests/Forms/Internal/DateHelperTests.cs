@@ -103,7 +103,6 @@ public class DateHelperTests
 		fixture.ExecuteTest<DateTime?>("ko-KR", " 8, 7, ", expectedResult: true, expectedParsedDate: new DateTime(fixture.CurrentYear, 08, 07));
 		fixture.ExecuteTest<DateTime?>("ko-KR", "08 07", expectedResult: true, expectedParsedDate: new DateTime(fixture.CurrentYear, 08, 07));
 		fixture.ExecuteTest<DateTime?>("ko-KR", "08-07", expectedResult: true, expectedParsedDate: new DateTime(fixture.CurrentYear, 08, 07));
-		fixture.ExecuteTest<DateTime?>("ko-KR", "08-07", expectedResult: true, expectedParsedDate: new DateTime(fixture.CurrentYear, 08, 07));
 		fixture.ExecuteTest<DateTime?>("ko-KR", "08-07-", expectedResult: true, expectedParsedDate: new DateTime(fixture.CurrentYear, 08, 07));
 	}
 
