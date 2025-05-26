@@ -8,9 +8,9 @@
 public enum GridStateResetOptions
 {
 	None = 0,
+
 	ResetPosition = 1 << 0,
 	// TODO ResetSorting = 1 << 1,
 
-	// Add more options here in the future as needed
-	// TODO All = ResetPosition | ResetSorting
+	All = 0xFFFF
 }
