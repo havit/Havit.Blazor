@@ -25,19 +25,74 @@ internal static class DateHelper
 			return true;
 		}
 
+		// expecting date format with day, month, and year components
+		int dayIndex = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern.IndexOf("d");
+		int monthIndex = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern.IndexOf("M");
+		int yearIndex = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern.IndexOf("y");
+
+		if ((dayIndex < 0) || (monthIndex < 0) || (yearIndex < 0))
+		{
+			result = default;
+			return false;
+		}
+
 		Match match;
 
 		// 010520 --> 01.05.2020
 		match = Regex.Match(value, "^(\\d{2})(\\d{2})(\\d{2})$");
 		if (match.Success)
 		{
-			if (int.TryParse(match.Groups[1].Value, out int day)
-			&& int.TryParse(match.Groups[2].Value, out int month)
-			&& int.TryParse(match.Groups[3].Value, out int year))
+			if (int.TryParse(match.Groups[1].Value, out int part1)
+				&& int.TryParse(match.Groups[2].Value, out int part2)
+				&& int.TryParse(match.Groups[3].Value, out int part3))
 			{
+				// we need to assign the parts to day, month, and year based on the current culture's date format
+				var indexedDateComponents = new List<(int, char)>
+				{
+					(dayIndex, 'd'),
+					(monthIndex, 'M'),
+					(yearIndex, 'y')
+				};
+
+				int day;
+				int month;
+				int year;
+
+				string dateComponents = String.Join("", indexedDateComponents.OrderBy(item => item.Item1).Select(item => item.Item2));
+				switch (dateComponents)
+				{
+					case "dMy":
+						day = part1;
+						month = part2;
+						year = part3;
+						break;
+
+					case "Mdy":
+						month = part1;
+						day = part2;
+						year = part3;
+						break;
+
+					case "yMd":
+						year = part1;
+						month = part2;
+						day = part3;
+						break;
+
+					case "ydM":
+						year = part1;
+						day = part2;
+						month = part3;
+						break;
+
+					default:
+						result = default;
+						return false;
+				}
+
+				year += year < 50 ? 2000 : 1900; // Adjust year to be in the correct century
 				try
 				{
-					year += year < 50 ? 2000 : 1900; // Adjust year to be in the correct century
 					result = GetValueFromDateTimeOffset<TValue>(new DateTimeOffset(new DateTime(year, month, day)));
 					return true;
 				}
@@ -54,11 +109,26 @@ internal static class DateHelper
 		match = Regex.Match(value, "^(\\d{2})(\\d{2})$");
 		if (match.Success)
 		{
-			if (int.TryParse(match.Groups[1].Value, out int day)
-				&& int.TryParse(match.Groups[2].Value, out int month))
+
+			if (int.TryParse(match.Groups[1].Value, out int part1)
+				&& int.TryParse(match.Groups[2].Value, out int part2))
 			{
 				try
 				{
+					int day;
+					int month;
+
+					if (dayIndex > monthIndex)
+					{
+						month = part1;
+						day = part2;
+					}
+					else
+					{
+						day = part1;
+						month = part2;
+					}
+
 					result = GetValueFromDateTimeOffset<TValue>(new DateTimeOffset(new DateTime(timeProvider.GetLocalNow().Year, month, day)));
 					return true;
 				}
@@ -136,5 +206,4 @@ internal static class DateHelper
 				throw new InvalidOperationException("Unsupported type.");
 		}
 	}
-
 }

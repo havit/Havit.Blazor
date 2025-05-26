@@ -23,16 +23,16 @@ public class DateHelperTests
 		var fixture = new Fixture();
 
 		// Act + Assert
-		fixture.ExecuteTest<DateTime?>("cs-CZ", "10.02.2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 02, 10));
+		fixture.ExecuteTest<DateTime?>("cs-CZ", "10.02.1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 02, 10));
 		fixture.ExecuteTest<DateTime?>("cs-CZ", "   20. 3. 2020  ", expectedResult: true, expectedParsedDate: new DateTime(2020, 03, 20));
 
-		fixture.ExecuteTest<DateTime?>("en-GB", "10/02/2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 02, 10));
+		fixture.ExecuteTest<DateTime?>("en-GB", "10/02/1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 02, 10));
 		fixture.ExecuteTest<DateTime?>("en-GB", "   20/ 3/ 2020  ", expectedResult: true, expectedParsedDate: new DateTime(2020, 3, 20));
 
-		fixture.ExecuteTest<DateTime?>("en-US", "02/10/2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 02, 10));
+		fixture.ExecuteTest<DateTime?>("en-US", "02/10/1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 02, 10));
 		fixture.ExecuteTest<DateTime?>("en-US", "   3/ 20/ 2020  ", expectedResult: true, expectedParsedDate: new DateTime(2020, 3, 20));
 
-		fixture.ExecuteTest<DateTime?>("ko-KR", "2020.02.10", expectedResult: true, expectedParsedDate: new DateTime(2020, 2, 10));
+		fixture.ExecuteTest<DateTime?>("ko-KR", "1980.02.10", expectedResult: true, expectedParsedDate: new DateTime(1980, 2, 10));
 		fixture.ExecuteTest<DateTime?>("ko-KR", "   2020 . 03. 10  ", expectedResult: true, expectedParsedDate: new DateTime(2020, 3, 10));
 	}
 
@@ -44,16 +44,16 @@ public class DateHelperTests
 
 		// Act + Assert
 		fixture.ExecuteTest<DateTime?>("cs-CZ", "05,06,2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
-		fixture.ExecuteTest<DateTime?>("cs-CZ", "05 06 2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
+		fixture.ExecuteTest<DateTime?>("cs-CZ", "05 06 1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 06, 05));
 
 		fixture.ExecuteTest<DateTime?>("en-GB", "05,06,2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
-		fixture.ExecuteTest<DateTime?>("en-GB", "05 06 2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
+		fixture.ExecuteTest<DateTime?>("en-GB", "05 06 1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 06, 05));
 
 		fixture.ExecuteTest<DateTime?>("en-US", "06,05,2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
-		fixture.ExecuteTest<DateTime?>("en-US", "06 05 2020", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
+		fixture.ExecuteTest<DateTime?>("en-US", "06 05 1980", expectedResult: true, expectedParsedDate: new DateTime(1980, 06, 05));
 
 		fixture.ExecuteTest<DateTime?>("ko-KR", "2020,06,05", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
-		fixture.ExecuteTest<DateTime?>("ko-KR", "2020 06 05", expectedResult: true, expectedParsedDate: new DateTime(2020, 06, 05));
+		fixture.ExecuteTest<DateTime?>("ko-KR", "1980 06 05", expectedResult: true, expectedParsedDate: new DateTime(1980, 06, 05));
 	}
 
 	[TestMethod]
