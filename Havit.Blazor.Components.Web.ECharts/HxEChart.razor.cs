@@ -36,7 +36,8 @@ public partial class HxEChart : IAsyncDisposable
 	/// </summary>
 	[Parameter] public EventCallback<EChartClickEventArgs> OnClick { get; set; }
 
-	private readonly IJSRuntime _jsRuntime;
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
+
 	private IJSObjectReference _jsModule;
 	private DotNetObjectReference<HxEChart> _dotNetObjectReference;
 	private string _currentOptions;
@@ -57,10 +58,9 @@ public partial class HxEChart : IAsyncDisposable
 		};
 	}
 
-	public HxEChart(IJSRuntime jsRuntime)
+	public HxEChart()
 	{
 		_dotNetObjectReference = DotNetObjectReference.Create(this);
-		_jsRuntime = jsRuntime;
 	}
 
 	protected override void OnParametersSet()
@@ -95,9 +95,9 @@ public partial class HxEChart : IAsyncDisposable
 	private async Task EnsureJsModuleAsync()
 	{
 #if NET9_0_OR_GREATER
-		_jsModule ??= await _jsRuntime.InvokeAsync<IJSObjectReference>("import", Assets["./_content/Havit.Blazor.Components.Web.ECharts/HxEChart.js"]);
+		_jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", Assets["./_content/Havit.Blazor.Components.Web.ECharts/HxEChart.js"]);
 #else
-		_jsModule ??= await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.ECharts/HxEChart.js");
+		_jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.ECharts/HxEChart.js");
 #endif
 	}
 
