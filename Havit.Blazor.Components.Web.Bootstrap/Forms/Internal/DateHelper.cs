@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Forms.Internal;
 
-internal static class DateHelper
+internal static partial class DateHelper
 {
 	internal static bool TryParseDateFromString<TValue>(string value, TimeProvider timeProvider, out TValue result)
 	{
@@ -14,82 +14,226 @@ internal static class DateHelper
 			return isNullable;
 		}
 
-		// it also works for "invalid dates" (with dots, commas, spaces...)
-		// ie. 09,09,2020 --> 9.9.2020
-		// ie. 09 09 2020 --> 9.9.2020
-		// ie. 06,05, --> 6.5.ThisYear
-		// ie. 06 05 --> 6.5.ThisYear
-		if (DateTimeOffset.TryParse(value, formatProvider: null, DateTimeStyles.AllowWhiteSpaces, out DateTimeOffset parsedValue) && (parsedValue.TimeOfDay == TimeSpan.Zero))
+		// expecting date format with day, month, and year components
+		int dayIndex = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern.IndexOf("d");
+		int monthIndex = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern.IndexOf("M");
+		int yearIndex = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern.IndexOf("y");
+
+		if ((dayIndex < 0) || (monthIndex < 0) || (yearIndex < 0))
 		{
-			result = GetValueFromDateTimeOffset<TValue>(parsedValue);
+			result = default;
+			return false;
+		}
+
+		string dateComponents = String.Join("", ((IEnumerable<(int, char)>)[(dayIndex, 'd'), (monthIndex, 'M'), (yearIndex, 'y')])
+			.OrderBy(item => item.Item1) // dayIndex, monthIndex, yearIndex
+			.Select(item => item.Item2)); // d, M, y
+
+		Regex regex;
+
+		// 010520 --> 01.05.2020
+		switch (dateComponents)
+		{
+			case "dMy":
+				regex = GetRegex_DayMonthYear_Strict();
+				break;
+
+			case "Mdy":
+				regex = GetRegex_MonthDayYear_Strict();
+				break;
+
+			case "yMd":
+				regex = GetRegex_YearMonthDay_Strict();
+				break;
+
+			case "ydM":
+				regex = GetRegex_YearDayMonth_Strict();
+				break;
+
+			default:
+				// unsupported date format
+				regex = null;
+				break;
+		}
+
+		if (TryGetValue<TValue>(regex, value, timeProvider, out result))
+		{
 			return true;
 		}
 
-		Match match;
-
-		// 010520 --> 01.05.2020
-		match = Regex.Match(value, "^(\\d{2})(\\d{2})(\\d{2})$");
-		if (match.Success)
+		// 01. 05. 20 --> 01.05.2020
+		switch (dateComponents)
 		{
-			if (int.TryParse(match.Groups[1].Value, out int day)
-			&& int.TryParse(match.Groups[2].Value, out int month)
-			&& int.TryParse(match.Groups[3].Value, out int year))
-			{
-				try
-				{
-					year += year < 50 ? 2000 : 1900; // Adjust year to be in the correct century
-					result = GetValueFromDateTimeOffset<TValue>(new DateTimeOffset(new DateTime(year, month, day)));
-					return true;
-				}
-				catch (ArgumentOutOfRangeException)
-				{
-					// NOOP
-				}
-			}
-			result = default;
-			return false;
+			case "dMy":
+				regex = GetRegex_DayMonthYear_Relaxed();
+				break;
+
+			case "Mdy":
+				regex = GetRegex_MonthDayYear_Relaxed();
+				break;
+
+			case "yMd":
+				regex = GetRegex_YearMonthDay_Relaxed();
+				break;
+
+			case "ydM":
+				regex = GetRegex_YearDayMonth_Relaxed();
+				break;
+
+			default:
+				// unsupported date format
+				regex = null;
+				break;
+		}
+
+		if (TryGetValue<TValue>(regex, value, timeProvider, out result))
+		{
+			return true;
 		}
 
 		// 0105 --> 01.05.ThisYear
-		match = Regex.Match(value, "^(\\d{2})(\\d{2})$");
-		if (match.Success)
+		switch (dateComponents)
 		{
-			if (int.TryParse(match.Groups[1].Value, out int day)
-				&& int.TryParse(match.Groups[2].Value, out int month))
-			{
-				try
-				{
-					result = GetValueFromDateTimeOffset<TValue>(new DateTimeOffset(new DateTime(timeProvider.GetLocalNow().Year, month, day)));
-					return true;
-				}
-				catch (ArgumentOutOfRangeException)
-				{
-					// NOOP
-				}
-			}
+			case "dMy":
+			case "ydM":
+				regex = GetRegex_DayMonth_Strict();
+				break;
+
+			case "Mdy":
+			case "yMd":
+				regex = GetRegex_MonthDay_Strict();
+				break;
+
+			default:
+				// unsupported date format
+				regex = null;
+				break;
+		}
+
+		if (TryGetValue<TValue>(regex, value, timeProvider, out result))
+		{
+			return true;
+		}
+
+		//01.05, 01.05. --> 01.05.ThisYear
+		switch (dateComponents)
+		{
+			case "dMy":
+			case "ydM":
+				regex = GetRegex_DayMonth_Relaxed();
+				break;
+
+			case "Mdy":
+			case "yMd":
+				regex = GetRegex_MonthDay_Relaxed();
+				break;
+
+			default:
+				regex = null;
+				break;
+		}
+
+		if (TryGetValue<TValue>(regex, value, timeProvider, out result))
+		{
+			return true;
+		}
+
+		// "1", "01" --> 01.ThisMonth.ThisYear
+		if (TryGetValue(GetRegex_Day_Strict(), value, timeProvider, out result))
+		{
+			return true;
+		}
+
+		// "-01.",  --> 01.ThisMonth.ThisYear
+		if (TryGetValue(GetRegex_Day_Relaxed(), value, timeProvider, out result))
+		{
+			return true;
+		}
+
+		result = default;
+		return false;
+	}
+
+	#region Regex patterns
+	[GeneratedRegex("^(?<day>\\d{2})(?<month>\\d{2})(?<year>\\d{2})$")]
+	private static partial Regex GetRegex_DayMonthYear_Strict();
+
+	[GeneratedRegex("^(?<month>\\d{2})(?<day>\\d{2})(?<year>\\d{2})$")]
+	private static partial Regex GetRegex_MonthDayYear_Strict();
+
+	[GeneratedRegex("^(?<year>\\d{2})(?<month>\\d{2})(?<day>\\d{2})$")]
+	private static partial Regex GetRegex_YearMonthDay_Strict();
+
+	[GeneratedRegex("^(?<year>\\d{2})(?<day>\\d{2})(?<month>\\d{2})$")]
+	private static partial Regex GetRegex_YearDayMonth_Strict();
+
+	[GeneratedRegex("^\\W*(?<day>\\d{1,2})\\W+(?<month>\\d{1,2})\\W+(?<year>\\d{2}|\\d{4})\\W*$")]
+	private static partial Regex GetRegex_DayMonthYear_Relaxed();
+
+	[GeneratedRegex("^\\W*(?<month>\\d{1,2})\\W+(?<day>\\d{1,2})\\W+(?<year>\\d{2}|\\d{4})\\W*$")]
+	private static partial Regex GetRegex_MonthDayYear_Relaxed();
+
+	[GeneratedRegex("^\\W*(?<year>\\d{2}|\\d{4})\\W+(?<month>\\d{1,2})\\W+(?<day>\\d{1,2})\\W*$")]
+	private static partial Regex GetRegex_YearMonthDay_Relaxed();
+
+	[GeneratedRegex("^\\W*(?<year>\\d{2}|\\d{4})\\W+(?<day>\\d{1,2})\\W+(?<month>\\d{1,2})\\W*$")]
+	private static partial Regex GetRegex_YearDayMonth_Relaxed();
+
+	[GeneratedRegex("^(?<day>\\d{2})(?<month>\\d{2})$")]
+	private static partial Regex GetRegex_DayMonth_Strict();
+
+	[GeneratedRegex("^(?<month>\\d{2})(?<day>\\d{2})$")]
+	private static partial Regex GetRegex_MonthDay_Strict();
+
+	[GeneratedRegex("^\\W*(?<day>\\d{1,2})\\W+(?<month>\\d{1,2})\\W*?$")]
+	private static partial Regex GetRegex_DayMonth_Relaxed();
+
+	[GeneratedRegex("^\\W*(?<month>\\d{1,2})\\W+(?<day>\\d{1,2})\\W*?$")]
+	private static partial Regex GetRegex_MonthDay_Relaxed();
+
+	[GeneratedRegex("^(?<day>\\d{1,2})$")]
+	private static partial Regex GetRegex_Day_Strict();
+
+	[GeneratedRegex("^\\W*(?<day>\\d{1,2})\\W+$")]
+	private static partial Regex GetRegex_Day_Relaxed();
+	#endregion
+
+	internal static bool TryGetValue<TValue>(Regex regex, string input, TimeProvider timeProvider, out TValue result)
+	{
+		if (regex == null)
+		{
 			result = default;
 			return false;
 		}
 
-		// 01 --> 01.ThisMonth.ThisYear
-		match = Regex.Match(value, "^(\\d{2})$");
+		Match match = regex.Match(input);
+
 		if (match.Success)
 		{
-			if (int.TryParse(match.Groups[1].Value, out int day))
+			int.TryParse(match.Groups["day"].Value, out int day);
+			bool monthParsed = int.TryParse(match.Groups["month"].Value, out int month);
+			bool yearParsed = int.TryParse(match.Groups["year"].Value, out int year);
+
+			if (yearParsed && year < 100)
 			{
-				try
-				{
-					var localNow = timeProvider.GetLocalNow();
-					result = GetValueFromDateTimeOffset<TValue>(new DateTimeOffset(new DateTime(localNow.Year, localNow.Month, day)));
-					return true;
-				}
-				catch (ArgumentOutOfRangeException)
-				{
-					// NOOP
-				}
+				year += year < 50 ? 2000 : 1900; // Adjust year to be in the correct century
 			}
-			result = default;
-			return false;
+
+			var localNow = timeProvider.GetLocalNow();
+
+			try
+			{
+				var dateTimeOffset = new DateTimeOffset(new DateTime(
+					year: yearParsed ? year : localNow.Year,
+					month: monthParsed ? month : localNow.Month,
+					day));
+				result = GetValueFromDateTimeOffset<TValue>(dateTimeOffset);
+				return true;
+			}
+			catch (ArgumentOutOfRangeException)
+			{
+				// NOOP
+			}
 		}
 
 		result = default;
@@ -136,5 +280,4 @@ internal static class DateHelper
 				throw new InvalidOperationException("Unsupported type.");
 		}
 	}
-
 }
