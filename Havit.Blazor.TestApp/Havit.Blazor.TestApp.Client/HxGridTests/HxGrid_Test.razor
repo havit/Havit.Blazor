@@ -40,7 +40,9 @@
 }
 <HxButton Text="Sort by name" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnId = name } } }" />
 <HxButton Text="Sort by name (reverse)" Color="ThemeColor.Secondary" OnClick="() => clientSideGridUserState = clientSideGridUserState with { Sorting = new List<GridUserStateSortingItem> { new GridUserStateSortingItem { ColumnId = name, ReverseDirection = true } } }" />
-<HxButton Text="Reset position" Color="ThemeColor.Secondary" OnClick="HandleResetClientSideGridPositionClickAsync" />
+<HxButton Text="Reset position" Color="ThemeColor.Secondary" OnClick="HandleClientSideGridResetPositionClickAsync" />
+<HxButton Text="Reset sorting" Color="ThemeColor.Secondary" OnClick="HandleClientSideGridResetSortingClickAsync" />
+<HxButton Text="Reset all" Color="ThemeColor.Secondary" OnClick="HandleClientSideGridResetAllClickAsync" />
 
 <p>Current CultureInfo: @clientSideCurrentCultureInfo?.DisplayName</p>
 <p>Clicked context menu item: @clickedItem?.DisplayName</p>
@@ -146,9 +148,19 @@
         return Task.CompletedTask;
     }
 
-    private async Task HandleResetClientSideGridPositionClickAsync()
+    private async Task HandleClientSideGridResetPositionClickAsync()
     {
         await clientSideGrid.RefreshDataAsync(GridStateResetOptions.ResetPosition);
+    }
+
+    private async Task HandleClientSideGridResetSortingClickAsync()
+    {
+        await clientSideGrid.RefreshDataAsync(GridStateResetOptions.ResetSorting);
+    }
+
+    private async Task HandleClientSideGridResetAllClickAsync()
+    {
+        await clientSideGrid.RefreshDataAsync(GridStateResetOptions.All);
     }
 
     private async Task HandleCurrentUserStateChangedAsync()

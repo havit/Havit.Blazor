@@ -679,12 +679,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// <param name="resetOptions">Specifies which aspects of the grid state should be reset before refreshing data (e.g., position).</param>
 	public async Task RefreshDataAsync(GridStateResetOptions resetOptions)
 	{
-		if (resetOptions.HasFlag(GridStateResetOptions.ResetPosition))
-		{
-			await ResetPositionAsync();
-		}
-
-		// TODO ResetSorting
+		await ResetGridStateAsync(resetOptions);
 
 		if (_firstRenderCompleted)
 		{
@@ -738,39 +733,66 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 		await RefreshPaginationOrLoadMoreDataCoreAsync();
 	}
 
-	private async Task ResetPositionAsync()
+	private async Task ResetGridStateAsync(GridStateResetOptions resetOptions)
 	{
-		switch (ContentNavigationModeEffective)
+		bool resetInfiniteScroll = false;
+
+		var newUserState = CurrentUserState;
+
+		if (resetOptions.HasFlag(GridStateResetOptions.ResetPosition))
 		{
-			case GridContentNavigationMode.Pagination:
-			case GridContentNavigationMode.LoadMore:
-			case GridContentNavigationMode.PaginationAndLoadMore:
-				var newUserState = CurrentUserState with { PageIndex = 0, LoadMoreAdditionalItemsCount = 0 };
-				if (newUserState != CurrentUserState)
-				{
-					CurrentUserState = newUserState;
-					_previousUserState = newUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
-					await InvokeCurrentUserStateChangedAsync(CurrentUserState);
-				}
-				break;
+			switch (ContentNavigationModeEffective)
+			{
+				case GridContentNavigationMode.Pagination:
+				case GridContentNavigationMode.LoadMore:
+				case GridContentNavigationMode.PaginationAndLoadMore:
+					newUserState = CurrentUserState with { PageIndex = 0, LoadMoreAdditionalItemsCount = 0 };
+					break;
 
-			case GridContentNavigationMode.InfiniteScroll:
-				if (_firstRenderCompleted)
-				{
-					// We can create new instance of Virtualize component but then it does not render its content until it knows the total number of items.
-					// So until first rendering of new instance of Virtualize component is rendered, the in progress indicator is not shown.
-					// Therefore we do not create new instance of Virtualize component but just reset the scroll position.
-					// Unfortunately, this can lead to two VirtualizeItemsProvider calls (first is caused by the refresh data call,
-					// later the second call is caused by the scroll position reset), we are propagating just a single VirtualizeItemsProvider call.
-					await EnsureJsModuleAsync();
-					_virtualizeItemsProviderWaitsForStartIndexZero = true;
-					await _jsModule.InvokeVoidAsync("resetScrollPosition", _hxGridContainer);
-				}
-				break;
+				case GridContentNavigationMode.InfiniteScroll:
+					resetInfiniteScroll = true;
+					break;
 
-			default:
-				throw new InvalidOperationException(ContentNavigationModeEffective.ToString());
+				default:
+					throw new InvalidOperationException(ContentNavigationModeEffective.ToString());
+			}
 		}
+
+		if (resetOptions.HasFlag(GridStateResetOptions.ResetSorting))
+		{
+			var defaultSorting = GetDefaultSorting();
+			if (!Enumerable.SequenceEqual(defaultSorting, _currentSorting)) // eliminate unnecessary CurrentUserStateChanged
+			{
+				newUserState = newUserState with
+				{
+					Sorting = SerializeToCurrentUserStateSorting(defaultSorting)
+				};
+				_currentSorting = defaultSorting.ToList();
+			}
+		}
+
+		if (newUserState != CurrentUserState)
+		{
+			CurrentUserState = newUserState;
+			_previousUserState = newUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
+			await InvokeCurrentUserStateChangedAsync(CurrentUserState);
+		}
+
+		if (resetInfiniteScroll)
+		{
+			if (_firstRenderCompleted)
+			{
+				// We can create new instance of Virtualize component but then it does not render its content until it knows the total number of items.
+				// So until first rendering of new instance of Virtualize component is rendered, the in progress indicator is not shown.
+				// Therefore we do not create new instance of Virtualize component but just reset the scroll position.
+				// Unfortunately, this can lead to two VirtualizeItemsProvider calls (first is caused by the refresh data call,
+				// later the second call is caused by the scroll position reset), we are propagating just a single VirtualizeItemsProvider call.
+				await EnsureJsModuleAsync();
+				_virtualizeItemsProviderWaitsForStartIndexZero = true;
+				await _jsModule.InvokeVoidAsync("resetScrollPosition", _hxGridContainer);
+			}
+		}
+
 	}
 
 	private async ValueTask RefreshPaginationOrLoadMoreDataCoreAsync(bool forceReloadAllPaginationOrLoadMoreData = false)

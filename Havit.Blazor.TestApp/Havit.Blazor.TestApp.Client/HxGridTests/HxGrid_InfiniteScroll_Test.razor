@@ -5,6 +5,8 @@
 
 <h1>HxGrid Infinite scroll</h1>
 <HxButton Text="Reset position" Color="ThemeColor.Secondary" OnClick="HandleResetPositionClickAsync" SingleClickProtection="false" />
+<HxButton Text="Reset sorting" Color="ThemeColor.Secondary" OnClick="HandleResetSortingClickAsync" SingleClickProtection="false" />
+<HxButton Text="Reset all" Color="ThemeColor.Secondary" OnClick="HandleResetAllClickAsync" SingleClickProtection="false" />
 <div class="mb-5 overflow-auto">
 
 	<HxGrid TItem="CultureInfo" Responsive="true" PlaceholdersRowCount="100"
@@ -144,6 +146,16 @@
     private async Task HandleResetPositionClickAsync()
     {
         await infiniteScrollGrid.RefreshDataAsync(GridStateResetOptions.ResetPosition);
+    }
+
+    private async Task HandleResetSortingClickAsync()
+    {
+        await infiniteScrollGrid.RefreshDataAsync(GridStateResetOptions.ResetSorting);
+    }
+
+    private async Task HandleResetAllClickAsync()
+    {
+        await infiniteScrollGrid.RefreshDataAsync(GridStateResetOptions.All);
     }
 
     private async Task HandleCurrentUserStateChangedAsync()

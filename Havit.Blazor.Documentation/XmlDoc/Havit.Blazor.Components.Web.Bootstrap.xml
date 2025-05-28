@@ -6576,6 +6576,26 @@
             Specifies which aspects of the grid state should be reset.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions.None">
+            <summary>
+            Do not reset grid state.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions.ResetPosition">
+            <summary>
+            Reset the grid's position (reset <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.PageIndex" /> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.LoadMoreAdditionalItemsCount" /> for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination" />, <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore" /> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore" />, reset scroll position for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll" />).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions.ResetSorting">
+            <summary>
+            Reset the grid's sorting state to default (reset <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.Sorting" />).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions.All">
+            <summary>
+            Reset all grid state aspects.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState">
             <summary>
             User state of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid"/>.
