@@ -1,4 +1,5 @@
 ﻿using Havit.Blazor.Documentation.Services;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace Havit.Blazor.Documentation.Shared.Components;
@@ -58,6 +59,7 @@ public partial class OnThisPageNavigation(
 			topLevel = 1;
 		}
 
+		string _currentUriWithoutFragment = _navigationManager.Uri.Split('#')[0]; // get the current URL without the fragment part
 		var currentLevel = topLevel;
 		foreach (var item in itemsToRender)
 		{
@@ -83,7 +85,7 @@ public partial class OnThisPageNavigation(
 			builder.OpenElement(84, "li");
 
 			builder.OpenElement(86, "a");
-			builder.AddAttribute(87, "href", item.GetItemUrl(_navigationManager.Uri)); // TODO direct usage of HxAnchorFragmentNavigation.ScrollToAnchorAsync() ?
+			builder.AddAttribute(87, "href", item.GetItemUrl(_currentUriWithoutFragment)); // TODO direct usage of HxAnchorFragmentNavigation.ScrollToAnchorAsync() ?
 			builder.AddAttribute(88, "class", "text-secondary mb-1 text-truncate");
 			builder.AddContent(89, item.Title);
 			builder.CloseElement();
