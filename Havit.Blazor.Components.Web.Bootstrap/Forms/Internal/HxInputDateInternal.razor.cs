@@ -143,8 +143,8 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 
 	protected async Task SetCurrentDateAsync(DateTime? date)
 	{
-		//CurrentValueAsString = date?.ToShortDateString();
-		await HandleCurrentValueAsStringChanged(CurrentValueAsString); // we need to trigger the logic in CurrentValueAsString setter
+		// we need to trigger the logic in HxInputDate.CurrentValueAsString setter (InputBase logic kicks in)
+		await HandleCurrentValueAsStringChanged(date?.ToShortDateString());
 	}
 
 	private string GetNameAttributeValue()
