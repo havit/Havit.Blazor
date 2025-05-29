@@ -1,5 +1,9 @@
 ﻿::deep .hx-sidebar-item {
-	display: block; /*Overrides the inline flex from btn-group placed by HxDropdown*/
+	display: block; /* Overrides the inline flex from btn-group placed by HxDropdown */
+}
+
+::deep .hx-sidebar-item.dropend {
+	display: none; /* Dropdown is hidden by default and then shown whith ResponsiveBreakpoint.GetCssClass based on Sidebar settings */
 }
 
 ::deep .nav-link {
@@ -11,12 +15,8 @@
 	border-radius: var(--hx-sidebar-item-border-radius);
 }
 
-::deep .hx-sidebar-item-navlink-content {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	align-self: stretch;
-	gap: .75rem;
+::deep .hx-sidebar-subitems {
+	--bs-dropdown-border-radius: calc(var(--hx-sidebar-item-border-radius) + var(--bs-dropdown-padding-x));
 }
 
 ::deep .hx-sidebar-subitems.collapse .nav-link,
@@ -27,24 +27,9 @@
 	display: flex;
 }
 
-::deep .hx-sidebar-subitems.show .hx-sidebar-item-navlink-content-inner {
-	display: inline-flex;
-}
-
-::deep .hx-sidebar-item-navlink-content-inner {
-	display: flex;
-	align-items: center;
-	margin-right: auto;
-}
-
 ::deep .hx-sidebar-collapsed-nav {
 	flex-direction: column;
-}
-
-::deep a.nav-link:hover,
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link:hover {
-	background-color: rgba(var(--hx-sidebar-item-hover-background-color), var(--hx-sidebar-item-hover-background-opacity));
-	color: var(--hx-sidebar-item-hover-color);
+	padding-block: .25rem;
 }
 
 ::deep a.nav-link.active {
@@ -53,36 +38,46 @@
 	font-weight: var(--hx-sidebar-item-active-font-weight);
 }
 
+/* Font-weight only for first level items */
 .hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
-	background-color: rgba(var(--hx-sidebar-parent-item-active-background-color), var(--hx-sidebar-parent-item-active-background-opacity));
-	color: var(--hx-sidebar-parent-item-active-color);
 	font-weight: var(--hx-sidebar-parent-item-active-font-weight);
 }
 
-::deep i {
-	color: var(--hx-sidebar-item-icon-color);
-	transition: transform .35s ease;
-	transform-origin: .5em 50%;
+/* Background and color for rest of the content */
+.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep .dropend > a.nav-link,
+.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
+	background-color: rgba(var(--hx-sidebar-parent-item-active-background-color), var(--hx-sidebar-parent-item-active-background-opacity));
+	color: var(--hx-sidebar-parent-item-active-color);
 }
 
-::deep a.nav-link:hover .hx-sidebar-item-icon {
+.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep .hx-sidebar-item .hx-sidebar-item-icon {
+	color: var(--hx-sidebar-parent-item-active-icon-color);
+}
+
+::deep a.nav-link:hover .hx-sidebar-item-icon,
+.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep .hx-sidebar-item:hover .hx-sidebar-item-icon {
 	color: var(--hx-sidebar-item-hover-icon-color);
+}
+
+::deep a.nav-link:hover,
+.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link:hover {
+	background-color: rgba(var(--hx-sidebar-item-hover-background-color), var(--hx-sidebar-item-hover-background-opacity));
+	color: var(--hx-sidebar-item-hover-color);
+}
+
+::deep .dropdown-menu {
+	max-height: 75vh;
+	overflow: auto;
+}
+
+::deep .hx-sidebar-item-icon {
+	color: var(--hx-sidebar-item-icon-color);
 }
 
 ::deep a.nav-link.active .hx-sidebar-item-icon {
 	color: var(--hx-sidebar-item-active-icon-color);
 }
 
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep.hx-sidebar-item .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-parent-item-active-icon-color);
-}
-
-::deep .bi-chevron-right {
-	font-size: .75rem;
-	margin-left: .5rem;
-}
-
-::deep .dropdown-menu {
-	max-height: 100vh;
-	overflow: auto;
+::deep a.nav-link.active:hover .hx-sidebar-item-icon {
+	color: var(--hx-sidebar-item-hover-icon-color);
 }

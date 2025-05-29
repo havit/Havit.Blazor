@@ -14,11 +14,11 @@ public class HxAutosuggest
 	{
 		Defaults = new AutosuggestSettings()
 		{
-			InputSize = InputSize.Regular,
 			SearchIcon = BootstrapIcon.Search,
 			ClearIcon = BootstrapIcon.XLg,
 			MinimumLength = 2,
 			Delay = 300,
+			Spellcheck = false
 		};
 	}
 }

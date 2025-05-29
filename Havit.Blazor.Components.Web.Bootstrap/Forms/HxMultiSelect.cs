@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// </summary>
 /// <typeparam name="TValue">Type of values.</typeparam>
 /// <typeparam name="TItem">Type of items.</typeparam>
-public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWithSize
+public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWithSize, IInputWithLabelType
 {
 	/// <summary>
 	/// Return <see cref="HxMultiSelect{TValue, TItem}"/> defaults.
@@ -34,7 +34,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxMultiSelect) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 	string IInputWithSize.GetInputSizeCssClass() => InputSizeEffective.AsFormSelectCssClass();
 
@@ -161,6 +161,26 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	[Parameter] public IconBase FilterClearIcon { get; set; }
 	protected IconBase FilterClearIconEffective => FilterClearIcon ?? GetSettings()?.FilterClearIcon ?? GetDefaults().FilterClearIcon;
 
+	/// <inheritdoc cref="Bootstrap.LabelType" />
+	[Parameter] public LabelType? LabelType { get; set; }
+	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
+	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
+	protected override LabelValueRenderOrder RenderOrder
+	{
+		get
+		{
+			if (LabelTypeEffective == Bootstrap.LabelType.Floating)
+			{
+				// Floating label type renders the label in HxMultiSelectInternal component.
+				return LabelValueRenderOrder.ValueOnly;
+			}
+			else
+			{
+				return LabelValueRenderOrder.LabelValue;
+			}
+		}
+	}
+
 	private List<TItem> _itemsToRender;
 	private HxMultiSelectInternal<TValue, TItem> _hxMultiSelectInternalComponent;
 
@@ -191,12 +211,14 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		throw new NotSupportedException();
 	}
 
-	/// <inheritdoc cref="HxInputBase{TValue}.FocusAsync"/>
-	public override async ValueTask FocusAsync()
+	/// <summary>
+	/// Focuses the multi select component.
+	/// </summary>
+	public async ValueTask FocusAsync()
 	{
 		if (_hxMultiSelectInternalComponent == null)
 		{
-			throw new InvalidOperationException($"Unable to focus {nameof(HxMultiSelect)}. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unable to focus. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 
 		await _hxMultiSelectInternalComponent.FocusAsync();
@@ -212,6 +234,8 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 		builder.AddAttribute(102, nameof(HxMultiSelectInternal<TValue, TItem>.InputCssClass), GetInputCssClassToRender());
 		builder.AddAttribute(103, nameof(HxMultiSelectInternal<TValue, TItem>.InputText), GetInputText());
 		builder.AddAttribute(104, nameof(HxMultiSelectInternal<TValue, TItem>.EnabledEffective), EnabledEffective);
+		builder.AddAttribute(125, nameof(HxMultiSelectInternal<TValue, TItem>.LabelTypeEffective), LabelTypeEffective);
+		builder.AddAttribute(126, nameof(HxMultiSelectInternal<TValue, TItem>.FormValueComponent), this);
 		builder.AddAttribute(105, nameof(HxMultiSelectInternal<TValue, TItem>.ItemsToRender), _itemsToRender);
 		builder.AddAttribute(106, nameof(HxMultiSelectInternal<TValue, TItem>.TextSelector), TextSelector);
 		builder.AddAttribute(107, nameof(HxMultiSelectInternal<TValue, TItem>.ValueSelector), ValueSelector);

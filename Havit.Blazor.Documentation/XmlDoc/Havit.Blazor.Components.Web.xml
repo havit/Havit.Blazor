@@ -66,61 +66,6 @@
             <param name="millisecondsDelay">The delay in milliseconds for debouncing.</param>
             <param name="actionAsync">The asynchronous action to be executed. The <see cref="T:System.Threading.CancellationToken"/> gets canceled if the method is called again.</param>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Title">
-            <summary>
-            Title in the header.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.HeaderTemplate">
-            <summary>
-            Template for the header.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Text">
-            <summary>
-            Content (body) text.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.BodyTemplate">
-            <summary>
-            Body (content) template.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.ShowCloseButton">
-            <summary>
-            Indicates whether to show the close button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.Buttons">
-            <summary>
-            Buttons to show.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.PrimaryButton">
-            <summary>
-            Primary button (if you want to override the default).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.CustomButtonText">
-            <summary>
-            Text for the <see cref="F:Havit.Blazor.Components.Web.MessageBoxButtons.Custom"/> button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.MessageBoxRequest.AdditionalAttributes">
-            <summary>
-            Additional attributes to be splatted onto an underlying UI component (Bootstrap: HxMessageBox -> HxModal).
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.MessageBoxServiceCollectionExtensions">
-            <summary>
-            Extension methods for installation of <see cref="T:Havit.Blazor.Components.Web.IHxMessageBoxService"/> support.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.MessageBoxServiceCollectionExtensions.AddHxMessageBoxHost(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            Adds <see cref="T:Havit.Blazor.Components.Web.IHxMessageBoxService"/> support to be able to display message boxes using HxMessageBoxHost.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.FileUploadedEventArgs">
             <summary>
             Arguments for <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.OnFileUploaded"/> event.
@@ -193,6 +138,11 @@
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.UploadUrl">
             <summary>
             URL of the server endpoint receiving the files.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.UploadHttpMethod">
+            <summary>
+            HTTP Method (verb) used for file upload. The default is <c>POST</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.OnProgress">
@@ -318,6 +268,11 @@
         <member name="P:Havit.Blazor.Components.Web.InputFileCoreSettings.MaxParallelUploads">
             <summary>
             Maximum number of concurrent uploads.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.InputFileCoreSettings.UploadHttpMethod">
+            <summary>
+            HTTP Method (verb) used for file upload. The default is <c>POST</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.UploadCompletedEventArgs">
@@ -511,13 +466,12 @@
             Enum for <see href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types">HTML input types</see>.
             </summary>
             <remarks>
-            As the enum is currently used only for the <c>HxInputText</c> component, only relevant types are included.
-            As all the values will be needed, they can be added later (add restrictions/validation to <c>HxInputText</c> then).
+            As the enum is currently used only for <c>HxInputText</c> and <c>HxInputNumber</c> components, only relevant types are included.
             </remarks>
         </member>
         <member name="F:Havit.Blazor.Components.Web.InputType.Text">
             <summary>
-            The default value. A single-line text field. Line-breaks are automatically removed from the input value.
+            A single-line text field. Line-breaks are automatically removed from the input value.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.InputType.Email">
@@ -547,6 +501,11 @@
             <summary>
             A field for entering a URL. It looks like a <see cref="F:Havit.Blazor.Components.Web.InputType.Text"/> input, but has validation parameters and a relevant
             keyboard in supporting browsers and devices with dynamic keyboards.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.InputType.Number">
+            <summary>
+            A control for entering a number. Displays a numeric keypad in some devices with dynamic keypads.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.ModelCloner.Clone``1(``0)">
@@ -594,6 +553,9 @@
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClick"/> event. Allows interception of the event in derived components.
             </summary>
+            <remarks>
+            Please note, that this method is not called, when the <see cref="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClick"/> parameter is not set.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxDynamicElement.OnClickStopPropagation">
             <summary>
@@ -688,6 +650,11 @@
             The icon to display.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.HxIcon.AriaLabel">
+            <summary>
+            Accessibility label for screen readers. Hides the icon from screen readers if not set.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxIcon.CssClass">
             <summary>
             The CSS class to combine with the basic icon CSS class.
@@ -708,8 +675,9 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.IconBase.RendererComponentType">
             <summary>
-            Renderer of the icon. Must have an Icon property which receives the instance of the icon (IconBase descendant instance).
-            See BootstrapIcon and <see cref="T:Havit.Blazor.Components.Web.HxIcon"/> implementations for more details.
+            Specifies the renderer component type for the icon.
+            For more details on implementing custom icons, refer to the 
+            <see href="https://havit.blazor.eu/components/HxIcon#custom-icons">documentation section on custom icons</see>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Infrastructure.CascadeEnabledComponent">
@@ -851,6 +819,12 @@
             Adds <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService"/> support to be able to add messages to HxMessenger.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.MessengerServiceCollectionExtensions.AddHxMessenger(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
+            <summary>
+            Adds <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService"/> support to be able to add messages to HxMessenger.
+            Allows to specify the <see cref="T:Microsoft.Extensions.DependencyInjection.ServiceLifetime"/> of the <see cref="T:Havit.Blazor.Components.Web.IHxMessengerService"/>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.RenderFragmentBuilder">
             <summary>
             Build render fragments for specific scenarios.
@@ -970,6 +944,11 @@
             Uses a lock to prevent multiple parallel loads.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.RefreshDataAsync">
+            <summary>
+            Refreshes the data. Discards all the data (if any) and loads it again.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2">
             <summary>
             Base interface for Blazor dictionary-based static data stores.
@@ -1022,6 +1001,11 @@
             Discards all the data.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.RefreshDataAsync">
+            <summary>
+            Refreshes the data. Discards all the data (if any) and loads it again.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.EnsureDataAsync">
             <summary>
             To be called before any data-retrieval to load/refresh the data.<br/>
@@ -1047,6 +1031,11 @@
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.GetValueAsync">
             <summary>
             Retrieves a value from the store (includes data load if needed).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.RefreshDataAsync">
+            <summary>
+            Refreshes the data. Discards all the data (if any) and loads it again.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1">
@@ -1101,6 +1090,11 @@
             You have to call this method on your own (e.g. in <c>OnInitializedAsync</c>) before calling any synchronous API.<br/>
             Uses <see cref="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.ShouldRefresh"/> to check for refreshment request.
             Uses a lock to prevent multiple parallel loads.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.RefreshDataAsync">
+            <summary>
+            Refreshes the data. Discards all the data (if any) and loads it again.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.StringLocalizerFactoryExtensions">

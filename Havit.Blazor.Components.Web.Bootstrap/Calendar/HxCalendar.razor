@@ -1,13 +1,13 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
 @{
-	int? tabindexValue = KeyboardNavigation ? null /* null = do not render the tabindex attribute */ : -1;
+	int? tabindexValue = KeyboardNavigation ? 0 : -1;
 }
 
 <div class="hx-calendar">
 	@if (_renderData != null)
 	{
-		<div class="hx-calendar-navigation mb-3">
+		<div class="hx-calendar-navigation">
 			<HxButton Icon="BootstrapIcon.ChevronLeft"
 					  CssClass="hx-calendar-navigation-button"
 					  Size="ButtonSize.Small"
@@ -39,35 +39,35 @@
 					  tabindex="@tabindexValue" />
 		</div>
 
-		<table>
-			<tr class="hx-calendar-day-names">
+		<div>
+			<div class="hx-calendar-day-names">
 				@foreach (string dayOfWeek in _renderData.DaysOfWeek)
 				{
-                    <td @key="@dayOfWeek">@dayOfWeek</td>
+                    <div @key="@dayOfWeek">@dayOfWeek</div>
 				}
-			</tr>
+			</div>
 			@foreach (WeekData week in _renderData.Weeks)
 			{
-				<tr @key="@week" class="hx-calendar-week">
+				<div @key="@week.Key" class="hx-calendar-week">
 					@foreach (DayData day in week.Days)
 					{
 
 						@if (day.ClickEnabled)
 						{
-                            <td @key="@day.DayInMonth" role="button" @onclick="async () => await HandleDayClickAsync(day)" @onclick:stopPropagation>
-								<div class="@day.CssClass">@day.DayInMonth</div>
-							</td>
+							<button type="button" class="@CssClassHelper.Combine("btn hx-calendar-day", day.CssClass)" @key="@day.DayInMonth" @onclick="async () => await HandleDayClickAsync(day)" tabindex="@tabindexValue" @onclick:stopPropagation>
+								@day.DayInMonth
+							</button>
 						}
 						else
 						{
-                            <td @key="@day.DayInMonth">
-								<div class="@day.CssClass">@day.DayInMonth</div>
-							</td>
+                            <div class="@CssClassHelper.Combine("hx-calendar-day", day.CssClass)" @key="@day.DayInMonth">
+								@day.DayInMonth
+							</div>
 						}
 
 					}
-				</tr>
+				</div>
 			}
-		</table>
+		</div>
 	}
 </div>

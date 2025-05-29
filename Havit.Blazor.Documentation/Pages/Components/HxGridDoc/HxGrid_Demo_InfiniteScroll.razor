@@ -7,8 +7,7 @@
 	}
 </style>
 
-<HxGrid @ref="_gridComponent"
-		TItem="EmployeeDto"
+<HxGrid TItem="EmployeeDto"
 		DataProvider="GetGridData"
 		TableContainerCssClass="virtualized-table-container"
 		ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"
@@ -26,25 +25,14 @@
 	</Columns>
 </HxGrid>
 
-<p class="mt-3">@_debugOutput</p>
-
-<HxButton Text="Refresh data" OnClick="async () => await _gridComponent.RefreshDataAsync()" Color="ThemeColor.Primary" />
-
 @code {
-	string _debugOutput;
-	HxGrid<EmployeeDto> _gridComponent;
-
 	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
 	{
-		_debugOutput = $"Requesting data: StartIndex={request.StartIndex}, Count={request.Count}";
-		StateHasChanged();
-
-		await Task.Delay(1600);  // simulate server delay in demo (do not put this in your code)
-
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken);
 		return new GridDataProviderResult<EmployeeDto>()
 			{
-				Data = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken),
-				TotalCount = await DemoDataService.GetEmployeesCountAsync(request.CancellationToken)
+				Data = response.Data,
+				TotalCount = response.TotalCount
 			};
 	}
 }

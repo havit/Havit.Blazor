@@ -19,7 +19,6 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	{
 		Defaults = new InputTagsSettings()
 		{
-			InputSize = Bootstrap.InputSize.Regular,
 			SuggestMinimumLength = 2,
 			SuggestDelay = 300,
 			Delimiters = new() { ',', ';', ' ' },
@@ -103,20 +102,27 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	[Parameter] public string Placeholder { get; set; }
 
 	/// <summary>
+	/// Defines whether the input for new tag may be checked for spelling errors.
+	/// </summary>
+	[Parameter] public bool? Spellcheck { get; set; }
+	protected bool? SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck;
+
+	/// <summary>
 	/// The settings for the <see cref="HxBadge"/> used to render tags. The default is <c>Color="<see cref="ThemeColor.Light"/>"</c> and <c>TextColor="<see cref="ThemeColor.Dark"/>"</c>.
 	/// </summary>
 	[Parameter] public BadgeSettings TagBadgeSettings { get; set; }
 	protected BadgeSettings TagBadgeSettingsEffective => TagBadgeSettings ?? GetSettings()?.TagBadgeSettings ?? GetDefaults().TagBadgeSettings ?? throw new InvalidOperationException(nameof(TagBadgeSettings) + " default for " + nameof(HxInputTags) + " has to be set.");
 
-	/// <inheritdoc cref="HxInputBase{TValue}" />
+	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
+	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
+	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
 
 	/// <summary>
 	/// The size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputTags) + " has to be set.");
-	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize; InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 
 	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* label rendered by HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;
@@ -178,6 +184,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 		builder.AddAttribute(1023, nameof(HxInputTagsInternal.InputGroupStartTemplate), InputGroupStartTemplate);
 		builder.AddAttribute(1024, nameof(HxInputTagsInternal.InputGroupEndTemplate), InputGroupEndTemplate);
 		builder.AddAttribute(1025, nameof(HxInputTagsInternal.InputGroupCssClass), InputGroupCssClass);
+		builder.AddAttribute(1026, nameof(HxInputTagsInternal.SpellcheckEffective), SpellcheckEffective);
 
 		builder.AddMultipleAttributes(1090, AdditionalAttributes);
 
@@ -197,11 +204,11 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	}
 
 	/// <inheritdoc />
-	public override async ValueTask FocusAsync()
+	public async ValueTask FocusAsync()
 	{
 		if (_hxInputTagsInternalComponent == null)
 		{
-			throw new InvalidOperationException($"Unable to focus {nameof(HxInputTags)}. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unable to focus. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 		await _hxInputTagsInternalComponent.FocusAsync();
 	}

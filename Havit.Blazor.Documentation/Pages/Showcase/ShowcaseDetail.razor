@@ -1,0 +1,60 @@
+@page "/showcase/{Id}"
+@layout HomeLayout
+
+<PageTitle>@_showcase.Title Showcase | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
+<DocHeadContent CanonicalRelativeUrl="@($"showcase/{_showcase.Id}")" />
+
+
+<div class="showcase-detail-header hero" style="--hero-opacity: .15;">
+	<div class="container d-flex justify-content-between align-items-center" style="height: 200px;">
+		<ShowcaseNavigationLink Direction="Previous" Title="@_previousShowcase.Title" IconStart="BootstrapIcon.ArrowLeft" Href="@($"showcase/{_previousShowcase.Id}")" />
+
+		<div class="current text-center">
+			<div class="small text-primary">@_showcase.Description</div>
+			<h1 class="fw-bold">@_showcase.Title</h1>
+
+		</div>
+		<ShowcaseNavigationLink Direction="Next" Title="@_nextShowcase.Title" IconEnd="BootstrapIcon.ArrowRight" Href="@($"showcase/{_nextShowcase.Id}")" />
+	</div>
+</div>
+<div class="showcase-detail bg-body-tertiary">
+	<div class="container d-flex gap-3 flex-wrap justify-content-center">
+		<img src="@_showcase.ImageUrl" class="w-100 rounded-3 border shadow-lg" alt="@_showcase.Title">
+	</div>
+</div>
+<div class="showcase-detail-meta">
+	<div class="container">
+		<div class="d-flex align-items-center justify-content-center gap-5 my-5 small opacity-75">
+			<div class="d-flex flex-column gap-2">
+				<div class="fw-medium">Author</div>
+				<div>
+					@if (_showcase.AuthorUrl != null)
+					{
+						<a href="@_showcase.AuthorUrl">@_showcase.Author</a>
+					}
+					else
+					{
+						@_showcase.Author
+					}
+				</div>
+			</div>
+			@if (_showcase.ProjectUrl != null)
+			{
+				<div class="vr"></div>
+				<div class="d-flex flex-column gap-2">
+					<div class="fw-medium">URL</div>
+					<div><a href="@_showcase.ProjectUrl">@_showcase.ProjectUrl</a></div>
+				</div>
+			}
+			@if (_showcase.SourceCodeUrl != null)
+			{
+				<div class="vr"></div>
+				<div class="d-flex flex-column gap-2">
+					<div class="fw-medium">Source code</div>
+					<div><a href="@_showcase.SourceCodeUrl">@(_showcase.SourceCodeTitle ?? _showcase.SourceCodeUrl)</a></div>
+				</div>
+			}
+		</div>
+	</div>
+</div>
+

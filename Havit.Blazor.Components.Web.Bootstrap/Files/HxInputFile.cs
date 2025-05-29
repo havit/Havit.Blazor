@@ -17,10 +17,7 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 
 	static HxInputFile()
 	{
-		Defaults = new InputFileSettings()
-		{
-			InputSize = Bootstrap.InputSize.Regular,
-		};
+		Defaults = new InputFileSettings();
 	}
 
 	/// <summary>
@@ -47,6 +44,11 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	/// URL of the server endpoint receiving the files.
 	/// </summary>
 	[Parameter] public string UploadUrl { get; set; }
+
+	/// <summary>
+	/// HTTP Method (verb) used for file upload. The default is <c>POST</c>.
+	/// </summary>
+	[Parameter] public string UploadHttpMethod { get; set; } = "POST";
 
 	/// <summary>
 	/// Gets or sets the event callback that will be invoked when the collection of selected files changes.
@@ -143,7 +145,7 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputFile) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
@@ -219,6 +221,7 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 		builder.OpenComponent<HxInputFileCore>(1);
 		builder.AddAttribute(1001, nameof(HxInputFileCore.Id), InputId);
 		builder.AddAttribute(1002, nameof(HxInputFileCore.UploadUrl), UploadUrl);
+		builder.AddAttribute(1002, nameof(HxInputFileCore.UploadHttpMethod), UploadHttpMethod);
 		builder.AddAttribute(1003, nameof(HxInputFileCore.Multiple), Multiple);
 		builder.AddAttribute(1004, nameof(HxInputFileCore.OnChange), EventCallback.Factory.Create<InputFileChangeEventArgs>(this, InvokeOnChangeAsync));
 		builder.AddAttribute(1005, nameof(HxInputFileCore.OnProgress), EventCallback.Factory.Create<UploadProgressEventArgs>(this, InvokeOnProgressAsync));

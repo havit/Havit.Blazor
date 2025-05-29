@@ -136,6 +136,11 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	[Parameter] public string TooltipCssClass { get; set; }
 
 	/// <summary>
+	/// Appends the tooltip to a specific element. Default is <c>body</c>.
+	/// </summary>
+	[Parameter] public string TooltipContainer { get; set; }
+
+	/// <summary>
 	/// Custom CSS class to render with the tooltip <c>span</c> wrapper of the <c>&lt;button /&gt;</c>.<br />
 	/// If set, the <c>span</c> wrapper will be rendered no matter whether the <see cref="Tooltip"/> text is set or not.
 	/// </summary>
@@ -195,11 +200,6 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
-	/// <summary>
-	/// Localization service.
-	/// </summary>
-	[Inject] protected IStringLocalizerFactory StringLocalizerFactory { get; set; }
-
 	protected bool SpinnerEffective => Spinner ?? clickInProgress;
 	protected bool DisabledEffective => !CascadeEnabledComponent.EnabledEffective(this)
 		|| (SingleClickProtection && clickInProgress && (OnClick.HasDelegate || OnValidClick.HasDelegate || OnInvalidClick.HasDelegate));
@@ -237,8 +237,6 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 
 	private async Task HandleClick(MouseEventArgs mouseEventArgs)
 	{
-		Contract.Requires<InvalidOperationException>(!DisabledEffective, $"The {GetType().Name} component is in a disabled state.");
-
 		if (!clickInProgress || !SingleClickProtection)
 		{
 			clickInProgress = true;
@@ -257,14 +255,14 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 
 		if (OnClick.HasDelegate)
 		{
-			Contract.Requires<InvalidOperationException>(!OnValidClick.HasDelegate, $"Cannot use both {nameof(OnClick)} and {nameof(OnValidClick)} parameters.");
-			Contract.Requires<InvalidOperationException>(!OnInvalidClick.HasDelegate, $"Cannot use both {nameof(OnClick)} and {nameof(OnInvalidClick)} parameters.");
+			Contract.Requires<InvalidOperationException>(!OnValidClick.HasDelegate, $"[{this.GetType().Name}] Cannot use both {nameof(OnClick)} and {nameof(OnValidClick)} parameters.");
+			Contract.Requires<InvalidOperationException>(!OnInvalidClick.HasDelegate, $"[{this.GetType().Name}] Cannot use both {nameof(OnClick)} and {nameof(OnInvalidClick)} parameters.");
 
 			await InvokeOnClickAsync(mouseEventArgs);
 		}
 		else if (OnValidClick.HasDelegate || OnInvalidClick.HasDelegate)
 		{
-			Contract.Requires<InvalidOperationException>(EditContextEffective != null, $"{nameof(EditContext)} has to be supplied as cascading value or explicit parameter.");
+			Contract.Requires<InvalidOperationException>(EditContextEffective != null, $"[{this.GetType().Name}] To use {nameof(OnValidClick)}/{nameof(OnInvalidClick)}, {nameof(EditContext)} must be supplied as a cascading value or explicit parameter.");
 
 			var isValid = EditContextEffective.Validate(); // Original .NET comment: This will likely become ValidateAsync later
 

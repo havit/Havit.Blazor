@@ -1,0 +1,44 @@
+﻿@attribute [Route("/components/" + nameof(HxEChart))]
+
+<ComponentApiDoc Type="typeof(HxEChart)">
+	<DocAlert Type="DocAlertType.Warning">
+		The <code>HxEChart</code> component and related types are distributed in a separate NuGet package: <a href="https://www.nuget.org/packages/Havit.Blazor.Components.Web.ECharts">Havit.Blazor.Components.Web.ECharts</a>.
+	</DocAlert>
+
+	<p>
+		The <code>HxEChart</code> component is not intended to fully replicate the entire ECharts API. Instead, it provides a simple, user-friendly wrapper around the library.
+		Use .NET anonymous objects to pass options to the chart.
+		For a complete list of available options and their descriptions, refer to the <a href="https://echarts.apache.org/en/option.html" target="_blank">ECharts documentation</a>.
+	</p>
+
+	<Demo Type="typeof(HxEChart_Demo_Basic)" Tabs="false" />
+
+	<DocHeading Title="Initial setup" />
+	<DocAlert Type="DocAlertType.Danger">
+		To use <a href="https://echarts.apache.org" target="_blank">Apache ECharts</a> in your project, you need to reference its JavaScript library in your site.
+	</DocAlert>
+	<p>
+		The <code>HxEChart</code> component is not bound to any specific version or source of the library. For convenience, you can use our helper method to
+		generate the <code>&lt;script&gt;</code> tag that references a supported version from <a href="https://www.jsdelivr.com/package/npm/echarts">the CDN</a>.
+	</p>
+	<p>Add the following line at the end of your <code>App.razor</code> file, just before the closing <code>&lt;/body&gt;</code> tag:</p>
+	<CodeSnippet>@("""@((MarkupString)HxEChartsSetup.RenderEChartsJavaScriptReference())""")</CodeSnippet>
+
+	<DocHeading Title="Handling clicks" Id="handling-clicks" />
+	<p>
+		To handle clicks on the chart, use the <code>OnClick</code> event. The event handler receives an <a href="/types/@(nameof(EChartClickEventArgs))">@(nameof(EChartClickEventArgs))</a> object as a parameter.
+		The <code>EChartClickEventArgs</code> class contains properties such as <code>SeriesIndex</code>, <code>DataIndex</code>, <code>Name</code>, and <code>Value</code>.
+		Click to blank area of the chart will return <code>null</code> values for these properties.
+	</p>
+	<Demo Type="typeof(HxEChart_Demo_OnClick)" />
+
+	<DocHeading Title="Passing JS function" Id="passing-javascript-function" />
+	<p>Use <code>HxECharts.JSFunc</code> class to pass a raw JavaScript function as a parameter:</p>
+	<Demo Type="typeof(HxEChart_Demo_JSFunc)" />
+
+	<DocHeading Title="More samples" />
+	<p>
+		You can find more examples of how to use the <code>HxEChart</code> component, including some higher-level, pre-built
+		components for individual chart types, in our <a href="https://blocks.havit.blazor.eu/analytics/line-chart">Blocks section</a>.
+	</p>
+</ComponentApiDoc>

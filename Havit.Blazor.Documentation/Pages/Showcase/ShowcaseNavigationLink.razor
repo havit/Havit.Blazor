@@ -1,0 +1,29 @@
+<div class="showcase-navigation-link">
+    <HxNavLink CssClass="py-3" Href="@Href">
+        <div class="showcase-navigation-link-text small icon-link icon-link-hover">
+            @if(IconStart != null)
+            {
+                <HxIcon Icon="@IconStart" />
+            }
+            
+            @Direction
+            
+            @if(IconEnd != null)
+            {
+                <HxIcon Icon="@IconEnd" />
+            }
+        </div>
+        <div class="showcase-navigation-link-title fw-medium">
+            @Title
+        </div>
+    </HxNavLink>
+</div>
+
+@code
+{
+    [Parameter] public string Href { get; set; }
+    [Parameter] public string Title { get; set; }
+    [Parameter] public string Direction { get; set; }
+    [Parameter] public IconBase IconStart { get; set; }
+    [Parameter] public IconBase IconEnd { get; set; }
+}

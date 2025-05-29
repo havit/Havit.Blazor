@@ -1,0 +1,27 @@
+﻿<EditForm EditContext="editContext">
+	@* Your form with validations goes here *@
+	<DataAnnotationsValidator />
+	<HxInputText Label="Name" @bind-Value="employee.Name" />
+</EditForm>
+
+<HxSubmit Text="Submit"
+		  Color="ThemeColor.Primary"
+		  EditContext="editContext"
+		  OnValidClick="HandleValidClick"
+		  CssClass="mt-4"/>
+
+@code {
+	private EmployeeDto employee = new EmployeeDto();
+	private EditContext editContext;
+
+	protected override void OnParametersSet()
+	{
+		editContext = new EditContext(employee);
+	}
+
+	private async Task HandleValidClick()
+	{
+		// Your submit logic goes here
+		await Task.Delay(2000);
+	}
+} 

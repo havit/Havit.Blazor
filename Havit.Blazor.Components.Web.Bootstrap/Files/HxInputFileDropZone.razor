@@ -2,6 +2,7 @@
 <div class="@CssClassHelper.Combine("hx-input-file-drop-zone", EnabledEffective ? null : "disabled", CssClass)">
 	<HxInputFileCore @ref="_hxInputFileCoreComponentReference"
 					 UploadUrl="@UploadUrl"
+					 UploadHttpMethod="@UploadHttpMethod"
 					 OnChange="HandleOnChange"
 					 OnProgress="InvokeOnProgressAsync"
 					 OnFileUploaded="InvokeOnFileUploadedAsync"

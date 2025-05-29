@@ -1,11 +1,11 @@
 ﻿@using Havit.Blazor.Documentation.Services
-@{
-    var plainTypeName = ApiRenderer.RemoveSpecialCharacters(Type.Name);
-}
-<DocHeading Title="@plainTypeName" Id="@plainTypeName" Level="1" />
+
+<DocHeadContent CanonicalRelativeUrl="@GetRelativeCanonicalUrl(_plainTypeName)" />
+
+<DocHeading Title="@_plainTypeName" Id="@_plainTypeName" Level="1" />
 @if (!String.IsNullOrWhiteSpace(_model.Class?.Comments?.Summary))
 {
-    <p class="lead">@((MarkupString)_model.Class.Comments.Summary)</p>
+	<p class="lead">@((MarkupString)_model.Class.Comments.Summary)</p>
 }
 
 <ResponsiveOnThisPageNavigation />
@@ -15,226 +15,226 @@
 
 @if (HasApi)
 {
-    <DocHeading Title="API" Level="2" Id="@(plainTypeName + "-api")" />
+	<DocHeading Title="API" Level="2" Id="@(_plainTypeName + "-api")" />
 }
 
 @if (IsDelegate)
 {
-    <h6><code>@((MarkupString)_model.DelegateSignature)</code></h6>
+	<h6><code>@((MarkupString)_model.DelegateSignature)</code></h6>
 }
 
 @if (IsEnum)
 {
-    <DocHeading Title="Enum values" Level="3" Id="@(plainTypeName + "-enum-values")" />
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Value</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var enumMember in _model.EnumMembers)
-                {
-                    <tr @key="@enumMember">
-                        <td>@enumMember.Name</td>
-                        <td>@enumMember.Value</td>
-                        <td class="summary">@((MarkupString)enumMember.Summary)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+	<DocHeading Title="Enum values" Level="3" Id="@(_plainTypeName + "-enum-values")" />
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Value</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var enumMember in _model.EnumMembers)
+				{
+					<tr @key="@enumMember">
+						<td>@enumMember.Name</td>
+						<td>@enumMember.Value</td>
+						<td class="summary">@((MarkupString)enumMember.Summary)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @if (HasParameters)
 {
-    <DocHeading Title="Parameters" Level="3" Id="@(plainTypeName + "-parameters")" />
+	<DocHeading Title="Parameters" Level="3" Id="@(_plainTypeName + "-parameters")" />
 
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var property in _model.Parameters.OrderByDescending(p => p.EditorRequired).ThenBy(p => p.PropertyInfo.Name))
-                {
-                    <tr @key="@property">
-                        <td>
-                            @if (property.IsStatic)
-                            {
-                                <HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">static</HxBadge>
-                            }
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var property in _model.Parameters.OrderByDescending(p => p.EditorRequired).ThenBy(p => p.PropertyInfo.Name))
+				{
+					<tr @key="@property">
+						<td>
+							@if (property.IsStatic)
+							{
+								<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">static</HxBadge>
+							}
 
-                            <strong>@property.PropertyInfo.Name</strong>
-                            @if (property.EditorRequired)
-                            {
-                                <sup><HxBadge Color="ThemeColor.Warning" CssClass="ms-2">REQUIRED</HxBadge></sup>
-                            }
-                        </td>
-                        <td><code>@((MarkupString)ApiRenderer.FormatType(property.PropertyInfo.PropertyType))</code></td>
-                        <td class="summary">@((MarkupString)property.Comments.Summary)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+							<strong>@property.PropertyInfo.Name</strong>
+							@if (property.EditorRequired)
+							{
+								<sup><HxBadge Color="ThemeColor.Warning" CssClass="ms-2">REQUIRED</HxBadge></sup>
+							}
+						</td>
+						<td><code>@((MarkupString)ApiRenderer.FormatType(property.PropertyInfo.PropertyType))</code></td>
+						<td class="summary">@((MarkupString)property.Comments.Summary)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @if (HasProperties)
 {
-    <DocHeading Title="Other properties" Level="3" Id="@(plainTypeName + "-properties")"/>
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var property in _model.Properties.OrderBy(p => p.PropertyInfo.Name))
-                {
-                    <tr @key="@property">
-                        <td><strong>@property.PropertyInfo.Name</strong></td>
-                        <td><code>@((MarkupString)ApiRenderer.FormatType(property.PropertyInfo.PropertyType))</code></td>
-                        <td class="summary">@((MarkupString)property.Comments.Summary)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+	<DocHeading Title="Other properties" Level="3" Id="@(_plainTypeName + "-properties")" />
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var property in _model.Properties.OrderBy(p => p.PropertyInfo.Name))
+				{
+					<tr @key="@property">
+						<td><strong>@property.PropertyInfo.Name</strong></td>
+						<td><code>@((MarkupString)ApiRenderer.FormatType(property.PropertyInfo.PropertyType))</code></td>
+						<td class="summary">@((MarkupString)property.Comments.Summary)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @if (HasEvents)
 {
-    <DocHeading Title="Event callbacks" Level="3" Id="@(plainTypeName + "-events")" />
+	<DocHeading Title="Event callbacks" Level="3" Id="@(_plainTypeName + "-events")" />
 
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var currentEvent in _model.Events.OrderBy(e => e.PropertyInfo.Name))
-                {
-                    <tr @key="@currentEvent">
-                        <td><strong>@currentEvent.PropertyInfo.Name</strong> </td>
-                        <td><code>@((MarkupString)ApiRenderer.FormatType(currentEvent.PropertyInfo.PropertyType))</code></td>
-                        <td class="summary">@((MarkupString)currentEvent.Comments.Summary)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var currentEvent in _model.Events.OrderBy(e => e.PropertyInfo.Name))
+				{
+					<tr @key="@currentEvent">
+						<td><strong>@currentEvent.PropertyInfo.Name</strong> </td>
+						<td><code>@((MarkupString)ApiRenderer.FormatType(currentEvent.PropertyInfo.PropertyType))</code></td>
+						<td class="summary">@((MarkupString)currentEvent.Comments.Summary)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @if (HasMethods)
 {
-    <DocHeading Title="Methods" Level="3" Id="@(plainTypeName + "-methods")" />
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Method</th>
-                    <th>Returns</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var method in _model.Methods.OrderBy(m => m.MethodInfo.Name))
-                {
-                    <tr @key="@method">
-                        <td><strong>@method.MethodInfo.Name</strong>@((MarkupString)@method.GetParameters())</td>
-                        <td><code>@((MarkupString)ApiRenderer.FormatMethodReturnType(method.MethodInfo.ReturnType, _model))</code></td>
-                        <td class="summary">@((MarkupString)method.Comments.Summary)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+	<DocHeading Title="Methods" Level="3" Id="@(_plainTypeName + "-methods")" />
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Method</th>
+					<th>Returns</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var method in _model.Methods.OrderBy(m => m.MethodInfo.Name))
+				{
+					<tr @key="@method">
+						<td><strong>@method.MethodInfo.Name</strong>@((MarkupString)@method.GetParameters())</td>
+						<td><code>@((MarkupString)ApiRenderer.FormatMethodReturnType(method.MethodInfo.ReturnType, _model))</code></td>
+						<td class="summary">@((MarkupString)method.Comments.Summary)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @if (HasStaticProperties)
 {
-    <DocHeading Title="Static properties" Level="3" Id="@(plainTypeName + "-static-properties")" />
+	<DocHeading Title="Static properties" Level="3" Id="@(_plainTypeName + "-static-properties")" />
 
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Property</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var property in _model.StaticProperties.OrderBy(p => p.PropertyInfo.Name))
-                {
-                    <tr @key="@property">
-                        <td><strong>@property.PropertyInfo.Name</strong></td>
-                        <td><code>@((MarkupString)ApiRenderer.FormatType(property.PropertyInfo.PropertyType))</code></td>
-                        <td class="summary">@((MarkupString)property.Comments.Summary)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Property</th>
+					<th>Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var property in _model.StaticProperties.OrderBy(p => p.PropertyInfo.Name))
+				{
+					<tr @key="@property">
+						<td><strong>@property.PropertyInfo.Name</strong></td>
+						<td><code>@((MarkupString)ApiRenderer.FormatType(property.PropertyInfo.PropertyType))</code></td>
+						<td class="summary">@((MarkupString)property.Comments.Summary)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @if (HasStaticMethods)
 {
-    <DocHeading Title="Static methods" Level="3" Id="@(plainTypeName + "-static-methods")" />
+	<DocHeading Title="Static methods" Level="3" Id="@(_plainTypeName + "-static-methods")" />
 
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Method</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var method in _model.StaticMethods.OrderBy(m => m.MethodInfo.Name))
-                {
-                    <tr @key="@method">
-                        <td><strong>@method.MethodInfo.Name</strong> @((MarkupString)@method.GetParameters())</td>
-                        <td><code>@((MarkupString)ApiRenderer.FormatType(method.MethodInfo.ReturnType))</code></td>
-                        <td class="summary">@((MarkupString)method.Comments.Summary)</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Method</th>
+					<th>Type</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach (var method in _model.StaticMethods.OrderBy(m => m.MethodInfo.Name))
+				{
+					<tr @key="@method">
+						<td><strong>@method.MethodInfo.Name</strong> @((MarkupString)@method.GetParameters())</td>
+						<td><code>@((MarkupString)ApiRenderer.FormatType(method.MethodInfo.ReturnType))</code></td>
+						<td class="summary">@((MarkupString)method.Comments.Summary)</td>
+					</tr>
+				}
+			</tbody>
+		</table>
+	</div>
 }
 
 @if (HasCssVariables)
 {
-    <DocHeading Title="CSS variables" Level="3" Id="@(plainTypeName + "-css-variables")" />
-    <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Default</th>
-                </tr>
-            </thead>
-            <tbody>
-                @CssVariables
-            </tbody>
-        </table>
-    </div>
+	<DocHeading Title="CSS variables" Level="3" Id="@(_plainTypeName + "-css-variables")" />
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Default</th>
+				</tr>
+			</thead>
+			<tbody>
+				@CssVariables
+			</tbody>
+		</table>
+	</div>
 }

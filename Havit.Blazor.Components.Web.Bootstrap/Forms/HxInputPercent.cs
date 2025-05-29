@@ -13,7 +13,7 @@ public class HxInputPercent<TValue> : HxInputNumber<TValue>
 		Type underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
 		if (!s_supportedTypes.Contains(underlyingType))
 		{
-			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unsupported type {typeof(TValue)}.");
 		}
 
 		InputGroupEndText = "%";
@@ -38,7 +38,7 @@ public class HxInputPercent<TValue> : HxInputNumber<TValue>
 				@decimal *= 100;
 				return base.FormatValueAsString((TValue)(object)@decimal);
 			default:
-				throw new InvalidOperationException($"Unsupported type {value.GetType()}.");
+				throw new InvalidOperationException($"[{GetType().Name}] Unsupported type {value.GetType()}.");
 		}
 	}
 
@@ -69,7 +69,7 @@ public class HxInputPercent<TValue> : HxInputNumber<TValue>
 				result = (TValue)(object)@decimal;
 				break;
 			default:
-				throw new InvalidOperationException($"Unsupported type {value.GetType()}.");
+				throw new InvalidOperationException($"[{GetType().Name}] Unsupported type {value.GetType()}.");
 		}
 
 		return true;

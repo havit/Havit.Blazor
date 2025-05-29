@@ -56,8 +56,14 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + GetType().Name + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
+
+	/// <summary>
+	/// Defines whether the input may be checked for spelling errors.
+	/// </summary>
+	[Parameter] public bool? Spellcheck { get; set; }
+	protected bool? SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck;
 
 	/// <summary>
 	/// Determines whether all the text within the input field is automatically selected when it receives focus.
@@ -67,6 +73,14 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
+	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
+	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
+
+	/// <summary>
+	/// The input ElementReference.
+	/// Can be <c>null</c>. 
+	/// </summary>
+	protected ElementReference InputElement { get; set; }
 
 	/// <inheritdoc />
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
@@ -86,20 +100,24 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 		}
 		builder.AddAttribute(1002, "value", CurrentValueAsString);
 		builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
-#if NET8_0_OR_GREATER
 		builder.SetUpdatesAttributeName("value");
 		if (!String.IsNullOrEmpty(NameAttributeValue))
 		{
 			builder.AddAttribute(1004, "name", NameAttributeValue);
 		}
-#endif
 
 		if (InputModeEffective is not null)
 		{
 			builder.AddAttribute(1005, "inputmode", InputModeEffective.Value.ToString("f").ToLower());
 		}
-		builder.AddEventStopPropagationAttribute(1006, "onclick", true);
-		builder.AddElementReferenceCapture(1007, elementReference => InputElement = elementReference);
+
+		if (SpellcheckEffective.HasValue)
+		{
+			builder.AddAttribute(1006, "spellcheck", SpellcheckEffective.Value.ToString().ToLower());
+		}
+
+		builder.AddEventStopPropagationAttribute(1007, "onclick", true);
+		builder.AddElementReferenceCapture(1008, elementReference => InputElement = elementReference);
 
 		builder.CloseElement();
 	}
@@ -121,4 +139,10 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 		validationErrorMessage = null;
 		return true;
 	}
+
+	/// <summary>
+	/// Focuses the component.
+	/// </summary>
+	public async ValueTask FocusAsync() => await InputElement.FocusOrThrowAsync(this);
+
 }

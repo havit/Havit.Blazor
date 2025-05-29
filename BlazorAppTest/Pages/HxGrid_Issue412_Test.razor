@@ -10,7 +10,7 @@
 </HxGrid>
 
 <HxInputNumber Label="Limit number of items" @bind-Value="maxItems" />
-<HxButton Text="Refresh" OnClick="async () => await grid.RefreshDataAsync()" />
+<HxButton Text="Refresh" OnClick="grid.RefreshDataAsync" />
 
 @code {
     private HxGrid<CultureInfo> grid;

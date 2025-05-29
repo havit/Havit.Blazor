@@ -1,0 +1,49 @@
+﻿<HxEChart Options="_options" OnClick="HandleClick" AutoResize="true" />
+@_lastClickEventArgs
+
+@code {
+	private object _options;
+	private int[] _data = Enumerable.Range(1, 7).Select(i => Random.Shared.Next(100, 300)).ToArray();
+	private EChartClickEventArgs _lastClickEventArgs;
+
+	private void HandleClick(EChartClickEventArgs args)
+	{
+		_lastClickEventArgs = args;
+
+		// showcase the animated data change
+		_data = Enumerable.Range(1, 7).Select(i => Random.Shared.Next(100, 300)).ToArray();
+		BuildOptions();
+	}
+
+	protected override void OnParametersSet()
+	{
+		BuildOptions();
+	}
+
+	private void BuildOptions()
+	{
+		_options = new
+		{
+			XAxis = new
+			{
+				Type = "category",
+				TriggerEvent = true,
+				data = new string[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" }
+			},
+			YAxis = new
+			{
+				Type = "value",
+				TriggerEvent = true
+			},
+			Series = new object[]
+			{
+				new
+				{
+					Type = "line",
+					Data = _data,
+					SymbolSize = 10
+				}
+			}
+		};
+	}
+}

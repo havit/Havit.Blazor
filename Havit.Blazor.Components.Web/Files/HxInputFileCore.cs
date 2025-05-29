@@ -50,6 +50,12 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	[Parameter] public string UploadUrl { get; set; }
 
 	/// <summary>
+	/// HTTP Method (verb) used for file upload. The default is <c>POST</c>.
+	/// </summary>
+	[Parameter] public string UploadHttpMethod { get; set; } = "POST";
+	protected string UploadHttpMethodEffective => UploadHttpMethod ?? GetSettings()?.UploadHttpMethod ?? GetDefaults().UploadHttpMethod ?? throw new InvalidOperationException(nameof(UploadHttpMethod) + " default for " + nameof(HxInputFileCore) + " has to be set.");
+
+	/// <summary>
 	/// Raised during running file upload (the frequency depends on browser implementation).
 	/// </summary>
 	[Parameter] public EventCallback<UploadProgressEventArgs> OnProgress { get; set; }
@@ -162,7 +168,14 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 		{
 			return;
 		}
-		await _jsModule.InvokeVoidAsync("upload", Id, _dotnetObjectReference, UploadUrl, accessToken, MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective, MaxParallelUploadsEffective);
+		await _jsModule.InvokeVoidAsync("upload",
+			Id,
+			_dotnetObjectReference,
+			UploadUrl,
+			accessToken,
+			MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective,
+			MaxParallelUploadsEffective,
+			UploadHttpMethodEffective);
 	}
 
 	/// <summary>

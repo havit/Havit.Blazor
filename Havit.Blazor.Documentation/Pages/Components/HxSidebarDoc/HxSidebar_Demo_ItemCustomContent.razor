@@ -1,25 +1,30 @@
-﻿<HxSidebar>
-    <ItemsTemplate>
-        <HxSidebarItem Icon="BootstrapIcon.Bell">
-            <ContentTemplate>
-                Notifications <HxBadge Color="ThemeColor.Primary" CssClass="ms-2">8</HxBadge>
-            </ContentTemplate>
-            <ChildContent>
-                <HxSidebarItem Icon="BootstrapIcon.Wallet" Href="/components/HxSidebar/1">
-                    <ContentTemplate>
-                        Received payments <HxBadge Color="ThemeColor.Primary" CssClass="ms-2">3</HxBadge>
-                    </ContentTemplate>
-                </HxSidebarItem>
-				<HxSidebarItem Icon="BootstrapIcon.Wallet2" Href="/components/HxSidebar/2">
-                    <ContentTemplate>
-                        Pending payments <HxBadge Color="ThemeColor.Primary" CssClass="ms-2">5</HxBadge>
-                    </ContentTemplate>
-                </HxSidebarItem>
-            </ChildContent>
-        </HxSidebarItem>
-		<HxSidebarItem Text="Employees" Icon="BootstrapIcon.People">
-			<HxSidebarItem Text="Overview" Href="/components/HxSidebar/employees" />
-			<HxSidebarItem Text="Absences" Href="/components/HxSidebar/absences" />
-		</HxSidebarItem>
-	</ItemsTemplate>
-</HxSidebar>
+﻿<div class="d-flex border rounded-3 overflow-hidden">
+    <HxSidebar>
+        <HeaderTemplate>
+			<HxSidebarBrand BrandName="Brand name" BrandNameShort="BN" />
+		</HeaderTemplate>
+        <ItemsTemplate>
+            <HxSidebarItem Icon="BootstrapIcon.Bell">
+                <ContentTemplate>
+                    Notifications <HxBadge Color="ThemeColor.Primary" CssClass="ms-2">8</HxBadge>
+                </ContentTemplate>
+                <ChildContent>
+                    <HxSidebarItem Icon="BootstrapIcon.Wallet" Href="/components/HxSidebar/1">
+                        <ContentTemplate>
+                            Received payments <HxBadge Color="ThemeColor.Primary" CssClass="ms-2">3</HxBadge>
+                        </ContentTemplate>
+                    </HxSidebarItem>
+                    <HxSidebarItem Icon="BootstrapIcon.Wallet2" Href="/components/HxSidebar/2">
+                        <ContentTemplate>
+                            Pending payments <HxBadge Color="ThemeColor.Primary" CssClass="ms-2">5</HxBadge>
+                        </ContentTemplate>
+                    </HxSidebarItem>
+                </ChildContent>
+            </HxSidebarItem>
+            <HxSidebarItem Text="Employees" Icon="BootstrapIcon.People">
+                <HxSidebarItem Text="Overview" Href="/components/HxSidebar/employees" />
+                <HxSidebarItem Text="Absences" Href="/components/HxSidebar/absences" />
+            </HxSidebarItem>
+        </ItemsTemplate>
+    </HxSidebar>
+</div>

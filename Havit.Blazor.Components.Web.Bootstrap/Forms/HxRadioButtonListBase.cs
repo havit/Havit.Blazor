@@ -165,9 +165,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.AddAttribute(207, "disabled", !CascadeEnabledComponent.EnabledEffective(this));
 			int j = index;
 			builder.AddAttribute(208, "onclick", EventCallback.Factory.Create(this, () => HandleInputClick(j)));
-#if NET8_0_OR_GREATER
 			builder.SetUpdatesAttributeName("checked");
-#endif
 			builder.AddEventStopPropagationAttribute(209, "onclick", true);
 			builder.AddMultipleAttributes(250, AdditionalAttributes);
 			builder.CloseElement(); // input
@@ -225,7 +223,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 			if ((Value != null) && (_selectedItemIndex == -1))
 			{
-				throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
+				throw new InvalidOperationException($"[{GetType().Name}] Data does not contain item for current value '{Value}'.");
 			}
 		}
 		else

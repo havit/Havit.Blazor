@@ -1,0 +1,19 @@
+﻿@page "/HxToast_InteractiveServer_NoPrerendering"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<h3>HxToast_InteractiveServer_NoPrerendering</h3>
+
+<HxToastContainer Position="ToastContainerPosition.MiddleCenter">
+	<HxToast HeaderText="Immediate" ContentText="ContentText" AutohideDelay="2000" />
+
+	@if (_show)
+	{
+		<HxToast HeaderText="HeaderText" ContentText="ContentText" AutohideDelay="2000" />
+	}
+</HxToastContainer>
+
+<HxButton OnClick="@(() => _show = true)" Text="Show" Color="ThemeColor.Primary" />
+
+@code {
+	bool _show = false;
+}

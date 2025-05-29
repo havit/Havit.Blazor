@@ -1,0 +1,26 @@
+﻿<HxButton Text="Open MessageBox" OnClick="OpenMessageBox" Color="ThemeColor.Primary" />
+
+@code
+{
+	[Inject] protected IHxMessageBoxService MessageBox { get; set; }
+
+	private async Task OpenMessageBox()
+	{
+		var selectedButton = await MessageBox.ShowAsync(new MessageBoxRequest()
+        {
+            Text = "Do you want to join?",
+            Title = "Subscribe now!",			
+            Buttons = MessageBoxButtons.YesNo,
+			Settings = new MessageBoxSettings()
+			{
+				YesButtonText = "Yeah!",
+				NoButtonText = "Nope",
+				PrimaryButtonSettings = new ButtonSettings()
+				{
+					Color = ThemeColor.Success,
+					Icon = BootstrapIcon.Check
+				}
+			}
+        });
+	}
+}

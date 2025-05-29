@@ -5,12 +5,17 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Settings for <see cref="HxInputDate{TValue}"/>.
 /// </summary>
-public record InputDateSettings : InputSettings, IInputSettingsWithSize
+public record InputDateSettings : InputSettings
 {
 	/// <summary>
 	/// Input size.
 	/// </summary>
 	public InputSize? InputSize { get; set; }
+
+	/// <summary>
+	/// The label type.
+	/// </summary>
+	public LabelType? LabelType { get; set; }
 
 	/// <summary>
 	/// Optional icon to display within the input.

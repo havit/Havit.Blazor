@@ -3,6 +3,7 @@
 <HxTooltip @ref="_tooltipComponent"
            Text="@Tooltip"
            Placement="@TooltipPlacement"
+           Container="@TooltipContainer"
            CssClass="@TooltipCssClass"
            WrapperCssClass="@GetTooltipWrapperCssClass()">
     <button @ref="buttonElementReference"
@@ -21,9 +22,9 @@
             {
                 <HxSpinner Size="SpinnerSize.Small" />
             }
-            else if (IconEffective is not null)
+            if (IconEffective is not null)
             {
-                <HxIcon Icon="IconEffective" CssClass="@IconCssClassEffective" />
+                <HxIcon Icon="IconEffective" CssClass="@CssClassHelper.Combine(IconCssClassEffective, SpinnerEffective ? "d-none" : null)" />
             }
         }
 
@@ -37,9 +38,9 @@
             {
                 <HxSpinner Size="SpinnerSize.Small" />
             }
-            else if (IconEffective is not null)
+            if (IconEffective is not null)
             {
-                <HxIcon Icon="IconEffective" CssClass="@IconCssClassEffective" />
+                <HxIcon Icon="IconEffective" CssClass="@CssClassHelper.Combine(IconCssClassEffective, SpinnerEffective ? "d-none" : null)" />
             }
         }
     </button>

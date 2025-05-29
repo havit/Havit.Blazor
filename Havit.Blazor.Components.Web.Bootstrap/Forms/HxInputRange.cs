@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -68,13 +69,19 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 
 	private protected override string CoreInputCssClass => "form-range";
 
+	/// <summary>
+	/// The input ElementReference.
+	/// Can be <c>null</c>. 
+	/// </summary>
+	protected ElementReference InputElement { get; set; }
+
 	public HxInputRange()
 	{
 		Type underlyingType = typeof(TValue);
 
 		if (!s_supportedTypes.Contains(underlyingType))
 		{
-			throw new InvalidOperationException($"Unsupported type {typeof(TValue)}.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unsupported type {typeof(TValue)}.");
 		}
 	}
 
@@ -90,9 +97,7 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 		// TODO VSTHRD101 via RuntimeHelpers.CreateInferredBindSetter?
 		builder.AddAttribute(5, BindEventEffective.ToEventName(), EventCallback.Factory.CreateBinder(this, async value => await HandleValueChanged(value), Value));
 #pragma warning restore VSTHRD101 // Avoid unsupported async delegates
-#if NET8_0_OR_GREATER
 		builder.SetUpdatesAttributeName("value");
-#endif
 		builder.AddAttribute(10, "min", Min);
 		builder.AddAttribute(11, "max", Max);
 
@@ -101,12 +106,10 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 		builder.AddAttribute(20, "disabled", !EnabledEffective);
 
 		builder.AddAttribute(30, "id", InputId);
-#if NET8_0_OR_GREATER
 		if (!String.IsNullOrEmpty(NameAttributeValue))
 		{
 			builder.AddAttribute(31, "name", NameAttributeValue);
 		}
-#endif
 
 		// Capture ElementReference to the input to make focusing it programmatically possible.
 		builder.AddElementReferenceCapture(40, value => InputElement = value);
@@ -124,4 +127,10 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 	{
 		throw new InvalidOperationException("HxInputRange displays no text value and receives the initial value as float, therefore, this method must not be called.");
 	}
+
+	/// <summary>
+	/// Focuses the input range.
+	/// </summary>
+	public async ValueTask FocusAsync() => await InputElement.FocusOrThrowAsync(this);
+
 }

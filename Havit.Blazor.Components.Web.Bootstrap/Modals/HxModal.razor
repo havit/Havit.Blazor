@@ -1,13 +1,12 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-@if (_opened)
-{
-	<div @ref="_modalElement"
-		 class="@CssClassHelper.Combine("hx-modal modal", AnimatedEffective ? "fade" : null, CssClassEffective)"
-		 tabindex="-1"
-		 data-bs-backdrop="@GetBackdropSetupValue(BackdropEffective)">
-
-		<div class="@CssClassHelper.Combine("modal-dialog", GetDialogSizeCssClass(), GetDialogFullscreenCssClass(), GetDialogScrollableCssClass(), GetDialogCenteredCssClass(), DialogCssClassEffective)">
+<div @ref="_modalElement"
+     class="@CssClassHelper.Combine("hx-modal modal", AnimatedEffective ? "fade" : null, CssClassEffective)"
+     tabindex="-1"
+     data-bs-backdrop="@GetBackdropSetupValue(BackdropEffective)">
+	<div class="@CssClassHelper.Combine("modal-dialog", GetDialogSizeCssClass(), GetDialogFullscreenCssClass(), GetDialogScrollableCssClass(), GetDialogCenteredCssClass(), DialogCssClassEffective)">
+		@if (_opened || (RenderMode == ModalRenderMode.Always))
+		{
 			<div class="@CssClassHelper.Combine("modal-content", ContentCssClassEffective)">
 				@if (!String.IsNullOrEmpty(Title) || (HeaderTemplate != null) || ShowCloseButtonEffective)
 				{
@@ -28,7 +27,7 @@
 							}
 							else
 							{
-								<div role="button" data-bs-dismiss="modal" aria-label="Close"><HxIcon Icon="CloseButtonIconEffective" /></div>
+								<div role="button" data-bs-dismiss="modal" aria-label="Close"><HxIcon Icon="CloseButtonIconEffective"/></div>
 							}
 						}
 					</div>
@@ -46,6 +45,6 @@
 					</div>
 				}
 			</div>
-		</div>
+		}
 	</div>
-}
+</div>

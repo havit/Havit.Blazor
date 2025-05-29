@@ -147,11 +147,6 @@ public partial class HxListLayout<TFilterModel>
 		await _filterForm.RemoveChipAsync(chipItemToRemove);
 	}
 
-	private async Task HandleFilterButtonClick()
-	{
-		await _filterOffcanvasComponent.ShowAsync();
-	}
-
 	private async Task HandleFilterFormModelChanged(TFilterModel newFilterModel)
 	{
 		// We want the offcanvas to close before the filter model is updated (= before the data start reloading).
@@ -172,5 +167,21 @@ public partial class HxListLayout<TFilterModel>
 			FilterModel = newFilterModel;
 			await InvokeFilterModelChangedAsync(newFilterModel);
 		}
+	}
+
+	/// <summary>
+	/// Opens the filter offcanvas.
+	/// </summary>
+	public async Task ShowFilterOffcanvasAsync()
+	{
+		await _filterOffcanvasComponent.ShowAsync();
+	}
+
+	/// <summary>
+	/// Closes the filter offcanvas.
+	/// </summary>
+	public async Task HideFilterOffcanvasAsync()
+	{
+		await _filterOffcanvasComponent.HideAsync();
 	}
 }

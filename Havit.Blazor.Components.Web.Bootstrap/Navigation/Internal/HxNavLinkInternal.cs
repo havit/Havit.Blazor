@@ -25,6 +25,8 @@ public class HxNavLinkInternal : NavLink
 	/// </summary>
 	[Parameter] public bool? OnClickPreventDefault { get; set; }
 
+	[Parameter] public string Text { get; set; }
+
 	protected override void BuildRenderTree(RenderTreeBuilder builder)
 	{
 		builder.OpenElement(0, "a");
@@ -39,7 +41,8 @@ public class HxNavLinkInternal : NavLink
 			builder.AddEventStopPropagationAttribute(5, "onclick", this.OnClickStopPropagation ?? true);
 		}
 
-		builder.AddContent(6, ChildContent);
+		builder.AddContent(6, Text);
+		builder.AddContent(7, ChildContent);
 
 		builder.CloseElement();
 	}

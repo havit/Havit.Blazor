@@ -44,6 +44,7 @@ public partial class HxPager : ComponentBase
 
 	/// <summary>
 	/// Total number of pages of data items.
+	/// Has to be equal to or greater than <c>1</c>.
 	/// </summary>
 	[Parameter, EditorRequired] public int TotalPages { get; set; }
 
@@ -69,10 +70,20 @@ public partial class HxPager : ComponentBase
 	protected IconBase FirstPageIconEffective => FirstPageIcon ?? GetSettings()?.FirstPageIcon ?? GetDefaults().FirstPageIcon ?? throw new InvalidOperationException(nameof(FirstPageIcon) + " default for " + nameof(HxPager) + " has to be set.");
 
 	/// <summary>
+	/// Content for the "First page" button. If not set, the <see cref="FirstPageIcon"/> is used.
+	/// </summary>
+	[Parameter] public RenderFragment FirstPageContentTemplate { get; set; }
+
+	/// <summary>
 	/// Icon for the "Last page" button.
 	/// </summary>
 	[Parameter] public IconBase LastPageIcon { get; set; }
 	protected IconBase LastPageIconEffective => LastPageIcon ?? GetSettings()?.LastPageIcon ?? GetDefaults().LastPageIcon ?? throw new InvalidOperationException(nameof(LastPageIcon) + " default for " + nameof(HxPager) + " has to be set.");
+
+	/// <summary>
+	/// Content for the "Last page" button. If not set, the <see cref="LastPageIcon"/> is used.
+	/// </summary>
+	[Parameter] public RenderFragment LastPageContentTemplate { get; set; }
 
 	/// <summary>
 	/// Icon for the "Previous page" button.
@@ -81,10 +92,20 @@ public partial class HxPager : ComponentBase
 	protected IconBase PreviousPageIconEffective => PreviousPageIcon ?? GetSettings()?.PreviousPageIcon ?? GetDefaults().PreviousPageIcon ?? throw new InvalidOperationException(nameof(PreviousPageIcon) + " default for " + nameof(HxPager) + " has to be set.");
 
 	/// <summary>
+	/// Content for the "Previous page" button. If not set, the <see cref="PreviousPageIcon"/> is used.
+	/// </summary>
+	[Parameter] public RenderFragment PreviousPageContentTemplate { get; set; }
+
+	/// <summary>
 	/// Icon for the "Next page" button.
 	/// </summary>
 	[Parameter] public IconBase NextPageIcon { get; set; }
 	protected IconBase NextPageIconEffective => NextPageIcon ?? GetSettings()?.NextPageIcon ?? GetDefaults().NextPageIcon ?? throw new InvalidOperationException(nameof(NextPageIcon) + " default for " + nameof(HxPager) + " has to be set.");
+
+	/// <summary>
+	/// Content for the "Next page" button. If not set, the <see cref="NextPageIcon"/> is used.
+	/// </summary>
+	[Parameter] public RenderFragment NextPageContentTemplate { get; set; }
 
 	/// <summary>
 	/// Count of numbers to display. The default value is 10.
@@ -98,13 +119,21 @@ public partial class HxPager : ComponentBase
 	[Parameter] public string CssClass { get; set; }
 	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
+	protected override void OnParametersSet()
+	{
+		if (TotalPages < 1)
+		{
+			throw new InvalidOperationException($"[{GetType().Name}] {nameof(TotalPages)} has to be greater than or equal to 1.");
+		}
+	}
+
 	/// <summary>
 	/// Changes the current page index and fires the event.
 	/// </summary>
 	protected async Task SetCurrentPageIndexTo(int newPageIndex)
 	{
-		Contract.Requires(newPageIndex >= 0, nameof(newPageIndex));
-		Contract.Requires(newPageIndex < TotalPages, nameof(newPageIndex));
+		Contract.Requires<ArgumentException>(newPageIndex >= 0);
+		Contract.Requires<ArgumentException>(newPageIndex < TotalPages);
 
 		CurrentPageIndex = newPageIndex;
 		await InvokeCurrentPageIndexChangedAsync(CurrentPageIndex);

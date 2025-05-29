@@ -51,4 +51,9 @@ public interface IDictionaryStaticDataStore<TKey, TValue>
 	/// Discards all the data.
 	/// </summary>
 	void Clear();
+
+	/// <summary>
+	/// Refreshes the data. Discards all the data (if any) and loads it again.
+	/// </summary>
+	Task RefreshDataAsync();
 }

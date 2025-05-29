@@ -26,9 +26,9 @@
 				@tag
 				@if (EnabledEffective)
 				{
-					<span class="hx-tag-remove-button" @onclick="async () => await HandleRemoveClickAsync(tag)" @onclick:stopPropagation role="button" tabindex="0">
+					<button class="hx-tag-remove-button" @onclick="async () => await HandleRemoveClickAsync(tag)" @onclick:stopPropagation aria-label="@HxInputTagsLocalizer["Remove"]" tabindex="0">
 						<HxIcon Icon="BootstrapIcon.X" />
-					</span>
+					</button>
 				}
 			</HxBadge>
 		}
@@ -64,17 +64,18 @@
 									  OnClick="HandleInputClick"
 									  Placeholder="@(ValueEffective.Any() ? null : Placeholder)"
 									  CssClass="border-0 flex-grow-1"
-									  Offset="@InputOffset"
-									  AdditionalAttributes="@AdditionalAttributes" />
+									  Offset="InputOffset"
+									  SpellcheckEffective="SpellcheckEffective"
+									  AdditionalAttributes="AdditionalAttributes" />
 			@if (_dataProviderInProgress)
 			{
 				<HxSpinner Type="SpinnerType.Border" Size="SpinnerSize.Small" />
 			}
 			<HxAutosuggestItemsInternal TItem="string"
-										Items="@_suggestions"
+										Items="_suggestions"
 										OnItemClick="HandleItemSelected"
 										FocusedItemCssClass="hx-input-tags-dropdown-item-focused"
-										FocusedItemIndex="@_focusedItemIndex">
+										FocusedItemIndex="_focusedItemIndex">
 
 				<ItemTemplate>
 					@context

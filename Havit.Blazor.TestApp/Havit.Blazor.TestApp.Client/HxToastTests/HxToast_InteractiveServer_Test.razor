@@ -1,0 +1,23 @@
+﻿@page "/HxToast_InteractiveServer"
+@rendermode InteractiveServer
+
+<h3>HxToast_InteractiveServer</h3>
+
+<HxToastContainer Position="ToastContainerPosition.MiddleCenter">
+	@*
+	With pre-rendering, the HxToast gets shown twice as Blazor replaces the DOM completely
+	https://github.com/dotnet/aspnetcore/issues/42561
+	*@
+	<HxToast HeaderText="Prerendering" ContentText="Known issue" AutohideDelay="2000" />
+
+	@if (_show)
+	{
+		<HxToast HeaderText="HeaderText" ContentText="ContentText" AutohideDelay="2000" />
+	}
+</HxToastContainer>
+
+<HxButton OnClick="@(() => _show = true)" Text="Show" Color="ThemeColor.Primary" />
+
+@code {
+	bool _show = false;
+}

@@ -7,6 +7,12 @@
 public partial class HxPlaceholderContainer
 {
 	/// <summary>
+	/// Gets or sets the name of the element to render. Default is <code>span</code>.
+	/// </summary>
+	[Parameter] public string ElementName { get; set; }
+	protected string ElementNameEffective => ElementName ?? GetSettings()?.ElementName ?? GetDefaults().ElementName ?? throw new InvalidOperationException(nameof(ElementName) + " default for " + nameof(HxPlaceholderContainer) + " has to be set.");
+
+	/// <summary>
 	/// Application-wide defaults for <see cref="HxPlaceholderContainer"/> and derived components.
 	/// </summary>
 	public static PlaceholderContainerSettings Defaults { get; set; }
@@ -15,6 +21,7 @@ public partial class HxPlaceholderContainer
 	{
 		Defaults = new PlaceholderContainerSettings()
 		{
+			ElementName = "span",
 			Animation = PlaceholderAnimation.None,
 		};
 	}
@@ -67,6 +74,12 @@ public partial class HxPlaceholderContainer
 	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
+	/// Indicates whether the placeholder is active (if <c>false</c>, the component acts as regular HTML element).
+	/// Default is <c>true</c>.
+	/// </summary>
+	[Parameter] public bool Active { get; set; } = true;
+
+	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML element.
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
@@ -74,7 +87,7 @@ public partial class HxPlaceholderContainer
 	protected virtual string GetCssClass()
 	{
 		return CssClassHelper.Combine(
-			GetAnimationCssClass(),
+			Active ? GetAnimationCssClass() : null,
 			CssClassEffective);
 	}
 

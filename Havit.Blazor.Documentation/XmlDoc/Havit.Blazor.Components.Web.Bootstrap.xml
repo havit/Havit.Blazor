@@ -19,11 +19,13 @@
             <summary>
             IDs of the expanded items (if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <code>true</code>, several items can be expanded).
             Do not use a constant value as it resets the accordion on every roundtrip. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemIds"/> to set the initial state.
+            When <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <c>true</c>, this parameter must be used to manage expanded items, and the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIdsChanged"/> event callback will be invoked for changes.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemId">
             <summary>
-            ID of the single expanded item (if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <code>true</code>, use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIds" />, several items can be expanded).
+            ID of the single expanded item. If <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <c>true</c>, this parameter is ignored, and you must use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIds"/> instead.
+            When <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <c>true</c>, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIdChanged"/> event callback will not be invoked.
             Do not use a constant value as it reverts the accordion to that item on every roundtrip. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemId"/> to set the initial state.
             </summary>
         </member>
@@ -31,6 +33,7 @@
             <summary>
             Set to <c>true</c> to make accordion items stay open when another item is opened.
             The default is <c>false</c>, opening another item collapses the current item.
+            When <c>true</c>, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIds"/> must be used to manage expanded items.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.InitialExpandedItemId">
@@ -414,6 +417,11 @@
             Custom CSS class to render with the tooltip.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.TooltipContainer">
+            <summary>
+            Appends the tooltip to a specific element. Default is <c>body</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.TooltipWrapperCssClass">
             <summary>
             Custom CSS class to render with the tooltip <c>span</c> wrapper of the <c>&lt;button /&gt;</c>.<br />
@@ -475,11 +483,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying <c>&lt;button&gt;</c> element.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.StringLocalizerFactory">
-            <summary>
-            Localization service.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.CoreCssClass">
@@ -1559,6 +1562,11 @@
             Items of the context menu. Use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem"/> components.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.PopperStrategy">
+            <summary>
+            Popper positioning strategy. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PopperStrategy.Absolute"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Text">
             <summary>
             Item text.
@@ -1614,6 +1622,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Enabled">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PopperStrategy">
+            <summary>
+            Popper positioning strategy.
+            <a href="https://popper.js.org/docs/v2/constructors/#strategy">Related Popper.js documentation</a>.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DropdownAutoClose">
             <summary>
@@ -2248,6 +2262,16 @@
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.ChipRemoveActionBuilder">
+            <summary>
+            ChipRemoveActionBuilder is responsible for generating an Action that resets
+            a property referenced by a lambda expression to a specified value (typically default).
+            
+            Unlike most expression-based tools, this builder defers all expression analysis to the point
+            of action invocation. This enables fast action construction (suitable for per-render use)
+            and evaluates constraints and assumptions only when the action is actually executed.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueComponentExtensions">
             <summary>
             Extension methods for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" />.
@@ -2281,6 +2305,11 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.BuildRenderValueWithFloatingLabel(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <summary>
+            Renders the value/input and label inside floating label wrapper.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.BuildRenderLabel(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
@@ -2464,19 +2493,9 @@
             Input-group at the end of the input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputSettingsWithSize.InputSize">
-            <summary>
-            The size of the input.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithLabelType">
             <summary>
             Represents an input with a label type.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithLabelType.LabelType">
-            <summary>
-            Gets or sets the label type.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithLabelType.LabelTypeEffective">
@@ -2501,7 +2520,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.InputSizeEffective">
             <summary>
-            The size of the input.
+            The effective size of the input after all the defaults and cascading settings are applied.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithSize.GetInputSizeCssClass">
@@ -2580,6 +2599,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClickPreventDefault">
             <summary>
             Prevents the default action for the onclick event. Default is <c>null</c>, which means <c>true</c> when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> is set.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSidebarItemNavLinkContentInternal">
+            <summary>
+            Inner content of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInputInternal.Offset">
@@ -2720,7 +2744,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.Sanitize">
             <summary>
-            Enable or disable the sanitization. If activated HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.3/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
+            Enable or disable the sanitization. If activated, HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.3/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
             Default is <c>true</c>.
             </summary>
         </member>
@@ -2863,6 +2887,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.UploadUrl">
             <summary>
             URL of the server endpoint receiving the files.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.UploadHttpMethod">
+            <summary>
+            HTTP Method (verb) used for file upload. The default is <c>POST</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnChange">
@@ -3024,6 +3053,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadUrl">
             <summary>
             URL of the server endpoint receiving the files.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadHttpMethod">
+            <summary>
+            HTTP Method (verb) used for file upload. The default is <c>POST</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnChange">
@@ -3232,6 +3266,16 @@
             The input size.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.LabelType">
+            <summary>
+            The label type.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AutosuggestSettings.Spellcheck">
+            <summary>
+            Defines whether the input may be checked for spelling errors.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2">
             <summary>
             Component for single item selection with dynamic suggestions (based on typed characters).<br />
@@ -3305,7 +3349,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Delay">
             <summary>
-            The debounce delay in milliseconds.
+            The debounce delay in milliseconds. Default is 300 ms.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Placeholder">
@@ -3316,6 +3360,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.InputSize">
             <summary>
             The size of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.Spellcheck">
+            <summary>
+            Defines whether the input may be checked for spelling errors. Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.LabelType">
@@ -3506,11 +3555,22 @@
             For checkbox without any Label/LabelTemplate and without Text/TextTemplate we do not add form-check to the parent div.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.InputElement">
+            <summary>
+            The input ElementReference.
+            Can be <c>null</c>. 
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
             <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.FocusAsync">
+            <summary>
+            Focuses the checkbox.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2">
             <summary>
@@ -3605,11 +3665,6 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc/>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.FocusAsync">
-            <summary>
-            Throws NotSupportedException - giving focus to an input element is not supported on the HxCheckboxList.
-            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.FormatValueAsString(System.Collections.Generic.List{`0})">
             <inheritdoc />
@@ -3827,12 +3882,6 @@
             The ID of the input element. Autogenerated when used with a label.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.InputElement">
-            <summary>
-            The input ElementReference.
-            Can be <c>null</c>. 
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.RenderOrder">
             <summary>
             Elements rendering order.
@@ -3918,11 +3967,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GetChipRemoveValue">
             <summary>
             Returns a value to be used to remove a chip.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.FocusAsync">
-            <summary>
-            Gives focus to the input element.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.EnsureInputId">
@@ -4176,6 +4220,18 @@
             Size of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromPlaceholder">
+            <summary>
+            Placeholder for the start-date input.
+            If not set, localized default is used ("From" + localizations).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ToPlaceholder">
+            <summary>
+            Placeholder for the end-date input.
+            If not set, localized default is used ("End" + localizations).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromParsingErrorMessage">
             <summary>
             Gets or sets the error message used when displaying a &quot;from&quot; parsing error.
@@ -4292,6 +4348,12 @@
             Feel free to set the InputMode on your own as needed.
             </remarks>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.Type">
+            <summary>
+            Allows switching between textual and numeric input types.
+            Only <see cref="F:Havit.Blazor.Components.Web.InputType.Text"/> (default) and <see cref="F:Havit.Blazor.Components.Web.InputType.Number"/> are supported.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.Placeholder">
             <summary>
             Placeholder for the input.
@@ -4322,6 +4384,12 @@
             Gets effective value for Decimals (when not set gets 0 for integer types and 2 for floating point types.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.InputElement">
+            <summary>
+            The input ElementReference.
+            Can be <c>null</c>. 
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.IsTValueIntegerType">
             <summary>
             Returns <c>true</c> for integer types (<c>false</c> for floating point types).
@@ -4348,6 +4416,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.GetParsingErrorMessage">
             <summary>
             Returns the message for a parsing error.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.FocusAsync">
+            <summary>
+            Focuses the input number.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber">
@@ -4422,6 +4495,17 @@
             <summary>
             Instructs whether the <c>Value</c> is going to be updated <c>oninput</c> (immediately), or <c>onchange</c> (usually <c>onmouseup</c>).<br />
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.BindEvent.OnChange"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.InputElement">
+            <summary>
+            The input ElementReference.
+            Can be <c>null</c>. 
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.FocusAsync">
+            <summary>
+            Focuses the input range.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange.Defaults">
@@ -4523,6 +4607,11 @@
             Size of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.Spellcheck">
+            <summary>
+            Defines whether the input may be checked for spelling errors.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.SelectOnFocus">
             <summary>
             Determines whether all the text within the input field is automatically selected when it receives focus.
@@ -4530,6 +4619,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.InputElement">
+            <summary>
+            The input ElementReference.
+            Can be <c>null</c>. 
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
@@ -4546,6 +4641,11 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.TryParseValueFromString(System.String,System.String@,System.String@)">
             <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.FocusAsync">
+            <summary>
+            Focuses the component.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2">
             <summary>
@@ -4696,8 +4796,13 @@
             Icon displayed in filter input for clearing the filter.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.LabelType">
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FocusAsync">
-            <inheritdoc cref="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.FocusAsync"/>
+            <summary>
+            Focuses the multi select component.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc/>
@@ -4981,6 +5086,9 @@
             Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect.Defaults"/>, overridden by individual parameters).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.LabelType">
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.GetSettings">
             <summary>
             Returns an optional set of component settings.
@@ -5055,11 +5163,22 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.EnabledEffective">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.EnabledEffective" />
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.InputElement">
+            <summary>
+            The input ElementReference.
+            Can be <c>null</c>. 
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc/>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.TryParseValueFromString(System.String,`0@,System.String@)">
             <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.FocusAsync">
+            <summary>
+            Focuses the component.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch">
             <summary>
@@ -5187,6 +5306,16 @@
             Input size.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.FromPlaceholder">
+            <summary>
+            Placeholder for the start-date input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ToPlaceholder">
+            <summary>
+            Placeholder for the end-date input.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.CalendarIcon">
             <summary>
             Optional icon to display within the input.
@@ -5235,6 +5364,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.InputSize">
             <summary>
             Input size.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.LabelType">
+            <summary>
+            The label type.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings.CalendarIcon">
@@ -5287,9 +5421,20 @@
             The size of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.LabelType">
+            <summary>
+            The label type.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.InputMode">
             <summary>
             A hint to browsers regarding the type of virtual keyboard configuration to use when editing.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.Type">
+            <summary>
+            Allows switching between textual and numeric input types.
+            Only <see cref="F:Havit.Blazor.Components.Web.InputType.Text"/> (default) and <see cref="F:Havit.Blazor.Components.Web.InputType.Number"/> are supported.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.SelectOnFocus">
@@ -5362,6 +5507,11 @@
             Size of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.LabelType">
+            <summary>
+            The label type.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.InputMode">
             <summary>
             Hint to browsers regarding the type of virtual keyboard configuration to use when editing.
@@ -5371,6 +5521,265 @@
             <summary>
             Determines whether all the text within the input field is automatically selected when it receives focus.
             </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings.Spellcheck">
+            <summary>
+            Defines whether the input may be checked for spelling errors.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_DayMonthYear_Strict">
+            <remarks>
+            Pattern:<br/>
+            <code>^(?&lt;day&gt;\\d{2})(?&lt;month&gt;\\d{2})(?&lt;year&gt;\\d{2})$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ "day" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ "month" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ "year" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_MonthDayYear_Strict">
+            <remarks>
+            Pattern:<br/>
+            <code>^(?&lt;month&gt;\\d{2})(?&lt;day&gt;\\d{2})(?&lt;year&gt;\\d{2})$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ "month" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ "day" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ "year" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_YearMonthDay_Strict">
+            <remarks>
+            Pattern:<br/>
+            <code>^(?&lt;year&gt;\\d{2})(?&lt;month&gt;\\d{2})(?&lt;day&gt;\\d{2})$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ "year" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ "month" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ "day" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_YearDayMonth_Strict">
+            <remarks>
+            Pattern:<br/>
+            <code>^(?&lt;year&gt;\\d{2})(?&lt;day&gt;\\d{2})(?&lt;month&gt;\\d{2})$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ "year" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ "day" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ "month" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_DayMonthYear_Relaxed">
+            <remarks>
+            Pattern:<br/>
+            <code>^\\W*(?&lt;day&gt;\\d{1,2})\\W+(?&lt;month&gt;\\d{1,2})\\W+(?&lt;year&gt;\\d{2}|\\d{4})\\W*$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match any character other than a word character greedily any number of times.<br/>
+            ○ "day" capture group.<br/>
+                ○ Match a Unicode digit greedily at least 1 and at most 2 times.<br/>
+            ○ Match any character other than a word character greedily at least once.<br/>
+            ○ "month" capture group.<br/>
+                ○ Match a Unicode digit greedily at least 1 and at most 2 times.<br/>
+            ○ Match any character other than a word character greedily at least once.<br/>
+            ○ "year" capture group.<br/>
+                ○ Match with 2 alternative expressions.<br/>
+                    ○ Match a Unicode digit exactly 2 times.<br/>
+                    ○ Match a Unicode digit exactly 4 times.<br/>
+            ○ Match any character other than a word character greedily any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_MonthDayYear_Relaxed">
+            <remarks>
+            Pattern:<br/>
+            <code>^\\W*(?&lt;month&gt;\\d{1,2})\\W+(?&lt;day&gt;\\d{1,2})\\W+(?&lt;year&gt;\\d{2}|\\d{4})\\W*$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match any character other than a word character greedily any number of times.<br/>
+            ○ "month" capture group.<br/>
+                ○ Match a Unicode digit greedily at least 1 and at most 2 times.<br/>
+            ○ Match any character other than a word character greedily at least once.<br/>
+            ○ "day" capture group.<br/>
+                ○ Match a Unicode digit greedily at least 1 and at most 2 times.<br/>
+            ○ Match any character other than a word character greedily at least once.<br/>
+            ○ "year" capture group.<br/>
+                ○ Match with 2 alternative expressions.<br/>
+                    ○ Match a Unicode digit exactly 2 times.<br/>
+                    ○ Match a Unicode digit exactly 4 times.<br/>
+            ○ Match any character other than a word character greedily any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_YearMonthDay_Relaxed">
+            <remarks>
+            Pattern:<br/>
+            <code>^\\W*(?&lt;year&gt;\\d{2}|\\d{4})\\W+(?&lt;month&gt;\\d{1,2})\\W+(?&lt;day&gt;\\d{1,2})\\W*$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match any character other than a word character greedily any number of times.<br/>
+            ○ "year" capture group.<br/>
+                ○ Match with 2 alternative expressions.<br/>
+                    ○ Match a Unicode digit exactly 2 times.<br/>
+                    ○ Match a Unicode digit exactly 4 times.<br/>
+            ○ Match any character other than a word character greedily at least once.<br/>
+            ○ "month" capture group.<br/>
+                ○ Match a Unicode digit greedily at least 1 and at most 2 times.<br/>
+            ○ Match any character other than a word character greedily at least once.<br/>
+            ○ "day" capture group.<br/>
+                ○ Match a Unicode digit greedily at least 1 and at most 2 times.<br/>
+            ○ Match any character other than a word character greedily any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_YearDayMonth_Relaxed">
+            <remarks>
+            Pattern:<br/>
+            <code>^\\W*(?&lt;year&gt;\\d{2}|\\d{4})\\W+(?&lt;day&gt;\\d{1,2})\\W+(?&lt;month&gt;\\d{1,2})\\W*$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match any character other than a word character greedily any number of times.<br/>
+            ○ "year" capture group.<br/>
+                ○ Match with 2 alternative expressions.<br/>
+                    ○ Match a Unicode digit exactly 2 times.<br/>
+                    ○ Match a Unicode digit exactly 4 times.<br/>
+            ○ Match any character other than a word character greedily at least once.<br/>
+            ○ "day" capture group.<br/>
+                ○ Match a Unicode digit greedily at least 1 and at most 2 times.<br/>
+            ○ Match any character other than a word character greedily at least once.<br/>
+            ○ "month" capture group.<br/>
+                ○ Match a Unicode digit greedily at least 1 and at most 2 times.<br/>
+            ○ Match any character other than a word character greedily any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_DayMonth_Strict">
+            <remarks>
+            Pattern:<br/>
+            <code>^(?&lt;day&gt;\\d{2})(?&lt;month&gt;\\d{2})$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ "day" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ "month" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_MonthDay_Strict">
+            <remarks>
+            Pattern:<br/>
+            <code>^(?&lt;month&gt;\\d{2})(?&lt;day&gt;\\d{2})$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ "month" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ "day" capture group.<br/>
+                ○ Match a Unicode digit exactly 2 times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_DayMonth_Relaxed">
+            <remarks>
+            Pattern:<br/>
+            <code>^\\W*(?&lt;day&gt;\\d{1,2})\\W+(?&lt;month&gt;\\d{1,2})\\W*?$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match any character other than a word character greedily any number of times.<br/>
+            ○ "day" capture group.<br/>
+                ○ Match a Unicode digit greedily at least 1 and at most 2 times.<br/>
+            ○ Match any character other than a word character greedily at least once.<br/>
+            ○ "month" capture group.<br/>
+                ○ Match a Unicode digit greedily at least 1 and at most 2 times.<br/>
+            ○ Match any character other than a word character lazily any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_MonthDay_Relaxed">
+            <remarks>
+            Pattern:<br/>
+            <code>^\\W*(?&lt;month&gt;\\d{1,2})\\W+(?&lt;day&gt;\\d{1,2})\\W*?$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match any character other than a word character greedily any number of times.<br/>
+            ○ "month" capture group.<br/>
+                ○ Match a Unicode digit greedily at least 1 and at most 2 times.<br/>
+            ○ Match any character other than a word character greedily at least once.<br/>
+            ○ "day" capture group.<br/>
+                ○ Match a Unicode digit greedily at least 1 and at most 2 times.<br/>
+            ○ Match any character other than a word character lazily any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_Day_Strict">
+            <remarks>
+            Pattern:<br/>
+            <code>^(?&lt;day&gt;\\d{1,2})$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ "day" capture group.<br/>
+                ○ Match a Unicode digit atomically at least 1 and at most 2 times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_Day_Relaxed">
+            <remarks>
+            Pattern:<br/>
+            <code>^\\W*(?&lt;day&gt;\\d{1,2})\\W+$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match any character other than a word character greedily any number of times.<br/>
+            ○ "day" capture group.<br/>
+                ○ Match a Unicode digit greedily at least 1 and at most 2 times.<br/>
+            ○ Match any character other than a word character greedily at least once.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.LabelType">
             <summary>
@@ -5395,6 +5804,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.InputSize">
             <summary>
             Input size.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.LabelType">
+            <summary>
+            The label type.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MultiSelectSettings.AllowFiltering">
@@ -5597,13 +6011,16 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.LabelType">
-            <summary>
-            Label type of the input field.
-            </summary>
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputSize">
             <summary>
             Input size of the input field.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Spellcheck">
+            <summary>
+            Defines whether the input may be checked for spelling errors. Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.MinimumLength">
@@ -5670,6 +6087,14 @@
             <summary>
             Input's index for the keyboard navigation. If this is the current index, then no item is selected.
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.HideDropdownAsync">
+            <summary>
+            Hides the dropdown menu.
+            </summary>
+            <remarks>
+            Allows custom actions from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.DefaultContentTemplate" /> or <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.NotFoundTemplate" /> to hide the dropdown menu.
+            </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.ShouldDropdownMenuBeDisplayed">
             <summary>
@@ -5752,6 +6177,11 @@
             The input size.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.LabelType">
+            <summary>
+            The label type.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.CssClass">
             <summary>
             Additional CSS classes for the wrapping <c>div</c>.
@@ -5777,6 +6207,11 @@
             The behavior when the item is selected.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.Spellcheck">
+            <summary>
+            Defines whether the input may be checked for spelling errors.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2"/> component.
@@ -5785,6 +6220,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectSettings.InputSize">
             <summary>
             The size of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectSettings.LabelType">
+            <summary>
+            The label type.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode">
@@ -5818,6 +6258,21 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageModeExtensions">
             <summary>
             Extension methods for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode" />.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GlobalSettings">
+            <summary>
+            Settings you can set globally for all components. Exposed as <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSetup.Defaults"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GlobalSettings.LabelType">
+            <summary>
+            Specifies how the input labels should be displayed.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GlobalSettings.InputSize">
+            <summary>
+            Input size.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate">
@@ -6052,7 +6507,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.ItemRowHeight">
             <summary>
-            Height of the item row used for infinite scroll calculations (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll"/>).
+            Height of the item row (in pixels) used for infinite scroll calculations (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll"/>).
+            The row height is not applied for other navigation modes, use CSS for that.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.OverscanCount">
@@ -6138,6 +6594,42 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.LoadMoreButtonSettings">
             <summary>
             Settings for the "Load more" navigation button (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore"/> or <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore"/>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.PreserveSelection">
+            <summary>
+            Gets or sets a value indicating whether the current selection (either <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItem"/> for single selection
+            or <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
+            or manual invocation of <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync"/>.<br />
+            </summary>
+            <remarks>
+            This setting ensures that the selection remains intact during operations that refresh or modify the displayed data in the grid.
+            Note that preserving the selection requires that the underlying data items can still be matched in the updated dataset (e.g., by <c>item1.Equals(item2)</c>).
+            </remarks>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions">
+            <summary>
+            Specifies which aspects of the grid state should be reset.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions.None">
+            <summary>
+            Do not reset grid state.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions.ResetPosition">
+            <summary>
+            Reset the grid's position (reset <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.PageIndex" /> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.LoadMoreAdditionalItemsCount" /> for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.Pagination" />, <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.PaginationAndLoadMore" /> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.LoadMore" />, reset scroll position for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll" />).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions.ResetSorting">
+            <summary>
+            Reset the grid's sorting state to default (reset <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.Sorting" />).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions.All">
+            <summary>
+            Reset all grid state aspects.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState">
@@ -6348,6 +6840,18 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItemsChanged"/> event. This method can be overridden in derived components to implement custom logic before or after the event is triggered.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.PreserveSelection">
+            <summary>
+            Gets or sets a value indicating whether the current selection (either <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItem"/> for single selection
+            or <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
+            or manual invocation of <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync"/>.<br />
+            Default value is <c>false</c> (can be set by using <c>HxGrid.Defaults</c>).
+            </summary>
+            <remarks>
+            This setting ensures that the selection remains intact during operations that refresh or modify the displayed data in the grid.
+            Note that preserving the selection requires that the underlying data items can still be matched in the updated dataset (e.g., by <c>item1.Equals(item2)</c>).
+            </remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ContentNavigationMode">
             <summary>
             The strategy for how data items are displayed and loaded into the grid. Supported modes include pagination, load more, and infinite scroll.
@@ -6431,8 +6935,9 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowHeight">
             <summary>
-            Height of each item row, used primarily in calculations for infinite scrolling.
+            Height of each item row, used in calculations for infinite scrolling (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll"/>).
             The default value (41px) corresponds to the typical row height in the Bootstrap 5 default theme.
+            The row height is not applied for other navigation modes, use CSS for that.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowCssClassSelector">
@@ -6502,6 +7007,48 @@
             Icon to indicate the descending sort direction in the column header. This icon is shown when a column is sorted in descending order.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributesSelector">
+            <summary>
+            Defines a function that returns additional attributes for a specific <c>tr</c> element based on the item it represents.
+            This allows for custom behavior or event handling on a per-row basis.
+            </summary>
+            <remarks>
+            If both <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributesSelector"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributes"/> are specified,
+            both dictionaries are combined into one.
+            Note that there is no prevention of duplicate keys, which may result in a <see cref="T:System.ArgumentException"/>.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributes">
+            <summary>
+            Provides a dictionary of additional attributes to apply to all body <c>tr</c> elements in the grid.
+            These attributes can be used to customize the appearance or behavior of rows.
+            </summary>
+            <remarks>
+            If both <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributesSelector"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributes"/> are specified,
+            both dictionaries are combined into one.
+            Note that there is no prevention of duplicate keys, which may result in a <see cref="T:System.ArgumentException"/>.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.HeaderRowAdditionalAttributes">
+            <summary>
+            Provides a dictionary of additional attributes to apply to the header <c>tr</c> element of the grid.
+            This allows for custom styling or behavior of the header row.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.FooterRowAdditionalAttributes">
+            <summary>
+            Provides a dictionary of additional attributes to apply to the footer <c>tr</c> element of the grid.
+            This allows for custom styling or behavior of the footer row.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowAdditionalAttributesSelectorEffective(`0)">
+            <summary>
+            Determines the effective additional attributes for a given data row, combining both the global and per-item attributes.
+            </summary>
+            <param name="item">The data item for the current row.</param>
+            <returns>A dictionary of additional attributes to apply to the row.</returns>
+            <exception cref="T:System.ArgumentException">Thrown when there are duplicate keys in the combined dictionaries.</exception>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetDefaults">
             <summary>
             Retrieves the default settings for the grid. This method can be overridden in derived classes
@@ -6552,8 +7099,15 @@
             <summary>
             Requests a data refresh from the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/>.
             Useful for updating the grid when external data may have changed.
+            To reset grid state (e.g., position), use <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync(Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions)"/> instead.
             </summary>
-            <returns>A <see cref="T:System.Threading.Tasks.Task"/> representing the completion of the operation.</returns>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync(Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions)">
+            <summary>
+            Requests a data refresh from the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/>.
+            Useful for updating the grid when external data may have changed.
+            </summary>
+            <param name="resetOptions">Specifies which aspects of the grid state should be reset before refreshing data (e.g., position).</param>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataCoreAsync">
             <summary>
@@ -6561,7 +7115,7 @@
             Used in internal methods to implement the data-loading flow.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Dispose">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DisposeAsync">
             <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid">
@@ -6843,6 +7397,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.TotalPages">
             <summary>
             Total number of pages of data items.
+            Has to be equal to or greater than <c>1</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.CurrentPageIndex">
@@ -6866,9 +7421,19 @@
             Icon for the "First page" button.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.FirstPageContentTemplate">
+            <summary>
+            Content for the "First page" button. If not set, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.FirstPageIcon"/> is used.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.LastPageIcon">
             <summary>
             Icon for the "Last page" button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.LastPageContentTemplate">
+            <summary>
+            Content for the "Last page" button. If not set, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.LastPageIcon"/> is used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.PreviousPageIcon">
@@ -6876,9 +7441,19 @@
             Icon for the "Previous page" button.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.PreviousPageContentTemplate">
+            <summary>
+            Content for the "Previous page" button. If not set, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.PreviousPageIcon"/> is used.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.NextPageIcon">
             <summary>
             Icon for the "Next page" button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.NextPageContentTemplate">
+            <summary>
+            Content for the "Next page" button. If not set, the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.NextPageIcon"/> is used.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.NumericButtonsCount">
@@ -7035,6 +7610,16 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.SortingItemExtensions.ToSortItems``1(System.Collections.Generic.IEnumerable{Havit.Blazor.Components.Web.Bootstrap.SortingItem{``0}})">
             <summary>
             Converts a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1"/> to a <see cref="T:Havit.Collections.SortItem"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSetup.Defaults">
+            <summary>
+            Global settings for the Havit Blazor Components library.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSetup.BootstrapVersion">
+            <summary>
+            Bootstrap version used by the library.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSetup.RenderBootstrapJavaScriptReference">
@@ -7237,6 +7822,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.CssClass">
             <summary>
             Additional CSS classes for the wrapping <c>div</c>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.ShowFilterOffcanvasAsync">
+            <summary>
+            Opens the filter offcanvas.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.HideFilterOffcanvasAsync">
+            <summary>
+            Closes the filter offcanvas.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent">
@@ -7572,7 +8167,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox">
             <summary>
             Component for displaying message boxes.<br/>
-            Usually used via <see cref="T:Havit.Blazor.Components.Web.HxMessageBoxService"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost"/>.<br />
+            Usually used via <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxService"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost"/>.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMessageBox">https://havit.blazor.eu/components/HxMessageBox</see>
             </summary>
         </member>
@@ -7586,6 +8181,19 @@
             Returns the defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox"/>.
             Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Title">
             <summary>
@@ -7615,7 +8223,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Buttons">
             <summary>
-            Buttons to show. The default is <see cref="F:Havit.Blazor.Components.Web.MessageBoxButtons.Ok"/>.
+            Buttons to show. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Ok"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.PrimaryButton">
@@ -7625,7 +8233,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.CustomButtonText">
             <summary>
-            Text for <see cref="F:Havit.Blazor.Components.Web.MessageBoxButtons.Custom"/>.
+            Text for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Custom"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.PrimaryButtonSettings">
@@ -7648,7 +8256,7 @@
             Raised when the message box gets closed. Returns the button clicked.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.InvokeOnClosedAsync(Havit.Blazor.Components.Web.MessageBoxButtons)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.InvokeOnClosedAsync(Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons)">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.OnClosed"/> event. Allows interception of the event in derived components.
             </summary>
@@ -7666,7 +8274,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost">
             <summary>
-            Displays message boxes initiated through <see cref="T:Havit.Blazor.Components.Web.IHxMessageBoxService"/>.
+            Displays message boxes initiated through <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/>.
             To be placed in the root application component / main layout.
             </summary>
         </member>
@@ -7740,6 +8348,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Fullscreen">
             <summary>
             Fullscreen behavior of the modal. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.Disabled"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.RenderMode">
+            <summary>
+            Determines whether the content is always rendered or only if the modal is open.<br />
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalRenderMode.OpenOnly"/>.<br />
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.ShowCloseButton">
@@ -7870,6 +8484,71 @@
             Formats a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop"/> value for use in the <c>data-bs-backdrop</c> attribute.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest">
+            <summary>
+            Represents a request to display a message box with various customizable options.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Title">
+            <summary>
+            Title in the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.HeaderTemplate">
+            <summary>
+            Template for the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Text">
+            <summary>
+            Content (body) text.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.BodyTemplate">
+            <summary>
+            Body (content) template.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.ShowCloseButton">
+            <summary>
+            Indicates whether to show the close button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Buttons">
+            <summary>
+            Buttons to show.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.PrimaryButton">
+            <summary>
+            Primary button (if you want to override the default).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.CustomButtonText">
+            <summary>
+            Text for the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Custom"/> button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Settings">
+            <summary>
+            Settings for the message box.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying UI component (Bootstrap: HxMessageBox -> HxModal).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxServiceCollectionExtensions">
+            <summary>
+            Extension methods for installation of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/> support.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.MessageBoxServiceCollectionExtensions.AddHxMessageBoxHost(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/> support to be able to display message boxes using HxMessageBoxHost.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox"/> and derived components.
@@ -7888,6 +8567,41 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.ModalSettings">
             <summary>
             Settings for the underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.OkButtonText">
+            <summary>
+            Text for the OK button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.CancelButtonText">
+            <summary>
+            Text for the Cancel button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.AbortButtonText">
+            <summary>
+            Text for the Abort button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.YesButtonText">
+            <summary>
+            Text for the Yes button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.NoButtonText">
+            <summary>
+            Text for the No button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.RetryButtonText">
+            <summary>
+            Text for the Retry button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.IgnoreButtonText">
+            <summary>
+            Text for the Ignore button.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop">
@@ -7953,6 +8667,23 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalHidingEventArgs.Cancel">
             <summary>
             Set <c>true</c> to prevent modal hiding.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalRenderMode">
+            <summary>
+            Modal render mode.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalRenderMode.OpenOnly">
+            <summary>
+            Modal content is rendered only when it is open.
+            Suitable for item-detail, item-edit, etc.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalRenderMode.Always">
+            <summary>
+            Modal content is always rendered (and hidden with CSS if not open).
+            Needed for rendering chips from filter, etc.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalSettings">
@@ -8524,8 +9255,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.CssClass">
             <summary>
-            Allows you to disable the item with <c>false</c>.
-            The default value is <c>true</c>.
+            Any additional CSS class to add.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.TextCssClass">
+            <summary>
+            Any additional CSS class to add to inner text.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebarFooter.ChildContent">
@@ -9263,6 +9998,11 @@
             for all placeholders contained.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.ElementName">
+            <summary>
+            Gets or sets the name of the element to render. Default is <code>span</code>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Defaults">
             <summary>
             Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/> and derived components.
@@ -9312,6 +10052,12 @@
             Additional CSS class.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Active">
+            <summary>
+            Indicates whether the placeholder is active (if <c>false</c>, the component acts as regular HTML element).
+            Default is <c>true</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying HTML element.
@@ -9340,6 +10086,11 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerSettings.ElementName">
+            <summary>
+            Gets or sets the name of the element to render.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerSettings.Animation">
@@ -9840,13 +10591,18 @@
             A short hint displayed in the input field before the user enters a value.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Spellcheck">
+            <summary>
+            Defines whether the input for new tag may be checked for spelling errors.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.TagBadgeSettings">
             <summary>
             The settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render tags. The default is <c>Color="<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>"</c> and <c>TextColor="<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Dark"/>"</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.LabelType">
-            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1" />
+            <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputSize">
             <summary>
@@ -9946,6 +10702,11 @@
             Input size.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.LabelType">
+            <summary>
+            The label type.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.Delimiters">
             <summary>
             Characters that, when typed, divide the current input into separate tags.
@@ -9959,6 +10720,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.TagBadgeSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render tags.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.Spellcheck">
+            <summary>
+            Defines whether the input for new tag may be checked for spelling errors.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ThemeColor">
@@ -10403,6 +11169,466 @@
             <summary>
             Additional CSS class to be applied.
             </summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Strict_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_DayMonthYear_Strict method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Strict_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Strict_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Strict_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Strict_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Strict_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Strict_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Strict_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Strict_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Strict_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_MonthDayYear_Strict method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Strict_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Strict_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Strict_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Strict_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Strict_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Strict_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Strict_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Strict_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Strict_2">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_YearMonthDay_Strict method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Strict_2.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Strict_2.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Strict_2.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Strict_2.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Strict_2.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Strict_2.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Strict_2.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Strict_2.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Strict_3">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_YearDayMonth_Strict method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Strict_3.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Strict_3.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Strict_3.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Strict_3.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Strict_3.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Strict_3.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Strict_3.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Strict_3.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Relaxed_4">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_DayMonthYear_Relaxed method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Relaxed_4.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Relaxed_4.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Relaxed_4.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Relaxed_4.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Relaxed_4.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Relaxed_4.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Relaxed_4.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Relaxed_4.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Relaxed_5">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_MonthDayYear_Relaxed method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Relaxed_5.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Relaxed_5.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Relaxed_5.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Relaxed_5.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Relaxed_5.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Relaxed_5.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Relaxed_5.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDayYear_Relaxed_5.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Relaxed_6">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_YearMonthDay_Relaxed method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Relaxed_6.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Relaxed_6.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Relaxed_6.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Relaxed_6.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Relaxed_6.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Relaxed_6.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Relaxed_6.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearMonthDay_Relaxed_6.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Relaxed_7">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_YearDayMonth_Relaxed method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Relaxed_7.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Relaxed_7.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Relaxed_7.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Relaxed_7.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Relaxed_7.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Relaxed_7.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Relaxed_7.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_YearDayMonth_Relaxed_7.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Strict_8">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_DayMonth_Strict method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Strict_8.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Strict_8.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Strict_8.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Strict_8.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Strict_8.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Strict_8.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Strict_8.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Strict_8.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Strict_9">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_MonthDay_Strict method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Strict_9.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Strict_9.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Strict_9.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Strict_9.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Strict_9.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Strict_9.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Strict_9.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Strict_9.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Relaxed_10">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_DayMonth_Relaxed method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Relaxed_10.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Relaxed_10.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Relaxed_10.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Relaxed_10.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Relaxed_10.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Relaxed_10.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Relaxed_10.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_DayMonth_Relaxed_10.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Relaxed_11">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_MonthDay_Relaxed method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Relaxed_11.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Relaxed_11.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Relaxed_11.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Relaxed_11.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Relaxed_11.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Relaxed_11.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Relaxed_11.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_MonthDay_Relaxed_11.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_Day_Strict_12">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_Day_Strict method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetRegex_Day_Strict_12.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_Day_Strict_12.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_Day_Strict_12.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_Day_Strict_12.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_Day_Strict_12.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_Day_Strict_12.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_Day_Strict_12.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_Day_Strict_12.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_Day_Relaxed_13">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_Day_Relaxed method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetRegex_Day_Relaxed_13.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_Day_Relaxed_13.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_Day_Relaxed_13.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_Day_Relaxed_13.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetRegex_Day_Relaxed_13.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_Day_Relaxed_13.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_Day_Relaxed_13.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetRegex_Day_Relaxed_13.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsWordChar(System.Char)">
+            <summary>Determines whether the character is part of the [\w] set.</summary>
         </member>
     </members>
 </doc>

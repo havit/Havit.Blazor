@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
@@ -8,6 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 /// </summary>
 public partial class HxInputTagsInternal
 {
+	[Inject] protected IStringLocalizer<HxInputTags> HxInputTagsLocalizer { get; set; }
 	/// <summary>
 	/// Indicates whether you are restricted to suggested items only (<c>false</c>).
 	/// Default is <c>true</c> (you can type your own tags).
@@ -110,6 +112,8 @@ public partial class HxInputTagsInternal
 	/// Input-group at the end of the input.
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
+
+	[Parameter] public bool? SpellcheckEffective { get; set; }
 
 	/// <summary>
 	/// Additional attributes to be splatted onto an underlying HTML input.

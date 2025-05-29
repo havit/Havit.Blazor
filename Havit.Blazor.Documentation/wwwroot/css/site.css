@@ -1,7 +1,11 @@
-:root {
+.doc-sidebar {
 	--hx-sidebar-width: 					320px;
+	--hx-sidebar-collapsed-width: 			56px;
+	--hx-sidebar-max-height: 				calc(100vh - 56px);
 	--hx-sidebar-brand-logo-width: 			40px;
 	--hx-sidebar-brand-logo-height: 		30px;
+	--hx-sidebar-header-padding: 			.5rem 0;
+	--hx-sidebar-body-padding: 				0 1rem 0 0;
 }
 
 #blazor-error-ui {
@@ -62,19 +66,20 @@ pre[class*="language-"] {
 	margin-bottom: .25rem
 }
 
-	.doc-content > ul li > p ~ ul,
-	.doc-content > ol li > p ~ ul {
-		margin-top: -.5rem;
-		margin-bottom: 1rem
-	}
+.doc-content > ul li > p ~ ul,
+.doc-content > ol li > p ~ ul {
+	margin-top: -.5rem;
+	margin-bottom: 1rem
+}
 
-.sidebar .hx-sidebar-header {
+.doc-sidebar .hx-sidebar-header {
 	flex-wrap: wrap;
 }
 
-.collapsed.sidebar .sidebar-search,
-.collapsed.sidebar .hx-sidebar-footer .hx-form-group {
-	display: none;
+@media screen and (min-width: 992px) {
+	.doc-sidebar {
+		top: 56px;
+	}	
 }
 
 .calendar-demo {
@@ -124,4 +129,8 @@ pre[class*="language-"] {
 [data-bs-theme=dark] .token.operator {
 	color: var(--bs-secondary-color);
 	background-color: transparent;
+}
+
+.hero {
+    background-image: radial-gradient(56.1514% 56.1514% at 49.972% 38.959%, rgba(var(--bs-primary-rgb), var(--hero-opacity, .3)) 0%, var(--bs-body-bg) 100%);
 }

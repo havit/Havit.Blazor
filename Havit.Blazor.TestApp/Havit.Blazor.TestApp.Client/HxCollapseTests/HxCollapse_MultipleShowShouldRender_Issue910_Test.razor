@@ -1,0 +1,18 @@
+﻿@page "/HxCollapse_ShouldRender_Test"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<p>
+	<HxButton Text="Show" OnClick="() => _collapseComponent.ShowAsync()" Color="ThemeColor.Primary" /><br />
+	#910 - [HxCollapse] When you call ShowAsync() while the collapse is already shown, ShouldRender gets disabled
+</p>
+
+<HxCollapseToggleButton Text="Toggle" CollapseTarget="#myCollapse" Color="ThemeColor.Primary" CssClass="mb-3" />
+<HxCollapse @ref="_collapseComponent" Id="myCollapse" InitiallyExpanded="true">
+	@_counter
+	<HxButton Text="Increment" OnClick="@(() => _counter++)" Color="ThemeColor.Primary" />
+</HxCollapse>
+
+@code {
+	private HxCollapse _collapseComponent;
+	private int _counter = 0;
+}

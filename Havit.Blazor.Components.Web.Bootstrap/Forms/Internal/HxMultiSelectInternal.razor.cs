@@ -13,7 +13,11 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public string InputText { get; set; }
 
+	[Parameter] public IFormValueComponent FormValueComponent { get; set; }
+
 	[Parameter] public bool EnabledEffective { get; set; }
+
+	[Parameter] public LabelType LabelTypeEffective { get; set; }
 
 	[Parameter] public List<TItem> ItemsToRender { get; set; }
 
@@ -221,7 +225,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	{
 		if (EqualityComparer<ElementReference>.Default.Equals(_inputElementReference, default))
 		{
-			throw new InvalidOperationException($"Cannot focus {GetType()}. The method must be called after first render.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unable to focus. The method must be called after first render.");
 		}
 		await _inputElementReference.FocusAsync();
 		_isShown = true;
@@ -249,7 +253,11 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	public async Task HandleJsShown()
 	{
 		_isShown = true;
-		await _filterInputReference.FocusAsync();
+
+		if (AllowFiltering)
+		{
+			await _filterInputReference.FocusAsync();
+		}
 	}
 
 	public async ValueTask DisposeAsync()

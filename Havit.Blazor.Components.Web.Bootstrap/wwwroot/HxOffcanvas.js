@@ -1,6 +1,6 @@
 ﻿export function show(element, hxOffcanvasDotnetObjectReference, closeOnEscape, scrollingEnabled, subscribeToHideEvent) {
 	if (window.offcanvasElement) {
-		let previousOffcanvas = bootstrap.Offcanvas.getInstance(window.offcanvasElement);
+		const previousOffcanvas = bootstrap.Offcanvas.getInstance(window.offcanvasElement);
 		if (previousOffcanvas) {
             // Although opening a new offcanvas should close the previous one,
 			// we do not set previousOffcanvas.hidePreventionDisabled = true and force the hide() here (when handling the OnHiding event)
@@ -22,7 +22,7 @@
 	element.addEventListener('shown.bs.offcanvas', handleOffcanvasShown);
 	window.offcanvasElement = element;
 
-	let offcanvas = new bootstrap.Offcanvas(element, {
+	const offcanvas = new bootstrap.Offcanvas(element, {
 		keyboard: closeOnEscape,
 		scroll: scrollingEnabled
 	});
@@ -36,7 +36,7 @@ export function hide(element) {
 		return;
 	}
 	element.hxOffcanvasHiding = true;
-	let o = bootstrap.Offcanvas.getInstance(element);
+	const o = bootstrap.Offcanvas.getInstance(element);
 	if (o) {
 		o.hide();
 	}
@@ -47,7 +47,7 @@ function handleOffcanvasShown(event) {
 }
 
 async function handleOffcanvasHide(event) {
-	let o = bootstrap.Offcanvas.getInstance(event.target);
+	const o = bootstrap.Offcanvas.getInstance(event.target);
 
 	if (o.hidePreventionDisabled || event.target.hxOffcanvasDisposing) {
 		o.hidePreventionDisabled = false;
@@ -56,7 +56,7 @@ async function handleOffcanvasHide(event) {
 
 	event.preventDefault();
 
-	let cancel = await event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasHide');
+	const cancel = await event.target.hxOffcanvasDotnetObjectReference.invokeMethodAsync('HxOffcanvas_HandleOffcanvasHide');
 	if (!cancel) {
 		o.hidePreventionDisabled = true;
 		event.target.hxOffcanvasHiding = true;
@@ -106,7 +106,7 @@ export function dispose(element, opened) {
 	element.removeEventListener('shown.bs.offcanvas', handleOffcanvasShown);
 	element.hxOffcanvasDotnetObjectReference = null;
 
-	let o = bootstrap.Offcanvas.getInstance(element);
+	const o = bootstrap.Offcanvas.getInstance(element);
 	if (o) {
 		o.dispose();
 	}

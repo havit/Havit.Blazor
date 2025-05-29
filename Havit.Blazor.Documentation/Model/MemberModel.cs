@@ -171,7 +171,7 @@ public abstract class MemberModel
 			}
 
 			string className = GetFullGenericTypeName(splitLink[^2]);
-			var type = _enclosingType ?? ApiTypeHelper.GetType(className);
+			var type = ApiTypeHelper.GetType(className) ?? _enclosingType;
 			isComponent = type?.IsSubclassOf(typeof(ComponentBase)) ?? false;
 		}
 		else

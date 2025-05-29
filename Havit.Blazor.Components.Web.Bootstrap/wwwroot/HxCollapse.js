@@ -9,20 +9,20 @@
 	element.addEventListener('hide.bs.collapse', handleCollapseHide);
 	element.addEventListener('hidden.bs.collapse', handleCollapseHidden);
 
-	var c = new bootstrap.Collapse(element, {
+	const c = new bootstrap.Collapse(element, {
 		toggle: shouldToggle,
 	});
 }
 
 export function show(element) {
-	var c = bootstrap.Collapse.getInstance(element);
+	const c = bootstrap.Collapse.getInstance(element);
 	if (c) {
 		c.show();
 	}
 };
 
 export function hide(element) {
-	var c = bootstrap.Collapse.getInstance(element);
+	const c = bootstrap.Collapse.getInstance(element);
 	if (c) {
 		c.hide();
 	}
@@ -52,7 +52,7 @@ export function dispose(element) {
 	element.removeEventListener('hidden.bs.collapse', handleCollapseHidden);
 	element.hxCollapseDotnetObjectReference = null;
 
-	var c = bootstrap.Collapse.getInstance(element);
+	const c = bootstrap.Collapse.getInstance(element);
 	if (c) {
 		c.dispose();
 	}

@@ -12,7 +12,7 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.0.10</PackageVersion>
+		<PackageVersion>3.0.0</PackageVersion>
 		<Description>HAVIT Source Generators for generating string localizers strong API.</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
@@ -22,11 +22,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Havit.Extensions.Localization\Havit.Extensions.Localization.csproj" />
+		<!-- Microsoft.CodeAnalysis enables Roslyn to see resx files in AdditionalTextsProvider. -->
+ 		<PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
 	</ItemGroup>
 
 	<Target Name="AddAnalyzerToNugetPackage" AfterTargets="Build" BeforeTargets="GenerateNuspec">

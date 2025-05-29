@@ -2,8 +2,8 @@
 
   <PropertyGroup>
 	  <!-- For local use only. Build fails with Error NETSDK1129: The 'Publish' target is not supported without specifying a target framework. -->
-	  <!--<TargetFrameworks>net8.0;net6.0</TargetFrameworks>-->
-	  <TargetFramework>net8.0</TargetFramework>
+	  <!--<TargetFrameworks>net9.0;net8.0</TargetFrameworks>-->
+	  <TargetFramework>net9.0</TargetFramework>
 	  <ImplicitUsings>enable</ImplicitUsings>
 	  <!--  VSTHRD003: Avoid awaiting or returning a Task representing work that was not started within your context as that can lead to deadlocks. -->
 	  <!--  VSTHRD200: Allow HandleXyClick methods (without Async) -> Suppress 'Use "Async" suffix in names of methods that return an awaitable type' -->
@@ -18,8 +18,6 @@
     <ProjectReference Include="..\Havit.Blazor.Components.Web.Bootstrap\Havit.Blazor.Components.Web.Bootstrap.csproj" />
     <ProjectReference Include="..\Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj" />
     <ProjectReference Include="..\Havit.Blazor.GoogleTagManager\Havit.Blazor.GoogleTagManager.csproj" />
-    <ProjectReference Include="..\Havit.Extensions.Localization\Havit.Extensions.Localization.csproj" />
-    <ProjectReference Include="..\Havit.SourceGenerators.StrongApiStringLocalizers\Havit.SourceGenerators.StrongApiStringLocalizers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -27,5 +25,4 @@
 			<Link>DemoData\%(RecursiveDir)%(FileName)%(Extension)</Link>
 		</Compile>
 	</ItemGroup>
-
 </Project>

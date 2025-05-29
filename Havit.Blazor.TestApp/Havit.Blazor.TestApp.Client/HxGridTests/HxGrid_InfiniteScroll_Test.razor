@@ -1,0 +1,166 @@
+﻿@page "/HxGrid_InfiniteScroll_Test"
+@rendermode InteractiveServer
+@using System.Globalization
+@using Microsoft.Extensions.Logging
+
+<h1>HxGrid Infinite scroll</h1>
+<HxButton Text="Reset position" Color="ThemeColor.Secondary" OnClick="HandleResetPositionClickAsync" SingleClickProtection="false" />
+<HxButton Text="Reset sorting" Color="ThemeColor.Secondary" OnClick="HandleResetSortingClickAsync" SingleClickProtection="false" />
+<HxButton Text="Reset all" Color="ThemeColor.Secondary" OnClick="HandleResetAllClickAsync" SingleClickProtection="false" />
+<div class="mb-5 overflow-auto">
+
+	<HxGrid TItem="CultureInfo" Responsive="true" PlaceholdersRowCount="100"
+        @ref="infiniteScrollGrid"
+            DataProvider="@ClientCultureInfosDataProvider" TableContainerCssClass="table-container overflow-auto" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll" CurrentUserStateChanged="HandleCurrentUserStateChangedAsync"
+		ItemRowHeight="50">
+		<Columns>
+			<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
+				<PlaceholderTemplate>
+					Loading...
+				</PlaceholderTemplate>
+			</HxGridColumn>
+			<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+
+			<HxContextMenuGridColumn Context="item">
+				<HxContextMenu>
+					<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
+				</HxContextMenu>
+			</HxContextMenuGridColumn>
+		</Columns>
+	</HxGrid>
+</div>
+
+
+<div class="mb-5 overflow-auto">
+	<h1>HxGrid Infinite scroll + fixed layout</h1>
+
+	<HxGrid TItem="CultureInfo" Responsive="true" TableContainerCssClass="table-container overflow-auto" PlaceholdersRowCount="100"
+		DataProvider="@ClientCultureInfosDataProvider" TableCssClass="table-fixed" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"
+		ItemRowHeight="50">
+		<Columns>
+			<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
+				<PlaceholderTemplate>
+					Loading...
+				</PlaceholderTemplate>
+			</HxGridColumn>
+			<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+
+			<HxGridColumn TItem="CultureInfo" HeaderText="Content" ItemCssClass="text-truncate" >
+				<ItemTemplate>
+					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis natus, odit fuga libero provident quas voluptatibus.
+				</ItemTemplate>
+			</HxGridColumn>
+
+			<HxContextMenuGridColumn Context="item">
+				<HxContextMenu>
+					<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
+				</HxContextMenu>
+			</HxContextMenuGridColumn>
+		</Columns>
+	</HxGrid>
+</div>
+
+<div class="mb-5">
+	<h1>HxGrid Infinite scroll - sticky</h1>
+
+	<HxGrid TItem="CultureInfo" Responsive="true" PlaceholdersRowCount="100"
+		DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"
+		TableContainerCssClass="table-container table-sticky overflow-auto" ItemRowHeight="50" TableHeaderCssClass="sticky-top">
+		<Columns>
+			<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
+				<PlaceholderTemplate>
+					Loading...
+				</PlaceholderTemplate>
+			</HxGridColumn>
+			<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+
+			<HxGridColumn TItem="CultureInfo" HeaderText="Content" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" >
+				<ItemTemplate>
+					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis natus, odit fuga libero provident quas voluptatibus.
+				</ItemTemplate>
+			</HxGridColumn>
+
+			<HxContextMenuGridColumn Context="item">
+				<HxContextMenu>
+					<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
+				</HxContextMenu>
+			</HxContextMenuGridColumn>
+		</Columns>
+	</HxGrid>
+</div>
+
+<div>
+	<h1>HxGrid Infinite scroll - sticky, pivot</h1>
+
+	<HxGrid TItem="CultureInfo" Responsive="true" PlaceholdersRowCount="100"
+		DataProvider="@ClientCultureInfosDataProvider" ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"
+			TableContainerCssClass="table-container  table-sticky table-pivot overflow-auto" ItemRowHeight="50" TableHeaderCssClass="sticky-top">
+		<Columns>
+			<HxGridColumn TItem="CultureInfo" HeaderText="Display Name" ItemTextSelector="@(item => item.DisplayName)" SortKeySelector="@(item => item.DisplayName)" IsDefaultSortColumn="true">
+				<PlaceholderTemplate>
+					Loading...
+				</PlaceholderTemplate>
+			</HxGridColumn>
+			<HxGridColumn TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />
+			<HxGridColumn TItem="CultureInfo" HeaderText="Content" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" >
+				<ItemTemplate>
+					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis natus, odit fuga libero provident quas voluptatibus.
+				</ItemTemplate>
+			</HxGridColumn>
+			<HxGridColumn TItem="CultureInfo" HeaderText="Content 2" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" >
+				<ItemTemplate>
+					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Facilis natus, odit fuga libero provident quas voluptatibus.
+				</ItemTemplate>
+			</HxGridColumn>
+
+			<HxContextMenuGridColumn Context="item">
+				<HxContextMenu>
+					<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" />
+				</HxContextMenu>
+			</HxContextMenuGridColumn>
+		</Columns>
+	</HxGrid>
+</div>
+
+@code {
+    [Inject] private ILogger<HxGrid_InfiniteScroll_Test> Logger { get; set; }
+
+    private HxGrid<CultureInfo> infiniteScrollGrid;
+
+    private List<CultureInfo> GetCultureInfos()
+    {
+        return CultureInfo.GetCultures(CultureTypes.SpecificCultures).OrderBy(item => item.EnglishName /* only for skip! */).ToList();
+    }
+
+    private async Task<GridDataProviderResult<CultureInfo>> ClientCultureInfosDataProvider(GridDataProviderRequest<CultureInfo> request)
+    {
+        Logger.LogInformation($"Requesting culture infos[{request.StartIndex}, {request.Count}].");
+        await Task.Delay(500); // simulate server call
+
+        var cultures = GetCultureInfos();
+        Logger.LogInformation($"Culture infos loaded (cancelled: {request.CancellationToken.IsCancellationRequested}).");
+
+        return request.ApplyTo(cultures);
+    }
+
+    private async Task HandleResetPositionClickAsync()
+    {
+        await infiniteScrollGrid.RefreshDataAsync(GridStateResetOptions.ResetPosition);
+    }
+
+    private async Task HandleResetSortingClickAsync()
+    {
+        await infiniteScrollGrid.RefreshDataAsync(GridStateResetOptions.ResetSorting);
+    }
+
+    private async Task HandleResetAllClickAsync()
+    {
+        await infiniteScrollGrid.RefreshDataAsync(GridStateResetOptions.All);
+    }
+
+    private async Task HandleCurrentUserStateChangedAsync()
+    {
+        // this should not happen during position reset
+        await Task.Delay(1000);
+    }
+}

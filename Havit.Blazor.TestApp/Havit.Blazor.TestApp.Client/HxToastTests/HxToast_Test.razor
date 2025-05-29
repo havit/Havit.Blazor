@@ -1,0 +1,39 @@
+﻿@page "/HxToast"
+@rendermode InteractiveAuto
+
+<h1>HxToast</h1>
+
+@if (isVisible)
+{
+	<HxToastContainer>
+		<HxToast HeaderText="F20/00578" HeaderIcon="BootstrapIcon.InfoCircleFill" ContentText="Invoice has been created." />
+
+		<HxToast HeaderText="Confirmation" Color="ThemeColor.Danger">
+			<ContentTemplate>
+				<HxIcon Icon="BootstrapIcon.InfoCircleFill" CssClass="me-2" />
+				Hi! All messages have been deleted and cannot be restored.
+			</ContentTemplate>
+		</HxToast>
+
+		<HxToast AutohideDelay="5000">
+			<ContentTemplate>
+				This message should disappear.
+				Close button should be here.
+			</ContentTemplate>
+		</HxToast>
+
+		<HxToast ShowCloseButton="false">
+			<ContentTemplate>
+				No close button here.
+			</ContentTemplate>
+		</HxToast>
+	</HxToastContainer>
+}
+
+<p>
+	<HxButton Text="Toggle" OnClick="() => { isVisible = !isVisible; }" Color="ThemeColor.Primary" />
+</p>
+
+@code{
+	private bool isVisible = true;
+}

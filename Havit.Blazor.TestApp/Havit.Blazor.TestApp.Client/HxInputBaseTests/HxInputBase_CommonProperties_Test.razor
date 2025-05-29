@@ -1,0 +1,231 @@
+﻿@page "/HxInputBase_CommonProperties"
+@rendermode InteractiveAuto
+
+<HxSelect Label="LabelType"
+		  Data="Enum.GetValues<LabelType>()"
+		  @bind-Value="_labelType"
+		  Nullable="false" />
+<HxSelect Label="InputSize"
+		  Data="Enum.GetValues<InputSize>()"
+		  @bind-Value="_inputSize"
+		  Nullable="false" />
+<HxSwitch Label="Test InputGroupStart"
+		  @bind-Value="_inputGroupStartEnabled"
+		  @bind-Value:after="@(() => _inputGroupStartText = _inputGroupStartEnabled ? "Start" : null)" />
+<HxSwitch Label="Test InputGroupEnd"
+		  @bind-Value="_inputGroupEndEnabled"
+		  @bind-Value:after="@(() => _inputGroupEndText = _inputGroupEndEnabled ? "End" : null)" />
+
+<div class="card m-5" @onclick="HandleCardClick">
+
+	<div class="card-header">OnClick propagation test (last captured click: @_lastCapturedClick)</div>
+	<div class="card-body">
+		<EditForm Model="_model">
+			<DataAnnotationsValidator />
+			<ValidationSummary />
+
+			<HxInputText Label="HxInputText"
+						 LabelType="_labelType"
+						 InputSize="_inputSize"
+						 @bind-Value="_model.TextBasic"
+						 InputGroupStartText="@_inputGroupStartText"
+						 InputGroupEndText="@_inputGroupEndText" />
+
+			<HxInputTextArea Label="HxInputTextArea"
+							 LabelType="_labelType"
+							 InputSize="_inputSize"
+							 @bind-Value="_model.TextLong"
+							 InputGroupStartText="@_inputGroupStartText"
+							 InputGroupEndText="@_inputGroupEndText" />
+
+			<HxInputNumber Label="HxInputNumber"
+						   LabelType="_labelType"
+						   @bind-Value="_model.NullableIntegerValue"
+						   InputSize="_inputSize"
+						   InputGroupStartText="@_inputGroupStartText"
+						   InputGroupEndText="@_inputGroupEndText" />
+
+			<HxInputPercent Label="HxInputPercent"
+							LabelType="_labelType"
+							@bind-Value="_model.PercentValue"
+							InputSize="_inputSize"
+							InputGroupStartText="@_inputGroupStartText"
+							InputGroupEndText="@_inputGroupEndText" />
+
+			<HxInputDate Label="HxInputDate"
+						 LabelType="_labelType"
+						 @bind-Value="_model.NullableDateValue"
+						 InputSize="_inputSize"
+						 InputGroupStartText="@_inputGroupStartText"
+						 InputGroupEndText="@_inputGroupEndText" />
+
+			<HxInputDateRange Label="HxInputDateRange (no LabelType, no input-groups)"
+							  @bind-Value="_model.DateRange"
+							  InputSize="_inputSize" />
+
+			<HxSelect Label="HxSelect"
+					  LabelType="_labelType"
+					  @bind-Value="_model.CultureInfoSelectName"
+					  ValueSelector="item => item.DisplayName"
+					  Data="_cultureInfos"
+					  TextSelector="item => item.DisplayName"
+					  InputSize="_inputSize"
+					  InputGroupStartText="@_inputGroupStartText"
+					  InputGroupEndText="@_inputGroupEndText" />
+
+			<HxAutosuggest Label="HxAutosuggest"
+						   LabelType="_labelType"
+						   @bind-Value="_model.CultureInfoAutosuggest"
+						   TextSelector="item => item.DisplayName"
+						   DataProvider="CulturesAutosuggestDataProvider"
+						   InputSize="_inputSize"
+						   InputGroupStartText="@_inputGroupStartText"
+						   InputGroupEndText="@_inputGroupEndText" />
+
+			@* HxSearchBox is not a regular HxInputBase, but anyway... *@
+			<HxSearchBox Label="HxSearchBox"
+						 LabelType="_labelType"
+						 DataProvider="ProvideSearchResults"
+						 ItemTitleSelector="i => i.Title"
+						 ItemSubtitleSelector="i => i.Subtitle"
+						 ItemIconSelector="i => i.Icon"
+						 TItem="SearchBoxItem"
+						 InputSize="_inputSize"
+						 OnItemSelected="OnItemSelected"
+						 AllowTextQuery="true"
+						 @bind-TextQuery="_textQuery"
+						 OnTextQueryTriggered="OnTextQueryTriggered" />
+
+			<HxInputTags Label="Tags (Bootstrap theme colors suggested)"
+						 LabelType="_labelType"
+						 @bind-Value="_values"
+						 InputSize="_inputSize"
+						 DataProvider="GetNewItemSuggestions"
+						 InputGroupStartText="@_inputGroupStartText"
+						 InputGroupEndText="@_inputGroupEndText" />
+
+			<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
+		</EditForm>
+
+	</div>
+</div>
+
+@code
+{
+	private FormModel _model = new FormModel();
+	private DateTime? _lastCapturedClick = null;
+	private List<CultureInfo> _cultureInfos = new List<CultureInfo> { CultureInfo.GetCultureInfo("cs-CZ"), CultureInfo.GetCultureInfo("en-US"), CultureInfo.GetCultureInfo("sk-SK"), CultureInfo.GetCultureInfo("es-ES") };
+
+	private InputSize _inputSize = InputSize.Regular;
+	private LabelType _labelType = LabelType.Regular;
+	private bool _inputGroupStartEnabled;
+	private bool _inputGroupEndEnabled;
+	private string _inputGroupStartText;
+	private string _inputGroupEndText;
+
+	private SearchBoxItem _selectedItem;
+	private string _triggeredTextQuery;
+	private string _textQuery;
+	private List<string> _values = new List<string>() { "Blazor", "C#", "ASP.NET" };
+
+	private async Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
+	{
+		await Task.Delay(50); // simulate server API call
+		return new InputTagsDataProviderResult()
+			{
+				Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString()).Where(v => v.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+			};
+	}
+
+	private Task HandleCardClick()
+	{
+		_lastCapturedClick = DateTime.Now;
+
+		return Task.CompletedTask;
+	}
+
+	private Task<AutosuggestDataProviderResult<CultureInfo>> CulturesAutosuggestDataProvider(AutosuggestDataProviderRequest request)
+	{
+		return Task.FromResult(new AutosuggestDataProviderResult<CultureInfo>
+			{
+				Data = _cultureInfos.Where(item => item.DisplayName.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase)).ToList()
+			});
+	}
+
+
+	List<SearchBoxItem> Data { get; set; } = new()
+		{
+			new() { Title = "Table", Subtitle = "50 000", Icon = BootstrapIcon.Table },
+			new() { Title = "Mouse", Subtitle = "400", Icon = BootstrapIcon.Mouse },
+			new() { Title = "Door", Subtitle = "1000", Icon = BootstrapIcon.DoorClosed }
+		};
+
+	private void OnItemSelected(SearchBoxItem item)
+	{
+		_selectedItem = item;
+	}
+
+	private void OnTextQueryTriggered(string text)
+	{
+		_triggeredTextQuery = text;
+	}
+
+	private async Task<SearchBoxDataProviderResult<SearchBoxItem>> ProvideSearchResults(SearchBoxDataProviderRequest request)
+	{
+		await Task.Delay(400); // imitate slower server API
+
+		return new()
+			{
+				Data = Data.Where(i => i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+			};
+	}
+
+	class SearchBoxItem
+	{
+		public string Title { get; set; }
+		public string Subtitle { get; set; }
+		public BootstrapIcon Icon { get; set; }
+	}
+
+	public class FormModel : ICloneable
+	{
+		[Required]
+		[MaxLength(50)]
+		public string TextBasic { get; set; } = "Basic value";
+
+		[Required]
+		[MaxLength(50)]
+		public string TextOnInput { get; set; }
+
+		public string TextDisabled { get; set; }
+
+		[Required]
+		public string TextLong { get; set; }
+
+		public int? NullableIntegerValue { get; set; }
+
+		public float PercentValue { get; set; }
+
+		public string SearchBoxValue { get; set; }
+
+		public DateTime DateValue { get; set; } = DateTime.Today;
+
+		public DateTime? NullableDateValue { get; set; }
+
+		[Required]
+		public string CultureInfoSelectName { get; set; }
+
+		[Required]
+		public CultureInfo CultureInfoAutosuggest { get; set; }
+
+		[Required]
+		public bool BoolCheckbox { get; set; } = true;
+
+		[Required]
+		public bool BoolSwitch { get; set; } = true;
+
+		public DateTimeRange DateRange { get; set; }
+
+		object ICloneable.Clone() => MemberwiseClone();
+	}
+}

@@ -2,87 +2,91 @@
 @typeparam TItem
 @typeparam TValue
 
-<div id="@_dropdownId" class="@CssClassHelper.Combine("dropdown", HasInputGroupsEffective ? "input-group" : null, InputGroupCssClass)">
-    @if (InputGroupStartText is not null)
-    {
-        <span class="input-group-text">@InputGroupStartText</span>
-    }
+<div id="@_dropdownId" class="@CssClassHelper.Combine("dropdown",
+											HasInputGroupsEffective ? "input-group" : null,
+											HasInputGroupsEffective ? InputSizeEffective.AsInputGroupCssClass() : null,
+											InputGroupCssClass)">
 
-    @InputGroupStartTemplate
+	@if (InputGroupStartText is not null)
+	{
+		<span class="input-group-text">@InputGroupStartText</span>
+	}
 
-    <div class="@CssClassHelper.Combine("hx-autosuggest-input-wrapper", (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)">
-        <HxAutosuggestInputInternal @ref="_autosuggestInput"
-                            InputId="@InputId"
+	@InputGroupStartTemplate
+
+	<div class="@CssClassHelper.Combine("hx-autosuggest-input-wrapper", (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)">
+		<HxAutosuggestInputInternal @ref="_autosuggestInput"
+							InputId="@InputId"
 							NameAttributeValue="@NameAttributeValue"
-                            EnabledEffective="@EnabledEffective"
-                            Value="@_userInput"
-                            OnInput="HandleInputInput"
-                            OnFocus="HandleInputFocus"
-                            OnBlur="HandleInputBlur"
+							EnabledEffective="@EnabledEffective"
+							SpellcheckEffective="@SpellcheckEffective"
+							Value="@_userInput"
+							OnInput="HandleInputInput"
+							OnFocus="HandleInputFocus"
+							OnBlur="HandleInputBlur"
 							OnClick="HandleInputClick"
-                            Placeholder="@Placeholder"
-                            CssClass="@InputCssClass"
-                            DropdownOffset="@DropdownOffset"
-                            AdditionalAttributes="AdditionalAttributes" />
+							Placeholder="@Placeholder"
+							CssClass="@InputCssClass"
+							DropdownOffset="@DropdownOffset"
+							AdditionalAttributes="AdditionalAttributes" />
 
-        @if (LabelTypeEffective == LabelType.Floating)
-        {
-            <HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
-        }
-        @if (EnabledEffective)
-        {
+		@if (LabelTypeEffective == LabelType.Floating)
+		{
+			<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
+		}
+		@if (EnabledEffective)
+		{
+			if (_dataProviderInProgress)
+			{
+				<div class="hx-autosuggest-input-icon">
+					<HxSpinner Size="SpinnerSize.Small" Type="SpinnerType.Border" />
+				</div>
+			}
+			else if (!EqualityComparer<TValue>.Default.Equals(Value, default))
+			{
+				if (ClearIconEffective is not null)
+				{
+					<button type="button" class="hx-autosuggest-input-button" @onclick="ClearInputAsync" tabindex="0" aria-label="@HxAutosuggestLocalizer["Clear"]" @onclick:stopPropagation>
+						<HxIcon CssClass="hx-autosuggest-input-icon-clear" Icon="ClearIconEffective" />
+					</button>
+				}
+			}
+			else if (SearchIconEffective is not null)
+			{
+				<div class="hx-autosuggest-input-icon">
+					<HxIcon CssClass="hx-autosuggest-input-icon-search" Icon="@SearchIconEffective" />
+				</div>
+			}
 
-            @if (_dataProviderInProgress)
-            {
-                <div class="hx-autosuggest-input-icon">
-                    <HxSpinner Size="SpinnerSize.Small" Type="SpinnerType.Border" />
-                </div>
-            }
-            else if (!EqualityComparer<TValue>.Default.Equals(Value, default))
-            {
-                if (ClearIconEffective is not null)
-                {
-                    <div role="button" class="hx-autosuggest-input-icon" @onclick="ClearInputAsync" @onclick:stopPropagation>
-                        <HxIcon CssClass="hx-autosuggest-input-icon-clear" Icon="ClearIconEffective" />
-                    </div>
-                }
-            }
-            else if (SearchIconEffective is not null)
-            {
-                <div class="hx-autosuggest-input-icon">
-                    <HxIcon CssClass="hx-autosuggest-input-icon-search" Icon="@SearchIconEffective" />
-                </div>
-            }
+			<HxAutosuggestItemsInternal
+									TItem="TItem"
+									Items="@_suggestions"
+									OnItemClick="HandleItemSelected"
+									FocusedItemIndex="_focusedItemIndex"
+									FocusedItemCssClass="hx-autosuggest-item-focused">
 
-            <HxAutosuggestItemsInternal
-                                    TItem="TItem"
-                                    Items="@_suggestions"
-                                    OnItemClick="HandleItemSelected"
-                                    FocusedItemIndex="_focusedItemIndex"
-                                    FocusedItemCssClass="hx-autosuggest-item-focused">
+				<ItemTemplate>
+					@if (ItemTemplate != null)
+					{
+						<text>@ItemTemplate(context)</text>
+					}
+					else
+					{
+						<text>@TextSelectorEffective(context)</text>
+					}
+				</ItemTemplate>
+				<EmptyTemplate>
+					@EmptyTemplate
+				</EmptyTemplate>
 
-                <ItemTemplate>
-                    @if (ItemTemplate != null)
-                    {
-                        <text>@ItemTemplate(context)</text>
-                    }
-                    else
-                    {
-                        <text>@TextSelectorEffective(context)</text>
-                    }
-                </ItemTemplate>
-                <EmptyTemplate>
-                    @EmptyTemplate
-                </EmptyTemplate>
+			</HxAutosuggestItemsInternal>
+		}
+	</div>
 
-            </HxAutosuggestItemsInternal>
-        }
-    </div>
+	@InputGroupEndTemplate
 
-    @InputGroupEndTemplate
-
-    @if (InputGroupEndText is not null)
-    {
-        <span class="input-group-text">@InputGroupEndText</span>
-    }
+	@if (InputGroupEndText is not null)
+	{
+		<span class="input-group-text">@InputGroupEndText</span>
+	}
 </div>

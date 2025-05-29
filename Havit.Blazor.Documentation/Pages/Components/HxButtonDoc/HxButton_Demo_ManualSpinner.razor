@@ -1,6 +1,5 @@
-﻿<HxButton Spinner="showSpinner" Text="The button" OnClick="async () => await Task.Delay(2000)" Color="ThemeColor.Warning" />
-<HxButton Text="showSpinner=true" OnClick="() => showSpinner = true" Color="ThemeColor.Success" />
-<HxButton Text="showSpinner=false" OnClick="() => showSpinner = false" Color="ThemeColor.Danger" />
+﻿<HxButton Spinner="showSpinner" Text="The button" Color="ThemeColor.Primary" />
+<HxSwitch Text="show spinner" @bind-Value="showSpinner" CssClass="mt-2" />
 
 @code {
     bool showSpinner;

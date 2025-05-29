@@ -12,7 +12,8 @@
 	color: var(--hx-sidebar-footer-item-hover-color);
 }
 
-::deep .hx-sidebar-footer-navlink {
+::deep .hx-sidebar-footer-item-navlink-content {
 	display: flex;
 	align-items: center;
+	gap: .75rem;
 }

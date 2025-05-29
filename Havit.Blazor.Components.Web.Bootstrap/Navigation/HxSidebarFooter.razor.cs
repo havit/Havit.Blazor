@@ -29,10 +29,14 @@ public partial class HxSidebarFooter
 	[Parameter] public NavLinkMatch? Match { get; set; } = NavLinkMatch.Prefix;
 
 	/// <summary>
-	/// Allows you to disable the item with <c>false</c>.
-	/// The default value is <c>true</c>.
+	/// Any additional CSS class to add.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
+
+	/// <summary>
+	/// Any additional CSS class to add to inner text.
+	/// </summary>
+	[Parameter] public string TextCssClass { get; set; }
 
 	/// <summary>
 	/// Sub-items (not intended to be used for any other purpose).

@@ -22,7 +22,10 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 	/// </summary>
 	[Parameter] public SelectSettings Settings { get; set; }
 
+	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
+	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
+	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
 
 	/// <summary>
 	/// Returns an optional set of component settings.
@@ -37,7 +40,7 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxSelect) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
@@ -126,6 +129,12 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 
 	/// <inheritdoc cref="HxInputBase{TValue}.EnabledEffective" />
 	protected override bool EnabledEffective => base.EnabledEffective && (_itemsToRender != null);
+
+	/// <summary>
+	/// The input ElementReference.
+	/// Can be <c>null</c>. 
+	/// </summary>
+	protected ElementReference InputElement { get; set; }
 
 	private protected override string CoreInputCssClass => "form-select";
 
@@ -228,7 +237,7 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 
 			if ((Value != null) && (_selectedItemIndex == -1))
 			{
-				throw new InvalidOperationException($"Data does not contain item for current value '{Value}'.");
+				throw new InvalidOperationException($"[{GetType().Name}] Data does not contain item for current value '{Value}'.");
 			}
 		}
 		else
@@ -263,4 +272,10 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 	}
 
 	string IInputWithSize.GetInputSizeCssClass() => InputSizeEffective.AsFormSelectCssClass();
+
+	/// <summary>
+	/// Focuses the component.
+	/// </summary>
+	public async ValueTask FocusAsync() => await InputElement.FocusOrThrowAsync(this);
+
 }

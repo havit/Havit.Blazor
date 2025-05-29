@@ -11,13 +11,19 @@
 }
 
 <ul class="@CssClassHelper.Combine("hx-pager pagination", CssClassEffective)">
-
 	@if (showFirstLast)
 	{
 		<li class="@previousPageItemDisabledCssClass">
-			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(0)" @onclick:stopPropagation role="button">
-				<HxIcon Icon="@FirstPageIconEffective" />
-			</a>
+            <a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(0)" @onclick:stopPropagation role="button">
+                @if (FirstPageContentTemplate != null)
+                {
+                    @FirstPageContentTemplate
+                }
+                else
+                {
+                    <HxIcon Icon="@FirstPageIconEffective" />
+                }
+            </a>
 		</li>
 	}
 
@@ -25,7 +31,14 @@
 	{
 		<li class="@previousPageItemDisabledCssClass">
 			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(CurrentPageIndex - 1)" @onclick:stopPropagation role="button">
-				<HxIcon Icon="@PreviousPageIconEffective" />
+                @if (PreviousPageContentTemplate != null)
+                {
+                    @PreviousPageContentTemplate
+                }
+                else
+                {
+					<HxIcon Icon="@PreviousPageIconEffective" />
+                }
 			</a>
 		</li>
 	}
@@ -59,7 +72,14 @@
 	{
 		<li class="@nextPageItemDisabledCssClass">
 			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(CurrentPageIndex + 1)" @onclick:stopPropagation role="button">
-				<HxIcon Icon="@NextPageIconEffective" />
+                @if (NextPageContentTemplate != null)
+                {
+                    @NextPageContentTemplate
+                }
+                else
+                {
+					<HxIcon Icon="@NextPageIconEffective" />
+                }
 			</a>
 		</li>
 	}
@@ -68,7 +88,14 @@
 	{
 		<li class="@nextPageItemDisabledCssClass">
 			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(TotalPages - 1)" @onclick:stopPropagation role="button">
-				<HxIcon Icon="@LastPageIconEffective" />
+                @if (LastPageContentTemplate != null)
+                {
+                    @LastPageContentTemplate
+                }
+                else
+                {
+					<HxIcon Icon="@LastPageIconEffective" />
+                }
 			</a>
 		</li>
 	}

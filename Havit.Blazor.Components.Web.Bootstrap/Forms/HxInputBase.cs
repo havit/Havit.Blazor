@@ -149,12 +149,6 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	protected string InputId { get; private set; }
 
 	/// <summary>
-	/// The input ElementReference.
-	/// Can be <c>null</c>. 
-	/// </summary>
-	protected ElementReference InputElement { get; set; }
-
-	/// <summary>
 	/// Elements rendering order.
 	/// </summary>
 	protected virtual LabelValueRenderOrder RenderOrder =>
@@ -217,10 +211,10 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 
 		if ((this is IInputWithLabelType inputWithLabelType)
 			&& (this is IInputWithPlaceholder inputWithPlaceholder)
-			&& (inputWithLabelType.LabelType == LabelType.Floating)
+			&& (inputWithLabelType.LabelTypeEffective == LabelType.Floating)
 			&& !String.IsNullOrEmpty(inputWithPlaceholder.Placeholder))
 		{
-			throw new InvalidOperationException($"Cannot use {nameof(IInputWithPlaceholder.Placeholder)} with floating labels.");
+			throw new InvalidOperationException($"[{GetType().Name}] Cannot use {nameof(IInputWithPlaceholder.Placeholder)} with floating labels.");
 		}
 	}
 
@@ -308,12 +302,10 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	{
 		builder.AddMultipleAttributes(1, AdditionalAttributes);
 		builder.AddAttribute(2, "id", InputId);
-#if NET8_0_OR_GREATER
 		if (!String.IsNullOrEmpty(NameAttributeValue))
 		{
 			builder.AddAttribute(3, "name", NameAttributeValue);
 		}
-#endif
 		builder.AddAttribute(4, "type", typeValue);
 		builder.AddAttribute(5, "class", GetInputCssClassToRender());
 		builder.AddAttribute(6, "disabled", !EnabledEffective);
@@ -418,14 +410,10 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// </summary>
 	protected virtual Action<object> GetChipRemoveAction()
 	{
-		string fieldName = FieldIdentifier.FieldName; // carefully! don't use "this" in lambda below to allow it for GC
 		TValue value = GetChipRemoveValue(); // carefully! don't use the method call in lambda below to allow "this" for GC
-		Action<object> removeAction = (model) =>
-		{
-			var propertyInfo = model.GetType().GetProperty(fieldName);
-			Contract.Assert(propertyInfo is not null, "Invalid FieldIdentifier. Check ValueExpression parameter.");
-			propertyInfo.SetValue(model, value);
-		};
+
+		var builder = new ChipRemoveActionBuilder(ValueExpression, value);
+		Action<object> removeAction = builder.Build();
 
 		return removeAction;
 	}
@@ -436,18 +424,6 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	protected virtual TValue GetChipRemoveValue()
 	{
 		return default(TValue);
-	}
-
-	/// <summary>
-	/// Gives focus to the input element.
-	/// </summary>
-	public virtual async ValueTask FocusAsync()
-	{
-		if (EqualityComparer<ElementReference>.Default.Equals(InputElement, default))
-		{
-			throw new InvalidOperationException($"Unable to focus {GetType().Name}, {nameof(InputElement)} reference not available.  You are most likely calling the method too early. The first render must complete before calling this method.");
-		}
-		await InputElement.FocusAsync();
 	}
 
 	/// <summary>

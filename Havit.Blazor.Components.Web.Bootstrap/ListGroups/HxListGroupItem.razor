@@ -4,7 +4,7 @@
 	 aria-current="@Active"
 	 aria-disabled="@(!Enabled)"
 	 role="@(OnClick.HasDelegate ? "button" : null)"
-	 @onclick="InvokeOnClickAsync"
+	 @onclick="@(OnClick.HasDelegate ? EventCallback.Factory.Create<MouseEventArgs>(this, InvokeOnClickAsync) : (EventCallback<MouseEventArgs>)default)"
 	 @onclick:stopPropagation="OnClick.HasDelegate">
 	@ChildContent
 </div>

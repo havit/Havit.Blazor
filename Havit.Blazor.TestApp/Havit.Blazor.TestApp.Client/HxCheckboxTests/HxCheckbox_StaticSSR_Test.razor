@@ -1,0 +1,25 @@
+﻿@page "/HxCheckbox_StaticSSR"
+
+<EditForm Model="_model" FormName="my-form">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+	<HxCheckbox @bind-Value="_model.RememberMe" Text="check me" />
+	<HxSubmit Text="Submit" Color="ThemeColor.Primary" />
+</EditForm>
+
+@_model.RememberMe
+
+@code {
+	[SupplyParameterFromForm] private InputModel _model { get; set; } = new();
+
+	private record InputModel
+	{
+		public bool RememberMe { get; set; }
+	}
+}
+
+@*
+Filed a Blazor bug while testing this.
+https://github.com/dotnet/aspnetcore/issues/60837
+[Blazor] Static SSR - [SupplyParameterFromForm] parameter null on empty form data (eg. unchecked InputCheckbox)
+*@

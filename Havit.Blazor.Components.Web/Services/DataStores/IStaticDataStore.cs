@@ -29,4 +29,9 @@ public interface IStaticDataStore<TValue>
 	/// Retrieves a value from the store (includes data load if needed).
 	/// </summary>
 	Task<TValue> GetValueAsync();
+
+	/// <summary>
+	/// Refreshes the data. Discards all the data (if any) and loads it again.
+	/// </summary>
+	Task RefreshDataAsync();
 }

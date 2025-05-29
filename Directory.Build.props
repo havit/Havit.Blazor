@@ -8,12 +8,19 @@
 		<Product>HAVIT Blazor Library</Product>
 		<AssemblyTitle>HAVIT Blazor Library</AssemblyTitle>
 		<EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
-		
+		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+
 		<!-- aligned NuGet PackageVersion for package-bundles -->
-		<ComponentsPackagesVersion>4.6.14</ComponentsPackagesVersion>
-		<GrpcPackagesVersion>1.5.6</GrpcPackagesVersion>
+		<ComponentsPackagesVersion>4.11.0</ComponentsPackagesVersion>
+		<GrpcPackagesVersion>1.6.2</GrpcPackagesVersion>
+
+		<EnableMSTestRunner>true</EnableMSTestRunner>
+		<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+		<TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
+		<MSTestAnalysisMode>Recommended</MSTestAnalysisMode>
 	</PropertyGroup>
 
 	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" Condition="Exists($([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../')))"/>

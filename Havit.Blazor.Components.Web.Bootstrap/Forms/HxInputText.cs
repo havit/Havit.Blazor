@@ -15,7 +15,6 @@ public class HxInputText : HxInputTextBase
 	{
 		Defaults = new InputTextSettings()
 		{
-			InputSize = Bootstrap.InputSize.Regular,
 			SelectOnFocus = false
 		};
 	}
@@ -31,9 +30,24 @@ public class HxInputText : HxInputTextBase
 	/// </summary>
 	[Parameter] public InputType Type { get; set; } = InputType.Text;
 
+	protected override void OnParametersSet()
+	{
+		if ((Type != InputType.Text)
+			&& (Type != InputType.Email)
+			&& (Type != InputType.Tel)
+			&& (Type != InputType.Search)
+			&& (Type != InputType.Password)
+			&& (Type != InputType.Url))
+		{
+			throw new InvalidOperationException($"[{GetType().Name}] Unsupported {nameof(Type)} parameter value {Type}.");
+		}
+
+		base.OnParametersSet();
+	}
+
 	/// <inheritdoc />
 	private protected override string GetElementName() => "input";
 
 	/// <inheritdoc />
-	private protected override string GetTypeAttributeValue() => Type.ToString().ToLower();
+	private protected override string GetTypeAttributeValue() => Type.ToString().ToLowerInvariant();
 }

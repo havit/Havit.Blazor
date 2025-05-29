@@ -3,7 +3,7 @@
 <HxListLayout Title="Employees"
 			  TFilterModel="EmployeesFilterDto"
 			  @bind-FilterModel="filterModel"
-			  @bind-FilterModel:after="gridComponent.RefreshDataAsync"
+              @bind-FilterModel:after="HandleFilterModelChanged"
 			  NamedViews="namedViews"
 			  @bind-SelectedNamedView="selectedNamedView"
 			  TitleFromNamedView="titleFromNamedView">
@@ -54,10 +54,16 @@
 
 	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
 	{
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(filterModel, request.StartIndex, request.Count, request.CancellationToken);
 		return new GridDataProviderResult<EmployeeDto>()
 			{
-				Data = await DemoDataService.GetEmployeesDataFragmentAsync(filterModel, request.StartIndex, request.Count, request.CancellationToken),
-				TotalCount = await DemoDataService.GetEmployeesCountAsync(filterModel, request.CancellationToken)
+				Data = response.Data,
+				TotalCount = response.TotalCount
 			};
+	}
+
+	private async Task HandleFilterModelChanged()
+	{
+		await gridComponent.RefreshDataAsync(GridStateResetOptions.ResetPosition);
 	}
 }

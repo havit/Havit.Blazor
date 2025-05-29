@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -151,13 +150,17 @@ public partial class HxCalendar
 		bool lastKnownValueChanged = _lastKnownValue != Value;
 		_lastKnownValue = Value;
 
-		if (DisplayMonth == default)
+		// whenever the value is changed from outside, we set the display month to the value month
+		if (DisplayMonth == default || lastKnownValueChanged)
 		{
-			await SetDisplayMonthAsync(Value ?? TimeProviderEffective.GetLocalNow().Date);
-		}
-		else if ((Value != null) && lastKnownValueChanged && ((DisplayMonth.Year != Value.Value.Year) || (DisplayMonth.Month != Value.Value.Month)))
-		{
-			await SetDisplayMonthAsync(Value.Value);
+			if (Value != null)
+			{
+				await SetDisplayMonthAsync(Value.Value);
+			}
+			else
+			{
+				await SetDisplayMonthAsync(TimeProviderEffective.GetLocalNow().Date, limitDisplayMonthByMinMaxDateEffective: true);
+			}
 		}
 
 		UpdateRenderData();
@@ -186,7 +189,10 @@ public partial class HxCalendar
 		int minYear = minDateEffective.Year;
 		int maxYear = maxDateEffective.Year;
 
-		_renderData.Years = Enumerable.Range(minYear, maxYear - minYear + 1).Reverse().ToList();
+		_renderData.Years = Enumerable.Range(minYear, maxYear - minYear + 1)
+			.Union([DisplayMonth.Year])
+			.OrderByDescending(year => year)
+			.ToList();
 
 		for (int i = 0; i < 7; i++)
 		{
@@ -210,7 +216,8 @@ public partial class HxCalendar
 
 		for (var week = 0; week < 6; week++)
 		{
-			WeekData weekData = new WeekData();
+			var weekData = new WeekData();
+			weekData.Key = week;
 			weekData.Days = new List<DayData>(7);
 
 			for (int day = 0; day < 7; day++)
@@ -220,11 +227,11 @@ public partial class HxCalendar
 				bool clickEnabled = (currentDay >= minDateEffective) // can click only days starting MinDate
 						&& (currentDay <= maxDateEffective) && (customization?.Enabled ?? true); // can click only days ending MaxDate
 				string cssClass = CssClassHelper.Combine(
-					clickEnabled ? "active" : "disabled",
-					(currentDay == valueDay) ? "selected" : null,  // currently selected day has "selected" class
-					((currentDay.Month == DisplayMonth.Month) && (currentDay.Year == DisplayMonth.Year)) ? "in" : "out",
-					(currentDay == today) ? "hx-calendar-today" : null,
-					((currentDay.DayOfWeek == DayOfWeek.Saturday) || (currentDay.DayOfWeek == DayOfWeek.Sunday)) ? "weekend" : null,
+					clickEnabled ? "hx-calendar-day-active" : "hx-calendar-day-disabled",
+					(currentDay == valueDay) ? "hx-calendar-day-selected" : null,  // currently selected day has "selected" class
+					((currentDay.Month == DisplayMonth.Month) && (currentDay.Year == DisplayMonth.Year)) ? "hx-calendar-day-in" : "hx-calendar-day-out",
+					(currentDay == today) ? "hx-calendar-day-today" : null,
+					((currentDay.DayOfWeek == DayOfWeek.Saturday) || (currentDay.DayOfWeek == DayOfWeek.Sunday)) ? "hx-calendar-day-weekend" : null,
 					customization?.CssClass
 				);
 
@@ -259,13 +266,19 @@ public partial class HxCalendar
 		});
 	}
 
-	private async Task SetDisplayMonthAsync(DateTime newDisplayMonth)
+	private async Task SetDisplayMonthAsync(DateTime newDisplayMonth, bool limitDisplayMonthByMinMaxDateEffective = false)
 	{
-		newDisplayMonth = new[] { newDisplayMonth, new DateTime(MinDateEffective.Year, MinDateEffective.Month, 1) }.Max();
-		newDisplayMonth = new[] { newDisplayMonth, new DateTime(MaxDateEffective.Year, MaxDateEffective.Month, 1) }.Min();
+		if (limitDisplayMonthByMinMaxDateEffective)
+		{
+			newDisplayMonth = new[] { newDisplayMonth, new DateTime(MinDateEffective.Year, MinDateEffective.Month, 1) }.Max();
+			newDisplayMonth = new[] { newDisplayMonth, new DateTime(MaxDateEffective.Year, MaxDateEffective.Month, 1) }.Min();
+		}
 
-		DisplayMonth = newDisplayMonth;
-		await InvokeDisplayMonthChangedAsync(newDisplayMonth);
+		if (DisplayMonth != newDisplayMonth)
+		{
+			DisplayMonth = newDisplayMonth;
+			await InvokeDisplayMonthChangedAsync(newDisplayMonth);
+		}
 	}
 
 	private async Task HandlePreviousMonthClickAsync()
@@ -318,6 +331,7 @@ public partial class HxCalendar
 
 	private class WeekData
 	{
+		public int Key { get; set; }
 		public List<DayData> Days { get; set; }
 	}
 

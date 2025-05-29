@@ -18,6 +18,9 @@ public class HxDynamicElement : ComponentBase
 	/// <summary>
 	/// Triggers the <see cref="OnClick"/> event. Allows interception of the event in derived components.
 	/// </summary>
+	/// <remarks>
+	/// Please note, that this method is not called, when the <see cref="OnClick"/> parameter is not set.
+	/// </remarks>
 	protected virtual Task InvokeOnClickAsync(MouseEventArgs args) => OnClick.InvokeAsync(args);
 
 	/// <summary>
@@ -49,9 +52,12 @@ public class HxDynamicElement : ComponentBase
 	{
 		builder.OpenElement(0, ElementName);
 
-		builder.AddAttribute(1, "onclick", InvokeOnClickAsync);
-		builder.AddEventPreventDefaultAttribute(2, "onclick", OnClickPreventDefault);
-		builder.AddEventStopPropagationAttribute(3, "onclick", OnClickStopPropagation);
+		if (OnClick.HasDelegate)
+		{
+			builder.AddAttribute(1, "onclick", InvokeOnClickAsync);
+			builder.AddEventPreventDefaultAttribute(2, "onclick", OnClickPreventDefault);
+			builder.AddEventStopPropagationAttribute(3, "onclick", OnClickStopPropagation);
+		}
 		builder.AddMultipleAttributes(4, AdditionalAttributes);
 		builder.AddElementReferenceCapture(5, capturedRef =>
 		{

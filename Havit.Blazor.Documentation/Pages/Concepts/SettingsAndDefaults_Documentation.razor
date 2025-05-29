@@ -1,5 +1,7 @@
 ﻿@page "/concepts/defaults-and-settings"
 
+<DocHeadContent CanonicalRelativeUrl="/concepts/defaults-and-settings" />
+
 <h1>Defaults and Settings</h1>
 <DocAlert Type="DocAlertType.Info">Although most components support the presented functionalities, some components were constructed without settings or defaults because they wouldn't add sufficient value.</DocAlert>
 
@@ -10,6 +12,15 @@
 HxButton.Defaults.Icon = BootstrapIcon.Fullscreen;
 </CodeSnippet>
 
+<DocHeading Title="Global Defaults" Id="global-defaults" Level="3" />
+<p>
+	There are a few defaults which you can set above all components on a global level.
+	Use the static property <code>HxSetup.Defaults</code> to set their values.
+	Refer to <a href="/types/GlobalSettings"><code>GlobalSettings</code></a> for more information.
+</p>
+<CodeSnippet Language="cs">HxSetup.Defaults.InputSize = InputSize.Large;
+HxSetup.Defaults.LabelType = LabelType.Floating;
+</CodeSnippet>
 
 <DocHeading Title="Where to set" Id="where-to-set-defaults" Level="3" />
 <p><code>Defaults</code> can be set anywhere in the application; however, as it is a shared setting, you usually set them when the application starts (<code>Program.cs</code> or <code>Startup.cs</code>).</p>
@@ -25,5 +36,5 @@ HxButton.Defaults.Icon = BootstrapIcon.Fullscreen;
 
 
 <DocHeading Id="precedence" Title="Precedence" />
-<p>When the component decides what parameter value to stick to, it follows this flow: <strong>parameter > Settings > Defaults</strong>. This means that if the parameter property is not set (<code>null</code>), then the value is taken from the Settings. If it is also not set (<code>null</code>), then the value is taken from the application-wide Defaults.</p>
+<p>When the component decides what parameter value to stick to, it follows this flow: <strong>parameter > Settings > component Defaults > global Defaults</strong>. This means that if the parameter property is not set (<code>null</code>), then the value is taken from the Settings. If it is also not set (<code>null</code>), then the value is taken from the application-wide Defaults.</p>
 <Demo Type="typeof(SettingsAndDefaults_Demo_Overriding)" Tabs="false" />

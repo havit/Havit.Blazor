@@ -94,6 +94,12 @@ public partial class HxModal : IAsyncDisposable
 	protected ModalFullscreen FullscreenEffective => Fullscreen ?? GetSettings()?.Fullscreen ?? GetDefaults().Fullscreen ?? throw new InvalidOperationException(nameof(Fullscreen) + " default for " + nameof(HxModal) + " has to be set.");
 
 	/// <summary>
+	/// Determines whether the content is always rendered or only if the modal is open.<br />
+	/// The default is <see cref="ModalRenderMode.OpenOnly"/>.<br />
+	/// </summary>
+	[Parameter] public ModalRenderMode RenderMode { get; set; } = ModalRenderMode.OpenOnly;
+
+	/// <summary>
 	/// Indicates whether the modal shows close button in header.
 	/// Default value is <c>true</c>.
 	/// </summary>
@@ -208,10 +214,10 @@ public partial class HxModal : IAsyncDisposable
 
 
 	private bool _opened = false; // indicates whether the modal is open
-	private bool _shouldOpenModal = false; // indicates whether the modal is going to be opened
 	private DotNetObjectReference<HxModal> _dotnetObjectReference;
 	private ElementReference _modalElement;
 	private IJSObjectReference _jsModule;
+	private Queue<Func<Task>> _onAfterRenderTasksQueue = new();
 	private bool _disposed;
 
 	public HxModal()
@@ -224,10 +230,24 @@ public partial class HxModal : IAsyncDisposable
 	/// </summary>
 	public Task ShowAsync()
 	{
-		_opened = true; // mark modal as opened
-		_shouldOpenModal = true; // mark modal to be shown in OnAfterRender			
+		if (!_opened)
+		{
+			_onAfterRenderTasksQueue.Enqueue(async () =>
+			{
+				// Running JS interop is postponed to OnAfterRenderAsync to ensure modalElement is set
+				// and correct order of commands (Show/Hide) is preserved
+				_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxModal));
+				if (_disposed)
+				{
+					return;
+				}
 
-		StateHasChanged(); // ensures render modal HTML
+				await _jsModule.InvokeVoidAsync("show", _modalElement, _dotnetObjectReference, CloseOnEscapeEffective, OnHiding.HasDelegate);
+			});
+		}
+		_opened = true; // mark modal as opened
+
+		StateHasChanged(); // ensures rendering modal HTML
 
 		return Task.CompletedTask;
 	}
@@ -235,9 +255,29 @@ public partial class HxModal : IAsyncDisposable
 	/// <summary>
 	/// Closes the modal.
 	/// </summary>
-	public async Task HideAsync()
+	public Task HideAsync()
 	{
-		await _jsModule.InvokeVoidAsync("hide", _modalElement);
+		if (!_opened)
+		{
+			// this might be a minor PERF benefit, if it turns out to be causing troubles, we can remove this or make it configurable through optional method parameter
+			return Task.CompletedTask;
+		}
+
+		_onAfterRenderTasksQueue.Enqueue(async () =>
+		{
+			// Running JS interop is postponed to OnAfterRenderAsync to ensure modalElement is set
+			// and correct order of commands (Show/Hide) is preserved
+			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxModal));
+			if (_disposed)
+			{
+				return;
+			}
+
+			await _jsModule.InvokeVoidAsync("hide", _modalElement);
+		});
+		StateHasChanged(); // enforce rendering
+
+		return Task.CompletedTask;
 	}
 
 	/// <summary>
@@ -268,26 +308,15 @@ public partial class HxModal : IAsyncDisposable
 	[JSInvokable("HxModal_HandleModalShown")]
 	public async Task HandleModalShown()
 	{
+		_opened = true;
 		await InvokeOnShownAsync();
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		await base.OnAfterRenderAsync(firstRender);
-
-		if (_shouldOpenModal)
+		while (_onAfterRenderTasksQueue.TryDequeue(out var task))
 		{
-			// do not run show in every render
-			// the line must be prior to JSRuntime (because BuildRenderTree/OnAfterRender[Async] is called twice; in the bad order of lines the JSRuntime would be also called twice).
-			_shouldOpenModal = false;
-
-			// Running JS interop is postponed to OnAfterAsync to ensure modalElement is set.
-			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxModal));
-			if (_disposed)
-			{
-				return;
-			}
-			await _jsModule.InvokeVoidAsync("show", _modalElement, _dotnetObjectReference, CloseOnEscapeEffective, OnHiding.HasDelegate);
+			await task();
 		}
 	}
 
@@ -363,26 +392,11 @@ public partial class HxModal : IAsyncDisposable
 
 		if (_jsModule != null)
 		{
-			// We need to remove backdrop when leaving "page" when HxModal is shown (opened).
-			if (_opened)
-			{
-				try
-				{
-					await _jsModule.InvokeVoidAsync("dispose", _modalElement);
-				}
-				catch (JSDisconnectedException)
-				{
-					// NOOP
-				}
-				catch (TaskCanceledException)
-				{
-					// NOOP
-				}
-			}
-
 			try
 			{
+				await _jsModule.InvokeVoidAsync("dispose", _modalElement, _opened);
 				await _jsModule.DisposeAsync();
+
 			}
 			catch (JSDisconnectedException)
 			{

@@ -6,8 +6,9 @@
 public abstract class IconBase
 {
 	/// <summary>
-	/// Renderer of the icon. Must have an Icon property which receives the instance of the icon (IconBase descendant instance).
-	/// See BootstrapIcon and <see cref="HxIcon"/> implementations for more details.
+	/// Specifies the renderer component type for the icon.
+	/// For more details on implementing custom icons, refer to the 
+	/// <see href="https://havit.blazor.eu/components/HxIcon#custom-icons">documentation section on custom icons</see>.
 	/// </summary>
 	public abstract Type RendererComponentType { get; }
 }

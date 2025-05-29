@@ -1,6 +1,4 @@
 using System.Globalization;
-using BlazorAppTest.Resources;
-using Havit.Blazor.Components.Web;
 using Havit.Blazor.Documentation.DemoData;
 using Havit.Blazor.GoogleTagManager;
 
@@ -22,7 +20,6 @@ public class Startup
 		services.AddLogging();
 
 		services.AddLocalization();
-		services.AddGeneratedResourceWrappers();
 
 		services.AddRazorPages();
 		services.AddServerSideBlazor();
@@ -46,7 +43,7 @@ public class Startup
 		//HxInputDateRange.Defaults.InputSize = InputSize.Large;
 		//HxCalendar.Defaults.DateCustomizationProvider = request => new CalendarDateCustomizationResult { Enabled = request.Date < DateTime.Today };
 		//HxMessageBox.Defaults.ModalSettings.Centered = true;
-		HxPlaceholder.Defaults.Color = ThemeColor.Light;
+		//HxPlaceholder.Defaults.Color = ThemeColor.Light;
 	}
 
 	// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,8 +66,8 @@ public class Startup
 		{
 			CultureInfo cs = new CultureInfo("cs-CZ");
 			o.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture(cs);
-			o.AddSupportedCultures("cs", "en-US");
-			o.AddSupportedUICultures("cs", "en-US");
+			o.AddSupportedCultures("cs", "en-US", "de-DE");
+			o.AddSupportedUICultures("cs", "en-US", "de-DE");
 		});
 
 		app.UseRouting();

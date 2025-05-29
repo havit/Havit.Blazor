@@ -17,7 +17,7 @@ public class HxChangeTracker : ComponentBase, IDisposable
 	/// <summary>
 	/// The value to be tracked.
 	/// </summary>
-	[Parameter] public INotifyPropertyChanged Value { get; set; }
+	[Parameter, EditorRequired] public INotifyPropertyChanged Value { get; set; }
 
 	[Inject] protected ILogger<HxChangeTracker> Logger { get; set; }
 
@@ -25,11 +25,9 @@ public class HxChangeTracker : ComponentBase, IDisposable
 
 	protected override void OnParametersSet()
 	{
-		base.OnParametersSet();
-
 		if (Value is null)
 		{
-			throw new ArgumentException($"Missing required parameter '{nameof(Value)}' for component '{GetType().Name}'.");
+			throw new ArgumentException($"[{GetType().Name}] Missing required parameter '{nameof(Value)}'.");
 		}
 
 		if (_previousValueSet != Value)

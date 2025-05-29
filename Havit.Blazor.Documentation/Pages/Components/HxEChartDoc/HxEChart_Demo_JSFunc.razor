@@ -1,0 +1,55 @@
+﻿<HxEChart Options="_options" AutoResize="true" />
+
+@code {
+	private object _options;
+
+	protected override void OnParametersSet()
+	{
+		_options = new
+		{
+			Legend = new
+			{
+				TextStyle = new { Color = "#888" },
+				Top = "bottom"
+			},
+			Series = new object[]
+			{
+				new
+				{
+					Name = "Access From",
+					Type = "pie",
+					RoseType = "area",
+					Radius = new int[] { 50, 150 },
+					Center = new string[] { "50%", "50%" },
+					ItemStyle = new
+					{
+						BorderRadius = 8,
+					},
+					LabelLine = new
+					{
+						Show = true,
+
+					},
+					Label = new
+					{
+						Show = true,
+						TextStyle = new { Color = "#888" },
+						Formatter = new HxEChart.JSFunc(
+							"function (arg) {\n" +
+							"	const [hours, minutes] = [Math.floor(arg.value), Math.floor((arg.value % 1) * 60)];\n" +
+							$"	return hours.toLocaleString('{CultureInfo.CurrentUICulture.Name}') + `:${{String(minutes).padStart(2, '0')}}`;\n" +
+							"}\n")
+					},
+					Data = new object[]
+					{
+						new { Value = 1050.75, Name = "Search Engine" },
+						new { Value = 903.25, Name = "Direct" },
+						new { Value = 800, Name = "Email" },
+						new { Value = 765.5, Name = "Union Ads" },
+						new { Value = 520.25, Name = "Video Ads" }
+					}
+				}
+			}
+		};
+	}
+}

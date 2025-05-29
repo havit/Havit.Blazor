@@ -5,7 +5,7 @@
        type="text"
        class="@CssClass"
        disabled="@(!EnabledEffective)"
-       autocomplete="false"
+       autocomplete="off"
        data-bs-reference="parent"
        data-bs-offset="@($"{Offset.X},{Offset.Y}")"
        value="@Value"
@@ -15,4 +15,5 @@
 	   @onclick="OnClick"
        @onclick:stopPropagation
        placeholder="@Placeholder"
+	   spellcheck="@SpellcheckEffective?.ToString().ToLower()"
        @attributes="this.AdditionalAttributes" />

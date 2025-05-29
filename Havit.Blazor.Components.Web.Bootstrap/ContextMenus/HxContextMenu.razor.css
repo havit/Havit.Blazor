@@ -1,8 +1,12 @@
 .hx-context-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--hx-context-menu-button-color);
     border: var(--hx-context-menu-button-border);
     border-radius: var(--hx-context-menu-button-border-radius);
     padding: var(--hx-context-menu-button-padding);
+    font-size: var(--hx-context-menu-button-font-size);
 }
 
 .hx-context-menu-btn:hover {

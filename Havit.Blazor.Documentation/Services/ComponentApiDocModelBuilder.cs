@@ -88,6 +88,10 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		{
 			return _docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.Smart.xml");
 		}
+		else if (typeNamespace.Contains("ECharts"))
+		{
+			return _docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.ECharts.xml");
+		}
 		else if (typeNamespace.Contains("Bootstrap"))
 		{
 			return _docXmlProvider.GetDocXmlReaderFor("Havit.Blazor.Components.Web.Bootstrap.xml");

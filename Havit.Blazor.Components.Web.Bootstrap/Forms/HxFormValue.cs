@@ -15,10 +15,7 @@ public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueCompone
 
 	static HxFormValue()
 	{
-		Defaults = new FormValueSettings()
-		{
-			InputSize = Bootstrap.InputSize.Regular,
-		};
+		Defaults = new FormValueSettings();
 	}
 
 	/// <summary>
@@ -90,7 +87,7 @@ public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueCompone
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxFormValue) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 
@@ -109,8 +106,10 @@ public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueCompone
 	{
 		builder.OpenElement(0, "div");
 		builder.AddAttribute(1, "class", CssClassHelper.Combine("form-control", ((IInputWithSize)this).GetInputSizeCssClass(), ValueCssClass));
-		builder.AddContent(2, Value);
-		builder.AddContent(3, ValueTemplate);
+		builder.AddAttribute(2, "aria-readonly", "true");
+		builder.AddAttribute(3, "tabindex", 0);
+		builder.AddContent(4, Value);
+		builder.AddContent(5, ValueTemplate);
 		if (String.IsNullOrWhiteSpace(Value) && (ValueTemplate == null))
 		{
 			// workaround for [HxFormValue] Shrunk when displaying null/empty value #208

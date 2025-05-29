@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Text.RegularExpressions;
+using Havit.Blazor.Components.Web.Bootstrap.Forms.Internal;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.Extensions.Localization;
 
@@ -62,7 +61,7 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	/// Size of the input.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxInputDate) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
@@ -101,7 +100,10 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
-	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* label rendered by HxInputDateInternal */ : LabelValueRenderOrder.LabelValue;
+	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
+	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
+
+	protected override LabelValueRenderOrder RenderOrder => (LabelTypeEffective == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* label rendered by HxInputDateInternal */ : LabelValueRenderOrder.LabelValue;
 
 	/// <summary>
 	/// Custom CSS class to render with the input-group span.
@@ -168,15 +170,15 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 		builder.OpenComponent(1, typeof(HxInputDateInternal<TValue>));
 
-		builder.AddAttribute(100, nameof(Value), Value);
-		builder.AddAttribute(101, nameof(ValueChanged), EventCallback.Factory.Create<TValue>(this, value => CurrentValue = value));
-		builder.AddAttribute(102, nameof(ValueExpression), ValueExpression);
+		builder.AddAttribute(100, nameof(HxInputDateInternal<TValue>.CurrentValue), CurrentValue);
+		builder.AddAttribute(100, nameof(HxInputDateInternal<TValue>.CurrentValueAsString), CurrentValueAsString);
+		builder.AddAttribute(101, nameof(HxInputDateInternal<TValue>.CurrentValueAsStringChanged), EventCallback.Factory.Create<string>(this, value => CurrentValueAsString = value));
 
 		builder.AddAttribute(200, nameof(HxInputDateInternal<TValue>.InputId), InputId);
 		builder.AddAttribute(201, nameof(HxInputDateInternal<TValue>.InputCssClass), GetInputCssClassToRender());
 		builder.AddAttribute(202, nameof(HxInputDateInternal<TValue>.EnabledEffective), EnabledEffective);
-		builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.ParsingErrorMessageEffective), GetParsingErrorMessage());
-		builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
+		builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
+		builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.NameAttributeValue), NameAttributeValue);
 
 		builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.InputSizeEffective), InputSizeEffective);
 		builder.AddAttribute(206, nameof(HxInputDateInternal<TValue>.CalendarIconEffective), CalendarIconEffective);
@@ -197,20 +199,21 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 		builder.AddAttribute(218, nameof(HxInputDateInternal<TValue>.InputGroupCssClass), InputGroupCssClass);
 		builder.AddAttribute(219, nameof(HxInputDateInternal<TValue>.CalendarDisplayMonth), CalendarDisplayMonth);
 
-		builder.AddMultipleAttributes(300, AdditionalAttributes);
+		builder.AddAttribute(300, nameof(HxInputDateInternal<TValue>.AdditionalAttributes), AdditionalAttributes);
+
 		builder.AddComponentReferenceCapture(301, (__value) => _hxInputDateInternalComponent = (HxInputDateInternal<TValue>)__value);
 
 		builder.CloseComponent();
 	}
 
-	public override ValueTask FocusAsync()
+	public async ValueTask FocusAsync()
 	{
 		if (_hxInputDateInternalComponent is null)
 		{
-			throw new InvalidOperationException($"Unable to focus {nameof(HxInputDate)}. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unable to focus. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 
-		return _hxInputDateInternalComponent.FocusAsync();
+		await _hxInputDateInternalComponent.FocusAsync();
 	}
 
 	// For generating chips
@@ -224,7 +227,18 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 	protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string validationErrorMessage)
 	{
-		throw new NotSupportedException();
+		if (DateHelper.TryParseDateFromString<TValue>(value, TimeProviderEffective, out var date))
+		{
+			result = date;
+			validationErrorMessage = null;
+			return true;
+		}
+		else
+		{
+			result = default;
+			validationErrorMessage = GetParsingErrorMessage();
+			return false;
+		}
 	}
 
 	/// <summary>
@@ -255,73 +269,5 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 			default:
 				throw new InvalidOperationException("Unsupported type.");
 		}
-	}
-
-	// for easy testability
-	internal static bool TryParseDateTimeOffsetFromString(string value, CultureInfo culture, out DateTimeOffset? result)
-	{
-		if (String.IsNullOrWhiteSpace(value))
-		{
-			result = null;
-			return true;
-		}
-
-		// it also works for "invalid dates" (with dots, commas, spaces...)
-		// ie. 09,09,2020 --> 9.9.2020
-		// ie. 09 09 2020 --> 9.9.2020
-		// ie. 06,05, --> 6.5.ThisYear
-		// ie. 06 05 --> 6.5.ThisYear
-		bool success = DateTimeOffset.TryParse(value, culture, DateTimeStyles.AllowWhiteSpaces, out DateTimeOffset parsedValue) && (parsedValue.TimeOfDay == TimeSpan.Zero);
-		if (success)
-		{
-			result = parsedValue;
-			return true;
-		}
-
-		Match match;
-
-		// 0105 --> 01.05.ThisYear
-		match = Regex.Match(value, "^(\\d{2})(\\d{2})$");
-		if (match.Success)
-		{
-			if (int.TryParse(match.Groups[1].Value, out int day)
-				&& int.TryParse(match.Groups[2].Value, out int month))
-			{
-				try
-				{
-					result = new DateTimeOffset(new DateTime(DateTime.Now.Year, month, day));
-					return true;
-				}
-				catch (ArgumentOutOfRangeException)
-				{
-					// NOOP
-				}
-			}
-			result = null;
-			return false;
-		}
-
-		// 01 --> 01.ThisMonth.ThisYear
-		match = Regex.Match(value, "^(\\d{2})$");
-		if (match.Success)
-		{
-			if (int.TryParse(match.Groups[1].Value, out int day))
-			{
-				try
-				{
-					result = new DateTimeOffset(new DateTime(DateTime.Now.Year, DateTime.Now.Month, day));
-					return true;
-				}
-				catch (ArgumentOutOfRangeException)
-				{
-					// NOOP
-				}
-			}
-			result = null;
-			return false;
-		}
-
-		result = null;
-		return false;
 	}
 }

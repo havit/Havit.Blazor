@@ -23,4 +23,15 @@ public static class MessengerServiceCollectionExtensions
 			return services.AddScoped<IHxMessengerService, HxMessengerService>();
 		}
 	}
+
+	/// <summary>
+	/// Adds <see cref="IHxMessengerService"/> support to be able to add messages to HxMessenger.
+	/// Allows to specify the <see cref="ServiceLifetime"/> of the <see cref="IHxMessengerService"/>.
+	/// </summary>
+	public static IServiceCollection AddHxMessenger(this IServiceCollection services, ServiceLifetime serviceLifetime)
+	{
+		var serviceDescriptor = new ServiceDescriptor(typeof(IHxMessengerService), typeof(HxMessengerService), serviceLifetime);
+		services.Add(serviceDescriptor);
+		return services;
+	}
 }

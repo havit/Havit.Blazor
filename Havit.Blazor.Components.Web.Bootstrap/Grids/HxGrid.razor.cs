@@ -1,5 +1,6 @@
 ﻿using Havit.Collections;
 using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -9,7 +10,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// </summary>
 /// <typeparam name="TItem">Type of row data item.</typeparam>
 [CascadingTypeParameter(nameof(TItem))]
-public partial class HxGrid<TItem> : ComponentBase, IDisposable
+public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 {
 	/// <summary>
 	/// Represents a constant name for ColumnsRegistration cascading value.
@@ -106,6 +107,19 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected virtual Task InvokeSelectedDataItemsChangedAsync(HashSet<TItem> selectedDataItems) => SelectedDataItemsChanged.InvokeAsync(selectedDataItems);
 
 	/// <summary>
+	/// Gets or sets a value indicating whether the current selection (either <see cref="SelectedDataItem"/> for single selection
+	/// or <see cref="SelectedDataItems"/> for multiple selection) should be preserved during data operations, such as paging, sorting, filtering,
+	/// or manual invocation of <see cref="RefreshDataAsync()"/>.<br />
+	/// Default value is <c>false</c> (can be set by using <c>HxGrid.Defaults</c>).
+	/// </summary>
+	/// <remarks>
+	/// This setting ensures that the selection remains intact during operations that refresh or modify the displayed data in the grid.
+	/// Note that preserving the selection requires that the underlying data items can still be matched in the updated dataset (e.g., by <c>item1.Equals(item2)</c>).
+	/// </remarks>
+	[Parameter] public bool? PreserveSelection { get; set; }
+	protected bool PreserveSelectionEffective => PreserveSelection ?? GetSettings()?.PreserveSelection ?? GetDefaults().PreserveSelection ?? throw new InvalidOperationException(nameof(PreserveSelection) + " default for " + nameof(HxGrid) + " has to be set.");
+
+	/// <summary>
 	/// The strategy for how data items are displayed and loaded into the grid. Supported modes include pagination, load more, and infinite scroll.
 	/// </summary>
 	[Parameter] public GridContentNavigationMode? ContentNavigationMode { get; set; }
@@ -197,8 +211,9 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected string ItemRowCssClassEffective => ItemRowCssClass ?? GetSettings()?.ItemRowCssClass ?? GetDefaults().ItemRowCssClass;
 
 	/// <summary>
-	/// Height of each item row, used primarily in calculations for infinite scrolling.
+	/// Height of each item row, used in calculations for infinite scrolling (<see cref="GridContentNavigationMode.InfiniteScroll"/>).
 	/// The default value (41px) corresponds to the typical row height in the Bootstrap 5 default theme.
+	/// The row height is not applied for other navigation modes, use CSS for that.
 	/// </summary>
 	[Parameter] public float? ItemRowHeight { get; set; }
 	protected float ItemRowHeightEffective => ItemRowHeight ?? GetSettings()?.ItemRowHeight ?? GetDefaults().ItemRowHeight ?? throw new InvalidOperationException(nameof(ItemRowHeight) + " default for " + nameof(HxGrid) + " has to be set.");
@@ -279,12 +294,69 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	protected IconBase SortDescendingIconEffective => SortDescendingIcon ?? GetSettings()?.SortDescendingIcon ?? GetDefaults().SortDescendingIcon;
 
 	/// <summary>
+	/// Defines a function that returns additional attributes for a specific <c>tr</c> element based on the item it represents.
+	/// This allows for custom behavior or event handling on a per-row basis.
+	/// </summary>
+	/// <remarks>
+	/// If both <see cref="ItemRowAdditionalAttributesSelector"/> and <see cref="ItemRowAdditionalAttributes"/> are specified,
+	/// both dictionaries are combined into one.
+	/// Note that there is no prevention of duplicate keys, which may result in a <see cref="System.ArgumentException"/>.
+	/// </remarks>
+	[Parameter] public Func<TItem, Dictionary<string, object>> ItemRowAdditionalAttributesSelector { get; set; }
+
+	/// <summary>
+	/// Provides a dictionary of additional attributes to apply to all body <c>tr</c> elements in the grid.
+	/// These attributes can be used to customize the appearance or behavior of rows.
+	/// </summary>
+	/// <remarks>
+	/// If both <see cref="ItemRowAdditionalAttributesSelector"/> and <see cref="ItemRowAdditionalAttributes"/> are specified,
+	/// both dictionaries are combined into one.
+	/// Note that there is no prevention of duplicate keys, which may result in a <see cref="System.ArgumentException"/>.
+	/// </remarks>
+	[Parameter] public Dictionary<string, object> ItemRowAdditionalAttributes { get; set; }
+
+	/// <summary>
+	/// Provides a dictionary of additional attributes to apply to the header <c>tr</c> element of the grid.
+	/// This allows for custom styling or behavior of the header row.
+	/// </summary>
+	[Parameter] public Dictionary<string, object> HeaderRowAdditionalAttributes { get; set; }
+
+	/// <summary>
+	/// Provides a dictionary of additional attributes to apply to the footer <c>tr</c> element of the grid.
+	/// This allows for custom styling or behavior of the footer row.
+	/// </summary>
+	[Parameter] public Dictionary<string, object> FooterRowAdditionalAttributes { get; set; }
+
+	/// <summary>
+	/// Determines the effective additional attributes for a given data row, combining both the global and per-item attributes.
+	/// </summary>
+	/// <param name="item">The data item for the current row.</param>
+	/// <returns>A dictionary of additional attributes to apply to the row.</returns>
+	/// <exception cref="System.ArgumentException">Thrown when there are duplicate keys in the combined dictionaries.</exception>
+	private Dictionary<string, object> ItemRowAdditionalAttributesSelectorEffective(TItem item)
+	{
+		if (ItemRowAdditionalAttributesSelector == null)
+		{
+			return ItemRowAdditionalAttributes;
+		}
+		else if (ItemRowAdditionalAttributes == null)
+		{
+			return ItemRowAdditionalAttributesSelector(item);
+		}
+		else
+		{
+			return ItemRowAdditionalAttributes.Concat(ItemRowAdditionalAttributesSelector(item)).ToDictionary(x => x.Key, x => x.Value);
+		}
+	}
+
+	/// <summary>
 	/// Retrieves the default settings for the grid. This method can be overridden in derived classes
 	/// to provide different default settings or to use a derived settings class.
 	/// </summary>
 	protected virtual GridSettings GetDefaults() => HxGrid.Defaults;
 
 	[Inject] protected IStringLocalizer<HxGrid> HxGridLocalizer { get; set; }
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	private List<IHxGridColumn<TItem>> _columnsList;
 	private HashSet<string> _columnIds;
@@ -304,6 +376,9 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private int _previousLoadMoreAdditionalItemsCount;
 
 	private Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem> _infiniteScrollVirtualizeComponent;
+	private bool _virtualizeItemsProviderWaitsForStartIndexZero;
+	private ElementReference _hxGridContainer;
+	private IJSObjectReference _jsModule;
 
 	private int? _totalCount;
 	private bool _dataProviderInProgress;
@@ -327,7 +402,10 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 		Contract.Requires<InvalidOperationException>(DataProvider != null, $"Property {nameof(DataProvider)} on {GetType()} must have a value.");
 		Contract.Requires<InvalidOperationException>(CurrentUserState != null, $"Property {nameof(CurrentUserState)} on {GetType()} must have a value.");
-		Contract.Requires<InvalidOperationException>(!MultiSelectionEnabled || (ContentNavigationModeEffective != GridContentNavigationMode.InfiniteScroll), $"Cannot use multi selection with infinite scroll on {GetType()}.");
+		if ((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) && MultiSelectionEnabled)
+		{
+			Contract.Requires<InvalidOperationException>(PreserveSelectionEffective, $"{nameof(PreserveSelection)} must be enabled on {nameof(HxGrid)} when using {nameof(GridContentNavigationMode.InfiniteScroll)} with {nameof(MultiSelectionEnabled)}.");
+		}
 
 		if (_previousUserState != CurrentUserState)
 		{
@@ -524,7 +602,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		}
 		else // MultiSelectionEnabled
 		{
-			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItem>();
+			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? [];
 			if (selectedDataItems.Add(clickedDataItem) // when the item was added
 				|| selectedDataItems.Remove(clickedDataItem)) // or removed... But because of || item removal is performed only when the item was not added!
 			{
@@ -566,7 +644,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			_columnIds ??= new HashSet<string>();
 			if (!_columnIds.Add(columnId))
 			{
-				throw new InvalidOperationException($"There is already registered another column with the '{columnId}' identifier.");
+				throw new InvalidOperationException($"[{GetType().Name}] There is already registered another column with the '{columnId}' identifier.");
 			}
 		}
 
@@ -587,18 +665,27 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	/// <summary>
 	/// Requests a data refresh from the <see cref="DataProvider"/>.
 	/// Useful for updating the grid when external data may have changed.
+	/// To reset grid state (e.g., position), use <see cref="RefreshDataAsync(GridStateResetOptions)"/> instead.
 	/// </summary>
-	/// <returns>A <see cref="Task"/> representing the completion of the operation.</returns>
 	public async Task RefreshDataAsync()
 	{
+		await RefreshDataAsync(GridStateResetOptions.None);
+	}
+
+	/// <summary>
+	/// Requests a data refresh from the <see cref="DataProvider"/>.
+	/// Useful for updating the grid when external data may have changed.
+	/// </summary>
+	/// <param name="resetOptions">Specifies which aspects of the grid state should be reset before refreshing data (e.g., position).</param>
+	public async Task RefreshDataAsync(GridStateResetOptions resetOptions)
+	{
+		await ResetGridStateAsync(resetOptions);
+
 		if (_firstRenderCompleted)
 		{
 			await RefreshDataCoreAsync();
 		}
-		else
-		{
-			// first render is not completed yet, default sorting not resolved yet, will load data in OnAfterRenderAsync
-		}
+		// else: first render is not completed yet, default sorting not resolved yet, will load data in OnAfterRenderAsync
 	}
 
 	/// <summary>
@@ -633,7 +720,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 				}
 				break;
 
-			default: throw new InvalidOperationException(ContentNavigationModeEffective.ToString());
+			default:
+				throw new InvalidOperationException(ContentNavigationModeEffective.ToString());
 		}
 	}
 
@@ -645,6 +733,68 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		await RefreshPaginationOrLoadMoreDataCoreAsync();
 	}
 
+	private async Task ResetGridStateAsync(GridStateResetOptions resetOptions)
+	{
+		bool resetInfiniteScroll = false;
+
+		var newUserState = CurrentUserState;
+
+		if (resetOptions.HasFlag(GridStateResetOptions.ResetPosition))
+		{
+			switch (ContentNavigationModeEffective)
+			{
+				case GridContentNavigationMode.Pagination:
+				case GridContentNavigationMode.LoadMore:
+				case GridContentNavigationMode.PaginationAndLoadMore:
+					newUserState = CurrentUserState with { PageIndex = 0, LoadMoreAdditionalItemsCount = 0 };
+					break;
+
+				case GridContentNavigationMode.InfiniteScroll:
+					resetInfiniteScroll = true;
+					break;
+
+				default:
+					throw new InvalidOperationException(ContentNavigationModeEffective.ToString());
+			}
+		}
+
+		if (resetOptions.HasFlag(GridStateResetOptions.ResetSorting))
+		{
+			var defaultSorting = GetDefaultSorting();
+			if (!Enumerable.SequenceEqual(defaultSorting, _currentSorting)) // eliminate unnecessary CurrentUserStateChanged
+			{
+				newUserState = newUserState with
+				{
+					Sorting = SerializeToCurrentUserStateSorting(defaultSorting)
+				};
+				_currentSorting = defaultSorting.ToList();
+			}
+		}
+
+		if (newUserState != CurrentUserState)
+		{
+			CurrentUserState = newUserState;
+			_previousUserState = newUserState; // suppress another RefreshDataAsync call in OnParametersSetAsync
+			await InvokeCurrentUserStateChangedAsync(CurrentUserState);
+		}
+
+		if (resetInfiniteScroll)
+		{
+			if (_firstRenderCompleted)
+			{
+				// We can create new instance of Virtualize component but then it does not render its content until it knows the total number of items.
+				// So until first rendering of new instance of Virtualize component is rendered, the in progress indicator is not shown.
+				// Therefore we do not create new instance of Virtualize component but just reset the scroll position.
+				// Unfortunately, this can lead to two VirtualizeItemsProvider calls (first is caused by the refresh data call,
+				// later the second call is caused by the scroll position reset), we are propagating just a single VirtualizeItemsProvider call.
+				await EnsureJsModuleAsync();
+				_virtualizeItemsProviderWaitsForStartIndexZero = true;
+				await _jsModule.InvokeVoidAsync("resetScrollPosition", _hxGridContainer);
+			}
+		}
+
+	}
+
 	private async ValueTask RefreshPaginationOrLoadMoreDataCoreAsync(bool forceReloadAllPaginationOrLoadMoreData = false)
 	{
 		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
@@ -653,7 +803,7 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		// TODO Consider CancelAsync method for net8.0+
 		_paginationRefreshDataCancellationTokenSource?.Cancel();
 #pragma warning restore VSTHRD103 // Call async methods when in an async method
-		_paginationRefreshDataCancellationTokenSource?.Dispose();
+		// do not dispose the CTS here, there might be still some tasks running and they might throw ObjectDisposedException when using the CancellationToken
 		_paginationRefreshDataCancellationTokenSource = new CancellationTokenSource();
 		CancellationToken cancellationToken = _paginationRefreshDataCancellationTokenSource.Token;
 
@@ -719,17 +869,17 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 				if ((request.Count != null) && (dataCount > request.Count))
 				{
-					throw new InvalidOperationException($"{nameof(DataProvider)} returned more data items then it was requested.");
+					throw new InvalidOperationException($"[{GetType().Name}] {nameof(DataProvider)} returned more data items then it was requested.");
 				}
 
 				if ((request.Count != null) && (result.TotalCount == null))
 				{
-					throw new InvalidOperationException($"{nameof(DataProvider)} did not set {nameof(GridDataProviderResult<TItem>.TotalCount)}.");
+					throw new InvalidOperationException($"[{GetType().Name}] {nameof(DataProvider)} did not set {nameof(GridDataProviderResult<TItem>.TotalCount)}.");
 				}
 
 				if (result.TotalCount != null && (dataCount > result.TotalCount.Value))
 				{
-					throw new InvalidOperationException($"Invalid {nameof(DataProvider)} response. {nameof(GridDataProviderResult<TItem>.TotalCount)} value smaller than the number of returned data items.");
+					throw new InvalidOperationException($"[{GetType().Name}] Invalid {nameof(DataProvider)} response. {nameof(GridDataProviderResult<TItem>.TotalCount)} value smaller than the number of returned data items.");
 				}
 			}
 			#endregion
@@ -738,18 +888,21 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 			{
 				_paginationDataItemsToRender = result.Data?.ToList();
 
-				if (!EqualityComparer<TItem>.Default.Equals(SelectedDataItem, default))
+				if (!PreserveSelectionEffective)
 				{
-					if ((_paginationDataItemsToRender == null) || !_paginationDataItemsToRender.Contains(SelectedDataItem))
+					if (!EqualityComparer<TItem>.Default.Equals(SelectedDataItem, default))
 					{
-						await SetSelectedDataItemWithEventCallback(default);
+						if ((_paginationDataItemsToRender == null) || !_paginationDataItemsToRender.Contains(SelectedDataItem))
+						{
+							await SetSelectedDataItemWithEventCallback(default);
+						}
 					}
-				}
 
-				if (SelectedDataItems?.Count > 0)
-				{
-					HashSet<TItem> selectedDataItems = _paginationDataItemsToRender?.Intersect(SelectedDataItems).ToHashSet() ?? new HashSet<TItem>();
-					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
+					if (SelectedDataItems?.Count > 0)
+					{
+						HashSet<TItem> selectedDataItems = _paginationDataItemsToRender?.Intersect(SelectedDataItems).ToHashSet() ?? new HashSet<TItem>();
+						await SetSelectedDataItemsWithEventCallback(selectedDataItems);
+					}
 				}
 			}
 			else
@@ -764,6 +917,16 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 
 	private async ValueTask<Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderResult<TItem>> VirtualizeItemsProvider(Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderRequest request)
 	{
+		if (_virtualizeItemsProviderWaitsForStartIndexZero)
+		{
+			if (request.StartIndex > 0)
+			{
+				// When OperationCanceledException is thrown WITH CANCELLATIONTOKEN, Virtualize component silently ends the request.
+				throw new OperationCanceledException("Expecting request with StartIndex equal to zero.", request.CancellationToken);
+			}
+			_virtualizeItemsProviderWaitsForStartIndexZero = false;
+		}
+
 		GridDataProviderRequest<TItem> gridDataProviderRequest = new GridDataProviderRequest<TItem>
 		{
 			StartIndex = request.StartIndex,
@@ -858,9 +1021,8 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private async Task HandleMultiSelectUnselectDataItemClicked(TItem selectedDataItem)
 	{
 		Contract.Requires(MultiSelectionEnabled);
-		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
 
-		var selectedDataItems = SelectedDataItems?.ToHashSet() ?? new HashSet<TItem>();
+		var selectedDataItems = SelectedDataItems?.ToHashSet() ?? [];
 		if (selectedDataItems.Remove(selectedDataItem))
 		{
 			await SetSelectedDataItemsWithEventCallback(selectedDataItems);
@@ -870,24 +1032,48 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 	private async Task HandleMultiSelectSelectAllClicked()
 	{
 		Contract.Requires(MultiSelectionEnabled, nameof(MultiSelectionEnabled));
-		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
 
 		if (_paginationDataItemsToRender is null)
 		{
-			await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>());
+			await SetSelectedDataItemsWithEventCallback([]);
 		}
 		else
 		{
-			await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>(_paginationDataItemsToRender));
+			if (PreserveSelectionEffective)
+			{
+				var selectedDataItems = SelectedDataItems?.ToHashSet() ?? [];
+				int originalCount = selectedDataItems.Count;
+				selectedDataItems.UnionWith(_paginationDataItemsToRender);
+				if (selectedDataItems.Count != originalCount)
+				{
+					await SetSelectedDataItemsWithEventCallback(selectedDataItems);
+				}
+			}
+			else
+			{
+				await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>(_paginationDataItemsToRender));
+			}
 		}
 	}
 
 	private async Task HandleMultiSelectSelectNoneClicked()
 	{
 		Contract.Requires(MultiSelectionEnabled);
-		Contract.Requires((ContentNavigationModeEffective == GridContentNavigationMode.Pagination) || (ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore));
 
-		await SetSelectedDataItemsWithEventCallback(new HashSet<TItem>());
+		if (PreserveSelectionEffective)
+		{
+			var selectedDataItems = SelectedDataItems?.ToHashSet() ?? [];
+			int originalCount = selectedDataItems.Count;
+			selectedDataItems.ExceptWith(_paginationDataItemsToRender);
+			if (selectedDataItems.Count != originalCount)
+			{
+				await SetSelectedDataItemsWithEventCallback(selectedDataItems);
+			}
+		}
+		else
+		{
+			await SetSelectedDataItemsWithEventCallback([]);
+		}
 	}
 	#endregion
 
@@ -937,25 +1123,9 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 		return result;
 	}
 
-	/// <inheritdoc />
-	public void Dispose()
+	protected async Task EnsureJsModuleAsync()
 	{
-		Dispose(true);
-	}
-
-	protected virtual void Dispose(bool disposing)
-	{
-		if (disposing)
-		{
-			_paginationRefreshDataCancellationTokenSource?.Cancel();
-			_paginationRefreshDataCancellationTokenSource?.Dispose();
-			_paginationRefreshDataCancellationTokenSource = null;
-
-			_dataProviderInProgressDelayTimer?.Dispose();
-			_dataProviderInProgressDelayTimer = null;
-
-			_isDisposed = true;
-		}
+		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxGrid<TItem>));
 	}
 
 	internal static SortDirection GetSortIconDisplayDirection(bool isCurrentSorting, List<GridInternalStateSortingItem<TItem>> currentSorting, SortingItem<TItem>[] columnSorting)
@@ -972,5 +1142,32 @@ public partial class HxGrid<TItem> : ComponentBase, IDisposable
 				? columnSorting[0].SortDirection.Reverse()
 				: columnSorting[0].SortDirection;
 		}
+	}
+
+	/// <inheritdoc />
+	public async ValueTask DisposeAsync()
+	{
+		await DisposeAsyncCore();
+	}
+
+	protected virtual async Task DisposeAsyncCore()
+	{
+		if (_paginationRefreshDataCancellationTokenSource != null)
+		{
+			await _paginationRefreshDataCancellationTokenSource.CancelAsync();
+			// do not dispose the CTS here, there might be still some tasks running and they might throw ObjectDisposedException when using the CancellationToken
+			_paginationRefreshDataCancellationTokenSource = null;
+		}
+
+		_dataProviderInProgressDelayTimer?.Dispose();
+		_dataProviderInProgressDelayTimer = null;
+
+		if (_jsModule != null)
+		{
+			await _jsModule.DisposeAsync();
+			_jsModule = null;
+		}
+
+		_isDisposed = true;
 	}
 }

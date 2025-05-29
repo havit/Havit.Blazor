@@ -9,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSearchBox">https://havit.blazor.eu/components/HxSearchBox</see>
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public partial class HxSearchBox<TItem> : IAsyncDisposable
+public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInputWithLabelType
 {
 	/// <summary>
 	/// Returns application-wide defaults for the component.
@@ -170,16 +170,23 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// </summary>
 	[Parameter] public string Label { get; set; }
 
-	/// <summary>
-	/// Label type of the input field.
-	/// </summary>
-	[Parameter] public LabelType LabelType { get; set; }
+	/// <inheritdoc cref="Bootstrap.LabelType" />
+	[Parameter] public LabelType? LabelType { get; set; }
+	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
+	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
 
 	/// <summary>
 	/// Input size of the input field.
 	/// </summary>
 	[Parameter] public InputSize? InputSize { get; set; }
-	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? throw new InvalidOperationException(nameof(InputSize) + " default for " + nameof(HxSearchBox) + " has to be set.");
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
+	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
+
+	/// <summary>
+	/// Defines whether the input may be checked for spelling errors. Default is <c>false</c>.
+	/// </summary>
+	[Parameter] public bool? Spellcheck { get; set; }
+	protected bool? SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck;
 
 	/// <summary>
 	/// Minimum length to call the data provider (display any results). Default is <c>2</c>.
@@ -270,9 +277,9 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
-		if ((LabelType == LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
+		if ((LabelTypeEffective == Bootstrap.LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
 		{
-			throw new InvalidOperationException($"Cannot use {nameof(Placeholder)} with floating labels.");
+			throw new InvalidOperationException($"[{GetType().Name}] Cannot use {nameof(Placeholder)} with floating labels.");
 		}
 	}
 
@@ -304,7 +311,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	{
 		if (EqualityComparer<ElementReference>.Default.Equals(_inputElementReference, default))
 		{
-			throw new InvalidOperationException($"Unable to focus {nameof(HxSearchBox)}. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unable to focus. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 		await _inputElementReference.FocusAsync();
 	}
@@ -380,7 +387,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		_searchResults = result?.Data?.ToList() ?? new();
 
 		_textQueryHasBeenBelowMinimumLength = false;
-		await ShowDropdownMenu();
+		await ShowDropdownAsync();
 
 		StateHasChanged();
 	}
@@ -419,11 +426,11 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 		if (ShouldDropdownMenuBeDisplayed())
 		{
-			await ShowDropdownMenu();
+			await ShowDropdownAsync();
 		}
 		else if (_dropdownMenuActive)
 		{
-			await HideDropdownMenu();
+			await HideDropdownAsync();
 		}
 		await InvokeTextQueryChangedAsync(newTextQuery);
 	}
@@ -549,13 +556,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 	{
 		_inputFormHasFocus = true;
 
-		// first focus when MinimumLength is 0 and we need to load initial suggestions
-		if (((TextQuery?.Length ?? 0) == 0) && (MinimumLengthEffective == 0) && !_searchResults.Any())
+		// When MinimumLength is 0, we need to load/update initial suggestions
+		if (((TextQuery?.Length ?? 0) == 0) && (MinimumLengthEffective == 0))
 		{
 			await UpdateSuggestionsAsync();
 		}
 
-		await ShowDropdownMenu();
+		await ShowDropdownAsync();
 	}
 
 	private void HandleInputBlur()
@@ -591,7 +598,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		{
 			CancelDataProviderAndDebounce();
 
-			await HideDropdownMenu();
+			await HideDropdownAsync();
 			await InvokeOnTextQueryTriggeredAsync(TextQuery);
 		}
 	}
@@ -610,7 +617,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 				throw new InvalidOperationException($"Invalid {nameof(SearchBoxItemSelectionBehavior)} value: {ItemSelectionBehaviorEffective}");
 		}
 
-		await HideDropdownMenu();
+		await HideDropdownAsync();
 		await InvokeTextQueryChangedAsync(TextQuery);
 		await InvokeOnItemSelectedAsync(item);
 	}
@@ -621,7 +628,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 
 		if (!ShouldDropdownMenuBeDisplayed())
 		{
-			await HideDropdownMenu();
+			await HideDropdownAsync();
 		}
 	}
 
@@ -634,7 +641,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 	}
 
-	private async Task ShowDropdownMenu()
+	private async Task ShowDropdownAsync()
 	{
 		if (!_clickIsComing)
 		{
@@ -644,7 +651,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable
 		}
 	}
 
-	private async Task HideDropdownMenu()
+	/// <summary>
+	/// Hides the dropdown menu.
+	/// </summary>
+	/// <remarks>
+	/// Allows custom actions from <see cref="DefaultContentTemplate" /> or <see cref="NotFoundTemplate" /> to hide the dropdown menu.
+	/// </remarks>
+	public async Task HideDropdownAsync()
 	{
 		await _dropdownToggle.HideAsync();
 	}

@@ -187,14 +187,6 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>>, IInputWi
 		public bool HackProperty { get; set; }
 	}
 
-	/// <summary>
-	/// Throws NotSupportedException - giving focus to an input element is not supported on the HxCheckboxList.
-	/// </summary>
-	public override ValueTask FocusAsync()
-	{
-		throw new NotSupportedException($"{nameof(FocusAsync)} is not supported on {nameof(HxCheckboxList<TValue, TItem>)}.");
-	}
-
 	/// <inheritdoc />
 	protected override string FormatValueAsString(List<TValue> value)
 	{

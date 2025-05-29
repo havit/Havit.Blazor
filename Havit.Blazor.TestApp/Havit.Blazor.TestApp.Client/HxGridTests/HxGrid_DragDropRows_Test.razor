@@ -1,0 +1,95 @@
+﻿@page "/HxGrid_DragDropRows"
+@rendermode InteractiveServer
+
+<h3>HxGrid_DragDropRows</h3>
+
+<HxGrid @ref="grid"
+		TItem="Person"
+		DataProvider="GetGridData"
+		PageSize="5"
+		Responsive="true"
+		HeaderRowAdditionalAttributes="HeaderRowAdditionalAttributes "
+		ItemRowAdditionalAttributes="ItemRowAdditionalAttributes"
+		ItemRowAdditionalAttributesSelector="EmployeeRowAttributes">
+	<Columns>
+		<HxGridColumn>
+			<ItemTemplate>
+				<HxIcon Icon="BootstrapIcon.GripVertical" />
+			</ItemTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Initials" />
+	</Columns>
+</HxGrid>
+
+@code {
+	HxGrid<Person> grid;
+	private record class Person(string Name, string Initials)
+	{
+		public int Position { get; set; }
+	};
+	private List<Person> people;
+
+	protected override void OnInitialized()
+	{
+		people = new List<Person>
+		 {
+			 new Person("Starr Ringo", "RS") { Position = 1 },
+			 new Person("Lennon John", "JL") { Position = 2 },
+			 new Person("McCartney Paul", "PMC") { Position = 3 },
+			 new Person("Harrison George", "GH")  { Position = 4 }
+		 };
+	}
+
+	Person clickedEmployee;
+	Dictionary<string, object> HeaderRowAdditionalAttributes = new() { { "data-row-type", "header" } };
+	Dictionary<string, object> ItemRowAdditionalAttributes = new() { { "draggable", "true" }, { "ondragover", "event.preventDefault();" } };
+
+	Dictionary<string, object> EmployeeRowAttributes(Person item)
+	{
+		return new() {
+			{"ondragstart",  EventCallback.Factory.Create<DragEventArgs>(this, (e) => HandleDragStart(item, e))},
+			{"ondrop", EventCallback.Factory.Create<DragEventArgs>(this, () => HandleDrop(item))},
+			// {"ondragenter",   EventCallback.Factory.Create<DragEventArgs>(this,(e) => HandleDragEnter(item, e)) },
+			// {"ondragleave",   EventCallback.Factory.Create<DragEventArgs>(this,HandleDragLeave) },
+			// {"ondragend",  EventCallback.Factory.Create<DragEventArgs>(this,HandleDragEnd) },
+		   };
+	}
+
+	private void SetEmpoloyee(Person employee)
+	{
+		clickedEmployee = employee;
+	}
+
+	private Task<GridDataProviderResult<Person>> GetGridData(GridDataProviderRequest<Person> request)
+	{
+		return Task.FromResult(new GridDataProviderResult<Person>()
+			{
+				Data = people.OrderBy(x => x.Position).ToList(),
+				TotalCount = people?.Count
+			});
+	}
+
+	private Person draggedItem;
+
+
+	private void HandleDragStart(Person item, DragEventArgs e)
+	{
+		draggedItem = item;
+	}
+
+	private async Task HandleDrop(Person item)
+	{
+		if (draggedItem == null) return;
+
+
+		var draggedItemPosition = draggedItem.Position;
+
+		if (draggedItemPosition == item?.Position) return;
+		draggedItem.Position = item.Position;
+		item.Position = draggedItemPosition;
+
+
+		await grid.RefreshDataAsync();
+	}
+}

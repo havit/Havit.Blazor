@@ -156,4 +156,13 @@ public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStati
 		}
 		return false;
 	}
+
+	/// <summary>
+	/// Refreshes the data. Discards all the data (if any) and loads it again.
+	/// </summary>
+	public async Task RefreshDataAsync()
+	{
+		Clear();
+		await EnsureDataAsync();
+	}
 }

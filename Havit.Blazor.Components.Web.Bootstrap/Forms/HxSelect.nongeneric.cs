@@ -12,9 +12,6 @@ public class HxSelect
 
 	static HxSelect()
 	{
-		Defaults = new SelectSettings()
-		{
-			InputSize = InputSize.Regular,
-		};
+		Defaults = new SelectSettings();
 	}
 }

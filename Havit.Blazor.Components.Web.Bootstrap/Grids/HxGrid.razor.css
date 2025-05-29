@@ -33,6 +33,11 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
     align-self: center;
 }
 
+.hx-grid:has(.sticky-top) {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+
 ::deep .hx-grid-btn {
     border-radius: var(--hx-grid-button-border-radius);
     padding: 0 .25rem;

@@ -8,9 +8,9 @@
 				@chipItem.ChipTemplate
 				@if (chipItem.Removable)
 				{
-					<span role="button" class="hx-chip-list-remove-btn" @onclick="() => InvokeOnChipRemoveClickAsync(chipItem)" @onclick:stopPropagation>
+					<button type="button" class="hx-chip-list-remove-btn" aria-label="@HxChipListLocalizer["Remove"]" @onclick="() => InvokeOnChipRemoveClickAsync(chipItem)" role="button" tabindex="0" @onclick:stopPropagation>
 						<HxIcon Icon="BootstrapIcon.X" />
-					</span>
+					</button>
 				}
 			</HxBadge>
 		}

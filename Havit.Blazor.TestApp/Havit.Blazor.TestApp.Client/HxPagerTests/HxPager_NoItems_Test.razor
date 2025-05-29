@@ -1,0 +1,15 @@
+@page "/HxPager_NoItems_Test"
+@rendermode InteractiveServer
+
+<HxButton Color="ThemeColor.Primary" Text="Change TotalPages to 0" OnClick="ChangeTotalPagesToZero" CssClass="mb-2" />
+
+<HxPager CurrentPageIndex="0" TotalPages="_totalPages" />
+
+@code {
+	private int _totalPages = 1;
+
+	private void ChangeTotalPagesToZero()
+	{
+		_totalPages = 0;
+	}
+}

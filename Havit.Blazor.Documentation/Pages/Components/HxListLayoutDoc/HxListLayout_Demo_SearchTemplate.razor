@@ -1,11 +1,11 @@
 ﻿@inject IDemoDataService DemoDataService
 
-<HxListLayout Title="Employees" TFilterModel="EmployeesFilterDto" @bind-FilterModel="filterModel" @bind-FilterModel:after="gridComponent.RefreshDataAsync">
+<HxListLayout Title="Employees" TFilterModel="EmployeesFilterDto" @bind-FilterModel="filterModel" @bind-FilterModel:after="HandleFilterModelChanged">
 	<SearchTemplate>
 		<HxInputText Placeholder="Search by name"
 					 Type="InputType.Search"
 					 @bind-Value="filterModel.Name"
-					 @bind-Value:after="gridComponent.RefreshDataAsync" />
+                     @bind-Value:after="HandleFilterModelChanged" />
 	</SearchTemplate>
 	<CommandsTemplate>
 		<HxButton Text="Create employee" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" OnClick="HandleNewItemClicked" />
@@ -46,11 +46,17 @@
 
 	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
 	{
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(filterModel, request.StartIndex, request.Count, request.CancellationToken);
 		return new GridDataProviderResult<EmployeeDto>()
 			{
-				Data = await DemoDataService.GetEmployeesDataFragmentAsync(filterModel, request.StartIndex, request.Count, request.CancellationToken),
-				TotalCount = await DemoDataService.GetEmployeesCountAsync(filterModel, request.CancellationToken)
+				Data = response.Data,
+				TotalCount = response.TotalCount
 			};
+	}
+
+	private async Task HandleFilterModelChanged()
+	{
+		await gridComponent.RefreshDataAsync(GridStateResetOptions.ResetPosition);
 	}
 
 	private Task HandleSelectedDataItemChanged()

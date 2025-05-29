@@ -11,7 +11,6 @@
 				   tabindex="@(CascadeEnabledComponent.EnabledEffective(this) ? null : "-1")"
 				   aria-disabled="@(CascadeEnabledComponent.EnabledEffective(this) ? null : "true")"
 				   role="@(OnClick.HasDelegate ? "button" : null)"
-				   @attributes="this.AdditionalAttributes">
-	@Text
-	@ChildContent
-</HxNavLinkInternal>
+				   @attributes="this.AdditionalAttributes"
+				   Text="@Text"
+				   ChildContent="ChildContent" />
