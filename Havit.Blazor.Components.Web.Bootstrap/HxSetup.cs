@@ -12,7 +12,7 @@ public static class HxSetup
 	/// <summary>
 	/// Bootstrap version used by the library.
 	/// </summary>
-	public static string BootstrapVersion = "5.3.5";
+	public static string BootstrapVersion = "5.3.6";
 
 	/// <summary>
 	/// Renders the <c>&lt;script&gt;</c> tag that references the corresponding Bootstrap JavaScript bundle with Popper.<br/>
