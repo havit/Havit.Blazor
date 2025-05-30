@@ -106,6 +106,16 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 		}
 	}
 
+	// TODO: ColorEffective cascade
+	// TODO: Outline?
+
+	/// <summary>
+	/// Bootstrap button style - theme color.<br />
+	/// The default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
+	/// </summary>
+	[Parameter] public ThemeColor? Color { get; set; }
+	protected ThemeColor ColorEffective => Color ?? ThemeColor.None;
+
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
