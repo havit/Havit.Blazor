@@ -1,5 +1,4 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
-using Havit.Blazor.Components.Web.Infrastructure;
+﻿using Havit.Blazor.Components.Web.Infrastructure;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -8,17 +7,12 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// </summary>
 /// <typeparam name="TValue">Type of value.</typeparam>
 /// <typeparam name="TItem">Type of items.</typeparam>
-public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>, IInputWithToggleButton
+public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 {
 	/// <summary>
 	/// Allows grouping radios on the same horizontal row by rendering them inline. Default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool Inline { get; set; }
-
-	/// <summary>
-	/// Input as toggle or regular.
-	/// </summary>
-	[Parameter] public InputAsToggle? InputAsToggle { get; set; }
 
 	/// <summary>
 	/// Selects a value from an item.
@@ -140,7 +134,6 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 		var item = _itemsToRender[index];
 		if (item != null)
 		{
-			var inputAsToggleEffective = (this as IInputWithToggleButton).InputAsToggleEffective;
 			bool selected = (index == _selectedItemIndex);
 			if (selected)
 			{
@@ -149,14 +142,13 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 			string inputId = GroupName + "_" + index.ToString();
 
-			if (inputAsToggleEffective != Bootstrap.InputAsToggle.Toggle)
-			{
-				builder.OpenElement(100, "div");
-				// TODO CoreCssClass
-				builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", Inline ? "form-check-inline" : null, ItemCssClassImpl, ItemCssClassSelectorImpl?.Invoke(item)));
-			}
+			builder.OpenElement(100, "div");
+
+			// TODO CoreCssClass
+			builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", Inline ? "form-check-inline" : null, ItemCssClassImpl, ItemCssClassSelectorImpl?.Invoke(item)));
+
 			builder.OpenElement(200, "input");
-			builder.AddAttribute(201, "class", CssClassHelper.Combine(inputAsToggleEffective == Bootstrap.InputAsToggle.Toggle ? "btn-check" : "form-check-input", ItemInputCssClassImpl, ItemInputCssClassSelectorImpl?.Invoke(item)));
+			builder.AddAttribute(201, "class", CssClassHelper.Combine("form-check-input", ItemInputCssClassImpl, ItemInputCssClassSelectorImpl?.Invoke(item)));
 			builder.AddAttribute(202, "type", "radio");
 			builder.AddAttribute(203, "name", GroupName);
 			builder.AddAttribute(204, "id", inputId);
@@ -171,7 +163,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.CloseElement(); // input
 
 			builder.OpenElement(300, "label");
-			builder.AddAttribute(301, "class", CssClassHelper.Combine(inputAsToggleEffective == Bootstrap.InputAsToggle.Toggle ? "btn" : "form-check-label", ItemTextCssClassImpl, ItemTextCssClassSelectorImpl?.Invoke(item)));
+			builder.AddAttribute(301, "class", CssClassHelper.Combine("form-check-label", ItemTextCssClassImpl, ItemTextCssClassSelectorImpl?.Invoke(item)));
 			builder.AddAttribute(302, "for", inputId);
 			if (ItemTemplateImpl != null)
 			{
@@ -183,10 +175,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			}
 			builder.CloseElement(); // label
 
-			if (inputAsToggleEffective != Bootstrap.InputAsToggle.Toggle)
-			{
-				builder.CloseElement(); // div
-			}
+			builder.CloseElement(); // div
 		}
 	}
 

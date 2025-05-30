@@ -3112,21 +3112,6 @@
             Default is <c>null</c> (unlimited).
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithToggleButton">
-            <summary>
-            Represents an input with a toggle button option
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithToggleButton.InputAsToggle">
-            <summary>
-            Gets or sets the input as toggle or regular.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithToggleButton.InputAsToggleEffective">
-            <summary>
-            Gets the effective input type.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.Accept">
             <summary>
             Takes as its value a comma-separated list of one or more file types, or unique file type specifiers, describing which file types to allow.
@@ -3461,9 +3446,41 @@
             Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2"/>.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.Checkbox">
+            <summary>
+            Renders regular checkbox.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.Switch">
+            <summary>
+            Renders switch.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.NativeSwitch">
+            <summary>
+            Renders switch with native haptic feedback (mobile Safari, iOS 17.4+).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton">
+            <summary>
+            Renders toggle button.<br />
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings">
             <summary>
             Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings.Color">
+            <summary>
+            Bootstrap button color (style).
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings.Outline">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap outline button style</see>.
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.FormValueSettings">
@@ -3483,6 +3500,17 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckbox">https://havit.blazor.eu/components/HxCheckbox</see>
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Settings">
             <summary>
             Set of settings to be applied to the component instance.
@@ -3491,11 +3519,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.GetSettings">
             <summary>
             Returns an optional set of component settings.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.InputAsToggle">
-            <summary>
-            Input as toggle or regular.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Text">
@@ -3524,16 +3547,29 @@
             Put the checkbox on the opposite side - first text, then checkbox.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.RenderMode">
+            <summary>
+            Checkbox render mode.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Color">
+            <summary>
+            Bootstrap button style - theme color.<br />
+            The default is taken from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Defaults"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> if not customized).
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Outline">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreInputCssClass">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreInputCssClass" />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreCssClass">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreCssClass" />
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.AdditionalFormElementCssClass">
-            <summary>
-            CSS class that allows adding <c>form-switch</c> in derived <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/>.
-            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.NeedsInnerDiv">
             <summary>
@@ -3587,11 +3623,6 @@
             <summary>
             Selects the text to display from the item.
             When not set, <c>ToString()</c> is used.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.InputAsToggle">
-            <summary>
-            Input as toggle or regular.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ItemValueSelector">
@@ -4911,11 +4942,6 @@
             Allows grouping radios on the same horizontal row by rendering them inline. Default is <c>false</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.InputAsToggle">
-            <summary>
-            Input as toggle or regular.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemValueSelectorImpl">
             <summary>
             Selects a value from an item.
@@ -5187,8 +5213,13 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSwitch">https://havit.blazor.eu/components/HxSwitch</see>
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.AdditionalFormElementCssClass">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.AdditionalFormElementCssClass" />
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.RenderMode">
+            <inheritdoc />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.Native">
+            <summary>
+            To render checkbox as a native switch.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1">
             <summary>
@@ -7689,21 +7720,6 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxBootstrapIcon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputAsToggle">
-            <summary>
-            Input display type.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.InputAsToggle.Regular">
-            <summary>
-            Regular
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.InputAsToggle.Toggle">
-            <summary>
-            <see href="https://getbootstrap.com/docs/5.3/forms/checks-radios/#toggle-buttons">Toggle buttons</see>.
-            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListLayout">
             <summary>
