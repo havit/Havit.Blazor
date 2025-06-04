@@ -3441,6 +3441,31 @@
             Gets the name of the event as a string.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.Checkbox">
+            <summary>
+            Renders regular checkboxes.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.Switch">
+            <summary>
+            Renders switches.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.NativeSwitch">
+            <summary>
+            Renders switches with native haptic feedback (mobile Safari, iOS 17.4+).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButton">
+            <summary>
+            Renders toggle buttosn.<br />
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup">
+            <summary>
+            Renders toggle buttons in a button group.<br />
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings">
             <summary>
             Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2"/>.
@@ -3565,6 +3590,15 @@
             For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.InButtonGroup">
+            <summary>
+            Indicates HxCheckbox is used as a part of a button group. Value provided as a cascading value from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup" />.
+            </summary>
+            <remarks>
+            In a button group the html structure must be as simple as documented in .
+            Thererefore we do not render neither the outer div(s) nor the validation message.
+            </remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreInputCssClass">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreInputCssClass" />
         </member>
@@ -3688,10 +3722,22 @@
             Returns an optional set of component settings.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.RenderMode">
+            <summary>
+            Checkbox render mode.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Color">
             <summary>
             Bootstrap button style - theme color.<br />
             The default is taken from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Defaults"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> if not customized).
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Outline">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButton"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">

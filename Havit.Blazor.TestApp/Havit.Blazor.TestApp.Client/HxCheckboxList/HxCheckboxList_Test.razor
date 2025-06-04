@@ -1,0 +1,25 @@
+﻿@page "/HxCheckboxList_Test"
+@rendermode InteractiveServer
+@using System.Globalization;
+@using System.ComponentModel.DataAnnotations
+@using Havit
+
+<h1>HxCheckboxList</h1>
+
+<h3>Regular checkboxes</h3>
+<HxCheckboxList TItem="System.String" TValue="System.String" Data="@data" @bind-Value="selectedValues" Label="Checkboxes" />
+
+<h3>Switches</h3>
+<HxCheckboxList TItem="System.String" TValue="System.String" Data="@data" @bind-Value="selectedValues" RenderMode="CheckboxListRenderMode.Switch" Label="Switches" />
+
+<h3>Toggle buttons</h3>
+<HxCheckboxList TItem="System.String" TValue="System.String" Data="@data" @bind-Value="selectedValues" RenderMode="CheckboxListRenderMode.ToggleButton" Label="Toggle buttons" />
+
+<h3>Button group</h3>
+<HxCheckboxList TItem="System.String" TValue="System.String" Data="@data" @bind-Value="selectedValues" RenderMode="CheckboxListRenderMode.ButtonGroup" Label="Button group" />
+
+@code
+{
+    private string[] data = System.Threading.Thread.CurrentThread.CurrentUICulture.DateTimeFormat.DayNames;
+    private List<string> selectedValues = new List<string>();
+}

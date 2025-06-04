@@ -90,6 +90,15 @@ public class HxCheckbox : HxInputBase<bool>
 	[Parameter] public bool? Outline { get; set; }
 	protected bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxCheckbox) + " has to be set.");
 
+	/// <summary>
+	/// Indicates HxCheckbox is used as a part of a button group. Value provided as a cascading value from <see cref="HxButtonGroup" />.
+	/// </summary>
+	/// <remarks>
+	/// In a button group the html structure must be as simple as documented in .
+	/// Thererefore we do not render neither the outer div(s) nor the validation message.
+	/// </remarks>
+	[CascadingParameter(Name = HxButtonGroup.InButtonGroupCascadingValueName)] public bool InButtonGroup { get; set; } = false;
+
 	[Inject] protected IStringLocalizer<HxCheckbox> Localizer { get; set; }
 
 	/// <inheritdoc cref="HxInputBase{TValue}.CoreInputCssClass" />
@@ -103,11 +112,23 @@ public class HxCheckbox : HxInputBase<bool>
 	};
 
 	/// <inheritdoc cref="HxInputBase{TValue}.CoreCssClass" />
-	private protected override string CoreCssClass => CssClassHelper.Combine(
-		base.CoreCssClass,
-		NeedsInnerDiv ? null : AdditionalFormElementCssClass,
-		NeedsFormCheckOuter ? CssClassHelper.Combine("form-check", Inline ? "form-check-inline" : null) : null,
-		Reverse ? "form-check-reverse" : null);
+	private protected override string CoreCssClass
+	{
+		get
+		{
+			if (InButtonGroup && (RenderMode == CheckboxRenderMode.ToggleButton))
+			{
+				// We need to disable rendering the outer div (and we expect Label and LabelTemplate properties are not set).
+				return null;
+			}
+
+			return CssClassHelper.Combine(
+				base.CoreCssClass,
+				NeedsInnerDiv ? null : AdditionalFormElementCssClass,
+				NeedsFormCheckOuter ? CssClassHelper.Combine("form-check", Inline ? "form-check-inline" : null) : null,
+				Reverse ? "form-check-reverse" : null);
+		}
+	}
 
 	// TODO: Refactor (remove?)
 	private string AdditionalFormElementCssClass => RenderMode switch
@@ -231,6 +252,16 @@ public class HxCheckbox : HxInputBase<bool>
 			positiveValue = Localizer["ChipValueTrue"];
 		}
 		builder.AddContent(0, CurrentValue ? positiveValue : Localizer["ChipValueFalse"]);
+	}
+
+	protected override void BuildRenderValidationMessage(RenderTreeBuilder builder)
+	{
+		if (InButtonGroup && (RenderMode == CheckboxRenderMode.ToggleButton))
+		{
+			return;
+		}
+
+		base.BuildRenderValidationMessage(builder);
 	}
 
 	/// <summary>
