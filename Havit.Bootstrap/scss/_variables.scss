@@ -4,6 +4,10 @@ $min-contrast-ratio:  3;
 $border-color:        $gray-200;
 $border-color-translucent:    rgba($black, .0875);
 
+$border-radius:               .5rem ;
+$border-radius-sm:            .375rem;
+$border-radius-lg:            .625rem;
+
 $box-shadow:                  0 .5rem 1rem rgba(var(--#{$prefix}body-color-rgb), .1);
 $box-shadow-sm:               0 .125rem .25rem rgba(var(--#{$prefix}body-color-rgb), .05);
 $box-shadow-lg:               0 1rem 3rem rgba(var(--#{$prefix}body-color-rgb), .15);
@@ -34,7 +38,9 @@ $modal-backdrop-opacity:              .25;
 
 $offcanvas-horizontal-width:          500px;
 
-$dropdown-box-shadow:               $box-shadow-sm;
+$dropdown-box-shadow:                 $box-shadow-sm;
+$dropdown-item-padding-y:             .375rem;
+$dropdown-divider-margin-y:           $spacer * .125;
 
 $pagination-disabled-bg:            transparent;
 
