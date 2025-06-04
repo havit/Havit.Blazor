@@ -1,4 +1,4 @@
-﻿/* Remove custom bootstrap styling to perserve custom icon style */
+﻿/* Remove custom bootstrap styling to preserve custom icon style */
 .btn-close-custom-icon {
 	--bs-btn-close-bg: unset;
 	--bs-btn-close-color: unset;
