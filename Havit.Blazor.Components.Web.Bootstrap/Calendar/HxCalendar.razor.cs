@@ -119,7 +119,9 @@ public partial class HxCalendar
 
 	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings()?.TimeProvider ?? GetDefaults()?.TimeProvider ?? TimeProviderFromServices;
 
-	private CultureInfo Culture => CultureInfo.CurrentUICulture;
+	private CultureInfo UICulture => CultureInfo.CurrentUICulture;
+	private CultureInfo Culture => CultureInfo.CurrentCulture;
+
 	private DayOfWeek FirstDayOfWeek => Culture.DateTimeFormat.FirstDayOfWeek;
 	protected DateTime DisplayMonthFirstDay => new DateTime(DisplayMonth.Year, DisplayMonth.Month, 1);
 	protected DateTime FirstDayToDisplay
@@ -181,7 +183,7 @@ public partial class HxCalendar
 		_renderData = new RenderData();
 		_renderData.DaysOfWeek = new List<string>(7);
 
-		string[] dayNames = Culture.DateTimeFormat.AbbreviatedDayNames;
+		string[] dayNames = UICulture.DateTimeFormat.AbbreviatedDayNames;
 		DayOfWeek firstDayOfWeek = FirstDayOfWeek;
 
 		DateTime minDateEffective = MinDateEffective;
@@ -199,7 +201,7 @@ public partial class HxCalendar
 			_renderData.DaysOfWeek.Add(dayNames[((int)firstDayOfWeek + i) % 7]);
 		}
 
-		_renderData.Months = Culture.DateTimeFormat.MonthNames.Take(12) // returns 13 items, see https://docs.microsoft.com/en-us/dotnet/api/system.globalization.datetimeformatinfo.monthnames
+		_renderData.Months = UICulture.DateTimeFormat.MonthNames.Take(12) // returns 13 items, see https://docs.microsoft.com/en-us/dotnet/api/system.globalization.datetimeformatinfo.monthnames
 			.Select((name, index) => new MonthData
 			{
 				Index = index,

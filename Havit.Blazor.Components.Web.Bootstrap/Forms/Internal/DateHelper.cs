@@ -15,9 +15,9 @@ internal static partial class DateHelper
 		}
 
 		// expecting date format with day, month, and year components
-		int dayIndex = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern.IndexOf("d");
-		int monthIndex = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern.IndexOf("M");
-		int yearIndex = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern.IndexOf("y");
+		int dayIndex = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.IndexOf("d");
+		int monthIndex = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.IndexOf("M");
+		int yearIndex = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.IndexOf("y");
 
 		if ((dayIndex < 0) || (monthIndex < 0) || (yearIndex < 0))
 		{
