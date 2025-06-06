@@ -761,7 +761,15 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 		if (resetOptions.HasFlag(GridStateResetOptions.ResetSorting))
 		{
 			var defaultSorting = GetDefaultSorting();
-			if (!Enumerable.SequenceEqual(defaultSorting, _currentSorting)) // eliminate unnecessary CurrentUserStateChanged
+			if (defaultSorting is null)
+			{
+				if (_currentSorting is not null)
+				{
+					newUserState = newUserState with { Sorting = null };
+					_currentSorting = null;
+				}
+			}
+			else if ((_currentSorting is null) || !Enumerable.SequenceEqual(defaultSorting, _currentSorting)) // eliminate unnecessary CurrentUserStateChanged
 			{
 				newUserState = newUserState with
 				{
@@ -792,7 +800,6 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 				await _jsModule.InvokeVoidAsync("resetScrollPosition", _hxGridContainer);
 			}
 		}
-
 	}
 
 	private async ValueTask RefreshPaginationOrLoadMoreDataCoreAsync(bool forceReloadAllPaginationOrLoadMoreData = false)
