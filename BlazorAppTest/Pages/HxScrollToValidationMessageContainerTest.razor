@@ -44,9 +44,9 @@
 </EditForm>
 @code {
 	
-	private async Task<AutosuggestDataProviderResult<CultureInfo>> ProvideSuggestions(AutosuggestDataProviderRequest request)
+	private Task<AutosuggestDataProviderResult<CultureInfo>> ProvideSuggestions(AutosuggestDataProviderRequest request)
 	{
-		return new AutosuggestDataProviderResult<CultureInfo>
+		return Task.FromResult(new AutosuggestDataProviderResult<CultureInfo>
 		{
 			Data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
 								.Where(c => c.LCID != 4096) // see Remarks: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.lcid#System_Globalization_CultureInfo_LCID
@@ -54,6 +54,6 @@
 								.OrderBy(c => c.EnglishName)
 								.Take(10)
 								.ToList()
-		};
+		});
 	}
 }
