@@ -2,9 +2,9 @@
 @using System.Globalization
 
 @* HxInput *@
-<EditForm Model="@model1" id="form1">
+<EditForm Model="@model1">
 	<h2>Form1</h2>
-	<Blazored.FluentValidation.FluentValidationValidator />
+	<Blazored.FluentValidation.FluentValidationValidator />	
 	<HxScrollToValidationMessageContainer>
 		<HxInputText Label="Arg0" @bind-Value="@model1.Arg0" />
 		<HxInputDate Label="Arg1" @bind-Value="@model1.Arg1" />
@@ -21,7 +21,7 @@
 <hr style="margin-block: 2rem;" />
 
 @* Vanilla input (needs a lot of setting up...) *@
-<EditForm Model="@model2" id="form2">
+<EditForm Model="@model2">
 	<h2>Form2</h2>
 	<Blazored.FluentValidation.FluentValidationValidator />
 	<HxScrollToValidationMessageContainer ValidationMessageClass="validation-message">
