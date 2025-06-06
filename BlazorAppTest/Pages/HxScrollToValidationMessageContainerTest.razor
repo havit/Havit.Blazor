@@ -1,0 +1,59 @@
+﻿@page "/HxScrollToValidationMessageContainerTest";
+@using System.Globalization
+
+@* HxInput *@
+<EditForm Model="@model1" id="form1">
+	<h2>Form1</h2>
+	<Blazored.FluentValidation.FluentValidationValidator />
+	<HxScrollToValidationMessageContainer>
+		<HxInputText Label="Arg0" @bind-Value="@model1.Arg0" />
+		<HxInputDate Label="Arg1" @bind-Value="@model1.Arg1" />
+		<HxInputNumber Label="Arg2" @bind-Value="@model1.Arg2" />
+		<HxAutosuggest Label="Full (with initial value)" TItem="CultureInfo" InputGroupEndText="End" InputGroupStartText="Start" TValue="int" @bind-Value="@model1.Arg3" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))" Delay="0">
+			<ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
+		</HxAutosuggest>
+
+		<p>Very long gap &lt;3</p>
+		<hr style="margin-block-end: 1000px;" />
+	</HxScrollToValidationMessageContainer>
+	<HxSubmit Text="Submit"/>
+</EditForm>
+<hr style="margin-block: 2rem;" />
+
+@* Vanilla input (needs a lot of setting up...) *@
+<EditForm Model="@model2" id="form2">
+	<h2>Form2</h2>
+	<Blazored.FluentValidation.FluentValidationValidator />
+	<HxScrollToValidationMessageContainer ValidationMessageClass="validation-message">
+		<HxValidationScrollableGroup>
+			<label for="arg1">Arg1</label>
+			<input id="arg1" @bind-value="@model2.Arg1" />
+			<ValidationMessage For="@(() => model2.Arg1)" />
+		</HxValidationScrollableGroup>
+
+		<p>Very long gap &lt;3</p>
+		<hr style="margin-block-end: 1000px;" />
+
+		<HxValidationScrollableGroup>
+			<label for="arg1">Arg1</label>
+			<input type="number" id="arg1" @bind-value="@model2.Arg2" />
+			<ValidationMessage For="@(() => model2.Arg2)" />
+		</HxValidationScrollableGroup>
+	</HxScrollToValidationMessageContainer>
+	<HxSubmit Text="Submit"/>
+</EditForm>
+@code {
+	
+	private async Task<AutosuggestDataProviderResult<CultureInfo>> ProvideSuggestions(AutosuggestDataProviderRequest request)
+	{
+		return new AutosuggestDataProviderResult<CultureInfo>
+		{
+			Data = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+								.Where(c => c.LCID != 4096) // see Remarks: https://docs.microsoft.com/en-us/dotnet/api/system.globalization.cultureinfo.lcid#System_Globalization_CultureInfo_LCID
+								.Where(c => c.EnglishName?.Contains(request.UserInput, StringComparison.CurrentCultureIgnoreCase) ?? false)
+								.OrderBy(c => c.EnglishName)
+								.Take(10)
+								.ToList()
+		};
+	}
+}

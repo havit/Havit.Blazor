@@ -4969,6 +4969,21 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.TryParseValueFromString(System.String,`0@,System.String@)">
             <inheritdoc/>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollToValidationMessageContainer">
+            <summary>
+            When used in an <see cref="T:Microsoft.AspNetCore.Components.Forms.EditForm"/> (or given an EditContext),
+            when validation messages appear this component will scroll the page to the first validation error message.
+            When using Hx input components, like <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputText"/> or <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber"/> etc., the scrolling works automatically.
+            When used with custom components, make sure you wrap the component in <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationScrollableGroup"/>.
+            <br/><br/> See also <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-margin">css scroll margins</a>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollToValidationMessageContainer.ValidationMessageClass">
+            <summary>
+            Class by which to search for validation error messages in DOM
+            so we can scroll to them.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2">
             <summary>
             Select - DropDownList - single-item picker. Consider creating a custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2"/>.<br />
@@ -5205,6 +5220,12 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.Dispose">
             <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationScrollableGroup">
+            <summary>
+            This component creates a grouping and keeps a contract for <see cref="!:HxScrollToValidationMessage"/>
+            so that it can scroll to the input group properly
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDatePredefinedDatesItem">
             <summary>
