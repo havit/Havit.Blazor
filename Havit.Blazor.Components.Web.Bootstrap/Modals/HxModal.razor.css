@@ -1,10 +1,4 @@
 ﻿/* Remove custom bootstrap styling to preserve custom icon style */
 .btn-close-custom-icon {
 	--bs-btn-close-bg: unset;
-	--bs-btn-close-color: unset;
-	--bs-btn-close-opacity: unset;
-	--bs-btn-close-hover-opacity: unset;
-	--bs-btn-close-focus-shadow: unset;
-	--bs-btn-close-focus-opacity: unset;
-	--bs-btn-close-disabled-opacity: unset;
 }
