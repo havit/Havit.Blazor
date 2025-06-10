@@ -66,8 +66,16 @@ export function destroy(inputElement) {
 	if (d) {
 		inputElement.addEventListener('hidden.bs.dropdown', event => {
 			d.dispose()
-		})
-		d.hide();
+		});
+		try {
+			// Blazor may have already removed the elements from the DOM (Cannot read properties of null (reading 'focus')).
+			d.hide();
+		}
+		catch (e)
+		{
+			// NOOP
+			console.debug(e);
+		}
 	}
 }
 
@@ -79,7 +87,7 @@ function handleMouseUp(event) {
 }
 
 function handleMouseLeave(event) {
-	// fixes #702 where the dropdown is not shown after selecting input content with mouse
+	// Fixes #702: The dropdown is not shown after selecting input content with the mouse
 	// (the input does not receive mouseup when the mouse is released outside of the input)
 	event.target.clickIsComing = false;
 }
@@ -87,10 +95,10 @@ function handleMouseLeave(event) {
 function handleDropdownHidden(event) {
 	event.target.removeEventListener('hidden.bs.dropdown', handleDropdownHidden);
 
-	// In Blazor, jsinterop is "faster" then events.
-	// As a result, this method (handleDropdownHidden) is first, dropdown item click event (Blazor OnClick Event) second.
-	// But we need the item click event to fire first.
-	// Therefore we delay jsinterop for a while.
+	// In Blazor, JS interop is faster than DOM events.
+	// As a result, this method (handleDropdownHidden) is called first, and the dropdown item click event (Blazor OnClick Event) is called second.
+	// However, we need the item click event to fire first.
+	// Therefore, we delay the JS interop call slightly.
 	window.setTimeout(function (element) {
 		element.hxAutosuggestDotnetObjectReference?.invokeMethodAsync('HxAutosuggestInternal_HandleDropdownHidden');
 	}, 1, event.target);
