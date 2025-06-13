@@ -1,0 +1,4 @@
+﻿.hx-modal-custom-close-btn {
+	/* Remove custom bootstrap styling to preserve custom icon style */
+	--bs-btn-close-bg: unset;
+}
