@@ -1,0 +1,10 @@
+@page "/HxPopover_OnlyOneTriggerWorking"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<h3>HxPopover_OnlyOneTriggerWorking</h3>
+
+<p>When <code>PopoverTrigger.Click</code> and <code>PopoverTrigger.Hover</code> are set as Triggers, the popover should appear on hover and stay visible after click and mouse out.</p>
+
+<HxPopover Trigger="PopoverTrigger.Click | PopoverTrigger.Hover" Title="Popover title" Content="And here's some amazing content.">
+	<HxButton Color="ThemeColor.Primary">Click to toggle popover</HxButton>
+</HxPopover>
