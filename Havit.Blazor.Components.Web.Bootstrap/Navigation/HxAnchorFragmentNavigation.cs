@@ -76,11 +76,9 @@ public class HxAnchorFragmentNavigation : ComponentBase, IAsyncDisposable
 	}
 
 
-	public async ValueTask DisposeAsync()
+	public ValueTask DisposeAsync()
 	{
-		await DisposeAsyncCore();
-
-		//Dispose(disposing: false);
+		return DisposeAsyncCore();
 	}
 
 	protected virtual async ValueTask DisposeAsyncCore()
