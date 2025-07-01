@@ -1,7 +1,7 @@
 .hx-calendar {
     display: inline-flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: .5rem;
 }
 
 .hx-calendar-navigation {
@@ -25,10 +25,10 @@
 
 .hx-calendar-month-year-select {
     display: inline-flex;
+    gap: .125rem;
 }
 
 .form-select {
-    margin: 0 .125rem;
     padding: .25rem 1.75rem .25rem .5rem;
     background-size: 9px 9px;
     cursor: pointer;
@@ -61,6 +61,10 @@
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     align-items: center;
+}
+
+.hx-calendar-day-names {
+    margin-bottom: .5rem;
 }
 
 .hx-calendar-day {
