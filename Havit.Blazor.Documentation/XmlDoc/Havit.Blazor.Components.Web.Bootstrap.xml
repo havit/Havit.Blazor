@@ -4984,6 +4984,11 @@
             so we can scroll to them.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxScrollToValidationMessageContainer.wrapperRef">
+            <summary>
+            Messages shall be found as nested children of this element.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2">
             <summary>
             Select - DropDownList - single-item picker. Consider creating a custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2"/>.<br />

@@ -24,7 +24,11 @@ public partial class HxScrollToValidationMessageContainer : IAsyncDisposable
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 	private IJSObjectReference _jsModule;
-	private ElementReference wrapperRef; // Messages are found inside this element.
+
+	/// <summary>
+	/// Validation message elements shall be found as nested children of this element.
+	/// </summary>
+	private ElementReference messagesWrapperRef;
 	private bool scrollOnNextRender;
 
 	private CancellationTokenSource _disposeCts = new(); // Used to cancel JS interop.
@@ -36,14 +40,13 @@ public partial class HxScrollToValidationMessageContainer : IAsyncDisposable
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (firstRender)
-		{
-			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollToValidationMessageContainer));
-		}
-
 		if (scrollOnNextRender)
 		{
-			await _jsModule.InvokeVoidAsync("tryScrollToFirstError", _disposeCts.Token, wrapperRef, ValidationMessageClass);
+			// Load module (if needed)
+			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollToValidationMessageContainer));
+
+			// Try scroll
+			await _jsModule.InvokeVoidAsync("tryScrollToFirstError", _disposeCts.Token, messagesWrapperRef, ValidationMessageClass);
 			scrollOnNextRender = false;
 		}
 	}
@@ -51,6 +54,7 @@ public partial class HxScrollToValidationMessageContainer : IAsyncDisposable
 	private void HandleValidationStateChanged(object sender, ValidationStateChangedEventArgs e)
 	{
 		scrollOnNextRender = true;
+		StateHasChanged(); // <- Maybe unnecessary, but i feel like rendering isn't guaranteed here
 	}
 
 	public async ValueTask DisposeAsync()
@@ -58,7 +62,7 @@ public partial class HxScrollToValidationMessageContainer : IAsyncDisposable
 		await DisposeAsyncCore();
 	}
 
-	private async ValueTask DisposeAsyncCore()
+	protected virtual async ValueTask DisposeAsyncCore()
 	{
 		EditContext.OnValidationStateChanged -= HandleValidationStateChanged;
 
@@ -67,7 +71,14 @@ public partial class HxScrollToValidationMessageContainer : IAsyncDisposable
 
 		if (_jsModule is not null)
 		{
-			await _jsModule.DisposeAsync();
+			try
+			{
+				await _jsModule.DisposeAsync();
+			}
+			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
 		}
 	}
 }
