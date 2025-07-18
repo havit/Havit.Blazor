@@ -1,4 +1,4 @@
-export function setupChart(id, dotnetReference, options, autoResize) {
+﻿export function setupChart(id, dotnetReference, options, autoResize, subscribeOnAxisPointerUpdate) {
 	let optionsObject = eval('(' + options + ')');
 
 	const element = document.getElementById(id);
@@ -12,6 +12,12 @@ export function setupChart(id, dotnetReference, options, autoResize) {
 		if (autoResize) {
 			element.resizeObserver = new ResizeObserver(() => { resizeChart(id); });
 			element.resizeObserver.observe(element);
+		}
+
+		if (subscribeOnAxisPointerUpdate) {
+			chart.on('updateAxisPointer', (params) => {
+				onAxisPointerUpdate(dotnetReference, chart, params);
+			});
 		}
 
 		chart.getZr().on('click', function (event) {
@@ -32,6 +38,31 @@ export function setupChart(id, dotnetReference, options, autoResize) {
 	}
 
 	element.echart.setOption(optionsObject);
+}
+
+function onAxisPointerUpdate(dotnetReference, chart, params) {
+	const dataIndex = params.dataIndex;
+	const seriesIndex = params.seriesIndex;
+
+	if (dataIndex !== undefined && seriesIndex !== undefined) {
+		const series = chart.getOption().series?.[seriesIndex];
+
+		if (series && series.data && series.data[dataIndex] !== undefined) {
+			let value = series.data[dataIndex];
+
+			if (Array.isArray(value)) {
+				value = value[1];
+			}
+
+			if (axisPointerTimeout) {
+				clearTimeout(axisPointerTimeout);
+			}
+
+			axisPointerTimeout = setTimeout(() => {
+				dotnetReference.invokeMethodAsync('HandleAxisPointerUpdate', value);
+			}, 50);
+		}
+	}
 }
 
 function handleClick(dotnetReference, params) {

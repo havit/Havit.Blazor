@@ -36,6 +36,11 @@ public partial class HxEChart : IAsyncDisposable
 	/// </summary>
 	[Parameter] public EventCallback<EChartClickEventArgs> OnClick { get; set; }
 
+	/// <summary>
+	/// Invoked when the user moves the axis pointer (e.g., when hovering over a chart).
+	/// </summary>
+	[Parameter] public EventCallback<decimal> OnAxisPointerUpdated { get; set; }
+
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	private IJSObjectReference _jsModule;
@@ -86,7 +91,7 @@ public partial class HxEChart : IAsyncDisposable
 				return;
 			}
 
-			await _jsModule.InvokeVoidAsync("setupChart", ChartId, _dotNetObjectReference, _currentOptions, AutoResize);
+			await _jsModule.InvokeVoidAsync("setupChart", ChartId, _dotNetObjectReference, _currentOptions, AutoResize, OnAxisPointerUpdated.HasDelegate);
 		}
 
 		_shouldSetupChartOnAfterRender = false;
@@ -105,6 +110,12 @@ public partial class HxEChart : IAsyncDisposable
 	public async Task HandleClick(EChartClickEventArgs eventParams)
 	{
 		await OnClick.InvokeAsync(eventParams);
+	}
+
+	[JSInvokable("HandleAxisPointerUpdate")]
+	public async Task HandleAxisPointerUpdate(decimal value)
+	{
+		await OnAxisPointerUpdated.InvokeAsync(value);
 	}
 
 	async ValueTask IAsyncDisposable.DisposeAsync()
