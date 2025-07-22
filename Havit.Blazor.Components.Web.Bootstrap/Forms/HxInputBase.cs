@@ -441,11 +441,11 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// <summary>
 	/// Sets InputId to a random value when empty.
 	/// </summary>
-	protected void EnsureInputId() => InputId = EnsureXyId(InputId);
-	protected void EnsureHintId() => HintId = EnsureXyId(HintId);
-	protected void EnsureValidationMessageId() => ValidationMessageId = EnsureXyId(ValidationMessageId);
+	protected void EnsureInputId() => InputId = EnsureElementIdValue(InputId);
+	protected void EnsureHintId() => HintId = EnsureElementIdValue(HintId);
+	protected void EnsureValidationMessageId() => ValidationMessageId = EnsureElementIdValue(ValidationMessageId);
 
-	private string EnsureXyId(string elementId)
+	private string EnsureElementIdValue(string elementId)
 	{
 		return String.IsNullOrEmpty(elementId)
 			? "el" + Guid.NewGuid().ToString("N")
