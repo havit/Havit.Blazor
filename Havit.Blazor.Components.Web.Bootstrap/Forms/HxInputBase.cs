@@ -134,6 +134,16 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	protected string InputId { get; private set; }
 
 	/// <summary>
+	/// The ID of the hint element (container).
+	/// </summary>
+	protected string HintId { get; private set; }
+
+	/// <summary>
+	/// The ID of the validation message element (container).
+	/// </summary>
+	protected string ValidationMessageId { get; private set; }
+
+	/// <summary>
 	/// Elements rendering order.
 	/// </summary>
 	protected virtual LabelValueRenderOrder RenderOrder =>
@@ -178,6 +188,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	string IFormValueComponent.CoreCssClass => CoreCssClass;
 	string IFormValueComponent.CoreLabelCssClass => CoreLabelCssClass;
 	string IFormValueComponent.CoreHintCssClass => CoreHintCssClass;
+	string IFormValueComponent.HintId => HintId;
 	LabelValueRenderOrder IFormValueComponent.RenderOrder => RenderOrder;
 
 	private EditContext _autoCreatedEditContext;
@@ -227,6 +238,16 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		if (!String.IsNullOrEmpty(Label) || (LabelTemplate != null))
 		{
 			EnsureInputId();
+		}
+
+		if (!String.IsNullOrEmpty(Hint) || (HintTemplate != null))
+		{
+			EnsureHintId();
+		}
+
+		if (ValidationMessageModeEffective != Bootstrap.ValidationMessageMode.None)
+		{
+			EnsureValidationMessageId();
 		}
 
 		builder.OpenRegion(0);
@@ -303,6 +324,11 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 			builder.AddAttribute(8, "placeholder", inputWithPlaceholder.Placeholder);
 		}
 
+		string ariaDescribedBy = String.Join(" ", HintId, ValidationMessageId).Trim();
+		if (!String.IsNullOrEmpty(ariaDescribedBy))
+		{
+			builder.AddAttribute(9, "aria-describedby", ariaDescribedBy);
+		}
 	}
 
 	/// <summary>
@@ -320,8 +346,9 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 			{
 				builder.AddAttribute(2, nameof(HxValidationMessage<TValue>.EditContext), _autoCreatedEditContext);
 			}
-			builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.For), ValueExpression);
-			builder.AddAttribute(4, nameof(HxValidationMessage<TValue>.Mode), ValidationMessageModeEffective);
+			builder.AddAttribute(3, nameof(HxValidationMessage<TValue>.Id), ValidationMessageId);
+			builder.AddAttribute(4, nameof(HxValidationMessage<TValue>.For), ValueExpression);
+			builder.AddAttribute(5, nameof(HxValidationMessage<TValue>.Mode), ValidationMessageModeEffective);
 			builder.CloseComponent();
 		}
 	}
@@ -414,12 +441,15 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	/// <summary>
 	/// Sets InputId to a random value when empty.
 	/// </summary>
-	protected void EnsureInputId()
+	protected void EnsureInputId() => InputId = EnsureXyId(InputId);
+	protected void EnsureHintId() => HintId = EnsureXyId(HintId);
+	protected void EnsureValidationMessageId() => ValidationMessageId = EnsureXyId(ValidationMessageId);
+
+	private string EnsureXyId(string elementId)
 	{
-		if (String.IsNullOrEmpty(InputId))
-		{
-			InputId = "el" + Guid.NewGuid().ToString("N");
-		}
+		return String.IsNullOrEmpty(elementId)
+			? "el" + Guid.NewGuid().ToString("N")
+			: elementId;
 	}
 
 	/// <summary>
