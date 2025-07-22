@@ -225,7 +225,10 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 
 		// When the user presses '-' key, we toggle the sign of the value.
 		// We also set the modifiedByCode flag to allow fire change event in onblur event later.
-		builder.AddAttribute(1006, "onkeydown", "if (event.key === '-') { let newValue = this.value; if (this.value.startsWith('-')) { newValue = this.value.substring(1); newCursorPosition = Math.max(0, this.selectionStart - 1); } else { newValue = '-' + this.value; newCursorPosition = this.selectionStart + 1; }  if (this.value !== newValue) { let newCursorPositionEnd = newCursorPosition + (this.selectionEnd - this.selectionStart); this.value = newValue; this.setSelectionRange(newCursorPosition, newCursorPositionEnd); this.dispatchEvent(new Event('input')); this.modifiedByCode = true; return false; } }");
+		// Selection handling:
+		// - When everything (but non-empty) is selected before adding -, everything is selected after adding -.
+		// - When selected -12 in the value -1234, 12 must remain selected after - removal.
+		builder.AddAttribute(1006, "onkeydown", "if (event.key === '-') { let newValue = this.value; let newSelectionStart = -1; let newSelectionEnd = -1; if (this.value.startsWith('-')) { newValue = this.value.substring(1); newSelectionStart = Math.max(0, this.selectionStart - 1); newSelectionEnd = Math.max(0, this.selectionEnd - 1);  } else { newValue = '-' + this.value; newSelectionStart = (this.selectionStart == 0 && this.selectionEnd > 0 && this.selectionEnd == this.value.length) ? 0 : this.selectionStart + 1; newSelectionEnd = (this.selectionStart == 0 && this.selectionEnd > 0 && this.selectionEnd == this.value.length) ? newValue.length : this.selectionEnd + 1;}  if (this.value !== newValue) { this.value = newValue; this.setSelectionRange(newSelectionStart, newSelectionEnd); this.dispatchEvent(new Event('input')); this.modifiedByCode = true; return false; } }");
 		builder.SetUpdatesAttributeName("value");
 
 		// When the value is modified by code, we fire the change event.
