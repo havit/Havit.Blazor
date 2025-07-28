@@ -90,7 +90,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
-	/// Gets or sets the behavior when the model is updated from the input.
+	/// Input event used to bind the Value. Default is OnChange.
 	/// </summary>
 	[Parameter] public BindEvent BindEvent { get; set; } = BindEvent.OnChange;
 
