@@ -90,6 +90,11 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
+	/// Input event used to bind the Value. Default is OnChange.
+	/// </summary>
+	[Parameter] public BindEvent BindEvent { get; set; } = BindEvent.OnChange;
+
+	/// <summary>
 	/// Determines whether all the content within the input field is automatically selected when it receives focus.
 	/// </summary>
 	[Parameter] public bool? SelectOnFocus { get; set; }
@@ -203,7 +208,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		{
 			builder.AddAttribute(1002, "onfocus", "this.select();");
 		}
-		builder.AddAttribute(1003, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+		builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 		builder.SetUpdatesAttributeName("value");
 
 		// Normalization of pasted value (applied only if the pasted value differs from the normalized value)
