@@ -4,13 +4,16 @@
 <HxInputNumber Label="sbyte" @bind-Value="_sbyte" Hint="@_sbyte?.ToString()" />
 <HxInputNumber Label="short" @bind-Value="_short" Hint="@_short?.ToString()" />
 <HxInputNumber Label="ushort" @bind-Value="_ushort" Hint="@_ushort?.ToString()" />
-<HxInputNumber Label="int" @bind-Value="_int" Hint="@_uint?.ToString()"/>
+<HxInputNumber Label="int" @bind-Value="_int" Hint="@_int?.ToString()"/>
 <HxInputNumber Label="uint" @bind-Value="_uint" Hint="@_uint?.ToString()" />
 <HxInputNumber Label="long" @bind-Value="_long" Hint="@_long?.ToString()" />
 <HxInputNumber Label="ulong" @bind-Value="_ulong" Hint="@_ulong?.ToString()" />
 <HxInputNumber Label="float" @bind-Value="_float" Hint="@_float?.ToString()" />
-<HxInputNumber Label="double" @bind-Value="_double" BindEvent="BindEvent.OnInput" Hint="@_double?.ToString()" />
+<HxInputNumber Label="double" @bind-Value="_double" Hint="@_double?.ToString()" />
 <HxInputNumber Label="decimal" @bind-Value="_decimal" Hint="@_decimal?.ToString()" />
+
+<h6 class="mt-4">OnInput test</h6>
+<HxInputNumber Label="int" @bind-Value="_int" BindEvent="@BindEvent.OnInput" Hint="@_int?.ToString()"/>
 
 @code {
 	private byte? _byte;
