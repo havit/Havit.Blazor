@@ -9,7 +9,7 @@
 <HxInputNumber Label="long" @bind-Value="_long" Hint="@_long?.ToString()" />
 <HxInputNumber Label="ulong" @bind-Value="_ulong" Hint="@_ulong?.ToString()" />
 <HxInputNumber Label="float" @bind-Value="_float" Hint="@_float?.ToString()" />
-<HxInputNumber Label="double" @bind-Value="_double" Hint="@_double?.ToString()" />
+<HxInputNumber Label="double" @bind-Value="_double" BindEvent="BindEvent.OnInput" Hint="@_double?.ToString()" />
 <HxInputNumber Label="decimal" @bind-Value="_decimal" Hint="@_decimal?.ToString()" />
 
 @code {
