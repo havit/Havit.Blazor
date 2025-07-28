@@ -3120,8 +3120,11 @@ textarea.form-control-lg {
   z-index: 4;
 }
 
-.form-check-input {
+.form-switch .form-check-input {
   background-color: var(--bs-border-color);
+}
+.form-switch .form-check-input:checked {
+  background-color: #009de0;
 }
 
 .btn {
