@@ -1,4 +1,6 @@
-﻿export function setupChart(id, dotnetReference, options, autoResize, subscribeOnAxisPointerUpdate) {
+﻿const AXIS_POINTER_DEBOUNCE_MS = 50;
+
+export function setupChart(id, dotnetReference, options, autoResize, subscribeOnAxisPointerUpdate) {
 	let optionsObject = eval('(' + options + ')');
 
 	const element = document.getElementById(id);
@@ -54,13 +56,13 @@ function onAxisPointerUpdate(dotnetReference, chart, params) {
 				value = value[1];
 			}
 
-			if (axisPointerTimeout) {
-				clearTimeout(axisPointerTimeout);
+			if (chart.__axisPointerTimeout) {
+				clearTimeout(chart.__axisPointerTimeout);
 			}
 
-			axisPointerTimeout = setTimeout(() => {
+			chart.__axisPointerTimeout = setTimeout(() => {
 				dotnetReference.invokeMethodAsync('HandleAxisPointerUpdate', value);
-			}, 50);
+			}, AXIS_POINTER_DEBOUNCE_MS);
 		}
 	}
 }
