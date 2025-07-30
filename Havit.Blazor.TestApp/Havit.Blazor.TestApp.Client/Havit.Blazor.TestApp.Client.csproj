@@ -16,6 +16,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\Havit.Blazor.Components.Web.Bootstrap\Havit.Blazor.Components.Web.Bootstrap.csproj" />
+		<ProjectReference Include="..\..\Havit.Blazor.Components.Web.ECharts\Havit.Blazor.Components.Web.ECharts.csproj" />
 		<ProjectReference Include="..\..\Havit.SourceGenerators.StrongApiStringLocalizers\Havit.SourceGenerators.StrongApiStringLocalizers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 	</ItemGroup>
 

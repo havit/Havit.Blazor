@@ -44,26 +44,34 @@ export function setupChart(id, dotnetReference, options, autoResize, subscribeOn
 
 function onAxisPointerUpdate(dotnetReference, chart, params) {
 	const dataIndex = params.dataIndex;
-	const seriesIndex = params.seriesIndex;
 
-	if (dataIndex !== undefined && seriesIndex !== undefined) {
-		const series = chart.getOption().series?.[seriesIndex];
+	if (dataIndex !== undefined) {
+		const seriesList = chart.getOption().series ?? [];
 
-		if (series && series.data && series.data[dataIndex] !== undefined) {
-			let value = series.data[dataIndex];
-
-			if (Array.isArray(value)) {
-				value = value[1];
+		const seriesEvents = seriesList.map((series, index) => {
+			if (series?.data?.[dataIndex] === undefined) {
+				return null;
 			}
 
-			if (chart.__axisPointerTimeout) {
-				clearTimeout(chart.__axisPointerTimeout);
-			}
+			let rawValue = series.data[dataIndex];
+			let value = Array.isArray(rawValue) ? rawValue[1] : rawValue;
 
-			chart.__axisPointerTimeout = setTimeout(() => {
-				dotnetReference.invokeMethodAsync('HandleAxisPointerUpdate', value);
-			}, AXIS_POINTER_DEBOUNCE_MS);
+			return {
+				seriesIndex: index,
+				axisDimension: params?.axesInfo?.[0]?.axisDim,
+				valueIndex: params?.axesInfo?.[0]?.value,
+				dataIndex: dataIndex,
+				value: value
+			};
+		}).filter(x => x !== null); // remove any nulls for missing data
+
+		if (chart.__axisPointerTimeout) {
+			clearTimeout(chart.__axisPointerTimeout);
 		}
+
+		chart.__axisPointerTimeout = setTimeout(() => {
+			dotnetReference.invokeMethodAsync('HandleAxisPointerUpdate', seriesEvents);
+		}, AXIS_POINTER_DEBOUNCE_MS);
 	}
 }
 

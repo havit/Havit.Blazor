@@ -39,7 +39,7 @@ public partial class HxEChart : IAsyncDisposable
 	/// <summary>
 	/// Invoked when the user moves the axis pointer (e.g., when hovering over a chart).
 	/// </summary>
-	[Parameter] public EventCallback<double> OnAxisPointerUpdated { get; set; }
+	[Parameter] public EventCallback<List<EChartAxisPointerUpdatedEventArgs>> OnAxisPointerUpdated { get; set; }
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -113,7 +113,7 @@ public partial class HxEChart : IAsyncDisposable
 	}
 
 	[JSInvokable("HandleAxisPointerUpdate")]
-	public async Task HandleAxisPointerUpdate(double value)
+	public async Task HandleAxisPointerUpdate(List<EChartAxisPointerUpdatedEventArgs> value)
 	{
 		await OnAxisPointerUpdated.InvokeAsync(value);
 	}
