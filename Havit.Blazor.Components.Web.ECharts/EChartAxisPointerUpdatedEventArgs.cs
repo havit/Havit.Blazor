@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.ECharts;
 public record EChartAxisPointerUpdatedEventArgs
 {
 	/// <summary>
-	/// Series index in incoming <c>Options.Series</c> (make sense when <see cref="ComponentType"/> is "series").
+	/// Series index in incoming <c>Options.Series</c>.
 	/// </summary>
 	public int? SeriesIndex { get; set; }
 
