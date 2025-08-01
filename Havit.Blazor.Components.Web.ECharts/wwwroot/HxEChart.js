@@ -18,7 +18,7 @@ export function setupChart(id, dotnetReference, options, autoResize, subscribeOn
 
 		if (subscribeOnAxisPointerUpdate) {
 			chart.on('updateAxisPointer', (params) => {
-				onAxisPointerUpdate(dotnetReference, chart, params);
+				handleUpdateAxisPointer(dotnetReference, chart, params);
 			});
 		}
 
@@ -42,35 +42,25 @@ export function setupChart(id, dotnetReference, options, autoResize, subscribeOn
 	element.echart.setOption(optionsObject);
 }
 
-function onAxisPointerUpdate(dotnetReference, chart, params) {
-	const dataIndex = params.dataIndex;
-
-	if (dataIndex !== undefined) {
-		const seriesList = chart.getOption().series ?? [];
-
-		const seriesEvents = seriesList.map((series, index) => {
-			if (series?.data?.[dataIndex] === undefined) {
-				return null;
-			}
-
-			let rawValue = series.data[dataIndex];
-			let value = Array.isArray(rawValue) ? rawValue[1] : rawValue;
-
-			return {
-				seriesIndex: index,
-				axisDimension: params?.axesInfo?.[0]?.axisDim,
-				valueIndex: params?.axesInfo?.[0]?.value,
-				dataIndex: dataIndex,
-				value: value
-			};
-		}).filter(x => x !== null); // remove any nulls for missing data
+function handleUpdateAxisPointer(dotnetReference, chart, params) {
+	if (params?.dataIndex != null && params?.seriesIndex != null) {
+		const eventArg = {
+			seriesIndex: params.seriesIndex,
+			dataIndexInside: params.dataIndexInside ?? params.dataIndex,
+			dataIndex: params.dataIndex,
+			AxesInfo: (params.axesInfo ?? []).map(axis => ({
+				AxisDim: axis.axisDim,
+				AxisIndex: axis.axisIndex,
+				Value: axis.value
+			}))
+		};
 
 		if (chart.__axisPointerTimeout) {
 			clearTimeout(chart.__axisPointerTimeout);
 		}
 
 		chart.__axisPointerTimeout = setTimeout(() => {
-			dotnetReference.invokeMethodAsync('HandleAxisPointerUpdate', seriesEvents);
+			dotnetReference.invokeMethodAsync('HandleAxisPointerUpdate', eventArg);
 		}, AXIS_POINTER_DEBOUNCE_MS);
 	}
 }

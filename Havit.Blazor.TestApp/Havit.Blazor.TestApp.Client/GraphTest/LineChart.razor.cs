@@ -12,7 +12,7 @@ public partial class LineChart
 	[Parameter] public bool AutoResize { get; set; } = false;
 
 	[Parameter] public EventCallback<ChartValue> OnValueClick { get; set; }
-	[Parameter] public EventCallback<List<EChartAxisPointerUpdatedEventArgs>> OnAxisPointerUpdate { get; set; }
+	[Parameter] public EventCallback<EChartAxisPointerUpdatedEventArgs> OnAxisPointerUpdate { get; set; }
 
 
 	private object _options;

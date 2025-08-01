@@ -18,12 +18,11 @@
 	private decimal? _pointerRevenue;
 	private decimal? _pointerhours;
 
-	private void Handle(List<EChartAxisPointerUpdatedEventArgs> updates)
+	private void Handle(EChartAxisPointerUpdatedEventArgs updates)
 	{
-		_pointerRevenue = updates.Where(e => e.SeriesIndex == 0).FirstOrDefault()?.GetValue<decimal>();
-		_pointerhours = updates.Where(e => e.SeriesIndex == 1).FirstOrDefault()?.GetValue<decimal>();
+		_pointerRevenue = _chartData.Where(d => d.SeriesId == 0).FirstOrDefault()?.Values[updates.DataIndex].Value;
+		_pointerhours = _chartData.Where(d => d.SeriesId == 1).FirstOrDefault()?.Values[updates.DataIndex].Value;
 	}
-
 
 	List<ChartSeries> _chartData = new List<ChartSeries>
 	{
@@ -57,22 +56,6 @@
 				new ChartValue("March", 170),
 				new ChartValue("April", 180),
 				new ChartValue("May", 175)
-			}
-		},
-		new ChartSeries
-		{
-			SeriesId = 3,
-			Name = "Hours Worked - 2",
-			Unit = _unit2,
-			ValueType = ChartValueType.Hours,
-			Color = "#DD2222",
-			Values = new List<ChartValue>
-			{
-				new ChartValue("January", 220),
-				new ChartValue("February", 175),
-				new ChartValue("March", 177),
-				new ChartValue("April", 188),
-				new ChartValue("May", 111)
 			}
 		}
 	};
