@@ -1,0 +1,60 @@
+﻿@page "/HxEChart_Events_Test"
+@using Havit.Blazor.Components.Web.ECharts
+@rendermode InteractiveAuto
+
+<HxEChart Options="_options"
+		  OnClick="HandleClick"
+		  OnAxisPointerUpdated="HandleAxisPointerUpdate" />
+
+<h4>Last EChartClickEventArgs:</h4>
+<p>@_lastClickEventArgs</p>
+
+<h4 class="mt-5">Last EChartAxisPointerUpdatedEventArgs:</h4>
+<p>@_lastAxisPointerUpdatedEventArgs</p>
+<p>@_lastAxisPointerUpdatedEventArgs?.AxesInfo.FirstOrDefault()</p>
+
+@code {
+	private EChartAxisPointerUpdatedEventArgs _lastAxisPointerUpdatedEventArgs;
+	private EChartClickEventArgs _lastClickEventArgs;
+	private object _options;
+
+
+	private void HandleAxisPointerUpdate(EChartAxisPointerUpdatedEventArgs args)
+	{
+		_lastAxisPointerUpdatedEventArgs = args;
+	}
+
+	private void HandleClick(EChartClickEventArgs args)
+	{
+		_lastClickEventArgs = args;
+	}
+
+	protected override void OnParametersSet()
+	{
+		_options = new
+		{
+			Tooltip = new
+			{
+				Trigger = "axis",
+				BorderColor = "var(--bs-border-color)",
+			},
+			XAxis = new
+			{
+				Type = "category",
+				Data = new[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" }
+			},
+			YAxis = new
+			{
+				Type = "value"
+			},
+			Series = new[]
+			{
+				new
+				{
+					Data = new[] { 150, 230, 224, 218, 135, 147, 260 },
+					Type = "line"
+				}
+			}
+		};
+	}
+}

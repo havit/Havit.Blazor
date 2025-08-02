@@ -1,7 +1,8 @@
 ﻿using System.Text.Json;
 
 namespace Havit.Blazor.Components.Web.ECharts;
-public class EChartAxisPointerUpdatedAxisInfo
+
+public record EChartAxisPointerUpdatedAxisInfo
 {
 	/// <summary>
 	/// Dimension of the axis. Either x or y.
