@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.ComponentModel;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.JSInterop;
 
@@ -107,12 +108,14 @@ public partial class HxEChart : IAsyncDisposable
 	}
 
 	[JSInvokable("HandleClick")]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public async Task HandleClick(EChartClickEventArgs eventParams)
 	{
 		await OnClick.InvokeAsync(eventParams);
 	}
 
 	[JSInvokable("HandleAxisPointerUpdate")]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public async Task HandleAxisPointerUpdate(EChartAxisPointerUpdatedEventArgs value)
 	{
 		await OnAxisPointerUpdated.InvokeAsync(value);
