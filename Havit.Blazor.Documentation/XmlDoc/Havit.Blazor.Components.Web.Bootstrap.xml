@@ -10353,7 +10353,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnTabDeactivated">
             <summary>
-            Raised when the tab is deactivated (another tab is activates or when <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/> is disposed).
+            Raised when the tab is deactivated (another tab is activated).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.InvokeOnTabDeactivatedAsync">
@@ -10439,9 +10439,6 @@
             <summary>
             Handle click on the tab title to activate the tab.
             </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.DisposeAsync">
-            <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode">
             <summary>

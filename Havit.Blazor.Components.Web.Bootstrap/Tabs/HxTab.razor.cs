@@ -74,7 +74,7 @@ public partial class HxTab : ComponentBase, ICascadeEnabledComponent
 	protected virtual Task InvokeOnTabActivatedAsync() => OnTabActivated.InvokeAsync();
 
 	/// <summary>
-	/// Raised when the tab is deactivated (another tab is activates or when <see cref="HxTabPanel"/> is disposed).
+	/// Raised when the tab is deactivated (another tab is activated).
 	/// </summary>
 	[Parameter] public EventCallback OnTabDeactivated { get; set; }
 	/// <summary>
