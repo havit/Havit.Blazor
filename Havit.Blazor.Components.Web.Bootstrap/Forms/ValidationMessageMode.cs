@@ -24,6 +24,11 @@ public enum ValidationMessageMode
 	Floating = 2,
 
 	/// <summary>
+	/// Validation messages are rendered but visually hidden (e.g., for screen readers).
+	/// </summary>
+	VisuallyHidden = 3,
+
+	/// <summary>
 	/// Renders no validation message.
 	/// </summary>
 	None = 0xFF
