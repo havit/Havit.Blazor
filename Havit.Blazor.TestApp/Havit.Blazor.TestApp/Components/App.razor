@@ -1,4 +1,5 @@
 ﻿@using Havit.Blazor.Components.Web.Bootstrap
+@using Havit.Blazor.Components.Web.ECharts
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,9 +18,8 @@
 <body>
     <Routes />
 	<script src="_framework/blazor.web.js"></script>
-
-	<!-- JavaScript Bundle with Popper -->
 	@((MarkupString)HxSetup.RenderBootstrapJavaScriptReference())
+	@((MarkupString)HxEChartsSetup.RenderEChartsJavaScriptReference())
 </body>
 
 </html>

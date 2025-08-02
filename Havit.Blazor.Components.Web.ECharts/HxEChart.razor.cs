@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.ComponentModel;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.JSInterop;
 
@@ -35,6 +36,11 @@ public partial class HxEChart : IAsyncDisposable
 	/// Invoked when the chart is clicked.
 	/// </summary>
 	[Parameter] public EventCallback<EChartClickEventArgs> OnClick { get; set; }
+
+	/// <summary>
+	/// Invoked when the user moves the axis pointer (e.g., when hovering over a chart).
+	/// </summary>
+	[Parameter] public EventCallback<EChartAxisPointerUpdatedEventArgs> OnAxisPointerUpdated { get; set; }
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -86,7 +92,7 @@ public partial class HxEChart : IAsyncDisposable
 				return;
 			}
 
-			await _jsModule.InvokeVoidAsync("setupChart", ChartId, _dotNetObjectReference, _currentOptions, AutoResize);
+			await _jsModule.InvokeVoidAsync("setupChart", ChartId, _dotNetObjectReference, _currentOptions, AutoResize, OnAxisPointerUpdated.HasDelegate);
 		}
 
 		_shouldSetupChartOnAfterRender = false;
@@ -102,9 +108,17 @@ public partial class HxEChart : IAsyncDisposable
 	}
 
 	[JSInvokable("HandleClick")]
+	[EditorBrowsable(EditorBrowsableState.Never)]
 	public async Task HandleClick(EChartClickEventArgs eventParams)
 	{
 		await OnClick.InvokeAsync(eventParams);
+	}
+
+	[JSInvokable("HandleAxisPointerUpdate")]
+	[EditorBrowsable(EditorBrowsableState.Never)]
+	public async Task HandleAxisPointerUpdate(EChartAxisPointerUpdatedEventArgs value)
+	{
+		await OnAxisPointerUpdated.InvokeAsync(value);
 	}
 
 	async ValueTask IAsyncDisposable.DisposeAsync()
