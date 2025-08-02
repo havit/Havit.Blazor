@@ -43,26 +43,13 @@ export function setupChart(id, dotnetReference, options, autoResize, subscribeOn
 }
 
 function handleUpdateAxisPointer(dotnetReference, chart, params) {
-	if (params?.dataIndex != null && params?.seriesIndex != null) {
-		const eventArg = {
-			seriesIndex: params.seriesIndex,
-			dataIndexInside: params.dataIndexInside ?? params.dataIndex,
-			dataIndex: params.dataIndex,
-			AxesInfo: (params.axesInfo ?? []).map(axis => ({
-				AxisDim: axis.axisDim,
-				AxisIndex: axis.axisIndex,
-				Value: axis.value
-			}))
-		};
-
-		if (chart.__axisPointerTimeout) {
-			clearTimeout(chart.__axisPointerTimeout);
-		}
-
-		chart.__axisPointerTimeout = setTimeout(() => {
-			dotnetReference.invokeMethodAsync('HandleAxisPointerUpdate', eventArg);
-		}, AXIS_POINTER_DEBOUNCE_MS);
+	if (chart.__axisPointerDebounceTimeout) {
+		clearTimeout(chart.__axisPointerDebounceTimeout);
 	}
+
+	chart.__axisPointerDebounceTimeout = setTimeout(() => {
+		dotnetReference.invokeMethodAsync('HandleAxisPointerUpdate', params);
+	}, AXIS_POINTER_DEBOUNCE_MS);
 }
 
 function handleClick(dotnetReference, params) {
