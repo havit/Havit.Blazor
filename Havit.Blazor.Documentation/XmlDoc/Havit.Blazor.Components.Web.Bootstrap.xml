@@ -4335,7 +4335,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.BindEvent">
             <summary>
-            Gets or sets the behavior when the model is updated from the input.
+            Input event used to bind the Value. Default is OnChange.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.SelectOnFocus">
