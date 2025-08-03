@@ -12,6 +12,7 @@ public static class ValidationMessageModeExtensions
 			ValidationMessageMode.Regular => "invalid-feedback",
 			ValidationMessageMode.Tooltip => "invalid-tooltip text-truncate",
 			ValidationMessageMode.Floating => "invalid-feedback feedback-floating text-truncate",
+			ValidationMessageMode.VisuallyHidden => "visually-hidden",
 			ValidationMessageMode.None => throw new InvalidOperationException($"{nameof(ValidationMessageMode.None)} cannot be used."),
 			_ => throw new InvalidOperationException($"Unknown value {nameof(ValidationMessageMode)}: {mode}.")
 		};
