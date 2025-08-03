@@ -29,7 +29,7 @@ public class HxInputTextTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert			
-		Assert.IsFalse(cut.Markup.Contains("maxlength"));
+		Assert.DoesNotContain("maxlength", cut.Markup);
 	}
 
 	[TestMethod]
@@ -51,7 +51,7 @@ public class HxInputTextTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert			
-		Assert.IsFalse(cut.Markup.Contains("maxlength"));
+		Assert.DoesNotContain("maxlength", cut.Markup);
 	}
 
 	[TestMethod]
@@ -73,7 +73,7 @@ public class HxInputTextTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert			
-		Assert.IsTrue(cut.Markup.Contains("maxlength=\"100\""));
+		Assert.Contains("maxlength=\"100\"", cut.Markup);
 	}
 
 	[TestMethod]
@@ -95,7 +95,7 @@ public class HxInputTextTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert			
-		Assert.IsTrue(cut.Markup.Contains("maxlength=\"100\""));
+		Assert.Contains("maxlength=\"100\"", cut.Markup);
 	}
 
 	private record FormData

@@ -26,7 +26,7 @@ public class HxDynamicElementTests : BunitTestBase
 
 		// Act + Assert
 		var ex = Assert.ThrowsExactly<MissingEventHandlerException>(() => cut.Find("span").Click());
-		Assert.IsTrue(ex.Message.Contains("The element does not have an event handler for the event 'onclick'"));
+		Assert.Contains("The element does not have an event handler for the event 'onclick'", ex.Message);
 	}
 
 	[TestMethod]

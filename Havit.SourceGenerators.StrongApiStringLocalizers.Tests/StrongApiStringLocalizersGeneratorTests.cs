@@ -8,6 +8,8 @@ namespace Havit.SourceGenerators.StrongApiStringLocalizers.Tests;
 [TestClass]
 public class StrongApiStringLocalizersGeneratorTests
 {
+	private readonly TestContext _testContext;
+
 	[TestMethod]
 	public async Task StrongApiStringLocalizersGenerator_Test()
 	{
@@ -119,6 +121,11 @@ public static class ResourcesServiceCollectionExtensions
 "));
 
 		// Act + Assert
-		await test.RunAsync();
+		await test.RunAsync(_testContext.CancellationTokenSource.Token);
+	}
+
+	public StrongApiStringLocalizersGeneratorTests(TestContext testContext)
+	{
+		_testContext = testContext;
 	}
 }
