@@ -14,6 +14,7 @@
 
 <h6 class="mt-4">OnInput test</h6>
 <HxInputNumber Label="int" @bind-Value="_int" BindEvent="@BindEvent.OnInput" Hint="@_int?.ToString()"/>
+<HxInputNumber Label="decimal" @bind-Value="_decimal" BindEvent="@BindEvent.OnInput" Hint="@_decimal?.ToString()" />
 
 @code {
 	private byte? _byte;
