@@ -257,6 +257,10 @@ internal static partial class DateHelper
 		{
 			return (TValue)(object)value.Value;
 		}
+		else if (targetType == typeof(DateOnly))
+		{
+			return (TValue)(object)DateOnly.FromDateTime(value.Value.DateTime);
+		}
 		else
 		{
 			throw new InvalidOperationException("Unsupported type.");
@@ -276,6 +280,8 @@ internal static partial class DateHelper
 				return dateTimeValue;
 			case DateTimeOffset dateTimeOffsetValue:
 				return dateTimeOffsetValue.DateTime;
+			case DateOnly dateOnlyValue:
+				return dateOnlyValue.ToDateTime(TimeOnly.MinValue);
 			default:
 				throw new InvalidOperationException("Unsupported type.");
 		}
