@@ -14,8 +14,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// </remarks>
 public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, IInputWithSize, IInputWithLabelType
 {
-	// DO NOT FORGET TO MAINTAIN DOCUMENTATION!
-	private static HashSet<Type> s_supportedTypes = new HashSet<Type> { typeof(DateTime), typeof(DateTimeOffset) };
+	private static HashSet<Type> s_supportedTypes = new HashSet<Type> { typeof(DateTime), typeof(DateTimeOffset), typeof(DateOnly) };
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
@@ -266,6 +265,8 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 				return dateTimeValue.ToShortDateString();
 			case DateTimeOffset dateTimeOffsetValue:
 				return dateTimeOffsetValue.DateTime.ToShortDateString();
+			case DateOnly dateOnlyValue:
+				return dateOnlyValue.ToShortDateString();
 			default:
 				throw new InvalidOperationException("Unsupported type.");
 		}
