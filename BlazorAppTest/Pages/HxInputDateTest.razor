@@ -62,7 +62,7 @@
 		public DateTime DateTime { get; set; } = DateTime.Today;
 		public DateTime? NullableDateTime { get; set; }
 		public DateTimeOffset DateTimeOffset { get; set; }
-		public DateTimeOffset NullableDateTimeOffset { get; set; }
+		public DateTimeOffset? NullableDateTimeOffset { get; set; }
 
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
 		{
