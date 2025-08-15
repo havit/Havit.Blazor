@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Havit.Blazor.GoogleTagManager</name>
+    </assembly>
+    <members>
+        <member name="M:Havit.Blazor.GoogleTagManager.GoogleTagManagerServiceCollectionExtensions.AddHxGoogleTagManager(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Havit.Blazor.GoogleTagManager.HxGoogleTagManagerOptions})">
+            <summary>
+            Adds Google Tag Manager (GTM) support. Use <see cref="T:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager"/> to push data to <c>dataLayer</c> and/or <see cref="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker"/> to track page-views.
+            </summary>
+            <param name="services"></param>
+            <param name="configureOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManager">
+            <summary>
+             Adds Google Tag Manager to the application and manages communication with GTM JavaScript (data-layer).<br />
+             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxGoogleTagManager">https://havit.blazor.eu/components/HxGoogleTagManager</see>
+             </summary>
+             <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.GoogleTagManager.HxGoogleTagManager.InitializeAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.GoogleTagManager.HxGoogleTagManager.PushAsync(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.GoogleTagManager.HxGoogleTagManager.PushEventAsync(System.String,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.GoogleTagManager.HxGoogleTagManager.PushPageViewAsync(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.GoogleTagManager.HxGoogleTagManager.Havit#Blazor#GoogleTagManager#IHxGoogleTagManager#PushPageViewAsync(Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerOptions">
+            <summary>
+            Options for <see cref="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManager"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerOptions.GtmId">
+            <summary>
+            GTM-ID
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerOptions.PageViewEventName">
+            <summary>
+            Name of the event pushed when page-view is tracked.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerOptions.PageViewUrlVariableName">
+            <summary>
+            Name of the variabel to be used for URL when page-view is tracked.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager">
+            <summary>
+            Support for <see href="https://developers.google.com/tag-manager/devguide">Google Tag Manager</see> - initialization and pushing data to data-layer.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager.InitializeAsync">
+            <summary>
+            Initializes the GTM support.
+            Called automatically within first <c>Push</c> call (incl. <see cref="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker"/> calls).
+            To be used explicitly only in those rare cases when you want to initialize GTM without pushing any data.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager.PushAsync(System.Object)">
+            <summary>
+            Push generic data to GTM data-layer (using regular JSON-serialization).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager.PushEventAsync(System.String,System.Object)">
+            <summary>
+            Push event to GTM data-layer.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager.PushPageViewAsync(System.Object)">
+            <summary>
+            Push page-view to GTM data-layer.
+            Consider using <see cref="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker"/> instead of manual handling.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager.PushPageViewAsync(Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs)">
+            <summary>
+            Used by <see cref="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker"/> to track location changes.
+            </summary>
+        </member>
+    </members>
+</doc>
