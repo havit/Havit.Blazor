@@ -183,9 +183,10 @@ public class HxFormValueComponentRenderer : ComponentBase
 		if (!String.IsNullOrEmpty(FormValueComponent.Hint) || (FormValueComponent.HintTemplate != null))
 		{
 			builder.OpenElement(1, "div");
-			builder.AddAttribute(2, "class", FormValueComponent.CoreHintCssClass);
-			builder.AddContent(3, FormValueComponent.Hint);
-			builder.AddContent(4, FormValueComponent.HintTemplate);
+			builder.AddAttribute(2, "id", FormValueComponent.HintId);
+			builder.AddAttribute(3, "class", FormValueComponent.CoreHintCssClass);
+			builder.AddContent(4, FormValueComponent.Hint);
+			builder.AddContent(5, FormValueComponent.HintTemplate);
 			builder.CloseElement();
 		}
 	}
