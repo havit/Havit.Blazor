@@ -7,7 +7,7 @@ Always reference these instructions first and fallback to search or bash command
 ## Working Effectively
 
 ### Essential Prerequisites
-Install the required SDKs and tools in this exact order:
+Install the required .NET SDKs in this exact order:
 
 1. **Install .NET 9.0 SDK** (REQUIRED for building):
    ```bash
@@ -20,16 +20,9 @@ Install the required SDKs and tools in this exact order:
    curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 9.0.7 --runtime dotnet
    ```
 
-3. **Install Node.js and npm** (REQUIRED for CSS builds):
-   ```bash
-   sudo apt-get update && sudo apt-get install -y nodejs npm
-   ```
-
-4. **Verify installations**:
+3. **Verify installations**:
    ```bash
    dotnet --version  # Should show 9.0.101
-   node --version    # Should show v20.19.4+
-   npm --version     # Should show 10.8.2+
    ```
 
 ### Build Process
@@ -41,14 +34,7 @@ NEVER CANCEL build or test commands. All timeouts below are based on measured pe
    dotnet restore
    ```
 
-2. **Build Bootstrap CSS** (takes ~5 seconds. NEVER CANCEL. Set timeout to 30+ seconds):
-   ```bash
-   cd Havit.Bootstrap
-   npm install  # Takes ~62 seconds first time. NEVER CANCEL. Set timeout to 180+ seconds
-   npm run css  # Builds CSS files to dist/css/
-   ```
-
-3. **Build the solution** (takes ~49 seconds with known issues. NEVER CANCEL. Set timeout to 120+ seconds):
+2. **Build the solution** (takes ~49 seconds with known issues. NEVER CANCEL. Set timeout to 120+ seconds):
    ```bash
    export PATH="/home/runner/.dotnet:$PATH"
    dotnet build --no-restore
@@ -71,25 +57,32 @@ Expected Results:
 - Havit.Blazor.Grpc.Core.Tests: 2 tests, all pass  
 - Havit.Blazor.Grpc.Client.Tests: 1 test, all pass
 
-### CSS Development
-When modifying Bootstrap styles:
+## Coding Standards
 
-1. **Edit SCSS files** in `Havit.Bootstrap/scss/` directory
-2. **Build CSS** with `npm run css` (5 seconds)
-3. **Copy to Blazor project**:
-   ```bash
-   cd Havit.Bootstrap
-   npm run publish-to-blazor
-   ```
+Always follow the coding standards defined in `.editorconfig`:
+
+### Key Standards
+- **Indentation**: Use tabs with size 4
+- **Usings**: Sort system directives first, don't separate import directive groups
+- **Accessibility modifiers**: Required for non-interface members
+- **Braces**: Always use braces for code blocks (warning level)
+- **var keyword**: Avoid using var, prefer explicit types
+- **Documentation**: Provide `/// <summary>` documentation comments for public APIs
+
+### EditorConfig Reference
+The `.editorconfig` file in the repository root contains the complete coding standards. Key points:
+- Tab indentation (size 4) for all files
+- Trim trailing whitespace
+- Spell checking enabled with custom exclusion dictionary
+- C#-specific rules for modifiers, parentheses, and code style preferences
 
 ## Validation
 
 ### Manual Testing Scenarios
 After making changes, always validate by:
 
-1. **Verify CSS builds work**: Run `npm run css` in Havit.Bootstrap folder
-2. **Verify core tests pass**: Run the three test projects listed above
-3. **Check component compilation**: Build individual component projects
+1. **Verify core tests pass**: Run the three test projects listed above
+2. **Check component compilation**: Build individual component projects
 
 ### Build Validation  
 Always run these validation steps before committing:
@@ -109,7 +102,6 @@ dotnet build Havit.Blazor.Grpc.Core/Havit.Blazor.Grpc.Core.csproj --no-restore -
 - `Havit.Blazor.Documentation/` - Documentation site (NET 9.0 WebAssembly)
 - `Havit.Blazor.TestApp/` - Current test application (NET 9.0)
 - `BlazorAppTest/` - Legacy test application (NET 9.0) - OBSOLETE
-- `Havit.Bootstrap/` - CSS/SCSS build process with Bootstrap customizations
 
 ### Test Projects
 - `Havit.Blazor.Components.Web.Tests/` - Core component tests (38 tests)
@@ -120,7 +112,7 @@ dotnet build Havit.Blazor.Grpc.Core/Havit.Blazor.Grpc.Core.csproj --no-restore -
 ### Important Files
 - `Directory.Build.props` - Global build properties
 - `Directory.Packages.props` - Central package version management
-- `Havit.Bootstrap/package.json` - npm build scripts for CSS
+- `.editorconfig` - Coding standards and style rules
 - `.github/workflows/dotnet.yml` - CI/CD pipeline
 
 ## Common Tasks
@@ -129,19 +121,15 @@ dotnet build Havit.Blazor.Grpc.Core/Havit.Blazor.Grpc.Core.csproj --no-restore -
 The main component library follows these patterns:
 - Components are in `Havit.Blazor.Components.Web.Bootstrap/`
 - Follow Bootstrap naming conventions
-- Use CSS variables when possible
+- Follow coding standards defined in `.editorconfig`
 - Provide `/// <summary>` documentation comments
 
 ### Adding New Components
 1. Create component in appropriate folder under `Havit.Blazor.Components.Web.Bootstrap/`
 2. Follow existing naming patterns (prefix with `Hx`)
-3. Add tests in corresponding `Tests` project
-4. Update documentation if needed
-
-### CSS Customization
-1. Edit SCSS files in `Havit.Bootstrap/scss/`
-2. Run `npm run css` to compile
-3. Run `npm run publish-to-blazor` to copy files
+3. Follow `.editorconfig` coding standards (tabs, accessibility modifiers, etc.)
+4. Add tests in corresponding `Tests` project
+5. Update documentation if needed
 
 ### Working with Icons
 Bootstrap icons are generated via source generator from `Havit.Bootstrap/Icons/bootstrap-icons.json`. If icon references fail, this indicates a source generator issue.
@@ -158,19 +146,16 @@ Bootstrap icons are generated via source generator from `Havit.Bootstrap/Icons/b
 - **Tests timeout**: Use longer timeout values, tests may take up to 30 seconds in some environments
 
 ### Performance
-- **First npm install**: Takes ~62 seconds, subsequent runs are faster
-- **CSS build**: Takes ~5 seconds consistently  
 - **dotnet restore**: Takes ~13 seconds
 - **Full solution build**: Takes ~49 seconds (may fail with known issues)
 - **Test execution**: Takes ~6 seconds for working test suites
 
 ## Development Workflow
-1. Install prerequisites (one-time setup)
+1. Install .NET prerequisites (one-time setup)
 2. `dotnet restore` (13s)
-3. Make your changes
-4. Build CSS if needed: `cd Havit.Bootstrap && npm run css` (5s)
-5. Build components: `dotnet build --no-restore` (49s, may have known failures)
-6. Run tests: `dotnet test` (6s) 
-7. Validate changes manually
+3. Make your changes following `.editorconfig` standards
+4. Build components: `dotnet build --no-restore` (49s, may have known failures)
+5. Run tests: `dotnet test` (6s) 
+6. Validate changes manually
 
 Always use the exact timeout values specified above and NEVER CANCEL long-running operations.
