@@ -56,6 +56,11 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	protected string UploadHttpMethodEffective => UploadHttpMethod ?? GetSettings()?.UploadHttpMethod ?? GetDefaults().UploadHttpMethod ?? throw new InvalidOperationException(nameof(UploadHttpMethod) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 	/// <summary>
+	/// Include an anti-forgery token for file upload to prevent CSRF attacks.
+	/// </summary>
+	[Parameter] public bool IncludeAntiforgeryToken { get; set; }
+
+	/// <summary>
 	/// Raised during running file upload (the frequency depends on browser implementation).
 	/// </summary>
 	[Parameter] public EventCallback<UploadProgressEventArgs> OnProgress { get; set; }
@@ -168,6 +173,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 		{
 			return;
 		}
+
 		await _jsModule.InvokeVoidAsync("upload",
 			Id,
 			_dotnetObjectReference,
@@ -176,6 +182,30 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 			MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective,
 			MaxParallelUploadsEffective,
 			UploadHttpMethodEffective);
+	}
+
+	public async Task StartUploadAsync(string antiforgeryHeader, string antiforgeryToken, string accessToken = null)
+	{
+		Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(UploadUrl), nameof(UploadUrl) + " has to be set.");
+
+		await EnsureJsModuleAsync();
+		_filesUploaded = new ConcurrentBag<FileUploadedEventArgs>();
+
+		if (_disposed)
+		{
+			return;
+		}
+
+		await _jsModule.InvokeVoidAsync("upload",
+			Id,
+			_dotnetObjectReference,
+			UploadUrl,
+			accessToken,
+			MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective,
+			MaxParallelUploadsEffective,
+			UploadHttpMethodEffective,
+			IncludeAntiforgeryToken ? antiforgeryHeader : null,
+			IncludeAntiforgeryToken ? antiforgeryToken : null);
 	}
 
 	/// <summary>

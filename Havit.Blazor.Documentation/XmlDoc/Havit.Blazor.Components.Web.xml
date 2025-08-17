@@ -145,6 +145,11 @@
             HTTP Method (verb) used for file upload. The default is <c>POST</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.IncludeAntiforgeryToken">
+            <summary>
+            Include an anti-forgery token for file upload to prevent CSRF attacks.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.OnProgress">
             <summary>
             Raised during running file upload (the frequency depends on browser implementation).
