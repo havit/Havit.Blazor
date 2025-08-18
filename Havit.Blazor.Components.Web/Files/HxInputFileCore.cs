@@ -190,11 +190,12 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// Uploads the file(s).
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-	public async Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null)
+	/// <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="IncludeAntiforgeryToken"/> is true.</param>
+	public async Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null)
 	{
 		_uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
 
-		await StartUploadAsync(accessToken);
+		await StartUploadAsync(accessToken, antiforgeryToken);
 
 		return await _uploadCompletedTaskCompletionSource.Task;
 	}
