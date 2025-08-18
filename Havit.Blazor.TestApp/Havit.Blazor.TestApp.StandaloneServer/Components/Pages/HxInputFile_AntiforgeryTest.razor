@@ -41,9 +41,7 @@ ResponseText: @fileUploaded?.ResponseText
         AntiforgeryTokenSet tokens = Antiforgery.GetAndStoreTokens(HttpContextAccessor.HttpContext!);
         string? antiforgeryToken = tokens.RequestToken;
 
-        await hxInputFileComponent.StartUploadAsync(
-            antiforgeryHeader: "RequestVerificationToken",
-            antiforgeryToken: antiforgeryToken);
+        await hxInputFileComponent.StartUploadAsync(antiforgeryToken: antiforgeryToken);
     }
 
     private async Task HandleResetAsync()

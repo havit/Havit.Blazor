@@ -159,32 +159,11 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// Initiates the upload (does not wait for upload completion). Use OnUploadCompleted event.
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+	/// <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="IncludeAntiforgeryToken"/> is true.</param>
 	/// <remarks>
 	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
 	/// </remarks>
-	public async Task StartUploadAsync(string accessToken = null)
-	{
-		Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(UploadUrl), nameof(UploadUrl) + " has to be set.");
-
-		await EnsureJsModuleAsync();
-		_filesUploaded = new ConcurrentBag<FileUploadedEventArgs>();
-
-		if (_disposed)
-		{
-			return;
-		}
-
-		await _jsModule.InvokeVoidAsync("upload",
-			Id,
-			_dotnetObjectReference,
-			UploadUrl,
-			accessToken,
-			MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective,
-			MaxParallelUploadsEffective,
-			UploadHttpMethodEffective);
-	}
-
-	public async Task StartUploadAsync(string antiforgeryHeader, string antiforgeryToken, string accessToken = null)
+	public async Task StartUploadAsync(string accessToken = null, string antiforgeryToken = null)
 	{
 		Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(UploadUrl), nameof(UploadUrl) + " has to be set.");
 
@@ -204,7 +183,6 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 			MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective,
 			MaxParallelUploadsEffective,
 			UploadHttpMethodEffective,
-			IncludeAntiforgeryToken ? antiforgeryHeader : null,
 			IncludeAntiforgeryToken ? antiforgeryToken : null);
 	}
 

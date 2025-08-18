@@ -1,4 +1,4 @@
-﻿export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads, uploadHttpMethod, antiforgeryHeader = null, antiforgeryToken = null) {
+﻿export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads, uploadHttpMethod, antiforgeryToken = null) {
 	const inputElement = document.getElementById(inputElementId);
 	const dotnetReference = hxInputFileDotnetObjectReference;
 	const files = inputElement.files;
@@ -60,8 +60,8 @@
 			request.setRequestHeader('Authorization', 'Bearer ' + accessToken);
 		}
 
-        if (antiforgeryHeader && antiforgeryToken) {
-            request.setRequestHeader(antiforgeryHeader, antiforgeryToken);
+        if (antiforgeryToken) {
+            request.setRequestHeader('RequestVerificationToken', antiforgeryToken);
         }
 
 		request.upload.onprogress = function (e) {

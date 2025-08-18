@@ -201,12 +201,11 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	/// Starts the upload.
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+	/// <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="IncludeAntiforgeryToken"/> is true.</param>
 	/// <remarks>
 	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
 	/// </remarks>
-	public Task StartUploadAsync(string accessToken = null) => _hxInputFileCoreComponentReference?.StartUploadAsync(accessToken);
-
-	public Task StartUploadAsync(string antiforgeryHeader, string antiforgeryToken) => _hxInputFileCoreComponentReference?.StartUploadAsync(antiforgeryHeader, antiforgeryToken);
+	public Task StartUploadAsync(string accessToken = null, string antiforgeryToken = null) => _hxInputFileCoreComponentReference?.StartUploadAsync(accessToken, antiforgeryToken);
 
 
 	/// <summary>
