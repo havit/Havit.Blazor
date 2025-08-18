@@ -215,7 +215,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		// - If we cancel the original paste event, Blazor does not recognize the change, so we fire change event manually.
 		// - This is kind of hack and causes the input to behave slightly differently when normalizing the value (the value is accepted immediately, not after the user leaves the input)
 		// - If this turns out to be a problem, we will have to implement the normalization in the Blazor-handled @onpaste event
-		builder.AddAttribute(1005, "onpaste", @"var clipboardValue = event.clipboardData.getData('text/plain'); var normalizedValue = clipboardValue.replace(/[^\d.,\-eE]/g, ''); if (+clipboardValue != +normalizedValue) { this.value = normalizedValue; this.dispatchEvent(new Event('change', { bubbles: true })); return false; }");
+		builder.AddAttribute(1005, "onpaste", @"var clipboardValue = event.clipboardData.getData('text/plain'); var normalizedValue = clipboardValue.replace(/[^\d.,\-eE]/g, ''); if (+clipboardValue != +normalizedValue) { this.value = normalizedValue; this.dispatchEvent(new Event('input', { bubbles: true })); this.modifiedByCode = true; return false; }");
 		builder.SetUpdatesAttributeName("value");
 
 		// When the user presses '-' key, we toggle the sign of the value.
