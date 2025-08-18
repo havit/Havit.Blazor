@@ -21,8 +21,7 @@ public static class FileUploadEndpoint
 				file.Length,
 				SavedTo = filePath
 			});
-		})
-		.DisableAntiforgery();
+		});
 
 		return app;
 	}

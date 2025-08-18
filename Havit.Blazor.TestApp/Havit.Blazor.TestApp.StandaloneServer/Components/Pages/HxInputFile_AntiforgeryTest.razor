@@ -7,7 +7,11 @@
 
 <h1>HxInputFile_AntiforgeryTest</h1>
 
-<HxInputFile @ref="hxInputFileComponent" Label="HxInputFile" UploadUrl="/file-upload-streamed" OnFileUploaded="HandleFileUploaded" />
+<HxInputFile @ref="hxInputFileComponent"
+    Label="HxInputFile"
+    UploadUrl="/file-upload-streamed"
+    IncludeAntiforgeryToken="true"
+    OnFileUploaded="HandleFileUploaded" />
 
 <HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="HandleUploadClickAsync" CssClass="my-2" />
 <HxButton Text="Clear" OnClick="HandleResetAsync" Color="ThemeColor.Secondary" />
@@ -28,23 +32,18 @@ ResponseText: @fileUploaded?.ResponseText
 @code {
     private HxInputFile? hxInputFileComponent;
     private FileUploadedEventArgs? fileUploaded;
-    private string? antiforgeryToken;
-
-    protected override void OnInitialized()
-    {
-        AntiforgeryTokenSet tokens = Antiforgery.GetAndStoreTokens(HttpContextAccessor.HttpContext!);
-        antiforgeryToken = tokens.RequestToken;
-    }
 
     private async Task HandleUploadClickAsync()
     {
         if (hxInputFileComponent == null)
             return;
 
-        @* if (antiforgeryToken == null)
-            return; *@
+        AntiforgeryTokenSet tokens = Antiforgery.GetAndStoreTokens(HttpContextAccessor.HttpContext!);
+        string? antiforgeryToken = tokens.RequestToken;
 
-        await hxInputFileComponent.StartUploadAsync();
+        await hxInputFileComponent.StartUploadAsync(
+            antiforgeryHeader: "RequestVerificationToken",
+            antiforgeryToken: antiforgeryToken);
     }
 
     private async Task HandleResetAsync()
