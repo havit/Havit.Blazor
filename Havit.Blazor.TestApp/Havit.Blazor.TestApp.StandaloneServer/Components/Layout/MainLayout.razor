@@ -1,0 +1,17 @@
+﻿@inherits LayoutComponentBase
+
+<HxMessenger Position="ToastContainerPosition.BottomCenter" />
+<HxMessageBoxHost />
+
+<div class="d-md-flex min-vh-100">
+	<NavMenu />
+	<div class="main p-4 flex-grow-1">
+		@Body
+	</div>
+</div>
+
+<div id="blazor-error-ui" data-nosnippet>
+	An unhandled error has occurred.
+	<a href="." class="reload">Reload</a>
+	<span class="dismiss">🗙</span>
+</div>
