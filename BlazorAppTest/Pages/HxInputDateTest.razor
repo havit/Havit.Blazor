@@ -70,10 +70,10 @@
 
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
 		{
-			if (DateTime.Year != 2020)
-			{
-				yield return new ValidationResult("Date has to fall in year 2020.", new string[] { nameof(DateTime) });
-			}
+			  if (DateTime.Year != 2020)
+			  {
+				  yield return new ValidationResult("Date has to fall in year 2020.", new string[] { nameof(DateTime) });
+			  }
 		}
 	}
 }
