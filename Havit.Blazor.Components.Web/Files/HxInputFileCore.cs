@@ -56,6 +56,11 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	protected string UploadHttpMethodEffective => UploadHttpMethod ?? GetSettings()?.UploadHttpMethod ?? GetDefaults().UploadHttpMethod ?? throw new InvalidOperationException(nameof(UploadHttpMethod) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 	/// <summary>
+	/// Include an anti-forgery token for file upload to prevent CSRF attacks.
+	/// </summary>
+	[Parameter] public bool IncludeAntiforgeryToken { get; set; }
+
+	/// <summary>
 	/// Raised during running file upload (the frequency depends on browser implementation).
 	/// </summary>
 	[Parameter] public EventCallback<UploadProgressEventArgs> OnProgress { get; set; }
@@ -154,10 +159,11 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// Initiates the upload (does not wait for upload completion). Use OnUploadCompleted event.
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+	/// <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="IncludeAntiforgeryToken"/> is true.</param>
 	/// <remarks>
 	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
 	/// </remarks>
-	public async Task StartUploadAsync(string accessToken = null)
+	public async Task StartUploadAsync(string accessToken = null, string antiforgeryToken = null)
 	{
 		Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(UploadUrl), nameof(UploadUrl) + " has to be set.");
 
@@ -168,6 +174,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 		{
 			return;
 		}
+
 		await _jsModule.InvokeVoidAsync("upload",
 			Id,
 			_dotnetObjectReference,
@@ -175,18 +182,20 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 			accessToken,
 			MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective,
 			MaxParallelUploadsEffective,
-			UploadHttpMethodEffective);
+			UploadHttpMethodEffective,
+			IncludeAntiforgeryToken ? antiforgeryToken : null);
 	}
 
 	/// <summary>
 	/// Uploads the file(s).
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-	public async Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null)
+	/// <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="IncludeAntiforgeryToken"/> is true.</param>
+	public async Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null)
 	{
 		_uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
 
-		await StartUploadAsync(accessToken);
+		await StartUploadAsync(accessToken, antiforgeryToken);
 
 		return await _uploadCompletedTaskCompletionSource.Task;
 	}

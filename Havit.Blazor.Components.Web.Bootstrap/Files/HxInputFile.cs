@@ -51,6 +51,11 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	[Parameter] public string UploadHttpMethod { get; set; } = "POST";
 
 	/// <summary>
+	/// Include an anti-forgery token for file upload to prevent CSRF attacks.
+	/// </summary>
+	[Parameter] public bool IncludeAntiforgeryToken { get; set; }
+
+	/// <summary>
 	/// Gets or sets the event callback that will be invoked when the collection of selected files changes.
 	/// </summary>
 	[Parameter] public EventCallback<InputFileChangeEventArgs> OnChange { get; set; }
@@ -196,16 +201,19 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	/// Starts the upload.
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+	/// <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="IncludeAntiforgeryToken"/> is true.</param>
 	/// <remarks>
 	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
 	/// </remarks>
-	public Task StartUploadAsync(string accessToken = null) => _hxInputFileCoreComponentReference?.StartUploadAsync(accessToken);
+	public Task StartUploadAsync(string accessToken = null, string antiforgeryToken = null) => _hxInputFileCoreComponentReference?.StartUploadAsync(accessToken, antiforgeryToken);
+
 
 	/// <summary>
 	/// Uploads the file(s).
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-	public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null) => _hxInputFileCoreComponentReference?.UploadAsync(accessToken);
+	/// <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="IncludeAntiforgeryToken"/> is true.</param>
+	public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null) => _hxInputFileCoreComponentReference?.UploadAsync(accessToken, antiforgeryToken);
 
 	protected override void BuildRenderTree(RenderTreeBuilder builder)
 	{
@@ -222,6 +230,7 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 		builder.AddAttribute(1001, nameof(HxInputFileCore.Id), InputId);
 		builder.AddAttribute(1002, nameof(HxInputFileCore.UploadUrl), UploadUrl);
 		builder.AddAttribute(1002, nameof(HxInputFileCore.UploadHttpMethod), UploadHttpMethod);
+		builder.AddAttribute(1002, nameof(HxInputFileCore.IncludeAntiforgeryToken), IncludeAntiforgeryToken);
 		builder.AddAttribute(1003, nameof(HxInputFileCore.Multiple), Multiple);
 		builder.AddAttribute(1004, nameof(HxInputFileCore.OnChange), EventCallback.Factory.Create<InputFileChangeEventArgs>(this, InvokeOnChangeAsync));
 		builder.AddAttribute(1005, nameof(HxInputFileCore.OnProgress), EventCallback.Factory.Create<UploadProgressEventArgs>(this, InvokeOnProgressAsync));

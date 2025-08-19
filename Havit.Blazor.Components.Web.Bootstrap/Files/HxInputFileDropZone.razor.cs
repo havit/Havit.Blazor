@@ -24,6 +24,11 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	[Parameter] public string UploadHttpMethod { get; set; } = "POST";
 
 	/// <summary>
+	/// Include an anti-forgery token for file upload to prevent CSRF attacks.
+	/// </summary>
+	[Parameter] public bool IncludeAntiforgeryToken { get; set; }
+
+	/// <summary>
 	/// Gets or sets the event callback that will be invoked when the collection of selected files changes.
 	/// </summary>
 	[Parameter] public EventCallback<InputFileChangeEventArgs> OnChange { get; set; }
@@ -119,16 +124,18 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	/// Starts the upload.
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+	/// <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="IncludeAntiforgeryToken"/> is true.</param>
 	/// <remarks>
 	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefore, the accessToken here...
 	/// </remarks>
-	public Task StartUploadAsync(string accessToken = null) => _hxInputFileCoreComponentReference?.StartUploadAsync(accessToken);
+	public Task StartUploadAsync(string accessToken = null, string antiforgeryToken = null) => _hxInputFileCoreComponentReference?.StartUploadAsync(accessToken, antiforgeryToken);
 
 	/// <summary>
 	/// Uploads the file(s).
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-	public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null) => _hxInputFileCoreComponentReference?.UploadAsync(accessToken);
+	/// <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="IncludeAntiforgeryToken"/> is true.</param>
+	public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null) => _hxInputFileCoreComponentReference?.UploadAsync(accessToken, antiforgeryToken);
 
 	protected Task HandleOnChange(InputFileChangeEventArgs args)
 	{

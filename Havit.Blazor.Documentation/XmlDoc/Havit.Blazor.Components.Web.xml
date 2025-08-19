@@ -145,6 +145,11 @@
             HTTP Method (verb) used for file upload. The default is <c>POST</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.IncludeAntiforgeryToken">
+            <summary>
+            Include an anti-forgery token for file upload to prevent CSRF attacks.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.OnProgress">
             <summary>
             Raised during running file upload (the frequency depends on browser implementation).
@@ -214,20 +219,22 @@
             The last known count of associated files.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.StartUploadAsync(System.String)">
+        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.StartUploadAsync(System.String,System.String)">
             <summary>
             Initiates the upload (does not wait for upload completion). Use OnUploadCompleted event.
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+            <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.IncludeAntiforgeryToken"/> is true.</param>
             <remarks>
             We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
             </remarks>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.UploadAsync(System.String)">
+        <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.UploadAsync(System.String,System.String)">
             <summary>
             Uploads the file(s).
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+            <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.IncludeAntiforgeryToken"/> is true.</param>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.GetFilesAsync">
             <summary>
