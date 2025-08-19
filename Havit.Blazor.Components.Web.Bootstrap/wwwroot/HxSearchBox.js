@@ -17,7 +17,14 @@
 function handleKeyDown(event) {
 	const key = event.key;
 
-	event.target.hxSearchBoxDotnetObjectReference.invokeMethodAsync("HxSearchBox_HandleInputKeyDown", key);
+	// Only call Blazor for keys that need server-side handling (navigation keys)
+	// Regular typing characters should be handled locally to prevent character dropping
+	const navigationKeys = ["Enter", "NumpadEnter", "ArrowUp", "ArrowDown"];
+	const needsServerHandling = navigationKeys.includes(key) || event.target.hxSearchBoxKeysToPreventDefault.includes(key);
+	
+	if (needsServerHandling) {
+		event.target.hxSearchBoxDotnetObjectReference.invokeMethodAsync("HxSearchBox_HandleInputKeyDown", key);
+	}
 
 	if (event.target.hxSearchBoxKeysToPreventDefault.includes(key)) {
 		event.preventDefault();
