@@ -11,7 +11,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 [TestClass]
 public class HxInputNumberTests : BunitTestBase
 {
-	[DataTestMethod]
+	[TestMethod]
 	[DataRow("en-US", "123", 123.0, "123.00")]
 	[DataRow("en-US", "123,123", 123123.0, "123123.00")]
 	[DataRow("cs-CZ", "123,123", 123.12, "123,12")] // Decimals = 2 (rounding)

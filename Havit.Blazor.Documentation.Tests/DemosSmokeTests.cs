@@ -11,7 +11,7 @@ namespace Havit.Blazor.Documentation.Tests;
 [TestClass]
 public class DemosSmokeTests
 {
-	[DataTestMethod]
+	[TestMethod]
 	[DynamicData(nameof(GetDemos), DynamicDataSourceType.Method)]
 	public void DocumentationDemo_SmokeTest(Type demoComponent)
 	{

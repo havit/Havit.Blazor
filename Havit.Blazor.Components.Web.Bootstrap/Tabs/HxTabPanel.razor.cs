@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Encapsulates <see cref="HxNav"/> (<see cref="NavVariant.Tabs"/> variant as default) and <see cref="HxNavLink"/>s so you don't have to bother with them explicitly.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTabPanel">https://havit.blazor.eu/components/HxTabPanel</see>
 /// </summary>
-public partial class HxTabPanel : ComponentBase, IAsyncDisposable
+public partial class HxTabPanel : ComponentBase
 {
 	/// <summary>
 	/// TabsRegistration cascading value name.
@@ -72,7 +72,6 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	private List<HxTab> _tabsList = new();
 	private List<HxTab> _tabsListOrdered; // cached
 	private bool _collectingTabs;
-	private bool _isDisposed = false;
 
 	// Caches of method->delegate conversions
 	private readonly RenderFragment _renderTabsNavigation;
@@ -211,25 +210,5 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 		}
 
 		return null;
-	}
-
-	/// <inheritdoc />
-
-	public async ValueTask DisposeAsync()
-	{
-		await DisposeAsyncCore();
-
-		//Dispose(disposing: false);
-	}
-
-	protected virtual async ValueTask DisposeAsyncCore()
-	{
-		if (!_isDisposed && (_previousActiveTab != null))
-		{
-			await _previousActiveTab.NotifyDeactivatedAsync();
-			_previousActiveTab = null;
-		}
-
-		_isDisposed = true;
 	}
 }

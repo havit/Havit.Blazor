@@ -34,7 +34,7 @@ public class GridDataProviderRequestExtensionsTests
 		var result = source.ApplyGridDataProviderRequest(gridDataProviderRequest).ToList();
 
 		// Assert
-		Assert.AreEqual(3, result.Count);
+		Assert.HasCount(3, result);
 		Assert.AreEqual(new Item { A = "1", B = 2 }, result[0]);
 		Assert.AreEqual(new Item { A = "1", B = 1 }, result[1]);
 		Assert.AreEqual(new Item { A = "2", B = 3 }, result[2]);

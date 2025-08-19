@@ -90,6 +90,11 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 	/// <summary>
+	/// Input event used to bind the Value. Default is OnChange.
+	/// </summary>
+	[Parameter] public BindEvent BindEvent { get; set; } = BindEvent.OnChange;
+
+	/// <summary>
 	/// Determines whether all the content within the input field is automatically selected when it receives focus.
 	/// </summary>
 	[Parameter] public bool? SelectOnFocus { get; set; }
@@ -203,23 +208,34 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		{
 			builder.AddAttribute(1002, "onfocus", "this.select();");
 		}
-		builder.AddAttribute(1003, "onchange", EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
+		builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 		builder.SetUpdatesAttributeName("value");
 
 		// Normalization of pasted value (applied only if the pasted value differs from the normalized value)
 		// - If we cancel the original paste event, Blazor does not recognize the change, so we fire change event manually.
 		// - This is kind of hack and causes the input to behave slightly differently when normalizing the value (the value is accepted immediately, not after the user leaves the input)
 		// - If this turns out to be a problem, we will have to implement the normalization in the Blazor-handled @onpaste event
-		builder.AddAttribute(1004, "onpaste", @"var clipboardValue = event.clipboardData.getData('text/plain'); var normalizedValue = clipboardValue.replace(/[^\d.,\-eE]/g, ''); if (+clipboardValue != +normalizedValue) { this.value = normalizedValue; this.dispatchEvent(new Event('change')); return false; }");
+		builder.AddAttribute(1005, "onpaste", @"var clipboardValue = event.clipboardData.getData('text/plain'); var normalizedValue = clipboardValue.replace(/[^\d.,\-eE]/g, ''); if (+clipboardValue != +normalizedValue) { this.value = normalizedValue; this.dispatchEvent(new Event('input', { bubbles: true })); this.modifiedByCode = true; return false; }");
 		builder.SetUpdatesAttributeName("value");
 
-		builder.AddEventStopPropagationAttribute(1004, "onclick", true);
+		// When the user presses '-' key, we toggle the sign of the value.
+		// We also set the modifiedByCode flag to allow fire change event in onblur event later.
+		// Selection handling:
+		// - When everything (but non-empty) is selected before adding -, everything is selected after adding -.
+		// - When selected -12 in the value -1234, 12 must remain selected after - removal.
+		builder.AddAttribute(1006, "onkeydown", "if (event.key === '-') { let newValue = this.value; let newSelectionStart = -1; let newSelectionEnd = -1; if (this.value.startsWith('-')) { newValue = this.value.substring(1); newSelectionStart = Math.max(0, this.selectionStart - 1); newSelectionEnd = Math.max(0, this.selectionEnd - 1);  } else { newValue = '-' + this.value; newSelectionStart = (this.selectionStart == 0 && this.selectionEnd > 0 && this.selectionEnd == this.value.length) ? 0 : this.selectionStart + 1; newSelectionEnd = (this.selectionStart == 0 && this.selectionEnd > 0 && this.selectionEnd == this.value.length) ? newValue.length : this.selectionEnd + 1;}  if (this.value !== newValue) { this.value = newValue; this.setSelectionRange(newSelectionStart, newSelectionEnd); this.dispatchEvent(new Event('input', { bubbles: true })); this.modifiedByCode = true; return false; } }");
+		builder.SetUpdatesAttributeName("value");
+
+		// When the value is modified by code, we fire the change event.
+		builder.AddAttribute(1007, "onblur", "if (this.modifiedByCode) { this.modifiedByCode = false; this.dispatchEvent(new Event('change', { bubbles: true })); }");
+
+		builder.AddEventStopPropagationAttribute(1008, "onclick", true);
 
 		// The counting of sequence values violates all general recommendations.
 		// We want the value of HxInputNumber to be updated (re-rendered) when the user input changes, even if FormatValueAsString(Value) hasn't changed.
 		// For instance, if a value like "1.00" is displayed and a user modifies it to "1.0", FormatValueAsString(Value) won't change,
 		// and the attribute won't be re-rendered, so the user input stays at "1.0".
-		// To address this issue, we use sequence values starting from 1006. This forces Blazor to update the value anyway (due to the sequence change).
+		// To address this issue, we use sequence values starting from 1100. This forces Blazor to update the value anyway (due to the sequence change).
 		// However, we adjust the sequence only if we want to enforce the re-rendering. Otherwise, the component would update continuously.
 		checked
 		{
@@ -228,7 +244,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 				_valueSequenceOffset++;
 				forceRenderValue = false;
 			}
-			builder.AddAttribute(1006 + _valueSequenceOffset, "value", CurrentValueAsString);
+			builder.AddAttribute(1100 + _valueSequenceOffset, "value", CurrentValueAsString);
 		}
 		builder.AddElementReferenceCapture(Int32.MaxValue, elementReference => InputElement = elementReference);
 
