@@ -24,11 +24,6 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	[Parameter] public string UploadHttpMethod { get; set; } = "POST";
 
 	/// <summary>
-	/// Include an anti-forgery token for file upload to prevent CSRF attacks.
-	/// </summary>
-	[Parameter] public bool IncludeAntiforgeryToken { get; set; }
-
-	/// <summary>
 	/// Gets or sets the event callback that will be invoked when the collection of selected files changes.
 	/// </summary>
 	[Parameter] public EventCallback<InputFileChangeEventArgs> OnChange { get; set; }

@@ -2894,11 +2894,6 @@
             HTTP Method (verb) used for file upload. The default is <c>POST</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.IncludeAntiforgeryToken">
-            <summary>
-            Include an anti-forgery token for file upload to prevent CSRF attacks.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnChange">
             <summary>
             Gets or sets the event callback that will be invoked when the collection of selected files changes.
@@ -3038,7 +3033,7 @@
             Starts the upload.
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-            <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.IncludeAntiforgeryToken"/> is true.</param>
+            <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="!:IncludeAntiforgeryToken"/> is true.</param>
             <remarks>
             We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
             </remarks>
@@ -3048,7 +3043,7 @@
             Uploads the file(s).
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-            <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.IncludeAntiforgeryToken"/> is true.</param>
+            <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="!:IncludeAntiforgeryToken"/> is true.</param>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone">
             <summary>
@@ -3065,11 +3060,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadHttpMethod">
             <summary>
             HTTP Method (verb) used for file upload. The default is <c>POST</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.IncludeAntiforgeryToken">
-            <summary>
-            Include an anti-forgery token for file upload to prevent CSRF attacks.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnChange">
@@ -3166,7 +3156,7 @@
             Starts the upload.
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-            <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.IncludeAntiforgeryToken"/> is true.</param>
+            <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="!:IncludeAntiforgeryToken"/> is true.</param>
             <remarks>
             We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefore, the accessToken here...
             </remarks>
@@ -3176,7 +3166,7 @@
             Uploads the file(s).
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-            <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.IncludeAntiforgeryToken"/> is true.</param>
+            <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="!:IncludeAntiforgeryToken"/> is true.</param>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputFileSettings">
             <summary>

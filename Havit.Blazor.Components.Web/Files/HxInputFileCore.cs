@@ -56,11 +56,6 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	protected string UploadHttpMethodEffective => UploadHttpMethod ?? GetSettings()?.UploadHttpMethod ?? GetDefaults().UploadHttpMethod ?? throw new InvalidOperationException(nameof(UploadHttpMethod) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 	/// <summary>
-	/// Include an anti-forgery token for file upload to prevent CSRF attacks.
-	/// </summary>
-	[Parameter] public bool IncludeAntiforgeryToken { get; set; }
-
-	/// <summary>
 	/// Raised during running file upload (the frequency depends on browser implementation).
 	/// </summary>
 	[Parameter] public EventCallback<UploadProgressEventArgs> OnProgress { get; set; }
@@ -183,7 +178,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 			MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective,
 			MaxParallelUploadsEffective,
 			UploadHttpMethodEffective,
-			IncludeAntiforgeryToken ? antiforgeryToken : null);
+			antiforgeryToken);
 	}
 
 	/// <summary>
