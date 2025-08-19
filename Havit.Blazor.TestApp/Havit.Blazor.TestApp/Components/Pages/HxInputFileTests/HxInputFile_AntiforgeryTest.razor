@@ -27,6 +27,8 @@ ResponseStatus: @fileUploaded?.ResponseStatus
 <br />
 ResponseText: @fileUploaded?.ResponseText
 <br />
+AntiforgeryHeader: <span style="background-color: rgb(245, 73, 108); color: black;">@antiforgeryHeader</span>
+<br />
 AntiforgeryToken: <span style="background-color: rgb(245, 73, 108); color: black;">@antiforgeryToken</span>
 <br />
 
@@ -34,6 +36,7 @@ AntiforgeryToken: <span style="background-color: rgb(245, 73, 108); color: black
     private HxInputFile hxInputFileComponent;
     private FileUploadedEventArgs fileUploaded;
     string antiforgeryToken;
+    string antiforgeryHeader;
 
     private async Task HandleUploadClickAsync()
     {
@@ -42,8 +45,11 @@ AntiforgeryToken: <span style="background-color: rgb(245, 73, 108); color: black
 
         AntiforgeryTokenSet tokens = Antiforgery.GetAndStoreTokens(HttpContextAccessor.HttpContext!);
         antiforgeryToken = tokens.RequestToken;
+        antiforgeryHeader = tokens.HeaderName;
 
-        await hxInputFileComponent.StartUploadAsync(antiforgeryToken: antiforgeryToken);
+        await hxInputFileComponent.StartUploadAsync(
+            antiforgeryToken: antiforgeryToken,
+            antiforgeryHeader: antiforgeryHeader);
     }
 
     private async Task HandleResetAsync()

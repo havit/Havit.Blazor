@@ -10,6 +10,11 @@ builder.Services.AddRazorComponents()
 	.AddInteractiveServerComponents()
 	.AddInteractiveWebAssemblyComponents();
 
+builder.Services.AddAntiforgery(options =>
+{
+	options.HeaderName = "X-Custom-CSRF-Token";
+});
+
 builder.Services.AddClientServices();
 
 var app = builder.Build();
