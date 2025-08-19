@@ -154,7 +154,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// Initiates the upload (does not wait for upload completion). Use OnUploadCompleted event.
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-	/// <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="IncludeAntiforgeryToken"/> is true.</param>
+	/// <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
 	/// <remarks>
 	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
 	/// </remarks>
@@ -185,7 +185,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// Uploads the file(s).
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-	/// <param name="antiforgeryToken">Antiforgery token to be included in the upload request if <see cref="IncludeAntiforgeryToken"/> is true.</param>
+	/// <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
 	public async Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null)
 	{
 		_uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
