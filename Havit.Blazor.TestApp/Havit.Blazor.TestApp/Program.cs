@@ -1,9 +1,11 @@
 using Havit.Blazor.TestApp.Components;
 using Havit.Blazor.TestApp.Client;
+using Havit.Blazor.TestApp.MinimalApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorComponents()
 	.AddInteractiveServerComponents()
 	.AddInteractiveWebAssemblyComponents();
@@ -25,6 +27,8 @@ else
 }
 
 app.UseHttpsRedirection();
+
+app.UseFileUploadEndpoint();
 
 app.MapStaticAssets();
 app.UseAntiforgery();
