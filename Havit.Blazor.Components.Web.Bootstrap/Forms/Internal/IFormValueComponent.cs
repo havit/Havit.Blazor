@@ -42,6 +42,11 @@ public interface IFormValueComponent
 	void RenderValidationMessage(RenderTreeBuilder builder) { /* NOOP (default implementation) */ }
 
 	/// <summary>
+	/// Hint container element ID.
+	/// </summary>
+	string HintId => null;
+
+	/// <summary>
 	/// Hint to render after the input as form-text.
 	/// </summary>
 	string Hint => null;
