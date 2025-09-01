@@ -108,5 +108,8 @@ export function reset(inputElementId) {
 
 export function dispose(inputElementId) {
 	const inputElement = document.getElementById(inputElementId);
+	if (!inputElement) {
+		return;
+	}
 	inputElement.hxInputFileDotnetObjectReference = null;
 }
