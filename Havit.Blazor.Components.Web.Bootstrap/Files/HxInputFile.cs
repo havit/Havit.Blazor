@@ -204,7 +204,6 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	public Task StartUploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeaderName = "RequestVerificationToken")
 		=> _hxInputFileCoreComponentReference?.StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
 
-
 	/// <summary>
 	/// Uploads the file(s).
 	/// </summary>
