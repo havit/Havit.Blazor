@@ -1,9 +1,9 @@
-<Project>
+﻿<Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-    <AspNetCoreVersion8>8.0.18</AspNetCoreVersion8>
-    <AspNetCoreVersion9>9.0.7</AspNetCoreVersion9>
+    <AspNetCoreVersion8>8.0.19</AspNetCoreVersion8>
+    <AspNetCoreVersion9>9.0.8</AspNetCoreVersion9>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
@@ -25,11 +25,11 @@
     <PackageVersion Include="Microsoft.CodeAnalysis" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing" Version="1.1.2" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.Localization" Version="9.0.7" />
-    <PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.7" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Localization" Version="9.0.8" />
+    <PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.8" />
     <PackageVersion Include="Moq" Version="4.20.72" />
-    <PackageVersion Include="MSTest" Version="3.10.0" />
+    <PackageVersion Include="MSTest" Version="3.10.3" />
     <PackageVersion Include="protobuf-net" Version="3.2.56" />
     <PackageVersion Include="protobuf-net.Grpc" Version="1.2.2" />
     <PackageVersion Include="protobuf-net.Grpc.AspNetCore" Version="1.2.2" />
@@ -38,7 +38,7 @@
     <PackageVersion Include="SmartComponents.AspNetCore.Components" Version="0.1.0-preview10148" />
     <PackageVersion Include="SmartComponents.Inference.OpenAI" Version="0.1.0-preview10148" />
     <PackageVersion Include="SmartComponents.LocalEmbeddings" Version="0.1.0-preview10148" />
-    <PackageVersion Include="System.Text.Json" Version="9.0.7" />
+    <PackageVersion Include="System.Text.Json" Version="9.0.8" />
   </ItemGroup>
   <ItemGroup Condition="'$(ProjectName.EndsWith(`Tests`))' == 'False'">
     <GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15">
