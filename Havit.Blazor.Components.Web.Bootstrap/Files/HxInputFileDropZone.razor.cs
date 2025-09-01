@@ -129,7 +129,7 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 
 	/// <summary>
 	/// Uploads the file(s).
-	/// </summary>o
+	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 	/// <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
 	/// <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
