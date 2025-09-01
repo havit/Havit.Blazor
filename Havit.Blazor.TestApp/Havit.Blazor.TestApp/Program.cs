@@ -1,12 +1,19 @@
 using Havit.Blazor.TestApp.Components;
 using Havit.Blazor.TestApp.Client;
+using Havit.Blazor.TestApp.MinimalApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorComponents()
 	.AddInteractiveServerComponents()
 	.AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddAntiforgery(options =>
+{
+	options.HeaderName = "X-Custom-CSRF-Token";
+});
 
 builder.Services.AddClientServices();
 
@@ -25,6 +32,8 @@ else
 }
 
 app.UseHttpsRedirection();
+
+app.UseFileUploadEndpoint();
 
 app.MapStaticAssets();
 app.UseAntiforgery();
