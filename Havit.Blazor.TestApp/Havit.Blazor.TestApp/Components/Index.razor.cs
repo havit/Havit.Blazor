@@ -1,13 +1,16 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Reflection;
 
-namespace Havit.Blazor.TestApp.Client;
+namespace Havit.Blazor.TestApp.Components;
 
 public partial class Index
 {
 	private IEnumerable<string> GetTestPages()
 	{
-		return GetRoutesToRender(typeof(_Imports).Assembly);
+		return [
+			.. GetRoutesToRender(typeof(Havit.Blazor.TestApp.Client._Imports).Assembly),
+			.. GetRoutesToRender(typeof(Havit.Blazor.TestApp.Components._Imports).Assembly)
+			];
 	}
 
 	public static List<string> GetRoutesToRender(Assembly assembly)
