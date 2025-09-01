@@ -1,4 +1,4 @@
-@page "/HxMultiSelect_ShowHideDropdown"
+﻿@page "/HxMultiSelect_ShowHideDropdown"
 @rendermode InteractiveServer
 @inject IDemoDataService DemoDataService
 
@@ -6,7 +6,12 @@
 	<h3>HxMultiSelect ShowDropdownAsync/HideDropdownAsync Test</h3>
 
 	<div class="mb-3">
-		<HxMultiSelect @ref="multiSelectRef"
+		<HxButton Color="ThemeColor.Primary" OnClick="ShowDropdownAsync">Show Dropdown</HxButton>
+		<HxButton Color="ThemeColor.Secondary" OnClick="HideDropdownAsync" CssClass="ms-2">Hide Dropdown</HxButton>
+	</div>
+
+	<div class="mb-3">
+		<HxMultiSelect @ref="multiSelectComponent"
 					   Label="Employees"
 					   TItem="EmployeeDto"
 					   TValue="int"
@@ -18,27 +23,13 @@
 					   EmptyText="-select employees-" />
 	</div>
 
-	<div class="mb-3">
-		<HxButton Color="ThemeColor.Primary" OnClick="ShowDropdownAsync">Show Dropdown</HxButton>
-		<HxButton Color="ThemeColor.Secondary" OnClick="HideDropdownAsync" CssClass="ms-2">Hide Dropdown</HxButton>
-	</div>
-
-	<div class="mb-3">
-		<p><strong>Test Instructions:</strong></p>
-		<ul>
-			<li>Click "Show Dropdown" to programmatically open the dropdown</li>
-			<li>Click "Hide Dropdown" to programmatically close the dropdown</li>
-			<li>You can also click on the select to open/close normally</li>
-		</ul>
-	</div>
-
 	<p class="mt-3">Selected employees (IDs): @String.Join(", ", selectedEmployeeIds.Select(e => e.ToString()))</p>
 </div>
 
 @code {
 	private IEnumerable<EmployeeDto> employees;
 	private List<int> selectedEmployeeIds = new();
-	private HxMultiSelect<int, EmployeeDto> multiSelectRef;
+	private HxMultiSelect<int, EmployeeDto> multiSelectComponent;
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -47,17 +38,17 @@
 
 	private async Task ShowDropdownAsync()
 	{
-		if (multiSelectRef != null)
+		if (multiSelectComponent != null)
 		{
-			await multiSelectRef.ShowDropdownAsync();
+			await multiSelectComponent.ShowDropdownAsync();
 		}
 	}
 
 	private async Task HideDropdownAsync()
 	{
-		if (multiSelectRef != null)
+		if (multiSelectComponent != null)
 		{
-			await multiSelectRef.HideDropdownAsync();
+			await multiSelectComponent.HideDropdownAsync();
 		}
 	}
 }

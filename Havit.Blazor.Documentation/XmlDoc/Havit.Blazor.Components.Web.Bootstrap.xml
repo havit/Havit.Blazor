@@ -2385,6 +2385,16 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.ShowDropdownAsync">
+            <summary>
+            Shows the dropdown.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.HideDropdownAsync">
+            <summary>
+            Hides the dropdown.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.HandleJsHidden">
             <summary>
             Receives notification from JavaScript when item is hidden.
@@ -4791,6 +4801,16 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.FocusAsync">
             <summary>
             Focuses the multi select component.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.ShowDropdownAsync">
+            <summary>
+            Shows the dropdown.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.HideDropdownAsync">
+            <summary>
+            Hides the dropdown.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
