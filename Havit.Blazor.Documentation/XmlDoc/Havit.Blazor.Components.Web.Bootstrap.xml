@@ -2959,7 +2959,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Label">
             <summary>
-            Label to render before input (or after input for Checkbox).		
+            Label to render before input (or after input for Checkbox).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.LabelTemplate">
@@ -3034,7 +3034,7 @@
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
             <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
-            <param name="antiforgeryHeader">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
+            <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
             <remarks>
             We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
             </remarks>
@@ -3045,7 +3045,7 @@
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
             <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
-            <param name="antiforgeryHeader">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
+            <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone">
             <summary>
@@ -3159,7 +3159,7 @@
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
             <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
-            <param name="antiforgeryHeader">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
+            <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
             <remarks>
             We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefore, the accessToken here...
             </remarks>
@@ -3170,7 +3170,7 @@
             </summary>o
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
             <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
-            <param name="antiforgeryHeader">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
+            <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputFileSettings">
             <summary>

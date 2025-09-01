@@ -111,7 +111,7 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 
 	#region IFormValueComponent public properties
 	/// <summary>
-	/// Label to render before input (or after input for Checkbox).		
+	/// Label to render before input (or after input for Checkbox).
 	/// </summary>
 	[Parameter] public string Label { get; set; }
 
@@ -197,12 +197,12 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 	/// <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
-	/// <param name="antiforgeryHeader">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
+	/// <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
 	/// <remarks>
 	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
 	/// </remarks>
-	public Task StartUploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeader = "RequestVerificationToken")
-		=> _hxInputFileCoreComponentReference?.StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeader);
+	public Task StartUploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeaderName = "RequestVerificationToken")
+		=> _hxInputFileCoreComponentReference?.StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
 
 
 	/// <summary>
@@ -210,9 +210,9 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 	/// <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
-	/// <param name="antiforgeryHeader">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
-	public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeader = "RequestVerificationToken")
-		=> _hxInputFileCoreComponentReference?.UploadAsync(accessToken, antiforgeryToken, antiforgeryHeader);
+	/// <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
+	public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeaderName = "RequestVerificationToken")
+		=> _hxInputFileCoreComponentReference?.UploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
 
 	protected override void BuildRenderTree(RenderTreeBuilder builder)
 	{
