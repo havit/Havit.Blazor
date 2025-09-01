@@ -232,6 +232,32 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	}
 
 	/// <summary>
+	/// Shows the dropdown.
+	/// </summary>
+	public async Task ShowDropdownAsync()
+	{
+		await EnsureJsModuleAsync();
+		if (_disposed)
+		{
+			throw new InvalidOperationException($"[{GetType().Name}] Unable to show dropdown. The component has been disposed.");
+		}
+		await _jsModule.InvokeVoidAsync("show", _elementReference);
+	}
+
+	/// <summary>
+	/// Hides the dropdown.
+	/// </summary>
+	public async Task HideDropdownAsync()
+	{
+		await EnsureJsModuleAsync();
+		if (_disposed)
+		{
+			throw new InvalidOperationException($"[{GetType().Name}] Unable to hide dropdown. The component has been disposed.");
+		}
+		await _jsModule.InvokeVoidAsync("hide", _elementReference);
+	}
+
+	/// <summary>
 	/// Receives notification from JavaScript when item is hidden.
 	/// </summary>
 	[JSInvokable("HxMultiSelect_HandleJsHidden")]
