@@ -170,7 +170,6 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 		{
 			return;
 		}
-
 		await _jsModule.InvokeVoidAsync("upload",
 			Id,
 			_dotnetObjectReference,
