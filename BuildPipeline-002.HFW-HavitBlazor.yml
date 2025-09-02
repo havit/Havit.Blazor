@@ -6,6 +6,8 @@ trigger:
     include:
     - master
 
+pr: none
+
 resources:
   repositories:
   - repository: pipelines
