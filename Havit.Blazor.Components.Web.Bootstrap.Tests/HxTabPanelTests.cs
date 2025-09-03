@@ -1,7 +1,4 @@
-using Bunit;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
 [TestClass]
 public class HxTabPanelTests : BunitTestBase
@@ -24,7 +21,7 @@ public class HxTabPanelTests : BunitTestBase
 				{
 					callbackCount++;
 					// Simulate async work that might trigger re-render
-					await Task.Delay(1);
+					await Task.Yield();
 				})
 				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "This is the first tab."))
 			)
@@ -37,7 +34,7 @@ public class HxTabPanelTests : BunitTestBase
 
 		// Assert - Component should render without infinite loop
 		Assert.IsNotNull(component);
-		
+
 		// Trigger a tab change to activate the callback
 		component.SetParametersAndRender(parameters => parameters
 			.Add(p => p.ActiveTabId, "2")
@@ -75,10 +72,6 @@ public class HxTabPanelTests : BunitTestBase
 				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "First tab content"))
 			)
 		);
-
-		// Clear counters after initial render (initial activation should have happened)
-		activatedCallbackCount = 0;
-		deactivatedCallbackCount = 0;
 
 		// Set the same parameters again (no actual change to active tab)
 		component.SetParametersAndRender(parameters => parameters

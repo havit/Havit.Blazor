@@ -173,6 +173,10 @@ public partial class HxTabPanel : ComponentBase
 					StateHasChanged();
 				}
 			}
+			else
+			{
+				_previousActiveTab = _tabsList.FirstOrDefault(tab => IsActive(tab));
+			}
 		}
 	}
 
