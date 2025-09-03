@@ -72,7 +72,6 @@ public partial class HxTabPanel : ComponentBase
 	private List<HxTab> _tabsList = new();
 	private List<HxTab> _tabsListOrdered; // cached
 	private bool _collectingTabs;
-	private string _previousActiveTabId;
 
 	// Caches of method->delegate conversions
 	private readonly RenderFragment _renderTabsNavigation;
@@ -94,13 +93,7 @@ public partial class HxTabPanel : ComponentBase
 
 	protected override async Task OnParametersSetAsync()
 	{
-		// Only notify activation/deactivation if the ActiveTabId parameter has actually changed
-		// This prevents infinite loops when async callbacks trigger re-renders
-		if (_previousActiveTabId != ActiveTabId)
-		{
-			_previousActiveTabId = ActiveTabId;
-			await NotifyActivationAndDeactivationAsync();
-		}
+		await NotifyActivationAndDeactivationAsync();
 	}
 
 	internal async Task SetActiveTabIdAsync(string newId)
@@ -108,7 +101,6 @@ public partial class HxTabPanel : ComponentBase
 		if (ActiveTabId != newId)
 		{
 			ActiveTabId = newId;
-			_previousActiveTabId = newId; // Keep tracking variable in sync
 			await InvokeActiveTabIdChangedAsync(newId);
 			await NotifyActivationAndDeactivationAsync();
 		}
@@ -122,17 +114,25 @@ public partial class HxTabPanel : ComponentBase
 			return;
 		}
 
-		if (_previousActiveTab != null)
-		{
-			await _previousActiveTab.NotifyDeactivatedAsync();
-		}
+		// Store references for the async operations
+		HxTab tabToDeactivate = _previousActiveTab;
+		HxTab tabToActivate = activeTab;
 
-		if (activeTab != null)
-		{
-			await activeTab.NotifyActivatedAsync();
-		}
-
+		// Update _previousActiveTab BEFORE any async calls to prevent infinite loops
+		// This ensures that if async callbacks trigger re-renders, subsequent calls to this method
+		// will see that activeTab == _previousActiveTab and return early
 		_previousActiveTab = activeTab;
+
+		// Now perform the async operations
+		if (tabToDeactivate != null)
+		{
+			await tabToDeactivate.NotifyDeactivatedAsync();
+		}
+
+		if (tabToActivate != null)
+		{
+			await tabToActivate.NotifyActivatedAsync();
+		}
 	}
 
 	// Invoked by descendant tabs at a special time during rendering

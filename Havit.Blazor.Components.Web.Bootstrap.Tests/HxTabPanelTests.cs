@@ -76,17 +76,18 @@ public class HxTabPanelTests : BunitTestBase
 			)
 		);
 
-		// Clear counters after initial render
+		// Clear counters after initial render (initial activation should have happened)
 		activatedCallbackCount = 0;
 		deactivatedCallbackCount = 0;
 
-		// Set the same parameters again (no actual change)
+		// Set the same parameters again (no actual change to active tab)
 		component.SetParametersAndRender(parameters => parameters
 			.Add(p => p.ActiveTabId, activeTabId)
 		);
 
-		// Assert - No callbacks should be triggered for unchanged parameters
-		Assert.AreEqual(0, activatedCallbackCount, "OnTabActivated should not be called when parameters don't change");
-		Assert.AreEqual(0, deactivatedCallbackCount, "OnTabDeactivated should not be called when parameters don't change");
+		// Assert - No callbacks should be triggered when the active tab hasn't actually changed
+		// The new implementation prevents redundant callbacks by checking _previousActiveTab
+		Assert.AreEqual(0, activatedCallbackCount, "OnTabActivated should not be called when the active tab hasn't changed");
+		Assert.AreEqual(0, deactivatedCallbackCount, "OnTabDeactivated should not be called when the active tab hasn't changed");
 	}
 }
