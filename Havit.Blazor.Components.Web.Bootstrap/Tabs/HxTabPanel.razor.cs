@@ -114,17 +114,25 @@ public partial class HxTabPanel : ComponentBase
 			return;
 		}
 
-		if (_previousActiveTab != null)
-		{
-			await _previousActiveTab.NotifyDeactivatedAsync();
-		}
+		// Store references for the async operations
+		HxTab tabToDeactivate = _previousActiveTab;
+		HxTab tabToActivate = activeTab;
 
-		if (activeTab != null)
-		{
-			await activeTab.NotifyActivatedAsync();
-		}
-
+		// Update _previousActiveTab BEFORE any async calls to prevent infinite loops
+		// This ensures that if async callbacks trigger re-renders, subsequent calls to this method
+		// will see that activeTab == _previousActiveTab and return early
 		_previousActiveTab = activeTab;
+
+		// Now perform the async operations
+		if (tabToDeactivate != null)
+		{
+			await tabToDeactivate.NotifyDeactivatedAsync();
+		}
+
+		if (tabToActivate != null)
+		{
+			await tabToActivate.NotifyActivatedAsync();
+		}
 	}
 
 	// Invoked by descendant tabs at a special time during rendering
@@ -164,6 +172,10 @@ public partial class HxTabPanel : ComponentBase
 					await SetActiveTabIdAsync(tabToActivate.Id);
 					StateHasChanged();
 				}
+			}
+			else
+			{
+				_previousActiveTab = _tabsList.FirstOrDefault(tab => IsActive(tab));
 			}
 		}
 	}
