@@ -72,6 +72,7 @@ public partial class HxTabPanel : ComponentBase
 	private List<HxTab> _tabsList = new();
 	private List<HxTab> _tabsListOrdered; // cached
 	private bool _collectingTabs;
+	private string _previousActiveTabId;
 
 	// Caches of method->delegate conversions
 	private readonly RenderFragment _renderTabsNavigation;
@@ -93,7 +94,13 @@ public partial class HxTabPanel : ComponentBase
 
 	protected override async Task OnParametersSetAsync()
 	{
-		await NotifyActivationAndDeactivationAsync();
+		// Only notify activation/deactivation if the ActiveTabId parameter has actually changed
+		// This prevents infinite loops when async callbacks trigger re-renders
+		if (_previousActiveTabId != ActiveTabId)
+		{
+			_previousActiveTabId = ActiveTabId;
+			await NotifyActivationAndDeactivationAsync();
+		}
 	}
 
 	internal async Task SetActiveTabIdAsync(string newId)
@@ -101,6 +108,7 @@ public partial class HxTabPanel : ComponentBase
 		if (ActiveTabId != newId)
 		{
 			ActiveTabId = newId;
+			_previousActiveTabId = newId; // Keep tracking variable in sync
 			await InvokeActiveTabIdChangedAsync(newId);
 			await NotifyActivationAndDeactivationAsync();
 		}
