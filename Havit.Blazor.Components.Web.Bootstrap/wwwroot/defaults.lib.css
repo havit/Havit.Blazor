@@ -212,6 +212,17 @@
 	--hx-search-box-input-clear-icon-color:							unset;
 }
 
+/* Floating label adjustments for different form-select sizes */
+.form-floating > .form-select.form-select-sm {
+	padding-top: 1.25rem;
+	padding-bottom: 0.25rem;
+}
+
+.form-floating > .form-select.form-select-lg {
+	padding-top: 1.875rem;
+	padding-bottom: 0.875rem;
+}
+
 form {
 	display:				flex;
 	flex-direction: 		column;

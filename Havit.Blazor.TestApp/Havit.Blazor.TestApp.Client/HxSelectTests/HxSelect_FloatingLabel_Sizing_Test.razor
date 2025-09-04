@@ -1,0 +1,89 @@
+@page "/HxSelect_FloatingLabel_Sizing"
+@rendermode InteractiveServer
+@inject IDemoDataService DemoDataService
+
+<h3>HxSelect Floating Label Sizing Test</h3>
+<p>Testing alignment of floating labels with different input sizes for HxSelect component.</p>
+
+<div class="m-3">
+
+	<h5>InputSize.Large</h5>
+	<HxSelect TItem="EmployeeDto"
+			  TValue="int?"
+			  Label="Select Employee (Large)"
+			  LabelType="LabelType.Floating"
+			  InputSize="InputSize.Large"
+			  Data="employees"
+			  @bind-Value="selectedEmployeeIdLarge"
+			  TextSelector="@(employee => employee.Name)"
+			  ValueSelector="@(employee => employee.Id)"
+			  Nullable="true"
+			  NullText="-select employee-"
+			  NullDataText="Loading employees..." />
+
+	<h5 class="mt-4">InputSize.Regular (Reference)</h5>
+	<HxSelect TItem="EmployeeDto"
+			  TValue="int?"
+			  Label="Select Employee (Regular)"
+			  LabelType="LabelType.Floating"
+			  Data="employees"
+			  @bind-Value="selectedEmployeeIdRegular"
+			  TextSelector="@(employee => employee.Name)"
+			  ValueSelector="@(employee => employee.Id)"
+			  Nullable="true"
+			  NullText="-select employee-"
+			  NullDataText="Loading employees..." />
+
+	<h5 class="mt-4">InputSize.Small</h5>
+	<HxSelect TItem="EmployeeDto"
+			  TValue="int?"
+			  Label="Select Employee (Small)"
+			  LabelType="LabelType.Floating"
+			  InputSize="InputSize.Small"
+			  Data="employees"
+			  @bind-Value="selectedEmployeeIdSmall"
+			  TextSelector="@(employee => employee.Name)"
+			  ValueSelector="@(employee => employee.Id)"
+			  Nullable="true"
+			  NullText="-select employee-"
+			  NullDataText="Loading employees..." />
+
+	<h5 class="mt-4">For comparison - HxInputText with floating labels and sizes</h5>
+	<HxInputText Label="Text Input (Large)" LabelType="LabelType.Floating" InputSize="InputSize.Large" @bind-Value="textValueLarge" />
+	<HxInputText Label="Text Input (Regular)" LabelType="LabelType.Floating" class="mt-2" @bind-Value="textValueRegular" />
+	<HxInputText Label="Text Input (Small)" LabelType="LabelType.Floating" InputSize="InputSize.Small" class="mt-2" @bind-Value="textValueSmall" />
+
+</div>
+
+<div class="mt-3">
+	<p><strong>Selected values:</strong></p>
+	<ul>
+		<li>Large: @(selectedEmployeeIdLarge?.ToString() ?? "null")</li>
+		<li>Regular: @(selectedEmployeeIdRegular?.ToString() ?? "null")</li>
+		<li>Small: @(selectedEmployeeIdSmall?.ToString() ?? "null")</li>
+	</ul>
+</div>
+
+@code {
+	private IEnumerable<EmployeeDto> employees;
+	private int? selectedEmployeeIdLarge;
+	private int? selectedEmployeeIdRegular;
+	private int? selectedEmployeeIdSmall;
+	private string textValueLarge = "Sample text large";
+	private string textValueRegular = "Sample text regular";
+	private string textValueSmall = "Sample text small";
+
+	protected override async Task OnInitializedAsync()
+	{
+		employees = await DemoDataService.GetAllEmployeesAsync();
+		
+		// Pre-select some values to test alignment when there's content
+		if (employees?.Any() == true)
+		{
+			var employeeList = employees.ToList();
+			if (employeeList.Count > 0) selectedEmployeeIdLarge = employeeList[0].Id;
+			if (employeeList.Count > 1) selectedEmployeeIdRegular = employeeList[1].Id;
+			if (employeeList.Count > 2) selectedEmployeeIdSmall = employeeList[2].Id;
+		}
+	}
+}
