@@ -1,0 +1,82 @@
+@page "/HxModal_SelectRadioRepro_Test"
+
+@rendermode InteractiveWebAssembly
+
+<h3>HxSelect and HxRadioButtonList Modal Close Issue Reproduction</h3>
+
+<p>This page reproduces the issue where selecting items in HxSelect or HxRadioButtonList closes the modal.</p>
+
+<HxButton Color="ThemeColor.Primary" OnClick="ShowModal">Open Test Modal</HxButton>
+
+<HxModal @ref="_modalComponent" Title="Test Modal - Select Items">
+	<BodyTemplate>
+		<div class="mb-3">
+			<h5>Test HxSelect (should not close modal when item selected)</h5>
+			<HxSelect @bind-Value="_selectedCountry" 
+					  Data="_countries" 
+					  TextSelector="@(c => c.Name)" 
+					  ValueSelector="@(c => c.Code)"
+					  NullText="Choose a country..." 
+					  Label="Country" />
+			<p>Selected Country: @_selectedCountry</p>
+		</div>
+
+		<div class="mb-3">
+			<h5>Test HxRadioButtonList (should not close modal when item selected)</h5>
+			<HxRadioButtonList @bind-Value="_selectedSize" 
+							   Data="_sizes" 
+							   TextSelector="@(s => s.Name)" 
+							   ValueSelector="@(s => s.Value)"
+							   Label="Size" />
+			<p>Selected Size: @_selectedSize</p>
+		</div>
+	</BodyTemplate>
+	<FooterTemplate>
+		<HxButton Color="ThemeColor.Secondary" OnClick="HideModal">Close Modal</HxButton>
+	</FooterTemplate>
+</HxModal>
+
+@code {
+	private HxModal _modalComponent;
+	private string _selectedCountry;
+	private string _selectedSize;
+
+	private List<Country> _countries = new List<Country>
+	{
+		new Country { Code = "US", Name = "United States" },
+		new Country { Code = "CA", Name = "Canada" },
+		new Country { Code = "UK", Name = "United Kingdom" },
+		new Country { Code = "DE", Name = "Germany" },
+		new Country { Code = "FR", Name = "France" }
+	};
+
+	private List<Size> _sizes = new List<Size>
+	{
+		new Size { Value = "S", Name = "Small" },
+		new Size { Value = "M", Name = "Medium" },
+		new Size { Value = "L", Name = "Large" },
+		new Size { Value = "XL", Name = "Extra Large" }
+	};
+
+	private async Task ShowModal()
+	{
+		await _modalComponent.ShowAsync();
+	}
+
+	private async Task HideModal()
+	{
+		await _modalComponent.HideAsync();
+	}
+
+	public class Country
+	{
+		public string Code { get; set; }
+		public string Name { get; set; }
+	}
+
+	public class Size
+	{
+		public string Value { get; set; }
+		public string Name { get; set; }
+	}
+}
