@@ -104,8 +104,12 @@
 			{
 				// Save the current changes
 				await DemoDataService.UpdateEmployeeAsync(selectedDataItem);
-				// Clear the selection to exit edit mode
-				selectedDataItem = null;
+
+				if (e.Key == "Enter")
+				{
+					// Clear the selection to exit edit mode
+					selectedDataItem = null;
+				}
 			}
 		}
 	}
