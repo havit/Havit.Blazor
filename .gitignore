@@ -270,3 +270,4 @@ Web/.vscode/launch.json
 /WebApplicationTest/Scripts/Havit.Web.ClientContent/*.js
 .DS_Store
 Havit.Bootstrap/.cache/.stylelintcache
+packages-microsoft-prod.deb
