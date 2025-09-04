@@ -1,4 +1,4 @@
-@page "/HxModal_SelectRadioRepro_Test"
+﻿@page "/HxModal_SelectRadioRepro_Test"
 
 @rendermode InteractiveWebAssembly
 
@@ -25,8 +25,8 @@
 			<h5>Test HxRadioButtonList (should not close modal when item selected)</h5>
 			<HxRadioButtonList @bind-Value="_selectedSize" 
 							   Data="_sizes" 
-							   TextSelector="@(s => s.Name)" 
-							   ValueSelector="@(s => s.Value)"
+							   ItemTextSelector="@(s => s.Name)" 
+							   ItemValueSelector="@(s => s.Value)"
 							   Label="Size" />
 			<p>Selected Size: @_selectedSize</p>
 		</div>
