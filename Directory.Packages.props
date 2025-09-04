@@ -29,7 +29,7 @@
     <PackageVersion Include="Microsoft.Extensions.Localization" Version="9.0.8" />
     <PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="9.0.8" />
     <PackageVersion Include="Moq" Version="4.20.72" />
-    <PackageVersion Include="MSTest" Version="3.10.3" />
+    <PackageVersion Include="MSTest" Version="3.10.4" />
     <PackageVersion Include="protobuf-net" Version="3.2.56" />
     <PackageVersion Include="protobuf-net.Grpc" Version="1.2.2" />
     <PackageVersion Include="protobuf-net.Grpc.AspNetCore" Version="1.2.2" />
