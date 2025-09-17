@@ -39,7 +39,7 @@ export function setupChart(id, dotnetReference, options, autoResize, subscribeOn
 		element.echart = chart;
 	}
 
-	element.echart.setOption(optionsObject);
+	element.echart.setOption(optionsObject, { notMerge: true });
 }
 
 function handleUpdateAxisPointer(dotnetReference, chart, params) {
