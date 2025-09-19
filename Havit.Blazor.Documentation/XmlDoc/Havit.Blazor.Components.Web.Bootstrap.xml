@@ -4376,6 +4376,19 @@
             Determines whether all the content within the input field is automatically selected when it receives focus.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.SmartPaste">
+            <summary>
+            When enabled, pasted values are normalized to contain only valid numeric characters.
+            Default is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.SmartKeyboard">
+            <summary>
+            When enabled, the input may provide an optimized keyboard experience for numeric entry.
+            Currently, this means whenever a minus key is pressed, the sign of the number is toggled.
+            Default is <c>true</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
         </member>
@@ -5457,6 +5470,17 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.SelectOnFocus">
             <summary>
             Determines whether all the content within the input field is automatically selected when it receives focus.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.SmartPaste">
+            <summary>
+            When enabled, pasted values are normalized to contain only valid numeric characters.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.SmartKeyboard">
+            <summary>
+            When enabled, the input may provide an optimized keyboard experience for numeric entry.
+            Currently, this means whenever a minus key is pressed, the sign of the number is toggled.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings">

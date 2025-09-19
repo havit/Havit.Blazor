@@ -30,4 +30,15 @@ public record InputNumberSettings : InputSettings
 	/// Determines whether all the content within the input field is automatically selected when it receives focus.
 	/// </summary>
 	public bool? SelectOnFocus { get; set; }
+
+	/// <summary>
+	/// When enabled, pasted values are normalized to contain only valid numeric characters.
+	/// </summary>
+	public bool? SmartPaste { get; set; }
+
+	/// <summary>
+	/// When enabled, the input may provide an optimized keyboard experience for numeric entry.
+	/// Currently, this means whenever a minus key is pressed, the sign of the number is toggled.
+	/// </summary>
+	public bool? SmartKeyboard { get; set; }
 }

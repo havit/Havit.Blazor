@@ -100,6 +100,21 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	[Parameter] public bool? SelectOnFocus { get; set; }
 	protected bool SelectOnFocusEffective => SelectOnFocus ?? GetSettings()?.SelectOnFocus ?? GetDefaults()?.SelectOnFocus ?? throw new InvalidOperationException(nameof(SelectOnFocus) + " default for " + nameof(HxInputNumber) + " has to be set.");
 
+	/// <summary>
+	/// When enabled, pasted values are normalized to contain only valid numeric characters.
+	/// Default is <c>true</c>.
+	/// </summary>
+	[Parameter] public bool? SmartPaste { get; set; }
+	protected bool SmartPasteEffective => SmartPaste ?? GetSettings()?.SmartPaste ?? GetDefaults()?.SmartPaste ?? throw new InvalidOperationException(nameof(SmartPaste) + " default for " + nameof(HxInputNumber) + " has to be set.");
+
+	/// <summary>
+	/// When enabled, the input may provide an optimized keyboard experience for numeric entry.
+	/// Currently, this means whenever a minus key is pressed, the sign of the number is toggled.
+	/// Default is <c>true</c>.
+	/// </summary>
+	[Parameter] public bool? SmartKeyboard { get; set; }
+	protected bool SmartKeyboardEffective => SmartKeyboard ?? GetSettings()?.SmartKeyboard ?? GetDefaults()?.SmartKeyboard ?? throw new InvalidOperationException(nameof(SmartKeyboard) + " default for " + nameof(HxInputNumber) + " has to be set.");
+
 	/// <inheritdoc cref="Bootstrap.LabelType" />
 	[Parameter] public LabelType? LabelType { get; set; }
 	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
@@ -211,23 +226,32 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 		builder.SetUpdatesAttributeName("value");
 
-		// Normalization of pasted value (applied only if the pasted value differs from the normalized value)
-		// - If we cancel the original paste event, Blazor does not recognize the change, so we fire change event manually.
-		// - This is kind of hack and causes the input to behave slightly differently when normalizing the value (the value is accepted immediately, not after the user leaves the input)
-		// - If this turns out to be a problem, we will have to implement the normalization in the Blazor-handled @onpaste event
-		builder.AddAttribute(1005, "onpaste", @"var clipboardValue = event.clipboardData.getData('text/plain'); var normalizedValue = clipboardValue.replace(/[^\d.,\-eE]/g, ''); if (+clipboardValue != +normalizedValue) { this.value = normalizedValue; this.dispatchEvent(new Event('input', { bubbles: true })); this.modifiedByCode = true; return false; }");
-		builder.SetUpdatesAttributeName("value");
+		if (SmartPasteEffective)
+		{
+			// Normalization of pasted value (applied only if the pasted value differs from the normalized value)
+			// - If we cancel the original paste event, Blazor does not recognize the change, so we fire change event manually.
+			// - This is kind of hack and causes the input to behave slightly differently when normalizing the value (the value is accepted immediately, not after the user leaves the input)
+			// - If this turns out to be a problem, we will have to implement the normalization in the Blazor-handled @onpaste event
+			builder.AddAttribute(1005, "onpaste", @"var clipboardValue = event.clipboardData.getData('text/plain'); var normalizedValue = clipboardValue.replace(/[^\d.,\-eE]/g, ''); if (+clipboardValue != +normalizedValue) { this.value = normalizedValue; this.dispatchEvent(new Event('input', { bubbles: true })); this.modifiedByCode = true; return false; }");
+			builder.SetUpdatesAttributeName("value");
+		}
 
-		// When the user presses '-' key, we toggle the sign of the value.
-		// We also set the modifiedByCode flag to allow fire change event in onblur event later.
-		// Selection handling:
-		// - When everything (but non-empty) is selected before adding -, everything is selected after adding -.
-		// - When selected -12 in the value -1234, 12 must remain selected after - removal.
-		builder.AddAttribute(1006, "onkeydown", "if (event.key === '-') { let newValue = this.value; let newSelectionStart = -1; let newSelectionEnd = -1; if (this.value.startsWith('-')) { newValue = this.value.substring(1); newSelectionStart = Math.max(0, this.selectionStart - 1); newSelectionEnd = Math.max(0, this.selectionEnd - 1);  } else { newValue = '-' + this.value; newSelectionStart = (this.selectionStart == 0 && this.selectionEnd > 0 && this.selectionEnd == this.value.length) ? 0 : this.selectionStart + 1; newSelectionEnd = (this.selectionStart == 0 && this.selectionEnd > 0 && this.selectionEnd == this.value.length) ? newValue.length : this.selectionEnd + 1;}  if (this.value !== newValue) { this.value = newValue; this.setSelectionRange(newSelectionStart, newSelectionEnd); this.dispatchEvent(new Event('input', { bubbles: true })); this.modifiedByCode = true; return false; } }");
-		builder.SetUpdatesAttributeName("value");
+		if (SmartKeyboardEffective)
+		{
+			// When the user presses '-' key, we toggle the sign of the value.
+			// We also set the modifiedByCode flag to allow fire change event in onblur event later.
+			// Selection handling:
+			// - When everything (but non-empty) is selected before adding -, everything is selected after adding -.
+			// - When selected -12 in the value -1234, 12 must remain selected after - removal.
+			builder.AddAttribute(1006, "onkeydown", "if (event.key === '-') { let newValue = this.value; let newSelectionStart = -1; let newSelectionEnd = -1; if (this.value.startsWith('-')) { newValue = this.value.substring(1); newSelectionStart = Math.max(0, this.selectionStart - 1); newSelectionEnd = Math.max(0, this.selectionEnd - 1);  } else { newValue = '-' + this.value; newSelectionStart = (this.selectionStart == 0 && this.selectionEnd > 0 && this.selectionEnd == this.value.length) ? 0 : this.selectionStart + 1; newSelectionEnd = (this.selectionStart == 0 && this.selectionEnd > 0 && this.selectionEnd == this.value.length) ? newValue.length : this.selectionEnd + 1;}  if (this.value !== newValue) { this.value = newValue; this.setSelectionRange(newSelectionStart, newSelectionEnd); this.dispatchEvent(new Event('input', { bubbles: true })); this.modifiedByCode = true; return false; } }");
+			builder.SetUpdatesAttributeName("value");
+		}
 
-		// When the value is modified by code, we fire the change event.
-		builder.AddAttribute(1007, "onblur", "if (this.modifiedByCode) { this.modifiedByCode = false; this.dispatchEvent(new Event('change', { bubbles: true })); }");
+		if (SmartPasteEffective || SmartKeyboardEffective)
+		{
+			// When the value is modified by code, we fire the change event.
+			builder.AddAttribute(1007, "onblur", "if (this.modifiedByCode) { this.modifiedByCode = false; this.dispatchEvent(new Event('change', { bubbles: true })); }");
+		}
 
 		builder.AddEventStopPropagationAttribute(1008, "onclick", true);
 
