@@ -91,4 +91,15 @@ public class HxSelect<TValue, TItem> : HxSelectBase<TValue, TItem>
 		get => AutoSortImpl;
 		set => AutoSortImpl = value;
 	}
+
+	/// <summary>
+	/// When set, determines whether an item is disabled (non-selectable and greyed out).
+	/// When returns <c>true</c>, the corresponding option will be rendered with <c>disabled</c> attribute.
+	/// </summary>
+	[Parameter]
+	public Func<TItem, bool> ItemDisabledSelector
+	{
+		get => ItemDisabledSelectorImpl;
+		set => ItemDisabledSelectorImpl = value;
+	}
 }
