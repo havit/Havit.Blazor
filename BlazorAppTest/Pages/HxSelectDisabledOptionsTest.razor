@@ -1,0 +1,53 @@
+﻿@page "/HxSelectDisabledOptionsTest"
+
+<h1>HxSelect - Disabled Options Test</h1>
+
+<p>This page demonstrates the ItemDisabledSelector parameter functionality.</p>
+
+<h3>Select with disabled options:</h3>
+<HxSelect TItem="TestItem" TValue="int?" Data="@data" @bind-Value="selectedItemId" 
+          NullText="Select an item..." 
+          ValueSelector="@(item => item.Id)" 
+          TextSelector="@(item => item.Name)" 
+          ItemDisabledSelector="@(item => item.IsDisabled)" />
+
+<p>Selected value: @selectedItemId</p>
+
+<h3>Raw HTML output (for debugging):</h3>
+<div style="background: #f5f5f5; padding: 10px; margin: 10px 0; border-radius: 4px;">
+@if (data != null)
+{
+    <p>Expected HTML should contain disabled attribute for items where IsDisabled=true:</p>
+    @foreach (var item in data)
+    {
+        <p>Item @item.Id (@item.Name): IsDisabled=@item.IsDisabled</p>
+    }
+}
+</div>
+
+@code
+{
+    private List<TestItem> data;
+    private int? selectedItemId;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        
+        data = new List<TestItem>
+        {
+            new TestItem { Id = 1, Name = "Option 1 (Enabled)", IsDisabled = false },
+            new TestItem { Id = 2, Name = "Option 2 (DISABLED)", IsDisabled = true },
+            new TestItem { Id = 3, Name = "Option 3 (Enabled)", IsDisabled = false },
+            new TestItem { Id = 4, Name = "Option 4 (DISABLED)", IsDisabled = true },
+            new TestItem { Id = 5, Name = "Option 5 (Enabled)", IsDisabled = false }
+        };
+    }
+
+    public class TestItem
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool IsDisabled { get; set; }
+    }
+}

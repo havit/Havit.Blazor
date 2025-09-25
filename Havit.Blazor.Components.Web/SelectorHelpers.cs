@@ -41,4 +41,19 @@ public static class SelectorHelpers
 
 		throw new InvalidOperationException("ValueSelector is required.");
 	}
+
+	/// <summary>
+	/// Returns whether an item is disabled based on the itemDisabledSelector.
+	/// When the itemDisabledSelector is <c>null</c>, always returns <c>false</c> (item is enabled).
+	/// When the item is <c>null</c>, always returns <c>false</c> (item is enabled).
+	/// </summary>
+	public static bool GetDisabled<TItem>(Func<TItem, bool> itemDisabledSelector, TItem item)
+	{
+		if ((item == null) || (itemDisabledSelector == null))
+		{
+			return false;
+		}
+
+		return itemDisabledSelector(item);
+	}
 }

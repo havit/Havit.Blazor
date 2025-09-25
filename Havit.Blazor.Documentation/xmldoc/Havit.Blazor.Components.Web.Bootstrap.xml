@@ -5082,6 +5082,12 @@
             The default value is <c>true</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.ItemDisabledSelector">
+            <summary>
+            When set, determines whether an item is disabled (non-selectable and greyed out).
+            When returns <c>true</c>, the corresponding option will be rendered with <c>disabled</c> attribute.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect">
             <summary>
             Non-generic API for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2"/>.
@@ -5182,6 +5188,13 @@
             <summary>
             When <c>true</c>, items are sorted before displaying in select.
             Default value is <c>true</c>.
+            Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.ItemDisabledSelectorImpl">
+            <summary>
+            When set, determines whether an item is disabled (non-selectable and greyed out).
+            When returns <c>true</c>, the corresponding option will be rendered with <c>disabled</c> attribute.
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
