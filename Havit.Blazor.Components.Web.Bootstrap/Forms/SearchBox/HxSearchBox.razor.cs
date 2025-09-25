@@ -340,8 +340,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 		}
 
 		// Auto-detect platform-specific hint
-		// Note: We use a simple approach here. In a real application, you might want to detect this server-side or via JS
-		// For now, we'll default to Ctrl+K but this could be enhanced to detect Mac
+		// Note: In a server-side Blazor environment, we can't detect client platform easily
+		// For now, we'll default to Ctrl+K, but users can explicitly set KeyboardShortcutHint="⌘K" for Mac
 		return "Ctrl+K";
 	}
 
