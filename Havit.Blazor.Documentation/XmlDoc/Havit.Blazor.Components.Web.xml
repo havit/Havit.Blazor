@@ -864,6 +864,13 @@
             When the valueSelector is <c>null</c> and <c>TValue</c> is the same as <c>TItem</c>, it returns the item.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.SelectorHelpers.GetDisabled``1(System.Func{``0,System.Boolean},``0)">
+            <summary>
+            Returns whether an item is disabled based on the itemDisabledSelector.
+            When the itemDisabledSelector is <c>null</c>, always returns <c>false</c> (item is enabled).
+            When the item is <c>null</c>, always returns <c>false</c> (item is enabled).
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.ServiceCollectionExtensions.AddHxServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             Adds services needed for HAVIT Blazor library.
