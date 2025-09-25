@@ -43,7 +43,7 @@
 	</ItemGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.Bootstrap.Smart.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\xmldoc" />
+		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.Bootstrap.Smart.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\XmlDoc" />
 	</Target>
 
 	<!-- Causes CSS file to be included in the bundle of scoped CSS, even though it's not scoped -->
