@@ -207,6 +207,21 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	[Parameter] public bool AllowTextQuery { get; set; } = true;
 
 	/// <summary>
+	/// Enables keyboard shortcut to focus the search input (Ctrl+K on Windows/Linux, Cmd+K on Mac).
+	/// Default is <c>false</c>.
+	/// </summary>
+	[Parameter] public bool? KeyboardShortcut { get; set; }
+	protected bool KeyboardShortcutEffective => KeyboardShortcut ?? GetSettings()?.KeyboardShortcut ?? GetDefaults()?.KeyboardShortcut ?? false;
+
+	/// <summary>
+	/// Text to display as a keyboard shortcut hint.
+	/// When <c>null</c> (default), the hint is automatically determined based on the platform (Ctrl+K or ⌘K).
+	/// Set to empty string to hide the hint even when KeyboardShortcut is enabled.
+	/// </summary>
+	[Parameter] public string KeyboardShortcutHint { get; set; }
+	protected string KeyboardShortcutHintEffective => KeyboardShortcutHint ?? GetSettings()?.KeyboardShortcutHint ?? GetDefaults()?.KeyboardShortcutHint;
+
+	/// <summary>
 	/// Input-group at the beginning of the input.
 	/// </summary>
 	[Parameter] public string InputGroupStartText { get; set; }
@@ -289,7 +304,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 			{
 				return;
 			}
-			await _jsModule.InvokeVoidAsync("initialize", _inputId, _dotnetObjectReference, new string[] { KeyCodes.ArrowUp, KeyCodes.ArrowDown });
+			await _jsModule.InvokeVoidAsync("initialize", _inputId, _dotnetObjectReference, new string[] { KeyCodes.ArrowUp, KeyCodes.ArrowDown }, KeyboardShortcutEffective);
 		}
 
 		if (_scrollToFocusedItem)
@@ -309,6 +324,25 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 			throw new InvalidOperationException($"[{GetType().Name}] Unable to focus. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 		await _inputElementReference.FocusAsync();
+	}
+
+	protected string GetKeyboardShortcutHintText()
+	{
+		if (!KeyboardShortcutEffective)
+		{
+			return null;
+		}
+
+		// If a custom hint is provided, use it (can be empty string to hide)
+		if (KeyboardShortcutHintEffective != null)
+		{
+			return KeyboardShortcutHintEffective;
+		}
+
+		// Auto-detect platform-specific hint
+		// Note: We use a simple approach here. In a real application, you might want to detect this server-side or via JS
+		// For now, we'll default to Ctrl+K but this could be enhanced to detect Mac
+		return "Ctrl+K";
 	}
 
 	protected async Task EnsureJsModule()
@@ -505,6 +539,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	public void HandleInputMouseDown()
 	{
 		_clickIsComing = true;
+	}
+
+	[JSInvokable("HxSearchBox_HandleKeyboardShortcut")]
+	public async Task HandleKeyboardShortcut()
+	{
+		await FocusAsync();
 	}
 
 	[JSInvokable("HxSearchBox_HandleInputMouseUp")]

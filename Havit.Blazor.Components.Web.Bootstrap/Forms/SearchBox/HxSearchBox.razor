@@ -79,6 +79,16 @@
 						<HxIcon CssClass="hx-search-box-input-icon-search" Icon="SearchIconEffective" />
 					</div>
 				}
+
+				@{
+					string keyboardHintText = GetKeyboardShortcutHintText();
+				}
+				@if (!string.IsNullOrEmpty(keyboardHintText) && string.IsNullOrEmpty(TextQuery) && (Enabled == true))
+				{
+					<div class="hx-search-box-keyboard-hint">
+						<span class="hx-search-box-keyboard-hint-text">@keyboardHintText</span>
+					</div>
+				}
 			</HxDropdownToggleElement>
 
 			<HxDropdownMenu>

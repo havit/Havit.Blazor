@@ -75,3 +75,23 @@
 ::deep .hx-search-box-input-icon-search {
     color: var(--hx-search-box-input-search-icon-color);
 }
+
+::deep .hx-search-box-keyboard-hint {
+	position: absolute;
+	top: 50%;
+	right: 0.75rem;
+	transform: translateY(-50%);
+	pointer-events: none;
+	z-index: 5;
+	opacity: 0.6;
+}
+
+::deep .hx-search-box-keyboard-hint-text {
+	font-size: 0.75rem;
+	color: var(--hx-search-box-keyboard-hint-color, #6c757d);
+	background: var(--hx-search-box-keyboard-hint-background, #ffffff);
+	border: 1px solid var(--hx-search-box-keyboard-hint-border-color, #dee2e6);
+	border-radius: 0.25rem;
+	padding: 0.125rem 0.375rem;
+	font-family: var(--bs-font-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+}

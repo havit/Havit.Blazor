@@ -1,4 +1,4 @@
-﻿export function initialize(inputId, hxSearchBoxDotnetObjectReference, keysToPreventDefault) {
+﻿export function initialize(inputId, hxSearchBoxDotnetObjectReference, keysToPreventDefault, enableKeyboardShortcut) {
 	const inputElement = document.getElementById(inputId);
 	if (!inputElement) {
 		return;
@@ -12,6 +12,15 @@
 	inputElement.addEventListener('mousedown', handleMouseDown);
 	inputElement.addEventListener('mouseup', handleMouseUp);
 	inputElement.addEventListener('mouseleave', handleMouseLeave);
+
+	// Add global keyboard shortcut listener if enabled
+	if (enableKeyboardShortcut) {
+		const shortcutHandler = (event) => handleGlobalKeyboardShortcut(event, hxSearchBoxDotnetObjectReference);
+		document.addEventListener('keydown', shortcutHandler);
+		
+		// Store the handler so we can clean it up later
+		inputElement.hxSearchBoxKeyboardShortcutHandler = shortcutHandler;
+	}
 }
 
 function handleKeyDown(event) {
@@ -28,6 +37,24 @@ function handleKeyDown(event) {
 
 	if (event.target.hxSearchBoxKeysToPreventDefault.includes(key)) {
 		event.preventDefault();
+	}
+}
+
+function handleGlobalKeyboardShortcut(event, hxSearchBoxDotnetObjectReference) {
+	// Check for Ctrl+K (Windows/Linux) or Cmd+K (Mac)
+	if ((event.ctrlKey || event.metaKey) && event.key?.toLowerCase() === "k") {
+		// Check if we're not already focused on an input field (to avoid interfering with other input shortcuts)
+		const activeElement = document.activeElement;
+		if (activeElement && (
+			activeElement.tagName.toLowerCase() === 'input' ||
+			activeElement.tagName.toLowerCase() === 'textarea' ||
+			activeElement.contentEditable === 'true'
+		)) {
+			return;
+		}
+
+		event.preventDefault();
+		hxSearchBoxDotnetObjectReference.invokeMethodAsync("HxSearchBox_HandleKeyboardShortcut");
 	}
 }
 
@@ -64,6 +91,13 @@ export function dispose(inputId) {
 	inputElement.removeEventListener('mousedown', handleMouseDown);
 	inputElement.removeEventListener('mouseup', handleMouseUp);
 	inputElement.removeEventListener('mouseleave', handleMouseLeave);
+	
+	// Clean up global keyboard shortcut listener if it exists
+	if (inputElement.hxSearchBoxKeyboardShortcutHandler) {
+		document.removeEventListener('keydown', inputElement.hxSearchBoxKeyboardShortcutHandler);
+		inputElement.hxSearchBoxKeyboardShortcutHandler = null;
+	}
+	
 	inputElement.hxSearchBoxDotnetObjectReference = null;
 	inputElement.hxSearchBoxKeysToPreventDefault = null;
 }

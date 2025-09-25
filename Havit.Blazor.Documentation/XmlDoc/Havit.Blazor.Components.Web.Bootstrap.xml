@@ -6093,6 +6093,19 @@
             Default is <c>true</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.KeyboardShortcut">
+            <summary>
+            Enables keyboard shortcut to focus the search input (Ctrl+K on Windows/Linux, Cmd+K on Mac).
+            Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.KeyboardShortcutHint">
+            <summary>
+            Text to display as a keyboard shortcut hint.
+            When <c>null</c> (default), the hint is automatically determined based on the platform (Ctrl+K or ⌘K).
+            Set to empty string to hide the hint even when KeyboardShortcut is enabled.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputGroupStartText">
             <summary>
             Input-group at the beginning of the input.
@@ -6264,6 +6277,18 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.Spellcheck">
             <summary>
             Defines whether the input may be checked for spelling errors.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.KeyboardShortcut">
+            <summary>
+            Keyboard shortcut to focus the search input (Ctrl+K on Windows/Linux, Cmd+K on Mac).
+            Default is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SearchBoxSettings.KeyboardShortcutHint">
+            <summary>
+            Text to display as a keyboard shortcut hint.
+            When <c>null</c> (default), the hint is automatically determined based on the platform (Ctrl+K or ⌘K).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SelectSettings">

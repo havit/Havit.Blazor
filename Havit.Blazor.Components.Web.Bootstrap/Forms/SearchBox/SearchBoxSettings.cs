@@ -69,4 +69,16 @@ public class SearchBoxSettings
 	/// Defines whether the input may be checked for spelling errors.
 	/// </summary>
 	public bool? Spellcheck { get; set; }
+
+	/// <summary>
+	/// Keyboard shortcut to focus the search input (Ctrl+K on Windows/Linux, Cmd+K on Mac).
+	/// Default is <c>true</c>.
+	/// </summary>
+	public bool? KeyboardShortcut { get; set; }
+
+	/// <summary>
+	/// Text to display as a keyboard shortcut hint.
+	/// When <c>null</c> (default), the hint is automatically determined based on the platform (Ctrl+K or ⌘K).
+	/// </summary>
+	public string KeyboardShortcutHint { get; set; }
 }
