@@ -242,13 +242,8 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	protected bool HasInputGroups => HasInputGroupStart || HasInputGroupEnd;
 	private bool HasInputGroupStart => !String.IsNullOrWhiteSpace(InputGroupStartText) || (InputGroupStartTemplate is not null);
 	private bool HasInputGroupEnd => !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupEndTemplate is not null);
-	private bool HasClearButton => !HasInputGroupEnd
-							&& !_dataProviderInProgress
-							&& !string.IsNullOrEmpty(TextQuery)
-							&& (ClearIconEffective is not null);
 
 	private string _dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
-	private string _dropdownId = "hx" + Guid.NewGuid().ToString("N");
 	private string _inputId = "hx" + Guid.NewGuid().ToString("N");
 	private ElementReference _inputElementReference;
 	private List<TItem> _searchResults = new();
