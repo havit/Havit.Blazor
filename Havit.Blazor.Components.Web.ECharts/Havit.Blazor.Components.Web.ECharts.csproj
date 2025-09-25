@@ -28,6 +28,6 @@
 	</PropertyGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.ECharts.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\xmldoc" />
+		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.ECharts.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\XmlDoc" />
 	</Target>
 </Project>
