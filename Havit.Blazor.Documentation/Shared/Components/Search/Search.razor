@@ -1,17 +1,22 @@
 ﻿@namespace Havit.Blazor.Documentation.Shared.Components
 @using System.Globalization
 
-<HxAutosuggest Placeholder="Search"
-                TItem="SearchItem"
-                TValue="SearchItem"
-                @bind-Value="@SelectedResult"
-                MinimumLength="1"
-                Delay="1"
-                CssClass="sidebar-search"
-                DataProvider="ProvideSuggestions"
-                @ref="_autosuggest">
-    <ItemTemplate Context="searchItem"><span class="small">@searchItem.Title</span></ItemTemplate>
-    <EmptyTemplate>
-        <span class="p-2">No matches found</span>
-    </EmptyTemplate>
-</HxAutosuggest>
+<div class="position-relative">
+	<HxAutosuggest Placeholder="Search"
+	                TItem="SearchItem"
+	                TValue="SearchItem"
+	                @bind-Value="@SelectedResult"
+	                MinimumLength="1"
+	                Delay="1"
+	                CssClass="sidebar-search"
+	                DataProvider="ProvideSuggestions"
+	                @ref="_autosuggest">
+	    <ItemTemplate Context="searchItem"><span class="small">@searchItem.Title</span></ItemTemplate>
+	    <EmptyTemplate>
+	        <span class="p-2">No matches found</span>
+	    </EmptyTemplate>
+	</HxAutosuggest>
+	<small class="position-absolute end-0 top-50 translate-middle-y me-3 text-muted user-select-none" style="pointer-events: none; font-size: 0.75rem;">
+		@(_isMac ? "⌘K" : "Ctrl+K")
+	</small>
+</div>
