@@ -2,6 +2,7 @@
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web;
+
 public static class JSRuntimeExtensions
 {
 	public static ValueTask<IJSObjectReference> ImportModuleAsync(this IJSRuntime jsRuntime, string modulePath, Assembly assemblyForVersionInfo = null)

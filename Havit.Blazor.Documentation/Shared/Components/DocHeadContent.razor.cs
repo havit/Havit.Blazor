@@ -6,8 +6,6 @@
 /// </summary>
 public partial class DocHeadContent
 {
-	private const string BaseUrl = "https://havit.blazor.eu";
-
 	[Parameter] public string CanonicalRelativeUrl { get; set; }
 
 	[Parameter] public RenderFragment ChildContent { get; set; }

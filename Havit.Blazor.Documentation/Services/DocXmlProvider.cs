@@ -3,6 +3,7 @@ using System.Xml.XPath;
 using LoxSmoke.DocXml;
 
 namespace Havit.Blazor.Documentation.Services;
+
 public class DocXmlProvider : IDocXmlProvider
 {
 	private readonly Dictionary<string, DocXmlReader> _docXmlReaders = new();

@@ -111,7 +111,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		Contract.Requires<InvalidOperationException>(model.IsDelegate);
 
 		MethodInfo invokeMethodInfo = model.Type.GetMethod("Invoke");
-		string returnType = string.Empty;
+		string returnType;
 
 		var genericTypeArgument = invokeMethodInfo.ReturnType.GetGenericArguments().FirstOrDefault();
 

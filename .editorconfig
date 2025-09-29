@@ -157,6 +157,7 @@ dotnet_diagnostic.IDE0037.severity = none    # Use inferred member name
 dotnet_diagnostic.IDE0040.severity = warning # Use accessibility modifiers
 dotnet_diagnostic.IDE0048.severity = warning # Add parenthesis for clarity
 dotnet_diagnostic.IDE0055.severity = warning # Fix formating
+dotnet_diagnostic.IDE0059.severity = warning # Remove unnecessary value assignment
 dotnet_diagnostic.IDE0065.severity = warning # Misplaced using directive
 dotnet_diagnostic.IDE1006.severity = suggestion # Naming Styles
 
@@ -188,8 +189,14 @@ dotnet_diagnostic.CA1707.severity=none
 # CA1822: Member '{0}' does not access instance data and can be marked as static
 dotnet_diagnostic.CA1822.severity=none
 
+# CA 1823: Remove unused private members
+dotnet_diagnostic.CA1823.severity = warning
+
 # CA2016: Forward the CancellationToken parameter to methods that take one
 dotnet_diagnostic.CA2016.severity = warning
+
+# CS9113 Parameter is unread.
+dotnet_diagnostic.CS9113.severity = warning
 
 # RCS1036: Remove unnecessary blank line.
 dotnet_diagnostic.RCS1036.severity = none
