@@ -1,0 +1,69 @@
+﻿using System.Reflection;
+
+namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
+
+[TestClass]
+public class HxModalTests : BunitTestBase
+{
+	[TestMethod]
+	public void HxModal_HideAsync_ShouldSetOpenedToFalse_ForBunitSupport()
+	{
+		// Arrange
+		var component = RenderComponent<HxModal>(parameters => parameters
+			.Add(p => p.BodyTemplate, builder => builder.AddMarkupContent(0, "Test modal content"))
+		);
+
+		// Initially modal should not render content (default behavior)
+		var modalElements = component.FindAll(".modal-content");
+		Assert.AreEqual(0, modalElements.Count, "Modal content should not be rendered when not opened");
+
+		// Use reflection to simulate the modal being opened (as would happen with JavaScript)
+		var openedField = typeof(HxModal).GetField("_opened", BindingFlags.NonPublic | BindingFlags.Instance);
+		Assert.IsNotNull(openedField, "_opened field should exist");
+		
+		openedField.SetValue(component.Instance, true);
+		component.Render();
+
+		// Verify modal content is now rendered
+		modalElements = component.FindAll(".modal-content");
+		Assert.AreEqual(1, modalElements.Count, "Modal content should be rendered when _opened is true");
+
+		// Act - Call HideAsync which should set _opened to false
+		component.Instance.HideAsync();
+
+		// Re-render to see the effect
+		component.Render();
+
+		// Assert - Modal content should not be rendered anymore with default ModalRenderMode.OpenOnly
+		modalElements = component.FindAll(".modal-content");
+		Assert.AreEqual(0, modalElements.Count, "Modal content should not be rendered after HideAsync() when RenderMode is OpenOnly");
+
+		// Verify _opened is indeed false
+		var isOpened = (bool)openedField.GetValue(component.Instance);
+		Assert.IsFalse(isOpened, "_opened field should be false after HideAsync()");
+	}
+
+	[TestMethod]
+	public void HxModal_RenderModeAlways_ShouldAlwaysRenderContent()
+	{
+		// Arrange
+		var component = RenderComponent<HxModal>(parameters => parameters
+			.Add(p => p.RenderMode, ModalRenderMode.Always)
+			.Add(p => p.BodyTemplate, builder => builder.AddMarkupContent(0, "Test modal content"))
+		);
+
+		// Act & Assert - Content should be rendered even when not opened
+		var modalContent = component.Find(".modal-content");
+		Assert.IsNotNull(modalContent, "Modal content should always be rendered when RenderMode is Always");
+
+		// Use reflection to set opened and then hide to verify content still renders
+		var openedField = typeof(HxModal).GetField("_opened", BindingFlags.NonPublic | BindingFlags.Instance);
+		openedField.SetValue(component.Instance, true);
+		component.Instance.HideAsync();
+		component.Render();
+
+		// Assert - Content should still be rendered because RenderMode is Always
+		modalContent = component.Find(".modal-content");
+		Assert.IsNotNull(modalContent, "Modal content should still be rendered after HideAsync() when RenderMode is Always");
+	}
+}

@@ -275,6 +275,7 @@ public partial class HxModal : IAsyncDisposable
 
 			await _jsModule.InvokeVoidAsync("hide", _modalElement);
 		});
+		_opened = false; // Set to false for bunit support (JS callback will handle normal web scenario)
 		StateHasChanged(); // enforce rendering
 
 		return Task.CompletedTask;
