@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
@@ -152,6 +151,8 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 
 	protected override async Task OnParametersSetAsync()
 	{
+		await base.OnParametersSetAsync();
+
 		Contract.Requires<InvalidOperationException>(DataProvider != null, $"{GetType()} requires a {nameof(DataProvider)} parameter.");
 
 		if (!EqualityComparer<TValue>.Default.Equals(Value, default))
@@ -166,22 +167,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 				else
 				{
 					Contract.Requires<InvalidOperationException>(ItemFromValueResolver is not null, $"{GetType()} requires a {nameof(ItemFromValueResolver)} parameter.");
-
-					// if ItemFromValueResolver is sync (returns completed task), we can avoid async/await state machine
-					// which makes the chip render correctly in the first render
-					var itemFromValueResolverTask = ItemFromValueResolver(Value);
-					TItem item;
-					if (itemFromValueResolverTask.IsCompletedSuccessfully)
-					{
-#pragma warning disable VSTHRD103 // Call async methods when in an async method
-						item = itemFromValueResolverTask.Result;
-#pragma warning restore VSTHRD103 // Call async methods when in an async method
-					}
-					else
-					{
-						item = await itemFromValueResolverTask;
-					}
-					_userInput = TextSelectorEffective(item);
+					_userInput = TextSelectorEffective(await ItemFromValueResolver(Value));
 				}
 			}
 		}
