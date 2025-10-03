@@ -6724,11 +6724,6 @@
             Once upon a time, this was the only constructor.
             </remarks>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridUserState.#ctor">
-            <summary>
-            Constructor.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem">
             <summary>
             Sorting criteria for a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.GridUserState"/>.

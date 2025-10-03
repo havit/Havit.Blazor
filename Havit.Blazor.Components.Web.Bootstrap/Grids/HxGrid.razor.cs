@@ -398,8 +398,6 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// <inheritdoc />
 	protected override async Task OnParametersSetAsync()
 	{
-		await base.OnParametersSetAsync();
-
 		Contract.Requires<InvalidOperationException>(DataProvider != null, $"Property {nameof(DataProvider)} on {GetType()} must have a value.");
 		Contract.Requires<InvalidOperationException>(CurrentUserState != null, $"Property {nameof(CurrentUserState)} on {GetType()} must have a value.");
 		if ((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) && MultiSelectionEnabled)
