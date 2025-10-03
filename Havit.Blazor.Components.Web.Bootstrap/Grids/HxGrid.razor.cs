@@ -405,6 +405,8 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 			Contract.Requires<InvalidOperationException>(PreserveSelectionEffective, $"{nameof(PreserveSelection)} must be enabled on {nameof(HxGrid)} when using {nameof(GridContentNavigationMode.InfiniteScroll)} with {nameof(MultiSelectionEnabled)}.");
 		}
 
+		bool shouldRefreshData = false;
+
 		if (_previousUserState != CurrentUserState)
 		{
 			_currentSorting = DeserializeCurrentUserStateSorting(CurrentUserState.Sorting);
@@ -412,8 +414,6 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 
 		if (_firstRenderCompleted) /* after first render previousUserState cannot be null */
 		{
-			bool shouldRefreshData = false;
-
 			if (_previousUserState != CurrentUserState)
 			{
 				// await: This adds one more render before OnParameterSetAsync is finished.
@@ -428,21 +428,19 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 				_previousPageSizeEffective = PageSizeEffective;
 				shouldRefreshData = true;
 			}
-
-			if (shouldRefreshData)
-			{
-				await RefreshDataCoreAsync();
-			}
 		}
 		_previousUserState = CurrentUserState;
 		_previousPageSizeEffective = PageSizeEffective;
+
+		if (shouldRefreshData)
+		{
+			await RefreshDataCoreAsync();
+		}
 	}
 
 	/// <inheritdoc />
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		await base.OnAfterRenderAsync(firstRender);
-
 		// when no sorting is set, use default
 		if (firstRender && (_currentSorting == null))
 		{
