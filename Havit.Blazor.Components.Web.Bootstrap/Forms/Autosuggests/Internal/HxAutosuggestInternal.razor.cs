@@ -151,8 +151,6 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 
 	protected override async Task OnParametersSetAsync()
 	{
-		await base.OnParametersSetAsync();
-
 		Contract.Requires<InvalidOperationException>(DataProvider != null, $"{GetType()} requires a {nameof(DataProvider)} parameter.");
 
 		if (!EqualityComparer<TValue>.Default.Equals(Value, default))

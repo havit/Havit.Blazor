@@ -3423,9 +3423,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.FocusAsync">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.RenderChipGenerator(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
-            <inheritdoc />
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.RenderChipValue(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
