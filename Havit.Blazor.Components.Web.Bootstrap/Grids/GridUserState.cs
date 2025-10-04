@@ -58,7 +58,22 @@ public record class GridUserState : IEquatable<GridUserState>
 
 		return (PageIndex == other.PageIndex)
 			&& (LoadMoreAdditionalItemsCount == other.LoadMoreAdditionalItemsCount)
-			&& Sorting.SequenceEqual(other.Sorting);
+			&& SortingEquals(Sorting, other.Sorting);
+	}
+
+	private static bool SortingEquals(IReadOnlyList<GridUserStateSortingItem> left, IReadOnlyList<GridUserStateSortingItem> right)
+	{
+		if (ReferenceEquals(left, right))
+		{
+			return true;
+		}
+
+		if ((left is null) || (right is null))
+		{
+			return false;
+		}
+
+		return left.SequenceEqual(right);
 	}
 
 	public override int GetHashCode()
