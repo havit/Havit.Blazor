@@ -1,8 +1,15 @@
-﻿namespace Havit.Blazor.Documentation.Shared.Components;
+﻿using Microsoft.JSInterop;
 
-public partial class Search
+namespace Havit.Blazor.Documentation.Shared.Components;
+
+public partial class Search : IAsyncDisposable
 {
 	[Inject] private NavigationManager NavigationManager { get; set; }
+	[Inject] private IJSRuntime JSRuntime { get; set; }
+
+	private IJSObjectReference _jsModule;
+	private IJSObjectReference _disposeFunction;
+	private bool _isMac;
 
 	private SearchItem SelectedResult
 	{
@@ -232,7 +239,24 @@ public partial class Search
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (firstRender && (_autosuggest is not null))
+		if (firstRender)
+		{
+			_isMac = await JSRuntime.InvokeAsync<bool>("eval", "navigator.platform.indexOf('Mac') > -1");
+
+			_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Shared/Components/Search/Search.razor.js");
+			_disposeFunction = await _jsModule.InvokeAsync<IJSObjectReference>("initializeGlobalSearchShortcut", DotNetObjectReference.Create(this));
+
+			if (_autosuggest is not null)
+			{
+				await _autosuggest.FocusAsync();
+			}
+		}
+	}
+
+	[JSInvokable]
+	public async Task FocusSearchInput()
+	{
+		if (_autosuggest is not null)
 		{
 			await _autosuggest.FocusAsync();
 		}
@@ -261,5 +285,14 @@ public partial class Search
 	public void NavigateToSelectedPage(SearchItem searchItem)
 	{
 		NavigationManager.NavigateTo(searchItem.Href);
+	}
+
+	public async ValueTask DisposeAsync()
+	{
+		if (_jsModule is not null)
+		{
+			await _jsModule.InvokeVoidAsync("disposeGlobalSearchShortcut", _disposeFunction);
+			await _jsModule.DisposeAsync();
+		}
 	}
 }
