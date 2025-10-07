@@ -59,7 +59,7 @@ public partial class DemoDataService : IDemoDataService
 		return new()
 		{
 			Data = data,
-			TotalCount = data.Count
+			TotalCount = GetFilteredEmployees(filter).Count()
 		};
 	}
 
