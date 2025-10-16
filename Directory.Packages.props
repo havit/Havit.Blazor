@@ -47,6 +47,10 @@
 		<PackageVersion Include="SmartComponents.LocalEmbeddings" Version="0.1.0-preview10148" />
 		<PackageVersion Include="System.Text.Json" Version="10.0.0-rc.2.25502.107" Condition="'$(TargetFramework)' == 'net10.0'" />
 		<PackageVersion Include="System.Text.Json" Version="9.0.10" Condition="'$(TargetFramework)' != 'net10.0'"/>
+
+		<!-- Transient vulnerabilities -->
+		<PackageVersion Include="System.Formats.Asn1" Version="10.0.0-rc.2.25502.107" Condition="'$(TargetFramework)' == 'net10.0'"/>
+		<PackageVersion Include="System.Formats.Asn1" Version="9.0.10" Condition="'$(TargetFramework)' != 'net10.0'"/>
 	</ItemGroup>
 	<ItemGroup Condition="'$(ProjectName.EndsWith(`Tests`))' == 'False'">
 		<GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15">
