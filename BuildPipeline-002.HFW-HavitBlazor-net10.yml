@@ -1,0 +1,20 @@
+name: $(Build.DefinitionName)-$(Date:yyyy-MM-dd).$(Rev:rr)B
+
+trigger:
+  batch: true
+  branches:
+    include:
+    - net10
+
+pr: none
+
+resources:
+  repositories:
+  - repository: pipelines
+    type: git
+    name: 000.HAV-Pipelines
+    ref: net10
+    trigger: none
+
+extends:
+  template: 002.HFW-HavitBlazor/Builds/002.HFW-HavitBlazor.yml@pipelines
