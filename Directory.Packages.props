@@ -6,7 +6,6 @@
     <AspNetCoreVersion9>9.0.9</AspNetCoreVersion9>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
     <PackageVersion Include="bunit.web" Version="1.40.0" />
     <PackageVersion Include="Grpc.AspNetCore.Web" Version="2.71.0" />
     <PackageVersion Include="Grpc.Net.Client" Version="2.71.0" />
