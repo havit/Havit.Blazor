@@ -13,7 +13,7 @@ resources:
   - repository: pipelines
     type: git
     name: 000.HAV-Pipelines
-    ref: net10
+    ref: master
     trigger: none
 
 extends:
