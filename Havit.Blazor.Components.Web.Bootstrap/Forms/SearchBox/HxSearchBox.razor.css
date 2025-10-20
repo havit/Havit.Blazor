@@ -29,7 +29,7 @@
     left: 0;
 }
 
-.form-control {
+.hx-search-box:has(.hx-search-box-input-icon-end) .form-control  {
 	padding-right: var(--input-icon-button-width);
 }
 
