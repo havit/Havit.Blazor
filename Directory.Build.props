@@ -21,6 +21,10 @@
 		<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
 		<TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
 		<MSTestAnalysisMode>Recommended</MSTestAnalysisMode>
+
+		<!-- .NET 10 RC2 workaround https://github.com/dotnet/aspnetcore/issues/63970 -->
+		<WasmFingerprintAssets>false</WasmFingerprintAssets>
+
 	</PropertyGroup>
 
 	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" Condition="Exists($([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../')))"/>
