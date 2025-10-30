@@ -43,9 +43,7 @@ public partial class GettingStarted(
 		{
 			_setup = newSetup;
 
-			// DO NOT CALL UpdateUri() unless the issue gets resolved - it causes page scrolling to the top
-			// https://github.com/dotnet/aspnetcore/issues/40190 - Blazor NavigationManager.NavigateTo always scrolls page to the top
-			// UpdateUri();
+			UpdateUri();
 		}
 	}
 
@@ -78,11 +76,15 @@ public partial class GettingStarted(
 
 	private bool HasStaticFileAssets()
 	{
-		if ((_setup.TargetFramework == TargetFramework.Net9) && (_setup.ProjectSetup != ProjectSetup.WasmStandalone))
+		if (_setup.TargetFramework == TargetFramework.Net8)
 		{
-			return true;
+			return false;
 		}
-		return false;
+		if (_setup.ProjectSetup == ProjectSetup.WasmStandalone)
+		{
+			return false;
+		}
+		return true;
 	}
 
 	private string GetHtmlHostFile()
@@ -96,24 +98,24 @@ public partial class GettingStarted(
 
 	private string GetSampleFilesBootstrapFolder()
 	{
-		if (_setup.TargetFramework == TargetFramework.Net9)
+		if (_setup.TargetFramework == TargetFramework.Net8)
 		{
-			return "wwwroot/lib/bootstrap";
+			return "wwwroot/bootstrap";
 		}
-		return "wwwroot/bootstrap";
 
+		return "wwwroot/lib/bootstrap";
 	}
 
 	private record SetupModel
 	{
-		public TargetFramework TargetFramework { get; set; } = TargetFramework.Net9;
+		public TargetFramework TargetFramework { get; set; } = TargetFramework.Net10;
 		public ProjectSetup ProjectSetup { get; set; } = ProjectSetup.BlazorWebApp;
 		public BwaRenderMode BwaRenderMode { get; set; } = BwaRenderMode.Auto;
 		public BootstrapTheme BootstrapTheme { get; set; } = BootstrapTheme.HavitBlazor;
 		public bool SamplePagesCreated { get; set; } = false;
 	}
 
-	private enum TargetFramework { Net8, Net9 }
+	private enum TargetFramework { Net8, Net9, Net10 }
 	private enum ProjectSetup { BlazorWebApp, Server, WasmStandalone }
 	private enum BwaRenderMode { Auto, Server, Wasm, None }
 	private enum BootstrapTheme { HavitBlazor, PlainCdn, PlainProject, Custom }
