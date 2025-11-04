@@ -15,6 +15,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	protected string ContentInternal { get; set; }
 	protected TooltipPlacement PlacementInternal { get; set; }
 	protected TooltipTrigger TriggerInternal { get; set; }
+	protected TooltipTrigger TriggerEffective => GetSettings()?.Trigger ?? TriggerInternal;
 
 	/// <summary>
 	/// Returns optional set of component settings.
@@ -168,9 +169,10 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	protected string GetTriggers()
 	{
 		string result = null;
+		TooltipTrigger triggerToUse = TriggerEffective;
 		foreach (var flag in Enum.GetValues<TooltipTrigger>())
 		{
-			if (TriggerInternal.HasFlag(flag))
+			if (triggerToUse.HasFlag(flag))
 			{
 				result = result + " " + flag.ToString().ToLower();
 			}

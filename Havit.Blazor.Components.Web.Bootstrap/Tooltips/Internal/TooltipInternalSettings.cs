@@ -26,4 +26,9 @@ public abstract record class TooltipInternalSettings
 	/// Offset of the component relative to its target (ChildContent).
 	/// </summary>
 	public (int X, int Y)? Offset { get; set; }
+
+	/// <summary>
+	/// Tooltip trigger(s).
+	/// </summary>
+	public TooltipTrigger? Trigger { get; set; }
 }

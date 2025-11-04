@@ -295,6 +295,11 @@
             <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap outline button style</see>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.TooltipSettings">
+            <summary>
+            Tooltip settings.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonSize">
             <summary>
             Represents the size for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>.
@@ -426,6 +431,11 @@
             <summary>
             Custom CSS class to render with the tooltip <c>span</c> wrapper of the <c>&lt;button /&gt;</c>.<br />
             If set, the <c>span</c> wrapper will be rendered no matter whether the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Tooltip"/> text is set or not.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.TooltipSettings">
+            <summary>
+            Tooltip settings (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.TooltipSettings"/>, overridden by individual Tooltip* parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnClick">
@@ -2867,6 +2877,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.Offset">
             <summary>
             Offset of the component relative to its target (ChildContent).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.Trigger">
+            <summary>
+            Tooltip trigger(s).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
