@@ -11140,16 +11140,6 @@
             Popover placement.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Havit#Blazor#Components#Web#Bootstrap#Internal#ITooltipInternalSettings#Trigger">
-            <summary>
-            Explicit interface implementation to convert PopoverTrigger to TooltipTrigger.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Havit#Blazor#Components#Web#Bootstrap#Internal#ITooltipInternalSettings#Placement">
-            <summary>
-            Explicit interface implementation to convert PopoverPlacement to TooltipPlacement.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PopoverTrigger">
             <summary>
             Triggers for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPopover"/>.
