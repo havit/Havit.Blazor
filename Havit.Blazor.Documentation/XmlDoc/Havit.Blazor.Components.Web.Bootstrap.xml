@@ -2879,11 +2879,6 @@
             Offset of the component relative to its target (ChildContent).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.Trigger">
-            <summary>
-            Tooltip trigger(s).
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
             <summary>
             Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as a Bootstrap form control (including <c>Label</c> etc.)<br />
@@ -11100,6 +11095,11 @@
             When specified, it will dynamically reorient the popover.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Trigger">
+            <summary>
+            Popover trigger(s).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PopoverTrigger">
             <summary>
             Triggers for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPopover"/>.
@@ -11133,6 +11133,11 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement.Auto">
             <summary>
             When specified, it will dynamically reorient the tooltip.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Trigger">
+            <summary>
+            Tooltip trigger(s).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger">

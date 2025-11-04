@@ -24,8 +24,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 			Color = ThemeColor.None,
 			CssClass = null,
 			Outline = false,
-			Icon = null,
-			TooltipSettings = new TooltipSettings()
+			Icon = null
 		};
 	}
 
@@ -238,17 +237,6 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 			return CssClassHelper.Combine("d-inline-block", TooltipWrapperCssClass);
 		}
 		return null;
-	}
-
-	protected TooltipTrigger GetTooltipTrigger()
-	{
-		TooltipTrigger? trigger = TooltipSettingsEffective?.Trigger;
-		if (trigger.HasValue)
-		{
-			return trigger.Value;
-		}
-		// Return default: Hover | Focus (will be handled by HxTooltip constructor)
-		return TooltipTrigger.Hover | TooltipTrigger.Focus;
 	}
 
 	private protected virtual string GetButtonType() => "button";

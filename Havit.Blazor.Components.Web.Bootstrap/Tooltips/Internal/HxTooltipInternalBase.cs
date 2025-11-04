@@ -19,11 +19,23 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	{
 		get
 		{
-			TooltipTrigger? settingsTrigger = GetSettings()?.Trigger;
-			if (settingsTrigger.HasValue)
+			// Try to get Trigger from Settings
+			TooltipTrigger? trigger = (GetSettings() as TooltipSettings)?.Trigger
+									   ?? (TooltipTrigger?)(GetSettings() as PopoverSettings)?.Trigger;
+			if (trigger.HasValue)
 			{
-				return settingsTrigger.Value;
+				return trigger.Value;
 			}
+
+			// Try to get Trigger from Defaults
+			trigger = (GetDefaults() as TooltipSettings)?.Trigger
+					   ?? (TooltipTrigger?)(GetDefaults() as PopoverSettings)?.Trigger;
+			if (trigger.HasValue)
+			{
+				return trigger.Value;
+			}
+
+			// Fall back to TriggerInternal (set by parameter or constructor)
 			return TriggerInternal;
 		}
 	}
@@ -180,10 +192,10 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	protected string GetTriggers()
 	{
 		string result = null;
-		TooltipTrigger triggerToUse = TriggerEffective;
+		TooltipTrigger triggerEffective = TriggerEffective;
 		foreach (var flag in Enum.GetValues<TooltipTrigger>())
 		{
-			if (triggerToUse.HasFlag(flag))
+			if (triggerEffective.HasFlag(flag))
 			{
 				result = result + " " + flag.ToString().ToLower();
 			}
