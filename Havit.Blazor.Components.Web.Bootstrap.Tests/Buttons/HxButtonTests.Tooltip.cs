@@ -1,7 +1,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
 [TestClass]
-public class HxButtonTests : BunitTestBase
+public partial class HxButtonTests : BunitTestBase
 {
 	[TestMethod]
 	public void HxButton_TooltipSettings_Trigger_ShouldBeConfigurableViaParameter()
