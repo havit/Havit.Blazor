@@ -4,42 +4,6 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 public class HxButtonTests : BunitTestBase
 {
 	[TestMethod]
-	public void HxButton_TooltipSettings_Trigger_ShouldBeConfigurableViaDefaults()
-	{
-		// Arrange
-		var originalDefaults = HxButton.Defaults;
-		try
-		{
-			HxButton.Defaults = new ButtonSettings()
-			{
-				Size = ButtonSize.Regular,
-				IconPlacement = ButtonIconPlacement.Start,
-				Color = ThemeColor.None,
-				Outline = false,
-				TooltipSettings = new TooltipSettings()
-				{
-					Trigger = TooltipTrigger.Hover
-				}
-			};
-
-			// Act
-			var cut = RenderComponent<HxButton>(parameters => parameters
-				.Add(p => p.Tooltip, "Test Tooltip")
-			);
-
-			// Assert
-			var tooltipElement = cut.Find("span[data-bs-toggle='tooltip']");
-			Assert.IsNotNull(tooltipElement);
-			var trigger = tooltipElement.GetAttribute("data-bs-trigger");
-			Assert.AreEqual("hover", trigger);
-		}
-		finally
-		{
-			HxButton.Defaults = originalDefaults;
-		}
-	}
-
-	[TestMethod]
 	public void HxButton_TooltipSettings_Trigger_ShouldBeConfigurableViaParameter()
 	{
 		// Arrange & Act
@@ -81,7 +45,7 @@ public class HxButtonTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxButton_TooltipSettings_DefaultTrigger_ShouldBeHoverAndFocus()
+	public void HxButton_TooltipSettings_DefaultTrigger_ShouldNotBeSet()
 	{
 		// Arrange & Act
 		var cut = RenderComponent<HxButton>(parameters => parameters
@@ -92,7 +56,7 @@ public class HxButtonTests : BunitTestBase
 		var tooltipElement = cut.Find("span[data-bs-toggle='tooltip']");
 		Assert.IsNotNull(tooltipElement);
 		var trigger = tooltipElement.GetAttribute("data-bs-trigger");
-		// The default trigger should be "hover focus" (note the space separation)
-		Assert.AreEqual("hover focus", trigger);
+		// The default trigger should not be set as an attribute, Bootstrap uses its own default.
+		Assert.IsNull(trigger);
 	}
 }
