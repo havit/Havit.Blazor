@@ -27,7 +27,7 @@ public class HxTooltip : HxTooltipInternalBase
 	/// Returns application-wide defaults for the component.
 	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
-	protected override ITooltipInternalSettings GetDefaults() => Defaults;
+	protected override TooltipSettings GetDefaults() => Defaults;
 
 	/// <summary>
 	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
@@ -40,7 +40,7 @@ public class HxTooltip : HxTooltipInternalBase
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override ITooltipInternalSettings GetSettings() => Settings;
+	protected override TooltipSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Tooltip text.
@@ -75,11 +75,11 @@ public class HxTooltip : HxTooltipInternalBase
 
 	protected override string JsModuleName => nameof(HxTooltip);
 	protected override string DataBsToggle => "tooltip";
+	protected override TooltipTrigger DefaultTrigger => TooltipTrigger.Hover | TooltipTrigger.Focus;
 
 	public HxTooltip()
 	{
 		Placement = TooltipPlacement.Top;
-		Trigger = TooltipTrigger.Hover | TooltipTrigger.Focus;
 	}
 
 	protected override Dictionary<string, string> GetNewContentForUpdate()

@@ -28,7 +28,7 @@ public class HxPopover : HxTooltipInternalBase
 	/// Returns application-wide defaults for the component.
 	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
-	protected override ITooltipInternalSettings GetDefaults() => Defaults;
+	protected override PopoverSettings GetDefaults() => Defaults;
 
 	/// <summary>
 	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
@@ -41,7 +41,7 @@ public class HxPopover : HxTooltipInternalBase
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override ITooltipInternalSettings GetSettings() => Settings;
+	protected override PopoverSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Popover title.
@@ -85,11 +85,11 @@ public class HxPopover : HxTooltipInternalBase
 
 	protected override string JsModuleName => nameof(HxPopover);
 	protected override string DataBsToggle => "popover";
+	protected override TooltipTrigger DefaultTrigger => TooltipTrigger.Click;
 
 	public HxPopover()
 	{
 		Placement = PopoverPlacement.Right;
-		Trigger = PopoverTrigger.Click;
 	}
 	protected override Dictionary<string, string> GetNewContentForUpdate()
 	{

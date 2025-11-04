@@ -24,7 +24,8 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 			Color = ThemeColor.None,
 			CssClass = null,
 			Outline = false,
-			Icon = null
+			Icon = null,
+			TooltipSettings = new TooltipSettings()
 		};
 	}
 

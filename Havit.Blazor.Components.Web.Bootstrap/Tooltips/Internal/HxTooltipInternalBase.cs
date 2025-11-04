@@ -15,7 +15,8 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	protected string ContentInternal { get; set; }
 	protected TooltipPlacement PlacementInternal { get; set; }
 	protected TooltipTrigger TriggerInternal { get; set; }
-	protected TooltipTrigger TriggerEffective => GetSettings()?.Trigger ?? GetDefaults()?.Trigger ?? TriggerInternal;
+	protected abstract TooltipTrigger DefaultTrigger { get; }
+	protected TooltipTrigger TriggerEffective => TriggerInternal != default(TooltipTrigger) ? TriggerInternal : GetSettings()?.Trigger ?? GetDefaults()?.Trigger ?? DefaultTrigger;
 
 	/// <summary>
 	/// Returns optional set of component settings.
