@@ -63,10 +63,10 @@ public class HxTooltip : HxTooltipInternalBase
 	}
 
 	/// <summary>
-	/// Tooltip trigger(s). The default is <c><see cref="TooltipTrigger.Hover"/> | <see cref="TooltipTrigger.Focus"/></c>.
+	/// Tooltip trigger(s). The default is "not set" (which Bootstrap defaults to <code>hover</code> + <code>focus</code>).
 	/// </summary>
 	[Parameter]
-	public TooltipTrigger Trigger
+	public TooltipTrigger? Trigger
 	{
 		get => TriggerInternal;
 		set => TriggerInternal = value;
@@ -79,7 +79,6 @@ public class HxTooltip : HxTooltipInternalBase
 	public HxTooltip()
 	{
 		Placement = TooltipPlacement.Top;
-		Trigger = TooltipTrigger.Hover | TooltipTrigger.Focus;
 	}
 
 	protected override Dictionary<string, string> GetNewContentForUpdate()

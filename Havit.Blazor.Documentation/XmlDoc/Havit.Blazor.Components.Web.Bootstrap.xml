@@ -295,6 +295,11 @@
             <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap outline button style</see>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.TooltipSettings">
+            <summary>
+            Tooltip settings.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonSize">
             <summary>
             Represents the size for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>.
@@ -426,6 +431,11 @@
             <summary>
             Custom CSS class to render with the tooltip <c>span</c> wrapper of the <c>&lt;button /&gt;</c>.<br />
             If set, the <c>span</c> wrapper will be rendered no matter whether the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Tooltip"/> text is set or not.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.TooltipSettings">
+            <summary>
+            Tooltip settings (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.TooltipSettings"/>, overridden by individual Tooltip* parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnClick">
@@ -2844,29 +2854,34 @@
             Receives notification from JavaScript when content is hidden.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.Animation">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Animation">
             <summary>
             Apply a CSS fade transition to the tooltip (enable/disable).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.CssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.CssClass">
             <summary>
             Custom CSS class to add.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.Container">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Container">
             <summary>
             Appends the tooltip/popover to a specific element. Default is <c>body</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.WrapperCssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.WrapperCssClass">
             <summary>
             Custom CSS class to render with the <c>span</c> wrapper of the child-content.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.Offset">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Offset">
             <summary>
             Offset of the component relative to its target (ChildContent).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Trigger">
+            <summary>
+            Tooltip/Popover trigger(s).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
@@ -11026,7 +11041,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Trigger">
             <summary>
-            Popover trigger(s). The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PopoverTrigger.Click"/>.
+            Popover trigger(s). The default is "not set" (which Bootstrap defaults to <code>click</code>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip">
@@ -11072,7 +11087,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Trigger">
             <summary>
-            Tooltip trigger(s). The default is <c><see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger.Hover"/> | <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger.Focus"/></c>.
+            Tooltip trigger(s). The default is "not set" (which Bootstrap defaults to <code>hover</code> + <code>focus</code>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PopoverPlacement">
@@ -11083,6 +11098,41 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.PopoverPlacement.Auto">
             <summary>
             When specified, it will dynamically reorient the popover.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Animation">
+            <summary>
+            Apply a CSS fade transition to the popover (enable/disable).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.CssClass">
+            <summary>
+            Custom CSS class to add.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Container">
+            <summary>
+            Appends the popover to a specific element. Default is <c>body</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.WrapperCssClass">
+            <summary>
+            Custom CSS class to render with the <c>span</c> wrapper of the child-content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Offset">
+            <summary>
+            Offset of the component relative to its target (ChildContent).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Trigger">
+            <summary>
+            Popover trigger(s).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Havit#Blazor#Components#Web#Bootstrap#Internal#ITooltipInternalSettings#Trigger">
+            <summary>
+            Explicit interface implementation to convert PopoverTrigger to TooltipTrigger.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PopoverTrigger">
@@ -11118,6 +11168,36 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement.Auto">
             <summary>
             When specified, it will dynamically reorient the tooltip.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Animation">
+            <summary>
+            Apply a CSS fade transition to the tooltip (enable/disable).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.CssClass">
+            <summary>
+            Custom CSS class to add.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Container">
+            <summary>
+            Appends the tooltip/popover to a specific element. Default is <c>body</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.WrapperCssClass">
+            <summary>
+            Custom CSS class to render with the <c>span</c> wrapper of the child-content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Offset">
+            <summary>
+            Offset of the component relative to its target (ChildContent).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Trigger">
+            <summary>
+            Tooltip trigger(s).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger">
