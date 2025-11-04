@@ -74,7 +74,7 @@ public class HxPopover : HxTooltipInternalBase
 	}
 
 	/// <summary>
-	/// Popover trigger(s).  The default is "not set" (which Bootstrap defaults to <code>click</code>).
+	/// Popover trigger(s). The default is "not set" (which Bootstrap defaults to <code>click</code>).
 	/// </summary>
 	[Parameter]
 	public PopoverTrigger? Trigger

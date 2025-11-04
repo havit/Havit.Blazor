@@ -15,7 +15,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	protected string ContentInternal { get; set; }
 	protected TooltipPlacement PlacementInternal { get; set; }
 	protected TooltipTrigger? TriggerInternal { get; set; }
-	protected TooltipTrigger? TriggerEffective => TriggerInternal ?? GetSettings()?.Trigger ?? GetDefaults()?.Trigger; // default (hover+focus) is applied by Bootstrap itself
+	protected TooltipTrigger? TriggerEffective => TriggerInternal ?? GetSettings()?.Trigger ?? GetDefaults()?.Trigger; // default is applied by Bootstrap itself
 
 	/// <summary>
 	/// Returns optional set of component settings.
