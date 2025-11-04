@@ -74,18 +74,17 @@ public class HxPopover : HxTooltipInternalBase
 	}
 
 	/// <summary>
-	/// Popover trigger(s). The default is <see cref="PopoverTrigger.Click"/>.
+	/// Popover trigger(s).  The default is "not set" (which Bootstrap defaults to <code>click</code>).
 	/// </summary>
 	[Parameter]
-	public PopoverTrigger Trigger
+	public PopoverTrigger? Trigger
 	{
-		get => (PopoverTrigger)TriggerInternal;
-		set => TriggerInternal = (TooltipTrigger)value;
+		get => (PopoverTrigger?)TriggerInternal;
+		set => TriggerInternal = (TooltipTrigger?)value;
 	}
 
 	protected override string JsModuleName => nameof(HxPopover);
 	protected override string DataBsToggle => "popover";
-	protected override TooltipTrigger DefaultTrigger => TooltipTrigger.Click;
 
 	public HxPopover()
 	{

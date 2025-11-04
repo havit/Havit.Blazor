@@ -14,9 +14,8 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	protected string TitleInternal { get; set; }
 	protected string ContentInternal { get; set; }
 	protected TooltipPlacement PlacementInternal { get; set; }
-	protected TooltipTrigger TriggerInternal { get; set; }
-	protected abstract TooltipTrigger DefaultTrigger { get; }
-	protected TooltipTrigger TriggerEffective => TriggerInternal != default(TooltipTrigger) ? TriggerInternal : GetSettings()?.Trigger ?? GetDefaults()?.Trigger ?? DefaultTrigger;
+	protected TooltipTrigger? TriggerInternal { get; set; }
+	protected TooltipTrigger? TriggerEffective => TriggerInternal ?? GetSettings()?.Trigger ?? GetDefaults()?.Trigger; // default (hover+focus) is applied by Bootstrap itself
 
 	/// <summary>
 	/// Returns optional set of component settings.
@@ -170,10 +169,14 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	protected string GetTriggers()
 	{
 		string result = null;
-		TooltipTrigger triggerEffective = TriggerEffective;
+		var triggerEffective = TriggerEffective;
+		if (triggerEffective is null)
+		{
+			return result;
+		}
 		foreach (var flag in Enum.GetValues<TooltipTrigger>())
 		{
-			if (triggerEffective.HasFlag(flag))
+			if (triggerEffective.Value.HasFlag(flag))
 			{
 				result = result + " " + flag.ToString().ToLower();
 			}

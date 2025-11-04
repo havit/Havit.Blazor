@@ -11041,7 +11041,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Trigger">
             <summary>
-            Popover trigger(s). The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PopoverTrigger.Click"/>.
+            Popover trigger(s).  The default is "not set" (which Bootstrap defaults to <code>click</code>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip">
@@ -11087,7 +11087,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Trigger">
             <summary>
-            Tooltip trigger(s). The default is <c><see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger.Hover"/> | <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger.Focus"/></c>.
+            Tooltip trigger(s). The default is "not set" (which Bootstrap defaults to <code>hover</code> + <code>focus</code>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PopoverPlacement">
