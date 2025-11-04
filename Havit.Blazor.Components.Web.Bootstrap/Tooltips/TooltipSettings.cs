@@ -33,4 +33,9 @@ public record class TooltipSettings : ITooltipInternalSettings
 	/// Tooltip trigger(s).
 	/// </summary>
 	public TooltipTrigger? Trigger { get; set; }
+
+	/// <summary>
+	/// Tooltip placement.
+	/// </summary>
+	public TooltipPlacement? Placement { get; set; }
 }

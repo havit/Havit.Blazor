@@ -53,10 +53,10 @@ public class HxTooltip : HxTooltipInternalBase
 	}
 
 	/// <summary>
-	/// Tooltip placement. The default is <see cref="TooltipPlacement.Top"/>.
+	/// Tooltip placement. The default is "not set" (which Bootstrap defaults to <code>top</code>).
 	/// </summary>
 	[Parameter]
-	public TooltipPlacement Placement
+	public TooltipPlacement? Placement
 	{
 		get => PlacementInternal;
 		set => PlacementInternal = value;
@@ -75,11 +75,6 @@ public class HxTooltip : HxTooltipInternalBase
 
 	protected override string JsModuleName => nameof(HxTooltip);
 	protected override string DataBsToggle => "tooltip";
-
-	public HxTooltip()
-	{
-		Placement = TooltipPlacement.Top;
-	}
 
 	protected override Dictionary<string, string> GetNewContentForUpdate()
 	{

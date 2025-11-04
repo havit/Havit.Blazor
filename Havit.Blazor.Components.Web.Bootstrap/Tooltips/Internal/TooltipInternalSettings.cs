@@ -31,4 +31,9 @@ public interface ITooltipInternalSettings
 	/// Tooltip/Popover trigger(s).
 	/// </summary>
 	TooltipTrigger? Trigger { get; }
+
+	/// <summary>
+	/// Tooltip/Popover placement.
+	/// </summary>
+	TooltipPlacement? Placement { get; }
 }

@@ -13,7 +13,8 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 {
 	protected string TitleInternal { get; set; }
 	protected string ContentInternal { get; set; }
-	protected TooltipPlacement PlacementInternal { get; set; }
+	protected TooltipPlacement? PlacementInternal { get; set; }
+	protected TooltipPlacement? PlacementEffective => PlacementInternal ?? GetSettings()?.Placement ?? GetDefaults()?.Placement; // default is applied by Bootstrap itself
 	protected TooltipTrigger? TriggerInternal { get; set; }
 	protected TooltipTrigger? TriggerEffective => TriggerInternal ?? GetSettings()?.Trigger ?? GetDefaults()?.Trigger; // default is applied by Bootstrap itself
 
@@ -134,7 +135,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 			builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", WrapperCssClassEffective));
 			builder.AddAttribute(3, "data-bs-container", ContainerEffective);
 			builder.AddAttribute(4, "data-bs-trigger", GetTriggers());
-			builder.AddAttribute(5, "data-bs-placement", PlacementInternal.ToString().ToLower());
+			builder.AddAttribute(5, "data-bs-placement", PlacementEffective?.ToString().ToLower());
 			builder.AddAttribute(6, "data-bs-custom-class", CssClassEffective);
 			if (AnimationEffective is not null)
 			{
