@@ -35,7 +35,17 @@ public record class PopoverSettings : ITooltipInternalSettings
 	public PopoverTrigger? Trigger { get; set; }
 
 	/// <summary>
+	/// Popover placement.
+	/// </summary>
+	public PopoverPlacement? Placement { get; set; }
+
+	/// <summary>
 	/// Explicit interface implementation to convert PopoverTrigger to TooltipTrigger.
 	/// </summary>
 	TooltipTrigger? ITooltipInternalSettings.Trigger => (TooltipTrigger?)Trigger;
+
+	/// <summary>
+	/// Explicit interface implementation to convert PopoverPlacement to TooltipPlacement.
+	/// </summary>
+	TooltipPlacement? ITooltipInternalSettings.Placement => (TooltipPlacement?)Placement;
 }
