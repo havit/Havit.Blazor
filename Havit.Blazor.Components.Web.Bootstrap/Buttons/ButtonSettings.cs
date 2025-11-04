@@ -39,4 +39,9 @@ public record ButtonSettings
 	/// <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap outline button style</see>.
 	/// </summary>
 	public bool? Outline { get; set; } = false;
+
+	/// <summary>
+	/// Tooltip settings.
+	/// </summary>
+	public TooltipSettings TooltipSettings { get; set; }
 }
