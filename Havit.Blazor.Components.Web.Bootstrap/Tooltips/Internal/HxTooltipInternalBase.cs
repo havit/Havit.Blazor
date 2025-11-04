@@ -135,10 +135,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 			builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", WrapperCssClassEffective));
 			builder.AddAttribute(3, "data-bs-container", ContainerEffective);
 			builder.AddAttribute(4, "data-bs-trigger", GetTriggers());
-			if (PlacementEffective is not null)
-			{
-				builder.AddAttribute(5, "data-bs-placement", PlacementEffective.Value.ToString().ToLower());
-			}
+			builder.AddAttribute(5, "data-bs-placement", PlacementEffective?.ToString().ToLower());
 			builder.AddAttribute(6, "data-bs-custom-class", CssClassEffective);
 			if (AnimationEffective is not null)
 			{
