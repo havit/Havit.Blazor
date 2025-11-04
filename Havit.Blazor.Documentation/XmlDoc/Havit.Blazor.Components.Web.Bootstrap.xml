@@ -2884,6 +2884,11 @@
             Tooltip/Popover trigger(s).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Placement">
+            <summary>
+            Tooltip/Popover placement.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
             <summary>
             Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as a Bootstrap form control (including <c>Label</c> etc.)<br />
@@ -11036,7 +11041,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Placement">
             <summary>
-            Popover placement. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PopoverPlacement.Right"/>.
+            Popover placement. The default is "not set" (which Bootstrap defaults to <code>right</code>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Trigger">
@@ -11082,7 +11087,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Placement">
             <summary>
-            Tooltip placement. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement.Top"/>.
+            Tooltip placement. The default is "not set" (which Bootstrap defaults to <code>top</code>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Trigger">
@@ -11130,9 +11135,9 @@
             Popover trigger(s).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Havit#Blazor#Components#Web#Bootstrap#Internal#ITooltipInternalSettings#Trigger">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Placement">
             <summary>
-            Explicit interface implementation to convert PopoverTrigger to TooltipTrigger.
+            Popover placement.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PopoverTrigger">
@@ -11198,6 +11203,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Trigger">
             <summary>
             Tooltip trigger(s).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Placement">
+            <summary>
+            Tooltip placement.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger">

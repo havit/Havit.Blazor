@@ -129,7 +129,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// <summary>
 	/// Tooltip placement.
 	/// </summary>
-	[Parameter] public TooltipPlacement TooltipPlacement { get; set; }
+	[Parameter] public TooltipPlacement? TooltipPlacement { get; set; }
 
 	/// <summary>
 	/// Custom CSS class to render with the tooltip.
