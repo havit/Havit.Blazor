@@ -27,7 +27,7 @@ public class HxTooltip : HxTooltipInternalBase
 	/// Returns application-wide defaults for the component.
 	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
-	protected override TooltipSettings GetDefaults() => Defaults;
+	protected override ITooltipInternalSettings GetDefaults() => Defaults;
 
 	/// <summary>
 	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
@@ -40,7 +40,7 @@ public class HxTooltip : HxTooltipInternalBase
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override TooltipSettings GetSettings() => Settings;
+	protected override ITooltipInternalSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// Tooltip text.

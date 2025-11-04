@@ -15,30 +15,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	protected string ContentInternal { get; set; }
 	protected TooltipPlacement PlacementInternal { get; set; }
 	protected TooltipTrigger TriggerInternal { get; set; }
-	protected TooltipTrigger TriggerEffective
-	{
-		get
-		{
-			// Try to get Trigger from Settings
-			TooltipTrigger? trigger = (GetSettings() as TooltipSettings)?.Trigger
-									   ?? (TooltipTrigger?)(GetSettings() as PopoverSettings)?.Trigger;
-			if (trigger.HasValue)
-			{
-				return trigger.Value;
-			}
-
-			// Try to get Trigger from Defaults
-			trigger = (GetDefaults() as TooltipSettings)?.Trigger
-					   ?? (TooltipTrigger?)(GetDefaults() as PopoverSettings)?.Trigger;
-			if (trigger.HasValue)
-			{
-				return trigger.Value;
-			}
-
-			// Fall back to TriggerInternal (set by parameter or constructor)
-			return TriggerInternal;
-		}
-	}
+	protected TooltipTrigger TriggerEffective => GetSettings()?.Trigger ?? GetDefaults()?.Trigger ?? TriggerInternal;
 
 	/// <summary>
 	/// Returns optional set of component settings.
@@ -46,13 +23,13 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider Settings in components descendants (by returning a derived settings class).
 	/// </remarks>
-	protected abstract TooltipInternalSettings GetSettings();
+	protected abstract ITooltipInternalSettings GetSettings();
 
 	/// <summary>
 	/// Returns application-wide defaults for the component.
 	/// Enables overriding defaults in descendants (use separate set of defaults).
 	/// </summary>
-	protected abstract TooltipInternalSettings GetDefaults();
+	protected abstract ITooltipInternalSettings GetDefaults();
 
 	/// <summary>
 	/// Allows you to insert HTML. If <c>false</c>, <c>innerText</c> property will be used to insert content into the DOM.
