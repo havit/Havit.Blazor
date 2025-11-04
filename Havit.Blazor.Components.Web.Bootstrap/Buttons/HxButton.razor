@@ -5,8 +5,8 @@
            Placement="@TooltipPlacement"
            Container="@TooltipContainer"
            CssClass="@TooltipCssClass"
-           WrapperCssClass="@GetTooltipWrapperCssClass()"
-           Settings="@TooltipSettingsEffective">
+           Trigger="@GetTooltipTrigger()"
+           WrapperCssClass="@GetTooltipWrapperCssClass()">
     <button @ref="buttonElementReference"
             type="@GetButtonType()"
             class="@GetButtonCssClass()"

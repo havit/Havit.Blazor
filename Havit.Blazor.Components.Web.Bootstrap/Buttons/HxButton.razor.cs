@@ -240,6 +240,17 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 		return null;
 	}
 
+	protected TooltipTrigger GetTooltipTrigger()
+	{
+		TooltipTrigger? trigger = TooltipSettingsEffective?.Trigger;
+		if (trigger.HasValue)
+		{
+			return trigger.Value;
+		}
+		// Return default: Hover | Focus (will be handled by HxTooltip constructor)
+		return TooltipTrigger.Hover | TooltipTrigger.Focus;
+	}
+
 	private protected virtual string GetButtonType() => "button";
 
 	private async Task HandleClick(MouseEventArgs mouseEventArgs)
