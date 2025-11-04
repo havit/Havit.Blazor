@@ -41,7 +41,7 @@ public partial class HxButtonTests : BunitTestBase
 		var tooltipElement = cut.Find("span[data-bs-toggle='tooltip']");
 		Assert.IsNotNull(tooltipElement);
 		var trigger = tooltipElement.GetAttribute("data-bs-trigger");
-		Assert.IsTrue(trigger.Contains("hover") && trigger.Contains("click"));
+		Assert.AreEqual("click hover", trigger); // order does not matter
 	}
 
 	[TestMethod]
