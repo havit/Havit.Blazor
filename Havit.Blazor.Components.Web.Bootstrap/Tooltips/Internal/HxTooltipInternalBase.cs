@@ -98,7 +98,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	/// </summary>
 	protected virtual Task InvokeOnHiddenAsync() => OnHidden.InvokeAsync();
 
-	[Inject] public IJSRuntime JSRuntime { get; set; }
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	protected abstract string JsModuleName { get; }
 	protected abstract string DataBsToggle { get; }
