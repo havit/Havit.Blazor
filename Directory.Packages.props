@@ -2,8 +2,8 @@
 	<PropertyGroup>
 		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 		<CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-		<AspNetCoreVersion8>8.0.21</AspNetCoreVersion8>
-		<AspNetCoreVersion9>9.0.10</AspNetCoreVersion9>
+		<AspNetCoreVersion8>8.0.22</AspNetCoreVersion8>
+		<AspNetCoreVersion9>9.0.11</AspNetCoreVersion9>
 		<AspNetCoreVersion10>10.0.0</AspNetCoreVersion10>
 	</PropertyGroup>
 	<ItemGroup>
@@ -30,7 +30,7 @@
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing" Version="1.1.2" />
 		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.0" Condition="'$(TargetFramework)' == 'net10.0'" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.10" Condition="'$(TargetFramework)' != 'net10.0'"/>
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.11" Condition="'$(TargetFramework)' != 'net10.0'"/>
 		<PackageVersion Include="Microsoft.Extensions.Localization" Version="10.0.0" />
 		<PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="10.0.0" />
 		<PackageVersion Include="Moq" Version="4.20.72" />
