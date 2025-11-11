@@ -62,7 +62,7 @@ public static class GrpcClientServiceCollectionExtensions
 	/// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
 	/// <param name="assemblyToScan">The assembly to scan for API contract attributes.</param>
 	/// <param name="configureGrpcClientWithAuthorization">An optional action to configure gRPC clients with authorization.</param>
-	/// <param name="configureGrpClientAll">An optional action to configure all gRPC clients.</param>
+	/// <param name="configureGrpcClientAll">An optional action to configure all gRPC clients.</param>
 	/// <param name="configureGrpcClientFactory">
 	/// An optional action to configure the gRPC client factory.
 	/// If Not provided, <c>options.Address</c> (backend URL) will be configured from <c>NavigationManager.BaseUri</c>.
@@ -71,10 +71,10 @@ public static class GrpcClientServiceCollectionExtensions
 		this IServiceCollection services,
 		Assembly assemblyToScan,
 		Action<IHttpClientBuilder> configureGrpcClientWithAuthorization = null,
-		Action<IHttpClientBuilder> configureGrpClientAll = null,
+		Action<IHttpClientBuilder> configureGrpcClientAll = null,
 		Action<IServiceProvider, GrpcClientFactoryOptions> configureGrpcClientFactory = null)
 	{
-		AddGrpcClientsByApiContractAttributes(services, [assemblyToScan], configureGrpcClientWithAuthorization, configureGrpClientAll, configureGrpcClientFactory);
+		AddGrpcClientsByApiContractAttributes(services, [assemblyToScan], configureGrpcClientWithAuthorization, configureGrpcClientAll, configureGrpcClientFactory);
 	}
 
 	/// <summary>
@@ -83,7 +83,7 @@ public static class GrpcClientServiceCollectionExtensions
 	/// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
 	/// <param name="assembliesToScan">The assembly to scan for API contract attributes.</param>
 	/// <param name="configureGrpcClientWithAuthorization">An optional action to configure gRPC clients with authorization.</param>
-	/// <param name="configureGrpClientAll">An optional action to configure all gRPC clients.</param>
+	/// <param name="configureGrpcClientAll">An optional action to configure all gRPC clients.</param>
 	/// <param name="configureGrpcClientFactory">
 	/// An optional action to configure the gRPC client factory.
 	/// If Not provided, <c>options.Address</c> (backend URL) will be configured from <c>NavigationManager.BaseUri</c>.
@@ -92,7 +92,7 @@ public static class GrpcClientServiceCollectionExtensions
 		this IServiceCollection services,
 		Assembly[] assembliesToScan,
 		Action<IHttpClientBuilder> configureGrpcClientWithAuthorization = null,
-		Action<IHttpClientBuilder> configureGrpClientAll = null,
+		Action<IHttpClientBuilder> configureGrpcClientAll = null,
 		Action<IServiceProvider, GrpcClientFactoryOptions> configureGrpcClientFactory = null)
 	{
 		Contract.Requires<ArgumentNullException>(assembliesToScan is not null);
@@ -106,13 +106,13 @@ public static class GrpcClientServiceCollectionExtensions
 
 		foreach (var item in interfacesAndAttributes)
 		{
-			// services.AddGrpcClientCore<TService>(configureGrpcClientWithAuthorization, configureGrpClientAll);
+			// services.AddGrpcClientCore<TService>(configureGrpcClientWithAuthorization, configureGrpcClientAll);
 			var grpcClient = (IHttpClientBuilder)addGrpcClientCoreMethodInfo.MakeGenericMethod(item.Interface)
 				.Invoke(null, new object[]
 				{
 						services,
 						item.Attribute.RequireAuthorization ? configureGrpcClientWithAuthorization : null,
-						configureGrpClientAll,
+						configureGrpcClientAll,
 						configureGrpcClientFactory
 				});
 		}
@@ -126,7 +126,7 @@ public static class GrpcClientServiceCollectionExtensions
 	private static void AddGrpcClientCore<TService>(
 		this IServiceCollection services,
 		Action<IHttpClientBuilder> configureGrpcClientWithAuthorization = null,
-		Action<IHttpClientBuilder> configureGrpClientAll = null,
+		Action<IHttpClientBuilder> configureGrpcClientAll = null,
 		Action<IServiceProvider, GrpcClientFactoryOptions> configureGrpcClientFactory = null)
 		where TService : class
 	{
@@ -152,7 +152,7 @@ public static class GrpcClientServiceCollectionExtensions
 			.AddInterceptor<ClientUriGrpcClientInterceptor>()
 			.AddInterceptor<ServerExceptionsGrpcClientInterceptor>();
 
-		configureGrpClientAll?.Invoke(grpcClient);
+		configureGrpcClientAll?.Invoke(grpcClient);
 		configureGrpcClientWithAuthorization?.Invoke(grpcClient);
 	}
 }
