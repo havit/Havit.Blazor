@@ -43,7 +43,7 @@ public sealed record SortingItem<TItem>
 		return (sortingItem != null)
 			&& String.Equals(SortString, sortingItem.SortString, StringComparison.OrdinalIgnoreCase)
 			&& (((SortKeySelector == null) && (sortingItem.SortKeySelector == null))
-				|| SortKeySelector.ToString().Equals(sortingItem.SortKeySelector.ToString()) /* good-enough for sorting */);
+				|| ((SortKeySelector != null) && (sortingItem.SortKeySelector != null) && SortKeySelector.ToString().Equals(sortingItem.SortKeySelector.ToString())) /* good-enough for sorting */);
 	}
 
 	/// <summary>

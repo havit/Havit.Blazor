@@ -1,0 +1,93 @@
+@page "/HxGrid_MixedSorting_Test"
+@rendermode InteractiveServer
+@using System.Globalization
+
+<h1>HxGrid - Mixed Sorting Test</h1>
+<p>This test reproduces the issue where clicking on columns with mixed sorting types causes NullReferenceException.</p>
+
+<h2>Grid with Mixed SortKeySelector and SortString Columns</h2>
+<p>Scenario: Some columns use SortKeySelector (for client-side sorting), others use SortString (for custom server-side sorting)</p>
+
+<HxGrid TItem="CultureInfo" DataProvider="@MixedSortingDataProvider" PageSize="10">
+	<Columns>
+		@* Column with SortKeySelector (client-side sorting) *@
+		<HxGridColumn TItem="CultureInfo" 
+					  HeaderText="Display Name (SortKeySelector)" 
+					  ItemTextSelector="@(item => item.DisplayName)" 
+					  SortKeySelector="@(item => item.DisplayName)" />
+		
+		@* Column with SortString (custom server-side sorting) *@
+		<HxGridColumn TItem="CultureInfo" 
+					  HeaderText="Name (SortString)" 
+					  ItemTextSelector="@(item => item.Name)" 
+					  SortString="@nameof(CultureInfo.Name)" />
+		
+		@* Column with SortKeySelector *@
+		<HxGridColumn TItem="CultureInfo" 
+					  HeaderText="English Name (SortKeySelector)" 
+					  ItemTextSelector="@(item => item.EnglishName)" 
+					  SortKeySelector="@(item => item.EnglishName)" />
+		
+		@* Column with SortString *@
+		<HxGridColumn TItem="CultureInfo" 
+					  HeaderText="Native Name (SortString)" 
+					  ItemTextSelector="@(item => item.NativeName)" 
+					  SortString="@nameof(CultureInfo.NativeName)" />
+	</Columns>
+</HxGrid>
+
+<div class="alert alert-info mt-3">
+	<strong>Steps to reproduce:</strong>
+	<ol>
+		<li>Click on "Display Name (SortKeySelector)" column header to sort</li>
+		<li>Click on "Name (SortString)" column header to sort</li>
+		<li>Click on "English Name (SortKeySelector)" column header to sort</li>
+		<li>Without the fix, a NullReferenceException would occur when comparing sorting items with different null states for SortKeySelector</li>
+	</ol>
+</div>
+
+@code {
+	private async Task<GridDataProviderResult<CultureInfo>> MixedSortingDataProvider(GridDataProviderRequest<CultureInfo> request)
+	{
+		await Task.Delay(500); // Simulate server call
+
+		var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures).ToList();
+
+		// For demonstration, we handle SortString-based sorting manually
+		if (request.Sorting != null && request.Sorting.Any())
+		{
+			var firstSort = request.Sorting.First();
+			if (firstSort.SortString != null)
+			{
+				// Custom server-side sorting based on SortString
+				switch (firstSort.SortString)
+				{
+					case nameof(CultureInfo.Name):
+						cultures = firstSort.SortDirection == Collections.SortDirection.Ascending
+							? cultures.OrderBy(c => c.Name).ToList()
+							: cultures.OrderByDescending(c => c.Name).ToList();
+						break;
+					case nameof(CultureInfo.NativeName):
+						cultures = firstSort.SortDirection == Collections.SortDirection.Ascending
+							? cultures.OrderBy(c => c.NativeName).ToList()
+							: cultures.OrderByDescending(c => c.NativeName).ToList();
+						break;
+				}
+			}
+			else if (firstSort.SortKeySelector != null)
+			{
+				// Apply client-side sorting
+				cultures = request.ApplyTo(cultures).Data.ToList();
+			}
+		}
+
+		return new GridDataProviderResult<CultureInfo>()
+		{
+			TotalCount = cultures.Count,
+			Data = cultures
+				.Skip(request.StartIndex)
+				.Take(request.Count ?? 10)
+				.ToList()
+		};
+	}
+}
