@@ -21,7 +21,7 @@ jobs:
           9.0.x
           10.0.x
     - name: Restore dependencies
-      run: dotnet restore --configuration Release
+      run: dotnet restore
     - name: Build
       run: dotnet build --no-restore -c Release -p:TreatWarningsAsErrors=true
     - name: Install Playwright browsers
