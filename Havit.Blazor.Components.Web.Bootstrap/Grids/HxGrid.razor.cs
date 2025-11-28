@@ -398,14 +398,14 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// <inheritdoc />
 	protected override async Task OnParametersSetAsync()
 	{
-		await base.OnParametersSetAsync();
-
 		Contract.Requires<InvalidOperationException>(DataProvider != null, $"Property {nameof(DataProvider)} on {GetType()} must have a value.");
 		Contract.Requires<InvalidOperationException>(CurrentUserState != null, $"Property {nameof(CurrentUserState)} on {GetType()} must have a value.");
 		if ((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) && MultiSelectionEnabled)
 		{
 			Contract.Requires<InvalidOperationException>(PreserveSelectionEffective, $"{nameof(PreserveSelection)} must be enabled on {nameof(HxGrid)} when using {nameof(GridContentNavigationMode.InfiniteScroll)} with {nameof(MultiSelectionEnabled)}.");
 		}
+
+		bool shouldRefreshData = false;
 
 		if (_previousUserState != CurrentUserState)
 		{
@@ -414,8 +414,6 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 
 		if (_firstRenderCompleted) /* after first render previousUserState cannot be null */
 		{
-			bool shouldRefreshData = false;
-
 			if (_previousUserState != CurrentUserState)
 			{
 				// await: This adds one more render before OnParameterSetAsync is finished.
@@ -430,21 +428,19 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 				_previousPageSizeEffective = PageSizeEffective;
 				shouldRefreshData = true;
 			}
-
-			if (shouldRefreshData)
-			{
-				await RefreshDataCoreAsync();
-			}
 		}
 		_previousUserState = CurrentUserState;
 		_previousPageSizeEffective = PageSizeEffective;
+
+		if (shouldRefreshData)
+		{
+			await RefreshDataCoreAsync();
+		}
 	}
 
 	/// <inheritdoc />
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		await base.OnAfterRenderAsync(firstRender);
-
 		// when no sorting is set, use default
 		if (firstRender && (_currentSorting == null))
 		{
@@ -761,7 +757,15 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 		if (resetOptions.HasFlag(GridStateResetOptions.ResetSorting))
 		{
 			var defaultSorting = GetDefaultSorting();
-			if (!Enumerable.SequenceEqual(defaultSorting, _currentSorting)) // eliminate unnecessary CurrentUserStateChanged
+			if (defaultSorting is null)
+			{
+				if (_currentSorting is not null)
+				{
+					newUserState = newUserState with { Sorting = null };
+					_currentSorting = null;
+				}
+			}
+			else if ((_currentSorting is null) || !Enumerable.SequenceEqual(defaultSorting, _currentSorting)) // eliminate unnecessary CurrentUserStateChanged
 			{
 				newUserState = newUserState with
 				{
@@ -792,7 +796,6 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 				await _jsModule.InvokeVoidAsync("resetScrollPosition", _hxGridContainer);
 			}
 		}
-
 	}
 
 	private async ValueTask RefreshPaginationOrLoadMoreDataCoreAsync(bool forceReloadAllPaginationOrLoadMoreData = false)

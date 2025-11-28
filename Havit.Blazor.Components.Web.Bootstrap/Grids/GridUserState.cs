@@ -3,7 +3,7 @@
 /// <summary>
 /// User state of the <see cref="HxGrid"/>.
 /// </summary>
-public record class GridUserState
+public record class GridUserState : IEquatable<GridUserState>
 {
 	/// <summary>
 	/// Current page index for <see cref="GridContentNavigationMode.Pagination"/>.
@@ -38,11 +38,53 @@ public record class GridUserState
 		Sorting = sorting;
 	}
 
-	/// <summary>
-	/// Constructor.
-	/// </summary>
 	public GridUserState() : this(0, null)
 	{
 		// NOOP
+	}
+
+	// Default Equals implementation is not sufficient because of the IReadOnlyList property.
+	public virtual bool Equals(GridUserState other)
+	{
+		if (other is null)
+		{
+			return false;
+		}
+
+		if (ReferenceEquals(this, other))
+		{
+			return true;
+		}
+
+		return (PageIndex == other.PageIndex)
+			&& (LoadMoreAdditionalItemsCount == other.LoadMoreAdditionalItemsCount)
+			&& SortingEquals(Sorting, other.Sorting);
+	}
+
+	private static bool SortingEquals(IReadOnlyList<GridUserStateSortingItem> left, IReadOnlyList<GridUserStateSortingItem> right)
+	{
+		if (ReferenceEquals(left, right))
+		{
+			return true;
+		}
+
+		if ((left is null) || (right is null))
+		{
+			return false;
+		}
+
+		return left.SequenceEqual(right);
+	}
+
+	public override int GetHashCode()
+	{
+		var hash = new HashCode();
+		hash.Add(PageIndex);
+		hash.Add(LoadMoreAdditionalItemsCount);
+		foreach (GridUserStateSortingItem item in Sorting)
+		{
+			hash.Add(item);
+		}
+		return hash.ToHashCode();
 	}
 }

@@ -1,4 +1,5 @@
 ﻿@page "/getting-started"
+@page "/documentation"
 @using Havit.Blazor.Components.Web.ECharts
 
 <PageTitle>Getting started | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
@@ -11,7 +12,7 @@
 <DocHeading Title="Prerequisites" Level="2" />
 <p>Havit.Blazor components have the following requirements:</p>
 <ul>
-	<li>.NET 8.0 or later (our NuGet package provides builds for both <code>net8.0</code> and <code>net9.0</code> to utilize the latest features).</li>
+	<li>.NET 8.0 or later (our NuGet package provides builds for all <code>net8.0</code>, <code>net9.0</code> and <code>net10.0</code> to utilize the latest features).</li>
 	<li>Most components require <i>interactive rendering mode</i> for full functionality (some support for <i>static SSR</i> is available, with limited functionality where applicable).</li>
 </ul>
 
@@ -52,7 +53,10 @@
 <HxAlert Color="ThemeColor.Light">
 	<p class="mb-0 fw-semibold"><small>Framework version</small></p>
 	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
-		<InputRadioGroup @bind-Value="_setup.TargetFramework">
+		<InputRadioGroup @bind-Value="_setup.TargetFramework" @bind-Value:after="UpdateUri">
+			<InputRadio id="tfnet10" class="btn-check" Value="@TargetFramework.Net10" />
+			<label class="btn btn-outline-primary" for="tfnet10">.NET 10</label>
+
 			<InputRadio id="tfnet9" class="btn-check" Value="@TargetFramework.Net9" />
 			<label class="btn btn-outline-primary" for="tfnet9">.NET 9</label>
 
@@ -63,7 +67,7 @@
 
 	<p class="mb-0 fw-semibold"><small>Blazor app model</small></p>
 	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
-		<InputRadioGroup @bind-Value="_setup.ProjectSetup">
+		<InputRadioGroup @bind-Value="_setup.ProjectSetup" @bind-Value:after="UpdateUri">
 			<InputRadio id="psbwa" class="btn-check" Value="@ProjectSetup.BlazorWebApp" />
 			<label class="btn btn-outline-primary" for="psbwa">Blazor Web App</label>
 
@@ -79,7 +83,7 @@
 	{
 		<p class="mb-0 fw-semibold"><small>Interactive render mode</small></p>
 		<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
-			<InputRadioGroup @bind-Value="_setup.BwaRenderMode">
+			<InputRadioGroup @bind-Value="_setup.BwaRenderMode" @bind-Value:after="UpdateUri">
 				<InputRadio id="bwaauto" class="btn-check" Value="@BwaRenderMode.Auto" />
 				<label class="btn btn-outline-primary" for="bwaauto">Auto</label>
 
@@ -97,7 +101,7 @@
 
 	<p class="mb-0 fw-semibold"><small>Did you opt for sample pages when creating the project?</small></p>
 	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
-		<InputRadioGroup @bind-Value="_setup.SamplePagesCreated">
+		<InputRadioGroup @bind-Value="_setup.SamplePagesCreated" @bind-Value:after="UpdateUri">
 			<InputRadio id="samplePagesNo" class="btn-check" Value="false" />
 			<label class="btn btn-outline-primary" for="samplePagesNo">Empty project</label>
 
@@ -142,7 +146,7 @@ else
 <HxAlert Color="ThemeColor.Light">
 	<p class="mb-0 fw-semibold"><small>Choose a Bootstrap CSS bundle</small></p>
 	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
-		<InputRadioGroup @bind-Value="_setup.BootstrapTheme">
+		<InputRadioGroup @bind-Value="_setup.BootstrapTheme" @bind-Value:after="UpdateUri">
 			<InputRadio id="bsHavit" class="btn-check" Value="@BootstrapTheme.HavitBlazor" />
 			<label class="btn btn-outline-primary" for="bsHavit">Havit.Blazor</label>
 

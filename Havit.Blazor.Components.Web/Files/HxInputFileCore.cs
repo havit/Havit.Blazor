@@ -154,10 +154,12 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// Initiates the upload (does not wait for upload completion). Use OnUploadCompleted event.
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+	/// <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
+	/// <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
 	/// <remarks>
 	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
 	/// </remarks>
-	public async Task StartUploadAsync(string accessToken = null)
+	public async Task StartUploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeaderName = "RequestVerificationToken")
 	{
 		Contract.Requires<ArgumentException>(!String.IsNullOrWhiteSpace(UploadUrl), nameof(UploadUrl) + " has to be set.");
 
@@ -175,18 +177,22 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 			accessToken,
 			MaxFileSizeEffective == long.MaxValue ? null : MaxFileSizeEffective,
 			MaxParallelUploadsEffective,
-			UploadHttpMethodEffective);
+			UploadHttpMethodEffective,
+			antiforgeryHeaderName,
+			antiforgeryToken);
 	}
 
 	/// <summary>
 	/// Uploads the file(s).
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-	public async Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null)
+	/// <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
+	/// <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
+	public async Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeaderName = "RequestVerificationToken")
 	{
 		_uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
 
-		await StartUploadAsync(accessToken);
+		await StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
 
 		return await _uploadCompletedTaskCompletionSource.Task;
 	}

@@ -119,16 +119,22 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	/// Starts the upload.
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+	/// <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
+	/// <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
 	/// <remarks>
 	/// We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefore, the accessToken here...
 	/// </remarks>
-	public Task StartUploadAsync(string accessToken = null) => _hxInputFileCoreComponentReference?.StartUploadAsync(accessToken);
+	public Task StartUploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeaderName = "RequestVerificationToken")
+		=> _hxInputFileCoreComponentReference?.StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
 
 	/// <summary>
 	/// Uploads the file(s).
 	/// </summary>
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
-	public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null) => _hxInputFileCoreComponentReference?.UploadAsync(accessToken);
+	/// <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
+	/// <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
+	public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeaderName = "RequestVerificationToken")
+		=> _hxInputFileCoreComponentReference?.UploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
 
 	protected Task HandleOnChange(InputFileChangeEventArgs args)
 	{

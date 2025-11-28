@@ -295,6 +295,11 @@
             <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap outline button style</see>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.TooltipSettings">
+            <summary>
+            Tooltip settings.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonSize">
             <summary>
             Represents the size for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>.
@@ -426,6 +431,11 @@
             <summary>
             Custom CSS class to render with the tooltip <c>span</c> wrapper of the <c>&lt;button /&gt;</c>.<br />
             If set, the <c>span</c> wrapper will be rendered no matter whether the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Tooltip"/> text is set or not.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.TooltipSettings">
+            <summary>
+            Tooltip settings (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.TooltipSettings"/>, overridden by individual Tooltip* parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnClick">
@@ -2385,6 +2395,16 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.ShowDropdownAsync">
+            <summary>
+            Shows the dropdown.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.HideDropdownAsync">
+            <summary>
+            Hides the dropdown.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectInternal`2.HandleJsHidden">
             <summary>
             Receives notification from JavaScript when item is hidden.
@@ -2429,6 +2449,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.RenderValidationMessage(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <summary>
             Renders the validation message.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.HintId">
+            <summary>
+            Hint container element ID.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.Hint">
@@ -2829,29 +2854,39 @@
             Receives notification from JavaScript when content is hidden.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.Animation">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Animation">
             <summary>
             Apply a CSS fade transition to the tooltip (enable/disable).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.CssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.CssClass">
             <summary>
             Custom CSS class to add.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.Container">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Container">
             <summary>
             Appends the tooltip/popover to a specific element. Default is <c>body</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.WrapperCssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.WrapperCssClass">
             <summary>
             Custom CSS class to render with the <c>span</c> wrapper of the child-content.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.Offset">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Offset">
             <summary>
             Offset of the component relative to its target (ChildContent).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Trigger">
+            <summary>
+            Tooltip/Popover trigger(s).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Placement">
+            <summary>
+            Tooltip/Popover placement.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
@@ -2959,7 +2994,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.Label">
             <summary>
-            Label to render before input (or after input for Checkbox).		
+            Label to render before input (or after input for Checkbox).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.LabelTemplate">
@@ -3028,20 +3063,24 @@
             Clears associated input-file element and resets component to initial state.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.StartUploadAsync(System.String)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.StartUploadAsync(System.String,System.String,System.String)">
             <summary>
             Starts the upload.
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+            <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
+            <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
             <remarks>
             We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefor the accessToken here...
             </remarks>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.UploadAsync(System.String)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.UploadAsync(System.String,System.String,System.String)">
             <summary>
             Uploads the file(s).
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+            <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
+            <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone">
             <summary>
@@ -3149,20 +3188,24 @@
             Clears the associated input-file element and resets the component to its initial state.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.StartUploadAsync(System.String)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.StartUploadAsync(System.String,System.String,System.String)">
             <summary>
             Starts the upload.
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+            <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
+            <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
             <remarks>
             We do not want to make the Havit.Blazor library dependent on WebAssembly libraries (IAccessTokenProvider and such). Therefore, the accessToken here...
             </remarks>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadAsync(System.String)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadAsync(System.String,System.String,System.String)">
             <summary>
             Uploads the file(s).
             </summary>
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
+            <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
+            <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputFileSettings">
             <summary>
@@ -3398,9 +3441,6 @@
             <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.FocusAsync">
-            <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.RenderChipGenerator(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.RenderChipValue(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
@@ -3959,6 +3999,16 @@
             The ID of the input element. Autogenerated when used with a label.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.HintId">
+            <summary>
+            The ID of the hint element (container).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.ValidationMessageId">
+            <summary>
+            The ID of the validation message element (container).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.RenderOrder">
             <summary>
             Elements rendering order.
@@ -4441,9 +4491,27 @@
             Size of the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.BindEvent">
+            <summary>
+            Input event used to bind the Value. Default is OnChange.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.SelectOnFocus">
             <summary>
             Determines whether all the content within the input field is automatically selected when it receives focus.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.SmartPaste">
+            <summary>
+            When enabled, pasted values are normalized to contain only valid numeric characters.
+            Default is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.SmartKeyboard">
+            <summary>
+            When enabled, the input may provide an optimized keyboard experience for numeric entry.
+            Currently, this means whenever a minus key is pressed, the sign of the number is toggled.
+            Default is <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.LabelType">
@@ -4881,6 +4949,16 @@
             Focuses the multi select component.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.ShowDropdownAsync">
+            <summary>
+            Shows the dropdown.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.HideDropdownAsync">
+            <summary>
+            Hides the dropdown.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc/>
         </member>
@@ -5129,6 +5207,12 @@
             The default value is <c>true</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.ItemDisabledSelector">
+            <summary>
+            When set, determines whether an item is disabled (non-selectable and greyed out).
+            When returns <c>true</c>, the corresponding option will be rendered with <c>disabled</c> attribute.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect">
             <summary>
             Non-generic API for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2"/>.
@@ -5232,6 +5316,13 @@
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.ItemDisabledSelectorImpl">
+            <summary>
+            When set, determines whether an item is disabled (non-selectable and greyed out).
+            When returns <c>true</c>, the corresponding option will be rendered with <c>disabled</c> attribute.
+            Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.EnabledEffective">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.EnabledEffective" />
         </member>
@@ -5283,6 +5374,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.EditContext">
             <summary>
             EditContext. For exceptional use where EditContext is not used as a CascadingParameter.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.Id">
+            <summary>
+            Container element ID.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.For">
@@ -5517,6 +5613,17 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.SelectOnFocus">
             <summary>
             Determines whether all the content within the input field is automatically selected when it receives focus.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.SmartPaste">
+            <summary>
+            When enabled, pasted values are normalized to contain only valid numeric characters.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputNumberSettings.SmartKeyboard">
+            <summary>
+            When enabled, the input may provide an optimized keyboard experience for numeric entry.
+            Currently, this means whenever a minus key is pressed, the sign of the number is toggled.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings">
@@ -6327,6 +6434,11 @@
             We want to avoid changing the position of the form submit button to prevent the "no onclick/onsubmit issue when button position changes".
             </remarks>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.VisuallyHidden">
+            <summary>
+            Validation messages are rendered but visually hidden (e.g., for screen readers).
+            </summary>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.None">
             <summary>
             Renders no validation message.
@@ -6741,11 +6853,6 @@
             For backward compatibility in custom projects.
             Once upon a time, this was the only constructor.
             </remarks>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridUserState.#ctor">
-            <summary>
-            Constructor.
-            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem">
             <summary>
@@ -10461,7 +10568,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTab.OnTabDeactivated">
             <summary>
-            Raised when the tab is deactivated (another tab is activates or when <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/> is disposed).
+            Raised when the tab is deactivated (another tab is activated).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTab.InvokeOnTabDeactivatedAsync">
@@ -10547,9 +10654,6 @@
             <summary>
             Handle click on the tab title to activate the tab.
             </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.DisposeAsync">
-            <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode">
             <summary>
@@ -11050,12 +11154,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Placement">
             <summary>
-            Popover placement. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PopoverPlacement.Right"/>.
+            Popover placement. The default is "not set" (which Bootstrap defaults to <code>right</code>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Trigger">
             <summary>
-            Popover trigger(s). The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PopoverTrigger.Click"/>.
+            Popover trigger(s). The default is "not set" (which Bootstrap defaults to <code>click</code>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip">
@@ -11096,12 +11200,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Placement">
             <summary>
-            Tooltip placement. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement.Top"/>.
+            Tooltip placement. The default is "not set" (which Bootstrap defaults to <code>top</code>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Trigger">
             <summary>
-            Tooltip trigger(s). The default is <c><see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger.Hover"/> | <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger.Focus"/></c>.
+            Tooltip trigger(s). The default is "not set" (which Bootstrap defaults to <code>hover</code> + <code>focus</code>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PopoverPlacement">
@@ -11112,6 +11216,41 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.PopoverPlacement.Auto">
             <summary>
             When specified, it will dynamically reorient the popover.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Animation">
+            <summary>
+            Apply a CSS fade transition to the popover (enable/disable).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.CssClass">
+            <summary>
+            Custom CSS class to add.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Container">
+            <summary>
+            Appends the popover to a specific element. Default is <c>body</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.WrapperCssClass">
+            <summary>
+            Custom CSS class to render with the <c>span</c> wrapper of the child-content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Offset">
+            <summary>
+            Offset of the component relative to its target (ChildContent).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Trigger">
+            <summary>
+            Popover trigger(s).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Placement">
+            <summary>
+            Popover placement.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PopoverTrigger">
@@ -11147,6 +11286,41 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement.Auto">
             <summary>
             When specified, it will dynamically reorient the tooltip.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Animation">
+            <summary>
+            Apply a CSS fade transition to the tooltip (enable/disable).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.CssClass">
+            <summary>
+            Custom CSS class to add.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Container">
+            <summary>
+            Appends the tooltip/popover to a specific element. Default is <c>body</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.WrapperCssClass">
+            <summary>
+            Custom CSS class to render with the <c>span</c> wrapper of the child-content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Offset">
+            <summary>
+            Offset of the component relative to its target (ChildContent).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Trigger">
+            <summary>
+            Tooltip trigger(s).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Placement">
+            <summary>
+            Tooltip placement.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger">

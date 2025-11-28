@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<NoWarn>1591;1701;1702;SA1134</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -14,7 +14,8 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.3.1</PackageVersion>
+		<!-- ComponentsPackagesVersion - variable from Directory.Build.props -->
+		<PackageVersion>$(ComponentsPackagesVersion)</PackageVersion>
 		<Description>HAVIT Blazor Library - Google Tag Manager support (incl. optional automatic page-views tracking)</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
@@ -26,7 +27,7 @@
 	</ItemGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.GoogleTagManager.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\xmldoc" />
+		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.GoogleTagManager.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\XmlDoc" />
 	</Target>
 
 </Project>

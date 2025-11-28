@@ -43,6 +43,6 @@ public class HxInputDateRangeTests : BunitTestBase
 		{
 			Assert.IsFalse(button.Find("button").HasAttribute("disabled"), $"Button {button.Instance.Text} should not be disabled.");
 		}
-		Assert.IsFalse(cut.Markup.Contains("disabled"), "There should be no disabled attribute in the rendered markup.");
+		Assert.DoesNotContain("disabled", cut.Markup, "There should be no disabled attribute in the rendered markup.");
 	}
 }

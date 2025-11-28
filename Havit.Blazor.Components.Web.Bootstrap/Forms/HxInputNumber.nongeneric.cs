@@ -16,7 +16,9 @@ public class HxInputNumber
 		Defaults = new InputNumberSettings()
 		{
 			Type = InputType.Text,
-			SelectOnFocus = true
+			SelectOnFocus = true,
+			SmartPaste = true,
+			SmartKeyboard = true
 		};
 	}
 }

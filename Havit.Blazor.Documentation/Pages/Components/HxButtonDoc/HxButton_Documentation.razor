@@ -58,8 +58,17 @@
 		<Demo Type="typeof(HxButton_Demo_Badge)" Tabs="false" />
 
 		<DocHeading Title="Button with a tooltip" Id="tooltip" />
-		<p>You can use the <code>Tooltip</code> parameter to set the button's tooltip:</p>
+		<p>You can use the <code>Tooltip</code> parameter to set the button's tooltip.</p>
 		<Demo Type="typeof(HxButton_Demo_Tooltip)" Tabs="false" />
+		<p>You can use the <a href="/types/@nameof(TooltipSettings)"><code>@nameof(TooltipSettings)</code></a> parameter to customize the tooltip.</p>
+		<DocAlert Type="DocAlertType.Info">
+			Bootstrap's default tooltip trigger is <code>hover focus</code>, which often keeps the tooltip
+			visible after clicking the button since it remains focused. You can change this behavior
+			by adjusting the <code>Trigger</code> parameter.<br />
+			To update the default trigger, set <code>HxButton.Defaults.TooltipSettings.Trigger = TooltipTrigger.Hover</code>
+			in your application startup.
+		</DocAlert>
+
 		<DocHeading Title="Tooltip, wrapper, and CSS classes" Level="3" />
 		<DocAlert Type="DocAlertType.Warning">
 			<p>

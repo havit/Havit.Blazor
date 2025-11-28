@@ -4,6 +4,51 @@
         <name>Havit.Blazor.Components.Web.ECharts</name>
     </assembly>
     <members>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartAxisPointerUpdatedAxisInfo.AxisDim">
+            <summary>
+            Dimension of the axis. Either x or y.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartAxisPointerUpdatedAxisInfo.AxisIndex">
+            <summary>
+            Index of the axis.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartAxisPointerUpdatedAxisInfo.Value">
+            <summary>
+            Incoming data value. Use <see cref="M:Havit.Blazor.Components.Web.ECharts.EChartAxisPointerUpdatedAxisInfo.GetValue``1"/> to extract the value as the specified type.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.ECharts.EChartAxisPointerUpdatedAxisInfo.GetValue``1">
+            <summary>
+            Returns the <see cref="P:Havit.Blazor.Components.Web.ECharts.EChartAxisPointerUpdatedAxisInfo.Value"/> as the specified type <typeparamref name="T"/>.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.ECharts.EChartAxisPointerUpdatedEventArgs">
+            <summary>
+            Represents the arguments for the <see cref="P:Havit.Blazor.Components.Web.ECharts.HxEChart.OnAxisPointerUpdated" /> event callback.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartAxisPointerUpdatedEventArgs.SeriesIndex">
+            <summary>
+            Series index in incoming <c>Options.Series</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartAxisPointerUpdatedEventArgs.DataIndexInside">
+            <summary>
+            Data index in inside the incoming data array.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartAxisPointerUpdatedEventArgs.DataIndex">
+            <summary>
+            Data index in incoming data array.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.EChartAxisPointerUpdatedEventArgs.AxesInfo">
+            <summary>
+            List of all axis and their info.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.ECharts.EChartClickEventArgs">
             <summary>
             Represents the arguments for the <see cref="P:Havit.Blazor.Components.Web.ECharts.HxEChart.OnClick" /> event callback.
@@ -82,6 +127,11 @@
         <member name="P:Havit.Blazor.Components.Web.ECharts.HxEChart.OnClick">
             <summary>
             Invoked when the chart is clicked.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.ECharts.HxEChart.OnAxisPointerUpdated">
+            <summary>
+            Invoked when the user moves the axis pointer (e.g., when hovering over a chart).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.ECharts.HxEChart.JSFunc">

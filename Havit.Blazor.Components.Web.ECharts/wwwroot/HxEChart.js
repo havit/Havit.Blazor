@@ -1,4 +1,6 @@
-export function setupChart(id, dotnetReference, options, autoResize) {
+﻿const AXIS_POINTER_DEBOUNCE_MS = 50;
+
+export function setupChart(id, dotnetReference, options, autoResize, subscribeOnAxisPointerUpdate) {
 	let optionsObject = eval('(' + options + ')');
 
 	const element = document.getElementById(id);
@@ -12,6 +14,12 @@ export function setupChart(id, dotnetReference, options, autoResize) {
 		if (autoResize) {
 			element.resizeObserver = new ResizeObserver(() => { resizeChart(id); });
 			element.resizeObserver.observe(element);
+		}
+
+		if (subscribeOnAxisPointerUpdate) {
+			chart.on('updateAxisPointer', (params) => {
+				handleUpdateAxisPointer(dotnetReference, chart, params);
+			});
 		}
 
 		chart.getZr().on('click', function (event) {
@@ -31,7 +39,17 @@ export function setupChart(id, dotnetReference, options, autoResize) {
 		element.echart = chart;
 	}
 
-	element.echart.setOption(optionsObject);
+	element.echart.setOption(optionsObject, { notMerge: true });
+}
+
+function handleUpdateAxisPointer(dotnetReference, chart, params) {
+	if (chart.__axisPointerDebounceTimeout) {
+		clearTimeout(chart.__axisPointerDebounceTimeout);
+	}
+
+	chart.__axisPointerDebounceTimeout = setTimeout(() => {
+		dotnetReference.invokeMethodAsync('HandleAxisPointerUpdate', params);
+	}, AXIS_POINTER_DEBOUNCE_MS);
 }
 
 function handleClick(dotnetReference, params) {

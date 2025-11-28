@@ -1,5 +1,5 @@
 @page "/HxInputTagsTest"
-@using FluentValidation
+@using System.ComponentModel.DataAnnotations
 
 <h1>HxInputTags</h1>
 
@@ -7,7 +7,7 @@
 
 <HxFormState Enabled="@enabled">
 	<EditForm Model="model">
-		<Blazored.FluentValidation.FluentValidationValidator />
+		<DataAnnotationsValidator />
 		<ValidationSummary />
 		<HxInputTags @ref="inputTagsComponent" Label="Tags" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" />
 		<HxInputTags Label="Tags (shared Value, Large)" @bind-Value="model.Tags" DataProvider="GetNewItemSuggestions" InputSize="InputSize.Large" />
@@ -25,30 +25,30 @@
 <HxButton Text="Focus" Color="ThemeColor.Secondary" OnClick="async () => await inputTagsComponent.FocusAsync()" />
 
 @code {
-	private bool enabled = true;
-	private MyModel model = new MyModel();
-	private string tags;
-	private HxInputTags inputTagsComponent;
+    private bool enabled = true;
+    private MyModel model = new MyModel();
+    private string tags;
+    private HxInputTags inputTagsComponent;
 
-	private Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
-	{
-		return Task.FromResult(new InputTagsDataProviderResult()
+    private Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
+    {
+        return Task.FromResult(new InputTagsDataProviderResult()
 		{
 			Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString())
 		});
-	}
+    }
 
-	public class MyModel
-	{
-		public List<string> Tags { get; set; } = new List<string>() { "Blazor", "C#", "ASP.NET" };
+    public class MyModel : IValidatableObject
+    {
+        public List<string> Tags { get; set; } = new List<string>() { "Blazor", "C#", "ASP.NET" };
 
-		public class MyModelValidator : AbstractValidator<MyModel>
-		{
-			public MyModelValidator()
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+			if (Tags.Count < 4)
 			{
-				RuleFor(a => a.Tags).Must(t => t.Count > 3).WithMessage("At least 4 tags have to be entered.");
+				yield return new ValidationResult("At least 4 tags have to be entered.", new[] { nameof(Tags) });
 			}
-		}
+        }
 	}
 
 	public void HandleValidClick()

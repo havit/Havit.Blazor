@@ -1,0 +1,48 @@
+﻿@page "/HxMultiSelect_ShowHideDropdown"
+@rendermode InteractiveServer
+@inject IDemoDataService DemoDataService
+
+<div class="m-3">
+	<h3>HxMultiSelect ShowDropdownAsync/HideDropdownAsync Test</h3>
+
+	<div class="mb-3">
+		<HxButton Color="ThemeColor.Primary" OnClick="ShowDropdownAsync">Show Dropdown</HxButton>
+		<HxButton Color="ThemeColor.Secondary" OnClick="HideDropdownAsync" CssClass="ms-2">Hide Dropdown</HxButton>
+	</div>
+
+	<div class="mb-3">
+		<HxMultiSelect @ref="multiSelectComponent"
+					   Label="Employees"
+					   TItem="EmployeeDto"
+					   TValue="int"
+					   Data="@employees"
+					   @bind-Value="selectedEmployeeIds"
+					   TextSelector="@(p => p.Name)"
+					   ValueSelector="@(p => p.Id)"
+					   NullDataText="Loading employees..."
+					   EmptyText="-select employees-" />
+	</div>
+
+	<p class="mt-3">Selected employees (IDs): @String.Join(", ", selectedEmployeeIds.Select(e => e.ToString()))</p>
+</div>
+
+@code {
+	private IEnumerable<EmployeeDto> employees;
+	private List<int> selectedEmployeeIds = new();
+	private HxMultiSelect<int, EmployeeDto> multiSelectComponent;
+
+	protected override async Task OnInitializedAsync()
+	{
+		employees = await DemoDataService.GetAllEmployeesAsync();
+	}
+
+	private async Task ShowDropdownAsync()
+	{
+		await multiSelectComponent.ShowDropdownAsync();
+	}
+
+	private async Task HideDropdownAsync()
+	{
+		await multiSelectComponent.HideDropdownAsync();
+	}
+}

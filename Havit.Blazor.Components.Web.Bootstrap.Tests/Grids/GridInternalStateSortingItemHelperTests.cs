@@ -22,7 +22,7 @@ public class GridInternalStateSortingItemHelperTests
 		var newSorting = GridInternalStateSortingItemHelper.ApplyColumnToSorting(null, mockColumn.Object);
 
 		// Assert
-		Assert.AreEqual(1, newSorting.Length);
+		Assert.HasCount(1, newSorting);
 		Assert.AreSame(mockColumn.Object, newSorting.Single().Column);
 		Assert.IsFalse(newSorting.Single().ReverseDirection);
 	}
@@ -47,7 +47,7 @@ public class GridInternalStateSortingItemHelperTests
 		var newSorting = GridInternalStateSortingItemHelper.ApplyColumnToSorting(currentSorting, mockColumn2.Object);
 
 		// Assert
-		Assert.AreEqual(2, newSorting.Length);
+		Assert.HasCount(2, newSorting);
 
 		Assert.AreSame(mockColumn2.Object, newSorting[0].Column);
 		Assert.IsFalse(newSorting[0].ReverseDirection);
@@ -73,7 +73,7 @@ public class GridInternalStateSortingItemHelperTests
 		var newSorting = GridInternalStateSortingItemHelper.ApplyColumnToSorting(currentSorting, mockColumn1.Object);
 
 		// Assert
-		Assert.AreEqual(1, newSorting.Length);
+		Assert.HasCount(1, newSorting);
 
 		Assert.AreSame(mockColumn1.Object, newSorting[0].Column);
 		Assert.IsTrue(newSorting[0].ReverseDirection);
@@ -102,7 +102,7 @@ public class GridInternalStateSortingItemHelperTests
 		var sortingItems = GridInternalStateSortingItemHelper.ToSortingItems(currentSorting);
 
 		// Assert
-		Assert.AreEqual(2, sortingItems.Count);
+		Assert.HasCount(2, sortingItems);
 		Assert.AreEqual("A", sortingItems[0].SortString);
 		Assert.AreEqual(SortDirection.Ascending, sortingItems[0].SortDirection);
 		Assert.AreEqual("B", sortingItems[1].SortString);
@@ -135,7 +135,7 @@ public class GridInternalStateSortingItemHelperTests
 		var sortingItems = GridInternalStateSortingItemHelper.ToSortingItems(currentSorting);
 
 		// Assert
-		Assert.AreEqual(2, sortingItems.Count);
+		Assert.HasCount(2, sortingItems);
 		Assert.AreEqual("A", sortingItems[0].SortString);
 		Assert.AreEqual(SortDirection.Ascending, sortingItems[0].SortDirection);
 		Assert.AreEqual("B", sortingItems[1].SortString);
@@ -165,7 +165,7 @@ public class GridInternalStateSortingItemHelperTests
 		var sortingItems = GridInternalStateSortingItemHelper.ToSortingItems(currentSorting);
 
 		// Assert
-		Assert.AreEqual(1, sortingItems.Count);
+		Assert.HasCount(1, sortingItems);
 		Assert.AreEqual("A", sortingItems[0].SortString);
 		Assert.AreEqual(SortDirection.Ascending, sortingItems[0].SortDirection);
 	}

@@ -1,4 +1,5 @@
-﻿@inject IDemoDataService DemoDataService
+﻿@using Microsoft.AspNetCore.Components.Web
+@inject IDemoDataService DemoDataService
 
 <HxGrid TItem="EmployeeDto"
 		DataProvider="GetGridData"
@@ -11,7 +12,7 @@
 			<ItemTemplate Context="employee">
 				@if (selectedDataItem == employee)
 				{
-					<HxInputText @bind-Value="employee.Name" />
+					<HxInputText @bind-Value="employee.Name" @onkeyup="@(async (e) => await HandleInputKey(e))" />
 				}
 				else
 				{
@@ -23,7 +24,7 @@
 			<ItemTemplate Context="employee">
 				@if (selectedDataItem == employee)
 				{
-					<HxInputText @bind-Value="employee.Phone" />
+					<HxInputText @bind-Value="employee.Phone" @onkeyup="@(async (e) => await HandleInputKey(e))" />
 				}
 				else
 				{
@@ -35,7 +36,7 @@
 			<ItemTemplate Context="employee">
 				@if (selectedDataItem == employee)
 				{
-					<HxInputNumber @bind-Value="employee.Salary" Decimals="0" InputGroupStartText="$" />
+					<HxInputNumber @bind-Value="employee.Salary" Decimals="0" InputGroupStartText="$" @onkeyup="@(async (e) => await HandleInputKey(e))" />
 				}
 				else
 				{
@@ -47,7 +48,7 @@
 			<ItemTemplate Context="employee">
 				@if (selectedDataItem == employee)
 				{
-					<HxInputText @bind-Value="employee.Position" />
+					<HxInputText @bind-Value="employee.Position" @onkeyup="@(async (e) => await HandleInputKey(e))" />
 				}
 				else
 				{
@@ -59,7 +60,7 @@
 			<ItemTemplate Context="employee">
 				@if (selectedDataItem == employee)
 				{
-					<HxInputText @bind-Value="employee.Location" />
+					<HxInputText @bind-Value="employee.Location" @onkeyup="@(async (e) => await HandleInputKey(e))" />
 				}
 				else
 				{
@@ -92,5 +93,24 @@
 		}
 		// update selectedDataItem to new selection
 		selectedDataItem = newSelectedDataItem;
+	}
+
+	private async Task HandleInputKey(KeyboardEventArgs e)
+	{
+		// When Enter or Tab is pressed, save changes and exit edit mode
+		if (e.Key == "Enter" || e.Key == "Tab")
+		{
+			if (selectedDataItem != null)
+			{
+				// Save the current changes
+				await DemoDataService.UpdateEmployeeAsync(selectedDataItem);
+
+				if (e.Key == "Enter")
+				{
+					// Clear the selection to exit edit mode
+					selectedDataItem = null;
+				}
+			}
+		}
 	}
 }

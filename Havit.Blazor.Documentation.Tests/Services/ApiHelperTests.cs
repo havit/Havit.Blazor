@@ -6,7 +6,7 @@ namespace Havit.Blazor.Documentation.Tests.Services;
 [TestClass]
 public class ApiHelperTests
 {
-	[DataTestMethod]
+	[TestMethod]
 	[DataRow("AutosuggestDataProviderDelegate", true)]
 	[DataRow("GridDataProviderDelegate", true)]
 	[DataRow("InputTagsDataProviderDelegate", true)]

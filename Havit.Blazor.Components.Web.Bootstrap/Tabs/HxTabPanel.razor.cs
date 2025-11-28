@@ -8,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Encapsulates <see cref="HxNav"/> (<see cref="NavVariant.Tabs"/> variant as default) and <see cref="HxNavLink"/>s so you don't have to bother with them explicitly.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTabPanel">https://havit.blazor.eu/components/HxTabPanel</see>
 /// </summary>
-public partial class HxTabPanel : ComponentBase, IAsyncDisposable
+public partial class HxTabPanel : ComponentBase
 {
 	/// <summary>
 	/// TabsRegistration cascading value name.
@@ -72,7 +72,6 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	private List<HxTab> _tabsList = new();
 	private List<HxTab> _tabsListOrdered; // cached
 	private bool _collectingTabs;
-	private bool _isDisposed = false;
 
 	// Caches of method->delegate conversions
 	private readonly RenderFragment _renderTabsNavigation;
@@ -115,17 +114,25 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 			return;
 		}
 
-		if (_previousActiveTab != null)
-		{
-			await _previousActiveTab.NotifyDeactivatedAsync();
-		}
+		// Store references for the async operations
+		HxTab tabToDeactivate = _previousActiveTab;
+		HxTab tabToActivate = activeTab;
 
-		if (activeTab != null)
-		{
-			await activeTab.NotifyActivatedAsync();
-		}
-
+		// Update _previousActiveTab BEFORE any async calls to prevent infinite loops
+		// This ensures that if async callbacks trigger re-renders, subsequent calls to this method
+		// will see that activeTab == _previousActiveTab and return early
 		_previousActiveTab = activeTab;
+
+		// Now perform the async operations
+		if (tabToDeactivate != null)
+		{
+			await tabToDeactivate.NotifyDeactivatedAsync();
+		}
+
+		if (tabToActivate != null)
+		{
+			await tabToActivate.NotifyActivatedAsync();
+		}
 	}
 
 	// Invoked by descendant tabs at a special time during rendering
@@ -165,6 +172,10 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 					await SetActiveTabIdAsync(tabToActivate.Id);
 					StateHasChanged();
 				}
+			}
+			else
+			{
+				_previousActiveTab = _tabsList.FirstOrDefault(tab => IsActive(tab));
 			}
 		}
 	}
@@ -211,25 +222,5 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 		}
 
 		return null;
-	}
-
-	/// <inheritdoc />
-
-	public async ValueTask DisposeAsync()
-	{
-		await DisposeAsyncCore();
-
-		//Dispose(disposing: false);
-	}
-
-	protected virtual async ValueTask DisposeAsyncCore()
-	{
-		if (!_isDisposed && (_previousActiveTab != null))
-		{
-			await _previousActiveTab.NotifyDeactivatedAsync();
-			_previousActiveTab = null;
-		}
-
-		_isDisposed = true;
 	}
 }

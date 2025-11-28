@@ -1,4 +1,4 @@
-﻿export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads, uploadHttpMethod) {
+﻿export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads, uploadHttpMethod, antiforgeryHeaderName, antiforgeryToken) {
 	const inputElement = document.getElementById(inputElementId);
 	const dotnetReference = hxInputFileDotnetObjectReference;
 	const files = inputElement.files;
@@ -60,6 +60,10 @@
 			request.setRequestHeader('Authorization', 'Bearer ' + accessToken);
 		}
 
+        if (antiforgeryToken) {
+            request.setRequestHeader(antiforgeryHeaderName, antiforgeryToken);
+        }
+
 		request.upload.onprogress = function (e) {
 			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadProgress', index, file.name, e.loaded, e.total);
 		};
@@ -108,5 +112,8 @@ export function reset(inputElementId) {
 
 export function dispose(inputElementId) {
 	const inputElement = document.getElementById(inputElementId);
+	if (!inputElement) {
+		return;
+	}
 	inputElement.hxInputFileDotnetObjectReference = null;
 }

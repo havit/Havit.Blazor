@@ -24,7 +24,8 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 			Color = ThemeColor.None,
 			CssClass = null,
 			Outline = false,
-			Icon = null
+			Icon = null,
+			TooltipSettings = new TooltipSettings()
 		};
 	}
 
@@ -128,7 +129,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// <summary>
 	/// Tooltip placement.
 	/// </summary>
-	[Parameter] public TooltipPlacement TooltipPlacement { get; set; }
+	[Parameter] public TooltipPlacement? TooltipPlacement { get; set; }
 
 	/// <summary>
 	/// Custom CSS class to render with the tooltip.
@@ -145,6 +146,12 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// If set, the <c>span</c> wrapper will be rendered no matter whether the <see cref="Tooltip"/> text is set or not.
 	/// </summary>
 	[Parameter] public string TooltipWrapperCssClass { get; set; }
+
+	/// <summary>
+	/// Tooltip settings (overrides <see cref="ButtonSettings.TooltipSettings"/>, overridden by individual Tooltip* parameters).
+	/// </summary>
+	[Parameter] public TooltipSettings TooltipSettings { get; set; }
+	protected TooltipSettings TooltipSettingsEffective => TooltipSettings ?? GetSettings()?.TooltipSettings ?? GetDefaults().TooltipSettings;
 
 	/// <summary>
 	/// Raised after the button is clicked.

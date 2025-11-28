@@ -1,13 +1,14 @@
 ﻿using System.Collections.Immutable;
 using Microsoft.CodeAnalysis.Testing;
 using Microsoft.CodeAnalysis.Text;
-using Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.ObjectModel;
 
 namespace Havit.SourceGenerators.StrongApiStringLocalizers.Tests;
 
 [TestClass]
 public class StrongApiStringLocalizersGeneratorTests
 {
+	private readonly TestContext _testContext;
+
 	[TestMethod]
 	public async Task StrongApiStringLocalizersGenerator_Test()
 	{
@@ -33,7 +34,7 @@ public class StrongApiStringLocalizersGeneratorTests
 			ReferenceAssemblies = ReferenceAssemblies.Net
 				.Net90
 				.AddPackages(ImmutableArray.Create(
-					new PackageIdentity("Microsoft.Extensions.Localization", "9.0.1"))) // we are using IStringLocalizer from this package in the generated code
+					new PackageIdentity("Microsoft.Extensions.Localization", "9.0.10"))) // we are using IStringLocalizer from this package in the generated code
 		};
 
 		// resource file
@@ -119,6 +120,11 @@ public static class ResourcesServiceCollectionExtensions
 "));
 
 		// Act + Assert
-		await test.RunAsync();
+		await test.RunAsync(_testContext.CancellationToken);
+	}
+
+	public StrongApiStringLocalizersGeneratorTests(TestContext testContext)
+	{
+		_testContext = testContext;
 	}
 }

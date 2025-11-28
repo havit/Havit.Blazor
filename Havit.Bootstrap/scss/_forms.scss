@@ -1,0 +1,7 @@
+.form-switch .form-check-input {
+    background-color: var(--bs-border-color);
+
+    &:checked {
+        background-color: $form-check-input-checked-bg-color;
+    }
+}

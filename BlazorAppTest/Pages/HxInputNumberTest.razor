@@ -4,7 +4,11 @@
 <HxInputNumber Label="sbyte" @bind-Value="_sbyte" Hint="@_sbyte?.ToString()" />
 <HxInputNumber Label="short" @bind-Value="_short" Hint="@_short?.ToString()" />
 <HxInputNumber Label="ushort" @bind-Value="_ushort" Hint="@_ushort?.ToString()" />
-<HxInputNumber Label="int" @bind-Value="_int" Hint="@_uint?.ToString()"/>
+<HxInputNumber Label="int" @bind-Value="_int" @bind-Value:after="() => _intUpdateCounter += 1">
+    <HintTemplate>
+        @_int (updated @_intUpdateCounter times)
+    </HintTemplate>
+</HxInputNumber>
 <HxInputNumber Label="uint" @bind-Value="_uint" Hint="@_uint?.ToString()" />
 <HxInputNumber Label="long" @bind-Value="_long" Hint="@_long?.ToString()" />
 <HxInputNumber Label="ulong" @bind-Value="_ulong" Hint="@_ulong?.ToString()" />
@@ -12,12 +16,21 @@
 <HxInputNumber Label="double" @bind-Value="_double" Hint="@_double?.ToString()" />
 <HxInputNumber Label="decimal" @bind-Value="_decimal" Hint="@_decimal?.ToString()" />
 
+<h6 class="mt-4">OnInput test</h6>
+<HxInputNumber Label="int" @bind-Value="_int" @bind-Value:after="() => _intUpdateCounter += 1" BindEvent="@BindEvent.OnInput">
+    <HintTemplate>
+        @_int (updated @_intUpdateCounter times)
+    </HintTemplate>
+</HxInputNumber>
+<HxInputNumber Label="decimal" @bind-Value="_decimal" BindEvent="@BindEvent.OnInput" Hint="@_decimal?.ToString()" />
+
 @code {
 	private byte? _byte;
 	private sbyte? _sbyte;
 	private short? _short;
 	private ushort? _ushort;
-	private int? _int;
+    private int? _int;
+    private int _intUpdateCounter;
 	private uint? _uint;
 	private long? _long;
 	private ulong? _ulong;

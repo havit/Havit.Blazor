@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<!--  VSTHRD003: Avoid awaiting or returning a Task representing work that was not started within your context as that can lead to deadlocks. -->
 		<!--  VSTHRD200: Allow HandleXyClick methods (without Async) -> Suppress 'Use "Async" suffix in names of methods that return an awaitable type' -->
@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\xmldoc" />
+		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\XmlDoc" />
 	</Target>
 
 </Project>

@@ -11,7 +11,9 @@
 	<HxInputDate Label="HxInputDate (default, DateTime?)" @bind-Value="@model.NullableDateTime" Placeholder="Datum narození" />
 	<HxInputDate Label="HxInputDate (default, DateTimeOffset)" @bind-Value="@model.DateTimeOffset" />
 	<HxInputDate Label="HxInputDate (default, DateTimeOffset?)" @bind-Value="@model.NullableDateTimeOffset" />
-	<HxInputDate Label="HxInputDate (InputGroupStart, w/ CalendarIcon)" CalendarIcon="BootstrapIcon.Calendar" @bind-Value="@model.DateTime" >
+    <HxInputDate Label="HxInputDate (default, DateOnly)" @bind-Value="@model.DateOnly" />
+    <HxInputDate Label="HxInputDate (default, DateOnly?)" @bind-Value="@model.NullableDateOnly" />
+    <HxInputDate Label="HxInputDate (InputGroupStart, w/ CalendarIcon)" CalendarIcon="BootstrapIcon.Calendar" @bind-Value="@model.DateTime">
 	<InputGroupStartTemplate>
 		<HxButton Text="Button" Color="ThemeColor.Secondary" Outline="true" />
 	</InputGroupStartTemplate>
@@ -45,31 +47,33 @@
 <HxButton Text="Focus" Color="ThemeColor.Secondary" OnClick="async () => await inputDateComponent.FocusAsync()" />
 
 @code {
-	private HxInputDate<DateTime> inputDateComponent;
-	private FormModel model = new FormModel();
+    private HxInputDate<DateTime> inputDateComponent;
+    private FormModel model = new FormModel();
 
-	private IEnumerable<InputDatePredefinedDatesItem> GetPredefinedDates()
-	{
-		DateTime today = DateTime.Today;
-		yield return new InputDatePredefinedDatesItem { Label = "First of month", Date = new DateTime(today.Year, today.Month, 1) };
-		yield return new InputDatePredefinedDatesItem { Label = "Tomorrow", Date = today.AddDays(1) };
-	}
+    private IEnumerable<InputDatePredefinedDatesItem> GetPredefinedDates()
+    {
+        DateTime today = DateTime.Today;
+        yield return new InputDatePredefinedDatesItem { Label = "First of month", Date = new DateTime(today.Year, today.Month, 1) };
+        yield return new InputDatePredefinedDatesItem { Label = "Tomorrow", Date = today.AddDays(1) };
+    }
 
-	private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request) => new CalendarDateCustomizationResult { Enabled = request.Date.Day % 2 != 0 };
+    private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request) => new CalendarDateCustomizationResult { Enabled = request.Date.Day % 2 != 0 };
 
-	private class FormModel : IValidatableObject
-	{
-		public DateTime DateTime { get; set; } = DateTime.Today;
-		public DateTime? NullableDateTime { get; set; }
-		public DateTimeOffset DateTimeOffset { get; set; }
-		public DateTimeOffset NullableDateTimeOffset { get; set; }
+    private class FormModel : IValidatableObject
+    {
+        public DateTime DateTime { get; set; } = DateTime.Today;
+        public DateTime? NullableDateTime { get; set; }
+        public DateTimeOffset DateTimeOffset { get; set; }
+        public DateTimeOffset NullableDateTimeOffset { get; set; }
+        public DateOnly DateOnly { get; set; }
+        public DateOnly? NullableDateOnly { get; set; }
 
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
 		{
-			if (DateTime.Year != 2020)
-			{
-				yield return new ValidationResult("Date has to fall in year 2020.", new string[] { nameof(DateTime) });
-			}
+			  if (DateTime.Year != 2020)
+			  {
+				  yield return new ValidationResult("Date has to fall in year 2020.", new string[] { nameof(DateTime) });
+			  }
 		}
 	}
 }

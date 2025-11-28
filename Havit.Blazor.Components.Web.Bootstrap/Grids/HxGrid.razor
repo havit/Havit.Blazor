@@ -86,7 +86,7 @@
 								<th @key="@column"
 									role="@(isSortingActive ? "button" : null)"
 									class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isSortingActive ? (isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable") : null)"
-									@onclick="@(isSortingActive ? async () => await HandleSortingClick(column) : null)"
+									@onclick="@(isSortingActive ? EventCallback.Factory.Create<MouseEventArgs>(this, async () => await HandleSortingClick(column)) : (EventCallback<MouseEventArgs>)default)"
 									@onclick:stopPropagation="isSortingActive">
 									<div class="hx-grid-header-cell-container">
 										<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>

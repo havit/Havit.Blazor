@@ -22,6 +22,11 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 	[Parameter] public EditContext EditContext { get; set; }
 
 	/// <summary>
+	/// Container element ID.
+	/// </summary>
+	[Parameter] public string Id { get; set; }
+
+	/// <summary>
 	/// Specifies the field for which validation messages should be displayed.
 	/// Mutual exclusive with <see cref="ForFieldName"/> and <see cref="ForFieldNames"/>.
 	/// </summary>

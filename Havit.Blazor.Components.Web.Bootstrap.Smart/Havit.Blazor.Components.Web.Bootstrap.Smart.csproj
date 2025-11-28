@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFrameworks>net9.0;net8.0</TargetFrameworks>
+		<TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<NoWarn>1591;1701;1702;SA1134;BL0007</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -43,7 +43,7 @@
 	</ItemGroup>
 
 	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
-		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.Bootstrap.Smart.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\xmldoc" />
+		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Components.Web.Bootstrap.Smart.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\XmlDoc" />
 	</Target>
 
 	<!-- Causes CSS file to be included in the bundle of scoped CSS, even though it's not scoped -->

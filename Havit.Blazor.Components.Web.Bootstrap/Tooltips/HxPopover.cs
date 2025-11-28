@@ -64,33 +64,27 @@ public class HxPopover : HxTooltipInternalBase
 	}
 
 	/// <summary>
-	/// Popover placement. The default is <see cref="PopoverPlacement.Right"/>.
+	/// Popover placement. The default is "not set" (which Bootstrap defaults to <code>right</code>).
 	/// </summary>
 	[Parameter]
-	public PopoverPlacement Placement
+	public PopoverPlacement? Placement
 	{
-		get => (PopoverPlacement)PlacementInternal;
-		set => PlacementInternal = (TooltipPlacement)value;
+		get => (PopoverPlacement?)PlacementInternal;
+		set => PlacementInternal = (TooltipPlacement?)value;
 	}
 
 	/// <summary>
-	/// Popover trigger(s). The default is <see cref="PopoverTrigger.Click"/>.
+	/// Popover trigger(s). The default is "not set" (which Bootstrap defaults to <code>click</code>).
 	/// </summary>
 	[Parameter]
-	public PopoverTrigger Trigger
+	public PopoverTrigger? Trigger
 	{
-		get => (PopoverTrigger)TriggerInternal;
-		set => TriggerInternal = (TooltipTrigger)value;
+		get => (PopoverTrigger?)TriggerInternal;
+		set => TriggerInternal = (TooltipTrigger?)value;
 	}
 
 	protected override string JsModuleName => nameof(HxPopover);
 	protected override string DataBsToggle => "popover";
-
-	public HxPopover()
-	{
-		Placement = PopoverPlacement.Right;
-		Trigger = PopoverTrigger.Click;
-	}
 	protected override Dictionary<string, string> GetNewContentForUpdate()
 	{
 		return new()

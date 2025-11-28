@@ -15,9 +15,9 @@ internal static partial class DateHelper
 		}
 
 		// expecting date format with day, month, and year components
-		int dayIndex = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern.IndexOf("d");
-		int monthIndex = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern.IndexOf("M");
-		int yearIndex = CultureInfo.CurrentUICulture.DateTimeFormat.ShortDatePattern.IndexOf("y");
+		int dayIndex = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.IndexOf("d");
+		int monthIndex = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.IndexOf("M");
+		int yearIndex = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.IndexOf("y");
 
 		if ((dayIndex < 0) || (monthIndex < 0) || (yearIndex < 0))
 		{
@@ -257,6 +257,10 @@ internal static partial class DateHelper
 		{
 			return (TValue)(object)value.Value;
 		}
+		else if (targetType == typeof(DateOnly))
+		{
+			return (TValue)(object)DateOnly.FromDateTime(value.Value.DateTime);
+		}
 		else
 		{
 			throw new InvalidOperationException("Unsupported type.");
@@ -276,6 +280,8 @@ internal static partial class DateHelper
 				return dateTimeValue;
 			case DateTimeOffset dateTimeOffsetValue:
 				return dateTimeOffsetValue.DateTime;
+			case DateOnly dateOnlyValue:
+				return dateOnlyValue.ToDateTime(TimeOnly.MinValue);
 			default:
 				throw new InvalidOperationException("Unsupported type.");
 		}
