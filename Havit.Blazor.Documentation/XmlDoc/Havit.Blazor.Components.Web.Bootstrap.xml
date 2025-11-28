@@ -3511,6 +3511,19 @@
             Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings.Color">
+            <summary>
+            Bootstrap button style - theme color.<br />
+            The default is taken from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Defaults"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> if not customized).
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings.Outline">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButton"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
+            </summary>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.Checkbox">
             <summary>
             Renders regular checkbox.
@@ -3546,6 +3559,11 @@
             <summary>
             <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap outline button style</see>.
             For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings.RenderMode">
+            <summary>
+            Checkbox render mode.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.FormValueSettings">
@@ -3586,32 +3604,6 @@
             Returns an optional set of component settings.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Text">
-            <summary>
-            Text to display next to the checkbox.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.TextTemplate">
-            <summary>
-            Content to display next to the checkbox.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.TextCssClass">
-            <summary>
-            CSS class to apply to the text.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Inline">
-            <summary>
-            Allows grouping checkboxes on the same horizontal row by rendering them inline. The default value is <c>false</c>.
-            This only works when there is no label, no hint, and no validation message.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Reverse">
-            <summary>
-            Put the checkbox on the opposite side - first text, then checkbox.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.RenderMode">
             <summary>
             Checkbox render mode.
@@ -3630,7 +3622,43 @@
             For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.InButtonGroup">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase">
+            <summary>
+            HxCheckBox and HxSwitch base class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.Text">
+            <summary>
+            Text to display next to the checkbox.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.TextTemplate">
+            <summary>
+            Content to display next to the checkbox.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.TextCssClass">
+            <summary>
+            CSS class to apply to the text.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.Inline">
+            <summary>
+            Allows grouping checkboxes on the same horizontal row by rendering them inline. The default value is <c>false</c>.
+            This only works when there is no label, no hint, and no validation message.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.Reverse">
+            <summary>
+            Put the checkbox on the opposite side - first text, then checkbox.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.RenderModeEffective">
+            <summary>
+            Returns checkbox render mode.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.InButtonGroup">
             <summary>
             Indicates HxCheckbox is used as a part of a button group. Value provided as a cascading value from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup" />.
             </summary>
@@ -3639,13 +3667,13 @@
             Thererefore we do not render neither the outer div(s) nor the validation message.
             </remarks>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreInputCssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.CoreInputCssClass">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreInputCssClass" />
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreCssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.CoreCssClass">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreCssClass" />
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.NeedsInnerDiv">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.NeedsInnerDiv">
             <summary>
             For a naked checkbox without Label/LabelTemplate, we add form-check, form-check-inline to the parent div (allows combining with CssClass etc.).
             It is expected that there is just the parent div, input, and label for Text/TextTemplate.
@@ -3655,29 +3683,29 @@
             Therefore, we wrap the input and label in the additional div.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.NeedsFormCheck">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.NeedsFormCheck">
             <summary>
             For checkbox without any Text/TextTemplate we do not add form-check class.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.NeedsFormCheckOuter">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.NeedsFormCheckOuter">
             <summary>
             For checkbox without any Label/LabelTemplate and without Text/TextTemplate we do not add form-check to the parent div.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.InputElement">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.InputElement">
             <summary>
             The input ElementReference.
             Can be <c>null</c>. 
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.FocusAsync">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.FocusAsync">
             <summary>
             Focuses the checkbox.
             </summary>
@@ -5350,12 +5378,19 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSwitch">https://havit.blazor.eu/components/HxSwitch</see>
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.RenderMode">
-            <inheritdoc />
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.Settings">
+            <summary>
+            Set of settings to be applied to the component instance.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.Native">
             <summary>
-            To render checkbox as a native switch.
+            To render switch as a native switch.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1">
@@ -6409,6 +6444,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectSettings.LabelType">
             <summary>
             The label type.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SwitchSettings">
+            <summary>
+            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SwitchSettings.Native">
+            <summary>
+            To render switch as a native switch.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode">
@@ -11865,6 +11910,12 @@
         </member>
         <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsWordChar(System.Char)">
             <summary>Determines whether the character is part of the [\w] set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.WordCategoriesMask">
+            <summary>Provides a mask of Unicode categories that combine to form [\w].</summary>
+        </member>
+        <member name="P:System.Text.RegularExpressions.Generated.Utilities.WordCharBitmap">
+            <summary>Gets a bitmap for whether each character 0 through 127 is in [\w]</summary>
         </member>
     </members>
 </doc>

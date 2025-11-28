@@ -16,4 +16,9 @@ public record CheckboxSettings : InputSettings
 	/// For <see cref="CheckboxRenderMode.ToggleButton"/>.
 	/// </summary>
 	public bool? Outline { get; set; } = false;
+
+	/// <summary>
+	/// Checkbox render mode.
+	/// </summary>
+	public CheckboxRenderMode? RenderMode { get; set; }
 }

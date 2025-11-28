@@ -8,6 +8,20 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// </summary>
 public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot use an array: https://github.com/dotnet/aspnetcore/issues/15014
 {
+	public static CheckboxListSettings Defaults { get; set; }
+
+	static HxCheckboxList()
+	{
+		Defaults = new CheckboxListSettings
+		{
+			ValidationMessageMode = Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Floating,
+			Color = ThemeColor.None,
+			Outline = false
+		};
+	}
+
+	protected override CheckboxListSettings GetDefaults() => Defaults;
+
 	/// <summary>
 	/// Items to display. 
 	/// </summary>
@@ -118,9 +132,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
 
-	// TODO: Settings cascade
-	protected ThemeColor ColorEffective => Color ?? ThemeColor.Secondary;
-	//	protected ThemeColor ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxButton) + " has to be set.");
+	protected ThemeColor ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxButton) + " has to be set.");
 
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
@@ -128,9 +140,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	/// </summary>
 	[Parameter] public bool? Outline { get; set; }
 
-	// TODO: Settings cascade
-	protected bool OutlineEffective => Outline ?? false;
-	//	protected bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxCheckbox) + " has to be set.");
+	protected bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxCheckbox) + " has to be set.");
 
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
@@ -141,11 +151,12 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 		{
 			if (RenderMode == CheckboxListRenderMode.ButtonGroup)
 			{
-				builder.OpenComponent(0, typeof(HxButtonGroup));
-				// TODO: Orientation, Size, Aria, etc.?
-				builder.AddAttribute(1, nameof(HxButtonGroup.CssClass), InputCssClass);
-				builder.AddAttribute(2, nameof(HxButtonGroup.ChildContent), (RenderFragment)BuildRenderInputItems);
+				builder.OpenElement(0, "div");
+				builder.OpenComponent(1, typeof(HxButtonGroup));
+				builder.AddAttribute(2, nameof(HxButtonGroup.CssClass), InputCssClass);
+				builder.AddAttribute(3, nameof(HxButtonGroup.ChildContent), (RenderFragment)BuildRenderInputItems);
 				builder.CloseComponent();
+				builder.CloseElement();
 			}
 			else
 			{
@@ -178,7 +189,6 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 			builder.AddAttribute(8, nameof(HxCheckbox.TextCssClass), CssClassHelper.Combine(ItemTextCssClass, ItemTextCssClassSelector?.Invoke(item)));
 
 			builder.AddAttribute(9, nameof(HxCheckbox.RenderMode), checkboxRenderMode);
-			// TODO: Can every button have another color & outline?
 			builder.AddAttribute(10, nameof(HxCheckbox.Color), ColorEffective);
 			builder.AddAttribute(11, nameof(HxCheckbox.Outline), OutlineEffective);
 
