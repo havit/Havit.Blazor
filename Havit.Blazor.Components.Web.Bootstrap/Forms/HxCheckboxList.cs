@@ -149,19 +149,25 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 
 		if (_itemsToRender.Count > 0)
 		{
+			builder.OpenElement(0, "div");
+			builder.AddAttribute(1, "id", InputId);
+			builder.AddAttribute(2, "class", InputCssClass);
+			builder.OpenRegion(3);
+
 			if (RenderMode == CheckboxListRenderMode.ButtonGroup)
 			{
-				builder.OpenElement(0, "div");
 				builder.OpenComponent(1, typeof(HxButtonGroup));
-				builder.AddAttribute(2, nameof(HxButtonGroup.CssClass), InputCssClass);
+				builder.AddAttribute(2, nameof(HxButtonGroup.Orientation), Inline ? ButtonGroupOrientation.Horizontal : ButtonGroupOrientation.Vertical);
 				builder.AddAttribute(3, nameof(HxButtonGroup.ChildContent), (RenderFragment)BuildRenderInputItems);
 				builder.CloseComponent();
-				builder.CloseElement();
 			}
 			else
 			{
 				BuildRenderInputItems(builder);
 			}
+
+			builder.CloseRegion();
+			builder.CloseElement();
 		}
 	}
 
