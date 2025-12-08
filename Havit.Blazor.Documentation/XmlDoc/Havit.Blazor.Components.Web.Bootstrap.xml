@@ -3664,7 +3664,7 @@
             </summary>
             <remarks>
             In a button group the html structure must be as simple as documented in .
-            Thererefore we do not render neither the outer div(s) nor the validation message.
+            Therefore we do not render neither the outer div(s) nor the validation message.
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.CoreInputCssClass">
@@ -3714,6 +3714,17 @@
             <summary>
             Renders a multi-selection list of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox"/> controls.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckboxList">https://havit.blazor.eu/components/HxCheckboxList</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Data">
@@ -3799,7 +3810,7 @@
             <summary>
             Bootstrap button style - theme color.<br />
             The default is taken from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Defaults"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> if not customized).
-            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButton"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Outline">
@@ -5383,9 +5394,20 @@
             Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/> and derived components.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.Settings">
             <summary>
             Set of settings to be applied to the component instance.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.Native">
@@ -11910,6 +11932,12 @@
         </member>
         <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsWordChar(System.Char)">
             <summary>Determines whether the character is part of the [\w] set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.WordCategoriesMask">
+            <summary>Provides a mask of Unicode categories that combine to form [\w].</summary>
+        </member>
+        <member name="P:System.Text.RegularExpressions.Generated.Utilities.WordCharBitmap">
+            <summary>Gets a bitmap for whether each character 0 through 127 is in [\w]</summary>
         </member>
     </members>
 </doc>
