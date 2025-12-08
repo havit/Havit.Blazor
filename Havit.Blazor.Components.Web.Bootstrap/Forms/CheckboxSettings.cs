@@ -15,7 +15,7 @@ public record CheckboxSettings : InputSettings
 	/// <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap outline button style</see>.
 	/// For <see cref="CheckboxRenderMode.ToggleButton"/>.
 	/// </summary>
-	public bool? Outline { get; set; } = false;
+	public bool? Outline { get; set; }
 
 	/// <summary>
 	/// Checkbox render mode.
