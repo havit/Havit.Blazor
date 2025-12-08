@@ -147,7 +147,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	/// </summary>
 	[Parameter] public bool? Outline { get; set; }
 
-	protected bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxCheckbox) + " has to be set.");
+	protected bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxCheckboxList) + " has to be set.");
 
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
