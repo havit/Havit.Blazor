@@ -3498,7 +3498,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButton">
             <summary>
-            Renders toggle buttosn.<br />
+            Renders toggle buttons.<br />
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup">
