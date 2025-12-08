@@ -8,7 +8,7 @@ public record CheckboxListSettings : InputSettings
 	/// <summary>
 	/// Bootstrap button style - theme color.<br />
 	/// The default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
-	/// For <see cref="CheckboxRenderMode.ToggleButton"/>.
+	/// For <see cref="CheckboxListRenderMode.ToggleButton"/>.
 	/// </summary>
 	public ThemeColor? Color { get; set; }
 
