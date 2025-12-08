@@ -20,6 +20,10 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 		};
 	}
 
+	/// <summary>
+	/// Returns application-wide defaults for the component.
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
+	/// </summary>
 	protected override CheckboxListSettings GetDefaults() => Defaults;
 
 	/// <summary>
