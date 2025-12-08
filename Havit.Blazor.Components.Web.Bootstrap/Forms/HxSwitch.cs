@@ -28,6 +28,9 @@ public class HxSwitch : HxCheckboxBase
 	/// </summary>
 	[Parameter] public SwitchSettings Settings { get; set; }
 
+	/// <summary>
+	/// Returns an optional set of component settings.
+	/// </summary>
 	protected override SwitchSettings GetSettings() => Settings;
 
 	/// <summary>
