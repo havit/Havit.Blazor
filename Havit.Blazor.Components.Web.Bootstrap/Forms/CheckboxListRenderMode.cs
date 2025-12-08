@@ -18,7 +18,7 @@ public enum CheckboxListRenderMode
 	NativeSwitch,
 
 	/// <summary>
-	/// Renders toggle buttosn.<br />
+	/// Renders toggle buttons.<br />
 	/// </summary>
 	ToggleButton,
 
