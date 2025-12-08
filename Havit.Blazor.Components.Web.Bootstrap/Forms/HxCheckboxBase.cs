@@ -49,7 +49,7 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 	/// </summary>
 	/// <remarks>
 	/// In a button group the html structure must be as simple as documented in .
-	/// Thererefore we do not render neither the outer div(s) nor the validation message.
+	/// Therefore we do not render neither the outer div(s) nor the validation message.
 	/// </remarks>
 	[CascadingParameter(Name = HxButtonGroup.InButtonGroupCascadingValueName)] public bool InButtonGroup { get; set; } = false;
 
