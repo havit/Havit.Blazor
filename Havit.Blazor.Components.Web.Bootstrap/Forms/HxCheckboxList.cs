@@ -135,7 +135,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	/// <summary>
 	/// Bootstrap button style - theme color.<br />
 	/// The default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
-	/// For <see cref="CheckboxRenderMode.ToggleButton"/>.
+	/// For <see cref="CheckboxListRenderMode.ToggleButton"/>.
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
 
