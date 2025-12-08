@@ -55,7 +55,7 @@ public class HxCheckbox : HxCheckboxBase
 	/// For <see cref="CheckboxRenderMode.ToggleButton"/>.
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
-	protected override ThemeColor ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxButton) + " has to be set.");
+	protected override ThemeColor ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxCheckbox) + " has to be set.");
 
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
