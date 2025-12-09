@@ -48,7 +48,7 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 	/// Indicates HxCheckbox is used as a part of a button group. Value provided as a cascading value from <see cref="HxButtonGroup" />.
 	/// </summary>
 	/// <remarks>
-	/// In a button group the html structure must be as simple as documented in .
+	/// In a button group the html structure must be as simple as documented in Bootstrap docs.
 	/// Therefore we do not render neither the outer div(s) nor the validation message.
 	/// </remarks>
 	[CascadingParameter(Name = HxButtonGroup.InButtonGroupCascadingValueName)] protected bool InButtonGroup { get; set; } = false;
@@ -150,7 +150,7 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 		}
 		if (RenderModeEffective == CheckboxRenderMode.ToggleButton)
 		{
-			builder.AddAttribute(10045, "autocomplete", "off");
+			builder.AddAttribute(1005, "autocomplete", "off");
 		}
 
 		builder.SetUpdatesAttributeName("checked");
