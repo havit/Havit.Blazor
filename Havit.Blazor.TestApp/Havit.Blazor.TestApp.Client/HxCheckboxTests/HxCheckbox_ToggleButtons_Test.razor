@@ -1,0 +1,51 @@
+﻿@page "/HxCheckbox_ToggleButtons"
+@rendermode InteractiveServer
+@using System.Globalization;
+@using System.ComponentModel.DataAnnotations
+
+<h1>HxCheckbox</h1>
+
+<h3>Toggle buttons</h3>
+<HxCheckbox Text="Value 1" @bind-Value="@model.Value1" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Success" />
+<HxCheckbox Text="Value 2" @bind-Value="@model.Value2" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Info" />
+
+<h3>Toggle buttons in a button group</h3>
+<HxButtonGroup>
+    <HxCheckbox Text="Value 1" @bind-Value="@model.Value1" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Success" Outline="true" />
+    <HxCheckbox Text="Value 2" @bind-Value="@model.Value2" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Info" Outline="true" />
+</HxButtonGroup>
+
+<h3>Toggle buttons with Label</h3>
+<HxCheckbox Label="Toggle button 1" Text="Value 1" @bind-Value="@model.Value1" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Success" Outline="true" />
+<HxCheckbox Label="Toggle button 2" Text="Value 2" @bind-Value="@model.Value2" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Info" Outline="true" />
+
+<h3>In edit form</h3>
+<EditForm @bind-Model="@model">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <HxCheckbox Text="Value 1" @bind-Value="@model.Value1" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Success" Outline="true" />
+    <HxCheckbox Text="Value 2" @bind-Value="@model.Value2" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Info" Outline="true" />
+
+    <HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
+</EditForm>
+
+@code
+{
+    private FormModel model = new FormModel();
+
+    public class FormModel : IValidatableObject
+    {
+        public bool Value1 { get; set; }
+
+        public bool Value2 { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Value1 && !Value2)
+            {
+                yield return new ValidationResult("When Value1 is true, Value2 must be also true.", new string[] { nameof(Value2) });
+            }
+        }
+    }
+}

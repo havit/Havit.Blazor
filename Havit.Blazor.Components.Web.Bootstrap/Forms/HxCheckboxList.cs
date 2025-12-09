@@ -9,6 +9,27 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot use an array: https://github.com/dotnet/aspnetcore/issues/15014
 {
 	/// <summary>
+	/// Application-wide defaults for <see cref="HxCheckboxList{TValue, TItem}"/> and derived components.
+	/// </summary>
+	public static CheckboxListSettings Defaults { get; set; }
+
+	static HxCheckboxList()
+	{
+		Defaults = new CheckboxListSettings()
+		{
+			// ValidationMessageMode = null, HxInputBase sets the default
+			// Color = null, HxCheckbox.Color is not set, HxCheckbox uses its own default then
+			// Outline = null, HxCheckbox.Outline is not set, HxCheckbox uses its own default then
+		};
+	}
+
+	/// <summary>
+	/// Returns application-wide defaults for the component.
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
+	/// </summary>
+	protected override CheckboxListSettings GetDefaults() => Defaults;
+
+	/// <summary>
 	/// Items to display. 
 	/// </summary>
 	[Parameter] public IEnumerable<TItem> Data { get; set; }
@@ -106,6 +127,24 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 		}
 	}
 
+	/// <summary>
+	/// Checkbox render mode.
+	/// </summary>
+	[Parameter] public CheckboxListRenderMode RenderMode { get; set; } = CheckboxListRenderMode.Checkboxes;
+
+	/// <summary>
+	/// Color for <see cref="CheckboxListRenderMode.ToggleButtons"/>.
+	/// </summary>
+	[Parameter] public ThemeColor? Color { get; set; }
+	protected ThemeColor? ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color; // can be null, HxCheckbox.Color remains unset
+
+	/// <summary>
+	/// Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
+	/// for <see cref="CheckboxListRenderMode.ToggleButtons"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>.
+	/// </summary>
+	[Parameter] public bool? Outline { get; set; }
+	protected bool? OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline; // can be null, HxCheckbox.Outline remains unset
+
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
@@ -113,37 +152,88 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 
 		if (_itemsToRender.Count > 0)
 		{
-			UglyHack uglyHack = new UglyHack(); // see comment below
+			builder.OpenElement(0, "div");
+			builder.AddAttribute(1, "id", InputId);
+			builder.AddAttribute(2, "class", InputCssClass);
+			builder.OpenRegion(3);
 
-			foreach (var item in _itemsToRender)
+			if (RenderMode == CheckboxListRenderMode.ButtonGroup)
 			{
-				TValue value = SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelector, item);
-
-				builder.OpenComponent(1, typeof(HxCheckbox));
-
-				builder.AddAttribute(2, nameof(HxCheckbox.Text), SelectorHelpers.GetText(ItemTextSelector, item));
-				builder.AddAttribute(3, nameof(HxCheckbox.Value), Value?.Contains(value) ?? false);
-				builder.AddAttribute(4, nameof(HxCheckbox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
-				builder.AddAttribute(5, nameof(HxCheckbox.Enabled), EnabledEffective);
-
-				builder.AddAttribute(6, nameof(HxCheckbox.CssClass), CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item)));
-				builder.AddAttribute(7, nameof(HxCheckbox.InputCssClass), CssClassHelper.Combine(ItemInputCssClass, ItemInputCssClassSelector?.Invoke(item)));
-				builder.AddAttribute(8, nameof(HxCheckbox.TextCssClass), CssClassHelper.Combine(ItemTextCssClass, ItemTextCssClassSelector?.Invoke(item)));
-
-				// We need ValueExpression. Ehm, HxCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
-				// We have nothing to give the HxCheckbox. So we make own class with property which we assign to the ValueExpression.
-				// Impacts? Unknown. Maybe none.
-				builder.AddAttribute(50, nameof(HxCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
-
-				builder.AddAttribute(51, nameof(HxCheckbox.ValidationMessageMode), Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.None);
-				builder.AddAttribute(52, nameof(HxCheckbox.Inline), Inline);
-				builder.AddAttribute(53, nameof(HxCheckbox.GenerateChip), false);
-
-				builder.AddMultipleAttributes(100, AdditionalAttributes);
-
+				builder.OpenComponent(1, typeof(HxButtonGroup));
+				builder.AddAttribute(2, nameof(HxButtonGroup.Orientation), Inline ? ButtonGroupOrientation.Horizontal : ButtonGroupOrientation.Vertical);
+				builder.AddAttribute(3, nameof(HxButtonGroup.ChildContent), (RenderFragment)BuildRenderInputItems);
 				builder.CloseComponent();
 			}
+			else if (RenderMode == CheckboxListRenderMode.ToggleButtons)
+			{
+				builder.OpenElement(1, "div");
+				builder.AddAttribute(2, "class", Inline ? "d-flex gap-1" : "d-inline-flex flex-column gap-1");
+				BuildRenderInputItems(builder);
+				builder.CloseElement();
+			}
+			else
+			{
+				BuildRenderInputItems(builder);
+			}
+
+			builder.CloseRegion();
+			builder.CloseElement();
 		}
+	}
+
+	private void BuildRenderInputItems(RenderTreeBuilder builder)
+	{
+		UglyHack uglyHack = new UglyHack(); // see comment below
+
+		CheckboxRenderMode checkboxRenderMode = GetCheckboxRenderMode();
+
+		foreach (var item in _itemsToRender)
+		{
+			TValue value = SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelector, item);
+
+			builder.OpenComponent(1, typeof(HxCheckbox));
+
+			builder.AddAttribute(2, nameof(HxCheckbox.Text), SelectorHelpers.GetText(ItemTextSelector, item));
+			builder.AddAttribute(3, nameof(HxCheckbox.Value), Value?.Contains(value) ?? false);
+			builder.AddAttribute(4, nameof(HxCheckbox.ValueChanged), EventCallback.Factory.Create<bool>(this, @checked => HandleValueChanged(@checked, item)));
+			builder.AddAttribute(5, nameof(HxCheckbox.Enabled), EnabledEffective);
+
+			builder.AddAttribute(6, nameof(HxCheckbox.CssClass), CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item)));
+			builder.AddAttribute(7, nameof(HxCheckbox.InputCssClass), (RenderMode == CheckboxListRenderMode.ButtonGroup)
+				? ItemInputCssClassSelector?.Invoke(item)
+				: CssClassHelper.Combine(ItemInputCssClass, ItemInputCssClassSelector?.Invoke(item)));
+			builder.AddAttribute(8, nameof(HxCheckbox.TextCssClass), CssClassHelper.Combine(ItemTextCssClass, ItemTextCssClassSelector?.Invoke(item)));
+
+			builder.AddAttribute(9, nameof(HxCheckbox.RenderMode), checkboxRenderMode);
+			builder.AddAttribute(10, nameof(HxCheckbox.Color), ColorEffective);
+			builder.AddAttribute(11, nameof(HxCheckbox.Outline), OutlineEffective);
+
+			// We need ValueExpression. Ehm, HxCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
+			// We have nothing to give the HxCheckbox. So we make own class with property which we assign to the ValueExpression.
+			// Impacts? Unknown. Maybe none.
+			builder.AddAttribute(50, nameof(HxCheckbox.ValueExpression), (Expression<Func<bool>>)(() => uglyHack.HackProperty));
+
+			builder.AddAttribute(51, nameof(HxCheckbox.ValidationMessageMode), Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.None);
+			builder.AddAttribute(52, nameof(HxCheckbox.Inline), Inline);
+			builder.AddAttribute(53, nameof(HxCheckbox.GenerateChip), false);
+
+			builder.AddMultipleAttributes(100, AdditionalAttributes);
+
+			builder.CloseComponent();
+		}
+	}
+
+	private CheckboxRenderMode GetCheckboxRenderMode()
+	{
+		return RenderMode switch
+		{
+			CheckboxListRenderMode.Checkboxes => CheckboxRenderMode.Checkbox,
+			CheckboxListRenderMode.Switches => CheckboxRenderMode.Switch,
+			CheckboxListRenderMode.NativeSwitches => CheckboxRenderMode.NativeSwitch,
+			CheckboxListRenderMode.ToggleButtons => CheckboxRenderMode.ToggleButton,
+			CheckboxListRenderMode.ButtonGroup => CheckboxRenderMode.ToggleButton, // return (checkbox render mode) ToggleButton for (a checkboxlist render mode) ButtonGroup
+			_ => throw new InvalidOperationException(RenderMode.ToString())
+		};
 	}
 
 	private void HandleValueChanged(bool @checked, TItem item)
