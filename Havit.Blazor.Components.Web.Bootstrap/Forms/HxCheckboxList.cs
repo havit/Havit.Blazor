@@ -143,7 +143,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	/// for <see cref="CheckboxListRenderMode.ToggleButtons"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>.
 	/// </summary>
 	[Parameter] public bool? Outline { get; set; }
-	protected bool? OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline; // can be null, HxCheckbox.Color remains unset
+	protected bool? OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline; // can be null, HxCheckbox.Outline remains unset
 
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
