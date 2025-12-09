@@ -111,7 +111,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	/// Returns application-wide defaults for the component.
 	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
-	protected new virtual RadioButtonListSettings GetDefaults() => null;
+	protected override RadioButtonListSettings GetDefaults() => null;
 
 	/// <summary>
 	/// Returns an optional set of component settings.
