@@ -1,5 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
+/// <summary>
+/// Render mode for <see cref="HxCheckbox"/>.
+/// </summary>
 public enum CheckboxRenderMode
 {
 	/// <summary>
@@ -18,7 +21,7 @@ public enum CheckboxRenderMode
 	NativeSwitch,
 
 	/// <summary>
-	/// Renders toggle button.<br />
+	/// Renders toggle button.
 	/// </summary>
 	ToggleButton,
 }

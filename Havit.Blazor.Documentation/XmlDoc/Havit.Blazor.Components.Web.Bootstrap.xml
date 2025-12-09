@@ -3481,6 +3481,11 @@
             Gets the name of the event as a string.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode">
+            <summary>
+            Render mode for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2"/>
+            </summary>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.Checkboxes">
             <summary>
             Renders regular checkboxes.
@@ -3498,12 +3503,12 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons">
             <summary>
-            Renders toggle buttons.<br />
+            Renders toggle buttons.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup">
             <summary>
-            Renders toggle buttons in a button group.<br />
+            Renders toggle buttons in a button group.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings">
@@ -3524,6 +3529,11 @@
             For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode">
+            <summary>
+            Render mode for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox"/>.
+            </summary>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.Checkbox">
             <summary>
             Renders regular checkbox.
@@ -3541,7 +3551,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton">
             <summary>
-            Renders toggle button.<br />
+            Renders toggle button.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings">

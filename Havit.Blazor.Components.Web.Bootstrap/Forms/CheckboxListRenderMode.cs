@@ -1,5 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
+/// <summary>
+/// Render mode for <see cref="HxCheckboxList{TValue, TItem}"/>
+/// </summary>
 public enum CheckboxListRenderMode
 {
 	/// <summary>
@@ -18,12 +21,12 @@ public enum CheckboxListRenderMode
 	NativeSwitches,
 
 	/// <summary>
-	/// Renders toggle buttons.<br />
+	/// Renders toggle buttons.
 	/// </summary>
 	ToggleButtons,
 
 	/// <summary>
-	/// Renders toggle buttons in a button group.<br />
+	/// Renders toggle buttons in a button group.
 	/// </summary>
 	ButtonGroup
 }
