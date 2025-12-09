@@ -1,11 +1,10 @@
-﻿@inject IDemoDataService DemoDataService
+@inject IDemoDataService DemoDataService
 
 <HxCheckboxList Label="Checkboxes (default)"
 				TItem="EmployeeDto"
 				TValue="int"
 				@bind-Value="selectedEmployeeIds"
 				Data="data"
-				Inline="true"
 				ItemTextSelector="@(employee => employee.Name)"
 				ItemValueSelector="@(employee => employee.Id)" />
 
@@ -14,7 +13,6 @@
 				TValue="int"
 				@bind-Value="selectedEmployeeIds"
 				Data="data"
-				Inline="true"
 				ItemTextSelector="@(employee => employee.Name)"
 				ItemValueSelector="@(employee => employee.Id)"
 				RenderMode="CheckboxListRenderMode.Switches" />
@@ -29,14 +27,13 @@
 				RenderMode="CheckboxListRenderMode.ToggleButtons"
 				Color="ThemeColor.Light"
 				Outline="true"
-				InputCssClass="d-flex gap-1" />
+				InputCssClass="d-grid gap-1" /> @* TODO DC *@
 
 <HxCheckboxList Label="Button group"
 				TItem="EmployeeDto"
 				TValue="int"
 				@bind-Value="selectedEmployeeIds"
 				Data="data"
-				Inline="true"
 				ItemTextSelector="@(employee => employee.Name)"
 				ItemValueSelector="@(employee => employee.Id)"
 				RenderMode="CheckboxListRenderMode.ButtonGroup"
@@ -52,5 +49,5 @@
 	{
 		data = await DemoDataService.GetPreferredEmployeesAsync(count: 5);
 		selectedEmployeeIds = data.Take(2).Select(e => e.Id).ToList(); // preselect two employees
-	}
+	} 
 }

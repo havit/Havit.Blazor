@@ -6,15 +6,13 @@
 public record CheckboxListSettings : InputSettings
 {
 	/// <summary>
-	/// Bootstrap button style - theme color.<br />
-	/// The default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
-	/// For <see cref="CheckboxListRenderMode.ToggleButtons"/>.
+	/// Color for <see cref="CheckboxListRenderMode.ToggleButtons"/>.
 	/// </summary>
 	public ThemeColor? Color { get; set; }
 
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
-	/// For <see cref="CheckboxListRenderMode.ToggleButtons"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>.
+	/// Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
+	/// for <see cref="CheckboxListRenderMode.ToggleButtons"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>.
 	/// </summary>
 	public bool? Outline { get; set; }
 }

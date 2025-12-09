@@ -1,11 +1,18 @@
-﻿@attribute [Route("/components/" + nameof(HxCheckboxList<TValue, TItem>))]
+@attribute [Route("/components/" + nameof(HxCheckboxList<TValue, TItem>))]
 
 <ComponentApiDoc Type="typeof(HxCheckboxList<TValue, TItem>)">
-    <DocHeading Title="Basic usage" />
-    <Demo Type="typeof(HxCheckboxList_Demo)" Tabs="false" />
+	<DocHeading Title="Basic usage" />
+	<Demo Type="typeof(HxCheckboxList_Demo)" Tabs="false" />
 	<DocDemoDataServiceNote />
 
-    <DocHeading Title="Inline" />
-    <p>Group checkboxes on the same horizontal row by adding <code>Inline="true"</code>.</p>
-    <Demo Type="typeof(HxCheckboxList_Demo_Inline)" />
+	<DocHeading Title="Render modes" />
+	<p>The <code>HxCheckboxList</code> component supports several rendering modes via the <code>RenderMode</code> parameter.</p>
+	<Demo Type="typeof(HxCheckboxList_Demo_RenderModes)" />
+
+	<DocHeading Title="Inline" />
+	<p>
+		You can display items horizontally in a single row by setting <code>Inline="true"</code>.<br/>
+		(Toggle buttons do not support the <code>Inline</code> parameter; horizontal orientation can be achieved with proper CSS.)
+	</p>
+	<Demo Type="typeof(HxCheckboxList_Demo_Inline)" />
 </ComponentApiDoc>
