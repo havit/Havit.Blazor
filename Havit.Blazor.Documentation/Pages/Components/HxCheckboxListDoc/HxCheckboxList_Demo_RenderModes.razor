@@ -22,12 +22,12 @@
 				TValue="int"
 				@bind-Value="selectedEmployeeIds"
 				Data="data"
+				ItemTextCssClass="w-100"
 				ItemTextSelector="@(employee => employee.Name)"
 				ItemValueSelector="@(employee => employee.Id)"
 				RenderMode="CheckboxListRenderMode.ToggleButtons"
 				Color="ThemeColor.Light"
-				Outline="true"
-				InputCssClass="d-grid gap-1" /> @* TODO DC *@
+				Outline="true" />
 
 <HxCheckboxList Label="Button group"
 				TItem="EmployeeDto"
