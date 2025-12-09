@@ -12,9 +12,10 @@
 				   ItemTextSelector="@(item => item)"
 				   ItemValueSelector="@(item => item)"
 				   RenderMode="RadioButtonListRenderMode.ToggleButtons"
-				   Color="ThemeColor.Success" />
+				   Color="ThemeColor.Success"
+				   Outline="true" />
 
-<h3>Toggle buttons - Outline</h3>
+<h3>Toggle buttons - Inline</h3>
 <HxRadioButtonList TItem="string"
 				   TValue="string"
 				   Data="@data"
@@ -23,6 +24,7 @@
 				   ItemValueSelector="@(item => item)"
 				   RenderMode="RadioButtonListRenderMode.ToggleButtons"
 				   Color="ThemeColor.Info"
+				   Inline="true"
 				   Outline="true" />
 
 <h3>Toggle buttons in a button group</h3>
@@ -36,7 +38,7 @@
 				   Color="ThemeColor.Primary"
 				   Outline="true" />
 
-<h3>Toggle buttons in a vertical button group</h3>
+<h3>Toggle buttons in a vertical button group (inline)</h3>
 <HxRadioButtonList TItem="string"
 				   TValue="string"
 				   Data="@data"
@@ -44,7 +46,7 @@
 				   ItemTextSelector="@(item => item)"
 				   ItemValueSelector="@(item => item)"
 				   RenderMode="RadioButtonListRenderMode.ButtonGroup"
-				   Inline="false"
+				   Inline="true"
 				   Color="ThemeColor.Secondary"
 				   Outline="true" />
 
@@ -77,7 +79,7 @@
 @code
 {
 	private FormModel model = new FormModel();
-	private readonly List<string> data = new List<string> { "Option 1", "Option 2", "Option 3" };
+	private readonly List<string> data = new List<string> { "Option 1", "Option 2 long", "Option 3" };
 
 	public class FormModel
 	{
