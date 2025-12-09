@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.3.11222.16 d18.3
+VisualStudioVersion = 18.0.11111.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Havit.Blazor.Components.Web", "Havit.Blazor.Components.Web\Havit.Blazor.Components.Web.csproj", "{DF1C423F-ACA1-446E-A9F1-099DFDF70D44}"
 EndProject
@@ -69,6 +69,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{45BC138B-4F00-43DD-BF5D-D2FC36972857}"
 	ProjectSection(SolutionItems) = preProject
 		.github\CODEOWNERS = .github\CODEOWNERS
+		.github\copilot-instructions.md = .github\copilot-instructions.md
+		.github\dependabot.yml = .github\dependabot.yml
 		.github\FUNDING.yml = .github\FUNDING.yml
 	EndProjectSection
 EndProject
@@ -83,6 +85,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.Components.Web.ECharts", "Havit.Blazor.Components.Web.ECharts\Havit.Blazor.Components.Web.ECharts.csproj", "{EB811073-4045-4D8B-B860-C4B5EF719784}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{A19BD060-918B-4AF2-AEBC-BC32801BF42F}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.E2ETests", "Havit.Blazor.E2ETests\Havit.Blazor.E2ETests.csproj", "{55A6BFD5-C229-47DB-891F-F86EE51538AC}"
 EndProject
@@ -205,7 +210,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{D7B56FC7-6322-4B66-B34F-A972805BF740} = {201D627C-BC35-4971-95D0-5BA656E771F6}
 		{8715FA33-DD71-40F5-996A-3022F5F7B185} = {201D627C-BC35-4971-95D0-5BA656E771F6}
 		{436CF1FE-1E6C-423D-8A64-0E9647C743EF} = {201D627C-BC35-4971-95D0-5BA656E771F6}
 		{12E6532A-0404-4524-A6CC-101193F57D38} = {79C29E4F-EF98-4F43-9782-B0D58A533C4D}
