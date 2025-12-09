@@ -1,13 +1,8 @@
 ﻿<EditForm Model="@model">
     <HxButtonGroup>
-        <InputCheckbox @bind-Value="model.checkbox1" id="checkbox1" class="btn-check" />
-        <label class="btn btn-outline-primary" for="checkbox1">Checkbox 1</label>
-
-        <InputCheckbox @bind-Value="model.checkbox2" id="checkbox2" class="btn-check" />
-        <label class="btn btn-outline-primary" for="checkbox2">Checkbox 2</label>
-
-        <InputCheckbox @bind-Value="model.checkbox3" id="checkbox3" class="btn-check" />
-        <label class="btn btn-outline-primary" for="checkbox3">Checkbox 3</label>
+        <HxCheckbox Text="Checkbox 1" @bind-Value="@model.checkbox1" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Primary" Outline="true" />
+        <HxCheckbox Text="Checkbox 2" @bind-Value="@model.checkbox2" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Primary" Outline="true" />
+        <HxCheckbox Text="Checkbox 3" @bind-Value="@model.checkbox3" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Primary" Outline="true" />
     </HxButtonGroup>
 </EditForm>
 
