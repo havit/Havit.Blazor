@@ -3,7 +3,7 @@
 /// <summary>
 /// Non-generic API for <see cref="HxMultiSelect{TValue, TItem}"/>.
 /// </summary>
-public class HxMultiSelect
+public static class HxMultiSelect
 {
 	/// <summary>
 	/// Application-wide defaults for the <see cref="HxMultiSelect{TValue, TItem}"/>.
