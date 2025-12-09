@@ -1,7 +1,4 @@
-﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
-using Microsoft.Extensions.Localization;
-
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Checkbox input.<br />
@@ -46,7 +43,6 @@ public class HxCheckbox : HxCheckboxBase
 	/// Checkbox render mode.
 	/// </summary>
 	[Parameter] public CheckboxRenderMode? RenderMode { get; set; }
-
 	protected override CheckboxRenderMode RenderModeEffective => RenderMode ?? GetSettings()?.RenderMode ?? GetDefaults().RenderMode ?? throw new InvalidOperationException(nameof(RenderMode) + " default for " + nameof(HxCheckbox) + " has to be set.");
 
 	/// <summary>

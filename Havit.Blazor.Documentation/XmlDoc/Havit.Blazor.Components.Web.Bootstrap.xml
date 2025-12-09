@@ -3481,22 +3481,22 @@
             Gets the name of the event as a string.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.Checkbox">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.Checkboxes">
             <summary>
             Renders regular checkboxes.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.Switch">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.Switches">
             <summary>
             Renders switches.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.NativeSwitch">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.NativeSwitches">
             <summary>
             Renders switches with native haptic feedback (mobile Safari, iOS 17.4+).
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButton">
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons">
             <summary>
             Renders toggle buttons.<br />
             </summary>
@@ -3515,13 +3515,13 @@
             <summary>
             Bootstrap button style - theme color.<br />
             The default is taken from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Defaults"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> if not customized).
-            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButton"/>.
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings.Outline">
             <summary>
             <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
-            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButton"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.Checkbox">
@@ -3810,13 +3810,13 @@
             <summary>
             Bootstrap button style - theme color.<br />
             The default is taken from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Defaults"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> if not customized).
-            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButton"/>.
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Outline">
             <summary>
             <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
-            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButton"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">

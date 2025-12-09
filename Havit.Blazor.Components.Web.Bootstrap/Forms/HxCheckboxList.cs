@@ -135,7 +135,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	/// <summary>
 	/// Bootstrap button style - theme color.<br />
 	/// The default is taken from <see cref="HxButton.Defaults"/> (<see cref="ThemeColor.None"/> if not customized).
-	/// For <see cref="CheckboxListRenderMode.ToggleButton"/>.
+	/// For <see cref="CheckboxListRenderMode.ToggleButtons"/>.
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
 
@@ -143,7 +143,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 
 	/// <summary>
 	/// <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
-	/// For <see cref="CheckboxListRenderMode.ToggleButton"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>.
+	/// For <see cref="CheckboxListRenderMode.ToggleButtons"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>.
 	/// </summary>
 	[Parameter] public bool? Outline { get; set; }
 
@@ -224,10 +224,10 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	{
 		return RenderMode switch
 		{
-			CheckboxListRenderMode.Checkbox => CheckboxRenderMode.Checkbox,
-			CheckboxListRenderMode.Switch => CheckboxRenderMode.Switch,
-			CheckboxListRenderMode.NativeSwitch => CheckboxRenderMode.NativeSwitch,
-			CheckboxListRenderMode.ToggleButton => CheckboxRenderMode.ToggleButton,
+			CheckboxListRenderMode.Checkboxes => CheckboxRenderMode.Checkbox,
+			CheckboxListRenderMode.Switches => CheckboxRenderMode.Switch,
+			CheckboxListRenderMode.NativeSwitches => CheckboxRenderMode.NativeSwitch,
+			CheckboxListRenderMode.ToggleButtons => CheckboxRenderMode.ToggleButton,
 			CheckboxListRenderMode.ButtonGroup => CheckboxRenderMode.ToggleButton, // return (checkbox render mode) ToggleButton for (a checkboxlist render mode) ButtonGroup
 			_ => throw new InvalidOperationException(RenderMode.ToString())
 		};

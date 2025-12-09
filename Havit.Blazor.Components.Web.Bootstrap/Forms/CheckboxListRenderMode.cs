@@ -5,22 +5,22 @@ public enum CheckboxListRenderMode
 	/// <summary>
 	/// Renders regular checkboxes.
 	/// </summary>
-	Checkbox,
+	Checkboxes,
 
 	/// <summary>
 	/// Renders switches.
 	/// </summary>
-	Switch,
+	Switches,
 
 	/// <summary>
 	/// Renders switches with native haptic feedback (mobile Safari, iOS 17.4+).
 	/// </summary>
-	NativeSwitch,
+	NativeSwitches,
 
 	/// <summary>
 	/// Renders toggle buttons.<br />
 	/// </summary>
-	ToggleButton,
+	ToggleButtons,
 
 	/// <summary>
 	/// Renders toggle buttons in a button group.<br />
