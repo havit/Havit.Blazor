@@ -9,25 +9,10 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot use an array: https://github.com/dotnet/aspnetcore/issues/15014
 {
 	/// <summary>
-	/// Application-wide defaults for <see cref="HxCheckboxList{TValue, TItem}"/> and derived components.
-	/// </summary>
-	public static CheckboxListSettings Defaults { get; set; }
-
-	static HxCheckboxList()
-	{
-		Defaults = new CheckboxListSettings()
-		{
-			// ValidationMessageMode = null, HxInputBase sets the default
-			// Color = null, HxCheckbox.Color is not set, HxCheckbox uses its own default then
-			// Outline = null, HxCheckbox.Outline is not set, HxCheckbox uses its own default then
-		};
-	}
-
-	/// <summary>
 	/// Returns application-wide defaults for the component.
 	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
-	protected override CheckboxListSettings GetDefaults() => Defaults;
+	protected override CheckboxListSettings GetDefaults() => HxCheckboxList.Defaults;
 
 	/// <summary>
 	/// Items to display. 
