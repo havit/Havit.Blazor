@@ -130,7 +130,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	/// <summary>
 	/// Checkbox render mode.
 	/// </summary>
-	[Parameter] public CheckboxListRenderMode RenderMode { get; set; }
+	[Parameter] public CheckboxListRenderMode RenderMode { get; set; } = CheckboxListRenderMode.Checkboxes;
 
 	/// <summary>
 	/// Color for <see cref="CheckboxListRenderMode.ToggleButtons"/>.

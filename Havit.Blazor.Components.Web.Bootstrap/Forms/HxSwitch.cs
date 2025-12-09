@@ -16,7 +16,6 @@ public class HxSwitch : HxCheckboxBase
 	{
 		Defaults = new SwitchSettings()
 		{
-			ValidationMessageMode = Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Floating,
 			Native = false
 		};
 	}

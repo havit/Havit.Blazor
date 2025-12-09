@@ -16,7 +16,6 @@ public class HxCheckbox : HxCheckboxBase
 	{
 		Defaults = new CheckboxSettings()
 		{
-			ValidationMessageMode = Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Floating,
 			Color = ThemeColor.None,
 			Outline = false,
 			RenderMode = CheckboxRenderMode.Checkbox
