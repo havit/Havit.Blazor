@@ -3,7 +3,7 @@
 /// <summary>
 /// Non-generic API for the <see cref="HxCheckboxList{TValue, TItem}"/> component.
 /// </summary>
-public static class HxCheckboxList
+public sealed class HxCheckboxList
 {
 	/// <summary>
 	/// Application-wide defaults for <see cref="HxCheckboxList{TValue, TItem}"/> and derived components.

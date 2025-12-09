@@ -3,7 +3,7 @@
 /// <summary>
 /// Non-generic API for <see cref="HxSearchBox{TItem}" />.
 /// </summary>
-public static class HxSearchBox
+public sealed class HxSearchBox
 {
 	/// <summary>
 	/// Application-wide defaults for the <see cref="HxSearchBox{TItem}"/> and derived components.

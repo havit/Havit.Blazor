@@ -7,7 +7,7 @@
 /// Marker for resources for <see cref="HxGrid{TItem}"/>.
 /// It is unfriendly to create resources for generic classes.
 /// </remarks>
-public static class HxGrid
+public sealed class HxGrid
 {
 	/// <summary>
 	/// Application-wide defaults for the <see cref="HxGrid{TItem}"/> and derived components.

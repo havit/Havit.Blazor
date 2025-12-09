@@ -23,14 +23,14 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	/// Color for <see cref="RadioButtonListRenderMode.ToggleButtons"/>.
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
-	protected ThemeColor? ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults()?.Color; // can be null, default button color will be used
+	protected ThemeColor ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults()?.Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxRadioButtonListBase<,>) + " has to be set.");
 
 	/// <summary>
 	/// Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
 	/// for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>.
 	/// </summary>
 	[Parameter] public bool? Outline { get; set; }
-	protected bool? OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults()?.Outline; // can be null, default button outline will be used
+	protected bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults()?.Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxRadioButtonListBase<,>) + " has to be set.");
 
 	/// <summary>
 	/// Selects a value from an item.
@@ -103,7 +103,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	protected bool AutoSortImpl { get; set; } = true;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDate.Defaults"/>, overridden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputBase.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public RadioButtonListSettings Settings { get; set; }
 
@@ -111,7 +111,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	/// Returns application-wide defaults for the component.
 	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
-	protected override RadioButtonListSettings GetDefaults() => null;
+	protected override RadioButtonListSettings GetDefaults() => HxRadioButtonList.Defaults;
 
 	/// <summary>
 	/// Returns an optional set of component settings.
@@ -222,7 +222,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.OpenElement(300, "label");
 			builder.AddAttribute(301, "class", CssClassHelper.Combine(
 				isToggleButton ? "btn" : "form-check-label",
-				isToggleButton ? (ColorEffective ?? ThemeColor.Primary).ToButtonColorCss(OutlineEffective ?? false) : null,
+				isToggleButton ? ColorEffective.ToButtonColorCss(OutlineEffective) : null,
 				ItemTextCssClassImpl,
 				ItemTextCssClassSelectorImpl?.Invoke(item)));
 			builder.AddAttribute(302, "for", inputId);

@@ -3,7 +3,7 @@
 /// <summary>
 /// Non-generic API for the <see cref="HxInputBase{TValue}"/> component.
 /// </summary>
-public static class HxInputBase
+public sealed class HxInputBase
 {
 	/// <summary>
 	/// Application-wide defaults for the <see cref="HxInputBase{TValue}"/> and derived components.
