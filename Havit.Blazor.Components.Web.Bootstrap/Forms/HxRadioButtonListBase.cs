@@ -15,6 +15,24 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	[Parameter] public bool Inline { get; set; }
 
 	/// <summary>
+	/// Radio button list render mode. The default value is <see cref="RadioButtonListRenderMode.RadioButtons"/>.
+	/// </summary>
+	[Parameter] public RadioButtonListRenderMode RenderMode { get; set; } = RadioButtonListRenderMode.RadioButtons;
+
+	/// <summary>
+	/// Color for <see cref="RadioButtonListRenderMode.ToggleButtons"/>.
+	/// </summary>
+	[Parameter] public ThemeColor? Color { get; set; }
+	protected ThemeColor? ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults()?.Color; // can be null, default button color will be used
+
+	/// <summary>
+	/// Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
+	/// for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>.
+	/// </summary>
+	[Parameter] public bool? Outline { get; set; }
+	protected bool? OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults()?.Outline; // can be null, default button outline will be used
+
+	/// <summary>
 	/// Selects a value from an item.
 	/// Not required when <c>TValueType</c> is the same as <c>TItemTime</c>.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
@@ -90,6 +108,12 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	[Parameter] public RadioButtonListSettings Settings { get; set; }
 
 	/// <summary>
+	/// Returns application-wide defaults for the component.
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
+	/// </summary>
+	protected new virtual RadioButtonListSettings GetDefaults() => null;
+
+	/// <summary>
 	/// Returns an optional set of component settings.
 	/// </summary>
 	protected override RadioButtonListSettings GetSettings() => Settings;
@@ -120,12 +144,34 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 		if (_itemsToRender != null)
 		{
-			for (int i = 0; i < _itemsToRender.Count; i++)
+			if (RenderMode == RadioButtonListRenderMode.ButtonGroup)
 			{
-				builder.OpenRegion(0);
-				BuildRenderInput_RenderRadioItem(builder, i);
-				builder.CloseRegion();
+				builder.OpenComponent(1, typeof(HxButtonGroup));
+				builder.AddAttribute(2, nameof(HxButtonGroup.Orientation), Inline ? ButtonGroupOrientation.Horizontal : ButtonGroupOrientation.Vertical);
+				builder.AddAttribute(3, nameof(HxButtonGroup.ChildContent), (RenderFragment)BuildRenderInputItems);
+				builder.CloseComponent();
 			}
+			else if (RenderMode == RadioButtonListRenderMode.ToggleButtons)
+			{
+				builder.OpenElement(1, "div");
+				builder.AddAttribute(2, "class", Inline ? "d-flex gap-1" : "d-inline-flex flex-column gap-1");
+				BuildRenderInputItems(builder);
+				builder.CloseElement();
+			}
+			else
+			{
+				BuildRenderInputItems(builder);
+			}
+		}
+	}
+
+	protected void BuildRenderInputItems(RenderTreeBuilder builder)
+	{
+		for (int i = 0; i < _itemsToRender.Count; i++)
+		{
+			builder.OpenRegion(0);
+			BuildRenderInput_RenderRadioItem(builder, i);
+			builder.CloseRegion();
 		}
 	}
 
@@ -142,13 +188,20 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 			string inputId = GroupName + "_" + index.ToString();
 
-			builder.OpenElement(100, "div");
+			bool isToggleButton = (RenderMode == RadioButtonListRenderMode.ToggleButtons) || (RenderMode == RadioButtonListRenderMode.ButtonGroup);
 
-			// TODO CoreCssClass
-			builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", Inline ? "form-check-inline" : null, ItemCssClassImpl, ItemCssClassSelectorImpl?.Invoke(item)));
+			if (!isToggleButton)
+			{
+				builder.OpenElement(100, "div");
+
+				// TODO CoreCssClass
+				builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", Inline ? "form-check-inline" : null, ItemCssClassImpl, ItemCssClassSelectorImpl?.Invoke(item)));
+			}
 
 			builder.OpenElement(200, "input");
-			builder.AddAttribute(201, "class", CssClassHelper.Combine("form-check-input", ItemInputCssClassImpl, ItemInputCssClassSelectorImpl?.Invoke(item)));
+			builder.AddAttribute(201, "class", CssClassHelper.Combine(
+				isToggleButton ? "btn-check" : "form-check-input",
+				(RenderMode == RadioButtonListRenderMode.ButtonGroup) ? ItemInputCssClassSelectorImpl?.Invoke(item) : CssClassHelper.Combine(ItemInputCssClassImpl, ItemInputCssClassSelectorImpl?.Invoke(item))));
 			builder.AddAttribute(202, "type", "radio");
 			builder.AddAttribute(203, "name", GroupName);
 			builder.AddAttribute(204, "id", inputId);
@@ -159,11 +212,19 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.AddAttribute(208, "onclick", EventCallback.Factory.Create(this, () => HandleInputClick(j)));
 			builder.SetUpdatesAttributeName("checked");
 			builder.AddEventStopPropagationAttribute(209, "onclick", true);
+			if (isToggleButton)
+			{
+				builder.AddAttribute(210, "autocomplete", "off");
+			}
 			builder.AddMultipleAttributes(250, AdditionalAttributes);
 			builder.CloseElement(); // input
 
 			builder.OpenElement(300, "label");
-			builder.AddAttribute(301, "class", CssClassHelper.Combine("form-check-label", ItemTextCssClassImpl, ItemTextCssClassSelectorImpl?.Invoke(item)));
+			builder.AddAttribute(301, "class", CssClassHelper.Combine(
+				isToggleButton ? "btn" : "form-check-label",
+				isToggleButton ? (ColorEffective ?? ThemeColor.Primary).ToButtonColorCss(OutlineEffective ?? false) : null,
+				ItemTextCssClassImpl,
+				ItemTextCssClassSelectorImpl?.Invoke(item)));
 			builder.AddAttribute(302, "for", inputId);
 			if (ItemTemplateImpl != null)
 			{
@@ -175,7 +236,10 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			}
 			builder.CloseElement(); // label
 
-			builder.CloseElement(); // div
+			if (!isToggleButton)
+			{
+				builder.CloseElement(); // div
+			}
 		}
 	}
 

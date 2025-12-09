@@ -9,6 +9,26 @@
 public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TItem>
 {
 	/// <summary>
+	/// Application-wide defaults for <see cref="HxRadioButtonList{TValue, TItem}"/> and derived components.
+	/// </summary>
+	public static RadioButtonListSettings Defaults { get; set; }
+
+	static HxRadioButtonList()
+	{
+		Defaults = new RadioButtonListSettings()
+		{
+			// ValidationMessageMode = null, HxInputBase sets the default
+			// Color = null, default button color will be used
+			// Outline = null, default button outline will be used
+		};
+	}
+
+	/// <summary>
+	/// Returns application-wide defaults for the component.
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
+	/// </summary>
+	protected override RadioButtonListSettings GetDefaults() => Defaults;
+	/// <summary>
 	/// Selects the value from the item.
 	/// Not required when <c>TValue</c> is the same as <c>TItem</c>.
 	/// </summary>
