@@ -15,11 +15,11 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 
 	static HxCheckboxList()
 	{
-		Defaults = new CheckboxListSettings
+		Defaults = new CheckboxListSettings()
 		{
-			ValidationMessageMode = Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode.Floating,
-			Color = ThemeColor.None,
-			Outline = false
+			// ValidationMessageMode = null, HxInputBase sets the default
+			// Color = null, HxCheckbox.Color is not set, HxCheckbox uses its own default then
+			// Outline = null, HxCheckbox.Outline is not set, HxCheckbox uses its own default then
 		};
 	}
 
@@ -136,14 +136,14 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	/// Color for <see cref="CheckboxListRenderMode.ToggleButtons"/>.
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
-	protected ThemeColor ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxCheckboxList<,>) + " has to be set.");
+	protected ThemeColor? ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color; // can be null, HxCheckbox.Color remains unset
 
 	/// <summary>
 	/// Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
 	/// for <see cref="CheckboxListRenderMode.ToggleButtons"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>.
 	/// </summary>
 	[Parameter] public bool? Outline { get; set; }
-	protected bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxCheckboxList<,>) + " has to be set.");
+	protected bool? OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline; // can be null, HxCheckbox.Color remains unset
 
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
