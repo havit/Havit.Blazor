@@ -140,6 +140,8 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 		builder.AddAttribute(1001, "value", bool.TrueString);
 
 		builder.AddAttribute(1002, "onchange", value: EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
+		builder.SetUpdatesAttributeName("checked");
+
 		if ((RenderModeEffective == CheckboxRenderMode.Switch) || (RenderModeEffective == CheckboxRenderMode.NativeSwitch))
 		{
 			builder.AddAttribute(1003, "role", "switch");
@@ -153,7 +155,6 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 			builder.AddAttribute(1005, "autocomplete", "off");
 		}
 
-		builder.SetUpdatesAttributeName("checked");
 		builder.AddEventStopPropagationAttribute(1006, "onclick", true);
 		builder.AddElementReferenceCapture(1007, elementReference => InputElement = elementReference);
 		builder.CloseElement(); // input

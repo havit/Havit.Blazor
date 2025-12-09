@@ -3673,7 +3673,7 @@
             Indicates HxCheckbox is used as a part of a button group. Value provided as a cascading value from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup" />.
             </summary>
             <remarks>
-            In a button group the html structure must be as simple as documented in .
+            In a button group the html structure must be as simple as documented in Bootstrap docs.
             Therefore we do not render neither the outer div(s) nor the validation message.
             </remarks>
         </member>
@@ -11942,12 +11942,6 @@
         </member>
         <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsWordChar(System.Char)">
             <summary>Determines whether the character is part of the [\w] set.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.Utilities.WordCategoriesMask">
-            <summary>Provides a mask of Unicode categories that combine to form [\w].</summary>
-        </member>
-        <member name="P:System.Text.RegularExpressions.Generated.Utilities.WordCharBitmap">
-            <summary>Gets a bitmap for whether each character 0 through 127 is in [\w]</summary>
         </member>
     </members>
 </doc>
