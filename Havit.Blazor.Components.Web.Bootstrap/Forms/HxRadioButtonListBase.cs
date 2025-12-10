@@ -20,7 +20,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	[Parameter] public RadioButtonListRenderMode RenderMode { get; set; } = RadioButtonListRenderMode.RadioButtons;
 
 	/// <summary>
-	/// Color for <see cref="RadioButtonListRenderMode.ToggleButtons"/>.
+	/// Color for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>.
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
 	protected ThemeColor ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults()?.Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxRadioButtonListBase<,>) + " has to be set.");
