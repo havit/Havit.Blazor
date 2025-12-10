@@ -147,20 +147,20 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.OpenElement(0, "div");
 			builder.AddAttribute(1, "aria-labelledby", InputId);
 			builder.AddAttribute(2, "role", "radiogroup");
-			builder.AddAttribute(2, "class", InputCssClass);
-			builder.OpenRegion(3);
+			builder.AddAttribute(3, "class", InputCssClass);
+			builder.OpenRegion(4);
 
 			if (RenderMode == RadioButtonListRenderMode.ButtonGroup)
 			{
-				builder.OpenComponent(1, typeof(HxButtonGroup));
-				builder.AddAttribute(3, nameof(HxButtonGroup.Orientation), Inline ? ButtonGroupOrientation.Horizontal : ButtonGroupOrientation.Vertical);
-				builder.AddAttribute(4, nameof(HxButtonGroup.ChildContent), (RenderFragment)BuildRenderInputItems);
+				builder.OpenComponent(10, typeof(HxButtonGroup));
+				builder.AddAttribute(11, nameof(HxButtonGroup.Orientation), Inline ? ButtonGroupOrientation.Horizontal : ButtonGroupOrientation.Vertical);
+				builder.AddAttribute(12, nameof(HxButtonGroup.ChildContent), (RenderFragment)BuildRenderInputItems);
 				builder.CloseComponent();
 			}
 			else if (RenderMode == RadioButtonListRenderMode.ToggleButtons)
 			{
-				builder.OpenElement(1, "div");
-				builder.AddAttribute(2, "class", Inline ? "d-flex gap-1" : "d-inline-flex flex-column gap-1");
+				builder.OpenElement(20, "div");
+				builder.AddAttribute(21, "class", Inline ? "d-flex gap-1" : "d-inline-flex flex-column gap-1");
 				BuildRenderInputItems(builder);
 				builder.CloseElement();
 			}
