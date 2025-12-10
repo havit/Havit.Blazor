@@ -4,7 +4,7 @@
 /// Non-generic API for <see cref="HxInputDate{TValue}"/>.
 /// Marker for resources for <see cref="HxInputDate{TValue}"/>.
 /// </summary>
-public class HxInputDate
+public sealed class HxInputDate
 {
 	/// <summary>
 	/// Application-wide defaults for the <see cref="HxInputDate{TValue}"/>.

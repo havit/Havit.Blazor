@@ -1,11 +1,10 @@
-﻿@inject IDemoDataService DemoDataService
+@inject IDemoDataService DemoDataService
 
 <HxRadioButtonList Label="Radio buttons (default)"
 				   TItem="EmployeeDto"
 				   TValue="int?"
 				   @bind-Value="selectedEmployeeId1"
 				   Data="data"
-				   Inline="true"
 				   ItemTextSelector="@(employee => employee.Name)"
 				   ItemValueSelector="@(employee => employee.Id)" />
 
@@ -14,7 +13,6 @@
 				   TValue="int?"
 				   @bind-Value="selectedEmployeeId2"
 				   Data="data"
-				   Inline="true"
 				   ItemTextCssClass="w-100"
 				   ItemTextSelector="@(employee => employee.Name)"
 				   ItemValueSelector="@(employee => employee.Id)"
@@ -28,7 +26,6 @@
 				   TValue="int?"
 				   @bind-Value="selectedEmployeeId3"
 				   Data="data"
-				   Inline="true"
 				   ItemTextSelector="@(employee => employee.Name)"
 				   ItemValueSelector="@(employee => employee.Id)"
 				   RenderMode="RadioButtonListRenderMode.ButtonGroup"

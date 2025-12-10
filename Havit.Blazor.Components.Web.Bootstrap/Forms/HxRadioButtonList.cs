@@ -9,6 +9,11 @@
 public class HxRadioButtonList<TValue, TItem> : HxRadioButtonListBase<TValue, TItem>
 {
 	/// <summary>
+	/// Returns application-wide defaults for the component.
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
+	/// </summary>
+	protected override RadioButtonListSettings GetDefaults() => HxRadioButtonList.Defaults;
+	/// <summary>
 	/// Selects the value from the item.
 	/// Not required when <c>TValue</c> is the same as <c>TItem</c>.
 	/// </summary>
