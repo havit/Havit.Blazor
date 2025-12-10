@@ -144,6 +144,11 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 		if (_itemsToRender != null)
 		{
+			builder.OpenElement(0, "div");
+			builder.AddAttribute(1, "id", InputId);
+			builder.AddAttribute(2, "class", InputCssClass);
+			builder.OpenRegion(3);
+
 			if (RenderMode == RadioButtonListRenderMode.ButtonGroup)
 			{
 				builder.OpenComponent(1, typeof(HxButtonGroup));
@@ -162,6 +167,9 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			{
 				BuildRenderInputItems(builder);
 			}
+
+			builder.CloseRegion();
+			builder.CloseElement();
 		}
 	}
 
