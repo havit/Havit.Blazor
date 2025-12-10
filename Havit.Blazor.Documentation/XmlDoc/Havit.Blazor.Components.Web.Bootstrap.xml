@@ -5038,11 +5038,6 @@
             <typeparam name="TValue">Type of value.</typeparam>
             <typeparam name="TItem">Type of items.</typeparam>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.Defaults">
-            <summary>
-            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2"/> and derived components.
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.GetDefaults">
             <summary>
             Returns application-wide defaults for the component.
@@ -5114,6 +5109,11 @@
             The default value is <c>true</c>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList">
+            <summary>
+            Non-generic API for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2"/> component.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList.Defaults">
             <summary>
             Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2"/> and derived components.
@@ -5138,7 +5138,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.Color">
             <summary>
-            Color for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/>.
+            Color for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.Outline">
@@ -6152,7 +6152,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings.Color">
             <summary>
-            Color for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/>.
+            Color for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings.Outline">
@@ -12011,12 +12011,6 @@
         </member>
         <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsWordChar(System.Char)">
             <summary>Determines whether the character is part of the [\w] set.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.Utilities.WordCategoriesMask">
-            <summary>Provides a mask of Unicode categories that combine to form [\w].</summary>
-        </member>
-        <member name="P:System.Text.RegularExpressions.Generated.Utilities.WordCharBitmap">
-            <summary>Gets a bitmap for whether each character 0 through 127 is in [\w]</summary>
         </member>
     </members>
 </doc>
