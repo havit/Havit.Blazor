@@ -6,7 +6,7 @@
 public record RadioButtonListSettings : InputSettings
 {
 	/// <summary>
-	/// Color for <see cref="RadioButtonListRenderMode.ToggleButtons"/>.
+	/// Color for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>.
 	/// </summary>
 	public ThemeColor? Color { get; set; }
 
