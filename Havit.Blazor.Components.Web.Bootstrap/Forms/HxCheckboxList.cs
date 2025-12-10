@@ -138,7 +138,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 		if (_itemsToRender.Count > 0)
 		{
 			builder.OpenElement(0, "div");
-			builder.AddAttribute(1, "id", InputId);
+			builder.AddAttribute(1, "aria-labelledby", InputId);
 			builder.AddAttribute(2, "class", InputCssClass);
 			builder.OpenRegion(3);
 

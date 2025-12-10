@@ -145,15 +145,16 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 		if (_itemsToRender != null)
 		{
 			builder.OpenElement(0, "div");
-			builder.AddAttribute(1, "id", InputId);
+			builder.AddAttribute(1, "aria-labelledby", InputId);
+			builder.AddAttribute(2, "role", "radiogroup");
 			builder.AddAttribute(2, "class", InputCssClass);
 			builder.OpenRegion(3);
 
 			if (RenderMode == RadioButtonListRenderMode.ButtonGroup)
 			{
 				builder.OpenComponent(1, typeof(HxButtonGroup));
-				builder.AddAttribute(2, nameof(HxButtonGroup.Orientation), Inline ? ButtonGroupOrientation.Horizontal : ButtonGroupOrientation.Vertical);
-				builder.AddAttribute(3, nameof(HxButtonGroup.ChildContent), (RenderFragment)BuildRenderInputItems);
+				builder.AddAttribute(3, nameof(HxButtonGroup.Orientation), Inline ? ButtonGroupOrientation.Horizontal : ButtonGroupOrientation.Vertical);
+				builder.AddAttribute(4, nameof(HxButtonGroup.ChildContent), (RenderFragment)BuildRenderInputItems);
 				builder.CloseComponent();
 			}
 			else if (RenderMode == RadioButtonListRenderMode.ToggleButtons)
