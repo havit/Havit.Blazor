@@ -1,5 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
+/// <summary>
+/// Non-generic API for the <see cref="HxRadioButtonList{TValue, TItem}"/> component.
+/// </summary>
 public sealed class HxRadioButtonList
 {
 	/// <summary>
