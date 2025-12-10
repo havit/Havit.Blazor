@@ -1,4 +1,4 @@
-namespace Havit.Blazor.TestApp.Client;
+namespace Havit.Blazor.TestApp.Client.HxModalTests;
 
 public partial class HxModal_BusinessCardValidation_Test : ComponentBase
 {

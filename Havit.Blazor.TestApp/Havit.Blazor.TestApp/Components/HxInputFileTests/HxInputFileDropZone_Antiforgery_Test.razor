@@ -1,14 +1,13 @@
-@page "/HxInputFile_AntiforgeryTest"
+@page "/HxInputFileDropZone_Antiforgery"
 @rendermode InteractiveServer
+
+<h1>HxInputFileDropZone_AntiforgeryTest</h1>
 
 @using Microsoft.AspNetCore.Antiforgery
 @inject IAntiforgery Antiforgery
 @inject IHttpContextAccessor HttpContextAccessor
 
-<h1>HxInputFile_AntiforgeryTest</h1>
-
-<HxInputFile @ref="hxInputFileComponent"
-    Label="HxInputFile"
+<HxInputFileDropZone @ref="hxInputFileDropZoneComponent"
     UploadUrl="/file-upload-streamed"
     OnFileUploaded="HandleFileUploaded" />
 
@@ -33,31 +32,31 @@ AntiforgeryToken: <span style="background-color: rgb(245, 73, 108); color: black
 <br />
 
 @code {
-    private HxInputFile hxInputFileComponent;
+    private HxInputFileDropZone hxInputFileDropZoneComponent;
     private FileUploadedEventArgs fileUploaded;
     string antiforgeryToken;
     string antiforgeryHeaderName;
 
     private async Task HandleUploadClickAsync()
     {
-        if (hxInputFileComponent == null)
+        if (hxInputFileDropZoneComponent == null)
             return;
 
         AntiforgeryTokenSet tokens = Antiforgery.GetAndStoreTokens(HttpContextAccessor.HttpContext!);
         antiforgeryToken = tokens.RequestToken;
         antiforgeryHeaderName = tokens.HeaderName;
 
-        await hxInputFileComponent.StartUploadAsync(
+        await hxInputFileDropZoneComponent.StartUploadAsync(
             antiforgeryToken: antiforgeryToken,
             antiforgeryHeaderName: antiforgeryHeaderName);
     }
 
     private async Task HandleResetAsync()
     {
-        if (hxInputFileComponent == null)
+        if (hxInputFileDropZoneComponent == null)
             return;
 
-        await hxInputFileComponent.ResetAsync();
+        await hxInputFileDropZoneComponent.ResetAsync();
     }
 
 	private Task HandleFileUploaded(FileUploadedEventArgs fileUploaded)
