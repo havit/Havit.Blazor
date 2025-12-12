@@ -64,7 +64,7 @@ public class ShowcaseDataService : IShowcaseDataService
 		},
 		new()
 		{
-			Id = "skdoatube",
+			Id = "skodatube",
 			Title = "SkodaTube",
 			Description = "Digital media platform",
 			ImageUrl = "images/showcase/SkodaTube.png",
@@ -73,12 +73,41 @@ public class ShowcaseDataService : IShowcaseDataService
 		},
 		new()
 		{
-			Id = "tulipHeron",
+			Id = "tulip-heron",
 			Title = "TULIP Heron",
 			Description = "Attendance system",
 			ImageUrl = "images/showcase/TulipHeron.png",
 			Author = "Tulipize + HAVIT",
 			AuthorUrl = "https://tulipize.com/heron-attendance/",
+		},
+		new()
+		{
+			Id = "account-management-system",
+			Title = "Account Management System",
+			Description = "Authorization & Access Workflow Manager",
+			ImageUrl = "images/showcase/Ams.png",
+			Author = "HAVIT",
+			AuthorUrl = "https://www.havit.eu",
+		},
+		new()
+		{
+			Id = "med-apps",
+			Title = "MED Apps",
+			Description = "Digital Pregnancy Record",
+			ImageUrl = "images/showcase/MedTeh.png",
+			Author = "HAVIT",
+			AuthorUrl = "https://www.havit.eu",
+			IsMobileApp = true,
+		},
+		new()
+		{
+			Id = "client-app",
+			Title = "Client application",
+			Description = "Financial Advisor App",
+			ImageUrl = "images/showcase/Btc.png",
+			Author = "HAVIT",
+			AuthorUrl = "https://www.havit.eu",
+			IsMobileApp = true,
 		},
 
 	};
