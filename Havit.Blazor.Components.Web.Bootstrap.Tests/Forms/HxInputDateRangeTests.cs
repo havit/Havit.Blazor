@@ -45,7 +45,7 @@ public class HxInputDateRangeTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxInputDateRange_RequireFromLessOrEqualTo_DefaultIsFalse()
+	public void HxInputDateRange_RequireDateOrder_DefaultIsTrue()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
@@ -62,7 +62,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				// RequireFromLessOrEqualTo not set, should default to false
+				// RequireDateOrder not set, should default to true
 				builder.CloseComponent();
 			};
 
@@ -73,15 +73,15 @@ public class HxInputDateRangeTests : BunitTestBase
 			// Try to set invalid range - "from" after "to"
 			inputs[0].Change("12/31/2024"); // After June 30, 2024 (using en-US MM/dd/yyyy format)
 
-			// Assert - should allow because validation is not enabled by default
-			Assert.AreEqual(new DateTime(2024, 12, 31), myValue.StartDate, "StartDate should update even though it's after EndDate (validation disabled by default)"); Assert.AreEqual(new DateTime(2024, 12, 31), myValue.StartDate, "StartDate should update even though it's after EndDate (validation disabled by default)");
+			// Assert - should NOT allow because validation is enabled by default
+			Assert.AreEqual(new DateTime(2024, 1, 1), myValue.StartDate, "StartDate should NOT update when validation is enabled (default) and value would be invalid");
 			Assert.AreEqual(new DateTime(2024, 6, 30), myValue.EndDate, "EndDate should remain unchanged");
-			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not have validation error when RequireFromLessOrEqualTo is not enabled");
+			Assert.Contains("is-invalid", cut.Markup, "Component should have validation error when RequireDateOrder is enabled by default");
 		}
 	}
 
 	[TestMethod]
-	public void HxInputDateRange_RequireFromLessOrEqualTo_BlocksInvalidFromDate()
+	public void HxInputDateRange_RequireDateOrder_BlocksInvalidFromDate()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
@@ -98,7 +98,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireFromLessOrEqualTo), true);
+				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
 				builder.CloseComponent();
 			};
 
@@ -118,7 +118,7 @@ public class HxInputDateRangeTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxInputDateRange_RequireFromLessOrEqualTo_BlocksInvalidToDate()
+	public void HxInputDateRange_RequireDateOrder_BlocksInvalidToDate()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
@@ -135,7 +135,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireFromLessOrEqualTo), true);
+				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
 				builder.CloseComponent();
 			};
 
@@ -155,7 +155,7 @@ public class HxInputDateRangeTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxInputDateRange_RequireFromLessOrEqualTo_AllowsValidFromDate()
+	public void HxInputDateRange_RequireDateOrder_AllowsValidFromDate()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
@@ -172,7 +172,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireFromLessOrEqualTo), true);
+				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
 				builder.CloseComponent();
 			};
 
@@ -191,7 +191,7 @@ public class HxInputDateRangeTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxInputDateRange_RequireFromLessOrEqualTo_AllowsValidToDate()
+	public void HxInputDateRange_RequireDateOrder_AllowsValidToDate()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
@@ -208,7 +208,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireFromLessOrEqualTo), true);
+				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
 				builder.CloseComponent();
 			};
 
@@ -227,7 +227,7 @@ public class HxInputDateRangeTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxInputDateRange_RequireFromLessOrEqualTo_AllowsEqualDates()
+	public void HxInputDateRange_RequireDateOrder_AllowsEqualDates()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
@@ -244,7 +244,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireFromLessOrEqualTo), true);
+				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
 				builder.CloseComponent();
 			};
 
@@ -263,7 +263,7 @@ public class HxInputDateRangeTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxInputDateRange_RequireFromLessOrEqualTo_AllowsWhenOnlyFromDateSet()
+	public void HxInputDateRange_RequireDateOrder_AllowsWhenOnlyFromDateSet()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
@@ -280,7 +280,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireFromLessOrEqualTo), true);
+				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
 				builder.CloseComponent();
 			};
 
@@ -299,7 +299,7 @@ public class HxInputDateRangeTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxInputDateRange_RequireFromLessOrEqualTo_AllowsWhenOnlyToDateSet()
+	public void HxInputDateRange_RequireDateOrder_AllowsWhenOnlyToDateSet()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
@@ -316,7 +316,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireFromLessOrEqualTo), true);
+				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
 				builder.CloseComponent();
 			};
 
@@ -335,7 +335,7 @@ public class HxInputDateRangeTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxInputDateRange_RequireFromLessOrEqualTo_AllowsWhenBothDatesNull()
+	public void HxInputDateRange_RequireDateOrder_AllowsWhenBothDatesNull()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
@@ -352,7 +352,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireFromLessOrEqualTo), true);
+				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
 				builder.CloseComponent();
 			};
 
@@ -371,7 +371,7 @@ public class HxInputDateRangeTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxInputDateRange_RequireFromLessOrEqualTo_AllowsChangingToNullNull()
+	public void HxInputDateRange_RequireDateOrder_AllowsChangingToNullNull()
 	{
 		// Arrange
 		var myValue = new DateTimeRange
@@ -386,7 +386,7 @@ public class HxInputDateRangeTests : BunitTestBase
 			builder.AddAttribute(1, "Value", myValue);
 			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 			builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-			builder.AddAttribute(4, nameof(HxInputDateRange.RequireFromLessOrEqualTo), true);
+			builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
 			builder.CloseComponent();
 		};
 

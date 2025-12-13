@@ -36,9 +36,9 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 	[Parameter] public string ToParsingErrorMessageEffective { get; set; }
 
-	[Parameter] public bool RequireFromLessOrEqualToEffective { get; set; }
+	[Parameter] public bool RequireDateOrderEffective { get; set; }
 
-	[Parameter] public string FromMustBeLessOrEqualToValidationMessageEffective { get; set; }
+	[Parameter] public string DateOrderErrorMessageEffective { get; set; }
 
 	[Parameter] public bool ShowClearButtonEffective { get; set; } = true;
 
@@ -180,12 +180,12 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 			// Validate the range if required
 			bool rangeValidationFailed = false;
-			if (RequireFromLessOrEqualToEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue)
+			if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue)
 			{
 				if (newValue.StartDate.Value > newValue.EndDate.Value)
 				{
 					rangeValidationFailed = true;
-					_validationMessageStore.Add(FieldIdentifier, FromMustBeLessOrEqualToValidationMessageEffective);
+					_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
 				}
 			}
 
@@ -231,12 +231,12 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 			// Validate the range if required
 			bool rangeValidationFailed = false;
-			if (RequireFromLessOrEqualToEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue)
+			if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue)
 			{
 				if (newValue.StartDate.Value > newValue.EndDate.Value)
 				{
 					rangeValidationFailed = true;
-					_validationMessageStore.Add(FieldIdentifier, FromMustBeLessOrEqualToValidationMessageEffective);
+					_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
 				}
 			}
 
@@ -316,10 +316,10 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 		// Validate the range if required
 		bool rangeValidationFailed = false;
-		if (RequireFromLessOrEqualToEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue && newValue.StartDate.Value > newValue.EndDate.Value)
+		if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue && newValue.StartDate.Value > newValue.EndDate.Value)
 		{
 			rangeValidationFailed = true;
-			_validationMessageStore.Add(FieldIdentifier, FromMustBeLessOrEqualToValidationMessageEffective);
+			_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
 		}
 
 		if (!rangeValidationFailed)
@@ -353,10 +353,10 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 		// Validate the range if required
 		bool rangeValidationFailed = false;
-		if (RequireFromLessOrEqualToEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue && newValue.StartDate.Value > newValue.EndDate.Value)
+		if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue && newValue.StartDate.Value > newValue.EndDate.Value)
 		{
 			rangeValidationFailed = true;
-			_validationMessageStore.Add(FieldIdentifier, FromMustBeLessOrEqualToValidationMessageEffective);
+			_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
 		}
 
 		if (!rangeValidationFailed)
@@ -387,10 +387,10 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 	{
 		// Validate the range if required
 		bool rangeValidationFailed = false;
-		if (RequireFromLessOrEqualToEffective && value.StartDate.HasValue && value.EndDate.HasValue && value.StartDate.Value > value.EndDate.Value)
+		if (RequireDateOrderEffective && value.StartDate.HasValue && value.EndDate.HasValue && value.StartDate.Value > value.EndDate.Value)
 		{
 			rangeValidationFailed = true;
-			_validationMessageStore.Add(FieldIdentifier, FromMustBeLessOrEqualToValidationMessageEffective);
+			_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
 		}
 
 		if (!rangeValidationFailed)

@@ -24,7 +24,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 			ShowClearButton = true,
 			ShowPredefinedDateRanges = true,
 			PredefinedDateRanges = null,
-			RequireFromLessOrEqualTo = false,
+			RequireDateOrder = true,
 		};
 	}
 
@@ -93,10 +93,10 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	[Parameter] public string ToParsingErrorMessage { get; set; }
 
 	/// <summary>
-	/// Gets or sets the error message used when the "from" date is greater than the "to" date (used with <see cref="RequireFromLessOrEqualTo"/>).
+	/// Gets or sets the error message used when the "from" date is greater than the "to" date (used with <see cref="RequireDateOrder"/>).
 	/// Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by the Label property, <c>{1}</c> is replaced by the name of the bounded property.
 	/// </summary>
-	[Parameter] public string FromMustBeLessOrEqualToValidationMessage { get; set; }
+	[Parameter] public string DateOrderErrorMessage { get; set; }
 
 	/// <summary>
 	/// Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
@@ -152,10 +152,10 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 
 	/// <summary>
 	/// When enabled, validates that the "from" date is less than or equal to the "to" date.
-	/// The default is <c>false</c> (configurable from <see cref="HxInputDateRange.Defaults"/>).
+	/// The default is <c>true</c> (configurable from <see cref="HxInputDateRange.Defaults"/>).
 	/// </summary>
-	[Parameter] public bool? RequireFromLessOrEqualTo { get; set; }
-	protected bool RequireFromLessOrEqualToEffective => RequireFromLessOrEqualTo ?? GetSettings()?.RequireFromLessOrEqualTo ?? GetDefaults().RequireFromLessOrEqualTo ?? throw new InvalidOperationException(nameof(RequireFromLessOrEqualTo) + " default for " + nameof(HxInputDateRange) + " has to be set.");
+	[Parameter] public bool? RequireDateOrder { get; set; }
+	protected bool RequireDateOrderEffective => RequireDateOrder ?? GetSettings()?.RequireDateOrder ?? GetDefaults().RequireDateOrder ?? throw new InvalidOperationException(nameof(RequireDateOrder) + " default for " + nameof(HxInputDateRange) + " has to be set.");
 
 	[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
@@ -186,8 +186,8 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 		builder.AddAttribute(206, nameof(HxInputDateRangeInternal.ToPlaceholderEffective), ToPlaceholderEffective);
 		builder.AddAttribute(206, nameof(HxInputDateRangeInternal.FromParsingErrorMessageEffective), GetFromParsingErrorMessage());
 		builder.AddAttribute(207, nameof(HxInputDateRangeInternal.ToParsingErrorMessageEffective), GetToParsingErrorMessage());
-		builder.AddAttribute(208, nameof(HxInputDateRangeInternal.RequireFromLessOrEqualToEffective), RequireFromLessOrEqualToEffective);
-		builder.AddAttribute(209, nameof(HxInputDateRangeInternal.FromMustBeLessOrEqualToValidationMessageEffective), GetFromMustBeLessOrEqualToValidationMessage());
+		builder.AddAttribute(208, nameof(HxInputDateRangeInternal.RequireDateOrderEffective), RequireDateOrderEffective);
+		builder.AddAttribute(209, nameof(HxInputDateRangeInternal.DateOrderErrorMessageEffective), GetDateOrderErrorMessage());
 		builder.AddAttribute(210, nameof(HxInputDateRangeInternal.ValidationMessageModeEffective), ValidationMessageModeEffective);
 		builder.AddAttribute(211, nameof(HxInputDateRangeInternal.PredefinedDateRangesEffective), PredefinedDateRangesEffective);
 		builder.AddAttribute(212, nameof(HxInputDateRangeInternal.ShowPredefinedDateRangesEffective), ShowPredefinedDateRangesEffective);
@@ -275,11 +275,11 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	/// <summary>
 	/// Returns message for validation error when "from" date is greater than "to" date.
 	/// </summary>
-	protected virtual string GetFromMustBeLessOrEqualToValidationMessage()
+	protected virtual string GetDateOrderErrorMessage()
 	{
-		var message = !String.IsNullOrEmpty(FromMustBeLessOrEqualToValidationMessage)
-			? FromMustBeLessOrEqualToValidationMessage
-			: StringLocalizer["FromMustBeLessOrEqualToMessage"];
+		var message = !String.IsNullOrEmpty(DateOrderErrorMessage)
+			? DateOrderErrorMessage
+			: StringLocalizer["DateOrderErrorMessage"];
 		return String.Format(message, DisplayName ?? Label ?? FieldIdentifier.FieldName);
 	}
 }

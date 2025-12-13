@@ -64,7 +64,7 @@ public record InputDateRangeSettings : InputSettings
 
 	/// <summary>
 	/// When enabled, validates that the "from" date is less than or equal to the "to" date.
-	/// The default is <c>false</c>.
+	/// The default is <c>true</c>.
 	/// </summary>
-	public bool? RequireFromLessOrEqualTo { get; set; }
+	public bool? RequireDateOrder { get; set; }
 }
