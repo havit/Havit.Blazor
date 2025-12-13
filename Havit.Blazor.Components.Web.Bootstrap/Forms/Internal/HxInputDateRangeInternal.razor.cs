@@ -113,8 +113,8 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		base.OnParametersSet();
 
 		_validationMessageStore ??= new ValidationMessageStore(EditContext);
-		_fromFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.StartDate));
-		_toFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.EndDate));
+		_fromFieldIdentifier = new FieldIdentifier(EditContext.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.StartDate));
+		_toFieldIdentifier = new FieldIdentifier(EditContext.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.EndDate));
 		_validationFieldNames ??= new string[] { FieldIdentifier.FieldName, _fromFieldIdentifier.FieldName, _toFieldIdentifier.FieldName };
 
 		// clear parsing error after new value is set
