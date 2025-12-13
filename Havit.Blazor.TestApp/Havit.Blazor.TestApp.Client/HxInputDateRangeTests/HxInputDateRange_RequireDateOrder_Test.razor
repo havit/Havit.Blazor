@@ -1,0 +1,10 @@
+﻿@page "/HxInputDateRange_RequireDateOrder"
+@rendermode InteractiveServer
+
+<HxInputDateRange @bind-Value="@value"
+				  RequireFromLessOrEqualTo="true"
+				  FromMustBeLessOrEqualToValidationMessage="Invalid date order" />
+
+@code {
+	private DateTimeRange value { get; set; }
+}
