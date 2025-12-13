@@ -353,13 +353,10 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 		// Validate the range if required
 		bool rangeValidationFailed = false;
-		if (RequireFromLessOrEqualToEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue)
+		if (RequireFromLessOrEqualToEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue && newValue.StartDate.Value > newValue.EndDate.Value)
 		{
-			if (newValue.StartDate.Value > newValue.EndDate.Value)
-			{
-				rangeValidationFailed = true;
-				_validationMessageStore.Add(FieldIdentifier, FromMustBeLessOrEqualToValidationMessageEffective);
-			}
+			rangeValidationFailed = true;
+			_validationMessageStore.Add(FieldIdentifier, FromMustBeLessOrEqualToValidationMessageEffective);
 		}
 
 		if (!rangeValidationFailed)
