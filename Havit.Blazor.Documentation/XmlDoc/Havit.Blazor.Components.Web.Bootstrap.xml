@@ -4420,7 +4420,7 @@
             Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by the Label property, <c>{1}</c> is replaced by the name of the bounded property.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromMustBeLessOrEqualToMessage">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromMustBeLessOrEqualToValidationMessage">
             <summary>
             Gets or sets the error message used when the "from" date is greater than the "to" date (used with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.RequireFromLessOrEqualTo"/>).
             Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by the Label property, <c>{1}</c> is replaced by the name of the bounded property.
@@ -4488,7 +4488,7 @@
             Returns message for &quot;to&quot;  parsing error.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetFromMustBeLessOrEqualToMessage">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetFromMustBeLessOrEqualToValidationMessage">
             <summary>
             Returns message for validation error when "from" date is greater than "to" date.
             </summary>

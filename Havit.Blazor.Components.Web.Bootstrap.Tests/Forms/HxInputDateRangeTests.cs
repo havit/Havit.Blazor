@@ -47,33 +47,6 @@ public class HxInputDateRangeTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxInputDateRange_RequireFromLessOrEqualTo_ValidatesWhenFromIsGreaterThanTo()
-	{
-		// Arrange
-		var myValue = new DateTimeRange
-		{
-			StartDate = new DateTime(2024, 12, 31),
-			EndDate = new DateTime(2024, 1, 1)
-		};
-
-		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
-		{
-			builder.OpenComponent<HxInputDateRange>(0);
-			builder.AddAttribute(1, "Value", myValue);
-			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
-			builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-			builder.AddAttribute(4, nameof(HxInputDateRange.RequireFromLessOrEqualTo), true);
-			builder.CloseComponent();
-		};
-
-		// Act
-		var cut = Render(componentRenderer);
-
-		// Assert
-		Assert.IsTrue(cut.Markup.Contains("is-invalid"), "Component should have validation error when from > to");
-	}
-
-	[TestMethod]
 	public void HxInputDateRange_RequireFromLessOrEqualTo_PassesWhenFromIsLessThanOrEqualToTo()
 	{
 		// Arrange

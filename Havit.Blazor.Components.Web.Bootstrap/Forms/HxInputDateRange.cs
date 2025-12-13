@@ -95,7 +95,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	/// Gets or sets the error message used when the "from" date is greater than the "to" date (used with <see cref="RequireFromLessOrEqualTo"/>).
 	/// Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by the Label property, <c>{1}</c> is replaced by the name of the bounded property.
 	/// </summary>
-	[Parameter] public string FromMustBeLessOrEqualToMessage { get; set; }
+	[Parameter] public string FromMustBeLessOrEqualToValidationMessage { get; set; }
 
 	/// <summary>
 	/// Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
@@ -186,7 +186,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 		builder.AddAttribute(206, nameof(HxInputDateRangeInternal.FromParsingErrorMessageEffective), GetFromParsingErrorMessage());
 		builder.AddAttribute(207, nameof(HxInputDateRangeInternal.ToParsingErrorMessageEffective), GetToParsingErrorMessage());
 		builder.AddAttribute(208, nameof(HxInputDateRangeInternal.RequireFromLessOrEqualToEffective), RequireFromLessOrEqualToEffective);
-		builder.AddAttribute(209, nameof(HxInputDateRangeInternal.FromMustBeLessOrEqualToMessageEffective), GetFromMustBeLessOrEqualToMessage());
+		builder.AddAttribute(209, nameof(HxInputDateRangeInternal.FromMustBeLessOrEqualToValidationMessageEffective), GetFromMustBeLessOrEqualToValidationMessage());
 		builder.AddAttribute(210, nameof(HxInputDateRangeInternal.ValidationMessageModeEffective), ValidationMessageModeEffective);
 		builder.AddAttribute(211, nameof(HxInputDateRangeInternal.PredefinedDateRangesEffective), PredefinedDateRangesEffective);
 		builder.AddAttribute(212, nameof(HxInputDateRangeInternal.ShowPredefinedDateRangesEffective), ShowPredefinedDateRangesEffective);
@@ -274,10 +274,10 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	/// <summary>
 	/// Returns message for validation error when "from" date is greater than "to" date.
 	/// </summary>
-	protected virtual string GetFromMustBeLessOrEqualToMessage()
+	protected virtual string GetFromMustBeLessOrEqualToValidationMessage()
 	{
-		var message = !String.IsNullOrEmpty(FromMustBeLessOrEqualToMessage)
-			? FromMustBeLessOrEqualToMessage
+		var message = !String.IsNullOrEmpty(FromMustBeLessOrEqualToValidationMessage)
+			? FromMustBeLessOrEqualToValidationMessage
 			: StringLocalizer["FromMustBeLessOrEqualToMessage"];
 		return String.Format(message, DisplayName ?? Label ?? FieldIdentifier.FieldName);
 	}
