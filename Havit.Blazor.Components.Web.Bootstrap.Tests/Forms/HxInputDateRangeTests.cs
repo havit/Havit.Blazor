@@ -1,9 +1,6 @@
-﻿using System.Globalization;
-using System.Linq.Expressions;
-using Bunit;
+﻿using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
@@ -69,14 +66,14 @@ public class HxInputDateRangeTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 		var inputs = cut.FindAll("input");
-		
+
 		// Try to set invalid range - "from" after "to"
 		inputs[0].Change("12/31/2024"); // After June 30, 2024
 
 		// Assert - should allow because validation is not enabled by default
 		Assert.AreEqual(new DateTime(2024, 12, 31), myValue.StartDate, "StartDate should update even though it's after EndDate (validation disabled by default)");
 		Assert.AreEqual(new DateTime(2024, 6, 30), myValue.EndDate, "EndDate should remain unchanged");
-		Assert.IsFalse(cut.Markup.Contains("is-invalid"), "Component should not have validation error when RequireFromLessOrEqualTo is not enabled");
+		Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not have validation error when RequireFromLessOrEqualTo is not enabled");
 	}
 
 	[TestMethod]
@@ -102,15 +99,15 @@ public class HxInputDateRangeTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 		var inputs = cut.FindAll("input");
-		Assert.AreEqual(2, inputs.Count, "Should have two input fields (from and to)");
-		
+		Assert.HasCount(2, inputs, "Should have two input fields (from and to)");
+
 		// Try to set "from" date to be after "to" date
 		inputs[0].Change("12/31/2024"); // December 31, 2024 - after June 30, 2024
 
 		// Assert
 		Assert.AreEqual(new DateTime(2024, 1, 1), myValue.StartDate, "StartDate should not change when validation fails");
 		Assert.AreEqual(new DateTime(2024, 6, 30), myValue.EndDate, "EndDate should remain unchanged");
-		Assert.IsTrue(cut.Markup.Contains("is-invalid"), "Component should show validation error");
+		Assert.Contains("is-invalid", cut.Markup, "Component should show validation error");
 	}
 
 	[TestMethod]
@@ -136,15 +133,15 @@ public class HxInputDateRangeTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 		var inputs = cut.FindAll("input");
-		Assert.AreEqual(2, inputs.Count, "Should have two input fields (from and to)");
-		
+		Assert.HasCount(2, inputs, "Should have two input fields (from and to)");
+
 		// Try to set "to" date to be before "from" date
 		inputs[1].Change("1/1/2024"); // January 1, 2024 - before June 1, 2024
 
 		// Assert
 		Assert.AreEqual(new DateTime(2024, 6, 1), myValue.StartDate, "StartDate should remain unchanged");
 		Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should not change when validation fails");
-		Assert.IsTrue(cut.Markup.Contains("is-invalid"), "Component should show validation error");
+		Assert.Contains("is-invalid", cut.Markup, "Component should show validation error");
 	}
 
 	[TestMethod]
@@ -170,14 +167,14 @@ public class HxInputDateRangeTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 		var inputs = cut.FindAll("input");
-		
+
 		// Set "from" date to a valid date (before "to" date)
 		inputs[0].Change("6/1/2024"); // June 1, 2024 - before December 31, 2024
 
 		// Assert
 		Assert.AreEqual(new DateTime(2024, 6, 1), myValue.StartDate, "StartDate should update to valid date");
 		Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should remain unchanged");
-		Assert.IsFalse(cut.Markup.Contains("is-invalid"), "Component should not show validation error");
+		Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error");
 	}
 
 	[TestMethod]
@@ -203,14 +200,14 @@ public class HxInputDateRangeTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 		var inputs = cut.FindAll("input");
-		
+
 		// Set "to" date to a valid date (after "from" date)
 		inputs[1].Change("12/31/2024"); // December 31, 2024 - after January 1, 2024
 
 		// Assert
 		Assert.AreEqual(new DateTime(2024, 1, 1), myValue.StartDate, "StartDate should remain unchanged");
 		Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should update to valid date");
-		Assert.IsFalse(cut.Markup.Contains("is-invalid"), "Component should not show validation error");
+		Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error");
 	}
 
 	[TestMethod]
@@ -236,14 +233,14 @@ public class HxInputDateRangeTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 		var inputs = cut.FindAll("input");
-		
+
 		// Set "from" date to equal "to" date
 		inputs[0].Change("12/31/2024"); // Same as end date
 
 		// Assert
 		Assert.AreEqual(new DateTime(2024, 12, 31), myValue.StartDate, "StartDate should update to equal EndDate");
 		Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should remain unchanged");
-		Assert.IsFalse(cut.Markup.Contains("is-invalid"), "Component should not show validation error when dates are equal");
+		Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when dates are equal");
 	}
 
 	[TestMethod]
@@ -269,14 +266,14 @@ public class HxInputDateRangeTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 		var inputs = cut.FindAll("input");
-		
+
 		// Change "from" date when "to" is null - should not validate
 		inputs[0].Change("6/1/2024");
 
 		// Assert
 		Assert.AreEqual(new DateTime(2024, 6, 1), myValue.StartDate, "StartDate should update when EndDate is null");
 		Assert.IsNull(myValue.EndDate, "EndDate should remain null");
-		Assert.IsFalse(cut.Markup.Contains("is-invalid"), "Component should not show validation error when only from date is set");
+		Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when only from date is set");
 	}
 
 	[TestMethod]
@@ -302,14 +299,14 @@ public class HxInputDateRangeTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 		var inputs = cut.FindAll("input");
-		
+
 		// Change "to" date when "from" is null - should not validate
 		inputs[1].Change("6/30/2024");
 
 		// Assert
 		Assert.IsNull(myValue.StartDate, "StartDate should remain null");
 		Assert.AreEqual(new DateTime(2024, 6, 30), myValue.EndDate, "EndDate should update when StartDate is null");
-		Assert.IsFalse(cut.Markup.Contains("is-invalid"), "Component should not show validation error when only to date is set");
+		Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when only to date is set");
 	}
 
 	[TestMethod]
@@ -335,14 +332,14 @@ public class HxInputDateRangeTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 		var inputs = cut.FindAll("input");
-		
+
 		// Set "from" date when both are null - should not validate
 		inputs[0].Change("6/1/2024");
 
 		// Assert
 		Assert.AreEqual(new DateTime(2024, 6, 1), myValue.StartDate, "StartDate should update");
 		Assert.IsNull(myValue.EndDate, "EndDate should remain null");
-		Assert.IsFalse(cut.Markup.Contains("is-invalid"), "Component should not show validation error when both dates were null");
+		Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when both dates were null");
 	}
 
 	[TestMethod]
@@ -368,13 +365,12 @@ public class HxInputDateRangeTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 		var inputs = cut.FindAll("input");
-		
+
 		// Clear "from" date
 		inputs[0].Change("");
 
 		// Assert
 		Assert.IsNull(myValue.StartDate, "StartDate should be null after clearing");
 		Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should remain unchanged after clearing StartDate");
-		// Note: When clearing to empty string, parsing validation may trigger, but range validation should not apply
 	}
 }
