@@ -52,8 +52,8 @@ public class HxInputDateRangeTests : BunitTestBase
 		// Arrange
 		var myValue = new DateTimeRange
 		{
-			StartDate = new DateTime(2024, 12, 31),
-			EndDate = new DateTime(2024, 1, 1)
+			StartDate = new DateTime(2024, 1, 1),
+			EndDate = new DateTime(2024, 6, 30)
 		};
 
 		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
@@ -68,8 +68,14 @@ public class HxInputDateRangeTests : BunitTestBase
 
 		// Act
 		var cut = Render(componentRenderer);
+		var inputs = cut.FindAll("input");
+		
+		// Try to set invalid range - "from" after "to"
+		inputs[0].Change("12/31/2024"); // After June 30, 2024
 
-		// Assert
+		// Assert - should allow because validation is not enabled by default
+		Assert.AreEqual(new DateTime(2024, 12, 31), myValue.StartDate, "StartDate should update even though it's after EndDate (validation disabled by default)");
+		Assert.AreEqual(new DateTime(2024, 6, 30), myValue.EndDate, "EndDate should remain unchanged");
 		Assert.IsFalse(cut.Markup.Contains("is-invalid"), "Component should not have validation error when RequireFromLessOrEqualTo is not enabled");
 	}
 
@@ -241,7 +247,7 @@ public class HxInputDateRangeTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxInputDateRange_RequireFromLessOrEqualTo_AllowsWhenOnlyOneDateSet()
+	public void HxInputDateRange_RequireFromLessOrEqualTo_AllowsWhenOnlyFromDateSet()
 	{
 		// Arrange
 		var myValue = new DateTimeRange
@@ -270,6 +276,105 @@ public class HxInputDateRangeTests : BunitTestBase
 		// Assert
 		Assert.AreEqual(new DateTime(2024, 6, 1), myValue.StartDate, "StartDate should update when EndDate is null");
 		Assert.IsNull(myValue.EndDate, "EndDate should remain null");
-		Assert.IsFalse(cut.Markup.Contains("is-invalid"), "Component should not show validation error when only one date is set");
+		Assert.IsFalse(cut.Markup.Contains("is-invalid"), "Component should not show validation error when only from date is set");
+	}
+
+	[TestMethod]
+	public void HxInputDateRange_RequireFromLessOrEqualTo_AllowsWhenOnlyToDateSet()
+	{
+		// Arrange
+		var myValue = new DateTimeRange
+		{
+			StartDate = null,
+			EndDate = new DateTime(2024, 12, 31)
+		};
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputDateRange>(0);
+			builder.AddAttribute(1, "Value", myValue);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
+			builder.AddAttribute(4, nameof(HxInputDateRange.RequireFromLessOrEqualTo), true);
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+		var inputs = cut.FindAll("input");
+		
+		// Change "to" date when "from" is null - should not validate
+		inputs[1].Change("6/30/2024");
+
+		// Assert
+		Assert.IsNull(myValue.StartDate, "StartDate should remain null");
+		Assert.AreEqual(new DateTime(2024, 6, 30), myValue.EndDate, "EndDate should update when StartDate is null");
+		Assert.IsFalse(cut.Markup.Contains("is-invalid"), "Component should not show validation error when only to date is set");
+	}
+
+	[TestMethod]
+	public void HxInputDateRange_RequireFromLessOrEqualTo_AllowsWhenBothDatesNull()
+	{
+		// Arrange
+		var myValue = new DateTimeRange
+		{
+			StartDate = null,
+			EndDate = null
+		};
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputDateRange>(0);
+			builder.AddAttribute(1, "Value", myValue);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
+			builder.AddAttribute(4, nameof(HxInputDateRange.RequireFromLessOrEqualTo), true);
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+		var inputs = cut.FindAll("input");
+		
+		// Set "from" date when both are null - should not validate
+		inputs[0].Change("6/1/2024");
+
+		// Assert
+		Assert.AreEqual(new DateTime(2024, 6, 1), myValue.StartDate, "StartDate should update");
+		Assert.IsNull(myValue.EndDate, "EndDate should remain null");
+		Assert.IsFalse(cut.Markup.Contains("is-invalid"), "Component should not show validation error when both dates were null");
+	}
+
+	[TestMethod]
+	public void HxInputDateRange_RequireFromLessOrEqualTo_AllowsChangingToNullNull()
+	{
+		// Arrange
+		var myValue = new DateTimeRange
+		{
+			StartDate = new DateTime(2024, 1, 1),
+			EndDate = new DateTime(2024, 12, 31)
+		};
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputDateRange>(0);
+			builder.AddAttribute(1, "Value", myValue);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
+			builder.AddAttribute(4, nameof(HxInputDateRange.RequireFromLessOrEqualTo), true);
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+		var inputs = cut.FindAll("input");
+		
+		// Clear "from" date
+		inputs[0].Change("");
+
+		// Assert
+		Assert.IsNull(myValue.StartDate, "StartDate should be null after clearing");
+		Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should remain unchanged after clearing StartDate");
+		// Note: When clearing to empty string, parsing validation may trigger, but range validation should not apply
 	}
 }

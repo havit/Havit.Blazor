@@ -24,6 +24,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 			ShowClearButton = true,
 			ShowPredefinedDateRanges = true,
 			PredefinedDateRanges = null,
+			RequireFromLessOrEqualTo = false,
 		};
 	}
 
@@ -154,7 +155,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	/// The default is <c>false</c> (configurable from <see cref="HxInputDateRange.Defaults"/>).
 	/// </summary>
 	[Parameter] public bool? RequireFromLessOrEqualTo { get; set; }
-	protected bool RequireFromLessOrEqualToEffective => RequireFromLessOrEqualTo ?? GetSettings()?.RequireFromLessOrEqualTo ?? GetDefaults().RequireFromLessOrEqualTo ?? false;
+	protected bool RequireFromLessOrEqualToEffective => RequireFromLessOrEqualTo ?? GetSettings()?.RequireFromLessOrEqualTo ?? GetDefaults().RequireFromLessOrEqualTo ?? throw new InvalidOperationException(nameof(RequireFromLessOrEqualTo) + " default for " + nameof(HxInputDateRange) + " has to be set.");
 
 	[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
