@@ -61,4 +61,10 @@ public record InputDateRangeSettings : InputSettings
 	/// The TimeProvider used to get DateTime.Today.
 	/// </summary>
 	public TimeProvider TimeProvider { get; set; }
+
+	/// <summary>
+	/// When enabled, validates that the "from" date is less than or equal to the "to" date.
+	/// The default is <c>false</c>.
+	/// </summary>
+	public bool? RequireFromLessOrEqualTo { get; set; }
 }

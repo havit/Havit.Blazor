@@ -4420,6 +4420,12 @@
             Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by the Label property, <c>{1}</c> is replaced by the name of the bounded property.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FromMustBeLessOrEqualToMessage">
+            <summary>
+            Gets or sets the error message used when the "from" date is greater than the "to" date (used with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.RequireFromLessOrEqualTo"/>).
+            Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by the Label property, <c>{1}</c> is replaced by the name of the bounded property.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ShowClearButton">
             <summary>
             Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
@@ -4463,6 +4469,12 @@
             	4. TimeProvider from DependencyInjection<br />
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.RequireFromLessOrEqualTo">
+            <summary>
+            When enabled, validates that the "from" date is less than or equal to the "to" date.
+            The default is <c>false</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FormatValueAsString(Havit.DateTimeRange)">
             <inheritdocs />
         </member>
@@ -4474,6 +4486,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetToParsingErrorMessage">
             <summary>
             Returns message for &quot;to&quot;  parsing error.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetFromMustBeLessOrEqualToMessage">
+            <summary>
+            Returns message for validation error when "from" date is greater than "to" date.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1">
@@ -5632,6 +5649,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.TimeProvider">
             <summary>
             The TimeProvider used to get DateTime.Today.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.RequireFromLessOrEqualTo">
+            <summary>
+            When enabled, validates that the "from" date is less than or equal to the "to" date.
+            The default is <c>false</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings">
@@ -12011,12 +12034,6 @@
         </member>
         <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsWordChar(System.Char)">
             <summary>Determines whether the character is part of the [\w] set.</summary>
-        </member>
-        <member name="F:System.Text.RegularExpressions.Generated.Utilities.WordCategoriesMask">
-            <summary>Provides a mask of Unicode categories that combine to form [\w].</summary>
-        </member>
-        <member name="P:System.Text.RegularExpressions.Generated.Utilities.WordCharBitmap">
-            <summary>Gets a bitmap for whether each character 0 through 127 is in [\w]</summary>
         </member>
     </members>
 </doc>

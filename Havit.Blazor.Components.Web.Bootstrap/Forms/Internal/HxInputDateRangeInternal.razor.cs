@@ -36,6 +36,10 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 	[Parameter] public string ToParsingErrorMessageEffective { get; set; }
 
+	[Parameter] public bool RequireFromLessOrEqualToEffective { get; set; }
+
+	[Parameter] public string FromMustBeLessOrEqualToMessageEffective { get; set; }
+
 	[Parameter] public bool ShowClearButtonEffective { get; set; } = true;
 
 	[Parameter] public DateTime MinDateEffective { get; set; }
@@ -63,6 +67,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 	private bool _toPreviousParsingAttemptFailed;
 	private string _incomingToValueBeforeParsing;
 	private ValidationMessageStore _validationMessageStore;
+	private bool _previousRangeValidationFailed;
 
 	private FieldIdentifier _fromFieldIdentifier;
 	private FieldIdentifier _toFieldIdentifier;
@@ -119,6 +124,9 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 			ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
 			_previousValue = CurrentValue;
 		}
+
+		// Validate the current value when parameters are set
+		ValidateDateRange();
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -178,6 +186,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 			CurrentValue = newValue;
 			await CurrentValueChanged.InvokeAsync(newValue);
 			EditContext.NotifyFieldChanged(_fromFieldIdentifier);
+			ValidateDateRange();
 		}
 		else
 		{
@@ -208,6 +217,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 			CurrentValue = newValue;
 			await CurrentValueChanged.InvokeAsync(newValue);
 			EditContext.NotifyFieldChanged(_toFieldIdentifier);
+			ValidateDateRange();
 		}
 		else
 		{
@@ -232,6 +242,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		await CurrentValueChanged.InvokeAsync(newValue);
 		EditContext.NotifyFieldChanged(_fromFieldIdentifier);
 		ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
+		ValidateDateRange();
 
 		await CloseDropdownAsync(_fromDropdownToggleElement);
 	}
@@ -245,6 +256,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		await CurrentValueChanged.InvokeAsync(newValue);
 		EditContext.NotifyFieldChanged(_toFieldIdentifier);
 		ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
+		ValidateDateRange();
 
 		await CloseDropdownAsync(_toDropdownToggleElement);
 	}
@@ -270,6 +282,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		await CurrentValueChanged.InvokeAsync(newValue);
 		EditContext.NotifyFieldChanged(_fromFieldIdentifier);
 		ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
+		ValidateDateRange();
 
 		await CloseDropdownAsync(_fromDropdownToggleElement);
 		await OpenDropDownAsync(_toDropdownToggleElement);
@@ -284,6 +297,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		await CurrentValueChanged.InvokeAsync(newValue);
 		EditContext.NotifyFieldChanged(_toFieldIdentifier);
 		ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
+		ValidateDateRange();
 
 		await CloseDropdownAsync(_toDropdownToggleElement);
 	}
@@ -298,6 +312,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 		ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
 		ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
+		ValidateDateRange();
 
 		await CloseDropdownAsync(dropdownElement);
 	}
@@ -308,6 +323,43 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		{
 			previousParsingAttemptFailed = false;
 			_validationMessageStore.Clear(fieldIdentifier);
+			EditContext.NotifyValidationStateChanged();
+		}
+	}
+
+	private void ValidateDateRange()
+	{
+		bool validationFailed = false;
+
+		if (!RequireFromLessOrEqualToEffective)
+		{
+			// Clear any previous validation if the validation is not required
+			if (_previousRangeValidationFailed)
+			{
+				_validationMessageStore.Clear(FieldIdentifier);
+				_previousRangeValidationFailed = false;
+				EditContext.NotifyValidationStateChanged();
+			}
+			return;
+		}
+
+		// Clear any previous validation errors for this specific validation
+		_validationMessageStore.Clear(FieldIdentifier);
+
+		// Only validate if both dates are set
+		if (CurrentValue.StartDate.HasValue && CurrentValue.EndDate.HasValue)
+		{
+			if (CurrentValue.StartDate.Value > CurrentValue.EndDate.Value)
+			{
+				_validationMessageStore.Add(FieldIdentifier, FromMustBeLessOrEqualToMessageEffective);
+				validationFailed = true;
+			}
+		}
+
+		// Only notify if the validation state has changed
+		if (validationFailed != _previousRangeValidationFailed)
+		{
+			_previousRangeValidationFailed = validationFailed;
 			EditContext.NotifyValidationStateChanged();
 		}
 	}
