@@ -1,0 +1,16 @@
+﻿@page "/HxInputDateRange_RequireDateOrder"
+@rendermode InteractiveServer
+
+<EditForm Model="model">
+	<HxInputDateRange @bind-Value="model.Range"
+					  RequireFromLessOrEqualTo="true"
+					  FromMustBeLessOrEqualToValidationMessage="Invalid date order" />
+</EditForm>
+
+@code {
+	private FormModel model { get; set; } = new FormModel();
+	public class FormModel
+	{
+		public DateTimeRange Range { get; set; }
+	}
+}

@@ -36,6 +36,10 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 	[Parameter] public string ToParsingErrorMessageEffective { get; set; }
 
+	[Parameter] public bool RequireDateOrderEffective { get; set; }
+
+	[Parameter] public string DateOrderErrorMessageEffective { get; set; }
+
 	[Parameter] public bool ShowClearButtonEffective { get; set; } = true;
 
 	[Parameter] public DateTime MinDateEffective { get; set; }
@@ -63,6 +67,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 	private bool _toPreviousParsingAttemptFailed;
 	private string _incomingToValueBeforeParsing;
 	private ValidationMessageStore _validationMessageStore;
+	private bool _previousRangeValidationAttemptFailed;
 
 	private FieldIdentifier _fromFieldIdentifier;
 	private FieldIdentifier _toFieldIdentifier;
@@ -108,8 +113,8 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		base.OnParametersSet();
 
 		_validationMessageStore ??= new ValidationMessageStore(EditContext);
-		_fromFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.StartDate));
-		_toFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.EndDate));
+		_fromFieldIdentifier = new FieldIdentifier(EditContext.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.StartDate));
+		_toFieldIdentifier = new FieldIdentifier(EditContext.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.EndDate));
 		_validationFieldNames ??= new string[] { FieldIdentifier.FieldName, _fromFieldIdentifier.FieldName, _toFieldIdentifier.FieldName };
 
 		// clear parsing error after new value is set
@@ -173,11 +178,32 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		{
 			DateTimeRange newValue = CurrentValue with { StartDate = fromDate };
 
-			parsingFailed = false;
-			_previousValue = newValue;
-			CurrentValue = newValue;
-			await CurrentValueChanged.InvokeAsync(newValue);
-			EditContext.NotifyFieldChanged(_fromFieldIdentifier);
+			// Validate the range if required
+			bool rangeValidationFailed = false;
+			if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue)
+			{
+				if (newValue.StartDate.Value > newValue.EndDate.Value)
+				{
+					rangeValidationFailed = true;
+					_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
+				}
+			}
+
+			if (!rangeValidationFailed)
+			{
+				// Only set the value if range validation passes
+				parsingFailed = false;
+				_previousValue = newValue;
+				CurrentValue = newValue;
+				await CurrentValueChanged.InvokeAsync(newValue);
+				EditContext.NotifyFieldChanged(_fromFieldIdentifier);
+				ClearPreviousRangeValidationMessage();
+			}
+			else
+			{
+				// Range validation failed, treat it like parsing failed
+				parsingFailed = true;
+			}
 		}
 		else
 		{
@@ -203,11 +229,32 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		{
 			DateTimeRange newValue = CurrentValue with { EndDate = toDate };
 
-			parsingFailed = false;
-			_previousValue = newValue;
-			CurrentValue = newValue;
-			await CurrentValueChanged.InvokeAsync(newValue);
-			EditContext.NotifyFieldChanged(_toFieldIdentifier);
+			// Validate the range if required
+			bool rangeValidationFailed = false;
+			if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue)
+			{
+				if (newValue.StartDate.Value > newValue.EndDate.Value)
+				{
+					rangeValidationFailed = true;
+					_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
+				}
+			}
+
+			if (!rangeValidationFailed)
+			{
+				// Only set the value if range validation passes
+				parsingFailed = false;
+				_previousValue = newValue;
+				CurrentValue = newValue;
+				await CurrentValueChanged.InvokeAsync(newValue);
+				EditContext.NotifyFieldChanged(_toFieldIdentifier);
+				ClearPreviousRangeValidationMessage();
+			}
+			else
+			{
+				// Range validation failed, treat it like parsing failed
+				parsingFailed = true;
+			}
 		}
 		else
 		{
@@ -232,6 +279,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		await CurrentValueChanged.InvokeAsync(newValue);
 		EditContext.NotifyFieldChanged(_fromFieldIdentifier);
 		ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
+		ClearPreviousRangeValidationMessage();
 
 		await CloseDropdownAsync(_fromDropdownToggleElement);
 	}
@@ -245,6 +293,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		await CurrentValueChanged.InvokeAsync(newValue);
 		EditContext.NotifyFieldChanged(_toFieldIdentifier);
 		ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
+		ClearPreviousRangeValidationMessage();
 
 		await CloseDropdownAsync(_toDropdownToggleElement);
 	}
@@ -265,41 +314,109 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 	{
 		DateTimeRange newValue = CurrentValue with { StartDate = date };
 
-		_previousValue = newValue;
-		CurrentValue = newValue;
-		await CurrentValueChanged.InvokeAsync(newValue);
-		EditContext.NotifyFieldChanged(_fromFieldIdentifier);
-		ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
+		// Validate the range if required
+		bool rangeValidationFailed = false;
+		if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue && newValue.StartDate.Value > newValue.EndDate.Value)
+		{
+			rangeValidationFailed = true;
+			_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
+		}
 
-		await CloseDropdownAsync(_fromDropdownToggleElement);
-		await OpenDropDownAsync(_toDropdownToggleElement);
+		if (!rangeValidationFailed)
+		{
+			// Only set the value if range validation passes
+			_previousValue = newValue;
+			CurrentValue = newValue;
+			await CurrentValueChanged.InvokeAsync(newValue);
+			EditContext.NotifyFieldChanged(_fromFieldIdentifier);
+			ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
+			ClearPreviousRangeValidationMessage();
+
+			await CloseDropdownAsync(_fromDropdownToggleElement);
+			await OpenDropDownAsync(_toDropdownToggleElement);
+		}
+		else
+		{
+			// If validation failed, notify and track the state
+			if (!_previousRangeValidationAttemptFailed)
+			{
+				EditContext.NotifyValidationStateChanged();
+				_previousRangeValidationAttemptFailed = true;
+			}
+		}
+		// If validation failed, we don't close the dropdown - user needs to select a different date
 	}
 
 	private async Task HandleToCalendarValueChanged(DateTime? date)
 	{
 		DateTimeRange newValue = CurrentValue with { EndDate = date };
 
-		_previousValue = newValue;
-		CurrentValue = newValue;
-		await CurrentValueChanged.InvokeAsync(newValue);
-		EditContext.NotifyFieldChanged(_toFieldIdentifier);
-		ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
+		// Validate the range if required
+		bool rangeValidationFailed = false;
+		if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue && newValue.StartDate.Value > newValue.EndDate.Value)
+		{
+			rangeValidationFailed = true;
+			_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
+		}
 
-		await CloseDropdownAsync(_toDropdownToggleElement);
+		if (!rangeValidationFailed)
+		{
+			// Only set the value if range validation passes
+			_previousValue = newValue;
+			CurrentValue = newValue;
+			await CurrentValueChanged.InvokeAsync(newValue);
+			EditContext.NotifyFieldChanged(_toFieldIdentifier);
+			ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
+			ClearPreviousRangeValidationMessage();
+
+			await CloseDropdownAsync(_toDropdownToggleElement);
+		}
+		else
+		{
+			// If validation failed, notify and track the state
+			if (!_previousRangeValidationAttemptFailed)
+			{
+				EditContext.NotifyValidationStateChanged();
+				_previousRangeValidationAttemptFailed = true;
+			}
+		}
+		// If validation failed, we don't close the dropdown - user needs to select a different date
 	}
 
 	protected async Task HandleDateRangeClick(DateTimeRange value, HxDropdownToggleElement dropdownElement)
 	{
-		// previousValue does not need to be set
-		CurrentValue = value;
-		await CurrentValueChanged.InvokeAsync(value);
-		EditContext.NotifyFieldChanged(_fromFieldIdentifier);
-		EditContext.NotifyFieldChanged(_toFieldIdentifier);
+		// Validate the range if required
+		bool rangeValidationFailed = false;
+		if (RequireDateOrderEffective && value.StartDate.HasValue && value.EndDate.HasValue && value.StartDate.Value > value.EndDate.Value)
+		{
+			rangeValidationFailed = true;
+			_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
+		}
 
-		ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
-		ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
+		if (!rangeValidationFailed)
+		{
+			// Only set the value if range validation passes
+			CurrentValue = value;
+			await CurrentValueChanged.InvokeAsync(value);
+			EditContext.NotifyFieldChanged(_fromFieldIdentifier);
+			EditContext.NotifyFieldChanged(_toFieldIdentifier);
 
-		await CloseDropdownAsync(dropdownElement);
+			ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
+			ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
+			ClearPreviousRangeValidationMessage();
+
+			await CloseDropdownAsync(dropdownElement);
+		}
+		else
+		{
+			// If validation failed, notify and track the state
+			if (!_previousRangeValidationAttemptFailed)
+			{
+				EditContext.NotifyValidationStateChanged();
+				_previousRangeValidationAttemptFailed = true;
+			}
+		}
+		// If validation failed, we don't close the dropdown
 	}
 
 	private void ClearPreviousParsingMessage(ref bool previousParsingAttemptFailed, FieldIdentifier fieldIdentifier)
@@ -308,6 +425,16 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		{
 			previousParsingAttemptFailed = false;
 			_validationMessageStore.Clear(fieldIdentifier);
+			EditContext.NotifyValidationStateChanged();
+		}
+	}
+
+	private void ClearPreviousRangeValidationMessage()
+	{
+		if (_previousRangeValidationAttemptFailed)
+		{
+			_previousRangeValidationAttemptFailed = false;
+			_validationMessageStore.Clear(FieldIdentifier);
 			EditContext.NotifyValidationStateChanged();
 		}
 	}

@@ -132,4 +132,7 @@
   <data name="ToParsingErrorMessage" xml:space="preserve">
     <value>{0} must be a date ("to").</value>
   </data>
+  <data name="DateOrderErrorMessage" xml:space="preserve">
+    <value>{0} "from" date must be less than or equal to "to" date.</value>
+  </data>
 </root>

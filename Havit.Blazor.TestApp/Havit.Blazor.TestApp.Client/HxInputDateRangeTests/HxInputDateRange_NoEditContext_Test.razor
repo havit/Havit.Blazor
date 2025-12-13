@@ -1,0 +1,12 @@
+﻿@page "/HxInputDateRange_NoEditContext"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxInputDateRange @bind-Value="range"
+				  RequireFromLessOrEqualTo="true"
+				  FromMustBeLessOrEqualToValidationMessage="Invalid date order" />
+
+<p>@range</p>
+
+@code {
+	private DateTimeRange range = new();
+}
