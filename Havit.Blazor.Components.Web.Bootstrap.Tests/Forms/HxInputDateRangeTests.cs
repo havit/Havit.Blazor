@@ -373,32 +373,40 @@ public class HxInputDateRangeTests : BunitTestBase
 	[TestMethod]
 	public void HxInputDateRange_RequireDateOrder_AllowsChangingToNullNull()
 	{
-		// Arrange
-		var myValue = new DateTimeRange
+		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
-			StartDate = new DateTime(2024, 1, 1),
-			EndDate = new DateTime(2024, 12, 31)
-		};
+			// Arrange
+			var myValue = new DateTimeRange
+			{
+				StartDate = new DateTime(2024, 1, 1),
+				EndDate = new DateTime(2024, 12, 31)
+			};
 
-		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
-		{
-			builder.OpenComponent<HxInputDateRange>(0);
-			builder.AddAttribute(1, "Value", myValue);
-			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
-			builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-			builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
-			builder.CloseComponent();
-		};
+			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+			{
+				builder.OpenComponent<HxInputDateRange>(0);
+				builder.AddAttribute(1, "Value", myValue);
+				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
+				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
+				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
+				builder.CloseComponent();
+			};
 
-		// Act
-		var cut = Render(componentRenderer);
-		var inputs = cut.FindAll("input");
+			// Act
+			var cut = Render(componentRenderer);
+			var inputs = cut.FindAll("input");
 
-		// Clear "from" date
-		inputs[0].Change("");
+			// Clear "from" date
+			inputs[0].Change("");
+			// Re-query inputs after first change to get fresh DOM references
+			inputs = cut.FindAll("input");
+			// Clear "to" date
+			inputs[1].Change("");
 
-		// Assert
-		Assert.IsNull(myValue.StartDate, "StartDate should be null after clearing");
-		Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should remain unchanged after clearing StartDate");
+			// Assert
+			Assert.IsNull(myValue.StartDate, "StartDate should be null after clearing");
+			Assert.IsNull(myValue.EndDate, "EndDate should be null after clearing");
+			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when both dates are cleared");
+		}
 	}
 }
