@@ -175,6 +175,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		bool parsingFailed;
 
 		_validationMessageStore.Clear(_fromFieldIdentifier);
+		_validationMessageStore.Clear(_rangeFieldIdentifier);
 
 		if (DateHelper.TryParseDateFromString<DateTime?>(newInputValue, TimeProviderEffective, out var fromDate))
 		{
@@ -226,6 +227,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		_incomingToValueBeforeParsing = newInputValue;
 		bool parsingFailed;
 		_validationMessageStore.Clear(_toFieldIdentifier);
+		_validationMessageStore.Clear(_rangeFieldIdentifier);
 
 		if (DateHelper.TryParseDateFromString<DateTime?>(newInputValue, TimeProviderEffective, out var toDate))
 		{
@@ -314,6 +316,8 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 	private async Task HandleFromCalendarValueChangedAsync(DateTime? date)
 	{
+		_validationMessageStore.Clear(_rangeFieldIdentifier);
+
 		DateTimeRange newValue = CurrentValue with { StartDate = date };
 
 		// Validate the range if required
@@ -351,6 +355,8 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 	private async Task HandleToCalendarValueChanged(DateTime? date)
 	{
+		_validationMessageStore.Clear(_rangeFieldIdentifier);
+
 		DateTimeRange newValue = CurrentValue with { EndDate = date };
 
 		// Validate the range if required
@@ -387,6 +393,8 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 	protected async Task HandleDateRangeClick(DateTimeRange value, HxDropdownToggleElement dropdownElement)
 	{
+		_validationMessageStore.Clear(_rangeFieldIdentifier);
+
 		// Validate the range if required
 		bool rangeValidationFailed = false;
 		if (RequireDateOrderEffective && value.StartDate.HasValue && value.EndDate.HasValue && value.StartDate.Value > value.EndDate.Value)
