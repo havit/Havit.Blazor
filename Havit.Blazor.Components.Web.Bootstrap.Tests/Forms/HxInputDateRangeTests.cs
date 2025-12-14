@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -424,5 +425,50 @@ public class HxInputDateRangeTests : BunitTestBase
 		Assert.IsNull(myValue.EndDate, "EndDate should be null after clearing");
 		Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when both dates are cleared");
 		Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
+	}
+
+	[TestMethod]
+	public void HxInputDateRange_RequireDateOrder_DoesNotDuplicateErrorMessageOnMultipleInvalidChanges()
+	{
+		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
+		{
+			// Arrange
+			var myValue = new DateTimeRange
+			{
+				StartDate = new DateTime(2024, 1, 1),
+				EndDate = new DateTime(2024, 6, 30)
+			};
+
+			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+			{
+				builder.OpenComponent<HxInputDateRange>(0);
+				builder.AddAttribute(1, "Value", myValue);
+				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
+				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
+				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
+				builder.CloseComponent();
+			};
+
+			// Act
+			var cut = Render(componentRenderer);
+			var inputs = cut.FindAll("input");
+
+			// First invalid change - "from" after "to"
+			inputs[0].Change("12/31/2024"); // December 31, 2024 - after June 30, 2024 (using en-US MM/dd/yyyy format)
+
+			// Re-query inputs after first change to get fresh DOM references
+			inputs = cut.FindAll("input");
+
+			// Second invalid change - another "from" after "to"
+			inputs[0].Change("11/30/2024"); // November 30, 2024 - still after June 30, 2024 (using en-US MM/dd/yyyy format)
+
+			// Assert - Count validation message elements (span elements containing the error message)
+			// Validation message: <span title="TestDateOrderErrorMessage">TestDateOrderErrorMessage</span>
+			// Each validation message is rendered as a single <span> element, so we count those
+			int errorSpanCount = Regex.Matches(cut.Markup, @"<span[^>]*>TestDateOrderErrorMessage</span>").Count;
+			Assert.AreEqual(1, errorSpanCount, "Validation error message element should appear exactly once, not be duplicated after multiple invalid changes");
+			Assert.Contains("is-invalid", cut.Markup, "Component should show validation error");
+		}
 	}
 }
