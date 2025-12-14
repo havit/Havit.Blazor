@@ -8,8 +8,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 [TestClass]
 public class HxInputDateRangeTests : BunitTestBase
 {
+	// https://github.com/havit/Havit.Blazor/issues/877
 	[TestMethod]
-	public void HxInputDateRange_EnabledShouldOverrideFormStateForNestedControls_Issue877()
+	public void HxInputDateRange_EnabledShouldOverrideFormStateForNestedControls()
 	{
 		// Arrange
 		var myValue = new DateTimeRange();
@@ -99,6 +100,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
 				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -114,6 +116,7 @@ public class HxInputDateRangeTests : BunitTestBase
 			Assert.AreEqual(new DateTime(2024, 1, 1), myValue.StartDate, "StartDate should not change when validation fails");
 			Assert.AreEqual(new DateTime(2024, 6, 30), myValue.EndDate, "EndDate should remain unchanged");
 			Assert.Contains("is-invalid", cut.Markup, "Component should show validation error");
+			Assert.Contains("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
 		}
 	}
 
@@ -136,6 +139,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
 				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -151,6 +155,7 @@ public class HxInputDateRangeTests : BunitTestBase
 			Assert.AreEqual(new DateTime(2024, 6, 1), myValue.StartDate, "StartDate should remain unchanged");
 			Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should not change when validation fails");
 			Assert.Contains("is-invalid", cut.Markup, "Component should show validation error");
+			Assert.Contains("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
 		}
 	}
 
@@ -173,6 +178,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
 				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -187,6 +193,7 @@ public class HxInputDateRangeTests : BunitTestBase
 			Assert.AreEqual(new DateTime(2024, 6, 1), myValue.StartDate, "StartDate should update to valid date");
 			Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should remain unchanged");
 			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error");
+			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
 		}
 	}
 
@@ -209,6 +216,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
 				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -223,6 +231,7 @@ public class HxInputDateRangeTests : BunitTestBase
 			Assert.AreEqual(new DateTime(2024, 1, 1), myValue.StartDate, "StartDate should remain unchanged");
 			Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should update to valid date");
 			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error");
+			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
 		}
 	}
 
@@ -245,6 +254,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
 				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -259,6 +269,7 @@ public class HxInputDateRangeTests : BunitTestBase
 			Assert.AreEqual(new DateTime(2024, 12, 31), myValue.StartDate, "StartDate should update to equal EndDate");
 			Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should remain unchanged");
 			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when dates are equal");
+			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
 		}
 	}
 
@@ -281,6 +292,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
 				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -295,6 +307,7 @@ public class HxInputDateRangeTests : BunitTestBase
 			Assert.AreEqual(new DateTime(2024, 6, 1), myValue.StartDate, "StartDate should update when EndDate is null");
 			Assert.IsNull(myValue.EndDate, "EndDate should remain null");
 			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when only from date is set");
+			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
 		}
 	}
 
@@ -317,6 +330,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
 				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -331,6 +345,7 @@ public class HxInputDateRangeTests : BunitTestBase
 			Assert.IsNull(myValue.StartDate, "StartDate should remain null");
 			Assert.AreEqual(new DateTime(2024, 6, 30), myValue.EndDate, "EndDate should update when StartDate is null");
 			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when only to date is set");
+			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
 		}
 	}
 
@@ -353,6 +368,7 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
 				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -367,46 +383,46 @@ public class HxInputDateRangeTests : BunitTestBase
 			Assert.AreEqual(new DateTime(2024, 6, 1), myValue.StartDate, "StartDate should update");
 			Assert.IsNull(myValue.EndDate, "EndDate should remain null");
 			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when both dates were null");
+			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
 		}
 	}
 
 	[TestMethod]
 	public void HxInputDateRange_RequireDateOrder_AllowsChangingToNullNull()
 	{
-		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
+		// Arrange
+		var myValue = new DateTimeRange
 		{
-			// Arrange
-			var myValue = new DateTimeRange
-			{
-				StartDate = new DateTime(2024, 1, 1),
-				EndDate = new DateTime(2024, 12, 31)
-			};
+			StartDate = new DateTime(2024, 1, 1),
+			EndDate = new DateTime(2024, 12, 31)
+		};
 
-			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
-			{
-				builder.OpenComponent<HxInputDateRange>(0);
-				builder.AddAttribute(1, "Value", myValue);
-				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
-				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
-				builder.CloseComponent();
-			};
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputDateRange>(0);
+			builder.AddAttribute(1, "Value", myValue);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
+			builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
+			builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
+			builder.CloseComponent();
+		};
 
-			// Act
-			var cut = Render(componentRenderer);
-			var inputs = cut.FindAll("input");
+		// Act
+		var cut = Render(componentRenderer);
+		var inputs = cut.FindAll("input");
 
-			// Clear "from" date
-			inputs[0].Change("");
-			// Re-query inputs after first change to get fresh DOM references
-			inputs = cut.FindAll("input");
-			// Clear "to" date
-			inputs[1].Change("");
+		// Clear "from" date
+		inputs[0].Change("");
+		// Re-query inputs after first change to get fresh DOM references
+		inputs = cut.FindAll("input");
+		// Clear "to" date
+		inputs[1].Change("");
 
-			// Assert
-			Assert.IsNull(myValue.StartDate, "StartDate should be null after clearing");
-			Assert.IsNull(myValue.EndDate, "EndDate should be null after clearing");
-			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when both dates are cleared");
-		}
+		// Assert
+		Assert.IsNull(myValue.StartDate, "StartDate should be null after clearing");
+		Assert.IsNull(myValue.EndDate, "EndDate should be null after clearing");
+		Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when both dates are cleared");
+		Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
 	}
 }

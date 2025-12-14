@@ -71,6 +71,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 	private FieldIdentifier _fromFieldIdentifier;
 	private FieldIdentifier _toFieldIdentifier;
+	private FieldIdentifier _rangeFieldIdentifier;
 	private string[] _validationFieldNames;
 	private ElementReference _fromIconWrapperElement;
 	private ElementReference _toIconWrapperElement;
@@ -115,7 +116,8 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		_validationMessageStore ??= new ValidationMessageStore(EditContext);
 		_fromFieldIdentifier = new FieldIdentifier(EditContext.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.StartDate));
 		_toFieldIdentifier = new FieldIdentifier(EditContext.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.EndDate));
-		_validationFieldNames ??= new string[] { FieldIdentifier.FieldName, _fromFieldIdentifier.FieldName, _toFieldIdentifier.FieldName };
+		_rangeFieldIdentifier = new FieldIdentifier(EditContext.Model, FieldIdentifier.FieldName);
+		_validationFieldNames ??= new string[] { _rangeFieldIdentifier.FieldName, _fromFieldIdentifier.FieldName, _toFieldIdentifier.FieldName };
 
 		// clear parsing error after new value is set
 		if (_previousValue != CurrentValue)
@@ -185,7 +187,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 				if (newValue.StartDate.Value > newValue.EndDate.Value)
 				{
 					rangeValidationFailed = true;
-					_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
+					_validationMessageStore.Add(_rangeFieldIdentifier, DateOrderErrorMessageEffective);
 				}
 			}
 
@@ -236,7 +238,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 				if (newValue.StartDate.Value > newValue.EndDate.Value)
 				{
 					rangeValidationFailed = true;
-					_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
+					_validationMessageStore.Add(_rangeFieldIdentifier, DateOrderErrorMessageEffective);
 				}
 			}
 
@@ -319,7 +321,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue && newValue.StartDate.Value > newValue.EndDate.Value)
 		{
 			rangeValidationFailed = true;
-			_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
+			_validationMessageStore.Add(_rangeFieldIdentifier, DateOrderErrorMessageEffective);
 		}
 
 		if (!rangeValidationFailed)
@@ -356,7 +358,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue && newValue.StartDate.Value > newValue.EndDate.Value)
 		{
 			rangeValidationFailed = true;
-			_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
+			_validationMessageStore.Add(_rangeFieldIdentifier, DateOrderErrorMessageEffective);
 		}
 
 		if (!rangeValidationFailed)
@@ -390,7 +392,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		if (RequireDateOrderEffective && value.StartDate.HasValue && value.EndDate.HasValue && value.StartDate.Value > value.EndDate.Value)
 		{
 			rangeValidationFailed = true;
-			_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
+			_validationMessageStore.Add(_rangeFieldIdentifier, DateOrderErrorMessageEffective);
 		}
 
 		if (!rangeValidationFailed)
@@ -434,7 +436,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		if (_previousRangeValidationAttemptFailed)
 		{
 			_previousRangeValidationAttemptFailed = false;
-			_validationMessageStore.Clear(FieldIdentifier);
+			_validationMessageStore.Clear(_rangeFieldIdentifier);
 			EditContext.NotifyValidationStateChanged();
 		}
 	}
