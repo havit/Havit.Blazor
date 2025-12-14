@@ -1,0 +1,12 @@
+﻿@page "/HxInputDateRange_NoEditForm"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxInputDateRange @bind-Value="range"
+				  Label="TestLabel"
+				  DateOrderErrorMessage="TestDateOrderErrorMessage" />
+
+<p data-testid="value">@range</p>
+
+@code {
+	private DateTimeRange range = new();
+}

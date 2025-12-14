@@ -1,0 +1,17 @@
+﻿@page "/HxInputDateRange_RequireDateOrderDisabled"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<EditForm Model="model">
+	<HxInputDateRange @bind-Value="model.Range"
+					  RequireDateOrder="false" />
+</EditForm>
+
+<p data-testid="value">@model.Range</p>
+
+@code {
+	private FormModel model { get; set; } = new FormModel();
+	public record class FormModel
+	{
+		public DateTimeRange Range { get; set; }
+	}
+}
