@@ -72,7 +72,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 	private FieldIdentifier _fromFieldIdentifier;
 	private FieldIdentifier _toFieldIdentifier;
 	private FieldIdentifier _rangeFieldIdentifier;
-	private string[] _validationFieldNames;
+	private IEnumerable<FieldIdentifier> _validationFieldIdentifiers;
 	private ElementReference _fromIconWrapperElement;
 	private ElementReference _toIconWrapperElement;
 
@@ -114,10 +114,10 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		base.OnParametersSet();
 
 		_validationMessageStore ??= new ValidationMessageStore(EditContext);
-		_fromFieldIdentifier = new FieldIdentifier(EditContext.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.StartDate));
-		_toFieldIdentifier = new FieldIdentifier(EditContext.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.EndDate));
-		_rangeFieldIdentifier = new FieldIdentifier(EditContext.Model, FieldIdentifier.FieldName);
-		_validationFieldNames ??= new string[] { _rangeFieldIdentifier.FieldName, _fromFieldIdentifier.FieldName, _toFieldIdentifier.FieldName };
+		_fromFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.StartDate));
+		_toFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.EndDate));
+		_rangeFieldIdentifier = FieldIdentifier;
+		_validationFieldIdentifiers ??= [_rangeFieldIdentifier, _fromFieldIdentifier, _toFieldIdentifier];
 
 		// clear parsing error after new value is set
 		if (_previousValue != CurrentValue)

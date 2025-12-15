@@ -502,6 +502,7 @@ public class HxInputDateRangeTests : BunitTestBase
 					builder2.AddAttribute(12, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { formModel.B.Range = value; }));
 					builder2.AddAttribute(13, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => formModel.B.Range));
 					builder2.AddAttribute(14, nameof(HxInputDateRange.Label), "Range B");
+					builder2.AddAttribute(5, nameof(HxInputDateRange.FromParsingErrorMessage), "TestFromParsingErrorMessage");
 					builder2.CloseComponent();
 				}));
 				builder.CloseComponent();
@@ -521,8 +522,8 @@ public class HxInputDateRangeTests : BunitTestBase
 			int fromErrorCount = Regex.Matches(cut.Markup, @"<span[^>]*>TestFromParsingErrorMessage</span>").Count;
 			Assert.AreEqual(1, fromErrorCount, "From field validation error should appear exactly once, only for Range A");
 
-			// Verify the error is NOT shown for Range B
-			var rangeBContainer = cut.FindAll(".mb-3").Skip(1).FirstOrDefault();
+			// Verify the error is NOT shown for Range B => (the single occurence found above is for the Range A)
+			var rangeBContainer = cut.FindAll(".hx-input-date-range").Skip(1).SingleOrDefault();
 			Assert.IsNotNull(rangeBContainer, "Range B container should exist");
 			Assert.DoesNotContain("TestFromParsingErrorMessage", rangeBContainer.InnerHtml, "Range B should not show Range A's validation error");
 		}
@@ -557,6 +558,7 @@ public class HxInputDateRangeTests : BunitTestBase
 					builder2.AddAttribute(12, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { formModel.B.Range = value; }));
 					builder2.AddAttribute(13, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => formModel.B.Range));
 					builder2.AddAttribute(14, nameof(HxInputDateRange.Label), "Range B");
+					builder2.AddAttribute(5, nameof(HxInputDateRange.ToParsingErrorMessage), "TestToParsingErrorMessage");
 					builder2.CloseComponent();
 				}));
 				builder.CloseComponent();
@@ -576,8 +578,8 @@ public class HxInputDateRangeTests : BunitTestBase
 			int toErrorCount = Regex.Matches(cut.Markup, @"<span[^>]*>TestToParsingErrorMessage</span>").Count;
 			Assert.AreEqual(1, toErrorCount, "To field validation error should appear exactly once, only for Range A");
 
-			// Verify the error is NOT shown for Range B
-			var rangeBContainer = cut.FindAll(".mb-3").Skip(1).FirstOrDefault();
+			// Verify the error is NOT shown for Range B => (the single occurence found above is for the Range A)
+			var rangeBContainer = cut.FindAll(".hx-input-date-range").Skip(1).SingleOrDefault();
 			Assert.IsNotNull(rangeBContainer, "Range B container should exist");
 			Assert.DoesNotContain("TestToParsingErrorMessage", rangeBContainer.InnerHtml, "Range B should not show Range A's validation error");
 		}
@@ -638,8 +640,8 @@ public class HxInputDateRangeTests : BunitTestBase
 			int dateOrderErrorCount = Regex.Matches(cut.Markup, @"<span[^>]*>TestDateOrderErrorMessage</span>").Count;
 			Assert.AreEqual(1, dateOrderErrorCount, "Date order validation error should appear exactly once, only for Range A");
 
-			// Verify the error is NOT shown for Range B
-			var rangeBContainer = cut.FindAll(".mb-3").Skip(1).FirstOrDefault();
+			// Verify the error is NOT shown for Range B => (the single occurence found above is for the Range A)
+			var rangeBContainer = cut.FindAll(".hx-input-date-range").Skip(1).SingleOrDefault();
 			Assert.IsNotNull(rangeBContainer, "Range B container should exist");
 			Assert.DoesNotContain("TestDateOrderErrorMessage", rangeBContainer.InnerHtml, "Range B should not show Range A's date order validation error");
 		}
