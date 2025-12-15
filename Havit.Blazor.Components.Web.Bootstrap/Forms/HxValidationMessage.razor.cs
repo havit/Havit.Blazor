@@ -122,7 +122,7 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 		}
 #pragma warning restore CS0618 // Type or member is obsolete
 
-		if ((ForFieldIdentifier != null) && ((_previousForFieldIdentifier == null) || ForFieldIdentifier.Value.Equals(_previousForFieldIdentifier.Value)))
+		if ((ForFieldIdentifier != null) && ((_previousForFieldIdentifier == null) || !ForFieldIdentifier.Value.Equals(_previousForFieldIdentifier.Value)))
 		{
 			_fieldIdentifiers = [ForFieldIdentifier.Value];
 			_previousForFieldIdentifier = ForFieldIdentifier;
