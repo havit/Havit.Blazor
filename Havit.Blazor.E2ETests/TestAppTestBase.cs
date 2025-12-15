@@ -26,7 +26,7 @@ public abstract class TestAppTestBase : PageTest
 
 		await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 
-		// TODO RH Wait for Blazor to be fully rendered
+		// see Havit.Blazor.Tests.TestApp.lib.module.js
 		await Page.WaitForSelectorAsync("#blazor-ready-for-tests", new() { State = WaitForSelectorState.Attached });
 	}
 }

@@ -38,6 +38,9 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 	/// </summary>
 	[Parameter] public FieldIdentifier? ForFieldIdentifier { get; set; }
 
+	/// <summary>
+	/// [Obsolete] Use <see cref="ForFieldIdentifier"/> instead.
+	/// </summary>
 	[Obsolete($"Use {nameof(ForFieldIdentifier)}")]
 	[Parameter] public string ForFieldName { get; set; }
 
@@ -46,6 +49,10 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 	/// Mutual exclusive with <see cref="For"/> and <see cref="ForFieldIdentifier"/>.
 	/// </summary>
 	[Parameter] public IEnumerable<FieldIdentifier> ForFieldIdentifiers { get; set; }
+
+	/// <summary>
+	/// [Obsolete] Use <see cref="ForFieldIdentifiers"/> instead.
+	/// </summary>
 	[Obsolete($"Use {nameof(ForFieldIdentifiers)}")]
 	[Parameter] public string[] ForFieldNames { get; set; }
 

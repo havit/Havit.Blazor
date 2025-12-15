@@ -5515,10 +5515,20 @@
             Mutual exclusive with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.For"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldIdentifiers"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldName">
+            <summary>
+            [Obsolete] Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldIdentifier"/> instead.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldIdentifiers">
             <summary>
             Specifies the field for which validation messages should be displayed.
             Mutual exclusive with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.For"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldIdentifier"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldNames">
+            <summary>
+            [Obsolete] Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldIdentifiers"/> instead.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.Mode">
