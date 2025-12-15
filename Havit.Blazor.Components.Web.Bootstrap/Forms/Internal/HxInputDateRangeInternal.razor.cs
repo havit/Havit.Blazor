@@ -170,7 +170,8 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 	protected async Task HandleFromChangedAsync(string newInputValue)
 	{
 		_incomingFromValueBeforeParsing = newInputValue;
-		bool parsingFailed;
+		bool parsingFailed = false;
+		bool rangeValidationFailed = false;
 
 		_validationMessageStore.Clear(_fromFieldIdentifier);
 		_validationMessageStore.Clear(FieldIdentifier);
@@ -180,7 +181,6 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 			DateTimeRange newValue = CurrentValue with { StartDate = fromDate };
 
 			// Validate the range if required
-			bool rangeValidationFailed = false;
 			if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue)
 			{
 				if (newValue.StartDate.Value > newValue.EndDate.Value)
@@ -200,11 +200,6 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 				EditContext.NotifyFieldChanged(_fromFieldIdentifier);
 				ClearPreviousRangeValidationMessage();
 			}
-			else
-			{
-				// Range validation failed, treat it like parsing failed
-				parsingFailed = true;
-			}
 		}
 		else
 		{
@@ -213,7 +208,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		}
 
 		// We can skip the validation notification if we were previously valid and still are
-		if (parsingFailed || _fromPreviousParsingAttemptFailed)
+		if (parsingFailed || rangeValidationFailed || _fromPreviousParsingAttemptFailed)
 		{
 			EditContext.NotifyValidationStateChanged();
 			_fromPreviousParsingAttemptFailed = parsingFailed;
@@ -223,7 +218,8 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 	protected async Task HandleToChangedAsync(string newInputValue)
 	{
 		_incomingToValueBeforeParsing = newInputValue;
-		bool parsingFailed;
+		bool parsingFailed = false;
+		bool rangeValidationFailed = false;
 		_validationMessageStore.Clear(_toFieldIdentifier);
 		_validationMessageStore.Clear(FieldIdentifier);
 
@@ -232,7 +228,6 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 			DateTimeRange newValue = CurrentValue with { EndDate = toDate };
 
 			// Validate the range if required
-			bool rangeValidationFailed = false;
 			if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue)
 			{
 				if (newValue.StartDate.Value > newValue.EndDate.Value)
@@ -252,11 +247,6 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 				EditContext.NotifyFieldChanged(_toFieldIdentifier);
 				ClearPreviousRangeValidationMessage();
 			}
-			else
-			{
-				// Range validation failed, treat it like parsing failed
-				parsingFailed = true;
-			}
 		}
 		else
 		{
@@ -265,7 +255,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		}
 
 		// We can skip the validation notification if we were previously valid and still are
-		if (parsingFailed || _toPreviousParsingAttemptFailed)
+		if (parsingFailed || rangeValidationFailed || _toPreviousParsingAttemptFailed)
 		{
 			EditContext.NotifyValidationStateChanged();
 			_toPreviousParsingAttemptFailed = parsingFailed;
