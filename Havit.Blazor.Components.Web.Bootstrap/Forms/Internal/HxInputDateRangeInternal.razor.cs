@@ -71,7 +71,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 	private FieldIdentifier _fromFieldIdentifier;
 	private FieldIdentifier _toFieldIdentifier;
-	private IEnumerable<FieldIdentifier> _validationFieldIdentifiers;
+	private FieldIdentifier[] _validationFieldIdentifiers;
 	private ElementReference _fromIconWrapperElement;
 	private ElementReference _toIconWrapperElement;
 

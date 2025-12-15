@@ -48,7 +48,7 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 	/// Specifies the field for which validation messages should be displayed.
 	/// Mutual exclusive with <see cref="For"/> and <see cref="ForFieldIdentifier"/>.
 	/// </summary>
-	[Parameter] public IEnumerable<FieldIdentifier> ForFieldIdentifiers { get; set; }
+	[Parameter] public FieldIdentifier[] ForFieldIdentifiers { get; set; }
 
 	/// <summary>
 	/// [Obsolete] Use <see cref="ForFieldIdentifiers"/> instead.
@@ -64,7 +64,7 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 	private EditContext _previousEditContext;
 	private Expression<Func<TValue>> _previousFor;
 	private FieldIdentifier? _previousForFieldIdentifier;
-	private IEnumerable<FieldIdentifier> _previousForFieldIdentifiers;
+	private FieldIdentifier[] _previousForFieldIdentifiers;
 	private string _previousForFieldName; // obsolete
 	private string[] _previousForFieldNames; // obsolete
 	private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
