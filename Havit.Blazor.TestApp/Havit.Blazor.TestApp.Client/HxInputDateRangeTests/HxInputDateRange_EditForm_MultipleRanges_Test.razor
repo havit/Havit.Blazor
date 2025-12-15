@@ -1,0 +1,28 @@
+﻿@page "/HxInputDateRange_EditForm_MultipleRanges"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<EditForm Model="model">
+	<HxInputDateRange @bind-Value="model.A.Range"
+					  LabelB="Range A"
+					  DateOrderErrorMessage="TestDateOrderErrorMessage" />
+    <HxInputDateRange @bind-Value="model.B.Range"
+                      Label="RangeB"
+                      DateOrderErrorMessage="TestDateOrderErrorMessage" />
+</EditForm>
+
+<p data-testid="value" class="pt-4">@model.A.Range</p>
+<p data-testid="value" class="pt-4">@model.B.Range</p>
+
+@code {
+    private FormModel model { get; set; } = new FormModel();
+    public record class FormModel
+    {
+        public MyRange A { get; } = new MyRange();
+        public MyRange B { get; } = new MyRange();
+    }
+
+    public class MyRange
+    {
+        public DateTimeRange Range { get; set; }
+    }
+}
