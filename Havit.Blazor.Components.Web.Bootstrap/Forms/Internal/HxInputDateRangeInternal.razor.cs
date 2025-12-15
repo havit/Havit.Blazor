@@ -71,7 +71,6 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 	private FieldIdentifier _fromFieldIdentifier;
 	private FieldIdentifier _toFieldIdentifier;
-	private FieldIdentifier _rangeFieldIdentifier;
 	private IEnumerable<FieldIdentifier> _validationFieldIdentifiers;
 	private ElementReference _fromIconWrapperElement;
 	private ElementReference _toIconWrapperElement;
@@ -116,8 +115,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		_validationMessageStore ??= new ValidationMessageStore(EditContext);
 		_fromFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.StartDate));
 		_toFieldIdentifier = new FieldIdentifier(FieldIdentifier.Model, FieldIdentifier.FieldName + "." + nameof(DateTimeRange.EndDate));
-		_rangeFieldIdentifier = FieldIdentifier;
-		_validationFieldIdentifiers ??= [_rangeFieldIdentifier, _fromFieldIdentifier, _toFieldIdentifier];
+		_validationFieldIdentifiers ??= [FieldIdentifier, _fromFieldIdentifier, _toFieldIdentifier];
 
 		// clear parsing error after new value is set
 		if (_previousValue != CurrentValue)
@@ -175,7 +173,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		bool parsingFailed;
 
 		_validationMessageStore.Clear(_fromFieldIdentifier);
-		_validationMessageStore.Clear(_rangeFieldIdentifier);
+		_validationMessageStore.Clear(FieldIdentifier);
 
 		if (DateHelper.TryParseDateFromString<DateTime?>(newInputValue, TimeProviderEffective, out var fromDate))
 		{
@@ -188,7 +186,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 				if (newValue.StartDate.Value > newValue.EndDate.Value)
 				{
 					rangeValidationFailed = true;
-					_validationMessageStore.Add(_rangeFieldIdentifier, DateOrderErrorMessageEffective);
+					_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
 				}
 			}
 
@@ -227,7 +225,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		_incomingToValueBeforeParsing = newInputValue;
 		bool parsingFailed;
 		_validationMessageStore.Clear(_toFieldIdentifier);
-		_validationMessageStore.Clear(_rangeFieldIdentifier);
+		_validationMessageStore.Clear(FieldIdentifier);
 
 		if (DateHelper.TryParseDateFromString<DateTime?>(newInputValue, TimeProviderEffective, out var toDate))
 		{
@@ -240,7 +238,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 				if (newValue.StartDate.Value > newValue.EndDate.Value)
 				{
 					rangeValidationFailed = true;
-					_validationMessageStore.Add(_rangeFieldIdentifier, DateOrderErrorMessageEffective);
+					_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
 				}
 			}
 
@@ -316,7 +314,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 	private async Task HandleFromCalendarValueChangedAsync(DateTime? date)
 	{
-		_validationMessageStore.Clear(_rangeFieldIdentifier);
+		_validationMessageStore.Clear(FieldIdentifier);
 
 		DateTimeRange newValue = CurrentValue with { StartDate = date };
 
@@ -325,7 +323,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue && newValue.StartDate.Value > newValue.EndDate.Value)
 		{
 			rangeValidationFailed = true;
-			_validationMessageStore.Add(_rangeFieldIdentifier, DateOrderErrorMessageEffective);
+			_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
 		}
 
 		if (!rangeValidationFailed)
@@ -355,7 +353,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 	private async Task HandleToCalendarValueChanged(DateTime? date)
 	{
-		_validationMessageStore.Clear(_rangeFieldIdentifier);
+		_validationMessageStore.Clear(FieldIdentifier);
 
 		DateTimeRange newValue = CurrentValue with { EndDate = date };
 
@@ -364,7 +362,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue && newValue.StartDate.Value > newValue.EndDate.Value)
 		{
 			rangeValidationFailed = true;
-			_validationMessageStore.Add(_rangeFieldIdentifier, DateOrderErrorMessageEffective);
+			_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
 		}
 
 		if (!rangeValidationFailed)
@@ -393,14 +391,14 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 
 	protected async Task HandleDateRangeClick(DateTimeRange value, HxDropdownToggleElement dropdownElement)
 	{
-		_validationMessageStore.Clear(_rangeFieldIdentifier);
+		_validationMessageStore.Clear(FieldIdentifier);
 
 		// Validate the range if required
 		bool rangeValidationFailed = false;
 		if (RequireDateOrderEffective && value.StartDate.HasValue && value.EndDate.HasValue && value.StartDate.Value > value.EndDate.Value)
 		{
 			rangeValidationFailed = true;
-			_validationMessageStore.Add(_rangeFieldIdentifier, DateOrderErrorMessageEffective);
+			_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
 		}
 
 		if (!rangeValidationFailed)
@@ -444,7 +442,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		if (_previousRangeValidationAttemptFailed)
 		{
 			_previousRangeValidationAttemptFailed = false;
-			_validationMessageStore.Clear(_rangeFieldIdentifier);
+			_validationMessageStore.Clear(FieldIdentifier);
 			EditContext.NotifyValidationStateChanged();
 		}
 	}

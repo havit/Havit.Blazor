@@ -2,8 +2,8 @@
 
 @if ((FieldIdentifier.Model != null) && (_fromFieldIdentifier.Model != null) && (_toFieldIdentifier.Model != null))
 {
-	bool fromValid = !EditContext.GetValidationMessages(_rangeFieldIdentifier).Any() && !EditContext.GetValidationMessages(_fromFieldIdentifier).Any();
-	bool toValid = !EditContext.GetValidationMessages(_rangeFieldIdentifier).Any() && !EditContext.GetValidationMessages(_toFieldIdentifier).Any();
+	bool fromValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(_fromFieldIdentifier).Any();
+	bool toValid = !EditContext.GetValidationMessages(FieldIdentifier).Any() && !EditContext.GetValidationMessages(_toFieldIdentifier).Any();
 
 	<div class="@CssClassHelper.Combine("hx-input-date-range", (CalendarIconEffective is not null) ? "hx-input-date-has-calendar-icon" : null)">
 		<div class="input-group flex-nowrap">
