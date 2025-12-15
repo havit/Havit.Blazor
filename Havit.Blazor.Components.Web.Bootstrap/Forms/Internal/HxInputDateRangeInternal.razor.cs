@@ -228,13 +228,10 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 			DateTimeRange newValue = CurrentValue with { EndDate = toDate };
 
 			// Validate the range if required
-			if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue)
+			if (RequireDateOrderEffective && newValue.StartDate.HasValue && newValue.EndDate.HasValue && newValue.StartDate.Value > newValue.EndDate.Value)
 			{
-				if (newValue.StartDate.Value > newValue.EndDate.Value)
-				{
-					rangeValidationFailed = true;
-					_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
-				}
+				rangeValidationFailed = true;
+				_validationMessageStore.Add(FieldIdentifier, DateOrderErrorMessageEffective);
 			}
 
 			if (!rangeValidationFailed)
