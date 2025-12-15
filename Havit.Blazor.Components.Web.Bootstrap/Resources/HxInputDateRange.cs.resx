@@ -132,4 +132,7 @@
   <data name="ToParsingErrorMessage" xml:space="preserve">
     <value>{0} musí být datum ("do").</value>
   </data>
+  <data name="DateOrderErrorMessage" xml:space="preserve">
+    <value>{0} datum "od" musí být menší nebo rovno datu "do".</value>
+  </data>
 </root>

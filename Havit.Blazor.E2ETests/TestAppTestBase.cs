@@ -23,5 +23,10 @@ public abstract class TestAppTestBase : PageTest
 
 		string fullUrl = BaseUrl + relativePath;
 		await Page.GotoAsync(fullUrl);
+
+		await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
+		// see Havit.Blazor.Tests.TestApp.lib.module.js
+		await Page.WaitForSelectorAsync("#blazor-ready-for-tests", new() { State = WaitForSelectorState.Attached });
 	}
 }

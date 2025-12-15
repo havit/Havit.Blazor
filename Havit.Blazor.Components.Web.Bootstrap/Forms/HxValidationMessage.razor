@@ -6,7 +6,7 @@
     @if (Mode != ValidationMessageMode.None)
     {
         List<string> messages = _fieldIdentifiers.SelectMany(fieldIdentifier =>
-        _currentEditContext.GetValidationMessages(fieldIdentifier)).ToList();
+										_currentEditContext.GetValidationMessages(fieldIdentifier)).ToList();
         bool isValid = !messages.Any();
 
         if (!isValid)
@@ -23,7 +23,6 @@
                         firstRendered = true;
                     }
                 }
-
             </div>
         }
     }

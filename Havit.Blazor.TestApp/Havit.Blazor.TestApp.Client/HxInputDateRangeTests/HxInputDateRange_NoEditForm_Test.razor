@@ -1,0 +1,15 @@
+﻿@page "/HxInputDateRange_NoEditForm"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxInputDateRange @bind-Value="range"
+				  Label="TestLabel"
+				  DateOrderErrorMessage="TestDateOrderErrorMessage" />
+
+<div class="mt-4">
+	<p data-testid="value-from">@range.StartDate?.ToShortDateString()</p>
+	<p data-testid="value-to">@range.EndDate?.ToShortDateString()</p>
+</div>
+
+@code {
+	private DateTimeRange range = new();
+}

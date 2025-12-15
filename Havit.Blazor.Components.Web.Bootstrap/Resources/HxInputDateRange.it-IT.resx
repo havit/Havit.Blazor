@@ -132,4 +132,7 @@
   <data name="ToParsingErrorMessage" xml:space="preserve">
     <value>Inserisci la data "A" corretta.</value>
   </data>
+  <data name="DateOrderErrorMessage" xml:space="preserve">
+    <value>{0} la data "Da" deve essere minore o uguale alla data "A".</value>
+  </data>
 </root>

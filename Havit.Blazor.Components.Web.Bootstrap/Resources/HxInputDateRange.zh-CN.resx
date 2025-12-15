@@ -132,4 +132,7 @@
   <data name="ToParsingErrorMessage" xml:space="preserve">
     <value>请输入正确的截至日期.</value>
   </data>
+  <data name="DateOrderErrorMessage" xml:space="preserve">
+    <value>{0} 起始日期必须小于或等于截至日期.</value>
+  </data>
 </root>
