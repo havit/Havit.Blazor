@@ -5,7 +5,10 @@
 				  Label="TestLabel"
 				  DateOrderErrorMessage="TestDateOrderErrorMessage" />
 
-<p data-testid="value" class="mt-4">@range</p>
+<div class="mt-4">
+	<p data-testid="value-from">@range.StartDate?.ToShortDateString()</p>
+	<p data-testid="value-to">@range.EndDate?.ToShortDateString()</p>
+</div>
 
 @code {
 	private DateTimeRange range = new();

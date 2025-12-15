@@ -23,5 +23,10 @@ public abstract class TestAppTestBase : PageTest
 
 		string fullUrl = BaseUrl + relativePath;
 		await Page.GotoAsync(fullUrl);
+
+		await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+
+		// TODO RH Wait for Blazor to be fully rendered
+		await Page.WaitForSelectorAsync("#blazor-ready-for-tests", new() { State = WaitForSelectorState.Attached });
 	}
 }

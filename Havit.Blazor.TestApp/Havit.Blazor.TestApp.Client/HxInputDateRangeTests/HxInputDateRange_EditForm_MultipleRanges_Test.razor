@@ -10,12 +10,15 @@
                       DateOrderErrorMessage="TestDateOrderErrorMessage" />
 </EditForm>
 
-<p data-testid="value" class="pt-4">@model.A.Range</p>
-<p data-testid="value" class="pt-4">@model.B.Range</p>
+<p data-testid="value-a-start" class="pt-4">@model.A.Range.StartDate</p>
+<p data-testid="value-a-end" class="pt-4">@model.A.Range.EndDate</p>
+<p data-testid="value-b-start" class="pt-4">@model.B.Range.StartDate</p>
+<p data-testid="value-b-end" class="pt-4">@model.B.Range.EndDate</p>
 
 @code {
     private FormModel model { get; set; } = new FormModel();
-    public record class FormModel
+
+	public record class FormModel
     {
         public MyRange A { get; } = new MyRange();
         public MyRange B { get; } = new MyRange();

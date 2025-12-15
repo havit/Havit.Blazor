@@ -7,7 +7,10 @@
 					  DateOrderErrorMessage="TestDateOrderErrorMessage" />
 </EditForm>
 
-<p data-testid="value" class="pt-4">@model.Range</p>
+<div class="pt-4">
+	<p data-testid="value-from">@model.Range.StartDate?.ToShortDateString()</p>
+	<p data-testid="value-to">@model.Range.EndDate?.ToShortDateString()</p>
+</div>
 
 @code {
 	private FormModel model { get; set; } = new FormModel();
