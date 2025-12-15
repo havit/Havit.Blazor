@@ -257,7 +257,7 @@ public class HxInputDateRange_EditForm_Tests : TestAppTestBase
 		var toInput = inputs[1];
 
 		// Act - Start with empty inputs and select invalid date range from calendar
-		// Select From date: 20th of current month
+		// Select From date: 16th of current month
 		await fromInput.ClickAsync(); // Open dropdown
 
 		// Wait for calendar to be visible
@@ -281,7 +281,7 @@ public class HxInputDateRange_EditForm_Tests : TestAppTestBase
 
 		// Assert
 
-		// From value should have the valid selected date (20th)
+		// From value should have the valid selected date (16th)
 		await Expect(Page.Locator("[data-testid='value-from']")).Not.ToBeEmptyAsync();
 
 		// To value should remain empty (invalid date was rejected)

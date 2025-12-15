@@ -275,7 +275,7 @@ public class HxInputDateRange_NoEditForm_Tests : TestAppTestBase
 		var toInput = inputs[1];
 
 		// Act - Start with empty inputs and select invalid date range from calendar
-		// Select From date: 20th of current month
+		// Select From date: 16th of current month
 		await fromInput.ClickAsync(); // Open dropdown
 
 		// Wait for calendar to be visible
@@ -284,8 +284,7 @@ public class HxInputDateRange_NoEditForm_Tests : TestAppTestBase
 		var fromCalendar = Page.Locator(".hx-calendar").First;
 
 		// Click on day 16
-		var day20Button = fromCalendar.Locator("button:has-text('16')");
-		await day20Button.ClickAsync();
+		await fromCalendar.Locator("button:has-text('16')").ClickAsync();
 
 		// Wait for From-dropdown to close and To-dropdown to open (opens automatically after From selection)
 		await Page.WaitForTimeoutAsync(500);
@@ -294,8 +293,7 @@ public class HxInputDateRange_NoEditForm_Tests : TestAppTestBase
 		var toCalendar = Page.Locator(".hx-calendar").Last;
 
 		// Click on day 15
-		var day10Button = toCalendar.Locator("button:has-text('15')");
-		await day10Button.ClickAsync();
+		await toCalendar.Locator("button:has-text('15')").ClickAsync();
 
 		// Wait for dropdown to close
 		await Page.WaitForTimeoutAsync(500);
