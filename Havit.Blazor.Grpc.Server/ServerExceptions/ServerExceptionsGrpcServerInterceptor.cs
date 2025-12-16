@@ -1,6 +1,7 @@
 ﻿using System.Security;
 using Grpc.Core;
 using Havit.AspNetCore.ExceptionMonitoring.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using ProtoBuf.Grpc.Configuration;
 
@@ -11,11 +12,13 @@ public class ServerExceptionsGrpcServerInterceptor : ServerExceptionsInterceptor
 {
 	private readonly ILogger<ServerExceptionsGrpcServerInterceptor> _logger;
 	private readonly IExceptionMonitoringService _exceptionMonitoringService;
+	private readonly IHttpContextAccessor _httpContextAccessor;
 
-	public ServerExceptionsGrpcServerInterceptor(ILogger<ServerExceptionsGrpcServerInterceptor> logger, IExceptionMonitoringService exceptionMonitoringService)
+	public ServerExceptionsGrpcServerInterceptor(ILogger<ServerExceptionsGrpcServerInterceptor> logger, IExceptionMonitoringService exceptionMonitoringService, IHttpContextAccessor httpContextAccessor)
 	{
 		_logger = logger;
 		_exceptionMonitoringService = exceptionMonitoringService;
+		_httpContextAccessor = httpContextAccessor;
 	}
 
 	protected override bool OnException(Exception exception, out Status status)
@@ -57,7 +60,7 @@ public class ServerExceptionsGrpcServerInterceptor : ServerExceptionsInterceptor
 			}, exception.ToString());
 
 			_logger.LogError(exception, exception.Message); // passes exception to ApplicationInsights tracking (by default, only Warning and higher levels get tracked)
-			_exceptionMonitoringService.HandleException(exception); // passes exception to SmtpExceptionMonitoring (errors@havit.cz)
+			_exceptionMonitoringService.HandleException(exception, _httpContextAccessor.HttpContext); // passes exception with context to SmtpExceptionMonitoring (errors@havit.cz)
 		}
 		return true;
 	}
