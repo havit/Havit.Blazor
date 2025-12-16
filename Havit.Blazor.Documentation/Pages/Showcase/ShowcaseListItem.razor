@@ -1,10 +1,10 @@
-<div class="showcase-item-container" style="flex-basis: 420px;">
+<div class="@CssClassHelper.Combine("showcase-item-container", Showcase.IsMobileApp ? "mobile-app" : string.Empty)">
     <HxNavLink Href="@($"showcase/{Showcase.Id}")">
-        <div class="showcase-item p-4 bg-body-tertiary rounded-3 d-flex flex-column gap-3">
-			<img src="@Showcase.ImageUrl" class="rounded-2 w-100 shadow" alt="@Showcase.Title" />
-            <div class="d-flex flex-column gap-1">
-				<div class="title fw-medium">@Showcase.Title</div>
-				<div class="description text-secondary small">@Showcase.Description</div>
+        <div class="showcase-item p-4 bg-body-tertiary rounded-3 d-flex flex-column align-items-center gap-3">
+            <img src="@Showcase.ImageUrl" class="rounded-2 shadow" alt="@Showcase.Title" />
+            <div class="d-flex flex-column align-items-center gap-1">
+                <div class="title fw-medium">@Showcase.Title</div>
+                <div class="description text-secondary small">@Showcase.Description</div>
             </div>
         </div>
     </HxNavLink>
