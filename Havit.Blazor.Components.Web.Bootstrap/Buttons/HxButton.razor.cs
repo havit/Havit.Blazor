@@ -106,8 +106,8 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// <summary>
 	/// Defines the <c>aria-label</c> of the button. Should be used to provide an accessible name for icon-only buttons.
 	/// </summary>
-	[Parameter] public string? AriaLabel { get; set; }
-	protected string? AriaLabelEffective => AriaLabel ?? GetSettings()?.AriaLabel ?? GetDefaults().AriaLabel;
+	[Parameter] public string AriaLabel { get; set; }
+	protected string AriaLabelEffective => AriaLabel ?? GetSettings()?.AriaLabel ?? GetDefaults().AriaLabel;
 
 	/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 	[Parameter] public bool? Enabled { get; set; }

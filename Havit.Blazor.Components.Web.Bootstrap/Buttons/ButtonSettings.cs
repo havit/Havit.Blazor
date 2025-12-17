@@ -49,5 +49,5 @@ public record ButtonSettings
 	/// Aria label of the button. The property <c>aria-label</c> is not rendered if null.
 	/// Please ensure that the aria label is meaningful and unique if used.
 	/// </summary>
-	public string? AriaLabel { get; set; }
+	public string AriaLabel { get; set; }
 }
