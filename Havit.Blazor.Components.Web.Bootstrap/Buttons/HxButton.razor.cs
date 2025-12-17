@@ -25,6 +25,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 			CssClass = null,
 			Outline = false,
 			Icon = null,
+			AriaLabel = null,
 			TooltipSettings = new TooltipSettings()
 		};
 	}
@@ -96,11 +97,17 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	[Parameter] public string CssClass { get; set; }
 	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
-	/// <summary>
+	/// <summary>1
 	/// CSS class to be rendered with the button icon.
 	/// </summary>
 	[Parameter] public string IconCssClass { get; set; }
 	protected string IconCssClassEffective => IconCssClass ?? GetSettings()?.IconCssClass ?? GetDefaults().IconCssClass;
+
+	/// <summary>
+	/// aria label of the button.
+	/// </summary>
+	[Parameter] public string? AriaLabel { get; set; }
+	protected string? AriaLabelEffective => AriaLabel ?? GetSettings()?.AriaLabel ?? GetDefaults().AriaLabel;
 
 	/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 	[Parameter] public bool? Enabled { get; set; }

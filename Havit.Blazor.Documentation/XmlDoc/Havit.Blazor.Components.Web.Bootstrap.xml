@@ -300,6 +300,12 @@
             Tooltip settings.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.AriaLabel">
+            <summary>
+            Aria label of the button. The property <c>aria-label</c> is not rendered if null.
+            Please ensure that the aria label is meaningful and unique if used.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonSize">
             <summary>
             Represents the size for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>.
@@ -389,8 +395,13 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.IconCssClass">
-            <summary>
+            <summary>1
             CSS class to be rendered with the button icon.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.AriaLabel">
+            <summary>
+            aria label of the button.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Enabled">
@@ -12044,6 +12055,12 @@
         </member>
         <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsWordChar(System.Char)">
             <summary>Determines whether the character is part of the [\w] set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.WordCategoriesMask">
+            <summary>Provides a mask of Unicode categories that combine to form [\w].</summary>
+        </member>
+        <member name="P:System.Text.RegularExpressions.Generated.Utilities.WordCharBitmap">
+            <summary>Gets a bitmap for whether each character 0 through 127 is in [\w]</summary>
         </member>
     </members>
 </doc>
