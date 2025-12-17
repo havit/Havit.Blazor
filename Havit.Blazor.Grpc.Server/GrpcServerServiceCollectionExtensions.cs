@@ -40,6 +40,7 @@ public static class GrpcServerServiceCollectionExtensions
 	{
 		Contract.Requires<ArgumentNullException>(assembliesToScanForDataContracts is not null);
 
+		services.AddHttpContextAccessor();
 		services.AddSingleton<GlobalizationLocalizationGrpcServerInterceptor>();
 		services.AddSingleton<ServerExceptionsGrpcServerInterceptor>();
 		services.AddSingleton(BinderConfiguration.Create(
