@@ -174,6 +174,12 @@
 			Then, apply the filters to the data within the <code>DataProvider</code>
 			based on the input values.
 		</p>
+		<DocAlert Type="DocAlertType.Warning">
+			The combination of sorting and filtering causes problems with some accessiblity tools (e. g. Screen reader and focus management).
+			To avoid this problem you may use <code>@nameof(HxListLayout)</code> as replacement or place the filter fields outside of the grid.
+			For more information reference the WCAG 2.1 4.1.2 and EN 301 549 9.4.1.2.
+		</DocAlert>
+
 		<Demo Type="typeof(HxGrid_Demo_HeaderFiltering)" />
 
 
