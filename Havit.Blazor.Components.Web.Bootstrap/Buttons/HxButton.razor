@@ -15,7 +15,7 @@
 			@onclick:preventDefault="OnClickPreventDefault"
 			disabled="@DisabledEffective"
             form="@FormId"
-            aria-label="@AriaLabelEffective"
+            aria-label="@(!string.IsNullOrEmpty(AriaLabelEffective) ? AriaLabelEffective : null)"
 
             @attributes="this.AdditionalAttributes">
 
