@@ -395,7 +395,7 @@
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.IconCssClass">
-            <summary>1
+            <summary>
             CSS class to be rendered with the button icon.
             </summary>
         </member>
