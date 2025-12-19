@@ -44,10 +44,4 @@ public record ButtonSettings
 	/// Tooltip settings.
 	/// </summary>
 	public TooltipSettings TooltipSettings { get; set; }
-
-	/// <summary>
-	/// Aria label of the button. The property <c>aria-label</c> is not rendered if null.
-	/// Please ensure that the aria label is meaningful and unique if used.
-	/// </summary>
-	public string AriaLabel { get; set; }
 }

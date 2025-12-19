@@ -103,19 +103,7 @@ public partial class HxListLayout<TFilterModel>
 	/// Settings for the <see cref="HxButton"/> opening the filtering offcanvas.
 	/// </summary>
 	[Parameter] public ButtonSettings FilterOpenButtonSettings { get; set; }
-	protected ButtonSettings FilterOpenButtonSettingsEffective
-	{
-		get
-		{
-			// override aria label with default translation. Setting it in defaults would not work well with localization.
-			var settings = FilterOpenButtonSettings ?? GetSettings()?.FilterOpenButtonSettings ?? GetDefaults().FilterOpenButtonSettings ?? throw new InvalidOperationException(nameof(FilterOpenButtonSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
-			if (string.IsNullOrEmpty(settings.AriaLabel))
-			{
-				settings = settings with { AriaLabel = Localizer["FilterButtonAriaLabel"] };
-			}
-			return settings;
-		}
-	}
+	protected ButtonSettings FilterOpenButtonSettingsEffective => FilterOpenButtonSettings ?? GetSettings()?.FilterOpenButtonSettings ?? GetDefaults().FilterOpenButtonSettings ?? throw new InvalidOperationException(nameof(FilterOpenButtonSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
 
 	/// <summary>
 	/// Settings for the <see cref="HxButton"/> submitting the filter.

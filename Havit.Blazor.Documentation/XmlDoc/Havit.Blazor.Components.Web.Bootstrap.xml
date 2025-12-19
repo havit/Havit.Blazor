@@ -300,12 +300,6 @@
             Tooltip settings.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.AriaLabel">
-            <summary>
-            Aria label of the button. The property <c>aria-label</c> is not rendered if null.
-            Please ensure that the aria label is meaningful and unique if used.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonSize">
             <summary>
             Represents the size for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>.
@@ -401,7 +395,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.AriaLabel">
             <summary>
-            aria label of the button.
+            Defines the <c>aria-label</c> of the button. Should be used to provide an accessible name for icon-only buttons.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Enabled">
