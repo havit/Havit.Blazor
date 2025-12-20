@@ -16,6 +16,7 @@ public class HxIcon : ComponentBase
 	/// <summary>
 	/// Accessibility label for screen readers. Hides the icon from screen readers if not set.
 	/// </summary>
+	[Obsolete("AriaLabel on i tag is a violation of HTML semantics and causes problems with accessiblity. This property will be removed in future versions.")]
 	[Parameter] public string AriaLabel { get; set; }
 
 	/// <summary>
@@ -40,7 +41,7 @@ public class HxIcon : ComponentBase
 		}
 		else
 		{
-			builder.AddAttribute(5, "aria-hidden", true);
+			builder.AddAttribute(5, "aria-hidden", "true");
 		}
 		builder.AddMultipleAttributes(3, AdditionalAttributes);
 		builder.CloseComponent();
