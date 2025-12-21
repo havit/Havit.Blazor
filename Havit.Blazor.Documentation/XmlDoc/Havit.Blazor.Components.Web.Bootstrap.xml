@@ -393,6 +393,11 @@
             CSS class to be rendered with the button icon.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.AriaLabel">
+            <summary>
+            Defines the <c>aria-label</c> of the button. Should be used to provide an accessible name for icon-only buttons.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Enabled">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
         </member>

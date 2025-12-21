@@ -1,6 +1,5 @@
 ﻿using Havit.Blazor.Components.Web.Infrastructure;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -101,6 +100,11 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// </summary>
 	[Parameter] public string IconCssClass { get; set; }
 	protected string IconCssClassEffective => IconCssClass ?? GetSettings()?.IconCssClass ?? GetDefaults().IconCssClass;
+
+	/// <summary>
+	/// Defines the <c>aria-label</c> of the button. Should be used to provide an accessible name for icon-only buttons.
+	/// </summary>
+	[Parameter] public string AriaLabel { get; set; }
 
 	/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 	[Parameter] public bool? Enabled { get; set; }
