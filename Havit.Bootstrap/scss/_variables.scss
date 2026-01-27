@@ -1,16 +1,16 @@
 // We use contrast ratio 3 so the HAVIT blue has white text;
-$min-contrast-ratio:  3;
+$min-contrast-ratio:                  3;
 
-$border-color:        $gray-300;
-$border-color-translucent:    rgba($black, .1);
+$border-color:                        $gray-300;
+$border-color-translucent:            rgba($black, .1);
 
-$border-radius:               .5rem ;
-$border-radius-sm:            .375rem;
-$border-radius-lg:            .625rem;
+$border-radius:                       .5rem ;
+$border-radius-sm:                    .375rem;
+$border-radius-lg:                    .625rem;
 
-$box-shadow:                  0 .5rem 1rem rgba(var(--#{$prefix}body-color-rgb), .1);
-$box-shadow-sm:               0 .125rem .25rem rgba(var(--#{$prefix}body-color-rgb), .05);
-$box-shadow-lg:               0 1rem 3rem rgba(var(--#{$prefix}body-color-rgb), .15);
+$box-shadow:                          0 .5rem 1rem rgba(var(--#{$prefix}body-color-rgb), .1);
+$box-shadow-sm:                       0 .125rem .25rem rgba(var(--#{$prefix}body-color-rgb), .05);
+$box-shadow-lg:                       0 1rem 3rem rgba(var(--#{$prefix}body-color-rgb), .15);
 
 $nav-tabs-border-color:               var(--#{$prefix}border-color-translucent);
 
@@ -42,16 +42,16 @@ $dropdown-box-shadow:                 $box-shadow-sm;
 $dropdown-item-padding-y:             .375rem;
 $dropdown-divider-margin-y:           $spacer * .125;
 
-$pagination-disabled-bg:            transparent;
+$pagination-disabled-bg:              transparent;
 
-$accordion-border-color:            var(--#{$prefix}border-color-translucent);
+$accordion-border-color:              var(--#{$prefix}border-color-translucent);
 
-$toast-padding-x:                   1rem;
-$toast-padding-y:                   .75rem;
+$toast-padding-x:                     1rem;
+$toast-padding-y:                     .75rem;
 
-$badge-font-weight:                 $font-weight-semibold;
+$badge-font-weight:                   $font-weight-semibold;
 
-$list-group-border-color:           var(--#{$prefix}border-color-translucent);
+$list-group-border-color:             var(--#{$prefix}border-color-translucent);
 
 $hr-opacity: .125;
 
