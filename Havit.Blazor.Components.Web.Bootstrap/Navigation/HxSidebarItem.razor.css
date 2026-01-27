@@ -81,3 +81,8 @@
 ::deep a.nav-link.active:hover .hx-sidebar-item-icon {
 	color: var(--hx-sidebar-item-hover-icon-color);
 }
+
+::deep .dropdown-header {
+	padding-bottom: 0;
+	padding-left: .75rem;
+}
