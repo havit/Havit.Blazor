@@ -2,9 +2,9 @@
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-    <AspNetCoreVersion8>8.0.22</AspNetCoreVersion8>
-    <AspNetCoreVersion9>9.0.11</AspNetCoreVersion9>
-    <AspNetCoreVersion10>10.0.1</AspNetCoreVersion10>
+    <AspNetCoreVersion8>8.0.23</AspNetCoreVersion8>
+    <AspNetCoreVersion9>9.0.12</AspNetCoreVersion9>
+    <AspNetCoreVersion10>10.0.2</AspNetCoreVersion10>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
@@ -12,8 +12,8 @@
     <PackageVersion Include="Grpc.AspNetCore.Web" Version="2.76.0" />
     <PackageVersion Include="Grpc.Net.Client" Version="2.76.0" />
     <PackageVersion Include="Grpc.Net.Client.Web" Version="2.76.0" />
-    <PackageVersion Include="Havit.Core" Version="2.0.34" />
-    <PackageVersion Include="Havit.AspNetCore" Version="2.0.30" />
+    <PackageVersion Include="Havit.Core" Version="2.0.35" />
+    <PackageVersion Include="Havit.AspNetCore" Version="2.0.31" />
     <PackageVersion Include="LoxSmoke.DocXml" Version="3.9.0" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' == 'net10.0'" />
     <PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
@@ -32,8 +32,8 @@
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing" Version="1.1.2" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.1" Condition="'$(TargetFramework)' == 'net10.0'" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.11" Condition="'$(TargetFramework)' != 'net10.0'" />
-    <PackageVersion Include="Microsoft.Extensions.Localization" Version="10.0.1" />
-    <PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="10.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.Localization" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="10.0.2" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
     <PackageVersion Include="Microsoft.Playwright.MSTest.v4" Version="1.57.0" />
     <PackageVersion Include="Moq" Version="4.20.72" />
