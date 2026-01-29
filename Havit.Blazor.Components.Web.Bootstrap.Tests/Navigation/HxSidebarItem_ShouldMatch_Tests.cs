@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Components.Routing;
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Navigation;
 
 [TestClass]
-public class HxSidebarItemShouldMatchTests : BunitTestBase
+public class HxSidebarItem_ShouldMatch_Tests
 {
 	[TestMethod]
-	public void ShouldMatch_NullHref_ReturnsFalse()
+	public void HxSidebarItem_ShouldMatch_NullHref_ReturnsFalse()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem();
@@ -19,7 +19,7 @@ public class HxSidebarItemShouldMatchTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void ShouldMatch_ExactMatch_ReturnsTrue()
+	public void HxSidebarItem_ShouldMatch_ExactMatch_ReturnsTrue()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem
@@ -35,7 +35,7 @@ public class HxSidebarItemShouldMatchTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void ShouldMatch_CaseInsensitiveMatch_ReturnsTrue()
+	public void HxSidebarItem_ShouldMatch_CaseInsensitiveMatch_ReturnsTrue()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem
@@ -51,7 +51,7 @@ public class HxSidebarItemShouldMatchTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void ShouldMatch_TrailingSlashInHref_WithoutTrailingSlashInUri_ReturnsTrue()
+	public void HxSidebarItem_ShouldMatch_TrailingSlashInHref_WithoutTrailingSlashInUri_ReturnsTrue()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem
@@ -67,7 +67,7 @@ public class HxSidebarItemShouldMatchTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void ShouldMatch_PrefixMatch_ReturnsTrue()
+	public void HxSidebarItem_ShouldMatch_PrefixMatch_ReturnsTrue()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem
@@ -84,7 +84,7 @@ public class HxSidebarItemShouldMatchTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void ShouldMatch_PrefixMatch_WithSeparator_ReturnsTrue()
+	public void HxSidebarItem_ShouldMatch_PrefixMatch_WithSeparator_ReturnsTrue()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem
@@ -101,7 +101,7 @@ public class HxSidebarItemShouldMatchTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void ShouldMatch_PrefixMatch_PartialWordMatch_ReturnsFalse()
+	public void HxSidebarItem_ShouldMatch_PrefixMatch_PartialWordMatch_ReturnsFalse()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem
@@ -118,7 +118,7 @@ public class HxSidebarItemShouldMatchTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void ShouldMatch_MatchAll_WithQueryString_IgnoresQueryString()
+	public void HxSidebarItem_ShouldMatch_MatchAll_WithQueryString_IgnoresQueryString()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem
@@ -135,7 +135,7 @@ public class HxSidebarItemShouldMatchTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void ShouldMatch_MatchAll_WithFragment_IgnoresFragment()
+	public void HxSidebarItem_ShouldMatch_MatchAll_WithFragment_IgnoresFragment()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem
@@ -152,7 +152,7 @@ public class HxSidebarItemShouldMatchTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void ShouldMatch_MatchAll_WithQueryStringAndFragment_IgnoresBoth()
+	public void HxSidebarItem_ShouldMatch_MatchAll_WithQueryStringAndFragment_IgnoresBoth()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem
@@ -169,7 +169,7 @@ public class HxSidebarItemShouldMatchTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void ShouldMatch_MatchAll_HrefWithQueryString_UriWithQueryString_IgnoresBoth()
+	public void HxSidebarItem_ShouldMatch_MatchAll_HrefWithQueryString_UriWithQueryString_IgnoresBoth()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem
@@ -186,7 +186,7 @@ public class HxSidebarItemShouldMatchTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void ShouldMatch_MatchAll_HrefWithFragment_UriWithFragment_IgnoresBoth()
+	public void HxSidebarItem_ShouldMatch_MatchAll_HrefWithFragment_UriWithFragment_IgnoresBoth()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem
@@ -203,7 +203,7 @@ public class HxSidebarItemShouldMatchTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void ShouldMatch_PrefixMatch_WithQueryString_DoesNotIgnoreQueryString()
+	public void HxSidebarItem_ShouldMatch_PrefixMatch_WithQueryString_DoesNotIgnoreQueryString()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem
@@ -220,7 +220,7 @@ public class HxSidebarItemShouldMatchTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void ShouldMatch_DifferentPath_ReturnsFalse()
+	public void HxSidebarItem_ShouldMatch_DifferentPath_ReturnsFalse()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem
@@ -236,7 +236,7 @@ public class HxSidebarItemShouldMatchTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void ShouldMatch_EmptyPrefix_ReturnsTrue()
+	public void HxSidebarItem_ShouldMatch_EmptyPrefix_ReturnsTrue()
 	{
 		// Arrange
 		var testItem = new TestHxSidebarItem
