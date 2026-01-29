@@ -15,7 +15,7 @@
 
 		<!-- aligned NuGet PackageVersion for package-bundles -->
 		<ComponentsPackagesVersion>4.21.0</ComponentsPackagesVersion>
-		<GrpcPackagesVersion>1.8.0</GrpcPackagesVersion>
+		<GrpcPackagesVersion>1.8.1</GrpcPackagesVersion>
 
 		<EnableMSTestRunner>true</EnableMSTestRunner>
 		<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
