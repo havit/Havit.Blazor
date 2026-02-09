@@ -152,7 +152,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 			else if (RenderMode == CheckboxListRenderMode.ToggleButtons)
 			{
 				builder.OpenElement(1, "div");
-				builder.AddAttribute(2, "class", Inline ? "d-flex gap-1" : "d-inline-flex flex-column gap-1");
+				builder.AddAttribute(2, "class", Inline ? "d-flex flex-wrap gap-1" : "d-inline-flex flex-column gap-1");
 				BuildRenderInputItems(builder);
 				builder.CloseElement();
 			}
