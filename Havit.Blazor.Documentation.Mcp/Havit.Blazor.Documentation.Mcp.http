@@ -67,6 +67,23 @@ Content-Type: application/json
     }
 }
 
+### Get HxListLayout documentation
+POST {{HostAddress}}/
+Accept: application/json, text/event-stream
+Content-Type: application/json
+
+{
+    "jsonrpc": "2.0",
+    "id": 4,
+    "method": "tools/call",
+    "params": {
+        "name": "get_component_docs",
+        "arguments": {
+            "componentName": "HxListLayout"
+        }
+    }
+}
+
 ### Get ThemeColor enum documentation
 POST {{HostAddress}}/
 Accept: application/json, text/event-stream
