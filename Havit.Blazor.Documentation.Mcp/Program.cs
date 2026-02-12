@@ -1,13 +1,19 @@
+﻿using Havit.Blazor.Documentation.Mcp.Services;
+using Havit.Blazor.Documentation.Mcp.Tools;
+using Havit.Blazor.Documentation.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add the MCP services: the transport to use (http) and the tools to register.
+builder.Services.AddSingleton<IDocXmlProvider, McpDocXmlProvider>();
+builder.Services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
+builder.Services.AddSingleton<ComponentDocMarkdownRenderer>();
+
 builder.Services
 	.AddMcpServer()
 	.WithHttpTransport()
-	.WithTools<RandomNumberTools>();
+	.WithTools<GetComponentDocsTool>();
 
 var app = builder.Build();
 app.MapMcp();
-app.UseHttpsRedirection();
 
 app.Run();

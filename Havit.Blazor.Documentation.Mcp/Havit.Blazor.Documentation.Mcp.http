@@ -1,17 +1,102 @@
-# For more info on HTTP files go to https://aka.ms/vs/httpfile
+﻿# For more info on HTTP files go to https://aka.ms/vs/httpfile
 
 @HostAddress = https://localhost:5247
 
+### Initialize MCP session
 POST {{HostAddress}}/
 Accept: application/json, text/event-stream
 Content-Type: application/json
-MCP-Protocol-Version: 2025-11-25
 
 {
     "jsonrpc": "2.0",
     "id": 1,
+    "method": "initialize",
+    "params": {
+        "protocolVersion": "2025-03-26",
+        "capabilities": {},
+        "clientInfo": {
+            "name": "http-test-client",
+            "version": "1.0.0"
+        }
+    }
+}
+
+### List available tools
+POST {{HostAddress}}/
+Accept: application/json, text/event-stream
+Content-Type: application/json
+
+{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "tools/list",
+    "params": {}
+}
+
+### Get HxButton documentation
+POST {{HostAddress}}/
+Accept: application/json, text/event-stream
+Content-Type: application/json
+
+{
+    "jsonrpc": "2.0",
+    "id": 3,
     "method": "tools/call",
     "params": {
-        "name": "get_random_number"
+        "name": "get_component_docs",
+        "arguments": {
+            "componentName": "HxButton"
+        }
+    }
+}
+
+### Get HxGrid documentation
+POST {{HostAddress}}/
+Accept: application/json, text/event-stream
+Content-Type: application/json
+
+{
+    "jsonrpc": "2.0",
+    "id": 4,
+    "method": "tools/call",
+    "params": {
+        "name": "get_component_docs",
+        "arguments": {
+            "componentName": "HxGrid"
+        }
+    }
+}
+
+### Get ThemeColor enum documentation
+POST {{HostAddress}}/
+Accept: application/json, text/event-stream
+Content-Type: application/json
+
+{
+    "jsonrpc": "2.0",
+    "id": 5,
+    "method": "tools/call",
+    "params": {
+        "name": "get_component_docs",
+        "arguments": {
+            "componentName": "ThemeColor"
+        }
+    }
+}
+
+### Get non-existent component (should return not found message)
+POST {{HostAddress}}/
+Accept: application/json, text/event-stream
+Content-Type: application/json
+
+{
+    "jsonrpc": "2.0",
+    "id": 6,
+    "method": "tools/call",
+    "params": {
+        "name": "get_component_docs",
+        "arguments": {
+            "componentName": "NonExistentComponent"
+        }
     }
 }
