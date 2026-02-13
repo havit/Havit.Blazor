@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.Globalization;
 using Havit.Blazor.Documentation.Services;
 using Havit.Blazor.Documentation.DemoData;
@@ -23,6 +23,7 @@ public class Program
 
 		builder.Services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
 		builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
+		builder.Services.AddSingleton<IDocumentationCatalogService, DocumentationCatalogService>();
 		builder.Services.AddSingleton<IDocPageNavigationItemsTracker, DocPageNavigationItemsTracker>();
 		builder.Services.AddSingleton<IHttpContextProxy, WebAssemblyHttpContextProxy>();
 		builder.Services.AddSingleton<IShowcaseDataService, ShowcaseDataService>();

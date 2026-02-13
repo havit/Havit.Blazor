@@ -9,6 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Azure.Monitor.OpenTelemetry.AspNetCore" />
 		<PackageReference Include="LoxSmoke.DocXml" />
 		<PackageReference Include="ModelContextProtocol.AspNetCore" />
 	</ItemGroup>

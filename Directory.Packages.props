@@ -7,6 +7,7 @@
 		<AspNetCoreVersion10>10.0.2</AspNetCoreVersion10>
 	</PropertyGroup>
 	<ItemGroup>
+		<PackageVersion Include="Azure.Monitor.OpenTelemetry.AspNetCore" Version="1.4.0" />
 		<PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
 		<PackageVersion Include="bunit.web" Version="1.40.0" />
 		<PackageVersion Include="Grpc.AspNetCore.Web" Version="2.76.0" />
