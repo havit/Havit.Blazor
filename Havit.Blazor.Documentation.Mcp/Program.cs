@@ -23,7 +23,10 @@ builder.Services.AddSingleton<IDocumentationCatalogService, DocumentationCatalog
 
 builder.Services
 	.AddMcpServer()
-	.WithHttpTransport()
+	.WithHttpTransport(options =>
+	{
+		options.Stateless = true;
+	})
 	.WithTools<GetComponentDocsTool>()
 	.WithTools<GetComponentCatalogTool>()
 	.WithTools<GetComponentSamplesTool>();
