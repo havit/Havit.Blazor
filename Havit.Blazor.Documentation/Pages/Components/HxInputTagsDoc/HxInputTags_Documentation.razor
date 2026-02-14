@@ -1,6 +1,6 @@
-﻿@attribute [Route("/components/" + nameof(HxInputTags))]
+@attribute [Route("/components/" + nameof(HxInputTags))]
 
-<ComponentApiDoc Type="typeof(HxInputTags)">
+<ApiDoc Type="typeof(HxInputTags)">
     <MainContent>
         <DocAlert Type="DocAlertType.Warning">
             Due to a breaking change in Bootstrap 5.2, the keyboard navigation stopped working for dropdowns triggered from <code>input</code> (the <code>Up</code> and <code>Down</code> keys).
@@ -58,35 +58,35 @@
     </MainContent>
 
     <CssVariables>
-        <ComponentApiDocCssVariable Name="--hx-input-tags-tag-gap" Default=".25rem">
+        <ApiDocCssVariable Name="--hx-input-tags-tag-gap" Default=".25rem">
             Gap between the tags.
-        </ComponentApiDocCssVariable>
-        <ComponentApiDocCssVariable Name="--hx-input-tags-input-width" Default="3em">
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--hx-input-tags-input-width" Default="3em">
             Input width.
-        </ComponentApiDocCssVariable>
-        <ComponentApiDocCssVariable Name="--hx-input-tags-input-placeholder-color" Default="var(--bs-secondary-color)">
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--hx-input-tags-input-placeholder-color" Default="var(--bs-secondary-color)">
             Color of the placeholder input.
-        </ComponentApiDocCssVariable>
-        <ComponentApiDocCssVariable Name="--hx-input-tags-naked-font-size-lg" Default="1.25em">
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--hx-input-tags-naked-font-size-lg" Default="1.25em">
             Naked font size large.
-        </ComponentApiDocCssVariable>
-        <ComponentApiDocCssVariable Name="--hx-input-tags-naked-font-size-sm" Default=".875em">
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--hx-input-tags-naked-font-size-sm" Default=".875em">
             Naked font size small.
-        </ComponentApiDocCssVariable>
-        <ComponentApiDocCssVariable Name="--hx-input-tags-control-focused-box-shadow" Default="0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25)">
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--hx-input-tags-control-focused-box-shadow" Default="0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25)">
             Box shadow of the control when focused.
-        </ComponentApiDocCssVariable>
-        <ComponentApiDocCssVariable Name="--hx-input-tags-control-focused-border-color" Default="rgba(var(--bs-primary-rgb), .3)">
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--hx-input-tags-control-focused-border-color" Default="rgba(var(--bs-primary-rgb), .3)">
             Border color of the control when focused (as the color is not exposed via CSS variables from Bootstrap, we use rgba derivative from --bs-primary-rgb and the color is not 100% accurate).
-        </ComponentApiDocCssVariable>
-        <ComponentApiDocCssVariable Name="--hx-input-tags-add-button-text-margin" Default="rgba(var(--bs-primary-rgb), .3)">
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--hx-input-tags-add-button-text-margin" Default="rgba(var(--bs-primary-rgb), .3)">
             Margin of an add button text.
-        </ComponentApiDocCssVariable>
-        <ComponentApiDocCssVariable Name="--hx-input-tags-add-button-disabled-opacity" Default=".65">
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--hx-input-tags-add-button-disabled-opacity" Default=".65">
             Opacity of disabled add button.
-        </ComponentApiDocCssVariable>
-        <ComponentApiDocCssVariable Name="--hx-input-tags-dropdown-item-highlighted-background-color" Default="var(--bs-tertiary-bg)">
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--hx-input-tags-dropdown-item-highlighted-background-color" Default="var(--bs-tertiary-bg)">
             Background color of a dropdown item when highlighted.
-        </ComponentApiDocCssVariable>
+        </ApiDocCssVariable>
     </CssVariables>
-</ComponentApiDoc>
+</ApiDoc>

@@ -1,7 +1,7 @@
-﻿@attribute [Route("/components/" + nameof(HxButton))]
+@attribute [Route("/components/" + nameof(HxButton))]
 @attribute [Route("/components/" + nameof(HxSubmit))]
 
-<ComponentApiDoc Type="typeof(HxButton)">
+<ApiDoc Type="typeof(HxButton)">
 	<MainContent>
 		<DocHeading Title="Basic usage" />
 		<Demo Type="typeof(HxButton_Demo_Basic)" Tabs="false" />
@@ -87,10 +87,10 @@
 		<Demo Type="typeof(HxButton_Demo_TooltipCssClasses)" Tabs="false" />
 	</MainContent>
 	<CssVariables>
-		<ComponentApiDocCssVariable Name="--hx-button-gap" Default=".25rem">
+		<ApiDocCssVariable Name="--hx-button-gap" Default=".25rem">
 			Space between the text and icon or other content of the button.
-		</ComponentApiDocCssVariable>
+		</ApiDocCssVariable>
 	</CssVariables>
-</ComponentApiDoc>
+</ApiDoc>
 
-<ComponentApiDoc Type="typeof(HxSubmit)" />
+<ApiDoc Type="typeof(HxSubmit)" />

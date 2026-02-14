@@ -3,7 +3,7 @@ using Havit.Blazor.Documentation.Services;
 
 namespace Havit.Blazor.Documentation.Shared.Components;
 
-public partial class ComponentApiDoc
+public partial class ApiDoc
 {
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
