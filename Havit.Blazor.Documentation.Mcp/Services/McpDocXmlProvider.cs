@@ -31,13 +31,21 @@ internal class McpDocXmlProvider : IDocXmlProvider
 		// The XML docs are embedded in the Havit.Blazor.Documentation assembly.
 		Assembly documentationAssembly = typeof(ComponentApiDocModelBuilder).Assembly;
 
-		string fullResourceName = documentationAssembly.GetManifestResourceNames()
-			.SingleOrDefault(str => str.EndsWith(resourceName));
+		string[] matchingResourceNames = documentationAssembly.GetManifestResourceNames()
+			.Where(str => str.EndsWith(resourceName, StringComparison.Ordinal))
+			.ToArray();
 
-		if (fullResourceName is null)
+		if (matchingResourceNames.Length == 0)
 		{
 			throw new InvalidOperationException($"Embedded resource '{resourceName}' not found in assembly '{documentationAssembly.FullName}'. Available resources: {string.Join(", ", documentationAssembly.GetManifestResourceNames())}");
 		}
+
+		if (matchingResourceNames.Length > 1)
+		{
+			throw new InvalidOperationException($"Multiple embedded resources match '{resourceName}' in assembly '{documentationAssembly.FullName}': {string.Join(", ", matchingResourceNames)}");
+		}
+
+		string fullResourceName = matchingResourceNames[0];
 
 		using Stream stream = documentationAssembly.GetManifestResourceStream(fullResourceName);
 		using StreamReader reader = new StreamReader(stream);
