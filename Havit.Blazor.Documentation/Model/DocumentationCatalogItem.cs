@@ -2,7 +2,7 @@
 
 /// <summary>
 /// Represents a single item in the documentation catalog (component, concept, type, etc.).
-/// When <paramref name="Level"/> is not specified (0), it is auto-computed from the number of '&gt;' characters in <paramref name="Title"/>.
+/// When <see cref="Level"/> is not specified (0), it is auto-computed from the number of '&gt;' characters in <see cref="Title"/>.
 /// </summary>
 public record DocumentationCatalogItem
 {
