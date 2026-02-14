@@ -47,6 +47,7 @@ public class Program
 		builder.Services.AddSingleton<IShowcaseDataService, ShowcaseDataService>();
 		builder.Services.AddTransient<IApiDocModelBuilder, ApiDocModelBuilder>();
 		builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
+		builder.Services.AddSingleton<IDocumentationCatalogService, DocumentationCatalogService>();
 		builder.Services.AddSingleton<IDocPageNavigationItemsTracker, DocPageNavigationItemsTracker>();
 
 		builder.Services.AddScoped<IDocColorModeProvider, DocColorModeProvider>();

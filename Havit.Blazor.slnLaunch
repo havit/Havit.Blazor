@@ -10,21 +10,6 @@
     ]
   },
   {
-    "Name": "Doc + BlazorAppTest",
-    "Projects": [
-      {
-        "Path": "BlazorAppTest\\BlazorAppTest.csproj",
-        "Action": "Start",
-        "DebugTarget": "IIS Express"
-      },
-      {
-        "Path": "Havit.Blazor.Documentation.Server\\Havit.Blazor.Documentation.Server.csproj",
-        "Action": "Start",
-        "DebugTarget": "IIS Express"
-      }
-    ]
-  },
-  {
     "Name": "BlazorAppTest",
     "Projects": [
       {
@@ -45,32 +30,11 @@
     ]
   },
   {
-    "Name": "Doc + TestApp",
+    "Name": "Mcp",
     "Projects": [
       {
-        "Path": "Havit.Blazor.Documentation.Server\\Havit.Blazor.Documentation.Server.csproj",
-        "Action": "Start",
-        "DebugTarget": "IIS Express"
-      },
-      {
-        "Path": "Havit.Blazor.TestApp\\Havit.Blazor.TestApp\\Havit.Blazor.TestApp.csproj",
-        "Action": "Start",
-        "DebugTarget": "IIS Express"
-      }
-    ]
-  },
-  {
-    "Name": "TestApp + BlazorAppTest",
-    "Projects": [
-      {
-        "Path": "BlazorAppTest\\BlazorAppTest.csproj",
-        "Action": "Start",
-        "DebugTarget": "IIS Express"
-      },
-      {
-        "Path": "Havit.Blazor.TestApp\\Havit.Blazor.TestApp\\Havit.Blazor.TestApp.csproj",
-        "Action": "Start",
-        "DebugTarget": "IIS Express"
+        "Path": "Havit.Blazor.Documentation.Mcp\\Havit.Blazor.Documentation.Mcp.csproj",
+        "Action": "Start"
       }
     ]
   }
