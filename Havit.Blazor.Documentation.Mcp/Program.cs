@@ -16,7 +16,7 @@ if (!string.IsNullOrEmpty(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_
 	openTelemetry.UseAzureMonitor();
 }
 
-builder.Services.AddSingleton<IDocXmlProvider, McpDocXmlProvider>();
+builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
 builder.Services.AddTransient<IApiDocModelBuilder, ApiDocModelBuilder>();
 builder.Services.AddSingleton<IApiDocModelProvider, ApiDocModelProvider>();
 builder.Services.AddSingleton<McpDocMarkdownRenderer>();
