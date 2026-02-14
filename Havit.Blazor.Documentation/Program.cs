@@ -21,7 +21,7 @@ public class Program
 		builder.Services.AddHxMessenger();
 		builder.Services.AddHxMessageBoxHost();
 
-		builder.Services.AddTransient<IApiDocModelBuilder, ApiDocModelBuilder>();
+		builder.Services.AddSingleton<IApiDocModelBuilder, ApiDocModelBuilder>();
 		builder.Services.AddSingleton<IApiDocModelProvider, ApiDocModelProvider>();
 		builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
 		builder.Services.AddSingleton<IDocumentationCatalogService, DocumentationCatalogService>();
