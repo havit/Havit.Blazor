@@ -8,15 +8,32 @@ namespace Havit.Blazor.Documentation.Mcp.Services;
 /// <summary>
 /// Renders a <see cref="ComponentApiDocModel"/> into a Markdown string suitable for MCP tool responses.
 /// </summary>
-internal class ComponentDocMarkdownRenderer
+internal class McpDocMarkdownRenderer
 {
 	/// <summary>
-	/// Renders the full component API documentation as markdown.
+	/// Renders the type API documentation as markdown (parameters, properties, events, methods).
 	/// </summary>
-	public string Render(ComponentApiDocModel model)
+	public string RenderTypeDoc(ComponentApiDocModel model)
+	{
+		StringBuilder sb = new StringBuilder();
+		RenderTypeDocCore(sb, model);
+		return sb.ToString();
+	}
+
+	/// <summary>
+	/// Renders the component API documentation as markdown, including a list of available demo samples.
+	/// </summary>
+	public string RenderComponentDoc(ComponentApiDocModel model, IReadOnlyList<string> sampleNames)
+	{
+		StringBuilder sb = new StringBuilder();
+		RenderTypeDocCore(sb, model);
+		RenderSampleList(sb, sampleNames);
+		return sb.ToString();
+	}
+
+	private static void RenderTypeDocCore(StringBuilder sb, ComponentApiDocModel model)
 	{
 		string plainTypeName = ApiRenderer.RemoveSpecialCharacters(model.Type.Name);
-		StringBuilder sb = new StringBuilder();
 
 		sb.AppendLine($"# {plainTypeName}");
 		sb.AppendLine();
@@ -31,23 +48,21 @@ internal class ComponentDocMarkdownRenderer
 		{
 			sb.AppendLine($"**Delegate signature:** `{StripHtml(model.DelegateSignature)}`");
 			sb.AppendLine();
-			return sb.ToString();
+			return;
 		}
 
 		if (model.IsEnum)
 		{
 			RenderEnumMembers(sb, model);
-			return sb.ToString();
+			return;
 		}
 
-		RenderParameters(sb, model, plainTypeName);
-		RenderProperties(sb, model, plainTypeName);
-		RenderEvents(sb, model, plainTypeName);
-		RenderMethods(sb, model, plainTypeName);
-		RenderStaticProperties(sb, model, plainTypeName);
-		RenderStaticMethods(sb, model, plainTypeName);
-
-		return sb.ToString();
+		RenderParameters(sb, model);
+		RenderProperties(sb, model);
+		RenderEvents(sb, model);
+		RenderMethods(sb, model);
+		RenderStaticProperties(sb, model);
+		RenderStaticMethods(sb, model);
 	}
 
 	private static void RenderEnumMembers(StringBuilder sb, ComponentApiDocModel model)
@@ -71,7 +86,7 @@ internal class ComponentDocMarkdownRenderer
 		sb.AppendLine();
 	}
 
-	private static void RenderParameters(StringBuilder sb, ComponentApiDocModel model, string plainTypeName)
+	private static void RenderParameters(StringBuilder sb, ComponentApiDocModel model)
 	{
 		if (model.Parameters.Count == 0)
 		{
@@ -103,7 +118,7 @@ internal class ComponentDocMarkdownRenderer
 		sb.AppendLine();
 	}
 
-	private static void RenderProperties(StringBuilder sb, ComponentApiDocModel model, string plainTypeName)
+	private static void RenderProperties(StringBuilder sb, ComponentApiDocModel model)
 	{
 		if (model.Properties.Count == 0)
 		{
@@ -125,7 +140,7 @@ internal class ComponentDocMarkdownRenderer
 		sb.AppendLine();
 	}
 
-	private static void RenderEvents(StringBuilder sb, ComponentApiDocModel model, string plainTypeName)
+	private static void RenderEvents(StringBuilder sb, ComponentApiDocModel model)
 	{
 		if (model.Events.Count == 0)
 		{
@@ -147,7 +162,7 @@ internal class ComponentDocMarkdownRenderer
 		sb.AppendLine();
 	}
 
-	private static void RenderMethods(StringBuilder sb, ComponentApiDocModel model, string plainTypeName)
+	private static void RenderMethods(StringBuilder sb, ComponentApiDocModel model)
 	{
 		if (model.IsEnum || model.Methods.Count == 0)
 		{
@@ -170,7 +185,7 @@ internal class ComponentDocMarkdownRenderer
 		sb.AppendLine();
 	}
 
-	private static void RenderStaticProperties(StringBuilder sb, ComponentApiDocModel model, string plainTypeName)
+	private static void RenderStaticProperties(StringBuilder sb, ComponentApiDocModel model)
 	{
 		if (model.StaticProperties.Count == 0)
 		{
@@ -192,7 +207,7 @@ internal class ComponentDocMarkdownRenderer
 		sb.AppendLine();
 	}
 
-	private static void RenderStaticMethods(StringBuilder sb, ComponentApiDocModel model, string plainTypeName)
+	private static void RenderStaticMethods(StringBuilder sb, ComponentApiDocModel model)
 	{
 		if (model.IsEnum || model.StaticMethods.Count == 0)
 		{
@@ -210,6 +225,26 @@ internal class ComponentDocMarkdownRenderer
 			string returnType = StripHtml(ApiRenderer.FormatType(method.MethodInfo.ReturnType));
 			string summary = StripHtml(method.Comments?.Summary ?? string.Empty);
 			sb.AppendLine($"| {method.MethodInfo.Name}{parameters} | `{returnType}` | {summary} |");
+		}
+
+		sb.AppendLine();
+	}
+
+	private static void RenderSampleList(StringBuilder sb, IReadOnlyList<string> sampleNames)
+	{
+		if (sampleNames is null || sampleNames.Count == 0)
+		{
+			return;
+		}
+
+		sb.AppendLine("## Available demo samples");
+		sb.AppendLine();
+		sb.AppendLine("Use the `get_component_samples` tool to retrieve the full source code.");
+		sb.AppendLine();
+
+		foreach (string name in sampleNames)
+		{
+			sb.AppendLine($"- {name}");
 		}
 
 		sb.AppendLine();

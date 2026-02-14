@@ -18,7 +18,7 @@ if (!string.IsNullOrEmpty(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_
 
 builder.Services.AddSingleton<IDocXmlProvider, McpDocXmlProvider>();
 builder.Services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
-builder.Services.AddSingleton<ComponentDocMarkdownRenderer>();
+builder.Services.AddSingleton<McpDocMarkdownRenderer>();
 builder.Services.AddSingleton<IDocumentationCatalogService, DocumentationCatalogService>();
 
 builder.Services
@@ -29,7 +29,8 @@ builder.Services
 	})
 	.WithTools<GetComponentDocsTool>()
 	.WithTools<GetComponentCatalogTool>()
-	.WithTools<GetComponentSamplesTool>();
+	.WithTools<GetComponentSamplesTool>()
+	.WithTools<GetTypeDocTool>();
 
 var app = builder.Build();
 app.MapMcp();

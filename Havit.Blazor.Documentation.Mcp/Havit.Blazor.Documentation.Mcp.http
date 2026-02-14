@@ -84,7 +84,7 @@ Content-Type: application/json
     }
 }
 
-### Get ThemeColor enum documentation
+### Get ThemeColor enum documentation (via get_type_doc)
 POST {{HostAddress}}/
 Accept: application/json, text/event-stream
 Content-Type: application/json
@@ -94,9 +94,9 @@ Content-Type: application/json
     "id": 5,
     "method": "tools/call",
     "params": {
-        "name": "get_component_docs",
+        "name": "get_type_doc",
         "arguments": {
-            "componentName": "ThemeColor"
+            "typeName": "ThemeColor"
         }
     }
 }

@@ -7,10 +7,28 @@ AI assistants (GitHub Copilot, etc.) can use this server to look up component pa
 
 ### `get_component_docs`
 
-Returns the API documentation for a HAVIT Blazor component or type in Markdown format.
+Returns the API documentation for a HAVIT Blazor component in Markdown format, including demo samples.
 
 **Parameters:**
-- `componentName` (string) – Name of the component or type, e.g. `HxButton`, `HxGrid`, `ThemeColor`.
+- `componentName` (string) – Name of the component, e.g. `HxButton`, `HxGrid`, `HxInputText`.
+
+### `get_type_doc`
+
+Returns the API documentation for a HAVIT Blazor supporting type (enum, settings class, delegate) in Markdown format.
+
+**Parameters:**
+- `typeName` (string) – Name of the type, e.g. `ThemeColor`, `GridSettings`, `CalendarDateCustomizationProviderDelegate`.
+
+### `get_component_catalog`
+
+Returns a list of all HAVIT Blazor components (Hx*) with their name and summary description.
+
+### `get_component_samples`
+
+Returns all demo/sample code snippets (Razor source) for a HAVIT Blazor component.
+
+**Parameters:**
+- `componentName` (string) – Name of the component, e.g. `HxButton`, `HxGrid`, `HxInputText`.
 
 ## Developing locally
 
