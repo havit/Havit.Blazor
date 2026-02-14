@@ -56,6 +56,14 @@ internal class GetComponentDocsTool
 
 	private static IReadOnlyList<string> GetSampleNames(string componentName)
 	{
+		// Normalize component name by stripping generic type arguments (e.g., "HxGrid<TItem>" -> "HxGrid")
+		// This matches the behavior of ApiTypeHelper.GetType()
+		int openingBracePosition = componentName.IndexOf("<");
+		if (openingBracePosition > 0)
+		{
+			componentName = componentName[..openingBracePosition];
+		}
+
 		return s_documentationAssembly.GetManifestResourceNames()
 			.Where(r => r.EndsWith(".razor", StringComparison.Ordinal)
 				&& r.Contains("Demo", StringComparison.Ordinal)
