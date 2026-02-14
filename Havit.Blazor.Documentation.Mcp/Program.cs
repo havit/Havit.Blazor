@@ -35,5 +35,6 @@ builder.Services
 
 var app = builder.Build();
 app.MapMcp();
+app.MapGet("/", () => Results.Ok()); // for Azure Load Balancer probes etc. (MCP is POST)
 
 app.Run();
