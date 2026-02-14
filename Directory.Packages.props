@@ -34,7 +34,7 @@
 		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.2" Condition="'$(TargetFramework)' == 'net10.0'" />
 		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.12" Condition="'$(TargetFramework)' != 'net10.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Localization" Version="10.0.2" />
-		<PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="10.0.2" />
+		<PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="10.0.3" />
 		<PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.0.1" />
 		<PackageVersion Include="Microsoft.Playwright.MSTest.v4" Version="1.57.0" />
 		<PackageVersion Include="ModelContextProtocol.AspNetCore" Version="0.7.0-preview.1" />
