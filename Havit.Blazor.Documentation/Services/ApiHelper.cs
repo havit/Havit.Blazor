@@ -83,7 +83,7 @@ public static class ApiTypeHelper
 			try
 			{
 				var containingTypes = typeof(HxButton).Assembly.GetTypes()
-					.Where(t => t.FullName.Contains(typeName))
+					.Where(t => t.FullName.Contains(typeName, StringComparison.OrdinalIgnoreCase))
 					.ToList();
 
 				if (containingTypes.Count > 0)
