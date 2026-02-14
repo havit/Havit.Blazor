@@ -21,17 +21,19 @@ public partial class Search
 
 	private string _userInput;
 	private List<SearchItem> _searchItems;
-
 	private HxAutosuggest<SearchItem, SearchItem> _autosuggest;
+
+	protected override void OnInitialized()
+	{
+		_searchItems = CatalogService.GetAll()
+			.Select(ci => new SearchItem(ci.Href, ci.Title, ci.Keywords, ci.Level))
+			.ToList();
+	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
-			_searchItems = CatalogService.GetAll()
-				.Select(ci => new SearchItem(ci.Href, ci.Title, ci.Keywords, ci.Level))
-				.ToList();
-
 			if (_autosuggest is not null)
 			{
 				await _autosuggest.FocusAsync();
