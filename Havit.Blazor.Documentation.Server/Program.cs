@@ -45,7 +45,7 @@ public class Program
 		builder.Services.AddSingleton<LocalEmbedder>();
 
 		builder.Services.AddSingleton<IShowcaseDataService, ShowcaseDataService>();
-		builder.Services.AddTransient<IApiDocModelBuilder, ApiDocModelBuilder>();
+		builder.Services.AddSingleton<IApiDocModelBuilder, ApiDocModelBuilder>();
 		builder.Services.AddSingleton<IApiDocModelProvider, ApiDocModelProvider>();
 		builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
 		builder.Services.AddSingleton<IDocumentationCatalogService, DocumentationCatalogService>();
