@@ -15,12 +15,12 @@ namespace Havit.Blazor.Documentation.Mcp.Tools;
 internal class GetComponentCatalogTool
 {
 	private readonly IDocumentationCatalogService _catalogService;
-	private readonly IApiDocModelBuilder _modelBuilder;
+	private readonly IApiDocModelProvider _modelProvider;
 
-	public GetComponentCatalogTool(IDocumentationCatalogService catalogService, IApiDocModelBuilder modelBuilder)
+	public GetComponentCatalogTool(IDocumentationCatalogService catalogService, IApiDocModelProvider modelProvider)
 	{
 		_catalogService = catalogService;
-		_modelBuilder = modelBuilder;
+		_modelProvider = modelProvider;
 	}
 
 	/// <summary>
@@ -64,7 +64,7 @@ internal class GetComponentCatalogTool
 			return string.Empty;
 		}
 
-		ApiDocModel model = _modelBuilder.BuildModel(type);
+		ApiDocModel model = _modelProvider.GetApiDocModel(type);
 		string summary = model.Class?.Comments?.Summary;
 
 		return StripHtml(summary);

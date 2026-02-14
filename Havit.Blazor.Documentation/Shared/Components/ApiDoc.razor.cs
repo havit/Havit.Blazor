@@ -16,7 +16,7 @@ public partial class ApiDoc
 	/// </summary>
 	[Parameter] public Type Type { get; set; }
 
-	[Inject] protected IApiDocModelBuilder ApiDocModelBuilder { get; set; }
+	[Inject] protected IApiDocModelProvider ApiDocModelProvider { get; set; }
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 
 	private bool HasApi => _model.HasValues || CssVariables is not null;
@@ -36,7 +36,7 @@ public partial class ApiDoc
 
 	protected override void OnParametersSet()
 	{
-		_model = ApiDocModelBuilder.BuildModel(Type);
+		_model = ApiDocModelProvider.GetApiDocModel(Type);
 		_plainTypeName = ApiRenderer.RemoveSpecialCharacters(Type.Name);
 
 	}

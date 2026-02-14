@@ -16,12 +16,12 @@ internal class GetComponentDocsTool
 {
 	private static readonly Assembly s_documentationAssembly = typeof(DocumentationCatalogService).Assembly;
 
-	private readonly IApiDocModelBuilder _modelBuilder;
+	private readonly IApiDocModelProvider _modelProvider;
 	private readonly McpDocMarkdownRenderer _renderer;
 
-	public GetComponentDocsTool(IApiDocModelBuilder modelBuilder, McpDocMarkdownRenderer renderer)
+	public GetComponentDocsTool(IApiDocModelProvider modelProvider, McpDocMarkdownRenderer renderer)
 	{
-		_modelBuilder = modelBuilder;
+		_modelProvider = modelProvider;
 		_renderer = renderer;
 	}
 
@@ -43,7 +43,7 @@ internal class GetComponentDocsTool
 			return $"Component '{componentName}' not found. Make sure the name matches a HAVIT Blazor component (e.g. HxButton, HxGrid, HxInputText). For supporting types (enums, settings), use the get_type_doc tool.";
 		}
 
-		ApiDocModel model = _modelBuilder.BuildModel(type);
+		ApiDocModel model = _modelProvider.GetApiDocModel(type);
 		IReadOnlyList<string> sampleNames = GetSampleNames(componentName);
 		string markdown = _renderer.RenderComponentDoc(model, sampleNames);
 
