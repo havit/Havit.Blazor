@@ -7,7 +7,7 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Documentation.Services;
 
-public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
+public class ApiDocModelBuilder : IApiDocModelBuilder
 {
 	private static readonly Dictionary<string, string> s_inputBaseSummaries = new()
 	{
@@ -45,14 +45,14 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 
 	private readonly IDocXmlProvider _docXmlProvider;
 
-	public ComponentApiDocModelBuilder(IDocXmlProvider docXmlProvider)
+	public ApiDocModelBuilder(IDocXmlProvider docXmlProvider)
 	{
 		_docXmlProvider = docXmlProvider;
 	}
 
-	public ComponentApiDocModel BuildModel(Type type)
+	public ApiDocModel BuildModel(Type type)
 	{
-		var model = new ComponentApiDocModel();
+		var model = new ApiDocModel();
 		model.Type = type;
 		model.IsDelegate = ApiTypeHelper.IsDelegate(type);
 
@@ -106,7 +106,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		}
 	}
 
-	private void AdjustDelegate(ComponentApiDocModel model)
+	private void AdjustDelegate(ApiDocModel model)
 	{
 		Contract.Requires<InvalidOperationException>(model.IsDelegate);
 
@@ -135,7 +135,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		model.DelegateSignature += ")";
 	}
 
-	private void MapEnum(DocXmlReader reader, ComponentApiDocModel model)
+	private void MapEnum(DocXmlReader reader, ApiDocModel model)
 	{
 		model.IsEnum = model.Type.IsEnum;
 		if (!model.IsEnum)
@@ -167,7 +167,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		}
 	}
 
-	private void MapClassModel(DocXmlReader reader, ComponentApiDocModel model)
+	private void MapClassModel(DocXmlReader reader, ApiDocModel model)
 	{
 		model.Class = new ClassModel()
 		{
@@ -175,7 +175,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		};
 	}
 
-	private void MapProperties(DocXmlReader reader, ComponentApiDocModel model)
+	private void MapProperties(DocXmlReader reader, ApiDocModel model)
 	{
 		List<PropertyInfo> propertyInfos = model.Type.GetProperties(CommonBindingFlags).ToList();
 
@@ -223,7 +223,7 @@ public class ComponentApiDocModelBuilder : IComponentApiDocModelBuilder
 		}
 	}
 
-	private void MapMethods(DocXmlReader reader, ComponentApiDocModel model)
+	private void MapMethods(DocXmlReader reader, ApiDocModel model)
 	{
 		foreach (var methodInfo in model.Type.GetMethods(CommonBindingFlags))
 		{

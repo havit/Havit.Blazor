@@ -17,7 +17,7 @@ if (!string.IsNullOrEmpty(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_
 }
 
 builder.Services.AddSingleton<IDocXmlProvider, McpDocXmlProvider>();
-builder.Services.AddTransient<IComponentApiDocModelBuilder, ComponentApiDocModelBuilder>();
+builder.Services.AddTransient<IApiDocModelBuilder, ApiDocModelBuilder>();
 builder.Services.AddSingleton<McpDocMarkdownRenderer>();
 builder.Services.AddSingleton<IDocumentationCatalogService, DocumentationCatalogService>();
 

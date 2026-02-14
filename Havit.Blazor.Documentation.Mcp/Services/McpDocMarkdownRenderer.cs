@@ -6,14 +6,14 @@ using Havit.Blazor.Documentation.Services;
 namespace Havit.Blazor.Documentation.Mcp.Services;
 
 /// <summary>
-/// Renders a <see cref="ComponentApiDocModel"/> into a Markdown string suitable for MCP tool responses.
+/// Renders a <see cref="ApiDocModel"/> into a Markdown string suitable for MCP tool responses.
 /// </summary>
 internal class McpDocMarkdownRenderer
 {
 	/// <summary>
 	/// Renders the type API documentation as markdown (parameters, properties, events, methods).
 	/// </summary>
-	public string RenderTypeDoc(ComponentApiDocModel model)
+	public string RenderTypeDoc(ApiDocModel model)
 	{
 		StringBuilder sb = new StringBuilder();
 		RenderTypeDocCore(sb, model);
@@ -23,7 +23,7 @@ internal class McpDocMarkdownRenderer
 	/// <summary>
 	/// Renders the component API documentation as markdown, including a list of available demo samples.
 	/// </summary>
-	public string RenderComponentDoc(ComponentApiDocModel model, IReadOnlyList<string> sampleNames)
+	public string RenderComponentDoc(ApiDocModel model, IReadOnlyList<string> sampleNames)
 	{
 		StringBuilder sb = new StringBuilder();
 		RenderTypeDocCore(sb, model);
@@ -31,7 +31,7 @@ internal class McpDocMarkdownRenderer
 		return sb.ToString();
 	}
 
-	private static void RenderTypeDocCore(StringBuilder sb, ComponentApiDocModel model)
+	private static void RenderTypeDocCore(StringBuilder sb, ApiDocModel model)
 	{
 		string plainTypeName = ApiRenderer.RemoveSpecialCharacters(model.Type.Name);
 
@@ -65,7 +65,7 @@ internal class McpDocMarkdownRenderer
 		RenderStaticMethods(sb, model);
 	}
 
-	private static void RenderEnumMembers(StringBuilder sb, ComponentApiDocModel model)
+	private static void RenderEnumMembers(StringBuilder sb, ApiDocModel model)
 	{
 		if (model.EnumMembers.Count == 0)
 		{
@@ -86,7 +86,7 @@ internal class McpDocMarkdownRenderer
 		sb.AppendLine();
 	}
 
-	private static void RenderParameters(StringBuilder sb, ComponentApiDocModel model)
+	private static void RenderParameters(StringBuilder sb, ApiDocModel model)
 	{
 		if (model.Parameters.Count == 0)
 		{
@@ -118,7 +118,7 @@ internal class McpDocMarkdownRenderer
 		sb.AppendLine();
 	}
 
-	private static void RenderProperties(StringBuilder sb, ComponentApiDocModel model)
+	private static void RenderProperties(StringBuilder sb, ApiDocModel model)
 	{
 		if (model.Properties.Count == 0)
 		{
@@ -140,7 +140,7 @@ internal class McpDocMarkdownRenderer
 		sb.AppendLine();
 	}
 
-	private static void RenderEvents(StringBuilder sb, ComponentApiDocModel model)
+	private static void RenderEvents(StringBuilder sb, ApiDocModel model)
 	{
 		if (model.Events.Count == 0)
 		{
@@ -162,7 +162,7 @@ internal class McpDocMarkdownRenderer
 		sb.AppendLine();
 	}
 
-	private static void RenderMethods(StringBuilder sb, ComponentApiDocModel model)
+	private static void RenderMethods(StringBuilder sb, ApiDocModel model)
 	{
 		if (model.IsEnum || model.Methods.Count == 0)
 		{
@@ -185,7 +185,7 @@ internal class McpDocMarkdownRenderer
 		sb.AppendLine();
 	}
 
-	private static void RenderStaticProperties(StringBuilder sb, ComponentApiDocModel model)
+	private static void RenderStaticProperties(StringBuilder sb, ApiDocModel model)
 	{
 		if (model.StaticProperties.Count == 0)
 		{
@@ -207,7 +207,7 @@ internal class McpDocMarkdownRenderer
 		sb.AppendLine();
 	}
 
-	private static void RenderStaticMethods(StringBuilder sb, ComponentApiDocModel model)
+	private static void RenderStaticMethods(StringBuilder sb, ApiDocModel model)
 	{
 		if (model.IsEnum || model.StaticMethods.Count == 0)
 		{

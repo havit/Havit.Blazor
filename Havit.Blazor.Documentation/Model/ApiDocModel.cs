@@ -1,6 +1,6 @@
 ﻿namespace Havit.Blazor.Documentation.Model;
 
-public class ComponentApiDocModel
+public class ApiDocModel
 {
 	public Type Type { get; set; }
 	public ClassModel Class { get; set; }

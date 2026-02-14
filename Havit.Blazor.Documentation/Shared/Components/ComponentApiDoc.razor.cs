@@ -16,7 +16,7 @@ public partial class ComponentApiDoc
 	/// </summary>
 	[Parameter] public Type Type { get; set; }
 
-	[Inject] protected IComponentApiDocModelBuilder ComponentApiDocModelBuilder { get; set; }
+	[Inject] protected IApiDocModelBuilder ApiDocModelBuilder { get; set; }
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 
 	private bool HasApi => _model.HasValues || CssVariables is not null;
@@ -30,13 +30,13 @@ public partial class ComponentApiDoc
 	private bool HasStaticMethods => !_model.IsEnum && _model.StaticMethods.Any();
 	private bool HasCssVariables => CssVariables is not null;
 
-	private ComponentApiDocModel _model;
+	private ApiDocModel _model;
 	private string _plainTypeName;
 
 
 	protected override void OnParametersSet()
 	{
-		_model = ComponentApiDocModelBuilder.BuildModel(Type);
+		_model = ApiDocModelBuilder.BuildModel(Type);
 		_plainTypeName = ApiRenderer.RemoveSpecialCharacters(Type.Name);
 
 	}

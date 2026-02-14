@@ -29,7 +29,7 @@ internal class McpDocXmlProvider : IDocXmlProvider
 	private static DocXmlReader LoadDocXmlReader(string resourceName)
 	{
 		// The XML docs are embedded in the Havit.Blazor.Documentation assembly.
-		Assembly documentationAssembly = typeof(ComponentApiDocModelBuilder).Assembly;
+		Assembly documentationAssembly = typeof(ApiDocModelBuilder).Assembly;
 
 		string fullResourceName = documentationAssembly.GetManifestResourceNames()
 			.SingleOrDefault(str => str.EndsWith(resourceName));

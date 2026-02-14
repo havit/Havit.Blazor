@@ -14,10 +14,10 @@ namespace Havit.Blazor.Documentation.Mcp.Tools;
 /// </summary>
 internal class GetTypeDocTool
 {
-	private readonly IComponentApiDocModelBuilder _modelBuilder;
+	private readonly IApiDocModelBuilder _modelBuilder;
 	private readonly McpDocMarkdownRenderer _renderer;
 
-	public GetTypeDocTool(IComponentApiDocModelBuilder modelBuilder, McpDocMarkdownRenderer renderer)
+	public GetTypeDocTool(IApiDocModelBuilder modelBuilder, McpDocMarkdownRenderer renderer)
 	{
 		_modelBuilder = modelBuilder;
 		_renderer = renderer;
@@ -41,7 +41,7 @@ internal class GetTypeDocTool
 			return $"Type '{typeName}' not found. Make sure the name matches a HAVIT Blazor type (e.g. ThemeColor, GridSettings, CalendarDateCustomizationProviderDelegate).";
 		}
 
-		ComponentApiDocModel model = _modelBuilder.BuildModel(type);
+		ApiDocModel model = _modelBuilder.BuildModel(type);
 		string markdown = _renderer.RenderTypeDoc(model);
 
 		activity?.SetTag("mcp.tool.result", "success");

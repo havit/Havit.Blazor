@@ -71,7 +71,7 @@ public static class ApiRenderer
 		return typeName;
 	}
 
-	public static string FormatMethodReturnType(Type returnType, ComponentApiDocModel model)
+	public static string FormatMethodReturnType(Type returnType, ApiDocModel model)
 	{
 		string formattedName = FormatType(returnType);
 
