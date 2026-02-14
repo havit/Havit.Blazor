@@ -35,6 +35,8 @@ builder.Services
 
 var app = builder.Build();
 app.MapMcp();
-app.MapGet("/", () => Results.Ok()); // for Azure Load Balancer probes etc. (MCP is POST)
+
+// for Azure Load Balancer probes etc. (MCP is POST)
+app.MapGet("/", () => Results.Text("HAVIT Blazor Documentation MCP Server"));
 
 app.Run();
