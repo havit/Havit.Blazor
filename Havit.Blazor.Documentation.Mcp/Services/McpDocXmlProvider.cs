@@ -42,7 +42,7 @@ internal class McpDocXmlProvider : IDocXmlProvider
 		using Stream stream = documentationAssembly.GetManifestResourceStream(fullResourceName);
 		using StreamReader reader = new StreamReader(stream);
 
-		TextReader textReader = new StringReader(reader.ReadToEnd());
+		using TextReader textReader = new StringReader(reader.ReadToEnd());
 		XPathDocument xPathDocument = new(textReader);
 
 		return new DocXmlReader(xPathDocument);
