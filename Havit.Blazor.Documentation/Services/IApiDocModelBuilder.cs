@@ -2,7 +2,7 @@
 
 namespace Havit.Blazor.Documentation.Services;
 
-public interface IComponentApiDocModelBuilder
+public interface IApiDocModelBuilder
 {
-	ComponentApiDocModel BuildModel(Type type);
+	ApiDocModel BuildModel(Type type);
 }

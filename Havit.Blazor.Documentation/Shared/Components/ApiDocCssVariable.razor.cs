@@ -1,6 +1,6 @@
 ﻿namespace Havit.Blazor.Documentation.Shared.Components;
 
-public partial class ComponentApiDocCssVariable
+public partial class ApiDocCssVariable
 {
 	/// <summary>
 	/// Name of the css variable.
