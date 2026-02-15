@@ -59,13 +59,35 @@ internal class DocDumpService
 				continue;
 			}
 
-			// Skip sub-pages (anchored items like HxGrid#InfiniteScroll)
-			if (item.Href.Contains('#'))
+			// Extract component name from href
+			// For anchored hrefs like /components/HxNavLink#HxNavLink, extract the anchor part
+			// Skip anchors that aren't component names (don't start with Hx)
+			string componentName;
+			int anchorIndex = item.Href.IndexOf('#');
+			if (anchorIndex >= 0)
 			{
-				continue;
-			}
+				var anchorPart = item.Href.Substring(anchorIndex + 1);
 
-			var componentName = item.Href.Split('/').Last();
+				if (string.IsNullOrEmpty(anchorPart))
+				{
+					continue; // Skip malformed hrefs with empty anchors
+				}
+
+				// Only include if the anchor is a component name (starts with Hx)
+				if (!anchorPart.StartsWith("Hx", StringComparison.Ordinal))
+				{
+					continue; // Skip sub-pages like HxGrid#InfiniteScroll
+				}
+
+				componentName = anchorPart;
+			}
+			else
+			{
+				// Extract component name from path (e.g., "/components/HxButton" -> "HxButton")
+				// LastIndexOf('/') is guaranteed to find at least one '/' due to the filter above
+				int lastSlashIndex = item.Href.LastIndexOf('/');
+				componentName = item.Href.Substring(lastSlashIndex + 1);
+			}
 			var type = ApiTypeHelper.GetType(componentName, includeTypesContainingTypeName: true);
 			if (type is null)
 			{
