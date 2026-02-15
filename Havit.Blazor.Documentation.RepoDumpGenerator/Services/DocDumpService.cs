@@ -68,13 +68,13 @@ internal class DocDumpService
 			string componentName;
 			if (item.Href.Contains('#'))
 			{
-				var parts = item.Href.Split('#', 2);
-				if (parts.Length < 2 || string.IsNullOrEmpty(parts[1]))
+				int anchorIndex = item.Href.IndexOf('#');
+				var anchorPart = item.Href.Substring(anchorIndex + 1);
+
+				if (string.IsNullOrEmpty(anchorPart))
 				{
 					continue; // Skip malformed hrefs with empty anchors
 				}
-
-				var anchorPart = parts[1];
 
 				// Only include if the anchor is a component name (starts with Hx)
 				if (!anchorPart.StartsWith("Hx", StringComparison.Ordinal))
