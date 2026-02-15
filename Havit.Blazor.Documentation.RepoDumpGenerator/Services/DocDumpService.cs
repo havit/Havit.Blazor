@@ -64,11 +64,11 @@ internal class DocDumpService
 
 			// Extract component name from href
 			// For anchored hrefs like /components/HxNavLink#HxNavLink, extract the anchor part
-			// Skip sub-pages like /components/HxGrid#InfiniteScroll where anchor != component
+			// Skip anchors that aren't component names (don't start with Hx)
 			string componentName;
-			if (item.Href.Contains('#'))
+			int anchorIndex = item.Href.IndexOf('#');
+			if (anchorIndex >= 0)
 			{
-				int anchorIndex = item.Href.IndexOf('#');
 				var anchorPart = item.Href.Substring(anchorIndex + 1);
 
 				if (string.IsNullOrEmpty(anchorPart))
