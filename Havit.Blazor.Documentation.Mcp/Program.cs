@@ -1,6 +1,5 @@
 ﻿using Azure.Monitor.OpenTelemetry.AspNetCore;
 using Havit.Blazor.Documentation.Mcp.Diagnostics;
-using Havit.Blazor.Documentation.Mcp.Services;
 using Havit.Blazor.Documentation.Mcp.Tools;
 using Havit.Blazor.Documentation.Services;
 using OpenTelemetry;
@@ -19,7 +18,8 @@ if (!string.IsNullOrEmpty(builder.Configuration["APPLICATIONINSIGHTS_CONNECTION_
 builder.Services.AddSingleton<IDocXmlProvider, DocXmlProvider>();
 builder.Services.AddSingleton<IApiDocModelBuilder, ApiDocModelBuilder>();
 builder.Services.AddSingleton<IApiDocModelProvider, ApiDocModelProvider>();
-builder.Services.AddSingleton<McpDocMarkdownRenderer>();
+builder.Services.AddSingleton<IDocMarkdownRenderer, DocMarkdownRenderer>();
+builder.Services.AddSingleton<IComponentDemosProvider, ComponentDemosProvider>();
 builder.Services.AddSingleton<IDocumentationCatalogService, DocumentationCatalogService>();
 
 builder.Services

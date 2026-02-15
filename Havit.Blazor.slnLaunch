@@ -37,5 +37,14 @@
         "Action": "Start"
       }
     ]
+  },
+  {
+    "Name": "RepoDumpGenerator",
+    "Projects": [
+      {
+        "Path": "Havit.Blazor.Documentation.RepoDumpGenerator\\Havit.Blazor.Documentation.RepoDumpGenerator.csproj",
+        "Action": "Start"
+      }
+    ]
   }
 ]

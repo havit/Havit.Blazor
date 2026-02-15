@@ -1,14 +1,12 @@
-﻿using System.Text;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using Havit.Blazor.Documentation.Model;
-using Havit.Blazor.Documentation.Services;
 
-namespace Havit.Blazor.Documentation.Mcp.Services;
+namespace Havit.Blazor.Documentation.Services;
 
 /// <summary>
-/// Renders a <see cref="ApiDocModel"/> into a Markdown string suitable for MCP tool responses.
+/// Renders an <see cref="ApiDocModel"/> into a Markdown string.
 /// </summary>
-internal class McpDocMarkdownRenderer
+public class DocMarkdownRenderer : IDocMarkdownRenderer
 {
 	/// <summary>
 	/// Renders the type API documentation as markdown (parameters, properties, events, methods).
@@ -23,11 +21,11 @@ internal class McpDocMarkdownRenderer
 	/// <summary>
 	/// Renders the component API documentation as markdown, including a list of available demo samples.
 	/// </summary>
-	public string RenderComponentDoc(ApiDocModel model, IReadOnlyList<string> sampleNames)
+	public string RenderComponentDoc(ApiDocModel model, IReadOnlyList<string> sampleNames, bool includeMcpToolHint = true)
 	{
-		StringBuilder sb = new StringBuilder();
+		var sb = new StringBuilder();
 		RenderTypeDocCore(sb, model);
-		RenderSampleList(sb, sampleNames);
+		RenderSampleList(sb, sampleNames, includeMcpToolHint);
 		return sb.ToString();
 	}
 
@@ -230,7 +228,7 @@ internal class McpDocMarkdownRenderer
 		sb.AppendLine();
 	}
 
-	private static void RenderSampleList(StringBuilder sb, IReadOnlyList<string> sampleNames)
+	private static void RenderSampleList(StringBuilder sb, IReadOnlyList<string> sampleNames, bool includeMcpToolHint)
 	{
 		if (sampleNames is null || sampleNames.Count == 0)
 		{
@@ -239,8 +237,12 @@ internal class McpDocMarkdownRenderer
 
 		sb.AppendLine("## Available demo samples");
 		sb.AppendLine();
-		sb.AppendLine("Use the `get_component_samples` tool to retrieve the full source code.");
-		sb.AppendLine();
+
+		if (includeMcpToolHint)
+		{
+			sb.AppendLine("Use the `get_component_samples` tool to retrieve the full source code.");
+			sb.AppendLine();
+		}
 
 		foreach (string name in sampleNames)
 		{

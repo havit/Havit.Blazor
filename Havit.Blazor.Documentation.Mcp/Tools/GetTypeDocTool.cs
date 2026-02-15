@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
 using Havit.Blazor.Documentation.Mcp.Diagnostics;
-using Havit.Blazor.Documentation.Mcp.Services;
 using Havit.Blazor.Documentation.Model;
 using Havit.Blazor.Documentation.Services;
 using ModelContextProtocol.Server;
@@ -15,9 +14,9 @@ namespace Havit.Blazor.Documentation.Mcp.Tools;
 internal class GetTypeDocTool
 {
 	private readonly IApiDocModelProvider _modelProvider;
-	private readonly McpDocMarkdownRenderer _renderer;
+	private readonly IDocMarkdownRenderer _renderer;
 
-	public GetTypeDocTool(IApiDocModelProvider modelProvider, McpDocMarkdownRenderer renderer)
+	public GetTypeDocTool(IApiDocModelProvider modelProvider, IDocMarkdownRenderer renderer)
 	{
 		_modelProvider = modelProvider;
 		_renderer = renderer;
