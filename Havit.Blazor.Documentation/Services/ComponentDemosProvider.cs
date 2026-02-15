@@ -12,8 +12,6 @@ public class ComponentDemosProvider : IComponentDemosProvider
 	/// <summary>
 	/// Returns the file names of all demos for the specified component.
 	/// </summary>
-	/// Returns the file names of all demos for the specified component.
-	/// </summary>
 	public IReadOnlyList<string> GetComponentDemoFileNames(string componentName)
 	{
 		// Normalize component name by stripping generic type arguments (e.g., "HxGrid<TItem>" -> "HxGrid")
