@@ -39,21 +39,18 @@ internal class DocDumpService
 
 		var allItems = _catalogService.GetAll();
 
-		var componentCount = 0;
-		var demoCount = 0;
-		var typeCount = 0;
-
-		componentCount = DumpComponents(allItems, outputRoot, ref demoCount);
-		typeCount = DumpTypes(allItems, outputRoot);
+		(int componentCount, int demoCount) = DumpComponents(allItems, outputRoot);
+		int typeCount = DumpTypes(allItems, outputRoot);
 
 		Console.WriteLine();
 		Console.WriteLine($"Done. Generated {componentCount} component docs, {demoCount} demo files, {typeCount} type docs.");
 		Console.WriteLine($"Output: {outputRoot}");
 	}
 
-	private int DumpComponents(IReadOnlyList<DocumentationCatalogItem> allItems, string outputRoot, ref int demoCount)
+	private (int ComponentCount, int DemoCount) DumpComponents(IReadOnlyList<DocumentationCatalogItem> allItems, string outputRoot)
 	{
 		var componentCount = 0;
+		var demoCount = 0;
 
 		foreach (var item in allItems)
 		{
@@ -109,7 +106,7 @@ internal class DocDumpService
 			}
 		}
 
-		return componentCount;
+		return (componentCount, demoCount);
 	}
 
 	private int DumpTypes(IReadOnlyList<DocumentationCatalogItem> allItems, string outputRoot)
