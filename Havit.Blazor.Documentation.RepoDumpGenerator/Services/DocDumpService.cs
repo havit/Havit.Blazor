@@ -86,6 +86,8 @@ internal class DocDumpService
 			}
 			else
 			{
+				// Extract component name from path (e.g., "/components/HxButton" -> "HxButton")
+				// LastIndexOf('/') is guaranteed to find at least one '/' due to the filter above
 				int lastSlashIndex = item.Href.LastIndexOf('/');
 				componentName = item.Href.Substring(lastSlashIndex + 1);
 			}
