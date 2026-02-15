@@ -20,8 +20,4 @@
 	  <ProjectReference Include="..\Havit.Blazor.Documentation\Havit.Blazor.Documentation.csproj" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Services\" />
-	</ItemGroup>
-
 </Project>
