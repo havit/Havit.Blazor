@@ -81,7 +81,7 @@ internal class DocDumpService
 			var sampleNames = _componentDemosProvider.GetComponentDemoFileNames(componentName);
 			var markdown = _renderer.RenderComponentDoc(model, sampleNames, includeMcpToolHint: false);
 
-			var componentDir = Path.Combine(outputRoot, "./");
+			var componentDir = outputRoot;
 			Directory.CreateDirectory(componentDir);
 			var filePath = Path.Combine(componentDir, $"{componentName}.md");
 			File.WriteAllText(filePath, markdown, Encoding.UTF8);
