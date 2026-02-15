@@ -67,10 +67,15 @@ public class ComponentDemosProvider : IComponentDemosProvider
 
 	/// <summary>
 	/// Reads the content of a demo sample by its full embedded resource name.
+	/// Returns <c>null</c> if the resource is not found.
 	/// </summary>
 	public string GetDemoContentByResourceName(string resourceName)
 	{
 		using Stream stream = s_documentationAssembly.GetManifestResourceStream(resourceName);
+		if (stream == null)
+		{
+			return null;
+		}
 		using StreamReader reader = new StreamReader(stream);
 		return reader.ReadToEnd();
 	}
