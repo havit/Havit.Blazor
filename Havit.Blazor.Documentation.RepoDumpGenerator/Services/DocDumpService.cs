@@ -62,13 +62,27 @@ internal class DocDumpService
 				continue;
 			}
 
-			// Skip sub-pages (anchored items like HxGrid#InfiniteScroll)
+			// Extract component name from href
+			// For anchored hrefs like /components/HxNavLink#HxNavLink, extract the anchor part
+			// Skip sub-pages like /components/HxGrid#InfiniteScroll where anchor != component
+			string componentName;
 			if (item.Href.Contains('#'))
 			{
-				continue;
-			}
+				var parts = item.Href.Split('#');
+				var anchorPart = parts[1];
 
-			var componentName = item.Href.Split('/').Last();
+				// Only include if the anchor is a component name (starts with Hx)
+				if (!anchorPart.StartsWith("Hx", StringComparison.Ordinal))
+				{
+					continue; // Skip sub-pages like HxGrid#InfiniteScroll
+				}
+
+				componentName = anchorPart;
+			}
+			else
+			{
+				componentName = item.Href.Split('/').Last();
+			}
 			var type = ApiTypeHelper.GetType(componentName, includeTypesContainingTypeName: true);
 			if (type is null)
 			{
