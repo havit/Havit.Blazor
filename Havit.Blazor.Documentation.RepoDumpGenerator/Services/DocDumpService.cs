@@ -86,7 +86,8 @@ internal class DocDumpService
 			}
 			else
 			{
-				componentName = item.Href.Split('/').Last();
+				int lastSlashIndex = item.Href.LastIndexOf('/');
+				componentName = item.Href.Substring(lastSlashIndex + 1);
 			}
 			var type = ApiTypeHelper.GetType(componentName, includeTypesContainingTypeName: true);
 			if (type is null)
