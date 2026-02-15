@@ -1,0 +1,31 @@
+﻿# HxOffcanvas_Demo_Responsive.razor
+
+```razor
+<HxButton OnClick="HandleShow" Text="Show" Color="ThemeColor.Primary" CssClass="d-lg-none" />
+
+<HxOffcanvas @ref="offcanvasComponent" Title="Title" ResponsiveBreakpoint="OffcanvasResponsiveBreakpoint.Large">
+    <BodyTemplate>
+        <p class="mb-0">
+            This is offcanvas body.<br />
+            It is displayed using the offcanvas when below the selected breakpoint (otherwise in-place).<br />
+            Resize your browser to see the responsive offcanvas behavior.<br />
+        </p>
+    </BodyTemplate>
+</HxOffcanvas>
+
+@code
+{
+    private HxOffcanvas offcanvasComponent;
+
+    private async Task HandleShow()
+    {
+        await offcanvasComponent.ShowAsync();
+    }
+
+    private async Task HandleHide()
+    {
+        await offcanvasComponent.HideAsync();
+    }
+}
+
+```

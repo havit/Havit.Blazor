@@ -1,0 +1,10 @@
+﻿# HxInputDateRange_Demo_CalendarIcon.razor
+
+```razor
+<HxInputDateRange Label="Absence" CalendarIcon="BootstrapIcon.Calendar" @bind-Value="@value" />
+
+@code {
+	private DateTimeRange value { get; set; }
+}
+
+```

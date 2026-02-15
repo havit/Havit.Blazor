@@ -1,0 +1,38 @@
+﻿# HxListLayout_Demo_TitleTemplate.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxListLayout TFilterModel="HxListLayout.NoFilter">
+	<TitleTemplate>
+		Employees <HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark" CssClass="ms-1 fs-6">NEW</HxBadge>
+	</TitleTemplate>
+	<DataTemplate>
+		<HxGrid TItem="EmployeeDto"
+				DataProvider="GetGridData"
+				PageSize="5"
+				Responsive="true">
+			<Columns>
+				<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+				<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+				<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+				<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+				<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+			</Columns>
+		</HxGrid>
+	</DataTemplate>
+</HxListLayout>
+
+@code {
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken);
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = response.Data,
+				TotalCount = response.TotalCount
+			};
+	}
+}
+
+```

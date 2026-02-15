@@ -1,0 +1,23 @@
+﻿# HxNavbar_Demo_BrandImage.razor
+
+```razor
+<HxNavbar CssClass="bg-body-tertiary mb-3">
+	<HxNavbarBrand>
+		<img src="HAVIT-Icon_48x48_transparent.png" width="25" alt="HAVIT" />
+	</HxNavbarBrand>
+</HxNavbar>
+
+<HxNavbar CssClass="bg-body-tertiary mb-3">
+	<HxNavbarBrand>
+		<img src="HAVIT-Icon_48x48_transparent.png" width="25" alt="HAVIT" />
+		Brand with image
+	</HxNavbarBrand>
+</HxNavbar>
+
+<HxNavbar CssClass="bg-body-tertiary">
+	<HxNavbarBrand>
+		<HxIcon Icon="BootstrapIcon.Bootstrap" CssClass="me-1" />
+		Brand with icon
+	</HxNavbarBrand>
+</HxNavbar>
+```

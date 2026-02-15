@@ -1,0 +1,9 @@
+﻿# HxAlert_Demo_Icons.razor
+
+```razor
+<HxAlert Color="ThemeColor.Info"><HxIcon Icon="@BootstrapIcon.InfoCircleFill" /> An example alert with an icon</HxAlert>
+<HxAlert Color="ThemeColor.Success"><HxIcon Icon="@BootstrapIcon.CheckCircleFill" /> An example success alert with an icon</HxAlert>
+<HxAlert Color="ThemeColor.Warning"><HxIcon Icon="@BootstrapIcon.ExclamationTriangleFill" /> An example warning alert with an icon</HxAlert>
+<HxAlert Color="ThemeColor.Danger"><HxIcon Icon="@BootstrapIcon.ExclamationTriangleFill" /> An example danger alert with an icon</HxAlert>
+
+```

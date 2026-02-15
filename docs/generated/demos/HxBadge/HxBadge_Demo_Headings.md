@@ -1,0 +1,11 @@
+﻿# HxBadge_Demo_Headings.razor
+
+```razor
+<h1>Example heading <HxBadge Color="ThemeColor.Secondary">New</HxBadge></h1>
+<h2>Example heading <HxBadge Color="ThemeColor.Secondary">New</HxBadge></h2>
+<h3>Example heading <HxBadge Color="ThemeColor.Secondary">New</HxBadge></h3>
+<h4>Example heading <HxBadge Color="ThemeColor.Secondary">New</HxBadge></h4>
+<h5>Example heading <HxBadge Color="ThemeColor.Secondary">New</HxBadge></h5>
+<h6>Example heading <HxBadge Color="ThemeColor.Secondary">New</HxBadge></h6>
+
+```

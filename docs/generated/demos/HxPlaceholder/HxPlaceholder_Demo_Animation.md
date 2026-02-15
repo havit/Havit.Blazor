@@ -1,0 +1,11 @@
+﻿# HxPlaceholder_Demo_Animation.razor
+
+```razor
+<HxPlaceholderContainer Animation="PlaceholderAnimation.Glow">
+    <HxPlaceholder Columns="12" />
+</HxPlaceholderContainer>
+
+<HxPlaceholderContainer Animation="PlaceholderAnimation.Wave">
+    <HxPlaceholder Columns="12" />
+</HxPlaceholderContainer>
+```

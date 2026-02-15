@@ -1,0 +1,32 @@
+﻿# HxInputTags_Demo_InputGroupTemplates.razor
+
+```razor
+<HxInputTags Label="Tags (Bootstrap theme colors suggested)"
+			 @bind-Value="values"
+			 DataProvider="GetNewItemSuggestions"
+			 Placeholder="ThemeColors suggested">
+	
+	<InputGroupStartTemplate>
+        <HxButton Color="ThemeColor.Primary" Text="Start" />
+	</InputGroupStartTemplate>
+
+    <InputGroupEndTemplate>
+        <HxButton Color="ThemeColor.Primary" Text="End" />
+    </InputGroupEndTemplate>
+
+</HxInputTags>
+
+@code
+{
+	private List<string> values = new List<string>() { "Primary", "Secondary" };
+	private async Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
+	{
+		await Task.Delay(50); // simulate server API call
+		return new InputTagsDataProviderResult()
+		{
+			Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString()).Where(v => v.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+		};
+	}
+}
+
+```

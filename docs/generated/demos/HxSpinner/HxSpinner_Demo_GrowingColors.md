@@ -1,0 +1,37 @@
+﻿# HxSpinner_Demo_GrowingColors.razor
+
+```razor
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Type="SpinnerType.Grow" Color="ThemeColor.Primary" />
+</div>
+
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Type="SpinnerType.Grow" Color="ThemeColor.Secondary" />
+</div>
+
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Type="SpinnerType.Grow" Color="ThemeColor.Success" />
+</div>
+
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Type="SpinnerType.Grow" Color="ThemeColor.Danger" />
+</div>
+
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Type="SpinnerType.Grow" Color="ThemeColor.Warning" />
+</div>
+
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Type="SpinnerType.Grow" Color="ThemeColor.Info" />
+</div>
+
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Type="SpinnerType.Grow" Color="ThemeColor.Light" />
+</div>
+
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Type="SpinnerType.Grow" Color="ThemeColor.Dark" />
+</div>
+
+
+```

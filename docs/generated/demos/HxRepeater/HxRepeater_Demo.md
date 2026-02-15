@@ -1,0 +1,30 @@
+﻿# HxRepeater_Demo.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxRepeater Data="data">
+	<HeaderTemplate>
+		<h6 class="mb-3">Employees</h6>
+	</HeaderTemplate>
+	<ItemTemplate Context="item">
+		<p>@item.Name</p>
+	</ItemTemplate>
+	<FooterTemplate>
+		<p>@data?.Count() records</p>
+	</FooterTemplate>
+	<NullTemplate>
+		Loading...
+	</NullTemplate>
+</HxRepeater>
+
+@code
+{
+	private IEnumerable<EmployeeDto> data;
+
+	protected override async Task OnParametersSetAsync()
+	{
+		data = await DemoDataService.GetPreferredEmployeesAsync(count: 5);
+	}
+}
+```

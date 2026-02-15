@@ -1,0 +1,20 @@
+﻿# HxTabPanel_Demo_ActiveTabId.razor
+
+```razor
+<HxTabPanel @bind-ActiveTabId="activeTabId">
+	<HxTab Title="First tab">
+		<Content>This is the first tab.</Content>
+	</HxTab>
+	<HxTab Id="tab2" Title="Second tab">
+		<Content>This is the second tab.</Content>
+	</HxTab>
+</HxTabPanel>
+
+activeTabId: @activeTabId
+
+<HxButton Text="Set second tab active" Enabled="@(activeTabId != "tab2")" OnClick="@(() => activeTabId = "tab2")" Color="ThemeColor.Primary" />
+
+@code{
+	private string activeTabId;
+}
+```

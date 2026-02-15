@@ -1,0 +1,58 @@
+﻿# HxGrid_Demo_HeaderFiltering.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxGrid @ref="grid" TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name">
+			<HeaderTemplate>
+				<HxInputText @bind-Value="filterModel.Name" BindEvent="BindEvent.OnInput" @bind-Value:after="RefreshDataAsync" Placeholder="Type to search Name" InputSize="InputSize.Small" />
+			</HeaderTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone">
+			<HeaderTemplate>
+                <HxInputText @bind-Value="filterModel.Phone" BindEvent="BindEvent.OnInput" @bind-Value:after="RefreshDataAsync" Placeholder="Type to search Phone" InputSize="InputSize.Small" />
+			</HeaderTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))">
+			<HeaderTemplate>
+				<div class="d-flex gap-1">
+                    <HxInputNumber @bind-Value="filterModel.SalaryMin" @bind-Value:after="RefreshDataAsync" Placeholder="from" InputSize="InputSize.Small" />
+                    <HxInputNumber @bind-Value="filterModel.SalaryMax" @bind-Value:after="RefreshDataAsync" Placeholder="to" InputSize="InputSize.Small" />
+				</div>
+			</HeaderTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position">
+			<HeaderTemplate>
+                <HxInputText @bind-Value="filterModel.Position" BindEvent="BindEvent.OnInput" @bind-Value:after="RefreshDataAsync" Placeholder="Type to search Position" InputSize="InputSize.Small" />
+			</HeaderTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location">
+			<HeaderTemplate>
+                <HxInputText @bind-Value="filterModel.Location" BindEvent="BindEvent.OnInput" @bind-Value:after="RefreshDataAsync" Placeholder="Type to search Location" InputSize="InputSize.Small" />
+			</HeaderTemplate>
+		</HxGridColumn>
+	</Columns>
+</HxGrid>
+
+@code {
+	private HxGrid<EmployeeDto> grid;
+	private EmployeesFilterDto filterModel = new();
+
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(filterModel, request.StartIndex, request.Count, request.CancellationToken);
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = response.Data,
+				TotalCount = response.TotalCount
+			};
+	}
+
+	private async Task RefreshDataAsync()
+	{
+		await grid.RefreshDataAsync(GridStateResetOptions.ResetPosition);
+	}
+}
+```

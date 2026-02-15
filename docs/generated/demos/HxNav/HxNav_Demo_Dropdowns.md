@@ -1,0 +1,18 @@
+﻿# HxNav_Demo_Dropdowns.razor
+
+```razor
+<HxNav>
+	<HxNavLink Href="/components/HxNav" Match="NavLinkMatch.Prefix">Active</HxNavLink>
+	<HxDropdown>
+		<HxDropdownToggleElement ElementName="a" Caret="true" role="button">Dropdown</HxDropdownToggleElement>
+		<HxDropdownMenu>
+			<HxDropdownItemNavLink Href="#">Item 1</HxDropdownItemNavLink>
+			<HxDropdownItemNavLink Href="#">Item 2</HxDropdownItemNavLink>
+			<HxDropdownItemNavLink Href="#">Item 3</HxDropdownItemNavLink>
+		</HxDropdownMenu>
+	</HxDropdown>
+	<HxNavLink Href="#" Text="Link" />
+	<HxNavLink Href="#" Text="Link" />
+	<HxNavLink Href="#" Text="Disabled" Enabled="false"/>
+</HxNav>
+```

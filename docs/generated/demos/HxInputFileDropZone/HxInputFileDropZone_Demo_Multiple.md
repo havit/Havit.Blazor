@@ -1,0 +1,12 @@
+﻿# HxInputFileDropZone_Demo_Multiple.razor
+
+```razor
+<HxInputFileDropZone @ref="component" Multiple />
+<HxButton Text="Clear" CssClass="mt-3" OnClick="@(async () => await component.ResetAsync())" Color="ThemeColor.Secondary" />
+
+@code
+{
+    private HxInputFileDropZone component;
+}
+
+```

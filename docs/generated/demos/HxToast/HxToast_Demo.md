@@ -1,0 +1,34 @@
+﻿# HxToast_Demo.razor
+
+```razor
+<HxToastContainer>
+	<HxToast HeaderText="F20/00578" HeaderIcon="BootstrapIcon.InfoCircleFill" ContentText="Invoice has been created." CssClass="mb-2" />
+
+	<HxToast HeaderText="Confirmation" Color="ThemeColor.Warning" CssClass="mb-2">
+		<ContentTemplate>
+			<HxIcon Icon="BootstrapIcon.InfoCircleFill" CssClass="me-2" />
+			Hi! All messages have been deleted and cannot be restored.
+		</ContentTemplate>
+	</HxToast>
+
+	@if (isVisible)
+	{
+		<HxToast AutohideDelay="5000" CssClass="mb-2" OnToastHidden="() => isVisible = false">
+			<ContentTemplate>
+				This message should disappear after 5 sec.
+			</ContentTemplate>
+		</HxToast>
+	}
+
+	<HxToast ShowCloseButton="false" CssClass="mb-2" ContentText="Always visible. No close button here." />
+
+</HxToastContainer>
+
+
+<HxButton Text="Toggle" OnClick="() => { isVisible = !isVisible; }" Color="ThemeColor.Primary" />
+
+@code {
+	private bool isVisible = true;
+}
+
+```

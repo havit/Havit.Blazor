@@ -1,0 +1,27 @@
+﻿# HxSelect_Demo_InputGroups.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxSelect TItem="EmployeeDto"
+		  TValue="int?"
+		  Label="Best employee"
+		  Data="data"
+		  @bind-Value="employeeId"
+		  TextSelector="@(employee => employee.Name)"
+		  ValueSelector="@(employee => employee.Id)"
+		  Nullable="true"
+		  NullText="-select employee-"
+		  NullDataText="Loading employees..."
+		  InputGroupStartText="Employees"/>
+
+@code {
+	private IEnumerable<EmployeeDto> data;
+	private int? employeeId;
+
+	protected override async Task OnInitializedAsync()
+	{
+		data = await DemoDataService.GetAllEmployeesAsync();
+	}
+}
+```

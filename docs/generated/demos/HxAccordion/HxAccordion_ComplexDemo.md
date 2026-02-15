@@ -1,0 +1,55 @@
+﻿# HxAccordion_ComplexDemo.razor
+
+```razor
+<HxAccordion @bind-ExpandedItemId="@expandedItemId" CssClass="mb-3">
+	<HxAccordionItem Id="1" OnExpanded="HandleExpanded" OnCollapsed="HandleCollapsed">
+		<HeaderTemplate>Accordition Item 1 (Id="1") with LazyLoaded content</HeaderTemplate>
+		<BodyTemplate>
+			<HxProgressIndicator InProgress="inProgress">
+				Lazy loaded content...<br />
+				@dataLoaded
+			</HxProgressIndicator>
+		</BodyTemplate>
+	</HxAccordionItem>
+	<HxAccordionItem Id="2" @ref="item2">
+		<HeaderTemplate>Accordition Item 2 (Id="2")</HeaderTemplate>
+		<BodyTemplate>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit.Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+			Vivamus lacinia magna ut risus auctor ultrices.Aenean maximus lacus in tellus dictum posuere.Nulla facilisi. Sed vitae facilisis justo.
+		</BodyTemplate>
+	</HxAccordionItem>
+</HxAccordion>
+
+<p>expandedId: @expandedItemId</p>
+
+<HxButton Text="@("expandedItemId=\"1\"")" OnClick="@(async () => expandedItemId = "1")" Color="ThemeColor.Primary" CssClass="mb-1 me-1" />
+<HxButton Text="@("expandedItemId=\"2\"")" OnClick="@(async () => expandedItemId = "2")" Color="ThemeColor.Primary" CssClass="mb-1 me-1" />
+<HxButton Text="@("expandedItemId=null")" OnClick="@(async () => expandedItemId = null)" Color="ThemeColor.Primary" CssClass="mb-1 me-1" />
+<HxButton Text="@("expandedItemId=\"unknown\"")" OnClick="@(async () => expandedItemId = "bžbž")" Color="ThemeColor.Warning" CssClass="mb-1 me-1" />
+<HxButton Text="item2.ExpandAsync()" OnClick="@(async () => await item2.ExpandAsync())" Color="ThemeColor.Secondary" CssClass="mb-1 me-1" />
+
+@code
+{
+	private string expandedItemId = "2"; // you can se the initial value here, if binding to ExpandedItemId
+	private bool inProgress;
+	private string dataLoaded;
+
+	private HxAccordionItem item2;
+
+	private async Task HandleExpanded(string id)
+	{
+		inProgress = true;
+		await Task.Delay(3000);
+		dataLoaded = "DataLoaded" + id;
+		inProgress = false;
+	}
+
+	private Task HandleCollapsed(string id)
+	{
+		dataLoaded = id; // throw-away data
+
+		return Task.CompletedTask;
+	}
+}
+
+```

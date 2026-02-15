@@ -1,0 +1,41 @@
+﻿# HxPopover_Demo_MethodsEvents.razor
+
+```razor
+<HxButton Text="Show" OnClick="HandleShowClick" Color="ThemeColor.Primary" Spinner="false" />
+<HxButton Text="Hide" OnClick="HandleHideClick" Color="ThemeColor.Secondary" Spinner="false" />
+
+<HxPopover @ref="popover1"
+		   Trigger="PopoverTrigger.Manual"
+		   OnHidden="HandlePopover1Hidden"
+		   Title="Popover title"
+		   Content="And here's some amazing content. It's very engaging. Right?">
+	<HxButton Color="ThemeColor.Light">Popover 1</HxButton>
+</HxPopover>
+
+<HxPopover @ref="popover2"
+		   Trigger="PopoverTrigger.Manual"
+		   Title="Popover title"
+		   Content="And here's some amazing content. It's very engaging. Right?">
+	<HxButton Color="ThemeColor.Light">Popover 2</HxButton>
+</HxPopover>
+
+@code
+{
+	private HxPopover popover1, popover2;
+
+	private async Task HandleShowClick()
+	{
+		await popover1.ShowAsync();
+	}
+
+	private async Task HandleHideClick()
+	{
+		await popover1.HideAsync();
+	}
+
+	private async Task HandlePopover1Hidden()
+	{
+		await popover2.ShowAsync();
+	}
+}
+```

@@ -1,0 +1,12 @@
+﻿# HxInputNumber_Demo.razor
+
+```razor
+<HxInputNumber Label="Enter a number" Decimals="1" @bind-Value="enteredNumber" />
+
+<div class="mt-3">Entered number: @enteredNumber</div>
+
+@code {
+    private float enteredNumber;
+}
+
+```

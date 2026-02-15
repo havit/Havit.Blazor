@@ -1,0 +1,11 @@
+﻿# HxInputNumber_Demo_InputType.razor
+
+```razor
+<HxInputNumber Label="InputType.Text (default)" @bind-Value="enteredNumber" Type="InputType.Text" CssClass="mb-3" />
+<HxInputNumber Label="InputType.Number" @bind-Value="enteredNumber" Type="InputType.Number" />
+
+@code {
+    private float enteredNumber;
+}
+
+```

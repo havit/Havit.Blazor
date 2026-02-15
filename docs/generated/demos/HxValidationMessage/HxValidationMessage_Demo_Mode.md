@@ -1,0 +1,40 @@
+﻿# HxValidationMessage_Demo_Mode.razor
+
+```razor
+<EditForm EditContext="@editContext">
+    <DataAnnotationsValidator />
+
+    <HxInputText ValidationMessageMode="ValidationMessageMode.Tooltip" @bind-Value="@model.Text" Label="ValidationMessageMode.Tooltip" Placeholder="Validation message renders as tooltip." />
+    <HxInputText ValidationMessageMode="ValidationMessageMode.Floating" @bind-Value="@model.Text" Label="ValidationMessageMode.Floating (HxInputXy default)" Placeholder="Validation message does not take any new space when displayed." />
+    <HxInputText ValidationMessageMode="ValidationMessageMode.None" @bind-Value="@model.Text" Label="ValidationMessageMode.None" Placeholder="Validation message not rendered." />
+    <HxInputText ValidationMessageMode="ValidationMessageMode.Regular" @bind-Value="@model.Text" Label="ValidationMessageMode.Regular (HxValidationMessage default)" Placeholder="Validation message shifts content when displayed (takes new space)." />
+    <HxInputText ValidationMessageMode="ValidationMessageMode.VisuallyHidden" @bind-Value="@model.Text" Label="ValidationMessageMode.VisuallyHidden" Placeholder="Validation messages are rendered but visually hidden (e.g., for screen readers)." />
+
+    <div>
+        <HxSubmit Color="ThemeColor.Primary" Text="Submit" />
+        <HxButton Text="Reset" Color="ThemeColor.Secondary" OnClick="ResetForm" />
+    </div>
+</EditForm>
+
+@code {
+    private DemoModel model = new();
+    private EditContext editContext;
+
+    protected override void OnInitialized()
+    {
+        editContext = new(model);
+    }
+
+    private void ResetForm()
+    {
+        model = new();
+        editContext = new(model);
+    }
+
+    protected class DemoModel
+    {
+        [Required(ErrorMessage = "A text has to be written.")]
+        public string Text { get; set; }
+    }
+}
+```

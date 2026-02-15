@@ -1,0 +1,9 @@
+﻿# HxButton_Demo_Tooltip.razor
+
+```razor
+<HxButton Text="Button with a tooltip"
+          Icon="BootstrapIcon.ClockHistory"
+          Tooltip="This is a tooltip with a very, very long text. Is this tooltip text length enough? No. So let's make it even longer. And is the tooltip text long enough now? OK..."
+          Color="ThemeColor.Secondary" />
+
+```

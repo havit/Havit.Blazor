@@ -1,0 +1,23 @@
+﻿# HxListGroup_Demo_Buttons.razor
+
+```razor
+<HxListGroup>
+	<HxListGroupItem OnClick="() => SetLastButtonClicked(1)" Active="true">The current button</HxListGroupItem>
+    <HxListGroupItem OnClick="() => SetLastButtonClicked(2)">A second item</HxListGroupItem>
+    <HxListGroupItem OnClick="() => SetLastButtonClicked(3)">A third item</HxListGroupItem>
+    <HxListGroupItem OnClick="() => SetLastButtonClicked(4)">A fourth item</HxListGroupItem>
+    <HxListGroupItem OnClick="() => SetLastButtonClicked(5)">And a fifth one</HxListGroupItem>
+</HxListGroup>
+
+<p class="mt-3">Last button clicked: @lastButtonClicked</p>
+
+@code {
+	private int? lastButtonClicked = null;
+
+	private void SetLastButtonClicked(int number)
+	{
+		lastButtonClicked = number;
+	}
+}
+
+```

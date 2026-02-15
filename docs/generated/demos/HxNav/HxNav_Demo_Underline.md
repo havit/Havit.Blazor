@@ -1,0 +1,11 @@
+﻿# HxNav_Demo_Underline.razor
+
+```razor
+<HxNav Variant="NavVariant.Underline">
+	<HxNavLink Href="/components/HxNav" Match="NavLinkMatch.Prefix">Active</HxNavLink>
+	<HxNavLink Href="TEST" Text="Link" />
+	<HxNavLink Href="TEST" Text="Link" />
+	<HxNavLink Href="TEST" Text="Disabled" Enabled="false" />
+</HxNav>
+
+```

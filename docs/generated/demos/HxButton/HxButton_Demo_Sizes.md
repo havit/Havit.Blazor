@@ -1,0 +1,7 @@
+﻿# HxButton_Demo_Sizes.razor
+
+```razor
+<HxButton Text="Large" Size="ButtonSize.Large" Color="ThemeColor.Primary" />
+<HxButton Text="Large" Size="ButtonSize.Large" Color="ThemeColor.Primary" />
+
+```

@@ -1,0 +1,19 @@
+﻿# HxPopover_Demo_Placement.razor
+
+```razor
+<HxPopover Content="Popover on top" Placement="PopoverPlacement.Top">
+	<HxButton Color="ThemeColor.Secondary" Text="Popover on top" />
+</HxPopover>
+<HxPopover Content="Popover on right" Placement="PopoverPlacement.Right">
+	<HxButton Color="ThemeColor.Secondary" Text="Popover on right (default)" />
+</HxPopover>
+<HxPopover Content="Popover on bottom" Placement="PopoverPlacement.Bottom">
+	<HxButton Color="ThemeColor.Secondary" Text="Popover on bottom" />
+</HxPopover>
+<HxPopover Content="Popover on left" Placement="PopoverPlacement.Left">
+	<HxButton Color="ThemeColor.Secondary" Text="Popover on left" />
+</HxPopover>
+<HxPopover Content="Popover - auto" Placement="PopoverPlacement.Auto">
+	<HxButton Color="ThemeColor.Secondary" Text="Popover - auto" />
+</HxPopover>
+```

@@ -1,0 +1,7 @@
+﻿# HxPopover_Demo_HtmlContent.razor
+
+```razor
+<HxPopover Title="<strong>Popover</strong> title" Content="<em>Popover</em> <u>with</u> <b>HTML</b>." Html="true">
+	<HxButton Color="ThemeColor.Primary">Click to toggle popover</HxButton>
+</HxPopover>
+```

@@ -1,0 +1,11 @@
+﻿# HxBadge_Demo_Positioned_RoundedCircle.razor
+
+```razor
+<HxButton Color="ThemeColor.Primary" CssClass="position-relative">
+	Profile
+	<HxBadge Color="ThemeColor.Danger" CssClass="position-absolute top-0 start-100 translate-middle rounded-circle p-2 border border-light">
+		<span class="visually-hidden">New alerts</span>
+	</HxBadge>
+</HxButton>
+
+```

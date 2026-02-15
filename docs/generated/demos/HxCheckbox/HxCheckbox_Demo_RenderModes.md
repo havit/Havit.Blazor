@@ -1,0 +1,27 @@
+﻿# HxCheckbox_Demo_RenderModes.razor
+
+```razor
+<HxCheckbox Text="Checkbox (default)"
+			RenderMode="CheckboxRenderMode.Checkbox"
+			@bind-Value="isChecked" />
+
+<HxCheckbox Text="Switch"
+			RenderMode="CheckboxRenderMode.Switch"
+			@bind-Value="isChecked" />
+
+<HxCheckbox Text="Native switch (haptic feedback on iOS 17.4+)"
+			RenderMode="CheckboxRenderMode.NativeSwitch"
+			@bind-Value="isChecked" />
+
+<HxCheckbox Text="Toggle button"
+			RenderMode="CheckboxRenderMode.ToggleButton"
+			@bind-Value="isChecked"
+			Color="ThemeColor.Light"
+			Outline="true" />
+
+@code
+{
+	private bool isChecked;
+}
+
+```

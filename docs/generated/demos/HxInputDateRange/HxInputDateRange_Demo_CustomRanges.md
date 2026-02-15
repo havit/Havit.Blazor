@@ -1,0 +1,20 @@
+﻿# HxInputDateRange_Demo_CustomRanges.razor
+
+```razor
+<HxInputDateRange Label="HxInputDateRange" @bind-Value="value" PredefinedDateRanges="predefinedDateRanges" />
+
+@code {
+    private DateTimeRange value;
+    private InputDateRangePredefinedRangesItem[] predefinedDateRanges;
+
+    protected override void OnInitialized()
+    {
+        predefinedDateRanges = new[]
+        {
+            new InputDateRangePredefinedRangesItem() { Label = "Today", DateRange = new() { StartDate = DateTime.Today, EndDate = DateTime.Today } },
+            new InputDateRangePredefinedRangesItem() { Label = "Next year", DateRange = new() { StartDate = new DateTime(DateTime.Today.Year + 1, 1, 1), EndDate = new DateTime(DateTime.Today.Year + 1, 12, 31) } }
+        };
+    }
+}
+
+```

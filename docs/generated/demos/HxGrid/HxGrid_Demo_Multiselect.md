@@ -1,0 +1,42 @@
+﻿# HxGrid_Demo_Multiselect.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxGrid TItem="EmployeeDto"
+		DataProvider="GetGridData"
+		MultiSelectionEnabled="true"
+		PreserveSelection="preserveSelection"
+		@bind-SelectedDataItems="selectedEmployees"
+		PageSize="5"
+		Responsive="true">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+	</Columns>
+</HxGrid>
+<HxSwitch @bind-Value="preserveSelection" Text="@(preserveSelection ? "PreserveSelection=\"true\"" : "PreserveSelection=\"false\"")" />
+<hr />
+<p>
+	Selected employees: @(String.Join(", ", selectedEmployees.Select(e => e.Name)))
+</p>
+
+
+@code {
+	private HashSet<EmployeeDto> selectedEmployees = new();
+	private bool preserveSelection = false;
+
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken);
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = response.Data,
+				TotalCount = response.TotalCount
+			};
+	}
+}
+```

@@ -1,0 +1,15 @@
+﻿# HxProgress_Demo_Interactive.razor
+
+```razor
+<HxProgress Animated="true" MinValue="0" MaxValue="1">
+    <HxProgressBar Value="@value" />
+</HxProgress>
+
+<br />
+
+<HxInputPercent @bind-Value="value" Decimals="0" />
+
+@code {
+    private float value = 0.75f;
+}
+```

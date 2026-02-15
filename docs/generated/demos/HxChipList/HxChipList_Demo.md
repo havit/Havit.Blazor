@@ -1,0 +1,26 @@
+﻿# HxChipList_Demo.razor
+
+```razor
+<HxChipList Chips="@chips" />
+
+@code
+{
+	private ChipItem[] chips =
+	{
+		new() { ChipTemplate = GetChipRenderFragment("State", "Active") },
+		new() { ChipTemplate = GetChipRenderFragment("Name", "Peter"), Removable = true },
+		new() { ChipTemplate = GetChipRenderFragment("Company", "HAVIT"), Removable = true },
+	};
+
+	private static RenderFragment GetChipRenderFragment(string label, string value) => builder =>
+	{
+		// build your HTML markup to render chip here (label + value is just an example)
+		builder.OpenElement(0, "span");
+		builder.AddAttribute(1, "class", "hx-chip-list-label");
+		builder.AddContent(2, label);
+		builder.AddContent(3, ": ");
+		builder.CloseElement();
+		builder.AddContent(4, value);
+	};
+}
+```

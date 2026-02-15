@@ -1,0 +1,42 @@
+﻿# HxGrid_Demo_InfiniteScroll.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<style>
+	.virtualized-table-container {
+		height: 400px;
+		overflow: auto;
+	}
+</style>
+
+<HxGrid TItem="EmployeeDto"
+		DataProvider="GetGridData"
+		TableContainerCssClass="virtualized-table-container"
+		ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"
+		ItemRowHeight="41"
+		TableHeaderCssClass="sticky-top"
+		PlaceholdersRowCount="9"
+		PageSize="5"
+		Responsive="true">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+	</Columns>
+</HxGrid>
+
+@code {
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken);
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = response.Data,
+				TotalCount = response.TotalCount
+			};
+	}
+}
+```

@@ -1,0 +1,14 @@
+﻿# HxCollapse_Demo_InitiallyExpanded.razor
+
+```razor
+<HxCollapseToggleButton Text="Toggle" CollapseTarget="#initiallyExpandedCollapse" Color="ThemeColor.Primary" CssClass="mb-3" />
+<HxCollapse Id="initiallyExpandedCollapse" InitiallyExpanded="true">
+	<HxCard>
+		<BodyTemplate>
+			Some placeholder content for the collapse component.
+			This panel is hidden by default but revealed when the user activates the relevant trigger.
+		</BodyTemplate>
+	</HxCard>
+</HxCollapse>
+
+```

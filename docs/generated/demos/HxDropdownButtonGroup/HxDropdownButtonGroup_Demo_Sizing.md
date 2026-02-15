@@ -1,0 +1,46 @@
+﻿# HxDropdownButtonGroup_Demo_Sizing.razor
+
+```razor
+<HxDropdownButtonGroup>
+    <HxDropdownToggleButton Size="ButtonSize.Large" Color="ThemeColor.Secondary">Large button</HxDropdownToggleButton>
+        <HxDropdownMenu>
+            <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
+            <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
+        </HxDropdownMenu>
+</HxDropdownButtonGroup>
+
+<HxDropdownButtonGroup Split="true">
+    <HxButton Color="ThemeColor.Secondary" Size="ButtonSize.Large">Large split button</HxButton>
+    <HxDropdownToggleButton Color="ThemeColor.Secondary" Size="ButtonSize.Large">
+        <span class="visually-hidden">Toggle Dropdown</span>@* OPTIONAL (for accessibility) *@
+    </HxDropdownToggleButton>
+    <HxDropdownMenu>
+        <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
+        <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
+        <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
+    </HxDropdownMenu>
+</HxDropdownButtonGroup>
+
+<HxDropdownButtonGroup>
+    <HxDropdownToggleButton Size="ButtonSize.Small" Color="ThemeColor.Secondary">Small button</HxDropdownToggleButton>
+    <HxDropdownMenu>
+        <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
+        <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
+        <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
+    </HxDropdownMenu>
+</HxDropdownButtonGroup>
+
+<HxDropdownButtonGroup Split="true">
+    <HxButton Color="ThemeColor.Secondary" Size="ButtonSize.Small">Small split button</HxButton>
+    <HxDropdownToggleButton Color="ThemeColor.Secondary" Size="ButtonSize.Small">
+        <span class="visually-hidden">Toggle Dropdown</span>@* OPTIONAL (for accessibility) *@
+    </HxDropdownToggleButton>
+    <HxDropdownMenu>
+        <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
+        <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
+        <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
+    </HxDropdownMenu>
+</HxDropdownButtonGroup>
+
+```

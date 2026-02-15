@@ -1,0 +1,29 @@
+﻿# HxGrid_Demo_ApplyTo.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxGrid TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" SortKeySelector=" employee => employee.Name" IsDefaultSortColumn="true" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" SortKeySelector=" employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" SortKeySelector="employee => employee.Salary" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" SortKeySelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" SortKeySelector="employee => employee.Location" />
+	</Columns>
+</HxGrid>
+
+@code {
+	private IEnumerable<EmployeeDto> employees;
+
+	protected override void OnInitialized()
+	{
+		employees = DemoDataService.GetAllEmployees();
+	}
+
+	private Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		return Task.FromResult(request.ApplyTo(employees));
+	}
+}
+```

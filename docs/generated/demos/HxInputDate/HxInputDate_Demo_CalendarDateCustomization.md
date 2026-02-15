@@ -1,0 +1,23 @@
+﻿# HxInputDate_Demo_CalendarDateCustomization.razor
+
+```razor
+<HxInputDate Label="Date" @bind-Value="@value" CalendarDateCustomizationProvider="GetCalendarDateCustomization" />
+
+@code {
+	public DateTime value { get; set; }
+
+	private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request)
+	{
+		if (request.Date.DayOfWeek == DayOfWeek.Wednesday)
+		{
+			return new CalendarDateCustomizationResult()
+			{
+				Enabled = false,
+				CssClass = "text-danger"
+			};
+		}
+		return null;
+	}
+}
+
+```

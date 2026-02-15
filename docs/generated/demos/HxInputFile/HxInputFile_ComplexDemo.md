@@ -1,0 +1,111 @@
+﻿# HxInputFile_ComplexDemo.razor
+
+```razor
+<HxInputFile @ref="hxInputFileComponent"
+			 Label="HxInputFile"
+			 UploadUrl="/file-upload-streamed/"
+			 OnProgress="HandleProgress"
+			 OnFileUploaded="HandleFileUploaded"
+			 OnUploadCompleted="HandleUploadCompleted"
+			 Multiple="true"
+			 MaxFileSize="500000" />
+
+<HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="HandleUploadClick" CssClass="my-2" />
+
+<HxButton Text="Cancel" Color="ThemeColor.Danger" OnClick="() => hxInputFileComponent.ResetAsync()" />
+
+<table class="table mt-3">
+	<tr>
+		<th>FileIndex</th>
+		<th>Filename</th>
+		<th>Progress</th>
+		<th>ContentType</th>
+		<th>Size</th>
+		<th>LastModified</th>
+		<th>ResponseStatus</th>
+		<th>ResponseText</th>
+	</tr>
+	<HxRepeater Data="files">
+		<ItemTemplate>
+			<tr>
+				<td>@context.Key</td>
+				<td>@context.Value.Item1?.OriginalFileName</td>
+				<td>@context.Value.Item1?.UploadedBytes.ToString("n0") / @context.Value.Item1?.UploadSize.ToString("n0")</td>
+				<td>@context.Value.Item2?.ContentType</td>
+				<td>@context.Value.Item2?.Size.ToString("n0")</td>
+				<td>@context.Value.Item2?.LastModified</td>
+				<td>@context.Value.Item2?.ResponseStatus</td>
+				<td>@context.Value.Item2?.ResponseText.Left(100)</td>
+			</tr>
+		</ItemTemplate>
+	</HxRepeater>
+</table>
+<br />
+Completed: @uploadCompleted?.TotalSize bytes in @uploadCompleted?.FileCount files
+
+@code
+{
+	private HxInputFile hxInputFileComponent;
+	private Dictionary<int, (UploadProgressEventArgs, FileUploadedEventArgs)> files = new Dictionary<int, (UploadProgressEventArgs, FileUploadedEventArgs)>();
+	private UploadCompletedEventArgs uploadCompleted;
+
+	private async Task HandleUploadClick()
+	{
+		files.Clear();
+
+		string accessToken = null;
+		
+		// OPTIONAL: Authorization Bearer Token (JWT) to be used with the upload HTTP request
+		//var accessTokenResult = await AccessTokenProvider.RequestAccessToken();
+		//if (accessTokenResult.Status == AccessTokenResultStatus.Success)
+		//{
+		//	if (accessTokenResult.TryGetToken(out var token))
+		//	{
+		//		accessToken = token.Value;
+		//	}
+		//}
+
+		await hxInputFileComponent.StartUploadAsync(accessToken);
+	}
+
+	private Task HandleProgress(UploadProgressEventArgs progress)
+	{
+		(UploadProgressEventArgs, FileUploadedEventArgs) data;
+		if (!files.TryGetValue(progress.FileIndex, out data))
+		{
+			data = (progress, null);
+		}
+		else
+		{
+			data = (progress, data.Item2);
+		}
+		files[progress.FileIndex] = data;
+
+		return Task.CompletedTask;
+	}
+
+	private Task HandleFileUploaded(FileUploadedEventArgs fileUploaded)
+	{
+		(UploadProgressEventArgs, FileUploadedEventArgs) data;
+		if (!files.TryGetValue(fileUploaded.FileIndex, out data))
+		{
+			data = (null, fileUploaded);
+			files.Add(fileUploaded.FileIndex, data);
+		}
+		else
+		{
+			data = (data.Item1, fileUploaded);
+		}
+		files[fileUploaded.FileIndex] = data;
+
+		return Task.CompletedTask;
+	}
+
+	private Task HandleUploadCompleted(UploadCompletedEventArgs uploadCompleted)
+	{
+		this.uploadCompleted = uploadCompleted;
+
+		return Task.CompletedTask;
+	}
+}
+```

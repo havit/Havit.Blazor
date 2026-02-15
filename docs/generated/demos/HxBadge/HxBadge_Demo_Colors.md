@@ -1,0 +1,13 @@
+﻿# HxBadge_Demo_Colors.razor
+
+```razor
+<HxBadge Color="ThemeColor.Primary">Primary</HxBadge>
+<HxBadge Color="ThemeColor.Secondary">Secondary</HxBadge>
+<HxBadge Color="ThemeColor.Success">Success</HxBadge>
+<HxBadge Color="ThemeColor.Danger">Danger</HxBadge>
+<HxBadge Color="ThemeColor.Warning" TextColor="ThemeColor.Dark">Warning</HxBadge>
+<HxBadge Color="ThemeColor.Info">Info</HxBadge>
+<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">Light</HxBadge>
+<HxBadge Color="ThemeColor.Dark">Dark</HxBadge>
+
+```

@@ -1,0 +1,12 @@
+﻿# HxInputRange_Demo_Disabled.razor
+
+```razor
+<HxInputRange Min="0" Max="100" @bind-Value="value" Label="Example slider" Enabled="false" />
+
+@value
+
+@code {
+    private float value = 50;
+}
+
+```

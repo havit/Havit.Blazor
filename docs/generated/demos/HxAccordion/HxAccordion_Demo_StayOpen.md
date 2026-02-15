@@ -1,0 +1,27 @@
+﻿# HxAccordion_Demo_StayOpen.razor
+
+```razor
+<HxAccordion StayOpen="true">
+    <HxAccordionItem>
+        <HeaderTemplate>Accordition Item 1</HeaderTemplate>
+        <BodyTemplate>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+            Suspendisse eu ipsum orci. Donec sit amet fringilla ante, at facilisis metus. Fusce leo elit, cursus sed rutrum vel, elementum eu justo.
+        </BodyTemplate>
+    </HxAccordionItem>
+    <HxAccordionItem>
+        <HeaderTemplate>Accordition Item 2</HeaderTemplate>
+        <BodyTemplate>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+            Suspendisse eu ipsum orci. Donec sit amet fringilla ante, at facilisis metus. Fusce leo elit, cursus sed rutrum vel, elementum eu justo.
+        </BodyTemplate>
+    </HxAccordionItem>
+	<HxAccordionItem>
+		<HeaderTemplate>Accordition Item 3</HeaderTemplate>
+		<BodyTemplate>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel pharetra mi, ut ullamcorper nisl. Morbi efficitur metus eu mauris finibus suscipit ac vel nibh.
+			Suspendisse eu ipsum orci. Donec sit amet fringilla ante, at facilisis metus. Fusce leo elit, cursus sed rutrum vel, elementum eu justo.
+		</BodyTemplate>
+	</HxAccordionItem>
+</HxAccordion>
+```

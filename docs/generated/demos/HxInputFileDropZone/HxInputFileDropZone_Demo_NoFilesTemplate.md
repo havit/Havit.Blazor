@@ -1,0 +1,11 @@
+﻿# HxInputFileDropZone_Demo_NoFilesTemplate.razor
+
+```razor
+<HxInputFileDropZone Multiple>
+    <NoFilesTemplate>
+        <div class="display-3 text-center"><HxIcon Icon="BootstrapIcon.CloudUpload" /></div>
+        <div>Custom content</div>
+    </NoFilesTemplate>
+</HxInputFileDropZone>
+
+```

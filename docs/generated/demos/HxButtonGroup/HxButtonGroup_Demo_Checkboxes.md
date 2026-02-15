@@ -1,0 +1,23 @@
+﻿# HxButtonGroup_Demo_Checkboxes.razor
+
+```razor
+<EditForm Model="@model">
+    <HxButtonGroup>
+        <HxCheckbox Text="Checkbox 1" @bind-Value="@model.checkbox1" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Primary" Outline="true" />
+        <HxCheckbox Text="Checkbox 2" @bind-Value="@model.checkbox2" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Primary" Outline="true" />
+        <HxCheckbox Text="Checkbox 3" @bind-Value="@model.checkbox3" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Primary" Outline="true" />
+    </HxButtonGroup>
+</EditForm>
+
+@code {
+    private DemoModel model = new();
+
+    class DemoModel
+    {
+        public bool checkbox1 { get; set; } = false;
+        public bool checkbox2 { get; set; } = false;
+        public bool checkbox3 { get; set; } = false;
+    }
+}
+
+```

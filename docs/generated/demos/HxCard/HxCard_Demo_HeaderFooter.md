@@ -1,0 +1,15 @@
+﻿# HxCard_Demo_HeaderFooter.razor
+
+```razor
+<HxCard CssClass="text-center" FooterCssClass="text-muted">
+    <HeaderTemplate>Featured</HeaderTemplate>
+    <BodyTemplate>
+        <HxCardTitle>Special title treatment</HxCardTitle>
+        <HxCardText>With supporting text below as a natural lead-in to additional content.</HxCardText>
+        <HxButton Color="ThemeColor.Primary">Go somewhere</HxButton>
+    </BodyTemplate>
+    <FooterTemplate>
+        2 days ago
+    </FooterTemplate>
+</HxCard>
+```

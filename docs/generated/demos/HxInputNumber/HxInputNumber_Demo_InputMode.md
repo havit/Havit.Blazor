@@ -1,0 +1,12 @@
+﻿# HxInputNumber_Demo_InputMode.razor
+
+```razor
+<HxInputNumber Label="No decimals (InputMode defaults to Numeric)" CssClass="mb-3" Decimals="0" @bind-Value="enteredNumber" />
+<HxInputNumber Label="Decimals (InputMode not set)" Decimals="1" CssClass="mb-3" @bind-Value="enteredNumber" />
+<HxInputNumber Label="Explicit InputMode.Decimal" Decimals="1" CssClass="mb-3" @bind-Value="enteredNumber" InputMode="InputMode.Decimal" />
+
+@code {
+    private float enteredNumber;
+}
+
+```

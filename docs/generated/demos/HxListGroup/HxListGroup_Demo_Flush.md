@@ -1,0 +1,12 @@
+﻿# HxListGroup_Demo_Flush.razor
+
+```razor
+<HxListGroup Flush="true">
+	<HxListGroupItem>An item</HxListGroupItem>
+	<HxListGroupItem>A second item</HxListGroupItem>
+	<HxListGroupItem>A third item</HxListGroupItem>
+	<HxListGroupItem>A fourth item</HxListGroupItem>
+	<HxListGroupItem>And a fifth one</HxListGroupItem>
+</HxListGroup>
+
+```

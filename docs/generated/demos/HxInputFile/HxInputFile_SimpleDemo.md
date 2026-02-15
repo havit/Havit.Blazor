@@ -1,0 +1,53 @@
+﻿# HxInputFile_SimpleDemo.razor
+
+```razor
+
+<HxInputFile @ref="hxInputFileComponent" Label="HxInputFile" UploadUrl="/file-upload-streamed/" OnFileUploaded="HandleFileUploaded" />
+
+<HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="HandleUploadClick" CssClass="my-2" />
+<HxButton Text="Clear" OnClick="@(async () => await hxInputFileComponent.ResetAsync())" Color="ThemeColor.Secondary" />
+
+OriginalFileName: @fileUploaded?.OriginalFileName
+<br />
+ContentType: @fileUploaded?.ContentType
+<br />
+Size: @fileUploaded?.Size.ToString("n0") bytes
+<br />
+LastModified: @fileUploaded?.LastModified
+<br />
+ResponseStatus: @fileUploaded?.ResponseStatus
+<br />
+ResponseText: @fileUploaded?.ResponseText
+<br />
+
+
+@code
+{
+	private HxInputFile hxInputFileComponent;
+	private FileUploadedEventArgs fileUploaded;
+
+	private async Task HandleUploadClick()
+	{
+		string accessToken = null;
+
+		// OPTIONAL: Authorization Bearer Token (JWT) to be used with the upload HTTP request
+		//var accessTokenResult = await AccessTokenProvider.RequestAccessToken();
+		//if (accessTokenResult.Status == AccessTokenResultStatus.Success)
+		//{
+		//	if (accessTokenResult.TryGetToken(out var token))
+		//	{
+		//		accessToken = token.Value;
+		//	}
+		//}
+
+		await hxInputFileComponent.StartUploadAsync(accessToken);
+	}
+
+	private Task HandleFileUploaded(FileUploadedEventArgs fileUploaded)
+	{
+		this.fileUploaded = fileUploaded;
+
+		return Task.CompletedTask;
+	}
+}
+```

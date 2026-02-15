@@ -1,0 +1,17 @@
+﻿# HxDynamicElement_Demo_BasicUsage.razor
+
+```razor
+<HxDynamicElement
+    ElementName="@elementName" 
+    class="fs-5 my-2 py-2">
+        Any content <HxIcon Icon="BootstrapIcon.Trash" />
+</HxDynamicElement>
+
+<HxSelect Data="elementNames" @bind-Value="elementName" TItem="string" TValue="string" Nullable="false" />
+
+@code
+{
+    private string elementName = "b";
+    private string[] elementNames = { "a", "b", "button", "div", "i", "span", "strong" };
+}
+```

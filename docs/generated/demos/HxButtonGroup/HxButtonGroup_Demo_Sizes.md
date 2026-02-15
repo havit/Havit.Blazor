@@ -1,0 +1,23 @@
+﻿# HxButtonGroup_Demo_Sizes.razor
+
+```razor
+<HxButtonGroup>
+    <HxButton Size="ButtonSize.Large" Text="Left" Color="ThemeColor.Secondary" Outline="true" />
+    <HxButton Size="ButtonSize.Large" Text="Middle" Color="ThemeColor.Secondary" Outline="true" />
+    <HxButton Size="ButtonSize.Large" Text="Right" Color="ThemeColor.Secondary" Outline="true" />
+</HxButtonGroup>
+<br /><br />
+
+<HxButtonGroup>
+    <HxButton Text="Left" Color="ThemeColor.Secondary" Outline="true" />
+    <HxButton Text="Middle" Color="ThemeColor.Secondary" Outline="true" />
+    <HxButton Text="Right" Color="ThemeColor.Secondary" Outline="true" />
+</HxButtonGroup>
+<br /><br />
+
+<HxButtonGroup>
+    <HxButton Size="ButtonSize.Small" Text="Left" Color="ThemeColor.Secondary" Outline="true" />
+    <HxButton Size="ButtonSize.Small" Text="Middle" Color="ThemeColor.Secondary" Outline="true" />
+    <HxButton Size="ButtonSize.Small" Text="Right" Color="ThemeColor.Secondary" Outline="true" />
+</HxButtonGroup>
+```

@@ -1,0 +1,20 @@
+﻿# HxModal_Demo_VerticallyCentered.razor
+
+```razor
+<HxButton OnClick="() => myModal.ShowAsync()" Color="ThemeColor.Primary">Vertically centered modal</HxButton>
+
+<HxModal @ref="myModal" Title="Modal title" Centered="true">
+	<BodyTemplate>
+		This is a vertically centered modal.
+	</BodyTemplate>
+	<FooterTemplate>
+		<HxButton Text="Close" OnClick="() => myModal.HideAsync()" Color="ThemeColor.Primary" />
+	</FooterTemplate>
+</HxModal>
+
+@code
+{
+	private HxModal myModal;
+}
+
+```

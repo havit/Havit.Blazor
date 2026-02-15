@@ -1,0 +1,8 @@
+﻿# HxButton_Demo_Icons.razor
+
+```razor
+<HxButton Text="Button with icon" Icon="BootstrapIcon.Trash" Color="ThemeColor.Primary" />
+
+<HxButton Text="Button with icon" Icon="BootstrapIcon.Trash" IconPlacement="ButtonIconPlacement.End" Color="ThemeColor.Primary" />
+
+```

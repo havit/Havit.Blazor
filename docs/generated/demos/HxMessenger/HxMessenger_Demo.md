@@ -1,0 +1,27 @@
+﻿# HxMessenger_Demo.razor
+
+```razor
+<HxButton Text="Show information" OnClick="HandleAddInformationButtonClick" Color="ThemeColor.Primary" />
+<HxButton Text="Show warning" OnClick="HandleAddWarningButtonClick" Color="ThemeColor.Warning" />
+<HxButton Text="Show error" OnClick="HandleAddErrorButtonClick" Color="ThemeColor.Danger" />
+
+@code {
+	[Inject] protected IHxMessengerService Messenger { get; set; }
+
+	private void HandleAddInformationButtonClick()
+	{
+		Messenger.AddInformation(title: "Data encrypted", message: "All your data has been encrypted. To decrypt your data share $100 with all your teammates.");
+	}
+
+	private void HandleAddWarningButtonClick()
+	{
+		Messenger.AddWarning(title: "Bio hazard!", message: "Bio hazard detected in your office!");
+	}
+
+	private void HandleAddErrorButtonClick()
+	{
+		Messenger.AddError(title: "Error", message: "An error occurred during showing messenger message.");
+	}
+}
+
+```

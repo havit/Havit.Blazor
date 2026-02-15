@@ -1,0 +1,27 @@
+﻿# HxButtonToolbar_Demo_2.razor
+
+```razor
+<HxButtonToolbar CssClass="mb-2">
+    <HxButtonGroup CssClass="me-2">
+        <HxButton Text="1" Color="ThemeColor.Secondary" Outline="true" />
+        <HxButton Text="2" Color="ThemeColor.Secondary" Outline="true" />
+        <HxButton Text="3" Color="ThemeColor.Secondary" Outline="true" />
+        <HxButton Text="4" Color="ThemeColor.Secondary" Outline="true" />
+    </HxButtonGroup>
+    <HxInputText InputGroupStartText="@("@")" Placeholder="Input text example" @bind-Value="text" />
+</HxButtonToolbar>
+
+<HxButtonToolbar CssClass="justify-content-between">
+    <HxButtonGroup>
+        <HxButton Text="1" Color="ThemeColor.Secondary" Outline="true" />
+        <HxButton Text="2" Color="ThemeColor.Secondary" Outline="true" />
+        <HxButton Text="3" Color="ThemeColor.Secondary" Outline="true" />
+        <HxButton Text="4" Color="ThemeColor.Secondary" Outline="true" />
+    </HxButtonGroup>
+    <HxInputText InputGroupStartText="@("@")" Placeholder="Input text example" @bind-Value="text" />
+</HxButtonToolbar>
+
+@code {
+    private string text;
+}
+```

@@ -1,0 +1,10 @@
+﻿# HxButton_Demo_ManualSpinner.razor
+
+```razor
+<HxButton Spinner="showSpinner" Text="The button" Color="ThemeColor.Primary" />
+<HxSwitch Text="show spinner" @bind-Value="showSpinner" CssClass="mt-2" />
+
+@code {
+    bool showSpinner;
+} 
+```

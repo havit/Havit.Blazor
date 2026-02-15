@@ -1,0 +1,38 @@
+﻿# HxInputTags_Demo_Naked_InputSize.razor
+
+```razor
+<HxInputTags @bind-Value="values"
+			 DataProvider="GetNewItemSuggestions"
+			 ShowAddButton="true"
+			 AddButtonText="Add tag"
+			 Naked
+			 Label="Small"
+			 InputSize="InputSize.Small" />
+
+<HxInputTags @bind-Value="values"
+			 DataProvider="GetNewItemSuggestions"
+			 ShowAddButton="true"
+			 AddButtonText="Add tag"
+			 Label="Regular"
+			 Naked />
+
+<HxInputTags @bind-Value="values"
+			 DataProvider="GetNewItemSuggestions"
+			 ShowAddButton="true"
+			 AddButtonText="Add tag"
+			 Naked
+			 Label="Large"
+			 InputSize="InputSize.Large" />
+@code
+{
+	private List<string> values = new List<string>() { "Primary", "Secondary" };
+	private async Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
+	{
+		await Task.Delay(50); // simulate server API call
+		return new InputTagsDataProviderResult()
+		{
+			Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString()).Where(v => v.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+		};
+	}
+}
+```

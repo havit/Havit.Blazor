@@ -1,0 +1,23 @@
+﻿# HxDropdown_Demo_DropdownOffsetAndReference.razor
+
+```razor
+<HxDropdownButtonGroup>
+	<HxDropdownToggleButton Color="ThemeColor.Secondary" DropdownOffset="(30, 20)">Offset</HxDropdownToggleButton>
+	<HxDropdownMenu>
+		<HxDropdownItemNavLink Href="#">Item 1</HxDropdownItemNavLink>
+		<HxDropdownItemNavLink Href="#">Some item 2</HxDropdownItemNavLink>
+	</HxDropdownMenu>
+</HxDropdownButtonGroup>
+
+<HxDropdownButtonGroup Split="true">
+	<HxButton Color="ThemeColor.Secondary">Reference</HxButton>
+	<HxDropdownToggleButton Color="ThemeColor.Secondary" DropdownReference="parent">
+		<span class="visually-hidden">Toggle Dropdown</span>@* OPTIONAL (for accessibility) *@
+	</HxDropdownToggleButton>
+	<HxDropdownMenu>
+		<HxDropdownItemNavLink Href="#">Link with Href</HxDropdownItemNavLink>
+		<HxDropdownDivider />
+		<HxDropdownItemText>Something else here</HxDropdownItemText>
+	</HxDropdownMenu>
+</HxDropdownButtonGroup>
+```

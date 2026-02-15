@@ -1,0 +1,34 @@
+﻿# HxNavbar_Demo_Basic.razor
+
+```razor
+<HxNavbar CssClass="bg-body-tertiary">
+    <HxNavbarBrand>Navbar</HxNavbarBrand>
+    <HxNavbarToggler />
+    <HxNavbarCollapse>
+        <HxNav CssClass="me-auto mb-2 mb-lg-0">
+            <HxNavLink Href="/components/HxNavbar">Home</HxNavLink>
+            <HxNavLink Href="#">Link</HxNavLink>
+            <HxDropdown>
+                <HxDropdownToggleElement ElementName="a" Caret="true" role="button">Dropdown</HxDropdownToggleElement>
+                <HxDropdownMenu>
+                    <HxDropdownItemNavLink Href="#">Action</HxDropdownItemNavLink>
+                    <HxDropdownItemNavLink Href="#">Another action</HxDropdownItemNavLink>
+                    <HxDropdownDivider />
+                    <HxDropdownItemNavLink Href="#">Something else here</HxDropdownItemNavLink>
+                </HxDropdownMenu>
+            </HxDropdown>
+            <HxNavLink Enabled="false">Disabled</HxNavLink>
+        </HxNav>
+        <EditForm Model="@query">
+            <div class="d-flex">
+                <HxInputText CssClass="me-2" Placeholder="Search" @bind-Value="@query" />
+                <HxSubmit Color="ThemeColor.Success" Outline="true">Search</HxSubmit>
+            </div>
+        </EditForm>
+    </HxNavbarCollapse>
+</HxNavbar>
+
+@code {
+    private string query = String.Empty;
+}
+```
