@@ -118,8 +118,6 @@ public class ApiDocModelBuilder : IApiDocModelBuilder
 		if (genericTypeArgument is not null)
 		{
 			string genericTypeArgumentName = genericTypeArgument.ToString();
-			Console.WriteLine("genericTypeArgument.ToString(): " + genericTypeArgumentName);
-
 			returnType = $"Task&lt;{ApiRenderer.FormatType(genericTypeArgumentName, true)}&gt; ";
 		}
 		else

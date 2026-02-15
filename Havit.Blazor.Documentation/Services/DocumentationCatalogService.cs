@@ -124,7 +124,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/types/ContextMenuSettings", "ContextMenu Settings", "defaults", DefaultsLevel),
 		new("/types/FormValueSettings", "FormValue Settings", "defaults", DefaultsLevel),
 		new("/types/GridSettings", "Grid Settings", "defaults", DefaultsLevel),
-		new("/types/InputsSettings", "Inputs Settings", "defaults", DefaultsLevel),
+		new("/types/InputSettings", "Inputs Settings", "defaults", DefaultsLevel),
 		new("/types/InputFileSettings", "InputFile Settings", "defaults", DefaultsLevel),
 		new("/types/InputRangeSettings", "InputRangeSettings Settings", "defaults", DefaultsLevel),
 		new("/types/InputDateRangeSettings", "InputDateRange Settings", "defaults", DefaultsLevel),
@@ -150,7 +150,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		// Enums
 
 		new("/types/BadgeType", "BadgeType", "enum shape", EnumsLevel),
-		new("/types/BootstrapTheme", "BootstrapTheme", "enum", EnumsLevel),
+		new("/types/BootstrapFlavor", "BootstrapFlavor", "enum", EnumsLevel),
 		new("/types/ButtonGroupOrientation", "ButtonGroupOrientation", "enum", EnumsLevel),
 		new("/types/ButtonGroupSize", "ButtonGroupSize", "enum", EnumsLevel),
 		new("/types/ButtonIconPlacement", "ButtonIconPlacement", "enum", EnumsLevel),

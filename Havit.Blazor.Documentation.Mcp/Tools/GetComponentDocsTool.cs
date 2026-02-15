@@ -1,8 +1,6 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Diagnostics;
-using System.Reflection;
 using Havit.Blazor.Documentation.Mcp.Diagnostics;
-using Havit.Blazor.Documentation.Mcp.Services;
 using Havit.Blazor.Documentation.Model;
 using Havit.Blazor.Documentation.Services;
 using ModelContextProtocol.Server;
@@ -14,15 +12,15 @@ namespace Havit.Blazor.Documentation.Mcp.Tools;
 /// </summary>
 internal class GetComponentDocsTool
 {
-	private static readonly Assembly s_documentationAssembly = typeof(DocumentationCatalogService).Assembly;
-
 	private readonly IApiDocModelProvider _modelProvider;
-	private readonly McpDocMarkdownRenderer _renderer;
+	private readonly IDocMarkdownRenderer _renderer;
+	private readonly IComponentDemosProvider _componentDemosProvider;
 
-	public GetComponentDocsTool(IApiDocModelProvider modelProvider, McpDocMarkdownRenderer renderer)
+	public GetComponentDocsTool(IApiDocModelProvider modelProvider, IDocMarkdownRenderer renderer, IComponentDemosProvider componentDemosProvider)
 	{
 		_modelProvider = modelProvider;
 		_renderer = renderer;
+		_componentDemosProvider = componentDemosProvider;
 	}
 
 	/// <summary>
@@ -44,7 +42,7 @@ internal class GetComponentDocsTool
 		}
 
 		ApiDocModel model = _modelProvider.GetApiDocModel(type);
-		IReadOnlyList<string> sampleNames = GetSampleNames(componentName);
+		IReadOnlyList<string> sampleNames = _componentDemosProvider.GetComponentDemoFileNames(componentName);
 		string markdown = _renderer.RenderComponentDoc(model, sampleNames);
 
 		activity?.SetTag("mcp.tool.result", "success");
@@ -52,46 +50,5 @@ internal class GetComponentDocsTool
 		activity?.SetTag("mcp.tool.sampleCount", sampleNames.Count);
 
 		return markdown;
-	}
-
-	private static IReadOnlyList<string> GetSampleNames(string componentName)
-	{
-		// Normalize component name by stripping generic type arguments (e.g., "HxGrid<TItem>" -> "HxGrid")
-		// This matches the behavior of ApiTypeHelper.GetType()
-		int openingBracePosition = componentName.IndexOf("<");
-		if (openingBracePosition > 0)
-		{
-			componentName = componentName[..openingBracePosition];
-		}
-
-		return s_documentationAssembly.GetManifestResourceNames()
-			.Where(r => r.EndsWith(".razor", StringComparison.Ordinal)
-				&& r.Contains("Demo", StringComparison.Ordinal)
-				&& ExtractFileName(r).StartsWith(componentName + "_", StringComparison.OrdinalIgnoreCase))
-			.OrderBy(r => r, StringComparer.Ordinal)
-			.Select(r => ExtractFileName(r))
-			.ToList();
-	}
-
-	/// <summary>
-	/// Extracts the file name from an embedded resource name.
-	/// E.g. "Havit.Blazor.Documentation.Pages.Components.HxAccordionDoc.HxAccordion_PlainDemo.razor" → "HxAccordion_PlainDemo.razor".
-	/// </summary>
-	private static string ExtractFileName(string resourceName)
-	{
-		int extensionIndex = resourceName.LastIndexOf(".razor", StringComparison.Ordinal);
-		if (extensionIndex < 0)
-		{
-			return resourceName;
-		}
-
-		string withoutExtension = resourceName[..extensionIndex];
-		int lastDot = withoutExtension.LastIndexOf('.');
-		if (lastDot < 0)
-		{
-			return resourceName;
-		}
-
-		return withoutExtension[(lastDot + 1)..] + ".razor";
 	}
 }
