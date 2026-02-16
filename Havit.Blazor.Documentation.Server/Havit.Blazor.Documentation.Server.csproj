@@ -21,9 +21,7 @@
 	</ItemGroup>
 
 	<Target Name="TfsPublish" AfterTargets="AfterPublish" Condition="'$(PublishDirectory)' != ''">
-		<ItemGroup>
-			<PublishToCopy Include="obj\Release\TfsPublish\*.zip" />
-		</ItemGroup>
-		<Copy SourceFiles="@(PublishToCopy)" DestinationFolder="$(PublishDirectory)\DocumentationWeb" />
+		<MakeDir Directories="$(PublishDirectory)\Web" />
+		<ZipDirectory SourceDirectory="$(OutDir)\publish" DestinationFile="$(PublishDirectory)\DocumentationWeb\DocumentationWeb.zip" Overwrite="true" />
 	</Target>
 </Project>

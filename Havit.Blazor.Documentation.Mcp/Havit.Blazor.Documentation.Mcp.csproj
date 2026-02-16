@@ -20,4 +20,9 @@
 	  <ProjectReference Include="..\Havit.Blazor.Documentation\Havit.Blazor.Documentation.csproj" />
 	</ItemGroup>
 
+
+	<Target Name="TfsPublish" AfterTargets="AfterPublish" Condition="'$(PublishDirectory)' != ''">
+		<MakeDir Directories="$(PublishDirectory)\Web" />
+		<ZipDirectory SourceDirectory="$(OutDir)\publish" DestinationFile="$(PublishDirectory)\DocumentationMcp\DocumentationMcp.zip" Overwrite="true" />
+	</Target>
 </Project>
