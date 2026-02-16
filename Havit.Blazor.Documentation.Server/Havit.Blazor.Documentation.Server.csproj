@@ -21,7 +21,7 @@
 	</ItemGroup>
 
 	<Target Name="TfsPublish" AfterTargets="AfterPublish" Condition="'$(PublishDirectory)' != ''">
-		<MakeDir Directories="$(PublishDirectory)\Web" />
+		<MakeDir Directories="$(PublishDirectory)\DocumentationWeb" />
 		<ZipDirectory SourceDirectory="$(OutDir)\publish" DestinationFile="$(PublishDirectory)\DocumentationWeb\DocumentationWeb.zip" Overwrite="true" />
 	</Target>
 </Project>
