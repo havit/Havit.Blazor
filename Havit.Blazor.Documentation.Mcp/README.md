@@ -8,9 +8,10 @@ AI assistants (GitHub Copilot, etc.) can use this server to look up component pa
 ### `get_component_docs`
 
 Returns the API documentation for a HAVIT Blazor component in Markdown format, including demo samples.
+Also resolves derived components with custom prefixes (e.g. `BtPager`, `PxButton`) to their base `Hx` component.
 
 **Parameters:**
-- `componentName` (string) – Name of the component, e.g. `HxButton`, `HxGrid`, `HxInputText`.
+- `componentName` (string) – Name of the component, e.g. `HxButton`, `HxGrid`, `HxInputText`. Derived components with custom prefixes (e.g. `BtPager`, `PxButton`) are automatically resolved to their base `Hx` component.
 
 ### `get_type_doc`
 
@@ -26,9 +27,10 @@ Returns a list of all HAVIT Blazor components (Hx*) with their name and summary 
 ### `get_component_samples`
 
 Returns all demo/sample code snippets (Razor source) for a HAVIT Blazor component.
+Also resolves derived components with custom prefixes (e.g. `BtPager`, `PxButton`) to their base `Hx` component.
 
 **Parameters:**
-- `componentName` (string) – Name of the component, e.g. `HxButton`, `HxGrid`, `HxInputText`.
+- `componentName` (string) – Name of the component, e.g. `HxButton`, `HxGrid`, `HxInputText`. Derived components with custom prefixes (e.g. `BtPager`, `PxButton`) are automatically resolved to their base `Hx` component.
 
 ## Developing locally
 

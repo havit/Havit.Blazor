@@ -149,3 +149,37 @@ Content-Type: application/json
         }
     }
 }
+
+### Get derived component docs - PxButton (should resolve to HxButton)
+POST {{HostAddress}}/
+Accept: application/json, text/event-stream
+Content-Type: application/json
+
+{
+    "jsonrpc": "2.0",
+    "id": 7,
+    "method": "tools/call",
+    "params": {
+        "name": "get_component_docs",
+        "arguments": {
+            "componentName": "PxButton"
+        }
+    }
+}
+
+### Get derived component samples - BtGrid (should resolve to HxGrid)
+POST {{HostAddress}}/
+Accept: application/json, text/event-stream
+Content-Type: application/json
+
+{
+    "jsonrpc": "2.0",
+    "id": 8,
+    "method": "tools/call",
+    "params": {
+        "name": "get_component_samples",
+        "arguments": {
+            "componentName": "BtGrid"
+        }
+    }
+}
