@@ -125,6 +125,27 @@ public class DateHelperTests
 	}
 
 	[TestMethod]
+	public void DateHelper_TryParseDateFromString_DayMonthYear_Strict_8digits()
+	{
+		// Arrange
+		var fixture = new Fixture();
+
+		// Act + Assert
+		fixture.ExecuteTest<DateTime?>("cs-CZ", "07082024", expectedResult: true, expectedParsedDate: new DateTime(2024, 08, 07));
+		fixture.ExecuteTest<DateTime?>("en-GB", "07082024", expectedResult: true, expectedParsedDate: new DateTime(2024, 08, 07));
+		fixture.ExecuteTest<DateTime?>("en-US", "08072024", expectedResult: true, expectedParsedDate: new DateTime(2024, 08, 07));
+		fixture.ExecuteTest<DateTime?>("ko-KR", "20240807", expectedResult: true, expectedParsedDate: new DateTime(2024, 08, 07));
+
+		fixture.ExecuteTest<DateTime?>("cs-CZ", "01012026", expectedResult: true, expectedParsedDate: new DateTime(2026, 01, 01));
+		fixture.ExecuteTest<DateTime?>("en-US", "01012026", expectedResult: true, expectedParsedDate: new DateTime(2026, 01, 01));
+
+		fixture.ExecuteTest<DateTime?>("cs-CZ", "78024", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("en-US", "87024", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("cs-CZ", "0708202", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("cs-CZ", "070820244", expectedResult: false, expectedParsedDate: default);
+	}
+
+	[TestMethod]
 	public void DateHelper_TryParseDateFromString_Day_Strict()
 	{
 		// arrange

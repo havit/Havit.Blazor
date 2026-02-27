@@ -5857,7 +5857,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_DayMonthYear_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;day&gt;\\d{2})(?&lt;month&gt;\\d{2})(?&lt;year&gt;\\d{2})$</code><br/>
+            <code>^(?&lt;day&gt;\\d{2})(?&lt;month&gt;\\d{2})(?&lt;year&gt;\\d{2}|\\d{4})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -5866,7 +5866,9 @@
             ○ "month" capture group.<br/>
                 ○ Match a Unicode digit exactly 2 times.<br/>
             ○ "year" capture group.<br/>
-                ○ Match a Unicode digit exactly 2 times.<br/>
+                ○ Match with 2 alternative expressions.<br/>
+                    ○ Match a Unicode digit exactly 2 times.<br/>
+                    ○ Match a Unicode digit exactly 4 times.<br/>
             ○ Match if at the end of the string or if before an ending newline.<br/>
             </code>
             </remarks>
@@ -5874,7 +5876,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_MonthDayYear_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;month&gt;\\d{2})(?&lt;day&gt;\\d{2})(?&lt;year&gt;\\d{2})$</code><br/>
+            <code>^(?&lt;month&gt;\\d{2})(?&lt;day&gt;\\d{2})(?&lt;year&gt;\\d{2}|\\d{4})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -5883,7 +5885,9 @@
             ○ "day" capture group.<br/>
                 ○ Match a Unicode digit exactly 2 times.<br/>
             ○ "year" capture group.<br/>
-                ○ Match a Unicode digit exactly 2 times.<br/>
+                ○ Match with 2 alternative expressions.<br/>
+                    ○ Match a Unicode digit exactly 2 times.<br/>
+                    ○ Match a Unicode digit exactly 4 times.<br/>
             ○ Match if at the end of the string or if before an ending newline.<br/>
             </code>
             </remarks>
@@ -5891,12 +5895,14 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_YearMonthDay_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;year&gt;\\d{2})(?&lt;month&gt;\\d{2})(?&lt;day&gt;\\d{2})$</code><br/>
+            <code>^(?&lt;year&gt;\\d{2}|\\d{4})(?&lt;month&gt;\\d{2})(?&lt;day&gt;\\d{2})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
             ○ "year" capture group.<br/>
-                ○ Match a Unicode digit exactly 2 times.<br/>
+                ○ Match with 2 alternative expressions.<br/>
+                    ○ Match a Unicode digit exactly 2 times.<br/>
+                    ○ Match a Unicode digit exactly 4 times.<br/>
             ○ "month" capture group.<br/>
                 ○ Match a Unicode digit exactly 2 times.<br/>
             ○ "day" capture group.<br/>
@@ -5908,12 +5914,14 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_YearDayMonth_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;year&gt;\\d{2})(?&lt;day&gt;\\d{2})(?&lt;month&gt;\\d{2})$</code><br/>
+            <code>^(?&lt;year&gt;\\d{2}|\\d{4})(?&lt;day&gt;\\d{2})(?&lt;month&gt;\\d{2})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
             ○ "year" capture group.<br/>
-                ○ Match a Unicode digit exactly 2 times.<br/>
+                ○ Match with 2 alternative expressions.<br/>
+                    ○ Match a Unicode digit exactly 2 times.<br/>
+                    ○ Match a Unicode digit exactly 4 times.<br/>
             ○ "day" capture group.<br/>
                 ○ Match a Unicode digit exactly 2 times.<br/>
             ○ "month" capture group.<br/>
