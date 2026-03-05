@@ -36,7 +36,7 @@ builder.Services
 var app = builder.Build();
 app.MapMcp();
 
-// for Azure Load Balancer probes etc. (MCP is POST)
-//app.MapGet("/", () => Results.Text("HAVIT Blazor Documentation MCP Server"));
+// Health endpoint for Azure App Service / Load Balancer probes (MCP uses POST on root, GET must return 405 there)
+app.MapGet("/health", () => Results.Ok());
 
 app.Run();
