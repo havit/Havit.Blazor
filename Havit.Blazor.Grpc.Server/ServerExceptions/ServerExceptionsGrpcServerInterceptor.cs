@@ -1,4 +1,5 @@
-﻿using System.Security;
+﻿using System.Diagnostics;
+using System.Security;
 using Grpc.Core;
 using Havit.AspNetCore.ExceptionMonitoring.Services;
 using Microsoft.AspNetCore.Http;
@@ -29,6 +30,16 @@ public class ServerExceptionsGrpcServerInterceptor : ServerExceptionsInterceptor
 			return false;
 		}
 
+		// Report error in OpenTelemetry
+		var activity = Activity.Current;
+		if (activity?.Status == ActivityStatusCode.Unset)
+		{
+			activity.SetStatus(ActivityStatusCode.Error);
+#if NET9_0_OR_GREATER
+			activity.AddException(exception); // useful when exception is not reported via logging
+#endif
+		}
+
 		if (exception is OperationFailedException)
 		{
 			// see ServerExceptionsGrpcClientInterceptor - gets propagated to HxMessenger + client-side OperationFailedException
@@ -41,8 +52,7 @@ public class ServerExceptionsGrpcServerInterceptor : ServerExceptionsInterceptor
 			status = new Status(StatusCode.NotFound, exception.Message);
 			_logger.LogInformation(exception, exception.Message);
 		}
-		else if ((exception is OperationCanceledException)
-			|| ((exception.GetType().Name == "SqlException") && exception.Message.Contains("Operation cancelled by user."))) // e.g. System.Data.SqlClient.SqlException
+		else if (Havit.Core.CancellationExceptionChecker.IsCancellationException(exception))
 		{
 			status = new Status(StatusCode.Cancelled, exception.Message);
 			_logger.LogInformation(exception, exception.Message);
