@@ -292,7 +292,7 @@
 
 			@if (((ContentNavigationModeEffective == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore)) && (PageSizeEffective > 0) && (_totalCount != null))
 			{
-				if ((((CurrentUserState.PageIndex + 1) * PageSizeEffective) + CurrentUserState.LoadMoreAdditionalItemsCount) < _totalCount.Value)
+				if (_loadMoreInProgress || (((CurrentUserState.PageIndex + 1) * PageSizeEffective) + CurrentUserState.LoadMoreAdditionalItemsCount) < _totalCount.Value)
 				{
 					<div class="hx-grid-load-more-container">
 						@if (LoadMoreTemplate != null)

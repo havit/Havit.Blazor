@@ -385,6 +385,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	private System.Timers.Timer _dataProviderInProgressDelayTimer;
 	private bool _dataProviderInProgressAfterDelay;
 	private bool _virtualizeDataProviderInProgressFromExplicitRefreshRequest;
+	private bool _loadMoreInProgress;
 
 	/// <summary>
 	/// Constructor.
@@ -725,8 +726,17 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	{
 		Contract.Requires<InvalidOperationException>((ContentNavigationMode == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore), $"{nameof(LoadMoreAsync)} method can be used only with {nameof(ContentNavigationMode)}.{nameof(GridContentNavigationMode.LoadMore)} or {nameof(ContentNavigationMode)}.{nameof(GridContentNavigationMode.PaginationAndLoadMore)}.");
 
-		await IncreaseCurrentLoadMoreAdditionalItemsCountWithEventCallback(PageSizeEffective);
-		await RefreshPaginationOrLoadMoreDataCoreAsync();
+		_loadMoreInProgress = true;
+		try
+		{
+			await IncreaseCurrentLoadMoreAdditionalItemsCountWithEventCallback(PageSizeEffective);
+			await RefreshPaginationOrLoadMoreDataCoreAsync();
+		}
+		finally
+		{
+			_loadMoreInProgress = false;
+			StateHasChanged();
+		}
 	}
 
 	private async Task ResetGridStateAsync(GridStateResetOptions resetOptions)
