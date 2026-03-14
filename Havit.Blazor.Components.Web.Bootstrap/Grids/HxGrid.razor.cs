@@ -735,6 +735,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 		finally
 		{
 			_loadMoreInProgress = false;
+			StateHasChanged();
 		}
 	}
 
