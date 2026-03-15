@@ -8,6 +8,7 @@ public partial class Search : IAsyncDisposable
 	[Inject] private IJSRuntime JSRuntime { get; set; }
 
 	private IJSObjectReference _jsModule;
+	private DotNetObjectReference<Search> _dotNetObjectReference;
 	private bool _isMac;
 
 	private SearchItem SelectedResult
@@ -242,18 +243,16 @@ public partial class Search : IAsyncDisposable
 		{
 			_isMac = await JSRuntime.InvokeAsync<bool>("eval", "navigator.platform.indexOf('Mac') > -1");
 
+			_dotNetObjectReference = DotNetObjectReference.Create(this);
 			_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Shared/Components/Search/Search.razor.js");
-			await _jsModule.InvokeVoidAsync("initializeGlobalSearchShortcut", DotNetObjectReference.Create(this));
+			await _jsModule.InvokeVoidAsync("initializeGlobalSearchShortcut", _dotNetObjectReference);
 
-			if (_autosuggest is not null)
-			{
-				await _autosuggest.FocusAsync();
-			}
+			await FocusSearchInputAsync();
 		}
 	}
 
 	[JSInvokable]
-	public async Task FocusSearchInput()
+	public async Task FocusSearchInputAsync()
 	{
 		if (_autosuggest is not null)
 		{
@@ -293,5 +292,6 @@ public partial class Search : IAsyncDisposable
 			await _jsModule.InvokeVoidAsync("disposeGlobalSearchShortcut");
 			await _jsModule.DisposeAsync();
 		}
+		_dotNetObjectReference?.Dispose();
 	}
 }

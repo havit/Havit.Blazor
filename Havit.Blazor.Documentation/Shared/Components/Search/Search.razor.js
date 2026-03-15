@@ -1,19 +1,16 @@
-let _handleKeyDown = null;
+function handleKeyDown(event) {
+	if ((event.ctrlKey || event.metaKey) && event.key?.toLowerCase() === 'k') {
+		event.preventDefault();
+		handleKeyDown._dotnetObjectReference.invokeMethodAsync('FocusSearchInputAsync');
+	}
+}
 
 export function initializeGlobalSearchShortcut(searchDotnetObjectReference) {
-	_handleKeyDown = (event) => {
-		if ((event.ctrlKey || event.metaKey) && event.key?.toLowerCase() === 'k') {
-			event.preventDefault();
-			searchDotnetObjectReference.invokeMethodAsync('FocusSearchInput');
-		}
-	};
-
-	window.addEventListener('keydown', _handleKeyDown);
+	handleKeyDown._dotnetObjectReference = searchDotnetObjectReference;
+	window.addEventListener('keydown', handleKeyDown);
 }
 
 export function disposeGlobalSearchShortcut() {
-	if (_handleKeyDown) {
-		window.removeEventListener('keydown', _handleKeyDown);
-		_handleKeyDown = null;
-	}
+	window.removeEventListener('keydown', handleKeyDown);
+	handleKeyDown._dotnetObjectReference = null;
 }
