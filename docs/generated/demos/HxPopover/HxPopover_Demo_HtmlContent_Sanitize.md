@@ -1,7 +1,0 @@
-﻿# HxPopover_Demo_HtmlContent_Sanitize.razor
-
-```razor
-<HxPopover Title="<strong>Popover</strong> with button" Content="@("<button onclick='confirm()' class='btn btn-primary'>Button</button>")" Html="true" Sanitize="false">
-	<HxButton Color="ThemeColor.Primary">Click to toggle popover</HxButton>
-</HxPopover>
-```

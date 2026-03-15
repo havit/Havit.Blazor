@@ -1,7 +1,7 @@
-@attribute [Route("/components/" + nameof(HxToast))]
+﻿@attribute [Route("/components/" + nameof(HxToast))]
 @attribute [Route("/components/" + nameof(HxToastContainer))]
 
-<ApiDoc Type="typeof(HxToast)">
+<ComponentApiDoc Type="typeof(HxToast)">
 	<MainContent>
 		<DocHeading Title="Basic usage" />
 		<p>
@@ -20,10 +20,10 @@
 		</DocAlert>
 	</MainContent>
 	<CssVariables>
-		<ApiDocCssVariable Name="--hx-toast-container-margin" Default="0.5rem">
+		<ComponentApiDocCssVariable Name="--hx-toast-container-margin" Default="0.5rem">
 			Margin of the container.
-		</ApiDocCssVariable>
+		</ComponentApiDocCssVariable>
 	</CssVariables>
-</ApiDoc>
+</ComponentApiDoc>
 
-<ApiDoc Type="typeof(HxToastContainer)" />
+<ComponentApiDoc Type="typeof(HxToastContainer)" />

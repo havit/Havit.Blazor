@@ -1,5 +1,6 @@
 ﻿using Havit.Blazor.Components.Web.Infrastructure;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.Extensions.Localization;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -23,8 +24,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 			Color = ThemeColor.None,
 			CssClass = null,
 			Outline = false,
-			Icon = null,
-			TooltipSettings = new TooltipSettings()
+			Icon = null
 		};
 	}
 
@@ -101,11 +101,6 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	[Parameter] public string IconCssClass { get; set; }
 	protected string IconCssClassEffective => IconCssClass ?? GetSettings()?.IconCssClass ?? GetDefaults().IconCssClass;
 
-	/// <summary>
-	/// Defines the <c>aria-label</c> of the button. Should be used to provide an accessible name for icon-only buttons.
-	/// </summary>
-	[Parameter] public string AriaLabel { get; set; }
-
 	/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 	[Parameter] public bool? Enabled { get; set; }
 
@@ -133,7 +128,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// <summary>
 	/// Tooltip placement.
 	/// </summary>
-	[Parameter] public TooltipPlacement? TooltipPlacement { get; set; }
+	[Parameter] public TooltipPlacement TooltipPlacement { get; set; }
 
 	/// <summary>
 	/// Custom CSS class to render with the tooltip.
@@ -150,12 +145,6 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// If set, the <c>span</c> wrapper will be rendered no matter whether the <see cref="Tooltip"/> text is set or not.
 	/// </summary>
 	[Parameter] public string TooltipWrapperCssClass { get; set; }
-
-	/// <summary>
-	/// Tooltip settings (overrides <see cref="ButtonSettings.TooltipSettings"/>, overridden by individual Tooltip* parameters).
-	/// </summary>
-	[Parameter] public TooltipSettings TooltipSettings { get; set; }
-	protected TooltipSettings TooltipSettingsEffective => TooltipSettings ?? GetSettings()?.TooltipSettings ?? GetDefaults().TooltipSettings;
 
 	/// <summary>
 	/// Raised after the button is clicked.

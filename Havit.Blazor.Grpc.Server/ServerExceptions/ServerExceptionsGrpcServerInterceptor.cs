@@ -1,8 +1,6 @@
-﻿using System.Diagnostics;
-using System.Security;
+﻿using System.Security;
 using Grpc.Core;
 using Havit.AspNetCore.ExceptionMonitoring.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using ProtoBuf.Grpc.Configuration;
 
@@ -13,13 +11,11 @@ public class ServerExceptionsGrpcServerInterceptor : ServerExceptionsInterceptor
 {
 	private readonly ILogger<ServerExceptionsGrpcServerInterceptor> _logger;
 	private readonly IExceptionMonitoringService _exceptionMonitoringService;
-	private readonly IHttpContextAccessor _httpContextAccessor;
 
-	public ServerExceptionsGrpcServerInterceptor(ILogger<ServerExceptionsGrpcServerInterceptor> logger, IExceptionMonitoringService exceptionMonitoringService, IHttpContextAccessor httpContextAccessor)
+	public ServerExceptionsGrpcServerInterceptor(ILogger<ServerExceptionsGrpcServerInterceptor> logger, IExceptionMonitoringService exceptionMonitoringService)
 	{
 		_logger = logger;
 		_exceptionMonitoringService = exceptionMonitoringService;
-		_httpContextAccessor = httpContextAccessor;
 	}
 
 	protected override bool OnException(Exception exception, out Status status)
@@ -28,16 +24,6 @@ public class ServerExceptionsGrpcServerInterceptor : ServerExceptionsInterceptor
 		{
 			status = default;
 			return false;
-		}
-
-		// Report error in OpenTelemetry
-		var activity = Activity.Current;
-		if (activity?.Status == ActivityStatusCode.Unset)
-		{
-			activity.SetStatus(ActivityStatusCode.Error);
-#if NET9_0_OR_GREATER
-			activity.AddException(exception); // useful when exception is not reported via logging
-#endif
 		}
 
 		if (exception is OperationFailedException)
@@ -52,7 +38,8 @@ public class ServerExceptionsGrpcServerInterceptor : ServerExceptionsInterceptor
 			status = new Status(StatusCode.NotFound, exception.Message);
 			_logger.LogInformation(exception, exception.Message);
 		}
-		else if (Havit.Core.CancellationExceptionChecker.IsCancellationException(exception))
+		else if ((exception is OperationCanceledException)
+			|| ((exception.GetType().Name == "SqlException") && exception.Message.Contains("Operation cancelled by user."))) // e.g. System.Data.SqlClient.SqlException
 		{
 			status = new Status(StatusCode.Cancelled, exception.Message);
 			_logger.LogInformation(exception, exception.Message);
@@ -70,7 +57,7 @@ public class ServerExceptionsGrpcServerInterceptor : ServerExceptionsInterceptor
 			}, exception.ToString());
 
 			_logger.LogError(exception, exception.Message); // passes exception to ApplicationInsights tracking (by default, only Warning and higher levels get tracked)
-			_exceptionMonitoringService.HandleException(exception, _httpContextAccessor.HttpContext); // passes exception with context to SmtpExceptionMonitoring (errors@havit.cz)
+			_exceptionMonitoringService.HandleException(exception); // passes exception to SmtpExceptionMonitoring (errors@havit.cz)
 		}
 		return true;
 	}

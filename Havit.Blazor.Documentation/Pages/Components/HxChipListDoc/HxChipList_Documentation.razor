@@ -1,6 +1,6 @@
-@attribute [Route("/components/" + nameof(HxChipList))]
+﻿@attribute [Route("/components/" + nameof(HxChipList))]
 
-<ApiDoc Type="typeof(HxChipList)">
+<ComponentApiDoc Type="typeof(HxChipList)">
     <MainContent>
         <DocHeading Title="Basic usage" />
         <Demo Type="typeof(HxChipList_Demo)" Tabs="false" />
@@ -10,24 +10,24 @@
 		<Demo Type="typeof(HxChipList_Demo_Reset)" />
 	</MainContent>
     <CssVariables>
-        <ApiDocCssVariable Name="--hx-chip-list-chip-margin" Default=".25rem">
+        <ComponentApiDocCssVariable Name="--hx-chip-list-chip-margin" Default=".25rem">
             Gap between chips.
-        </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-chip-list-chip-gap" Default=".25rem">
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-chip-list-chip-gap" Default=".25rem">
             Gap between chip content.
-        </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-chip-list-chip-remove-btn-margin" Default=".5">
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-chip-list-chip-remove-btn-margin" Default=".5">
             Initial opacity of chip remove button.
-        </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-chip-list-chip-label-font-weight" Default="400">
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-chip-list-chip-label-font-weight" Default="400">
             Font weight of chip label.
-        </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-chip-list-chip-label-opacity" Default="1">
-            Opacity of chip label. If lower than 1, you should check the contrast in your application. It may not fulfill accessibility guidelines. (EN 301 549: 11.1.4.3, WCAG 2.1 1.4.3)
-        </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-chip-list-chip-reset-btn-padding" Default=".45em .75em">
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-chip-list-chip-label-opacity" Default=".5">
+            Opacity of chip label.
+        </ComponentApiDocCssVariable>
+        <ComponentApiDocCssVariable Name="--hx-chip-list-chip-reset-btn-padding" Default=".45em .75em">
             Reset button padding.
-        </ApiDocCssVariable>
+        </ComponentApiDocCssVariable>
     </CssVariables>
 
-</ApiDoc>
+</ComponentApiDoc>

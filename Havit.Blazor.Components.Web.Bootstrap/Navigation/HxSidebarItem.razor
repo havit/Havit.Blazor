@@ -44,8 +44,6 @@
 						   onmouseleave="bootstrap.Dropdown.getInstance(event.target)?.hide()"
 						   data-bs-toggle="@(!String.IsNullOrEmpty(Href) ? null : "collapse")"
 						   data-bs-target="@(!ParentSidebar.Collapsed ? "#" + _id : null)"
-						   data-bs-popper-config='{"strategy": "fixed"}'
-						   data-bs-boundary="viewport"
 						   data-bs-offset="0,0"
 						   aria-expanded="@(expanded ? "true" : "false")">
 
@@ -57,7 +55,6 @@
 														 Expanded="expanded" />
 
 					<HxDropdownMenu CssClass="hx-sidebar-subitems">
-						<HxDropdownHeader>@Text</HxDropdownHeader>
 						@ChildContent
 					</HxDropdownMenu>
 

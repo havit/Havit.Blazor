@@ -1,7 +1,7 @@
-@attribute [Route("/components/" + nameof(HxSwitch))]
+﻿@attribute [Route("/components/" + nameof(HxSwitch))]
 @attribute [Route("/components/HxInputSwitch")]
 
-<ApiDoc Type="typeof(HxSwitch)">
+<ComponentApiDoc Type="typeof(HxSwitch)">
 
     <DocAlert Type="DocAlertType.Info">
         <code>HxSwitch</code> replaces the former <code>HxInputSwitch</code> component, which was dropped in v4.0.0.
@@ -17,4 +17,4 @@
     <DocHeading Title="Reverse" />
     <p>Put the switch on the opposite side by setting the <code>Reverse</code> parameter to <code>true</code>.</p>
     <Demo Type="typeof(HxSwitch_Demo_Reverse)" />
-</ApiDoc>
+</ComponentApiDoc>

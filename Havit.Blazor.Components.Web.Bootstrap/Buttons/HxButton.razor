@@ -5,8 +5,7 @@
            Placement="@TooltipPlacement"
            Container="@TooltipContainer"
            CssClass="@TooltipCssClass"
-           WrapperCssClass="@GetTooltipWrapperCssClass()"
-           Settings="@TooltipSettingsEffective">
+           WrapperCssClass="@GetTooltipWrapperCssClass()">
     <button @ref="buttonElementReference"
             type="@GetButtonType()"
             class="@GetButtonCssClass()"
@@ -15,7 +14,6 @@
 			@onclick:preventDefault="OnClickPreventDefault"
 			disabled="@DisabledEffective"
             form="@FormId"
-            aria-label="@AriaLabel"
             @attributes="this.AdditionalAttributes">
 
         @if ((IconPlacementEffective == ButtonIconPlacement.Start) && ((IconEffective is not null) || SpinnerEffective))

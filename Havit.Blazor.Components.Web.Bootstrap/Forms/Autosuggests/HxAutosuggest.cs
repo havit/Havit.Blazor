@@ -214,6 +214,15 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	}
 
 	/// <inheritdoc />
+	protected override void RenderChipGenerator(RenderTreeBuilder builder)
+	{
+		if (!String.IsNullOrEmpty(_hxAutosuggestInternalComponent?.ChipValue))
+		{
+			base.RenderChipGenerator(builder);
+		}
+	}
+
+	/// <inheritdoc />
 	protected override void RenderChipValue(RenderTreeBuilder builder)
 	{
 		builder.AddContent(0, _hxAutosuggestInternalComponent.ChipValue);

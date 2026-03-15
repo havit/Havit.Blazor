@@ -71,9 +71,9 @@ public static class ApiRenderer
 		return typeName;
 	}
 
-	public static string FormatMethodReturnType(Type returnType, ApiDocModel model)
+	public static string FormatMethodReturnType(Type returnType, ComponentApiDocModel model)
 	{
-		var formattedName = FormatType(returnType);
+		string formattedName = FormatType(returnType);
 
 		if (!formattedName.Contains("IAsyncResult"))
 		{
@@ -83,8 +83,8 @@ public static class ApiRenderer
 		string typeName = null;
 		if (!string.IsNullOrEmpty(model.DelegateSignature))
 		{
-			var charSplit = model.DelegateSignature.Split(new[] { '<', '>', '/', '\"' });
-			var slashSplit = model.DelegateSignature.Split("&lt;");
+			string[] charSplit = model.DelegateSignature.Split(new[] { '<', '>', '/', '\"' });
+			string[] slashSplit = model.DelegateSignature.Split("&lt;");
 
 			var charSplitResult = charSplit.ToList().FirstOrDefault(s => s.Contains("Result"));
 			if (charSplitResult.Contains("&lt;"))
@@ -112,7 +112,7 @@ public static class ApiRenderer
 		var genericArguments = type.GetGenericTypeDefinition()
 			.GetGenericArguments();
 		var genericArgumentNamesFromFullTypeName = GetGenericParameterNamesFromFullTypeName(typeName);
-		List<string> genericParameterNames = [];
+		List<string> genericParameterNames = new();
 
 		if (genericArgumentNamesFromFullTypeName.Count != genericArguments.Length)
 		{
@@ -146,17 +146,17 @@ public static class ApiRenderer
 
 	public static string RemoveSpecialCharacters(string text)
 	{
-		var regex = new Regex("[^a-zA-Z]");
+		Regex regex = new("[^a-zA-Z]");
 		return regex.Replace(text, "");
 	}
 
 	public static string GenerateLinkForInternalType(string typeName, bool checkForInternal = true, string linkText = null)
 	{
-		var typeNameForOwnDocumentation = typeName.Replace("?", "");
-		var isGeneric = false;
+		string typeNameForOwnDocumentation = typeName.Replace("?", "");
+		bool generic = false;
 		if (Regex.Matches(typeNameForOwnDocumentation, "<").Count == 1 && !typeNameForOwnDocumentation.Contains("Delegate")) // When a delegate is presented, we don't want to show only the generic data type's name contained in the signature but the whole name.
 		{
-			isGeneric = true;
+			generic = true;
 
 			typeNameForOwnDocumentation = Regex.Replace(typeNameForOwnDocumentation, "^[^<]+", "");
 			typeNameForOwnDocumentation = Regex.Replace(typeNameForOwnDocumentation, "<[a-zA-Z]+>", capture => $"{capture.Value[1..^1]}");
@@ -164,7 +164,7 @@ public static class ApiRenderer
 
 		if (!checkForInternal || ApiTypeHelper.IsLibraryType(typeNameForOwnDocumentation))
 		{
-			return GenerateLinkTagForInternalType(typeName, typeNameForOwnDocumentation, linkText, isGeneric);
+			return GenerateLinkTagForInternalType(typeName, typeNameForOwnDocumentation, linkText, generic);
 		}
 		else if (ApiTypeHelper.GetType(typeName, includeTypesContainingTypeName: false) is not null)
 		{
@@ -186,7 +186,7 @@ public static class ApiRenderer
 			}
 		}
 
-		var aroundLinkTexts = typeName.Split(typeNameForOwnDocumentation);
+		string[] aroundLinkTexts = typeName.Split(typeNameForOwnDocumentation);
 		if (generic && aroundLinkTexts.Length == 2)
 		{
 			return $"{aroundLinkTexts[0]}<a href=\"/types/{HttpUtility.UrlEncode(typeNameForOwnDocumentation)}\">{HttpUtility.HtmlEncode(linkText)}</a>{aroundLinkTexts[^1]}</code>";

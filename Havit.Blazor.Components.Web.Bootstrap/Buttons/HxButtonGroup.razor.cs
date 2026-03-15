@@ -6,8 +6,6 @@
 /// </summary>
 public partial class HxButtonGroup
 {
-	internal const string InButtonGroupCascadingValueName = nameof(HxButtonGroup) + "_InButtonGroup_CascadingValue";
-
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	/// <summary>

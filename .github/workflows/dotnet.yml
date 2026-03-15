@@ -1,10 +1,10 @@
-﻿name: .NET
+name: .NET
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -12,19 +12,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6
-    - name: Setup .NET
+    - uses: actions/checkout@v5
+    - name: Setup .NET 9
       uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: |
-          8.0.x
-          9.0.x
-          10.0.x
+        dotnet-version: 9.0.x
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: 8.0.x
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --no-restore -c Release -p:TreatWarningsAsErrors=true
-    - name: Install Playwright browsers
-      run: pwsh Havit.Blazor.E2ETests/bin/Release/net10.0/playwright.ps1 install --with-deps
+      run: dotnet build --no-restore -p:TreatWarningsAsErrors=true
     - name: Test
-      run: dotnet test --no-build -c Release --verbosity normal
+      run: dotnet test --no-build --verbosity normal

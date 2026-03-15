@@ -17,12 +17,7 @@
 </EditForm>
 
 @code {
-	[SupplyParameterFromForm] public Model FormModel { get; set; }
-
-	protected override void OnParametersSet()
-	{
-		FormModel ??= new Model();
-	}
+	[SupplyParameterFromForm] public Model FormModel { get; set; } = new Model();
 
 	private void HandleSubmit()
 	{

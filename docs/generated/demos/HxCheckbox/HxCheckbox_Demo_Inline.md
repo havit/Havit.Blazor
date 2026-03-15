@@ -1,9 +1,0 @@
-﻿# HxCheckbox_Demo_Inline.razor
-
-```razor
-<HxCheckbox @bind-Value="isChecked1" Text="First checkbox" Inline="true" />
-<HxCheckbox @bind-Value="isChecked2" Text="Second checkbox" Inline="true" />
-@code {
-    bool isChecked1, isChecked2;
-} 
-```

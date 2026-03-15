@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
-
 public static class ButtonSizeExtensions
 {
 	public static string ToButtonSizeCssClass(this ButtonSize size)

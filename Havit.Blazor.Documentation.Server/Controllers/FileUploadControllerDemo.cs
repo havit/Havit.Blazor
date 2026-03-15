@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Net.Http.Headers;
 
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
-
 namespace Havit.Blazor.Documentation.Server.Controllers;
 
 public class FileUploadControllerDemo : ControllerBase

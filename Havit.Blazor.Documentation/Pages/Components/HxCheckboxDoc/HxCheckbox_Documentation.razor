@@ -1,8 +1,7 @@
-@attribute [Route("/components/" + nameof(HxCheckbox))]
+﻿@attribute [Route("/components/" + nameof(HxCheckbox))]
 @attribute [Route("/components/HxInputCheckbox")]
-@using Havit.Blazor.Documentation.Pages.Components.HxButtonGroupDoc
 
-<ApiDoc Type="typeof(HxCheckbox)">
+<ComponentApiDoc Type="typeof(HxCheckbox)">
 
     <DocAlert Type="DocAlertType.Info">
         <code>HxCheckbox</code> replaces the former <code>HxInputCheckbox</code> component, which was dropped in v4.0.0.
@@ -29,11 +28,6 @@
     <p>Put the checkbox on the opposite side by setting the <code>Reverse</code> parameter to <code>true</code>.</p>
     <Demo Type="typeof(HxCheckbox_Demo_Reverse)" />
 
-    <DocHeading Title="Render modes" />
-    <p>The <code>RenderMode</code> parameter allows you to choose between different visual representations of the checkbox.</p>
-    <Demo Type="typeof(HxCheckbox_Demo_RenderModes)" />
-
     <DocHeading Title="Button groups" />
     <p><code>HxCheckbox</code> can be used within <a href="/components/HxButtonGroup#checkboxes-and-radios">HxButtonGroup</a>.</p>
-	<Demo Type="typeof(HxButtonGroup_Demo_Checkboxes)" />
-</ApiDoc>
+</ComponentApiDoc>

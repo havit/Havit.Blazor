@@ -55,12 +55,11 @@ public partial class DemoDataService : IDemoDataService
 
 		await Task.Delay(80, cancellationToken); // simulate server call
 
-		IEnumerable<EmployeeDto> filteredEmployees = GetFilteredEmployees(filter);
-		var data = filteredEmployees.Skip(startIndex).Take(count ?? Int32.MaxValue).ToList();
+		var data = GetFilteredEmployees(filter).Skip(startIndex).Take(count ?? Int32.MaxValue).ToList();
 		return new()
 		{
 			Data = data,
-			TotalCount = filteredEmployees.Count()
+			TotalCount = data.Count
 		};
 	}
 

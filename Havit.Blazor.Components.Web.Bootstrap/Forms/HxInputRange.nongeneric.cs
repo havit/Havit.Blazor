@@ -1,6 +1,6 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
-public sealed class HxInputRange
+public static class HxInputRange
 {
 	/// <summary>
 	/// Application-wide defaults for the <see cref="HxInputRange{TValue}"/>.

@@ -4,6 +4,7 @@ using Havit.Blazor.Documentation.Shared.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Havit.Blazor.Documentation.Tests;
 
@@ -11,7 +12,7 @@ namespace Havit.Blazor.Documentation.Tests;
 public class DemosSmokeTests
 {
 	[TestMethod]
-	[DynamicData(nameof(GetDemos))]
+	[DynamicData(nameof(GetDemos), DynamicDataSourceType.Method)]
 	public void DocumentationDemo_SmokeTest(Type demoComponent)
 	{
 		// Arrange

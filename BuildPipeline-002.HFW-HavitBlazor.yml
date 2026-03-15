@@ -1,10 +1,10 @@
-﻿name: $(Build.DefinitionName)-$(Date:yyyy-MM-dd).$(Rev:rr)B
+name: $(Build.DefinitionName)-$(Date:yyyy-MM-dd).$(Rev:rr)B
 
 trigger:
   batch: true
   branches:
     include:
-    - main
+    - master
 
 pr: none
 

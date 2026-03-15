@@ -1,6 +1,4 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 <div class="@CssClassHelper.Combine(GetCoreCssClass(), GetSizeCssClass(), CssClass)" role="group" aria-label="@AriaLabel">
-    <CascadingValue Name="@InButtonGroupCascadingValueName" Value="true" IsFixed="true">
-        @ChildContent
-	</CascadingValue>
+	@ChildContent
 </div>

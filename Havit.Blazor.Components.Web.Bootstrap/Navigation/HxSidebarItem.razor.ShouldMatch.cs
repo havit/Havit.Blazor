@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private const string EnableMatchAllForQueryStringAndFragmentSwitchKey = "Microsoft.AspNetCore.Components.Routing.NavLink.EnableMatchAllForQueryStringAndFragment";
 		private static readonly bool _enableMatchAllForQueryStringAndFragment = AppContext.TryGetSwitch(EnableMatchAllForQueryStringAndFragmentSwitchKey, out var switchValue) && switchValue;
 		private string _hrefAbsolute;
-		protected virtual bool ShouldMatch(string uriAbsolute)
+		protected virtual bool ShouldMatch(string currentUriAbsolute)
 		{
 			if (_hrefAbsolute == null)
 			{
@@ -20,16 +20,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 
-			var uriAbsoluteSpan = uriAbsolute.AsSpan();
+			var currentUriAbsoluteSpan = currentUriAbsolute.AsSpan();
 			var hrefAbsoluteSpan = _hrefAbsolute.AsSpan();
-			if (EqualsHrefExactlyOrIfTrailingSlashAdded(uriAbsoluteSpan, hrefAbsoluteSpan))
+			if (EqualsHrefExactlyOrIfTrailingSlashAdded(currentUriAbsoluteSpan, hrefAbsoluteSpan))
 			{
 				return true;
 			}
 
 
 			if (Match == NavLinkMatch.Prefix
-				&& IsStrictlyPrefixWithSeparator(uriAbsolute, _hrefAbsolute))
+				&& IsStrictlyPrefixWithSeparator(currentUriAbsolute, _hrefAbsolute))
 			{
 				return true;
 			}
@@ -41,7 +41,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 			}
 
 
-			var uriWithoutQueryAndFragment = GetUriIgnoreQueryAndFragment(uriAbsoluteSpan);
+			var uriWithoutQueryAndFragment = GetUriIgnoreQueryAndFragment(currentUriAbsoluteSpan);
 			if (EqualsHrefExactlyOrIfTrailingSlashAdded(uriWithoutQueryAndFragment, hrefAbsoluteSpan))
 			{
 				return true;
@@ -91,15 +91,15 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 		private static readonly CaseInsensitiveCharComparer CaseInsensitiveComparer = new CaseInsensitiveCharComparer();
 
 
-		private static bool EqualsHrefExactlyOrIfTrailingSlashAdded(ReadOnlySpan<char> uriAbsolute, ReadOnlySpan<char> hrefAbsolute)
+		private static bool EqualsHrefExactlyOrIfTrailingSlashAdded(ReadOnlySpan<char> currentUriAbsolute, ReadOnlySpan<char> hrefAbsolute)
 		{
-			if (uriAbsolute.SequenceEqual(hrefAbsolute, CaseInsensitiveComparer))
+			if (currentUriAbsolute.SequenceEqual(hrefAbsolute, CaseInsensitiveComparer))
 			{
 				return true;
 			}
 
 
-			if (uriAbsolute.Length == hrefAbsolute.Length - 1)
+			if (currentUriAbsolute.Length == hrefAbsolute.Length - 1)
 			{
 				// Special case: highlight links to http://host/path/ even if you're
 				// at http://host/path (with no trailing slash)
@@ -110,7 +110,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap
 				// for http://host/vdir as they do for host://host/vdir/ as it's no
 				// good to display a blank page in that case.
 				if (hrefAbsolute[hrefAbsolute.Length - 1] == '/' &&
-					uriAbsolute.SequenceEqual(hrefAbsolute.Slice(0, hrefAbsolute.Length - 1), CaseInsensitiveComparer))
+					currentUriAbsolute.SequenceEqual(hrefAbsolute.Slice(0, hrefAbsolute.Length - 1), CaseInsensitiveComparer))
 				{
 					return true;
 				}
