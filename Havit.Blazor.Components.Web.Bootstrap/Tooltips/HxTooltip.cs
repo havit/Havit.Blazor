@@ -53,20 +53,20 @@ public class HxTooltip : HxTooltipInternalBase
 	}
 
 	/// <summary>
-	/// Tooltip placement. The default is <see cref="TooltipPlacement.Top"/>.
+	/// Tooltip placement. The default is "not set" (which Bootstrap defaults to <code>top</code>).
 	/// </summary>
 	[Parameter]
-	public TooltipPlacement Placement
+	public TooltipPlacement? Placement
 	{
 		get => PlacementInternal;
 		set => PlacementInternal = value;
 	}
 
 	/// <summary>
-	/// Tooltip trigger(s). The default is <c><see cref="TooltipTrigger.Hover"/> | <see cref="TooltipTrigger.Focus"/></c>.
+	/// Tooltip trigger(s). The default is "not set" (which Bootstrap defaults to <code>hover</code> + <code>focus</code>).
 	/// </summary>
 	[Parameter]
-	public TooltipTrigger Trigger
+	public TooltipTrigger? Trigger
 	{
 		get => TriggerInternal;
 		set => TriggerInternal = value;
@@ -75,12 +75,6 @@ public class HxTooltip : HxTooltipInternalBase
 
 	protected override string JsModuleName => nameof(HxTooltip);
 	protected override string DataBsToggle => "tooltip";
-
-	public HxTooltip()
-	{
-		Placement = TooltipPlacement.Top;
-		Trigger = TooltipTrigger.Hover | TooltipTrigger.Focus;
-	}
 
 	protected override Dictionary<string, string> GetNewContentForUpdate()
 	{

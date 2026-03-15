@@ -1,0 +1,55 @@
+﻿# HxGrid_Demo_StatePersisting.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxGrid TItem="EmployeeDto"
+		DataProvider="GetGridData"
+		@bind-CurrentUserState="gridUserState"
+		@bind-CurrentUserState:after="StoreGridUserState"
+		PageSize="5"
+		Responsive="true">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+	</Columns>
+</HxGrid>
+
+<HxInputTextArea Label="Grid user state JSON serialization (editable)" @bind-Value="serializedGridUserState" @bind-Value:after="LoadSerializedUserState" />
+
+@code {
+	private GridUserState gridUserState = new();
+	private string serializedGridUserState; // replace this field with your own storage (e.g. local storage or database)
+
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken);
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = response.Data,
+				TotalCount = response.TotalCount
+			};
+	}
+
+	private void StoreGridUserState()
+	{
+		serializedGridUserState = JsonSerializer.Serialize(gridUserState);
+	}
+
+	private void LoadSerializedUserState()
+	{
+		try
+		{
+			gridUserState = JsonSerializer.Deserialize<GridUserState>(serializedGridUserState);
+		}
+		catch (JsonException)
+		{
+			// invalid state serialization
+		}
+	}
+}
+
+```

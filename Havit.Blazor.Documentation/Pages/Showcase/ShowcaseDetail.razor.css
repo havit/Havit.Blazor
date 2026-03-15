@@ -1,0 +1,23 @@
+﻿.showcase-detail-header {
+	--hero-opacity: .15;
+	height: 200px;
+}
+
+::deep .showcase-navigation-link {
+	flex: 1;
+}
+
+@media (max-width: 767px) {
+	.current {
+		width: 100%;
+	}
+
+	::deep .showcase-navigation-link {
+		flex: unset;
+	}
+
+	.showcase-detail-header {
+		height: unset;
+		--hero-position-y: 60%;
+	}
+}

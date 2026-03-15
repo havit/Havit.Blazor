@@ -1,0 +1,37 @@
+﻿# HxCarousel_Demo_Events.razor
+
+```razor
+<HxCarousel Controls="true" OnSlide="IncrementSlideCount" Interval="1000">
+	<HxCarouselItem Active="true">
+		<DemoImage Text="First Slide" Color="#666" />
+	</HxCarouselItem>
+	<HxCarouselItem>
+		<DemoImage Text="Second Slide" Color="#555" />
+	</HxCarouselItem>
+	<HxCarouselItem>
+		<DemoImage Text="Third Slide" Color="#444" />
+	</HxCarouselItem>
+</HxCarousel>
+
+<p>Slide count: @slideCount</p>
+@if (eventArgs is not null)
+{
+	<p>
+		From: @eventArgs.From <br />
+		To: @eventArgs.To <br />
+		Direction: @eventArgs.Direction
+	</p>
+}
+
+@code {
+	private int slideCount;
+	private CarouselSlideEventArgs eventArgs;
+
+	private void IncrementSlideCount(CarouselSlideEventArgs eventArgs)
+	{
+		this.eventArgs = eventArgs;
+		slideCount++;
+	}
+}
+
+```

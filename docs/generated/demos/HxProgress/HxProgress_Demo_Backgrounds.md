@@ -1,0 +1,26 @@
+﻿# HxProgress_Demo_Backgrounds.razor
+
+```razor
+<HxProgress>
+    <HxProgressBar Value="25" Color="ThemeColor.Success" />
+</HxProgress>
+
+<br />
+
+<HxProgress>
+    <HxProgressBar Value="50" Color="ThemeColor.Info" />
+</HxProgress>
+
+<br />
+
+<HxProgress>
+    <HxProgressBar Value="75" Color="ThemeColor.Warning" />
+</HxProgress>
+
+<br />
+
+<HxProgress>
+    <HxProgressBar Value="100" Color="ThemeColor.Danger" />
+</HxProgress>
+
+```

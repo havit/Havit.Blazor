@@ -1,4 +1,4 @@
-﻿@attribute [Route("/components/" + nameof(HxDropdown))]
+@attribute [Route("/components/" + nameof(HxDropdown))]
 @attribute [Route("/components/HxDropdownToggle")]
 @attribute [Route("/components/" + nameof(HxDropdownToggleElement))]
 @attribute [Route("/components/" + nameof(HxDropdownMenu))]
@@ -11,7 +11,7 @@
 @using Components.HxNavDoc
 
 
-<ComponentApiDoc Type="typeof(HxDropdown)">
+<ApiDoc Type="typeof(HxDropdown)">
 	<MainContent>
 		<DocHeading Title="Basic usage" />
 		<p>
@@ -72,17 +72,17 @@
 		<Demo Type="typeof(HxDropdown_Demo_Icons)" />
 	</MainContent>
 	<CssVariables>
-		<ComponentApiDocCssVariable Name="--hx-dropdown-menu-item-icon-margin" Default="0 .5rem 0 0">
+		<ApiDocCssVariable Name="--hx-dropdown-menu-item-icon-margin" Default="0 .5rem 0 0">
 			Margin of the item icon.
-		</ComponentApiDocCssVariable>
+		</ApiDocCssVariable>
 	</CssVariables>
-</ComponentApiDoc>
+</ApiDoc>
 
-<ComponentApiDoc Type="typeof(HxDropdownToggleElement)" />
-<ComponentApiDoc Type="typeof(HxDropdownMenu)" />
-<ComponentApiDoc Type="typeof(HxDropdownContent)" />
-<ComponentApiDoc Type="typeof(HxDropdownHeader)" />
-<ComponentApiDoc Type="typeof(HxDropdownItemNavLink)" />
-<ComponentApiDoc Type="typeof(HxDropdownItem)" />
-<ComponentApiDoc Type="typeof(HxDropdownItemText)" />
-<ComponentApiDoc Type="typeof(HxDropdownDivider)" />
+<ApiDoc Type="typeof(HxDropdownToggleElement)" />
+<ApiDoc Type="typeof(HxDropdownMenu)" />
+<ApiDoc Type="typeof(HxDropdownContent)" />
+<ApiDoc Type="typeof(HxDropdownHeader)" />
+<ApiDoc Type="typeof(HxDropdownItemNavLink)" />
+<ApiDoc Type="typeof(HxDropdownItem)" />
+<ApiDoc Type="typeof(HxDropdownItemText)" />
+<ApiDoc Type="typeof(HxDropdownDivider)" />

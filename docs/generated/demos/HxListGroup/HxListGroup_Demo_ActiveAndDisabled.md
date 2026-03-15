@@ -1,0 +1,12 @@
+﻿# HxListGroup_Demo_ActiveAndDisabled.razor
+
+```razor
+<HxListGroup>
+    <HxListGroupItem Active="true">An active item</HxListGroupItem>
+    <HxListGroupItem>A second item</HxListGroupItem>
+    <HxListGroupItem>A third item</HxListGroupItem>
+    <HxListGroupItem>A fourth item</HxListGroupItem>
+    <HxListGroupItem Enabled="false">A disabled item</HxListGroupItem>
+</HxListGroup>
+
+```

@@ -1,0 +1,10 @@
+﻿# HxProgress_Demo_SettingParameters.razor
+
+```razor
+<HxProgress Animated="true">
+    <HxProgressBar Value="15" Color="ThemeColor.Primary" />
+    <HxProgressBar Value="30" Color="ThemeColor.Success" />
+    <HxProgressBar Value="20" Color="ThemeColor.Info" Animated="false" Striped="true" />
+</HxProgress>
+
+```

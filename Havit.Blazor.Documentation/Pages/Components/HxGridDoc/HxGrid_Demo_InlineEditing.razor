@@ -12,7 +12,7 @@
 			<ItemTemplate Context="employee">
 				@if (selectedDataItem == employee)
 				{
-					<HxInputText @bind-Value="employee.Name" @onkeydown="@(async (e) => await HandleInputKeyDown(e))" />
+					<HxInputText @bind-Value="employee.Name" @onkeyup="@(async (e) => await HandleInputKey(e))" />
 				}
 				else
 				{
@@ -24,7 +24,7 @@
 			<ItemTemplate Context="employee">
 				@if (selectedDataItem == employee)
 				{
-					<HxInputText @bind-Value="employee.Phone" @onkeydown="@(async (e) => await HandleInputKeyDown(e))" />
+					<HxInputText @bind-Value="employee.Phone" @onkeyup="@(async (e) => await HandleInputKey(e))" />
 				}
 				else
 				{
@@ -36,7 +36,7 @@
 			<ItemTemplate Context="employee">
 				@if (selectedDataItem == employee)
 				{
-					<HxInputNumber @bind-Value="employee.Salary" Decimals="0" InputGroupStartText="$" @onkeydown="@(async (e) => await HandleInputKeyDown(e))" />
+					<HxInputNumber @bind-Value="employee.Salary" Decimals="0" InputGroupStartText="$" @onkeyup="@(async (e) => await HandleInputKey(e))" />
 				}
 				else
 				{
@@ -48,7 +48,7 @@
 			<ItemTemplate Context="employee">
 				@if (selectedDataItem == employee)
 				{
-					<HxInputText @bind-Value="employee.Position" @onkeydown="@(async (e) => await HandleInputKeyDown(e))" />
+					<HxInputText @bind-Value="employee.Position" @onkeyup="@(async (e) => await HandleInputKey(e))" />
 				}
 				else
 				{
@@ -60,7 +60,7 @@
 			<ItemTemplate Context="employee">
 				@if (selectedDataItem == employee)
 				{
-					<HxInputText @bind-Value="employee.Location" @onkeydown="@(async (e) => await HandleInputKeyDown(e))" />
+					<HxInputText @bind-Value="employee.Location" @onkeyup="@(async (e) => await HandleInputKey(e))" />
 				}
 				else
 				{
@@ -95,7 +95,7 @@
 		selectedDataItem = newSelectedDataItem;
 	}
 
-	private async Task HandleInputKeyDown(KeyboardEventArgs e)
+	private async Task HandleInputKey(KeyboardEventArgs e)
 	{
 		// When Enter or Tab is pressed, save changes and exit edit mode
 		if (e.Key == "Enter" || e.Key == "Tab")

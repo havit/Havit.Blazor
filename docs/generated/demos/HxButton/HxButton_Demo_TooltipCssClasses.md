@@ -1,0 +1,12 @@
+﻿# HxButton_Demo_TooltipCssClasses.razor
+
+```razor
+<div class="d-flex">
+	<HxButton Text="Button with a tooltip"
+			  Icon="BootstrapIcon.ClockHistory"
+			  Color="ThemeColor.Secondary"
+			  Tooltip="This is a tooltip with .text-uppercase."
+			  TooltipCssClass="text-uppercase"
+			  TooltipWrapperCssClass="ms-auto" />
+</div>
+```

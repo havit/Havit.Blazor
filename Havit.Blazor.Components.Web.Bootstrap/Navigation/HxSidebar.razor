@@ -19,7 +19,7 @@
 			</div>
 		}
 
-		<div class="@CssClassHelper.Combine("hx-sidebar-collapse collapse", ResponsiveBreakpoint.GetCssClass("d-??-flex"), (!Collapsed) ? "overflow-auto": null)" id="@NavContentElementId">
+		<div class="@CssClassHelper.Combine("hx-sidebar-collapse collapse overflow-auto", ResponsiveBreakpoint.GetCssClass("d-??-flex"))" id="@NavContentElementId">
 			<div class="hx-sidebar-body mb-auto w-100">
 				<HxNav Id="@_navId" Orientation="NavOrientation.Vertical">
 					<CascadingValue Value="@(this)" IsFixed="true">

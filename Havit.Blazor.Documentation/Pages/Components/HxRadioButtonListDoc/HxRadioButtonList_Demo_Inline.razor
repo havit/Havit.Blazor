@@ -1,19 +1,53 @@
 ﻿@inject IDemoDataService DemoDataService
 
-<HxRadioButtonList TItem="EmployeeDto"
+<HxRadioButtonList Label="Radio buttons (default)"
+				   TItem="EmployeeDto"
 				   TValue="int?"
-				   Data="@data"
-				   @bind-Value="@selectedEmployeeId"
+				   @bind-Value="selectedEmployeeId1"
+				   Data="data"
+				   Inline="true"
+				   ItemTextSelector="@(employee => employee.Name)"
+				   ItemValueSelector="@(employee => employee.Id)" />
+
+<HxRadioButtonList Label="Toggle buttons"
+				   TItem="EmployeeDto"
+				   TValue="int?"
+				   @bind-Value="selectedEmployeeId2"
+				   Data="data"
+				   Inline="true"
+				   ItemTextCssClass="w-100"
 				   ItemTextSelector="@(employee => employee.Name)"
 				   ItemValueSelector="@(employee => employee.Id)"
-				   Inline="true" />
+				   RenderMode="RadioButtonListRenderMode.ToggleButtons"
+				   Color="ThemeColor.Light"
+				   Outline="true"
+				   CssClass="mt-2" />
 
-@code {
+<HxRadioButtonList Label="Button group"
+				   TItem="EmployeeDto"
+				   TValue="int?"
+				   @bind-Value="selectedEmployeeId3"
+				   Data="data"
+				   Inline="true"
+				   ItemTextSelector="@(employee => employee.Name)"
+				   ItemValueSelector="@(employee => employee.Id)"
+				   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+				   Color="ThemeColor.Light"
+				   Outline="true"
+				   CssClass="mt-2" />
+
+@code
+{
 	private IEnumerable<EmployeeDto> data;
-	private int? selectedEmployeeId;
+	private int? selectedEmployeeId1 { get; set; }
+	private int? selectedEmployeeId2 { get; set; }
+	private int? selectedEmployeeId3 { get; set; }
 
-	protected override async Task OnInitializedAsync()
+	protected override async Task OnParametersSetAsync()
 	{
 		data = await DemoDataService.GetPreferredEmployeesAsync(count: 5);
+		selectedEmployeeId1 = data.First().Id; // preselect first employee
+		selectedEmployeeId2 = data.First().Id;
+		selectedEmployeeId3 = data.First().Id;
 	}
 }

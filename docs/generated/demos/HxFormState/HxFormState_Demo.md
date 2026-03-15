@@ -1,0 +1,29 @@
+﻿# HxFormState_Demo.razor
+
+```razor
+<EditForm Model="@model">
+    <DataAnnotationsValidator />
+
+    <HxSwitch Text="Enabled" @bind-Value="@model.Enabled" Hint="Toggle the switch to enabled/disable form state." />
+
+    <HxFormState Enabled="@model.Enabled">
+        <HxInputText Label="Text value" @bind-Value="@model.StringValue" />
+        <HxCheckbox Text="Bool value" @bind-Value="@model.BooleanValue" />
+        <HxSubmit Text="Validate" Color="ThemeColor.Primary" />
+    </HxFormState>
+
+</EditForm>
+@code {
+    private Model model = new Model();
+    private class Model
+    {
+        public bool Enabled { get; set; } = true;
+
+        [Required]
+        public string StringValue { get; set; }
+
+        public Boolean BooleanValue { get; set; }
+    }
+}
+
+```

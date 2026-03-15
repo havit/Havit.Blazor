@@ -1,0 +1,12 @@
+﻿# HxInputPercent_Demo_Basic.razor
+
+```razor
+<HxInputPercent @bind-Value="input" Decimals="1" />
+
+<div class="mt-3">Entered value: @input</div>
+
+@code {
+    private decimal input;
+}
+
+```

@@ -1,0 +1,32 @@
+﻿# HxTabPanel_Demo_RenderMode.razor
+
+```razor
+<p><code>RenderMode="TabPanelRenderMode.AllTabs"</code> (default)</p>
+<HxTabPanel InitialActiveTabId="tab1">
+	<HxTab Id="tab1" Title="First tab">
+		<Content>
+			<ExpensiveTabContent Title="First tab" />
+		</Content>
+	</HxTab>
+	<HxTab Id="tab2" Title="Second tab">
+		<Content>
+			<ExpensiveTabContent Title="Second tab" />
+		</Content>
+	</HxTab>
+</HxTabPanel>
+
+<p><code>RenderMode="TabPanelRenderMode.ActiveTabOnly"</code></p>
+<HxTabPanel InitialActiveTabId="tab1" RenderMode="TabPanelRenderMode.ActiveTabOnly">
+	<HxTab Id="tab1" Title="First tab">
+		<Content>
+			<ExpensiveTabContent Title="First tab" />
+		</Content>
+	</HxTab>
+	<HxTab Id="tab2" Title="Second tab">
+		<Content>
+			<ExpensiveTabContent Title="Second tab" />
+		</Content>
+	</HxTab>
+</HxTabPanel>
+
+```

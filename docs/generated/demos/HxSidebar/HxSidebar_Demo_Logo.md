@@ -1,0 +1,28 @@
+﻿# HxSidebar_Demo_Logo.razor
+
+```razor
+<div class="d-flex border rounded-3 overflow-hidden">
+	<HxSidebar>
+		<HeaderTemplate>
+			<HxSidebarBrand BrandName="HAVIT Blazor">
+				<LogoTemplate>
+					<img src="/logo.png" width="32" height="30" />
+				</LogoTemplate>
+			</HxSidebarBrand>
+		</HeaderTemplate>
+		<ItemsTemplate>
+			<HxSidebarItem Text="Dashboard" Icon="BootstrapIcon.Columns" TooltipText="Dashboard" Href="/components/HxSidebar/dashboard" />
+			<HxSidebarItem Text="Employees" Icon="BootstrapIcon.People">
+				<HxSidebarItem Text="Overview" Href="/components/HxSidebar/employees" />
+				<HxSidebarItem Text="Absences" Href="/components/HxSidebar/absences" />
+			</HxSidebarItem>
+			<HxSidebarItem Text="Mine (with icons)" Icon="BootstrapIcon.Person">
+				<HxSidebarItem Text="Overview" Icon="BootstrapIcon.Wallet2" Href="/components/HxSidebar/mine" Match="NavLinkMatch.All" />
+				<HxSidebarItem Text="Timesheets" Icon="BootstrapIcon.Clock" Href="/components/HxSidebar/mine/timesheets" />
+				<HxSidebarItem Text="Absences" Icon="BootstrapIcon.Exclamation" Href="/components/HxSidebar/mine/absences" />
+			</HxSidebarItem>
+			<HxSidebarItem Text="Administration" Icon="BootstrapIcon.Gear" Href="/components/HxSidebar/admin" />
+		</ItemsTemplate>
+	</HxSidebar>
+</div>
+```

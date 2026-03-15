@@ -1,0 +1,28 @@
+﻿# HxGrid_Demo.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxGrid TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" ItemCssClass="text-end" HeaderCssClass="text-end" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+	</Columns>
+</HxGrid>
+
+@code {
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		// you usually pass the data-request to your API/DataLayer
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken);
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = response.Data,
+				TotalCount = response.TotalCount
+			};
+	}
+}
+```

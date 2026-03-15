@@ -1,0 +1,11 @@
+﻿# HxInputNumber_Demo_SelectOnFocus.razor
+
+```razor
+<HxInputNumber Label='SelectOnFocus="true" (default)' Decimals="1" @bind-Value="enteredNumber" SelectOnFocus="true" />
+<HxInputNumber Label='SelectOnFocus="false"' Decimals="1" @bind-Value="enteredNumber" SelectOnFocus="false" />
+
+@code {
+    private float enteredNumber = 123.4F;
+}
+
+```

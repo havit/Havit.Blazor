@@ -1,0 +1,44 @@
+﻿# HxListLayout_Demo_InfiniteScrollSticky.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<style>
+	.scrollable-table-container {
+		height: 300px;
+		overflow: auto;
+	}
+</style>
+
+<HxListLayout Title="Employees" TFilterModel="HxListLayout.NoFilter">
+	<DataTemplate>
+		<HxGrid TItem="EmployeeDto"
+				DataProvider="GetGridData"
+				SelectionEnabled="false"
+				ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"
+				TableContainerCssClass="scrollable-table-container"
+				HeaderRowCssClass="sticky-top"
+				Responsive="true">
+			<Columns>
+				<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+				<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+				<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+				<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+				<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+			</Columns>
+		</HxGrid>
+	</DataTemplate>
+</HxListLayout>
+
+@code {
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken);
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = response.Data,
+				TotalCount = response.TotalCount
+			};
+	}
+}
+```

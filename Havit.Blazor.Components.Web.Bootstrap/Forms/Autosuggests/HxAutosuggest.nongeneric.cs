@@ -3,7 +3,7 @@
 /// <summary>
 /// Non-generic API for <see cref="HxAutosuggest{TItem, TValue}" />.
 /// </summary>
-public class HxAutosuggest
+public sealed class HxAutosuggest
 {
 	/// <summary>
 	/// Application-wide defaults for the <see cref="HxAutosuggest{TItem, TValue}"/> and derived components.

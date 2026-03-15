@@ -3,7 +3,7 @@
 /// <summary>
 /// Non-generic API for <see cref="HxListLayout{TFilterModel}" />.
 /// </summary>
-public class HxListLayout
+public sealed class HxListLayout
 {
 	/// <summary>
 	/// Application-wide defaults for <see cref="HxListLayout{TFilterModel}"/> and derived components.

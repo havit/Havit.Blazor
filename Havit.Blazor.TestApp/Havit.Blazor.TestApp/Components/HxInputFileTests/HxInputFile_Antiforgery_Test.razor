@@ -1,0 +1,69 @@
+@page "/HxInputFile_Antiforgery"
+@rendermode InteractiveServer
+
+@using Microsoft.AspNetCore.Antiforgery
+@inject IAntiforgery Antiforgery
+@inject IHttpContextAccessor HttpContextAccessor
+
+<h1>HxInputFile_AntiforgeryTest</h1>
+
+<HxInputFile @ref="hxInputFileComponent"
+    Label="HxInputFile"
+    UploadUrl="/file-upload-streamed"
+    OnFileUploaded="HandleFileUploaded" />
+
+<HxButton Text="Upload" Color="ThemeColor.Primary" OnClick="HandleUploadClickAsync" CssClass="my-2" />
+<HxButton Text="Clear" OnClick="HandleResetAsync" Color="ThemeColor.Secondary" />
+
+OriginalFileName: @fileUploaded?.OriginalFileName
+<br />
+ContentType: @fileUploaded?.ContentType
+<br />
+Size: @fileUploaded?.Size.ToString("n0") bytes
+<br />
+LastModified: @fileUploaded?.LastModified
+<br />
+ResponseStatus: @fileUploaded?.ResponseStatus
+<br />
+ResponseText: @fileUploaded?.ResponseText
+<br />
+AntiforgeryHeaderName: <span style="background-color: rgb(245, 73, 108); color: black;">@antiforgeryHeaderName</span>
+<br />
+AntiforgeryToken: <span style="background-color: rgb(245, 73, 108); color: black;">@antiforgeryToken</span>
+<br />
+
+@code {
+    private HxInputFile hxInputFileComponent;
+    private FileUploadedEventArgs fileUploaded;
+    string antiforgeryToken;
+    string antiforgeryHeaderName;
+
+    private async Task HandleUploadClickAsync()
+    {
+        if (hxInputFileComponent == null)
+            return;
+
+        AntiforgeryTokenSet tokens = Antiforgery.GetAndStoreTokens(HttpContextAccessor.HttpContext!);
+        antiforgeryToken = tokens.RequestToken;
+        antiforgeryHeaderName = tokens.HeaderName;
+
+        await hxInputFileComponent.StartUploadAsync(
+            antiforgeryToken: antiforgeryToken,
+            antiforgeryHeaderName: antiforgeryHeaderName);
+    }
+
+    private async Task HandleResetAsync()
+    {
+        if (hxInputFileComponent == null)
+            return;
+
+        await hxInputFileComponent.ResetAsync();
+    }
+
+	private Task HandleFileUploaded(FileUploadedEventArgs fileUploaded)
+    {
+        this.fileUploaded = fileUploaded;
+
+        return Task.CompletedTask;
+    }
+}

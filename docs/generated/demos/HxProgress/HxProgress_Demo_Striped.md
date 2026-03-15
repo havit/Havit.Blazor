@@ -1,0 +1,26 @@
+﻿# HxProgress_Demo_Striped.razor
+
+```razor
+<HxProgress>
+    <HxProgressBar Value="25" Color="ThemeColor.Success" Striped="true" />
+</HxProgress>
+
+<br />
+
+<HxProgress>
+    <HxProgressBar Value="50" Color="ThemeColor.Info" Striped="true" />
+</HxProgress>
+
+<br />
+
+<HxProgress>
+    <HxProgressBar Value="75" Color="ThemeColor.Warning" Striped="true" />
+</HxProgress>
+
+<br />
+
+<HxProgress>
+    <HxProgressBar Value="100" Color="ThemeColor.Danger" Striped="true" />
+</HxProgress>
+
+```

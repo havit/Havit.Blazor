@@ -1,0 +1,21 @@
+﻿# HxButtonToolbar_Demo.razor
+
+```razor
+<HxButtonToolbar>
+    <HxButtonGroup>
+        <HxButton Text="1" Color="ThemeColor.Primary" />
+        <HxButton Text="2" Color="ThemeColor.Primary" />
+        <HxButton Text="3" Color="ThemeColor.Primary" />
+        <HxButton Text="4" Color="ThemeColor.Primary" />
+    </HxButtonGroup>
+    <HxButtonGroup CssClass="mx-2">
+        <HxButton Text="5" Color="ThemeColor.Secondary" />
+        <HxButton Text="6" Color="ThemeColor.Secondary" />
+        <HxButton Text="7" Color="ThemeColor.Secondary" />
+    </HxButtonGroup>
+    <HxButtonGroup>
+        <HxButton Text="8" Color="ThemeColor.Info" />
+    </HxButtonGroup>
+</HxButtonToolbar>
+
+```

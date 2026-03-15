@@ -28,20 +28,32 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 
 	/// <summary>
 	/// Specifies the field for which validation messages should be displayed.
-	/// Mutual exclusive with <see cref="ForFieldName"/> and <see cref="ForFieldNames"/>.
+	/// Mutual exclusive with <see cref="ForFieldIdentifier"/> and <see cref="ForFieldIdentifiers"/>.
 	/// </summary>
 	[Parameter] public Expression<Func<TValue>> For { get; set; }
 
 	/// <summary>
 	/// Specifies the field for which validation messages should be displayed.
-	/// Mutual exclusive with <see cref="For"/> and <see cref="ForFieldNames"/>.
+	/// Mutual exclusive with <see cref="For"/> and <see cref="ForFieldIdentifiers"/>.
 	/// </summary>
+	[Parameter] public FieldIdentifier? ForFieldIdentifier { get; set; }
+
+	/// <summary>
+	/// [Obsolete] Use <see cref="ForFieldIdentifier"/> instead.
+	/// </summary>
+	[Obsolete($"Use {nameof(ForFieldIdentifier)}")]
 	[Parameter] public string ForFieldName { get; set; }
 
 	/// <summary>
 	/// Specifies the field for which validation messages should be displayed.
-	/// Mutual exclusive with <see cref="For"/> and <see cref="ForFieldName"/>.
+	/// Mutual exclusive with <see cref="For"/> and <see cref="ForFieldIdentifier"/>.
 	/// </summary>
+	[Parameter] public FieldIdentifier[] ForFieldIdentifiers { get; set; }
+
+	/// <summary>
+	/// [Obsolete] Use <see cref="ForFieldIdentifiers"/> instead.
+	/// </summary>
+	[Obsolete($"Use {nameof(ForFieldIdentifiers)}")]
 	[Parameter] public string[] ForFieldNames { get; set; }
 
 	/// <summary>
@@ -51,8 +63,10 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 
 	private EditContext _previousEditContext;
 	private Expression<Func<TValue>> _previousFor;
-	private string _previousForFieldName;
-	private string[] _previousForFieldNames;
+	private FieldIdentifier? _previousForFieldIdentifier;
+	private FieldIdentifier[] _previousForFieldIdentifiers;
+	private string _previousForFieldName; // obsolete
+	private string[] _previousForFieldNames; // obsolete
 	private readonly EventHandler<ValidationStateChangedEventArgs> _validationStateChangedHandler;
 	private FieldIdentifier[] _fieldIdentifiers;
 	private EditContext _currentEditContext;
@@ -76,14 +90,14 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 			throw new InvalidOperationException($"{GetType()} requires a cascading parameter of type {nameof(Microsoft.AspNetCore.Components.Forms.EditContext)} or {nameof(EditContext)} property set. Use {GetType()} inside an {nameof(EditForm)}.");
 		}
 
-		if (For == null && String.IsNullOrEmpty(ForFieldName) && (ForFieldNames == null))
+		if ((For == null) && (ForFieldIdentifier == null) && (ForFieldIdentifiers == null))
 		{
-			throw new InvalidOperationException($"{GetType()} requires a value for the {nameof(For)} or {nameof(ForFieldName)} or {nameof(ForFieldNames)} parameter.");
+			throw new InvalidOperationException($"{GetType()} requires a value for the {nameof(For)} or {nameof(ForFieldIdentifier)} or {nameof(ForFieldIdentifiers)} parameter.");
 		}
 
-		if (For != null && !String.IsNullOrEmpty(ForFieldName))
+		if ((For != null) && (ForFieldIdentifier != null))
 		{
-			throw new InvalidOperationException($"{GetType()} requires a value for the {nameof(For)} or {nameof(ForFieldName)} parameter, but not both parameters.");
+			throw new InvalidOperationException($"{GetType()} requires a value for the {nameof(For)} or {nameof(ForFieldIdentifier)} parameter, but not both parameters.");
 		}
 
 		if ((For != null) && (For != _previousFor))
@@ -92,16 +106,32 @@ public partial class HxValidationMessage<TValue> : ComponentBase, IDisposable
 			_previousFor = For;
 		}
 
+		// obsolete
+#pragma warning disable CS0618 // Type or member is obsolete
 		if (!String.IsNullOrEmpty(ForFieldName) && (ForFieldName != _previousForFieldName))
 		{
 			_fieldIdentifiers = new[] { new FieldIdentifier(_currentEditContext.Model, ForFieldName) };
 			_previousForFieldName = ForFieldName;
 		}
 
+		// obsolete
 		if ((ForFieldNames != null) && (ForFieldNames != _previousForFieldNames))
 		{
 			_fieldIdentifiers = ForFieldNames.Select(forFieldName => new FieldIdentifier(_currentEditContext.Model, forFieldName)).ToArray();
 			_previousForFieldNames = ForFieldNames;
+		}
+#pragma warning restore CS0618 // Type or member is obsolete
+
+		if ((ForFieldIdentifier != null) && ((_previousForFieldIdentifier == null) || !ForFieldIdentifier.Value.Equals(_previousForFieldIdentifier.Value)))
+		{
+			_fieldIdentifiers = [ForFieldIdentifier.Value];
+			_previousForFieldIdentifier = ForFieldIdentifier;
+		}
+
+		if ((ForFieldIdentifiers != null) && (ForFieldIdentifiers != _previousForFieldIdentifiers))
+		{
+			_fieldIdentifiers = [.. ForFieldIdentifiers];
+			_previousForFieldIdentifiers = ForFieldIdentifiers;
 		}
 
 		if (_currentEditContext != _previousEditContext)

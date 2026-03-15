@@ -10,7 +10,12 @@
 @_model.RememberMe
 
 @code {
-	[SupplyParameterFromForm] private InputModel _model { get; set; } = new();
+	[SupplyParameterFromForm] private InputModel _model { get; set; }
+
+	protected override void OnParametersSet()
+	{
+		_model ??= new InputModel();
+	}
 
 	private record InputModel
 	{

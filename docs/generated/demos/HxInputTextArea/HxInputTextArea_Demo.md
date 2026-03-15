@@ -1,0 +1,31 @@
+﻿# HxInputTextArea_Demo.razor
+
+```razor
+<EditForm Model="model" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <HxInputTextArea @bind-Value="model.Text" />
+    <HxSubmit Text="Submit" Color="ThemeColor.Primary" />
+</EditForm>
+
+LastSubmit: @lastSubmit
+
+@code
+{
+    private Model model = new Model();
+    private DateTime? lastSubmit;
+
+    private Task HandleValidSubmit()
+    {
+        lastSubmit = DateTime.Now;
+        return Task.CompletedTask;
+    }
+
+    public class Model
+    {
+        [Required]
+        [MaxLength(4000)]
+        public string Text { get; set; }
+    }
+}
+
+```

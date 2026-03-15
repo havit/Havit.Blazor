@@ -1,7 +1,7 @@
-﻿@attribute [Route("/components/" + nameof(HxProgress))]
+@attribute [Route("/components/" + nameof(HxProgress))]
 @attribute [Route("/components/" + nameof(HxProgressBar))]
 
-<ComponentApiDoc Type="typeof(HxProgress)">
+<ApiDoc Type="typeof(HxProgress)">
     <DocHeading Title="Basic usage" />
     <Demo Type="typeof(HxProgress_Demo)" Tabs="false" />
 
@@ -35,6 +35,6 @@
     <DocHeading Title="Interactive" />
     <p>The progress value can be easily changed at runtime. When that occurs, the progress bar updates with an animation.</p>
     <Demo Type="typeof(HxProgress_Demo_Interactive)" />
-</ComponentApiDoc>
+</ApiDoc>
 
-<ComponentApiDoc Type="typeof(HxProgressBar)" />
+<ApiDoc Type="typeof(HxProgressBar)" />

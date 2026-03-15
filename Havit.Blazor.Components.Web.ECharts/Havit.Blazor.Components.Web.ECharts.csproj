@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0;net9.0</TargetFrameworks>
+		<TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
 		<!--  VSTHRD003: Avoid awaiting or returning a Task representing work that was not started within your context as that can lead to deadlocks. -->
 		<!--  VSTHRD200: Allow HandleXyClick methods (without Async) -> Suppress 'Use "Async" suffix in names of methods that return an awaitable type' -->
 		<NoWarn>$(NoWarn);1591;1701;1702;SA1134;VSTHRD003;VSTHRD200</NoWarn>
@@ -19,7 +19,8 @@
 	<!-- NuGet -->
 	<Import Project="../NuGet.targets" />
 	<PropertyGroup>
-		<PackageVersion>1.2.0</PackageVersion>
+		<!-- ComponentsPackagesVersion - variable from Directory.Build.props -->
+		<PackageVersion>$(ComponentsPackagesVersion)</PackageVersion>
 		<Description>HAVIT Blazor Library - ECharts extensions - Free components for ASP.NET Blazor</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://havit.blazor.eu</PackageProjectUrl>

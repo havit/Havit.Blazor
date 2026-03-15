@@ -1,0 +1,18 @@
+﻿# HxCard_Demo_ListGroup.razor
+
+```razor
+<HxCard>
+	<HeaderTemplate>Card header</HeaderTemplate>
+	<ChildContent>
+		<HxListGroup Flush="true">
+			<HxListGroupItem>An item</HxListGroupItem>
+			<HxListGroupItem>A second item</HxListGroupItem>
+			<HxListGroupItem>A third item</HxListGroupItem>
+			<HxListGroupItem>A fourth item</HxListGroupItem>
+			<HxListGroupItem>And a fifth one</HxListGroupItem>
+		</HxListGroup>
+	</ChildContent>
+	<FooterTemplate>Card footer</FooterTemplate>
+</HxCard>
+
+```

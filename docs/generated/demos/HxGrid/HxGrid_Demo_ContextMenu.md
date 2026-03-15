@@ -1,0 +1,40 @@
+﻿# HxGrid_Demo_ContextMenu.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxGrid @ref="gridComponent" TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+		<HxContextMenuGridColumn Context="item">
+			<HxContextMenu>
+				<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" OnClick="async () => await HandleDeleteClick(item)" />
+			</HxContextMenu>
+		</HxContextMenuGridColumn>
+	</Columns>
+</HxGrid>
+
+@code {
+	private HxGrid<EmployeeDto> gridComponent;
+
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken);
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = response.Data,
+				TotalCount = response.TotalCount
+			};
+	}
+
+	private async Task HandleDeleteClick(EmployeeDto employeeToDelete)
+	{
+		await DemoDataService.DeleteEmployeeAsync(employeeToDelete.Id);
+		await gridComponent.RefreshDataAsync();
+	}
+}
+```

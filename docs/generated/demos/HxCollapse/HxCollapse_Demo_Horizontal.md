@@ -1,0 +1,14 @@
+﻿# HxCollapse_Demo_Horizontal.razor
+
+```razor
+<HxCollapseToggleButton Text="Toggle horizontal" CollapseTarget="#myHorizontalCollapse" Color="ThemeColor.Primary" CssClass="mb-3" />
+<div style="min-height: 120px">
+	<HxCollapse CollapseDirection="CollapseDirection.Horizontal" Id="myHorizontalCollapse">
+		<HxCard style="width: 300px;">
+			<BodyTemplate>
+				This is some placeholder content for a horizontal collapse. It's hidden by default and shown when triggered.
+			</BodyTemplate>
+		</HxCard>
+	</HxCollapse>
+</div>
+```

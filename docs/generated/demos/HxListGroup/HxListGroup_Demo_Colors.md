@@ -1,0 +1,26 @@
+﻿# HxListGroup_Demo_Colors.razor
+
+```razor
+<HxListGroup>
+    <HxListGroupItem Color="ThemeColor.Primary" OnClick="() => HandleClick(ThemeColor.Primary)">Primary</HxListGroupItem>
+    <HxListGroupItem Color="ThemeColor.Secondary" OnClick="() => HandleClick(ThemeColor.Secondary)">Secondary</HxListGroupItem>
+    <HxListGroupItem Color="ThemeColor.Success" OnClick="() => HandleClick(ThemeColor.Success)">Success</HxListGroupItem>
+    <HxListGroupItem Color="ThemeColor.Danger" OnClick="() => HandleClick(ThemeColor.Danger)">Danger</HxListGroupItem>
+    <HxListGroupItem Color="ThemeColor.Warning" OnClick="() => HandleClick(ThemeColor.Warning)">Warning</HxListGroupItem>
+    <HxListGroupItem Color="ThemeColor.Info" OnClick="() => HandleClick(ThemeColor.Info)">Info</HxListGroupItem>
+    <HxListGroupItem Color="ThemeColor.Light" OnClick="() => HandleClick(ThemeColor.Light)">Light</HxListGroupItem>
+    <HxListGroupItem Color="ThemeColor.Dark" OnClick="() => HandleClick(ThemeColor.Dark)">Dark</HxListGroupItem>
+</HxListGroup>
+
+<p class="mt-3">Last click color: @lastClickColor</p>
+
+@code
+{
+	private ThemeColor? lastClickColor;
+	private void HandleClick(ThemeColor color)
+	{
+		lastClickColor = color;
+	}
+}
+
+```

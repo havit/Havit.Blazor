@@ -4,7 +4,7 @@
 /// Non-generic API for <see cref="HxInputNumber{TValue}"/>.
 /// Marker for resources for <see cref="HxInputNumber{TValue}"/>.
 /// </summary>
-public class HxInputNumber
+public sealed class HxInputNumber
 {
 	/// <summary>
 	/// Application-wide defaults for the <see cref="HxAutosuggest{TItem, TValue}"/> and derived components.

@@ -1,0 +1,36 @@
+﻿# HxSpinner_Demo_Colors.razor
+
+```razor
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Color="ThemeColor.Primary" />
+</div>
+
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Color="ThemeColor.Secondary" />
+</div>
+
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Color="ThemeColor.Success" />
+</div>
+
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Color="ThemeColor.Danger" />
+</div>
+
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Color="ThemeColor.Warning" />
+</div>
+
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Color="ThemeColor.Info" />
+</div>
+
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Color="ThemeColor.Light" />
+</div>
+
+<div style="display: inline-block; margin-right: 0.5rem;">
+    <HxSpinner Color="ThemeColor.Dark" />
+</div>
+
+```

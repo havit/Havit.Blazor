@@ -1,10 +1,10 @@
-﻿@using Havit.Blazor.Documentation.Pages.Components.HxTabPanelDoc
+@using Havit.Blazor.Documentation.Pages.Components.HxTabPanelDoc
 @attribute [Route("/components/" + nameof(HxCard))]
 @attribute [Route("/components/" + nameof(HxCardText))]
 @attribute [Route("/components/" + nameof(HxCardTitle))]
 @attribute [Route("/components/" + nameof(HxCardSubtitle))]
 
-<ComponentApiDoc Type="typeof(HxCard)">
+<ApiDoc Type="typeof(HxCard)">
 
     <DocHeading Title="About" />
     <p>A card is a flexible and extensible content container. It includes options for headers and footers, a wide variety of content, contextual background colors, and powerful display options.</p>
@@ -51,8 +51,8 @@
     <DocHeading Title="Variants" />
     <Demo Type="typeof(HxCard_Demo_Variants)" />
 
-</ComponentApiDoc>
+</ApiDoc>
 
-<ComponentApiDoc Type="typeof(HxCardText)" />
-<ComponentApiDoc Type="typeof(HxCardTitle)" />
-<ComponentApiDoc Type="typeof(HxCardSubtitle)" />
+<ApiDoc Type="typeof(HxCardText)" />
+<ApiDoc Type="typeof(HxCardTitle)" />
+<ApiDoc Type="typeof(HxCardSubtitle)" />

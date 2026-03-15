@@ -1,0 +1,88 @@
+﻿# HxListLayout_Demo_Basic.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxListLayout Title="Employees" TFilterModel="EmployeesFilterDto" @bind-FilterModel="filterModel" @bind-FilterModel:after="HandleFilterModelChanged">
+	<CommandsTemplate>
+		<HxButton Text="Create employee" Color="ThemeColor.Primary" Icon="BootstrapIcon.PlusLg" OnClick="HandleNewItemClicked" />
+	</CommandsTemplate>
+	<FilterTemplate Context="filterContext">
+		<HxInputText Label="Name" @bind-Value="filterContext.Name" />
+		<HxInputText Label="Phone" @bind-Value="filterContext.Phone" />
+		<HxInputNumber Label="Minimum salary" @bind-Value="filterContext.SalaryMin" Decimals="0" InputGroupStartText="$" />
+		<HxInputNumber Label="Maximum salary" @bind-Value="filterContext.SalaryMax" Decimals="0" InputGroupStartText="$" />
+		<HxInputText Label="Position" @bind-Value="filterContext.Position" />
+		<HxInputText Label="Location" @bind-Value="filterContext.Location" />
+	</FilterTemplate>
+	<DataTemplate>
+		<HxGrid @ref="gridComponent"
+				TItem="EmployeeDto"
+				DataProvider="GetGridData"
+				@bind-SelectedDataItem="currentEmployee"
+				@bind-SelectedDataItem:after="HandleSelectedDataItemChanged"
+				PageSize="5"
+				Responsive="true">
+			<Columns>
+				<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+				<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+				<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+				<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+				<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+				<HxContextMenuGridColumn Context="employee">
+					<HxContextMenu>
+						<HxContextMenuItem Text="Delete" Icon="BootstrapIcon.Trash" OnClick="async () => await HandleDeleteClick(employee)" ConfirmationQuestion="@($"Are you sure you want to delete {employee.Name}?")" />
+					</HxContextMenu>
+				</HxContextMenuGridColumn>
+			</Columns>
+		</HxGrid>
+	</DataTemplate>
+	<DetailTemplate>
+		dataItemEditComponent: {currentEmployee.Id: @currentEmployee?.Id}
+	</DetailTemplate>
+</HxListLayout>
+
+@code {
+	private EmployeeDto currentEmployee;
+
+    private EmployeesFilterDto filterModel = new() { SalaryMax = 20000 };
+    private HxGrid<EmployeeDto> gridComponent;
+
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(filterModel, request.StartIndex, request.Count, request.CancellationToken);
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = response.Data,
+				TotalCount = response.TotalCount
+			};
+	}
+
+	private async Task HandleFilterModelChanged()
+	{
+		await gridComponent.RefreshDataAsync(GridStateResetOptions.ResetPosition);
+	}
+
+	private async Task HandleDeleteClick(EmployeeDto employee)
+	{
+		await DemoDataService.DeleteEmployeeAsync(employee.Id);
+		await gridComponent.RefreshDataAsync();
+	}
+
+	private Task HandleSelectedDataItemChanged()
+	{
+		// open or navigate to employee detail here (currentEmployee is set)
+		// await dataItemEditComponent.ShowAsync();
+		return Task.CompletedTask;
+	}
+
+	private Task HandleNewItemClicked()
+	{
+		currentEmployee = new();
+		// open or navigate to employee detail here
+		// await dataItemEditComponent.ShowAsync();
+		return Task.CompletedTask;
+	}
+}
+
+```

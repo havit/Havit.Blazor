@@ -1,0 +1,17 @@
+﻿# HxButton_Demo_OnValidClickWithSpinner.razor
+
+```razor
+<EditForm Model="testModel">
+    @* Your form with validations goes here *@
+    <HxSubmit Text="Submit" Color="ThemeColor.Primary" OnValidClick="async () => await Task.Delay(1000)" />
+    <HxButton Text="Save & Print" Color="ThemeColor.Secondary" OnValidClick="async () => await Task.Delay(2000)" />
+</EditForm>
+
+@code {
+    private TestModel testModel = new TestModel();
+
+    public class TestModel
+    {
+    }
+} 
+```

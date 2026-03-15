@@ -1,0 +1,11 @@
+﻿﻿.showcase-item-container {
+	flex-basis: 420px;
+}
+
+.showcase-item-container img {
+	max-height: 276px;
+}
+
+.showcase-item-container.mobile-app img {
+	max-width: 128px;
+}

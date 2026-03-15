@@ -1,0 +1,56 @@
+@inject IDemoDataService DemoDataService
+
+<HxCheckboxList Label="Checkboxes (default)"
+				TItem="EmployeeDto"
+				TValue="int"
+				@bind-Value="selectedEmployeeIds"
+				Data="data"
+				ItemTextSelector="@(employee => employee.Name)"
+				ItemValueSelector="@(employee => employee.Id)" />
+
+<HxCheckboxList Label="Switches"
+				TItem="EmployeeDto"
+				TValue="int"
+				@bind-Value="selectedEmployeeIds"
+				Data="data"
+				ItemTextSelector="@(employee => employee.Name)"
+				ItemValueSelector="@(employee => employee.Id)"
+				RenderMode="CheckboxListRenderMode.Switches"
+				CssClass="mt-2" />
+
+<HxCheckboxList Label="Toggle buttons"
+				TItem="EmployeeDto"
+				TValue="int"
+				@bind-Value="selectedEmployeeIds"
+				Data="data"
+				ItemTextCssClass="w-100"
+				ItemTextSelector="@(employee => employee.Name)"
+				ItemValueSelector="@(employee => employee.Id)"
+				RenderMode="CheckboxListRenderMode.ToggleButtons"
+				Color="ThemeColor.Light"
+				Outline="true"
+				CssClass="mt-2" />
+
+<HxCheckboxList Label="Button group"
+				TItem="EmployeeDto"
+				TValue="int"
+				@bind-Value="selectedEmployeeIds"
+				Data="data"
+				ItemTextSelector="@(employee => employee.Name)"
+				ItemValueSelector="@(employee => employee.Id)"
+				RenderMode="CheckboxListRenderMode.ButtonGroup"
+				Color="ThemeColor.Light"
+				Outline="true"
+				CssClass="mt-2" />
+
+@code
+{
+	private IEnumerable<EmployeeDto> data;
+	private List<int> selectedEmployeeIds { get; set; } = new();
+
+	protected override async Task OnParametersSetAsync()
+	{
+		data = await DemoDataService.GetPreferredEmployeesAsync(count: 5);
+		selectedEmployeeIds = data.Take(2).Select(e => e.Id).ToList(); // preselect two employees
+	} 
+}

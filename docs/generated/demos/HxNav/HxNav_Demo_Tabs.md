@@ -1,0 +1,17 @@
+﻿# HxNav_Demo_Tabs.razor
+
+```razor
+<HxNav Variant="NavVariant.Tabs">
+	<HxNavLink OnClick="HandleTabClick" CssClass="active">Tab 1</HxNavLink>
+	<HxNavLink Text="Tab 2" />
+	<HxNavLink Text="Tab 3" />
+	<HxNavLink Text="Disabled" Enabled="false" />
+</HxNav>
+@code {
+	[Inject] protected IHxMessengerService Messenger { get; set; }
+	private void HandleTabClick()
+	{
+		Messenger.AddInformation("Tab 1 clicked...");
+	}
+}
+```

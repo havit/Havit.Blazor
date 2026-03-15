@@ -1,0 +1,52 @@
+﻿@page "/HxCheckbox"
+@rendermode InteractiveServer
+@using System.Globalization;
+@using System.ComponentModel.DataAnnotations
+
+<h1>HxCheckbox & HxSwitch</h1>
+
+<h3>Regular checkbox</h3>
+<HxCheckbox Text="Value 1" @bind-Value="model.Value1" />
+<HxCheckbox Text="Value 2" @bind-Value="model.Value2" />
+
+<h3>Regular checkbox (Inline)</h3>
+<HxCheckbox Text="Value 1" @bind-Value="model.Value1" Inline="true" />
+<HxCheckbox Text="Value 2" @bind-Value="model.Value2" Inline="true" />
+
+<h3>Switch & Native switch (Inline)</h3>
+<HxSwitch Text="Value 1" @bind-Value="model.Value1" Inline="true" />
+<HxSwitch Text="Value 2" @bind-Value="model.Value2" Native="true" Inline="true"/>
+
+<h3>In edit form</h3>
+<EditForm @bind-Model="model">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <HxCheckbox Text="Value 1" @bind-Value="model.Value1" Inline="true" />
+    <HxCheckbox Text="Value 2" @bind-Value="model.Value2" Inline="true" />
+
+    <HxCheckbox Label="CheckBox 1" Text="Value 1" @bind-Value="model.Value1" />
+    <HxCheckbox Label="CheckBox 2" Text="Value 2" @bind-Value="model.Value2" />
+
+    <HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
+</EditForm>
+
+@code
+{
+    private FormModel model = new FormModel();
+
+    public class FormModel : IValidatableObject
+    {
+        public bool Value1 { get; set; }
+
+        public bool Value2 { get; set; }
+
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Value1 && !Value2)
+            {
+                yield return new ValidationResult("When Value1 is true, Value2 must be also true.", new string[] { nameof(Value2) });
+            }
+        }
+    }
+}

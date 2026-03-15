@@ -1,0 +1,19 @@
+﻿# HxTooltip_Demo_Placement.razor
+
+```razor
+<HxTooltip Text="Tooltip on top" Placement="TooltipPlacement.Top">
+	<HxButton Color="ThemeColor.Secondary" Text="Tooltip on top (default)" />
+</HxTooltip>
+<HxTooltip Text="Tooltip on right" Placement="TooltipPlacement.Right">
+	<HxButton Color="ThemeColor.Secondary" Text="Tooltip on right" />
+</HxTooltip>
+<HxTooltip Text="Tooltip on bottom" Placement="TooltipPlacement.Bottom">
+	<HxButton Color="ThemeColor.Secondary" Text="Tooltip on bottom" />
+</HxTooltip>
+<HxTooltip Text="Tooltip on left" Placement="TooltipPlacement.Left">
+	<HxButton Color="ThemeColor.Secondary" Text="Tooltip on left" />
+</HxTooltip>
+<HxTooltip Text="Tooltip - auto" Placement="TooltipPlacement.Auto">
+	<HxButton Color="ThemeColor.Secondary" Text="Tooltip - auto" />
+</HxTooltip>
+```

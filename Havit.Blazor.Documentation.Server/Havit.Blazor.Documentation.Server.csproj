@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
-		<TargetFramework>net9.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<AssemblyName>Havit.Blazor.Documentation.Server</AssemblyName>
 		<RootNamespace>Havit.Blazor.Documentation.Server</RootNamespace>
@@ -21,9 +21,7 @@
 	</ItemGroup>
 
 	<Target Name="TfsPublish" AfterTargets="AfterPublish" Condition="'$(PublishDirectory)' != ''">
-		<ItemGroup>
-			<PublishToCopy Include="obj\Release\TfsPublish\*.zip" />
-		</ItemGroup>
-		<Copy SourceFiles="@(PublishToCopy)" DestinationFolder="$(PublishDirectory)\DocumentationWeb" />
+		<MakeDir Directories="$(PublishDirectory)\DocumentationWeb" />
+		<ZipDirectory SourceDirectory="$(OutDir)\publish" DestinationFile="$(PublishDirectory)\DocumentationWeb\DocumentationWeb.zip" Overwrite="true" />
 	</Target>
 </Project>

@@ -295,6 +295,11 @@
             <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap outline button style</see>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.TooltipSettings">
+            <summary>
+            Tooltip settings.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonSize">
             <summary>
             Represents the size for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>.
@@ -388,6 +393,11 @@
             CSS class to be rendered with the button icon.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.AriaLabel">
+            <summary>
+            Defines the <c>aria-label</c> of the button. Should be used to provide an accessible name for icon-only buttons.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Enabled">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
         </member>
@@ -426,6 +436,11 @@
             <summary>
             Custom CSS class to render with the tooltip <c>span</c> wrapper of the <c>&lt;button /&gt;</c>.<br />
             If set, the <c>span</c> wrapper will be rendered no matter whether the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Tooltip"/> text is set or not.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.TooltipSettings">
+            <summary>
+            Tooltip settings (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.TooltipSettings"/>, overridden by individual Tooltip* parameters).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnClick">
@@ -2844,29 +2859,39 @@
             Receives notification from JavaScript when content is hidden.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.Animation">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Animation">
             <summary>
             Apply a CSS fade transition to the tooltip (enable/disable).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.CssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.CssClass">
             <summary>
             Custom CSS class to add.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.Container">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Container">
             <summary>
             Appends the tooltip/popover to a specific element. Default is <c>body</c>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.WrapperCssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.WrapperCssClass">
             <summary>
             Custom CSS class to render with the <c>span</c> wrapper of the child-content.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.TooltipInternalSettings.Offset">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Offset">
             <summary>
             Offset of the component relative to its target (ChildContent).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Trigger">
+            <summary>
+            Tooltip/Popover trigger(s).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Placement">
+            <summary>
+            Tooltip/Popover placement.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
@@ -3423,9 +3448,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.FocusAsync">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.RenderChipGenerator(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
-            <inheritdoc />
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.RenderChipValue(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
@@ -3464,14 +3486,96 @@
             Gets the name of the event as a string.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode">
+            <summary>
+            Render mode for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2"/>
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.Checkboxes">
+            <summary>
+            Renders regular checkboxes.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.Switches">
+            <summary>
+            Renders switches.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.NativeSwitches">
+            <summary>
+            Renders switches with native haptic feedback (mobile Safari, iOS 17.4+).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons">
+            <summary>
+            Renders toggle buttons.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup">
+            <summary>
+            Renders toggle buttons in a button group.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings">
             <summary>
             Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings.Color">
+            <summary>
+            Color for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings.Outline">
+            <summary>
+            Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
+            for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode">
+            <summary>
+            Render mode for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.Checkbox">
+            <summary>
+            Renders regular checkbox.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.Switch">
+            <summary>
+            Renders switch.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.NativeSwitch">
+            <summary>
+            Renders switch with native haptic feedback (mobile Safari, iOS 17.4+).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton">
+            <summary>
+            Renders toggle button.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings">
             <summary>
             Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings.Color">
+            <summary>
+            Color for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings.Outline">
+            <summary>
+            Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
+            for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings.RenderMode">
+            <summary>
+            Checkbox render mode.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.FormValueSettings">
@@ -3491,6 +3595,17 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckbox">https://havit.blazor.eu/components/HxCheckbox</see>
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Settings">
             <summary>
             Set of settings to be applied to the component instance.
@@ -3501,44 +3616,76 @@
             Returns an optional set of component settings.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Text">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.RenderMode">
+            <summary>
+            Checkbox render mode.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Color">
+            <summary>
+            Bootstrap button style - theme color.<br />
+            The default is taken from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Defaults"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> if not customized).
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Outline">
+            <summary>
+            <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
+            For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase">
+            <summary>
+            HxCheckBox and HxSwitch base class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.Text">
             <summary>
             Text to display next to the checkbox.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.TextTemplate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.TextTemplate">
             <summary>
             Content to display next to the checkbox.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.TextCssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.TextCssClass">
             <summary>
             CSS class to apply to the text.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Inline">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.Inline">
             <summary>
             Allows grouping checkboxes on the same horizontal row by rendering them inline. The default value is <c>false</c>.
             This only works when there is no label, no hint, and no validation message.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Reverse">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.Reverse">
             <summary>
             Put the checkbox on the opposite side - first text, then checkbox.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreInputCssClass">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreInputCssClass" />
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.CoreCssClass">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreCssClass" />
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.AdditionalFormElementCssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.RenderModeEffective">
             <summary>
-            CSS class that allows adding <c>form-switch</c> in derived <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/>.
+            Returns checkbox render mode.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.NeedsInnerDiv">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.InButtonGroup">
+            <summary>
+            Indicates HxCheckbox is used as a part of a button group. Value provided as a cascading value from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup" />.
+            </summary>
+            <remarks>
+            In a button group the html structure must be as simple as documented in Bootstrap docs.
+            Therefore we do not render neither the outer div(s) nor the validation message.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.CoreInputCssClass">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreInputCssClass" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.CoreCssClass">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreCssClass" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.NeedsInnerDiv">
             <summary>
             For a naked checkbox without Label/LabelTemplate, we add form-check, form-check-inline to the parent div (allows combining with CssClass etc.).
             It is expected that there is just the parent div, input, and label for Text/TextTemplate.
@@ -3548,29 +3695,29 @@
             Therefore, we wrap the input and label in the additional div.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.NeedsFormCheck">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.NeedsFormCheck">
             <summary>
             For checkbox without any Text/TextTemplate we do not add form-check class.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.NeedsFormCheckOuter">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.NeedsFormCheckOuter">
             <summary>
             For checkbox without any Label/LabelTemplate and without Text/TextTemplate we do not add form-check to the parent div.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.InputElement">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.InputElement">
             <summary>
             The input ElementReference.
             Can be <c>null</c>. 
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.FocusAsync">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.FocusAsync">
             <summary>
             Focuses the checkbox.
             </summary>
@@ -3579,6 +3726,12 @@
             <summary>
             Renders a multi-selection list of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox"/> controls.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCheckboxList">https://havit.blazor.eu/components/HxCheckboxList</see>
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Data">
@@ -3655,6 +3808,22 @@
             Returns an optional set of component settings.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.RenderMode">
+            <summary>
+            Checkbox render mode.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Color">
+            <summary>
+            Color for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Outline">
+            <summary>
+            Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
+            for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc/>
         </member>
@@ -3666,6 +3835,16 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.GetChipRemoveValue">
             <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList">
+            <summary>
+            Non-generic API for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2"/> and derived components.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxFormValue">
             <summary>
@@ -4246,6 +4425,12 @@
             Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by the Label property, <c>{1}</c> is replaced by the name of the bounded property.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.DateOrderErrorMessage">
+            <summary>
+            Gets or sets the error message used when the "from" date is greater than the "to" date (used with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.RequireDateOrder"/>).
+            Used with <c>String.Format(...)</c>, <c>{0}</c> is replaced by the Label property, <c>{1}</c> is replaced by the name of the bounded property.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.ShowClearButton">
             <summary>
             Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
@@ -4289,6 +4474,12 @@
             	4. TimeProvider from DependencyInjection<br />
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.RequireDateOrder">
+            <summary>
+            When enabled, validates that the "from" date is less than or equal to the "to" date.
+            The default is <c>true</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FormatValueAsString(Havit.DateTimeRange)">
             <inheritdocs />
         </member>
@@ -4300,6 +4491,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetToParsingErrorMessage">
             <summary>
             Returns message for &quot;to&quot;  parsing error.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetDateOrderErrorMessage">
+            <summary>
+            Returns message for validation error when "from" date is greater than "to" date.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1">
@@ -4864,6 +5060,12 @@
             <typeparam name="TValue">Type of value.</typeparam>
             <typeparam name="TItem">Type of items.</typeparam>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2.ItemValueSelector">
             <summary>
             Selects the value from the item.
@@ -4929,6 +5131,16 @@
             The default value is <c>true</c>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList">
+            <summary>
+            Non-generic API for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2"/> and derived components.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2">
             <summary>
             Base class for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2"/> and custom-implemented pickers.
@@ -4939,6 +5151,22 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.Inline">
             <summary>
             Allows grouping radios on the same horizontal row by rendering them inline. Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.RenderMode">
+            <summary>
+            Radio button list render mode. The default value is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.RadioButtons"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.Color">
+            <summary>
+            Color for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.Outline">
+            <summary>
+            Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
+            for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemValueSelectorImpl">
@@ -5013,7 +5241,13 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.Settings">
             <summary>
-            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate.Defaults"/>, overridden by individual parameters).
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.GetSettings">
@@ -5225,8 +5459,31 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSwitch">https://havit.blazor.eu/components/HxSwitch</see>
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.AdditionalFormElementCssClass">
-            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.AdditionalFormElementCssClass" />
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.Settings">
+            <summary>
+            Set of settings to be applied to the component instance.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.Native">
+            <summary>
+            To render switch as a native switch.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1">
             <summary>
@@ -5254,19 +5511,29 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.For">
             <summary>
             Specifies the field for which validation messages should be displayed.
-            Mutual exclusive with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldName"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldNames"/>.
+            Mutual exclusive with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldIdentifier"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldIdentifiers"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldIdentifier">
+            <summary>
+            Specifies the field for which validation messages should be displayed.
+            Mutual exclusive with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.For"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldIdentifiers"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldName">
             <summary>
+            [Obsolete] Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldIdentifier"/> instead.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldIdentifiers">
+            <summary>
             Specifies the field for which validation messages should be displayed.
-            Mutual exclusive with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.For"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldNames"/>.
+            Mutual exclusive with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.For"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldIdentifier"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldNames">
             <summary>
-            Specifies the field for which validation messages should be displayed.
-            Mutual exclusive with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.For"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldName"/>.
+            [Obsolete] Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.ForFieldIdentifiers"/> instead.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.Mode">
@@ -5397,6 +5664,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.TimeProvider">
             <summary>
             The TimeProvider used to get DateTime.Today.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.RequireDateOrder">
+            <summary>
+            When enabled, validates that the "from" date is less than or equal to the "to" date.
+            The default is <c>true</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings">
@@ -5584,7 +5857,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_DayMonthYear_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;day&gt;\\d{2})(?&lt;month&gt;\\d{2})(?&lt;year&gt;\\d{2})$</code><br/>
+            <code>^(?&lt;day&gt;\\d{2})(?&lt;month&gt;\\d{2})(?&lt;year&gt;\\d{2}|\\d{4})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -5593,7 +5866,9 @@
             ○ "month" capture group.<br/>
                 ○ Match a Unicode digit exactly 2 times.<br/>
             ○ "year" capture group.<br/>
-                ○ Match a Unicode digit exactly 2 times.<br/>
+                ○ Match with 2 alternative expressions.<br/>
+                    ○ Match a Unicode digit exactly 2 times.<br/>
+                    ○ Match a Unicode digit exactly 4 times.<br/>
             ○ Match if at the end of the string or if before an ending newline.<br/>
             </code>
             </remarks>
@@ -5601,7 +5876,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_MonthDayYear_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;month&gt;\\d{2})(?&lt;day&gt;\\d{2})(?&lt;year&gt;\\d{2})$</code><br/>
+            <code>^(?&lt;month&gt;\\d{2})(?&lt;day&gt;\\d{2})(?&lt;year&gt;\\d{2}|\\d{4})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -5610,7 +5885,9 @@
             ○ "day" capture group.<br/>
                 ○ Match a Unicode digit exactly 2 times.<br/>
             ○ "year" capture group.<br/>
-                ○ Match a Unicode digit exactly 2 times.<br/>
+                ○ Match with 2 alternative expressions.<br/>
+                    ○ Match a Unicode digit exactly 2 times.<br/>
+                    ○ Match a Unicode digit exactly 4 times.<br/>
             ○ Match if at the end of the string or if before an ending newline.<br/>
             </code>
             </remarks>
@@ -5618,12 +5895,14 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_YearMonthDay_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;year&gt;\\d{2})(?&lt;month&gt;\\d{2})(?&lt;day&gt;\\d{2})$</code><br/>
+            <code>^(?&lt;year&gt;\\d{2}|\\d{4})(?&lt;month&gt;\\d{2})(?&lt;day&gt;\\d{2})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
             ○ "year" capture group.<br/>
-                ○ Match a Unicode digit exactly 2 times.<br/>
+                ○ Match with 2 alternative expressions.<br/>
+                    ○ Match a Unicode digit exactly 2 times.<br/>
+                    ○ Match a Unicode digit exactly 4 times.<br/>
             ○ "month" capture group.<br/>
                 ○ Match a Unicode digit exactly 2 times.<br/>
             ○ "day" capture group.<br/>
@@ -5635,12 +5914,14 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_YearDayMonth_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;year&gt;\\d{2})(?&lt;day&gt;\\d{2})(?&lt;month&gt;\\d{2})$</code><br/>
+            <code>^(?&lt;year&gt;\\d{2}|\\d{4})(?&lt;day&gt;\\d{2})(?&lt;month&gt;\\d{2})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
             ○ "year" capture group.<br/>
-                ○ Match a Unicode digit exactly 2 times.<br/>
+                ○ Match with 2 alternative expressions.<br/>
+                    ○ Match a Unicode digit exactly 2 times.<br/>
+                    ○ Match a Unicode digit exactly 4 times.<br/>
             ○ "day" capture group.<br/>
                 ○ Match a Unicode digit exactly 2 times.<br/>
             ○ "month" capture group.<br/>
@@ -5890,9 +6171,40 @@
             Icon displayed in the filter input for clearing the filter.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode">
+            <summary>
+            Render mode for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2"/>
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.RadioButtons">
+            <summary>
+            Renders regular radio buttons.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons">
+            <summary>
+            Renders toggle buttons.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup">
+            <summary>
+            Renders toggle buttons in a button group.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings">
             <summary>
             Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings.Color">
+            <summary>
+            Color for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings.Outline">
+            <summary>
+            Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
+            for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox">
@@ -6279,6 +6591,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectSettings.LabelType">
             <summary>
             The label type.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.SwitchSettings">
+            <summary>
+            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSwitch"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SwitchSettings.Native">
+            <summary>
+            To render switch as a native switch.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode">
@@ -6723,11 +7045,6 @@
             For backward compatibility in custom projects.
             Once upon a time, this was the only constructor.
             </remarks>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.GridUserState.#ctor">
-            <summary>
-            Constructor.
-            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridUserStateSortingItem">
             <summary>
@@ -11029,12 +11346,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Placement">
             <summary>
-            Popover placement. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PopoverPlacement.Right"/>.
+            Popover placement. The default is "not set" (which Bootstrap defaults to <code>right</code>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPopover.Trigger">
             <summary>
-            Popover trigger(s). The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PopoverTrigger.Click"/>.
+            Popover trigger(s). The default is "not set" (which Bootstrap defaults to <code>click</code>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip">
@@ -11075,12 +11392,12 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Placement">
             <summary>
-            Tooltip placement. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement.Top"/>.
+            Tooltip placement. The default is "not set" (which Bootstrap defaults to <code>top</code>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTooltip.Trigger">
             <summary>
-            Tooltip trigger(s). The default is <c><see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger.Hover"/> | <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger.Focus"/></c>.
+            Tooltip trigger(s). The default is "not set" (which Bootstrap defaults to <code>hover</code> + <code>focus</code>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PopoverPlacement">
@@ -11091,6 +11408,41 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.PopoverPlacement.Auto">
             <summary>
             When specified, it will dynamically reorient the popover.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Animation">
+            <summary>
+            Apply a CSS fade transition to the popover (enable/disable).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.CssClass">
+            <summary>
+            Custom CSS class to add.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Container">
+            <summary>
+            Appends the popover to a specific element. Default is <c>body</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.WrapperCssClass">
+            <summary>
+            Custom CSS class to render with the <c>span</c> wrapper of the child-content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Offset">
+            <summary>
+            Offset of the component relative to its target (ChildContent).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Trigger">
+            <summary>
+            Popover trigger(s).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Placement">
+            <summary>
+            Popover placement.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PopoverTrigger">
@@ -11126,6 +11478,41 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement.Auto">
             <summary>
             When specified, it will dynamically reorient the tooltip.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Animation">
+            <summary>
+            Apply a CSS fade transition to the tooltip (enable/disable).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.CssClass">
+            <summary>
+            Custom CSS class to add.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Container">
+            <summary>
+            Appends the tooltip/popover to a specific element. Default is <c>body</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.WrapperCssClass">
+            <summary>
+            Custom CSS class to render with the <c>span</c> wrapper of the child-content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Offset">
+            <summary>
+            Offset of the component relative to its target (ChildContent).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Trigger">
+            <summary>
+            Tooltip trigger(s).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Placement">
+            <summary>
+            Tooltip placement.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.TooltipTrigger">
@@ -11670,6 +12057,12 @@
         </member>
         <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsWordChar(System.Char)">
             <summary>Determines whether the character is part of the [\w] set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.WordCategoriesMask">
+            <summary>Provides a mask of Unicode categories that combine to form [\w].</summary>
+        </member>
+        <member name="P:System.Text.RegularExpressions.Generated.Utilities.WordCharBitmap">
+            <summary>Gets a bitmap for whether each character 0 through 127 is in [\w]</summary>
         </member>
     </members>
 </doc>

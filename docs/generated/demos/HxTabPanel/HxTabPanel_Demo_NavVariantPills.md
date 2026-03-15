@@ -1,0 +1,15 @@
+﻿# HxTabPanel_Demo_NavVariantPills.razor
+
+```razor
+<HxTabPanel NavVariant="NavVariant.Pills">
+	<HxTab Title="First tab">
+		<Content><code>@nameof(NavVariant).@nameof(NavVariant.Pills)</code></Content>
+	</HxTab>
+	<HxTab Title="Second tab">
+		<Content>This is the second tab.</Content>
+	</HxTab>
+	<HxTab Enabled="false" Title="Disabled tab">
+		<Content>This is the disabled tab.</Content>
+	</HxTab>
+</HxTabPanel>
+```

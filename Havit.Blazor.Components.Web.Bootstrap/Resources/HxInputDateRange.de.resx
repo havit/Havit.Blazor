@@ -26,4 +26,7 @@
 	<data name="ToParsingErrorMessage" xml:space="preserve">
 		<value>{0} muss ein Datum sein ("Bis")</value>
 	</data>
+	<data name="DateOrderErrorMessage" xml:space="preserve">
+		<value>{0} "Von"-Datum muss kleiner oder gleich dem "Bis"-Datum sein.</value>
+	</data>
 </root>

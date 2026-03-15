@@ -385,6 +385,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	private System.Timers.Timer _dataProviderInProgressDelayTimer;
 	private bool _dataProviderInProgressAfterDelay;
 	private bool _virtualizeDataProviderInProgressFromExplicitRefreshRequest;
+	private bool _loadMoreInProgress;
 
 	/// <summary>
 	/// Constructor.
@@ -398,14 +399,14 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// <inheritdoc />
 	protected override async Task OnParametersSetAsync()
 	{
-		await base.OnParametersSetAsync();
-
 		Contract.Requires<InvalidOperationException>(DataProvider != null, $"Property {nameof(DataProvider)} on {GetType()} must have a value.");
 		Contract.Requires<InvalidOperationException>(CurrentUserState != null, $"Property {nameof(CurrentUserState)} on {GetType()} must have a value.");
 		if ((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) && MultiSelectionEnabled)
 		{
 			Contract.Requires<InvalidOperationException>(PreserveSelectionEffective, $"{nameof(PreserveSelection)} must be enabled on {nameof(HxGrid)} when using {nameof(GridContentNavigationMode.InfiniteScroll)} with {nameof(MultiSelectionEnabled)}.");
 		}
+
+		bool shouldRefreshData = false;
 
 		if (_previousUserState != CurrentUserState)
 		{
@@ -414,8 +415,6 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 
 		if (_firstRenderCompleted) /* after first render previousUserState cannot be null */
 		{
-			bool shouldRefreshData = false;
-
 			if (_previousUserState != CurrentUserState)
 			{
 				// await: This adds one more render before OnParameterSetAsync is finished.
@@ -430,21 +429,19 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 				_previousPageSizeEffective = PageSizeEffective;
 				shouldRefreshData = true;
 			}
-
-			if (shouldRefreshData)
-			{
-				await RefreshDataCoreAsync();
-			}
 		}
 		_previousUserState = CurrentUserState;
 		_previousPageSizeEffective = PageSizeEffective;
+
+		if (shouldRefreshData)
+		{
+			await RefreshDataCoreAsync();
+		}
 	}
 
 	/// <inheritdoc />
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		await base.OnAfterRenderAsync(firstRender);
-
 		// when no sorting is set, use default
 		if (firstRender && (_currentSorting == null))
 		{
@@ -729,8 +726,17 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	{
 		Contract.Requires<InvalidOperationException>((ContentNavigationMode == GridContentNavigationMode.LoadMore) || (ContentNavigationModeEffective == GridContentNavigationMode.PaginationAndLoadMore), $"{nameof(LoadMoreAsync)} method can be used only with {nameof(ContentNavigationMode)}.{nameof(GridContentNavigationMode.LoadMore)} or {nameof(ContentNavigationMode)}.{nameof(GridContentNavigationMode.PaginationAndLoadMore)}.");
 
-		await IncreaseCurrentLoadMoreAdditionalItemsCountWithEventCallback(PageSizeEffective);
-		await RefreshPaginationOrLoadMoreDataCoreAsync();
+		_loadMoreInProgress = true;
+		try
+		{
+			await IncreaseCurrentLoadMoreAdditionalItemsCountWithEventCallback(PageSizeEffective);
+			await RefreshPaginationOrLoadMoreDataCoreAsync();
+		}
+		finally
+		{
+			_loadMoreInProgress = false;
+			StateHasChanged();
+		}
 	}
 
 	private async Task ResetGridStateAsync(GridStateResetOptions resetOptions)
