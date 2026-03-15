@@ -36,14 +36,24 @@ public partial class Search : IAsyncDisposable
 			.ToList();
 	}
 
+	private bool _disposed;
+
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
 			_isMac = await JSRuntime.InvokeAsync<bool>("eval", "navigator.platform.indexOf('Mac') > -1");
+			if (_disposed)
+			{
+				return;
+			}
 
 			_dotNetObjectReference = DotNetObjectReference.Create(this);
 			_jsModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./Shared/Components/Search/Search.razor.js");
+			if (_disposed)
+			{
+				return;
+			}
 			await _jsModule.InvokeVoidAsync("initializeGlobalSearchShortcut", _dotNetObjectReference);
 
 			await FocusSearchInputAsync();
@@ -86,6 +96,7 @@ public partial class Search : IAsyncDisposable
 
 	public async ValueTask DisposeAsync()
 	{
+		_disposed = true;
 		if (_jsModule is not null)
 		{
 			await _jsModule.InvokeVoidAsync("disposeGlobalSearchShortcut");

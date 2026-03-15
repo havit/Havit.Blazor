@@ -1,0 +1,3 @@
+.search-wrapper:focus-within .search-shortcut-hint {
+	display: none;
+}
