@@ -2,6 +2,12 @@
 
 <ApiDoc Type="typeof(HxIcon)">
 
+    <DocAlert Type="DocAlertType.Warning">
+        If using icons semantically (e.g., for buttons or links), ensure to set appropriate <code>aria-label</code> or <code>title</code> attributes on the parent element for accessibility.
+        <code>HxIcon</code> renders an <code>&lt;i&gt;</code> element. The aria-label is not allowed on <code>&lt;i&gt;</code> elements according to accessibility best practices.
+        Setting these attributes directly on <code>HxIcon</code> is not reccomended, as they may be ignored by assistive technologies.
+    </DocAlert>
+
     <p>(Internally used by <a href="/components/@nameof(HxButton)">@nameof(HxButton)</a> and other components.)</p>
 
     <DocHeading Title="Icon" />
