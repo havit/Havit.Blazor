@@ -1,4 +1,4 @@
-# HAVIT Blazor Bootstrap Component Library
+﻿# HAVIT Blazor Bootstrap Component Library
 
 HAVIT Blazor is a comprehensive .NET Blazor component library that provides Bootstrap v5 components for ASP.NET Blazor applications. It includes components for forms, buttons, data display, layout, navigation, and modals, plus additional features like gRPC client utilities and Google Tag Manager integration.
 
@@ -13,8 +13,8 @@ Always follow the coding standards defined in `.editorconfig`:
 - **Usings**: Sort system directives first, don't separate import directive groups
 - **Accessibility modifiers**: Required for non-interface members
 - **Braces**: Always use braces for code blocks (warning level)
-- **var keyword**: Avoid using var, prefer explicit types
-- **_undescoreName**: Required for private fields (allowed for primary constructor parameters)
+- **var keyword**: Prefer implicit types (var) unless the type is not obvious from the right-hand side or it would reduce readability
+- **_underscoreName**: Required for private fields (allowed for primary constructor parameters)
 - Do not use Nullable Reference Types
 
 ### EditorConfig Reference
@@ -66,10 +66,9 @@ Bootstrap icons are generated via source generator from `Havit.Bootstrap/Icons/b
 
 ## Development Workflow
 1. Install .NET prerequisites (one-time setup)
-2. `dotnet restore` (13s)
+2. `dotnet restore`
 3. Make your changes following `.editorconfig` standards
-4. Build components: `dotnet build --no-restore` (49s)
-5. Run tests: `dotnet test` (6s) 
+4. Build components: `dotnet build --no-restore`
+5. Run tests: `dotnet test` or `dotnet test --project path/to/YourComponentTests.csproj` to run specific tests
 6. Validate changes manually
 
-Always use the exact timeout values specified above and NEVER CANCEL long-running operations.

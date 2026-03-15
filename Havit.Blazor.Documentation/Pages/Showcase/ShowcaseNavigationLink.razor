@@ -1,4 +1,4 @@
-<div class="showcase-navigation-link">
+<div class="@CssClassHelper.Combine("showcase-navigation-link", CssClass)">
     <HxNavLink CssClass="py-3" Href="@Href">
         <div class="showcase-navigation-link-text small icon-link icon-link-hover">
             @if(IconStart != null)
@@ -26,4 +26,5 @@
     [Parameter] public string Direction { get; set; }
     [Parameter] public IconBase IconStart { get; set; }
     [Parameter] public IconBase IconEnd { get; set; }
+    [Parameter] public string CssClass { get; set; }
 }

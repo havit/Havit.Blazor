@@ -1,0 +1,10 @@
+﻿# HxInputDate_Demo_MinDateMaxDate.razor
+
+```razor
+<HxInputDate Label="Date" @bind-Value="@value" MinDate="@DateTime.Today.AddDays(-7)" MaxDate="@DateTime.Today" />
+
+@code {
+    public DateTime value { get; set; }
+}
+
+```

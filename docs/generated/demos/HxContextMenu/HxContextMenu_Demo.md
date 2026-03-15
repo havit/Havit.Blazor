@@ -1,0 +1,22 @@
+﻿# HxContextMenu_Demo.razor
+
+```razor
+<HxContextMenu>
+	<HxContextMenuItem OnClick="() => SetMessage(1)">Item 1</HxContextMenuItem>
+	<HxContextMenuItem OnClick="() => SetMessage(2)">Item 2</HxContextMenuItem>
+	<HxDropdownDivider />
+	<HxContextMenuItem Href="https://www.havit.eu">www.havit.eu</HxContextMenuItem>
+</HxContextMenu>
+
+@message
+
+@code {
+	private string message;
+
+	private void SetMessage(int item)
+	{
+		message = $"Item number {item} has been selected";
+	}
+}
+
+```

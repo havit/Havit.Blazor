@@ -1,0 +1,22 @@
+﻿# HxValidationMessage_Demo.razor
+
+```razor
+<EditForm Model="@model">
+	<DataAnnotationsValidator />
+
+	<HxInputText @bind-Value="@model.Text" Placeholder="Text" ValidationMessageMode="ValidationMessageMode.None" />
+	<HxSubmit Color="ThemeColor.Primary" Text="Submit" />
+
+    <HxValidationMessage For="() => model.Text" />
+</EditForm>
+
+@code {
+	private DemoModel model = new();
+
+	protected class DemoModel
+	{
+		[Required(ErrorMessage = "A text has to be written.")]
+		public string Text { get; set; }
+	}
+}
+```

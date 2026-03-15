@@ -1,0 +1,12 @@
+﻿# HxListGroup_Demo_Links.razor
+
+```razor
+<HxListGroup>
+    <HxListGroupItemNavLink Href="#" Active="true">The current link item</HxListGroupItemNavLink>
+    <HxListGroupItemNavLink Href="#">A second link item</HxListGroupItemNavLink>
+    <HxListGroupItemNavLink Href="#">A third link item</HxListGroupItemNavLink>
+    <HxListGroupItemNavLink Href="#">A fourth link item</HxListGroupItemNavLink>
+    <HxListGroupItemNavLink Href="#" Enabled="false">A disabled link item</HxListGroupItemNavLink>
+</HxListGroup>
+
+```

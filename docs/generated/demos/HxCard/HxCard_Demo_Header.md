@@ -1,0 +1,12 @@
+﻿# HxCard_Demo_Header.razor
+
+```razor
+<HxCard>
+    <HeaderTemplate>Featured</HeaderTemplate>
+    <BodyTemplate>
+        <HxCardTitle>Special title treatment</HxCardTitle>
+        <HxCardText>With supporting text below as a natural lead-in to additional content.</HxCardText>
+        <HxButton Color="ThemeColor.Primary">Go somewhere</HxButton>
+    </BodyTemplate>
+</HxCard>
+```

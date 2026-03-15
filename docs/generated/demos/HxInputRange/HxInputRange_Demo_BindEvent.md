@@ -1,0 +1,12 @@
+﻿# HxInputRange_Demo_BindEvent.razor
+
+```razor
+<HxInputRange Min="0" Max="100" @bind-Value="value" Label="Example slider" BindEvent="BindEvent.OnInput" />
+
+@value
+
+@code {
+    private float value = 50;
+}
+
+```

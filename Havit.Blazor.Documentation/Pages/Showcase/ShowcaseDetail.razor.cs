@@ -1,12 +1,14 @@
 using Havit.Blazor.Documentation.Pages.Showcase.Data;
 
 namespace Havit.Blazor.Documentation.Pages.Showcase;
+
 public partial class ShowcaseDetail(
 	IShowcaseDataService showcaseDataService)
 {
 	[Parameter] public string Id { get; set; }
 
 	private readonly IShowcaseDataService _showcaseDataService = showcaseDataService;
+
 	private ShowcaseModel _showcase;
 	private ShowcaseModel _previousShowcase;
 	private ShowcaseModel _nextShowcase;

@@ -155,16 +155,16 @@ internal static partial class DateHelper
 	}
 
 	#region Regex patterns
-	[GeneratedRegex("^(?<day>\\d{2})(?<month>\\d{2})(?<year>\\d{2})$")]
+	[GeneratedRegex("^(?<day>\\d{2})(?<month>\\d{2})(?<year>\\d{2}|\\d{4})$")]
 	private static partial Regex GetRegex_DayMonthYear_Strict();
 
-	[GeneratedRegex("^(?<month>\\d{2})(?<day>\\d{2})(?<year>\\d{2})$")]
+	[GeneratedRegex("^(?<month>\\d{2})(?<day>\\d{2})(?<year>\\d{2}|\\d{4})$")]
 	private static partial Regex GetRegex_MonthDayYear_Strict();
 
-	[GeneratedRegex("^(?<year>\\d{2})(?<month>\\d{2})(?<day>\\d{2})$")]
+	[GeneratedRegex("^(?<year>\\d{2}|\\d{4})(?<month>\\d{2})(?<day>\\d{2})$")]
 	private static partial Regex GetRegex_YearMonthDay_Strict();
 
-	[GeneratedRegex("^(?<year>\\d{2})(?<day>\\d{2})(?<month>\\d{2})$")]
+	[GeneratedRegex("^(?<year>\\d{2}|\\d{4})(?<day>\\d{2})(?<month>\\d{2})$")]
 	private static partial Regex GetRegex_YearDayMonth_Strict();
 
 	[GeneratedRegex("^\\W*(?<day>\\d{1,2})\\W+(?<month>\\d{1,2})\\W+(?<year>\\d{2}|\\d{4})\\W*$")]

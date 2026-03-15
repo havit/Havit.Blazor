@@ -1,0 +1,14 @@
+﻿# HxCard_Demo_Basic.razor
+
+```razor
+<HxCard ImageAlt="Grey area"
+		ImageSrc="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+		ImageHeight="180"
+		style="width: 18rem;">
+	<BodyTemplate>
+		<HxCardTitle>Card title</HxCardTitle>
+		<HxCardText>Some quick example text to build on the card title and make up the bulk of the card's content.</HxCardText>
+		<HxButton Color="ThemeColor.Primary">Go somewhere</HxButton>
+	</BodyTemplate>
+</HxCard>
+```

@@ -1,7 +1,7 @@
-﻿@attribute [Route("/components/" + nameof(HxAccordion))]
+@attribute [Route("/components/" + nameof(HxAccordion))]
 @attribute [Route("/components/" + nameof(HxAccordionItem))]
 
-<ComponentApiDoc Type="typeof(HxAccordion)">
+<ApiDoc Type="typeof(HxAccordion)">
 	<DocAlert Type="DocAlertType.Warning">
 		Avoid using a constant value for <code>@nameof(HxAccordion.ExpandedItemId)</code>,
 		as it resets the accordion to that specific item on each roundtrip.
@@ -30,6 +30,6 @@
 
 	<DocHeading Title="Complex demo" />
 	<Demo Type="typeof(HxAccordion_ComplexDemo)" />
-</ComponentApiDoc>
+</ApiDoc>
 
-<ComponentApiDoc Type="typeof(HxAccordionItem)" />
+<ApiDoc Type="typeof(HxAccordionItem)" />

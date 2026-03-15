@@ -1,0 +1,38 @@
+﻿# HxGrid_Demo_RefreshData.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxGrid @ref="gridComponent" TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" />
+	</Columns>
+</HxGrid>
+
+<HxButton Text="Refresh data" OnClick="HandleRefreshButtonClick" Color="ThemeColor.Primary" />
+
+@code {
+	private HxGrid<EmployeeDto> gridComponent;
+
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		await Task.Delay(1000); // simulate slow 1s server response in demo (do not put this in your code)
+
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken);
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = response.Data,
+				TotalCount = response.TotalCount
+			};
+	}
+
+	private async Task HandleRefreshButtonClick()
+	{
+		await gridComponent.RefreshDataAsync();
+	}
+}
+```

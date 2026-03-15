@@ -1,0 +1,120 @@
+﻿# HxGrid_Demo_InlineEditing.razor
+
+```razor
+@using Microsoft.AspNetCore.Components.Web
+@inject IDemoDataService DemoDataService
+
+<HxGrid TItem="EmployeeDto"
+		DataProvider="GetGridData"
+		SelectedDataItem="selectedDataItem"
+		SelectedDataItemChanged="HandleSelectedDataItemChanged"
+		PageSize="5"
+		Responsive="true">
+	<Columns>
+		<HxGridColumn HeaderText="Name">
+			<ItemTemplate Context="employee">
+				@if (selectedDataItem == employee)
+				{
+					<HxInputText @bind-Value="employee.Name" @onkeyup="@(async (e) => await HandleInputKey(e))" />
+				}
+				else
+				{
+					<div>@employee.Name</div>
+				}
+			</ItemTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Phone">
+			<ItemTemplate Context="employee">
+				@if (selectedDataItem == employee)
+				{
+					<HxInputText @bind-Value="employee.Phone" @onkeyup="@(async (e) => await HandleInputKey(e))" />
+				}
+				else
+				{
+					<div>@employee.Phone</div>
+				}
+			</ItemTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Salary">
+			<ItemTemplate Context="employee">
+				@if (selectedDataItem == employee)
+				{
+					<HxInputNumber @bind-Value="employee.Salary" Decimals="0" InputGroupStartText="$" @onkeyup="@(async (e) => await HandleInputKey(e))" />
+				}
+				else
+				{
+					<div>@employee.Salary.ToString("c0")</div>
+				}
+			</ItemTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Position">
+			<ItemTemplate Context="employee">
+				@if (selectedDataItem == employee)
+				{
+					<HxInputText @bind-Value="employee.Position" @onkeyup="@(async (e) => await HandleInputKey(e))" />
+				}
+				else
+				{
+					<div>@employee.Position</div>
+				}
+			</ItemTemplate>
+		</HxGridColumn>
+		<HxGridColumn HeaderText="Location">
+			<ItemTemplate Context="employee">
+				@if (selectedDataItem == employee)
+				{
+					<HxInputText @bind-Value="employee.Location" @onkeyup="@(async (e) => await HandleInputKey(e))" />
+				}
+				else
+				{
+					<div>@employee.Location</div>
+				}
+			</ItemTemplate>
+		</HxGridColumn>
+	</Columns>
+</HxGrid>
+
+@code {
+	private EmployeeDto selectedDataItem;
+
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken);
+		return new GridDataProviderResult<EmployeeDto>()
+			{
+				Data = response.Data,
+				TotalCount = response.TotalCount
+			};
+	}
+
+	private async Task HandleSelectedDataItemChanged(EmployeeDto newSelectedDataItem)
+	{
+		if (selectedDataItem != null)
+		{
+			// save the changes to original selectedDataItem first
+			await DemoDataService.UpdateEmployeeAsync(selectedDataItem);
+		}
+		// update selectedDataItem to new selection
+		selectedDataItem = newSelectedDataItem;
+	}
+
+	private async Task HandleInputKey(KeyboardEventArgs e)
+	{
+		// When Enter or Tab is pressed, save changes and exit edit mode
+		if (e.Key == "Enter" || e.Key == "Tab")
+		{
+			if (selectedDataItem != null)
+			{
+				// Save the current changes
+				await DemoDataService.UpdateEmployeeAsync(selectedDataItem);
+
+				if (e.Key == "Enter")
+				{
+					// Clear the selection to exit edit mode
+					selectedDataItem = null;
+				}
+			}
+		}
+	}
+}
+```

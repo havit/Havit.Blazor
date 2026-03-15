@@ -1,0 +1,43 @@
+﻿# HxPlaceholder_Demo_BasicExample.razor
+
+```razor
+<div class="row">
+	<div class="col-md-6">
+		<HxCard ImageAlt="Grey area"
+				ImageSrc="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+				ImageHeight="180"
+				CssClass="mb-3"
+				style="max-width: 18rem;">
+			<BodyTemplate>
+				<HxCardTitle>Card title</HxCardTitle>
+				<HxCardText>Some quick example text to build on the card title and make up the bulk of the card's content.</HxCardText>
+				<HxButton Color="ThemeColor.Primary">Go somewhere</HxButton>
+			</BodyTemplate>
+		</HxCard>
+	</div>
+	<div class="col-md-6">
+		<HxCard ImageAlt="Grey area"
+				ImageSrc="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
+				ImageHeight="180"
+				style="max-width: 18rem;">
+			<BodyTemplate>
+				<HxCardTitle>
+					<HxPlaceholderContainer Animation="PlaceholderAnimation.Glow">
+						<HxPlaceholder Columns="6" />
+					</HxPlaceholderContainer>
+				</HxCardTitle>
+				<HxCardText>
+					<HxPlaceholderContainer Animation="PlaceholderAnimation.Glow">
+						<HxPlaceholder Columns="7" />
+						<HxPlaceholder Columns="4" />
+						<HxPlaceholder Columns="4" />
+						<HxPlaceholder Columns="6" />
+						<HxPlaceholder Columns="8" />
+					</HxPlaceholderContainer>
+				</HxCardText>
+				<HxPlaceholderButton Color="ThemeColor.Primary" Columns="6" />
+			</BodyTemplate>
+		</HxCard>
+	</div>
+</div>
+```

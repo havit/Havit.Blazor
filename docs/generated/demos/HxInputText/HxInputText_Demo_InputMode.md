@@ -1,0 +1,15 @@
+﻿# HxInputText_Demo_InputMode.razor
+
+```razor
+<HxInputText @bind-Value="inputTextContent" Label="Default InputMode (not set)" />
+<HxInputText @bind-Value="inputTextContent" Label="InputMode.Email" InputMode="InputMode.Email" />
+<HxInputText @bind-Value="inputTextContent" Label="InputMode.Tel" InputMode="InputMode.Tel" />
+<HxInputText @bind-Value="inputTextContent" Label="InputMode.Url" InputMode="InputMode.Url" />
+<HxInputText @bind-Value="inputTextContent" Label="InputMode.Search" InputMode="InputMode.Search" />
+<HxInputText @bind-Value="inputTextContent" Label="InputMode.None" InputMode="InputMode.None" />
+
+@code {
+    private string inputTextContent;
+}
+
+```

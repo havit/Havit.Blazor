@@ -1,0 +1,45 @@
+﻿# HxDropdown_Demo_Directions.razor
+
+```razor
+<HxDropdownButtonGroup Direction="DropdownDirection.Down" CssClass="my-3">
+	@* DEFAULT *@
+	<HxDropdownToggleButton Color="ThemeColor.Secondary">Dropdown</HxDropdownToggleButton>
+	<HxDropdownMenu>
+		<HxDropdownItemNavLink Href="#">Item 1</HxDropdownItemNavLink>
+		<HxDropdownItemNavLink Href="#">Some item 2</HxDropdownItemNavLink>
+		<HxDropdownDivider />
+		<HxDropdownItemNavLink Href="#">Something else here</HxDropdownItemNavLink>
+	</HxDropdownMenu>
+</HxDropdownButtonGroup>
+
+<HxDropdownButtonGroup Direction="DropdownDirection.Up" CssClass="my-3">
+	<HxDropdownToggleButton Color="ThemeColor.Secondary">Dropup</HxDropdownToggleButton>
+	<HxDropdownMenu>
+		<HxDropdownItemNavLink Href="#">Item 1</HxDropdownItemNavLink>
+		<HxDropdownItemNavLink Href="#">Some item 2</HxDropdownItemNavLink>
+		<HxDropdownDivider />
+		<HxDropdownItemNavLink Href="#">Something else here</HxDropdownItemNavLink>
+	</HxDropdownMenu>
+</HxDropdownButtonGroup>
+
+<HxDropdownButtonGroup Direction="DropdownDirection.Start" CssClass="my-3">
+	<HxDropdownToggleButton Color="ThemeColor.Secondary">Dropstart</HxDropdownToggleButton>
+	<HxDropdownMenu>
+		<HxDropdownItemNavLink Href="#">Item 1</HxDropdownItemNavLink>
+		<HxDropdownItemNavLink Href="#">Some item 2</HxDropdownItemNavLink>
+		<HxDropdownDivider />
+		<HxDropdownItemNavLink Href="#">Something else here</HxDropdownItemNavLink>
+	</HxDropdownMenu>
+</HxDropdownButtonGroup>
+
+<HxDropdownButtonGroup Direction="DropdownDirection.End" CssClass="my-3">
+	<HxDropdownToggleButton Color="ThemeColor.Secondary">Dropend</HxDropdownToggleButton>
+	<HxDropdownMenu>
+		<HxDropdownItemNavLink Href="#">Item 1</HxDropdownItemNavLink>
+		<HxDropdownItemNavLink Href="#">Some item 2</HxDropdownItemNavLink>
+		<HxDropdownDivider />
+		<HxDropdownItemNavLink Href="#">Something else here</HxDropdownItemNavLink>
+	</HxDropdownMenu>
+</HxDropdownButtonGroup>
+
+```

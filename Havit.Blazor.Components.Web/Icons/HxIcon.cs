@@ -40,7 +40,7 @@ public class HxIcon : ComponentBase
 		}
 		else
 		{
-			builder.AddAttribute(5, "aria-hidden", true);
+			builder.AddAttribute(5, "aria-hidden", "true");
 		}
 		builder.AddMultipleAttributes(3, AdditionalAttributes);
 		builder.CloseComponent();

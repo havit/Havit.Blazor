@@ -79,7 +79,7 @@
 	--hx-chip-list-chip-remove-btn-opacity: 						.75;
 	--hx-chip-list-chip-reset-btn-padding: 							.45em .75em;
 	--hx-chip-list-chip-label-font-weight: 							400;
-	--hx-chip-list-chip-label-opacity: 								.75;
+	--hx-chip-list-chip-label-opacity: 								1; /* 1 cause the contrast is not accessible in the default themes*/
     --hx-chip-list-gap:												.25rem;
 
 	/* HxContextMenu */

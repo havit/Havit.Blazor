@@ -1,0 +1,16 @@
+﻿# HxListGroup_Demo_Badges.razor
+
+```razor
+<HxListGroup>
+    <HxListGroupItem CssClass="d-flex justify-content-between align-items-center">
+        A list item <HxBadge Color="ThemeColor.Primary">14</HxBadge>
+    </HxListGroupItem>
+    <HxListGroupItem CssClass="d-flex justify-content-between align-items-center">
+        A second item <HxBadge Color="ThemeColor.Primary">2</HxBadge>
+    </HxListGroupItem>
+    <HxListGroupItem CssClass="d-flex justify-content-between align-items-center">
+        A third item <HxBadge Color="ThemeColor.Primary">1</HxBadge>
+    </HxListGroupItem>
+</HxListGroup>
+
+```

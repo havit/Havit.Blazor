@@ -1,0 +1,39 @@
+﻿# HxTooltip_Demo_MethodsEvents.razor
+
+```razor
+<HxButton Text="Show" OnClick="HandleShowClick" Color="ThemeColor.Primary" Spinner="false" />
+<HxButton Text="Hide" OnClick="HandleHideClick" Color="ThemeColor.Secondary" Spinner="false" />
+
+<HxTooltip @ref="tooltip1"
+		   Trigger="TooltipTrigger.Manual"
+		   OnHidden="HandleTooltip1Hidden"
+		   Text="Tooltip 1">
+	<HxButton Color="ThemeColor.Light">Tooltip 1</HxButton>
+</HxTooltip>
+
+<HxTooltip @ref="tooltip2"
+		   Trigger="TooltipTrigger.Manual"
+		   Text="Tooltip 2">
+	<HxButton Color="ThemeColor.Light">Tooltip 2</HxButton>
+</HxTooltip>
+
+@code
+{
+	private HxTooltip tooltip1, tooltip2;
+
+	private async Task HandleShowClick()
+	{
+		await tooltip1.ShowAsync();
+	}
+
+	private async Task HandleHideClick()
+	{
+		await tooltip1.HideAsync();
+	}
+
+	private async Task HandleTooltip1Hidden()
+	{
+		await tooltip2.ShowAsync();
+	}
+}
+```

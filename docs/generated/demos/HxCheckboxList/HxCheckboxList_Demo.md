@@ -1,0 +1,29 @@
+﻿# HxCheckboxList_Demo.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxCheckboxList TItem="EmployeeDto"
+				TValue="int"
+				Label="Employees"
+				Data="@data"
+				ItemTextSelector="@(employee => employee.Name)"
+				ItemValueSelector="@(employee => employee.Id)"
+				@bind-Value="selectedEmployeeIds" />
+
+<p class="mt-2">
+	Selected employee IDs: @String.Join(", ", selectedEmployeeIds.Select(i => i.ToString()) ?? Enumerable.Empty<string>())
+</p>
+
+@code
+{
+	private IEnumerable<EmployeeDto> data;
+	private List<int> selectedEmployeeIds { get; set; } = new();
+
+	protected override async Task OnParametersSetAsync()
+	{
+		data = await DemoDataService.GetPreferredEmployeesAsync(count: 5);
+	}
+}
+
+```

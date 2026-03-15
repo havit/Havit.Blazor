@@ -1,7 +1,7 @@
-﻿@attribute [Route("/components/HxDialog")]
+@attribute [Route("/components/HxDialog")]
 @attribute [Route("/components/" + nameof(HxDialogBase<TResult>))]
 
-<ComponentApiDoc Type="typeof(HxDialogBase<TResult>)">
+<ApiDoc Type="typeof(HxDialogBase<TResult>)">
 
     <DocHeading Title="Implementation" />
     <p>Use <a href="/components/@nameof(HxModal)">@nameof(HxModal)</a> with <code>@@ref="@nameof(HxDialogBase<object>.modal)"</code> inside the dialog. See demo.</p>
@@ -12,4 +12,4 @@
     <DocHeading Title="How to implement a custom dialog" Id="custom-dialog-implementation" />
     <Demo Type="typeof(CustomDialog)" Tabs="false" />
 
-</ComponentApiDoc>
+</ApiDoc>

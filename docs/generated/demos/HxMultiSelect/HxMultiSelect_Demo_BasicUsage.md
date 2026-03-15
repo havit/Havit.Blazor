@@ -1,0 +1,27 @@
+﻿# HxMultiSelect_Demo_BasicUsage.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxMultiSelect Label="Employees"
+               TItem="EmployeeDto"
+               TValue="int"
+               Data="@employees"
+			   @bind-Value="selectedEmployeeIds"
+               TextSelector="@(p => p.Name)"
+               ValueSelector="@(p => p.Id)"
+               NullDataText="Loading employees..."
+               EmptyText="-select employees-" />
+
+<p class="mt-3">Selected employees (IDs): @String.Join(", ", selectedEmployeeIds.Select(e => e.ToString()))</p>
+
+@code {
+	private IEnumerable<EmployeeDto> employees;
+	private List<int> selectedEmployeeIds = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		employees = await DemoDataService.GetAllEmployeesAsync();
+	}
+}
+```

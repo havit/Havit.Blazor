@@ -1,0 +1,10 @@
+﻿# HxNav_Demo_Vertical.razor
+
+```razor
+<HxNav Orientation="NavOrientation.Vertical">
+	<HxNavLink Href="/components/HxNav" Match="NavLinkMatch.Prefix">Active</HxNavLink>
+	<HxNavLink Href="TEST" Text="Link" />
+	<HxNavLink Href="TEST" Text="Link" />
+	<HxNavLink Href="TEST" Text="Disabled" Enabled="false"/>
+</HxNav>
+```

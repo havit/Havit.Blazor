@@ -1,0 +1,22 @@
+﻿# HxInputTags_Demo_StaticSuggestions.razor
+
+```razor
+<HxInputTags Label="Bootstrap theme colors"
+			 @bind-Value="values"
+			 DataProvider="GetNewItemSuggestions"
+			 SuggestDelay="0"
+			 SuggestMinimumLength="0" />
+
+@code
+{
+	private List<string> values = new List<string>() { "Primary", "Secondary" };
+	private Task<InputTagsDataProviderResult> GetNewItemSuggestions(InputTagsDataProviderRequest request)
+	{
+		return Task.FromResult(new InputTagsDataProviderResult()
+		{
+			Data = Enum.GetValues<ThemeColor>().Select(v => v.ToString()).Where(v => !values.Contains(v))
+		});
+	}
+}
+
+```

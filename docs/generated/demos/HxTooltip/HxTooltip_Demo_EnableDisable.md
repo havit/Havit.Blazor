@@ -1,0 +1,27 @@
+﻿# HxTooltip_Demo_EnableDisable.razor
+
+```razor
+<HxTooltip @ref="tooltipComponent" Text="Tooltip on top">
+	<HxButton Color="ThemeColor.Secondary" Text="Tooltip on top (default)" />
+</HxTooltip>
+<HxButton Text="Disable" OnClick="HandleDisableClick" Color="ThemeColor.Warning" Outline="@(!enabled)" Spinner="false" />
+<HxButton Text="Enable" OnClick="HandleEnableClick" Color="ThemeColor.Success" Outline="@enabled" Spinner="false" />
+
+@code
+{
+	private HxTooltip tooltipComponent;
+	private bool enabled = true;
+
+	private async Task HandleEnableClick()
+	{
+		await tooltipComponent.EnableAsync();
+		enabled = true;
+	}
+
+	private async Task HandleDisableClick()
+	{
+		await tooltipComponent.DisableAsync();
+		enabled = false;
+	}
+}
+```

@@ -1,0 +1,94 @@
+@page "/HxRadioButtonList_ToggleButtons"
+@rendermode InteractiveServer
+@using System.ComponentModel.DataAnnotations
+
+<h1>HxRadioButtonList</h1>
+
+<h3>Toggle buttons</h3>
+<HxRadioButtonList TItem="string"
+				   TValue="string"
+				   Data="@data"
+				   @bind-Value="@model.SelectedValue"
+				   ItemTextSelector="@(item => item)"
+				   ItemValueSelector="@(item => item)"
+				   RenderMode="RadioButtonListRenderMode.ToggleButtons"
+				   Color="ThemeColor.Success"
+				   Outline="true" />
+
+<h3>Toggle buttons - Inline</h3>
+<HxRadioButtonList TItem="string"
+				   TValue="string"
+				   Data="@data"
+				   @bind-Value="@model.SelectedValue2"
+				   ItemTextSelector="@(item => item)"
+				   ItemValueSelector="@(item => item)"
+				   RenderMode="RadioButtonListRenderMode.ToggleButtons"
+				   Color="ThemeColor.Info"
+				   Inline="true"
+				   Outline="true" />
+
+<h3>Toggle buttons in a button group</h3>
+<HxRadioButtonList TItem="string"
+				   TValue="string"
+				   Data="@data"
+				   @bind-Value="@model.SelectedValue3"
+				   ItemTextSelector="@(item => item)"
+				   ItemValueSelector="@(item => item)"
+				   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+				   Color="ThemeColor.Primary"
+				   Outline="true" />
+
+<h3>Toggle buttons in a vertical button group (inline)</h3>
+<HxRadioButtonList TItem="string"
+				   TValue="string"
+				   Data="@data"
+				   @bind-Value="@model.SelectedValue4"
+				   ItemTextSelector="@(item => item)"
+				   ItemValueSelector="@(item => item)"
+				   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+				   Inline="true"
+				   Color="ThemeColor.Secondary"
+				   Outline="true" />
+
+<h3>In edit form</h3>
+<EditForm @bind-Model="@model">
+	<DataAnnotationsValidator />
+	<ValidationSummary />
+
+	<HxRadioButtonList TItem="string"
+					   TValue="string"
+					   Data="@data"
+					   @bind-Value="@model.SelectedValue5"
+					   ItemTextSelector="@(item => item)"
+					   ItemValueSelector="@(item => item)"
+					   RenderMode="RadioButtonListRenderMode.ToggleButtons"
+					   Color="ThemeColor.Success"
+					   Outline="true"
+					   Label="Select an option" />
+
+	<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
+</EditForm>
+
+<h3>Selected values</h3>
+<p>Value 1: @model.SelectedValue</p>
+<p>Value 2: @model.SelectedValue2</p>
+<p>Value 3: @model.SelectedValue3</p>
+<p>Value 4: @model.SelectedValue4</p>
+<p>Value 5: @model.SelectedValue5</p>
+
+@code
+{
+	private FormModel model = new FormModel();
+	private readonly List<string> data = new List<string> { "Option 1", "Option 2 long", "Option 3" };
+
+	public class FormModel
+	{
+		public string SelectedValue { get; set; }
+		public string SelectedValue2 { get; set; }
+		public string SelectedValue3 { get; set; }
+		public string SelectedValue4 { get; set; }
+
+		[Required]
+		public string SelectedValue5 { get; set; }
+	}
+}

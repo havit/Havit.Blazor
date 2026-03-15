@@ -1,0 +1,30 @@
+﻿# HxGrid_Demo_Queryable.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxGrid PageSize="5" TItem="EmployeeDto" Responsive="true" DataProvider="GetGridData">
+	<Columns>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" SortKeySelector="employee => employee.Name" IsDefaultSortColumn="true" />
+		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" SortKeySelector="employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" SortKeySelector="employee => employee.Salary" />
+		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" SortKeySelector="employee => employee.Position" />
+		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" SortKeySelector="employee => employee.Location" />
+	</Columns>
+</HxGrid>
+
+@code {
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		var query = DemoDataService.GetEmployeesAsQueryable(); // this can be dbContext.Employees or whatever IQueryable<> you have
+
+		await Task.Delay(100); // simulate server delay in demo (do not put this in your code)
+
+		return new GridDataProviderResult<EmployeeDto>()
+		{
+			Data = query.ApplyGridDataProviderRequest(request).ToList(), // use ToListAsync(request.CancellationToken) for EF core async data loading
+			TotalCount = query.Count() // use CountAsync(request.CancellationToken) for EF core async data loading
+		};
+	}
+}
+```

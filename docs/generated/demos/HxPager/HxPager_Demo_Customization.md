@@ -1,0 +1,22 @@
+﻿# HxPager_Demo_Customization.razor
+
+```razor
+<HxPager CurrentPageIndex="0"
+		 TotalPages="50"
+		 NumericButtonsCount="5"
+		 FirstPageIcon="BootstrapIcon.ArrowLeftCircleFill"
+		 PreviousPageIcon="BootstrapIcon.ArrowLeftCircle"
+		 NextPageIcon="BootstrapIcon.ArrowRightCircle"
+		 LastPageIcon="BootstrapIcon.ArrowRightCircleFill" />
+
+<HxPager CurrentPageIndex="0"
+		 TotalPages="50"
+		 NumericButtonsCount="5">
+	<PreviousPageContentTemplate>
+		prev
+	</PreviousPageContentTemplate>
+	<NextPageContentTemplate>
+		<strong>next</strong>
+	</NextPageContentTemplate>
+</HxPager>
+```

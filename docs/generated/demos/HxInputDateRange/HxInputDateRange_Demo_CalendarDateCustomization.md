@@ -1,0 +1,37 @@
+﻿# HxInputDateRange_Demo_CalendarDateCustomization.razor
+
+```razor
+<HxInputDateRange Label="Absence" @bind-Value="@value" CalendarDateCustomizationProvider="GetCalendarDateCustomization" />
+
+@code {
+	private DateTimeRange value { get; set; }
+
+	private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request)
+	{
+		if (request.Target == CalendarDateCustomizationTarget.InputDateRangeFrom)
+		{
+			if (request.Date.DayOfWeek == DayOfWeek.Wednesday)
+			{
+				return new CalendarDateCustomizationResult()
+				{
+					Enabled = false,
+					CssClass = "text-danger"
+				};
+			}
+		}
+		else if (request.Target == CalendarDateCustomizationTarget.InputDateRangeTo)
+		{
+			if (request.Date.Day % 2 == 0)
+			{
+				return new CalendarDateCustomizationResult()
+				{
+					Enabled = false,
+					CssClass = "text-warning"
+				};
+			}
+		}
+		return null;
+	}
+}
+
+```

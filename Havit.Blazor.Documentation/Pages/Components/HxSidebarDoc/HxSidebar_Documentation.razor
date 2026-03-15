@@ -1,9 +1,9 @@
-﻿@attribute [Route("/components/" + nameof(HxSidebar))]
+@attribute [Route("/components/" + nameof(HxSidebar))]
 @attribute [Route("/components/" + nameof(HxSidebar) + "/{*RouteCatchAll}")]
 @attribute [Route("/components/" + nameof(HxSidebarItem))]
 @attribute [Route("/components/" + nameof(HxSidebarBrand))]
 
-<ComponentApiDoc Type="typeof(HxSidebar)">
+<ApiDoc Type="typeof(HxSidebar)">
 	<MainContent>
 		<p>One level of item nesting is supported.</p>
 		<DocHeading Title="Basic usage" />
@@ -61,174 +61,174 @@
 		<CodeSnippet File="~\Pages\Components\HxSidebarDoc\HxSidebar_Setup.CodeSnippet.css" />
 	</MainContent>
 	<CssVariables>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-background-color" Default="var(--bs-body-bg)">
+		<ApiDocCssVariable Name="--hx-sidebar-background-color" Default="var(--bs-body-bg)">
 			Background color.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-collapsed-width" Default="72px">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-collapsed-width" Default="72px">
 			Width of collapsed sidebar.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-width" Default="300px">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-width" Default="300px">
 			Width of the sidebar.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-max-height" Default="100vh">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-max-height" Default="100vh">
 			Max height of the sidebar.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-toggler-background" Default="var(--bs-gray-500)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-toggler-background" Default="var(--bs-gray-500)">
 			Toggler bar/arrow background.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-font-size" Default="1rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-font-size" Default="1rem">
 			Font size of the items.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-content-gap" Default=".75rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-content-gap" Default=".75rem">
 			Gap between the content of the items.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-padding" Default=".75rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-padding" Default=".75rem">
 			Padding of the items.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-margin" Default="0">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-margin" Default="0">
 			Margin of the items.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-color" Default="var(--bs-body-color)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-color" Default="var(--bs-body-color)">
 			Color of the items.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-icon-color" Default="var(--bs-primary)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-icon-color" Default="var(--bs-primary)">
 			Color of the items icons.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-border-radius" Default="var(--bs-border-radius)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-border-radius" Default="var(--bs-border-radius)">
 			Border radius of the items.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-hover-color" Default="var(--bs-primary)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-hover-color" Default="var(--bs-primary)">
 			Color of the items on hover.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-hover-icon-color" Default="var(--bs-primary)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-hover-icon-color" Default="var(--bs-primary)">
 			Color of the items icon on hover.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-hover-background-color" Default="var(--bs-primary-rgb)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-hover-background-color" Default="var(--bs-primary-rgb)">
 			Background color of the items on hover.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-hover-background-opacity" Default=".1">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-hover-background-opacity" Default=".1">
 			Background opacity of the items on hover.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-active-color" Default="var(--bs-primary)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-active-color" Default="var(--bs-primary)">
 			Color of the active item.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-active-icon-color" Default="var(--bs-primary)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-active-icon-color" Default="var(--bs-primary)">
 			Color of the active item icon.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-parent-item-active-icon-color" Default="var(--hx-sidebar-item-icon-color)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-parent-item-active-icon-color" Default="var(--hx-sidebar-item-icon-color)">
 			Icon color of the parent of active item.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-active-background-opacity" Default=".1">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-active-background-opacity" Default=".1">
 			Background opacity of the active item.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-active-background-color" Default="var(--bs-primary-rgb)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-active-background-color" Default="var(--bs-primary-rgb)">
 			Background color of the active item.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-item-active-font-weight" Default="inherit">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-item-active-font-weight" Default="inherit">
 			Font weight of the active item.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-parent-item-active-color" Default="var(--hx-sidebar-item-color)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-parent-item-active-color" Default="var(--hx-sidebar-item-color)">
 			Color of the parent of active item.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-parent-item-active-background-color" Default="unset">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-parent-item-active-background-color" Default="unset">
 			Background color of the parent of active item.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-parent-item-active-background-opacity" Default="0">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-parent-item-active-background-opacity" Default="0">
 			Background opacity of the parent of active item.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-parent-item-active-font-weight" Default="600">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-parent-item-active-font-weight" Default="600">
 			Font weight of the parent of active item.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-subitem-font-size" Default=".875rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-subitem-font-size" Default=".875rem">
 			Font size of the subitems.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-subitem-padding" Default=".5rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-subitem-padding" Default=".5rem">
 			Padding of the subitems.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-subitem-margin" Default="0 0 0 2rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-subitem-margin" Default="0 0 0 2rem">
 			Margin of the subitems.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-header-padding" Default="1rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-header-padding" Default="1rem">
 			Padding of the sidebar header.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-body-padding" Default="0 1rem 1rem 1rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-body-padding" Default="0 1rem 1rem 1rem">
 			Padding of the sidebar body.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-body-nav-gap" Default=".25rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-body-nav-gap" Default=".25rem">
 			Gap of the sidebar body nav element.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-shortname-background-color" Default="var(--bs-primary)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-brand-shortname-background-color" Default="var(--bs-primary)">
 			Background color of the brand short name.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-shortname-border-radius" Default="var(--bs-border-radius)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-brand-shortname-border-radius" Default="var(--bs-border-radius)">
 			Border radius of the brand short name.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-shortname-color" Default="var(--bs-white)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-brand-shortname-color" Default="var(--bs-white)">
 			Color of the brand short name.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-shortname-width" Default="2.5rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-brand-shortname-width" Default="2.5rem">
 			Width of the brand short name.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-shortname-height" Default="2.5rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-brand-shortname-height" Default="2.5rem">
 			Height of the brand short name.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-shortname-font-weight" Default="600">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-brand-shortname-font-weight" Default="600">
 			Font weight of the brand short name.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-logo-width" Default="2.5rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-brand-logo-width" Default="2.5rem">
 			Width of the brand logo.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-logo-height" Default="2.5rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-brand-logo-height" Default="2.5rem">
 			Height of the brand logo.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-name-color" Default="var(--bs-body-color)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-brand-name-color" Default="var(--bs-body-color)">
 			Color of the brand name.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-name-font-weight" Default="600">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-brand-name-font-weight" Default="600">
 			Font weight of the brand name.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-gap" Default=".5rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-brand-gap" Default=".5rem">
 			Gap between the brand logo and the brand name.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-brand-name-font-weight" Default="600">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-brand-name-font-weight" Default="600">
 			Font weight of the brand name.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-padding" Default="0 1rem 1rem 1rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-footer-padding" Default="0 1rem 1rem 1rem">
 			Padding of the sidebar footer.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-padding" Default=".75rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-footer-item-padding" Default=".75rem">
 			Padding of the items in the footer.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-margin" Default="0">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-footer-item-margin" Default="0">
 			Margin of the items in the footer.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-font-size" Default="1rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-footer-item-font-size" Default="1rem">
 			Font size of the items in the footer.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-color" Default="var(--bs-body-color)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-footer-item-color" Default="var(--bs-body-color)">
 			Color of the items in the footer.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-radius" Default="unset">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-footer-item-radius" Default="unset">
 			Radius of the items in the footer.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-content-gap" Default=".75rem">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-footer-item-content-gap" Default=".75rem">
 			Gap between the content of the items in the footer.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-hover-background-color" Default="unset">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-footer-item-hover-background-color" Default="unset">
 			Background color on hover of the items in the footer.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-hover-background-opacity" Default="unset">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-footer-item-hover-background-opacity" Default="unset">
 			Background opacity on hover of the items in the footer.
-		</ComponentApiDocCssVariable>
-		<ComponentApiDocCssVariable Name="--hx-sidebar-footer-item-hover-color" Default="var(--bs-body-color)">
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--hx-sidebar-footer-item-hover-color" Default="var(--bs-body-color)">
 			Color on hover of the items in the footer.
-		</ComponentApiDocCssVariable>
+		</ApiDocCssVariable>
 
 	</CssVariables>
-</ComponentApiDoc>
+</ApiDoc>
 
-<ComponentApiDoc Type="typeof(HxSidebarItem)" />
-<ComponentApiDoc Type="typeof(HxSidebarBrand)" />
+<ApiDoc Type="typeof(HxSidebarItem)" />
+<ApiDoc Type="typeof(HxSidebarBrand)" />
 
 @code {
 	[Parameter] public string RouteCatchAll { get; set; } // for the demos

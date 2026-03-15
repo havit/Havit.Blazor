@@ -1,7 +1,7 @@
-﻿@attribute [Route("/components/" + nameof(HxMessageBox))]
+@attribute [Route("/components/" + nameof(HxMessageBox))]
 @attribute [Route("/components/" + nameof(HxMessageBoxHost))]
 
-<ComponentApiDoc Type="typeof(HxMessageBox)">
+<ApiDoc Type="typeof(HxMessageBox)">
 
 	<DocAlert Type="DocAlertType.Info">
 		<code>@nameof(HxMessageBox)</code> is an implementation component that you use directly only in rare specific cases.<br />
@@ -37,6 +37,6 @@
 	<DocHeading Title="No heading" />
 	<p>If you clear the <code>Title</code>, <code>HeaderTemplate</code>, and set <code>ShowCloseButton="false"</code>, the header won't show up.</p>
 	<Demo Type="typeof(HxMessageBoxService_Demo_NoHeader)" />
-</ComponentApiDoc>
+</ApiDoc>
 
-<ComponentApiDoc Type="typeof(HxMessageBoxHost)" />
+<ApiDoc Type="typeof(HxMessageBoxHost)" />

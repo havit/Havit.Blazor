@@ -1,0 +1,20 @@
+﻿@page "/HxInputDateRange_RequireDateOrderDisabled"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<EditForm Model="model">
+	<HxInputDateRange @bind-Value="model.Range"
+					  RequireDateOrder="false" />
+</EditForm>
+
+<div class="mt-4">
+	<p data-testid="value-from">@model.Range.StartDate?.ToShortDateString()</p>
+	<p data-testid="value-to">@model.Range.EndDate?.ToShortDateString()</p>
+</div>
+
+@code {
+	private FormModel model { get; set; } = new FormModel();
+	public record class FormModel
+	{
+		public DateTimeRange Range { get; set; }
+	}
+}

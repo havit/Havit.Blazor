@@ -1,7 +1,7 @@
-﻿@attribute [Route("/components/" + nameof(HxTabPanel))]
+@attribute [Route("/components/" + nameof(HxTabPanel))]
 @attribute [Route("/components/" + nameof(HxTab))]
 
-<ComponentApiDoc Type="typeof(HxTabPanel)">
+<ApiDoc Type="typeof(HxTabPanel)">
 	<DocHeading Title="Basic usage" />
 	<Demo Type="typeof(HxTabPanel_Demo_BasicUsage)" Tabs="false" />
 	<DocAlert Type="DocAlertType.Info">
@@ -33,6 +33,6 @@
 		If you want to render the active tab only, you can use the <code>RenderMode="TabPanelRenderMode.ActiveTabOnly"</code> parameter.
 	</p>
 	<Demo Type="typeof(HxTabPanel_Demo_RenderMode)" />
-</ComponentApiDoc>
+</ApiDoc>
 
-<ComponentApiDoc Type="typeof(HxTab)" />
+<ApiDoc Type="typeof(HxTab)" />

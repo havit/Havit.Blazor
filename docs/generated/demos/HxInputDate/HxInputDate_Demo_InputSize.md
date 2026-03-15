@@ -1,0 +1,11 @@
+﻿# HxInputDate_Demo_InputSize.razor
+
+```razor
+<HxInputDate Label="Small" CalendarIcon="BootstrapIcon.Calendar" InputSize="InputSize.Small" @bind-Value="value" CssClass="mb-3" />
+<HxInputDate Label="Regular (default)" CalendarIcon="BootstrapIcon.Calendar" InputSize="InputSize.Regular" @bind-Value="value" CssClass="mb-3" />
+<HxInputDate Label="Large" CalendarIcon="BootstrapIcon.Calendar" InputSize="InputSize.Large" @bind-Value="value" CssClass="mb-3" />
+
+@code {
+	private DateTime value = DateTime.Today;
+}
+```

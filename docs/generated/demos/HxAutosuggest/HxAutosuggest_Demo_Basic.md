@@ -1,0 +1,43 @@
+﻿# HxAutosuggest_Demo_Basic.razor
+
+```razor
+@inject IDemoDataService DemoDataService
+
+<HxAutosuggest Label="Employee"
+			   Placeholder="Start typing to search by name"
+			   TItem="EmployeeDto"
+			   TValue="int?"
+			   @bind-Value="@selectedEmployeeId"
+			   DataProvider="ProvideSuggestions"
+			   ValueSelector="employee => employee.Id"
+			   TextSelector="employee => employee.Name"
+			   ItemFromValueResolver="ResolveAutosuggestItemFromValue">
+	<EmptyTemplate>
+		<span class="p-2">Couldn't find any matching employee</span>
+	</EmptyTemplate>
+</HxAutosuggest>
+
+<p class="mt-3">Selected employee ID: @selectedEmployeeId</p>
+
+@code
+{
+	private int? selectedEmployeeId = 1;
+
+	private async Task<AutosuggestDataProviderResult<EmployeeDto>> ProvideSuggestions(AutosuggestDataProviderRequest request)
+	{
+		var matchingEmployees = await DemoDataService.FindEmployeesByNameAsync(request.UserInput, limitCount: 10, request.CancellationToken);
+
+		return new AutosuggestDataProviderResult<EmployeeDto> { Data = matchingEmployees };
+	}
+
+	private async Task<EmployeeDto> ResolveAutosuggestItemFromValue(int? value)
+	{
+		if (value is null)
+		{
+			return null;
+		}
+
+		return await DemoDataService.GetEmployeeByIdAsync(value.Value);
+	}
+}
+```

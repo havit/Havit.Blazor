@@ -1,0 +1,13 @@
+﻿# HxAlert_Demo_Basic.razor
+
+```razor
+<HxAlert Color="ThemeColor.Primary">A simple primary alert—check it out!</HxAlert>
+<HxAlert Color="ThemeColor.Secondary">A simple secondary alert—check it out!</HxAlert>
+<HxAlert Color="ThemeColor.Success"> A simple success alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.</HxAlert>
+<HxAlert Color="ThemeColor.Danger">A simple danger alert—check it out!</HxAlert>
+<HxAlert Color="ThemeColor.Warning">A simple warning alert—check it out!</HxAlert>
+<HxAlert Color="ThemeColor.Info">A simple info alert—check it out!</HxAlert>
+<HxAlert Color="ThemeColor.Light">A simple light alert—check it out!</HxAlert>
+<HxAlert Color="ThemeColor.Dark">A simple dark alert—check it out!</HxAlert>
+
+```

@@ -1,0 +1,17 @@
+﻿# HxCollapse_Demo_CustomToggleElement.razor
+
+```razor
+<HxCollapseToggleElement ElementName="div" CollapseTarget="#myCollapse5" CssClass="bg-primary p-3 text-white" role="button">
+	Custom toggle element
+	<HxIcon Icon="BootstrapIcon.ArrowDown" />
+</HxCollapseToggleElement>
+<HxCollapse Id="myCollapse5">
+	<HxCard>
+		<BodyTemplate>
+			Some placeholder content for the collapse component.
+			This panel is hidden by default but revealed when the user activates the relevant trigger.
+		</BodyTemplate>
+	</HxCard>
+</HxCollapse>
+
+```

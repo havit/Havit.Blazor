@@ -1,0 +1,16 @@
+﻿# HxCloseButton_Demo_DisabledState.razor
+
+```razor
+<HxCloseButton Enabled="false" OnClick="OnCloseButtonClick" />
+
+@code {
+    [Inject] protected IHxMessengerService Messenger { get; set; }
+
+    private void OnCloseButtonClick()
+    {
+        Messenger.AddInformation("Click", "HxCloseButton has been clicked!");
+    }
+}
+
+
+```

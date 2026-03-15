@@ -1,0 +1,10 @@
+﻿# HxPager_Demo.razor
+
+```razor
+<HxPager CurrentPageIndex="0" TotalPages="1" />
+<HxPager CurrentPageIndex="0" TotalPages="6" />
+<HxPager CurrentPageIndex="0" TotalPages="10" />
+<HxPager CurrentPageIndex="0" TotalPages="11" />
+<HxPager CurrentPageIndex="0" TotalPages="50" />
+
+```

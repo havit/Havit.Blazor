@@ -1,0 +1,10 @@
+﻿# HxInputDateRange_Demo.razor
+
+```razor
+<HxInputDateRange Label="Absence" @bind-Value="@value" />
+
+@code {
+	private DateTimeRange value { get; set; }
+}
+
+```

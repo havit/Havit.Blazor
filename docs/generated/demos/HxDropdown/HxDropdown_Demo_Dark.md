@@ -1,0 +1,13 @@
+﻿# HxDropdown_Demo_Dark.razor
+
+```razor
+<HxDropdownButtonGroup>
+    <HxDropdownToggleButton Color="ThemeColor.Secondary">Dropdown button</HxDropdownToggleButton>
+    <HxDropdownMenu CssClass="dropdown-menu-dark">
+        <HxDropdownItemNavLink Href="#">Link 1</HxDropdownItemNavLink>
+        <HxDropdownItemNavLink Href="#">Link 2</HxDropdownItemNavLink>
+        <HxDropdownItemNavLink Href="#">Link 3</HxDropdownItemNavLink>
+    </HxDropdownMenu>
+</HxDropdownButtonGroup>
+
+```
