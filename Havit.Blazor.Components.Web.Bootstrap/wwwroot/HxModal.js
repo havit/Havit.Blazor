@@ -46,6 +46,11 @@ export function hide(element) {
 	element.hxModalHiding = true;
 	const modal = bootstrap.Modal.getInstance(element);
 	if (modal) {
+		// Bootstrap Modal.hide() refuses to run while _isTransitioning is true.
+		// We intentionally allow hide requests in quick show/hide sequences.
+		if (modal._isTransitioning) {
+			modal._isTransitioning = false;
+		}
 		modal.hide();
 	}
 }
