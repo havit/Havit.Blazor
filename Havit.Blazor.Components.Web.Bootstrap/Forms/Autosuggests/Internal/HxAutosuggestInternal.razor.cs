@@ -393,8 +393,8 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		// After calling SetValueItemWithEventCallback, the Value might have been changed
 		// by the ValueChanged handler (e.g., the parent set Value to null).
 		// We should only update _userInput if the Value still matches the selected item.
-		TValue expectedValue = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
-		if (EqualityComparer<TValue>.Default.Equals(Value, expectedValue))
+		TValue selectedItemValue = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
+		if (EqualityComparer<TValue>.Default.Equals(Value, selectedItemValue))
 		{
 			_userInput = TextSelectorEffective(item);
 		}

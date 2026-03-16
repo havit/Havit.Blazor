@@ -20,6 +20,14 @@
 	private int? _selectedValue;
 	private int _valueChangedCount;
 
+	private static readonly List<TestItem> _testItems = new()
+	{
+		new TestItem { Id = 1, Name = "Alpha" },
+		new TestItem { Id = 2, Name = "Beta" },
+		new TestItem { Id = 3, Name = "Gamma" },
+		new TestItem { Id = 4, Name = "Delta" },
+	};
+
 	private Task HandleValueChanged(int? newValue)
 	{
 		_valueChangedCount++;
@@ -31,15 +39,7 @@
 
 	private Task<AutosuggestDataProviderResult<TestItem>> ProvideSuggestions(AutosuggestDataProviderRequest request)
 	{
-		var allItems = new List<TestItem>
-		{
-			new TestItem { Id = 1, Name = "Alpha" },
-			new TestItem { Id = 2, Name = "Beta" },
-			new TestItem { Id = 3, Name = "Gamma" },
-			new TestItem { Id = 4, Name = "Delta" },
-		};
-
-		var filteredItems = allItems
+		var filteredItems = _testItems
 			.Where(i => string.IsNullOrEmpty(request.UserInput) || i.Name.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
 			.ToList();
 
@@ -53,15 +53,7 @@
 			return Task.FromResult<TestItem>(null);
 		}
 
-		var items = new List<TestItem>
-		{
-			new TestItem { Id = 1, Name = "Alpha" },
-			new TestItem { Id = 2, Name = "Beta" },
-			new TestItem { Id = 3, Name = "Gamma" },
-			new TestItem { Id = 4, Name = "Delta" },
-		};
-
-		return Task.FromResult(items.FirstOrDefault(i => i.Id == value.Value));
+		return Task.FromResult(_testItems.FirstOrDefault(i => i.Id == value.Value));
 	}
 
 	public class TestItem
