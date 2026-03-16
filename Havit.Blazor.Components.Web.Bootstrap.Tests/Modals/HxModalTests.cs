@@ -28,7 +28,7 @@ public class HxModalTests : BunitTestBase
 		await cut.InvokeAsync(async () =>
 		{
 			await modal.HideAsync();
-			await modal.ShowAsync(); // Bug: ShowAsync was silently skipped because _opened was still true
+			await modal.ShowAsync(); // Should correctly enqueue a show even though _opened is still true
 		});
 
 		// Assert: show should have been called twice (initial + re-show after hide)
