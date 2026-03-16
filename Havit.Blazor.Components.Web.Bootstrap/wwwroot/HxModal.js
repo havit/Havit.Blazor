@@ -15,6 +15,14 @@
 	element.removeEventListener('hidden.bs.modal', handleModalHidden);
 	element.removeEventListener('shown.bs.modal', handleModalShown);
 
+	// Dispose existing modal instance to clear any transition state.
+	// Unlike Offcanvas, Bootstrap Modal.show() refuses to proceed when _isTransitioning is true,
+	// which blocks show() calls during a hide CSS transition.
+	const existingModal = bootstrap.Modal.getInstance(element);
+	if (existingModal) {
+		existingModal.dispose();
+	}
+
 	element.hxModalDotnetObjectReference = hxModalDotnetObjectReference;
 	if (subscribeToHideEvent) {
 		element.addEventListener('hide.bs.modal', handleModalHide);
@@ -67,6 +75,10 @@ async function handleModalHide(event) {
 function handleModalHidden(event) {
 	event.target.hxModalHiding = false;
 
+	if (event.target === window.modalElement) {
+		window.modalElement = null;
+	}
+
 	if (event.target.hxModalDisposing) {
 		// fix for #110 where the dispose() gets called while the modal is still in hiding-transition
 		dispose(event.target, false);
@@ -106,5 +118,9 @@ export function dispose(element, opened) {
 	const modal = bootstrap.Modal.getInstance(element);
 	if (modal) {
 		modal.dispose();
+	}
+
+	if (element === window.modalElement) { // another modal might be already open
+		window.modalElement = null;
 	}
 }
