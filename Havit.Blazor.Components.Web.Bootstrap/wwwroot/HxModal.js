@@ -10,6 +10,11 @@
 		return;
 	}
 
+	// Remove old listeners to prevent duplicates when show() is called multiple times
+	element.removeEventListener('hide.bs.modal', handleModalHide);
+	element.removeEventListener('hidden.bs.modal', handleModalHidden);
+	element.removeEventListener('shown.bs.modal', handleModalShown);
+
 	element.hxModalDotnetObjectReference = hxModalDotnetObjectReference;
 	if (subscribeToHideEvent) {
 		element.addEventListener('hide.bs.modal', handleModalHide);

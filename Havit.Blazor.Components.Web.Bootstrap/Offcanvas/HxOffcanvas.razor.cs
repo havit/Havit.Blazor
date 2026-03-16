@@ -214,20 +214,17 @@ public partial class HxOffcanvas : IAsyncDisposable
 	/// </summary>
 	public Task ShowAsync()
 	{
-		if (!_opened)
+		_onAfterRenderTasksQueue.Enqueue(async () =>
 		{
-			_onAfterRenderTasksQueue.Enqueue(async () =>
+			// Running JS interop is postponed to OnAfterRenderAsync to ensure offcanvasElement is set
+			// and correct order of commands (Show/Hide) is preserved
+			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxOffcanvas));
+			if (_disposed)
 			{
-				// Running JS interop is postponed to OnAfterRenderAsync to ensure offcanvasElement is set
-				// and correct order of commands (Show/Hide) is preserved
-				_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxOffcanvas));
-				if (_disposed)
-				{
-					return;
-				}
-				await _jsModule.InvokeVoidAsync("show", _offcanvasElement, _dotnetObjectReference, CloseOnEscapeEffective, ScrollingEnabledEffective, OnHiding.HasDelegate);
-			});
-		}
+				return;
+			}
+			await _jsModule.InvokeVoidAsync("show", _offcanvasElement, _dotnetObjectReference, CloseOnEscapeEffective, ScrollingEnabledEffective, OnHiding.HasDelegate);
+		});
 		_opened = true; // mark offcanvas as opened
 
 		StateHasChanged(); // ensures rendering offcanvas HTML
@@ -240,12 +237,6 @@ public partial class HxOffcanvas : IAsyncDisposable
 	/// </summary>
 	public Task HideAsync()
 	{
-		if (!_opened)
-		{
-			// this might be a minor PERF benefit, if it turns out to be causing troubles, we can remove this or make it configurable through optional method parameter
-			return Task.CompletedTask;
-		}
-
 		_onAfterRenderTasksQueue.Enqueue(async () =>
 		{
 			// Running JS interop is postponed to OnAfterRenderAsync to ensure offcanvasElement is set
