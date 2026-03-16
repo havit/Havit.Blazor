@@ -1,0 +1,6 @@
+@if (this.AssignedRenderMode == null) @* only for Server-Side Rendering *@
+{
+    <script type="text/javascript">
+        @((MarkupString)GetApplicationInsightsScript())
+    </script>
+}

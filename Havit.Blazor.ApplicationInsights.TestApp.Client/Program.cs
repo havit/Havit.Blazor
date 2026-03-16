@@ -1,0 +1,15 @@
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+
+namespace Havit.Blazor.ApplicationInsights.TestApp.Client;
+
+internal class Program
+{
+	public static async Task Main(string[] args)
+	{
+		var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+		builder.Services.AddBlazorApplicationInsights(options => options.ConnectionString = ConnectionStrings.ApplicationInsights);
+
+		await builder.Build().RunAsync();
+	}
+}

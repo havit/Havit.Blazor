@@ -1,0 +1,10 @@
+@attribute [Route(NavigationRoutes.AppInsightsTestInteractiveWebAssembly)]
+
+<h1>Test Interactive WASM (no prerendering)</h1>
+
+<ApplicationInsightsScript @rendermode="InteractiveWebAssemblyWithoutPrerenderingRenderMode" />
+
+@code
+{
+    protected static IComponentRenderMode InteractiveWebAssemblyWithoutPrerenderingRenderMode => new InteractiveWebAssemblyRenderMode(prerender: false);
+}

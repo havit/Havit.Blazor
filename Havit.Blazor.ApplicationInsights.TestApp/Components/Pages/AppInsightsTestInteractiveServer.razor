@@ -1,0 +1,10 @@
+@attribute [Route(NavigationRoutes.AppInsightsTestInteractiveServer)]
+
+<h1>Test Interactive Server (no prerendering)</h1>
+
+<ApplicationInsightsScript @rendermode="InteractiveServerWithoutPrerenderingRenderMode" />
+
+@code
+{
+    protected static IComponentRenderMode InteractiveServerWithoutPrerenderingRenderMode => new InteractiveServerRenderMode(prerender: false);
+}

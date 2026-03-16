@@ -95,6 +95,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.Documentation.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.Documentation.RepoDumpGenerator", "Havit.Blazor.Documentation.RepoDumpGenerator\Havit.Blazor.Documentation.RepoDumpGenerator.csproj", "{45BB304F-AA57-43A6-9EFA-3720E7FCEE6D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApplicationInsights", "ApplicationInsights", "{072470C3-0CDC-4998-8918-F4DB14AAFDF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.ApplicationInsights", "Havit.Blazor.ApplicationInsights\Havit.Blazor.ApplicationInsights.csproj", "{563D71E9-DED8-FFAD-BFF0-FDDE280ABF83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.ApplicationInsights.E2ETests", "Havit.Blazor.ApplicationInsights.E2ETests\Havit.Blazor.ApplicationInsights.E2ETests.csproj", "{AE3691CC-9404-D00C-CAEA-B4CE042571D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.ApplicationInsights.TestApp", "Havit.Blazor.ApplicationInsights.TestApp\Havit.Blazor.ApplicationInsights.TestApp.csproj", "{863D84DA-6C6D-4999-008A-2194D0A4D3D0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Havit.Blazor.ApplicationInsights.TestApp.Client", "Havit.Blazor.ApplicationInsights.TestApp.Client\Havit.Blazor.ApplicationInsights.TestApp.Client.csproj", "{4E0569A6-7F7A-57C2-EC18-7C31C34FBA9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -217,6 +227,22 @@ Global
 		{45BB304F-AA57-43A6-9EFA-3720E7FCEE6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45BB304F-AA57-43A6-9EFA-3720E7FCEE6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45BB304F-AA57-43A6-9EFA-3720E7FCEE6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{563D71E9-DED8-FFAD-BFF0-FDDE280ABF83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{563D71E9-DED8-FFAD-BFF0-FDDE280ABF83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{563D71E9-DED8-FFAD-BFF0-FDDE280ABF83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{563D71E9-DED8-FFAD-BFF0-FDDE280ABF83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE3691CC-9404-D00C-CAEA-B4CE042571D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE3691CC-9404-D00C-CAEA-B4CE042571D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE3691CC-9404-D00C-CAEA-B4CE042571D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE3691CC-9404-D00C-CAEA-B4CE042571D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{863D84DA-6C6D-4999-008A-2194D0A4D3D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{863D84DA-6C6D-4999-008A-2194D0A4D3D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{863D84DA-6C6D-4999-008A-2194D0A4D3D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{863D84DA-6C6D-4999-008A-2194D0A4D3D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4E0569A6-7F7A-57C2-EC18-7C31C34FBA9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E0569A6-7F7A-57C2-EC18-7C31C34FBA9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E0569A6-7F7A-57C2-EC18-7C31C34FBA9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E0569A6-7F7A-57C2-EC18-7C31C34FBA9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -235,6 +261,10 @@ Global
 		{45BC138B-4F00-43DD-BF5D-D2FC36972857} = {D7B56FC7-6322-4B66-B34F-A972805BF740}
 		{9236499E-62FF-4C2F-92A0-408143D67E72} = {201D627C-BC35-4971-95D0-5BA656E771F6}
 		{A19BD060-918B-4AF2-AEBC-BC32801BF42F} = {45BC138B-4F00-43DD-BF5D-D2FC36972857}
+		{563D71E9-DED8-FFAD-BFF0-FDDE280ABF83} = {072470C3-0CDC-4998-8918-F4DB14AAFDF3}
+		{AE3691CC-9404-D00C-CAEA-B4CE042571D8} = {072470C3-0CDC-4998-8918-F4DB14AAFDF3}
+		{863D84DA-6C6D-4999-008A-2194D0A4D3D0} = {072470C3-0CDC-4998-8918-F4DB14AAFDF3}
+		{4E0569A6-7F7A-57C2-EC18-7C31C34FBA9C} = {072470C3-0CDC-4998-8918-F4DB14AAFDF3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA2F0FE2-9DA0-4C29-8772-0802E2E67119}
