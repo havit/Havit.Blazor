@@ -214,7 +214,6 @@ public partial class HxModal : IAsyncDisposable
 
 
 	private bool _opened = false; // indicates whether the modal is open
-	private bool _hideInProgress = false; // indicates whether a hide has been requested but HandleModalHidden hasn't been called yet
 	private DotNetObjectReference<HxModal> _dotnetObjectReference;
 	private ElementReference _modalElement;
 	private IJSObjectReference _jsModule;
@@ -231,9 +230,8 @@ public partial class HxModal : IAsyncDisposable
 	/// </summary>
 	public Task ShowAsync()
 	{
-		if (!_opened || _hideInProgress)
+		if (!_opened)
 		{
-			_hideInProgress = false;
 			_onAfterRenderTasksQueue.Enqueue(async () =>
 			{
 				// Running JS interop is postponed to OnAfterRenderAsync to ensure modalElement is set
@@ -264,8 +262,6 @@ public partial class HxModal : IAsyncDisposable
 			// this might be a minor PERF benefit, if it turns out to be causing troubles, we can remove this or make it configurable through optional method parameter
 			return Task.CompletedTask;
 		}
-
-		_hideInProgress = true;
 
 		_onAfterRenderTasksQueue.Enqueue(async () =>
 		{
@@ -302,7 +298,6 @@ public partial class HxModal : IAsyncDisposable
 	public async Task HandleModalHidden()
 	{
 		_opened = false;
-		_hideInProgress = false;
 		await InvokeOnClosedAsync();
 		StateHasChanged(); // ensures re-render to remove dialog from HTML
 	}

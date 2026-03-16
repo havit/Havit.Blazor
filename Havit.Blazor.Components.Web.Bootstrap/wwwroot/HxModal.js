@@ -10,11 +10,6 @@
 		return;
 	}
 
-	// Remove old listeners to prevent duplicates when re-showing
-	element.removeEventListener('hide.bs.modal', handleModalHide);
-	element.removeEventListener('hidden.bs.modal', handleModalHidden);
-	element.removeEventListener('shown.bs.modal', handleModalShown);
-
 	element.hxModalDotnetObjectReference = hxModalDotnetObjectReference;
 	if (subscribeToHideEvent) {
 		element.addEventListener('hide.bs.modal', handleModalHide);
@@ -22,12 +17,6 @@
 	element.addEventListener('hidden.bs.modal', handleModalHidden);
 	element.addEventListener('shown.bs.modal', handleModalShown);
 	window.modalElement = element;
-
-	// If the modal is currently hiding (transition in progress), defer the show
-	if (element.hxModalHiding) {
-		element.hxModalPendingShow = true;
-		return;
-	}
 
 	const modal = new bootstrap.Modal(element, {
 		keyboard: closeOnEscape
@@ -41,8 +30,6 @@ export function hide(element) {
 	if (!element) {
 		return;
 	}
-	// Cancel any pending show
-	element.hxModalPendingShow = false;
 	element.hxModalHiding = true;
 	const modal = bootstrap.Modal.getInstance(element);
 	if (modal) {
@@ -78,16 +65,6 @@ function handleModalHidden(event) {
 	if (event.target.hxModalDisposing) {
 		// fix for #110 where the dispose() gets called while the modal is still in hiding-transition
 		dispose(event.target, false);
-		return;
-	}
-
-	// If a show was requested while the hide transition was in progress, re-show the modal
-	if (event.target.hxModalPendingShow) {
-		event.target.hxModalPendingShow = false;
-		const modal = bootstrap.Modal.getInstance(event.target);
-		if (modal) {
-			modal.show();
-		}
 		return;
 	}
 
