@@ -46,9 +46,15 @@ export function hide(element) {
 	element.hxModalHiding = true;
 	const modal = bootstrap.Modal.getInstance(element);
 	if (modal) {
-		// Bootstrap Modal.hide() refuses to run while _isTransitioning is true.
+		// WARNING: HxModal with Bootstrap v5.3.8: Modal.hide() refuses to run while _isTransitioning is true.
 		// We intentionally allow hide requests in quick show/hide sequences.
-		if (modal._isTransitioning) {
+		// This uses Bootstrap internal state and should be reviewed when Bootstrap is upgraded
+		// (verify that _isTransitioning and _isShown still exist and keep equivalent semantics).
+		const modalIsTransitioning = (typeof modal._isTransitioning === 'boolean') && modal._isTransitioning;
+		const modalIsShown = (typeof modal._isShown === 'boolean') && modal._isShown;
+		// Safety guard: only bypass transition state for an actually shown transitioning modal.
+		// This avoids forcing hide on a modal that is already closing/opening in a different state.
+		if (modalIsTransitioning && modalIsShown && element.classList.contains('show')) {
 			modal._isTransitioning = false;
 		}
 		modal.hide();
