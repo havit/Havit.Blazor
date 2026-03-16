@@ -1,0 +1,72 @@
+@page "/HxAutosuggest_ValueChangedClearing"
+@rendermode InteractiveServer
+
+<HxAutosuggest TItem="TestItem"
+			   TValue="int?"
+			   Value="@_selectedValue"
+			   ValueChanged="HandleValueChanged"
+			   DataProvider="ProvideSuggestions"
+			   ValueSelector="item => item.Id"
+			   TextSelector="item => item.Name"
+			   ItemFromValueResolver="ResolveItemFromValue"
+			   Delay="0"
+			   MinimumLength="0"
+			   Label="Test Autosuggest" />
+
+<p data-testid="selected-value">@(_selectedValue?.ToString() ?? "")</p>
+<p data-testid="value-changed-count">@_valueChangedCount</p>
+
+@code {
+	private int? _selectedValue;
+	private int _valueChangedCount;
+
+	private Task HandleValueChanged(int? newValue)
+	{
+		_valueChangedCount++;
+		// This simulates the scenario from the issue:
+		// The parent clears the value whenever the user selects something
+		_selectedValue = null;
+		return Task.CompletedTask;
+	}
+
+	private Task<AutosuggestDataProviderResult<TestItem>> ProvideSuggestions(AutosuggestDataProviderRequest request)
+	{
+		var allItems = new List<TestItem>
+		{
+			new TestItem { Id = 1, Name = "Alpha" },
+			new TestItem { Id = 2, Name = "Beta" },
+			new TestItem { Id = 3, Name = "Gamma" },
+			new TestItem { Id = 4, Name = "Delta" },
+		};
+
+		var filteredItems = allItems
+			.Where(i => string.IsNullOrEmpty(request.UserInput) || i.Name.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+			.ToList();
+
+		return Task.FromResult(new AutosuggestDataProviderResult<TestItem> { Data = filteredItems });
+	}
+
+	private Task<TestItem> ResolveItemFromValue(int? value)
+	{
+		if (value is null)
+		{
+			return Task.FromResult<TestItem>(null);
+		}
+
+		var items = new List<TestItem>
+		{
+			new TestItem { Id = 1, Name = "Alpha" },
+			new TestItem { Id = 2, Name = "Beta" },
+			new TestItem { Id = 3, Name = "Gamma" },
+			new TestItem { Id = 4, Name = "Delta" },
+		};
+
+		return Task.FromResult(items.FirstOrDefault(i => i.Id == value.Value));
+	}
+
+	public class TestItem
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
+	}
+}

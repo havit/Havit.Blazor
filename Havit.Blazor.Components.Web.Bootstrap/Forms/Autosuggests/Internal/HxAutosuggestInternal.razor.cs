@@ -389,7 +389,15 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	{
 		// user selected an item in the "dropdown".
 		await SetValueItemWithEventCallback(item);
-		_userInput = TextSelectorEffective(item);
+
+		// After calling SetValueItemWithEventCallback, the Value might have been changed
+		// by the ValueChanged handler (e.g., the parent set Value to null).
+		// We should only update _userInput if the Value still matches the selected item.
+		TValue expectedValue = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
+		if (EqualityComparer<TValue>.Default.Equals(Value, expectedValue))
+		{
+			_userInput = TextSelectorEffective(item);
+		}
 		_userInputModified = false;
 	}
 
@@ -397,7 +405,10 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	{
 		// user clicked on a cross button (x)
 		await SetValueItemWithEventCallback(default);
-		_userInput = TextSelectorEffective(default);
+		if (EqualityComparer<TValue>.Default.Equals(Value, default))
+		{
+			_userInput = TextSelectorEffective(default);
+		}
 		_userInputModified = false;
 	}
 
@@ -423,7 +434,10 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			if (_userInputModified && !_isDropdownOpened)
 			{
 				await SetValueItemWithEventCallback(default);
-				_userInput = TextSelectorEffective(default);
+				if (EqualityComparer<TValue>.Default.Equals(Value, default))
+				{
+					_userInput = TextSelectorEffective(default);
+				}
 				_userInputModified = false;
 				StateHasChanged();
 			}
@@ -465,7 +479,10 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		if (_userInputModified && !_currentlyFocused)
 		{
 			await SetValueItemWithEventCallback(default);
-			_userInput = TextSelectorEffective(default);
+			if (EqualityComparer<TValue>.Default.Equals(Value, default))
+			{
+				_userInput = TextSelectorEffective(default);
+			}
 			_userInputModified = false;
 			StateHasChanged();
 		}
