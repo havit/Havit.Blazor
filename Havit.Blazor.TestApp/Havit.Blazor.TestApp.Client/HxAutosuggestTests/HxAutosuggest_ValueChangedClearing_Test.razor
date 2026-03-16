@@ -1,10 +1,10 @@
-@page "/HxAutosuggest_ValueChangedClearing"
-@rendermode InteractiveServer
+﻿@page "/HxAutosuggest_ValueChangedClearing"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 <HxAutosuggest TItem="TestItem"
 			   TValue="int?"
-			   Value="@_selectedValue"
-			   ValueChanged="HandleValueChanged"
+			   @bind-Value="@_selectedValue"
+			   @bind-Value:after="HandleValueChanged"
 			   DataProvider="ProvideSuggestions"
 			   ValueSelector="item => item.Id"
 			   TextSelector="item => item.Name"
@@ -28,7 +28,7 @@
 		new TestItem { Id = 4, Name = "Delta" },
 	};
 
-	private Task HandleValueChanged(int? newValue)
+	private Task HandleValueChanged()
 	{
 		_valueChangedCount++;
 		// This simulates the scenario from the issue:

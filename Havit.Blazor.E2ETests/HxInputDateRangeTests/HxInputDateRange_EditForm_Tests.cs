@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Havit.Blazor.E2ETests.HxInputDateRangeTests;
 
