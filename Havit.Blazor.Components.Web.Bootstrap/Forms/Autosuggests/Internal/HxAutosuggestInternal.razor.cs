@@ -388,28 +388,17 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	private async Task HandleItemSelected(TItem item)
 	{
 		// user selected an item in the "dropdown".
-		await SetValueItemWithEventCallback(item);
-
-		// After calling SetValueItemWithEventCallback, the Value might have been changed
-		// by the ValueChanged handler (e.g., the parent set Value to null).
-		// We should only update _userInput if the Value still matches the selected item.
-		TValue selectedItemValue = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
-		if (EqualityComparer<TValue>.Default.Equals(Value, selectedItemValue))
-		{
-			_userInput = TextSelectorEffective(item);
-		}
+		_userInput = TextSelectorEffective(item);
 		_userInputModified = false;
+		await SetValueItemWithEventCallback(item);
 	}
 
 	private async Task ClearInputAsync()
 	{
 		// user clicked on a cross button (x)
-		await SetValueItemWithEventCallback(default);
-		if (EqualityComparer<TValue>.Default.Equals(Value, default))
-		{
-			_userInput = TextSelectorEffective(default);
-		}
+		_userInput = TextSelectorEffective(default);
 		_userInputModified = false;
+		await SetValueItemWithEventCallback(default);
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -433,12 +422,9 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			_blurInProgress = false;
 			if (_userInputModified && !_isDropdownOpened)
 			{
-				await SetValueItemWithEventCallback(default);
-				if (EqualityComparer<TValue>.Default.Equals(Value, default))
-				{
-					_userInput = TextSelectorEffective(default);
-				}
+				_userInput = TextSelectorEffective(default);
 				_userInputModified = false;
+				await SetValueItemWithEventCallback(default);
 				StateHasChanged();
 			}
 		}
@@ -478,12 +464,9 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	{
 		if (_userInputModified && !_currentlyFocused)
 		{
-			await SetValueItemWithEventCallback(default);
-			if (EqualityComparer<TValue>.Default.Equals(Value, default))
-			{
-				_userInput = TextSelectorEffective(default);
-			}
+			_userInput = TextSelectorEffective(default);
 			_userInputModified = false;
+			await SetValueItemWithEventCallback(default);
 			StateHasChanged();
 		}
 		await DestroyDropdownAsync();
