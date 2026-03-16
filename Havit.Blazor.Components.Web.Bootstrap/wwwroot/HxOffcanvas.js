@@ -14,6 +14,11 @@
 		return;
 	}
 
+	// Remove old listeners to prevent duplicates when re-showing
+	element.removeEventListener('hide.bs.offcanvas', handleOffcanvasHide);
+	element.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
+	element.removeEventListener('shown.bs.offcanvas', handleOffcanvasShown);
+
 	element.hxOffcanvasDotnetObjectReference = hxOffcanvasDotnetObjectReference;
 	if (subscribeToHideEvent) {
 		element.addEventListener('hide.bs.offcanvas', handleOffcanvasHide);
@@ -21,6 +26,12 @@
 	element.addEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
 	element.addEventListener('shown.bs.offcanvas', handleOffcanvasShown);
 	window.offcanvasElement = element;
+
+	// If the offcanvas is currently hiding (transition in progress), defer the show
+	if (element.hxOffcanvasHiding) {
+		element.hxOffcanvasPendingShow = true;
+		return;
+	}
 
 	const offcanvas = new bootstrap.Offcanvas(element, {
 		keyboard: closeOnEscape,
@@ -35,6 +46,8 @@ export function hide(element) {
 	if (!element) {
 		return;
 	}
+	// Cancel any pending show
+	element.hxOffcanvasPendingShow = false;
 	element.hxOffcanvasHiding = true;
 	const o = bootstrap.Offcanvas.getInstance(element);
 	if (o) {
@@ -74,6 +87,16 @@ function handleOffcanvasHidden(event) {
 	if (event.target.hxOffcanvasDisposing) {
 		// fix for #110 where the dispose() gets called while the offcanvas is still in hiding-transition
 		dispose(event.target, false);
+		return;
+	}
+
+	// If a show was requested while the hide transition was in progress, re-show the offcanvas
+	if (event.target.hxOffcanvasPendingShow) {
+		event.target.hxOffcanvasPendingShow = false;
+		const o = bootstrap.Offcanvas.getInstance(event.target);
+		if (o) {
+			o.show();
+		}
 		return;
 	}
 

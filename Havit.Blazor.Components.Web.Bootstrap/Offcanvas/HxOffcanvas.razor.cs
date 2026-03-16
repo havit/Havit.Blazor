@@ -194,6 +194,7 @@ public partial class HxOffcanvas : IAsyncDisposable
 
 
 	private bool _opened = false; // indicates whether the offcanvas is open
+	private bool _hideInProgress = false; // indicates whether a hide has been requested but HandleOffcanvasHidden hasn't been called yet
 	private string _offcanvasId = "hx" + Guid.NewGuid().ToString("N");
 	private DotNetObjectReference<HxOffcanvas> _dotnetObjectReference;
 	private ElementReference _offcanvasElement;
@@ -214,8 +215,9 @@ public partial class HxOffcanvas : IAsyncDisposable
 	/// </summary>
 	public Task ShowAsync()
 	{
-		if (!_opened)
+		if (!_opened || _hideInProgress)
 		{
+			_hideInProgress = false;
 			_onAfterRenderTasksQueue.Enqueue(async () =>
 			{
 				// Running JS interop is postponed to OnAfterRenderAsync to ensure offcanvasElement is set
@@ -245,6 +247,8 @@ public partial class HxOffcanvas : IAsyncDisposable
 			// this might be a minor PERF benefit, if it turns out to be causing troubles, we can remove this or make it configurable through optional method parameter
 			return Task.CompletedTask;
 		}
+
+		_hideInProgress = true;
 
 		_onAfterRenderTasksQueue.Enqueue(async () =>
 		{
@@ -277,6 +281,7 @@ public partial class HxOffcanvas : IAsyncDisposable
 	public async Task HandleOffcanvasHidden()
 	{
 		_opened = false;
+		_hideInProgress = false;
 		await InvokeOnClosedAsync();
 		StateHasChanged(); // ensures re-render to remove the control from HTML
 	}
