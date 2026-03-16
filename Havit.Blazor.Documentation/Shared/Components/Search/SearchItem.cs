@@ -2,7 +2,7 @@
 
 namespace Havit.Blazor.Documentation.Shared.Components;
 
-public class SearchItem
+public record SearchItem
 {
 	public string Href { get; }
 	public string Title { get; }

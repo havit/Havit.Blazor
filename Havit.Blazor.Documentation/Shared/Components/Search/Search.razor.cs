@@ -1,5 +1,5 @@
-﻿using Microsoft.JSInterop;
-using Havit.Blazor.Documentation.Services;
+﻿using Havit.Blazor.Documentation.Services;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Documentation.Shared.Components;
 
@@ -12,18 +12,7 @@ public partial class Search : IAsyncDisposable
 	private IJSObjectReference _jsModule;
 	private DotNetObjectReference<Search> _dotNetObjectReference;
 	private bool _isMac;
-
-	private SearchItem SelectedResult
-	{
-		get
-		{
-			return null;
-		}
-		set
-		{
-			NavigateToSelectedPage(value);
-		}
-	}
+	private SearchItem _selectedResult;
 
 	private string _userInput;
 	private List<SearchItem> _searchItems;
@@ -42,10 +31,11 @@ public partial class Search : IAsyncDisposable
 	{
 		if (firstRender)
 		{
-			_isMac = await JSRuntime.InvokeAsync<bool>("eval", "navigator.platform.indexOf('Mac') > -1");
-			if (_disposed)
+			var isMacNew = await JSRuntime.InvokeAsync<bool>("eval", "navigator.platform.indexOf('Mac') > -1");
+			if (isMacNew != _isMac)
 			{
-				return;
+				_isMac = isMacNew;
+				StateHasChanged();
 			}
 
 			_dotNetObjectReference = DotNetObjectReference.Create(this);
@@ -89,9 +79,11 @@ public partial class Search : IAsyncDisposable
 				.Take(8);
 	}
 
-	public void NavigateToSelectedPage(SearchItem searchItem)
+	public void NavigateToSelectedPage()
 	{
-		NavigationManager.NavigateTo(searchItem.Href);
+		var href = _selectedResult.Href;
+		_selectedResult = null;
+		NavigationManager.NavigateTo(href);
 	}
 
 	public async ValueTask DisposeAsync()
