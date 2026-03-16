@@ -10,18 +10,19 @@
 		return;
 	}
 
+	// Bootstrap Modal.show() refuses to proceed when _isTransitioning is true.
+	// If a hide transition is in progress, defer the show to after the transition completes
+	// (handleModalHidden will pick up the deferred show).
+	const existingModal = bootstrap.Modal.getInstance(element);
+	if (existingModal && existingModal._isTransitioning && !existingModal._isShown) {
+		element.hxDeferredShow = { hxModalDotnetObjectReference, closeOnEscape, subscribeToHideEvent };
+		return;
+	}
+
 	// Remove old listeners to prevent duplicates when show() is called multiple times
 	element.removeEventListener('hide.bs.modal', handleModalHide);
 	element.removeEventListener('hidden.bs.modal', handleModalHidden);
 	element.removeEventListener('shown.bs.modal', handleModalShown);
-
-	// Dispose existing modal instance to clear any transition state.
-	// Unlike Offcanvas, Bootstrap Modal.show() refuses to proceed when _isTransitioning is true,
-	// which blocks show() calls during a hide CSS transition.
-	const existingModal = bootstrap.Modal.getInstance(element);
-	if (existingModal) {
-		existingModal.dispose();
-	}
 
 	element.hxModalDotnetObjectReference = hxModalDotnetObjectReference;
 	if (subscribeToHideEvent) {
@@ -31,30 +32,26 @@
 	element.addEventListener('shown.bs.modal', handleModalShown);
 	window.modalElement = element;
 
-	const modal = new bootstrap.Modal(element, {
-		keyboard: closeOnEscape
-	});
-	if (modal) {
-		modal.show();
+	let modal = bootstrap.Modal.getInstance(element);
+	if (!modal) {
+		modal = new bootstrap.Modal(element, {
+			keyboard: closeOnEscape
+		});
 	}
+	modal.show();
 }
 
 export function hide(element) {
 	if (!element) {
 		return;
 	}
+	element.hxDeferredShow = null; // Cancel any pending deferred show
 	element.hxModalHiding = true;
 	const modal = bootstrap.Modal.getInstance(element);
 	if (modal) {
-		// WARNING: HxModal with Bootstrap v5.3.8: Modal.hide() refuses to run while _isTransitioning is true.
-		// We intentionally allow hide requests in quick show/hide sequences.
-		// This uses Bootstrap internal state and should be reviewed when Bootstrap is upgraded
-		// (verify that _isTransitioning and _isShown still exist and keep equivalent semantics).
-		const modalIsTransitioning = (typeof modal._isTransitioning === 'boolean') && modal._isTransitioning;
-		const modalIsShown = (typeof modal._isShown === 'boolean') && modal._isShown;
-		// Safety guard: only bypass transition state for an actually shown transitioning modal.
-		// This avoids forcing hide on a modal that is already closing/opening in a different state.
-		if (modalIsTransitioning && modalIsShown && element.classList.contains('show')) {
+		// Bootstrap Modal.hide() refuses to run while _isTransitioning is true.
+		// Clear it to allow hide during a show transition (rapid show→hide).
+		if (modal._isTransitioning) {
 			modal._isTransitioning = false;
 		}
 		modal.hide();
@@ -90,6 +87,14 @@ function handleModalHidden(event) {
 		window.modalElement = null;
 	}
 
+	// If show() was called during a hide transition, execute the deferred show now
+	if (event.target.hxDeferredShow) {
+		const { hxModalDotnetObjectReference, closeOnEscape, subscribeToHideEvent } = event.target.hxDeferredShow;
+		event.target.hxDeferredShow = null;
+		show(event.target, hxModalDotnetObjectReference, closeOnEscape, subscribeToHideEvent);
+		return;
+	}
+
 	if (event.target.hxModalDisposing) {
 		// fix for #110 where the dispose() gets called while the modal is still in hiding-transition
 		dispose(event.target, false);
@@ -104,6 +109,7 @@ export function dispose(element, opened) {
 		return;
 	}
 
+	element.hxDeferredShow = null;
 	element.hxModalDisposing = true;
 
 	if (element.hxModalHiding) {
