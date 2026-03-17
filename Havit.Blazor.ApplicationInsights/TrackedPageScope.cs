@@ -1,0 +1,47 @@
+namespace Havit.Blazor.ApplicationInsights;
+
+/// <summary>
+/// Represents the lifetime of a timed Application Insights page view.
+/// Created by <see cref="BlazorApplicationInsightsExtensions.EnterTrackPageScopeAsync"/>,
+/// which calls <see cref="IBlazorApplicationInsights.StartTrackPageAsync"/> upon creation
+/// and <see cref="IBlazorApplicationInsights.StopTrackPageAsync"/> when the scope is disposed.
+/// </summary>
+/// <example>
+/// <code>
+/// await using var scope = await AppInsights.EnterTrackPageScopeAsync("my-page");
+/// scope.Url = "https://example.com/my-page";
+/// </code>
+/// </example>
+public class TrackedPageScope : IAsyncDisposable
+{
+	private readonly IBlazorApplicationInsights _appInsights;
+	private readonly string _name;
+
+	/// <summary>
+	/// URL of the page to include when <see cref="IBlazorApplicationInsights.StopTrackPageAsync"/> is called.
+	/// Can be set any time before the scope is disposed.
+	/// </summary>
+	public string Url { get; set; }
+
+	/// <summary>
+	/// Custom string properties attached to the page view when <see cref="IBlazorApplicationInsights.StopTrackPageAsync"/> is called.
+	/// Can be set any time before the scope is disposed.
+	/// </summary>
+	public Dictionary<string, string> Properties { get; set; }
+
+	/// <summary>
+	/// Custom numeric measurements attached to the page view when <see cref="IBlazorApplicationInsights.StopTrackPageAsync"/> is called.
+	/// Can be set any time before the scope is disposed.
+	/// </summary>
+	public Dictionary<string, double> Measurements { get; set; }
+
+	internal TrackedPageScope(IBlazorApplicationInsights appInsights, string name)
+	{
+		_appInsights = appInsights;
+		_name = name;
+	}
+
+	/// <inheritdoc/>
+	public async ValueTask DisposeAsync()
+		=> await _appInsights.StopTrackPageAsync(_name, Url, Properties, Measurements);
+}

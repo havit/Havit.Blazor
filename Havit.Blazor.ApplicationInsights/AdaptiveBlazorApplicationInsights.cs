@@ -45,42 +45,54 @@ internal class AdaptiveBlazorApplicationInsights : IBlazorApplicationInsights
 	}
 
 	/// <inheritdoc/>
-	public Task TrackEventAsync(EventTelemetry telemetry, Dictionary<string, object> customProperties = null)
-		=> InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.TrackEventAsync(telemetry, customProperties));
+	public async Task TrackEventAsync(EventTelemetry telemetry, Dictionary<string, object> customProperties = null)
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.TrackEventAsync(telemetry, customProperties));
 
 	/// <inheritdoc/>
-	public Task TrackPageViewAsync(PageViewTelemetry telemetry = null, Dictionary<string, object> customProperties = null)
-		=> InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.TrackPageViewAsync(telemetry, customProperties));
+	public async Task TrackPageViewAsync(PageViewTelemetry telemetry = null, Dictionary<string, object> customProperties = null)
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.TrackPageViewAsync(telemetry, customProperties));
 
 	/// <inheritdoc/>
-	public Task TrackExceptionAsync(ExceptionTelemetry telemetry, Dictionary<string, object> customProperties = null)
-		=> InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.TrackExceptionAsync(telemetry, customProperties));
+	public async Task TrackExceptionAsync(ExceptionTelemetry telemetry, Dictionary<string, object> customProperties = null)
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.TrackExceptionAsync(telemetry, customProperties));
 
 	/// <inheritdoc/>
-	public Task TrackTraceAsync(TraceTelemetry telemetry, Dictionary<string, object> customProperties = null)
-		=> InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.TrackTraceAsync(telemetry, customProperties));
+	public async Task TrackTraceAsync(TraceTelemetry telemetry, Dictionary<string, object> customProperties = null)
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.TrackTraceAsync(telemetry, customProperties));
 
 	/// <inheritdoc/>
-	public Task TrackMetricAsync(MetricTelemetry telemetry, Dictionary<string, object> customProperties = null)
-		=> InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.TrackMetricAsync(telemetry, customProperties));
+	public async Task TrackMetricAsync(MetricTelemetry telemetry, Dictionary<string, object> customProperties = null)
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.TrackMetricAsync(telemetry, customProperties));
 
 	/// <inheritdoc/>
-	public Task StartTrackPageAsync(string name = null)
-		=> InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.StartTrackPageAsync(name));
+	public async Task StartTrackPageAsync(string name = null)
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.StartTrackPageAsync(name));
 
 	/// <inheritdoc/>
-	public Task StopTrackPageAsync(string name = null, string url = null, Dictionary<string, string> properties = null, Dictionary<string, double> measurements = null)
-		=> InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.StopTrackPageAsync(name, url, properties, measurements));
+	public async Task StopTrackPageAsync(string name = null, string url = null, Dictionary<string, string> properties = null, Dictionary<string, double> measurements = null)
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.StopTrackPageAsync(name, url, properties, measurements));
 
 	/// <inheritdoc/>
-	public Task StartTrackEventAsync(string name)
-		=> InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.StartTrackEventAsync(name));
+	public async Task StartTrackEventAsync(string name)
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.StartTrackEventAsync(name));
 
 	/// <inheritdoc/>
-	public Task StopTrackEventAsync(string name, Dictionary<string, string> properties = null, Dictionary<string, double> measurements = null)
-		=> InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.StopTrackEventAsync(name, properties, measurements));
+	public async Task StopTrackEventAsync(string name, Dictionary<string, string> properties = null, Dictionary<string, double> measurements = null)
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.StopTrackEventAsync(name, properties, measurements));
 
 	/// <inheritdoc/>
-	public Task TrackPageViewPerformanceAsync(PageViewPerformanceTelemetry telemetry, Dictionary<string, object> customProperties = null)
-		=> InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.TrackPageViewPerformanceAsync(telemetry, customProperties));
+	public async Task TrackPageViewPerformanceAsync(PageViewPerformanceTelemetry telemetry, Dictionary<string, object> customProperties = null)
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.TrackPageViewPerformanceAsync(telemetry, customProperties));
+
+	/// <inheritdoc/>
+	public async Task SetAuthenticatedUserContextAsync(string authenticatedUserId, string accountId = null, bool storeInCookie = false)
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.SetAuthenticatedUserContextAsync(authenticatedUserId, accountId, storeInCookie));
+
+	/// <inheritdoc/>
+	public async Task ClearAuthenticatedUserContextAsync()
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.ClearAuthenticatedUserContextAsync());
+
+	/// <inheritdoc/>
+	public async Task FlushAsync()
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.FlushAsync());
 }

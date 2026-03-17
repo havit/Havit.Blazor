@@ -49,4 +49,20 @@ public interface IBlazorApplicationInsights
 
 	/// <summary>Tracks page view performance metrics.</summary>
 	Task TrackPageViewPerformanceAsync(PageViewPerformanceTelemetry telemetry, Dictionary<string, object> customProperties = null);
+
+	/// <summary>
+	/// Sets the authenticated user context. Once set, Application Insights includes the user identity
+	/// in all subsequent telemetry — including items tracked automatically by the JavaScript SDK
+	/// (unhandled exceptions, page views, XHR requests, etc.).
+	/// </summary>
+	Task SetAuthenticatedUserContextAsync(string authenticatedUserId, string accountId = null, bool storeInCookie = false);
+
+	/// <summary>Clears the authenticated user context previously set by <see cref="SetAuthenticatedUserContextAsync"/>.</summary>
+	Task ClearAuthenticatedUserContextAsync();
+
+	/// <summary>
+	/// Flushes any buffered telemetry items, sending them immediately to Application Insights.
+	/// Useful before navigating away or on application unload.
+	/// </summary>
+	Task FlushAsync();
 }

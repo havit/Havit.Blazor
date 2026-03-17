@@ -38,4 +38,13 @@ internal class NullBlazorApplicationInsights : IBlazorApplicationInsights
 
 	public Task TrackPageViewPerformanceAsync(PageViewPerformanceTelemetry telemetry, Dictionary<string, object> customProperties = null)
 		=> Task.CompletedTask;
+
+	public Task SetAuthenticatedUserContextAsync(string authenticatedUserId, string accountId = null, bool storeInCookie = false)
+		=> Task.CompletedTask;
+
+	public Task ClearAuthenticatedUserContextAsync()
+		=> Task.CompletedTask;
+
+	public Task FlushAsync()
+		=> Task.CompletedTask;
 }
