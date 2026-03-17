@@ -7,10 +7,39 @@ namespace Havit.Blazor.ApplicationInsights.Components;
 
 // see https://github.com/microsoft/ApplicationInsights-JS?tab=readme-ov-file#snippet-setup-ignore-if-using-npm-setup
 
+/// <summary>
+/// Renders the Application Insights JavaScript SDK snippet and initializes the client-side telemetry.
+/// <para>
+/// The component covers two rendering scenarios:
+/// <list type="bullet">
+///   <item><description>
+///     <b>Static Server-Side Rendering (SSR):</b> The script is emitted inline as a <c>&lt;script&gt;</c> tag
+///     directly into the HTML response (see the <c>.razor</c> file — rendered only when <c>AssignedRenderMode == null</c>).
+///   </description></item>
+///   <item><description>
+///     <b>Interactive rendering (Blazor Server / WASM):</b> The script is injected at runtime via
+///     <c>eval()</c> in <see cref="OnAfterRenderAsync"/> on the first render, because at that point
+///     the component is already interactive and can use <see cref="IJSRuntime"/>.
+///   </description></item>
+/// </list>
+/// </para>
+/// <para>
+/// Options configured server-side are persisted via <see cref="PersistentComponentState"/> so they are
+/// available to the component when it re-hydrates on the client (e.g. in a Blazor Web App with WASM interactivity).
+/// </para>
+/// </summary>
 public partial class ApplicationInsightsScript : IDisposable
 {
+	/// <summary>
+	/// Key under which the resolved <see cref="BlazorApplicationInsightsClientOptions"/> are stored in
+	/// <see cref="PersistentComponentState"/>. Must be unique within the component tree.
+	/// </summary>
 	private const string OptionsPersistentStateKey = nameof(OptionsPersistentStateKey);
 
+	/// <summary>
+	/// Optional CSP nonce to include on the inline <c>&lt;script&gt;</c> tag (SSR scenario).
+	/// Required when a Content Security Policy with <c>nonce-*</c> is in use.
+	/// </summary>
 	[Parameter] public string Nonce { get; set; }
 
 	[Inject] private IOptions<BlazorApplicationInsightsClientOptions> BlazorApplicationInsightsOptions { get; set; }
@@ -25,15 +54,26 @@ public partial class ApplicationInsightsScript : IDisposable
 	{
 		base.OnInitialized();
 
+		// Register the callback that serializes options into PersistentComponentState
+		// during SSR prerendering, so the interactive client can recover them.
 		_persistingSubscription = PersistentState.RegisterOnPersisting(PersistBlazorApplicationInsightsOptionsAsync);
 
-		_blazorApplicationInsightsOptionsValue = BlazorApplicationInsightsOptions.Value with { }; // TODO: 
+		// Clone with `with { }` to get a mutable copy; we must not modify the DI singleton!
+		_blazorApplicationInsightsOptionsValue = BlazorApplicationInsightsOptions.Value with { };
 		if (PersistentState.TryTakeFromJson<BlazorApplicationInsightsClientOptions>(OptionsPersistentStateKey, out var persistentOptions))
 		{
+			// Merge server-persisted options into the local copy.
+			// MergeTo only fills properties that are null on the target,
+			// so locally configured (DI) values always take precedence.
 			persistentOptions.MergeTo(_blazorApplicationInsightsOptionsValue);
 		}
 	}
 
+	/// <summary>
+	/// Persists the resolved options into <see cref="PersistentComponentState"/> during SSR prerendering.
+	/// This allows the interactive client (especially WASM) to recover options that were only
+	/// available server-side (e.g. connection strings read from server configuration).
+	/// </summary>
 	private Task PersistBlazorApplicationInsightsOptionsAsync()
 	{
 		PersistentState.PersistAsJson(OptionsPersistentStateKey, _blazorApplicationInsightsOptionsValue);
@@ -44,7 +84,11 @@ public partial class ApplicationInsightsScript : IDisposable
 	{
 		await base.OnAfterRenderAsync(firstRender);
 
-		if (firstRender && this.RendererInfo.IsInteractive)
+		// In interactive mode the razor template does not emit the <script> tag (see .razor file),
+		// so we inject the snippet programmatically via eval() here.
+		// OnAfterRenderAsync is not called during SSR prerendering at all, so the script
+		// is never executed in that phase.
+		if (firstRender /*&& this.RendererInfo.IsInteractive - not required because OnAfterRenderAsync is not called during prerendering */)
 		{
 			await JSRuntime.InvokeVoidAsync("eval", GetApplicationInsightsScript());
 		}
@@ -66,6 +110,8 @@ public partial class ApplicationInsightsScript : IDisposable
 
 	public void Dispose()
 	{
+		// Unregister the PersistentComponentState persisting callback to avoid memory leaks
+		// and prevent the callback from firing after the component has been removed.
 		_persistingSubscription.Dispose();
 	}
 }

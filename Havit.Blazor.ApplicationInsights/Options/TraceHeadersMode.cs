@@ -1,3 +1,6 @@
+// This file is generated from the Application Insights JS SDK TypeScript source.
+// Source: https://github.com/microsoft/ApplicationInsights-JS/blob/main/shared/AppInsightsCore/src/applicationinsights-web-basic/src/Enums.ts
+
 namespace Havit.Blazor.ApplicationInsights.Options;
 
 /// <summary>

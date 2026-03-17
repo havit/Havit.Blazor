@@ -1,3 +1,6 @@
+// This file is generated from the Application Insights JS SDK TypeScript source.
+// Source: https://github.com/microsoft/ApplicationInsights-JS/blob/main/shared/AppInsightsCore/src/interfaces/ai/IConfiguration.ts
+
 using System.Text.Json.Serialization;
 
 namespace Havit.Blazor.ApplicationInsights.Options;
