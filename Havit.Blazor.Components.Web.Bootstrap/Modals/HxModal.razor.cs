@@ -328,7 +328,7 @@ public partial class HxModal : IAsyncDisposable
 		if (_pendingOperation == PendingOperation.Show)
 		{
 			_pendingOperation = PendingOperation.None;
-			_ = ShowAsync(); // always synchronous (enqueue + StateHasChanged), discard to suppress CS4014
+			await ShowAsync();
 			return;
 		}
 
@@ -349,7 +349,7 @@ public partial class HxModal : IAsyncDisposable
 		if (_pendingOperation == PendingOperation.Hide)
 		{
 			_pendingOperation = PendingOperation.None;
-			_ = HideAsync(); // always synchronous (enqueue + StateHasChanged), discard to suppress CS4014
+			await HideAsync();
 			return;
 		}
 
