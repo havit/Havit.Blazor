@@ -1,0 +1,61 @@
+@page "/HxModal_CanceledHide"
+
+@rendermode InteractiveWebAssembly
+
+<p>
+	This page tests that the modal control is not deadlocked after a canceled hide.<br />
+	Steps: click <strong>Show modal</strong>, then click <strong>Hide (cancel 1st attempt)</strong>.
+	The first hide should be canceled. Then click again and the modal should actually hide.
+	After that, verify the modal can be shown/hidden again without issues.
+</p>
+
+<HxButton Color="ThemeColor.Primary" OnClick="ShowAsync" data-testid="show-button">Show modal</HxButton>
+<HxButton Color="ThemeColor.Secondary" OnClick="HideAsync" data-testid="hide-button">Hide modal</HxButton>
+<p data-testid="hide-attempt-count">Hide attempt count: @_hideAttemptCount</p>
+<p data-testid="hidden-count">Hidden count: @_hiddenCount</p>
+
+<HxModal @ref="_modal"
+		 Title="Canceled Hide Test"
+		 OnHiding="HandleOnHiding"
+		 OnClosed="HandleOnClosed">
+	<BodyTemplate>
+		<p>This is the modal body. Close attempt: @_hideAttemptCount</p>
+		<p>The first close attempt will be canceled.</p>
+	</BodyTemplate>
+	<FooterTemplate>
+		<HxButton Color="ThemeColor.Secondary" OnClick="HideAsync" data-testid="modal-close-button">Close</HxButton>
+	</FooterTemplate>
+</HxModal>
+
+@code {
+	private HxModal _modal;
+	private int _hideAttemptCount;
+	private int _hiddenCount;
+
+	private async Task ShowAsync()
+	{
+		await _modal.ShowAsync();
+	}
+
+	private async Task HideAsync()
+	{
+		await _modal.HideAsync();
+	}
+
+	private void HandleOnHiding(ModalHidingEventArgs args)
+	{
+		_hideAttemptCount++;
+		// Cancel the first hide attempt only
+		if (_hideAttemptCount % 2 == 1)
+		{
+			args.Cancel = true;
+		}
+		StateHasChanged();
+	}
+
+	private void HandleOnClosed()
+	{
+		_hiddenCount++;
+		StateHasChanged();
+	}
+}

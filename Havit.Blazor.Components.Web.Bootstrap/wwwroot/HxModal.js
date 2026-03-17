@@ -49,14 +49,17 @@ async function handleModalHide(event) {
 		return;
 	}
 
-    event.preventDefault();
+	event.preventDefault();
 
 	const cancel = await event.target.hxModalDotnetObjectReference.invokeMethodAsync('HxModal_HandleModalHide');
-    if (!cancel) {
+	if (!cancel) {
 		modalInstance.hidePreventionDisabled = true;
 		event.target.hxModalHiding = true;
 		modalInstance.hide();
-    }
+	} else {
+		// Reset the transition flag so that subsequent HideAsync()/dispose() calls are not blocked
+		event.target.hxModalHiding = false;
+	}
 }
 
 function handleModalHidden(event) {
