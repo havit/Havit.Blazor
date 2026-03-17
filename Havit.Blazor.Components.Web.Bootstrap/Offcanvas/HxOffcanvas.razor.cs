@@ -194,12 +194,16 @@ public partial class HxOffcanvas : IAsyncDisposable
 
 
 	private bool _opened = false; // indicates whether the offcanvas is open
+	private bool _transitionInProgress;
+	private PendingOperation _pendingOperation = PendingOperation.None;
 	private string _offcanvasId = "hx" + Guid.NewGuid().ToString("N");
 	private DotNetObjectReference<HxOffcanvas> _dotnetObjectReference;
 	private ElementReference _offcanvasElement;
 	private IJSObjectReference _jsModule;
 	private Queue<Func<Task>> _onAfterRenderTasksQueue = new();
 	private bool _disposed;
+
+	private enum PendingOperation { None, Show, Hide }
 
 	/// <summary>
 	/// Constructor.
@@ -214,6 +218,22 @@ public partial class HxOffcanvas : IAsyncDisposable
 	/// </summary>
 	public Task ShowAsync()
 	{
+		if (_transitionInProgress)
+		{
+			_pendingOperation = PendingOperation.Show;
+			_opened = true; // ensure HTML content is rendered while waiting
+			StateHasChanged();
+			return Task.CompletedTask;
+		}
+
+		if (_opened)
+		{
+			return Task.CompletedTask;
+		}
+
+		_pendingOperation = PendingOperation.None;
+		_transitionInProgress = true;
+
 		_onAfterRenderTasksQueue.Enqueue(async () =>
 		{
 			// Running JS interop is postponed to OnAfterRenderAsync to ensure offcanvasElement is set
@@ -237,6 +257,20 @@ public partial class HxOffcanvas : IAsyncDisposable
 	/// </summary>
 	public Task HideAsync()
 	{
+		if (_transitionInProgress)
+		{
+			_pendingOperation = PendingOperation.Hide;
+			return Task.CompletedTask;
+		}
+
+		if (!_opened)
+		{
+			return Task.CompletedTask;
+		}
+
+		_pendingOperation = PendingOperation.None;
+		_transitionInProgress = true;
+
 		_onAfterRenderTasksQueue.Enqueue(async () =>
 		{
 			// Running JS interop is postponed to OnAfterRenderAsync to ensure offcanvasElement is set
@@ -268,6 +302,16 @@ public partial class HxOffcanvas : IAsyncDisposable
 	public async Task HandleOffcanvasHidden()
 	{
 		_opened = false;
+		_transitionInProgress = false;
+
+		if (_pendingOperation == PendingOperation.Show)
+		{
+			_pendingOperation = PendingOperation.None;
+			_ = ShowAsync(); // always synchronous (enqueue + StateHasChanged), discard to suppress CS4014
+			return;
+		}
+
+		_pendingOperation = PendingOperation.None;
 		await InvokeOnClosedAsync();
 		StateHasChanged(); // ensures re-render to remove the control from HTML
 	}
@@ -279,6 +323,16 @@ public partial class HxOffcanvas : IAsyncDisposable
 	public async Task HandleOffcanvasShown()
 	{
 		_opened = true;
+		_transitionInProgress = false;
+
+		if (_pendingOperation == PendingOperation.Hide)
+		{
+			_pendingOperation = PendingOperation.None;
+			_ = HideAsync(); // always synchronous (enqueue + StateHasChanged), discard to suppress CS4014
+			return;
+		}
+
+		_pendingOperation = PendingOperation.None;
 		await InvokeOnShownAsync();
 	}
 
@@ -324,6 +378,8 @@ public partial class HxOffcanvas : IAsyncDisposable
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
 		_disposed = true;
+		_transitionInProgress = false;
+		_pendingOperation = PendingOperation.None;
 
 		if (_jsModule != null)
 		{

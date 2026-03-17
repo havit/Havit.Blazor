@@ -214,11 +214,15 @@ public partial class HxModal : IAsyncDisposable
 
 
 	private bool _opened = false; // indicates whether the modal is open
+	private bool _transitionInProgress;
+	private PendingOperation _pendingOperation = PendingOperation.None;
 	private DotNetObjectReference<HxModal> _dotnetObjectReference;
 	private ElementReference _modalElement;
 	private IJSObjectReference _jsModule;
 	private Queue<Func<Task>> _onAfterRenderTasksQueue = new();
 	private bool _disposed;
+
+	private enum PendingOperation { None, Show, Hide }
 
 	public HxModal()
 	{
@@ -230,6 +234,22 @@ public partial class HxModal : IAsyncDisposable
 	/// </summary>
 	public Task ShowAsync()
 	{
+		if (_transitionInProgress)
+		{
+			_pendingOperation = PendingOperation.Show;
+			_opened = true; // ensure HTML content is rendered while waiting
+			StateHasChanged();
+			return Task.CompletedTask;
+		}
+
+		if (_opened)
+		{
+			return Task.CompletedTask;
+		}
+
+		_pendingOperation = PendingOperation.None;
+		_transitionInProgress = true;
+
 		_onAfterRenderTasksQueue.Enqueue(async () =>
 		{
 			// Running JS interop is postponed to OnAfterRenderAsync to ensure modalElement is set
@@ -254,6 +274,20 @@ public partial class HxModal : IAsyncDisposable
 	/// </summary>
 	public Task HideAsync()
 	{
+		if (_transitionInProgress)
+		{
+			_pendingOperation = PendingOperation.Hide;
+			return Task.CompletedTask;
+		}
+
+		if (!_opened)
+		{
+			return Task.CompletedTask;
+		}
+
+		_pendingOperation = PendingOperation.None;
+		_transitionInProgress = true;
+
 		_onAfterRenderTasksQueue.Enqueue(async () =>
 		{
 			// Running JS interop is postponed to OnAfterRenderAsync to ensure modalElement is set
@@ -289,6 +323,16 @@ public partial class HxModal : IAsyncDisposable
 	public async Task HandleModalHidden()
 	{
 		_opened = false;
+		_transitionInProgress = false;
+
+		if (_pendingOperation == PendingOperation.Show)
+		{
+			_pendingOperation = PendingOperation.None;
+			_ = ShowAsync(); // always synchronous (enqueue + StateHasChanged), discard to suppress CS4014
+			return;
+		}
+
+		_pendingOperation = PendingOperation.None;
 		await InvokeOnClosedAsync();
 		StateHasChanged(); // ensures re-render to remove dialog from HTML
 	}
@@ -300,6 +344,16 @@ public partial class HxModal : IAsyncDisposable
 	public async Task HandleModalShown()
 	{
 		_opened = true;
+		_transitionInProgress = false;
+
+		if (_pendingOperation == PendingOperation.Hide)
+		{
+			_pendingOperation = PendingOperation.None;
+			_ = HideAsync(); // always synchronous (enqueue + StateHasChanged), discard to suppress CS4014
+			return;
+		}
+
+		_pendingOperation = PendingOperation.None;
 		await InvokeOnShownAsync();
 	}
 
@@ -380,6 +434,8 @@ public partial class HxModal : IAsyncDisposable
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
 		_disposed = true;
+		_transitionInProgress = false;
+		_pendingOperation = PendingOperation.None;
 
 		if (_jsModule != null)
 		{

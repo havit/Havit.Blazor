@@ -10,15 +10,6 @@
 		return;
 	}
 
-	// Bootstrap Modal.show() refuses to proceed when _isTransitioning is true.
-	// If a hide transition is in progress, defer the show to after the transition completes
-	// (handleModalHidden will pick up the deferred show).
-	const existingModal = bootstrap.Modal.getInstance(element);
-	if (existingModal && existingModal._isTransitioning && !existingModal._isShown) {
-		element.hxDeferredShow = { hxModalDotnetObjectReference, closeOnEscape, subscribeToHideEvent };
-		return;
-	}
-
 	// Remove old listeners to prevent duplicates when show() is called multiple times
 	element.removeEventListener('hide.bs.modal', handleModalHide);
 	element.removeEventListener('hidden.bs.modal', handleModalHidden);
@@ -45,15 +36,9 @@ export function hide(element) {
 	if (!element) {
 		return;
 	}
-	element.hxDeferredShow = null; // Cancel any pending deferred show
 	element.hxModalHiding = true;
 	const modal = bootstrap.Modal.getInstance(element);
 	if (modal) {
-		// Bootstrap Modal.hide() refuses to run while _isTransitioning is true.
-		// Clear it to allow hide during a show transition (rapid show→hide).
-		if (modal._isTransitioning) {
-			modal._isTransitioning = false;
-		}
 		modal.hide();
 	}
 }
@@ -87,14 +72,6 @@ function handleModalHidden(event) {
 		window.modalElement = null;
 	}
 
-	// If show() was called during a hide transition, execute the deferred show now
-	if (event.target.hxDeferredShow) {
-		const { hxModalDotnetObjectReference, closeOnEscape, subscribeToHideEvent } = event.target.hxDeferredShow;
-		event.target.hxDeferredShow = null;
-		show(event.target, hxModalDotnetObjectReference, closeOnEscape, subscribeToHideEvent);
-		return;
-	}
-
 	if (event.target.hxModalDisposing) {
 		// fix for #110 where the dispose() gets called while the modal is still in hiding-transition
 		dispose(event.target, false);
@@ -109,7 +86,6 @@ export function dispose(element, opened) {
 		return;
 	}
 
-	element.hxDeferredShow = null;
 	element.hxModalDisposing = true;
 
 	if (element.hxModalHiding) {
