@@ -321,6 +321,25 @@ public partial class HxModal : IAsyncDisposable
 	{
 		var eventArgs = new ModalHidingEventArgs();
 		await OnHiding.InvokeAsync(eventArgs);
+
+		if (eventArgs.Cancel)
+		{
+			// The hide was canceled — hidden.bs.modal will not fire,
+			// so we must reset _transitionInProgress here to avoid blocking future operations.
+			_transitionInProgress = false;
+
+			if (_pendingOperation == PendingOperation.Hide)
+			{
+				_pendingOperation = PendingOperation.None;
+				await HideAsync();
+			}
+			else if (_pendingOperation == PendingOperation.Show)
+			{
+				// Modal is already shown, just clear the pending operation.
+				_pendingOperation = PendingOperation.None;
+			}
+		}
+
 		return eventArgs.Cancel;
 	}
 
