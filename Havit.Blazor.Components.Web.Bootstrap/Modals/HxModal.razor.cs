@@ -214,8 +214,16 @@ public partial class HxModal : IAsyncDisposable
 
 
 	private bool _opened = false; // indicates whether the modal is open
+
+	// Bootstrap Modal internally tracks _isTransitioning and silently drops show()/hide() calls while a CSS transition
+	// is in progress. This means a rapid sequence like HideAsync → ShowAsync → HideAsync can lose operations.
+	// We compensate by tracking the transition state on the C# side and deferring the next operation until the current
+	// transition completes (via shown.bs.modal / hidden.bs.modal callbacks).
+	// Note: HxOffcanvas does NOT need this — Bootstrap Offcanvas does not check _isTransitioning,
+	// so rapid sequences are handled correctly by Bootstrap itself.
 	private bool _transitionInProgress;
 	private PendingOperation _pendingOperation = PendingOperation.None;
+
 	private DotNetObjectReference<HxModal> _dotnetObjectReference;
 	private ElementReference _modalElement;
 	private IJSObjectReference _jsModule;
