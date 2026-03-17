@@ -27,7 +27,7 @@
 	element.addEventListener('shown.bs.offcanvas', handleOffcanvasShown);
 	window.offcanvasElement = element;
 
-	const offcanvas = new bootstrap.Offcanvas(element, {
+	const offcanvas = bootstrap.Offcanvas.getOrCreateInstance(element, {
 		keyboard: closeOnEscape,
 		scroll: scrollingEnabled
 	});
