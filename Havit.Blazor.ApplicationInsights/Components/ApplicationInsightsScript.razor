@@ -1,6 +1,6 @@
 @if (this.AssignedRenderMode == null) @* only for Server-Side Rendering *@
 {
-    <script type="text/javascript">
+    <script type="text/javascript" nonce="@Nonce">
         @((MarkupString)GetApplicationInsightsScript())
     </script>
 }

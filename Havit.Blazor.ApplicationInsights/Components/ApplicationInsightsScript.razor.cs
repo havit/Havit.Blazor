@@ -11,6 +11,8 @@ public partial class ApplicationInsightsScript : IDisposable
 {
 	private const string OptionsPersistentStateKey = nameof(OptionsPersistentStateKey);
 
+	[Parameter] public string Nonce { get; set; }
+
 	[Inject] private IOptions<BlazorApplicationInsightsClientOptions> BlazorApplicationInsightsOptions { get; set; }
 	[Inject] private PersistentComponentState PersistentState { get; set; }
 	[Inject] private IJSRuntime JSRuntime { get; set; }
