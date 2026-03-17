@@ -10,4 +10,8 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" />
 	</ItemGroup>
 
+	<ItemGroup>
+		<InternalsVisibleTo Include="Havit.Blazor.ApplicationInsights.Tests" />
+	</ItemGroup>
+
 </Project>
