@@ -2,7 +2,7 @@
 
 public static class NavigationRoutes
 {
-	public static class BlazorApplicationInsightsStriptTests
+	public static class BlazorApplicationInsightsScriptTests
 	{
 		public const string ServerSideRendering = "/blazorapplicationinsightsscript-ssr";
 		public const string InteractiveServer = "/blazorapplicationinsightsscript-interactive-server";
@@ -12,5 +12,7 @@ public static class NavigationRoutes
 	}
 
 	public const string AppInsightsTestTrackMetric = "/appinsights-test-trackmetric";
-	public const string BlazorApplicationInsightsAuthenticationUserContextTests = "/appinsights-test-authentication-user-context";
+	public const string AuthenticationUserContextTests = "/appinsights-test-authentication-user-context";
+	public const string TrackingMethodsTests = "/appinsights-test-tracking-methods";
+	public const string TelemetryInitializerTests = "/appinsights-test-telemetry-initializer";
 }

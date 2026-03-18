@@ -52,7 +52,7 @@ public class AuthenticatedUserContextTests : PageTest
 		});
 
 		// Act
-		await Page.GotoAsync(NavigationRoutes.BlazorApplicationInsightsAuthenticationUserContextTests);
+		await Page.GotoAsync(NavigationRoutes.AuthenticationUserContextTests);
 
 		// The page renders <span id="done"> after the entire sequence completes — flush() is called
 		// just before that, so the HTTP request to the AI endpoint is already in-flight or completed.
