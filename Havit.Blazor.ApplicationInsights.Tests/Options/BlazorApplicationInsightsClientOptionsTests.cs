@@ -3,29 +3,29 @@ using Havit.Blazor.ApplicationInsights.Options;
 namespace Havit.Blazor.ApplicationInsights.Tests.Options;
 
 [TestClass]
-public class BlazorApplicationInsightsClientOptionsTests
+public class BlazorApplicationInsightsJsSdkOptionsTests
 {
 	[TestMethod]
-	public void BlazorApplicationInsightsClientOptions_MergeTo_ThrowsOnNullTarget()
+	public void BlazorApplicationInsightsJsSdkOptions_MergeTo_ThrowsOnNullTarget()
 	{
 		// Arrange
-		var source = new BlazorApplicationInsightsClientOptions();
+		var source = new BlazorApplicationInsightsJsSdkOptions();
 
 		// Act & assert
 		Assert.ThrowsExactly<ArgumentNullException>(() => source.MergeTo(null));
 	}
 
 	[TestMethod]
-	public void BlazorApplicationInsightsClientOptions_MergeTo_SetsNullPropertiesFromSource()
+	public void BlazorApplicationInsightsJsSdkOptions_MergeTo_SetsNullPropertiesFromSource()
 	{
 		// Arrange
-		var source = new BlazorApplicationInsightsClientOptions
+		var source = new BlazorApplicationInsightsJsSdkOptions
 		{
 			ConnectionString = "source-connection",
 			AccountId = "source-account",
 			SamplingPercentage = 50
 		};
-		var target = new BlazorApplicationInsightsClientOptions();
+		var target = new BlazorApplicationInsightsJsSdkOptions();
 
 		// Act
 		source.MergeTo(target);
@@ -37,16 +37,16 @@ public class BlazorApplicationInsightsClientOptionsTests
 	}
 
 	[TestMethod]
-	public void BlazorApplicationInsightsClientOptions_MergeTo_DoesNotOverwriteAlreadySetProperties()
+	public void BlazorApplicationInsightsJsSdkOptions_MergeTo_DoesNotOverwriteAlreadySetProperties()
 	{
 		// Arrange
-		var source = new BlazorApplicationInsightsClientOptions
+		var source = new BlazorApplicationInsightsJsSdkOptions
 		{
 			ConnectionString = "source-connection",
 			AccountId = "source-account",
 			SamplingPercentage = 50
 		};
-		var target = new BlazorApplicationInsightsClientOptions
+		var target = new BlazorApplicationInsightsJsSdkOptions
 		{
 			ConnectionString = "target-connection",
 			AccountId = "target-account",
@@ -63,15 +63,15 @@ public class BlazorApplicationInsightsClientOptionsTests
 	}
 
 	[TestMethod]
-	public void BlazorApplicationInsightsClientOptions_MergeTo_MergesPartially()
+	public void BlazorApplicationInsightsJsSdkOptions_MergeTo_MergesPartially()
 	{
 		// Arrange — target has ConnectionString set, AccountId is null
-		var source = new BlazorApplicationInsightsClientOptions
+		var source = new BlazorApplicationInsightsJsSdkOptions
 		{
 			ConnectionString = "source-connection",
 			AccountId = "source-account"
 		};
-		var target = new BlazorApplicationInsightsClientOptions
+		var target = new BlazorApplicationInsightsJsSdkOptions
 		{
 			ConnectionString = "target-connection"
 		};
@@ -85,14 +85,14 @@ public class BlazorApplicationInsightsClientOptionsTests
 	}
 
 	[TestMethod]
-	public void BlazorApplicationInsightsClientOptions_MergeTo_DoesNotCopyNullSourceProperties()
+	public void BlazorApplicationInsightsJsSdkOptions_MergeTo_DoesNotCopyNullSourceProperties()
 	{
 		// Arrange — source has null ConnectionString, target has it set
-		var source = new BlazorApplicationInsightsClientOptions
+		var source = new BlazorApplicationInsightsJsSdkOptions
 		{
 			AccountId = "source-account"
 		};
-		var target = new BlazorApplicationInsightsClientOptions
+		var target = new BlazorApplicationInsightsJsSdkOptions
 		{
 			ConnectionString = "target-connection"
 		};
@@ -106,14 +106,14 @@ public class BlazorApplicationInsightsClientOptionsTests
 	}
 
 	[TestMethod]
-	public void BlazorApplicationInsightsClientOptions_MergeTo_WorksWithInheritedConfigurationProperties()
+	public void BlazorApplicationInsightsJsSdkOptions_MergeTo_WorksWithInheritedConfigurationProperties()
 	{
 		// Arrange — InstrumentationKey is defined on ApplicationInsightsConfiguration (base of base)
-		var source = new BlazorApplicationInsightsClientOptions
+		var source = new BlazorApplicationInsightsJsSdkOptions
 		{
 			InstrumentationKey = "source-ikey"
 		};
-		var target = new BlazorApplicationInsightsClientOptions();
+		var target = new BlazorApplicationInsightsJsSdkOptions();
 
 		// Act
 		source.MergeTo(target);

@@ -31,6 +31,16 @@ public class BlazorApplicationInsightsScriptTests : PageTest
 
 	private async Task TestApplicationInsightsLoadedAndConfigured(string url, string expectedConnectionString)
 	{
+		await Page.RouteAsync("**/v2/track", async route =>
+		{
+			await route.FulfillAsync(new RouteFulfillOptions
+			{
+				Status = 200,
+				ContentType = "application/json",
+				Body = """{"itemsReceived":0,"itemsAccepted":0,"errors":[]}"""
+			});
+		});
+
 		await Page.GotoAsync(url);
 		await Page.WaitForFunctionAsync("window.appInsights !== undefined",
 			options: new PageWaitForFunctionOptions { Timeout = AppInsightsTimeout });
