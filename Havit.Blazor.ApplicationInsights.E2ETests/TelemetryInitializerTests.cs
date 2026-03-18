@@ -1,5 +1,3 @@
-#nullable enable
-
 using System.Collections.Concurrent;
 using System.Text.Json;
 using Havit.Blazor.ApplicationInsights.TestApp.Client;

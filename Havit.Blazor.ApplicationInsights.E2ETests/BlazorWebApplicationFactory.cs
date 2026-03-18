@@ -1,3 +1,4 @@
+using Havit.Blazor.ApplicationInsights.Options;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
@@ -10,11 +11,24 @@ namespace Havit.Blazor.ApplicationInsights.E2ETests;
 
 public class BlazorWebApplicationFactory : WebApplicationFactory<TestApp.Program>
 {
+	private readonly Action<BlazorApplicationInsightsOptions> _optionsOverride;
 	private IHost _kestrelHost;
 	public string ServerAddress { get; private set; } = string.Empty;
 
+	public BlazorWebApplicationFactory(Action<BlazorApplicationInsightsOptions> optionsOverride = null)
+	{
+		_optionsOverride = optionsOverride;
+	}
+
 	protected override void ConfigureWebHost(IWebHostBuilder builder)
-		=> builder.UseEnvironment("Development");
+	{
+		builder.UseEnvironment("Development");
+		if (_optionsOverride != null)
+		{
+			builder.ConfigureServices(services =>
+				services.Configure<BlazorApplicationInsightsOptions>(_optionsOverride));
+		}
+	}
 
 	protected override IHost CreateHost(IHostBuilder builder)
 	{

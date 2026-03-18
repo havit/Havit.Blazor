@@ -164,6 +164,10 @@ scope.Measurements["items"] = 3;
 
 ### Exceptions
 
+> **Note:** The Application Insights JavaScript SDK only captures JavaScript errors (`window.onerror`).
+> .NET exceptions in Blazor — whether they cause a circuit failure (Blazor Server) or are caught by
+> `ErrorBoundary` — are invisible to the JS SDK and must be tracked manually.
+
 Track a raw `ExceptionTelemetry`:
 ```csharp
 await AppInsights.TrackExceptionAsync(new ExceptionTelemetry { ... });
@@ -173,6 +177,30 @@ Or use the convenience extension that accepts a C# `Exception` directly:
 ```csharp
 await AppInsights.TrackExceptionAsync(exception, SeverityLevel.Error);
 ```
+
+### ErrorBoundary integration
+
+Use the `<BlazorApplicationInsightsException>` component inside an `ErrorBoundary`'s `ErrorContent`
+to report caught exceptions automatically — no code-behind required:
+
+```razor
+@using Havit.Blazor.ApplicationInsights.Components
+
+<ErrorBoundary>
+    <ChildContent>
+        ...
+    </ChildContent>
+    <ErrorContent Context="ex">
+        <BlazorApplicationInsightsException Exception="ex" />
+        <p>An error occurred. Please try again.</p>
+    </ErrorContent>
+</ErrorBoundary>
+```
+
+The component renders nothing. It tracks a new telemetry item whenever the `Exception` parameter
+changes to a new instance, which covers scenarios where the `ErrorBoundary` is reset and a different
+exception is caught next. In SSR and during prerendering the call is silently ignored (JS SDK is not
+active yet); in interactive mode the exception is reported immediately.
 
 ### Traces
 

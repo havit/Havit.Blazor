@@ -15,4 +15,11 @@ public static class NavigationRoutes
 	public const string AuthenticationUserContextTests = "/appinsights-test-authentication-user-context";
 	public const string TrackingMethodsTests = "/appinsights-test-tracking-methods";
 	public const string TelemetryInitializerTests = "/appinsights-test-telemetry-initializer";
+
+	public static class PageViewTracking
+	{
+		public const string InitialPageViewTrackingTest = "/appinsights-test-initial-pageview";
+		public const string AutoRouteTrackingPage1 = "/appinsights-test-auto-route-tracking-1";
+		public const string AutoRouteTrackingPage2 = "/appinsights-test-auto-route-tracking-2";
+	}
 }

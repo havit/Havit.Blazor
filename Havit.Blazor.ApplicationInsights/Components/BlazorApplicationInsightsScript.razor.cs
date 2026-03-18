@@ -58,6 +58,8 @@ public partial class BlazorApplicationInsightsScript : IDisposable
 		// during SSR prerendering, so the interactive client can recover them.
 		_persistingSubscription = PersistentState.RegisterOnPersisting(PersistBlazorApplicationInsightsOptionsAsync);
 
+		_blazorApplicationInsightsOptionsValue = BlazorApplicationInsightsOptions.Value;
+
 		if (PersistentState.TryTakeFromJson<BlazorApplicationInsightsJsSdkOptions>(OptionsPersistentStateKey, out var persistentOptions))
 		{
 			// Clone with `with { }` to get a mutable copy - we must not modify the DI singleton!

@@ -1,5 +1,3 @@
-#nullable enable
-
 using System.Collections.Concurrent;
 using System.Text.Json;
 using Havit.Blazor.ApplicationInsights.TestApp.Client;
@@ -81,27 +79,27 @@ public class TrackingMethodsTests : PageTest
 		AssertItemCaptured("RemoteDependencyData", "test-dependency", GetBaseDataName, nameof(IBlazorApplicationInsights.TrackDependencyDataAsync));
 	}
 
-	private static string? GetBaseType(JsonElement item) =>
+	private static string GetBaseType(JsonElement item) =>
 		item.TryGetProperty("data", out var data)
 		&& data.TryGetProperty("baseType", out var baseType)
 			? baseType.GetString()
 			: null;
 
-	private static string? GetBaseDataName(JsonElement item) =>
+	private static string GetBaseDataName(JsonElement item) =>
 		item.TryGetProperty("data", out var data)
 		&& data.TryGetProperty("baseData", out var baseData)
 		&& baseData.TryGetProperty("name", out var name)
 			? name.GetString()
 			: null;
 
-	private static string? GetBaseDataMessage(JsonElement item) =>
+	private static string GetBaseDataMessage(JsonElement item) =>
 		item.TryGetProperty("data", out var data)
 		&& data.TryGetProperty("baseData", out var baseData)
 		&& baseData.TryGetProperty("message", out var message)
 			? message.GetString()
 			: null;
 
-	private static string? GetMetricName(JsonElement item) =>
+	private static string GetMetricName(JsonElement item) =>
 		item.TryGetProperty("data", out var data)
 		&& data.TryGetProperty("baseData", out var baseData)
 		&& baseData.TryGetProperty("metrics", out var metrics)
@@ -110,7 +108,7 @@ public class TrackingMethodsTests : PageTest
 			? name.GetString()
 			: null;
 
-	private static string? GetFirstExceptionTypeName(JsonElement item) =>
+	private static string GetFirstExceptionTypeName(JsonElement item) =>
 		item.TryGetProperty("data", out var data)
 		&& data.TryGetProperty("baseData", out var baseData)
 		&& baseData.TryGetProperty("exceptions", out var exceptions)
