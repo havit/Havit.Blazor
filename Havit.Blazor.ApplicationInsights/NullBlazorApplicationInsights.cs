@@ -45,6 +45,12 @@ internal class NullBlazorApplicationInsights : IBlazorApplicationInsights
 	public Task ClearAuthenticatedUserContextAsync()
 		=> Task.CompletedTask;
 
+	public Task TrackDependencyDataAsync(DependencyTelemetry dependency)
+		=> Task.CompletedTask;
+
 	public Task FlushAsync()
+		=> Task.CompletedTask;
+
+	public Task AddTelemetryInitializerAsync(TelemetryInitializer initializer)
 		=> Task.CompletedTask;
 }

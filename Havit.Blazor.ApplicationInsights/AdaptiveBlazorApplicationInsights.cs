@@ -93,6 +93,14 @@ internal class AdaptiveBlazorApplicationInsights : IBlazorApplicationInsights
 		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.ClearAuthenticatedUserContextAsync());
 
 	/// <inheritdoc/>
+	public async Task TrackDependencyDataAsync(DependencyTelemetry dependency)
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.TrackDependencyDataAsync(dependency));
+
+	/// <inheritdoc/>
 	public async Task FlushAsync()
 		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.FlushAsync());
+
+	/// <inheritdoc/>
+	public async Task AddTelemetryInitializerAsync(TelemetryInitializer initializer)
+		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.AddTelemetryInitializerAsync(initializer));
 }

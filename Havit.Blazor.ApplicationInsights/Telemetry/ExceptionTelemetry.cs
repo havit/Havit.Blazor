@@ -49,7 +49,7 @@ public class ExceptionDetails
 	public string Stack { get; set; }
 
 	/// <summary>Creates an <see cref="ExceptionDetails"/> from a C# <see cref="Exception"/>.</summary>
-	public static ExceptionDetails FromException(Exception exception) => new()
+	public static ExceptionDetails FromException(Exception exception) => new ExceptionDetails
 	{
 		Name = exception.GetType().FullName,
 		Message = exception.Message,

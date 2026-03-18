@@ -23,17 +23,22 @@ public class TrackedPageScope : IAsyncDisposable
 	/// </summary>
 	public string Url { get; set; }
 
+	private Dictionary<string, string> _properties;
+	private Dictionary<string, double> _measurements;
+
 	/// <summary>
 	/// Custom string properties attached to the page view when <see cref="IBlazorApplicationInsights.StopTrackPageAsync"/> is called.
 	/// Can be set any time before the scope is disposed.
+	/// The dictionary is created lazily on first access.
 	/// </summary>
-	public Dictionary<string, string> Properties { get; set; }
+	public Dictionary<string, string> Properties => _properties ??= new Dictionary<string, string>();
 
 	/// <summary>
 	/// Custom numeric measurements attached to the page view when <see cref="IBlazorApplicationInsights.StopTrackPageAsync"/> is called.
 	/// Can be set any time before the scope is disposed.
+	/// The dictionary is created lazily on first access.
 	/// </summary>
-	public Dictionary<string, double> Measurements { get; set; }
+	public Dictionary<string, double> Measurements => _measurements ??= new Dictionary<string, double>();
 
 	internal TrackedPageScope(IBlazorApplicationInsights appInsights, string name)
 	{
@@ -43,5 +48,6 @@ public class TrackedPageScope : IAsyncDisposable
 
 	/// <inheritdoc/>
 	public async ValueTask DisposeAsync()
-		=> await _appInsights.StopTrackPageAsync(_name, Url, Properties, Measurements);
+		// Use backing fields directly to avoid triggering lazy initialization for unused dictionaries.
+		=> await _appInsights.StopTrackPageAsync(_name, Url, _properties, _measurements);
 }

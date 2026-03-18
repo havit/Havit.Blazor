@@ -1,0 +1,20 @@
+@attribute [Route(NavigationRoutes.AppInsightsTestTrackMetric)]
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@using Havit.Blazor.ApplicationInsights
+@using Havit.Blazor.ApplicationInsights.Telemetry
+@inject IBlazorApplicationInsights AppInsights
+
+<h1>Test Track Metric</h1>
+
+<ApplicationInsightsScript />
+
+@code
+{
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await AppInsights.TrackMetricAsync(new MetricTelemetry { Name = "TestMetric", Average = 42 });
+		}
+	}
+}

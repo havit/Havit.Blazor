@@ -17,17 +17,22 @@ public class TrackedEventScope : IAsyncDisposable
 	private readonly IBlazorApplicationInsights _appInsights;
 	private readonly string _name;
 
+	private Dictionary<string, string> _properties;
+	private Dictionary<string, double> _measurements;
+
 	/// <summary>
 	/// Custom string properties attached to the event when <see cref="IBlazorApplicationInsights.StopTrackEventAsync"/> is called.
 	/// Can be set any time before the scope is disposed.
+	/// The dictionary is created lazily on first access.
 	/// </summary>
-	public Dictionary<string, string> Properties { get; set; }
+	public Dictionary<string, string> Properties => _properties ??= new Dictionary<string, string>();
 
 	/// <summary>
 	/// Custom numeric measurements attached to the event when <see cref="IBlazorApplicationInsights.StopTrackEventAsync"/> is called.
 	/// Can be set any time before the scope is disposed.
+	/// The dictionary is created lazily on first access.
 	/// </summary>
-	public Dictionary<string, double> Measurements { get; set; }
+	public Dictionary<string, double> Measurements => _measurements ??= new Dictionary<string, double>();
 
 	internal TrackedEventScope(IBlazorApplicationInsights appInsights, string name)
 	{
@@ -37,5 +42,6 @@ public class TrackedEventScope : IAsyncDisposable
 
 	/// <inheritdoc/>
 	public async ValueTask DisposeAsync()
-		=> await _appInsights.StopTrackEventAsync(_name, Properties, Measurements);
+		// Use backing fields directly to avoid triggering lazy initialization for unused dictionaries.
+		=> await _appInsights.StopTrackEventAsync(_name, _properties, _measurements);
 }

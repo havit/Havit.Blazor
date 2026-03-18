@@ -101,6 +101,7 @@ public partial class ApplicationInsightsScript : IDisposable
 		crossOrigin: "anonymous", // When supplied this will add the provided value as the cross origin attribute on the script tag
 		cfg: {{{{GetSerializedApplicationInsightsConfiguration()}}}}
 		});
+		window.havitBlazorAppInsights={addTelemetryInitializer:function(t){window.appInsights.addTelemetryInitializer(function(e){for(var k in t)Object.prototype.hasOwnProperty.call(t,k)&&(e.tags[k]=t[k])})}};
 		""";
 
 	private string GetSerializedApplicationInsightsConfiguration()

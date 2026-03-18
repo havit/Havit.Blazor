@@ -1,0 +1,31 @@
+@attribute [Route(NavigationRoutes.AppInsightsTestAuthenticatedUserContext)]
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@using Havit.Blazor.ApplicationInsights
+@using Havit.Blazor.ApplicationInsights.Telemetry
+@inject IBlazorApplicationInsights AppInsights
+
+<h1>Test Authenticated User Context</h1>
+
+<ApplicationInsightsScript />
+@if (_done)
+{
+	<span id="done"></span>
+}
+
+@code
+{
+	private bool _done;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await AppInsights.SetAuthenticatedUserContextAsync("test-user");
+			await AppInsights.TrackMetricAsync(new MetricTelemetry { Name = "WithAuth", Average = 1 });
+			await AppInsights.ClearAuthenticatedUserContextAsync();
+			await AppInsights.TrackMetricAsync(new MetricTelemetry { Name = "WithoutAuth", Average = 2 });
+			_done = true;
+			StateHasChanged();
+		}
+	}
+}
