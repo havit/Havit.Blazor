@@ -1,13 +1,16 @@
 ﻿namespace Havit.Blazor.ApplicationInsights.TestApp.Client;
 
-public class NavigationRoutes
+public static class NavigationRoutes
 {
-	public const string AppInsightsTestServerSideRendering = "/appinsights-test-ssr";
-	public const string AppInsightsTestInteractiveServer = "/appinsights-test-interactive-server";
-	public const string AppInsightsTestInteractiveServerPrerendering = "/appinsights-test-interactive-server-prerendering";
-	public const string AppInsightsTestInteractiveWebAssembly = "/appinsights-test-interactive-wasm";
-	public const string AppInsightsTestInteractiveWebAssemblyPrerendering = "/appinsights-test-interactive-wasm-prerendering";
+	public static class BlazorApplicationInsightsStriptTests
+	{
+		public const string ServerSideRendering = "/blazorapplicationinsightsscript-ssr";
+		public const string InteractiveServer = "/blazorapplicationinsightsscript-interactive-server";
+		public const string InteractiveServerPrerendering = "/blazorapplicationinsightsscript-interactive-server-prerendering";
+		public const string InteractiveWebAssembly = "/blazorapplicationinsightsscript-interactive-wasm";
+		public const string InteractiveWebAssemblyPrerendering = "/blazorapplicationinsightsscript-interactive-wasm-prerendering";
+	}
 
 	public const string AppInsightsTestTrackMetric = "/appinsights-test-trackmetric";
-	public const string AppInsightsTestAuthenticatedUserContext = "/appinsights-test-auth-context";
+	public const string BlazorApplicationInsightsAuthenticationUserContextTests = "/appinsights-test-authentication-user-context";
 }

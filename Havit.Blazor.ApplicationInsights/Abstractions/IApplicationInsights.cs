@@ -1,4 +1,7 @@
-using Havit.Blazor.ApplicationInsights;
+// Based on the Application Insights JS SDK TypeScript source.
+// Source: https://github.com/microsoft/ApplicationInsights-JS/blob/main/AISKU/src/IApplicationInsights.ts
+
+using Havit.Blazor.ApplicationInsights.Telemetry;
 
 namespace Havit.Blazor.ApplicationInsights.Abstractions;
 

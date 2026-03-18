@@ -1,4 +1,4 @@
-namespace Havit.Blazor.ApplicationInsights;
+namespace Havit.Blazor.ApplicationInsights.Telemetry;
 
 /// <summary>
 /// Represents the lifetime of a timed Application Insights event.

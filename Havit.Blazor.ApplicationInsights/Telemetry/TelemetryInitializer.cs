@@ -1,4 +1,4 @@
-namespace Havit.Blazor.ApplicationInsights;
+namespace Havit.Blazor.ApplicationInsights.Telemetry;
 
 /// <summary>
 /// Defines static tag values applied to every telemetry envelope by the Application Insights

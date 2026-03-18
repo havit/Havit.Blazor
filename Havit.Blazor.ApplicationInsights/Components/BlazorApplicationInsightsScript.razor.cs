@@ -28,7 +28,7 @@ namespace Havit.Blazor.ApplicationInsights.Components;
 /// available to the component when it re-hydrates on the client (e.g. in a Blazor Web App with WASM interactivity).
 /// </para>
 /// </summary>
-public partial class ApplicationInsightsScript : IDisposable
+public partial class BlazorApplicationInsightsScript : IDisposable
 {
 	/// <summary>
 	/// Key under which the resolved <see cref="BlazorApplicationInsightsClientOptions"/> are stored in
@@ -50,9 +50,9 @@ public partial class ApplicationInsightsScript : IDisposable
 
 	private BlazorApplicationInsightsClientOptions _blazorApplicationInsightsOptionsValue;
 
-	protected override void OnInitialized()
+	protected override async Task OnInitializedAsync()
 	{
-		base.OnInitialized();
+		await base.OnInitializedAsync();
 
 		// Register the callback that serializes options into PersistentComponentState
 		// during SSR prerendering, so the interactive client can recover them.
@@ -67,6 +67,13 @@ public partial class ApplicationInsightsScript : IDisposable
 			// so locally configured (DI) values always take precedence.
 			persistentOptions.MergeTo(_blazorApplicationInsightsOptionsValue);
 		}
+
+		// In interactive mode the razor template does not emit the <script> tag (see .razor file),
+		// so we inject the snippet programmatically via eval() here.
+		if (this.RendererInfo.IsInteractive)
+		{
+			await JSRuntime.InvokeVoidAsync("eval", GetApplicationInsightsScript());
+		}
 	}
 
 	/// <summary>
@@ -78,20 +85,6 @@ public partial class ApplicationInsightsScript : IDisposable
 	{
 		PersistentState.PersistAsJson(OptionsPersistentStateKey, _blazorApplicationInsightsOptionsValue);
 		return Task.CompletedTask;
-	}
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		await base.OnAfterRenderAsync(firstRender);
-
-		// In interactive mode the razor template does not emit the <script> tag (see .razor file),
-		// so we inject the snippet programmatically via eval() here.
-		// OnAfterRenderAsync is not called during SSR prerendering at all, so the script
-		// is never executed in that phase.
-		if (firstRender /*&& this.RendererInfo.IsInteractive - not required because OnAfterRenderAsync is not called during prerendering */)
-		{
-			await JSRuntime.InvokeVoidAsync("eval", GetApplicationInsightsScript());
-		}
 	}
 
 	// source: https://github.com/microsoft/ApplicationInsights-JS?tab=readme-ov-file#snippet-setup-ignore-if-using-npm-setup
