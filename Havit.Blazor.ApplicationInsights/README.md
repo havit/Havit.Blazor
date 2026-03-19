@@ -29,8 +29,8 @@ builder.Services.AddBlazorApplicationInsights(options =>
 ```
 
 > In a Blazor Web App with WASM interactivity, register `AddBlazorApplicationInsights` in both projects.
-> The full `JsSdkOptions` configured server-side are automatically propagated to the client via `PersistentComponentState`,
-> so the WASM client project can omit them if they are only available server-side (e.g. connection strings from `appsettings.json`).
+> Each project uses its own configuration — the WASM client project must include all required options
+> (e.g. the connection string) directly, as server-side configuration is not propagated to the client.
 
 ### 2. Add the script component
 
@@ -277,7 +277,7 @@ to include it on the inline `<script>` tag (SSR scenario):
 
 ## How it works
 
-- **Static SSR**: `BlazorApplicationInsightsScript` renders an inline `<script>` tag with the SDK snippet.
-- **Interactive (Server / WASM)**: the snippet is injected via `eval()` on the first interactive render.
-- **Blazor Web App (SSR + WASM)**: options configured server-side (e.g. connection strings from `appsettings.json`) are persisted via `PersistentComponentState` and merged into the WASM client options during hydration.
-- All `IBlazorApplicationInsights` calls are no-ops during SSR prerendering and are forwarded to the JS SDK if the interactive circuit is established.
+- **Static SSR and prerendering**: `BlazorApplicationInsightsScript` renders an inline `<script>` tag with the SDK snippet. The SDK initializes immediately in the browser as part of the HTML response.
+- **Interactive after prerendering (Server / WASM)**: the script was already emitted inline during prerendering, so hydration skips re-injection. A `PersistentComponentState` flag signals this to the interactive phase.
+- **Interactive without prerendering**: the snippet is injected via `eval()` on initialization, because no inline tag was emitted.
+- All `IBlazorApplicationInsights` calls are silently ignored during prerendering and forwarded to the JS SDK once the interactive circuit is established.

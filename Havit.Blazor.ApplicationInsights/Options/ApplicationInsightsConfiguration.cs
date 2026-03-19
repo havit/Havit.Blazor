@@ -196,38 +196,4 @@ public record class ApplicationInsightsConfiguration
 	/// </summary>
 	[JsonPropertyName("traceHdrMode")]
 	public TraceHeadersMode? TraceHdrMode { get; set; }
-
-	/// <summary>
-	/// Merges properties defined in <see cref="ApplicationInsightsConfiguration"/> from this instance into <paramref name="target"/>.
-	/// Only null properties on <paramref name="target"/> are filled; already-set values are never overwritten.
-	/// Derived classes override this method to merge their own properties and call <c>base.MergeTo(target)</c>.
-	/// </summary>
-	internal virtual void MergeTo(ApplicationInsightsConfiguration target)
-	{
-		target.InstrumentationKey ??= InstrumentationKey;
-		target.ConnectionString ??= ConnectionString;
-		target.DiagnosticLogInterval ??= DiagnosticLogInterval;
-		target.MaxMessageLimit ??= MaxMessageLimit;
-		target.LoggingLevelConsole ??= LoggingLevelConsole;
-		target.LoggingLevelTelemetry ??= LoggingLevelTelemetry;
-		target.EnableDebug ??= EnableDebug;
-		target.EndpointUrl ??= EndpointUrl;
-		target.DisableInstrumentationKeyValidation ??= DisableInstrumentationKeyValidation;
-		target.EnablePerfMgr ??= EnablePerfMgr;
-		target.PerfEvtsSendAll ??= PerfEvtsSendAll;
-		target.IdLength ??= IdLength;
-		target.CookieDomain ??= CookieDomain;
-		target.CookiePath ??= CookiePath;
-		target.DisableCookiesUsage ??= DisableCookiesUsage;
-		target.DisablePageUnloadEvents ??= DisablePageUnloadEvents;
-		target.DisablePageShowEvents ??= DisablePageShowEvents;
-		target.DisableDbgExt ??= DisableDbgExt;
-		target.EnableWParam ??= EnableWParam;
-		target.StoragePrefix ??= StoragePrefix;
-		target.InitTimeOut ??= InitTimeOut;
-		target.InitInMemoMaxSize ??= InitInMemoMaxSize;
-		target.RedactUrls ??= RedactUrls;
-		target.RedactQueryParams ??= RedactQueryParams;
-		target.TraceHdrMode ??= TraceHdrMode;
-	}
 }

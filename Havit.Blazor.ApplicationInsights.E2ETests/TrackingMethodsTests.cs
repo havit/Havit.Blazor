@@ -59,7 +59,7 @@ public class TrackingMethodsTests : PageTest
 		await batchReceived.Task.WaitAsync(TimeSpan.FromMilliseconds(AppInsightsTimeout), TestContext.CancellationToken);
 
 		// Assert
-		void AssertItemCaptured(string expectedBaseType, string expectedIdentifier, Func<JsonElement, string?> getIdentifierFunc, string methodNameToAssert)
+		void AssertItemCaptured(string expectedBaseType, string expectedIdentifier, Func<JsonElement, string> getIdentifierFunc, string methodNameToAssert)
 		{
 			JsonElement? item = capturedItems
 				.Where(i => GetBaseType(i) == expectedBaseType && getIdentifierFunc(i) == expectedIdentifier)

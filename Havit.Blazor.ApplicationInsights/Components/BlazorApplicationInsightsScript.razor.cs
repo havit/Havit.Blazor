@@ -10,31 +10,30 @@ namespace Havit.Blazor.ApplicationInsights.Components;
 /// <summary>
 /// Renders the Application Insights JavaScript SDK snippet and initializes the client-side telemetry.
 /// <para>
-/// The component covers two rendering scenarios:
+/// The component covers three rendering scenarios:
 /// <list type="bullet">
 ///   <item><description>
-///     <b>Static Server-Side Rendering (SSR):</b> The script is emitted inline as a <c>&lt;script&gt;</c> tag
-///     directly into the HTML response (see the <c>.razor</c> file — rendered only when <c>AssignedRenderMode == null</c>).
+///     <b>Static SSR and prerendering:</b> The script is emitted inline as a <c>&lt;script&gt;</c> tag
+///     directly into the HTML response (see the <c>.razor</c> file — rendered when not yet interactive).
 ///   </description></item>
 ///   <item><description>
-///     <b>Interactive rendering (Blazor Server / WASM):</b> The script is injected at runtime via
-///     <c>eval()</c> in <see cref="OnAfterRenderAsync"/> on the first render, because at that point
-///     the component is already interactive and can use <see cref="IJSRuntime"/>.
+///     <b>Interactive rendering after prerendering (Blazor Server / WASM):</b> The script was already
+///     injected during prerendering, so no additional action is taken on hydration.
+///     A <see cref="PersistentComponentState"/> flag signals this to the interactive phase.
+///   </description></item>
+///   <item><description>
+///     <b>Interactive rendering without prior prerendering:</b> The script is injected at runtime via
+///     <c>eval()</c> in <see cref="OnInitializedAsync"/>, because no inline tag was emitted earlier.
 ///   </description></item>
 /// </list>
-/// </para>
-/// <para>
-/// Options configured server-side are persisted via <see cref="PersistentComponentState"/> so they are
-/// available to the component when it re-hydrates on the client (e.g. in a Blazor Web App with WASM interactivity).
 /// </para>
 /// </summary>
 public partial class BlazorApplicationInsightsScript : IDisposable
 {
 	/// <summary>
-	/// Key under which the resolved <see cref="BlazorApplicationInsightsJsSdkOptions"/> are stored in
-	/// <see cref="PersistentComponentState"/>. Must be unique within the component tree.
+	/// Key to prerender state to store whether the script was emitted during prerendering.	
 	/// </summary>
-	private const string OptionsPersistentStateKey = nameof(OptionsPersistentStateKey);
+	private const string PrerenderedPersistentStateKey = nameof(PrerenderedPersistentStateKey);
 
 	/// <summary>
 	/// Optional CSP nonce to include on the inline <c>&lt;script&gt;</c> tag (SSR scenario).
@@ -48,48 +47,32 @@ public partial class BlazorApplicationInsightsScript : IDisposable
 
 	private PersistingComponentStateSubscription _persistingSubscription;
 
-	private BlazorApplicationInsightsOptions _blazorApplicationInsightsOptionsValue;
-
+	/// <inheritdoc />
 	protected override async Task OnInitializedAsync()
 	{
 		await base.OnInitializedAsync();
 
-		// Register the callback that serializes options into PersistentComponentState
-		// during SSR prerendering, so the interactive client can recover them.
+		// Register the callback that persists a flag into PersistentComponentState
+		// during prerendering, so the interactive phase knows the script was already emitted inline.
 		_persistingSubscription = PersistentState.RegisterOnPersisting(PersistBlazorApplicationInsightsOptionsAsync);
 
-		_blazorApplicationInsightsOptionsValue = BlazorApplicationInsightsOptions.Value;
-
-		if (PersistentState.TryTakeFromJson<BlazorApplicationInsightsJsSdkOptions>(OptionsPersistentStateKey, out var persistentOptions))
+		PersistentState.TryTakeFromJson<bool>(PrerenderedPersistentStateKey, out var prerendered);
+		if (this.RendererInfo.IsInteractive && !prerendered)
 		{
-			// Clone with `with { }` to get a mutable copy - we must not modify the DI singleton!
-			_blazorApplicationInsightsOptionsValue = _blazorApplicationInsightsOptionsValue with { };
-			_blazorApplicationInsightsOptionsValue.JsSdkOptions = _blazorApplicationInsightsOptionsValue.JsSdkOptions with { };
-
-			// Merge server-persisted options into the local copy.
-			// MergeTo only fills properties that are null on the target,
-			// so locally configured (DI) values always take precedence.
-			persistentOptions.MergeTo(_blazorApplicationInsightsOptionsValue.JsSdkOptions);
-		}
-
-		// In interactive mode the razor template does not emit the <script> tag (see .razor file),
-		// so we inject the snippet programmatically via eval() here.
-		if (this.RendererInfo.IsInteractive)
-		{
+			// No prerendering occurred — the razor template did not emit the inline <script> tag,
+			// so inject the snippet programmatically via eval() now.
 			await JSRuntime.InvokeVoidAsync("eval", GetApplicationInsightsScript());
 		}
 	}
 
 	/// <summary>
-	/// Persists the resolved JS SDK options into <see cref="PersistentComponentState"/> during SSR prerendering.
-	/// This allows the interactive client (especially WASM) to recover options that were only
-	/// available server-side (e.g. connection strings read from server configuration).
-	/// Only <see cref="BlazorApplicationInsightsOptions.JsSdkOptions"/> is persisted — C# wrapper-level
-	/// options are not needed on the client side after hydration.
+	/// Persists a flag into <see cref="PersistentComponentState"/> during prerendering to indicate
+	/// that the SDK script was already emitted inline. The interactive phase reads this flag
+	/// and skips the <c>eval()</c> injection to avoid initializing the SDK twice.
 	/// </summary>
 	private Task PersistBlazorApplicationInsightsOptionsAsync()
 	{
-		PersistentState.PersistAsJson(OptionsPersistentStateKey, _blazorApplicationInsightsOptionsValue.JsSdkOptions);
+		PersistentState.PersistAsJson(PrerenderedPersistentStateKey, true);
 		return Task.CompletedTask;
 	}
 
@@ -104,13 +87,15 @@ public partial class BlazorApplicationInsightsScript : IDisposable
 		""";
 
 	private string GetInitialTrackPageViewScript()
-		=> _blazorApplicationInsightsOptionsValue.EnableInitialPageViewTracking ? ",e.trackPageView({})" : "";
+		=> BlazorApplicationInsightsOptions.Value.EnableInitialPageViewTracking ? ",e.trackPageView({})" : "";
+		//=> BlazorApplicationInsightsOptions.Value.EnableInitialPageViewTracking ? ",e.trackPageView({uri:location.href})" : "";
 
 	private string GetSerializedApplicationInsightsConfiguration()
 	{
-		return System.Text.Json.JsonSerializer.Serialize(_blazorApplicationInsightsOptionsValue.JsSdkOptions, (System.Text.Json.Serialization.Metadata.JsonTypeInfo<BlazorApplicationInsightsJsSdkOptions>)BlazorApplicationInsightsJsSdkOptionsJsonSerializerContext.Default.BlazorApplicationInsightsJsSdkOptions);
+		return System.Text.Json.JsonSerializer.Serialize(BlazorApplicationInsightsOptions.Value.JsSdkOptions, (System.Text.Json.Serialization.Metadata.JsonTypeInfo<BlazorApplicationInsightsJsSdkOptions>)BlazorApplicationInsightsJsSdkOptionsJsonSerializerContext.Default.BlazorApplicationInsightsJsSdkOptions);
 	}
 
+	/// <inheritdoc />
 	public void Dispose()
 	{
 		// Unregister the PersistentComponentState persisting callback to avoid memory leaks

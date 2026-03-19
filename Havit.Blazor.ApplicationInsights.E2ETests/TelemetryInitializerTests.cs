@@ -64,7 +64,7 @@ public class TelemetryInitializerTests : PageTest
 		Assert.AreEqual("test-role", GetCloudRoleName(afterItem.Value), "after-initializer should have ai.cloud.role 'test-role'.");
 	}
 
-	private static string? GetMetricName(JsonElement item) =>
+	private static string GetMetricName(JsonElement item) =>
 		item.TryGetProperty("data", out var data)
 		&& data.TryGetProperty("baseData", out var baseData)
 		&& baseData.TryGetProperty("metrics", out var metrics)
@@ -73,7 +73,7 @@ public class TelemetryInitializerTests : PageTest
 			? name.GetString()
 			: null;
 
-	private static string? GetCloudRoleName(JsonElement item) =>
+	private static string GetCloudRoleName(JsonElement item) =>
 		item.TryGetProperty("tags", out var tags)
 		&& tags.TryGetProperty("ai.cloud.role", out var cloudRole)
 			? cloudRole.GetString()

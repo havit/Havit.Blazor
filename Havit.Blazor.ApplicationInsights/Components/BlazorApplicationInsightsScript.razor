@@ -1,4 +1,4 @@
-@if (this.AssignedRenderMode == null) @* only for Server-Side Rendering *@
+@if ((this.AssignedRenderMode == null) || !this.RendererInfo.IsInteractive) @* only for Server-Side Rendering and prerendering *@
 {
     <script type="text/javascript" nonce="@Nonce">
         @((MarkupString)GetApplicationInsightsScript())
