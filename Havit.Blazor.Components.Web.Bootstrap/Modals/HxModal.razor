@@ -23,11 +23,11 @@
 						{
 							if (CloseButtonIconEffective is null)
 							{
-								<button type="button" class="btn-close text-reset" data-bs-dismiss="modal" aria-label="Close"></button>
+								<button type="button" class="@CssClassHelper.Combine("btn-close text-reset", (CloseButtonSettingsEffective?.White == true) ? "btn-close-white" : null)" data-bs-dismiss="modal" aria-label="Close"></button>
 							}
 							else
 							{
-								<button type="button" class="hx-modal-custom-close-btn btn-close d-flex align-items-center" data-bs-dismiss="modal" aria-label="Close">
+								<button type="button" class="@CssClassHelper.Combine("hx-modal-custom-close-btn btn-close d-flex align-items-center", (CloseButtonSettingsEffective?.White == true) ? "btn-close-white" : null)" data-bs-dismiss="modal" aria-label="Close">
 									<HxIcon Icon="@CloseButtonIconEffective" />
 								</button>
 							}

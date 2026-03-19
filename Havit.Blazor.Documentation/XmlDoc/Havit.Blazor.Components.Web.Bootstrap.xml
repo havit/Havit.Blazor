@@ -8729,6 +8729,11 @@
             If set to <c>null</c>, Bootstrap default close-button will be used.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CloseButtonSettings">
+            <summary>
+            Settings for the close button in the header.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CloseOnEscape">
             <summary>
             Indicates whether the modal closes when escape key is pressed.
@@ -9066,6 +9071,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.CloseButtonIcon">
             <summary>
             The close icon to be used in the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.CloseButtonSettings">
+            <summary>
+            Settings for the close button in the header.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.CloseOnEscape">
