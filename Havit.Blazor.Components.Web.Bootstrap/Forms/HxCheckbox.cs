@@ -59,4 +59,11 @@ public class HxCheckbox : HxCheckboxBase
 	[Parameter] public bool? Outline { get; set; }
 	protected override bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxCheckbox) + " has to be set.");
 
+	/// <summary>
+	/// Size of the button for <see cref="CheckboxRenderMode.ToggleButton"/>.
+	/// The default value is <see cref="ButtonSize.Regular"/>.
+	/// </summary>
+	[Parameter] public ButtonSize? Size { get; set; }
+	protected override ButtonSize SizeEffective => Size ?? GetSettings()?.Size ?? GetDefaults().Size ?? ButtonSize.Regular;
+
 }
