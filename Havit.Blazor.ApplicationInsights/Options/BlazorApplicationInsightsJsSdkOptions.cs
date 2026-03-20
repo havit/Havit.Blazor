@@ -1,5 +1,7 @@
-﻿namespace Havit.Blazor.ApplicationInsights.Options;
+﻿using Havit.Blazor.ApplicationInsights.JsSdk;
 
-public record class BlazorApplicationInsightsJsSdkOptions : ApplicationInsightsConfig // record for easy cloning by with { }
+namespace Havit.Blazor.ApplicationInsights.Options;
+
+public class BlazorApplicationInsightsJsSdkOptions : ApplicationInsightsConfig
 {
 }

@@ -8,7 +8,7 @@ namespace Havit.Blazor.ApplicationInsights.E2ETests;
 
 [TestClass]
 public class AutoRouteTrackingTests : PageTest
-{	
+{
 	private const float AppInsightsTimeout = 10_000;
 
 	private static BlazorWebApplicationFactory _factoryAutoRouteTrackingEnabled;
@@ -22,12 +22,18 @@ public class AutoRouteTrackingTests : PageTest
 	[ClassInitialize]
 	public static void ClassInitialize(TestContext _)
 	{
-		_factoryAutoRouteTrackingEnabled = new BlazorWebApplicationFactory(
-			opts => opts.JsSdkOptions.EnableAutoRouteTracking = true);
+		_factoryAutoRouteTrackingEnabled = new BlazorWebApplicationFactory(options =>
+		{
+			options.JsSdkOptions.EnableAutoRouteTracking = true;
+			options.EnableInitialPageViewTracking = false; // Avoid timing-sensitive false positive: initial trackPageView({}) from the snippet could be dequeued by the CDN SDK after navigation (using the new URL).
+		});
 		_factoryAutoRouteTrackingEnabled.CreateClient();
 
-		_factoryAutoRouteTrackingDisabled = new BlazorWebApplicationFactory(
-			opts => opts.JsSdkOptions.EnableAutoRouteTracking = false);
+		_factoryAutoRouteTrackingDisabled = new BlazorWebApplicationFactory(options =>
+		{
+			options.JsSdkOptions.EnableAutoRouteTracking = false;
+			options.EnableInitialPageViewTracking = false; // Avoid timing-sensitive false positive: initial trackPageView({}) from the snippet could be dequeued by the CDN SDK after navigation (using the new URL).
+		});
 		_factoryAutoRouteTrackingDisabled.CreateClient();
 	}
 
@@ -72,8 +78,8 @@ public class AutoRouteTrackingTests : PageTest
 
 		// Act
 		await Page.GotoAsync(_factoryAutoRouteTrackingEnabled.ServerAddress + NavigationRoutes.PageViewTracking.AutoRouteTrackingPage1);
-		await Page.WaitForFunctionAsync("window.appInsights !== undefined",
-			options: new PageWaitForFunctionOptions { Timeout = AppInsightsTimeout });
+		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core",
+			options: new PageWaitForFunctionOptions { Timeout = AppInsightsTimeout }); // Wait for the real CDN SDK (not just the stub) so the history.pushState hook is in place before navigating.
 		await Page.ClickAsync("#goto-page2");
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached, Timeout = AppInsightsTimeout });
 		await page2PageViewReceived.Task.WaitAsync(TimeSpan.FromMilliseconds(AppInsightsTimeout), TestContext.CancellationToken);
@@ -110,8 +116,8 @@ public class AutoRouteTrackingTests : PageTest
 
 		// Act
 		await Page.GotoAsync(_factoryAutoRouteTrackingDisabled.ServerAddress + NavigationRoutes.PageViewTracking.AutoRouteTrackingPage1);
-		await Page.WaitForFunctionAsync("window.appInsights !== undefined",
-			options: new PageWaitForFunctionOptions { Timeout = AppInsightsTimeout });
+		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core",
+			options: new PageWaitForFunctionOptions { Timeout = AppInsightsTimeout }); // Wait for the real CDN SDK (not just the stub) so the test reflects actual SDK behavior.
 		await Page.ClickAsync("#goto-page2");
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached, Timeout = AppInsightsTimeout });
 		// Wait for any late-arriving requests after flush

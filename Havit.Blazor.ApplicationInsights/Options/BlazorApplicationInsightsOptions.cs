@@ -11,7 +11,7 @@ namespace Havit.Blazor.ApplicationInsights.Options;
 ///     Application Insights JavaScript SDK during initialization.
 ///   </description></item>
 ///   <item><description>
-///     C# wrapper-level settings (e.g. <see cref="DisableInitialPageViewTracking"/>) —
+///     C# wrapper-level settings (e.g. <see cref="EnableInitialPageViewTracking"/>) —
 ///     control Blazor-side behavior and are never sent to the JS SDK.
 ///   </description></item>
 /// </list>

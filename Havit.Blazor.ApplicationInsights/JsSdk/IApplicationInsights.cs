@@ -1,9 +1,10 @@
 // Based on the Application Insights JS SDK TypeScript source.
 // Source: https://github.com/microsoft/ApplicationInsights-JS/blob/main/AISKU/src/IApplicationInsights.ts
 
+using System.ComponentModel;
 using Havit.Blazor.ApplicationInsights.Telemetry;
 
-namespace Havit.Blazor.ApplicationInsights.Abstractions;
+namespace Havit.Blazor.ApplicationInsights.JsSdk;
 
 /// <summary>
 /// Full Application Insights SDK interface, extending the core tracking interface with
@@ -18,6 +19,7 @@ namespace Havit.Blazor.ApplicationInsights.Abstractions;
 ///   <item><c>getCookieMgr()</c> – returns a browser-specific cookie manager instance</item>
 /// </list>
 /// </remarks>
+[EditorBrowsable(EditorBrowsableState.Never)]
 public interface IApplicationInsights : IAppInsights, IDependenciesPlugin
 {
 	/// <summary>

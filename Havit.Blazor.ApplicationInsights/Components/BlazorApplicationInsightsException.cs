@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.ApplicationInsights.Components;
 
+/// <summary>
+/// Component which tracks exception whenever the <c>Exception</c> parameter is set (changed).
+/// Intended for use within an <c>ErrorBoundary</c>'s <c>ErrorContent</c> to automatically track unhandled exceptions with Application Insights.
+/// </summary>
 public class BlazorApplicationInsightsException : ComponentBase
 {
 	[Inject] protected IBlazorApplicationInsights BlazorApplicationInsights { get; set; }

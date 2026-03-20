@@ -1,9 +1,11 @@
 // This file is generated from the Application Insights JS SDK TypeScript source.
 // Source: https://github.com/microsoft/ApplicationInsights-JS/blob/main/shared/AppInsightsCore/src/interfaces/ai/IConfig.ts
 
+using System.ComponentModel;
 using System.Text.Json.Serialization;
+using Havit.Blazor.ApplicationInsights.Options;
 
-namespace Havit.Blazor.ApplicationInsights.Options;
+namespace Havit.Blazor.ApplicationInsights.JsSdk;
 
 /// <summary>
 /// Configuration settings for how telemetry is sent by the Application Insights JS SDK.
@@ -23,7 +25,8 @@ namespace Havit.Blazor.ApplicationInsights.Options;
 ///   <item><c>throttleMgrCfg</c> – <c>{ [key: number]: IThrottleMgrConfig }</c> (interface type values)</item>
 /// </list>
 /// </remarks>
-public record class ApplicationInsightsConfig : ApplicationInsightsConfiguration
+[EditorBrowsable(EditorBrowsableState.Never)]
+public class ApplicationInsightsConfig : ApplicationInsightsConfiguration
 {
 	/// <summary>
 	/// Use line-delimited JSON format instead of normal JSON. Default: <c>false</c>.

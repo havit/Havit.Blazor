@@ -1,9 +1,10 @@
 // Based on the Application Insights JS SDK TypeScript source.
 // Source: https://github.com/microsoft/ApplicationInsights-JS/blob/main/shared/AppInsightsCommon/src/Interfaces/IAppInsights.ts
 
+using System.ComponentModel;
 using Havit.Blazor.ApplicationInsights.Telemetry;
 
-namespace Havit.Blazor.ApplicationInsights.Abstractions;
+namespace Havit.Blazor.ApplicationInsights.JsSdk;
 
 /// <summary>
 /// Core Application Insights telemetry tracking interface.
@@ -20,6 +21,7 @@ namespace Havit.Blazor.ApplicationInsights.Abstractions;
 ///   <item><c>_onerror()</c> – internal auto-exception handler for <c>window.onerror</c></item>
 /// </list>
 /// </remarks>
+[EditorBrowsable(EditorBrowsableState.Never)]
 public interface IAppInsights
 {
 	/// <summary>Tracks a custom event.</summary>

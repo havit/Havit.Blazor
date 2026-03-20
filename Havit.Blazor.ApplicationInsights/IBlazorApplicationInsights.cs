@@ -1,4 +1,4 @@
-using Havit.Blazor.ApplicationInsights.Abstractions;
+using Havit.Blazor.ApplicationInsights.JsSdk;
 
 namespace Havit.Blazor.ApplicationInsights;
 

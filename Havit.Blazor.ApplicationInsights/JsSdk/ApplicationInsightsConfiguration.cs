@@ -1,9 +1,11 @@
 // This file is generated from the Application Insights JS SDK TypeScript source.
 // Source: https://github.com/microsoft/ApplicationInsights-JS/blob/main/shared/AppInsightsCore/src/interfaces/ai/IConfiguration.ts
 
+using System.ComponentModel;
 using System.Text.Json.Serialization;
+using Havit.Blazor.ApplicationInsights.Options;
 
-namespace Havit.Blazor.ApplicationInsights.Options;
+namespace Havit.Blazor.ApplicationInsights.JsSdk;
 
 /// <summary>
 /// Base configuration provided to the Application Insights SDK core.
@@ -21,7 +23,8 @@ namespace Havit.Blazor.ApplicationInsights.Options;
 ///   <item><c>createPerfMgr</c> – callback function</item>
 /// </list>
 /// </remarks>
-public record class ApplicationInsightsConfiguration
+[EditorBrowsable(EditorBrowsableState.Never)]
+public class ApplicationInsightsConfiguration
 {
 	/// <summary>
 	/// Instrumentation key of the resource. Either this or <see cref="ConnectionString"/> must be specified.
