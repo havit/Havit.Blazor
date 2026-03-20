@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Net;
 
-namespace Havit.Blazor.ApplicationInsights.E2ETests;
+namespace Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure;
 
 public class BlazorWebApplicationFactory : WebApplicationFactory<TestApp.Program>
 {
@@ -32,13 +32,17 @@ public class BlazorWebApplicationFactory : WebApplicationFactory<TestApp.Program
 
 	protected override IHost CreateHost(IHostBuilder builder)
 	{
-		var testHost = builder.Build(); // dummy host pro DI
+		var testHost = builder.Build(); // dummy host for DI
 
 		builder.ConfigureWebHost(b =>
 			b.UseKestrel(opts => opts.Listen(IPAddress.Loopback, 0)));
 
 		_kestrelHost = builder.Build();
 		_kestrelHost.Start();
+
+		// wait for kestrel start (solves: System.InvalidOperationException: The server has not been started or no web application was configured.)
+		var lifetime = _kestrelHost.Services.GetRequiredService<IHostApplicationLifetime>();
+		lifetime.ApplicationStarted.WaitHandle.WaitOne();
 
 		ServerAddress = _kestrelHost.Services
 			.GetRequiredService<IServer>()

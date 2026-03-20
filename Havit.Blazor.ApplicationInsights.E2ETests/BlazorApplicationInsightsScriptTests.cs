@@ -1,19 +1,12 @@
+using Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure;
 using Havit.Blazor.ApplicationInsights.TestApp.Client;
 using Microsoft.Playwright;
-using Microsoft.Playwright.MSTest;
 
 namespace Havit.Blazor.ApplicationInsights.E2ETests;
 
 [TestClass]
-public class BlazorApplicationInsightsScriptTests : PageTest
+public class BlazorApplicationInsightsScriptTests : BlazorApplicationInsightsPageTestBase
 {
-	private const float AppInsightsTimeout = 10_000;
-
-	public override BrowserNewContextOptions ContextOptions() => new BrowserNewContextOptions()
-	{
-		BaseURL = PlaywrightFixture.Factory.ServerAddress
-	};
-
 	[TestMethod]
 	public async Task ApplicationInsightsScript_SSR_AppInsightsLoadedAndConfigured() => await TestApplicationInsightsLoadedAndConfigured(NavigationRoutes.BlazorApplicationInsightsScriptTests.ServerSideRendering, TestApp.ConnectionStrings.ApplicationInsights);
 
@@ -31,19 +24,10 @@ public class BlazorApplicationInsightsScriptTests : PageTest
 
 	private async Task TestApplicationInsightsLoadedAndConfigured(string url, string expectedConnectionString)
 	{
-		await Page.RouteAsync("**/v2/track", async route =>
-		{
-			await route.FulfillAsync(new RouteFulfillOptions
-			{
-				Status = 200,
-				ContentType = "application/json",
-				Body = """{"itemsReceived":0,"itemsAccepted":0,"errors":[]}"""
-			});
-		});
+		await Page.RouteApplicationInsightsTrackAsync(null);
 
 		await Page.GotoAsync(url);
-		await Page.WaitForFunctionAsync("window.appInsights !== undefined",
-			options: new PageWaitForFunctionOptions { Timeout = AppInsightsTimeout });
+		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core");
 		Assert.IsTrue(await Page.EvaluateAsync<bool>($"window.appInsights.config.connectionString == '{expectedConnectionString}'"));
 	}
 }

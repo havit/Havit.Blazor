@@ -1,9 +1,9 @@
 # Havit.Blazor.ApplicationInsights
 
 Blazor integration for the [Application Insights JavaScript SDK](https://github.com/microsoft/ApplicationInsights-JS).
-Supports all Blazor rendering modes — Static SSR, Blazor Server, and Blazor WebAssembly — including mixed Blazor Web App scenarios.
+Targets browser-side telemetry. Best suited for Static SSR and Blazor WebAssembly scenarios, including mixed Blazor Web App setups. Blazor Server, server-side are also supported but telemetry is typically handled by the [Azure Application Insights SDK](https://learn.microsoft.com/azure/azure-monitor/app/asp-net-core) or Azure Monitor OpenTelemetry Exporter — this library adds value mainly for tracking browser exceptions.
 
-Requires .NET 9 or .NET 10.
+Supports .NET 9 and .NET 10.
 
 ---
 

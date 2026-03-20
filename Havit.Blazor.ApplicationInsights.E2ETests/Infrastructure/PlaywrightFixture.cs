@@ -1,4 +1,4 @@
-namespace Havit.Blazor.ApplicationInsights.E2ETests;
+namespace Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure;
 
 [TestClass]
 public static class PlaywrightFixture
