@@ -8,6 +8,9 @@ namespace Havit.Blazor.ApplicationInsights.Components;
 /// </summary>
 public class BlazorApplicationInsightsException : ComponentBase
 {
+	/// <summary>
+	/// Service used to interact with Application Insights in Blazor applications.
+	/// </summary>
 	[Inject] protected IBlazorApplicationInsights BlazorApplicationInsights { get; set; }
 
 	/// <summary>
@@ -19,6 +22,7 @@ public class BlazorApplicationInsightsException : ComponentBase
 
 	private Exception _lastTrackedException;
 
+	/// <inheritdoc/>
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if ((Exception != null) && !ReferenceEquals(Exception, _lastTrackedException))

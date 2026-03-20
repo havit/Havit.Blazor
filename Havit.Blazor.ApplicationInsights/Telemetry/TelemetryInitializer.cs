@@ -3,7 +3,7 @@ namespace Havit.Blazor.ApplicationInsights.Telemetry;
 /// <summary>
 /// Defines static tag values applied to every telemetry envelope by the Application Insights
 /// JavaScript SDK — including auto-collected telemetry (page views, XHR requests, unhandled exceptions).
-/// Pass to <see cref="IApplicationInsights.AddTelemetryInitializerAsync"/> once after SDK initialization.
+/// Pass to <see cref="IBlazorApplicationInsights"/>.<c>AddTelemetryInitializerAsync</c> once after SDK initialization.
 /// </summary>
 /// <remarks>
 /// Use the typed properties for common tags. For any other AI SDK tag, set <see cref="Tags"/> directly.

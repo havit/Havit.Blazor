@@ -2,6 +2,9 @@ using Havit.Blazor.ApplicationInsights.Telemetry;
 
 namespace Havit.Blazor.ApplicationInsights;
 
+/// <summary>
+/// Extension methods for <see cref="IBlazorApplicationInsights"/> to simplify common telemetry operations.
+/// </summary>
 public static class BlazorApplicationInsightsExtensions
 {
 	/// <summary>
@@ -20,8 +23,8 @@ public static class BlazorApplicationInsightsExtensions
 
 	/// <summary>
 	/// Starts timing a named event and returns a <see cref="TrackedEventScope"/> that stops timing when disposed.
-	/// Calls <see cref="IBlazorApplicationInsights.StartTrackEventAsync"/> immediately and
-	/// <see cref="IBlazorApplicationInsights.StopTrackEventAsync"/> on dispose.
+	/// Calls <see cref="IBlazorApplicationInsights"/>.<c>StartTrackEventAsync</c> immediately and
+	/// <see cref="IBlazorApplicationInsights"/>.<c>StopTrackEventAsync</c> on dispose.
 	/// </summary>
 	/// <remarks>
 	/// Use with <c>await using</c> to ensure the event is always stopped — even when an exception occurs.
@@ -36,8 +39,8 @@ public static class BlazorApplicationInsightsExtensions
 
 	/// <summary>
 	/// Starts timing a named page view and returns a <see cref="TrackedPageScope"/> that stops timing when disposed.
-	/// Calls <see cref="IBlazorApplicationInsights.StartTrackPageAsync"/> immediately and
-	/// <see cref="IBlazorApplicationInsights.StopTrackPageAsync"/> on dispose.
+	/// Calls <see cref="IBlazorApplicationInsights"/>.<c>StartTrackPageAsync</c> immediately and
+	/// <see cref="IBlazorApplicationInsights"/>.<c>StopTrackPageAsync</c> on dispose.
 	/// </summary>
 	/// <remarks>
 	/// Use with <c>await using</c> to ensure the page view is always stopped — even when an exception occurs.

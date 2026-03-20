@@ -11,9 +11,15 @@ namespace Havit.Blazor.ApplicationInsights.Options;
 /// </summary>
 public record class CustomHeader
 {
+	/// <summary>
+	/// Header.
+	/// </summary>
 	[JsonPropertyName("header")]
 	public string Header { get; set; }
 
+	/// <summary>
+	/// Value.
+	/// </summary>
 	[JsonPropertyName("value")]
 	public string Value { get; set; }
 }

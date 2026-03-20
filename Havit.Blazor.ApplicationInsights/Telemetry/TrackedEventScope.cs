@@ -3,8 +3,8 @@ namespace Havit.Blazor.ApplicationInsights.Telemetry;
 /// <summary>
 /// Represents the lifetime of a timed Application Insights event.
 /// Created by <see cref="BlazorApplicationInsightsExtensions.EnterTrackEventScopeAsync"/>,
-/// which calls <see cref="IBlazorApplicationInsights.StartTrackEventAsync"/> upon creation
-/// and <see cref="IBlazorApplicationInsights.StopTrackEventAsync"/> when the scope is disposed.
+/// which calls <see cref="IBlazorApplicationInsights"/>.<c>StartTrackEventAsync</c> upon creation
+/// and <see cref="IBlazorApplicationInsights"/>.<c>StopTrackEventAsync</c> when the scope is disposed.
 /// </summary>
 /// <example>
 /// <code>
@@ -21,14 +21,14 @@ public class TrackedEventScope : IAsyncDisposable
 	private Dictionary<string, double> _measurements;
 
 	/// <summary>
-	/// Custom string properties attached to the event when <see cref="IBlazorApplicationInsights.StopTrackEventAsync"/> is called.
+	/// Custom string properties attached to the event when <see cref="IBlazorApplicationInsights"/>.<c>StopTrackEventAsync</c> is called.
 	/// Can be set any time before the scope is disposed.
 	/// The dictionary is created lazily on first access.
 	/// </summary>
 	public Dictionary<string, string> Properties => _properties ??= new Dictionary<string, string>();
 
 	/// <summary>
-	/// Custom numeric measurements attached to the event when <see cref="IBlazorApplicationInsights.StopTrackEventAsync"/> is called.
+	/// Custom numeric measurements attached to the event when <see cref="IBlazorApplicationInsights"/>.<c>StopTrackEventAsync</c> is called.
 	/// Can be set any time before the scope is disposed.
 	/// The dictionary is created lazily on first access.
 	/// </summary>

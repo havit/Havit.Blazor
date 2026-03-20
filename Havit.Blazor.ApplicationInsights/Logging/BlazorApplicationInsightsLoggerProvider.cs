@@ -18,6 +18,9 @@ namespace Havit.Blazor.ApplicationInsights.Logging;
 [ProviderAlias(BlazorApplicationInsightsLoggerProvider.ProviderName)]
 public sealed class BlazorApplicationInsightsLoggerProvider : ILoggerProvider, IAsyncDisposable, ISupportExternalScope
 {
+	/// <summary>
+	/// Provider name. Use this name in <c>appsettings.json</c> to configure log levels for this provider.
+	/// </summary>
 	public const string ProviderName = "BlazorApplicationInsights";
 
 	private readonly Channel<LogEntry> _channel;
@@ -25,6 +28,9 @@ public sealed class BlazorApplicationInsightsLoggerProvider : ILoggerProvider, I
 	private readonly ConcurrentDictionary<string, BlazorApplicationInsightsLogger> _loggers = new();
 	private IExternalScopeProvider _scopeProvider = new LoggerExternalScopeProvider();
 
+	/// <summary>
+	/// Constructs a new instance of the <see cref="BlazorApplicationInsightsLoggerProvider "/> class.
+	/// </summary>
 	public BlazorApplicationInsightsLoggerProvider(IServiceScopeFactory scopeFactory)
 	{
 		_channel = Channel.CreateBounded<LogEntry>(new BoundedChannelOptions(1024)

@@ -12,6 +12,9 @@ public class BrowserBlazorApplicationInsights : IBlazorApplicationInsights
 	// IJSRuntime is a SCOPED dependency.
 	private readonly IJSRuntime _jsRuntime;
 
+	/// <summary>
+	/// Constructs a new instance of <see cref="BrowserBlazorApplicationInsights"/>.
+	/// </summary>
 	public BrowserBlazorApplicationInsights(IJSRuntime jsRuntime)
 	{
 		_jsRuntime = jsRuntime;

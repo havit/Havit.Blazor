@@ -3,8 +3,8 @@ namespace Havit.Blazor.ApplicationInsights.Telemetry;
 /// <summary>
 /// Represents the lifetime of a timed Application Insights page view.
 /// Created by <see cref="BlazorApplicationInsightsExtensions.EnterTrackPageScopeAsync"/>,
-/// which calls <see cref="IBlazorApplicationInsights.StartTrackPageAsync"/> upon creation
-/// and <see cref="IBlazorApplicationInsights.StopTrackPageAsync"/> when the scope is disposed.
+/// which calls <see cref="IBlazorApplicationInsights"/>.<c>StartTrackPageAsync</c> upon creation
+/// and <see cref="IBlazorApplicationInsights"/>.<c>StopTrackPageAsync</c> when the scope is disposed.
 /// </summary>
 /// <example>
 /// <code>
@@ -18,7 +18,7 @@ public class TrackedPageScope : IAsyncDisposable
 	private readonly string _name;
 
 	/// <summary>
-	/// URL of the page to include when <see cref="IBlazorApplicationInsights.StopTrackPageAsync"/> is called.
+	/// URL of the page to include when <see cref="IBlazorApplicationInsights"/>.<c>StopTrackPageAsync</c> is called.
 	/// Can be set any time before the scope is disposed.
 	/// </summary>
 	public string Url { get; set; }
@@ -27,14 +27,14 @@ public class TrackedPageScope : IAsyncDisposable
 	private Dictionary<string, double> _measurements;
 
 	/// <summary>
-	/// Custom string properties attached to the page view when <see cref="IBlazorApplicationInsights.StopTrackPageAsync"/> is called.
+	/// Custom string properties attached to the page view when <see cref="IBlazorApplicationInsights"/>.<c>StopTrackPageAsync</c> is called.
 	/// Can be set any time before the scope is disposed.
 	/// The dictionary is created lazily on first access.
 	/// </summary>
 	public Dictionary<string, string> Properties => _properties ??= new Dictionary<string, string>();
 
 	/// <summary>
-	/// Custom numeric measurements attached to the page view when <see cref="IBlazorApplicationInsights.StopTrackPageAsync"/> is called.
+	/// Custom numeric measurements attached to the page view when <see cref="IBlazorApplicationInsights"/>.<c>StopTrackPageAsync</c> is called.
 	/// Can be set any time before the scope is disposed.
 	/// The dictionary is created lazily on first access.
 	/// </summary>
