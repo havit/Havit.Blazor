@@ -16,6 +16,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+		<!-- Do not remove Grpc.AspNetCore.Server, it is used by reflection. If removed, older version will be used as protobuf-net.Grpc.AspNetCore dependency and it will cause runtime error. -->
+		<PackageReference Include="Grpc.AspNetCore.Server" />
 		<PackageReference Include="Grpc.AspNetCore.Web" />
 		<PackageReference Include="Havit.AspNetCore" />
 		<PackageReference Include="Havit.Core" />

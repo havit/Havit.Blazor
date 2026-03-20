@@ -1,0 +1,135 @@
+﻿@page "/getting-started/mcp"
+
+<PageTitle>MCP Server for AI coding agents | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
+<DocHeadContent CanonicalRelativeUrl="/getting-started/mcp" />
+
+<DocHeading Title="MCP Server" Level="1" />
+<p class="lead">
+	An MCP (Model Context Protocol) server that provides API documentation for HAVIT Blazor components.
+	AI assistants (GitHub Copilot, Claude Code, Cursor, Windsurf, etc.) can use this server to look up component parameters, properties, events, methods, and demo samples.
+</p>
+<p>
+	The MCP server is available as a <strong>Premium</strong> feature.
+	<a href="/premium">Learn more about Premium subscription.</a>
+</p>
+
+<DocHeading Title="Setup" Level="2" />
+<p>Select your IDE to get customized instructions.</p>
+<HxAlert Color="ThemeColor.Light">
+	<p class="mb-0 fw-semibold"><small>IDE / AI assistant</small></p>
+	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
+		<InputRadioGroup @bind-Value="_ide">
+			<InputRadio id="ideVsCode" class="btn-check" Value="@IdeChoice.VsCode" />
+			<label class="btn btn-outline-primary" for="ideVsCode">VS Code</label>
+
+			<InputRadio id="ideVs" class="btn-check" Value="@IdeChoice.VisualStudio" />
+			<label class="btn btn-outline-primary" for="ideVs">Visual Studio</label>
+
+			<InputRadio id="ideClaudeCode" class="btn-check" Value="@IdeChoice.ClaudeCode" />
+			<label class="btn btn-outline-primary" for="ideClaudeCode">Claude Code</label>
+
+			<InputRadio id="ideOther" class="btn-check" Value="@IdeChoice.Other" />
+			<label class="btn btn-outline-primary" for="ideOther">Other</label>
+		</InputRadioGroup>
+	</HxButtonGroup>
+</HxAlert>
+
+@if (_ide == IdeChoice.VsCode)
+{
+	<p>
+		Add to your <code>.vscode/mcp.json</code> (or user/workspace settings):
+	</p>
+	<CodeSnippet Language="json">{
+  "servers": {
+    "HAVIT Blazor Documentation": {
+      "type": "http",
+      "url": "https://mcp.havit.blazor.eu"
+    }
+  }
+}
+</CodeSnippet>
+	<p>
+		See <a href="https://code.visualstudio.com/docs/copilot/chat/mcp-servers">Use MCP servers in VS Code</a> for more details.
+	</p>
+}
+else if (_ide == IdeChoice.VisualStudio)
+{
+	<p>
+		Add the following configuration to the <code>.mcp.json</code> file in the root of your solution or project directory
+		(create the file if it doesn't exist):
+	</p>
+	<CodeSnippet Language="json">{
+  "servers": {
+    "HAVIT Blazor Documentation": {
+      "type": "http",
+      "url": "https://mcp.havit.blazor.eu"
+    }
+  }
+}
+</CodeSnippet>
+	<p>
+		See <a href="https://learn.microsoft.com/visualstudio/ide/mcp-servers">Use MCP servers in Visual Studio</a> for more details.
+	</p>
+}
+else if (_ide == IdeChoice.ClaudeCode)
+{
+	<p>
+		Add the server using the Claude Code CLI:
+	</p>
+	<CodeSnippet Language="none">claude mcp add --transport http "HAVIT Blazor Documentation" https://mcp.havit.blazor.eu</CodeSnippet>
+	<p>
+		Or add it manually to your <code>.mcp.json</code> file:
+	</p>
+	<CodeSnippet Language="json">{
+  "mcpServers": {
+    "HAVIT Blazor Documentation": {
+      "type": "url",
+      "url": "https://mcp.havit.blazor.eu"
+    }
+  }
+}
+</CodeSnippet>
+	<p>
+		See <a href="https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/tutorials/set-up-mcp">Claude Code MCP documentation</a> for more details.
+	</p>
+}
+else
+{
+	<p>
+		For other AI-powered IDEs (Cursor, Windsurf, JetBrains, etc.), refer to their documentation on configuring HTTP MCP servers.
+		The server URL is: <code>https://mcp.havit.blazor.eu</code>
+	</p>	
+}
+
+<DocHeading Title="Available tools" Level="2" />
+
+<DocHeading Title="get_component_docs" Level="3" />
+<p>
+	Returns the API documentation for a HAVIT Blazor component in Markdown format, including demo samples.
+	Also resolves derived components with custom prefixes (e.g. <code>BtPager</code>, <code>PxButton</code>) to their base <code>Hx</code> component.
+</p>
+
+<DocHeading Title="get_type_doc" Level="3" />
+<p>
+	Returns the API documentation for a HAVIT Blazor supporting type (enum, settings class, delegate) in Markdown format.
+</p>
+
+<DocHeading Title="get_component_catalog" Level="3" />
+<p>
+	Returns a list of all HAVIT Blazor components (<code>Hx*</code>) with their name and summary description.
+	No parameters required.
+</p>
+
+<DocHeading Title="get_component_samples" Level="3" />
+<p>
+	Returns all demo/sample code snippets (Razor source) for a HAVIT Blazor component.
+	Also resolves derived components with custom prefixes (e.g. <code>BtPager</code>, <code>PxButton</code>) to their base <code>Hx</code> component.
+</p>
+
+<DocHeading Title="Testing" Level="2" />
+<p>
+	Once configured, you can ask your AI assistant about a component, for example:
+	<i>"What parameters does HxButton have?"</i>
+	The assistant should use the <code>get_component_docs</code> tool and return the API documentation.
+</p>
+

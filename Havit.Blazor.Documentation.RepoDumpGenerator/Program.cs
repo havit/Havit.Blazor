@@ -27,11 +27,11 @@ static string FindRepoRoot(string startDir)
 	string dir = startDir;
 	while (dir is not null)
 	{
-		if (File.Exists(Path.Combine(dir, "Havit.Blazor.sln")))
+		if (File.Exists(Path.Combine(dir, "Havit.Blazor.slnx")))
 		{
 			return dir;
 		}
 		dir = Path.GetDirectoryName(dir);
 	}
-	throw new InvalidOperationException("Could not find repository root (Havit.Blazor.sln).");
+	throw new InvalidOperationException("Could not find repository root (Havit.Blazor.slnx).");
 }

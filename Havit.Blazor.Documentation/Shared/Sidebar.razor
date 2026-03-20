@@ -14,10 +14,10 @@
         </div>
     </HeaderTemplate>
     <ItemsTemplate>
-		<HxSidebarItem Text="Getting started" Href="getting-started" Icon="BootstrapIcon.RocketTakeoff" TooltipText="Getting started" />
+		<HxSidebarItem Text="Getting started" Href="getting-started" Icon="BootstrapIcon.RocketTakeoff" TooltipText="Getting started" Match="NavLinkMatch.All" />
 		<HxSidebarItem Href="https://blocks.havit.blazor.eu" CssClass="w-100" Icon="BootstrapIcon.Boxes" TooltipText="Blocks" >
             <ContentTemplate>
-				<div class="flex-grow-1">Blocks 🔥</div>
+				<div class="flex-grow-1">Blocks</div>
                     <HxBadge CssClass="ms-auto fw-normal rounded-pill" style="background-image: linear-gradient(to right, transparent, rgba(17, 71, 136))" Color="ThemeColor.Primary">Premium</HxBadge>
             </ContentTemplate>
         </HxSidebarItem>
@@ -130,6 +130,13 @@
             <HxSidebarItem Href="/concepts/Debouncer" Text="Debouncer" />
             <HxSidebarItem Href="/concepts/dark-color-mode-theme" Text="Dark color mode" />
         </HxSidebarItem>
+
+		<HxSidebarItem Href="/getting-started/mcp" CssClass="w-100" Icon="BootstrapIcon.Stars" TooltipText="MCP Server">
+			<ContentTemplate>
+				<div class="flex-grow-1">MCP Server 🔥</div>
+				<HxBadge CssClass="ms-auto fw-normal rounded-pill" style="background-image: linear-gradient(to right, transparent, rgba(17, 71, 136))" Color="ThemeColor.Primary">Premium</HxBadge>
+			</ContentTemplate>
+		</HxSidebarItem>
 
         <HxSidebarItem Text="All Components" Icon="BootstrapIcon.SortAlphaDown" ExpandOnMatch="false" HighlightOnActiveChild="false">
 			@{

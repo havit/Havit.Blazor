@@ -72,3 +72,8 @@ Bootstrap icons are generated via source generator from `Havit.Bootstrap/Icons/b
 5. Run tests: `dotnet test` or `dotnet test --project path/to/YourComponentTests.csproj` to run specific tests
 6. Validate changes manually
 
+### Azure DevOps
+When referring to Azure DevOps, it's the **DEV** project.
+
+
+

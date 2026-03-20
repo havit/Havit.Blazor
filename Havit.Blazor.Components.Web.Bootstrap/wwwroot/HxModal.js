@@ -10,6 +10,11 @@
 		return;
 	}
 
+	// Remove old listeners to prevent duplicates when show() is called multiple times
+	element.removeEventListener('hide.bs.modal', handleModalHide);
+	element.removeEventListener('hidden.bs.modal', handleModalHidden);
+	element.removeEventListener('shown.bs.modal', handleModalShown);
+
 	element.hxModalDotnetObjectReference = hxModalDotnetObjectReference;
 	if (subscribeToHideEvent) {
 		element.addEventListener('hide.bs.modal', handleModalHide);
@@ -18,12 +23,13 @@
 	element.addEventListener('shown.bs.modal', handleModalShown);
 	window.modalElement = element;
 
-	const modal = new bootstrap.Modal(element, {
-		keyboard: closeOnEscape
-	});
-	if (modal) {
-		modal.show();
+	let modal = bootstrap.Modal.getInstance(element);
+	if (!modal) {
+		modal = new bootstrap.Modal(element, {
+			keyboard: closeOnEscape
+		});
 	}
+	modal.show();
 }
 
 export function hide(element) {
@@ -61,6 +67,10 @@ async function handleModalHide(event) {
 
 function handleModalHidden(event) {
 	event.target.hxModalHiding = false;
+
+	if (event.target === window.modalElement) {
+		window.modalElement = null;
+	}
 
 	if (event.target.hxModalDisposing) {
 		// fix for #110 where the dispose() gets called while the modal is still in hiding-transition
@@ -101,5 +111,9 @@ export function dispose(element, opened) {
 	const modal = bootstrap.Modal.getInstance(element);
 	if (modal) {
 		modal.dispose();
+	}
+
+	if (element === window.modalElement) { // another modal might be already open
+		window.modalElement = null;
 	}
 }

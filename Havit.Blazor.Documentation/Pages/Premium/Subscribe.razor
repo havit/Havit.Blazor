@@ -1,0 +1,75 @@
+@page "/premium/subscribe"
+@layout HomeLayout
+
+<PageTitle>Subscribe to Premium | HAVIT Blazor Bootstrap</PageTitle>
+<DocHeadContent CanonicalRelativeUrl="/premium/subscribe" />
+
+<div class="hero d-flex flex-column align-items-center justify-content-center py-5">
+	<h1 class="fw-bold text-center display-4">Choose your payment method</h1>
+	<div style="max-width: 600px;" class="lead text-center">
+		Both options give you the same Premium access. Pick whichever works best for you.
+	</div>
+</div>
+
+<div class="container">
+	<div class="row g-4 justify-content-center mb-5">
+		<div class="col-12 col-md-6 col-lg-5">
+			<HxCard CssClass="h-100 rounded-4 bg-body-secondary border-0" BodyCssClass="p-4 d-flex flex-column">
+				<BodyTemplate>
+					<div class="d-flex align-items-center gap-2 mb-2">
+						<HxIcon Icon="BootstrapIcon.CreditCard2Front" CssClass="fs-4" />
+						<h5 class="fw-bold mb-0">Credit Card</h5>
+					</div>
+					<p class="fw-medium">$19/month via Stripe</p>
+					<div class="d-flex flex-column gap-2 opacity-75 mb-4 small">
+						<PlanItem Text="Pay with any credit or debit card" />
+						<PlanItem Text="Automatic invoices available for download" />
+						<PlanItem Text="Manage subscription &amp; payment method anytime" />
+					<PlanItem Text="Access activation may take up to 48 hours" />
+					</div>
+					<a href="https://buy.stripe.com/8x2cN62zOggT1DvcEs4Rq00" class="btn btn-dark w-100 rounded-pill mt-auto">
+						Subscribe with Credit Card
+					</a>
+				</BodyTemplate>
+			</HxCard>
+		</div>
+		<div class="col-12 col-md-6 col-lg-5">
+			<HxCard CssClass="h-100 rounded-4" BodyCssClass="p-4 d-flex flex-column">
+				<BodyTemplate>
+					<div class="d-flex align-items-center gap-2 mb-2">
+						<HxIcon Icon="BootstrapIcon.Github" CssClass="fs-4" />
+						<h5 class="fw-bold mb-0">GitHub Sponsors</h5>
+					</div>
+					<p class="fw-medium">$19/month via GitHub</p>
+					<div class="d-flex flex-column gap-2 opacity-75 mb-4 small">
+						<PlanItem Text="Pay through your GitHub account" />
+						<PlanItem Text="Ideal if you already use GitHub Sponsors" />
+						<PlanItem Text="Manage subscription in GitHub settings" />
+					<PlanItem Text="Instant access to private repository" />
+					</div>
+					<a href="https://github.com/sponsors/havit/sponsorships?tier_id=437336" class="btn btn-outline-dark w-100 rounded-pill mt-auto">
+						Sponsor on GitHub
+					</a>
+				</BodyTemplate>
+			</HxCard>
+		</div>
+	</div>
+	<div class="text-center mb-5 pb-5">
+		<a href="/premium" class="text-muted text-decoration-none">
+			<HxIcon Icon="BootstrapIcon.ArrowLeft" />
+			Back to Premium overview
+		</a>
+	</div>
+</div>
+
+<script>
+	gtag("event", "begin_checkout", {
+		value: 19,
+		currency: "USD",
+		items: [
+		 {
+		  item_id: "Premium19",
+		  item_name: "Premium Subscription $19",
+		}]
+	});
+</script>

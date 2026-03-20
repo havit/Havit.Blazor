@@ -32,6 +32,23 @@
 
 				<div class="card mb-4 border-0 shadow-sm rounded-4">
 					<div class="card-body p-4">
+						<h4 class="fw-semibold">MCP Server for AI-assisted development</h4>
+						<p class="opacity-75 mt-2">
+							As a Premium subscriber, you can connect the HAVIT Blazor Documentation MCP server to your AI-powered IDE
+							(e.g. VS Code with GitHub Copilot, Cursor, Windsurf, etc.) to get contextual component documentation directly in your editor.
+						</p>
+						<p class="opacity-75 mt-2">
+							Add the following configuration to your MCP settings:
+						</p>
+						<pre class="bg-dark text-light p-3 rounded-3"><code>"HAVIT Blazor Documentation": {
+	"type": "http",
+	"url": "https://mcp.havit.blazor.eu"
+}</code></pre>
+					</div>
+				</div>
+
+				<div class="card mb-4 border-0 shadow-sm rounded-4">
+					<div class="card-body p-4">
 						<h4 class="fw-semibold">Priority support</h4>
 						<p class="opacity-75 mt-2">
 							Priority support is one of the key benefits of your Premium subscription. We provide prioritized assistance through:
@@ -63,6 +80,21 @@
 						</p>
 						<p class="opacity-75 mt-2">
 							Access to the showcase project will be configured within 24 hours of your subscription activation. You’ll receive an invitation email once your access is ready.
+						</p>
+					</div>
+				</div>
+
+				<div class="card mb-4 border-0 shadow-sm rounded-4">
+					<div class="card-body p-4">
+						<h4 class="fw-semibold">Manage your subscription</h4>
+						<p class="opacity-75 mt-2">
+							If you subscribed via <strong>credit card (Stripe)</strong>, you can manage your subscription through the
+							<a href="https://billing.stripe.com/p/login/8x2cN62zOggT1DvcEs4Rq00">Customer Portal</a>.
+							There you can update your payment details, download invoices, or cancel your subscription.
+						</p>
+						<p class="opacity-75 mt-2">
+							If you subscribed via <strong>GitHub Sponsors</strong>, you can manage your sponsorship at
+							<a href="https://github.com/sponsors/havit">github.com/sponsors/havit</a>.
 						</p>
 					</div>
 				</div>
@@ -103,8 +135,8 @@
 			currency: "USD",
 			items: [
 			 {
-			  item_id: "GitHubPremium19",
-			  item_name: "GitHub Premium Sponsorship $19",
+			  item_id: "Premium19",
+			  item_name: "Premium Subscription $19",
 			  index: 0,
 			  price: 19,
 			  quantity: 1

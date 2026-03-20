@@ -1,0 +1,73 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Folder Name="/ApplicationInsights/">
+    <Project Path="Havit.Blazor.ApplicationInsights.E2ETests/Havit.Blazor.ApplicationInsights.E2ETests.csproj" />
+    <Project Path="Havit.Blazor.ApplicationInsights.TestApp.Client/Havit.Blazor.ApplicationInsights.TestApp.Client.csproj" />
+    <Project Path="Havit.Blazor.ApplicationInsights.TestApp/Havit.Blazor.ApplicationInsights.TestApp.csproj" />
+    <Project Path="Havit.Blazor.ApplicationInsights.Tests/Havit.Blazor.ApplicationInsights.Tests.csproj" />
+    <Project Path="Havit.Blazor.ApplicationInsights/Havit.Blazor.ApplicationInsights.csproj" />
+  </Folder>
+  <Folder Name="/Havit.Blazor.Grpc/">
+    <Project Path="Havit.Blazor.Grpc.Client.ServerSideRendering/Havit.Blazor.Grpc.Client.ServerSideRendering.csproj" />
+    <Project Path="Havit.Blazor.Grpc.Client.Tests/Havit.Blazor.Grpc.Client.Tests.csproj" />
+    <Project Path="Havit.Blazor.Grpc.Client.WebAssembly/Havit.Blazor.Grpc.Client.WebAssembly.csproj" />
+    <Project Path="Havit.Blazor.Grpc.Client/Havit.Blazor.Grpc.Client.csproj" />
+    <Project Path="Havit.Blazor.Grpc.Core.Tests/Havit.Blazor.Grpc.Core.Tests.csproj" />
+    <Project Path="Havit.Blazor.Grpc.Core/Havit.Blazor.Grpc.Core.csproj" />
+    <Project Path="Havit.Blazor.Grpc.Server.Tests/Havit.Blazor.Grpc.Server.Tests.csproj" />
+    <Project Path="Havit.Blazor.Grpc.Server/Havit.Blazor.Grpc.Server.csproj" />
+    <Project Path="Havit.Blazor.Grpc.TestContracts/Havit.Blazor.Grpc.TestContracts.csproj" />
+  </Folder>
+  <Folder Name="/Localization/">
+    <Project Path="Havit.Extensions.Localization/Havit.Extensions.Localization.csproj" />
+    <Project Path="Havit.SourceGenerators.StrongApiStringLocalizers.Tests/Havit.SourceGenerators.StrongApiStringLocalizers.Tests.csproj" />
+    <Project Path="Havit.SourceGenerators.StrongApiStringLocalizers/Havit.SourceGenerators.StrongApiStringLocalizers.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+    <File Path="AGENTS.md" />
+    <File Path="CommonAssemblyInfo.cs" />
+    <File Path="CONTRIBUTING.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="exclusion.dic" />
+    <File Path="global.json" />
+    <File Path="LICENSE" />
+    <File Path="logo.png" />
+    <File Path="nuget.config" />
+    <File Path="NuGet.targets" />
+    <File Path="README.md" />
+  </Folder>
+  <Folder Name="/Solution Items/.github/">
+    <File Path=".github/CODEOWNERS" />
+    <File Path=".github/dependabot.yml" />
+    <File Path=".github/FUNDING.yml" />
+  </Folder>
+  <Folder Name="/Solution Items/.github/workflows/">
+    <File Path=".github/workflows/dotnet.yml" />
+  </Folder>
+  <Project Path="BlazorAppTest/BlazorAppTest.csproj" />
+  <Project Path="Havit.Blazor.Components.Web.Bootstrap.EntityFrameworkCore.Tests/Havit.Blazor.Components.Web.Bootstrap.EntityFrameworkCore.Tests.csproj" />
+  <Project Path="Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators/Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators.csproj" />
+  <Project Path="Havit.Blazor.Components.Web.Bootstrap.Smart/Havit.Blazor.Components.Web.Bootstrap.Smart.csproj" />
+  <Project Path="Havit.Blazor.Components.Web.Bootstrap.Tests/Havit.Blazor.Components.Web.Bootstrap.Tests.csproj" />
+  <Project Path="Havit.Blazor.Components.Web.Bootstrap/Havit.Blazor.Components.Web.Bootstrap.csproj" />
+  <Project Path="Havit.Blazor.Components.Web.ECharts/Havit.Blazor.Components.Web.ECharts.csproj" />
+  <Project Path="Havit.Blazor.Components.Web.Tests/Havit.Blazor.Components.Web.Tests.csproj" />
+  <Project Path="Havit.Blazor.Components.Web/Havit.Blazor.Components.Web.csproj" />
+  <Project Path="Havit.Blazor.Documentation.Mcp/Havit.Blazor.Documentation.Mcp.csproj" />
+  <Project Path="Havit.Blazor.Documentation.RepoDumpGenerator/Havit.Blazor.Documentation.RepoDumpGenerator.csproj" />
+  <Project Path="Havit.Blazor.Documentation.Server/Havit.Blazor.Documentation.Server.csproj" />
+  <Project Path="Havit.Blazor.Documentation.Tests/Havit.Blazor.Documentation.Tests.csproj" />
+  <Project Path="Havit.Blazor.Documentation/Havit.Blazor.Documentation.csproj" />
+  <Project Path="Havit.Blazor.E2ETests/Havit.Blazor.E2ETests.csproj" />
+  <Project Path="Havit.Blazor.GoogleTagManager/Havit.Blazor.GoogleTagManager.csproj" />
+  <Project Path="Havit.Blazor.TestApp/Havit.Blazor.TestApp.Client/Havit.Blazor.TestApp.Client.csproj" />
+  <Project Path="Havit.Blazor.TestApp/Havit.Blazor.TestApp/Havit.Blazor.TestApp.csproj" />
+</Solution>

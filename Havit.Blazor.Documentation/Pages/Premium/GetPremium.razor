@@ -1,4 +1,4 @@
-@page "/premium"
+﻿@page "/premium"
 @layout HomeLayout
 
 <PageTitle>Get Premium | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
@@ -41,10 +41,11 @@
 							@* <strong>Everything from Free, plus</strong> *@
 							<PlanItem Text="Pre-built UI blocks" />
 							<PlanItem Text="Code samples" />
+							<PlanItem Text="MCP Server for AI-assisted development" />
 							<PlanItem Text="Priority support" />
-							<PlanItem Text="Access to showcase enteprise project source-code" />
+							<PlanItem Text="Access to showcase enterprise project source-code" />
 						</div>
-						<a href="https://github.com/sponsors/havit/sponsorships?tier_id=437336" class="btn btn-dark w-100 rounded-pill mt-auto">
+						<a href="/premium/subscribe" class="btn btn-dark w-100 rounded-pill mt-auto">
 							Get Premium
 						</a>
 					</BodyTemplate>
@@ -71,7 +72,7 @@
 		</div>
 	</div>
 	<div class="footer text-center my-5 py-5">
-		The Premium subscription is billed monthly via <a href="https://github.com/sponsors" target="_blank" rel="noopener noreferrer">GitHub sponsorship</a> and can be cancelled anytime.
+		The Premium subscription is billed monthly and can be cancelled anytime.
 	</div>
 	<div class="row mb-5 g-5">
 		<div class="col-lg-4 d-flex">
@@ -99,9 +100,19 @@
 					<HeaderTemplate>What happens if I cancel the subscription?</HeaderTemplate>
 					<BodyTemplate>
 						You can cancel your subscription at any time. If you cancel your subscription, you will lose access to the Premium content.
-						This means your access to the Havit.Blazor.Premium repository, you’ll lose access to all premium features, updates, and support, as well as any new content added to the repository.
-						You’ll still be able to use any code you’ve integrated into your own projects, as allowed under our license. However, you must delete all copies of the repository itself
+						This means your access to the Havit.Blazor.Premium repository, you'll lose access to all premium features, updates, and support, as well as any new content added to the repository.
+						You'll still be able to use any code you've integrated into your own projects, as allowed under our license. However, you must delete all copies of the repository itself
 						(including any forks or local clones).
+					</BodyTemplate>
+				</HxAccordionItem>
+				<HxAccordionItem>
+					<HeaderTemplate>How do I cancel my subscription?</HeaderTemplate>
+					<BodyTemplate>
+						If you subscribed via <strong>credit card (Stripe)</strong>, you can cancel anytime
+						in the <a href="https://billing.stripe.com/p/login/8x2cN62zOggT1DvcEs4Rq00" target="_blank">Stripe Customer Portal</a>.
+						If you subscribed via <strong>GitHub Sponsors</strong>, go to
+						<a href="https://github.com/sponsors/havit" target="_blank">github.com/sponsors/havit</a>
+						and manage your sponsorship from there.
 					</BodyTemplate>
 				</HxAccordionItem>
 				<HxAccordionItem>
@@ -119,7 +130,7 @@
 					<BodyTemplate>
 						Yes, Premium can be purchased for multiple users in your organization.
 						Simply multiply the number of users by the subscription cost
-						and after completing the sponsorship, email <a href="mailto:blazor@havit.eu">blazor@havit.eu</a>
+						and after completing the purchase, email <a href="mailto:blazor@havit.eu">blazor@havit.eu</a>
 						with a list of the personal (individual) GitHub accounts
 						to which the benefits should be activated.
 					</BodyTemplate>
@@ -127,18 +138,21 @@
 				<HxAccordionItem>
 					<HeaderTemplate>What if I need an invoice?</HeaderTemplate>
 					<BodyTemplate>
-						If you need an invoice for your Premium subscription,
-						please email <a href="mailto:blazor@havit.eu">blazor@havit.eu</a>.
-						We’ll be happy to assist you with the necessary documentation.
+						Invoices are available automatically when you subscribe via credit card (Stripe).
+						You can download your invoices and manage your subscription
+						in the <a href="https://billing.stripe.com/p/login/8x2cN62zOggT1DvcEs4Rq00" target="_blank">Stripe Customer Portal</a>.
+						For GitHub Sponsorship, please email <a href="mailto:blazor@havit.eu">blazor@havit.eu</a>
+						and we'll be happy to assist you with the necessary documentation.
 					</BodyTemplate>
 				</HxAccordionItem>
 				<HxAccordionItem>
-					<HeaderTemplate>Is there any other purchase option than GitHub Sponsorship?</HeaderTemplate>
+					<HeaderTemplate>What payment options are available?</HeaderTemplate>
 					<BodyTemplate>
-						Currently, we've chosen GitHub Sponsorship as the simplest option.
-						If GitHub Sponsorship isn’t suitable for you, please email
+						We offer two payment options: <strong>Credit card</strong> (via Stripe) with automatic invoicing,
+						or <strong>GitHub Sponsorship</strong>.
+						If neither option is suitable for you, please email
 						us at <a href="mailto:blazor@havit.eu">blazor@havit.eu</a>,
-						and we can arrange an alternative solution, such as an invoice and wire transfer.
+						and we can arrange an alternative solution, such as a wire transfer.
 					</BodyTemplate>
 				</HxAccordionItem>
 			</HxAccordion>
@@ -152,8 +166,8 @@
 		currency: "USD",
 		items: [
 		 {
-		  item_id: "GitHubPremium19",
-		  item_name: "GitHub Premium Sponsorship $19",
+		  item_id: "Premium19",
+		  item_name: "Premium Subscription $19",
 		}]
 	});
 </script>

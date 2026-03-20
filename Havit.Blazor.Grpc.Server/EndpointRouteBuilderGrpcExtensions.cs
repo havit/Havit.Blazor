@@ -45,7 +45,11 @@ public static class EndpointRouteBuilderGrpcExtensions
 									   from apiContractAttribute in type.GetCustomAttributes(typeof(ApiContractAttribute), false).Cast<ApiContractAttribute>()
 									   select new { Interface = type, Attribute = apiContractAttribute }).ToArray();
 
-		var mapGrpcServiceMethodInfo = typeof(GrpcEndpointRouteBuilderExtensions).GetMethod(nameof(GrpcEndpointRouteBuilderExtensions.MapGrpcService));
+		var mapGrpcServiceMethodInfo = typeof(GrpcEndpointRouteBuilderExtensions)
+			.GetMethods()
+			.Single(m => m.Name == nameof(GrpcEndpointRouteBuilderExtensions.MapGrpcService)
+				&& m.IsGenericMethodDefinition
+				&& m.GetParameters().Length == 1);
 
 		foreach (var item in interfacesAndAttributes)
 		{

@@ -14,6 +14,11 @@
 		return;
 	}
 
+	// Remove old listeners to prevent duplicates when show() is called multiple times
+	element.removeEventListener('hide.bs.offcanvas', handleOffcanvasHide);
+	element.removeEventListener('hidden.bs.offcanvas', handleOffcanvasHidden);
+	element.removeEventListener('shown.bs.offcanvas', handleOffcanvasShown);
+
 	element.hxOffcanvasDotnetObjectReference = hxOffcanvasDotnetObjectReference;
 	if (subscribeToHideEvent) {
 		element.addEventListener('hide.bs.offcanvas', handleOffcanvasHide);
@@ -22,7 +27,7 @@
 	element.addEventListener('shown.bs.offcanvas', handleOffcanvasShown);
 	window.offcanvasElement = element;
 
-	const offcanvas = new bootstrap.Offcanvas(element, {
+	const offcanvas = bootstrap.Offcanvas.getOrCreateInstance(element, {
 		keyboard: closeOnEscape,
 		scroll: scrollingEnabled
 	});

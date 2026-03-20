@@ -15,7 +15,8 @@
         {
             <HxButton @key="@button" Text="@button.Text"
                   OnClick="@(() => HandleButtonClick(button.Id))"
-                  Settings="@((button.IsPrimary ?? false) ? PrimaryButtonSettingsEffective : SecondaryButtonSettingsEffective)" />
+                  Settings="@((button.IsPrimary ?? false) ? PrimaryButtonSettingsEffective : SecondaryButtonSettingsEffective)"
+                  tabindex="0" />
         }
     </FooterTemplate>
 </HxModal>

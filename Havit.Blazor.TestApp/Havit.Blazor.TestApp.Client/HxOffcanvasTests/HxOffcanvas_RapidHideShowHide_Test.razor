@@ -1,0 +1,27 @@
+@page "/HxOffcanvas_RapidHideShowHide"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxButton data-testid="show-button" OnClick="HandleShowClick" Color="ThemeColor.Primary">Show Offcanvas</HxButton>
+
+<HxOffcanvas @ref="_offcanvas" Title="Test Offcanvas">
+	<BodyTemplate>
+		<p>Offcanvas content</p>
+		<HxButton data-testid="hide-show-hide-button" OnClick="HandleHideShowHideClick" Color="ThemeColor.Danger">Hide → Show → Hide</HxButton>
+	</BodyTemplate>
+</HxOffcanvas>
+
+@code {
+	private HxOffcanvas _offcanvas;
+
+	private async Task HandleShowClick()
+	{
+		await _offcanvas.ShowAsync();
+	}
+
+	private async Task HandleHideShowHideClick()
+	{
+		await _offcanvas.HideAsync();
+		await _offcanvas.ShowAsync();
+		await _offcanvas.HideAsync();
+	}
+}

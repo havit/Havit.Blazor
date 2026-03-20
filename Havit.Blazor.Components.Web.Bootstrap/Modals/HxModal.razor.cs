@@ -214,11 +214,23 @@ public partial class HxModal : IAsyncDisposable
 
 
 	private bool _opened = false; // indicates whether the modal is open
+
+	// Bootstrap Modal internally tracks _isTransitioning and silently drops show()/hide() calls while a CSS transition
+	// is in progress. This means a rapid sequence like HideAsync → ShowAsync → HideAsync can lose operations.
+	// We compensate by tracking the transition state on the C# side and deferring the next operation until the current
+	// transition completes (via shown.bs.modal / hidden.bs.modal callbacks).
+	// Note: HxOffcanvas does NOT need this — Bootstrap Offcanvas does not check _isTransitioning,
+	// so rapid sequences are handled correctly by Bootstrap itself.
+	private bool _transitionInProgress;
+	private PendingOperation _pendingOperation = PendingOperation.None;
+
 	private DotNetObjectReference<HxModal> _dotnetObjectReference;
 	private ElementReference _modalElement;
 	private IJSObjectReference _jsModule;
 	private Queue<Func<Task>> _onAfterRenderTasksQueue = new();
 	private bool _disposed;
+
+	private enum PendingOperation { None, Show, Hide }
 
 	public HxModal()
 	{
@@ -230,21 +242,34 @@ public partial class HxModal : IAsyncDisposable
 	/// </summary>
 	public Task ShowAsync()
 	{
-		if (!_opened)
+		if (_transitionInProgress)
 		{
-			_onAfterRenderTasksQueue.Enqueue(async () =>
-			{
-				// Running JS interop is postponed to OnAfterRenderAsync to ensure modalElement is set
-				// and correct order of commands (Show/Hide) is preserved
-				_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxModal));
-				if (_disposed)
-				{
-					return;
-				}
-
-				await _jsModule.InvokeVoidAsync("show", _modalElement, _dotnetObjectReference, CloseOnEscapeEffective, OnHiding.HasDelegate);
-			});
+			_pendingOperation = PendingOperation.Show;
+			_opened = true; // ensure HTML content is rendered while waiting
+			StateHasChanged();
+			return Task.CompletedTask;
 		}
+
+		if (_opened)
+		{
+			return Task.CompletedTask;
+		}
+
+		_pendingOperation = PendingOperation.None;
+		_transitionInProgress = true;
+
+		_onAfterRenderTasksQueue.Enqueue(async () =>
+		{
+			// Running JS interop is postponed to OnAfterRenderAsync to ensure modalElement is set
+			// and correct order of commands (Show/Hide) is preserved
+			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxModal));
+			if (_disposed)
+			{
+				return;
+			}
+
+			await _jsModule.InvokeVoidAsync("show", _modalElement, _dotnetObjectReference, CloseOnEscapeEffective, OnHiding.HasDelegate);
+		});
 		_opened = true; // mark modal as opened
 
 		StateHasChanged(); // ensures rendering modal HTML
@@ -257,11 +282,19 @@ public partial class HxModal : IAsyncDisposable
 	/// </summary>
 	public Task HideAsync()
 	{
-		if (!_opened)
+		if (_transitionInProgress)
 		{
-			// this might be a minor PERF benefit, if it turns out to be causing troubles, we can remove this or make it configurable through optional method parameter
+			_pendingOperation = PendingOperation.Hide;
 			return Task.CompletedTask;
 		}
+
+		if (!_opened)
+		{
+			return Task.CompletedTask;
+		}
+
+		_pendingOperation = PendingOperation.None;
+		_transitionInProgress = true;
 
 		_onAfterRenderTasksQueue.Enqueue(async () =>
 		{
@@ -288,6 +321,25 @@ public partial class HxModal : IAsyncDisposable
 	{
 		var eventArgs = new ModalHidingEventArgs();
 		await OnHiding.InvokeAsync(eventArgs);
+
+		if (eventArgs.Cancel)
+		{
+			// The hide was canceled — hidden.bs.modal will not fire,
+			// so we must reset _transitionInProgress here to avoid blocking future operations.
+			_transitionInProgress = false;
+
+			if (_pendingOperation == PendingOperation.Hide)
+			{
+				_pendingOperation = PendingOperation.None;
+				await HideAsync();
+			}
+			else if (_pendingOperation == PendingOperation.Show)
+			{
+				// Modal is already shown, just clear the pending operation.
+				_pendingOperation = PendingOperation.None;
+			}
+		}
+
 		return eventArgs.Cancel;
 	}
 
@@ -298,6 +350,16 @@ public partial class HxModal : IAsyncDisposable
 	public async Task HandleModalHidden()
 	{
 		_opened = false;
+		_transitionInProgress = false;
+
+		if (_pendingOperation == PendingOperation.Show)
+		{
+			_pendingOperation = PendingOperation.None;
+			await ShowAsync();
+			return;
+		}
+
+		_pendingOperation = PendingOperation.None;
 		await InvokeOnClosedAsync();
 		StateHasChanged(); // ensures re-render to remove dialog from HTML
 	}
@@ -309,6 +371,16 @@ public partial class HxModal : IAsyncDisposable
 	public async Task HandleModalShown()
 	{
 		_opened = true;
+		_transitionInProgress = false;
+
+		if (_pendingOperation == PendingOperation.Hide)
+		{
+			_pendingOperation = PendingOperation.None;
+			await HideAsync();
+			return;
+		}
+
+		_pendingOperation = PendingOperation.None;
 		await InvokeOnShownAsync();
 	}
 
@@ -389,6 +461,8 @@ public partial class HxModal : IAsyncDisposable
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
 		_disposed = true;
+		_transitionInProgress = false;
+		_pendingOperation = PendingOperation.None;
 
 		if (_jsModule != null)
 		{
