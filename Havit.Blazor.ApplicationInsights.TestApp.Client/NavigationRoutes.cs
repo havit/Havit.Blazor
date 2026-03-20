@@ -22,4 +22,9 @@ public static class NavigationRoutes
 		public const string AutoRouteTrackingPage1 = "/appinsights-test-auto-route-tracking-1";
 		public const string AutoRouteTrackingPage2 = "/appinsights-test-auto-route-tracking-2";
 	}
+
+	public static class Logging
+	{
+		public const string LoggingTestPage = "/appinsights-test-logging";
+	}
 }

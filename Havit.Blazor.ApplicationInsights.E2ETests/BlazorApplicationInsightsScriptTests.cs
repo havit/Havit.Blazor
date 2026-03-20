@@ -27,7 +27,7 @@ public class BlazorApplicationInsightsScriptTests : BlazorApplicationInsightsPag
 		await Page.RouteApplicationInsightsTrackAsync(null);
 
 		await Page.GotoAsync(url);
-		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core");
+		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core"); // Wait for the JS SDK full initialization.
 		Assert.IsTrue(await Page.EvaluateAsync<bool>($"window.appInsights.config.connectionString == '{expectedConnectionString}'"));
 	}
 }

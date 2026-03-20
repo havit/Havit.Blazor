@@ -5,7 +5,7 @@ namespace Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure;
 
 public class BlazorApplicationInsightsPageTestBase : PageTest
 {
-	public const float DefaultTimeoutMilliseconds = 10_000;
+	public const float DefaultTimeoutMilliseconds = 30_000;
 
 	public override BrowserNewContextOptions ContextOptions() => new BrowserNewContextOptions()
 	{

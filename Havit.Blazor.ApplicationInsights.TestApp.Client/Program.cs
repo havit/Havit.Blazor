@@ -8,6 +8,7 @@ internal class Program
 	{
 		var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
+		builder.Logging.AddBlazorApplicationInsights();
 		builder.Services.AddBlazorApplicationInsights(options => options.JsSdkOptions.ConnectionString = ConnectionStrings.ApplicationInsights);
 
 		await builder.Build().RunAsync();

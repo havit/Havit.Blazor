@@ -18,7 +18,7 @@ public class AutoRouteTrackingTests : BlazorApplicationInsightsPageTestBase
 
 		// Act
 		await Page.GotoAsync(factory.ServerAddress + NavigationRoutes.PageViewTracking.AutoRouteTrackingPage1);
-		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core"); // Wait for the real CDN SDK (not just the stub) so the history.pushState hook is in place before navigating.
+		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core"); // Wait for the JS SDK full initialization.
 		await Page.ClickAsync("#goto-page2");
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
 		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
@@ -37,7 +37,7 @@ public class AutoRouteTrackingTests : BlazorApplicationInsightsPageTestBase
 
 		// Act
 		await Page.GotoAsync(factory.ServerAddress + NavigationRoutes.PageViewTracking.AutoRouteTrackingPage1);
-		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core");
+		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core"); // Wait for the JS SDK full initialization.
 		await Page.ClickAsync("#goto-page2");
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
 		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);

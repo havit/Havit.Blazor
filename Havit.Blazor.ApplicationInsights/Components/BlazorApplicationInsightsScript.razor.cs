@@ -88,7 +88,6 @@ public partial class BlazorApplicationInsightsScript : IDisposable
 
 	private string GetInitialTrackPageViewScript()
 		=> BlazorApplicationInsightsOptions.Value.EnableInitialPageViewTracking ? ",e.trackPageView({})" : "";
-		//=> BlazorApplicationInsightsOptions.Value.EnableInitialPageViewTracking ? ",e.trackPageView({uri:location.href})" : "";
 
 	private string GetSerializedApplicationInsightsConfiguration()
 	{
