@@ -9,6 +9,7 @@ namespace Havit.Blazor.ApplicationInsights;
 /// </summary>
 public class BrowserBlazorApplicationInsights : IBlazorApplicationInsights
 {
+	// IJSRuntime is a SCOPED dependency.
 	private readonly IJSRuntime _jsRuntime;
 
 	public BrowserBlazorApplicationInsights(IJSRuntime jsRuntime)

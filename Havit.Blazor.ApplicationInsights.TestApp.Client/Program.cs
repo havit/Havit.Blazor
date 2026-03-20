@@ -8,6 +8,9 @@ internal class Program
 	{
 		var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
+		// Reads logging configuration from configuration providers (appsettings.json).
+		builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
+
 		builder.Logging.AddBlazorApplicationInsights();
 		builder.Services.AddBlazorApplicationInsights(options => options.JsSdkOptions.ConnectionString = ConnectionStrings.ApplicationInsights);
 

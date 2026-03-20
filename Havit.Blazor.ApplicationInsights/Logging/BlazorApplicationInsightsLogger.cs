@@ -1,6 +1,6 @@
+using System.Threading.Channels;
 using Havit.Blazor.ApplicationInsights.Telemetry;
 using Microsoft.Extensions.Logging;
-using System.Threading.Channels;
 
 namespace Havit.Blazor.ApplicationInsights.Logging;
 

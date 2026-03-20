@@ -2,6 +2,7 @@ using Havit.Blazor.ApplicationInsights.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Configuration;
 
 namespace Havit.Blazor.ApplicationInsights;
 
@@ -15,6 +16,7 @@ public static class LoggingBuilderExtensions
 	/// </summary>
 	public static ILoggingBuilder AddBlazorApplicationInsights(this ILoggingBuilder builder)
 	{
+		builder.AddConfiguration();
 		builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, BlazorApplicationInsightsLoggerProvider>());
 		return builder;
 	}

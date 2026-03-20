@@ -1,6 +1,8 @@
-using Havit.Blazor.ApplicationInsights.Telemetry;
-using Microsoft.Extensions.Logging;
+using System.Collections.Concurrent;
 using System.Threading.Channels;
+using Havit.Blazor.ApplicationInsights.Telemetry;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Havit.Blazor.ApplicationInsights.Logging;
 
@@ -20,16 +22,17 @@ public sealed class BlazorApplicationInsightsLoggerProvider : ILoggerProvider, I
 
 	private readonly Channel<LogEntry> _channel;
 	private readonly Task _processTask;
+	private readonly ConcurrentDictionary<string, BlazorApplicationInsightsLogger> _loggers = new();
 	private IExternalScopeProvider _scopeProvider = new LoggerExternalScopeProvider();
 
-	public BlazorApplicationInsightsLoggerProvider(IBlazorApplicationInsights insights)
+	public BlazorApplicationInsightsLoggerProvider(IServiceScopeFactory scopeFactory)
 	{
 		_channel = Channel.CreateBounded<LogEntry>(new BoundedChannelOptions(1024)
 		{
 			FullMode = BoundedChannelFullMode.DropOldest,
 			SingleReader = true
 		});
-		_processTask = ProcessLogEntriesAsync(insights, _channel.Reader);
+		_processTask = ProcessLogEntriesAsync(scopeFactory, _channel.Reader);
 	}
 
 	/// <inheritdoc />
@@ -38,23 +41,32 @@ public sealed class BlazorApplicationInsightsLoggerProvider : ILoggerProvider, I
 
 	/// <inheritdoc />
 	public ILogger CreateLogger(string categoryName)
-		=> new BlazorApplicationInsightsLogger(categoryName, _channel.Writer, _scopeProvider);
+		=> _loggers.GetOrAdd(categoryName, name => new BlazorApplicationInsightsLogger(name, _channel.Writer, _scopeProvider));
 
 	/// <inheritdoc />
 	public void Dispose()
 	{
 		_channel.Writer.TryComplete();
+		_loggers.Clear();
 	}
 
 	/// <inheritdoc />
 	public async ValueTask DisposeAsync()
 	{
 		_channel.Writer.TryComplete();
-		await _processTask;
+#pragma warning disable VSTHRD003 // background processing task — intentional drain on dispose
+		await _processTask.ConfigureAwait(false);
+#pragma warning restore VSTHRD003
+		_loggers.Clear();
 	}
 
-	private static async Task ProcessLogEntriesAsync(IBlazorApplicationInsights insights, ChannelReader<LogEntry> reader)
+	private static async Task ProcessLogEntriesAsync(IServiceScopeFactory scopeFactory, ChannelReader<LogEntry> reader)
 	{
+		// BlazorApplicationInsightsLoggerProvider is a singleton,
+		// but IBlazorApplicationInsights is a scoped dependency.
+		using var scope = scopeFactory.CreateScope();
+		var insights = scope.ServiceProvider.GetRequiredService<IBlazorApplicationInsights>();
+
 		await foreach (var entry in reader.ReadAllAsync())
 		{
 			try
