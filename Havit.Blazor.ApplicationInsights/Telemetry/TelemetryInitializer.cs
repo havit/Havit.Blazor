@@ -11,7 +11,7 @@ namespace Havit.Blazor.ApplicationInsights.Telemetry;
 /// </remarks>
 /// <example>
 /// <code>
-/// await AppInsights.AddTelemetryInitializerAsync(new TelemetryInitializer
+/// await BlazorApplicationInsights.AddTelemetryInitializerAsync(new TelemetryInitializer
 /// {
 ///     CloudRoleName = "MyBlazorApp",
 ///     ApplicationVersion = "1.2.3"

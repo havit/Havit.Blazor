@@ -8,13 +8,13 @@ namespace Havit.Blazor.ApplicationInsights.Telemetry;
 /// </summary>
 /// <example>
 /// <code>
-/// await using var scope = await AppInsights.EnterTrackPageScopeAsync("my-page");
+/// await using var scope = await blazorApplicationInsights.EnterTrackPageScopeAsync("my-page");
 /// scope.Url = "https://example.com/my-page";
 /// </code>
 /// </example>
 public class TrackedPageScope : IAsyncDisposable
 {
-	private readonly IBlazorApplicationInsights _appInsights;
+	private readonly IBlazorApplicationInsights _blazorApplicationInsights;
 	private readonly string _name;
 
 	/// <summary>
@@ -40,14 +40,14 @@ public class TrackedPageScope : IAsyncDisposable
 	/// </summary>
 	public Dictionary<string, double> Measurements => _measurements ??= new Dictionary<string, double>();
 
-	internal TrackedPageScope(IBlazorApplicationInsights appInsights, string name)
+	internal TrackedPageScope(IBlazorApplicationInsights blazorApplicationInsights, string name)
 	{
-		_appInsights = appInsights;
+		_blazorApplicationInsights = blazorApplicationInsights;
 		_name = name;
 	}
 
 	/// <inheritdoc/>
 	public async ValueTask DisposeAsync()
 		// Use backing fields directly to avoid triggering lazy initialization for unused dictionaries.
-		=> await _appInsights.StopTrackPageAsync(_name, Url, _properties, _measurements);
+		=> await _blazorApplicationInsights.StopTrackPageAsync(_name, Url, _properties, _measurements);
 }

@@ -7,7 +7,7 @@ public static class BlazorApplicationInsightsExtensions
 	/// <summary>
 	/// Tracks a C# <see cref="Exception"/> as Application Insights exception telemetry.
 	/// </summary>
-	public static Task TrackExceptionAsync(this IBlazorApplicationInsights appInsights, Exception exception, SeverityLevel? severityLevel = null, Dictionary<string, object> customProperties = null)
+	public static Task TrackExceptionAsync(this IBlazorApplicationInsights blazorApplicationInsights, Exception exception, SeverityLevel? severityLevel = null, Dictionary<string, object> customProperties = null)
 	{
 		var telemetry = new ExceptionTelemetry
 		{
@@ -15,7 +15,7 @@ public static class BlazorApplicationInsightsExtensions
 			SeverityLevel = severityLevel
 		};
 
-		return appInsights.TrackExceptionAsync(telemetry, customProperties);
+		return blazorApplicationInsights.TrackExceptionAsync(telemetry, customProperties);
 	}
 
 	/// <summary>
@@ -28,10 +28,10 @@ public static class BlazorApplicationInsightsExtensions
 	/// Set <see cref="TrackedEventScope.Properties"/> and <see cref="TrackedEventScope.Measurements"/>
 	/// on the returned scope to attach data to the event.
 	/// </remarks>
-	public static async Task<TrackedEventScope> EnterTrackEventScopeAsync(this IBlazorApplicationInsights appInsights, string name)
+	public static async Task<TrackedEventScope> EnterTrackEventScopeAsync(this IBlazorApplicationInsights blazorApplicationInsights, string name)
 	{
-		await appInsights.StartTrackEventAsync(name);
-		return new TrackedEventScope(appInsights, name);
+		await blazorApplicationInsights.StartTrackEventAsync(name);
+		return new TrackedEventScope(blazorApplicationInsights, name);
 	}
 
 	/// <summary>
@@ -44,9 +44,9 @@ public static class BlazorApplicationInsightsExtensions
 	/// Set <see cref="TrackedPageScope.Url"/>, <see cref="TrackedPageScope.Properties"/>, and
 	/// <see cref="TrackedPageScope.Measurements"/> on the returned scope to attach data to the page view.
 	/// </remarks>
-	public static async Task<TrackedPageScope> EnterTrackPageScopeAsync(this IBlazorApplicationInsights appInsights, string name = null)
+	public static async Task<TrackedPageScope> EnterTrackPageScopeAsync(this IBlazorApplicationInsights blazorApplicationInsights, string name = null)
 	{
-		await appInsights.StartTrackPageAsync(name);
-		return new TrackedPageScope(appInsights, name);
+		await blazorApplicationInsights.StartTrackPageAsync(name);
+		return new TrackedPageScope(blazorApplicationInsights, name);
 	}
 }

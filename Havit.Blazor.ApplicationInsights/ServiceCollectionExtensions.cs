@@ -1,5 +1,6 @@
 using Havit.Blazor.ApplicationInsights.Options;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Havit.Blazor.ApplicationInsights;
 
@@ -11,19 +12,22 @@ public static class ServiceCollectionExtensions
 	/// <summary>
 	/// Registers Blazor Application Insights services and configures the options.
 	/// </summary>
-	public static IServiceCollection AddBlazorApplicationInsights(this IServiceCollection services, Action<BlazorApplicationInsightsOptions> configureAction)
+	public static IServiceCollection AddBlazorApplicationInsights(this IServiceCollection services, Action<BlazorApplicationInsightsOptions> configureAction = null)
 	{
 		if (OperatingSystem.IsBrowser())
 		{
-			services.AddScoped<IBlazorApplicationInsights, BrowserBlazorApplicationInsights>();
+			services.TryAddScoped<IBlazorApplicationInsights, BrowserBlazorApplicationInsights>();
 		}
 		else
 		{
-			services.AddScoped<BrowserBlazorApplicationInsights>();
-			services.AddScoped<IBlazorApplicationInsights, AdaptiveBlazorApplicationInsights>();
+			services.TryAddScoped<BrowserBlazorApplicationInsights>();
+			services.TryAddScoped<IBlazorApplicationInsights, AdaptiveBlazorApplicationInsights>();
 		}
 
-		services.Configure(configureAction);
+		if (configureAction != null)
+		{
+			services.Configure(configureAction);
+		}
 
 		return services;
 	}

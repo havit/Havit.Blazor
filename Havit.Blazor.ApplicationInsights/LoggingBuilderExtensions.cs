@@ -18,6 +18,7 @@ public static class LoggingBuilderExtensions
 	{
 		builder.AddConfiguration();
 		builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton<ILoggerProvider, BlazorApplicationInsightsLoggerProvider>());
+		builder.Services.AddBlazorApplicationInsights();
 		return builder;
 	}
 }

@@ -8,13 +8,13 @@ namespace Havit.Blazor.ApplicationInsights.Telemetry;
 /// </summary>
 /// <example>
 /// <code>
-/// await using var scope = await AppInsights.EnterTrackEventScopeAsync("my-operation");
+/// await using var scope = await blazorApplicationInsights.EnterTrackEventScopeAsync("my-operation");
 /// scope.Properties["result"] = "ok";
 /// </code>
 /// </example>
 public class TrackedEventScope : IAsyncDisposable
 {
-	private readonly IBlazorApplicationInsights _appInsights;
+	private readonly IBlazorApplicationInsights _blazorApplicationInsights;
 	private readonly string _name;
 
 	private Dictionary<string, string> _properties;
@@ -34,14 +34,14 @@ public class TrackedEventScope : IAsyncDisposable
 	/// </summary>
 	public Dictionary<string, double> Measurements => _measurements ??= new Dictionary<string, double>();
 
-	internal TrackedEventScope(IBlazorApplicationInsights appInsights, string name)
+	internal TrackedEventScope(IBlazorApplicationInsights blazorApplicationInsights, string name)
 	{
-		_appInsights = appInsights;
+		_blazorApplicationInsights = blazorApplicationInsights;
 		_name = name;
 	}
 
 	/// <inheritdoc/>
 	public async ValueTask DisposeAsync()
 		// Use backing fields directly to avoid triggering lazy initialization for unused dictionaries.
-		=> await _appInsights.StopTrackEventAsync(_name, _properties, _measurements);
+		=> await _blazorApplicationInsights.StopTrackEventAsync(_name, _properties, _measurements);
 }
