@@ -49,5 +49,5 @@ public class HxSwitch : HxCheckboxBase
 
 	protected override bool OutlineEffective => throw new NotSupportedException();
 
-	protected override ButtonSize SizeEffective => throw new NotSupportedException();
+	protected override ButtonSize ButtonSizeEffective => throw new NotSupportedException();
 }
