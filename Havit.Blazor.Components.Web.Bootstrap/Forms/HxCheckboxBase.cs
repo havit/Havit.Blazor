@@ -39,7 +39,7 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 
 	protected abstract bool OutlineEffective { get; }
 
-	protected abstract ButtonSize ButtonSizeEffective { get; }
+	protected virtual ButtonSize ButtonSizeEffective => ButtonSize.Regular;
 
 	/// <summary>
 	/// Returns checkbox render mode.
