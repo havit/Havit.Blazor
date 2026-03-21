@@ -24,14 +24,14 @@ Grid to display tabular data from data source. Includes support for client-side 
 | ItemRowCssClass | `string` | Custom CSS class for the data `tr` elements in the grid. This class is applied to each row of data, providing a way to customize the styling of data rows. |
 | ItemRowCssClassSelector | `Func<TItem, string>` | Function that defines a custom CSS class for each data `tr` element based on the item it represents. This allows for conditional styling of rows based on their data. |
 | ItemRowHeight | `float?` | Height of each item row, used in calculations for infinite scrolling (`GridContentNavigationMode.InfiniteScroll`). The default value (41px) corresponds to the typical row height in the Bootstrap 5 default theme. The row height is not applied for other navigation modes, use CSS for that. |
-| LoadingDataTemplate | `RenderFragment` | Defines a template for the initial data loading phase. This template is not used when loading data for sorting or paging operations. |
 | LoadMoreButtonSettings | `ButtonSettings` | Configuration for the "Load more" button, including appearance and behavior settings. Relevant in grid modes that use a "Load more" button for data navigation. |
 | LoadMoreButtonText | `string` | The text for the "Load more" button, used in the `GridContentNavigationMode.LoadMore` navigation mode. The default text is obtained from localization resources. |
 | LoadMoreTemplate | `RenderFragmentGridLoadMoreTemplateContext>` | Template for the "load more" button (or other UI element). |
+| LoadingDataTemplate | `RenderFragment` | Defines a template for the initial data loading phase. This template is not used when loading data for sorting or paging operations. |
 | MultiSelectionEnabled | `bool` | Enables or disables multi-item selection using checkboxes in the first column. Can be used with single selection. Defaults to `false`. |
 | OverscanCount | `int?` | Defines the number of additional items to be rendered before and after the visible region in an infinite scrolling scenario. This helps to reduce the frequency of rendering during scrolling, though higher values increase the number of elements present in the page. Default is 3. |
-| PagerSettings | `PagerSettings` | Pager settings. |
 | PageSize | `int?` | The number of items to display per page. Applicable for grid modes such as pagination and load more. Set to 0 to disable paging. |
+| PagerSettings | `PagerSettings` | Pager settings. |
 | PaginationTemplate | `RenderFragmentGridPaginationTemplateContext>` | Template for rendering custom pagination. |
 | PlaceholdersRowCount | `int?` | The number of placeholder rows to be rendered in the grid. Placeholders are used when loading data or when `LoadingDataTemplate` is not set. Set to 0 to disable placeholders. Default value is 5. |
 | PreserveSelection | `bool?` | Gets or sets a value indicating whether the current selection (either `SelectedDataItem` for single selection or `SelectedDataItems` for multiple selection) should be preserved during data operations, such as paging, sorting, filtering, or manual invocation of `HxGrid.RefreshDataAsync`. Default value is `false` (can be set by using `HxGrid.Defaults`). |

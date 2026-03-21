@@ -130,6 +130,13 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	[Parameter] public bool? Outline { get; set; }
 	protected bool? OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline; // can be null, HxCheckbox.Outline remains unset
 
+	/// <summary>
+	/// Size of buttons for <see cref="CheckboxListRenderMode.ToggleButtons"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>.
+	/// The default value is <see cref="ButtonSize.Regular"/>.
+	/// </summary>
+	[Parameter] public ButtonSize? ButtonSize { get; set; }
+	protected ButtonSize? ButtonSizeEffective => ButtonSize ?? GetSettings()?.ButtonSize ?? GetDefaults().ButtonSize; // can be null, HxCheckbox.ButtonSize remains unset
+
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
@@ -192,6 +199,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 			builder.AddAttribute(9, nameof(HxCheckbox.RenderMode), checkboxRenderMode);
 			builder.AddAttribute(10, nameof(HxCheckbox.Color), ColorEffective);
 			builder.AddAttribute(11, nameof(HxCheckbox.Outline), OutlineEffective);
+			builder.AddAttribute(12, nameof(HxCheckbox.ButtonSize), ButtonSizeEffective);
 
 			// We need ValueExpression. Ehm, HxCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 			// We have nothing to give the HxCheckbox. So we make own class with property which we assign to the ValueExpression.

@@ -6,6 +6,7 @@ Settings for `HxCheckbox`.
 
 | Name | Type | Description |
 |------|------|-------------|
+| ButtonSize | `ButtonSize?` | Size of the button for `CheckboxRenderMode.ToggleButton`. |
 | Color | `ThemeColor?` | Color for `CheckboxRenderMode.ToggleButton`. |
 | Outline | `bool?` | Indicates whether to use Bootstrap "outline" buttons. for `CheckboxRenderMode.ToggleButton`. |
 | RenderMode | `CheckboxRenderMode?` | Checkbox render mode. |

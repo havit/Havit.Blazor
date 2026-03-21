@@ -27,9 +27,9 @@ Select - DropDownList - single-item picker. Consider creating a custom picker de
 | LabelCssClass | `string` | The custom CSS class to render with the label. |
 | LabelTemplate | `RenderFragment` | The label content. |
 | LabelType | `LabelType?` | Label type. |
-| Nullable | `bool?` | Indicates whether `null` is a valid value. |
 | NullDataText | `string` | The text to display when `Data` is `null`. |
 | NullText | `string` | The text to display for the `null` value. |
+| Nullable | `bool?` | Indicates whether `null` is a valid value. |
 | Settings | `SelectSettings` | Set of settings to be applied to the component instance (overrides , overridden by individual parameters). |
 | SortKeySelector | `Func<TItem, IComparable>` | Selects the value to sort items. Uses the `TextSelector` property when not set. When complex sorting is required, sort the data manually and don't let this component sort them. Alternatively, create a custom comparable property. |
 | TextSelector | `Func<TItem, string>` | Selects the text to display from the item. When not set, `ToString()` is used. |

@@ -96,7 +96,7 @@ public class DocMarkdownRenderer : IDocMarkdownRenderer
 		sb.AppendLine("| Name | Type | Description |");
 		sb.AppendLine("|------|------|-------------|");
 
-		foreach (PropertyModel property in model.Parameters.OrderByDescending(p => p.EditorRequired).ThenBy(p => p.PropertyInfo.Name))
+		foreach (PropertyModel property in model.Parameters.OrderByDescending(p => p.EditorRequired).ThenBy(p => p.PropertyInfo.Name, StringComparer.Ordinal))
 		{
 			string name = property.PropertyInfo.Name;
 			if (property.EditorRequired)
@@ -128,7 +128,7 @@ public class DocMarkdownRenderer : IDocMarkdownRenderer
 		sb.AppendLine("| Name | Type | Description |");
 		sb.AppendLine("|------|------|-------------|");
 
-		foreach (PropertyModel property in model.Properties.OrderBy(p => p.PropertyInfo.Name))
+		foreach (PropertyModel property in model.Properties.OrderBy(p => p.PropertyInfo.Name, StringComparer.Ordinal))
 		{
 			string type = StripHtml(ApiRenderer.FormatType(property.PropertyInfo.PropertyType));
 			string summary = StripHtml(property.Comments?.Summary ?? string.Empty);
@@ -150,7 +150,7 @@ public class DocMarkdownRenderer : IDocMarkdownRenderer
 		sb.AppendLine("| Name | Type | Description |");
 		sb.AppendLine("|------|------|-------------|");
 
-		foreach (PropertyModel currentEvent in model.Events.OrderBy(e => e.PropertyInfo.Name))
+		foreach (PropertyModel currentEvent in model.Events.OrderBy(e => e.PropertyInfo.Name, StringComparer.Ordinal))
 		{
 			string type = StripHtml(ApiRenderer.FormatType(currentEvent.PropertyInfo.PropertyType));
 			string summary = StripHtml(currentEvent.Comments?.Summary ?? string.Empty);
@@ -172,7 +172,7 @@ public class DocMarkdownRenderer : IDocMarkdownRenderer
 		sb.AppendLine("| Method | Returns | Description |");
 		sb.AppendLine("|--------|---------|-------------|");
 
-		foreach (MethodModel method in model.Methods.OrderBy(m => m.MethodInfo.Name))
+		foreach (MethodModel method in model.Methods.OrderBy(m => m.MethodInfo.Name, StringComparer.Ordinal))
 		{
 			string parameters = StripHtml(method.GetParameters());
 			string returnType = StripHtml(ApiRenderer.FormatMethodReturnType(method.MethodInfo.ReturnType, model));
@@ -195,7 +195,7 @@ public class DocMarkdownRenderer : IDocMarkdownRenderer
 		sb.AppendLine("| Property | Type | Description |");
 		sb.AppendLine("|----------|------|-------------|");
 
-		foreach (PropertyModel property in model.StaticProperties.OrderBy(p => p.PropertyInfo.Name))
+		foreach (PropertyModel property in model.StaticProperties.OrderBy(p => p.PropertyInfo.Name, StringComparer.Ordinal))
 		{
 			string type = StripHtml(ApiRenderer.FormatType(property.PropertyInfo.PropertyType));
 			string summary = StripHtml(property.Comments?.Summary ?? string.Empty);
@@ -217,7 +217,7 @@ public class DocMarkdownRenderer : IDocMarkdownRenderer
 		sb.AppendLine("| Method | Returns | Description |");
 		sb.AppendLine("|--------|---------|-------------|");
 
-		foreach (MethodModel method in model.StaticMethods.OrderBy(m => m.MethodInfo.Name))
+		foreach (MethodModel method in model.StaticMethods.OrderBy(m => m.MethodInfo.Name, StringComparer.Ordinal))
 		{
 			string parameters = StripHtml(method.GetParameters());
 			string returnType = StripHtml(ApiRenderer.FormatType(method.MethodInfo.ReturnType));

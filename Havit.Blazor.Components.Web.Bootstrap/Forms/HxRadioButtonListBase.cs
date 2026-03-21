@@ -33,6 +33,13 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	protected bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults()?.Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxRadioButtonListBase<,>) + " has to be set.");
 
 	/// <summary>
+	/// Size of buttons for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>.
+	/// The default value is <see cref="ButtonSize.Regular"/>.
+	/// </summary>
+	[Parameter] public ButtonSize? ButtonSize { get; set; }
+	protected ButtonSize ButtonSizeEffective => ButtonSize ?? GetSettings()?.ButtonSize ?? GetDefaults()?.ButtonSize ?? throw new InvalidOperationException(nameof(ButtonSize) + " default for " + nameof(HxRadioButtonListBase<,>) + " has to be set.");
+
+	/// <summary>
 	/// Selects a value from an item.
 	/// Not required when <c>TValueType</c> is the same as <c>TItemTime</c>.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
@@ -232,6 +239,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.AddAttribute(301, "class", CssClassHelper.Combine(
 				isToggleButton ? "btn" : "form-check-label",
 				isToggleButton ? ColorEffective.ToButtonColorCss(OutlineEffective) : null,
+				isToggleButton ? ButtonSizeEffective.ToButtonSizeCssClass() : null,
 				ItemTextCssClassImpl,
 				ItemTextCssClassSelectorImpl?.Invoke(item)));
 			builder.AddAttribute(302, "for", inputId);

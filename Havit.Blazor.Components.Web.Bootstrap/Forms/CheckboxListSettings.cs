@@ -15,4 +15,9 @@ public record CheckboxListSettings : InputSettings
 	/// for <see cref="CheckboxListRenderMode.ToggleButtons"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>.
 	/// </summary>
 	public bool? Outline { get; set; }
+
+	/// <summary>
+	/// Size of buttons for <see cref="CheckboxListRenderMode.ToggleButtons"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>.
+	/// </summary>
+	public ButtonSize? ButtonSize { get; set; }
 }
