@@ -65,6 +65,6 @@ public class HxCheckbox : HxCheckboxBase
 	/// The default value is <see cref="ButtonSize.Regular"/>.
 	/// </summary>
 	[Parameter] public ButtonSize? ButtonSize { get; set; }
-	protected override ButtonSize SizeEffective => ButtonSize ?? GetSettings()?.ButtonSize ?? GetDefaults().ButtonSize ?? throw new InvalidOperationException(nameof(ButtonSize) + " default for " + nameof(HxCheckbox) + " has to be set.");
+	protected override ButtonSize ButtonSizeEffective => ButtonSize ?? GetSettings()?.ButtonSize ?? GetDefaults().ButtonSize ?? throw new InvalidOperationException(nameof(ButtonSize) + " default for " + nameof(HxCheckbox) + " has to be set.");
 
 }
