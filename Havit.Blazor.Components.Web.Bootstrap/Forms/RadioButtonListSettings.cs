@@ -19,5 +19,5 @@ public record RadioButtonListSettings : InputSettings
 	/// <summary>
 	/// Size of buttons for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>.
 	/// </summary>
-	public ButtonSize? Size { get; set; }
+	public ButtonSize? ButtonSize { get; set; }
 }

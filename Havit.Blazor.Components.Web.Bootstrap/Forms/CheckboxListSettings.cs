@@ -19,5 +19,5 @@ public record CheckboxListSettings : InputSettings
 	/// <summary>
 	/// Size of buttons for <see cref="CheckboxListRenderMode.ToggleButtons"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>.
 	/// </summary>
-	public ButtonSize? Size { get; set; }
+	public ButtonSize? ButtonSize { get; set; }
 }

@@ -18,7 +18,8 @@ public class HxCheckbox : HxCheckboxBase
 		{
 			Color = ThemeColor.None,
 			Outline = false,
-			RenderMode = CheckboxRenderMode.Checkbox
+			RenderMode = CheckboxRenderMode.Checkbox,
+			ButtonSize = global::Havit.Blazor.Components.Web.Bootstrap.ButtonSize.Regular
 		};
 	}
 
@@ -63,7 +64,7 @@ public class HxCheckbox : HxCheckboxBase
 	/// Size of the button for <see cref="CheckboxRenderMode.ToggleButton"/>.
 	/// The default value is <see cref="ButtonSize.Regular"/>.
 	/// </summary>
-	[Parameter] public ButtonSize? Size { get; set; }
-	protected override ButtonSize SizeEffective => Size ?? GetSettings()?.Size ?? GetDefaults().Size ?? ButtonSize.Regular;
+	[Parameter] public ButtonSize? ButtonSize { get; set; }
+	protected override ButtonSize SizeEffective => ButtonSize ?? GetSettings()?.ButtonSize ?? GetDefaults().ButtonSize ?? throw new InvalidOperationException(nameof(ButtonSize) + " default for " + nameof(HxCheckbox) + " has to be set.");
 
 }
