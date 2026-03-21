@@ -8,6 +8,7 @@ Data-based list of radio buttons. Consider creating a custom picker derived from
 |------|------|-------------|
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
 | AutoSort | `bool` | When `true`, items are sorted before displaying in the select. The default value is `true`. |
+| ButtonSize | `ButtonSize?` | Size of buttons for `RadioButtonListRenderMode.ToggleButtons` and `RadioButtonListRenderMode.ButtonGroup`. The default value is `ButtonSize.Regular`. |
 | Color | `ThemeColor?` | Color for `RadioButtonListRenderMode.ToggleButtons` and `RadioButtonListRenderMode.ButtonGroup`. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | Data | `IEnumerable<TItem>` | Items to display. |

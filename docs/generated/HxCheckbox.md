@@ -7,6 +7,7 @@ Checkbox input. (Replaces the former `HxInputCheckbox` component which was dropp
 | Name | Type | Description |
 |------|------|-------------|
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
+| ButtonSize | `ButtonSize?` | Size of the button for `CheckboxRenderMode.ToggleButton`. The default value is `ButtonSize.Regular`. |
 | Color | `ThemeColor?` | Bootstrap button style - theme color. The default is taken from `HxButton.Defaults` (`ThemeColor.None` if not customized). For `CheckboxRenderMode.ToggleButton`. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |

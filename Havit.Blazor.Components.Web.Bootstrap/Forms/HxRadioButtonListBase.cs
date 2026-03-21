@@ -239,7 +239,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.AddAttribute(301, "class", CssClassHelper.Combine(
 				isToggleButton ? "btn" : "form-check-label",
 				isToggleButton ? ColorEffective.ToButtonColorCss(OutlineEffective) : null,
-				isToggleButton ? SizeEffective.ToButtonSizeCssClass() : null,
+				isToggleButton ? ButtonSizeEffective.ToButtonSizeCssClass() : null,
 				ItemTextCssClassImpl,
 				ItemTextCssClassSelectorImpl?.Invoke(item)));
 			builder.AddAttribute(302, "for", inputId);

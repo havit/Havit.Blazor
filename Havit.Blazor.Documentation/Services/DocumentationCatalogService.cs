@@ -143,7 +143,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/types/PlaceholderContainerSettings", "PlaceholderContainer Settings", "defaults", DefaultsLevel),
 		new("/types/PlaceholderSettings", "Placeholder Settings", "defaults", DefaultsLevel),
 		new("/types/ProgressIndicatorSettings", "ProgressIndicator Settings", "defaults", DefaultsLevel),
-		new("/types/RadioButtonList", "RadioButtonList Settings", "defaults", DefaultsLevel),
+		new("/types/RadioButtonListSettings", "RadioButtonList Settings", "defaults", DefaultsLevel),
 		new("/types/SelectSettings", "Select Settings", "defaults", DefaultsLevel),
 		new("/types/SearchBoxSettings", "SearchBox Settings", "defaults", DefaultsLevel),
 
