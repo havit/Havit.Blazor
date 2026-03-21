@@ -3532,7 +3532,7 @@
             for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings.Size">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings.ButtonSize">
             <summary>
             Size of buttons for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
             </summary>
@@ -3578,7 +3578,7 @@
             for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings.Size">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings.ButtonSize">
             <summary>
             Size of the button for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
             </summary>
@@ -3644,7 +3644,7 @@
             For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Size">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.ButtonSize">
             <summary>
             Size of the button for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
             The default value is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonSize.Regular"/>.
@@ -3840,7 +3840,7 @@
             for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Size">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ButtonSize">
             <summary>
             Size of buttons for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
             The default value is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonSize.Regular"/>.
@@ -5191,7 +5191,7 @@
             for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.Size">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ButtonSize">
             <summary>
             Size of buttons for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.
             The default value is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonSize.Regular"/>.
@@ -6235,7 +6235,7 @@
             for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings.Size">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings.ButtonSize">
             <summary>
             Size of buttons for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.
             </summary>

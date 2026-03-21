@@ -19,7 +19,7 @@ public record CheckboxSettings : InputSettings
 	/// <summary>
 	/// Size of the button for <see cref="CheckboxRenderMode.ToggleButton"/>.
 	/// </summary>
-	public ButtonSize? Size { get; set; }
+	public ButtonSize? ButtonSize { get; set; }
 
 	/// <summary>
 	/// Checkbox render mode.
