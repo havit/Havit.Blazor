@@ -6,7 +6,7 @@ Settings for the `HxChipList` component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| CssClass | `string` | Additional CSS class. |
 | ChipBadgeSettings | `BadgeSettings` | Settings for the `HxBadge` used to render chips. |
+| CssClass | `string` | Additional CSS class. |
 | ShowResetButton | `bool?` | Enables or disables the reset button. |
 

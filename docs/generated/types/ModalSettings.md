@@ -11,6 +11,7 @@ Settings for the `HxModal` component
 | BodyCssClass | `string` | Additional body CSS class (`div.modal-body`). |
 | Centered | `bool?` | Allows vertical centering of the modal. |
 | CloseButtonIcon | `IconBase` | The close icon to be used in the header. |
+| CloseButtonSettings | `CloseButtonSettings` | Settings for the close button in the header. |
 | CloseOnEscape | `bool?` | Indicates whether the modal closes when the escape key is pressed. |
 | ContentCssClass | `string` | Additional content CSS class (`div.modal-content`). |
 | CssClass | `string` | Additional CSS class for the main element (`div.modal`). |

@@ -12,6 +12,7 @@ Component for rendering a modal dialog as a Bootstrap Modal. Visit Bootstrap Mod
 | BodyTemplate | `RenderFragment` | Body template. |
 | Centered | `bool?` | Allows vertical centering of the modal. Default is `false` (horizontal only). |
 | CloseButtonIcon | `IconBase` | Close icon to be used in header. If set to `null`, Bootstrap default close-button will be used. |
+| CloseButtonSettings | `CloseButtonSettings` | Settings for the close button in the header. |
 | CloseOnEscape | `bool?` | Indicates whether the modal closes when escape key is pressed. Default value is `true`. |
 | ContentCssClass | `string` | Additional content CSS class (`div.modal-content`). |
 | CssClass | `string` | Additional CSS class for the main element (`div.modal`). |

@@ -6,8 +6,8 @@ Bootstrap Nav component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| CssClass | `string` | Additional CSS class. |
 | ChildContent | `RenderFragment` | Content of the nav. |
+| CssClass | `string` | Additional CSS class. |
 | Id | `string` | ID of the nav which can be used for `HxScrollspy.TargetId`. |
 | Orientation | `NavOrientation` | Orientation of the nav. The default value is `NavOrientation.Horizontal`. |
 | Variant | `NavVariant` | The visual variant of the nav items. The default value is `NavVariant.Standard`. |

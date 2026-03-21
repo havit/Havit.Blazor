@@ -20,8 +20,8 @@ Ready-made UX for drag&drop file upload. For custom drag&drop UX, use `HxInputFi
 
 | Name | Type | Description |
 |------|------|-------------|
-| OnFileUploaded | `EventCallbackFileUploadedEventArgs>` | Raised after a file is uploaded (for every single file separately). |
 | OnChange | `EventCallback<InputFileChangeEventArgs>` | Gets or sets the event callback that will be invoked when the collection of selected files changes. |
+| OnFileUploaded | `EventCallbackFileUploadedEventArgs>` | Raised after a file is uploaded (for every single file separately). |
 | OnProgress | `EventCallbackUploadProgressEventArgs>` | Raised during running file upload (the frequency depends on browser implementation). |
 | OnUploadCompleted | `EventCallbackUploadCompletedEventArgs>` | Raised when all files are uploaded (after all `OnFileUploaded` events). |
 

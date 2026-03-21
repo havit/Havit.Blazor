@@ -6,11 +6,11 @@ A slideshow component for cycling through elements—images or slides of text—
 
 | Name | Type | Description |
 |------|------|-------------|
+| ChildContent | `RenderFragment` | Content of the carousel. |
 | Controls | `bool` | Display controls to switch between slides. |
 | Crossfade | `bool` | Animate slides with a fade transition instead of sliding. |
 | CssClass | `string` | Carousel CSS class. Added to root div `.carousel`. |
 | Dark | `bool` | Show controls, captions, etc. with dark colors. |
-| ChildContent | `RenderFragment` | Content of the carousel. |
 | Indicators | `bool` | Display indicators showing which slide is active. Can also be used to switch between slides. |
 | Interval | `int?` | Delay for automatically switching slides. Default is `3000 ms`. |
 | Pause | `CarouselPause` | Carousel pause behavior. Default is `CarouselPause.Hover` (carousel will stop sliding on hover). |

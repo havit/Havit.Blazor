@@ -8,9 +8,9 @@ Bootstrap alert component.
 |------|------|-------------|
 | Color **[REQUIRED]** | `ThemeColor` | Alert color (background). Required. |
 | AdditionalAttributes | `Dictionary<string, object>` | Additional attributes to be splatted onto an underlying HTML element. |
+| ChildContent | `RenderFragment` | Content of the component. |
 | CssClass | `string` | Any additional CSS class to apply. |
 | Dismissible | `bool` | Shows the Close button and allows dismissing the alert. |
-| ChildContent | `RenderFragment` | Content of the component. |
 
 ## Methods
 

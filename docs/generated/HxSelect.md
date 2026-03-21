@@ -8,6 +8,7 @@ Select - DropDownList - single-item picker. Consider creating a custom picker de
 |------|------|-------------|
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
 | AutoSort | `bool` | When `true`, the items are sorted before displaying in the select. The default value is `true`. |
+| ChipTemplate | `RenderFragment` | The chip template. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | Data | `IEnumerable<TItem>` | The items to display. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
@@ -15,7 +16,6 @@ Select - DropDownList - single-item picker. Consider creating a custom picker de
 | GenerateChip | `bool` | When `true`, ` is used to generate chip item(s). The default is true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
-| ChipTemplate | `RenderFragment` | The chip template. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
 | InputGroupEndTemplate | `RenderFragment` | Input group at the end of the input. |
 | InputGroupEndText | `string` | Input group at the end of the input. |
@@ -35,8 +35,8 @@ Select - DropDownList - single-item picker. Consider creating a custom picker de
 | TextSelector | `Func<TItem, string>` | Selects the text to display from the item. When not set, `ToString()` is used. |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in . |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
-| ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
+| ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |
 | ValueSelector | `Func<TItem, TValue>` | Selects the value from the item. Not required when `TValueType` is the same as `TItemTime`. |
 
 ## Methods

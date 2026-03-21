@@ -10,13 +10,13 @@ Date picker. Form input component for entering a date.
 | CalendarDateCustomizationProvider | `CalendarDateCustomizationProviderDelegate` | Allows customization of the dates in the dropdown calendar. The default customization is configurable with `Defaults`. |
 | CalendarDisplayMonth | `DateTime` | Default month to display in dropdown calendar when there is no Value. |
 | CalendarIcon | `IconBase` | Optional icon to display within the input. Use `Defaults` to set the icon for the whole project. |
+| ChipTemplate | `RenderFragment` | The chip template. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
 | Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading . When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use . |
 | GenerateChip | `bool` | When `true`, ` is used to generate chip item(s). The default is true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
-| ChipTemplate | `RenderFragment` | The chip template. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
 | InputGroupCssClass | `string` | Custom CSS class to render with the input-group span. |
 | InputGroupEndTemplate | `RenderFragment` | The input-group at the end of the input. |
@@ -39,8 +39,8 @@ Date picker. Form input component for entering a date.
 | TimeProvider | `TimeProvider` | TimeProvider is resolved in the following order: 1. TimeProvider from this parameter 2. Settings TimeProvider (configurable from `Settings`) 3. Defaults TimeProvider (configurable from `Defaults`) |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in . |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
-| ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
+| ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |
 
 ## Methods
 

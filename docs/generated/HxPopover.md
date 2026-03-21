@@ -7,11 +7,11 @@ Bootstrap Popover component. Rendered as a `span` wrapper to fully support popov
 | Name | Type | Description |
 |------|------|-------------|
 | Animation | `bool?` | Apply a CSS fade transition to the tooltip (enable/disable). Default is `true`. |
+| ChildContent | `RenderFragment` | Child content to wrap. |
 | Container | `string` | Appends the tooltip/popover to a specific element. Default is `body`. |
 | Content | `string` | Popover content. |
 | CssClass | `string` | Custom CSS class to add. |
 | Html | `bool` | Allows you to insert HTML. If `false`, `innerText` property will be used to insert content into the DOM. Use text if you're worried about XSS attacks. |
-| ChildContent | `RenderFragment` | Child content to wrap. |
 | Offset | `ValueTuple<int, int>?` | Offset of the component relative to its target (ChildContent). |
 | Placement | `PopoverPlacement?` | Popover placement. The default is "not set" (which Bootstrap defaults to `right`). |
 | Sanitize | `bool` | Enable or disable the sanitization. If activated, HTML content will be sanitized. See the sanitizer section in Bootstrap JavaScript documentation. Default is `true`. |

@@ -9,6 +9,7 @@ Date range picker. Form input component for entering a start date and an end dat
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
 | CalendarDateCustomizationProvider | `CalendarDateCustomizationProviderDelegate` | Allows customization of the dates in the dropdown calendars. The default customization is configurable with `Defaults`. |
 | CalendarIcon | `IconBase` |  |
+| ChipTemplate | `RenderFragment` | The chip template. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | DateOrderErrorMessage | `string` | Gets or sets the error message used when the "from" date is greater than the "to" date (used with `RequireDateOrder`). Used with `String.Format(...)`, `{0}` is replaced by the Label property, `{1}` is replaced by the name of the bounded property. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
@@ -19,7 +20,6 @@ Date range picker. Form input component for entering a start date and an end dat
 | GenerateChip | `bool` | When `true`, `HxChipGenerator` is used to generate chip item(s). The default is `true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
-| ChipTemplate | `RenderFragment` | The chip template. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
 | InputSize | `InputSize?` | Size of the input. |
 | Label | `string` | The label text. |
@@ -38,8 +38,8 @@ Date range picker. Form input component for entering a start date and an end dat
 | ToPlaceholder | `string` | Placeholder for the end-date input. If not set, localized default is used ("End" + localizations). |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `DateTimeRange` | Value of the input. This should be used with two-way binding. |
-| ValueExpression | `Expression<Func<DateTimeRange>>` | An expression that identifies the bound value. |
 | ValueChanged | `EventCallback<DateTimeRange>` | A callback that updates the bound value. |
+| ValueExpression | `Expression<Func<DateTimeRange>>` | An expression that identifies the bound value. |
 
 ## Properties
 

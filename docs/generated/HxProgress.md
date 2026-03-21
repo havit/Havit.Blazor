@@ -7,9 +7,9 @@ Bootstrap 5 Progress component. A wrapping component for the `HxProgressBar`.
 | Name | Type | Description |
 |------|------|-------------|
 | Animated | `bool` | If `true`, the stripes are animated right to left using CSS3 animations. The stripes are automatically switched on. |
+| ChildContent | `RenderFragment` | Content consisting of one or multiple `HxProgressBar` components. |
 | CssClass | `string` | Additional CSS classes for the progress. |
 | Height | `int` | Height of all inner progress bars. The default value is `15px`. |
-| ChildContent | `RenderFragment` | Content consisting of one or multiple `HxProgressBar` components. |
 | MaxValue | `float` | Highest possible value. The default value is `100`. |
 | MinValue | `float` | Lowest possible value. The default value is `0`. |
 | Striped | `bool` | If `true`, applies a stripe via CSS gradient over the background color of the progress bar. |

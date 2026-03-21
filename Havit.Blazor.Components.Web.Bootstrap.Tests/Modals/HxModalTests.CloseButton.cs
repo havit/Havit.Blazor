@@ -4,7 +4,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 public partial class HxModalTests : BunitTestBase
 {
 	[TestMethod]
-	public void HxModal_CloseButton_DefaultShouldNotHaveWhiteClass()
+	public async Task HxModal_CloseButton_DefaultShouldNotHaveWhiteClass()
 	{
 		// Arrange & Act
 		var cut = RenderComponent<HxModal>(parameters => parameters
@@ -12,7 +12,7 @@ public partial class HxModalTests : BunitTestBase
 		);
 
 		// Simulate opening the modal
-		cut.InvokeAsync(() => cut.Instance.ShowAsync());
+		await cut.InvokeAsync(() => cut.Instance.ShowAsync());
 
 		// Assert
 		var closeButton = cut.Find("button.btn-close");
@@ -20,7 +20,7 @@ public partial class HxModalTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxModal_CloseButtonSettings_WhiteTrue_ShouldAddWhiteClass()
+	public async Task HxModal_CloseButtonSettings_WhiteTrue_ShouldAddWhiteClass()
 	{
 		// Arrange & Act
 		var cut = RenderComponent<HxModal>(parameters => parameters
@@ -29,7 +29,7 @@ public partial class HxModalTests : BunitTestBase
 		);
 
 		// Simulate opening the modal
-		cut.InvokeAsync(() => cut.Instance.ShowAsync());
+		await cut.InvokeAsync(() => cut.Instance.ShowAsync());
 
 		// Assert
 		var closeButton = cut.Find("button.btn-close");
@@ -37,7 +37,7 @@ public partial class HxModalTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxModal_CloseButtonSettings_WhiteFalse_ShouldNotHaveWhiteClass()
+	public async Task HxModal_CloseButtonSettings_WhiteFalse_ShouldNotHaveWhiteClass()
 	{
 		// Arrange & Act
 		var cut = RenderComponent<HxModal>(parameters => parameters
@@ -46,7 +46,7 @@ public partial class HxModalTests : BunitTestBase
 		);
 
 		// Simulate opening the modal
-		cut.InvokeAsync(() => cut.Instance.ShowAsync());
+		await cut.InvokeAsync(() => cut.Instance.ShowAsync());
 
 		// Assert
 		var closeButton = cut.Find("button.btn-close");
@@ -54,7 +54,7 @@ public partial class HxModalTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxModal_CloseButtonSettings_WhiteTrue_ViaSettings_ShouldAddWhiteClass()
+	public async Task HxModal_CloseButtonSettings_WhiteTrue_ViaSettings_ShouldAddWhiteClass()
 	{
 		// Arrange & Act
 		var cut = RenderComponent<HxModal>(parameters => parameters
@@ -66,7 +66,7 @@ public partial class HxModalTests : BunitTestBase
 		);
 
 		// Simulate opening the modal
-		cut.InvokeAsync(() => cut.Instance.ShowAsync());
+		await cut.InvokeAsync(() => cut.Instance.ShowAsync());
 
 		// Assert
 		var closeButton = cut.Find("button.btn-close");
