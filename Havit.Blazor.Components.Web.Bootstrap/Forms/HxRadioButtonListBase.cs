@@ -37,7 +37,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	/// The default value is <see cref="ButtonSize.Regular"/>.
 	/// </summary>
 	[Parameter] public ButtonSize? ButtonSize { get; set; }
-	protected ButtonSize SizeEffective => ButtonSize ?? GetSettings()?.ButtonSize ?? GetDefaults()?.ButtonSize ?? throw new InvalidOperationException(nameof(ButtonSize) + " default for " + nameof(HxRadioButtonListBase<,>) + " has to be set.");
+	protected ButtonSize ButtonSizeEffective => ButtonSize ?? GetSettings()?.ButtonSize ?? GetDefaults()?.ButtonSize ?? throw new InvalidOperationException(nameof(ButtonSize) + " default for " + nameof(HxRadioButtonListBase<,>) + " has to be set.");
 
 	/// <summary>
 	/// Selects a value from an item.
