@@ -1,0 +1,8 @@
+@page "/HxCollapse_BasicToggle"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxCollapseToggleButton data-testid="toggle-button" Text="Toggle" CollapseTarget="#collapse-content" Color="ThemeColor.Primary" />
+
+<HxCollapse Id="collapse-content">
+	<p data-testid="collapse-content">Collapsed content</p>
+</HxCollapse>

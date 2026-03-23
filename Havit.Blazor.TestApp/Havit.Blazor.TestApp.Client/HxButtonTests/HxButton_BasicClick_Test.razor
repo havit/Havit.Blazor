@@ -1,0 +1,15 @@
+@page "/HxButton_BasicClick"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxButton data-testid="click-button" Text="Click me" OnClick="HandleClick" Color="ThemeColor.Primary" />
+
+<p data-testid="click-count">@_clickCount</p>
+
+@code {
+	private int _clickCount;
+
+	private void HandleClick()
+	{
+		_clickCount++;
+	}
+}
