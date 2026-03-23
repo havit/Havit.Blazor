@@ -1,0 +1,27 @@
+@attribute [Route(NavigationRoutes.DefaultTelemetryInitializerTest)]
+@rendermode InteractiveServerWithoutPrerendering
+@inject IBlazorApplicationInsights BlazorApplicationInsights
+
+<h1>Test Default Telemetry Initializer</h1>
+
+<BlazorApplicationInsightsScript />
+
+@if (_done)
+{
+	<span id="done">done</span>
+}
+
+@code
+{
+	private bool _done;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await BlazorApplicationInsights.FlushAsync();
+			_done = true;
+			StateHasChanged();
+		}
+	}
+}

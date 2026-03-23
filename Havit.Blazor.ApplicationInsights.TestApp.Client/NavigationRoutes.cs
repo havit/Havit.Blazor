@@ -12,6 +12,7 @@ public static class NavigationRoutes
 		public const string InteractiveWebAssemblyPrerendering = Base + "/interactive-wasm-prerendering";
 	}
 
+	public const string DefaultTelemetryInitializerTest = "/appinsights-test-default-telemetry-initializer";
 	public const string AppInsightsTestTrackMetric = "/appinsights-test-trackmetric";
 	public const string AuthenticationUserContextTests = "/appinsights-test-authentication-user-context";
 	public const string TrackingMethodsTests = "/appinsights-test-tracking-methods";
