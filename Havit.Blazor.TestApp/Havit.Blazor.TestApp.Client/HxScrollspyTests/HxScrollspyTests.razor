@@ -1,0 +1,25 @@
+@page "/HxScrollspyTests"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<div class="row">
+	<div class="col-4">
+		<div id="scrollspy-nav" class="d-flex flex-column gap-1">
+			<HxScrollspyNavLink data-testid="nav-link-1" Href="#section1">Section 1</HxScrollspyNavLink>
+			<HxScrollspyNavLink data-testid="nav-link-2" Href="#section2">Section 2</HxScrollspyNavLink>
+			<HxScrollspyNavLink data-testid="nav-link-3" Href="#section3">Section 3</HxScrollspyNavLink>
+		</div>
+	</div>
+	<div class="col-8" style="height: 200px">
+		<HxScrollspy TargetId="scrollspy-nav" CssClass="test-scrollspy">
+			<div id="section1" data-testid="section1" style="height: 150px">
+				<h4>Section 1</h4>
+			</div>
+			<div id="section2" data-testid="section2" style="height: 150px">
+				<h4>Section 2</h4>
+			</div>
+			<div id="section3" data-testid="section3" style="height: 150px">
+				<h4>Section 3</h4>
+			</div>
+		</HxScrollspy>
+	</div>
+</div>
