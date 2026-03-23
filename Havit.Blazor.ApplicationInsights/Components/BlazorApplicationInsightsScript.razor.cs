@@ -99,7 +99,6 @@ public partial class BlazorApplicationInsightsScript : IDisposable
 		window.havitBlazorAppInsights={addTelemetryInitializer:function(t){window.appInsights.addTelemetryInitializer(function(e){for(var k in t)Object.prototype.hasOwnProperty.call(t,k)&&(e.tags[k]=t[k])})}};
 		""";
 
-
 	private string GetSerializedApplicationInsightsConfiguration()
 	{
 		return System.Text.Json.JsonSerializer.Serialize(BlazorApplicationInsightsOptions.Value.JsSdkOptions, BlazorApplicationInsightsJsSdkOptionsJsonSerializerContext.Default.BlazorApplicationInsightsJsSdkOptions);
@@ -109,7 +108,7 @@ public partial class BlazorApplicationInsightsScript : IDisposable
 	/// Returns a JS statement that registers the <see cref="BlazorApplicationInsightsOptions.DefaultTelemetryInitializer"/>
 	/// via the SDK stub queue. Called after <c>havitBlazorAppInsights</c> is defined and before
 	/// <c>trackPageView</c>, so the initializer is applied even to the auto-tracked initial page view.
-	/// Returns an empty string when no <see cref="BlazorApplicationInsightsOptions.DefaultTelemetryInitializer"/> is set.
+	/// Returns <c>null</c> when no <see cref="BlazorApplicationInsightsOptions.DefaultTelemetryInitializer"/> is set.
 	/// </summary>
 	private string GetDefaultTelemetryInitializerScript()
 	{
@@ -130,8 +129,7 @@ public partial class BlazorApplicationInsightsScript : IDisposable
 	}
 
 	private string GetInitialTrackPageViewScript()
-	=> BlazorApplicationInsightsOptions.Value.EnableInitialPageViewTracking ? "window.appInsights.trackPageView({});" : "";
-
+		=> BlazorApplicationInsightsOptions.Value.EnableInitialPageViewTracking ? "window.appInsights.trackPageView({});" : null;
 
 	/// <inheritdoc />
 	public void Dispose()

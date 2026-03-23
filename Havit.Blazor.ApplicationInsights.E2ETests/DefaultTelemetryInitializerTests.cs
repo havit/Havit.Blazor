@@ -10,6 +10,8 @@ namespace Havit.Blazor.ApplicationInsights.E2ETests;
 [TestClass]
 public class DefaultTelemetryInitializerTests : BlazorApplicationInsightsPageTestBase
 {
+	// TODO: Check next render modes
+
 	[TestMethod]
 	public async Task DefaultTelemetryInitializer_CloudRoleName_AppliedToInitialPageView()
 	{
