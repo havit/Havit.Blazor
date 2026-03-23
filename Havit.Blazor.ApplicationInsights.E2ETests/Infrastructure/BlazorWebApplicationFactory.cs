@@ -33,6 +33,7 @@ public class BlazorWebApplicationFactory : WebApplicationFactory<TestApp.Program
 	protected override IHost CreateHost(IHostBuilder builder)
 	{
 		var testHost = builder.Build(); // dummy host for DI
+		testHost.Start();
 
 		builder.ConfigureWebHost(b =>
 			b.UseKestrel(opts => opts.Listen(IPAddress.Loopback, 0)));
