@@ -11,7 +11,7 @@ public partial class HxButtonTests
 	public void HxButton_Click_TriggersOnClick()
 	{
 		// Arrange
-		bool clicked = false;
+		var clicked = false;
 		var cut = RenderComponent<HxButton>(parameters => parameters
 			.Add(p => p.Text, "Click me")
 			.Add(p => p.OnClick, EventCallback.Factory.Create<MouseEventArgs>(this, () => clicked = true))
@@ -28,7 +28,7 @@ public partial class HxButtonTests
 	public void HxButton_Disabled_DoesNotTriggerOnClick()
 	{
 		// Arrange
-		bool clicked = false;
+		var clicked = false;
 		var cut = RenderComponent<HxButton>(parameters => parameters
 			.Add(p => p.Text, "Disabled")
 			.Add(p => p.Enabled, false)
@@ -77,7 +77,7 @@ public partial class HxButtonTests
 	public void HxSubmit_Click_SubmitsForm()
 	{
 		// Arrange
-		bool formSubmitted = false;
+		var formSubmitted = false;
 
 		var cut = Render(builder =>
 		{
