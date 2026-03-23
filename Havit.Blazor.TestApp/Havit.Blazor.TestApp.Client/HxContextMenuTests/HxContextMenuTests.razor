@@ -1,0 +1,28 @@
+@page "/HxContextMenuTests"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxContextMenu>
+	<HxContextMenuItem Text="Action 1" OnClick="HandleAction1Click" />
+	<HxContextMenuItem Text="Disabled Action" Enabled="false" OnClick="HandleDisabledClick" />
+</HxContextMenu>
+
+<p data-testid="click-count">@_clickCount</p>
+<p data-testid="last-clicked">@_lastClicked</p>
+<p data-testid="disabled-click-count">@_disabledClickCount</p>
+
+@code {
+	private int _clickCount;
+	private string _lastClicked = "";
+	private int _disabledClickCount;
+
+	private void HandleAction1Click()
+	{
+		_clickCount++;
+		_lastClicked = "Action 1";
+	}
+
+	private void HandleDisabledClick()
+	{
+		_disabledClickCount++;
+	}
+}
