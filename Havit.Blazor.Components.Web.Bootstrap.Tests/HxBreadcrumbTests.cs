@@ -49,7 +49,7 @@ public class HxBreadcrumbTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxBreadcrumb_ClickItem_NavigatesViaNavigationManager()
+	public void HxBreadcrumb_NonActiveItems_RenderLinksWithHrefs()
 	{
 		// Act
 		var cut = RenderComponent<HxBreadcrumb>(parameters => parameters
