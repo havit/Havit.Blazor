@@ -96,7 +96,7 @@ public partial class BlazorApplicationInsightsScript : IDisposable
 
 	private string GetSerializedApplicationInsightsConfiguration()
 	{
-		return System.Text.Json.JsonSerializer.Serialize(BlazorApplicationInsightsOptions.Value.JsSdkOptions, (System.Text.Json.Serialization.Metadata.JsonTypeInfo<BlazorApplicationInsightsJsSdkOptions>)BlazorApplicationInsightsJsSdkOptionsJsonSerializerContext.Default.BlazorApplicationInsightsJsSdkOptions);
+		return System.Text.Json.JsonSerializer.Serialize(BlazorApplicationInsightsOptions.Value.JsSdkOptions, BlazorApplicationInsightsJsSdkOptionsJsonSerializerContext.Default.BlazorApplicationInsightsJsSdkOptions);
 	}
 
 	private string GetDefaultTelemetryInitializerScript()
@@ -107,7 +107,7 @@ public partial class BlazorApplicationInsightsScript : IDisposable
 		}
 
 		IDictionary<string, string> tags = BlazorApplicationInsightsOptions.Value.DefaultTelemetryInitializer.GetTags();
-		string serializedTags = System.Text.Json.JsonSerializer.Serialize(tags, BlazorApplicationInsightsJsSdkOptionsJsonSerializerContext.Default.DictionaryStringString);
+		string serializedTags = System.Text.Json.JsonSerializer.Serialize(tags, BlazorApplicationInsightsOptionsJsonSerializerContext.Default.TelemetryInitializerDictionary);
 		return $"havitBlazorAppInsights.addTelemetryInitializer({serializedTags});";
 	}
 
