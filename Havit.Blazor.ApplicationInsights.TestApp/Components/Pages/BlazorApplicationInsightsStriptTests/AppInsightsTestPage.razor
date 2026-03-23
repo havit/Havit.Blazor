@@ -7,9 +7,9 @@
 
 @code {
 	[Parameter]
-	public string? Mode { get; set; }
+	public string Mode { get; set; }
 
-	private IComponentRenderMode? GetRenderMode() => Mode switch
+	private IComponentRenderMode GetRenderMode() => Mode switch
 	{
 		"interactive-server"              => InteractiveServerWithoutPrerendering,
 		"interactive-server-prerendering" => InteractiveServer,
