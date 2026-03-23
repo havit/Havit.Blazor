@@ -1,0 +1,13 @@
+@page "/HxInputDateTests"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxInputDate @bind-Value="_value"
+			 CalendarIcon="BootstrapIcon.Calendar"
+			 CalendarDisplayMonth="@(new DateTime(2024, 6, 1))"
+			 Label="Test date" />
+
+<p data-testid="current-value">@_value?.ToShortDateString()</p>
+
+@code {
+	private DateTime? _value;
+}
