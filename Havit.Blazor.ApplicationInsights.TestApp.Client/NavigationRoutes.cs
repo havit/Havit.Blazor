@@ -4,11 +4,12 @@ public static class NavigationRoutes
 {
 	public static class BlazorApplicationInsightsScriptTests
 	{
-		public const string ServerSideRendering = "/blazorapplicationinsightsscript-ssr";
-		public const string InteractiveServer = "/blazorapplicationinsightsscript-interactive-server";
-		public const string InteractiveServerPrerendering = "/blazorapplicationinsightsscript-interactive-server-prerendering";
-		public const string InteractiveWebAssembly = "/blazorapplicationinsightsscript-interactive-wasm";
-		public const string InteractiveWebAssemblyPrerendering = "/blazorapplicationinsightsscript-interactive-wasm-prerendering";
+		private const string Base = "/blazorapplicationinsightsscript";
+		public const string ServerSideRendering = Base;
+		public const string InteractiveServer = Base + "/interactive-server";
+		public const string InteractiveServerPrerendering = Base + "/interactive-server-prerendering";
+		public const string InteractiveWebAssembly = Base + "/interactive-wasm";
+		public const string InteractiveWebAssemblyPrerendering = Base + "/interactive-wasm-prerendering";
 	}
 
 	public const string AppInsightsTestTrackMetric = "/appinsights-test-trackmetric";
