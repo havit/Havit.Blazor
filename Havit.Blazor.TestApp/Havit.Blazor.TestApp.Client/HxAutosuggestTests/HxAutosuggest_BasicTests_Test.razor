@@ -1,0 +1,39 @@
+@page "/HxAutosuggest_BasicTests"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxAutosuggest TItem="string"
+			   TValue="string"
+			   @bind-Value="@_selectedValue"
+			   DataProvider="ProvideSuggestions"
+			   ValueSelector="item => item"
+			   TextSelector="item => item"
+			   Delay="0"
+			   MinimumLength="0"
+			   Label="Test Autosuggest">
+	<EmptyTemplate>
+		<div data-testid="no-results-message">No results found.</div>
+	</EmptyTemplate>
+</HxAutosuggest>
+
+<p data-testid="selected-value">@(_selectedValue ?? "")</p>
+
+@code {
+	private string _selectedValue;
+
+	private static readonly List<string> _testItems = new()
+	{
+		"Alpha",
+		"Beta",
+		"Gamma",
+		"Delta",
+	};
+
+	private Task<AutosuggestDataProviderResult<string>> ProvideSuggestions(AutosuggestDataProviderRequest request)
+	{
+		var filteredItems = _testItems
+			.Where(i => string.IsNullOrEmpty(request.UserInput) || i.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+			.ToList();
+
+		return Task.FromResult(new AutosuggestDataProviderResult<string> { Data = filteredItems });
+	}
+}
