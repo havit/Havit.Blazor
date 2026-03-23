@@ -1,3 +1,5 @@
+using Havit.Blazor.ApplicationInsights.Telemetry;
+
 namespace Havit.Blazor.ApplicationInsights.Options;
 
 /// <summary>
@@ -33,4 +35,11 @@ public record class BlazorApplicationInsightsOptions // record for easy cloning 
 	/// Default: <c>true</c>.
 	/// </summary>
 	public bool EnableInitialPageViewTracking { get; set; } = true;
+
+	// TODO E2E test
+
+	/// <summary>
+	/// Gets or sets the default telemetry initializer used to customize telemetry data before it is sent.
+	/// </summary>
+	public TelemetryInitializer DefaultTelemetryInitializer { get; set; }
 }

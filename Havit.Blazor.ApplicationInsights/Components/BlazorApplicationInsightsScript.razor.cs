@@ -42,6 +42,7 @@ public partial class BlazorApplicationInsightsScript : IDisposable
 	[Parameter] public string Nonce { get; set; }
 
 	[Inject] private IOptions<BlazorApplicationInsightsOptions> BlazorApplicationInsightsOptions { get; set; }
+	[Inject] private IBlazorApplicationInsights BlazorApplicationInsights { get; set; }
 	[Inject] private PersistentComponentState PersistentState { get; set; }
 	[Inject] private IJSRuntime JSRuntime { get; set; }
 
@@ -62,6 +63,10 @@ public partial class BlazorApplicationInsightsScript : IDisposable
 			// No prerendering occurred — the razor template did not emit the inline <script> tag,
 			// so inject the snippet programmatically via eval() now.
 			await JSRuntime.InvokeVoidAsync("eval", GetApplicationInsightsScript());
+			if (BlazorApplicationInsightsOptions.Value.DefaultTelemetryInitializer != null)
+			{
+				await BlazorApplicationInsights.AddTelemetryInitializerAsync(BlazorApplicationInsightsOptions.Value.DefaultTelemetryInitializer);
+			}
 		}
 	}
 
@@ -92,6 +97,18 @@ public partial class BlazorApplicationInsightsScript : IDisposable
 	private string GetSerializedApplicationInsightsConfiguration()
 	{
 		return System.Text.Json.JsonSerializer.Serialize(BlazorApplicationInsightsOptions.Value.JsSdkOptions, (System.Text.Json.Serialization.Metadata.JsonTypeInfo<BlazorApplicationInsightsJsSdkOptions>)BlazorApplicationInsightsJsSdkOptionsJsonSerializerContext.Default.BlazorApplicationInsightsJsSdkOptions);
+	}
+
+	private string GetDefaultTelemetryInitializerScript()
+	{
+		if (BlazorApplicationInsightsOptions.Value.DefaultTelemetryInitializer == null)
+		{
+			return null;
+		}
+
+		IDictionary<string, string> tags = BlazorApplicationInsightsOptions.Value.DefaultTelemetryInitializer.GetTags();
+		string serializedTags = System.Text.Json.JsonSerializer.Serialize(tags, BlazorApplicationInsightsJsSdkOptionsJsonSerializerContext.Default.DictionaryStringString);
+		return $"havitBlazorAppInsights.addTelemetryInitializer({serializedTags});";
 	}
 
 	/// <inheritdoc />

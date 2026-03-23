@@ -18,7 +18,7 @@ namespace Havit.Blazor.ApplicationInsights.Telemetry;
 /// });
 /// </code>
 /// </example>
-public class TelemetryInitializer
+public class TelemetryInitializer : ITelemetryInitializer
 {
 	/// <summary>
 	/// Raw AI SDK tags. All typed properties (<see cref="CloudRoleName"/>, <see cref="ApplicationVersion"/>)
@@ -47,5 +47,6 @@ public class TelemetryInitializer
 		set => Tags["ai.application.ver"] = value;
 	}
 
-	internal Dictionary<string, string> ToTagsDictionary() => Tags;
+	/// <inheritdoc />
+	public virtual IDictionary<string, string> GetTags() => Tags;
 }

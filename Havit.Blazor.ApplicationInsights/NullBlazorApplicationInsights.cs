@@ -51,6 +51,6 @@ internal class NullBlazorApplicationInsights : IBlazorApplicationInsights
 	public Task FlushAsync()
 		=> Task.CompletedTask;
 
-	public Task AddTelemetryInitializerAsync(TelemetryInitializer initializer)
+	public Task AddTelemetryInitializerAsync(ITelemetryInitializer initializer)
 		=> Task.CompletedTask;
 }

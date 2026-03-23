@@ -77,6 +77,6 @@ public class BrowserBlazorApplicationInsights : IBlazorApplicationInsights
 		=> await _jsRuntime.InvokeVoidAsync("appInsights.flush");
 
 	/// <inheritdoc/>
-	public async Task AddTelemetryInitializerAsync(TelemetryInitializer initializer)
-		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.addTelemetryInitializer", initializer.ToTagsDictionary());
+	public async Task AddTelemetryInitializerAsync(ITelemetryInitializer initializer)
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.addTelemetryInitializer", initializer.GetTags());
 }

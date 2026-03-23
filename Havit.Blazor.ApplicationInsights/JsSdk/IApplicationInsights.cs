@@ -43,6 +43,6 @@ public interface IApplicationInsights : IAppInsights, IDependenciesPlugin
 	/// sent by the Application Insights JavaScript SDK — including auto-collected telemetry
 	/// (page views, XHR requests, unhandled exceptions).
 	/// Call once after the SDK is initialized (e.g. in <c>OnAfterRenderAsync</c>).
-	/// </summary>
-	Task AddTelemetryInitializerAsync(TelemetryInitializer initializer);
+	/// </summary>	
+	Task AddTelemetryInitializerAsync(ITelemetryInitializer initializer); // Note: this method is not part of the JS SDK's IApplicationInsights interface uses TelemetryInitializer but we want to use an abstraction.
 }
