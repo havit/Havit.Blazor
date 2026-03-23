@@ -1,0 +1,122 @@
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
+
+namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
+
+[TestClass]
+public class HxListLayoutTests : BunitTestBase
+{
+	private class TestFilterModel
+	{
+		public string Name { get; set; }
+	}
+
+	[TestMethod]
+	public void HxListLayout_Render_DisplaysGridAndFilterArea()
+	{
+		// Arrange & Act
+		var cut = RenderComponent<HxListLayout<TestFilterModel>>(parameters => parameters
+			.Add(p => p.Title, "Test Title")
+			.Add(p => p.FilterModel, new TestFilterModel())
+			.Add(p => p.DataTemplate, (RenderFragment)(builder =>
+			{
+				builder.OpenElement(0, "div");
+				builder.AddAttribute(1, "class", "test-data-area");
+				builder.CloseElement();
+			}))
+			.Add(p => p.FilterTemplate, (RenderFragment<TestFilterModel>)(model => builder =>
+			{
+				builder.OpenElement(0, "div");
+				builder.AddAttribute(1, "class", "test-filter-area");
+				builder.CloseElement();
+			})));
+
+		// Assert — outer container and title are rendered
+		cut.Find(".hx-list-layout");
+		var titleElement = cut.Find(".hx-list-layout-title");
+		Assert.Contains("Test Title", titleElement.TextContent);
+
+		// Assert — data template content is rendered
+		cut.Find(".test-data-area");
+
+		// Assert — filter button area is rendered (because FilterTemplate is set)
+		cut.Find(".hx-list-layout-header-buttons");
+	}
+
+	[TestMethod]
+	public async Task HxListLayout_ApplyFilter_RefreshesGrid()
+	{
+		// Arrange
+		var filterModel = new TestFilterModel { Name = "Initial" };
+		TestFilterModel appliedFilter = null;
+
+		var cut = RenderComponent<HxListLayout<TestFilterModel>>(parameters => parameters
+			.Add(p => p.FilterModel, filterModel)
+			.Add(p => p.FilterModelChanged, newFilter => appliedFilter = newFilter)
+			.Add(p => p.FilterTemplate, (RenderFragment<TestFilterModel>)(model => builder => { })));
+
+		// Act — submit the filter form (simulates the user clicking the Apply/submit button)
+		await cut.InvokeAsync(() => cut.Find("form.hx-form").Submit());
+
+		// Assert — FilterModelChanged was raised, allowing the grid to refresh
+		Assert.IsNotNull(appliedFilter, "FilterModelChanged should be raised after the filter form is submitted.");
+	}
+
+	[TestMethod]
+	public void HxListLayout_Chips_ReflectActiveFilters()
+	{
+		// Arrange
+		var filterModel = new TestFilterModel { Name = "ActiveFilter" };
+
+		var cut = RenderComponent<HxListLayout<TestFilterModel>>(parameters => parameters
+			.Add(p => p.FilterModel, filterModel)
+			.Add(p => p.FilterTemplate, (RenderFragment<TestFilterModel>)(model => builder =>
+			{
+				builder.OpenComponent<HxChipGenerator>(0);
+				builder.AddAttribute(1, nameof(HxChipGenerator.ChildContent),
+					(RenderFragment)(b => b.AddContent(0, model.Name)));
+				builder.CloseComponent();
+			})));
+
+		// Assert — chip list is rendered and contains the active filter value
+		var chipList = cut.Find(".hx-chip-list");
+		Assert.Contains("ActiveFilter", chipList.TextContent);
+	}
+
+	[TestMethod]
+	public async Task HxListLayout_RemoveChip_UpdatesFilterAndGrid()
+	{
+		// Arrange
+		var filterModel = new TestFilterModel { Name = "FilterToRemove" };
+		TestFilterModel updatedFilter = null;
+
+		var cut = RenderComponent<HxListLayout<TestFilterModel>>(parameters => parameters
+			.Add(p => p.FilterModel, filterModel)
+			.Add(p => p.FilterModelChanged, newFilter => updatedFilter = newFilter)
+			.Add(p => p.FilterTemplate, (RenderFragment<TestFilterModel>)(model => builder =>
+			{
+				builder.OpenComponent<HxChipGenerator>(0);
+				builder.AddAttribute(1, nameof(HxChipGenerator.ChildContent),
+					(RenderFragment)(b => b.AddContent(0, model.Name)));
+				builder.AddAttribute(2, nameof(HxChipGenerator.ChipRemoveAction),
+					(Action<object>)(obj =>
+					{
+						if (obj is TestFilterModel m)
+						{
+							m.Name = null;
+						}
+					}));
+				builder.CloseComponent();
+			})));
+
+		// Verify that the chip remove button is present before acting
+		cut.Find(".hx-chip-list-remove-btn");
+
+		// Act — click the chip remove button
+		await cut.InvokeAsync(() => cut.Find(".hx-chip-list-remove-btn").Click());
+
+		// Assert — FilterModelChanged was raised and the filter property was cleared
+		cut.WaitForAssertion(() => Assert.IsNotNull(updatedFilter, "FilterModelChanged should be raised after chip removal."));
+		Assert.IsNull(updatedFilter.Name, "Filter Name should be null after the chip is removed.");
+	}
+}
