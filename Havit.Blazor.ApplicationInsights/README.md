@@ -96,6 +96,7 @@ These options control behavior of the C# wrapper and are **not** forwarded to th
 | Property | Description | Default |
 |---|---|---|
 | `EnableInitialPageViewTracking` | Whether the SDK snippet calls `trackPageView({})` on startup | `true` |
+| `DefaultTelemetryInitializer` | Static tags applied to every telemetry item — registered before the initial page view, so the tags are present even on the auto-tracked page view on startup. See [Telemetry initializer](#telemetry-initializer). | `null` |
 
 ---
 
@@ -212,8 +213,28 @@ await AppInsights.ClearAuthenticatedUserContextAsync();
 
 ## Telemetry initializer
 
-Attach tags to **every** telemetry item. Tags are static (key-value pairs set at registration time)
+Attach tags to every telemetry item. Tags are static (key-value pairs set at registration time)
 because the JS SDK does not support dynamic callbacks from .NET code per telemetry item.
+
+### Default telemetry initializer (via options)
+
+Set once during registration and applies to all telemetry including the auto-tracked initial page view:
+
+```csharp
+builder.Services.AddBlazorApplicationInsights(options =>
+{
+    options.JsSdkOptions.ConnectionString = "...";
+    options.DefaultTelemetryInitializer = new TelemetryInitializer
+    {
+        CloudRoleName = "MyBlazorApp",
+        ApplicationVersion = "1.2.3"
+    };
+});
+```
+
+### Runtime telemetry initializer
+
+To attach tags dynamically, call `AddTelemetryInitializerAsync` at runtime.
 
 ```csharp
 await AppInsights.AddTelemetryInitializerAsync(new TelemetryInitializer
