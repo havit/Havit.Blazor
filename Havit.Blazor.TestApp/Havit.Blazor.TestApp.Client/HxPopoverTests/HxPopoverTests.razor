@@ -1,0 +1,10 @@
+@page "/HxPopoverTests"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<div data-testid="outside-area" style="padding: 20px; background-color: #f8f9fa; margin-bottom: 20px;">
+	Click here to dismiss popover
+</div>
+
+<HxPopover Title="Test Popover Title" Content="Test popover body content" data-testid="popover-wrapper">
+	<HxButton data-testid="popover-trigger" Color="ThemeColor.Primary">Toggle Popover</HxButton>
+</HxPopover>
