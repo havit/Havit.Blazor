@@ -17,6 +17,7 @@ public sealed class HxRadioButtonList
 			// ValidationMessageMode = null, HxInputBase sets the default
 			Color = ThemeColor.None, // we do not have HxRadioButton to provide a default here
 			Outline = false, // we do not have HxRadioButton to provide a default here
+			ButtonSize = ButtonSize.Regular,
 		};
 	}
 }

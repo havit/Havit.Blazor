@@ -120,7 +120,7 @@ internal class DocDumpService
 					{
 						var mdFileName = Path.ChangeExtension(sampleName, ".md");
 						var demoFilePath = Path.Combine(demosDir, mdFileName);
-						var demoMarkdown = $"# {sampleName}\n\n```razor\n{content}\n```\n";
+						var demoMarkdown = $"# {sampleName}{Environment.NewLine}{Environment.NewLine}```razor{Environment.NewLine}{content}{Environment.NewLine}```{Environment.NewLine}";
 						File.WriteAllText(demoFilePath, demoMarkdown, Encoding.UTF8);
 						demoCount++;
 					}

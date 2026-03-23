@@ -6,9 +6,9 @@ Sidebar component - responsive navigation sidebar.
 
 | Name | Type | Description |
 |------|------|-------------|
+| CollapseIcon | `IconBase` | `CollapseIcon` is obsolete and will be removed in a future release. Use `TogglerTemplate` if you want to render an icon. |
 | Collapsed | `bool` | Indicates whether the `HxSidebar` is collapsed, can be used to alter the state (expand or collapse the sidebar). |
 | CollapsedChanged | `EventCallback<bool>` | Fires when the sidebar is expanded or collapsed. |
-| CollapseIcon | `IconBase` | `CollapseIcon` is obsolete and will be removed in a future release. Use `TogglerTemplate` if you want to render an icon. |
 | CssClass | `string` | Additional CSS class. |
 | ExpandIcon | `IconBase` | `ExpandIcon` is obsolete and will be removed in a future release. Use `TogglerTemplate` if you want to render an icon. |
 | FooterTemplate | `RenderFragmentSidebarFooterTemplateContext>` | Sidebar footer (e.g. logged user, language switch, ...). |

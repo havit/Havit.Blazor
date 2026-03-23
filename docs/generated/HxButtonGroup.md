@@ -7,8 +7,8 @@ Bootstrap Button groups.
 | Name | Type | Description |
 |------|------|-------------|
 | AriaLabel | `string` | Groups should be given an explicit label, as most assistive technologies will otherwise not announce them, despite the presence of the correct role attribute. |
-| CssClass | `string` | Additional CSS class(es) to be added. |
 | ChildContent | `RenderFragment` | Content of the component. |
+| CssClass | `string` | Additional CSS class(es) to be added. |
 | Orientation | `ButtonGroupOrientation` | Orientation. The default value is `ButtonGroupOrientation.Horizontal`. |
 | Size | `ButtonGroupSize` | Size. The default value is `ButtonGroupSize.Regular`. |
 

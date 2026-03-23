@@ -8,6 +8,8 @@ Data-based list of radio buttons. Consider creating a custom picker derived from
 |------|------|-------------|
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
 | AutoSort | `bool` | When `true`, items are sorted before displaying in the select. The default value is `true`. |
+| ButtonSize | `ButtonSize?` | Size of buttons for `RadioButtonListRenderMode.ToggleButtons` and `RadioButtonListRenderMode.ButtonGroup`. The default value is `ButtonSize.Regular`. |
+| ChipTemplate | `RenderFragment` | The chip template. |
 | Color | `ThemeColor?` | Color for `RadioButtonListRenderMode.ToggleButtons` and `RadioButtonListRenderMode.ButtonGroup`. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | Data | `IEnumerable<TItem>` | Items to display. |
@@ -16,7 +18,6 @@ Data-based list of radio buttons. Consider creating a custom picker derived from
 | GenerateChip | `bool` | When `true`, ` is used to generate chip item(s). The default is true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
-| ChipTemplate | `RenderFragment` | The chip template. |
 | Inline | `bool` | Allows grouping radios on the same horizontal row by rendering them inline. Default is `false`. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
 | ItemCssClass | `string` | Additional CSS class(es) for underlying radio-buttons (wrapping `div` element). |
@@ -37,8 +38,8 @@ Data-based list of radio buttons. Consider creating a custom picker derived from
 | Settings | `RadioButtonListSettings` | Set of settings to be applied to the component instance (overrides , overridden by individual parameters). |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in . |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
-| ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
+| ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |
 
 ## Static properties
 

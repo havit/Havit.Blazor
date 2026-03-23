@@ -10,6 +10,7 @@ MultiSelect. Unlike a normal select, multiselect allows the user to select multi
 | AllowFiltering | `bool?` | Enables filtering capabilities. |
 | AllowSelectAll | `bool?` | Enables select all capabilities. |
 | AutoSort | `bool` | When set to `false`, items will no longer be sorted. Default value is `true`. |
+| ChipTemplate | `RenderFragment` | The chip template. |
 | ClearFilterOnHide | `bool?` | When enabled the filter will be cleared when the dropdown is closed. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | Data | `IEnumerable<TItem>` | Items to display. |
@@ -24,7 +25,6 @@ MultiSelect. Unlike a normal select, multiselect allows the user to select multi
 | GenerateChip | `bool` | When `true`, ` is used to generate chip item(s). The default is true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
-| ChipTemplate | `RenderFragment` | The chip template. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
 | InputGroupEndTemplate | `RenderFragment` | Input-group at the end of the input. |
 | InputGroupEndText | `string` | Input-group at the end of the input. |
@@ -44,8 +44,8 @@ MultiSelect. Unlike a normal select, multiselect allows the user to select multi
 | TextSelector | `Func<TItem, string>` | Selects text to display from an item. When not set, `ToString()` is used. |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in . |
 | Value | `List<TValue>` | Value of the input. This should be used with two-way binding. |
-| ValueExpression | `Expression<Func<List<TValue>>>` | An expression that identifies the bound value. |
 | ValueChanged | `EventCallback<List<TValue>>` | A callback that updates the bound value. |
+| ValueExpression | `Expression<Func<List<TValue>>>` | An expression that identifies the bound value. |
 | ValueSelector | `Func<TItem, TValue>` | Selects value from an item. Not required when `TValue` is the same as `TItem`. |
 
 ## Methods

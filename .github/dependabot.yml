@@ -14,3 +14,10 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+
+  # We vendor Bootstrap and its npm dependencies manually — disable npm PRs.
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    open-pull-requests-limit: 0

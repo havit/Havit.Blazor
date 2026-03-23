@@ -8,13 +8,13 @@ Textarea. To set a custom height, do not use the rows attribute. Instead, set an
 |------|------|-------------|
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
 | BindEvent | `BindEvent` | Gets or sets the behavior when the model is updated from the input. |
+| ChipTemplate | `RenderFragment` | The chip template. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
 | Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading `FormState`. When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use HxFormState. |
 | GenerateChip | `bool` | When `true`, `HxChipGenerator` is used to generate chip item(s). The default is `true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
-| ChipTemplate | `RenderFragment` | The chip template. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
 | InputGroupEndTemplate | `RenderFragment` | Input group at the end of the input. |
 | InputGroupEndText | `string` | Input group at the end of the input. |
@@ -34,8 +34,8 @@ Textarea. To set a custom height, do not use the rows attribute. Instead, set an
 | Type | `InputType` | Input type. |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `string` | Value of the input. This should be used with two-way binding. |
-| ValueExpression | `Expression<Func<string>>` | An expression that identifies the bound value. |
 | ValueChanged | `EventCallback<string>` | A callback that updates the bound value. |
+| ValueExpression | `Expression<Func<string>>` | An expression that identifies the bound value. |
 
 ## Methods
 

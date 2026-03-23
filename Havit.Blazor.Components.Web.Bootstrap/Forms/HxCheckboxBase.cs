@@ -39,6 +39,8 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 
 	protected abstract bool OutlineEffective { get; }
 
+	protected virtual ButtonSize ButtonSizeEffective => ButtonSize.Regular;
+
 	/// <summary>
 	/// Returns checkbox render mode.
 	/// </summary>
@@ -163,6 +165,7 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 		builder.AddAttribute(2001, "class", CssClassHelper.Combine(
 			(RenderModeEffective == CheckboxRenderMode.ToggleButton) ? "btn" : "form-check-label",
 			(RenderModeEffective == CheckboxRenderMode.ToggleButton) ? ColorEffective.ToButtonColorCss(OutlineEffective) : null,
+			(RenderModeEffective == CheckboxRenderMode.ToggleButton) ? ButtonSizeEffective.ToButtonSizeCssClass() : null,
 			TextCssClass));
 		builder.AddAttribute(2002, "for", InputId);
 		if (TextTemplate == null)

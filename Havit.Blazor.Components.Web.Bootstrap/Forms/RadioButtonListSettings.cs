@@ -15,4 +15,9 @@ public record RadioButtonListSettings : InputSettings
 	/// for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>.
 	/// </summary>
 	public bool? Outline { get; set; }
+
+	/// <summary>
+	/// Size of buttons for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>.
+	/// </summary>
+	public ButtonSize? ButtonSize { get; set; }
 }

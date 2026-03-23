@@ -6,9 +6,9 @@ Presents a list of chips as badges. Usually used to present filter criteria gath
 
 | Name | Type | Description |
 |------|------|-------------|
-| CssClass | `string` | Additional CSS class. |
 | ChipBadgeSettings | `BadgeSettings` | Settings for the `HxBadge` used to render chips. |
 | Chips | `IEnumerableChipItem>` | Chips to be presented. |
+| CssClass | `string` | Additional CSS class. |
 | ResetButtonTemplate | `RenderFragment` | Template for the reset button. If used, the `ResetButtonText` is ignored and the `OnResetClick` callback is not triggered (you are expected to wire the reset logic on your own). |
 | ResetButtonText | `string` | Text of the reset button. |
 | Settings | `ChipListSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |

@@ -8,12 +8,12 @@ Button `<button type="submit">`. Direct ancestor of `HxButton` with the same API
 |------|------|-------------|
 | AdditionalAttributes | `Dictionary<string, object>` | Additional attributes to be splatted onto an underlying `<button>` element. |
 | AriaLabel | `string` | Defines the `aria-label` of the button. Should be used to provide an accessible name for icon-only buttons. |
+| ChildContent | `RenderFragment` | Button content. |
 | Color | `ThemeColor?` | Bootstrap button style - theme color. The default is taken from `Defaults` (`ThemeColor.None` if not customized). |
 | CssClass | `string` | Custom CSS class to render with the `<button />`. When using `Tooltip` you might want to use `TooltipWrapperCssClass` instead of `CssClass` to get the desired result. |
 | EditContext | `EditContext` | Associated `EditContext`. |
 | Enabled | `bool?` | When `null` (default), the Enabled value is received from cascading `FormState`. When value is `false`, input is rendered as disabled. To set multiple controls as disabled use `HxFormState`. |
 | FormId | `string` | Specifies the form the button belongs to. |
-| ChildContent | `RenderFragment` | Button content. |
 | Icon | `IconBase` | Icon to render into the button. |
 | IconCssClass | `string` | CSS class to be rendered with the button icon. |
 | IconPlacement | `ButtonIconPlacement?` | Position of the icon within the button. The default is `ButtonIconPlacement.Start` (configurable through `Defaults`). |

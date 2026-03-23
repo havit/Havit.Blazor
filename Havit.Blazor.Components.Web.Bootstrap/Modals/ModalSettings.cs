@@ -22,6 +22,11 @@ public record ModalSettings
 	public IconBase CloseButtonIcon { get; set; }
 
 	/// <summary>
+	/// Settings for the close button in the header.
+	/// </summary>
+	public CloseButtonSettings CloseButtonSettings { get; set; }
+
+	/// <summary>
 	/// Indicates whether the modal closes when the escape key is pressed.
 	/// </summary>
 	public bool? CloseOnEscape { get; set; }

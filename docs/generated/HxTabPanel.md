@@ -9,8 +9,8 @@ Container for `HxTab`s for easier implementation of tabbed UI. Encapsulates `HxN
 | ActiveTabId | `string` | ID of the active tab (@bindable). |
 | ActiveTabIdChanged | `EventCallback<string>` | Raised when the ID of the active tab changes. |
 | CardSettings | `CardSettings` | Card settings for the wrapping card. Applies only if `Variant` is set to `TabPanelVariant.Card`. |
-| CssClass | `string` | Additional CSS class. |
 | ChildContent | `RenderFragment` | Tabs. |
+| CssClass | `string` | Additional CSS class. |
 | InitialActiveTabId | `string` | ID of the tab which should be active at the very beginning. We are considering deprecating this parameter. Please use `ActiveTabId` instead (`@bind-ActiveTabId`). |
 | NavVariant | `NavVariant` | The visual variant of the nav items. Default is `NavVariant.Tabs`. |
 | RenderMode | `TabPanelRenderMode` | Determines whether the content of all tabs is always rendered or only if the tab is active. Default is `TabPanelRenderMode.AllTabs`. |

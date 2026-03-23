@@ -114,6 +114,12 @@ public partial class HxModal : IAsyncDisposable
 	protected IconBase CloseButtonIconEffective => CloseButtonIcon ?? GetSettings()?.CloseButtonIcon ?? GetDefaults().CloseButtonIcon;
 
 	/// <summary>
+	/// Settings for the close button in the header.
+	/// </summary>
+	[Parameter] public CloseButtonSettings CloseButtonSettings { get; set; }
+	protected CloseButtonSettings CloseButtonSettingsEffective => CloseButtonSettings ?? GetSettings()?.CloseButtonSettings ?? GetDefaults().CloseButtonSettings;
+
+	/// <summary>
 	/// Indicates whether the modal closes when escape key is pressed.
 	/// Default value is <c>true</c>.
 	/// </summary>

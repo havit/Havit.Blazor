@@ -8,6 +8,8 @@ Renders a multi-selection list of `HxCheckbox` controls.
 |------|------|-------------|
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
 | AutoSort | `bool` | When `true`, items are sorted before displaying in the select. The default value is `true`. |
+| ButtonSize | `ButtonSize?` | Size of buttons for `CheckboxListRenderMode.ToggleButtons` and `CheckboxListRenderMode.ButtonGroup`. The default value is `ButtonSize.Regular`. |
+| ChipTemplate | `RenderFragment` | The chip template. |
 | Color | `ThemeColor?` | Color for `CheckboxListRenderMode.ToggleButtons`. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | Data | `IEnumerable<TItem>` | Items to display. |
@@ -16,7 +18,6 @@ Renders a multi-selection list of `HxCheckbox` controls.
 | GenerateChip | `bool` | When `true`, ` is used to generate chip item(s). The default is true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
-| ChipTemplate | `RenderFragment` | The chip template. |
 | Inline | `bool` | Allows grouping checkboxes on the same horizontal row by rendering them inline. The default is `false`. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
 | ItemCssClass | `string` | Additional CSS class(es) for the underlying `HxCheckbox`. |
@@ -36,8 +37,8 @@ Renders a multi-selection list of `HxCheckbox` controls.
 | Settings | `CheckboxListSettings` | Set of settings to be applied to the component instance (overrides `HxInputDate.Defaults`, overridden by individual parameters). |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in . |
 | Value | `List<TValue>` | Value of the input. This should be used with two-way binding. |
-| ValueExpression | `Expression<Func<List<TValue>>>` | An expression that identifies the bound value. |
 | ValueChanged | `EventCallback<List<TValue>>` | A callback that updates the bound value. |
+| ValueExpression | `Expression<Func<List<TValue>>>` | An expression that identifies the bound value. |
 
 ## Static properties
 

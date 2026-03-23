@@ -8,8 +8,8 @@ Component for convenient rendering of Apache ECharts.
 |------|------|-------------|
 | Options **[REQUIRED]** | `object` | Options for the chart. See ECharts Option for more details. |
 | AutoResize | `bool` | Indicates whether the chart should automatically resize. Default is `false`. |
-| Height | `string` | The height of the chart. Default is `400px`. |
 | ChartId | `string` | Unique identifier for the HTML element representing the chart. |
+| Height | `string` | The height of the chart. Default is `400px`. |
 
 ## Event callbacks
 

@@ -7,6 +7,8 @@ Checkbox input. (Replaces the former `HxInputCheckbox` component which was dropp
 | Name | Type | Description |
 |------|------|-------------|
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
+| ButtonSize | `ButtonSize?` | Size of the button for `CheckboxRenderMode.ToggleButton`. The default value is `ButtonSize.Regular`. |
+| ChipTemplate | `RenderFragment` | The chip template. |
 | Color | `ThemeColor?` | Bootstrap button style - theme color. The default is taken from `HxButton.Defaults` (`ThemeColor.None` if not customized). For `CheckboxRenderMode.ToggleButton`. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
@@ -14,7 +16,6 @@ Checkbox input. (Replaces the former `HxInputCheckbox` component which was dropp
 | GenerateChip | `bool` | When `true`, `HxChipGenerator` is used to generate chip item(s). The default is `true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
-| ChipTemplate | `RenderFragment` | The chip template. |
 | Inline | `bool` | Allows grouping checkboxes on the same horizontal row by rendering them inline. The default value is `false`. This only works when there is no label, no hint, and no validation message. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
 | Label | `string` | The label text. |
@@ -29,8 +30,8 @@ Checkbox input. (Replaces the former `HxInputCheckbox` component which was dropp
 | TextTemplate | `RenderFragment` | Content to display next to the checkbox. |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `bool` | Value of the input. This should be used with two-way binding. |
-| ValueExpression | `Expression<Func<bool>>` | An expression that identifies the bound value. |
 | ValueChanged | `EventCallback<bool>` | A callback that updates the bound value. |
+| ValueExpression | `Expression<Func<bool>>` | An expression that identifies the bound value. |
 
 ## Methods
 

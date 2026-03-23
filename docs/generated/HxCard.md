@@ -9,12 +9,12 @@ Bootstrap card component.
 | AdditionalAttributes | `Dictionary<string, object>` | Additional attributes to be splatted onto an underlying HTML element. |
 | BodyCssClass | `string` | Additional CSS class for the body. |
 | BodyTemplate | `RenderFragment` | The body content. |
+| ChildContent | `RenderFragment` | The generic card content (outside `.card-body`). |
 | CssClass | `string` | Additional CSS classes for the card container. |
 | FooterCssClass | `string` | Additional CSS class for the footer. |
 | FooterTemplate | `RenderFragment` | The footer content. |
 | HeaderCssClass | `string` | Additional CSS class for the header. |
 | HeaderTemplate | `RenderFragment` | The header content. |
-| ChildContent | `RenderFragment` | The generic card content (outside `.card-body`). |
 | ImageAlt | `string` | The value of the image's `alt` attribute. |
 | ImageCssClass | `string` | Additional CSS class for the image. |
 | ImageHeight | `int?` | The value of the image's `height` attribute. |
