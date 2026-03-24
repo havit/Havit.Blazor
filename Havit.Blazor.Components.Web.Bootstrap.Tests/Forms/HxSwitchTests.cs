@@ -10,71 +10,54 @@ public class HxSwitchTests : BunitTestBase
 	[TestMethod]
 	public void HxSwitch_Render_InitiallyOff()
 	{
-		// Arrange
-		bool value = false;
-
-		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
-		{
-			builder.OpenComponent<HxSwitch>(0);
-			builder.AddAttribute(1, "Value", value);
-			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<bool>(this, (v) => { value = v; }));
-			builder.AddAttribute(3, "ValueExpression", (Expression<Func<bool>>)(() => value));
-			builder.CloseComponent();
-		};
-
 		// Act
-		var cut = Render(componentRenderer);
+		var (cut, _) = RenderSwitch(initialValue: false);
 
 		// Assert
-		var input = cut.Find("input");
-		Assert.IsFalse(input.HasAttribute("checked"));
+		Assert.IsFalse(cut.Find("input").HasAttribute("checked"));
 	}
 
 	[TestMethod]
-	public async Task HxSwitch_Click_TogglesOnAndUpdatesValue()
+	public void HxSwitch_Change_TogglesOnAndUpdatesValue()
 	{
 		// Arrange
-		bool value = false;
-
-		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
-		{
-			builder.OpenComponent<HxSwitch>(0);
-			builder.AddAttribute(1, "Value", value);
-			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<bool>(this, (v) => { value = v; }));
-			builder.AddAttribute(3, "ValueExpression", (Expression<Func<bool>>)(() => value));
-			builder.CloseComponent();
-		};
-
-		var cut = Render(componentRenderer);
+		var (cut, valueHolder) = RenderSwitch(initialValue: false);
 
 		// Act
-		await cut.InvokeAsync(() => cut.Find("input").Change(true));
+		cut.Find("input").Change(true);
 
 		// Assert
-		Assert.IsTrue(value);
+		Assert.IsTrue(valueHolder[0]);
+		Assert.IsTrue(cut.Find("input").HasAttribute("checked"));
 	}
 
 	[TestMethod]
-	public async Task HxSwitch_ClickAgain_TogglesOffAndUpdatesValue()
+	public void HxSwitch_Change_TogglesOffAndUpdatesValue()
 	{
 		// Arrange
-		bool value = true;
+		var (cut, valueHolder) = RenderSwitch(initialValue: true);
+
+		// Act
+		cut.Find("input").Change(false);
+
+		// Assert
+		Assert.IsFalse(valueHolder[0]);
+		Assert.IsFalse(cut.Find("input").HasAttribute("checked"));
+	}
+
+	private (IRenderedFragment cut, bool[] valueHolder) RenderSwitch(bool initialValue = false)
+	{
+		var valueHolder = new bool[] { initialValue };
 
 		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 		{
 			builder.OpenComponent<HxSwitch>(0);
-			builder.AddAttribute(1, "Value", value);
-			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<bool>(this, (v) => { value = v; }));
-			builder.AddAttribute(3, "ValueExpression", (Expression<Func<bool>>)(() => value));
+			builder.AddAttribute(1, "Value", valueHolder[0]);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<bool>(this, v => valueHolder[0] = v));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<bool>>)(() => valueHolder[0]));
 			builder.CloseComponent();
 		};
 
-		var cut = Render(componentRenderer);
-
-		// Act
-		await cut.InvokeAsync(() => cut.Find("input").Change(false));
-
-		// Assert
-		Assert.IsFalse(value);
+		return (Render(componentRenderer), valueHolder);
 	}
 }
