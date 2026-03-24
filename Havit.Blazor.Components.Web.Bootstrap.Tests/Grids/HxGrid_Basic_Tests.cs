@@ -4,7 +4,7 @@ using Havit.Collections;
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Grids;
 
 [TestClass]
-public class HxGrid_BasicTests : BunitTestBase
+public class HxGrid_Basic_Tests : BunitTestBase
 {
 	private record TestItem(int Id, string Name);
 
@@ -23,7 +23,7 @@ public class HxGrid_BasicTests : BunitTestBase
 				.Add(c => c.ItemTextSelector, item => item.Name)));
 
 		// Act: wait for data to load
-		await cut.InvokeAsync(async () => await cut.Instance.RefreshDataAsync());
+		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
 
 		// Assert: 5 data rows rendered (excluding empty-data and placeholder rows)
 		var dataRows = cut.FindAll("tbody tr:not(.hx-grid-empty-data-row)");
@@ -55,7 +55,7 @@ public class HxGrid_BasicTests : BunitTestBase
 				.Add(c => c.ItemTextSelector, item => item.Name)
 				.Add(c => c.SortKeySelector, sortKeySelector)));
 
-		await cut.InvokeAsync(async () => await cut.Instance.RefreshDataAsync());
+		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
 
 		// Act: click the sortable column header
 		var header = cut.Find("th.hx-grid-sortable");
@@ -91,7 +91,7 @@ public class HxGrid_BasicTests : BunitTestBase
 				.Add(c => c.ItemTextSelector, item => item.Name)
 				.Add(c => c.SortKeySelector, sortKeySelector)));
 
-		await cut.InvokeAsync(async () => await cut.Instance.RefreshDataAsync());
+		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
 
 		// Act: click the column header twice to sort descending
 		var header = cut.Find("th.hx-grid-sortable");
@@ -116,7 +116,7 @@ public class HxGrid_BasicTests : BunitTestBase
 				.Add(c => c.ItemTextSelector, item => item.Name)));
 
 		// Act: wait for data to load
-		await cut.InvokeAsync(async () => await cut.Instance.RefreshDataAsync());
+		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
 
 		// Assert: empty data row is displayed
 		Assert.HasCount(1, cut.FindAll("tr.hx-grid-empty-data-row"), "Empty data row should be rendered when there are no items.");

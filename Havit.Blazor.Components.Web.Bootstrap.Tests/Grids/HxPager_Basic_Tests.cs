@@ -1,7 +1,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Grids;
 
 [TestClass]
-public class HxPager_BasicTests : BunitTestBase
+public class HxPager_Basic_Tests : BunitTestBase
 {
 	[TestMethod]
 	public void HxPager_Render_ShowsCorrectPageCount()
