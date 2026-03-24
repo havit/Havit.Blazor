@@ -1,7 +1,7 @@
 namespace Havit.Blazor.E2ETests.HxSidebarTests;
 
 [TestClass]
-public class HxSidebarTests : TestAppTestBase
+public class HxSidebar_Tests : TestAppTestBase
 {
 	/// <summary>
 	/// Verifies that the HxSidebar correctly renders the brand, items, and footer.
@@ -71,5 +71,33 @@ public class HxSidebarTests : TestAppTestBase
 		await NavigateToTestAppAsync("/HxSidebarTests/navigate-target");
 
 		await Expect(Page.Locator("[data-testid='sidebar-wrapper'] a.hx-sidebar-item.active").First).ToBeVisibleAsync();
+	}
+
+	/// <summary>
+	/// Verifies that the Bootstrap JS mobile navbar toggler collapses and expands the nav content
+	/// via data-bs-toggle="collapse" below the responsive breakpoint.
+	/// </summary>
+	[TestMethod]
+	public async Task HxSidebar_MobileNavbarToggler_CollapsesAndExpandsNavContent()
+	{
+		// Set viewport below the default Medium (768px) responsive breakpoint so the mobile toggler is visible
+		await Page.SetViewportSizeAsync(600, 800);
+
+		await NavigateToTestAppAsync("/HxSidebarTests");
+
+		var navbarToggler = Page.Locator(".hx-sidebar-navbar-toggler");
+		var navContent = Page.Locator(".hx-sidebar-collapse");
+
+		// The nav content is collapsed by default on mobile (Bootstrap collapse without .show)
+		await Expect(navbarToggler).ToBeVisibleAsync();
+		await Expect(navContent).Not.ToBeVisibleAsync();
+
+		// Click the Bootstrap JS toggler to expand nav content
+		await navbarToggler.ClickAsync();
+		await Expect(navContent).ToBeVisibleAsync(new() { Timeout = 5_000 });
+
+		// Click again to collapse
+		await navbarToggler.ClickAsync();
+		await Expect(navContent).Not.ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 }
