@@ -101,6 +101,6 @@ internal class AdaptiveBlazorApplicationInsights : IBlazorApplicationInsights
 		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.FlushAsync());
 
 	/// <inheritdoc/>
-	public async Task AddTelemetryInitializerAsync(ITelemetryInitializer initializer)
+	public async Task AddTelemetryInitializerAsync(TelemetryInitializer initializer)
 		=> await InvokeJsSafeAsync(() => _browserBlazorApplicationInsights.AddTelemetryInitializerAsync(initializer));
 }
