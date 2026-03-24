@@ -1,0 +1,35 @@
+@page "/HxCollapse"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<h4>HxCollapse E2E Tests</h4>
+
+<!-- Section 1: Basic toggle tests (initially collapsed) -->
+<HxCollapseToggleButton data-testid="toggle-button" Text="Toggle" CollapseTarget="#basicCollapse" Color="ThemeColor.Primary" CssClass="mb-3" />
+<HxCollapse Id="basicCollapse" data-testid="collapse-content">
+	<div class="card card-body" data-testid="collapse-inner-content">
+		This is the collapsible content.
+	</div>
+</HxCollapse>
+
+<!-- Section 2: Multiple ShowAsync() calls regression test (#910) -->
+<div class="mt-4">
+	<HxButton data-testid="multiple-show-button" Text="Call ShowAsync()" OnClick="HandleMultipleShowClick" Color="ThemeColor.Secondary" CssClass="mb-3" />
+	<HxCollapse @ref="_collapseComponent" Id="multipleShowCollapse" InitiallyExpanded="true" data-testid="multiple-show-collapse">
+		<div class="card card-body">
+			<span data-testid="counter-value">@_counter</span>
+			<HxButton data-testid="increment-button" Text="Increment" OnClick="@(() => _counter++)" Color="ThemeColor.Primary" />
+		</div>
+	</HxCollapse>
+</div>
+
+@code {
+	private HxCollapse _collapseComponent;
+	private int _counter = 0;
+
+	private async Task HandleMultipleShowClick()
+	{
+		await _collapseComponent.ShowAsync();
+		await _collapseComponent.ShowAsync();
+		await _collapseComponent.ShowAsync();
+	}
+}
