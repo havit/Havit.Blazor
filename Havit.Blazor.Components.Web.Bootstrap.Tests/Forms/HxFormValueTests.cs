@@ -32,10 +32,11 @@ public class HxFormValueTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxFormValue_ValueTemplate_RendersCustomContent()
+	public void HxFormValue_ValueTemplate_OverridesValueText()
 	{
 		// Arrange & Act
 		var cut = RenderComponent<HxFormValue>(parameters => parameters
+			.Add(p => p.Value, "PlainValue")
 			.Add(p => p.ValueTemplate, (RenderTreeBuilder builder) =>
 			{
 				builder.OpenElement(0, "span");
@@ -47,6 +48,7 @@ public class HxFormValueTests : BunitTestBase
 		// Assert
 		var formControl = cut.Find("div.form-control");
 		Assert.IsTrue(formControl.TextContent.Contains("CustomTemplateContent", StringComparison.Ordinal));
+		Assert.IsFalse(formControl.TextContent.Contains("PlainValue", StringComparison.Ordinal));
 	}
 
 	[TestMethod]
