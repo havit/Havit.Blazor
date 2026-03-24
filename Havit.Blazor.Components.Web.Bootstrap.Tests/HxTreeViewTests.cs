@@ -43,11 +43,16 @@ public class HxTreeViewTests : BunitTestBase
 			.Add(p => p.ItemChildrenSelector, item => item.Children)
 		);
 
-		// Assert
+		// Assert - select only root-level items (direct children of the tree view container)
 		var treeView = cut.Find(".hx-tree-view");
 		Assert.IsNotNull(treeView);
 
-		var titleTexts = cut.FindAll(".hx-tree-view-item-title").Select(t => t.TextContent).ToList();
+		var rootItems = treeView.Children.Where(e => e.ClassList.Contains("hx-tree-view-item"));
+		var titleTexts = rootItems
+			.Select(item => item.QuerySelector(".hx-tree-view-item-title")?.TextContent)
+			.Where(text => text is not null)
+			.ToList();
+		Assert.HasCount(2, titleTexts);
 		Assert.Contains("Root1", titleTexts);
 		Assert.Contains("Root2", titleTexts);
 	}
@@ -64,7 +69,8 @@ public class HxTreeViewTests : BunitTestBase
 		);
 
 		// Assert - The collapse container for Root1's children should have "show" class
-		var expandedCollapses = cut.FindAll(".collapse.show");
+		var treeView = cut.Find(".hx-tree-view");
+		var expandedCollapses = treeView.QuerySelectorAll(".collapse.show");
 		Assert.HasCount(1, expandedCollapses);
 
 		// Verify children are within the expanded section
@@ -74,7 +80,7 @@ public class HxTreeViewTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxTreeView_CollapseNode_HidesChildren()
+	public void HxTreeView_DefaultState_NodesAreCollapsed()
 	{
 		// Arrange & Act - Default state: all nodes collapsed
 		var cut = RenderComponent<HxTreeView<TreeItem>>(parameters => parameters
@@ -84,11 +90,12 @@ public class HxTreeViewTests : BunitTestBase
 		);
 
 		// Assert - No collapse should have "show" class
-		var expandedCollapses = cut.FindAll(".collapse.show");
+		var treeView = cut.Find(".hx-tree-view");
+		var expandedCollapses = treeView.QuerySelectorAll(".collapse.show");
 		Assert.IsEmpty(expandedCollapses);
 
 		// Verify collapse elements exist (items with children have collapse containers)
-		var allCollapses = cut.FindAll(".collapse");
+		var allCollapses = treeView.QuerySelectorAll(".collapse");
 		Assert.IsNotEmpty(allCollapses);
 	}
 
@@ -134,7 +141,8 @@ public class HxTreeViewTests : BunitTestBase
 		);
 
 		// Assert - All collapse elements should have "show" class (fully expanded)
-		var allCollapses = cut.FindAll(".collapse");
+		var treeView = cut.Find(".hx-tree-view");
+		var allCollapses = treeView.QuerySelectorAll(".collapse");
 		Assert.IsNotEmpty(allCollapses);
 		foreach (var collapse in allCollapses)
 		{
