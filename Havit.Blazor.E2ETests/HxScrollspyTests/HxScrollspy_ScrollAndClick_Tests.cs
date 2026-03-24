@@ -3,13 +3,13 @@ using System.Text.RegularExpressions;
 namespace Havit.Blazor.E2ETests.HxScrollspyTests;
 
 [TestClass]
-public class HxScrollspyTests : TestAppTestBase
+public class HxScrollspy_ScrollAndClick_Tests : TestAppTestBase
 {
 	[TestMethod]
 	public async Task HxScrollspy_Scroll_HighlightsCorrespondingNavLink()
 	{
 		// Arrange - navigate to the test page
-		await NavigateToTestAppAsync("/HxScrollspyTests");
+		await NavigateToTestAppAsync("/HxScrollspy_Basic");
 
 		var navLink1 = Page.Locator("[data-testid='nav-link-1']");
 		var navLink2 = Page.Locator("[data-testid='nav-link-2']");
@@ -18,7 +18,7 @@ public class HxScrollspyTests : TestAppTestBase
 		await Expect(navLink1).ToHaveClassAsync(new Regex(@"\bactive\b"), new() { Timeout = 5_000 });
 
 		// Act - scroll the scrollspy container down to bring section 2 into view
-		await Page.EvaluateAsync("document.querySelector('.test-scrollspy').scrollTop = 160");
+		await Page.EvaluateAsync("(() => { const container = document.querySelector('.test-scrollspy'); const section2 = document.querySelector('#section2'); if (container && section2) { container.scrollTop = section2.offsetTop - container.offsetTop; } })();");
 
 		// Assert - second nav link should now be active
 		await Expect(navLink2).ToHaveClassAsync(new Regex(@"\bactive\b"), new() { Timeout = 5_000 });
@@ -29,7 +29,7 @@ public class HxScrollspyTests : TestAppTestBase
 	public async Task HxScrollspy_ClickNavLink_ScrollsToSection()
 	{
 		// Arrange - navigate to the test page
-		await NavigateToTestAppAsync("/HxScrollspyTests");
+		await NavigateToTestAppAsync("/HxScrollspy_Basic");
 
 		var scrollTopBefore = await Page.EvaluateAsync<double>("document.querySelector('.test-scrollspy').scrollTop");
 
