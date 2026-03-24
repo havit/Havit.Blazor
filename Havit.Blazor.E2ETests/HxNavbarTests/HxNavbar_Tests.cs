@@ -1,7 +1,7 @@
 namespace Havit.Blazor.E2ETests.HxNavbarTests;
 
 [TestClass]
-public class HxNavbarTests : TestAppTestBase
+public class HxNavbar_Tests : TestAppTestBase
 {
 	private static readonly System.Text.RegularExpressions.Regex CollapseShowClassRegex = new System.Text.RegularExpressions.Regex("\\bshow\\b");
 
@@ -10,7 +10,7 @@ public class HxNavbarTests : TestAppTestBase
 	{
 		// Arrange
 		await Page.SetViewportSizeAsync(1200, 800);
-		await NavigateToTestAppAsync("/HxNavbarTests");
+		await NavigateToTestAppAsync("/HxNavbar");
 
 		// Assert - brand is visible
 		var brand = Page.Locator("[data-testid='navbar-brand']");
@@ -28,10 +28,10 @@ public class HxNavbarTests : TestAppTestBase
 	{
 		// Arrange - narrow viewport so the navbar is collapsed
 		await Page.SetViewportSizeAsync(375, 800);
-		await NavigateToTestAppAsync("/HxNavbarTests");
+		await NavigateToTestAppAsync("/HxNavbar");
 
 		var toggler = Page.Locator("[data-testid='navbar-toggler']");
-		var navCollapse = Page.Locator(".navbar-collapse");
+		var navCollapse = Page.Locator("#test-navbar-collapse");
 
 		// Assert - toggler is visible and nav is collapsed (no .show class)
 		await Expect(toggler).ToBeVisibleAsync();
@@ -59,7 +59,7 @@ public class HxNavbarTests : TestAppTestBase
 	{
 		// Arrange
 		await Page.SetViewportSizeAsync(1200, 800);
-		await NavigateToTestAppAsync("/HxNavbarTests");
+		await NavigateToTestAppAsync("/HxNavbar");
 
 		// Assert - brand renders with correct text
 		var brand = Page.Locator("[data-testid='navbar-brand']");
@@ -67,7 +67,7 @@ public class HxNavbarTests : TestAppTestBase
 		await Expect(brand).ToHaveTextAsync("MyBrand");
 
 		// Assert - brand link has correct href
-		var brandLink = Page.Locator(".navbar-brand");
+		var brandLink = Page.Locator("#test-navbar .navbar-brand");
 		await Expect(brandLink).ToHaveAttributeAsync("href", "/");
 	}
 }
