@@ -26,8 +26,9 @@ public class HxFormValueTests : BunitTestBase
 			.Add(p => p.Value, "TestValue"));
 
 		// Assert
-		cut.Find("label");
-		Assert.IsTrue(cut.Markup.Contains("TestLabel", StringComparison.Ordinal));
+		var labels = cut.FindAll("label");
+		Assert.AreEqual(1, labels.Count);
+		Assert.AreEqual("TestLabel", labels[0].TextContent);
 	}
 
 	[TestMethod]
