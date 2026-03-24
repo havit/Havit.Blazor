@@ -1,6 +1,5 @@
 using Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure;
 using Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure.Model;
-using Havit.Blazor.ApplicationInsights.Telemetry;
 using Havit.Blazor.ApplicationInsights.TestApp.Client;
 using Microsoft.Playwright;
 
