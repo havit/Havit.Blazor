@@ -37,8 +37,9 @@ public class HxInputDateTests : TestAppTestBase
 		var calendar = Page.Locator(".hx-calendar");
 		await calendar.Locator("button:has-text('15')").ClickAsync();
 
-		// Assert - The value should be set
-		await Expect(Page.Locator("[data-testid='current-value']")).Not.ToBeEmptyAsync(new() { Timeout = DefaultTimeout });
+		// Assert - The value should be set to the selected date
+		var expectedDateText = new System.DateTime(2024, 6, 15).ToShortDateString();
+		await Expect(Page.Locator("[data-testid='current-value']")).ToHaveTextAsync(expectedDateText, new() { Timeout = DefaultTimeout });
 
 		// Assert - The calendar popup should be closed
 		await Expect(calendar).Not.ToBeVisibleAsync(new() { Timeout = DefaultTimeout });
