@@ -53,8 +53,10 @@ public class HxCardTests : BunitTestBase
 
 		// Image should appear before the body in the DOM
 		var children = card.Children;
-		var imgIndex = Array.IndexOf(children.ToArray(), img);
-		var bodyIndex = Array.IndexOf(children.ToArray(), card.QuerySelector(".card-body"));
+		var childrenArray = children.ToArray();
+		var body = card.QuerySelector(".card-body");
+		var imgIndex = Array.IndexOf(childrenArray, img);
+		var bodyIndex = Array.IndexOf(childrenArray, body);
 		Assert.IsTrue(imgIndex < bodyIndex, "Image should be rendered before the body");
 	}
 
