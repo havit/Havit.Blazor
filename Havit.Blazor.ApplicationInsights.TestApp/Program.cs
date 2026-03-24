@@ -1,3 +1,4 @@
+using Havit.Blazor.ApplicationInsights.TestApp.Client;
 using Havit.Blazor.ApplicationInsights.TestApp.Components;
 
 namespace Havit.Blazor.ApplicationInsights.TestApp;
@@ -13,7 +14,14 @@ public class Program
 			.AddInteractiveServerComponents()
 			.AddInteractiveWebAssemblyComponents();
 
-		builder.Services.AddBlazorApplicationInsights(options => options.JsSdkOptions.ConnectionString = ConnectionStrings.ApplicationInsights);
+		builder.Services.AddBlazorApplicationInsights(options =>
+		{
+			options.JsSdkOptions.ConnectionString = ConnectionStrings.ApplicationInsights;
+			options.DefaultTelemetryInitializer = new Havit.Blazor.ApplicationInsights.Telemetry.TelemetryInitializer
+			{
+				CloudRoleName = TestDefaults.DefaultTelemetryInitializerCloudRoleName
+			};
+		});
 
 		var app = builder.Build();
 

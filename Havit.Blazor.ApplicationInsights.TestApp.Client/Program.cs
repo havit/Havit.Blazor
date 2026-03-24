@@ -12,7 +12,14 @@ internal class Program
 		builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 
 		builder.Logging.AddBlazorApplicationInsights();
-		builder.Services.AddBlazorApplicationInsights(options => options.JsSdkOptions.ConnectionString = ConnectionStrings.ApplicationInsights);
+		builder.Services.AddBlazorApplicationInsights(options =>
+		{
+			options.JsSdkOptions.ConnectionString = ConnectionStrings.ApplicationInsights;
+			options.DefaultTelemetryInitializer = new Havit.Blazor.ApplicationInsights.Telemetry.TelemetryInitializer
+			{
+				CloudRoleName = TestDefaults.DefaultTelemetryInitializerCloudRoleName
+			};
+		});
 
 		await builder.Build().RunAsync();
 	}

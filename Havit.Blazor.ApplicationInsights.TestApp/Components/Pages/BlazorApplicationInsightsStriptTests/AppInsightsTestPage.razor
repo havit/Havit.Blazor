@@ -1,4 +1,4 @@
-@page "/blazorapplicationinsightsscript/{mode?}"
+@attribute [Route(NavigationRoutes.BlazorApplicationInsightsScriptTests.RouteTemplate)]
 
 <h1>Test BlazorApplicationInsightsScript</h1>
 <h3>Render mode: @(GetRenderMode()?.GetType().Name ?? "SSR")</h3>
@@ -9,12 +9,5 @@
 	[Parameter]
 	public string Mode { get; set; }
 
-	private IComponentRenderMode GetRenderMode() => Mode switch
-	{
-		"interactive-server"              => InteractiveServerWithoutPrerendering,
-		"interactive-server-prerendering" => InteractiveServer,
-		"interactive-wasm"                => InteractiveWebAssemblyWithoutPrerendering,
-		"interactive-wasm-prerendering"   => InteractiveWebAssembly,
-		_                                 => null
-	};
+	private IComponentRenderMode GetRenderMode() => RenderModeRouteHelper.GetRenderMode(Mode);
 }

@@ -27,7 +27,7 @@ public class TelemetryInitializerTests : BlazorApplicationInsightsPageTestBase
 		Assert.IsNotNull(beforeItem, "before-initializer metric not found in captured telemetry.");
 		Assert.IsNotNull(afterItem, "after-initializer metric not found in captured telemetry.");
 
-		Assert.IsNull(beforeItem.CloudRoleName, "before-initializer should not have ai.cloud.role.");
+		Assert.AreNotEqual("test-role", beforeItem.CloudRoleName, "before-initializer should not have ai.cloud.role 'test-role'.");
 		Assert.AreEqual("test-role", afterItem.CloudRoleName, "after-initializer should have ai.cloud.role 'test-role'.");
 	}
 }

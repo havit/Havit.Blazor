@@ -1,27 +1,15 @@
-@attribute [Route(NavigationRoutes.DefaultTelemetryInitializerTest)]
-@rendermode InteractiveServerWithoutPrerendering
-@inject IBlazorApplicationInsights BlazorApplicationInsights
+@attribute [Route(NavigationRoutes.DefaultTelemetryInitializerTests.RouteTemplate)]
 
 <h1>Test Default Telemetry Initializer</h1>
+<h3>Render mode: @(GetRenderMode()?.GetType().Name ?? "SSR")</h3>
 
-<BlazorApplicationInsightsScript />
+<BlazorApplicationInsightsScript @rendermode="GetRenderMode()" />
 
-@if (_done)
-{
-	<span id="done">done</span>
-}
+@code {
+	[Parameter]
+	public string Mode { get; set; }
 
-@code
-{
-	private bool _done;
+	private IComponentRenderMode GetRenderMode() => RenderModeRouteHelper.GetRenderMode(Mode);
 
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-		{
-			await BlazorApplicationInsights.FlushAsync();
-			_done = true;
-			StateHasChanged();
-		}
-	}
+    // no OnAfterRenderAsync due SSR
 }
