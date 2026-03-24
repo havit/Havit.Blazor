@@ -64,7 +64,7 @@ public class HxInputTextAreaTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxInputTextArea_RowsParameter_ControlsHeight()
+	public void HxInputTextArea_AdditionalAttributes_RenderedOnTextarea()
 	{
 		// Arrange
 		string currentValue = null;
@@ -84,7 +84,7 @@ public class HxInputTextAreaTests : BunitTestBase
 
 		// Assert
 		var textarea = cut.Find("textarea");
-		Assert.AreEqual("5", textarea.GetAttribute("rows"), "Textarea should have the rows attribute set to 5.");
+		Assert.AreEqual("5", textarea.GetAttribute("rows"), "Additional HTML attributes should be splatted onto the textarea element.");
 	}
 
 	private class FormModel
