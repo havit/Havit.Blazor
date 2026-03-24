@@ -76,4 +76,40 @@ public class HxBreadcrumbTests : BunitTestBase
 		Assert.IsNotNull(secondAnchor, "Second non-active breadcrumb item should contain a link.");
 		Assert.AreEqual("/library", secondAnchor.GetAttribute("href"));
 	}
+
+	[TestMethod]
+	public void HxBreadcrumb_NonActiveItem_Click_Navigates()
+	{
+		// Arrange & Act
+		var cut = RenderComponent<HxBreadcrumb>(parameters => parameters
+			.AddChildContent<HxBreadcrumbItem>(item => item
+				.Add(i => i.Href, "/home")
+				.Add(i => i.Text, "Home"))
+			.AddChildContent<HxBreadcrumbItem>(item => item
+				.Add(i => i.Href, "/library")
+				.Add(i => i.Text, "Library"))
+			.AddChildContent<HxBreadcrumbItem>(item => item
+				.Add(i => i.Text, "Data")
+				.Add(i => i.Active, true))
+		);
+
+		// Get NavigationManager from the test services
+		var navigationManager = Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions
+			.GetRequiredService<Microsoft.AspNetCore.Components.NavigationManager>(Services);
+
+		var initialUri = navigationManager.Uri;
+
+		// Act — click on a non-active breadcrumb item (e.g., "Library")
+		var nonActiveItems = cut.FindAll("li.breadcrumb-item:not(.active)");
+		Assert.AreEqual(2, nonActiveItems.Count, "There should be two non-active items.");
+
+		var libraryAnchor = nonActiveItems[1].QuerySelector("a");
+		Assert.IsNotNull(libraryAnchor, "Second non-active breadcrumb item should contain a link.");
+
+		libraryAnchor.Click();
+
+		// Assert — NavigationManager URI changed to the clicked item's href
+		Assert.AreNotEqual(initialUri, navigationManager.Uri, "NavigationManager URI should change after clicking a breadcrumb link.");
+		StringAssert.EndsWith(navigationManager.Uri, "/library", "NavigationManager URI should end with the clicked breadcrumb href.");
+	}
 }
