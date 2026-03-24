@@ -110,6 +110,7 @@ public class HxTreeViewTests : BunitTestBase
 			.Add(p => p.Items, testData)
 			.Add(p => p.ItemTitleSelector, item => item.Title)
 			.Add(p => p.ItemChildrenSelector, item => item.Children)
+			.Add(p => p.SelectedItem, selectedItem)
 			.Add(p => p.SelectedItemChanged, (TreeItem item) => { selectedItem = item; })
 		);
 
