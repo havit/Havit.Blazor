@@ -1,0 +1,57 @@
+@page "/HxSearchBox_E2E"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxSearchBox TItem="SearchItem"
+			 DataProvider="ProvideSearchResults"
+			 ItemTitleSelector="item => item.Title"
+			 @bind-TextQuery="_textQuery"
+			 OnItemSelected="HandleItemSelected"
+			 OnTextQueryTriggered="HandleTextQueryTriggered"
+			 AllowTextQuery="true"
+			 MinimumLength="1"
+			 Delay="0"
+			 Placeholder="Search..." />
+
+<p data-testid="selected-item">@_selectedItem</p>
+<p data-testid="text-query-triggered">@_textQueryTriggered</p>
+<p data-testid="current-text-query">@_textQuery</p>
+
+@code {
+	private string _selectedItem;
+	private string _textQueryTriggered;
+	private string _textQuery;
+
+	private static readonly List<SearchItem> _searchItems = new()
+	{
+		new SearchItem { Title = "Apple" },
+		new SearchItem { Title = "Apricot" },
+		new SearchItem { Title = "Banana" },
+		new SearchItem { Title = "Cherry" },
+	};
+
+	private Task<SearchBoxDataProviderResult<SearchItem>> ProvideSearchResults(SearchBoxDataProviderRequest request)
+	{
+		var filteredItems = _searchItems
+			.Where(i => string.IsNullOrEmpty(request.UserInput) || i.Title.Contains(request.UserInput, StringComparison.OrdinalIgnoreCase))
+			.ToList();
+
+		return Task.FromResult(new SearchBoxDataProviderResult<SearchItem> { Data = filteredItems });
+	}
+
+	private Task HandleItemSelected(SearchItem item)
+	{
+		_selectedItem = item.Title;
+		return Task.CompletedTask;
+	}
+
+	private Task HandleTextQueryTriggered(string textQuery)
+	{
+		_textQueryTriggered = textQuery;
+		return Task.CompletedTask;
+	}
+
+	public class SearchItem
+	{
+		public string Title { get; set; }
+	}
+}
