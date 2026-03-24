@@ -33,9 +33,9 @@ public class HxInputDateTests : TestAppTestBase
 		// Wait for the calendar to be visible
 		await Page.WaitForSelectorAsync(".hx-calendar", new() { State = WaitForSelectorState.Visible });
 
-		// Click on day 15
+		// Click on day 15 (15th in-month day; zero-based index 14)
 		var calendar = Page.Locator(".hx-calendar");
-		await calendar.Locator("button:has-text('15')").ClickAsync();
+		await calendar.Locator(".hx-calendar-day-in").Nth(14).ClickAsync();
 
 		// Assert - The value should be set to the selected date
 		var expectedDateText = new System.DateTime(2024, 6, 15).ToShortDateString();
