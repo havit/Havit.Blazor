@@ -78,8 +78,11 @@ public class HxListLayoutTests : BunitTestBase
 			})));
 
 		// Assert — chip list is rendered and contains the active filter value
-		var chipList = cut.Find(".hx-chip-list");
-		Assert.Contains("ActiveFilter", chipList.TextContent);
+		cut.WaitForAssertion(() =>
+		{
+			var chipList = cut.Find(".hx-chip-list");
+			Assert.Contains("ActiveFilter", chipList.TextContent);
+		});
 	}
 
 	[TestMethod]
