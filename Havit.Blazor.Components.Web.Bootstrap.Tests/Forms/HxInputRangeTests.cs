@@ -42,7 +42,7 @@ public class HxInputRangeTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxInputRange_Label_DisplaysCurrentValue()
+	public void HxInputRange_WithLabel_RendersLabelAndCorrectValueAttribute()
 	{
 		// Arrange
 		int currentValue = 42;
