@@ -70,7 +70,7 @@ public class HxSidebar_Tests : TestAppTestBase
 	{
 		await NavigateToTestAppAsync("/HxSidebarTests/navigate-target");
 
-		await Expect(Page.Locator("[data-testid='sidebar-wrapper'] a.hx-sidebar-item.active").First).ToBeVisibleAsync();
+		await Expect(Page.Locator("[data-testid='sidebar-wrapper'] a.hx-sidebar-item.active:visible")).ToBeVisibleAsync();
 	}
 
 	/// <summary>
