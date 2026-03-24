@@ -18,7 +18,7 @@ public class HxScrollspy_ScrollAndClick_Tests : TestAppTestBase
 		await Expect(navLink1).ToHaveClassAsync(new Regex(@"\bactive\b"), new() { Timeout = 5_000 });
 
 		// Act - scroll the scrollspy container down to bring section 2 into view
-		await Page.EvaluateAsync("(() => { const container = document.querySelector('.test-scrollspy'); const section2 = document.querySelector('#section2'); if (container && section2) { container.scrollTop = section2.offsetTop - container.offsetTop; } })();");
+		await Page.EvaluateAsync("(() => { const container = document.querySelector('.test-scrollspy'); const section2 = document.querySelector('#section2'); if (container && section2) { container.scrollTop = section2.offsetTop; } })();");
 
 		// Assert - second nav link should now be active
 		await Expect(navLink2).ToHaveClassAsync(new Regex(@"\bactive\b"), new() { Timeout = 5_000 });
