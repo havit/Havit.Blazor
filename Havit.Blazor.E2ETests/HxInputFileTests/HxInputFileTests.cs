@@ -34,7 +34,7 @@ public class HxInputFileTests : TestAppTestBase
 		// Arrange
 		await NavigateToTestAppAsync("/HxInputFileTests");
 
-		string tmpDir = Path.Combine(Path.GetTempPath(), "hx-input-file-multi-test");
+		string tmpDir = Path.Combine(Path.GetTempPath(), "hx-input-file-multi-test", System.Guid.NewGuid().ToString("N"));
 		Directory.CreateDirectory(tmpDir);
 		string file1 = Path.Combine(tmpDir, "file1.txt");
 		string file2 = Path.Combine(tmpDir, "file2.txt");
