@@ -98,7 +98,7 @@ public class HxInputDateTests : BunitTestBase
 
 		// Assert
 		Assert.IsNull(myValue, "Bound value should remain null after invalid input.");
-		Assert.IsNotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"), "Invalid CSS class should be applied.");
+		Assert.IsTrue(cut.Find("input").ClassList.Contains(HxInputBase<object>.InvalidCssClass), "Input element should have the invalid CSS class.");
 		Assert.AreEqual("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent, "Parsing error message should be displayed.");
 	}
 
