@@ -111,8 +111,8 @@ public class HxListLayoutTests : BunitTestBase
 				builder.CloseComponent();
 			})));
 
-		// Verify that the chip remove button is present before acting
-		cut.Find(".hx-chip-list-remove-btn");
+		// Wait for the chip remove button to appear (chips are generated in OnAfterRenderAsync)
+		cut.WaitForAssertion(() => cut.Find(".hx-chip-list-remove-btn"));
 
 		// Act — click the chip remove button
 		await cut.InvokeAsync(() => cut.Find(".hx-chip-list-remove-btn").Click());
