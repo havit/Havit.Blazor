@@ -32,11 +32,10 @@ public class HxFormValueTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public void HxFormValue_ValueTemplate_OverridesValueText()
+	public void HxFormValue_ValueTemplate_RendersCustomContent()
 	{
 		// Arrange & Act
 		var cut = RenderComponent<HxFormValue>(parameters => parameters
-			.Add(p => p.Value, "PlainValue")
 			.Add(p => p.ValueTemplate, (RenderTreeBuilder builder) =>
 			{
 				builder.OpenElement(0, "span");
