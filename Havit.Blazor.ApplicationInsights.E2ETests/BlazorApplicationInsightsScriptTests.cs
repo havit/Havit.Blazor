@@ -23,10 +23,16 @@ public class BlazorApplicationInsightsScriptTests : BlazorApplicationInsightsPag
 
 	private async Task TestApplicationInsightsLoadedAndConfigured(string url, string expectedConnectionString)
 	{
+		// Arrange
 		await Page.RouteApplicationInsightsTrackAsync(null);
 
+		// Act
 		await Page.GotoAsync(url);
 		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core"); // Wait for the JS SDK full initialization.
+		string currentConnectionString = await Page.EvaluateAsync<string>($"window.appInsights.config.connectionString");
+
+		// Assert
 		Assert.IsTrue(await Page.EvaluateAsync<bool>($"window.appInsights.config.connectionString == '{expectedConnectionString}'"));
+		Assert.AreEqual(expectedConnectionString, currentConnectionString);
 	}
 }

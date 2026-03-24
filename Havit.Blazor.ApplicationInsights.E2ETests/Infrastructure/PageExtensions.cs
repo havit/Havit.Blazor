@@ -24,9 +24,9 @@ public static class PageExtensions
 
 			await route.FulfillAsync(new RouteFulfillOptions
 			{
-				Status = 400,
-				ContentType = "application/text",
-				Body = "Bad request"
+				Status = 200,
+				ContentType = "application/json",
+				Body = "{}"
 			});
 		});
 	}

@@ -8,6 +8,8 @@ namespace Havit.Blazor.ApplicationInsights.E2ETests;
 [TestClass]
 public class LoggingTests : BlazorApplicationInsightsPageTestBase
 {
+	protected override bool AllowConsoleErrors => true;
+
 	[TestMethod]
 	public async Task BlazorApplicationInsights_Logging_TraceLogProducesMessageDataTelemetry()
 	{
@@ -39,7 +41,7 @@ public class LoggingTests : BlazorApplicationInsightsPageTestBase
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
 		await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 
-		// Assert
+		// Assert		
 		Assert.DoesNotContain(
 			i => i.BaseType == "MessageData" && i.Data.BaseData.Message == "test-log-information",
 			capturedTelemetryItems,

@@ -12,7 +12,7 @@ public class AutoRouteTrackingTests : BlazorApplicationInsightsPageTestBase
 	public async Task EnableAutoRouteTracking_True_SendsPageViewOnNavigation()
 	{
 		// Arrange
-		using var factory = GetFactoryForTest(true);
+		await using var factory = GetFactoryForTest(true);
 		var capturedTelemetryItems = new List<AiTelemetryItem>();
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 
@@ -22,7 +22,6 @@ public class AutoRouteTrackingTests : BlazorApplicationInsightsPageTestBase
 		await Page.ClickAsync("#goto-page2");
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
 		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
-
 		// Assert
 		Assert.Contains(i => i.BaseType == "PageviewData" && i.Data.BaseData.Url?.Contains("auto-route-tracking-2") == true, capturedTelemetryItems, "Expected a PageviewData item for Page 2 URL.");
 	}
@@ -31,7 +30,7 @@ public class AutoRouteTrackingTests : BlazorApplicationInsightsPageTestBase
 	public async Task EnableAutoRouteTracking_False_DoesNotSendPageViewOnNavigation()
 	{
 		// Arrange
-		using var factory = GetFactoryForTest(false);
+		await using var factory = GetFactoryForTest(false);
 		var capturedTelemetryItems = new List<AiTelemetryItem>();
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 

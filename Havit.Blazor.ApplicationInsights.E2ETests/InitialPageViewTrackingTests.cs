@@ -29,7 +29,7 @@ public class InitialPageViewTrackingTests : BlazorApplicationInsightsPageTestBas
 	public async Task EnableInitialPageViewTracking_False_DoesNotSendInitialPageView()
 	{
 		// Arrange
-		using var factory = GetFactoryForTest(enableInitialPageViewTracking: false);
+		await using var factory = GetFactoryForTest(enableInitialPageViewTracking: false);
 		var capturedTelemetryItems = new List<AiTelemetryItem>();
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 
