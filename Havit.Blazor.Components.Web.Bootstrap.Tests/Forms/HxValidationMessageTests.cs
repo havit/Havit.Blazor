@@ -34,8 +34,8 @@ public class HxValidationMessageTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert - no validation errors means no error messages rendered
-		Assert.IsFalse(cut.Markup.Contains("invalid-feedback"), "No error feedback should be rendered when there are no validation errors.");
-		Assert.IsFalse(cut.Markup.Contains("is-invalid"), "No invalid CSS class should be rendered when there are no validation errors.");
+		Assert.DoesNotContain("invalid-feedback", cut.Markup, "No error feedback should be rendered when there are no validation errors.");
+		Assert.DoesNotContain("is-invalid", cut.Markup, "No invalid CSS class should be rendered when there are no validation errors.");
 	}
 
 	[TestMethod]
@@ -65,9 +65,9 @@ public class HxValidationMessageTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert - validation error should be displayed
-		Assert.IsTrue(cut.Markup.Contains("invalid-feedback"), "Error feedback container should be rendered.");
-		Assert.IsTrue(cut.Markup.Contains("is-invalid"), "Invalid CSS class should be rendered.");
-		Assert.IsTrue(cut.Markup.Contains("Name is required."), "Error message text should be displayed.");
+		Assert.Contains("invalid-feedback", cut.Markup, "Error feedback container should be rendered.");
+		Assert.Contains("is-invalid", cut.Markup, "Invalid CSS class should be rendered.");
+		Assert.Contains("Name is required.", cut.Markup, "Error message text should be displayed.");
 	}
 
 	[TestMethod]
@@ -98,8 +98,8 @@ public class HxValidationMessageTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert - all validation errors should be displayed
-		Assert.IsTrue(cut.Markup.Contains("Name is required."), "First error message should be displayed.");
-		Assert.IsTrue(cut.Markup.Contains("Name must be at least 3 characters."), "Second error message should be displayed.");
+		Assert.Contains("Name is required.", cut.Markup, "First error message should be displayed.");
+		Assert.Contains("Name must be at least 3 characters.", cut.Markup, "Second error message should be displayed.");
 
 		// Verify there are exactly 2 span elements with error messages
 		var spans = cut.FindAll(".invalid-feedback span");
