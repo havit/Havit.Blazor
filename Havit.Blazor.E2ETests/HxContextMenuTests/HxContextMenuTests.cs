@@ -74,9 +74,10 @@ public class HxContextMenuTests : TestAppTestBase
 
 		// Assert - item has disabled CSS class (Bootstrap Dropdown style)
 		await Expect(disabledItem).ToHaveClassAsync(new System.Text.RegularExpressions.Regex("\\bdisabled\\b"));
+		await Expect(disabledItem).ToHaveCSSAsync("pointer-events", "none");
 
-		// Act - attempt to click the disabled item
-		await disabledItem.ClickAsync();
+		// Act - attempt to click the disabled item (forced click to bypass actionability checks)
+		await disabledItem.ClickAsync(new() { Force = true });
 
 		// Assert - callback was NOT invoked for the disabled item
 		await Expect(disabledClickCount).ToHaveTextAsync("0");
