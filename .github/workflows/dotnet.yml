@@ -24,7 +24,17 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --no-restore -c Release -p:TreatWarningsAsErrors=true
+    - name: Cache Playwright browsers
+      id: playwright-cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('Directory.Packages.props') }}
     - name: Install Playwright browsers
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: pwsh Havit.Blazor.E2ETests/bin/Release/net10.0/playwright.ps1 install --with-deps
+    - name: Install Playwright system dependencies
+      if: steps.playwright-cache.outputs.cache-hit == 'true'
+      run: pwsh Havit.Blazor.E2ETests/bin/Release/net10.0/playwright.ps1 install-deps
     - name: Test
       run: dotnet test --no-build -c Release --verbosity normal
