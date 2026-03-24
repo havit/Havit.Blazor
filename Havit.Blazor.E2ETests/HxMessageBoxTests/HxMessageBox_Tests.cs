@@ -65,6 +65,8 @@ public class HxMessageBox_Tests : TestAppTestBase
 		// Assert - modal should close and result should be negative
 		await Expect(cancelButton).Not.ToBeVisibleAsync(new() { Timeout = 10_000 });
 
+		var backdrop = Page.Locator(".modal-backdrop");
+		await Expect(backdrop).ToHaveCountAsync(0);
 		var result = Page.Locator("[data-testid='result']");
 		await Expect(result).ToHaveTextAsync("Negative");
 	}
