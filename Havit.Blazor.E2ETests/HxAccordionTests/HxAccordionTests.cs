@@ -7,7 +7,7 @@ public class HxAccordionTests : TestAppTestBase
 	public async Task HxAccordion_Render_AllItemsCollapsed()
 	{
 		// Arrange & Act - Navigate to the HxAccordion test page
-		await NavigateToTestAppAsync("/HxAccordionTests");
+		await NavigateToTestAppAsync("/HxAccordion");
 
 		// Assert - All accordion bodies should be hidden (not visible) by default
 		var body1 = Page.Locator("[data-testid='body-1']");
@@ -23,7 +23,7 @@ public class HxAccordionTests : TestAppTestBase
 	public async Task HxAccordion_ClickHeader_ExpandsContent()
 	{
 		// Arrange - Navigate to the HxAccordion test page
-		await NavigateToTestAppAsync("/HxAccordionTests");
+		await NavigateToTestAppAsync("/HxAccordion");
 
 		var header1 = Page.Locator("[data-testid='header-1']");
 		var body1 = Page.Locator("[data-testid='body-1']");
@@ -42,7 +42,7 @@ public class HxAccordionTests : TestAppTestBase
 	public async Task HxAccordion_ClickExpandedHeader_CollapsesContent()
 	{
 		// Arrange - Navigate to the HxAccordion test page
-		await NavigateToTestAppAsync("/HxAccordionTests");
+		await NavigateToTestAppAsync("/HxAccordion");
 
 		var header1 = Page.Locator("[data-testid='header-1']");
 		var body1 = Page.Locator("[data-testid='body-1']");
@@ -62,7 +62,7 @@ public class HxAccordionTests : TestAppTestBase
 	public async Task HxAccordion_StayOpenFalse_ClosesOtherItem()
 	{
 		// Arrange - Navigate to the HxAccordion test page
-		await NavigateToTestAppAsync("/HxAccordionTests");
+		await NavigateToTestAppAsync("/HxAccordion");
 
 		var header1 = Page.Locator("[data-testid='header-1']");
 		var body1 = Page.Locator("[data-testid='body-1']");
@@ -84,8 +84,8 @@ public class HxAccordionTests : TestAppTestBase
 	[TestMethod]
 	public async Task HxAccordion_StayOpenTrue_AllowsMultipleOpen()
 	{
-		// Arrange - Navigate to the HxAccordion test page
-		await NavigateToTestAppAsync("/HxAccordionTests");
+		// Arrange - Navigate to the HxAccordion StayOpen test page
+		await NavigateToTestAppAsync("/HxAccordion_StayOpen");
 
 		var stayOpenHeader1 = Page.Locator("[data-testid='stayopen-header-1']");
 		var stayOpenBody1 = Page.Locator("[data-testid='stayopen-body-1']");
