@@ -103,7 +103,7 @@ public class HxValidationMessageTests : BunitTestBase
 
 		// Verify there are exactly 2 span elements with error messages
 		var spans = cut.FindAll(".invalid-feedback span");
-		Assert.AreEqual(2, spans.Count, "There should be exactly 2 error message spans.");
+		Assert.HasCount(2, spans);
 	}
 
 	private class TestModel
