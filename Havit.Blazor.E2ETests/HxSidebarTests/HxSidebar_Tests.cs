@@ -32,7 +32,7 @@ public class HxSidebar_Tests : TestAppTestBase
 	{
 		await NavigateToTestAppAsync("/HxSidebarTests");
 
-		await Page.GetByText("Dashboard").ClickAsync();
+		await Page.GetByRole(Microsoft.Playwright.AriaRole.Link, new() { Name = "Dashboard" }).ClickAsync();
 
 		await Page.WaitForURLAsync("**/HxSidebarTests/navigate-target");
 	}
