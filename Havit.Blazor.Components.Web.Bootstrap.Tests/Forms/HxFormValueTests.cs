@@ -13,8 +13,8 @@ public class HxFormValueTests : BunitTestBase
 			.Add(p => p.Value, "TestValue"));
 
 		// Assert
-		cut.Find("div.form-control");
-		Assert.IsTrue(cut.Markup.Contains("TestValue", StringComparison.Ordinal));
+		var formControl = cut.Find("div.form-control");
+		Assert.IsTrue(formControl.TextContent.Contains("TestValue", StringComparison.Ordinal));
 	}
 
 	[TestMethod]
@@ -27,7 +27,7 @@ public class HxFormValueTests : BunitTestBase
 
 		// Assert
 		var labels = cut.FindAll("label");
-		Assert.AreEqual(1, labels.Count);
+		Assert.HasCount(1, labels);
 		Assert.AreEqual("TestLabel", labels[0].TextContent);
 	}
 
@@ -36,6 +36,7 @@ public class HxFormValueTests : BunitTestBase
 	{
 		// Arrange & Act
 		var cut = RenderComponent<HxFormValue>(parameters => parameters
+			.Add(p => p.Value, "PlainValue")
 			.Add(p => p.ValueTemplate, (RenderTreeBuilder builder) =>
 			{
 				builder.OpenElement(0, "span");
@@ -45,8 +46,8 @@ public class HxFormValueTests : BunitTestBase
 			}));
 
 		// Assert
-		cut.Find("span#custom-value");
-		Assert.IsTrue(cut.Markup.Contains("CustomTemplateContent", StringComparison.Ordinal));
+		var formControl = cut.Find("div.form-control");
+		Assert.IsTrue(formControl.TextContent.Contains("CustomTemplateContent", StringComparison.Ordinal));
 	}
 
 	[TestMethod]
@@ -58,7 +59,7 @@ public class HxFormValueTests : BunitTestBase
 			.Add(p => p.Hint, "TestHint"));
 
 		// Assert
-		cut.Find("div.form-text");
-		Assert.IsTrue(cut.Markup.Contains("TestHint", StringComparison.Ordinal));
+		var hintElement = cut.Find("div.form-text");
+		Assert.IsTrue(hintElement.TextContent.Contains("TestHint", StringComparison.Ordinal));
 	}
 }
