@@ -33,11 +33,8 @@ public class HxToast_Messenger_Tests : TestAppTestBase
 		var toastBody = Page.Locator(".toast-body:has-text('This toast will auto-hide.')");
 		await Expect(toastBody).ToBeVisibleAsync(new() { Timeout = 5_000 });
 
-		// Wait for the toast to auto-hide (2000ms delay + buffer for animations)
-		await Page.WaitForTimeoutAsync(3000);
-
-		// Assert - Verify the toast is no longer visible
-		await Expect(toastBody).Not.ToBeVisibleAsync(new() { Timeout = 5_000 });
+		// Assert - Verify the toast auto-hides (2000ms delay + animation buffer)
+		await Expect(toastBody).Not.ToBeVisibleAsync(new() { Timeout = 10_000 });
 	}
 
 	[TestMethod]
