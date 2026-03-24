@@ -57,7 +57,7 @@ public class HxTooltip_HoverShowHide_Tests : TestAppTestBase
 		var pageErrors = new List<string>();
 		Page.PageError += (_, error) => pageErrors.Add(error);
 
-		await NavigateToTestAppAsync("/HxTooltip_HoverShowHide");
+		await NavigateToTestAppAsync("/HxTooltip_EmptyText");
 
 		// Act - hover over the empty-text tooltip trigger
 		var trigger = Page.Locator("[data-testid='empty-tooltip-trigger']");
