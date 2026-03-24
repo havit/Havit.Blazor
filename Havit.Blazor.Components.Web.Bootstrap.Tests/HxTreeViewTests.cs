@@ -45,7 +45,6 @@ public class HxTreeViewTests : BunitTestBase
 
 		// Assert - select only root-level items (direct children of the tree view container)
 		var treeView = cut.Find(".hx-tree-view");
-		Assert.IsNotNull(treeView);
 
 		var rootItems = treeView.Children.Where(e => e.ClassList.Contains("hx-tree-view-item"));
 		var titleTexts = rootItems
