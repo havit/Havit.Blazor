@@ -9,7 +9,7 @@ public class HxAlertTests : TestAppTestBase
 	public async Task HxAlert_Render_DisplaysContentAndColor()
 	{
 		// Arrange & Act
-		await NavigateToTestAppAsync("/HxAlertTests");
+		await NavigateToTestAppAsync("/HxAlert_Render");
 
 		// Assert - primary alert is visible with correct content and color class
 		var alert = Page.Locator("[data-testid='alert-primary'] .alert");
@@ -22,7 +22,7 @@ public class HxAlertTests : TestAppTestBase
 	public async Task HxAlert_ClickDismiss_HidesAlert()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxAlertTests");
+		await NavigateToTestAppAsync("/HxAlert_Dismiss");
 
 		var alert = Page.Locator("[data-testid='alert-dismissible-container'] .alert");
 		await Expect(alert).ToBeVisibleAsync();
@@ -39,7 +39,7 @@ public class HxAlertTests : TestAppTestBase
 	public async Task HxAlert_AfterDismiss_RemovedFromDOM()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxAlertTests");
+		await NavigateToTestAppAsync("/HxAlert_Dismiss");
 
 		var alert = Page.Locator("[data-testid='alert-dismissible-container'] .alert");
 		await Expect(alert).ToBeVisibleAsync();
