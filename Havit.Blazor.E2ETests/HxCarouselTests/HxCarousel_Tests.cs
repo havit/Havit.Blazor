@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 namespace Havit.Blazor.E2ETests.HxCarouselTests;
 
 [TestClass]
-public class HxCarouselTests : TestAppTestBase
+public class HxCarousel_Tests : TestAppTestBase
 {
 	private static readonly Regex ActiveClassRegex = new Regex("\\bactive\\b");
 	private const int CarouselTransitionTimeout = 5_000;
@@ -12,7 +12,7 @@ public class HxCarouselTests : TestAppTestBase
 	public async Task HxCarousel_Render_DisplaysCorrectSlideCount()
 	{
 		// Arrange & Act
-		await NavigateToTestAppAsync("/HxCarouselTests");
+		await NavigateToTestAppAsync("/HxCarousel");
 
 		// Assert - there should be exactly 3 carousel items
 		var slides = Page.Locator(".carousel-item");
@@ -23,7 +23,7 @@ public class HxCarouselTests : TestAppTestBase
 	public async Task HxCarousel_ClickNext_AdvancesToNextSlide()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxCarouselTests");
+		await NavigateToTestAppAsync("/HxCarousel");
 
 		// Verify slide 1 is initially active
 		var firstSlide = Page.Locator(".carousel-item").First;
@@ -42,7 +42,7 @@ public class HxCarouselTests : TestAppTestBase
 	public async Task HxCarousel_ClickPrevious_GoesToPreviousSlide()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxCarouselTests");
+		await NavigateToTestAppAsync("/HxCarousel");
 
 		// First advance to slide 2
 		var nextButton = Page.Locator(".carousel-control-next");
@@ -64,7 +64,7 @@ public class HxCarouselTests : TestAppTestBase
 	public async Task HxCarousel_Indicators_ReflectCurrentSlide()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxCarouselTests");
+		await NavigateToTestAppAsync("/HxCarousel");
 
 		// Assert - the first indicator should be active initially
 		var indicators = Page.Locator(".carousel-indicators button");
