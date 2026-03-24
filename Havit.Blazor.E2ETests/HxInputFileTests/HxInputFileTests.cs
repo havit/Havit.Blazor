@@ -7,9 +7,11 @@ public class HxInputFileTests : TestAppTestBase
 	public async Task HxInputFile_UploadFile_DisplaysFileName()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxInputFileTests");
+		await NavigateToTestAppAsync("/HxInputFile");
 
-		string tmpFile = Path.Combine(Path.GetTempPath(), "hx-test-upload.txt");
+		string tmpDir = Path.Combine(Path.GetTempPath(), "hx-input-file-single-test", Guid.NewGuid().ToString("N"));
+		Directory.CreateDirectory(tmpDir);
+		string tmpFile = Path.Combine(tmpDir, "hx-test-upload.txt");
 		File.WriteAllText(tmpFile, "test content");
 		string expectedFileName = Path.GetFileName(tmpFile);
 
@@ -24,7 +26,7 @@ public class HxInputFileTests : TestAppTestBase
 		}
 		finally
 		{
-			try { File.Delete(tmpFile); } catch (IOException) { /* best-effort cleanup: ignore IO issues during test cleanup */ }
+			try { Directory.Delete(tmpDir, recursive: true); } catch (IOException) { /* best-effort cleanup */ }
 		}
 	}
 
@@ -32,9 +34,9 @@ public class HxInputFileTests : TestAppTestBase
 	public async Task HxInputFile_UploadMultiple_AllFilesListed()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxInputFileTests");
+		await NavigateToTestAppAsync("/HxInputFile");
 
-		string tmpDir = Path.Combine(Path.GetTempPath(), "hx-input-file-multi-test", System.Guid.NewGuid().ToString("N"));
+		string tmpDir = Path.Combine(Path.GetTempPath(), "hx-input-file-multi-test", Guid.NewGuid().ToString("N"));
 		Directory.CreateDirectory(tmpDir);
 		string file1 = Path.Combine(tmpDir, "file1.txt");
 		string file2 = Path.Combine(tmpDir, "file2.txt");
@@ -57,15 +59,15 @@ public class HxInputFileTests : TestAppTestBase
 		}
 		finally
 		{
-			try { Directory.Delete(tmpDir, recursive: true); } catch (IOException) { /* best-effort cleanup: ignore IO issues during test cleanup */ }
+			try { Directory.Delete(tmpDir, recursive: true); } catch (IOException) { /* best-effort cleanup */ }
 		}
 	}
 
 	[TestMethod]
-	public async Task HxInputFileDropZone_DragOver_ShowsVisualFeedback()
+	public async Task HxInputFileDropZone_Hover_ShowsVisualFeedback()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxInputFileTests");
+		await NavigateToTestAppAsync("/HxInputFile");
 
 		var dropZone = Page.Locator("[data-testid='drop-zone-container'] .hx-input-file-drop-zone");
 
