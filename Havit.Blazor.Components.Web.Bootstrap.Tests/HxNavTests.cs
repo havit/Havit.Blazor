@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -50,8 +49,9 @@ public class HxNavTests : BunitTestBase
 		);
 
 		// Assert
-		var activeLink = cut.Find("a.nav-link.active");
-		Assert.IsNotNull(activeLink, "Expected the matching nav-link to have the 'active' CSS class.");
+		var activeLinks = cut.FindAll("a.nav-link.active");
+		Assert.HasCount(1, activeLinks, "Expected exactly one nav-link with the 'active' CSS class.");
+		var activeLink = activeLinks[0];
 		Assert.AreEqual("Active", activeLink.TextContent.Trim(), "Expected the 'Active' link to be the active one.");
 
 		var otherLinks = cut.FindAll("a.nav-link:not(.active)");
