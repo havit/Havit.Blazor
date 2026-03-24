@@ -56,9 +56,9 @@ public class HxModal_Basic_Tests : TestAppTestBase
 		await Expect(modalDialog).ToBeVisibleAsync(new() { Timeout = 10_000 });
 
 		// Act - Click the backdrop (the .modal element outside the dialog)
-		// Clicking at position (0, 0) of the modal overlay targets the backdrop area
+		// Clicking near position (1, 1) of the modal overlay targets the backdrop area
 		var modalOverlay = Page.Locator(".modal.show");
-		await modalOverlay.ClickAsync(new() { Position = new() { X = 10, Y = 10 } });
+		await modalOverlay.ClickAsync(new() { Position = new() { X = 1, Y = 1 } });
 
 		// Assert - The modal should be hidden
 		await Expect(modalDialog).Not.ToBeVisibleAsync(new() { Timeout = 10_000 });
