@@ -650,26 +650,29 @@ public class HxInputDateRangeTests : BunitTestBase
 	[TestMethod]
 	public void HxInputDateRange_Render_ShowsFromAndToInputs()
 	{
-		// Arrange
-		var myValue = new DateTimeRange();
-
-		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
-			builder.OpenComponent<HxInputDateRange>(0);
-			builder.AddAttribute(1, "Value", myValue);
-			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
-			builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-			builder.CloseComponent();
-		};
+			// Arrange
+			var myValue = new DateTimeRange();
 
-		// Act
-		var cut = Render(componentRenderer);
+			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+			{
+				builder.OpenComponent<HxInputDateRange>(0);
+				builder.AddAttribute(1, "Value", myValue);
+				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
+				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
+				builder.CloseComponent();
+			};
 
-		// Assert
-		var inputs = cut.FindAll("input");
-		Assert.HasCount(2, inputs, "Should render both From and To input fields");
-		Assert.AreEqual("From", inputs[0].GetAttribute("placeholder"), "First input should be the From field");
-		Assert.AreEqual("To", inputs[1].GetAttribute("placeholder"), "Second input should be the To field");
+			// Act
+			var cut = Render(componentRenderer);
+
+			// Assert
+			var inputs = cut.FindAll("input");
+			Assert.HasCount(2, inputs, "Should render both From and To input fields");
+			Assert.AreEqual("From", inputs[0].GetAttribute("placeholder"), "First input should be the From field");
+			Assert.AreEqual("To", inputs[1].GetAttribute("placeholder"), "Second input should be the To field");
+		}
 	}
 
 	[TestMethod]
