@@ -74,6 +74,10 @@ public class HxChipListTests : BunitTestBase
 		// Act – remove "Name: Peter" chip (first removable / first remove button)
 		await cut.InvokeAsync(() => cut.FindAll(".hx-chip-list-remove-btn")[0].Click());
 
+		// Verify that the remove callback was invoked with the expected chip ("Name: Peter")
+		Assert.IsNotNull(removedChip, "Expected OnChipRemoveClick to be invoked and provide a chip to remove.");
+		Assert.AreSame(chips[1], removedChip, "Expected the removed chip to be the \"Name: Peter\" chip.");
+
 		// Simulate the parent updating the chips list in response to the callback
 		chips.Remove(removedChip);
 		cut.SetParametersAndRender(p => p.Add(x => x.Chips, chips));
