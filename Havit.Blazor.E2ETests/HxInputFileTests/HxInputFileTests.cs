@@ -24,7 +24,7 @@ public class HxInputFileTests : TestAppTestBase
 		}
 		finally
 		{
-			try { File.Delete(tmpFile); } catch { /* best-effort cleanup */ }
+			try { File.Delete(tmpFile); } catch (IOException) { /* best-effort cleanup: ignore IO issues during test cleanup */ }
 		}
 	}
 
@@ -57,7 +57,7 @@ public class HxInputFileTests : TestAppTestBase
 		}
 		finally
 		{
-			try { Directory.Delete(tmpDir, recursive: true); } catch { /* best-effort cleanup */ }
+			try { Directory.Delete(tmpDir, recursive: true); } catch (IOException) { /* best-effort cleanup: ignore IO issues during test cleanup */ }
 		}
 	}
 
