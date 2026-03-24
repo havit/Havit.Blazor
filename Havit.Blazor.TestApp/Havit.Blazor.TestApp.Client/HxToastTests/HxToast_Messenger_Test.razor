@@ -1,0 +1,73 @@
+﻿@page "/HxToast_Messenger"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+@inject IHxMessengerService Messenger
+
+<h3>HxToast_Messenger</h3>
+
+<HxMessenger Position="ToastContainerPosition.MiddleCenter" />
+
+<HxButton data-testid="show-single-toast" OnClick="HandleShowSingleToast" Color="ThemeColor.Primary">Show Single Toast</HxButton>
+<HxButton data-testid="show-autohide-toast" OnClick="HandleShowAutohideToast" Color="ThemeColor.Secondary">Show AutoHide Toast</HxButton>
+<HxButton data-testid="show-no-autohide-toast" OnClick="HandleShowNoAutohideToast" Color="ThemeColor.Warning">Show No-AutoHide Toast</HxButton>
+<HxButton data-testid="show-multiple-toasts" OnClick="HandleShowMultipleToasts" Color="ThemeColor.Info">Show Multiple Toasts</HxButton>
+
+@code {
+	private void HandleShowSingleToast()
+	{
+		Messenger.AddMessage(new BootstrapMessengerMessage()
+		{
+			Color = ThemeColor.Success,
+			Title = "Messenger Toast",
+			Text = "This toast was shown via messenger.",
+			AutohideDelay = null
+		});
+	}
+
+	private void HandleShowAutohideToast()
+	{
+		Messenger.AddMessage(new BootstrapMessengerMessage()
+		{
+			Color = ThemeColor.Primary,
+			Title = "AutoHide Toast",
+			Text = "This toast will auto-hide.",
+			AutohideDelay = 2000
+		});
+	}
+
+	private void HandleShowNoAutohideToast()
+	{
+		Messenger.AddMessage(new BootstrapMessengerMessage()
+		{
+			Color = ThemeColor.Danger,
+			Title = "Closable Toast",
+			Text = "Close me with the button.",
+			AutohideDelay = null
+		});
+	}
+
+	private void HandleShowMultipleToasts()
+	{
+		Messenger.AddMessage(new BootstrapMessengerMessage()
+		{
+			Color = ThemeColor.Primary,
+			Title = "Toast One",
+			Text = "First toast message.",
+			AutohideDelay = null
+		});
+		Messenger.AddMessage(new BootstrapMessengerMessage()
+		{
+			Color = ThemeColor.Success,
+			Title = "Toast Two",
+			Text = "Second toast message.",
+			AutohideDelay = null
+		});
+		Messenger.AddMessage(new BootstrapMessengerMessage()
+		{
+			Color = ThemeColor.Warning,
+			Title = "Toast Three",
+			Text = "Third toast message.",
+			AutohideDelay = null
+		});
+	}
+}
