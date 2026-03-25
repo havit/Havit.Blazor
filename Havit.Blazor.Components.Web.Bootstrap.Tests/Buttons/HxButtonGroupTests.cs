@@ -20,6 +20,6 @@ public class HxButtonGroupTests : BunitTestBase
 
 		// Assert - both buttons should be rendered inside the group
 		var buttons = cut.FindAll("button");
-		Assert.AreEqual(2, buttons.Count, "Both buttons should be rendered inside the group");
+		Assert.HasCount(2, buttons, "Both buttons should be rendered inside the group");
 	}
 }
