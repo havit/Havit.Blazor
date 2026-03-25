@@ -28,10 +28,12 @@ public class HxSubmitTests : BunitTestBase
 		});
 
 		// Act
-		cut.Find("button[type='submit']").Click();
+		var submitButton = cut.Find("button");
+		Assert.AreEqual("submit", submitButton.GetAttribute("type"), "HxSubmit should render a submit button.");
+		cut.Find("form").Submit();
 
 		// Assert
-		Assert.IsTrue(formSubmitted, "Form should be submitted when HxSubmit button is clicked");
+		Assert.IsTrue(formSubmitted, "Form should be submitted when the form is submitted");
 	}
 
 	private class TestFormModel
