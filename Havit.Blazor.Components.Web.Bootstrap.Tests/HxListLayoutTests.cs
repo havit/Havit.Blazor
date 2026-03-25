@@ -40,6 +40,9 @@ public class HxListLayoutTests : BunitTestBase
 
 		// Assert — filter button area is rendered (because FilterTemplate is set)
 		cut.Find(".hx-list-layout-header-buttons");
+
+		// Assert — filter template content is rendered
+		cut.Find(".test-filter-area");
 	}
 
 	[TestMethod]
@@ -59,6 +62,7 @@ public class HxListLayoutTests : BunitTestBase
 
 		// Assert — FilterModelChanged was raised, allowing the grid to refresh
 		Assert.IsNotNull(appliedFilter, "FilterModelChanged should be raised after the filter form is submitted.");
+		Assert.AreEqual("Initial", appliedFilter.Name, "Submitted filter model should preserve the original Name value.");
 	}
 
 	[TestMethod]
