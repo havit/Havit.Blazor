@@ -28,7 +28,7 @@ public class HxCalendarTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public async Task HxCalendar_NavigateNext_ShowsNextMonth()
+	public async Task HxCalendar_NavigateNext_FiresDisplayMonthChangedWithNextMonth()
 	{
 		// Arrange
 		var displayMonth = new DateTime(2025, 3, 1);
@@ -41,6 +41,7 @@ public class HxCalendarTests : BunitTestBase
 
 		// Act — click the next-month navigation button (second .hx-calendar-navigation-button)
 		var navButtons = cut.FindAll("button.hx-calendar-navigation-button");
+		Assert.HasCount(2, navButtons, "Expected exactly 2 navigation buttons (previous and next)");
 		await cut.InvokeAsync(() => navButtons[1].Click());
 
 		// Assert
@@ -49,7 +50,7 @@ public class HxCalendarTests : BunitTestBase
 	}
 
 	[TestMethod]
-	public async Task HxCalendar_NavigatePrevious_ShowsPreviousMonth()
+	public async Task HxCalendar_NavigatePrevious_FiresDisplayMonthChangedWithPreviousMonth()
 	{
 		// Arrange
 		var displayMonth = new DateTime(2025, 3, 1);
@@ -62,6 +63,7 @@ public class HxCalendarTests : BunitTestBase
 
 		// Act — click the previous-month navigation button (first .hx-calendar-navigation-button)
 		var navButtons = cut.FindAll("button.hx-calendar-navigation-button");
+		Assert.HasCount(2, navButtons, "Expected exactly 2 navigation buttons (previous and next)");
 		await cut.InvokeAsync(() => navButtons[0].Click());
 
 		// Assert
