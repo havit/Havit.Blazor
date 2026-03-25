@@ -1,5 +1,6 @@
 @page "/HxSidebarTests"
 @page "/HxSidebarTests/navigate-target"
+@page "/HxSidebarTests/monthly-report"
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 <div data-testid="sidebar-wrapper">
@@ -12,7 +13,7 @@
 			<HxSidebarItem Text="Dashboard" Icon="BootstrapIcon.House"
 						   Href="/HxSidebarTests/navigate-target" Match="NavLinkMatch.All" />
 			<HxSidebarItem Text="Reports" Icon="BootstrapIcon.BarChart">
-				<HxSidebarItem Text="Monthly Report" Href="/HxSidebarTests/navigate-target" Match="NavLinkMatch.All" />
+				<HxSidebarItem Text="Monthly Report" Href="/HxSidebarTests/monthly-report" Match="NavLinkMatch.All" />
 			</HxSidebarItem>
 		</ItemsTemplate>
 
