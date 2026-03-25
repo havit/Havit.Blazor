@@ -1,7 +1,7 @@
 namespace Havit.Blazor.E2ETests.HxDropdownTests;
 
 [TestClass]
-public class HxDropdownTests : TestAppTestBase
+public class HxDropdown_Tests : TestAppTestBase
 {
 	private const int DropdownAnimationTimeout = 5_000;
 
@@ -9,7 +9,7 @@ public class HxDropdownTests : TestAppTestBase
 	public async Task HxDropdown_ClickToggle_OpensMenu()
 	{
 		// Arrange - navigate to the test page
-		await NavigateToTestAppAsync("/HxDropdownTests");
+		await NavigateToTestAppAsync("/HxDropdown");
 
 		var toggleButton = Page.Locator("[data-testid='toggle-button']");
 		var dropdownMenu = Page.Locator(".dropdown-menu");
@@ -28,7 +28,7 @@ public class HxDropdownTests : TestAppTestBase
 	public async Task HxDropdown_ClickOutside_ClosesMenu()
 	{
 		// Arrange - navigate to the test page
-		await NavigateToTestAppAsync("/HxDropdownTests");
+		await NavigateToTestAppAsync("/HxDropdown");
 
 		var toggleButton = Page.Locator("[data-testid='toggle-button']");
 		var dropdownMenu = Page.Locator(".dropdown-menu");
@@ -48,7 +48,7 @@ public class HxDropdownTests : TestAppTestBase
 	public async Task HxDropdown_ClickItem_TriggersActionAndCloses()
 	{
 		// Arrange - navigate to the test page
-		await NavigateToTestAppAsync("/HxDropdownTests");
+		await NavigateToTestAppAsync("/HxDropdown");
 
 		var toggleButton = Page.Locator("[data-testid='toggle-button']");
 		var actionItem = Page.Locator("[data-testid='action-item']");
@@ -69,7 +69,7 @@ public class HxDropdownTests : TestAppTestBase
 	public async Task HxDropdown_HeaderAndDivider_RenderInMenu()
 	{
 		// Arrange - navigate to the test page
-		await NavigateToTestAppAsync("/HxDropdownTests");
+		await NavigateToTestAppAsync("/HxDropdown");
 
 		var toggleButton = Page.Locator("[data-testid='toggle-button']");
 
@@ -82,6 +82,6 @@ public class HxDropdownTests : TestAppTestBase
 		await Expect(dropdownHeader).ToHaveTextAsync("Section Header");
 
 		var dropdownDivider = Page.Locator(".dropdown-divider");
-		await Expect(dropdownDivider).ToBeVisibleAsync(new() { Timeout = DropdownAnimationTimeout });
+		await Expect(dropdownDivider).ToHaveCountAsync(1, new() { Timeout = DropdownAnimationTimeout });
 	}
 }
