@@ -38,7 +38,7 @@ public class HxDropdown_Tests : TestAppTestBase
 		await Expect(dropdownMenu).ToBeVisibleAsync(new() { Timeout = DropdownAnimationTimeout });
 
 		// Act 2 - click outside the dropdown to close it
-		await Page.Locator("body").ClickAsync(new() { Position = new() { X = 0, Y = 0 } });
+		await Page.Locator("[data-testid='outside-click-area']").ClickAsync();
 
 		// Assert - menu is no longer visible
 		await Expect(dropdownMenu).Not.ToBeVisibleAsync(new() { Timeout = DropdownAnimationTimeout });
