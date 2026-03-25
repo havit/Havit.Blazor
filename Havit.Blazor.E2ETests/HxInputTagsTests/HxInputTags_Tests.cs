@@ -1,13 +1,13 @@
 namespace Havit.Blazor.E2ETests.HxInputTagsTests;
 
 [TestClass]
-public class HxInputTagsTests : TestAppTestBase
+public class HxInputTags_Tests : TestAppTestBase
 {
 	[TestMethod]
 	public async Task HxInputTags_TypeAndEnter_AddsTag()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxInputTagsTests");
+		await NavigateToTestAppAsync("/HxInputTags");
 
 		var input = Page.Locator("input[type='text']");
 		var tagsOutput = Page.Locator("[data-testid='tags-output']");
@@ -26,7 +26,7 @@ public class HxInputTagsTests : TestAppTestBase
 	public async Task HxInputTags_ClickRemove_RemovesTag()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxInputTagsTests");
+		await NavigateToTestAppAsync("/HxInputTags");
 
 		var input = Page.Locator("input[type='text']");
 		var tagsOutput = Page.Locator("[data-testid='tags-output']");
@@ -48,7 +48,7 @@ public class HxInputTagsTests : TestAppTestBase
 	public async Task HxInputTags_AddDuplicate_IsRejected()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxInputTagsTests");
+		await NavigateToTestAppAsync("/HxInputTags");
 
 		var input = Page.Locator("input[type='text']");
 		var tagsOutput = Page.Locator("[data-testid='tags-output']");
@@ -71,7 +71,7 @@ public class HxInputTagsTests : TestAppTestBase
 	public async Task HxInputTags_AddMultiple_AllDisplayed()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxInputTagsTests");
+		await NavigateToTestAppAsync("/HxInputTags");
 
 		var input = Page.Locator("input[type='text']");
 		var tagsOutput = Page.Locator("[data-testid='tags-output']");
