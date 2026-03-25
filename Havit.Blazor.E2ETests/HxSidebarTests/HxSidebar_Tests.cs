@@ -17,7 +17,7 @@ public class HxSidebar_Tests : TestAppTestBase
 
 		// Items are visible
 		await Expect(Page.GetByText("Dashboard")).ToBeVisibleAsync();
-		await Expect(Page.Locator("[data-testid='sidebar-wrapper'] .hx-sidebar-item").Filter(new() { HasTextString = "Reports" }).First).ToBeVisibleAsync();
+		await Expect(Page.Locator("[data-testid='sidebar-wrapper'] .hx-sidebar-item:visible").Filter(new() { HasTextString = "Reports" }).First).ToBeVisibleAsync();
 
 		// Footer is visible
 		await Expect(Page.Locator(".hx-sidebar-footer")).ToBeVisibleAsync();
@@ -45,7 +45,7 @@ public class HxSidebar_Tests : TestAppTestBase
 	{
 		await NavigateToTestAppAsync("/HxSidebarTests");
 
-		var toggler = Page.Locator(".hx-sidebar-toggler");
+		var toggler = Page.Locator("[data-testid='sidebar-wrapper'] .hx-sidebar-toggler");
 		var collapsedState = Page.Locator("[data-testid='collapsed-state']");
 
 		// Initially expanded
