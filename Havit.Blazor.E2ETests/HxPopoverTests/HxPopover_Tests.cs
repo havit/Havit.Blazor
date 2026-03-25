@@ -1,13 +1,13 @@
 namespace Havit.Blazor.E2ETests.HxPopoverTests;
 
 [TestClass]
-public class HxPopoverTests : TestAppTestBase
+public class HxPopover_Tests : TestAppTestBase
 {
 	[TestMethod]
 	public async Task HxPopover_ClickTrigger_ShowsPopover()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxPopoverTests");
+		await NavigateToTestAppAsync("/HxPopover");
 
 		var trigger = Page.Locator("[data-testid='popover-trigger']");
 		var popover = Page.Locator(".popover");
@@ -23,7 +23,7 @@ public class HxPopoverTests : TestAppTestBase
 	public async Task HxPopover_Content_DisplaysTitleAndBody()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxPopoverTests");
+		await NavigateToTestAppAsync("/HxPopover");
 
 		var trigger = Page.Locator("[data-testid='popover-trigger']");
 
@@ -44,7 +44,7 @@ public class HxPopoverTests : TestAppTestBase
 	public async Task HxPopover_ClickOutside_HidesPopover()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxPopoverTests");
+		await NavigateToTestAppAsync("/HxPopover");
 
 		var trigger = Page.Locator("[data-testid='popover-trigger']");
 		var popover = Page.Locator(".popover");
