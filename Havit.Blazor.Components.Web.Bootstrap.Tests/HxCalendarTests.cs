@@ -115,7 +115,7 @@ public class HxCalendarTests : BunitTestBase
 
 			// Assert — the element for day 20 should have the "hx-calendar-day-selected" CSS class
 			var selectedElements = cut.FindAll(".hx-calendar-day-selected");
-			Assert.AreEqual(1, selectedElements.Count, "Exactly one day should have the selected class");
+			Assert.HasCount(1, selectedElements, "Exactly one day should have the selected class");
 			Assert.AreEqual("20", selectedElements[0].TextContent.Trim());
 		}
 	}
