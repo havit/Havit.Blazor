@@ -7,7 +7,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 public class HxCalendarTests : BunitTestBase
 {
 	[TestMethod]
-	public void HxCalendar_Render_DisplaysCurrentMonth()
+	public void HxCalendar_Render_SetsMonthAndYearFromDisplayMonth()
 	{
 		// Arrange
 		var displayMonth = new DateTime(2025, 6, 1);
