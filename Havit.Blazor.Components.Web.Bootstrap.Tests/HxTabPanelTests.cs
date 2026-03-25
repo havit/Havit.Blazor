@@ -83,4 +83,116 @@ public class HxTabPanelTests : BunitTestBase
 		Assert.AreEqual(0, activatedCallbackCount, "OnTabActivated should not be called when the active tab hasn't changed");
 		Assert.AreEqual(0, deactivatedCallbackCount, "OnTabDeactivated should not be called when the active tab hasn't changed");
 	}
+
+	[TestMethod]
+	public void HxTabPanel_Render_DisplaysAllTabHeaders()
+	{
+		// Act
+		var component = RenderComponent<HxTabPanel>(parameters => parameters
+			.Add(p => p.ActiveTabId, "tab1")
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "Alpha")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content Alpha"))
+			)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab2")
+				.Add(t => t.Title, "Beta")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content Beta"))
+			)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab3")
+				.Add(t => t.Title, "Gamma")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content Gamma"))
+			)
+		);
+
+		// Assert - All three tab headers should be rendered as nav-link elements
+		var navLinks = component.FindAll("a.nav-link");
+		Assert.HasCount(3, navLinks);
+		Assert.AreEqual("Alpha", navLinks[0].TextContent.Trim());
+		Assert.AreEqual("Beta", navLinks[1].TextContent.Trim());
+		Assert.AreEqual("Gamma", navLinks[2].TextContent.Trim());
+	}
+
+	[TestMethod]
+	public void HxTabPanel_ClickTab_SwitchesToItsContent()
+	{
+		// Arrange
+		string activeTabId = "tab1";
+
+		var component = RenderComponent<HxTabPanel>(parameters => parameters
+			.Add(p => p.ActiveTabId, activeTabId)
+			.Add(p => p.ActiveTabIdChanged, newId => activeTabId = newId)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "<p>First content</p>"))
+			)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab2")
+				.Add(t => t.Title, "Second")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "<p>Second content</p>"))
+			)
+		);
+
+		// Act - Click on the second tab header
+		var navLinks = component.FindAll("a.nav-link");
+		navLinks[1].Click();
+
+		// Assert - The second tab's content pane should be active
+		var activePane = component.Find("div.tab-pane.active");
+		Assert.Contains("Second content", activePane.InnerHtml);
+	}
+
+	[TestMethod]
+	public void HxTabPanel_ActiveTab_HasActiveClass()
+	{
+		// Arrange & Act
+		var component = RenderComponent<HxTabPanel>(parameters => parameters
+			.Add(p => p.ActiveTabId, "tab2")
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 1"))
+			)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab2")
+				.Add(t => t.Title, "Second")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 2"))
+			)
+		);
+
+		// Assert - Only the second tab header should have the active class
+		var navLinks = component.FindAll("a.nav-link");
+		Assert.IsFalse(navLinks[0].ClassList.Contains("active"), "First tab should not have active class");
+		Assert.IsTrue(navLinks[1].ClassList.Contains("active"), "Second tab should have active class");
+	}
+
+	[TestMethod]
+	public void HxTabPanel_FirstTab_ActiveByDefault()
+	{
+		// Act - Render without specifying ActiveTabId
+		var component = RenderComponent<HxTabPanel>(parameters => parameters
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "First tab content"))
+			)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab2")
+				.Add(t => t.Title, "Second")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Second tab content"))
+			)
+		);
+
+		// Assert - First tab should be active by default
+		var navLinks = component.FindAll("a.nav-link");
+		Assert.IsTrue(navLinks[0].ClassList.Contains("active"), "First tab should be active by default");
+		Assert.IsFalse(navLinks[1].ClassList.Contains("active"), "Second tab should not be active by default");
+
+		// Assert - First tab's content pane should be active
+		var activePane = component.Find("div.tab-pane.active");
+		Assert.Contains("First tab content", activePane.InnerHtml);
+	}
 }

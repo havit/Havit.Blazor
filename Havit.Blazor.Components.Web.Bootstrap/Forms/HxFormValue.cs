@@ -108,12 +108,18 @@ public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueCompone
 		builder.AddAttribute(1, "class", CssClassHelper.Combine("form-control", ((IInputWithSize)this).GetInputSizeCssClass(), ValueCssClass));
 		builder.AddAttribute(2, "aria-readonly", "true");
 		builder.AddAttribute(3, "tabindex", 0);
-		builder.AddContent(4, Value);
-		builder.AddContent(5, ValueTemplate);
-		if (String.IsNullOrWhiteSpace(Value) && (ValueTemplate == null))
+		if (ValueTemplate != null)
 		{
-			// workaround for [HxFormValue] Shrunk when displaying null/empty value #208
-			builder.AddMarkupContent(4, "&nbsp;");
+			builder.AddContent(4, ValueTemplate);
+		}
+		else
+		{
+			builder.AddContent(4, Value);
+			if (String.IsNullOrWhiteSpace(Value))
+			{
+				// workaround for [HxFormValue] Shrunk when displaying null/empty value #208
+				builder.AddMarkupContent(5, "&nbsp;");
+			}
 		}
 		builder.CloseElement();
 	}

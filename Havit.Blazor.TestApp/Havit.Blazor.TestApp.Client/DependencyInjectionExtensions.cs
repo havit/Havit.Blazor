@@ -6,6 +6,7 @@ public static class DependencyInjectionExtensions
 	{
 		services.AddHxServices();
 		services.AddHxMessageBoxHost();
+		services.AddHxMessenger();
 
 		services.AddTransient<IDemoDataService, DemoDataService>();
 		services.AddGeneratedResourceWrappers();

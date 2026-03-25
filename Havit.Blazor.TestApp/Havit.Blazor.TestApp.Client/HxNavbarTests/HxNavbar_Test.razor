@@ -1,0 +1,13 @@
+@page "/HxNavbar"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxNavbar Id="test-navbar" CssClass="bg-body-tertiary">
+	<HxNavbarBrand Href="/"><span data-testid="navbar-brand">MyBrand</span></HxNavbarBrand>
+	<HxNavbarToggler data-testid="navbar-toggler" />
+	<HxNavbarCollapse>
+		<HxNav CssClass="me-auto">
+			<HxNavLink data-testid="nav-item-home" Href="#">Home</HxNavLink>
+			<HxNavLink data-testid="nav-item-about" Href="#">About</HxNavLink>
+		</HxNav>
+	</HxNavbarCollapse>
+</HxNavbar>

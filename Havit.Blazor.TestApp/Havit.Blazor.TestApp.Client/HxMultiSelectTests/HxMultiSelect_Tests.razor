@@ -1,0 +1,29 @@
+﻿@page "/HxMultiSelect"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<div class="m-3">
+	<h3>HxMultiSelect Tests</h3>
+
+	<div data-testid="outside-click-target" style="padding: 20px; margin-bottom: 20px; background-color: #f0f0f0;">
+		Click here to close dropdown
+	</div>
+
+	<div class="mb-3">
+		<HxMultiSelect TItem="string"
+					   TValue="string"
+					   Label="Select items"
+					   EmptyText="-select items-"
+					   Data="@_items"
+					   @bind-Value="@_selectedItems"
+					   TextSelector="@(item => item)"
+					   ValueSelector="@(item => item)"
+					   data-testid="toggle" />
+	</div>
+
+	<p data-testid="selected-value">@(string.Join(", ", _selectedItems))</p>
+</div>
+
+@code {
+	private static readonly List<string> _items = new() { "Alpha", "Beta", "Gamma" };
+	private List<string> _selectedItems = new();
+}

@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Globalization;
+using System.Linq.Expressions;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -45,6 +46,84 @@ public class HxInputDateTests : BunitTestBase
 			Assert.IsFalse(button.Find("button").HasAttribute("disabled"), $"Button {button.Instance.Text} should not be disabled.");
 		}
 		Assert.DoesNotContain("disabled", cut.Markup, "There should be no disabled attribute in the rendered markup.");
+	}
+
+	[TestMethod]
+	public void HxInputDate_TypeValidDate_UpdatesBoundValue()
+	{
+		// Arrange
+		DateTime? myValue = null;
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputDate<DateTime?>>(0);
+			builder.AddAttribute(1, "Value", myValue);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTime?>(this, (value) => { myValue = value; }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTime?>>)(() => myValue));
+			builder.CloseComponent();
+		};
+
+		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
+		{
+			var cut = Render(componentRenderer);
+
+			// Act
+			cut.Find("input").Change("2/10/2020");
+		}
+
+		// Assert
+		Assert.AreEqual(new DateTime(2020, 2, 10), myValue, "Bound value should be updated to the parsed date.");
+	}
+
+	[TestMethod]
+	public void HxInputDate_TypeInvalidDate_ShowsValidationError()
+	{
+		// Arrange
+		DateTime? myValue = null;
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputDate<DateTime?>>(0);
+			builder.AddAttribute(1, "Value", myValue);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTime?>(this, (value) => { myValue = value; }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTime?>>)(() => myValue));
+			builder.AddAttribute(4, "ParsingErrorMessage", "TestParsingErrorMessage");
+			builder.CloseComponent();
+		};
+
+		var cut = Render(componentRenderer);
+
+		// Act
+		cut.Find("input").Change("not-a-date");
+
+		// Assert
+		Assert.IsNull(myValue, "Bound value should remain null after invalid input.");
+		Assert.IsTrue(cut.Find("input").ClassList.Contains(HxInputBase<object>.InvalidCssClass), "Input element should have the invalid CSS class.");
+		Assert.AreEqual("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent, "Parsing error message should be displayed.");
+	}
+
+	[TestMethod]
+	public void HxInputDate_ClearInput_ResetsValueToNull()
+	{
+		// Arrange
+		DateTime? myValue = new DateTime(2020, 2, 10);
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputDate<DateTime?>>(0);
+			builder.AddAttribute(1, "Value", myValue);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTime?>(this, (value) => { myValue = value; }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTime?>>)(() => myValue));
+			builder.CloseComponent();
+		};
+
+		var cut = Render(componentRenderer);
+
+		// Act
+		cut.Find("input").Change("");
+
+		// Assert
+		Assert.IsNull(myValue, "Bound value should be reset to null after clearing the input.");
 	}
 
 	[TestMethod]

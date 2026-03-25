@@ -1,0 +1,19 @@
+@page "/HxInputTags"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxInputTags Label="Tags"
+			 @bind-Value="_tags"
+			 Delimiters="_noDelimiters" />
+
+<div data-testid="tags-output">
+	@foreach (var tag in _tags)
+	{
+		<span data-testid="tag-item">@tag</span>
+	}
+</div>
+<p data-testid="tags-count">@_tags.Count</p>
+
+@code {
+	private static readonly List<char> _noDelimiters = new();
+	private List<string> _tags = new();
+}
