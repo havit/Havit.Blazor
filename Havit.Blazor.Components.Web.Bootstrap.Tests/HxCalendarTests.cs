@@ -1,3 +1,6 @@
+using System.Globalization;
+using Havit;
+
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
 [TestClass]
@@ -69,7 +72,7 @@ public class HxCalendarTests : BunitTestBase
 	[TestMethod]
 	public async Task HxCalendar_SelectDate_UpdatesBoundValue()
 	{
-		using (new CultureScope("en-US"))
+		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
 			// Arrange
 			var displayMonth = new DateTime(2025, 3, 1);
@@ -95,7 +98,7 @@ public class HxCalendarTests : BunitTestBase
 	[TestMethod]
 	public void HxCalendar_SelectedDate_HasActiveClass()
 	{
-		using (new CultureScope("en-US"))
+		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
 			// Arrange
 			var selectedDate = new DateTime(2025, 3, 20);
