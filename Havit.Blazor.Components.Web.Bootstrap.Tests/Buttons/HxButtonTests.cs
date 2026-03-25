@@ -33,8 +33,11 @@ public partial class HxButtonTests
 			.Add(p => p.OnClick, EventCallback.Factory.Create<MouseEventArgs>(this, () => clicked = true))
 		);
 
-		// Assert - button should be rendered as disabled
+		// Act - clicking a disabled button should not invoke OnClick
 		var button = cut.Find("button");
+		button.Click();
+
+		// Assert - button should be rendered as disabled and not trigger OnClick
 		Assert.IsTrue(button.HasAttribute("disabled"));
 		Assert.IsFalse(clicked);
 	}
