@@ -17,7 +17,7 @@ public class HxSidebar_Tests : TestAppTestBase
 
 		// Items are visible
 		await Expect(Page.GetByText("Dashboard")).ToBeVisibleAsync();
-		await Expect(Page.GetByText("Reports")).ToBeVisibleAsync();
+		await Expect(Page.Locator("[data-testid='sidebar-wrapper'] .hx-sidebar-item").Filter(new() { HasTextString = "Reports" })).ToBeVisibleAsync();
 
 		// Footer is visible
 		await Expect(Page.Locator(".hx-sidebar-footer")).ToBeVisibleAsync();
