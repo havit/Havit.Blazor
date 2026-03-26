@@ -90,4 +90,44 @@ public class HxRadioButtonListTests : BunitTestBase
 		var checkedLabel = cut.Find($"label[for='{checkedInputs[0].Id}']");
 		Assert.AreEqual("Green", checkedLabel.TextContent);
 	}
+
+	[TestMethod]
+	public void HxRadioButtonList_ToggleButtonMode_RendersBtnCheck()
+	{
+		// Arrange — regression for #1181: toggle button support
+		var items = new List<string> { "Option A", "Option B" };
+		string selectedValue = null;
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxRadioButtonList<string, string>>(0);
+			builder.AddAttribute(1, "Data", items);
+			builder.AddAttribute(2, "Value", selectedValue);
+			builder.AddAttribute(3, "ValueChanged", EventCallback.Factory.Create<string>(this, v => selectedValue = v));
+			builder.AddAttribute(4, "ValueExpression", (Expression<Func<string>>)(() => selectedValue));
+			builder.AddAttribute(5, "RenderMode", RadioButtonListRenderMode.ToggleButtons);
+			builder.AddAttribute(6, "Color", ThemeColor.Primary);
+			builder.CloseComponent();
+		};
+
+		var cut = Render(componentRenderer);
+
+		// Assert — inputs should have btn-check class instead of form-check-input
+		var inputs = cut.FindAll("input[type='radio']");
+		Assert.HasCount(2, inputs);
+		foreach (var input in inputs)
+		{
+			Assert.IsTrue(input.ClassList.Contains("btn-check"),
+				"Radio input should have btn-check class in toggle button mode.");
+		}
+
+		// Assert — labels should have btn class with color
+		var labels = cut.FindAll("label");
+		Assert.HasCount(2, labels);
+		foreach (var label in labels)
+		{
+			Assert.IsTrue(label.ClassList.Contains("btn"),
+				"Label should have btn class in toggle button mode.");
+		}
+	}
 }

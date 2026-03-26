@@ -76,4 +76,21 @@ public class HxProgressTests : BunitTestBase
 		var progressBar = cut.Find("div.progress-bar");
 		Assert.Contains(labelText, progressBar.TextContent);
 	}
+
+	[TestMethod]
+	public void HxProgressBar_CustomMinMaxRange_CalculatesCorrectWidth()
+	{
+		// Act — regression for #813: HxProgressBar must work with custom MinValue/MaxValue range
+		var cut = RenderComponent<HxProgress>(parameters => parameters
+			.AddChildContent<HxProgressBar>(bar => bar
+				.Add(b => b.Value, 25f)
+				.Add(b => b.MinValue, 0f)
+				.Add(b => b.MaxValue, 50f)
+			)
+		);
+
+		// Assert — Value 25 in range [0, 50] should be 50% width
+		var progressBar = cut.Find("div.progress-bar");
+		Assert.Contains("width: 50%", progressBar.GetAttribute("style"));
+	}
 }

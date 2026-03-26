@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Havit.Collections;
+using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Grids;
 
@@ -120,6 +121,60 @@ public class HxGrid_Basic_Tests : BunitTestBase
 
 		// Assert: empty data row is displayed
 		Assert.HasCount(1, cut.FindAll("tr.hx-grid-empty-data-row"), "Empty data row should be rendered when there are no items.");
+	}
+
+	[TestMethod]
+	public async Task HxGrid_EmptyData_RendersCustomEmptyDataTemplate()
+	{
+		// Arrange — regression for #623: custom EmptyDataTemplate should render when data is empty
+		GridDataProviderDelegate<TestItem> dataProvider = (GridDataProviderRequest<TestItem> request) =>
+			Task.FromResult(new GridDataProviderResult<TestItem> { Data = [], TotalCount = 0 });
+
+		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+			.Add(p => p.DataProvider, dataProvider)
+			.Add(p => p.EmptyDataTemplate, (RenderFragment)(builder =>
+			{
+				builder.OpenElement(0, "div");
+				builder.AddAttribute(1, "class", "custom-empty");
+				builder.AddContent(2, "No records found");
+				builder.CloseElement();
+			}))
+			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
+				.Add(c => c.HeaderText, "Name")
+				.Add(c => c.ItemTextSelector, item => item.Name)));
+
+		// Act
+		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
+
+		// Assert — custom empty template is rendered inside the empty data row
+		var customEmpty = cut.Find("div.custom-empty");
+		Assert.Contains("No records found", customEmpty.TextContent);
+	}
+
+	[TestMethod]
+	public async Task HxGrid_NonSortableColumnHeader_IsNotInteractive()
+	{
+		// Arrange — regression for #1166: non-sortable column header should not be clickable
+		var items = Enumerable.Range(1, 3).Select(i => new TestItem(i, $"Item {i}")).ToList();
+		GridDataProviderDelegate<TestItem> dataProvider = (GridDataProviderRequest<TestItem> request) =>
+			Task.FromResult(request.ApplyTo(items));
+
+		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+			.Add(p => p.DataProvider, dataProvider)
+			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
+				.Add(c => c.HeaderText, "Name")
+				.Add(c => c.ItemTextSelector, item => item.Name)));
+
+		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
+
+		// Assert — non-sortable header should not be interactive (no sortable class, no role)
+		var headers = cut.FindAll("th");
+		Assert.IsNotEmpty(headers, "Grid should have at least one header.");
+		var header = headers[0];
+		Assert.IsFalse(header.ClassList.Contains("hx-grid-sortable"),
+			"Non-sortable column should not have sortable CSS class.");
+		Assert.IsNull(header.GetAttribute("role"),
+			"Non-sortable column should not have role attribute.");
 	}
 
 }

@@ -1,0 +1,17 @@
+@page "/HxSearchBox_Disabled"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<div data-testid="disabled-searchbox">
+	<HxSearchBox TItem="string"
+				 DataProvider="ProvideSearchResults"
+				 ItemTitleSelector="item => item"
+				 Enabled="false"
+				 Placeholder="Disabled search..." />
+</div>
+
+@code {
+	private Task<SearchBoxDataProviderResult<string>> ProvideSearchResults(SearchBoxDataProviderRequest request)
+	{
+		return Task.FromResult(new SearchBoxDataProviderResult<string> { Data = new List<string> { "Apple", "Banana" } });
+	}
+}

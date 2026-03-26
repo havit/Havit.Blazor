@@ -1,0 +1,19 @@
+@page "/HxButton_SingleClickProtection"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxButton data-testid="async-button"
+		  Text="Click Me"
+		  Color="ThemeColor.Primary"
+		  OnClick="HandleClickAsync" />
+
+<p data-testid="click-count">@_clickCount</p>
+
+@code {
+	private int _clickCount;
+
+	private async Task HandleClickAsync()
+	{
+		_clickCount++;
+		await Task.Delay(2000);
+	}
+}

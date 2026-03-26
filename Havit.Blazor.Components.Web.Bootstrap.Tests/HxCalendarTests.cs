@@ -119,4 +119,22 @@ public class HxCalendarTests : BunitTestBase
 			Assert.AreEqual("20", selectedElements[0].TextContent.Trim());
 		}
 	}
+
+	[TestMethod]
+	public void HxCalendar_AllButtons_HaveTypeButton()
+	{
+		// Arrange & Act — regression for #1064: calendar buttons must not submit forms
+		var cut = RenderComponent<HxCalendar>(parameters => parameters
+			.Add(p => p.DisplayMonth, new DateTime(2025, 3, 1))
+			.Add(p => p.DisplayMonthChanged, (DateTime _) => { }));
+
+		// Assert — all <button> elements must have type="button" to prevent form submission
+		var buttons = cut.FindAll("button");
+		Assert.IsNotEmpty(buttons, "Calendar should render at least one button.");
+		foreach (var button in buttons)
+		{
+			Assert.AreEqual("button", button.GetAttribute("type"),
+				$"Button '{button.TextContent.Trim()}' should have type=\"button\" to prevent form submission.");
+		}
+	}
 }

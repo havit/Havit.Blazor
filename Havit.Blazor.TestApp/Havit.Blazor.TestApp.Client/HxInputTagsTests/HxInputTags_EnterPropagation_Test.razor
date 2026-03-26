@@ -1,0 +1,37 @@
+@page "/HxInputTags_EnterPropagation"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<EditForm Model="_model" OnValidSubmit="HandleSubmit" data-testid="test-form">
+	<HxInputTags @bind-Value="_model.Tags"
+				 Label="Tags"
+				 Delimiters="_noDelimiters"
+				 data-testid="input-tags" />
+
+	<HxSubmit Text="Submit" data-testid="submit-button" />
+</EditForm>
+
+<p data-testid="form-submitted">@_formSubmitted</p>
+
+<div data-testid="tags-output">
+	@foreach (var tag in _model.Tags)
+	{
+		<span data-testid="tag-item">@tag</span>
+	}
+</div>
+
+@code {
+	private static readonly List<char> _noDelimiters = new();
+	private FormModel _model = new();
+	private bool _formSubmitted;
+
+	private Task HandleSubmit()
+	{
+		_formSubmitted = true;
+		return Task.CompletedTask;
+	}
+
+	public class FormModel
+	{
+		public List<string> Tags { get; set; } = new();
+	}
+}

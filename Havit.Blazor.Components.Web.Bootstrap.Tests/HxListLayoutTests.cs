@@ -125,4 +125,21 @@ public class HxListLayoutTests : BunitTestBase
 		cut.WaitForAssertion(() => Assert.IsNotNull(updatedFilter, "FilterModelChanged should be raised after chip removal."));
 		Assert.IsNull(updatedFilter.Name, "Filter Name should be null after the chip is removed.");
 	}
+
+	[TestMethod]
+	public void HxListLayout_FilterButton_HasAriaLabel()
+	{
+		// Arrange — regression for #1190: filter button must have aria-label for accessibility
+		var cut = RenderComponent<HxListLayout<TestFilterModel>>(parameters => parameters
+			.Add(p => p.FilterModel, new TestFilterModel())
+			.Add(p => p.FilterTemplate, (RenderFragment<TestFilterModel>)(model => builder => { }))
+			.Add(p => p.DataTemplate, (RenderFragment)(builder => { })));
+
+		// Assert — filter button should have a non-empty aria-label attribute
+		var filterButtons = cut.FindAll("button[aria-label]");
+		Assert.IsNotEmpty(filterButtons, "Filter button should have aria-label attribute.");
+		var ariaLabel = filterButtons[0].GetAttribute("aria-label");
+		Assert.IsNotNull(ariaLabel, "aria-label should not be null.");
+		Assert.AreNotEqual(string.Empty, ariaLabel, "aria-label should not be empty.");
+	}
 }
