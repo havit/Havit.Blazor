@@ -12,8 +12,8 @@ namespace Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure;
 public class BlazorWebApplicationFactory : WebApplicationFactory<TestApp.Program>
 {
 	private readonly Action<BlazorApplicationInsightsOptions> _optionsOverride;
-	private IHost _kestrelHost;
-	public string ServerAddress { get; private set; } = string.Empty;
+
+	private IHost _host;
 
 	public BlazorWebApplicationFactory(Action<BlazorApplicationInsightsOptions> optionsOverride = null)
 	{
@@ -32,31 +32,44 @@ public class BlazorWebApplicationFactory : WebApplicationFactory<TestApp.Program
 
 	protected override IHost CreateHost(IHostBuilder builder)
 	{
-		var testHost = builder.Build(); // dummy host for DI
+		var testHost = builder.Build();
 		testHost.Start();
 
-		builder.ConfigureWebHost(b =>
-			b.UseKestrel(opts => opts.Listen(IPAddress.Loopback, 0)));
+		// Configure Kestrel to use a dynamic port
+		builder.ConfigureWebHost(webHostBuilder =>
+		{
+			webHostBuilder.UseKestrel();
+			webHostBuilder.UseUrls("http://127.0.0.1:0");
+		});
 
-		_kestrelHost = builder.Build();
-		_kestrelHost.Start();
+		_host = builder.Build();
+		_host.Start();
 
 		// wait for kestrel start (solves: System.InvalidOperationException: The server has not been started or no web application was configured.)
-		var lifetime = _kestrelHost.Services.GetRequiredService<IHostApplicationLifetime>();
+		var lifetime = _host.Services.GetRequiredService<IHostApplicationLifetime>();
 		lifetime.ApplicationStarted.WaitHandle.WaitOne();
-
-		ServerAddress = _kestrelHost.Services
-			.GetRequiredService<IServer>()
-			.Features.Get<IServerAddressesFeature>()!
-			.Addresses.First();
 
 		return testHost;
 	}
 
+	public string GetServerAddress()
+	{
+		if (_host == null)
+		{
+			throw new InvalidOperationException("Host has not been created yet.");
+		}
+
+		var server = _host.Services.GetRequiredService<IServer>();
+		var addressFeature = server.Features.Get<IServerAddressesFeature>();
+		return addressFeature?.Addresses.FirstOrDefault() ?? "http://localhost";
+	}
+
 	protected override void Dispose(bool disposing)
 	{
-		_kestrelHost?.StopAsync().GetAwaiter().GetResult();
-		_kestrelHost?.Dispose();
+		if (disposing)
+		{
+			_host?.Dispose();
+		}
 		base.Dispose(disposing);
 	}
 }

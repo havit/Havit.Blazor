@@ -12,7 +12,7 @@ public class BlazorApplicationInsightsPageTestBase : PageTest
 
 	public override BrowserNewContextOptions ContextOptions() => new BrowserNewContextOptions()
 	{
-		BaseURL = PlaywrightFixture.Factory.ServerAddress
+		BaseURL = PlaywrightFixture.Factory.GetServerAddress()
 	};
 
 	[TestInitialize]

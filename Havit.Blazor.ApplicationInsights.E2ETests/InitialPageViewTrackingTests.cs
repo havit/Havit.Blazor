@@ -12,12 +12,12 @@ public class InitialPageViewTrackingTests : BlazorApplicationInsightsPageTestBas
 	public async Task EnableInitialPageViewTracking_True_SendsInitialPageView()
 	{
 		// Arrange
-		using var factory = GetFactoryForTest(enableInitialPageViewTracking: true);
+		await using var factory = GetFactoryForTest(enableInitialPageViewTracking: true);
 		var capturedTelemetryItems = new List<AiTelemetryItem>();
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 
 		// Act
-		await Page.GotoAsync(factory.ServerAddress + NavigationRoutes.PageViewTracking.InitialPageViewTrackingTest);
+		await Page.GotoAsync(factory.GetServerAddress() + NavigationRoutes.PageViewTracking.InitialPageViewTrackingTest);
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
 		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
 
@@ -34,7 +34,7 @@ public class InitialPageViewTrackingTests : BlazorApplicationInsightsPageTestBas
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 
 		// Act
-		await Page.GotoAsync(factory.ServerAddress + NavigationRoutes.PageViewTracking.InitialPageViewTrackingTest);
+		await Page.GotoAsync(factory.GetServerAddress() + NavigationRoutes.PageViewTracking.InitialPageViewTrackingTest);
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
 		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
 

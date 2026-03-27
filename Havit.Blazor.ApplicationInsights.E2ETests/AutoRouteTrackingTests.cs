@@ -17,7 +17,7 @@ public class AutoRouteTrackingTests : BlazorApplicationInsightsPageTestBase
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 
 		// Act
-		await Page.GotoAsync(factory.ServerAddress + NavigationRoutes.PageViewTracking.AutoRouteTrackingPage1);
+		await Page.GotoAsync(factory.GetServerAddress() + NavigationRoutes.PageViewTracking.AutoRouteTrackingPage1);
 		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core"); // Wait for the JS SDK full initialization.
 		await Page.ClickAsync("#goto-page2");
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
@@ -35,7 +35,7 @@ public class AutoRouteTrackingTests : BlazorApplicationInsightsPageTestBase
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 
 		// Act
-		await Page.GotoAsync(factory.ServerAddress + NavigationRoutes.PageViewTracking.AutoRouteTrackingPage1);
+		await Page.GotoAsync(factory.GetServerAddress() + NavigationRoutes.PageViewTracking.AutoRouteTrackingPage1);
 		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core"); // Wait for the JS SDK full initialization.
 		await Page.ClickAsync("#goto-page2");
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
