@@ -35,7 +35,7 @@ public class DefaultTelemetryInitializerTests : BlazorApplicationInsightsPageTes
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 
 		// Act
-		// (due SSR page does not have OnAfterRender[Async] with #done & BlazorApplicationInisghts.FlushAsync())
+		// (due SSR page does not have OnAfterRender[Async] with #done & BlazorApplicationInsights.FlushAsync())
 		await Page.GotoAsync(url);
 		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core");
 		await Page.EvaluateAsync("window.appInsights.flush()");
