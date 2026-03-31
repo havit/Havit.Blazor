@@ -9,7 +9,7 @@ namespace Havit.Blazor.ApplicationInsights.E2ETests;
 public class AuthenticatedUserContextTests : BlazorApplicationInsightsPageTestBase
 {
 	[TestMethod]
-	public async Task BlazorApplicationInsights_AuhenticationUserContext_Test()
+	public async Task BlazorApplicationInsights_AuthenticationUserContext_Test()
 	{
 		// Arrange
 		var capturedTelemetryItems = new List<AiTelemetryItem>();
