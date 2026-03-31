@@ -37,14 +37,12 @@
 		<PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(AspNetCoreVersion10)" />
 		<PackageVersion Include="Microsoft.Extensions.Localization" Version="10.0.5" />
 		<PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="10.0.5" />
-        <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.5" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="10.0.5" />
-		<!--<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' == 'net10.0'" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' == 'net10.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' == 'net10.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />-->
+		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
 		<PackageVersion Include="Microsoft.NET.Test.Sdk" Version="18.3.0" />
 		<PackageVersion Include="Microsoft.Playwright.MSTest.v4" Version="1.58.0" />
 		<PackageVersion Include="ModelContextProtocol.AspNetCore" Version="1.1.0" />
