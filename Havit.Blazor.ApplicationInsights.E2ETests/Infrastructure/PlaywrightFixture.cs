@@ -9,7 +9,7 @@ public static class PlaywrightFixture
 	public static void AssemblyInitialize(TestContext _)
 	{
 		Factory = new BlazorWebApplicationFactory();
-		Factory.CreateClient(); // spustí CreateHost → Kestrel start
+		Factory.CreateClient(); // triggers CreateHost → starts Kestrel
 	}
 
 	[AssemblyCleanup]
