@@ -1,7 +1,7 @@
 # Havit.Blazor.ApplicationInsights
 
 Blazor wrapper for the [Application Insights JavaScript SDK](https://github.com/microsoft/ApplicationInsights-JS).
-Targets browser-side telemetry. Best suited for Static-Side Rendering and Blazor WebAssembly scenarios,
+Targets browser-side telemetry. Best suited for Server-Side Rendering and Blazor WebAssembly scenarios,
 including mixed Blazor Web App setups. Blazor Server, server-side are also supported but telemetry is
 typically handled by the [Application Insights](https://www.nuget.org/packages/Microsoft.ApplicationInsights)
 or [Azure Monitor OpenTelemetry Exporter ](https://www.nuget.org/packages/Azure.Monitor.OpenTelemetry.Exporter).
@@ -30,7 +30,7 @@ builder.Services.AddBlazorApplicationInsights(options =>
 });
 ```
 
-Call `AddBlazorApplicationInsights` in both server project and WebAssebmly client project (if any).
+Call `AddBlazorApplicationInsights` in both server project and WebAssembly client project (if any).
 Configure **options** in the project where `<BlazorApplicationInsightsScript>` is rendered.
 If the component is prerendered or used in SSR, configure in the **server** project.
 If rendered in WebAssembly without prerendering, configure in the **client** project.
