@@ -10,8 +10,6 @@ Targets .NET 9 and .NET 10.
 
 CookieMgr not yet implemented.
 
----
-
 ## Setup
 
 ### 1. Register services
@@ -69,8 +67,6 @@ Place `<BlazorApplicationInsightsScript />` inside the `<head>` element of your 
 }
 ```
 
----
-
 ## Configuration
 
 Options are split into two groups.
@@ -97,8 +93,6 @@ These options control behavior of the C# wrapper and are **not** forwarded to th
 |---|---|---|
 | `EnableInitialPageViewTracking` | Whether the SDK snippet calls `trackPageView({})` on startup | `true` |
 | `DefaultTelemetryInitializer` | Static tags applied to every telemetry item — registered before the initial page view, so the tags are present even on the auto-tracked page view on startup. See [Telemetry initializer](#telemetry-initializer). | `null` |
-
----
 
 ## Logging
 
@@ -144,8 +138,6 @@ The provider alias is `BlazorApplicationInsights`. Use it to set per-provider lo
 > `builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"))` explicitly.
 > This applies to **all** logging providers in WASM, not just this one.
 
----
-
 ## Page view tracking
 
 ### Automatic tracking on initial load
@@ -171,8 +163,6 @@ await AppInsights.TrackPageViewAsync(new PageViewTelemetry
 });
 ```
 
----
-
 ## ErrorBoundary integration
 
 .NET exceptions in Blazor are invisible to the JS SDK and must be tracked manually.
@@ -195,8 +185,6 @@ Use `<BlazorApplicationInsightsException>` inside an `ErrorBoundary` to report c
 </ErrorBoundary>
 ```
 
----
-
 ## Authenticated user context
 
 ```csharp
@@ -208,8 +196,6 @@ Clear on sign-out:
 ```csharp
 await AppInsights.ClearAuthenticatedUserContextAsync();
 ```
-
----
 
 ## Telemetry initializer
 
@@ -243,8 +229,6 @@ await AppInsights.AddTelemetryInitializerAsync(new TelemetryInitializer
     ApplicationVersion = "1.2.3"
 });
 ```
-
----
 
 ## CSP nonce
 
