@@ -29,7 +29,7 @@ public sealed class BlazorApplicationInsightsLoggerProvider : ILoggerProvider, I
 	private IExternalScopeProvider _scopeProvider = new LoggerExternalScopeProvider();
 
 	/// <summary>
-	/// Constructs a new instance of the <see cref="BlazorApplicationInsightsLoggerProvider "/> class.
+	/// Constructs a new instance of the <see cref="BlazorApplicationInsightsLoggerProvider"/> class.
 	/// </summary>
 	public BlazorApplicationInsightsLoggerProvider(IServiceScopeFactory scopeFactory)
 	{
