@@ -4,13 +4,9 @@ Blazor wrapper for the [Application Insights JavaScript SDK](https://github.com/
 Targets browser-side telemetry. Best suited for Static-Side Rendering and Blazor WebAssembly scenarios,
 including mixed Blazor Web App setups. Blazor Server, server-side are also supported but telemetry is
 typically handled by the [Application Insights](https://www.nuget.org/packages/Microsoft.ApplicationInsights)
-or [Azure Monitor OpenTelemetry Exporter ](https://www.nuget.org/packages/Azure.Monitor.OpenTelemetry.Exporter).
+or [Azure Monitor OpenTelemetry Exporter](https://www.nuget.org/packages/Azure.Monitor.OpenTelemetry.Exporter).
 
 Targets .NET 9 and .NET 10.
-
-CookieMgr not yet implemented.
-
----
 
 ## Setup
 
@@ -69,8 +65,6 @@ Place `<BlazorApplicationInsightsScript />` inside the `<head>` element of your 
 }
 ```
 
----
-
 ## Configuration
 
 Options are split into two groups.
@@ -97,8 +91,6 @@ These options control behavior of the C# wrapper and are **not** forwarded to th
 |---|---|---|
 | `EnableInitialPageViewTracking` | Whether the SDK snippet calls `trackPageView({})` on startup | `true` |
 | `DefaultTelemetryInitializer` | Static tags applied to every telemetry item — registered before the initial page view, so the tags are present even on the auto-tracked page view on startup. See [Telemetry initializer](#telemetry-initializer). | `null` |
-
----
 
 ## Logging
 
@@ -144,8 +136,6 @@ The provider alias is `BlazorApplicationInsights`. Use it to set per-provider lo
 > `builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"))` explicitly.
 > This applies to **all** logging providers in WASM, not just this one.
 
----
-
 ## Page view tracking
 
 ### Automatic tracking on initial load
@@ -171,8 +161,6 @@ await AppInsights.TrackPageViewAsync(new PageViewTelemetry
 });
 ```
 
----
-
 ## ErrorBoundary integration
 
 .NET exceptions in Blazor are invisible to the JS SDK and must be tracked manually.
@@ -195,8 +183,6 @@ Use `<BlazorApplicationInsightsException>` inside an `ErrorBoundary` to report c
 </ErrorBoundary>
 ```
 
----
-
 ## Authenticated user context
 
 ```csharp
@@ -208,8 +194,6 @@ Clear on sign-out:
 ```csharp
 await AppInsights.ClearAuthenticatedUserContextAsync();
 ```
-
----
 
 ## Telemetry initializer
 
@@ -244,7 +228,32 @@ await AppInsights.AddTelemetryInitializerAsync(new TelemetryInitializer
 });
 ```
 
----
+## Cookie management
+
+The main use case is **GDPR cookie consent**: Application Insights uses cookies (`ai_session`, `ai_user`)
+for session and user tracking. Under GDPR/ePrivacy, these cookies require user consent before being set.
+
+**1. Start without cookies** — initialize with cookies disabled until the user gives consent:
+
+```csharp
+builder.Services.AddBlazorApplicationInsights(options =>
+{
+    options.JsSdkOptions.ConnectionString = "...";
+    options.JsSdkOptions.CookieCfg = new CookieMgrConfig { Enabled = false };
+});
+```
+
+Telemetry is still collected and sent, but without persistent session/user cookies.
+
+**2. Enable cookies at runtime** — when the user accepts the cookie policy:
+
+```csharp
+@inject IBlazorApplicationInsightsCookieManager CookieManager
+
+await CookieManager.SetEnabledAsync(true);
+```
+
+From this point on, the SDK reads and writes cookies normally.
 
 ## CSP nonce
 

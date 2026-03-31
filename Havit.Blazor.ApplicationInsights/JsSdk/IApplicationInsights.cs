@@ -14,9 +14,9 @@ namespace Havit.Blazor.ApplicationInsights.JsSdk;
 /// and <c>IDependenciesPlugin</c>.
 /// </summary>
 /// <remarks>
-/// Skipped members (JS-specific, not applicable in C#):
+/// Adapted members (exposed with a C# friendly API, not a direct 1:1 mapping):
 /// <list type="bullet">
-///   <item><c>getCookieMgr()</c> – returns a browser-specific cookie manager instance</item>
+///   <item><c>getCookieMgr()</c> – exposed via <see cref="IBlazorApplicationInsightsCookieManager"/></item>
 /// </list>
 /// </remarks>
 [EditorBrowsable(EditorBrowsableState.Never)]

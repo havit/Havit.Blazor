@@ -96,12 +96,12 @@ public partial class BlazorApplicationInsightsScript : IDisposable
 		crossOrigin: "anonymous", // When supplied this will add the provided value as the cross origin attribute on the script tag
 		cfg: {{{{GetSerializedApplicationInsightsConfiguration()}}}}
 		});
-		window.havitBlazorAppInsights={addTelemetryInitializer:function(t){window.appInsights.addTelemetryInitializer(function(e){for(var k in t)Object.prototype.hasOwnProperty.call(t,k)&&(e.tags[k]=t[k])})}};
+		window.havitBlazorAppInsights={addTelemetryInitializer:function(t){window.appInsights.addTelemetryInitializer(function(e){for(var k in t)Object.prototype.hasOwnProperty.call(t,k)&&(e.tags[k]=t[k])})},cookieMgr:{setEnabled:function(v){window.appInsights.getCookieMgr().setEnabled(v)},isEnabled:function(){return window.appInsights.getCookieMgr().isEnabled()},set:function(n,v,a,d,p){return window.appInsights.getCookieMgr().set(n,v,a,d,p)},get:function(n){return window.appInsights.getCookieMgr().get(n)},del:function(n,p){return window.appInsights.getCookieMgr().del(n,p)},purge:function(n,p){return window.appInsights.getCookieMgr().purge(n,p)}}};
 		""";
 
 	private string GetSerializedApplicationInsightsConfiguration()
 	{
-		return System.Text.Json.JsonSerializer.Serialize(BlazorApplicationInsightsOptions.Value.JsSdkOptions, BlazorApplicationInsightsJsSdkOptionsJsonSerializerContext.Default.BlazorApplicationInsightsJsSdkOptions);
+		return System.Text.Json.JsonSerializer.Serialize(BlazorApplicationInsightsOptions.Value.JsSdkOptions, BlazorApplicationInsightsJsonSerializerContext.Default.BlazorApplicationInsightsJsSdkOptions);
 	}
 
 	/// <summary>
@@ -124,7 +124,7 @@ public partial class BlazorApplicationInsightsScript : IDisposable
 			return null;
 		}
 
-		string serializedTags = System.Text.Json.JsonSerializer.Serialize(defaultTelemetryInitializerTags, BlazorApplicationInsightsOptionsJsonSerializerContext.Default.TelemetryInitializerDictionary);
+		string serializedTags = System.Text.Json.JsonSerializer.Serialize(defaultTelemetryInitializerTags, BlazorApplicationInsightsJsonSerializerContext.Default.TelemetryInitializerDictionary);
 		return $"havitBlazorAppInsights.addTelemetryInitializer({serializedTags});";
 	}
 

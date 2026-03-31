@@ -1,0 +1,44 @@
+@attribute [Route(NavigationRoutes.CookieManagerTests)]
+@rendermode InteractiveServerWithoutPrerendering
+@inject IBlazorApplicationInsights ApplicationInsights
+@inject IBlazorApplicationInsightsCookieManager CookieManager
+
+<h1>Test Cookie Manager</h1>
+
+<BlazorApplicationInsightsScript />
+
+@if (_done)
+{
+	<span id="done"
+		  data-enabled-before="@_enabledBefore.ToString()"
+		  data-enabled-after="@_enabledAfter.ToString()">done</span>
+}
+
+<button @onclick="async () => await CookieManager.SetEnabledAsync(true)">Enable</button>
+<button @onclick="async () => await CookieManager.SetEnabledAsync(false)">Disable</button>
+<button @onclick='async () => { await ApplicationInsights.TrackMetricAsync(new MetricTelemetry { Name = "CustomMetric" }); await ApplicationInsights.FlushAsync(); }'>Metric</button>
+
+@code
+{
+	private bool _done;
+	private bool _enabledBefore;
+	private bool _enabledAfter;
+
+	// protected override async Task OnAfterRenderAsync(bool firstRender)
+	// {
+	// 	if (firstRender)
+	// 	{
+	// 		// Capture state before disabling
+	// 		_enabledBefore = await CookieManager.IsEnabledAsync();
+
+	// 		// Disable cookie access
+	// 		await CookieManager.SetEnabledAsync(false);
+
+	// 		// Capture state after disabling
+	// 		_enabledAfter = await CookieManager.IsEnabledAsync();
+
+	// 		_done = true;
+	// 		StateHasChanged();
+	// 	}
+	// }
+}

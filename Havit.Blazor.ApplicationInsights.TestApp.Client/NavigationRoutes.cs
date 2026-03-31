@@ -34,6 +34,8 @@ public static class NavigationRoutes
 		public const string AutoRouteTrackingPage2 = "/appinsights-test-auto-route-tracking-2";
 	}
 
+	public const string CookieManagerTests = "/appinsights-test-cookie-manager";
+
 	public static class Logging
 	{
 		public const string LoggingTestPage = "/appinsights-test-logging";

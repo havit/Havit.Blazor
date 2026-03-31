@@ -17,6 +17,7 @@ public class Program
 		builder.Services.AddBlazorApplicationInsights(options =>
 		{
 			options.JsSdkOptions.ConnectionString = ConnectionStrings.ApplicationInsights;
+			options.JsSdkOptions.CookieCfg.Enabled = false;
 			options.DefaultTelemetryInitializer = new Havit.Blazor.ApplicationInsights.Telemetry.TelemetryInitializer
 			{
 				CloudRoleName = TestDefaults.DefaultTelemetryInitializerCloudRoleName

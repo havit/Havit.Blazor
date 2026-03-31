@@ -17,11 +17,15 @@ public static class ServiceCollectionExtensions
 		if (OperatingSystem.IsBrowser())
 		{
 			services.TryAddScoped<IBlazorApplicationInsights, BrowserBlazorApplicationInsights>();
+			services.TryAddScoped<IBlazorApplicationInsightsCookieManager, BrowserBlazorApplicationInsightsCookieManager>();
 		}
 		else
 		{
 			services.TryAddScoped<BrowserBlazorApplicationInsights>();
 			services.TryAddScoped<IBlazorApplicationInsights, AdaptiveBlazorApplicationInsights>();
+
+			services.TryAddScoped<BrowserBlazorApplicationInsightsCookieManager>();
+			services.TryAddScoped<IBlazorApplicationInsightsCookieManager, AdaptiveBlazorApplicationInsightsCookieManager>();
 		}
 
 		if (configureAction != null)

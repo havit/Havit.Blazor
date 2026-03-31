@@ -17,7 +17,6 @@ namespace Havit.Blazor.ApplicationInsights.JsSdk;
 ///   <item><c>extensionConfig</c> – <c>{ [key: string]: any }</c> (dynamic extension config dict)</item>
 ///   <item><c>extensions</c> – <c>ITelemetryPlugin[]</c> (runtime plugin instances)</item>
 ///   <item><c>channels</c> – <c>IChannelControls[][]</c> (runtime channel instances)</item>
-///   <item><c>cookieCfg</c> – <c>ICookieMgrConfig</c> (interface type)</item>
 ///   <item><c>featureOptIn</c> – <c>IFeatureOptIn</c> (interface type)</item>
 ///   <item><c>expCfg</c> – <c>IExceptionConfig</c> (interface type)</item>
 ///   <item><c>createPerfMgr</c> – callback function</item>
@@ -111,6 +110,14 @@ public class ApplicationInsightsConfiguration
 	/// </summary>
 	[JsonPropertyName("idLength")]
 	public int? IdLength { get; set; }
+
+	/// <summary>
+	/// Consolidated cookie manager configuration.
+	/// When specified, <see cref="CookieMgrConfig.Enabled"/> and <see cref="CookieMgrConfig.Domain"/>
+	/// take precedence over <see cref="DisableCookiesUsage"/> and <see cref="CookieDomain"/>.
+	/// </summary>
+	[JsonPropertyName("cookieCfg")]
+	public CookieMgrConfig CookieCfg { get; set; } = new CookieMgrConfig();
 
 	/// <summary>
 	/// Custom cookie domain to share Application Insights cookies across subdomains.

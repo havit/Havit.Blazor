@@ -12,5 +12,6 @@ public class AiTelemetryItem
 
 	public string BaseType => Data?.BaseType;
 	public string AuthUserId => Tags?.GetValueOrDefault("ai.user.authUserId");
+	public string SessionId => Tags?.GetValueOrDefault("ai.session.id");
 	public string CloudRoleName => Tags?.GetValueOrDefault("ai.cloud.role");
 }
