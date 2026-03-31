@@ -1,0 +1,42 @@
+@page "/HxInputFile"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@using Microsoft.AspNetCore.Components.Forms
+
+<h3>HxInputFile Single</h3>
+<div data-testid="input-file-single-container">
+	<HxInputFile OnChange="HandleSingleFileChange" />
+</div>
+<div data-testid="selected-file-name">@_singleFileName</div>
+
+<h3>HxInputFile Multiple</h3>
+<div data-testid="input-file-multiple-container">
+	<HxInputFile Multiple OnChange="HandleMultipleFilesChange" />
+</div>
+<div data-testid="selected-files-list">
+	@foreach (var name in _multipleFileNames)
+	{
+		<div data-testid="selected-file-item">@name</div>
+	}
+</div>
+
+<h3>HxInputFileDropZone</h3>
+<div data-testid="drop-zone-container">
+	<HxInputFileDropZone />
+</div>
+
+@code {
+	private string _singleFileName = string.Empty;
+	private List<string> _multipleFileNames = new();
+
+	private Task HandleSingleFileChange(InputFileChangeEventArgs args)
+	{
+		_singleFileName = args.File.Name;
+		return Task.CompletedTask;
+	}
+
+	private Task HandleMultipleFilesChange(InputFileChangeEventArgs args)
+	{
+		_multipleFileNames = args.GetMultipleFiles(int.MaxValue).Select(f => f.Name).ToList();
+		return Task.CompletedTask;
+	}
+}

@@ -1,0 +1,30 @@
+@page "/HxSidebarTests"
+@page "/HxSidebarTests/navigate-target"
+@page "/HxSidebarTests/monthly-report"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<div data-testid="sidebar-wrapper">
+	<HxSidebar @bind-Collapsed="_collapsed">
+		<HeaderTemplate>
+			<HxSidebarBrand BrandName="Test Brand" BrandNameShort="TB" />
+		</HeaderTemplate>
+
+		<ItemsTemplate>
+			<HxSidebarItem Text="Dashboard" Icon="BootstrapIcon.House"
+						   Href="/HxSidebarTests/navigate-target" Match="NavLinkMatch.All" />
+			<HxSidebarItem Text="Reports" Icon="BootstrapIcon.BarChart">
+				<HxSidebarItem Text="Monthly Report" Href="/HxSidebarTests/monthly-report" Match="NavLinkMatch.All" />
+			</HxSidebarItem>
+		</ItemsTemplate>
+
+		<FooterTemplate>
+			<HxSidebarFooter Href="https://github.com/havit/Havit.Blazor" Icon="BootstrapIcon.Github" Text="GitHub" />
+		</FooterTemplate>
+	</HxSidebar>
+</div>
+
+<span data-testid="collapsed-state">@(_collapsed ? "collapsed" : "expanded")</span>
+
+@code {
+	private bool _collapsed;
+}

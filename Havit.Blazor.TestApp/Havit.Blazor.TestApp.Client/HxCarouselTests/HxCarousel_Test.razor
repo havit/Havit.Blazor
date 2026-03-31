@@ -1,0 +1,22 @@
+@page "/HxCarousel"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<div data-testid="carousel-wrapper">
+	<HxCarousel Indicators="true" Controls="true" Ride="CarouselRide.False" Pause="CarouselPause.False">
+		<HxCarouselItem Active="true">
+			<div data-testid="slide-0" class="d-flex align-items-center justify-content-center bg-secondary" style="height: 200px;">
+				<span>Slide 1</span>
+			</div>
+		</HxCarouselItem>
+		<HxCarouselItem>
+			<div data-testid="slide-1" class="d-flex align-items-center justify-content-center bg-primary" style="height: 200px;">
+				<span>Slide 2</span>
+			</div>
+		</HxCarouselItem>
+		<HxCarouselItem>
+			<div data-testid="slide-2" class="d-flex align-items-center justify-content-center bg-success" style="height: 200px;">
+				<span>Slide 3</span>
+			</div>
+		</HxCarouselItem>
+	</HxCarousel>
+</div>

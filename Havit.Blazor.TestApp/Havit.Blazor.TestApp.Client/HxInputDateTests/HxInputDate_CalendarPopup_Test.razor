@@ -1,0 +1,15 @@
+@page "/HxInputDate_CalendarPopup"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<div data-testid="input-date-wrapper">
+	<HxInputDate @bind-Value="_value"
+				 CalendarIcon="BootstrapIcon.Calendar"
+				 CalendarDisplayMonth="@(new DateTime(2024, 6, 1))"
+				 Label="Test date" />
+</div>
+
+<p data-testid="current-value">@_value?.ToShortDateString()</p>
+
+@code {
+	private DateTime? _value;
+}

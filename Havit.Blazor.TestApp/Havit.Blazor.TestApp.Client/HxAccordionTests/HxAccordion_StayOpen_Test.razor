@@ -1,0 +1,13 @@
+@page "/HxAccordion_StayOpen"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxAccordion StayOpen="true">
+	<HxAccordionItem Id="stayopen-item1">
+		<HeaderTemplate><span data-testid="stayopen-header-1">StayOpen Item 1</span></HeaderTemplate>
+		<BodyTemplate><span data-testid="stayopen-body-1">StayOpen Content 1</span></BodyTemplate>
+	</HxAccordionItem>
+	<HxAccordionItem Id="stayopen-item2">
+		<HeaderTemplate><span data-testid="stayopen-header-2">StayOpen Item 2</span></HeaderTemplate>
+		<BodyTemplate><span data-testid="stayopen-body-2">StayOpen Content 2</span></BodyTemplate>
+	</HxAccordionItem>
+</HxAccordion>

@@ -647,6 +647,66 @@ public class HxInputDateRangeTests : BunitTestBase
 		}
 	}
 
+	[TestMethod]
+	public void HxInputDateRange_Render_ShowsFromAndToInputs()
+	{
+		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
+		{
+			// Arrange
+			var myValue = new DateTimeRange();
+
+			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+			{
+				builder.OpenComponent<HxInputDateRange>(0);
+				builder.AddAttribute(1, "Value", myValue);
+				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
+				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
+				builder.CloseComponent();
+			};
+
+			// Act
+			var cut = Render(componentRenderer);
+
+			// Assert
+			var inputs = cut.FindAll("input");
+			Assert.HasCount(2, inputs, "Should render both From and To input fields");
+			Assert.AreEqual("From", inputs[0].GetAttribute("placeholder"), "First input should be the From field");
+			Assert.AreEqual("To", inputs[1].GetAttribute("placeholder"), "Second input should be the To field");
+		}
+	}
+
+	[TestMethod]
+	public void HxInputDateRange_TypeValidRange_UpdatesBoundValue()
+	{
+		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
+		{
+			// Arrange
+			var myValue = new DateTimeRange();
+
+			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+			{
+				builder.OpenComponent<HxInputDateRange>(0);
+				builder.AddAttribute(1, "Value", myValue);
+				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
+				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
+				builder.CloseComponent();
+			};
+
+			// Act
+			var cut = Render(componentRenderer);
+			var inputs = cut.FindAll("input");
+
+			inputs[0].Change("1/1/2025"); // From date (using en-US MM/dd/yyyy format)
+
+			inputs = cut.FindAll("input"); // Re-query after re-render
+			inputs[1].Change("6/30/2025"); // To date (using en-US MM/dd/yyyy format)
+
+			// Assert
+			Assert.AreEqual(new DateTime(2025, 1, 1), myValue.StartDate, "StartDate should be updated to January 1, 2025");
+			Assert.AreEqual(new DateTime(2025, 6, 30), myValue.EndDate, "EndDate should be updated to June 30, 2025");
+		}
+	}
+
 	public record class FormModel
 	{
 		public MyRange A { get; set; } = new MyRange();

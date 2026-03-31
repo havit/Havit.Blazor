@@ -1,0 +1,25 @@
+@page "/HxDropdown"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxDropdownButtonGroup>
+	<HxDropdownToggleButton data-testid="toggle-button" Color="ThemeColor.Primary">Open Dropdown</HxDropdownToggleButton>
+	<HxDropdownMenu>
+		<HxDropdownHeader>Section Header</HxDropdownHeader>
+		<HxDropdownItem data-testid="action-item" OnClick="HandleItemClick">Action Item</HxDropdownItem>
+		<HxDropdownDivider />
+		<HxDropdownItem>Another Item</HxDropdownItem>
+	</HxDropdownMenu>
+</HxDropdownButtonGroup>
+
+<p data-testid="item-click-count">@_itemClickCount</p>
+
+<p data-testid="outside-click-area" style="margin-top: 200px;">Outside click area</p>
+
+@code {
+	private int _itemClickCount;
+
+	private void HandleItemClick()
+	{
+		_itemClickCount++;
+	}
+}

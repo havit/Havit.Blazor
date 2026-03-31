@@ -1,0 +1,23 @@
+@page "/HxMessageBox"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@inject IHxMessageBoxService MessageBoxService
+
+<HxMessageBoxHost />
+
+<HxButton data-testid="show-button" OnClick="HandleShowClick" Color="ThemeColor.Primary">Show Message Box</HxButton>
+
+<span data-testid="result">@_result</span>
+
+@code {
+	private string _result = "";
+
+	private async Task HandleShowClick()
+	{
+		var result = await MessageBoxService.ShowAsync(
+			title: "Test Title",
+			text: "Test Message",
+			buttons: MessageBoxButtons.OkCancel);
+
+		_result = result == MessageBoxButtons.Ok ? "Positive" : "Negative";
+	}
+}

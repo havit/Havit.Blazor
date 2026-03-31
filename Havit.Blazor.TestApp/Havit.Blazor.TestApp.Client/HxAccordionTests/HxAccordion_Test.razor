@@ -1,0 +1,17 @@
+@page "/HxAccordion"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxAccordion>
+	<HxAccordionItem Id="item1">
+		<HeaderTemplate><span data-testid="header-1">Item 1</span></HeaderTemplate>
+		<BodyTemplate><span data-testid="body-1">Content 1</span></BodyTemplate>
+	</HxAccordionItem>
+	<HxAccordionItem Id="item2">
+		<HeaderTemplate><span data-testid="header-2">Item 2</span></HeaderTemplate>
+		<BodyTemplate><span data-testid="body-2">Content 2</span></BodyTemplate>
+	</HxAccordionItem>
+	<HxAccordionItem Id="item3">
+		<HeaderTemplate><span data-testid="header-3">Item 3</span></HeaderTemplate>
+		<BodyTemplate><span data-testid="body-3">Content 3</span></BodyTemplate>
+	</HxAccordionItem>
+</HxAccordion>

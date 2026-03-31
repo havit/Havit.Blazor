@@ -72,9 +72,11 @@ Bootstrap icons are generated via source generator from `Havit.Bootstrap/Icons/b
 1. Install .NET prerequisites (one-time setup)
 2. `dotnet restore`
 3. Make your changes following `.editorconfig` standards
-4. Build components: `dotnet build --no-restore`
+4. Build with warnings as errors: `s`
 5. Run tests: `dotnet test` or `dotnet test --project path/to/YourComponentTests.csproj` to run specific tests
 6. Validate changes manually
+
+**Important:** Every code change must be verified with a build that treats warnings as errors (`-warnaserror`). Do not consider a change complete until the build passes with zero warnings.
 
 ### Azure DevOps
 When referring to Azure DevOps, it's the **DEV** project.

@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<nav class="@GetCssClass()" data-bs-theme="@((ColorMode == ColorMode.Auto) ? null : ColorMode.ToString("g").ToLowerInvariant())">
+<nav id="@Id" class="@GetCssClass()" data-bs-theme="@((ColorMode == ColorMode.Auto) ? null : ColorMode.ToString("g").ToLowerInvariant())">
 	<div class="@ContainerCssClass">
 		<CascadingValue Value="@(this)" IsFixed="true">
 			@ChildContent
