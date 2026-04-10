@@ -63,7 +63,7 @@ public class HxGrid_Basic_Tests : BunitTestBase
 		await cut.InvokeAsync(() => header.Click());
 
 		// Assert: column is now marked as sorted and sort direction is ascending
-		Assert.IsTrue(cut.FindAll("th.hx-grid-sorted").Any(), "Column header should have the sorted CSS class.");
+		Assert.IsNotEmpty(cut.FindAll("th.hx-grid-sorted"), "Column header should have the sorted CSS class.");
 		Assert.AreEqual(SortDirection.Ascending, lastSortDirection);
 	}
 
