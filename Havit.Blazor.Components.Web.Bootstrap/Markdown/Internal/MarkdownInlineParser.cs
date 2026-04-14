@@ -44,9 +44,21 @@ internal static partial class MarkdownInlineParser
 			return string.Empty;
 		}
 
-		// When sanitizing, encode only the HTML-dangerous characters (&lt; and &amp;)
-		// that don't conflict with markdown syntax. The " and > characters are safe
-		// in HTML text context and are needed for markdown link titles / blockquote syntax.
+		// Step 1: Extract inline code spans and replace with placeholders.
+		// Code content is HTML-encoded (always, regardless of SanitizeHtml) and protected
+		// from all subsequent inline-element passes (bold, italic, links, etc.).
+		var codePlaceholders = new List<string>();
+		text = InlineCodeRegex().Replace(text, match =>
+		{
+			var code = match.Groups[1].Value;
+			// Always HTML-encode code content — code spans are always literal text.
+			var encoded = code.Replace("&", "&amp;").Replace("<", "&lt;");
+			var placeholder = $"\x00CODE{codePlaceholders.Count}\x00";
+			codePlaceholders.Add($"<code>{encoded}</code>");
+			return placeholder;
+		});
+
+		// Step 2: Sanitize remaining text (& and < outside of code spans).
 		if (options.SanitizeHtml && text.AsSpan().IndexOfAny('&', '<') >= 0)
 		{
 			var sanitized = new StringBuilder(text.Length);
@@ -62,14 +74,9 @@ internal static partial class MarkdownInlineParser
 			text = sanitized.ToString();
 		}
 
-		// Process inline elements in correct order:
-		// 1. Inline code first (to protect content inside backticks from further processing)
-		// 2. Images before links (image syntax contains link syntax)
-		// 3. Bold before italic (** before *)
-		// 4. Strikethrough
-		// 5. Line breaks
-
-		text = ProcessInlineCode(text);
+		// Step 3: Process other inline elements in correct order:
+		// Images before links (image syntax contains link syntax)
+		// Bold before italic (** before *)
 		text = ProcessImages(text, options);
 		text = ProcessLinks(text, options);
 		text = ProcessBold(text);
@@ -77,16 +84,16 @@ internal static partial class MarkdownInlineParser
 		text = ProcessStrikethrough(text);
 		text = ProcessLineBreaks(text);
 
-		return text;
-	}
-
-	private static string ProcessInlineCode(string text)
-	{
-		return InlineCodeRegex().Replace(text, match =>
+		// Step 4: Restore code span placeholders.
+		if (codePlaceholders.Count > 0)
 		{
-			var code = match.Groups[1].Value;
-			return $"<code>{code}</code>";
-		});
+			for (int i = 0; i < codePlaceholders.Count; i++)
+			{
+				text = text.Replace($"\x00CODE{i}\x00", codePlaceholders[i]);
+			}
+		}
+
+		return text;
 	}
 
 	private static string ProcessImages(string text, MarkdownRenderOptions options)
@@ -145,24 +152,37 @@ internal static partial class MarkdownInlineParser
 			return true;
 		}
 
-		// Relative URLs are always safe (but not protocol-relative //host/path)
-		if (url[0] == '#' || (url[0] == '/' && (url.Length < 2 || url[1] != '/')))
+		// Protocol-relative URLs (//host/path) can be used for scheme-hijacking
+		if (url.StartsWith("//", StringComparison.Ordinal))
+		{
+			return false;
+		}
+
+		// Find first colon and first slash to distinguish scheme from path
+		var colonIndex = url.IndexOf(':');
+
+		// No colon → no scheme → safe relative URL (e.g., "page.html", "images/photo.png")
+		if (colonIndex < 0)
 		{
 			return true;
 		}
 
-		if (url.StartsWith("./", StringComparison.Ordinal) || url.StartsWith("../", StringComparison.Ordinal))
+		// A slash before the colon means the colon is inside a path segment, not a scheme
+		// (e.g., "/path/to/page:anchor" or "./dir/file:name")
+		var slashIndex = url.IndexOf('/');
+		if (slashIndex >= 0 && slashIndex < colonIndex)
 		{
 			return true;
 		}
 
-		// Only allow known-safe absolute URL schemes
-		return url.StartsWith("http://", StringComparison.OrdinalIgnoreCase)
-			|| url.StartsWith("https://", StringComparison.OrdinalIgnoreCase)
-			|| url.StartsWith("ftp://", StringComparison.OrdinalIgnoreCase)
-			|| url.StartsWith("ftps://", StringComparison.OrdinalIgnoreCase)
-			|| url.StartsWith("mailto:", StringComparison.OrdinalIgnoreCase)
-			|| url.StartsWith("tel:", StringComparison.OrdinalIgnoreCase);
+		// URL has a scheme — allow only the known-safe ones
+		var scheme = url.Substring(0, colonIndex);
+		return scheme.Equals("http", StringComparison.OrdinalIgnoreCase)
+			|| scheme.Equals("https", StringComparison.OrdinalIgnoreCase)
+			|| scheme.Equals("ftp", StringComparison.OrdinalIgnoreCase)
+			|| scheme.Equals("ftps", StringComparison.OrdinalIgnoreCase)
+			|| scheme.Equals("mailto", StringComparison.OrdinalIgnoreCase)
+			|| scheme.Equals("tel", StringComparison.OrdinalIgnoreCase);
 	}
 
 	private static string ProcessBold(string text)

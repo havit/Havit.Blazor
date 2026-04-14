@@ -391,6 +391,57 @@ public class MarkdownParserTests
 
 	#endregion
 
+	#region Inline Code - Protection and Encoding
+
+	[TestMethod]
+	public void MarkdownParser_InlineCode_MarkdownInsideCode_NotProcessed()
+	{
+		// Bold markers inside a code span must not be processed — content is literal
+		var result = MarkdownParser.ToHtml("`**bold**`", DefaultOptions);
+		Assert.AreEqual("<p><code>**bold**</code></p>", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_InlineCode_LinkInsideCode_NotProcessed()
+	{
+		// Link syntax inside a code span must not be rendered as a hyperlink
+		var result = MarkdownParser.ToHtml("`[link](https://example.com)`", DefaultOptions);
+		Assert.DoesNotContain("<a ", result);
+		Assert.Contains("<code>[link](https://example.com)</code>", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_InlineCode_HtmlTagInCode_AlwaysEncoded()
+	{
+		// Code content must always be HTML-encoded, regardless of SanitizeHtml
+		var options = new MarkdownRenderOptions { SanitizeHtml = false };
+		var result = MarkdownParser.ToHtml("`<script>alert(1)</script>`", options);
+		Assert.DoesNotContain("<script>", result);
+		Assert.Contains("<code>&lt;script>", result);
+	}
+
+	#endregion
+
+	#region Links - Relative URL Handling
+
+	[TestMethod]
+	public void MarkdownParser_Link_BareRelativeUrl_IsPreserved()
+	{
+		// A bare relative URL (no leading /) must not be replaced with #
+		var result = MarkdownParser.ToHtml("[Link](page.html)", DefaultOptions);
+		Assert.Contains("href=\"page.html\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Image_BareRelativeUrl_IsPreserved()
+	{
+		// A bare relative image path (no leading /) must not be replaced with #
+		var result = MarkdownParser.ToHtml("![alt](photo.jpg)", DefaultOptions);
+		Assert.Contains("src=\"photo.jpg\"", result);
+	}
+
+	#endregion
+
 	#region Security - XSS and Attribute Injection
 
 	[TestMethod]
