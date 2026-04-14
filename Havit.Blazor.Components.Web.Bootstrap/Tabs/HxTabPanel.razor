@@ -64,7 +64,7 @@
 					if ((RenderMode == TabPanelRenderMode.AllTabs)
 					|| ((RenderMode == TabPanelRenderMode.ActiveTabOnly) && IsActive(tab)))
 					{
-                        <div @key="@tab.Id" id="@tab.Id" aria-labelledby="@(tab.Id + "-header")" tabindex="0"  class="@CssClassHelper.Combine("tab-pane", (IsActive(tab) ? "active" : String.Empty), tab.ContentCssClass)">
+                        <div @key="@tab.Id" id="@tab.Id" role="tabpanel" aria-labelledby="@(tab.Id + "-header")" tabindex="0"  class="@CssClassHelper.Combine("tab-pane", (IsActive(tab) ? "active" : String.Empty), tab.ContentCssClass)">
                             @tab.Content
 						</div>
 					}
