@@ -43,7 +43,7 @@
 					           CssClass="@CssClassHelper.Combine((IsActive(tab) ? "active" : null), tab.TitleCssClass)"
 					           Enabled="CascadeEnabledComponent.EnabledEffective(tab)" aria-describedby="@tab.Id"
 					           aria-controls="@tab.Id"
-					           aria-selected="@CssClassHelper.Combine((IsActive(tab) ? "true" : "false"))"
+					           aria-selected="@(IsActive(tab) ? "true" : "false")"
 					           tabindex="@(IsActive(tab) ? "0" : "-1")" 
 					           id="@(tab.Id + "-header")">
 						@tab.Title
