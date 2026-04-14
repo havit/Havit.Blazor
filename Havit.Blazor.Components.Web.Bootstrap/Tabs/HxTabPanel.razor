@@ -44,7 +44,8 @@
 					           Enabled="CascadeEnabledComponent.EnabledEffective(tab)" aria-describedby="@tab.Id"
 					           aria-controls="@tab.Id"
 					           aria-selected="@CssClassHelper.Combine((IsActive(tab) ? "true" : "false"))"
-					           tabindex="@CssClassHelper.Combine((IsActive(tab) ? "0" : "-1"))">
+					           tabindex="@(IsActive(tab) ? "0" : "-1")" 
+					           id="@(tab.Id + "-header")">
 						@tab.Title
 						@tab.TitleTemplate
 					</HxNavLink>
@@ -63,7 +64,7 @@
 					if ((RenderMode == TabPanelRenderMode.AllTabs)
 					|| ((RenderMode == TabPanelRenderMode.ActiveTabOnly) && IsActive(tab)))
 					{
-                        <div @key="@tab.Id" id="@tab.Id" aria-labelledby="@tab.Id" tabindex="0"  class="@CssClassHelper.Combine("tab-pane", (IsActive(tab) ? "active" : String.Empty), tab.ContentCssClass)">
+                        <div @key="@tab.Id" id="@tab.Id" aria-labelledby="@(tab.Id + "-header")" tabindex="0"  class="@CssClassHelper.Combine("tab-pane", (IsActive(tab) ? "active" : String.Empty), tab.ContentCssClass)">
                             @tab.Content
 						</div>
 					}
