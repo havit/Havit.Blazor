@@ -9,13 +9,13 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 internal static partial class MarkdownParser
 {
 	[GeneratedRegex(@"^:?-{1,}:?$")]
-	private static partial Regex TableSeparatorCellRegex { get; }
+	private static partial Regex TableSeparatorCellRegex();
 
 	[GeneratedRegex(@"^\d+\.\s")]
-	private static partial Regex OrderedListItemRegex { get; }
+	private static partial Regex OrderedListItemRegex();
 
 	[GeneratedRegex(@"^\d+\.\s(.*)$")]
-	private static partial Regex OrderedListItemContentRegex { get; }
+	private static partial Regex OrderedListItemContentRegex();
 	/// <summary>
 	/// Converts markdown text to HTML.
 	/// </summary>
@@ -34,19 +34,19 @@ internal static partial class MarkdownParser
 		return RenderBlocks(blocks, options);
 	}
 
-	private static List<string> NormalizeLineEndings(string text)
+	private static string[] NormalizeLineEndings(string text)
 	{
-		return text.ReplaceLineEndings("\n").Split('\n').ToList();
+		return text.ReplaceLineEndings("\n").Split('\n');
 	}
 
 	#region Block-level parsing
 
-	private static List<MarkdownBlock> ParseBlocks(List<string> lines, bool sanitizeHtml)
+	private static List<MarkdownBlock> ParseBlocks(string[] lines, bool sanitizeHtml)
 	{
 		var blocks = new List<MarkdownBlock>();
 		int i = 0;
 
-		while (i < lines.Count)
+		while (i < lines.Length)
 		{
 			// Blank line – skip
 			if (string.IsNullOrWhiteSpace(lines[i]))
@@ -79,7 +79,7 @@ internal static partial class MarkdownParser
 			}
 
 			// Blockquote (> ...)
-			if (lines[i].TrimStart().StartsWith(">"))
+			if (lines[i].AsSpan().TrimStart().StartsWith(">"))
 			{
 				var bqBlock = ParseBlockquote(lines, ref i);
 				blocks.Add(bqBlock);
@@ -117,7 +117,7 @@ internal static partial class MarkdownParser
 		return blocks;
 	}
 
-	private static bool TryParseCodeBlock(List<string> lines, ref int i, out MarkdownBlock block)
+	private static bool TryParseCodeBlock(string[] lines, ref int i, out MarkdownBlock block)
 	{
 		block = null;
 		var trimmed = lines[i].TrimStart();
@@ -145,7 +145,7 @@ internal static partial class MarkdownParser
 		};
 
 		i++; // skip opening fence
-		while (i < lines.Count)
+		while (i < lines.Length)
 		{
 			var currentTrimmed = lines[i].TrimStart();
 			if (currentTrimmed.StartsWith(fence.Substring(0, 3)) && currentTrimmed.Trim().Length <= fence.Length + 3 && currentTrimmed.Trim().All(c => c == fence[0]))
@@ -160,7 +160,7 @@ internal static partial class MarkdownParser
 		return true;
 	}
 
-	private static bool TryParseHorizontalRule(string line, out MarkdownBlock block)
+	private static bool TryParseHorizontalRule(ReadOnlySpan<char> line, out MarkdownBlock block)
 	{
 		block = null;
 		var trimmed = line.Trim();
@@ -170,24 +170,35 @@ internal static partial class MarkdownParser
 			return false;
 		}
 
-		// Must be 3+ of the same char (-, *, _) with optional spaces
-		var withoutSpaces = trimmed.Replace(" ", "");
-		if (withoutSpaces.Length >= 3 && withoutSpaces.All(c => c == '-'))
+		// Must be 3+ of the same char (-, *, _) with optional spaces between them
+		char ruleChar = '\0';
+		int charCount = 0;
+		foreach (var c in trimmed)
 		{
-			block = new MarkdownBlock { Type = MarkdownBlockType.HorizontalRule };
-			return true;
-		}
-		if (withoutSpaces.Length >= 3 && withoutSpaces.All(c => c == '*'))
-		{
-			block = new MarkdownBlock { Type = MarkdownBlockType.HorizontalRule };
-			return true;
-		}
-		if (withoutSpaces.Length >= 3 && withoutSpaces.All(c => c == '_'))
-		{
-			block = new MarkdownBlock { Type = MarkdownBlockType.HorizontalRule };
-			return true;
+			if (c == ' ')
+			{
+				continue;
+			}
+			if (ruleChar == '\0')
+			{
+				if (c is not ('-' or '*' or '_'))
+				{
+					return false;
+				}
+				ruleChar = c;
+			}
+			if (c != ruleChar)
+			{
+				return false;
+			}
+			charCount++;
 		}
 
+		if (charCount >= 3)
+		{
+			block = new MarkdownBlock { Type = MarkdownBlockType.HorizontalRule };
+			return true;
+		}
 		return false;
 	}
 
@@ -226,11 +237,11 @@ internal static partial class MarkdownParser
 		return true;
 	}
 
-	private static MarkdownBlock ParseBlockquote(List<string> lines, ref int i)
+	private static MarkdownBlock ParseBlockquote(string[] lines, ref int i)
 	{
 		var block = new MarkdownBlock { Type = MarkdownBlockType.Blockquote };
 
-		while (i < lines.Count)
+		while (i < lines.Length)
 		{
 			var trimmed = lines[i].TrimStart();
 			if (trimmed.StartsWith(">"))
@@ -259,12 +270,12 @@ internal static partial class MarkdownParser
 		return block;
 	}
 
-	private static bool TryParseTable(List<string> lines, ref int i, out MarkdownBlock block)
+	private static bool TryParseTable(string[] lines, ref int i, out MarkdownBlock block)
 	{
 		block = null;
 
 		// Need at least header + separator + one data row
-		if (i + 1 >= lines.Count)
+		if (i + 1 >= lines.Length)
 		{
 			return false;
 		}
@@ -287,7 +298,7 @@ internal static partial class MarkdownParser
 		block.Lines.Add(separatorLine);
 		i += 2;
 
-		while (i < lines.Count)
+		while (i < lines.Length)
 		{
 			var trimmed = lines[i].Trim();
 			if (trimmed.StartsWith("|"))
@@ -312,22 +323,22 @@ internal static partial class MarkdownParser
 		}
 		// Each cell should be like ---  or :--- or ---: or :---:
 		var cells = SplitTableRow(line);
-		return cells.All(c => TableSeparatorCellRegex.IsMatch(c.Trim()));
+		return cells.All(c => TableSeparatorCellRegex().IsMatch(c.Trim()));
 	}
 
-	private static bool IsUnorderedListItem(string line)
+	private static bool IsUnorderedListItem(ReadOnlySpan<char> line)
 	{
 		var trimmed = line.TrimStart();
-		return (trimmed.StartsWith("- ") || trimmed.StartsWith("* ") || trimmed.StartsWith("+ "));
+		return trimmed.StartsWith("- ") || trimmed.StartsWith("* ") || trimmed.StartsWith("+ ");
 	}
 
-	private static bool IsOrderedListItem(string line)
+	private static bool IsOrderedListItem(ReadOnlySpan<char> line)
 	{
 		var trimmed = line.TrimStart();
-		return OrderedListItemRegex.IsMatch(trimmed);
+		return OrderedListItemRegex().IsMatch(trimmed);
 	}
 
-	private static MarkdownBlock ParseUnorderedList(List<string> lines, ref int i)
+	private static MarkdownBlock ParseUnorderedList(string[] lines, ref int i)
 	{
 		var block = new MarkdownBlock
 		{
@@ -335,7 +346,7 @@ internal static partial class MarkdownParser
 			Children = new List<MarkdownBlock>()
 		};
 
-		while (i < lines.Count && IsUnorderedListItem(lines[i]))
+		while (i < lines.Length && IsUnorderedListItem(lines[i]))
 		{
 			var trimmed = lines[i].TrimStart();
 			var content = trimmed.Substring(2); // skip "- ", "* ", "+ "
@@ -350,7 +361,7 @@ internal static partial class MarkdownParser
 		return block;
 	}
 
-	private static MarkdownBlock ParseOrderedList(List<string> lines, ref int i)
+	private static MarkdownBlock ParseOrderedList(string[] lines, ref int i)
 	{
 		var block = new MarkdownBlock
 		{
@@ -358,10 +369,10 @@ internal static partial class MarkdownParser
 			Children = new List<MarkdownBlock>()
 		};
 
-		while (i < lines.Count && IsOrderedListItem(lines[i]))
+		while (i < lines.Length && IsOrderedListItem(lines[i]))
 		{
 			var trimmed = lines[i].TrimStart();
-			var match = OrderedListItemContentRegex.Match(trimmed);
+			var match = OrderedListItemContentRegex().Match(trimmed);
 			var content = match.Success ? match.Groups[1].Value : trimmed;
 			block.Children.Add(new MarkdownBlock
 			{
@@ -374,29 +385,26 @@ internal static partial class MarkdownParser
 		return block;
 	}
 
-	private static MarkdownBlock ParseParagraph(List<string> lines, ref int i, bool sanitizeHtml)
+	private static MarkdownBlock ParseParagraph(string[] lines, ref int i, bool sanitizeHtml)
 	{
 		var block = new MarkdownBlock { Type = MarkdownBlockType.Paragraph };
 
-		while (i < lines.Count && !string.IsNullOrWhiteSpace(lines[i]))
+		while (i < lines.Length && !string.IsNullOrWhiteSpace(lines[i]))
 		{
+			var trimmedSpan = lines[i].AsSpan().TrimStart();
+
 			// Stop if next line looks like a different block type
-			if (lines[i].TrimStart().StartsWith("#")
-				|| lines[i].TrimStart().StartsWith(">")
-				|| lines[i].TrimStart().StartsWith("```")
-				|| lines[i].TrimStart().StartsWith("~~~")
-				|| IsUnorderedListItem(lines[i])
-				|| IsOrderedListItem(lines[i]))
+			if (trimmedSpan.StartsWith("#")
+				|| trimmedSpan.StartsWith(">")
+				|| trimmedSpan.StartsWith("```")
+				|| trimmedSpan.StartsWith("~~~")
+				|| IsUnorderedListItem(trimmedSpan)
+				|| IsOrderedListItem(trimmedSpan))
 			{
-				// Check for HR
-				if (TryParseHorizontalRule(lines[i], out _))
-				{
-					break;
-				}
 				break;
 			}
 
-			// Check for HR within paragraph
+			// Check for HR within paragraph (--- doesn't match any prefix above)
 			if (TryParseHorizontalRule(lines[i], out _))
 			{
 				break;
@@ -465,15 +473,23 @@ internal static partial class MarkdownParser
 
 	private static void RenderCodeBlock(StringBuilder sb, MarkdownBlock block, MarkdownRenderOptions options)
 	{
-		var code = WebUtility.HtmlEncode(string.Join("\n", block.Lines));
+		sb.Append("<pre><code");
 		if (!string.IsNullOrEmpty(block.CodeLanguage))
 		{
-			sb.Append($"<pre><code class=\"language-{WebUtility.HtmlEncode(block.CodeLanguage)}\">{code}</code></pre>");
+			sb.Append(" class=\"language-").Append(WebUtility.HtmlEncode(block.CodeLanguage)).Append('"');
 		}
-		else
+		sb.Append('>');
+
+		for (int i = 0; i < block.Lines.Count; i++)
 		{
-			sb.Append($"<pre><code>{code}</code></pre>");
+			if (i > 0)
+			{
+				sb.Append('\n');
+			}
+			sb.Append(WebUtility.HtmlEncode(block.Lines[i]));
 		}
+
+		sb.Append("</code></pre>");
 	}
 
 	private static void RenderBlockquote(StringBuilder sb, MarkdownBlock block, MarkdownRenderOptions options)
@@ -557,22 +573,30 @@ internal static partial class MarkdownParser
 
 	private static string JoinLines(List<string> lines)
 	{
-		return string.Join("\n", lines);
+		if (lines.Count == 0)
+		{
+			return string.Empty;
+		}
+		if (lines.Count == 1)
+		{
+			return lines[0];
+		}
+		return string.Join('\n', lines);
 	}
 
-	private static List<string> SplitTableRow(string row)
+	private static string[] SplitTableRow(string row)
 	{
 		// Remove leading/trailing |
-		var trimmed = row.Trim();
-		if (trimmed.StartsWith("|"))
+		var span = row.AsSpan().Trim();
+		if (span.Length > 0 && span[0] == '|')
 		{
-			trimmed = trimmed.Substring(1);
+			span = span.Slice(1);
 		}
-		if (trimmed.EndsWith("|"))
+		if (span.Length > 0 && span[span.Length - 1] == '|')
 		{
-			trimmed = trimmed.Substring(0, trimmed.Length - 1);
+			span = span.Slice(0, span.Length - 1);
 		}
-		return trimmed.Split('|').ToList();
+		return span.ToString().Split('|');
 	}
 
 	#endregion

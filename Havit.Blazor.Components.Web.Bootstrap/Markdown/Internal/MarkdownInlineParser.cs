@@ -8,31 +8,31 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 internal static partial class MarkdownInlineParser
 {
 	[GeneratedRegex(@"`([^`]+)`")]
-	private static partial Regex InlineCodeRegex { get; }
+	private static partial Regex InlineCodeRegex();
 
 	[GeneratedRegex(@"!\[([^\]]*)\]\(([^\s\)]+)(?:\s+""([^""]*)"")?\)")]
-	private static partial Regex ImageRegex { get; }
+	private static partial Regex ImageRegex();
 
 	[GeneratedRegex(@"\[([^\]]+)\]\(([^\s\)]+)(?:\s+""([^""]*)"")?\)")]
-	private static partial Regex LinkRegex { get; }
+	private static partial Regex LinkRegex();
 
 	[GeneratedRegex(@"\*\*(.+?)\*\*")]
-	private static partial Regex BoldAsteriskRegex { get; }
+	private static partial Regex BoldAsteriskRegex();
 
 	[GeneratedRegex(@"__(.+?)__")]
-	private static partial Regex BoldUnderscoreRegex { get; }
+	private static partial Regex BoldUnderscoreRegex();
 
 	[GeneratedRegex(@"\*(.+?)\*")]
-	private static partial Regex ItalicAsteriskRegex { get; }
+	private static partial Regex ItalicAsteriskRegex();
 
 	[GeneratedRegex(@"(?<!\w)_(.+?)_(?!\w)")]
-	private static partial Regex ItalicUnderscoreRegex { get; }
+	private static partial Regex ItalicUnderscoreRegex();
 
 	[GeneratedRegex(@"~~(.+?)~~")]
-	private static partial Regex StrikethroughRegex { get; }
+	private static partial Regex StrikethroughRegex();
 
 	[GeneratedRegex(@"  \n")]
-	private static partial Regex LineBreakRegex { get; }
+	private static partial Regex LineBreakRegex();
 
 	/// <summary>
 	/// Converts inline markdown syntax to HTML within a text block.
@@ -47,9 +47,19 @@ internal static partial class MarkdownInlineParser
 		// When sanitizing, encode only the HTML-dangerous characters (&lt; and &amp;)
 		// that don't conflict with markdown syntax. The " and > characters are safe
 		// in HTML text context and are needed for markdown link titles / blockquote syntax.
-		if (options.SanitizeHtml)
+		if (options.SanitizeHtml && text.AsSpan().IndexOfAny('&', '<') >= 0)
 		{
-			text = text.Replace("&", "&amp;").Replace("<", "&lt;");
+			var sanitized = new StringBuilder(text.Length);
+			foreach (var c in text)
+			{
+				switch (c)
+				{
+					case '&': sanitized.Append("&amp;"); break;
+					case '<': sanitized.Append("&lt;"); break;
+					default: sanitized.Append(c); break;
+				}
+			}
+			text = sanitized.ToString();
 		}
 
 		// Process inline elements in correct order:
@@ -72,7 +82,7 @@ internal static partial class MarkdownInlineParser
 
 	private static string ProcessInlineCode(string text)
 	{
-		return InlineCodeRegex.Replace(text, match =>
+		return InlineCodeRegex().Replace(text, match =>
 		{
 			var code = match.Groups[1].Value;
 			return $"<code>{code}</code>";
@@ -81,7 +91,7 @@ internal static partial class MarkdownInlineParser
 
 	private static string ProcessImages(string text, MarkdownRenderOptions options)
 	{
-		return ImageRegex.Replace(text, match =>
+		return ImageRegex().Replace(text, match =>
 		{
 			var alt = match.Groups[1].Value;
 			var url = match.Groups[2].Value;
@@ -97,7 +107,7 @@ internal static partial class MarkdownInlineParser
 
 	private static string ProcessLinks(string text)
 	{
-		return LinkRegex.Replace(text, match =>
+		return LinkRegex().Replace(text, match =>
 		{
 			var linkText = match.Groups[1].Value;
 			var url = match.Groups[2].Value;
@@ -111,26 +121,26 @@ internal static partial class MarkdownInlineParser
 
 	private static string ProcessBold(string text)
 	{
-		text = BoldAsteriskRegex.Replace(text, "<strong>$1</strong>");
-		text = BoldUnderscoreRegex.Replace(text, "<strong>$1</strong>");
+		text = BoldAsteriskRegex().Replace(text, "<strong>$1</strong>");
+		text = BoldUnderscoreRegex().Replace(text, "<strong>$1</strong>");
 		return text;
 	}
 
 	private static string ProcessItalic(string text)
 	{
-		text = ItalicAsteriskRegex.Replace(text, "<em>$1</em>");
-		text = ItalicUnderscoreRegex.Replace(text, "<em>$1</em>");
+		text = ItalicAsteriskRegex().Replace(text, "<em>$1</em>");
+		text = ItalicUnderscoreRegex().Replace(text, "<em>$1</em>");
 		return text;
 	}
 
 	private static string ProcessStrikethrough(string text)
 	{
-		return StrikethroughRegex.Replace(text, "<s>$1</s>");
+		return StrikethroughRegex().Replace(text, "<s>$1</s>");
 	}
 
 	private static string ProcessLineBreaks(string text)
 	{
-		text = LineBreakRegex.Replace(text, "<br />");
+		text = LineBreakRegex().Replace(text, "<br />");
 		text = text.Replace("\n", " ");
 		return text;
 	}
