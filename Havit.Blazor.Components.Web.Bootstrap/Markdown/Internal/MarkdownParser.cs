@@ -508,8 +508,10 @@ internal static partial class MarkdownParser
 	{
 		var cssClass = options.BlockquoteCssClass;
 		var classAttr = !string.IsNullOrEmpty(cssClass) ? $" class=\"{cssClass}\"" : "";
-		var innerContent = MarkdownInlineParser.ProcessInlineElements(JoinLines(block.Lines), options);
-		sb.Append($"<blockquote{classAttr}><p>{innerContent}</p></blockquote>");
+		// Recursively parse the blockquote's inner lines so nested blockquotes (>> ...) are rendered correctly.
+		var innerBlocks = ParseBlocks(block.Lines.ToArray(), options.SanitizeHtml);
+		var innerHtml = RenderBlocks(innerBlocks, options);
+		sb.Append($"<blockquote{classAttr}>{innerHtml}</blockquote>");
 	}
 
 	private static void RenderUnorderedList(StringBuilder sb, MarkdownBlock block, MarkdownRenderOptions options)

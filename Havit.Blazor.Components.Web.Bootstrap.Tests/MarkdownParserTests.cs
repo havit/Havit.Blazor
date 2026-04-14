@@ -184,6 +184,30 @@ public class MarkdownParserTests
 		Assert.Contains("Line two", result);
 	}
 
+	[TestMethod]
+	public void MarkdownParser_NestedBlockquote_TwoLevels()
+	{
+		// >> nested should produce a blockquote inside a blockquote
+		var result = MarkdownParser.ToHtml(">> nested", DefaultOptions);
+		Assert.AreEqual("<blockquote class=\"blockquote\"><blockquote class=\"blockquote\"><p>nested</p></blockquote></blockquote>", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NestedBlockquote_ThreeLevels()
+	{
+		// >>> triple-nested
+		var result = MarkdownParser.ToHtml(">>> triple", DefaultOptions);
+		Assert.AreEqual("<blockquote class=\"blockquote\"><blockquote class=\"blockquote\"><blockquote class=\"blockquote\"><p>triple</p></blockquote></blockquote></blockquote>", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NestedBlockquote_WithSpaceSyntax()
+	{
+		// CommonMark: "> > nested" (space between markers) also produces nested blockquote
+		var result = MarkdownParser.ToHtml("> > nested", DefaultOptions);
+		Assert.AreEqual("<blockquote class=\"blockquote\"><blockquote class=\"blockquote\"><p>nested</p></blockquote></blockquote>", result);
+	}
+
 	#endregion
 
 	#region Horizontal Rules
