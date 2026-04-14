@@ -1,0 +1,16 @@
+﻿# HxMarkdown_Demo_Tables.razor
+
+```razor
+<HxMarkdown Content="@_markdown" />
+
+@code {
+	private string _markdown = """
+		| Name   | Role       | Status |
+		|--------|------------|--------|
+		| Alice  | Developer  | Active |
+		| Bob    | Designer   | Active |
+		| Carol  | Manager    | Away   |
+		""";
+}
+
+```

@@ -1,0 +1,14 @@
+﻿# HxMarkdown_Demo_Wrapper.razor
+
+```razor
+<p><strong>Without wrapper (default):</strong></p>
+<HxMarkdown Content="@_markdown" />
+
+<p class="mt-3"><strong>With wrapper (CssClass set):</strong></p>
+<HxMarkdown Content="@_markdown" CssClass="p-3 bg-light border rounded" />
+
+@code {
+	private string _markdown = "A simple **paragraph** rendered from Markdown.";
+}
+
+```

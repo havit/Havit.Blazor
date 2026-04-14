@@ -1,21 +1,6 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 /// <summary>
-/// Represents a parsed block-level markdown element.
-/// </summary>
-internal enum MarkdownBlockType
-{
-	Paragraph,
-	Heading,
-	CodeBlock,
-	Blockquote,
-	UnorderedList,
-	OrderedList,
-	HorizontalRule,
-	Table
-}
-
-/// <summary>
 /// A single block-level element parsed from markdown.
 /// </summary>
 internal class MarkdownBlock

@@ -2608,11 +2608,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetDefaultSortingOrder">
             <inheritdoc />
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlockType">
-            <summary>
-            Represents a parsed block-level markdown element.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlock">
             <summary>
             A single block-level element parsed from markdown.
@@ -2636,6 +2631,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlock.Children">
             <summary>
             Child blocks (e.g. list items contain paragraph blocks).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlockType">
+            <summary>
+            Represents a parsed block-level markdown element.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser">

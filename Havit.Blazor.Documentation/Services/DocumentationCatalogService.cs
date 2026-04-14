@@ -71,6 +71,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/components/HxInputTextArea", "HxInputTextArea", "field multiline"),
 		new("/components/HxListGroup", "HxListGroup", "item"),
 		new("/components/HxListLayout", "HxListLayout", "data presentation filter"),
+		new("/components/HxMarkdown", "HxMarkdown", "markdown rendering html text content typography"),
 		new("/components/HxMessageBox", "HxMessageBox", "pop-up full-screen dialog modal confirm"),
 		new("/components/HxMessenger", "HxMessenger", "popup warning alert toaster"),
 		new("/components/HxModal", "HxModal", "popup fullscreen dialog messagebox"),
