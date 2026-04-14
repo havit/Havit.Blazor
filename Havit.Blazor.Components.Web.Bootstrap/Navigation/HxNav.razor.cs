@@ -33,6 +33,11 @@ public partial class HxNav
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
+	/// <summary>
+	/// Additional attributes to be splatted onto the underlying <c>&lt;nav&gt;</c> element.
+	/// </summary>
+	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
 	[CascadingParameter] protected HxNavbar NavbarContainer { get; set; }
 
 	protected virtual string GetCoreCssClass()

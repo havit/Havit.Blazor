@@ -195,4 +195,103 @@ public class HxTabPanelTests : BunitTestBase
 		var activePane = component.Find("div.tab-pane.active");
 		Assert.Contains("First tab content", activePane.InnerHtml);
 	}
+
+	[TestMethod]
+	public void HxTabPanel_AriaAttributes_ActiveTabHasCorrectRolesAndAttributes()
+	{
+		// Arrange & Act
+		var component = RenderComponent<HxTabPanel>(parameters => parameters
+			.Add(p => p.ActiveTabId, "tab1")
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 1"))
+			)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab2")
+				.Add(t => t.Title, "Second")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 2"))
+			)
+		);
+
+		var navLinks = component.FindAll("a.nav-link");
+
+		// Active tab header
+		Assert.AreEqual("tab", navLinks[0].GetAttribute("role"), "Active tab should have role=tab");
+		Assert.AreEqual("true", navLinks[0].GetAttribute("aria-selected"), "Active tab should have aria-selected=true");
+		Assert.AreEqual("0", navLinks[0].GetAttribute("tabindex"), "Active tab should have tabindex=0");
+		Assert.AreEqual("tab1-header", navLinks[0].GetAttribute("id"), "Active tab header id should be tab1-header");
+		Assert.AreEqual("tab1", navLinks[0].GetAttribute("aria-controls"), "Active tab should have aria-controls pointing to panel id");
+
+		// Inactive tab header
+		Assert.AreEqual("tab", navLinks[1].GetAttribute("role"), "Inactive tab should have role=tab");
+		Assert.AreEqual("false", navLinks[1].GetAttribute("aria-selected"), "Inactive tab should have aria-selected=false");
+		Assert.AreEqual("-1", navLinks[1].GetAttribute("tabindex"), "Inactive tab should have tabindex=-1");
+	}
+
+	[TestMethod]
+	public void HxTabPanel_AriaAttributes_TabPanelHasCorrectRoleAndLabelledBy()
+	{
+		// Arrange & Act
+		var component = RenderComponent<HxTabPanel>(parameters => parameters
+			.Add(p => p.ActiveTabId, "tab1")
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 1"))
+			)
+		);
+
+		var pane = component.Find("div.tab-pane");
+
+		Assert.AreEqual("tabpanel", pane.GetAttribute("role"), "Tab pane should have role=tabpanel");
+		Assert.AreEqual("tab1", pane.GetAttribute("id"), "Tab pane id should match tab id");
+		Assert.AreEqual("tab1-header", pane.GetAttribute("aria-labelledby"), "Tab pane aria-labelledby should point to the tab header id");
+		Assert.AreEqual("0", pane.GetAttribute("tabindex"), "Tab pane should have tabindex=0");
+	}
+
+	[TestMethod]
+	public void HxTabPanel_AriaAttributes_TablistRoleOnNav()
+	{
+		// Arrange & Act
+		var component = RenderComponent<HxTabPanel>(parameters => parameters
+			.Add(p => p.ActiveTabId, "tab1")
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 1"))
+			)
+		);
+
+		var nav = component.Find("nav");
+		Assert.AreEqual("tablist", nav.GetAttribute("role"), "Nav container should have role=tablist");
+	}
+
+	[TestMethod]
+	public void HxTabPanel_AriaAttributes_ActiveTabOnly_InactiveTabHasNoAriaControls()
+	{
+		// Arrange & Act
+		var component = RenderComponent<HxTabPanel>(parameters => parameters
+			.Add(p => p.ActiveTabId, "tab1")
+			.Add(p => p.RenderMode, TabPanelRenderMode.ActiveTabOnly)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 1"))
+			)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab2")
+				.Add(t => t.Title, "Second")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 2"))
+			)
+		);
+
+		var navLinks = component.FindAll("a.nav-link");
+
+		// Active tab should still have aria-controls (its panel is rendered)
+		Assert.AreEqual("tab1", navLinks[0].GetAttribute("aria-controls"), "Active tab should have aria-controls in ActiveTabOnly mode");
+
+		// Inactive tab should NOT have aria-controls (its panel is not in the DOM)
+		Assert.IsNull(navLinks[1].GetAttribute("aria-controls"), "Inactive tab should not have aria-controls in ActiveTabOnly mode");
+	}
 }

@@ -33,7 +33,7 @@
 @code {
 	private void RenderTabsNavigation(RenderTreeBuilder __builder)
 	{
-		<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", GetNavCssClassInCardMode(), CssClass)" Variant="NavVariant">
+		<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", GetNavCssClassInCardMode(), CssClass)" Variant="NavVariant" role="tablist">
 			@foreach (HxTab tab in _tabsListOrdered)
 			{
 				@if (tab.Visible)
@@ -41,11 +41,13 @@
 					<HxNavLink @key="@tab.Id"
 					           OnClick="async () => await HandleTabClick(tab)"
 					           CssClass="@CssClassHelper.Combine((IsActive(tab) ? "active" : null), tab.TitleCssClass)"
-					           Enabled="CascadeEnabledComponent.EnabledEffective(tab)" aria-describedby="@tab.Id"
-					           aria-controls="@tab.Id"
+					           Enabled="CascadeEnabledComponent.EnabledEffective(tab)"
+					           role="tab"
+					           id="@(tab.Id + "-header")"
+					           aria-controls="@((RenderMode == TabPanelRenderMode.AllTabs || IsActive(tab)) ? tab.Id : null)"
+					           aria-describedby="@((RenderMode == TabPanelRenderMode.AllTabs || IsActive(tab)) ? tab.Id : null)"
 					           aria-selected="@(IsActive(tab) ? "true" : "false")"
-					           tabindex="@(IsActive(tab) ? "0" : "-1")" 
-					           id="@(tab.Id + "-header")">
+					           tabindex="@(IsActive(tab) ? "0" : "-1")">
 						@tab.Title
 						@tab.TitleTemplate
 					</HxNavLink>
