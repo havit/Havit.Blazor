@@ -9317,6 +9317,11 @@
             Content of the nav.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the underlying <c>&lt;nav&gt;</c> element.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar">
             <summary>
             <see href="https://getbootstrap.com/docs/5.3/components/navbar/">Bootstrap 5 Navbar</see> component - a responsive navigation header.<br/>
