@@ -2840,6 +2840,11 @@
             <param name="options">Rendering options.</param>
             <returns>HTML string.</returns>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownParser.GetColumnAlignments(System.String)">
+            <summary>
+            Parses the separator row and returns the text-align value for each column, or null when no alignment is specified.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownRenderOptions">
             <summary>
             Options for the markdown-to-HTML rendering.

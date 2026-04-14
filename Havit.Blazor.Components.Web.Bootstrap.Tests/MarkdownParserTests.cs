@@ -301,6 +301,61 @@ public class MarkdownParserTests
 		Assert.Contains("<td>3</td>", result);
 	}
 
+	[TestMethod]
+	public void MarkdownParser_Table_AlignmentLeft_EmitsStyleAttribute()
+	{
+		// :--- means left alignment
+		var markdown = "| A | B |\n| :--- | :--- |\n| 1 | 2 |";
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.Contains("<th style=\"text-align:left\">", result);
+		Assert.Contains("<td style=\"text-align:left\">", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Table_AlignmentRight_EmitsStyleAttribute()
+	{
+		// ---: means right alignment
+		var markdown = "| A | B |\n| ---: | ---: |\n| 1 | 2 |";
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.Contains("<th style=\"text-align:right\">", result);
+		Assert.Contains("<td style=\"text-align:right\">", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Table_AlignmentCenter_EmitsStyleAttribute()
+	{
+		// :---: means center alignment
+		var markdown = "| A | B |\n| :---: | :---: |\n| 1 | 2 |";
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.Contains("<th style=\"text-align:center\">", result);
+		Assert.Contains("<td style=\"text-align:center\">", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Table_AlignmentNone_NoStyleAttribute()
+	{
+		// --- with no colons means no alignment (default)
+		var markdown = "| A |\n| --- |\n| 1 |";
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.DoesNotContain("style=", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Table_MixedAlignments_PerColumn()
+	{
+		// Each column may have a different alignment
+		var markdown = "| Left | Center | Right | None |\n| :--- | :---: | ---: | --- |\n| a | b | c | d |";
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.Contains("<th style=\"text-align:left\">Left</th>", result);
+		Assert.Contains("<th style=\"text-align:center\">Center</th>", result);
+		Assert.Contains("<th style=\"text-align:right\">Right</th>", result);
+		Assert.Contains("<th>None</th>", result);
+		Assert.Contains("<td style=\"text-align:left\">a</td>", result);
+		Assert.Contains("<td style=\"text-align:center\">b</td>", result);
+		Assert.Contains("<td style=\"text-align:right\">c</td>", result);
+		Assert.Contains("<td>d</td>", result);
+	}
+
 	#endregion
 
 	#region Inline Elements

@@ -548,13 +548,18 @@ internal static partial class MarkdownParser
 
 		sb.Append($"<table{classAttr}>");
 
+		// Parse column alignments from separator row (line 1)
+		var alignments = GetColumnAlignments(block.Lines[1]);
+
 		// Header row
 		var headerCells = SplitTableRow(block.Lines[0]);
 		sb.Append("<thead><tr>");
-		foreach (var cell in headerCells)
+		for (int c = 0; c < headerCells.Length; c++)
 		{
-			var content = MarkdownInlineParser.ProcessInlineElements(cell.Trim(), options);
-			sb.Append($"<th>{content}</th>");
+			var content = MarkdownInlineParser.ProcessInlineElements(headerCells[c].Trim(), options);
+			var align = c < alignments.Length ? alignments[c] : null;
+			var styleAttr = align != null ? $" style=\"text-align:{align}\"" : "";
+			sb.Append($"<th{styleAttr}>{content}</th>");
 		}
 		sb.Append("</tr></thead>");
 
@@ -566,10 +571,12 @@ internal static partial class MarkdownParser
 			{
 				var cells = SplitTableRow(block.Lines[r]);
 				sb.Append("<tr>");
-				foreach (var cell in cells)
+				for (int c = 0; c < cells.Length; c++)
 				{
-					var content = MarkdownInlineParser.ProcessInlineElements(cell.Trim(), options);
-					sb.Append($"<td>{content}</td>");
+					var content = MarkdownInlineParser.ProcessInlineElements(cells[c].Trim(), options);
+					var align = c < alignments.Length ? alignments[c] : null;
+					var styleAttr = align != null ? $" style=\"text-align:{align}\"" : "";
+					sb.Append($"<td{styleAttr}>{content}</td>");
 				}
 				sb.Append("</tr>");
 			}
@@ -577,6 +584,38 @@ internal static partial class MarkdownParser
 		}
 
 		sb.Append("</table>");
+	}
+
+	/// <summary>
+	/// Parses the separator row and returns the text-align value for each column, or null when no alignment is specified.
+	/// </summary>
+	private static string[] GetColumnAlignments(string separatorLine)
+	{
+		var cells = SplitTableRow(separatorLine);
+		var alignments = new string[cells.Length];
+		for (int i = 0; i < cells.Length; i++)
+		{
+			var cell = cells[i].Trim();
+			var left = cell.StartsWith(':');
+			var right = cell.EndsWith(':');
+			if (left && right)
+			{
+				alignments[i] = "center";
+			}
+			else if (right)
+			{
+				alignments[i] = "right";
+			}
+			else if (left)
+			{
+				alignments[i] = "left";
+			}
+			else
+			{
+				alignments[i] = null;
+			}
+		}
+		return alignments;
 	}
 
 	private static void RenderParagraph(StringBuilder sb, MarkdownBlock block, MarkdownRenderOptions options)
