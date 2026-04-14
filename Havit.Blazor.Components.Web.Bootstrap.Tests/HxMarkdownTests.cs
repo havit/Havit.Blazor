@@ -67,7 +67,7 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert – no wrapper div, content rendered directly
-		Assert.AreEqual(0, cut.FindAll("div").Count);
+		Assert.IsEmpty(cut.FindAll("div"));
 	}
 
 	[TestMethod]
@@ -112,7 +112,7 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert – HTML should be escaped (< encoded to &lt;, > remains)
-		Assert.AreEqual(0, cut.FindAll("b").Count);
+		Assert.IsEmpty(cut.FindAll("b"));
 		Assert.IsTrue(cut.Markup.Contains("&lt;b&gt;") || cut.Markup.Contains("&lt;b>"));
 	}
 
@@ -149,7 +149,7 @@ public class HxMarkdownTests : BunitTestBase
 
 		// Assert
 		var table = cut.Find("table");
-		Assert.IsTrue(table.GetAttribute("class").Contains("table-bordered"));
+		Assert.Contains("table-bordered", table.GetAttribute("class"));
 	}
 
 	[TestMethod]
@@ -236,7 +236,7 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.AreEqual(2, cut.FindAll("ul li").Count);
+		Assert.HasCount(2, cut.FindAll("ul li"));
 	}
 
 	[TestMethod]
@@ -248,7 +248,7 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.AreEqual(2, cut.FindAll("ol li").Count);
+		Assert.HasCount(2, cut.FindAll("ol li"));
 	}
 
 	[TestMethod]
@@ -308,7 +308,7 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.AreEqual(0, cut.FindAll("h1").Count);
+		Assert.IsEmpty(cut.FindAll("h1"));
 		Assert.AreEqual("Second", cut.Find("h2").TextContent);
 	}
 

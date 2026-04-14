@@ -47,7 +47,7 @@ public partial class HxMarkdown : ComponentBase
 	/// <summary>
 	/// Markdown text to render as HTML.
 	/// </summary>
-	[Parameter] public string Content { get; set; }
+	[Parameter, EditorRequired] public string Content { get; set; }
 
 	/// <summary>
 	/// When <c>true</c> (default), HTML tags in the input are escaped.

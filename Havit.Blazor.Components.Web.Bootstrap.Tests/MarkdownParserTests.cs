@@ -117,7 +117,7 @@ public class MarkdownParserTests
 	{
 		var markdown = "```\n<div>test</div>\n```";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.IsTrue(result.Contains("&lt;div&gt;test&lt;/div&gt;"));
+		Assert.Contains("&lt;div&gt;test&lt;/div&gt;", result);
 	}
 
 	[TestMethod]
@@ -144,7 +144,7 @@ public class MarkdownParserTests
 	{
 		var options = new MarkdownRenderOptions { SanitizeHtml = true, BlockquoteCssClass = "custom-quote" };
 		var result = MarkdownParser.ToHtml("> Quote text", options);
-		Assert.IsTrue(result.Contains("class=\"custom-quote\""));
+		Assert.Contains("class=\"custom-quote\"", result);
 	}
 
 	[TestMethod]
@@ -152,8 +152,8 @@ public class MarkdownParserTests
 	{
 		var markdown = "> Line one\n> Line two";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.IsTrue(result.Contains("Line one"));
-		Assert.IsTrue(result.Contains("Line two"));
+		Assert.Contains("Line one", result);
+		Assert.Contains("Line two", result);
 	}
 
 	#endregion
@@ -221,11 +221,11 @@ public class MarkdownParserTests
 		var markdown = "| Header 1 | Header 2 |\n|---|---|\n| Cell 1 | Cell 2 |";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
 
-		Assert.IsTrue(result.Contains("<table class=\"table\">"));
-		Assert.IsTrue(result.Contains("<th>Header 1</th>"));
-		Assert.IsTrue(result.Contains("<th>Header 2</th>"));
-		Assert.IsTrue(result.Contains("<td>Cell 1</td>"));
-		Assert.IsTrue(result.Contains("<td>Cell 2</td>"));
+		Assert.Contains("<table class=\"table\">", result);
+		Assert.Contains("<th>Header 1</th>", result);
+		Assert.Contains("<th>Header 2</th>", result);
+		Assert.Contains("<td>Cell 1</td>", result);
+		Assert.Contains("<td>Cell 2</td>", result);
 	}
 
 	[TestMethod]
@@ -234,7 +234,7 @@ public class MarkdownParserTests
 		var options = new MarkdownRenderOptions { SanitizeHtml = true, TableCssClass = "table table-striped" };
 		var markdown = "| A | B |\n|---|---|\n| 1 | 2 |";
 		var result = MarkdownParser.ToHtml(markdown, options);
-		Assert.IsTrue(result.Contains("class=\"table table-striped\""));
+		Assert.Contains("class=\"table table-striped\"", result);
 	}
 
 	[TestMethod]
@@ -243,10 +243,10 @@ public class MarkdownParserTests
 		var markdown = "| Name | Value |\n|---|---|\n| A | 1 |\n| B | 2 |\n| C | 3 |";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
 
-		Assert.IsTrue(result.Contains("<thead>"));
-		Assert.IsTrue(result.Contains("<tbody>"));
-		Assert.IsTrue(result.Contains("<td>A</td>"));
-		Assert.IsTrue(result.Contains("<td>3</td>"));
+		Assert.Contains("<thead>", result);
+		Assert.Contains("<tbody>", result);
+		Assert.Contains("<td>A</td>", result);
+		Assert.Contains("<td>3</td>", result);
 	}
 
 	#endregion
@@ -306,15 +306,15 @@ public class MarkdownParserTests
 	public void MarkdownParser_LinkWithTitle_RendersTitleAttribute()
 	{
 		var result = MarkdownParser.ToHtml("[Link](https://example.com \"My Title\")", DefaultOptions);
-		Assert.IsTrue(result.Contains("title=\"My Title\""));
+		Assert.Contains("title=\"My Title\"", result);
 	}
 
 	[TestMethod]
 	public void MarkdownParser_Image_RendersImgTag()
 	{
 		var result = MarkdownParser.ToHtml("![Alt text](https://example.com/img.png)", DefaultOptions);
-		Assert.IsTrue(result.Contains("<img src=\"https://example.com/img.png\" alt=\"Alt text\""));
-		Assert.IsTrue(result.Contains("class=\"img-fluid\""));
+		Assert.Contains("<img src=\"https://example.com/img.png\" alt=\"Alt text\"", result);
+		Assert.Contains("class=\"img-fluid\"", result);
 	}
 
 	[TestMethod]
@@ -322,7 +322,7 @@ public class MarkdownParserTests
 	{
 		var options = new MarkdownRenderOptions { SanitizeHtml = true, ImageCssClass = "custom-img" };
 		var result = MarkdownParser.ToHtml("![Alt](url.png)", options);
-		Assert.IsTrue(result.Contains("class=\"custom-img\""));
+		Assert.Contains("class=\"custom-img\"", result);
 	}
 
 	#endregion
@@ -334,8 +334,8 @@ public class MarkdownParserTests
 	{
 		var options = new MarkdownRenderOptions { SanitizeHtml = true };
 		var result = MarkdownParser.ToHtml("<script>alert('xss')</script>", options);
-		Assert.IsTrue(result.Contains("&lt;script>"));
-		Assert.IsFalse(result.Contains("<script>"));
+		Assert.Contains("&lt;script>", result);
+		Assert.DoesNotContain("<script>", result);
 	}
 
 	[TestMethod]
@@ -343,7 +343,7 @@ public class MarkdownParserTests
 	{
 		var options = new MarkdownRenderOptions { SanitizeHtml = false };
 		var result = MarkdownParser.ToHtml("<em>italic</em>", options);
-		Assert.IsTrue(result.Contains("<em>italic</em>"));
+		Assert.Contains("<em>italic</em>", result);
 	}
 
 	#endregion
@@ -355,8 +355,8 @@ public class MarkdownParserTests
 	{
 		var markdown = "# Title\n\nSome text here.";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.IsTrue(result.StartsWith("<h1>Title</h1>"));
-		Assert.IsTrue(result.Contains("<p>Some text here.</p>"));
+		Assert.StartsWith("<h1>Title</h1>", result);
+		Assert.Contains("<p>Some text here.</p>", result);
 	}
 
 	[TestMethod]
@@ -364,8 +364,8 @@ public class MarkdownParserTests
 	{
 		var markdown = "- Item 1\n- Item 2\n\nParagraph text.";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.IsTrue(result.Contains("<ul>"));
-		Assert.IsTrue(result.Contains("<p>Paragraph text.</p>"));
+		Assert.Contains("<ul>", result);
+		Assert.Contains("<p>Paragraph text.</p>", result);
 	}
 
 	[TestMethod]
@@ -373,7 +373,8 @@ public class MarkdownParserTests
 	{
 		var result = MarkdownParser.ToHtml("***bold and italic***", DefaultOptions);
 		// ** wraps *, so we get <strong><em>bold and italic</em></strong>
-		Assert.IsTrue(result.Contains("<strong>") && result.Contains("<em>"));
+		Assert.Contains("<strong>", result);
+		Assert.Contains("<em>", result);
 	}
 
 	#endregion

@@ -6,8 +6,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 /// <summary>
 /// Standalone markdown-to-HTML parser. Converts markdown text to HTML using Bootstrap typography classes.
 /// </summary>
-internal static class MarkdownParser
+internal static partial class MarkdownParser
 {
+	[GeneratedRegex(@"^:?-{1,}:?$")]
+	private static partial Regex TableSeparatorCellRegex { get; }
+
+	[GeneratedRegex(@"^\d+\.\s")]
+	private static partial Regex OrderedListItemRegex { get; }
+
+	[GeneratedRegex(@"^\d+\.\s(.*)$")]
+	private static partial Regex OrderedListItemContentRegex { get; }
 	/// <summary>
 	/// Converts markdown text to HTML.
 	/// </summary>
@@ -304,7 +312,7 @@ internal static class MarkdownParser
 		}
 		// Each cell should be like ---  or :--- or ---: or :---:
 		var cells = SplitTableRow(line);
-		return cells.All(c => Regex.IsMatch(c.Trim(), @"^:?-{1,}:?$"));
+		return cells.All(c => TableSeparatorCellRegex.IsMatch(c.Trim()));
 	}
 
 	private static bool IsUnorderedListItem(string line)
@@ -316,7 +324,7 @@ internal static class MarkdownParser
 	private static bool IsOrderedListItem(string line)
 	{
 		var trimmed = line.TrimStart();
-		return Regex.IsMatch(trimmed, @"^\d+\.\s");
+		return OrderedListItemRegex.IsMatch(trimmed);
 	}
 
 	private static MarkdownBlock ParseUnorderedList(List<string> lines, ref int i)
@@ -353,7 +361,7 @@ internal static class MarkdownParser
 		while (i < lines.Count && IsOrderedListItem(lines[i]))
 		{
 			var trimmed = lines[i].TrimStart();
-			var match = Regex.Match(trimmed, @"^\d+\.\s(.*)$");
+			var match = OrderedListItemContentRegex.Match(trimmed);
 			var content = match.Success ? match.Groups[1].Value : trimmed;
 			block.Children.Add(new MarkdownBlock
 			{
