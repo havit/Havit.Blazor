@@ -2608,6 +2608,64 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetDefaultSortingOrder">
             <inheritdoc />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlockType">
+            <summary>
+            Represents a parsed block-level markdown element.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlock">
+            <summary>
+            A single block-level element parsed from markdown.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlock.Lines">
+            <summary>
+            Raw text lines of the block (before inline parsing).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlock.HeadingLevel">
+            <summary>
+            Heading level (1-6). Only relevant for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlockType.Heading"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlock.CodeLanguage">
+            <summary>
+            Language hint for code blocks (e.g. "csharp"). Only relevant for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlockType.CodeBlock"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlock.Children">
+            <summary>
+            Child blocks (e.g. list items contain paragraph blocks).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser">
+            <summary>
+            Processes inline markdown elements (bold, italic, code, links, images, strikethrough, line breaks).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.ProcessInlineElements(System.String,Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownRenderOptions)">
+            <summary>
+            Converts inline markdown syntax to HTML within a text block.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownParser">
+            <summary>
+            Standalone markdown-to-HTML parser. Converts markdown text to HTML using Bootstrap typography classes.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownParser.ToHtml(System.String,Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownRenderOptions)">
+            <summary>
+            Converts markdown text to HTML.
+            </summary>
+            <param name="markdown">The markdown text to convert.</param>
+            <param name="options">Rendering options.</param>
+            <returns>HTML string.</returns>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownRenderOptions">
+            <summary>
+            Options for the markdown-to-HTML rendering.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal">
             <summary>
             Variation of <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> that adds <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> and related functionality.
@@ -8499,6 +8557,111 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.Always">
             <summary>
             Always horizontal, never vertical.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown">
+            <summary>
+            Renders Markdown content as HTML using Bootstrap typography.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMarkdown">https://havit.blazor.eu/components/HxMarkdown</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.Content">
+            <summary>
+            Markdown text to render as HTML.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.SanitizeHtml">
+            <summary>
+            When <c>true</c> (default), HTML tags in the input are escaped.
+            When <c>false</c>, raw HTML in the input passes through to the output (use only with trusted content).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.TableCssClass">
+            <summary>
+            CSS class for <c>&lt;table&gt;</c> elements rendered from markdown tables.
+            Default is <c>"table"</c> (Bootstrap table).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.BlockquoteCssClass">
+            <summary>
+            CSS class for <c>&lt;blockquote&gt;</c> elements rendered from markdown blockquotes.
+            Default is <c>"blockquote"</c> (Bootstrap blockquote).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.ImageCssClass">
+            <summary>
+            CSS class for <c>&lt;img&gt;</c> elements rendered from markdown images.
+            Default is <c>"img-fluid"</c> (Bootstrap responsive image).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.CssClass">
+            <summary>
+            Any additional CSS class to apply to the wrapper element.
+            When set (or when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.AdditionalAttributes"/> is used), the output is wrapped in a <c>&lt;div&gt;</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the wrapper <c>&lt;div&gt;</c> element.
+            When set, the output is wrapped in a <c>&lt;div&gt;</c>.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MarkdownSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MarkdownSettings.SanitizeHtml">
+            <summary>
+            When <c>true</c> (default), HTML tags in the input are escaped.
+            When <c>false</c>, raw HTML in the input passes through to the output (use only with trusted content).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MarkdownSettings.CssClass">
+            <summary>
+            CSS class for the wrapper <c>&lt;div&gt;</c> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MarkdownSettings.TableCssClass">
+            <summary>
+            CSS class for <c>&lt;table&gt;</c> elements rendered from markdown tables.
+            Default is <c>"table"</c> (Bootstrap table).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MarkdownSettings.BlockquoteCssClass">
+            <summary>
+            CSS class for <c>&lt;blockquote&gt;</c> elements rendered from markdown blockquotes.
+            Default is <c>"blockquote"</c> (Bootstrap blockquote).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MarkdownSettings.ImageCssClass">
+            <summary>
+            CSS class for <c>&lt;img&gt;</c> elements rendered from markdown images.
+            Default is <c>"img-fluid"</c> (Bootstrap responsive image).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1">
