@@ -121,23 +121,29 @@ internal static partial class MarkdownParser
 	{
 		block = null;
 		var trimmed = lines[i].TrimStart();
-		string fence = null;
+		char fenceChar;
 
 		if (trimmed.StartsWith("```"))
 		{
-			fence = "```";
+			fenceChar = '`';
 		}
 		else if (trimmed.StartsWith("~~~"))
 		{
-			fence = "~~~";
+			fenceChar = '~';
 		}
-
-		if (fence == null)
+		else
 		{
 			return false;
 		}
 
-		var language = trimmed.Substring(fence.Length).Trim();
+		// Count the actual opening fence length (CommonMark: >= 3 of the same char)
+		int fenceLength = 0;
+		while (fenceLength < trimmed.Length && trimmed[fenceLength] == fenceChar)
+		{
+			fenceLength++;
+		}
+
+		var language = trimmed.Substring(fenceLength).Trim();
 		block = new MarkdownBlock
 		{
 			Type = MarkdownBlockType.CodeBlock,
@@ -147,8 +153,9 @@ internal static partial class MarkdownParser
 		i++; // skip opening fence
 		while (i < lines.Length)
 		{
-			var currentTrimmed = lines[i].TrimStart();
-			if (currentTrimmed.StartsWith(fence.Substring(0, 3)) && currentTrimmed.Trim().Length <= fence.Length + 3 && currentTrimmed.Trim().All(c => c == fence[0]))
+			var currentTrimmed = lines[i].Trim();
+			// Closing fence: same char only, length >= opening fence length (CommonMark)
+			if (currentTrimmed.Length >= fenceLength && currentTrimmed.All(c => c == fenceChar))
 			{
 				i++; // skip closing fence
 				break;

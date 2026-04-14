@@ -128,6 +128,34 @@ public class MarkdownParserTests
 		Assert.AreEqual("<pre><code>code here</code></pre>", result);
 	}
 
+	[TestMethod]
+	public void MarkdownParser_FencedCodeBlock_LongerOpeningFence_NotClosedByShorterFence()
+	{
+		// Opening fence of 4 backticks requires closing fence of >= 4 backticks (CommonMark).
+		// A 3-backtick closing line should appear literally in the code content, not close the block.
+		var markdown = "````\nvar x = 1;\n```\nvar y = 2;\n````";
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.AreEqual("<pre><code>var x = 1;\n```\nvar y = 2;</code></pre>", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_FencedCodeBlock_LongerClosingFence_ClosesBlock()
+	{
+		// A closing fence longer than the opening fence must also close the block (CommonMark).
+		var markdown = "```\nvar x = 1;\n`````";
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.AreEqual("<pre><code>var x = 1;</code></pre>", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_FencedCodeBlock_FourBackticksWithLanguage()
+	{
+		// 4-backtick opening with language hint should be supported
+		var markdown = "````csharp\nvar x = 1;\n````";
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.AreEqual("<pre><code class=\"language-csharp\">var x = 1;</code></pre>", result);
+	}
+
 	#endregion
 
 	#region Blockquotes
