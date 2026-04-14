@@ -6,6 +6,7 @@ Bootstrap Nav component.
 
 | Name | Type | Description |
 |------|------|-------------|
+| AdditionalAttributes | `Dictionary<string, object>` | Additional attributes to be splatted onto the underlying `<nav>` element. |
 | ChildContent | `RenderFragment` | Content of the nav. |
 | CssClass | `string` | Additional CSS class. |
 | Id | `string` | ID of the nav which can be used for `HxScrollspy.TargetId`. |
