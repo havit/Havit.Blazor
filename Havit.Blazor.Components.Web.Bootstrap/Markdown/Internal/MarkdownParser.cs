@@ -394,6 +394,11 @@ internal static partial class MarkdownParser
 
 	private static MarkdownBlock ParseParagraph(string[] lines, ref int i, bool sanitizeHtml)
 	{
+		return ParseParagraph(lines, ref i);
+	}
+
+	private static MarkdownBlock ParseParagraph(string[] lines, ref int i)
+	{
 		var block = new MarkdownBlock { Type = MarkdownBlockType.Paragraph };
 
 		while (i < lines.Length && !string.IsNullOrWhiteSpace(lines[i]))
