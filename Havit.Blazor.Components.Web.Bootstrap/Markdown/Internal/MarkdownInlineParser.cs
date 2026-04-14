@@ -107,6 +107,7 @@ internal static partial class MarkdownInlineParser
 			if (options.SanitizeHtml)
 			{
 				alt = alt.Replace("\"", "&quot;");
+				url = url.Replace("\"", "&quot;");
 				title = title.Replace("\"", "&quot;");
 				if (!IsSafeUrl(url))
 				{
@@ -132,6 +133,7 @@ internal static partial class MarkdownInlineParser
 
 			if (options.SanitizeHtml)
 			{
+				url = url.Replace("\"", "&quot;");
 				title = title.Replace("\"", "&quot;");
 				if (!IsSafeUrl(url))
 				{

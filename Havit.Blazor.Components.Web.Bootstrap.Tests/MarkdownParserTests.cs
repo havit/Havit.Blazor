@@ -649,5 +649,27 @@ public class MarkdownParserTests
 		Assert.DoesNotContain("//evil.com", result);
 	}
 
+	[TestMethod]
+	public void MarkdownParser_Image_UrlWithQuote_AttributeInjectionPrevented()
+	{
+		// A " in the URL must be encoded to prevent breaking out of src="..." and injecting attributes.
+		var result = MarkdownParser.ToHtml("![alt](url\"onclick=\"alert(1))", DefaultOptions);
+		Assert.DoesNotContain("\" onclick=\"", result);
+		Assert.DoesNotContain("\"onclick=\"", result);
+		// The " chars in the URL are encoded as &quot; so the attribute cannot be broken.
+		Assert.Contains("src=\"url&quot;onclick=&quot;alert(1\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Link_UrlWithQuote_AttributeInjectionPrevented()
+	{
+		// A " in the href URL must be encoded to prevent breaking out of href="..." and injecting attributes.
+		var result = MarkdownParser.ToHtml("[text](url\"onclick=\"alert(1))", DefaultOptions);
+		Assert.DoesNotContain("\" onclick=\"", result);
+		Assert.DoesNotContain("\"onclick=\"", result);
+		// The " chars in the URL are encoded as &quot; so the attribute cannot be broken.
+		Assert.Contains("href=\"url&quot;onclick=&quot;alert(1\"", result);
+	}
+
 	#endregion
 }
