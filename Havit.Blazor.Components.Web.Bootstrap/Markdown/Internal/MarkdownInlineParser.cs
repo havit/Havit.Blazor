@@ -71,7 +71,7 @@ internal static partial class MarkdownInlineParser
 
 		text = ProcessInlineCode(text);
 		text = ProcessImages(text, options);
-		text = ProcessLinks(text);
+		text = ProcessLinks(text, options);
 		text = ProcessBold(text);
 		text = ProcessItalic(text);
 		text = ProcessStrikethrough(text);
@@ -97,6 +97,16 @@ internal static partial class MarkdownInlineParser
 			var url = match.Groups[2].Value;
 			var title = match.Groups[3].Value;
 
+			if (options.SanitizeHtml)
+			{
+				alt = alt.Replace("\"", "&quot;");
+				title = title.Replace("\"", "&quot;");
+				if (!IsSafeUrl(url))
+				{
+					url = "#";
+				}
+			}
+
 			var cssClass = options.ImageCssClass;
 			var classAttr = !string.IsNullOrEmpty(cssClass) ? $" class=\"{cssClass}\"" : "";
 			var titleAttr = !string.IsNullOrEmpty(title) ? $" title=\"{title}\"" : "";
@@ -105,7 +115,7 @@ internal static partial class MarkdownInlineParser
 		});
 	}
 
-	private static string ProcessLinks(string text)
+	private static string ProcessLinks(string text, MarkdownRenderOptions options)
 	{
 		return LinkRegex().Replace(text, match =>
 		{
@@ -113,10 +123,46 @@ internal static partial class MarkdownInlineParser
 			var url = match.Groups[2].Value;
 			var title = match.Groups[3].Value;
 
+			if (options.SanitizeHtml)
+			{
+				title = title.Replace("\"", "&quot;");
+				if (!IsSafeUrl(url))
+				{
+					url = "#";
+				}
+			}
+
 			var titleAttr = !string.IsNullOrEmpty(title) ? $" title=\"{title}\"" : "";
 
 			return $"<a href=\"{url}\"{titleAttr}>{linkText}</a>";
 		});
+	}
+
+	private static bool IsSafeUrl(string url)
+	{
+		if (string.IsNullOrEmpty(url))
+		{
+			return true;
+		}
+
+		// Relative URLs are always safe (but not protocol-relative //host/path)
+		if (url[0] == '#' || (url[0] == '/' && (url.Length < 2 || url[1] != '/')))
+		{
+			return true;
+		}
+
+		if (url.StartsWith("./", StringComparison.Ordinal) || url.StartsWith("../", StringComparison.Ordinal))
+		{
+			return true;
+		}
+
+		// Only allow known-safe absolute URL schemes
+		return url.StartsWith("http://", StringComparison.OrdinalIgnoreCase)
+			|| url.StartsWith("https://", StringComparison.OrdinalIgnoreCase)
+			|| url.StartsWith("ftp://", StringComparison.OrdinalIgnoreCase)
+			|| url.StartsWith("ftps://", StringComparison.OrdinalIgnoreCase)
+			|| url.StartsWith("mailto:", StringComparison.OrdinalIgnoreCase)
+			|| url.StartsWith("tel:", StringComparison.OrdinalIgnoreCase);
 	}
 
 	private static string ProcessBold(string text)

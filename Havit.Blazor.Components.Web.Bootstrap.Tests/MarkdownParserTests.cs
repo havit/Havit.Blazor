@@ -390,4 +390,106 @@ public class MarkdownParserTests
 	}
 
 	#endregion
+
+	#region Security - XSS and Attribute Injection
+
+	[TestMethod]
+	public void MarkdownParser_Image_AltWithQuote_AttributeInjectionPrevented()
+	{
+		// A " in the alt text must be encoded to prevent breaking out of the attribute and injecting new attributes.
+		var result = MarkdownParser.ToHtml("![alt\" onerror=\"alert(1)](image.png)", DefaultOptions);
+		// The output should have " encoded as &quot; so the attribute cannot be broken
+		Assert.DoesNotContain("\" onerror=\"", result);
+		Assert.Contains("alt=\"alt&quot; onerror=&quot;", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Image_AltWithQuote_EncodedAsHtmlEntity()
+	{
+		var result = MarkdownParser.ToHtml("![say \"hello\"](image.png)", DefaultOptions);
+		Assert.Contains("alt=\"say &quot;hello&quot;\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Image_JavascriptUrlInSrc_IsBlocked()
+	{
+		var result = MarkdownParser.ToHtml("![alt](javascript:alert(1))", DefaultOptions);
+		Assert.DoesNotContain("javascript:", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Image_DataUrlInSrc_IsBlocked()
+	{
+		var result = MarkdownParser.ToHtml("![alt](data:text/html,payload)", DefaultOptions);
+		Assert.DoesNotContain("data:", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Image_SafeHttpsUrl_IsPreserved()
+	{
+		var result = MarkdownParser.ToHtml("![alt](https://example.com/img.png)", DefaultOptions);
+		Assert.Contains("src=\"https://example.com/img.png\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Image_SafeRelativeUrl_IsPreserved()
+	{
+		var result = MarkdownParser.ToHtml("![alt](/images/photo.png)", DefaultOptions);
+		Assert.Contains("src=\"/images/photo.png\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Image_JavascriptUrl_SanitizeHtmlFalse_IsPreserved()
+	{
+		// SanitizeHtml=false opts out of all sanitization; URL scheme is kept as-is.
+		var options = new MarkdownRenderOptions { SanitizeHtml = false };
+		var result = MarkdownParser.ToHtml("![alt](javascript:alert(1))", options);
+		Assert.Contains("javascript:", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Link_JavascriptUrlInHref_IsBlocked()
+	{
+		var result = MarkdownParser.ToHtml("[Click here](javascript:alert(1))", DefaultOptions);
+		Assert.DoesNotContain("javascript:", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Link_DataUrlInHref_IsBlocked()
+	{
+		var result = MarkdownParser.ToHtml("[Click here](data:text/html,payload)", DefaultOptions);
+		Assert.DoesNotContain("data:", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Link_SafeHttpsUrl_IsPreserved()
+	{
+		var result = MarkdownParser.ToHtml("[Link](https://example.com)", DefaultOptions);
+		Assert.Contains("href=\"https://example.com\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Link_JavascriptUrl_SanitizeHtmlFalse_IsPreserved()
+	{
+		// SanitizeHtml=false opts out of all sanitization; URL scheme is kept as-is.
+		var options = new MarkdownRenderOptions { SanitizeHtml = false };
+		var result = MarkdownParser.ToHtml("[Click here](javascript:alert(1))", options);
+		Assert.Contains("javascript:", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Image_ProtocolRelativeUrl_IsBlocked()
+	{
+		var result = MarkdownParser.ToHtml("![alt](//evil.com/image.png)", DefaultOptions);
+		Assert.DoesNotContain("//evil.com", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_Link_ProtocolRelativeUrl_IsBlocked()
+	{
+		var result = MarkdownParser.ToHtml("[Link](//evil.com)", DefaultOptions);
+		Assert.DoesNotContain("//evil.com", result);
+	}
+
+	#endregion
 }
