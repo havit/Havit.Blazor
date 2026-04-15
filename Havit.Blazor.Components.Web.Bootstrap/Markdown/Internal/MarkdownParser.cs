@@ -281,7 +281,7 @@ internal static partial class MarkdownParser
 	{
 		block = null;
 
-		// Need at least header + separator + one data row
+		// Need at least header + separator; data rows are optional
 		if (i + 1 >= lines.Length)
 		{
 			return false;
