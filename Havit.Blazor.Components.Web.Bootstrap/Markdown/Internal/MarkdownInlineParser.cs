@@ -104,16 +104,14 @@ internal static partial class MarkdownInlineParser
 			var url = match.Groups[2].Value;
 			var title = match.Groups[3].Value;
 
-			if (options.SanitizeHtml)
+			if (options.SanitizeHtml && !IsSafeUrl(url))
 			{
-				if (!IsSafeUrl(url))
-				{
-					url = "#";
-				}
-				alt = alt.Replace("\"", "&quot;");
-				url = url.Replace("\"", "&quot;");
-				title = title.Replace("\"", "&quot;");
+				url = "#";
 			}
+			// Always encode quotes in attribute values to produce valid HTML regardless of SanitizeHtml.
+			alt = alt.Replace("\"", "&quot;");
+			url = url.Replace("\"", "&quot;");
+			title = title.Replace("\"", "&quot;");
 
 			var cssClass = options.ImageCssClass;
 			var classAttr = !string.IsNullOrEmpty(cssClass) ? $" class=\"{cssClass}\"" : "";
@@ -131,15 +129,13 @@ internal static partial class MarkdownInlineParser
 			var url = match.Groups[2].Value;
 			var title = match.Groups[3].Value;
 
-			if (options.SanitizeHtml)
+			if (options.SanitizeHtml && !IsSafeUrl(url))
 			{
-				if (!IsSafeUrl(url))
-				{
-					url = "#";
-				}
-				url = url.Replace("\"", "&quot;");
-				title = title.Replace("\"", "&quot;");
+				url = "#";
 			}
+			// Always encode quotes in attribute values to produce valid HTML regardless of SanitizeHtml.
+			url = url.Replace("\"", "&quot;");
+			title = title.Replace("\"", "&quot;");
 
 			var titleAttr = !string.IsNullOrEmpty(title) ? $" title=\"{title}\"" : "";
 
