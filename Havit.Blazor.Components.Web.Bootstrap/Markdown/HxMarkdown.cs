@@ -93,17 +93,42 @@ public partial class HxMarkdown : ComponentBase
 	private bool HasWrapper => !string.IsNullOrEmpty(CssClassEffective) || (AdditionalAttributes is not null && AdditionalAttributes.Count > 0);
 
 	private string _renderedHtml;
+	private string _previousContent;
+	private bool _previousSanitizeHtml;
+	private string _previousTableCssClass;
+	private string _previousBlockquoteCssClass;
+	private string _previousImageCssClass;
 
 	protected override void OnParametersSet()
 	{
 		base.OnParametersSet();
 
+		var sanitize = SanitizeHtmlEffective;
+		var tableCss = TableCssClassEffective;
+		var blockquoteCss = BlockquoteCssClassEffective;
+		var imageCss = ImageCssClassEffective;
+
+		if (Content == _previousContent
+			&& sanitize == _previousSanitizeHtml
+			&& tableCss == _previousTableCssClass
+			&& blockquoteCss == _previousBlockquoteCssClass
+			&& imageCss == _previousImageCssClass)
+		{
+			return;
+		}
+
+		_previousContent = Content;
+		_previousSanitizeHtml = sanitize;
+		_previousTableCssClass = tableCss;
+		_previousBlockquoteCssClass = blockquoteCss;
+		_previousImageCssClass = imageCss;
+
 		var options = new MarkdownRenderOptions
 		{
-			SanitizeHtml = SanitizeHtmlEffective,
-			TableCssClass = TableCssClassEffective,
-			BlockquoteCssClass = BlockquoteCssClassEffective,
-			ImageCssClass = ImageCssClassEffective
+			SanitizeHtml = sanitize,
+			TableCssClass = tableCss,
+			BlockquoteCssClass = blockquoteCss,
+			ImageCssClass = imageCss
 		};
 
 		_renderedHtml = MarkdownParser.ToHtml(Content, options);

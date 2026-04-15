@@ -339,6 +339,22 @@ internal static partial class MarkdownParser
 		return trimmed.StartsWith("- ") || trimmed.StartsWith("* ") || trimmed.StartsWith("+ ");
 	}
 
+	private static bool IsHeadingStart(ReadOnlySpan<char> line)
+	{
+		var trimmed = line.TrimStart();
+		if (!trimmed.StartsWith("#"))
+		{
+			return false;
+		}
+		int level = 0;
+		while (level < trimmed.Length && level < 6 && trimmed[level] == '#')
+		{
+			level++;
+		}
+		// Valid heading: # followed by space or end of line
+		return level >= trimmed.Length || trimmed[level] == ' ';
+	}
+
 	private static bool IsOrderedListItem(ReadOnlySpan<char> line)
 	{
 		var trimmed = line.TrimStart();
@@ -396,29 +412,43 @@ internal static partial class MarkdownParser
 	{
 		var block = new MarkdownBlock { Type = MarkdownBlockType.Paragraph };
 
+		// The first line is guaranteed by ParseBlocks to not match any other block parser,
+		// so we always consume it. Break checks only apply to continuation lines (2nd+).
+		bool isFirstLine = true;
+
 		while (i < lines.Length && !string.IsNullOrWhiteSpace(lines[i]))
 		{
-			var trimmedSpan = lines[i].AsSpan().TrimStart();
-
-			// Stop if next line looks like a different block type
-			if (trimmedSpan.StartsWith("#")
-				|| trimmedSpan.StartsWith(">")
-				|| trimmedSpan.StartsWith("```")
-				|| trimmedSpan.StartsWith("~~~")
-				|| IsUnorderedListItem(trimmedSpan)
-				|| IsOrderedListItem(trimmedSpan))
+			if (!isFirstLine)
 			{
-				break;
-			}
+				var trimmedSpan = lines[i].AsSpan().TrimStart();
 
-			// Check for HR within paragraph (--- doesn't match any prefix above)
-			if (TryParseHorizontalRule(lines[i], out _))
-			{
-				break;
+				// Stop if continuation line looks like a different block type
+				if (trimmedSpan.StartsWith(">")
+					|| trimmedSpan.StartsWith("```")
+					|| trimmedSpan.StartsWith("~~~")
+					|| IsUnorderedListItem(trimmedSpan)
+					|| IsOrderedListItem(trimmedSpan)
+					|| IsHeadingStart(trimmedSpan))
+				{
+					break;
+				}
+
+				// Check for HR within paragraph
+				if (TryParseHorizontalRule(lines[i], out _))
+				{
+					break;
+				}
+
+				// Check for table start (| ... | followed by separator line)
+				if (trimmedSpan.StartsWith("|") && (i + 1 < lines.Length) && IsTableSeparator(lines[i + 1].Trim()))
+				{
+					break;
+				}
 			}
 
 			block.Lines.Add(lines[i]);
 			i++;
+			isFirstLine = false;
 		}
 
 		return block;

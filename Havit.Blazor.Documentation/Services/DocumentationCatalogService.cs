@@ -135,6 +135,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/types/InputTagsSettings", "InputTags Settings", "defaults", DefaultsLevel),
 		new("/types/InputFileCoreSettings", "InputFileCore Settings", "defaults", DefaultsLevel),
 		new("/types/ListLayoutSettings", "ListLayout Settings", "defaults", DefaultsLevel),
+		new("/types/MarkdownSettings", "Markdown Settings", "defaults", DefaultsLevel),
 		new("/types/MultiSelect Settings", "MultiSelect Settings", "defaults", DefaultsLevel),
 		new("/types/Modal Settings", "Modal Settings", "defaults", DefaultsLevel),
 		new("/types/MessengerServiceExtensionsSettings", "MessengerServiceExtensions Settings", "defaults", DefaultsLevel),

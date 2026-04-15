@@ -484,6 +484,18 @@ public class MarkdownParserTests
 		Assert.Contains("<em>", result);
 	}
 
+	[TestMethod]
+	public void MarkdownParser_TableImmediatelyAfterParagraph_WithoutBlankLine_ParsedSeparately()
+	{
+		// Table immediately after paragraph text (no blank line separator) must be parsed as a separate table block
+		var markdown = "Some text\n| A | B |\n|---|---|\n| 1 | 2 |";
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.Contains("<p>Some text</p>", result);
+		Assert.Contains("<table", result);
+		Assert.Contains("<th>A</th>", result);
+		Assert.Contains("<td>1</td>", result);
+	}
+
 	#endregion
 
 	#region Line Endings
