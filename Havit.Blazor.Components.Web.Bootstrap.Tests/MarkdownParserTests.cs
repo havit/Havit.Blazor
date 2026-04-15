@@ -703,16 +703,5 @@ public class MarkdownParserTests
 		Assert.Contains("href=\"url&quot;onclick=&quot;alert(1\"", result);
 	}
 
-	[TestMethod]
-	public void MarkdownParser_Link_TitleWithQuote_SanitizeHtmlFalse_AttributeInjectionPrevented()
-	{
-		// Even with SanitizeHtml=false, " in URL must be encoded to produce valid HTML attributes.
-		var options = new MarkdownRenderOptions { SanitizeHtml = false };
-		var result = MarkdownParser.ToHtml("[text](url\"onclick=\"alert(1))", options);
-		Assert.DoesNotContain("\" onclick=\"", result);
-		Assert.DoesNotContain("\"onclick=\"", result);
-		Assert.Contains("href=\"url&quot;onclick=&quot;alert(1\"", result);
-	}
-
 	#endregion
 }
