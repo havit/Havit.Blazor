@@ -439,8 +439,9 @@ internal static partial class MarkdownParser
 					break;
 				}
 
-				// Check for table start (| ... | followed by separator line)
-				if (trimmedSpan.StartsWith("|") && (i + 1 < lines.Length) && IsTableSeparator(lines[i + 1].Trim()))
+				// Check for table start (| ... | followed by separator line).
+				// Must require trailing | to match TryParseTable's header-line check.
+				if (trimmedSpan.StartsWith("|") && trimmedSpan.EndsWith("|") && (i + 1 < lines.Length) && IsTableSeparator(lines[i + 1].Trim()))
 				{
 					break;
 				}

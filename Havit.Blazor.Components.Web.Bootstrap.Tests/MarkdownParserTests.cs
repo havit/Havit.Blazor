@@ -715,5 +715,17 @@ public class MarkdownParserTests
 		Assert.Contains("href=\"url&quot;onclick=&quot;alert(1\"", result);
 	}
 
+	[TestMethod]
+	public void MarkdownParser_TableHeaderWithoutTrailingPipe_AfterParagraph_NotSplitIncorrectly()
+	{
+		// Header line without trailing pipe (| A | B) must NOT break the paragraph,
+		// because TryParseTable requires both leading and trailing pipes.
+		var markdown = "Some text\n| A | B\n|---|---|\n| 1 | 2 |";
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.Contains("Some text", result);
+		Assert.Contains("| A | B", result);
+		Assert.DoesNotContain("<table", result);
+	}
+
 	#endregion
 }
