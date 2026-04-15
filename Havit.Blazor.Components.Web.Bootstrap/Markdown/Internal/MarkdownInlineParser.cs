@@ -44,17 +44,20 @@ internal static partial class MarkdownInlineParser
 			return string.Empty;
 		}
 
+		// Shared placeholder list — code spans, images and links are all replaced with
+		// placeholders so that subsequent emphasis/strikethrough passes cannot mangle them.
+		var placeholders = new List<string>();
+
 		// Step 1: Extract inline code spans and replace with placeholders.
 		// Code content is HTML-encoded (always, regardless of SanitizeHtml) and protected
 		// from all subsequent inline-element passes (bold, italic, links, etc.).
-		var codePlaceholders = new List<string>();
 		text = InlineCodeRegex().Replace(text, match =>
 		{
 			var code = match.Groups[1].Value;
 			// Always HTML-encode code content — code spans are always literal text.
 			var encoded = code.Replace("&", "&amp;").Replace("<", "&lt;");
-			var placeholder = $"\x00CODE{codePlaceholders.Count}\x00";
-			codePlaceholders.Add($"<code>{encoded}</code>");
+			var placeholder = $"\x00PH{placeholders.Count}\x00";
+			placeholders.Add($"<code>{encoded}</code>");
 			return placeholder;
 		});
 
@@ -74,29 +77,42 @@ internal static partial class MarkdownInlineParser
 			text = sanitized.ToString();
 		}
 
-		// Step 3: Process other inline elements in correct order:
-		// Images before links (image syntax contains link syntax)
-		// Bold before italic (** before *)
-		text = ProcessImages(text, options);
-		text = ProcessLinks(text, options);
+		// Step 3: Process images and links first. Generated HTML tags are replaced with
+		// placeholders so bold/italic/strikethrough cannot corrupt URLs or attributes.
+		text = ProcessImages(text, options, placeholders);
+		text = ProcessLinks(text, options, placeholders);
+
+		// Step 4: Emphasis and other inline elements (safe — HTML tags are placeholdered).
 		text = ProcessBold(text);
 		text = ProcessItalic(text);
 		text = ProcessStrikethrough(text);
 		text = ProcessLineBreaks(text);
 
-		// Step 4: Restore code span placeholders.
-		if (codePlaceholders.Count > 0)
+		// Step 5: Restore all placeholders.
+		for (int i = 0; i < placeholders.Count; i++)
 		{
-			for (int i = 0; i < codePlaceholders.Count; i++)
-			{
-				text = text.Replace($"\x00CODE{i}\x00", codePlaceholders[i]);
-			}
+			text = text.Replace($"\x00PH{i}\x00", placeholders[i]);
 		}
 
 		return text;
 	}
 
-	private static string ProcessImages(string text, MarkdownRenderOptions options)
+	/// <summary>
+	/// Encodes a value for safe use inside an HTML attribute (double-quoted).
+	/// When <paramref name="ampAlreadyEncoded"/> is true, <c>&amp;</c> is assumed to already
+	/// be encoded by an earlier sanitization pass (SanitizeHtml=true).
+	/// </summary>
+	private static string EncodeAttributeValue(string value, bool ampAlreadyEncoded)
+	{
+		if (!ampAlreadyEncoded)
+		{
+			value = value.Replace("&", "&amp;");
+		}
+		value = value.Replace("\"", "&quot;");
+		return value;
+	}
+
+	private static string ProcessImages(string text, MarkdownRenderOptions options, List<string> placeholders)
 	{
 		return ImageRegex().Replace(text, match =>
 		{
@@ -108,20 +124,24 @@ internal static partial class MarkdownInlineParser
 			{
 				url = "#";
 			}
-			// Always encode quotes in attribute values to produce valid HTML regardless of SanitizeHtml.
-			alt = alt.Replace("\"", "&quot;");
-			url = url.Replace("\"", "&quot;");
-			title = title.Replace("\"", "&quot;");
+			// Encode attribute values for valid HTML. When SanitizeHtml=true, & is already
+			// encoded in Step 2 so we skip it to avoid double-encoding.
+			alt = EncodeAttributeValue(alt, options.SanitizeHtml);
+			url = EncodeAttributeValue(url, options.SanitizeHtml);
+			title = EncodeAttributeValue(title, options.SanitizeHtml);
 
 			var cssClass = options.ImageCssClass;
 			var classAttr = !string.IsNullOrEmpty(cssClass) ? $" class=\"{cssClass}\"" : "";
 			var titleAttr = !string.IsNullOrEmpty(title) ? $" title=\"{title}\"" : "";
 
-			return $"<img src=\"{url}\" alt=\"{alt}\"{titleAttr}{classAttr} />";
+			var imgTag = $"<img src=\"{url}\" alt=\"{alt}\"{titleAttr}{classAttr} />";
+			var placeholder = $"\x00PH{placeholders.Count}\x00";
+			placeholders.Add(imgTag);
+			return placeholder;
 		});
 	}
 
-	private static string ProcessLinks(string text, MarkdownRenderOptions options)
+	private static string ProcessLinks(string text, MarkdownRenderOptions options, List<string> placeholders)
 	{
 		return LinkRegex().Replace(text, match =>
 		{
@@ -133,13 +153,17 @@ internal static partial class MarkdownInlineParser
 			{
 				url = "#";
 			}
-			// Always encode quotes in attribute values to produce valid HTML regardless of SanitizeHtml.
-			url = url.Replace("\"", "&quot;");
-			title = title.Replace("\"", "&quot;");
+			// Encode attribute values for valid HTML. When SanitizeHtml=true, & is already
+			// encoded in Step 2 so we skip it to avoid double-encoding.
+			url = EncodeAttributeValue(url, options.SanitizeHtml);
+			title = EncodeAttributeValue(title, options.SanitizeHtml);
 
 			var titleAttr = !string.IsNullOrEmpty(title) ? $" title=\"{title}\"" : "";
 
-			return $"<a href=\"{url}\"{titleAttr}>{linkText}</a>";
+			var linkTag = $"<a href=\"{url}\"{titleAttr}>{linkText}</a>";
+			var placeholder = $"\x00PH{placeholders.Count}\x00";
+			placeholders.Add(linkTag);
+			return placeholder;
 		});
 	}
 

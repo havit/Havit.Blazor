@@ -441,7 +441,8 @@ internal static partial class MarkdownParser
 
 				// Check for table start (| ... | followed by separator line).
 				// Must require trailing | to match TryParseTable's header-line check.
-				if (trimmedSpan.StartsWith("|") && trimmedSpan.EndsWith("|") && (i + 1 < lines.Length) && IsTableSeparator(lines[i + 1].Trim()))
+				// Use TrimEnd() so trailing whitespace doesn't prevent the match (TryParseTable uses Trim()).
+				if (trimmedSpan.StartsWith("|") && trimmedSpan.TrimEnd().EndsWith("|") && (i + 1 < lines.Length) && IsTableSeparator(lines[i + 1].Trim()))
 				{
 					break;
 				}

@@ -2784,6 +2784,13 @@
             Converts inline markdown syntax to HTML within a text block.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.EncodeAttributeValue(System.String,System.Boolean)">
+            <summary>
+            Encodes a value for safe use inside an HTML attribute (double-quoted).
+            When <paramref name="ampAlreadyEncoded"/> is true, <c>&amp;</c> is assumed to already
+            be encoded by an earlier sanitization pass (SanitizeHtml=true).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownParser">
             <summary>
             Standalone markdown-to-HTML parser. Converts markdown text to HTML using Bootstrap typography classes.

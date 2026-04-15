@@ -727,5 +727,54 @@ public class MarkdownParserTests
 		Assert.DoesNotContain("<table", result);
 	}
 
+	[TestMethod]
+	public void MarkdownParser_TableHeaderWithTrailingWhitespace_AfterParagraph_ParsedSeparately()
+	{
+		// Trailing whitespace after the last | must not prevent table detection.
+		// ParseParagraph must Trim() consistently with TryParseTable.
+		var markdown = "Some text\n| A | B |   \n|---|---|\n| 1 | 2 |";
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.Contains("<p>Some text</p>", result);
+		Assert.Contains("<table", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_LinkUrlWithMarkdownMarkers_NotMangledByEmphasis()
+	{
+		// Bold markers ** inside a URL must not be converted to <strong>.
+		var markdown = "[click](https://x.com/**path**/y)";
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.Contains("href=\"https://x.com/**path**/y\"", result);
+		Assert.DoesNotContain("<strong>", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_ImageAltWithUnderscores_NotMangledByEmphasis()
+	{
+		// Underscores in image alt text must not be converted to <em>.
+		var markdown = "![my_image_alt](https://example.com/img.png)";
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.Contains("alt=\"my_image_alt\"", result);
+		Assert.DoesNotContain("<em>", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_LinkUrlWithAmpersand_SanitizeHtmlFalse_AmpEncoded()
+	{
+		// & in URLs must be encoded as &amp; in attribute values even when SanitizeHtml=false.
+		var options = new MarkdownRenderOptions { SanitizeHtml = false };
+		var result = MarkdownParser.ToHtml("[link](https://x.com?a=1&b=2)", options);
+		Assert.Contains("href=\"https://x.com?a=1&amp;b=2\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_ImageUrlWithAmpersand_SanitizeHtmlFalse_AmpEncoded()
+	{
+		// & in image URLs must be encoded as &amp; in attribute values even when SanitizeHtml=false.
+		var options = new MarkdownRenderOptions { SanitizeHtml = false };
+		var result = MarkdownParser.ToHtml("![alt](https://x.com/img?a=1&b=2)", options);
+		Assert.Contains("src=\"https://x.com/img?a=1&amp;b=2\"", result);
+	}
+
 	#endregion
 }
