@@ -106,13 +106,13 @@ internal static partial class MarkdownInlineParser
 
 			if (options.SanitizeHtml)
 			{
-				alt = alt.Replace("\"", "&quot;");
-				url = url.Replace("\"", "&quot;");
-				title = title.Replace("\"", "&quot;");
 				if (!IsSafeUrl(url))
 				{
 					url = "#";
 				}
+				alt = alt.Replace("\"", "&quot;");
+				url = url.Replace("\"", "&quot;");
+				title = title.Replace("\"", "&quot;");
 			}
 
 			var cssClass = options.ImageCssClass;
@@ -133,12 +133,12 @@ internal static partial class MarkdownInlineParser
 
 			if (options.SanitizeHtml)
 			{
-				url = url.Replace("\"", "&quot;");
-				title = title.Replace("\"", "&quot;");
 				if (!IsSafeUrl(url))
 				{
 					url = "#";
 				}
+				url = url.Replace("\"", "&quot;");
+				title = title.Replace("\"", "&quot;");
 			}
 
 			var titleAttr = !string.IsNullOrEmpty(title) ? $" title=\"{title}\"" : "";

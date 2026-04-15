@@ -30,7 +30,7 @@ internal static partial class MarkdownParser
 		}
 
 		var lines = NormalizeLineEndings(markdown);
-		var blocks = ParseBlocks(lines, options.SanitizeHtml);
+		var blocks = ParseBlocks(lines);
 		return RenderBlocks(blocks, options);
 	}
 
@@ -41,7 +41,7 @@ internal static partial class MarkdownParser
 
 	#region Block-level parsing
 
-	private static List<MarkdownBlock> ParseBlocks(string[] lines, bool sanitizeHtml)
+	private static List<MarkdownBlock> ParseBlocks(string[] lines)
 	{
 		var blocks = new List<MarkdownBlock>();
 		int i = 0;
@@ -110,7 +110,7 @@ internal static partial class MarkdownParser
 			}
 
 			// Paragraph (default)
-			var paraBlock = ParseParagraph(lines, ref i, sanitizeHtml);
+			var paraBlock = ParseParagraph(lines, ref i);
 			blocks.Add(paraBlock);
 		}
 
@@ -504,7 +504,7 @@ internal static partial class MarkdownParser
 		var cssClass = options.BlockquoteCssClass;
 		var classAttr = !string.IsNullOrEmpty(cssClass) ? $" class=\"{cssClass}\"" : "";
 		// Recursively parse the blockquote's inner lines so nested blockquotes (>> ...) are rendered correctly.
-		var innerBlocks = ParseBlocks(block.Lines.ToArray(), options.SanitizeHtml);
+		var innerBlocks = ParseBlocks(block.Lines.ToArray());
 		var innerHtml = RenderBlocks(innerBlocks, options);
 		sb.Append($"<blockquote{classAttr}>{innerHtml}</blockquote>");
 	}
