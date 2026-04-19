@@ -221,3 +221,8 @@ form {
 form > .hx-button {
 	align-self: start;
 }
+
+/* HxTabPanel - restore pointer cursor on tab headers (role="tab" overrides the default role="button" on HxNavLink, so Bootstrap's [role=button]{cursor:pointer} no longer applies). */
+.hx-tab-panel .nav-link {
+	cursor: pointer;
+}

@@ -268,6 +268,29 @@ public class HxTabPanelTests : BunitTestBase
 	}
 
 	[TestMethod]
+	public void HxTabPanel_Nav_HasHxTabPanelCssClass()
+	{
+		// The "hx-tab-panel" CSS class on the <nav> is the selector hook used by
+		// defaults.lib.css to restore the pointer cursor on tab headers (regression
+		// for https://github.com/havit/Havit.Blazor - tab headers lost pointer cursor
+		// after role="tab" was added, which overrode role="button" coming from HxNavLink
+		// and thus disabled Bootstrap's [role=button]{cursor:pointer} rule).
+
+		// Arrange & Act
+		var component = RenderComponent<HxTabPanel>(parameters => parameters
+			.Add(p => p.ActiveTabId, "tab1")
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 1"))
+			)
+		);
+
+		var nav = component.Find("nav");
+		Assert.IsTrue(nav.ClassList.Contains("hx-tab-panel"), "Nav container should carry the 'hx-tab-panel' CSS class that the pointer-cursor CSS rule depends on.");
+	}
+
+	[TestMethod]
 	public void HxTabPanel_AriaAttributes_ActiveTabOnly_InactiveTabHasNoAriaControls()
 	{
 		// Arrange & Act
