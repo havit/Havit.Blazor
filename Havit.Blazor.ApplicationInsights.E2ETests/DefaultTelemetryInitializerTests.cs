@@ -40,6 +40,7 @@ public class DefaultTelemetryInitializerTests : BlazorApplicationInsightsPageTes
 		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
 		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core");
 		await Page.EvaluateAsync("window.appInsights.flush()");
+		await Task.Delay(1000, TestContext.CancellationToken);
 		await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 		await Page.CloseAsync();
 

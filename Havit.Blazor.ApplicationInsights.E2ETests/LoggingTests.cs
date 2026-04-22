@@ -67,6 +67,7 @@ public class LoggingTests : BlazorApplicationInsightsPageTestBase
 		await Page.GotoAsync(NavigationRoutes.Logging.LoggingTestPage);
 		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
+		await Task.Delay(1000, TestContext.CancellationToken);
 		await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 		await Page.CloseAsync();
 	}
