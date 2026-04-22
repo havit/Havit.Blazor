@@ -2,33 +2,33 @@
 
 <HxGrid @ref="grid" TItem="EmployeeDto" DataProvider="GetGridData" PageSize="5" Responsive="true">
 	<Columns>
-		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name">
-			<HeaderTemplate>
+		<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" IsDefaultSortColumn="true" SortKeySelector="x => x.Name" TabIndex="0">
+			<HeaderFilterTemplate>
 				<HxInputText @bind-Value="filterModel.Name" BindEvent="BindEvent.OnInput" @bind-Value:after="RefreshDataAsync" Placeholder="Type to search Name" InputSize="InputSize.Small" />
-			</HeaderTemplate>
+			</HeaderFilterTemplate>
 		</HxGridColumn>
-		<HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone">
-			<HeaderTemplate>
+        <HxGridColumn HeaderText="Phone" ItemTextSelector="employee => employee.Phone" TabIndex="0">
+			<HeaderFilterTemplate>
                 <HxInputText @bind-Value="filterModel.Phone" BindEvent="BindEvent.OnInput" @bind-Value:after="RefreshDataAsync" Placeholder="Type to search Phone" InputSize="InputSize.Small" />
-			</HeaderTemplate>
+			</HeaderFilterTemplate>
 		</HxGridColumn>
-		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))">
-			<HeaderTemplate>
+        <HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" TabIndex="0">
+			<HeaderFilterTemplate>
 				<div class="d-flex gap-1">
                     <HxInputNumber @bind-Value="filterModel.SalaryMin" @bind-Value:after="RefreshDataAsync" Placeholder="from" InputSize="InputSize.Small" />
                     <HxInputNumber @bind-Value="filterModel.SalaryMax" @bind-Value:after="RefreshDataAsync" Placeholder="to" InputSize="InputSize.Small" />
 				</div>
-			</HeaderTemplate>
+			</HeaderFilterTemplate>
 		</HxGridColumn>
-		<HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position">
-			<HeaderTemplate>
+        <HxGridColumn HeaderText="Position" ItemTextSelector="employee => employee.Position" TabIndex="0">
+            <HeaderFilterTemplate>
                 <HxInputText @bind-Value="filterModel.Position" BindEvent="BindEvent.OnInput" @bind-Value:after="RefreshDataAsync" Placeholder="Type to search Position" InputSize="InputSize.Small" />
-			</HeaderTemplate>
+			</HeaderFilterTemplate>
 		</HxGridColumn>
-		<HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location">
-			<HeaderTemplate>
+        <HxGridColumn HeaderText="Location" ItemTextSelector="employee => employee.Location" TabIndex="0">
+            <HeaderFilterTemplate>
                 <HxInputText @bind-Value="filterModel.Location" BindEvent="BindEvent.OnInput" @bind-Value:after="RefreshDataAsync" Placeholder="Type to search Location" InputSize="InputSize.Small" />
-			</HeaderTemplate>
+			</HeaderFilterTemplate>
 		</HxGridColumn>
 	</Columns>
 </HxGrid>

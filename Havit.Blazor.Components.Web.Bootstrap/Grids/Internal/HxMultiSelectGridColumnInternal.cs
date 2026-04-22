@@ -50,6 +50,15 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 		}
 	}
 
+	/// <summary>
+	/// TODO: NOT IMPLEMENTED YET.
+	/// </summary>
+	/// <returns></returns>
+	protected override GridCellTemplate GetFilterHeaderCellTemplate()
+	{
+		return GridCellTemplate.Empty;
+	}
+
 	/// <inheritdoc />
 	protected override GridCellTemplate GetItemCellTemplate(TItem item)
 	{
@@ -85,6 +94,11 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 		return GridCellTemplate.Empty;
 	}
 
+	public override int? GetTabIndexEffective()
+	{
+		throw new NotImplementedException();
+	}
+
 	/// <inheritdoc />
 	protected override IEnumerable<SortingItem<TItem>> GetSorting() => Enumerable.Empty<SortingItem<TItem>>();
 
@@ -110,4 +124,5 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 			await OnSelectAllClicked.InvokeAsync();
 		}
 	}
+
 }

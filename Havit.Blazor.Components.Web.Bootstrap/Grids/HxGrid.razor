@@ -70,41 +70,58 @@
 
 				<table class="@GetTableElementCssClass(_totalCount > 0)">
 					<thead class="@TableHeaderCssClassEffective">
-						<tr class="@HeaderRowCssClassEffective"
-							@attributes="HeaderRowAdditionalAttributes">
-							@{
-								GridHeaderCellContext gridHeaderCellContext = CreateGridHeaderCellContext();
-							}
+					<tr class="@HeaderRowCssClassEffective"
+					    @attributes="HeaderRowAdditionalAttributes">
+						@{
+							GridHeaderCellContext gridHeaderCellContext = CreateGridHeaderCellContext();
+						}
 
-							@foreach (IHxGridColumn<TItem> column in columnsToRender)
-							{
-								var columnSorting = column.GetSorting();
-								bool isCurrentSorting = _currentSorting?.FirstOrDefault()?.Column == column;
-								var headerCellTemplate = column.GetHeaderCellTemplate(gridHeaderCellContext);
-								bool isSortingActive = (_totalCount > 0) && columnSorting.Any();
+						@foreach (IHxGridColumn<TItem> column in columnsToRender)
+						{
+							var columnSorting = column.GetSorting();
+							bool isCurrentSorting = _currentSorting?.FirstOrDefault()?.Column == column;
+							var headerCellTemplate = column.GetHeaderCellTemplate(gridHeaderCellContext);
+							bool isSortingActive = (_totalCount > 0) && columnSorting.Any();
 
-								<th @key="@column"
-									role="@(isSortingActive ? "button" : null)"
-									class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isSortingActive ? (isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable") : null)"
-									@onclick="@(isSortingActive ? EventCallback.Factory.Create<MouseEventArgs>(this, async () => await HandleSortingClick(column)) : (EventCallback<MouseEventArgs>)default)"
-									@onclick:stopPropagation="isSortingActive">
-									<div class="hx-grid-header-cell-container">
-										<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
-										@if (isSortingActive)
+							<th @key="@column"
+							    role="@(isSortingActive ? "button" : null)"
+                                tabindex="@(isSortingActive ? column.GetTabIndexEffective() : null)"
+							    class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isSortingActive ? (isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable") : null)"
+							    @onclick="@(isSortingActive ? EventCallback.Factory.Create<MouseEventArgs>(this, async () => await HandleSortingClick(column)) : (EventCallback<MouseEventArgs>)default)"
+							    @onclick:stopPropagation="isSortingActive">
+								<div class="hx-grid-header-cell-container">
+									<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
+									@if (isSortingActive)
+									{
+										if (GetSortIconDisplayDirection(isCurrentSorting, _currentSorting, columnSorting) == Collections.SortDirection.Ascending)
 										{
-											if (GetSortIconDisplayDirection(isCurrentSorting, _currentSorting, columnSorting) == Collections.SortDirection.Ascending)
-											{
-												<HxIcon CssClass="hx-grid-sort-icon" Icon="@SortAscendingIconEffective" />
-											}
-											else
-											{
-												<HxIcon CssClass="hx-grid-sort-icon" Icon="@SortDescendingIconEffective" />
-											}
+											<HxIcon CssClass="hx-grid-sort-icon" Icon="@SortAscendingIconEffective" />
 										}
+										else
+										{
+											<HxIcon CssClass="hx-grid-sort-icon" Icon="@SortDescendingIconEffective" />
+										}
+									}
+								</div>
+							</th>
+						}
+					</tr>
+
+					@if (columnsToRender.Any(x => x.GetFilterHeaderCellTemplate() != null))
+					{
+						<tr>
+						@foreach (IHxGridColumn<TItem> column in columnsToRender)
+						{
+							var headerFilterCellTemplate = column.GetFilterHeaderCellTemplate();
+								<th>
+									<div class="hx-grid-header-cell-container">
+										<div class="hx-grid-header-cell-template">@headerFilterCellTemplate.Template</div>
 									</div>
 								</th>
-							}
+						}
 						</tr>
+					}				
+					
 					</thead>
 					<tbody>
 						@{
@@ -209,7 +226,7 @@
 							}
 							else
 							{
-								<tr>
+								<tr> 
 									<td colspan="@columnsToRender.Count">
 										@if (shouldRenderLoadingDataWithLoadingTemplate)
 										{

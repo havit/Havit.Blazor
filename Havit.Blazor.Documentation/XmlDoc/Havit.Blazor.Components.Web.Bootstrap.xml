@@ -2593,6 +2593,12 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetHeaderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext)">
             <inheritdoc />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetFilterHeaderCellTemplate">
+            <summary>
+            TODO: NOT IMPLEMENTED YET.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetItemCellTemplate(`0)">
             <inheritdoc />
         </member>
@@ -6958,6 +6964,16 @@
             Creates a new instance of the GridCellTemplate class.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridColumnSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridColumnSettings.TabIndex">
+            <summary>
+            Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> (alternating rows).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode">
             <summary>
             Strategy for displaying and loading data in the grid.
@@ -7824,6 +7840,11 @@
             Header cell template.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.HeaderFilterTemplate">
+            <summary>
+            Header filter cell template.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.HeaderCssClass">
             <summary>
             Header cell CSS class.
@@ -7852,6 +7873,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.PlaceholderTemplate">
             <summary>
             Placeholder cell template.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.TabIndex">
+            <summary>
+            TabIndex 
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.FooterText">
@@ -7895,6 +7921,30 @@
             Set <c>true</c> for the column which is to be used for default sorting.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetSettings">
+            <summary>
+            Provides the current settings of the grid. Override in derived classes to return a specific settings type or additional configurations.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Settings"/> in components descendants (by returning a derived settings class).
+            </remarks>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetId">
             <inheritdoc />
         </member>
@@ -7921,6 +7971,12 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetDefaultSortingOrder">
             <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetTabIndexEffective">
+            <summary>
+            Returns TabIndexEffective
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1">
             <summary>
@@ -7987,6 +8043,11 @@
             Returns the header cell template.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetFilterHeaderCellTemplate">
+            <summary>
+            Returns the header cell template.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetItemCellTemplate(`0)">
             <summary>
             Returns the data cell template for the specific item.
@@ -8021,6 +8082,11 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.DisposeAsync">
             <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetTabIndexEffective">
+            <summary>
+            Returns the tab index effective
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPager">
             <summary>
@@ -8167,6 +8233,11 @@
             Returns the header cell template.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetFilterHeaderCellTemplate">
+            <summary>
+            Returns the filter header cell template.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetItemCellTemplate(`0)">
             <summary>
             Returns the data cell template for the specific item.
@@ -8180,6 +8251,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetFooterCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridFooterCellContext)">
             <summary>
             Returns the footer cell template.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetTabIndexEffective">
+            <summary>
+            Returns the Tabindex.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PagerSettings">

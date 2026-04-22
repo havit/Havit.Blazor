@@ -55,6 +55,11 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	[Parameter] public RenderFragment<GridHeaderCellContext> HeaderTemplate { get; set; }
 
 	/// <summary>
+	/// Header filter cell template.
+	/// </summary>
+	[Parameter] public RenderFragment HeaderFilterTemplate { get; set; }
+
+	/// <summary>
 	/// Header cell CSS class.
 	/// </summary>
 	[Parameter] public string HeaderCssClass { get; set; }
@@ -86,6 +91,12 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	/// Placeholder cell template.
 	/// </summary>
 	[Parameter] public RenderFragment<GridPlaceholderCellContext> PlaceholderTemplate { get; set; }
+
+	/// <summary>
+	/// TabIndex 
+	/// </summary>
+	[Parameter] public int? TabIndex { get; set; }
+	public int? TabIndexEffective => TabIndex ?? GetSettings()?.TabIndex ?? GetDefaults().TabIndex;
 
 	#region Footer properties
 	/// <summary>
@@ -132,6 +143,39 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	[Parameter] public bool IsDefaultSortColumn { get; set; } = false;
 	#endregion
 
+
+	/// <summary>
+	/// Application-wide defaults for <see cref="HxGridColumn{TItem}"/> and derived components.
+	/// </summary>
+	public static GridColumnSettings Defaults { get; set; }
+
+	static HxGridColumn()
+	{
+		Defaults = new GridColumnSettings()
+		{
+			TabIndex = null
+		};
+	}
+
+	/// <summary>
+	/// Returns application-wide defaults for the component.
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
+	/// </summary>
+	protected virtual GridColumnSettings GetDefaults() => Defaults;
+
+	/// <summary>
+	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
+	/// </summary>
+	[Parameter] public GridColumnSettings Settings { get; set; }
+
+	/// <summary>
+	/// Provides the current settings of the grid. Override in derived classes to return a specific settings type or additional configurations.
+	/// </summary>
+	/// <remarks>
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// </remarks>
+	protected virtual GridColumnSettings GetSettings() => Settings;
+
 	/// <inheritdoc />
 	protected override string GetId() => Id;
 
@@ -143,6 +187,8 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 
 	/// <inheritdoc />
 	protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate?.Invoke(context)), HeaderCssClass);
+
+	protected override GridCellTemplate GetFilterHeaderCellTemplate() => GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(string.Empty, HeaderFilterTemplate), HeaderCssClass);
 
 	/// <inheritdoc />
 	protected override GridCellTemplate GetItemCellTemplate(TItem item)
@@ -192,4 +238,14 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 
 	/// <inheritdoc />
 	protected override int? GetDefaultSortingOrder() => IsDefaultSortColumn ? 0 : null;
+
+	/// <summary>
+	/// Returns TabIndexEffective
+	/// </summary>
+	/// <returns></returns>
+	public override int? GetTabIndexEffective()
+	{
+		return TabIndexEffective;
+	}
+
 }

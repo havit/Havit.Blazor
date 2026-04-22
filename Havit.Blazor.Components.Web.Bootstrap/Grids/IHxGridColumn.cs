@@ -39,6 +39,11 @@ public interface IHxGridColumn<TItem>
 	GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context);
 
 	/// <summary>
+	/// Returns the filter header cell template.
+	/// </summary>
+	GridCellTemplate GetFilterHeaderCellTemplate();
+
+	/// <summary>
 	/// Returns the data cell template for the specific item.
 	/// </summary>
 	GridCellTemplate GetItemCellTemplate(TItem item);
@@ -52,4 +57,9 @@ public interface IHxGridColumn<TItem>
 	/// Returns the footer cell template.
 	/// </summary>
 	GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context);
+
+	/// <summary>
+	/// Returns the Tabindex.
+	/// </summary>
+	int? GetTabIndexEffective();
 }
