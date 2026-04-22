@@ -17,13 +17,10 @@ public class AutoRouteTrackingTests : BlazorApplicationInsightsPageTestBase
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 
 		// Act
-		await Page.GotoAsync(factory.GetServerAddress() + NavigationRoutes.PageViewTracking.AutoRouteTrackingPage1);
-		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core"); // Wait for the JS SDK full initialization.
-		await Page.ClickAsync("#goto-page2");
-		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
-		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
+		await ActAsync(factory);
+
 		// Assert
-		Assert.Contains(i => i.BaseType == "PageviewData" && i.Data.BaseData.Url?.Contains("auto-route-tracking-2") == true, capturedTelemetryItems, "Expected a PageviewData item for Page 2 URL.");
+		Assert.Contains(i => i.BaseType == "PageviewData" && i.Data.BaseData.Url?.Contains(NavigationRoutes.PageViewTracking.AutoRouteTrackingPage2) == true, capturedTelemetryItems, "Expected a PageviewData item for Page 2 URL.");
 	}
 
 	[TestMethod]
@@ -35,14 +32,22 @@ public class AutoRouteTrackingTests : BlazorApplicationInsightsPageTestBase
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 
 		// Act
+		await ActAsync(factory);
+
+		// Assert
+		Assert.DoesNotContain(i => i.BaseType == "PageviewData" && i.Data.BaseData.Url?.Contains(NavigationRoutes.PageViewTracking.AutoRouteTrackingPage2) == true, capturedTelemetryItems, "Expected no PageviewData for Page 2 URL when EnableAutoRouteTracking is false.");
+	}
+
+	private async Task ActAsync(BlazorWebApplicationFactory factory)
+	{
 		await Page.GotoAsync(factory.GetServerAddress() + NavigationRoutes.PageViewTracking.AutoRouteTrackingPage1);
+		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
 		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core"); // Wait for the JS SDK full initialization.
 		await Page.ClickAsync("#goto-page2");
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
+		await Task.Delay(1000, TestContext.CancellationToken);
 		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
-
-		// Assert
-		Assert.DoesNotContain(i => i.BaseType == "PageviewData" && i.Data.BaseData.Url?.Contains("auto-route-tracking-2") == true, capturedTelemetryItems, "Expected no PageviewData for Page 2 URL when EnableAutoRouteTracking is false.");
+		await Page.CloseAsync();
 	}
 
 	private BlazorWebApplicationFactory GetFactoryForTest(bool enableAutoRouteTracking)

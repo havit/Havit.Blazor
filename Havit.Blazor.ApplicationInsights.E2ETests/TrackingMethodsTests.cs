@@ -17,8 +17,10 @@ public class TrackingMethodsTests : BlazorApplicationInsightsPageTestBase
 
 		// Act
 		await Page.GotoAsync(NavigationRoutes.TrackingMethodsTests);
+		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
 		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
+		await Page.CloseAsync();
 
 		// Assert
 		void AssertItemCaptured(string expectedBaseType, string expectedIdentifier, Func<AiTelemetryItem, string> getIdentifierFunc, string methodNameToAssert)

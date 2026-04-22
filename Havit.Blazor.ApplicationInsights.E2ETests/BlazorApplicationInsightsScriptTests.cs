@@ -28,11 +28,12 @@ public class BlazorApplicationInsightsScriptTests : BlazorApplicationInsightsPag
 
 		// Act
 		await Page.GotoAsync(url);
+		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
 		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core"); // Wait for the JS SDK full initialization.
 		string currentConnectionString = await Page.EvaluateAsync<string>($"window.appInsights.config.connectionString");
+		await Page.CloseAsync();
 
 		// Assert
-		Assert.IsTrue(await Page.EvaluateAsync<bool>($"window.appInsights.config.connectionString == '{expectedConnectionString}'"));
 		Assert.AreEqual(expectedConnectionString, currentConnectionString);
 	}
 }

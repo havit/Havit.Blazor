@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Net;
 
 namespace Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure;
 
@@ -33,7 +32,7 @@ public class BlazorWebApplicationFactory : WebApplicationFactory<TestApp.Program
 	protected override IHost CreateHost(IHostBuilder builder)
 	{
 		var testHost = builder.Build();
-		testHost.Start();
+		testHost.Start(); // (solves: System.InvalidOperationException: The server has not been started or no web application was configured.)
 
 		// Configure Kestrel to use a dynamic port
 		builder.ConfigureWebHost(webHostBuilder =>

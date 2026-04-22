@@ -18,9 +18,7 @@ public class LoggingTests : BlazorApplicationInsightsPageTestBase
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 
 		// Act
-		await Page.GotoAsync(NavigationRoutes.Logging.LoggingTestPage);
-		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
-		await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+		await ActAsync();
 
 		// Assert
 		Assert.Contains(
@@ -37,9 +35,7 @@ public class LoggingTests : BlazorApplicationInsightsPageTestBase
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 
 		// Act
-		await Page.GotoAsync(NavigationRoutes.Logging.LoggingTestPage);
-		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
-		await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+		await ActAsync();
 
 		// Assert		
 		Assert.DoesNotContain(
@@ -56,9 +52,7 @@ public class LoggingTests : BlazorApplicationInsightsPageTestBase
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 
 		// Act
-		await Page.GotoAsync(NavigationRoutes.Logging.LoggingTestPage);
-		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
-		await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+		await ActAsync();
 
 		// Assert
 		Assert.Contains(
@@ -66,5 +60,14 @@ public class LoggingTests : BlazorApplicationInsightsPageTestBase
 			  && i.Data.BaseData.Exceptions?[0].TypeName?.Contains("InvalidOperationException") == true,
 			capturedTelemetryItems,
 			"Expected ExceptionData for InvalidOperationException.");
+	}
+
+	private async Task ActAsync()
+	{
+		await Page.GotoAsync(NavigationRoutes.Logging.LoggingTestPage);
+		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
+		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
+		await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+		await Page.CloseAsync();
 	}
 }

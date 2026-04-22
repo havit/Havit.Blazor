@@ -17,8 +17,10 @@ public class TelemetryInitializerTests : BlazorApplicationInsightsPageTestBase
 
 		// Act
 		await Page.GotoAsync(NavigationRoutes.TelemetryInitializerTests);
+		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
 		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
+		await Page.CloseAsync();
 
 		// Assert
 		var beforeItem = capturedTelemetryItems.FirstOrDefault(i => i.Data.BaseData.Metrics?[0].Name == "before-initializer");

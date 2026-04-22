@@ -37,9 +37,11 @@ public class DefaultTelemetryInitializerTests : BlazorApplicationInsightsPageTes
 		// Act
 		// (due SSR page does not have OnAfterRender[Async] with #done & BlazorApplicationInsights.FlushAsync())
 		await Page.GotoAsync(url);
+		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
 		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core");
 		await Page.EvaluateAsync("window.appInsights.flush()");
 		await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
+		await Page.CloseAsync();
 
 		// Assert
 		var pageViewItem = capturedTelemetryItems.FirstOrDefault(i => i.BaseType == "PageviewData");

@@ -17,9 +17,7 @@ public class InitialPageViewTrackingTests : BlazorApplicationInsightsPageTestBas
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 
 		// Act
-		await Page.GotoAsync(factory.GetServerAddress() + NavigationRoutes.PageViewTracking.InitialPageViewTrackingTest);
-		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
-		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
+		await ActAsync(factory);
 
 		// Assert
 		Assert.Contains(i => i.BaseType == "PageviewData", capturedTelemetryItems, "Expected at least one PageviewData item.");
@@ -34,12 +32,19 @@ public class InitialPageViewTrackingTests : BlazorApplicationInsightsPageTestBas
 		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
 
 		// Act
-		await Page.GotoAsync(factory.GetServerAddress() + NavigationRoutes.PageViewTracking.InitialPageViewTrackingTest);
-		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
-		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
+		await ActAsync(factory);
 
 		// Assert
 		Assert.DoesNotContain(i => i.BaseType == "PageviewData", capturedTelemetryItems, "Expected no PageviewData items when EnableInitialPageViewTracking is false.");
+	}
+
+	private async Task ActAsync(BlazorWebApplicationFactory factory)
+	{
+		await Page.GotoAsync(factory.GetServerAddress() + NavigationRoutes.PageViewTracking.InitialPageViewTrackingTest);
+		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
+		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
+		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
+		await Page.CloseAsync();
 	}
 
 	private BlazorWebApplicationFactory GetFactoryForTest(bool enableInitialPageViewTracking)

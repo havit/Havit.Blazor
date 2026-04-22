@@ -17,8 +17,10 @@ public class AuthenticatedUserContextTests : BlazorApplicationInsightsPageTestBa
 
 		// Act
 		await Page.GotoAsync(NavigationRoutes.AuthenticationUserContextTests);
+		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
 		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
+		await Page.CloseAsync();
 
 		// Assert
 		var message1 = capturedTelemetryItems.FirstOrDefault(i => i.Data.BaseData.Metrics?[0].Name == "Message1-WithoutAuth");
