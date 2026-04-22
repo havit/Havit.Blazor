@@ -15,9 +15,11 @@ updates:
     schedule:
       interval: "daily"
 
-  # We vendor Bootstrap and its npm dependencies manually — disable npm PRs.
+  # Bootstrap is vendored — ignore all npm updates including security PRs.
   - package-ecosystem: "npm"
-    directory: "/"
+    directory: "/Havit.Bootstrap"
     schedule:
       interval: "daily"
     open-pull-requests-limit: 0
+    ignore:
+      - dependency-name: "*"

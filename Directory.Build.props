@@ -12,10 +12,11 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<LangVersion>latest</LangVersion>
 		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
 		<!-- aligned NuGet PackageVersion for package-bundles -->
-		<ComponentsPackagesVersion>4.23.1</ComponentsPackagesVersion>
-		<GrpcPackagesVersion>1.8.2</GrpcPackagesVersion>
+		<ComponentsPackagesVersion>4.24.0</ComponentsPackagesVersion>
+		<GrpcPackagesVersion>1.8.3</GrpcPackagesVersion>
 		<ApplicationInsightsPackageVersion>0.9.0-pre03</ApplicationInsightsPackageVersion>
 
 		<EnableMSTestRunner>true</EnableMSTestRunner>

@@ -1,0 +1,31 @@
+﻿@attribute [Route("/components/" + nameof(HxMarkdown))]
+
+<ApiDoc Type="typeof(HxMarkdown)">
+	<DocHeading Title="Basic usage" />
+	<p>Pass a Markdown string to the <code>Content</code> parameter.</p>
+	<Demo Type="typeof(HxMarkdown_Demo_Basic)"  Tabs="false" />
+
+	<DocHeading Title="Rich content" />
+	<p>Supports headings, lists, blockquotes, code blocks, tables, and inline formatting (bold, italic, strikethrough, inline code, links, images).</p>
+	<Demo Type="typeof(HxMarkdown_Demo_RichContent)" />
+
+	<DocHeading Title="Code blocks" />
+	<p>Fenced code blocks are rendered inside <code>&lt;pre&gt;&lt;code&gt;</code> with an optional <code>language-*</code> class.</p>
+	<Demo Type="typeof(HxMarkdown_Demo_CodeBlocks)" />
+
+	<DocHeading Title="Tables" />
+	<p>Markdown tables are rendered with a configurable CSS class (default <code>table</code> for Bootstrap styling).</p>
+	<Demo Type="typeof(HxMarkdown_Demo_Tables)" />
+
+	<DocHeading Title="HTML sanitization" />
+	<p>By default, HTML tags in the input are escaped. Set <code>SanitizeHtml="false"</code> to allow raw HTML pass-through (use only with trusted content).</p>
+	<Demo Type="typeof(HxMarkdown_Demo_Sanitization)" />
+
+	<DocHeading Title="Custom CSS classes" />
+	<p>Override the Bootstrap CSS classes applied to tables, blockquotes, and images via parameters or <code>HxMarkdown.Defaults</code>.</p>
+	<Demo Type="typeof(HxMarkdown_Demo_CustomCss)" />
+
+	<DocHeading Title="Wrapper element" />
+	<p>By default, no wrapper <code>&lt;div&gt;</code> is rendered. A wrapper is automatically added when you set <code>CssClass</code> or <code>AdditionalAttributes</code>.</p>
+	<Demo Type="typeof(HxMarkdown_Demo_Wrapper)" />
+</ApiDoc>

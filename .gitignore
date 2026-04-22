@@ -258,6 +258,9 @@ paket-files/
 /Web/ClientApp/dist
 /Web/Web.rar
 /Web/package-lock.json
+
+# Local PR worktrees (e.g. pr-1374) must never be tracked.
+/pr-[0-9]*/
 Web/.vscode/launch.json
 .vscode
 /WebAPI/App_Data

@@ -1,0 +1,16 @@
+﻿# HxMarkdown_Demo_Sanitization.razor
+
+```razor
+<p><strong>Default (sanitized):</strong></p>
+<HxMarkdown Content="@_markdownWithHtml" />
+
+<p class="mt-3"><strong>With <code>SanitizeHtml="false"</code>:</strong></p>
+<HxMarkdown Content="@_markdownWithHtml" SanitizeHtml="false" />
+
+@code {
+	private string _markdownWithHtml = """
+		This has <strong>raw HTML bold</strong> and a <span style="color: red;">red span</span>.
+		""";
+}
+
+```

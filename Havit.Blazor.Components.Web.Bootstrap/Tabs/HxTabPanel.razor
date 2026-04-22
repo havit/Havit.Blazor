@@ -33,15 +33,21 @@
 @code {
 	private void RenderTabsNavigation(RenderTreeBuilder __builder)
 	{
-		<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", GetNavCssClassInCardMode(), CssClass)" Variant="NavVariant">
+		<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", GetNavCssClassInCardMode(), CssClass)" Variant="NavVariant" role="tablist">
 			@foreach (HxTab tab in _tabsListOrdered)
 			{
 				@if (tab.Visible)
 				{
 					<HxNavLink @key="@tab.Id"
-							   OnClick="async () => await HandleTabClick(tab)"
-							   CssClass="@CssClassHelper.Combine((IsActive(tab) ? "active" : null), tab.TitleCssClass)"
-							   Enabled="CascadeEnabledComponent.EnabledEffective(tab)">
+					           OnClick="async () => await HandleTabClick(tab)"
+					           CssClass="@CssClassHelper.Combine((IsActive(tab) ? "active" : null), tab.TitleCssClass)"
+					           Enabled="CascadeEnabledComponent.EnabledEffective(tab)"
+					           role="tab"
+					           id="@(tab.Id + "-header")"
+					           aria-controls="@((RenderMode == TabPanelRenderMode.AllTabs || IsActive(tab)) ? tab.Id : null)"
+					           aria-describedby="@((RenderMode == TabPanelRenderMode.AllTabs || IsActive(tab)) ? tab.Id : null)"
+					           aria-selected="@(IsActive(tab) ? "true" : "false")"
+					           tabindex="@(IsActive(tab) ? "0" : "-1")">
 						@tab.Title
 						@tab.TitleTemplate
 					</HxNavLink>
@@ -60,8 +66,8 @@
 					if ((RenderMode == TabPanelRenderMode.AllTabs)
 					|| ((RenderMode == TabPanelRenderMode.ActiveTabOnly) && IsActive(tab)))
 					{
-						<div @key="@tab.Id" class="@CssClassHelper.Combine("tab-pane", (IsActive(tab) ? "active" : String.Empty), tab.ContentCssClass)">
-							@tab.Content
+                        <div @key="@tab.Id" id="@tab.Id" role="tabpanel" aria-labelledby="@(tab.Id + "-header")" tabindex="0"  class="@CssClassHelper.Combine("tab-pane", (IsActive(tab) ? "active" : String.Empty), tab.ContentCssClass)">
+                            @tab.Content
 						</div>
 					}
 				}

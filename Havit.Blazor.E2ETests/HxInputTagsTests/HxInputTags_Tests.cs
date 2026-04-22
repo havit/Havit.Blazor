@@ -75,22 +75,22 @@ public class HxInputTags_Tests : TestAppTestBase
 
 		var input = Page.Locator("input[type='text']");
 		var tagsOutput = Page.Locator("[data-testid='tags-output']");
+		var tagItems = tagsOutput.Locator("[data-testid='tag-item']");
 
-		// Act — add three distinct tags
+		// Act — add three distinct tags, waiting for each to render before adding the next
 		await input.ClickAsync();
 		await input.FillAsync("One");
 		await input.PressAsync("Enter");
+		await Expect(tagItems).ToHaveCountAsync(1);
 
 		await input.FillAsync("Two");
 		await input.PressAsync("Enter");
+		await Expect(tagItems).ToHaveCountAsync(2);
 
 		await input.FillAsync("Three");
 		await input.PressAsync("Enter");
 
-		// Assert
-		await Expect(tagsOutput.Locator("[data-testid='tag-item']")).ToHaveCountAsync(3);
-		await Expect(tagsOutput.Locator("[data-testid='tag-item']").Nth(0)).ToHaveTextAsync("One");
-		await Expect(tagsOutput.Locator("[data-testid='tag-item']").Nth(1)).ToHaveTextAsync("Two");
-		await Expect(tagsOutput.Locator("[data-testid='tag-item']").Nth(2)).ToHaveTextAsync("Three");
+		// Assert — use a single atomic assertion for all tag texts
+		await Expect(tagItems).ToHaveTextAsync(new[] { "One", "Two", "Three" });
 	}
 }

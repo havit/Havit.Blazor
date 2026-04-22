@@ -2608,6 +2608,255 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetDefaultSortingOrder">
             <inheritdoc />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlock">
+            <summary>
+            A single block-level element parsed from markdown.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlock.Lines">
+            <summary>
+            Raw text lines of the block (before inline parsing).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlock.HeadingLevel">
+            <summary>
+            Heading level (1-6). Only relevant for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlockType.Heading"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlock.CodeLanguage">
+            <summary>
+            Language hint for code blocks (e.g. "csharp"). Only relevant for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlockType.CodeBlock"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlock.Children">
+            <summary>
+            Child blocks (e.g. list items contain paragraph blocks).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownBlockType">
+            <summary>
+            Represents a parsed block-level markdown element.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser">
+            <summary>
+            Processes inline markdown elements (bold, italic, code, links, images, strikethrough, line breaks).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.InlineCodeRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>`([^`]+)`</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match '`'.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character other than '`' atomically at least once.<br/>
+            ○ Match '`'.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.ImageRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>!\\[([^\\]]*)\\]\\(([^\\s\\)]+)(?:\\s+"([^"]*)")?\\)</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match the string "![".<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character other than ']' atomically any number of times.<br/>
+            ○ Match the string "](".<br/>
+            ○ 2nd capture group.<br/>
+                ○ Match a character in the set [^)\s] greedily at least once.<br/>
+            ○ Optional (greedy).<br/>
+                ○ Match a whitespace character atomically at least once.<br/>
+                ○ Match '"'.<br/>
+                ○ 3rd capture group.<br/>
+                    ○ Match a character other than '"' atomically any number of times.<br/>
+                ○ Match '"'.<br/>
+            ○ Match ')'.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.LinkRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>\\[([^\\]]+)\\]\\(([^\\s\\)]+)(?:\\s+"([^"]*)")?\\)</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match '['.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character other than ']' atomically at least once.<br/>
+            ○ Match the string "](".<br/>
+            ○ 2nd capture group.<br/>
+                ○ Match a character in the set [^)\s] greedily at least once.<br/>
+            ○ Optional (greedy).<br/>
+                ○ Match a whitespace character atomically at least once.<br/>
+                ○ Match '"'.<br/>
+                ○ 3rd capture group.<br/>
+                    ○ Match a character other than '"' atomically any number of times.<br/>
+                ○ Match '"'.<br/>
+            ○ Match ')'.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.BoldAsteriskRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>\\*\\*(.+?)\\*\\*</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match the string "**".<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character other than '\n' lazily at least once.<br/>
+            ○ Match the string "**".<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.BoldUnderscoreRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>__(.+?)__</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match the string "__".<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character other than '\n' lazily at least once.<br/>
+            ○ Match the string "__".<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.ItalicAsteriskRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>\\*(.+?)\\*</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match '*'.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character other than '\n' lazily at least once.<br/>
+            ○ Match '*'.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.ItalicUnderscoreRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>(?&lt;!\\w)_(.+?)_(?!\\w)</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Zero-width negative lookbehind.<br/>
+                ○ Match a word character right-to-left.<br/>
+            ○ Match '_'.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character other than '\n' lazily at least once.<br/>
+            ○ Match '_'.<br/>
+            ○ Zero-width negative lookahead.<br/>
+                ○ Match a word character.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.StrikethroughRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>~~(.+?)~~</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match the string "~~".<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character other than '\n' lazily at least once.<br/>
+            ○ Match the string "~~".<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.LineBreakRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>  \\n</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match the string "  \n".<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.ProcessInlineElements(System.String,Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownRenderOptions)">
+            <summary>
+            Converts inline markdown syntax to HTML within a text block.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.EncodeAttributeValue(System.String,System.Boolean)">
+            <summary>
+            Encodes a value for safe use inside an HTML attribute (double-quoted).
+            When <paramref name="ampAlreadyEncoded"/> is true, <c>&amp;</c> is assumed to already
+            be encoded by an earlier sanitization pass (SanitizeHtml=true).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownParser">
+            <summary>
+            Standalone markdown-to-HTML parser. Converts markdown text to HTML using Bootstrap typography classes.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownParser.TableSeparatorCellRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^:?-{1,}:?$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match ':' atomically, optionally.<br/>
+            ○ Match '-' atomically at least once.<br/>
+            ○ Match ':' atomically, optionally.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownParser.OrderedListItemRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^\\d+\\.\\s</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match a Unicode digit atomically at least once.<br/>
+            ○ Match '.'.<br/>
+            ○ Match a whitespace character.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownParser.OrderedListItemContentRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^\\d+\\.\\s(.*)$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match a Unicode digit atomically at least once.<br/>
+            ○ Match '.'.<br/>
+            ○ Match a whitespace character.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character other than '\n' greedily any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownParser.ToHtml(System.String,Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownRenderOptions)">
+            <summary>
+            Converts markdown text to HTML.
+            </summary>
+            <param name="markdown">The markdown text to convert.</param>
+            <param name="options">Rendering options.</param>
+            <returns>HTML string.</returns>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownParser.GetColumnAlignments(System.String)">
+            <summary>
+            Parses the separator row and returns the text-align value for each column, or null when no alignment is specified.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownRenderOptions">
+            <summary>
+            Options for the markdown-to-HTML rendering.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal">
             <summary>
             Variation of <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> that adds <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> and related functionality.
@@ -8501,6 +8750,111 @@
             Always horizontal, never vertical.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown">
+            <summary>
+            Renders Markdown content as HTML using Bootstrap typography.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMarkdown">https://havit.blazor.eu/components/HxMarkdown</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.Content">
+            <summary>
+            Markdown text to render as HTML.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.SanitizeHtml">
+            <summary>
+            When <c>true</c> (default), HTML tags in the input are escaped.
+            When <c>false</c>, raw HTML in the input passes through to the output (use only with trusted content).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.TableCssClass">
+            <summary>
+            CSS class for <c>&lt;table&gt;</c> elements rendered from markdown tables.
+            Default is <c>"table"</c> (Bootstrap table).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.BlockquoteCssClass">
+            <summary>
+            CSS class for <c>&lt;blockquote&gt;</c> elements rendered from markdown blockquotes.
+            Default is <c>"blockquote"</c> (Bootstrap blockquote).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.ImageCssClass">
+            <summary>
+            CSS class for <c>&lt;img&gt;</c> elements rendered from markdown images.
+            Default is <c>"img-fluid"</c> (Bootstrap responsive image).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.CssClass">
+            <summary>
+            Any additional CSS class to apply to the wrapper element.
+            When set (or when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.AdditionalAttributes"/> is used), the output is wrapped in a <c>&lt;div&gt;</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the wrapper <c>&lt;div&gt;</c> element.
+            When set, the output is wrapped in a <c>&lt;div&gt;</c>.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MarkdownSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMarkdown"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MarkdownSettings.SanitizeHtml">
+            <summary>
+            When <c>true</c> (default), HTML tags in the input are escaped.
+            When <c>false</c>, raw HTML in the input passes through to the output (use only with trusted content).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MarkdownSettings.CssClass">
+            <summary>
+            CSS class for the wrapper <c>&lt;div&gt;</c> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MarkdownSettings.TableCssClass">
+            <summary>
+            CSS class for <c>&lt;table&gt;</c> elements rendered from markdown tables.
+            Default is <c>"table"</c> (Bootstrap table).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MarkdownSettings.BlockquoteCssClass">
+            <summary>
+            CSS class for <c>&lt;blockquote&gt;</c> elements rendered from markdown blockquotes.
+            Default is <c>"blockquote"</c> (Bootstrap blockquote).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MarkdownSettings.ImageCssClass">
+            <summary>
+            CSS class for <c>&lt;img&gt;</c> elements rendered from markdown images.
+            Default is <c>"img-fluid"</c> (Bootstrap responsive image).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1">
             <summary>
             Result of the dialog.
@@ -9315,6 +9669,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.ChildContent">
             <summary>
             Content of the nav.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNav.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the underlying <c>&lt;nav&gt;</c> element.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar">
@@ -12089,6 +12448,385 @@
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
         </member>
+        <member name="T:System.Text.RegularExpressions.Generated.InlineCodeRegex_14">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the InlineCodeRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.InlineCodeRegex_14.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.InlineCodeRegex_14.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.InlineCodeRegex_14.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.InlineCodeRegex_14.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.InlineCodeRegex_14.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.InlineCodeRegex_14.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.InlineCodeRegex_14.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.InlineCodeRegex_14.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ImageRegex_15">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the ImageRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.ImageRegex_15.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ImageRegex_15.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ImageRegex_15.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ImageRegex_15.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ImageRegex_15.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ImageRegex_15.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ImageRegex_15.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ImageRegex_15.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.LinkRegex_16">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the LinkRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.LinkRegex_16.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LinkRegex_16.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.LinkRegex_16.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LinkRegex_16.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.LinkRegex_16.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LinkRegex_16.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LinkRegex_16.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LinkRegex_16.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.BoldAsteriskRegex_17">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the BoldAsteriskRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.BoldAsteriskRegex_17.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.BoldAsteriskRegex_17.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.BoldAsteriskRegex_17.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.BoldAsteriskRegex_17.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.BoldAsteriskRegex_17.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.BoldAsteriskRegex_17.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.BoldAsteriskRegex_17.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.BoldAsteriskRegex_17.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.BoldUnderscoreRegex_18">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the BoldUnderscoreRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.BoldUnderscoreRegex_18.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.BoldUnderscoreRegex_18.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.BoldUnderscoreRegex_18.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.BoldUnderscoreRegex_18.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.BoldUnderscoreRegex_18.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.BoldUnderscoreRegex_18.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.BoldUnderscoreRegex_18.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.BoldUnderscoreRegex_18.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ItalicAsteriskRegex_19">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the ItalicAsteriskRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.ItalicAsteriskRegex_19.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ItalicAsteriskRegex_19.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ItalicAsteriskRegex_19.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ItalicAsteriskRegex_19.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ItalicAsteriskRegex_19.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ItalicAsteriskRegex_19.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ItalicAsteriskRegex_19.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ItalicAsteriskRegex_19.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ItalicUnderscoreRegex_20">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the ItalicUnderscoreRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.ItalicUnderscoreRegex_20.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ItalicUnderscoreRegex_20.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ItalicUnderscoreRegex_20.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ItalicUnderscoreRegex_20.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.ItalicUnderscoreRegex_20.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ItalicUnderscoreRegex_20.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ItalicUnderscoreRegex_20.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.ItalicUnderscoreRegex_20.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.StrikethroughRegex_21">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the StrikethroughRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.StrikethroughRegex_21.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.StrikethroughRegex_21.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.StrikethroughRegex_21.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.StrikethroughRegex_21.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.StrikethroughRegex_21.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.StrikethroughRegex_21.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.StrikethroughRegex_21.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.StrikethroughRegex_21.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.LineBreakRegex_22">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the LineBreakRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.LineBreakRegex_22.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LineBreakRegex_22.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.LineBreakRegex_22.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LineBreakRegex_22.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.LineBreakRegex_22.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LineBreakRegex_22.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.LineBreakRegex_22.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the TableSeparatorCellRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the OrderedListItemRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the OrderedListItemContentRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
         <member name="T:System.Text.RegularExpressions.Generated.Utilities">
             <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
         </member>
@@ -12101,11 +12839,29 @@
         <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsWordChar(System.Char)">
             <summary>Determines whether the character is part of the [\w] set.</summary>
         </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32,System.Int32)">
+            <summary>Pushes 2 values onto the backtracking stack.</summary>
+        </member>
         <member name="F:System.Text.RegularExpressions.Generated.Utilities.WordCategoriesMask">
             <summary>Provides a mask of Unicode categories that combine to form [\w].</summary>
         </member>
         <member name="P:System.Text.RegularExpressions.Generated.Utilities.WordCharBitmap">
             <summary>Gets a bitmap for whether each character 0 through 127 is in [\w]</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_indexOfString_4B938BB3612E6695167AB8A3A3AD73E3F6DB0CC76E502A73DB7C1EC79B5A2092">
+            <summary>Supports searching for the string "**".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_indexOfString_A35D34A63ABD1CA9D7860076AA22A8E02AF70FE7A4FEF864363EC52527771C59">
+            <summary>Supports searching for the string "![".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_indexOfString_B5982FF4EF1FB3EFB5D43B8974BA97ED3128DD3DAD9F1B1F4BAE2F75FB3DBAF3">
+            <summary>Supports searching for the string "  \n".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_indexOfString_CD52C9D118B084D434A4D219ABB8EA35B16B26BDCD7FAADC77802968479904D4">
+            <summary>Supports searching for the string "~~".</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_indexOfString____Ordinal">
+            <summary>Supports searching for the string "__".</summary>
         </member>
     </members>
 </doc>
