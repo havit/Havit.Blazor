@@ -867,6 +867,21 @@ public class MarkdownParserTests
 	}
 
 	[TestMethod]
+	public void MarkdownParser_NakedUrl_WithQueryStringAndAmpersand_SanitizeHtmlFalse_DisplayTextCorrectlyEncoded()
+	{
+		var options = new MarkdownRenderOptions
+		{
+			SanitizeHtml = false,
+			TableCssClass = DefaultOptions.TableCssClass,
+			BlockquoteCssClass = DefaultOptions.BlockquoteCssClass,
+			ImageCssClass = DefaultOptions.ImageCssClass
+		};
+
+		var result = MarkdownParser.ToHtml("https://example.com?a=1&b=2", options);
+		Assert.Contains("href=\"https://example.com?a=1&amp;b=2\">https://example.com?a=1&amp;b=2</a>", result);
+	}
+
+	[TestMethod]
 	public void MarkdownParser_NakedUrl_WithBoldText_UrlNotMangledByEmphasis()
 	{
 		// **bold** surrounding a naked URL must not corrupt the URL.
