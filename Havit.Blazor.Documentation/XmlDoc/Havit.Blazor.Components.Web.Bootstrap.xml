@@ -2782,11 +2782,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.NakedUrlRegex">
             <remarks>
             Pattern:<br/>
-            <code>(?&lt;!["=\\w])(?:https?|ftps?)://[^\\s\\x00&lt;&gt;"]+</code><br/>
+            <code>(?&lt;!["'=\\w])(?:https?|ftps?)://[^\\s\\x00&lt;&gt;"']+</code><br/>
             Explanation:<br/>
             <code>
             ○ Zero-width negative lookbehind.<br/>
-                ○ Match a character in the set ["=\w] right-to-left.<br/>
+                ○ Match a character in the set ["'=\w] right-to-left.<br/>
             ○ Match with 2 alternative expressions.<br/>
                 ○ Match a sequence of expressions.<br/>
                     ○ Match the string "http".<br/>
@@ -2795,7 +2795,7 @@
                     ○ Match the string "ftp".<br/>
                     ○ Match 's' atomically, optionally.<br/>
             ○ Match the string "://".<br/>
-            ○ Match a character in the set [^\0"&lt;&gt;\s] atomically at least once.<br/>
+            ○ Match a character in the set [^\0"'&lt;&gt;\s] atomically at least once.<br/>
             </code>
             </remarks>
         </member>

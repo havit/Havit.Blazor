@@ -886,6 +886,27 @@ public class MarkdownParserTests
 		Assert.AreEqual(2, count);
 	}
 
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_InsideSingleQuotedHtmlAttribute_SanitizeHtmlFalse_NotAutolinked()
+	{
+		// When SanitizeHtml=false, raw HTML passes through. A URL inside a single-quoted
+		// HTML attribute (href='https://...') must not be matched by the naked-URL regex.
+		var options = new MarkdownRenderOptions { SanitizeHtml = false };
+		var result = MarkdownParser.ToHtml("<a href='https://example.com'>link</a>", options);
+		// No auto-generated double-quoted href must appear — the single-quoted attribute must pass through intact.
+		Assert.DoesNotContain("<a href=\"https://example.com", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_TrailingSingleQuote_QuoteNotIncludedInUrl()
+	{
+		// A URL that is immediately followed by a single quote must not include that quote in the href.
+		var options = new MarkdownRenderOptions { SanitizeHtml = false };
+		var result = MarkdownParser.ToHtml("url: https://example.com' here", options);
+		Assert.Contains("href=\"https://example.com\"", result);
+		Assert.DoesNotContain("href=\"https://example.com'\"", result);
+	}
+
 	#endregion
 
 	#region Regular Markdown Links — Unaffected by Naked-URL Feature
