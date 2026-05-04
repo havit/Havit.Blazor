@@ -169,7 +169,7 @@ public class HxMultiSelectTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert
-		Assert.AreEqual(0, cut.FindAll("[role='listbox']").Count);
-		Assert.AreEqual(0, cut.FindAll("[role='option']").Count);
+		Assert.IsEmpty(cut.FindAll("[role='listbox']"));
+		Assert.IsEmpty(cut.FindAll("[role='option']"));
 	}
 }
