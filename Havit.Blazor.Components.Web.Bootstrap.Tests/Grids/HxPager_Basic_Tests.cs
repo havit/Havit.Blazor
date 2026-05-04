@@ -1,3 +1,6 @@
+using System.Globalization;
+using Havit;
+
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Grids;
 
 [TestClass]
@@ -45,33 +48,39 @@ public class HxPager_Basic_Tests : BunitTestBase
 	[TestMethod]
 	public void HxPager_Render_DefaultIconButtons_HaveAccessibleLabels()
 	{
-		// Arrange & Act
-		var cut = RenderComponent<HxPager>(parameters => parameters
-			.Add(p => p.TotalPages, 5)
-			.Add(p => p.CurrentPageIndex, 0));
+		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
+		{
+			// Arrange & Act
+			var cut = RenderComponent<HxPager>(parameters => parameters
+				.Add(p => p.TotalPages, 5)
+				.Add(p => p.CurrentPageIndex, 0));
 
-		// Assert
-		var labeledButtons = cut.FindAll("button.page-link[aria-label]");
-		CollectionAssert.AreEqual(
-			new[] { "First page", "Previous page", "Next page", "Last page" },
-			labeledButtons.Select(button => button.GetAttribute("aria-label")).ToArray());
+			// Assert
+			var labeledButtons = cut.FindAll("button.page-link[aria-label]");
+			CollectionAssert.AreEqual(
+				new[] { "First page", "Previous page", "Next page", "Last page" },
+				labeledButtons.Select(button => button.GetAttribute("aria-label")).ToArray());
+		}
 	}
 
 	[TestMethod]
 	public void HxPager_Render_EllipsisButtons_HaveAccessibleLabels()
 	{
-		// Arrange & Act
-		var cut = RenderComponent<HxPager>(parameters => parameters
-			.Add(p => p.TotalPages, 25)
-			.Add(p => p.CurrentPageIndex, 10));
+		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
+		{
+			// Arrange & Act
+			var cut = RenderComponent<HxPager>(parameters => parameters
+				.Add(p => p.TotalPages, 25)
+				.Add(p => p.CurrentPageIndex, 10));
 
-		// Assert
-		var labeledButtons = cut.FindAll("button.page-link[aria-label]")
-			.Select(button => button.GetAttribute("aria-label"))
-			.ToArray();
+			// Assert
+			var labeledButtons = cut.FindAll("button.page-link[aria-label]")
+				.Select(button => button.GetAttribute("aria-label"))
+				.ToArray();
 
-		CollectionAssert.AreEquivalent(
-			new[] { "First page", "Previous page", "Previous pages", "Next pages", "Next page", "Last page" },
-			labeledButtons);
+			CollectionAssert.AreEquivalent(
+				new[] { "First page", "Previous page", "Previous pages", "Next pages", "Next page", "Last page" },
+				labeledButtons);
+		}
 	}
 }

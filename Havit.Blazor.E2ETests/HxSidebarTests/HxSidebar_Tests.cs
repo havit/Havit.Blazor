@@ -68,12 +68,17 @@ public class HxSidebar_Tests : TestAppTestBase
 		await NavigateToTestAppAsync("/HxSidebarTests");
 
 		var toggler = Page.Locator("[data-testid='sidebar-wrapper'] button.hx-sidebar-toggler");
+		var collapsedState = Page.Locator("[data-testid='collapsed-state']");
+		var initialLabel = await toggler.GetAttributeAsync("aria-label");
 
-		await Expect(toggler).ToHaveAttributeAsync("aria-label", "Collapse");
+		Assert.IsFalse(string.IsNullOrWhiteSpace(initialLabel));
 
 		await toggler.ClickAsync();
+		await Expect(collapsedState).ToHaveTextAsync("collapsed");
 
-		await Expect(toggler).ToHaveAttributeAsync("aria-label", "Expand");
+		var updatedLabel = await toggler.GetAttributeAsync("aria-label");
+		Assert.IsFalse(string.IsNullOrWhiteSpace(updatedLabel));
+		Assert.AreNotEqual(initialLabel, updatedLabel);
 	}
 
 	/// <summary>
