@@ -15,7 +15,7 @@
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
 		<!-- aligned NuGet PackageVersion for package-bundles -->
-		<ComponentsPackagesVersion>4.24.1</ComponentsPackagesVersion>
+		<ComponentsPackagesVersion>4.24.2</ComponentsPackagesVersion>
 		<GrpcPackagesVersion>1.8.4</GrpcPackagesVersion>
 
 		<EnableMSTestRunner>true</EnableMSTestRunner>
