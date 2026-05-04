@@ -1,4 +1,4 @@
-:root, 
+:root,
 [data-bs-theme=dark] {
 	/* HxAutosuggest */
 	--hx-autosuggest-input-close-icon-opacity: 						.25;
@@ -43,7 +43,7 @@
 	--hx-sidebar-subitem-margin: 									0 0 0 2rem;
 	--hx-sidebar-header-padding: 									1rem;
 	--hx-sidebar-body-padding: 										0 1rem 1rem 1rem;
-	--hx-sidebar-body-nav-gap: 										.25rem;														
+	--hx-sidebar-body-nav-gap: 										.25rem;
 	--hx-sidebar-brand-logo-width: 									2.5rem;
 	--hx-sidebar-brand-logo-height: 								2.5rem;
 	--hx-sidebar-brand-shortname-width: 							2.5rem;
@@ -196,7 +196,7 @@
 	--hx-progress-indicator-spinner-color: 							var(--bs-primary);
 
 	/* HxToastContainer */
-	--hx-toast-container-margin: 									.5rem;
+	--hx-toast-container-padding: 									.5rem;
 
 	/* HxSearchBox */
 	--hx-search-box-item-icon-margin: 								0 .5rem 0 0;
