@@ -56,4 +56,22 @@ public class HxPager_Basic_Tests : BunitTestBase
 			new[] { "First page", "Previous page", "Next page", "Last page" },
 			labeledButtons.Select(button => button.GetAttribute("aria-label")).ToArray());
 	}
+
+	[TestMethod]
+	public void HxPager_Render_EllipsisButtons_HaveAccessibleLabels()
+	{
+		// Arrange & Act
+		var cut = RenderComponent<HxPager>(parameters => parameters
+			.Add(p => p.TotalPages, 25)
+			.Add(p => p.CurrentPageIndex, 10));
+
+		// Assert
+		var labeledButtons = cut.FindAll("button.page-link[aria-label]")
+			.Select(button => button.GetAttribute("aria-label"))
+			.ToArray();
+
+		CollectionAssert.AreEquivalent(
+			new[] { "First page", "Previous page", "Previous pages", "Next pages", "Next page", "Last page" },
+			labeledButtons);
+	}
 }

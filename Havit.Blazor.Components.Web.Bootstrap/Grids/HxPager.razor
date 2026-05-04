@@ -55,7 +55,7 @@
 
 	@if (pageFromInclusive > 0)
 	{
-		<li class="page-item d-none d-md-block"><button type="button" class="page-link" @onclick="async () => await SetCurrentPageIndexTo(pageFromInclusive - 1)" @onclick:stopPropagation>...</button></li>
+		<li class="page-item d-none d-md-block"><button type="button" class="page-link" aria-label="@HxPagerLocalizer["PreviousPages"]" @onclick="async () => await SetCurrentPageIndexTo(pageFromInclusive - 1)" @onclick:stopPropagation>...</button></li>
 	}
 
 	@for (int i = pageFromInclusive; i < pageToExclusive; i++)
@@ -75,7 +75,7 @@
 
 	@if (pageToExclusive < (TotalPages - 1))
 	{
-		<li class="page-item d-none d-md-block"><button type="button" class="page-link" @onclick="async () => await SetCurrentPageIndexTo(pageToExclusive)" @onclick:stopPropagation>...</button></li>
+		<li class="page-item d-none d-md-block"><button type="button" class="page-link" aria-label="@HxPagerLocalizer["NextPages"]" @onclick="async () => await SetCurrentPageIndexTo(pageToExclusive)" @onclick:stopPropagation>...</button></li>
 	}
 
 	@if (showPreviousNext)
