@@ -911,6 +911,40 @@ public class MarkdownParserTests
 		Assert.Contains("</a>'", result);
 	}
 
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_IPv6_NoPath_RenderedAsLink()
+	{
+		// IPv6 URL with no path — the closing ] is part of the host, not trailing punctuation.
+		var result = MarkdownParser.ToHtml("Connect to https://[::1] now.", DefaultOptions);
+		Assert.Contains("href=\"https://[::1]\"", result);
+		Assert.DoesNotContain("href=\"https://[::1\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_IPv6_WithPath_RenderedAsLink()
+	{
+		// IPv6 URL with a path — the ] is followed by the path, should be preserved.
+		var result = MarkdownParser.ToHtml("See https://[::1]/api/v1 for details.", DefaultOptions);
+		Assert.Contains("href=\"https://[::1]/api/v1\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_IPv6_WithPort_RenderedAsLink()
+	{
+		// IPv6 URL with port number.
+		var result = MarkdownParser.ToHtml("API at http://[2001:db8::1]:8080/path here.", DefaultOptions);
+		Assert.Contains("href=\"http://[2001:db8::1]:8080/path\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_IPv6_EndOfSentence_PeriodStrippedBracketKept()
+	{
+		// Trailing period is stripped but the closing ] of the IPv6 host must be preserved.
+		var result = MarkdownParser.ToHtml("See https://[::1].", DefaultOptions);
+		Assert.Contains("href=\"https://[::1]\"", result);
+		Assert.DoesNotContain("href=\"https://[::1].\"", result);
+	}
+
 	#endregion
 
 	#region Regular Markdown Links — Unaffected by Naked-URL Feature

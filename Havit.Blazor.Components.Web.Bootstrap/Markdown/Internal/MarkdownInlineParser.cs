@@ -202,21 +202,24 @@ internal static partial class MarkdownInlineParser
 	private static string TrimTrailingUrlPunctuation(string url)
 	{
 		// Iteratively strip common sentence-ending punctuation from the tail.
-		// Closing parentheses are only stripped when they are unbalanced (more ')' than '(')
-		// so that URLs like https://en.wikipedia.org/wiki/C_(language) are preserved.
+		// Closing parentheses and closing square brackets are only stripped when they are
+		// unbalanced (more closing than opening) so that:
+		//   - URLs like https://en.wikipedia.org/wiki/C_(language) are preserved, and
+		//   - IPv6 addresses like https://[::1] are not corrupted.
 		while (url.Length > 0)
 		{
 			var last = url[^1];
-			if (last == ')')
+			if (last == ')' || last == ']')
 			{
-				int open = 0;
-				int close = 0;
+				char open = last == ')' ? '(' : '[';
+				int openCount = 0;
+				int closeCount = 0;
 				foreach (var c in url)
 				{
-					if (c == '(') { open++; }
-					else if (c == ')') { close++; }
+					if (c == open) { openCount++; }
+					else if (c == last) { closeCount++; }
 				}
-				if (close > open)
+				if (closeCount > openCount)
 				{
 					url = url[..^1];
 					continue;
@@ -224,7 +227,7 @@ internal static partial class MarkdownInlineParser
 				break;
 			}
 
-			if (last is '.' or ',' or '!' or '?' or ';' or ':' or ']')
+			if (last is '.' or ',' or '!' or '?' or ';' or ':')
 			{
 				url = url[..^1];
 				continue;
