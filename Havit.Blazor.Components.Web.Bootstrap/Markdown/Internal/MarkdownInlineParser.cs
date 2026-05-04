@@ -206,22 +206,49 @@ internal static partial class MarkdownInlineParser
 		// unbalanced (more closing than opening) so that:
 		//   - URLs like https://en.wikipedia.org/wiki/C_(language) are preserved, and
 		//   - IPv6 addresses like https://[::1] are not corrupted.
+		int openParenCount = 0;
+		int closeParenCount = 0;
+		int openBracketCount = 0;
+		int closeBracketCount = 0;
+		foreach (var c in url)
+		{
+			switch (c)
+			{
+				case '(':
+					openParenCount++;
+					break;
+				case ')':
+					closeParenCount++;
+					break;
+				case '[':
+					openBracketCount++;
+					break;
+				case ']':
+					closeBracketCount++;
+					break;
+			}
+		}
+
 		while (url.Length > 0)
 		{
 			var last = url[^1];
-			if (last == ')' || last == ']')
+			if (last == ')')
 			{
-				char open = last == ')' ? '(' : '[';
-				int openCount = 0;
-				int closeCount = 0;
-				foreach (var c in url)
-				{
-					if (c == open) { openCount++; }
-					else if (c == last) { closeCount++; }
-				}
-				if (closeCount > openCount)
+				if (closeParenCount > openParenCount)
 				{
 					url = url[..^1];
+					closeParenCount--;
+					continue;
+				}
+				break;
+			}
+
+			if (last == ']')
+			{
+				if (closeBracketCount > openBracketCount)
+				{
+					url = url[..^1];
+					closeBracketCount--;
 					continue;
 				}
 				break;
