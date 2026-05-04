@@ -221,3 +221,9 @@ form {
 form > .hx-button {
 	align-self: start;
 }
+
+/* HxTabPanel - restore pointer cursor on tab headers (role="tab" overrides the default role="button" on HxNavLink, so Bootstrap's [role=button]{cursor:pointer} no longer applies). */
+/* TODO V6: Drop this rule. With "bring your own markup" tabs will use <button> elements with OnClick handler, which have a pointer cursor by default. */
+.hx-tab-panel .nav-link {
+	cursor: pointer;
+}
