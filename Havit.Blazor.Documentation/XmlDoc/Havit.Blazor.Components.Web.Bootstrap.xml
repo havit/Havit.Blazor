@@ -2779,6 +2779,26 @@
             </code>
             </remarks>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.NakedUrlRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>(?&lt;!["'=\\w])(?:https?|ftps?)://[^\\s\\x00&lt;&gt;"']+</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Zero-width negative lookbehind.<br/>
+                ○ Match a character in the set ["'=\w] right-to-left.<br/>
+            ○ Match with 2 alternative expressions.<br/>
+                ○ Match a sequence of expressions.<br/>
+                    ○ Match the string "http".<br/>
+                    ○ Match 's' atomically, optionally.<br/>
+                ○ Match a sequence of expressions.<br/>
+                    ○ Match the string "ftp".<br/>
+                    ○ Match 's' atomically, optionally.<br/>
+            ○ Match the string "://".<br/>
+            ○ Match a character in the set [^\0"'&lt;&gt;\s] atomically at least once.<br/>
+            </code>
+            </remarks>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.ProcessInlineElements(System.String,Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownRenderOptions)">
             <summary>
             Converts inline markdown syntax to HTML within a text block.
@@ -12731,98 +12751,130 @@
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if a possible match was found; false if no more matches are possible.</returns>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23">
+        <member name="T:System.Text.RegularExpressions.Generated.NakedUrlRegex_23">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the NakedUrlRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.NakedUrlRegex_23.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.NakedUrlRegex_23.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.NakedUrlRegex_23.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.NakedUrlRegex_23.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.NakedUrlRegex_23.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.NakedUrlRegex_23.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.NakedUrlRegex_23.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.NakedUrlRegex_23.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_24">
             <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the TableSeparatorCellRegex method.</summary>
         </member>
-        <member name="F:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.Instance">
+        <member name="F:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_24.Instance">
             <summary>Cached, thread-safe singleton instance.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.#ctor">
+        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_24.#ctor">
             <summary>Initializes the instance.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.RunnerFactory">
+        <member name="T:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_24.RunnerFactory">
             <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.RunnerFactory.CreateInstance">
+        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_24.RunnerFactory.CreateInstance">
             <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.RunnerFactory.Runner">
+        <member name="T:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_24.RunnerFactory.Runner">
             <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_24.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
             <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_24.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
             <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if a possible match was found; false if no more matches are possible.</returns>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_23.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.TableSeparatorCellRegex_24.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
             <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24">
+        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemRegex_25">
             <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the OrderedListItemRegex method.</summary>
         </member>
-        <member name="F:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.Instance">
+        <member name="F:System.Text.RegularExpressions.Generated.OrderedListItemRegex_25.Instance">
             <summary>Cached, thread-safe singleton instance.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.#ctor">
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_25.#ctor">
             <summary>Initializes the instance.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.RunnerFactory">
+        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemRegex_25.RunnerFactory">
             <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.RunnerFactory.CreateInstance">
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_25.RunnerFactory.CreateInstance">
             <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.RunnerFactory.Runner">
+        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemRegex_25.RunnerFactory.Runner">
             <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_25.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
             <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_25.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
             <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if a possible match was found; false if no more matches are possible.</returns>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_24.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemRegex_25.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
             <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25">
+        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_26">
             <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the OrderedListItemContentRegex method.</summary>
         </member>
-        <member name="F:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.Instance">
+        <member name="F:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_26.Instance">
             <summary>Cached, thread-safe singleton instance.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.#ctor">
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_26.#ctor">
             <summary>Initializes the instance.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.RunnerFactory">
+        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_26.RunnerFactory">
             <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.RunnerFactory.CreateInstance">
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_26.RunnerFactory.CreateInstance">
             <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.RunnerFactory.Runner">
+        <member name="T:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_26.RunnerFactory.Runner">
             <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_26.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
             <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_26.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
             <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if a possible match was found; false if no more matches are possible.</returns>
         </member>
-        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_25.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+        <member name="M:System.Text.RegularExpressions.Generated.OrderedListItemContentRegex_26.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
             <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
