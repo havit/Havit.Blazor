@@ -777,4 +777,103 @@ public class MarkdownParserTests
 	}
 
 	#endregion
+
+	#region Naked URLs (Autolinks)
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_HttpsUrl_RenderedAsLink()
+	{
+		var result = MarkdownParser.ToHtml("Some text with link to https://www.havit.cz/test should work.", DefaultOptions);
+		Assert.Contains("<a href=\"https://www.havit.cz/test\">https://www.havit.cz/test</a>", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_HttpUrl_RenderedAsLink()
+	{
+		var result = MarkdownParser.ToHtml("Visit http://example.com for details.", DefaultOptions);
+		Assert.Contains("<a href=\"http://example.com\">http://example.com</a>", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_TrailingPeriod_PeriodNotIncludedInUrl()
+	{
+		var result = MarkdownParser.ToHtml("Visit https://example.com.", DefaultOptions);
+		Assert.Contains("href=\"https://example.com\"", result);
+		Assert.DoesNotContain("href=\"https://example.com.\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_TrailingComma_CommaNotIncludedInUrl()
+	{
+		var result = MarkdownParser.ToHtml("Visit https://example.com, then continue.", DefaultOptions);
+		Assert.Contains("href=\"https://example.com\"", result);
+		Assert.DoesNotContain("href=\"https://example.com,\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_TrailingClosingParenthesis_ParenNotIncludedInUrl()
+	{
+		var result = MarkdownParser.ToHtml("(see https://example.com)", DefaultOptions);
+		Assert.Contains("href=\"https://example.com\"", result);
+		Assert.DoesNotContain("href=\"https://example.com)\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_BalancedParentheses_ParensPreservedInUrl()
+	{
+		// Balanced parentheses in the URL (e.g. Wikipedia disambiguation) must not be stripped.
+		var result = MarkdownParser.ToHtml("See https://en.wikipedia.org/wiki/C_(programming_language) for more.", DefaultOptions);
+		Assert.Contains("href=\"https://en.wikipedia.org/wiki/C_(programming_language)\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_AtEndOfText_RenderedAsLink()
+	{
+		var result = MarkdownParser.ToHtml("Link: https://example.com", DefaultOptions);
+		Assert.Contains("<a href=\"https://example.com\">https://example.com</a>", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_MultipleUrls_AllRenderedAsLinks()
+	{
+		var result = MarkdownParser.ToHtml("See https://one.com and https://two.com for details.", DefaultOptions);
+		Assert.Contains("href=\"https://one.com\"", result);
+		Assert.Contains("href=\"https://two.com\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_InsideCodeSpan_NotProcessed()
+	{
+		// URLs inside a code span must not be converted to hyperlinks.
+		var result = MarkdownParser.ToHtml("Use `https://example.com` as the base URL.", DefaultOptions);
+		Assert.DoesNotContain("<a ", result);
+		Assert.Contains("<code>https://example.com</code>", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_ExplicitLinkNotDoubleProcessed()
+	{
+		// An explicit [text](url) link must not also create a naked-URL link for the same URL.
+		var result = MarkdownParser.ToHtml("[click here](https://example.com)", DefaultOptions);
+		var count = result.Split("<a ").Length - 1;
+		Assert.AreEqual(1, count);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_WithQueryStringAndAmpersand_CorrectlyEncoded()
+	{
+		var result = MarkdownParser.ToHtml("See https://example.com?a=1&b=2 for info.", DefaultOptions);
+		Assert.Contains("href=\"https://example.com?a=1&amp;b=2\"", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_WithBoldText_UrlNotMangledByEmphasis()
+	{
+		// **bold** surrounding a naked URL must not corrupt the URL.
+		var result = MarkdownParser.ToHtml("**Visit https://example.com now**", DefaultOptions);
+		Assert.Contains("href=\"https://example.com\"", result);
+		Assert.Contains("<strong>", result);
+	}
+
+	#endregion
 }
