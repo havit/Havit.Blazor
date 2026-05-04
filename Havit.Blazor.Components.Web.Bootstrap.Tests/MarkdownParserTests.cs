@@ -875,5 +875,112 @@ public class MarkdownParserTests
 		Assert.Contains("<strong>", result);
 	}
 
+	[TestMethod]
+	public void MarkdownParser_NakedUrl_NakedUrlAdjacentToExplicitLink_BothRenderedCorrectly()
+	{
+		// A naked URL next to an explicit Markdown link — both must produce exactly one <a> each.
+		var result = MarkdownParser.ToHtml("[example](https://example.com) and https://other.com", DefaultOptions);
+		Assert.Contains("href=\"https://example.com\">example</a>", result);
+		Assert.Contains("href=\"https://other.com\">https://other.com</a>", result);
+		var count = result.Split("<a ").Length - 1;
+		Assert.AreEqual(2, count);
+	}
+
+	#endregion
+
+	#region Regular Markdown Links — Unaffected by Naked-URL Feature
+
+	[TestMethod]
+	public void MarkdownParser_RegularLink_WithNakedUrlInSameParagraph_BothRenderedCorrectly()
+	{
+		// A regular Markdown link and a naked URL in the same paragraph: each must produce exactly one <a>.
+		var result = MarkdownParser.ToHtml("See [docs](https://docs.example.com) and https://example.com for info.", DefaultOptions);
+		Assert.Contains("href=\"https://docs.example.com\">docs</a>", result);
+		Assert.Contains("href=\"https://example.com\">https://example.com</a>", result);
+		var count = result.Split("<a ").Length - 1;
+		Assert.AreEqual(2, count);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_RegularLink_LinkTextPreservedExactly()
+	{
+		// The link text of a regular Markdown link must not be modified by the naked-URL pass.
+		var result = MarkdownParser.ToHtml("[Click here](https://example.com)", DefaultOptions);
+		Assert.Contains(">Click here</a>", result);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_RegularLink_UrlInLinkText_NotAutolinked()
+	{
+		// A URL appearing as the display text of a [url](url) link must not be double-linked.
+		var result = MarkdownParser.ToHtml("[https://example.com](https://example.com)", DefaultOptions);
+		var count = result.Split("<a ").Length - 1;
+		Assert.AreEqual(1, count);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_RegularLink_HttpsUrlInHref_NotAutolinkedAgain()
+	{
+		// The href value of an explicit link must not also be picked up by the naked-URL regex.
+		var result = MarkdownParser.ToHtml("[link](https://example.com)", DefaultOptions);
+		Assert.Contains("href=\"https://example.com\"", result);
+		var count = result.Split("<a ").Length - 1;
+		Assert.AreEqual(1, count);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_RegularLink_WithTitle_TitlePreserved()
+	{
+		// The title attribute of a regular Markdown link must not be lost or mangled.
+		var result = MarkdownParser.ToHtml("[link](https://example.com \"My title\")", DefaultOptions);
+		Assert.Contains("title=\"My title\"", result);
+		Assert.Contains("href=\"https://example.com\"", result);
+		var count = result.Split("<a ").Length - 1;
+		Assert.AreEqual(1, count);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_RegularLink_UrlWithQueryString_HrefEncoded()
+	{
+		// A regular link whose URL contains & must still have & encoded as &amp; in href.
+		var result = MarkdownParser.ToHtml("[link](https://example.com?a=1&b=2)", DefaultOptions);
+		Assert.Contains("href=\"https://example.com?a=1&amp;b=2\"", result);
+		var count = result.Split("<a ").Length - 1;
+		Assert.AreEqual(1, count);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_RegularLink_MultipleExplicitLinks_EachRenderedOnce()
+	{
+		// Two separate explicit Markdown links — each must produce exactly one <a>, total two.
+		var result = MarkdownParser.ToHtml("[first](https://first.com) and [second](https://second.com)", DefaultOptions);
+		Assert.Contains("href=\"https://first.com\">first</a>", result);
+		Assert.Contains("href=\"https://second.com\">second</a>", result);
+		var count = result.Split("<a ").Length - 1;
+		Assert.AreEqual(2, count);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_RegularLink_InsideStrongEmphasis_RenderedCorrectly()
+	{
+		// An explicit link inside bold text: link and bold must both render, URL not duplicated.
+		var result = MarkdownParser.ToHtml("**[bold link](https://example.com)**", DefaultOptions);
+		Assert.Contains("<strong>", result);
+		Assert.Contains("href=\"https://example.com\">bold link</a>", result);
+		var count = result.Split("<a ").Length - 1;
+		Assert.AreEqual(1, count);
+	}
+
+	[TestMethod]
+	public void MarkdownParser_RegularLink_RelativeUrl_NotAutolinked()
+	{
+		// A regular Markdown link with a relative URL must render normally; the relative URL
+		// does not match the naked-URL regex (no scheme), so there must be exactly one <a>.
+		var result = MarkdownParser.ToHtml("[page](../docs/page.html)", DefaultOptions);
+		Assert.Contains("href=\"../docs/page.html\"", result);
+		var count = result.Split("<a ").Length - 1;
+		Assert.AreEqual(1, count);
+	}
+
 	#endregion
 }
