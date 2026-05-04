@@ -2783,17 +2783,23 @@
             <remarks>
             Pattern:<br/>
             <code>(?&lt;!["'=\\w])(?:https?|ftps?)://[^\\s\\x00&lt;&gt;"']+</code><br/>
+            Options:<br/>
+            <code>RegexOptions.IgnoreCase</code><br/>
             Explanation:<br/>
             <code>
             ○ Zero-width negative lookbehind.<br/>
                 ○ Match a character in the set ["'=\w] right-to-left.<br/>
             ○ Match with 2 alternative expressions.<br/>
                 ○ Match a sequence of expressions.<br/>
-                    ○ Match the string "http".<br/>
-                    ○ Match 's' atomically, optionally.<br/>
+                    ○ Match a character in the set [Hh].<br/>
+                    ○ Match a character in the set [Tt] exactly 2 times.<br/>
+                    ○ Match a character in the set [Pp].<br/>
+                    ○ Match a character in the set [Ss] atomically, optionally.<br/>
                 ○ Match a sequence of expressions.<br/>
-                    ○ Match the string "ftp".<br/>
-                    ○ Match 's' atomically, optionally.<br/>
+                    ○ Match a character in the set [Ff].<br/>
+                    ○ Match a character in the set [Tt].<br/>
+                    ○ Match a character in the set [Pp].<br/>
+                    ○ Match a character in the set [Ss] atomically, optionally.<br/>
             ○ Match the string "://".<br/>
             ○ Match a character in the set [^\0"'&lt;&gt;\s] atomically at least once.<br/>
             </code>
@@ -12899,6 +12905,9 @@
         </member>
         <member name="P:System.Text.RegularExpressions.Generated.Utilities.WordCharBitmap">
             <summary>Gets a bitmap for whether each character 0 through 127 is in [\w]</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_ascii_4001000040010000">
+            <summary>Supports searching for characters in or not in "FHfh".</summary>
         </member>
         <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_indexOfString_4B938BB3612E6695167AB8A3A3AD73E3F6DB0CC76E502A73DB7C1EC79B5A2092">
             <summary>Supports searching for the string "**".</summary>
