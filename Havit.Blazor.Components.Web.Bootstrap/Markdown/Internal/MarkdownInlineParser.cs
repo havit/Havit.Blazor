@@ -34,7 +34,7 @@ internal static partial class MarkdownInlineParser
 	[GeneratedRegex(@"  \n")]
 	private static partial Regex LineBreakRegex();
 
-	[GeneratedRegex(@"(?<![""'=\w])(?:https?|ftps?)://[^\s\x00<>""']+")]
+	[GeneratedRegex(@"(?<![""'=\w])(?:https?|ftps?)://[^\s\x00<>""']+", RegexOptions.IgnoreCase)]
 	private static partial Regex NakedUrlRegex();
 
 	/// <summary>
