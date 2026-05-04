@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Havit.Blazor.E2ETests;
 
 [TestClass]
@@ -35,5 +37,26 @@ public static class TestAppAssemblyInitializer
 	public static void AssemblyCleanup()
 	{
 		_factory?.Dispose();
+
+		lock (TestAppTestBase.Lock)
+		{
+			if (TestAppTestBase.AxeReport.Length == 0)
+			{
+				return;
+			}
+
+			var sb = new StringBuilder();
+			sb.AppendLine("| Rule | Description | Impact | Target |");
+			sb.AppendLine("|------|-------------|--------|--------|");
+
+			var filePath = Path.Combine(
+				Path.GetTempPath(),
+				$"axe-results-{DateTime.UtcNow:yyyyMMdd-HHmmss}.md"
+			);
+
+			File.WriteAllText(filePath, TestAppTestBase.AxeReport.ToString());
+
+			Console.WriteLine($"Axe report written to: {filePath}");
+		}
 	}
 }

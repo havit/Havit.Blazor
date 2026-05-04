@@ -6,6 +6,8 @@
 		<!--  VSTHRD200: Allow HandleXyClick methods (without Async) -> Suppress 'Use "Async" suffix in names of methods that return an awaitable type' -->
 		<NoWarn>$(NoWarn);1591;1701;1702;SA1134;VSTHRD003;VSTHRD200</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<Configurations>Debug;Release;ACCESSIBLITYTESTS</Configurations>
+		<Platforms>AnyCPU</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>

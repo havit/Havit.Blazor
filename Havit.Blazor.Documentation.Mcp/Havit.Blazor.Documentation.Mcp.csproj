@@ -6,6 +6,8 @@
 		<RootNamespace>Havit.Blazor.Documentation.Mcp</RootNamespace>
 		<RollForward>Major</RollForward>
 		<UserSecretsId>d5e27314-908c-48d2-b407-392d7dafa85d</UserSecretsId>
+		<Configurations>Debug;Release;ACCESSIBLITYTESTS</Configurations>
+		<Platforms>AnyCPU</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>

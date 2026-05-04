@@ -28,3 +28,12 @@ protected virtual ComponentNameSettings GetDefaults() => Defaults;
 * Use *CSS variables* whenever possible. Prefer existing variables over creating new ones (use derived values if possible).
 * Provide `/// <summary>` comments (extracted to API documentation).
 * Create simple demos presenting individual features. [Bootstrap docs](https://getbootstrap.com/docs/5.3/getting-started/introduction/) might be inspiration for you.
+
+## Run accessibility Tests (Havit.Blazor.E2ETests)
+you need to download the headless browser.
+```pwsh
+# Please replace netX with your dotnet version
+Havit.Blazor.E2ETests/bin/Debug/netX/playwright.ps1 install
+# e. g.
+Havit.Blazor.E2ETests/bin/Debug/net10.0/playwright.ps1 install
+```
