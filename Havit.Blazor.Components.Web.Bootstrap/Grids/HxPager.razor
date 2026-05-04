@@ -14,23 +14,33 @@
 	@if (showFirstLast)
 	{
 		<li class="@previousPageItemDisabledCssClass">
-            <a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(0)" @onclick:stopPropagation role="button">
+			<button type="button"
+					class="page-link"
+					disabled="@(CurrentPageIndex == 0)"
+					aria-label="@(FirstPageContentTemplate is null ? HxPagerLocalizer["FirstPage"] : null)"
+					@onclick="async () => await SetCurrentPageIndexTo(0)"
+					@onclick:stopPropagation>
                 @if (FirstPageContentTemplate != null)
                 {
                     @FirstPageContentTemplate
                 }
                 else
                 {
-                    <HxIcon Icon="@FirstPageIconEffective" />
+                     <HxIcon Icon="@FirstPageIconEffective" />
                 }
-            </a>
+			</button>
 		</li>
 	}
 
 	@if (showPreviousNext)
 	{
 		<li class="@previousPageItemDisabledCssClass">
-			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(CurrentPageIndex - 1)" @onclick:stopPropagation role="button">
+			<button type="button"
+					class="page-link"
+					disabled="@(CurrentPageIndex == 0)"
+					aria-label="@(PreviousPageContentTemplate is null ? HxPagerLocalizer["PreviousPage"] : null)"
+					@onclick="async () => await SetCurrentPageIndexTo(CurrentPageIndex - 1)"
+					@onclick:stopPropagation>
                 @if (PreviousPageContentTemplate != null)
                 {
                     @PreviousPageContentTemplate
@@ -39,13 +49,13 @@
                 {
 					<HxIcon Icon="@PreviousPageIconEffective" />
                 }
-			</a>
+			</button>
 		</li>
 	}
 
 	@if (pageFromInclusive > 0)
 	{
-		<li class="page-item d-none d-md-block"><a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(pageFromInclusive - 1)" @onclick:stopPropagation role="button">...</a></li>
+		<li class="page-item d-none d-md-block"><button type="button" class="page-link" @onclick="async () => await SetCurrentPageIndexTo(pageFromInclusive - 1)" @onclick:stopPropagation>...</button></li>
 	}
 
 	@for (int i = pageFromInclusive; i < pageToExclusive; i++)
@@ -54,24 +64,29 @@
 		if (i == CurrentPageIndex)
 		{
 			<li class="page-item active">
-				<a class="page-link">@((j + 1).ToString())</a>
+				<span class="page-link" aria-current="page">@((j + 1).ToString())</span>
 			</li>
 		}
 		else
 		{
-			<li class="page-item d-none d-md-block"><a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(j)" @onclick:stopPropagation role="button">@((j + 1).ToString("N0"))</a></li>
+			<li class="page-item d-none d-md-block"><button type="button" class="page-link" @onclick="async () => await SetCurrentPageIndexTo(j)" @onclick:stopPropagation>@((j + 1).ToString("N0"))</button></li>
 		}
 	}
 
 	@if (pageToExclusive < (TotalPages - 1))
 	{
-		<li class="page-item d-none d-md-block"><a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(pageToExclusive)" @onclick:stopPropagation role="button">...</a></li>
+		<li class="page-item d-none d-md-block"><button type="button" class="page-link" @onclick="async () => await SetCurrentPageIndexTo(pageToExclusive)" @onclick:stopPropagation>...</button></li>
 	}
 
 	@if (showPreviousNext)
 	{
 		<li class="@nextPageItemDisabledCssClass">
-			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(CurrentPageIndex + 1)" @onclick:stopPropagation role="button">
+			<button type="button"
+					class="page-link"
+					disabled="@(CurrentPageIndex == TotalPages - 1)"
+					aria-label="@(NextPageContentTemplate is null ? HxPagerLocalizer["NextPage"] : null)"
+					@onclick="async () => await SetCurrentPageIndexTo(CurrentPageIndex + 1)"
+					@onclick:stopPropagation>
                 @if (NextPageContentTemplate != null)
                 {
                     @NextPageContentTemplate
@@ -80,14 +95,19 @@
                 {
 					<HxIcon Icon="@NextPageIconEffective" />
                 }
-			</a>
+			</button>
 		</li>
 	}
 
 	@if (showFirstLast)
 	{
 		<li class="@nextPageItemDisabledCssClass">
-			<a class="page-link" @onclick="async () => await SetCurrentPageIndexTo(TotalPages - 1)" @onclick:stopPropagation role="button">
+			<button type="button"
+					class="page-link"
+					disabled="@(CurrentPageIndex == TotalPages - 1)"
+					aria-label="@(LastPageContentTemplate is null ? HxPagerLocalizer["LastPage"] : null)"
+					@onclick="async () => await SetCurrentPageIndexTo(TotalPages - 1)"
+					@onclick:stopPropagation>
                 @if (LastPageContentTemplate != null)
                 {
                     @LastPageContentTemplate
@@ -96,7 +116,7 @@
                 {
 					<HxIcon Icon="@LastPageIconEffective" />
                 }
-			</a>
+			</button>
 		</li>
 	}
 </ul>

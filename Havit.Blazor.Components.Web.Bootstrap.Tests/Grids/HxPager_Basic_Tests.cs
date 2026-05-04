@@ -17,7 +17,7 @@ public class HxPager_Basic_Tests : BunitTestBase
 		// (all pages fit within NumericButtonsCount default of 10)
 		int numericPageCount = pageItems.Count(li =>
 		{
-			var link = li.QuerySelector("a.page-link");
+			var link = li.QuerySelector(".page-link");
 			return link != null && int.TryParse(link.TextContent.Trim(), out _);
 		});
 		Assert.AreEqual(5, numericPageCount, "Pager should show 5 numeric page buttons for TotalPages=5.");
@@ -34,11 +34,26 @@ public class HxPager_Basic_Tests : BunitTestBase
 			.Add(p => p.CurrentPageIndexChanged, (int newIndex) => currentPageIndex = newIndex));
 
 		// Act: click page 2 (index 1) — find the "2" numeric page button and click it
-		var page2Link = cut.FindAll("li.page-item a.page-link")
-			.First(a => a.TextContent.Trim() == "2");
+		var page2Link = cut.FindAll("li.page-item button.page-link")
+			.First(button => button.TextContent.Trim() == "2");
 		await cut.InvokeAsync(() => page2Link.Click());
 
 		// Assert: page index changed to 1 (second page, zero-based)
 		Assert.AreEqual(1, currentPageIndex, "Clicking page 2 should set page index to 1.");
+	}
+
+	[TestMethod]
+	public void HxPager_Render_DefaultIconButtons_HaveAccessibleLabels()
+	{
+		// Arrange & Act
+		var cut = RenderComponent<HxPager>(parameters => parameters
+			.Add(p => p.TotalPages, 5)
+			.Add(p => p.CurrentPageIndex, 0));
+
+		// Assert
+		var labeledButtons = cut.FindAll("button.page-link[aria-label]");
+		CollectionAssert.AreEqual(
+			new[] { "First page", "Previous page", "Next page", "Last page" },
+			labeledButtons.Select(button => button.GetAttribute("aria-label")).ToArray());
 	}
 }

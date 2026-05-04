@@ -26,10 +26,13 @@
 						@ItemsTemplate
 					</CascadingValue>
 				</HxNav>
-				<div class="@CssClassHelper.Combine("hx-sidebar-toggler", Collapsed ? "collapsed" : null, ResponsiveBreakpoint.GetCssClass("d-??-block"))"
-					 role="button"
-					 @onclick="HandleCollapseToggleClick"
-					 @onclick:stopPropagation="true">
+				<button type="button"
+						class="@CssClassHelper.Combine("hx-sidebar-toggler", Collapsed ? "collapsed" : null, ResponsiveBreakpoint.GetCssClass("d-??-block"))"
+						aria-controls="@Id"
+						aria-expanded="@(!Collapsed)"
+						aria-label="@(Collapsed ? Localizer["Expand"] : Localizer["Collapse"])"
+						@onclick="HandleCollapseToggleClick"
+						@onclick:stopPropagation="true">
 
 					@if (TogglerTemplate is null)
 					{
@@ -44,7 +47,7 @@
 					{
 						@TogglerTemplate(new() { SidebarCollapsed = Collapsed })
 					}
-				</div>
+				</button>
 			</div>
 
 			@if (FooterTemplate is not null)

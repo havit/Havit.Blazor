@@ -62,6 +62,20 @@ public class HxSidebar_Tests : TestAppTestBase
 		await Expect(Page.Locator("[data-testid='sidebar-wrapper'] .hx-sidebar.collapsed")).ToHaveCountAsync(0);
 	}
 
+	[TestMethod]
+	public async Task HxSidebar_CollapseToggle_UpdatesAccessibleLabel()
+	{
+		await NavigateToTestAppAsync("/HxSidebarTests");
+
+		var toggler = Page.Locator("[data-testid='sidebar-wrapper'] button.hx-sidebar-toggler");
+
+		await Expect(toggler).ToHaveAttributeAsync("aria-label", "Collapse");
+
+		await toggler.ClickAsync();
+
+		await Expect(toggler).ToHaveAttributeAsync("aria-label", "Expand");
+	}
+
 	/// <summary>
 	/// Verifies that the sidebar item matching the current route has the active highlight styling.
 	/// </summary>
