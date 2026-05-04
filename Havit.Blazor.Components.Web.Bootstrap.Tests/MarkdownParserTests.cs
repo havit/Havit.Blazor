@@ -895,6 +895,8 @@ public class MarkdownParserTests
 		var result = MarkdownParser.ToHtml("<a href='https://example.com'>link</a>", options);
 		// No auto-generated double-quoted href must appear — the single-quoted attribute must pass through intact.
 		Assert.DoesNotContain("<a href=\"https://example.com", result);
+		// The single-quoted attribute value must be preserved in the output.
+		Assert.Contains("href='https://example.com'", result);
 	}
 
 	[TestMethod]
@@ -905,6 +907,8 @@ public class MarkdownParserTests
 		var result = MarkdownParser.ToHtml("url: https://example.com' here", options);
 		Assert.Contains("href=\"https://example.com\"", result);
 		Assert.DoesNotContain("href=\"https://example.com'\"", result);
+		// The single quote must appear after the closing </a>, not inside the href.
+		Assert.Contains("</a>'", result);
 	}
 
 	#endregion
