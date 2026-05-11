@@ -34,6 +34,9 @@ internal static partial class MarkdownInlineParser
 	[GeneratedRegex(@"  \n")]
 	private static partial Regex LineBreakRegex();
 
+	[GeneratedRegex(@"(?<![""'=\w])(?:https?|ftps?)://[^\s\x00<>""']+", RegexOptions.IgnoreCase)]
+	private static partial Regex NakedUrlRegex();
+
 	/// <summary>
 	/// Converts inline markdown syntax to HTML within a text block.
 	/// </summary>
@@ -81,6 +84,7 @@ internal static partial class MarkdownInlineParser
 		// placeholders so bold/italic/strikethrough cannot corrupt URLs or attributes.
 		text = ProcessImages(text, options, placeholders);
 		text = ProcessLinks(text, options, placeholders);
+		text = ProcessNakedUrls(text, options, placeholders);
 
 		// Step 4: Emphasis and other inline elements (safe — HTML tags are placeholdered).
 		text = ProcessBold(text);
@@ -165,6 +169,100 @@ internal static partial class MarkdownInlineParser
 			placeholders.Add(linkTag);
 			return placeholder;
 		});
+	}
+
+	private static string ProcessNakedUrls(string text, MarkdownRenderOptions options, List<string> placeholders)
+	{
+		return NakedUrlRegex().Replace(text, match =>
+		{
+			var fullMatch = match.Value;
+
+			// Strip trailing punctuation that is unlikely to be part of the URL
+			// (e.g., a sentence-ending period, comma, or closing bracket).
+			// For parentheses, only unbalanced trailing ')' are stripped so that URLs like
+			// https://en.wikipedia.org/wiki/Example_(disambiguation) are preserved correctly.
+			var url = TrimTrailingUrlPunctuation(fullMatch);
+			var trailingChars = fullMatch[url.Length..];
+
+			// Encode the href attribute value. When SanitizeHtml=true, & is already encoded as
+			// &amp; by Step 2, so we skip it here to avoid double-encoding.
+			var encodedUrl = EncodeAttributeValue(url, options.SanitizeHtml);
+
+			// Encode the display text — when SanitizeHtml=false, & in the URL must still be
+			// encoded as &amp; so the anchor content is valid HTML.
+			var displayText = options.SanitizeHtml ? url : url.Replace("&", "&amp;");
+
+			var linkTag = $"<a href=\"{encodedUrl}\">{displayText}</a>";
+			var placeholder = $"\x00PH{placeholders.Count}\x00";
+			placeholders.Add(linkTag);
+			return placeholder + trailingChars;
+		});
+	}
+
+	private static string TrimTrailingUrlPunctuation(string url)
+	{
+		// Iteratively strip common sentence-ending punctuation from the tail.
+		// Closing parentheses and closing square brackets are only stripped when they are
+		// unbalanced (more closing than opening) so that:
+		//   - URLs like https://en.wikipedia.org/wiki/C_(language) are preserved, and
+		//   - IPv6 addresses like https://[::1] are not corrupted.
+		int openParenCount = 0;
+		int closeParenCount = 0;
+		int openBracketCount = 0;
+		int closeBracketCount = 0;
+		foreach (var c in url)
+		{
+			switch (c)
+			{
+				case '(':
+					openParenCount++;
+					break;
+				case ')':
+					closeParenCount++;
+					break;
+				case '[':
+					openBracketCount++;
+					break;
+				case ']':
+					closeBracketCount++;
+					break;
+			}
+		}
+
+		while (url.Length > 0)
+		{
+			var last = url[^1];
+			if (last == ')')
+			{
+				if (closeParenCount > openParenCount)
+				{
+					url = url[..^1];
+					closeParenCount--;
+					continue;
+				}
+				break;
+			}
+
+			if (last == ']')
+			{
+				if (closeBracketCount > openBracketCount)
+				{
+					url = url[..^1];
+					closeBracketCount--;
+					continue;
+				}
+				break;
+			}
+
+			if (last is '.' or ',' or '!' or '?' or ';' or ':')
+			{
+				url = url[..^1];
+				continue;
+			}
+
+			break;
+		}
+		return url;
 	}
 
 	private static bool IsSafeUrl(string url)
