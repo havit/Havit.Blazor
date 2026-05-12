@@ -7,7 +7,7 @@
 [![NuGet Downloads](https://img.shields.io/nuget/dt/Havit.Blazor.Components.Web.Bootstrap)](https://www.nuget.org/packages/Havit.Blazor.Components.Web.Bootstrap/)
 [![GitHub License](https://img.shields.io/github/license/havit/Havit.Blazor)](https://github.com/havit/Havit.Blazor/blob/master/LICENSE)
 [![GitHub Stars](https://img.shields.io/github/stars/havit/Havit.Blazor)](https://github.com/havit/Havit.Blazor/)  
-[![Build Status](https://dev.azure.com/havit/DEV/_apis/build/status/002.HFW-HavitBlazor?branchName=master)](https://dev.azure.com/havit/DEV/_build/latest?definitionId=318&branchName=master)
+[![Build Status](https://dev.azure.com/havit/DEV/_apis/build/status%2F002.HFW-HavitBlazor?repoName=havit%2FHavit.Blazor&branchName=main)](https://dev.azure.com/havit/DEV/_build/latest?definitionId=318&branchName=main)
 [![#StandWithUkraine](https://img.shields.io/badge/%23StandWithUkraine-Russian%20warship%2C%20go%20f%23ck%20yourself-blue)](https://www.peopleinneed.net/what-we-do/humanitarian-aid-and-development/ukraine)
 
 * Free Bootstrap 5.3 components for ASP.NET Blazor
