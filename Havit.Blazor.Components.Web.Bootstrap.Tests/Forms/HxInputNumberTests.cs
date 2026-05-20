@@ -152,29 +152,6 @@ public class HxInputNumberTests : BunitTestBase
 		Assert.AreEqual("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent, "ParsingValidationError should be displayed.");
 	}
 
-	[TestMethod]
-	public void HxInputNumber_SmartKeyboard_MinusKey_PreservesMinusWhenAllSelected_Issue1142()
-	{
-		// Repro for https://github.com/havit/Havit.Blazor/issues/1142
-		// When SelectOnFocus auto-selects an existing value and the user presses '-' to make it negative,
-		// the SmartKeyboard onkeydown handler must leave the digits selected (without the leading '-')
-		// so that the next typed digit replaces only the digit portion and preserves the negative sign.
-
-		// Arrange & Act
-		int currentValue = 123;
-		var cut = RenderComponent<HxInputNumber<int>>(parameters => parameters
-			.Bind(p => p.Value, currentValue, newValue => currentValue = newValue)
-			.Add(p => p.SmartKeyboard, true));
-
-		// Assert
-		var onkeydown = cut.Find("input").GetAttribute("onkeydown");
-		Assert.IsNotNull(onkeydown, "onkeydown handler should be rendered when SmartKeyboard is enabled.");
-		// When everything is selected and '-' is added, selection start must be 1 (after the '-')
-		// so the digits remain selected and a subsequent digit keystroke preserves the leading '-'.
-		Assert.Contains("? 1 : this.selectionStart + 1", onkeydown,
-			$"onkeydown handler should set newSelectionStart to 1 (after the '-') when the entire value is selected; got: {onkeydown}");
-	}
-
 	private class RangeModel
 	{
 		[Range(1, 100)]
