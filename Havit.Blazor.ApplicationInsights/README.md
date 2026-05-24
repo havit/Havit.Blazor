@@ -98,8 +98,8 @@ These options control behavior of the C# wrapper and are **not** forwarded to th
 
 The library includes an ASP.NET Core logging provider that forwards `ILogger` entries
 to Application Insights as traces (or exceptions).
-Supported only in **Interactive WebAssembly** — calling `AddBlazorApplicationInsights` on `ILoggingBuilder`
-in other render modes throws `InvalidOperationException`.
+It is designed primarily for **Interactive WebAssembly**. In other render modes (SSR, Interactive Server),
+log entries are silently discarded because no browser JS runtime is available server-side.
 
 ### Register the logging provider
 
@@ -159,7 +159,7 @@ options.JsSdkOptions.EnableAutoRouteTracking = true;
 await AppInsights.TrackPageViewAsync(new PageViewTelemetry
 {
     Name = "Product detail",
-    Uri = new Uri("/products/42", UriKind.Relative)
+    Uri = "/products/42"
 });
 ```
 

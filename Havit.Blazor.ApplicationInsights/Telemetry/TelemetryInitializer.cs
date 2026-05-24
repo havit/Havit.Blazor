@@ -20,11 +20,17 @@ namespace Havit.Blazor.ApplicationInsights.Telemetry;
 /// </example>
 public class TelemetryInitializer
 {
+	private Dictionary<string, string> _tags = new Dictionary<string, string>();
+
 	/// <summary>
 	/// Raw AI SDK tags. All typed properties (<see cref="CloudRoleName"/>, <see cref="ApplicationVersion"/>)
 	/// read and write directly into this dictionary.
 	/// </summary>
-	public Dictionary<string, string> Tags { get; set; } = new Dictionary<string, string>();
+	public Dictionary<string, string> Tags
+	{
+		get => _tags;
+		set => _tags = value ?? new Dictionary<string, string>();
+	}
 
 	/// <summary>
 	/// Sets the <c>ai.cloud.role</c> tag. Identifies the service or application component
