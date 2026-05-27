@@ -23,24 +23,33 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 		{
 			return new GridCellTemplate
 			{
-				CssClass = "text-center",
+				CssClass = "text-center hx-grid-multiselect-cell",
 				Template = (RenderTreeBuilder builder) =>
 				{
-					builder.OpenElement(100, "input");
-					builder.AddAttribute(101, "type", "checkbox");
-					builder.AddAttribute(102, "class", "form-check-input");
+					// The label wraps the checkbox so that a click anywhere in the cell toggles it
+					// (native <label> behavior, no JavaScript). stopPropagation keeps the cell click
+					// from bubbling to the row click handler.
+					builder.OpenElement(100, "label");
+					builder.AddAttribute(101, "class", "hx-grid-multiselect-checkbox");
+					builder.AddEventStopPropagationAttribute(102, "onclick", true);
 
-					builder.AddAttribute(103, "checked", AllDataItemsSelected);
-					builder.AddAttribute(104, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectAllOrNoneClick));
+					builder.OpenElement(110, "input");
+					builder.AddAttribute(111, "type", "checkbox");
+					builder.AddAttribute(112, "class", "form-check-input");
+
+					builder.AddAttribute(113, "checked", AllDataItemsSelected);
+					builder.AddAttribute(114, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectAllOrNoneClick));
 					builder.SetUpdatesAttributeName("checked");
-					builder.AddEventStopPropagationAttribute(105, "onclick", true);
+					builder.AddEventStopPropagationAttribute(115, "onclick", true);
 
 					if ((context.TotalCount is null) || (context.TotalCount == 0))
 					{
-						builder.AddAttribute(102, "disabled");
+						builder.AddAttribute(116, "disabled");
 					}
 
 					builder.CloseElement(); // input
+
+					builder.CloseElement(); // label
 				}
 			};
 		}
@@ -55,20 +64,29 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 	{
 		return new GridCellTemplate
 		{
-			CssClass = "text-center",
+			CssClass = "text-center hx-grid-multiselect-cell",
 			Template = (RenderTreeBuilder builder) =>
 			{
-				builder.OpenElement(100, "input");
-				builder.AddAttribute(101, "type", "checkbox");
-				builder.AddAttribute(102, "class", "form-check-input");
+				// The label wraps the checkbox so that a click anywhere in the cell toggles it
+				// (native <label> behavior, no JavaScript). stopPropagation keeps the cell click
+				// from bubbling to the row click handler.
+				builder.OpenElement(100, "label");
+				builder.AddAttribute(101, "class", "hx-grid-multiselect-checkbox");
+				builder.AddEventStopPropagationAttribute(102, "onclick", true);
+
+				builder.OpenElement(110, "input");
+				builder.AddAttribute(111, "type", "checkbox");
+				builder.AddAttribute(112, "class", "form-check-input");
 
 				bool selected = SelectedDataItems?.Contains(item) ?? false;
-				builder.AddAttribute(103, "checked", selected);
-				builder.AddAttribute(104, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectDataItemClick(item, selected)));
+				builder.AddAttribute(113, "checked", selected);
+				builder.AddAttribute(114, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectDataItemClick(item, selected)));
 				builder.SetUpdatesAttributeName("checked");
-				builder.AddEventStopPropagationAttribute(105, "onclick", true);
+				builder.AddEventStopPropagationAttribute(115, "onclick", true);
 
 				builder.CloseElement(); // input
+
+				builder.CloseElement(); // label
 			}
 		};
 	}

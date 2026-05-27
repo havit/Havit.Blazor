@@ -10,6 +10,24 @@
 	white-space: nowrap;
 }
 
+/* Multi-select column: enlarge the checkbox click target to the whole cell.
+   The cell padding is moved onto the wrapping <label> so the entire cell (including
+   former padding) acts as the checkbox label - a click anywhere in it toggles the
+   checkbox, with no JavaScript. */
+td.hx-grid-multiselect-cell {
+	padding: 0;
+}
+
+td.hx-grid-multiselect-cell ::deep .hx-grid-multiselect-checkbox {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100%;
+	margin: 0;
+	padding: var(--bs-table-cell-padding-y, .5rem) var(--bs-table-cell-padding-x, .5rem);
+	cursor: pointer;
+}
+
 th:hover.hx-grid-sortable ::deep .hx-grid-sort-icon {
 	visibility: visible;
 }
