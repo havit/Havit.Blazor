@@ -2595,9 +2595,9 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetFilterHeaderCellTemplate">
             <summary>
-            TODO: NOT IMPLEMENTED YET.
+            Returns an empty filter header cell template because this internal selection column does not support filtering.
+            <returns>An empty <see cref="T:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate" />.</returns>
             </summary>
-            <returns></returns>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetItemCellTemplate(`0)">
             <inheritdoc />
@@ -6971,7 +6971,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridColumnSettings.TabIndex">
             <summary>
-            Adds zebra-striping to any table row within the <c>&lt;tbody&gt;</c> (alternating rows).
+            Adds tabindex to column
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode">

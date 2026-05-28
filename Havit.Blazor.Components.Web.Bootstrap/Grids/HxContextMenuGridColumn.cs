@@ -70,7 +70,7 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 
 	public override int? GetTabIndexEffective()
 	{
-		throw new NotImplementedException();
+		return null;
 	}
 
 	/// <inheritdoc />

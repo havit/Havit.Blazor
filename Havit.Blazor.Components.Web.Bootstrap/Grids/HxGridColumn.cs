@@ -188,7 +188,9 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	/// <inheritdoc />
 	protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate?.Invoke(context)), HeaderCssClass);
 
-	protected override GridCellTemplate GetFilterHeaderCellTemplate() => GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(string.Empty, HeaderFilterTemplate), HeaderCssClass);
+	protected override GridCellTemplate GetFilterHeaderCellTemplate() => (HeaderFilterTemplate != null)
+		? GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(null, HeaderFilterTemplate), HeaderCssClass)
+		: GridCellTemplate.Empty;
 
 	/// <inheritdoc />
 	protected override GridCellTemplate GetItemCellTemplate(TItem item)

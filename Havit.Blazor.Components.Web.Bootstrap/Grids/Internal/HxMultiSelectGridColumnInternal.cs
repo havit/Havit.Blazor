@@ -51,12 +51,12 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 	}
 
 	/// <summary>
-	/// TODO: NOT IMPLEMENTED YET.
+	/// Returns an empty filter header cell template because this internal selection column does not support filtering.
+	/// <returns>An empty <see cref="GridCellTemplate" />.</returns>
 	/// </summary>
-	/// <returns></returns>
 	protected override GridCellTemplate GetFilterHeaderCellTemplate()
 	{
-		return GridCellTemplate.Empty;
+		return null;
 	}
 
 	/// <inheritdoc />

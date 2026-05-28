@@ -88,7 +88,10 @@
                                 tabindex="@(isSortingActive ? column.GetTabIndexEffective() : null)"
 							    class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isSortingActive ? (isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable") : null)"
 							    @onclick="@(isSortingActive ? EventCallback.Factory.Create<MouseEventArgs>(this, async () => await HandleSortingClick(column)) : (EventCallback<MouseEventArgs>)default)"
-							    @onclick:stopPropagation="isSortingActive">
+							    @onclick:stopPropagation="isSortingActive"
+							    @onkeydown="@(isSortingActive ? EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.KeyboardEventArgs>(this, async e => { if ((e.Key == "Enter") || (e.Key == " ")
+                                    || (e.Key == "Spacebar")) { await HandleSortingClick(column); } }) : (EventCallback<Microsoft.AspNetCore.Components.Web.KeyboardEventArgs>)default)"
+							    @onkeydown:preventDefault="isSortingActive">
 								<div class="hx-grid-header-cell-container">
 									<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
 									@if (isSortingActive)
@@ -107,7 +110,7 @@
 						}
 					</tr>
 
-					@if (columnsToRender.Any(x => x.GetFilterHeaderCellTemplate() != null))
+					@if (columnsToRender.Any(x => x.GetFilterHeaderCellTemplate().Template != null))
 					{
 						<tr>
 						@foreach (IHxGridColumn<TItem> column in columnsToRender)
