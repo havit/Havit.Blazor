@@ -15,6 +15,10 @@
     <Project Path="Havit.Blazor.Grpc.Server/Havit.Blazor.Grpc.Server.csproj" />
     <Project Path="Havit.Blazor.Grpc.TestContracts/Havit.Blazor.Grpc.TestContracts.csproj" />
   </Folder>
+  <Folder Name="/Havit.Blazor.Storage/">
+    <Project Path="Havit.Blazor.Storage/Havit.Blazor.Storage.csproj" />
+    <Project Path="Havit.Blazor.Storage.E2ETests/Havit.Blazor.Storage.E2ETests.csproj" />
+  </Folder>
   <Folder Name="/Localization/">
     <Project Path="Havit.Extensions.Localization/Havit.Extensions.Localization.csproj" />
     <Project Path="Havit.SourceGenerators.StrongApiStringLocalizers.Tests/Havit.SourceGenerators.StrongApiStringLocalizers.Tests.csproj" />
