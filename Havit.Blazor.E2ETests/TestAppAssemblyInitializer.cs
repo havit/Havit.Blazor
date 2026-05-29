@@ -48,13 +48,13 @@ public static class TestAppAssemblyInitializer
 			var sb = new StringBuilder();
 			sb.AppendLine("| Rule | Description | Impact | Target |");
 			sb.AppendLine("|------|-------------|--------|--------|");
-
+			sb.Append(TestAppTestBase.AxeReport);
 			var filePath = Path.Combine(
 				Path.GetTempPath(),
 				$"axe-results-{DateTime.UtcNow:yyyyMMdd-HHmmss}.md"
 			);
 
-			File.WriteAllText(filePath, TestAppTestBase.AxeReport.ToString());
+			File.WriteAllText(filePath, sb.ToString());
 
 			Console.WriteLine($"Axe report written to: {filePath}");
 		}

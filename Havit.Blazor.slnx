@@ -1,6 +1,6 @@
 <Solution>
   <Configurations>
-    <BuildType Name="ACCESSIBLITYTESTS" />
+    <BuildType Name="ACCESSIBILITYTESTS" />
     <BuildType Name="Debug" />
     <BuildType Name="Release" />
     <Platform Name="Any CPU" />

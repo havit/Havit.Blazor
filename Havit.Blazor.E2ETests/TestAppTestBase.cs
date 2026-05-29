@@ -20,21 +20,30 @@ public abstract class TestAppTestBase : PageTest
 	/// - The execution order remains consistent across all tests
 	///
 	/// This approach allows the same functional tests to be reused as an "accessibility overlay suite"
-	/// by compiling the test assembly with the ACCESSIBILITYTESTS symbol enabled.
-	///
-	/// Using a compile-time flag enables:
-	/// - Clear separation between functional and accessibility test builds
-	/// - Simpler and more predictable CI pipeline behavior (separate build configurations for A11y vs functional runs)
-	/// - Zero overhead for A11y logic in non-A11y builds
+	/// by enabling the ACCESSIBILITYTESTS runtime toggle.
+	/// Using a runtime toggle enables:
+	/// - Clear separation between functional and accessibility test runs
+	/// - Simpler and more predictable CI pipeline behavior without relying on DefineConstants
+	/// - Zero A11y execution unless explicitly enabled
 	/// </summary>
+	private static bool AccessibilityTestsEnabled =>
+		string.Equals(Environment.GetEnvironmentVariable("ACCESSIBILITYTESTS"), "true", StringComparison.OrdinalIgnoreCase)
+		|| string.Equals(Environment.GetEnvironmentVariable("ACCESSIBILITYTESTS"), "1", StringComparison.OrdinalIgnoreCase);
+
 	[TestCleanup]
 	public async Task Cleanup()
 	{
-#if (ACCESSIBLITYTESTS)
-		await RunAxe();
-#endif
-
-		await Context.CloseAsync();
+		try
+		{
+			if (AccessibilityTestsEnabled)
+			{
+				await RunAxe();
+			}
+		}
+		finally
+		{
+			await Context.CloseAsync();
+		}
 	}
 
 	// Temporary storage for the axe Result
@@ -76,7 +85,7 @@ public abstract class TestAppTestBase : PageTest
 			// Specify rules.
 			rules: new Dictionary<string, AxeRuleObjectValue>()
 			{
-				// ignore problematic rules, currently none apllicable
+				// ignore problematic rules, currently none applicable
 				{ "document-title", new AxeRuleObjectValue(false) }
 			},
 
@@ -86,10 +95,10 @@ public abstract class TestAppTestBase : PageTest
 				AxeResultGroup.Violations
 			},
 
-			// Don't return css selectors in results.
+			// Return CSS selectors in results.
 			selectors: true,
 
-			// Return CSS selector for elements, with all the element's ancestors.
+			// Include all ancestor elements in the returned CSS selectors.
 			ancestry: true,
 
 			// Don't return xpath selectors for elements.

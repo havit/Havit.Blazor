@@ -30,10 +30,47 @@ protected virtual ComponentNameSettings GetDefaults() => Defaults;
 * Create simple demos presenting individual features. [Bootstrap docs](https://getbootstrap.com/docs/5.3/getting-started/introduction/) might be inspiration for you.
 
 ## Run accessibility Tests (Havit.Blazor.E2ETests)
-you need to download the headless browser.
+The accessibility checks are implemented in `Havit.Blazor.E2ETests` using Playwright and `Playwright.Axe`.
+
+### Install browser dependencies
+Build the test project and install the Playwright browsers before running tests.
 ```pwsh
-# Please replace netX with your dotnet version
-Havit.Blazor.E2ETests/bin/Debug/netX/playwright.ps1 install
-# e. g.
-Havit.Blazor.E2ETests/bin/Debug/net10.0/playwright.ps1 install
+# Build the test project first, then install the browsers.
+# Replace net10.0 with the target framework you are using if different.
+dotnet build Havit.Blazor.E2ETests\Havit.Blazor.E2ETests.csproj
+Havit.Blazor.E2ETests\bin\Debug\net10.0\playwright.ps1 install
 ```
+
+### Run accessibility tests
+The Axe execution is enabled by the environment variable `ACCESSIBILITYTESTS`.
+
+```pwsh
+$env:ACCESSIBILITYTESTS = "true"
+dotnet test Havit.Blazor.E2ETests\Havit.Blazor.E2ETests.csproj
+```
+
+In CMD:
+```cmd
+set ACCESSIBILITYTESTS=true
+dotnet test Havit.Blazor.E2ETests\Havit.Blazor.E2ETests.csproj
+```
+
+### What the test run does
+- The accessibility audit runs automatically after each E2E test when `ACCESSIBILITYTESTS` is enabled.
+- Only `Serious` and `Critical` Axe violations fail the test.
+- A Markdown report is written to the temporary folder if violations are found.
+
+### What is checked
+The tests run Axe with the following tags:
+- `wcag2a`
+- `wcag2aa`
+- `wcag21a`
+- `wcag21aa`
+- `EN-301-549`
+
+The configuration is defined in `Havit.Blazor.E2ETests\TestAppTestBase.cs`.
+
+### Notes
+- The environment variable controls the accessibility overlay mode.
+- `Havit.Blazor.E2ETests.csproj` also defines an `ACCESSIBLITYTESTS` configuration, but the runtime execution of Axe is governed by the `ACCESSIBILITYTESTS` environment variable in code.
+- If you need to change which rules are ignored or which violations fail, edit `RunAxe()` in `Havit.Blazor.E2ETests\TestAppTestBase.cs`.
