@@ -1,0 +1,51 @@
+@page "/HxGrid_DefaultSortingAfterStateReset"
+@rendermode InteractiveServer
+@inject IDemoDataService DemoDataService
+
+@* Repro for #1413: after the bound CurrentUserState is reset to a state with no sorting, the grid must keep *@
+@* sorting by its default sort column (IsDefaultSortColumn) instead of issuing a DataProvider request with *@
+@* empty sorting. The sorting-log accumulates the SortString received by the DataProvider on each load. *@
+
+<HxGrid TItem="EmployeeDto"
+		DataProvider="GetGridData"
+		@bind-CurrentUserState="_gridUserState"
+		PageSize="5"
+		Responsive="true">
+	<Columns>
+		<HxGridColumn Id="Name" SortString="Name" HeaderText="Name" ItemTextSelector="employee => employee.Name" />
+		<HxGridColumn Id="Phone" SortString="Phone" IsDefaultSortColumn="true" HeaderText="Phone" ItemTextSelector="employee => employee.Phone" />
+		<HxGridColumn HeaderText="Salary" ItemTextSelector="@(employee => employee.Salary.ToString("c0"))" />
+	</Columns>
+</HxGrid>
+
+<button type="button" data-testid="reset-userstate-button" @onclick="ResetUserState">Reset CurrentUserState</button>
+
+<p>Last DataProvider sorting: <span data-testid="last-sorting">@_lastSorting</span></p>
+<p>Sorting log: <span data-testid="sorting-log">@string.Join(" | ", _log)</span></p>
+
+@code {
+	private GridUserState _gridUserState = new();
+	private string _lastSorting = "(none)";
+	private readonly List<string> _log = new();
+
+	private async Task<GridDataProviderResult<EmployeeDto>> GetGridData(GridDataProviderRequest<EmployeeDto> request)
+	{
+		_lastSorting = ((request.Sorting == null) || (request.Sorting.Count == 0))
+			? "(empty)"
+			: String.Join(",", request.Sorting.Select(item => item.SortString));
+		_log.Add(_lastSorting);
+		await InvokeAsync(StateHasChanged);
+
+		var response = await DemoDataService.GetEmployeesDataFragmentAsync(request.StartIndex, request.Count, request.CancellationToken);
+		return new GridDataProviderResult<EmployeeDto>()
+		{
+			Data = response.Data,
+			TotalCount = response.TotalCount
+		};
+	}
+
+	private void ResetUserState()
+	{
+		_gridUserState = new GridUserState();
+	}
+}
