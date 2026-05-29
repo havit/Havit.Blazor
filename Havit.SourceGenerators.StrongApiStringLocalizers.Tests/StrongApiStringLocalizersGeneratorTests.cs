@@ -4,12 +4,9 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace Havit.SourceGenerators.StrongApiStringLocalizers.Tests;
 
-[TestClass]
 public class StrongApiStringLocalizersGeneratorTests
 {
-	private readonly TestContext _testContext;
-
-	[TestMethod]
+	[Fact]
 	public async Task StrongApiStringLocalizersGenerator_Test()
 	{
 		// Arrange
@@ -120,11 +117,6 @@ public static class ResourcesServiceCollectionExtensions
 "));
 
 		// Act + Assert
-		await test.RunAsync(_testContext.CancellationToken);
-	}
-
-	public StrongApiStringLocalizersGeneratorTests(TestContext testContext)
-	{
-		_testContext = testContext;
+		await test.RunAsync(TestContext.Current.CancellationToken);
 	}
 }

@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxContextMenuTests;
 
-[TestClass]
 public class HxContextMenuTests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxContextMenu_ClickTrigger_OpensMenu()
 	{
 		// Arrange
@@ -22,7 +21,7 @@ public class HxContextMenuTests : TestAppTestBase
 		await Expect(dropdownMenu).ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxContextMenu_ClickItem_ExecutesAction()
 	{
 		// Arrange
@@ -41,7 +40,7 @@ public class HxContextMenuTests : TestAppTestBase
 		await Expect(lastClicked).ToHaveTextAsync("Action 1");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxContextMenu_ClickItem_ClosesMenu()
 	{
 		// Arrange
@@ -59,7 +58,7 @@ public class HxContextMenuTests : TestAppTestBase
 		await Expect(dropdownMenu).Not.ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxContextMenu_DisabledItem_NotClickable()
 	{
 		// Arrange

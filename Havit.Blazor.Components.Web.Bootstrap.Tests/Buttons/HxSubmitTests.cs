@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxSubmitTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxSubmit_Click_SubmitsForm()
 	{
 		// Arrange
@@ -29,11 +28,11 @@ public class HxSubmitTests : BunitTestBase
 
 		// Act
 		var submitButton = cut.Find("button");
-		Assert.AreEqual("submit", submitButton.GetAttribute("type"), "HxSubmit should render a submit button.");
+		Assert.Equal("submit", submitButton.GetAttribute("type"));
 		cut.Find("form").Submit();
 
 		// Assert
-		Assert.IsTrue(formSubmitted, "Form should be submitted when the form is submitted");
+		Assert.True(formSubmitted, "Form should be submitted when the form is submitted");
 	}
 
 	private class TestFormModel

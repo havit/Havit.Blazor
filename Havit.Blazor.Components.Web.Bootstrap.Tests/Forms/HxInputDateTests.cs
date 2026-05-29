@@ -3,14 +3,11 @@ using System.Linq.Expressions;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
-[TestClass]
 public class HxInputDateTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxInputDate_EnabledShouldOverrideFormStateForNestedControls_Issue877()
 	{
 		// https://github.com/havit/Havit.Blazor/issues/877
@@ -43,12 +40,12 @@ public class HxInputDateTests : BunitTestBase
 		var buttons = cut.FindComponents<HxButton>();
 		foreach (var button in buttons)
 		{
-			Assert.IsFalse(button.Find("button").HasAttribute("disabled"), $"Button {button.Instance.Text} should not be disabled.");
+			Assert.False(button.Find("button").HasAttribute("disabled"), $"Button {button.Instance.Text} should not be disabled.");
 		}
-		Assert.DoesNotContain("disabled", cut.Markup, "There should be no disabled attribute in the rendered markup.");
+		Assert.DoesNotContain("disabled", cut.Markup);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDate_TypeValidDate_UpdatesBoundValue()
 	{
 		// Arrange
@@ -72,10 +69,10 @@ public class HxInputDateTests : BunitTestBase
 		}
 
 		// Assert
-		Assert.AreEqual(new DateTime(2020, 2, 10), myValue, "Bound value should be updated to the parsed date.");
+		Assert.Equal(new DateTime(2020, 2, 10), myValue);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDate_TypeInvalidDate_ShowsValidationError()
 	{
 		// Arrange
@@ -97,12 +94,12 @@ public class HxInputDateTests : BunitTestBase
 		cut.Find("input").Change("not-a-date");
 
 		// Assert
-		Assert.IsNull(myValue, "Bound value should remain null after invalid input.");
-		Assert.IsTrue(cut.Find("input").ClassList.Contains(HxInputBase<object>.InvalidCssClass), "Input element should have the invalid CSS class.");
-		Assert.AreEqual("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent, "Parsing error message should be displayed.");
+		Assert.Null(myValue);
+		Assert.True(cut.Find("input").ClassList.Contains(HxInputBase<object>.InvalidCssClass), "Input element should have the invalid CSS class.");
+		Assert.Equal("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDate_ClearInput_ResetsValueToNull()
 	{
 		// Arrange
@@ -123,10 +120,10 @@ public class HxInputDateTests : BunitTestBase
 		cut.Find("input").Change("");
 
 		// Assert
-		Assert.IsNull(myValue, "Bound value should be reset to null after clearing the input.");
+		Assert.Null(myValue);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDate_NonNullable_EmptyInputShouldRaiseParsingError_Issue892()
 	{
 		// https://github.com/havit/Havit.Blazor/issues/892
@@ -149,9 +146,9 @@ public class HxInputDateTests : BunitTestBase
 		cut.Find("input").Change("");
 
 		// Assert
-		Assert.AreEqual(new DateTime(2020, 2, 10), myValue, "Model value should remain unchanged.");
-		Assert.AreEqual("", cut.Find("input").GetAttribute("value"), "Input value should be empty.");
-		Assert.IsNotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"));
-		Assert.AreEqual("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent, "ParsingValidationError should be displayed.");
+		Assert.Equal(new DateTime(2020, 2, 10), myValue);
+		Assert.Equal("", cut.Find("input").GetAttribute("value"));
+		Assert.NotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"));
+		Assert.Equal("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent);
 	}
 }

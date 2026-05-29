@@ -1,11 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Grids;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Grids;
-
-[TestClass]
 public class GridDataProviderRequestExtensionsTests
 {
-	[TestMethod]
+	[Fact]
 	public void GridDataProviderRequestExtensions_ApplyGridDataProviderRequest_InMemory_AppliesSortingAndPaging()
 	{
 		// Arrange
@@ -34,10 +31,10 @@ public class GridDataProviderRequestExtensionsTests
 		var result = source.ApplyGridDataProviderRequest(gridDataProviderRequest).ToList();
 
 		// Assert
-		Assert.HasCount(3, result);
-		Assert.AreEqual(new Item { A = "1", B = 2 }, result[0]);
-		Assert.AreEqual(new Item { A = "1", B = 1 }, result[1]);
-		Assert.AreEqual(new Item { A = "2", B = 3 }, result[2]);
+		Assert.Equal(3, result.Count());
+		Assert.Equal(new Item { A = "1", B = 2 }, result[0]);
+		Assert.Equal(new Item { A = "1", B = 1 }, result[1]);
+		Assert.Equal(new Item { A = "2", B = 3 }, result[2]);
 	}
 
 	private record Item // record: for comparison purposes

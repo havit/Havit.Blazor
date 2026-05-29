@@ -3,10 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxNavTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxNav_Render_DisplaysLinks()
 	{
 		// Arrange & Act
@@ -23,12 +22,12 @@ public class HxNavTests : BunitTestBase
 
 		// Assert
 		var navLinks = cut.FindAll("a.nav-link");
-		Assert.HasCount(2, navLinks, "Expected two nav-link anchor elements to be rendered.");
-		Assert.AreEqual("Home", navLinks[0].TextContent.Trim(), "Expected first nav-link to have text 'Home'.");
-		Assert.AreEqual("About", navLinks[1].TextContent.Trim(), "Expected second nav-link to have text 'About'.");
+		Assert.Equal(2, navLinks.Count());
+		Assert.Equal("Home", navLinks[0].TextContent.Trim());
+		Assert.Equal("About", navLinks[1].TextContent.Trim());
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxNav_ActiveRoute_LinkHasActiveClass()
 	{
 		// Arrange — navigate to /active-page so the matching link becomes active
@@ -50,11 +49,11 @@ public class HxNavTests : BunitTestBase
 
 		// Assert
 		var activeLinks = cut.FindAll("a.nav-link.active");
-		Assert.HasCount(1, activeLinks, "Expected exactly one nav-link with the 'active' CSS class.");
+		Assert.Single(activeLinks);
 		var activeLink = activeLinks[0];
-		Assert.AreEqual("Active", activeLink.TextContent.Trim(), "Expected the 'Active' link to be the active one.");
+		Assert.Equal("Active", activeLink.TextContent.Trim());
 
 		var otherLinks = cut.FindAll("a.nav-link:not(.active)");
-		Assert.HasCount(1, otherLinks, "Expected exactly one non-active nav-link.");
+		Assert.Single(otherLinks);
 	}
 }

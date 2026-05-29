@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.Components.Rendering;
 using Microsoft.AspNetCore.Components;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms.SearchBox;
 
-[TestClass]
 public class HxSearchBoxTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxSearchBox_EnabledFalse_ShouldRenderDisabledAttribute_Issue941()
 	{
 		// https://github.com/havit/Havit.Blazor/issues/941
@@ -24,6 +21,6 @@ public class HxSearchBoxTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert
-		Assert.IsTrue(cut.Find("input").HasAttribute("disabled"));
+		Assert.True(cut.Find("input").HasAttribute("disabled"));
 	}
 }

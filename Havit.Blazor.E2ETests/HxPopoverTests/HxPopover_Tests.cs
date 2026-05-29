@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxPopoverTests;
 
-[TestClass]
 public class HxPopover_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxPopover_ClickTrigger_ShowsPopover()
 	{
 		// Arrange
@@ -19,7 +18,7 @@ public class HxPopover_Tests : TestAppTestBase
 		await Expect(popover).ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxPopover_Content_DisplaysTitleAndBody()
 	{
 		// Arrange
@@ -40,7 +39,7 @@ public class HxPopover_Tests : TestAppTestBase
 		await Expect(popoverBody).ToContainTextAsync("Test popover body content");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxPopover_ClickOutside_HidesPopover()
 	{
 		// Arrange
