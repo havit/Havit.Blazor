@@ -7769,6 +7769,21 @@
             Returns default sorting if set.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.EnsureCurrentSortingInitializedWithDefault">
+            <summary>
+            Ensures the current sorting falls back to the default sort column(s) (<c>IsDefaultSortColumn</c>) when no
+            explicit sorting is set. The default sorting is otherwise applied only on the first render
+            (<see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.OnAfterRenderAsync(System.Boolean)"/>); this keeps it applied for every data load - e.g. after
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CurrentUserState"/> is reset to a state with no <see cref="P:Havit.Blazor.Components.Web.Bootstrap.GridUserState.Sorting"/>.
+            Without it, a grid that defines a default sort column would issue a <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/> request
+            with empty sorting after such a reset.
+            </summary>
+            <remarks>
+            Skipped when the deserialization of the sorting was postponed (columns not registered yet) - it is retried
+            in <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.HandleColumnAdded(Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn{`0})"/> and the default is applied on first render. When the grid has no default
+            sort column, the sorting is intentionally left empty.
+            </remarks>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.CreateGridHeaderCellContext">
             <summary>
             Returns grid header cell context.

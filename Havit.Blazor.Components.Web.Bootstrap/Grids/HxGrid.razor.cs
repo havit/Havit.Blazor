@@ -524,6 +524,31 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	}
 
 	/// <summary>
+	/// Ensures the current sorting falls back to the default sort column(s) (<c>IsDefaultSortColumn</c>) when no
+	/// explicit sorting is set. The default sorting is otherwise applied only on the first render
+	/// (<see cref="OnAfterRenderAsync(bool)"/>); this keeps it applied for every data load - e.g. after
+	/// <see cref="CurrentUserState"/> is reset to a state with no <see cref="GridUserState.Sorting"/>.
+	/// Without it, a grid that defines a default sort column would issue a <see cref="DataProvider"/> request
+	/// with empty sorting after such a reset.
+	/// </summary>
+	/// <remarks>
+	/// Skipped when the deserialization of the sorting was postponed (columns not registered yet) - it is retried
+	/// in <see cref="HandleColumnAdded"/> and the default is applied on first render. When the grid has no default
+	/// sort column, the sorting is intentionally left empty.
+	/// </remarks>
+	private void EnsureCurrentSortingInitializedWithDefault()
+	{
+		if ((_currentSorting == null) && !_postponeCurrentSortingDeserialization)
+		{
+			GridInternalStateSortingItem<TItem>[] defaultSorting = GetDefaultSorting();
+			if (defaultSorting != null)
+			{
+				_currentSorting = defaultSorting.ToList();
+			}
+		}
+	}
+
+	/// <summary>
 	/// Returns grid header cell context.
 	/// </summary>
 	protected virtual GridHeaderCellContext CreateGridHeaderCellContext()
@@ -691,6 +716,8 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// </summary>
 	protected async Task RefreshDataCoreAsync()
 	{
+		EnsureCurrentSortingInitializedWithDefault();
+
 		switch (ContentNavigationModeEffective)
 		{
 			case GridContentNavigationMode.Pagination:
