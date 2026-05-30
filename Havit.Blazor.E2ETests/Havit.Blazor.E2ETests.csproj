@@ -3,12 +3,19 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <OutputType>Exe</OutputType>
+    <Configurations>Debug;Release;ACCESSIBILITYTESTS</Configurations>
+    <Platforms>AnyCPU</Platforms>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)' == 'ACCESSIBLITYTESTS'">
+    <DefineConstants>$(DefineConstants);ACCESSIBLITYTESTS</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
     <PackageReference Include="Microsoft.Playwright.MSTest.v4" />
     <PackageReference Include="MSTest" />
+    <PackageReference Include="Playwright.Axe" />
   </ItemGroup>
 
   <ItemGroup>
