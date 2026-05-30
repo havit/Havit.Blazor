@@ -30,7 +30,7 @@ public abstract class TestAppTestBase : PageTest
 #if ACCESSIBILITYTESTS
 		true;
 #else
-        false;
+		false;
 #endif
 
 	[TestCleanup]
