@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <OutputType>Exe</OutputType>
-    <Configurations>Debug;Release;ACCESSIBLITYTESTS</Configurations>
+    <Configurations>Debug;Release;ACCESSIBILITYTESTS</Configurations>
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 

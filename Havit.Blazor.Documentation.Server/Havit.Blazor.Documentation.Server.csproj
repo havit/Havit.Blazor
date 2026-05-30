@@ -5,8 +5,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<AssemblyName>Havit.Blazor.Documentation.Server</AssemblyName>
 		<RootNamespace>Havit.Blazor.Documentation.Server</RootNamespace>
-		<Configurations>Debug;Release;ACCESSIBLITYTESTS</Configurations>
-		<Platforms>AnyCPU</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>

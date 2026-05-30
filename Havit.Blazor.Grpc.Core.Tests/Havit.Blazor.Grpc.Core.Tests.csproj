@@ -5,8 +5,6 @@
 	  <ImplicitUsings>enable</ImplicitUsings>
 	  <IsPackable>false</IsPackable>
 	  <OutputType>Exe</OutputType>
-	  <Configurations>Debug;Release;ACCESSIBLITYTESTS</Configurations>
-	  <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

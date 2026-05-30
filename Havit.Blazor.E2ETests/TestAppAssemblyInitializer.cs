@@ -40,19 +40,22 @@ public static class TestAppAssemblyInitializer
 
 		lock (TestAppTestBase.Lock)
 		{
-			if (TestAppTestBase.AxeReport.Length == 0)
-			{
-				return;
-			}
-
-			var sb = new StringBuilder();
-			sb.AppendLine("| Rule | Description | Impact | Target |");
-			sb.AppendLine("|------|-------------|--------|--------|");
-			sb.Append(TestAppTestBase.AxeReport);
 			var filePath = Path.Combine(
 				Path.GetTempPath(),
 				$"axe-results-{DateTime.UtcNow:yyyyMMdd-HHmmss}.md"
 			);
+
+			if (TestAppTestBase.AxeReport.Length == 0)
+			{
+				File.WriteAllText(filePath, "No Errors Found");
+				return;
+			}
+
+			var sb = new StringBuilder();
+			sb.AppendLine("| Testname | Rule | Description | Impact | Target |");
+			sb.AppendLine("|----------|------|-------------|--------|--------|");
+			sb.Append(TestAppTestBase.AxeReport);
+
 
 			File.WriteAllText(filePath, sb.ToString());
 

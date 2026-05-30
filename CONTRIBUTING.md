@@ -5,6 +5,7 @@ Thank you for contributing to HAVIT Blazor and making it even better. We are hap
 * Align with [official C# Coding Conventions](https://docs.microsoft.com/en-us/dotnet/csharp/fundamentals/coding-style/coding-conventions)
 	and [Framework Design Guidelines](https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/)
 * Respect our `.editorconfig` requirements (you can suggest changing them).
+* Please check your `git config core.autocrlf` if you get `IDE0055`. Git might checkout `\n` instead of `\r\n` and causes the build to fail.
 
 ## Naming Guidelines
 * Preserve original [Bootstrap](https://getbootstrap.com/) naming whenever possible (adjust to comply with .NET coding standards).
@@ -72,5 +73,5 @@ The configuration is defined in `Havit.Blazor.E2ETests\TestAppTestBase.cs`.
 
 ### Notes
 - The environment variable controls the accessibility overlay mode.
-- `Havit.Blazor.E2ETests.csproj` also defines an `ACCESSIBLITYTESTS` configuration, but the runtime execution of Axe is governed by the `ACCESSIBILITYTESTS` environment variable in code.
+- `Havit.Blazor.E2ETests.csproj` also defines an `ACCESSIBILITYTESTS` configuration, but the runtime execution of Axe is governed by the `ACCESSIBILITYTESTS` environment variable in code.
 - If you need to change which rules are ignored or which violations fail, edit `RunAxe()` in `Havit.Blazor.E2ETests\TestAppTestBase.cs`.

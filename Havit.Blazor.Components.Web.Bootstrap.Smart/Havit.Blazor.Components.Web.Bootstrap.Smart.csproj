@@ -5,8 +5,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<NoWarn>1591;1701;1702;SA1134;BL0007</NoWarn>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
-		<Configurations>Debug;Release;ACCESSIBLITYTESTS</Configurations>
-		<Platforms>AnyCPU</Platforms>
 	</PropertyGroup>
 
 	<ItemGroup>

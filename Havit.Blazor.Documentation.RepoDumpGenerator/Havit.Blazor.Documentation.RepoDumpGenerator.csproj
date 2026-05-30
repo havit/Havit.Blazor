@@ -6,8 +6,6 @@
 	  <AssemblyName>Havit.Blazor.Documentation.RepoDumpGenerator</AssemblyName>
 	  <RootNamespace>Havit.Blazor.Documentation.RepoDumpGenerator</RootNamespace>
 	  <RollForward>Major</RollForward>
-	  <Configurations>Debug;Release;ACCESSIBLITYTESTS</Configurations>
-	  <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
   <ItemGroup>

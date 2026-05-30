@@ -27,8 +27,11 @@ public abstract class TestAppTestBase : PageTest
 	/// - Zero A11y execution unless explicitly enabled
 	/// </summary>
 	private static bool AccessibilityTestsEnabled =>
-		string.Equals(Environment.GetEnvironmentVariable("ACCESSIBILITYTESTS"), "true", StringComparison.OrdinalIgnoreCase)
-		|| string.Equals(Environment.GetEnvironmentVariable("ACCESSIBILITYTESTS"), "1", StringComparison.OrdinalIgnoreCase);
+#if ACCESSIBILITYTESTS
+		true;
+#else
+        false;
+#endif
 
 	[TestCleanup]
 	public async Task Cleanup()
@@ -125,16 +128,17 @@ public abstract class TestAppTestBase : PageTest
 					var target = string.Join(", ", node.Target ?? new List<string>());
 					target = target.Replace("|", "\\|");
 
-					message.AppendLine(
-						$"| {violation.Id} | {description} | {impact} | {target} |"
-					);
+					message.AppendLine($"| {TestContext.TestName} | {violation.Id} | {description} | {impact} | {target} |");
 				}
 			}
 
 			lock (Lock)
 			{
-				AxeReport.AppendLine(message.ToString());
-				Assert.Fail(message.ToString());
+				if (message.Length > 0)
+				{
+					AxeReport.Append(message.ToString());
+					Assert.Fail(message.ToString());
+				}
 			}
 		}
 	}
