@@ -1,18 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-<PropertyGroup>
-<TargetFrameworks>net10.0;net9.0</TargetFrameworks>
-<ImplicitUsings>enable</ImplicitUsings>
-<OutputType>Exe</OutputType>
-</PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net10.0;net9.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<OutputType>Exe</OutputType>
+	</PropertyGroup>
 
-<ItemGroup>
-<PackageReference Include="xunit.v3" />
-<PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
-</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="xunit.v3" />
+		<PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
+	</ItemGroup>
 
-<ItemGroup>
-<ProjectReference Include="..\Havit.Blazor.ApplicationInsights\Havit.Blazor.ApplicationInsights.csproj" />
-</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Havit.Blazor.ApplicationInsights\Havit.Blazor.ApplicationInsights.csproj" />
+	</ItemGroup>
 
 </Project>
