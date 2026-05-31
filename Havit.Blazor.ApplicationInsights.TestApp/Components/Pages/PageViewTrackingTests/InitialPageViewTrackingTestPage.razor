@@ -1,0 +1,25 @@
+@attribute [Route(NavigationRoutes.PageViewTracking.InitialPageViewTrackingTest)]
+@rendermode InteractiveServerWithoutPrerendering
+@inject IBlazorApplicationInsights AppInsights
+
+<BlazorApplicationInsightsScript />
+
+@if (_done)
+{
+	<span id="done">done</span>
+}
+
+@code
+{
+	private bool _done;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await AppInsights.FlushAsync();
+			_done = true;
+			StateHasChanged();
+		}
+	}
+}

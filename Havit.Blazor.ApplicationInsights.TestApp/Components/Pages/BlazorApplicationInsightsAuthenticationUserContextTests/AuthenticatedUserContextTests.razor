@@ -1,0 +1,32 @@
+@attribute [Route(NavigationRoutes.AuthenticationUserContextTests)]
+@rendermode InteractiveServerWithoutPrerendering
+@inject IBlazorApplicationInsights BlazorApplicationInsights
+
+<h1>Test Authenticated User Context</h1>
+
+<BlazorApplicationInsightsScript />
+
+@if (_done)
+{
+    <span id="done">done</span>
+}
+
+@code
+{
+    private bool _done;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await BlazorApplicationInsights.TrackMetricAsync(new MetricTelemetry { Name = "Message1-WithoutAuth", Average = 1 });
+            await BlazorApplicationInsights.SetAuthenticatedUserContextAsync("test-user");
+            await BlazorApplicationInsights.TrackMetricAsync(new MetricTelemetry { Name = "Message2-WithAuth", Average = 2 });
+            await BlazorApplicationInsights.ClearAuthenticatedUserContextAsync();
+            await BlazorApplicationInsights.TrackMetricAsync(new MetricTelemetry { Name = "Message3-WithoutAuth", Average = 3 });
+            await BlazorApplicationInsights.FlushAsync();
+            _done = true;
+            StateHasChanged();
+        }
+    }
+}
