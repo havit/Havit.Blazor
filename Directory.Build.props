@@ -17,6 +17,8 @@
 		<!-- aligned NuGet PackageVersion for package-bundles -->
 		<ComponentsPackagesVersion>4.24.3</ComponentsPackagesVersion>
 		<GrpcPackagesVersion>1.8.5</GrpcPackagesVersion>
+		<ApplicationInsightsPackageVersion>0.9.0-pre03</ApplicationInsightsPackageVersion>
+		<StoragePackagesVersion>1.0.0</StoragePackagesVersion>
 
 		<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
 		<TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>

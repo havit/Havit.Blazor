@@ -31,6 +31,7 @@ The `.editorconfig` file in the repository root contains the complete coding sta
 - `Havit.Blazor.Components.Web/` - Core web components (NET)
 - `Havit.Blazor.Documentation/` - Documentation site (NET WebAssembly)
 - `Havit.Blazor.TestApp/` - Current test application (NET)
+- `Havit.Blazor.ApplicationInsights/` - Application Insights JS SDK wrapper for Blazor (NET 9, NET 10)
 - `BlazorAppTest/` - Legacy test application (NET) - OBSOLETE, do not add any tests here
 
 ### Test Projects
@@ -38,6 +39,9 @@ The `.editorconfig` file in the repository root contains the complete coding sta
 - `Havit.Blazor.Components.Web.Bootstrap.Tests/` - Bootstrap component tests
 - `Havit.Blazor.Grpc.Core.Tests/` - gRPC core functionality tests
 - `Havit.Blazor.Grpc.Client.Tests/` - gRPC client tests
+- `Havit.Blazor.ApplicationInsights.Tests/` - Unit tests for ApplicationInsights
+- `Havit.Blazor.ApplicationInsights.TestApp/` (server) + `Havit.Blazor.ApplicationInsights.TestApp.Client/` (WASM client) - Test app for E2E tests
+- `Havit.Blazor.ApplicationInsights.E2ETests/` - Playwright E2E tests for ApplicationInsights
 
 ### Testing Framework
 - Tests use **xUnit** (`xunit.v3`) running on the **Microsoft.Testing.Platform** (MTP). Do **not** reintroduce MSTest or downgrade to VSTest (`Microsoft.NET.Test.Sdk`).

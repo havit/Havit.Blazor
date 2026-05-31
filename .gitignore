@@ -252,6 +252,7 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+.junie/memory
 
 # Dist folders are generated
 /Web/wwwroot/dist
