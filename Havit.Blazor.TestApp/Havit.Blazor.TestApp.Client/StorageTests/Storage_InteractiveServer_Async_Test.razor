@@ -1,0 +1,135 @@
+@page "/Storage_InteractiveServer_Async_Test/{StorageArea}"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@using Havit.Blazor.Storage
+@using Havit.Blazor.Storage.Exceptions
+
+<h3>Storage test: @StorageArea</h3>
+
+<input data-testid="key-input" @bind="_key" @bind:event="oninput" />
+<input data-testid="value-input" @bind="_value" @bind:event="oninput" />
+<input data-testid="index-input" @bind="_index" @bind:event="oninput" />
+
+<HxButton data-testid="set-string-button" Text="SetString" Color="ThemeColor.Primary" OnClick="SetStringAsync" />
+<HxButton data-testid="get-string-button" Text="GetString" Color="ThemeColor.Primary" OnClick="GetStringAsync" />
+<HxButton data-testid="try-get-string-button" Text="TryGetString" Color="ThemeColor.Primary" OnClick="TryGetStringAsync" />
+<HxButton data-testid="try-get-value-button" Text="TryGetValue" Color="ThemeColor.Primary" OnClick="TryGetValueAsync" />
+<HxButton data-testid="remove-button" Text="Remove" Color="ThemeColor.Primary" OnClick="RemoveAsync" />
+<HxButton data-testid="clear-button" Text="Clear" Color="ThemeColor.Primary" OnClick="ClearAsync" />
+<HxButton data-testid="length-button" Text="Length" Color="ThemeColor.Primary" OnClick="LengthAsync" />
+<HxButton data-testid="key-by-index-button" Text="KeyByIndex" Color="ThemeColor.Primary" OnClick="KeyByIndexAsync" />
+<HxButton data-testid="try-key-by-index-button" Text="TryKeyByIndex" Color="ThemeColor.Primary" OnClick="TryKeyByIndexAsync" />
+<HxButton data-testid="set-value-button" Text="SetValue" Color="ThemeColor.Primary" OnClick="SetValueAsync" />
+<HxButton data-testid="get-value-button" Text="GetValue" Color="ThemeColor.Primary" OnClick="GetValueAsync" />
+
+<p data-testid="result">@_result</p>
+<p data-testid="length-result">@_lengthResult</p>
+
+@code {
+	[Parameter] public string StorageArea { get; set; }
+
+	[Inject] private ILocalStorageService LocalStorage { get; set; }
+	[Inject] private ISessionStorageService SessionStorage { get; set; }
+
+	private string _key = "";
+	private string _value = "";
+	private string _index = "";
+	private string _result = "";
+	private string _lengthResult = "";
+
+	private IBrowserStorage Storage => string.Equals(StorageArea, "session", StringComparison.OrdinalIgnoreCase)
+		? SessionStorage
+		: LocalStorage;
+
+	private async Task SetStringAsync()
+	{
+		await Storage.SetStringValueAsync(_key, _value);
+		_result = "set";
+	}
+
+	private async Task GetStringAsync()
+	{
+		try
+		{
+			_result = await Storage.GetStringValueAsync(_key);
+		}
+		catch (StorageKeyNotFoundException)
+		{
+			_result = "<missing>";
+		}
+	}
+
+	private async Task TryGetStringAsync()
+	{
+		var (success, value) = await Storage.TryGetStringValueAsync(_key);
+		_result = $"{success}:{value ?? "<null>"}";
+	}
+
+	private async Task TryGetValueAsync()
+	{
+		var (success, person) = await Storage.TryGetValueAsync<Person>(_key);
+		_result = $"{success}:{(person is null ? "<null>" : $"{person.Name}:{person.Age}")}";
+	}
+
+	private async Task RemoveAsync()
+	{
+		await Storage.RemoveAsync(_key);
+		_result = "removed";
+	}
+
+	private async Task ClearAsync()
+	{
+		await Storage.ClearAsync();
+		_result = "cleared";
+	}
+
+	private async Task LengthAsync()
+	{
+		var length = await Storage.GetLengthAsync();
+		_lengthResult = length.ToString();
+	}
+
+	private async Task KeyByIndexAsync()
+	{
+		var index = int.Parse(_index);
+		try
+		{
+			_result = await Storage.GetKeyByIndexAsync(index);
+		}
+		catch (StorageIndexOutOfRangeException)
+		{
+			_result = "<out-of-range>";
+		}
+	}
+
+	private async Task TryKeyByIndexAsync()
+	{
+		var index = int.Parse(_index);
+		var (success, key) = await Storage.TryGetKeyByIndexAsync(index);
+		_result = $"{success}:{key ?? "<null>"}";
+	}
+
+	private async Task SetValueAsync()
+	{
+		await Storage.SetValueAsync(_key, new Person { Name = _value, Age = 42 });
+		_result = "set";
+	}
+
+	private async Task GetValueAsync()
+	{
+		try
+		{
+			var person = await Storage.GetValueAsync<Person>(_key);
+			_result = person is null ? "<null>" : $"{person.Name}:{person.Age}";
+		}
+		catch (StorageKeyNotFoundException)
+		{
+			_result = "<missing>";
+		}
+	}
+
+	private class Person
+	{
+		public string Name { get; set; }
+		public int Age { get; set; }
+	}
+}
