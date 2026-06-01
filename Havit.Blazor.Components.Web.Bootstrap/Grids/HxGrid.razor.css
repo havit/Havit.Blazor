@@ -16,6 +16,8 @@
    checkbox, with no JavaScript. */
 td.hx-grid-multiselect-cell {
 	padding: 0;
+	height: 1px; /* table cells treat height as a minimum, so this is a definite base that lets the
+	                label's height: 100% resolve while the cell still grows to the full row height */
 }
 
 td.hx-grid-multiselect-cell ::deep .hx-grid-multiselect-checkbox {

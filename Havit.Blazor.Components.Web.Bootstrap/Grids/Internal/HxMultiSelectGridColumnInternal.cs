@@ -23,7 +23,7 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 		{
 			return new GridCellTemplate
 			{
-				CssClass = "text-center hx-grid-multiselect-cell",
+				CssClass = "hx-grid-multiselect-cell",
 				Template = (RenderTreeBuilder builder) =>
 				{
 					// The label wraps the checkbox so that a click anywhere in the cell toggles it
@@ -33,18 +33,18 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 					builder.AddAttribute(101, "class", "hx-grid-multiselect-checkbox");
 					builder.AddEventStopPropagationAttribute(102, "onclick", true);
 
-					builder.OpenElement(110, "input");
-					builder.AddAttribute(111, "type", "checkbox");
-					builder.AddAttribute(112, "class", "form-check-input");
+					builder.OpenElement(103, "input");
+					builder.AddAttribute(104, "type", "checkbox");
+					builder.AddAttribute(105, "class", "form-check-input");
 
-					builder.AddAttribute(113, "checked", AllDataItemsSelected);
-					builder.AddAttribute(114, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectAllOrNoneClick));
+					builder.AddAttribute(106, "checked", AllDataItemsSelected);
+					builder.AddAttribute(107, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectAllOrNoneClick));
 					builder.SetUpdatesAttributeName("checked");
-					builder.AddEventStopPropagationAttribute(115, "onclick", true);
+					builder.AddEventStopPropagationAttribute(108, "onclick", true);
 
 					if ((context.TotalCount is null) || (context.TotalCount == 0))
 					{
-						builder.AddAttribute(116, "disabled");
+						builder.AddAttribute(109, "disabled");
 					}
 
 					builder.CloseElement(); // input
@@ -64,7 +64,7 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 	{
 		return new GridCellTemplate
 		{
-			CssClass = "text-center hx-grid-multiselect-cell",
+			CssClass = "hx-grid-multiselect-cell",
 			Template = (RenderTreeBuilder builder) =>
 			{
 				// The label wraps the checkbox so that a click anywhere in the cell toggles it
@@ -74,15 +74,15 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 				builder.AddAttribute(101, "class", "hx-grid-multiselect-checkbox");
 				builder.AddEventStopPropagationAttribute(102, "onclick", true);
 
-				builder.OpenElement(110, "input");
-				builder.AddAttribute(111, "type", "checkbox");
-				builder.AddAttribute(112, "class", "form-check-input");
+				builder.OpenElement(103, "input");
+				builder.AddAttribute(104, "type", "checkbox");
+				builder.AddAttribute(105, "class", "form-check-input");
 
 				bool selected = SelectedDataItems?.Contains(item) ?? false;
-				builder.AddAttribute(113, "checked", selected);
-				builder.AddAttribute(114, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectDataItemClick(item, selected)));
+				builder.AddAttribute(106, "checked", selected);
+				builder.AddAttribute(107, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectDataItemClick(item, selected)));
 				builder.SetUpdatesAttributeName("checked");
-				builder.AddEventStopPropagationAttribute(115, "onclick", true);
+				builder.AddEventStopPropagationAttribute(108, "onclick", true);
 
 				builder.CloseElement(); // input
 
