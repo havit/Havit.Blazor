@@ -1,12 +1,11 @@
 namespace Havit.Blazor.E2ETests.HxGridTests;
 
-[TestClass]
 public class HxGrid_DefaultSortingAfterStateReset_Tests : TestAppTestBase
 {
 	// Repro for #1413: HxGrid applies the default sorting (IsDefaultSortColumn) only on the first render.
 	// After the bound CurrentUserState is reset to a state with no sorting, the grid used to issue a
 	// DataProvider request with empty sorting instead of falling back to the default sort column.
-	[TestMethod]
+	[Fact]
 	public async Task HxGrid_CurrentUserStateReset_KeepsDefaultSortingInDataProviderRequest()
 	{
 		// Arrange
