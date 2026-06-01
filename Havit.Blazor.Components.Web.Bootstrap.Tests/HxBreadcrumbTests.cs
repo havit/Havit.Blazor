@@ -1,9 +1,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxBreadcrumbTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxBreadcrumb_Render_DisplaysAllItems()
 	{
 		// Act
@@ -21,13 +20,13 @@ public class HxBreadcrumbTests : BunitTestBase
 
 		// Assert
 		var items = cut.FindAll("li.breadcrumb-item");
-		Assert.HasCount(3, items);
-		Assert.Contains("Home", items[0].TextContent, "First item should contain 'Home'.");
-		Assert.Contains("Library", items[1].TextContent, "Second item should contain 'Library'.");
-		Assert.Contains("Data", items[2].TextContent, "Third item should contain 'Data'.");
+		Assert.Equal(3, items.Count());
+		Assert.Contains("Home", items[0].TextContent);
+		Assert.Contains("Library", items[1].TextContent);
+		Assert.Contains("Data", items[2].TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxBreadcrumb_ActiveItem_HasNoLink()
 	{
 		// Act
@@ -42,13 +41,13 @@ public class HxBreadcrumbTests : BunitTestBase
 
 		// Assert
 		var activeItem = cut.Find("li.breadcrumb-item.active");
-		Assert.AreEqual("page", activeItem.GetAttribute("aria-current"));
+		Assert.Equal("page", activeItem.GetAttribute("aria-current"));
 
 		var links = activeItem.QuerySelectorAll("a");
-		Assert.HasCount(0, links, "Active breadcrumb item should not contain a link.");
+		Assert.Empty(links);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxBreadcrumb_NonActiveItems_RenderLinksWithHrefs()
 	{
 		// Act
@@ -66,14 +65,14 @@ public class HxBreadcrumbTests : BunitTestBase
 
 		// Assert — non-active items render links with correct hrefs for navigation
 		var nonActiveItems = cut.FindAll("li.breadcrumb-item:not(.active)");
-		Assert.HasCount(2, nonActiveItems, "There should be two non-active items.");
+		Assert.Equal(2, nonActiveItems.Count());
 
 		var firstAnchor = nonActiveItems[0].QuerySelector("a");
-		Assert.IsNotNull(firstAnchor, "First non-active breadcrumb item should contain a link.");
-		Assert.AreEqual("/home", firstAnchor.GetAttribute("href"));
+		Assert.NotNull(firstAnchor);
+		Assert.Equal("/home", firstAnchor.GetAttribute("href"));
 
 		var secondAnchor = nonActiveItems[1].QuerySelector("a");
-		Assert.IsNotNull(secondAnchor, "Second non-active breadcrumb item should contain a link.");
-		Assert.AreEqual("/library", secondAnchor.GetAttribute("href"));
+		Assert.NotNull(secondAnchor);
+		Assert.Equal("/library", secondAnchor.GetAttribute("href"));
 	}
 }

@@ -3,14 +3,11 @@ using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
-[TestClass]
 public class HxValidationMessageTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxValidationMessage_NoErrors_RendersEmpty()
 	{
 		// Arrange
@@ -34,11 +31,11 @@ public class HxValidationMessageTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert - no validation errors means no error messages rendered
-		Assert.DoesNotContain("invalid-feedback", cut.Markup, "No error feedback should be rendered when there are no validation errors.");
-		Assert.DoesNotContain("is-invalid", cut.Markup, "No invalid CSS class should be rendered when there are no validation errors.");
+		Assert.DoesNotContain("invalid-feedback", cut.Markup);
+		Assert.DoesNotContain("is-invalid", cut.Markup);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxValidationMessage_WithError_DisplaysErrorText()
 	{
 		// Arrange
@@ -65,12 +62,12 @@ public class HxValidationMessageTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert - validation error should be displayed
-		Assert.Contains("invalid-feedback", cut.Markup, "Error feedback container should be rendered.");
-		Assert.Contains("is-invalid", cut.Markup, "Invalid CSS class should be rendered.");
-		Assert.Contains("Name is required.", cut.Markup, "Error message text should be displayed.");
+		Assert.Contains("invalid-feedback", cut.Markup);
+		Assert.Contains("is-invalid", cut.Markup);
+		Assert.Contains("Name is required.", cut.Markup);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxValidationMessage_MultipleErrors_DisplaysAll()
 	{
 		// Arrange
@@ -98,12 +95,12 @@ public class HxValidationMessageTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert - all validation errors should be displayed
-		Assert.Contains("Name is required.", cut.Markup, "First error message should be displayed.");
-		Assert.Contains("Name must be at least 3 characters.", cut.Markup, "Second error message should be displayed.");
+		Assert.Contains("Name is required.", cut.Markup);
+		Assert.Contains("Name must be at least 3 characters.", cut.Markup);
 
 		// Verify there are exactly 2 span elements with error messages
 		var spans = cut.FindAll(".invalid-feedback span");
-		Assert.HasCount(2, spans);
+		Assert.Equal(2, spans.Count());
 	}
 
 	private class TestModel

@@ -1,9 +1,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Cards;
 
-[TestClass]
 public class HxCardTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxCard_Render_DisplaysBodyContent()
 	{
 		// Act
@@ -13,11 +12,11 @@ public class HxCardTests : BunitTestBase
 
 		// Assert
 		var body = cut.Find(".card-body");
-		Assert.IsNotNull(body);
-		Assert.AreEqual("Body content here", body.TextContent);
+		Assert.NotNull(body);
+		Assert.Equal("Body content here", body.TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxCard_HeaderAndFooter_RenderCorrectly()
 	{
 		// Act
@@ -29,13 +28,13 @@ public class HxCardTests : BunitTestBase
 
 		// Assert
 		var header = cut.Find(".card-header");
-		Assert.AreEqual("Header text", header.TextContent);
+		Assert.Equal("Header text", header.TextContent);
 
 		var footer = cut.Find(".card-footer");
-		Assert.AreEqual("Footer text", footer.TextContent);
+		Assert.Equal("Footer text", footer.TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxCard_ImageTop_RendersImageAboveBody()
 	{
 		// Act
@@ -48,8 +47,8 @@ public class HxCardTests : BunitTestBase
 		// Assert
 		var card = cut.Find(".card");
 		var img = card.QuerySelector("img.card-img-top");
-		Assert.IsNotNull(img);
-		Assert.AreEqual("test-image.png", img.GetAttribute("src"));
+		Assert.NotNull(img);
+		Assert.Equal("test-image.png", img.GetAttribute("src"));
 
 		// Image should appear before the body in the DOM
 		var children = card.Children;
@@ -57,10 +56,10 @@ public class HxCardTests : BunitTestBase
 		var body = card.QuerySelector(".card-body");
 		var imgIndex = Array.IndexOf(childrenArray, img);
 		var bodyIndex = Array.IndexOf(childrenArray, body);
-		Assert.IsLessThan(bodyIndex, imgIndex, "Image should be rendered before the body");
+		Assert.True(imgIndex < bodyIndex, "Image should be rendered before the body");
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxCardTitle_Render_OutputsH5WithText()
 	{
 		// Act
@@ -70,11 +69,11 @@ public class HxCardTests : BunitTestBase
 
 		// Assert
 		var title = cut.Find("h5.card-title");
-		Assert.IsNotNull(title);
-		Assert.AreEqual("Card Title Text", title.TextContent);
+		Assert.NotNull(title);
+		Assert.Equal("Card Title Text", title.TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxCardSubtitle_Render_OutputsH6WithText()
 	{
 		// Act
@@ -84,11 +83,11 @@ public class HxCardTests : BunitTestBase
 
 		// Assert
 		var subtitle = cut.Find("h6.card-subtitle");
-		Assert.IsNotNull(subtitle);
-		Assert.AreEqual("Card Subtitle Text", subtitle.TextContent);
+		Assert.NotNull(subtitle);
+		Assert.Equal("Card Subtitle Text", subtitle.TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxCardText_Render_OutputsParagraphWithText()
 	{
 		// Act
@@ -98,7 +97,7 @@ public class HxCardTests : BunitTestBase
 
 		// Assert
 		var text = cut.Find("p.card-text");
-		Assert.IsNotNull(text);
-		Assert.AreEqual("Card text content", text.TextContent);
+		Assert.NotNull(text);
+		Assert.Equal("Card text content", text.TextContent);
 	}
 }

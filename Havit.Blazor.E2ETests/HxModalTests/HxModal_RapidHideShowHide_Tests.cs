@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxModalTests;
 
-[TestClass]
 public class HxModal_RapidHideShowHide_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxModal_RapidHideShowHide_ModalShouldCloseCompletely()
 	{
 		// Arrange - navigate to the test page

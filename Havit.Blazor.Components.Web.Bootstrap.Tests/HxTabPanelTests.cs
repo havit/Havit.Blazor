@@ -1,9 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxTabPanelTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxTabPanel_OnTabDeactivated_AsyncCallback_ShouldNotCauseInfiniteLoop()
 	{
 		// Arrange
@@ -33,7 +32,7 @@ public class HxTabPanelTests : BunitTestBase
 		);
 
 		// Assert - Component should render without infinite loop
-		Assert.IsNotNull(component);
+		Assert.NotNull(component);
 
 		// Trigger a tab change to activate the callback
 		component.SetParametersAndRender(parameters => parameters
@@ -41,10 +40,10 @@ public class HxTabPanelTests : BunitTestBase
 		);
 
 		// The callback should have been called exactly once during deactivation
-		Assert.AreEqual(1, callbackCount, "OnTabDeactivated callback should be called exactly once, not in an infinite loop");
+		Assert.Equal(1, callbackCount);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTabPanel_ParametersSetWithoutChange_ShouldNotTriggerCallbacks()
 	{
 		// Arrange
@@ -80,11 +79,11 @@ public class HxTabPanelTests : BunitTestBase
 
 		// Assert - No callbacks should be triggered when the active tab hasn't actually changed
 		// The new implementation prevents redundant callbacks by checking _previousActiveTab
-		Assert.AreEqual(0, activatedCallbackCount, "OnTabActivated should not be called when the active tab hasn't changed");
-		Assert.AreEqual(0, deactivatedCallbackCount, "OnTabDeactivated should not be called when the active tab hasn't changed");
+		Assert.Equal(0, activatedCallbackCount);
+		Assert.Equal(0, deactivatedCallbackCount);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTabPanel_Render_DisplaysAllTabHeaders()
 	{
 		// Act
@@ -109,13 +108,13 @@ public class HxTabPanelTests : BunitTestBase
 
 		// Assert - All three tab headers should be rendered as nav-link elements
 		var navLinks = component.FindAll("a.nav-link");
-		Assert.HasCount(3, navLinks);
-		Assert.AreEqual("Alpha", navLinks[0].TextContent.Trim());
-		Assert.AreEqual("Beta", navLinks[1].TextContent.Trim());
-		Assert.AreEqual("Gamma", navLinks[2].TextContent.Trim());
+		Assert.Equal(3, navLinks.Count());
+		Assert.Equal("Alpha", navLinks[0].TextContent.Trim());
+		Assert.Equal("Beta", navLinks[1].TextContent.Trim());
+		Assert.Equal("Gamma", navLinks[2].TextContent.Trim());
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTabPanel_ClickTab_SwitchesToItsContent()
 	{
 		// Arrange
@@ -145,7 +144,7 @@ public class HxTabPanelTests : BunitTestBase
 		Assert.Contains("Second content", activePane.InnerHtml);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTabPanel_ActiveTab_HasActiveClass()
 	{
 		// Arrange & Act
@@ -165,11 +164,11 @@ public class HxTabPanelTests : BunitTestBase
 
 		// Assert - Only the second tab header should have the active class
 		var navLinks = component.FindAll("a.nav-link");
-		Assert.IsFalse(navLinks[0].ClassList.Contains("active"), "First tab should not have active class");
-		Assert.IsTrue(navLinks[1].ClassList.Contains("active"), "Second tab should have active class");
+		Assert.False(navLinks[0].ClassList.Contains("active"), "First tab should not have active class");
+		Assert.True(navLinks[1].ClassList.Contains("active"), "Second tab should have active class");
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTabPanel_FirstTab_ActiveByDefault()
 	{
 		// Act - Render without specifying ActiveTabId
@@ -188,15 +187,15 @@ public class HxTabPanelTests : BunitTestBase
 
 		// Assert - First tab should be active by default
 		var navLinks = component.FindAll("a.nav-link");
-		Assert.IsTrue(navLinks[0].ClassList.Contains("active"), "First tab should be active by default");
-		Assert.IsFalse(navLinks[1].ClassList.Contains("active"), "Second tab should not be active by default");
+		Assert.True(navLinks[0].ClassList.Contains("active"), "First tab should be active by default");
+		Assert.False(navLinks[1].ClassList.Contains("active"), "Second tab should not be active by default");
 
 		// Assert - First tab's content pane should be active
 		var activePane = component.Find("div.tab-pane.active");
 		Assert.Contains("First tab content", activePane.InnerHtml);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTabPanel_AriaAttributes_ActiveTabHasCorrectRolesAndAttributes()
 	{
 		// Arrange & Act
@@ -217,19 +216,19 @@ public class HxTabPanelTests : BunitTestBase
 		var navLinks = component.FindAll("a.nav-link");
 
 		// Active tab header
-		Assert.AreEqual("tab", navLinks[0].GetAttribute("role"), "Active tab should have role=tab");
-		Assert.AreEqual("true", navLinks[0].GetAttribute("aria-selected"), "Active tab should have aria-selected=true");
-		Assert.AreEqual("0", navLinks[0].GetAttribute("tabindex"), "Active tab should have tabindex=0");
-		Assert.AreEqual("tab1-header", navLinks[0].GetAttribute("id"), "Active tab header id should be tab1-header");
-		Assert.AreEqual("tab1", navLinks[0].GetAttribute("aria-controls"), "Active tab should have aria-controls pointing to panel id");
+		Assert.Equal("tab", navLinks[0].GetAttribute("role"));
+		Assert.Equal("true", navLinks[0].GetAttribute("aria-selected"));
+		Assert.Equal("0", navLinks[0].GetAttribute("tabindex"));
+		Assert.Equal("tab1-header", navLinks[0].GetAttribute("id"));
+		Assert.Equal("tab1", navLinks[0].GetAttribute("aria-controls"));
 
 		// Inactive tab header
-		Assert.AreEqual("tab", navLinks[1].GetAttribute("role"), "Inactive tab should have role=tab");
-		Assert.AreEqual("false", navLinks[1].GetAttribute("aria-selected"), "Inactive tab should have aria-selected=false");
-		Assert.AreEqual("-1", navLinks[1].GetAttribute("tabindex"), "Inactive tab should have tabindex=-1");
+		Assert.Equal("tab", navLinks[1].GetAttribute("role"));
+		Assert.Equal("false", navLinks[1].GetAttribute("aria-selected"));
+		Assert.Equal("-1", navLinks[1].GetAttribute("tabindex"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTabPanel_AriaAttributes_TabPanelHasCorrectRoleAndLabelledBy()
 	{
 		// Arrange & Act
@@ -244,13 +243,13 @@ public class HxTabPanelTests : BunitTestBase
 
 		var pane = component.Find("div.tab-pane");
 
-		Assert.AreEqual("tabpanel", pane.GetAttribute("role"), "Tab pane should have role=tabpanel");
-		Assert.AreEqual("tab1", pane.GetAttribute("id"), "Tab pane id should match tab id");
-		Assert.AreEqual("tab1-header", pane.GetAttribute("aria-labelledby"), "Tab pane aria-labelledby should point to the tab header id");
-		Assert.AreEqual("0", pane.GetAttribute("tabindex"), "Tab pane should have tabindex=0");
+		Assert.Equal("tabpanel", pane.GetAttribute("role"));
+		Assert.Equal("tab1", pane.GetAttribute("id"));
+		Assert.Equal("tab1-header", pane.GetAttribute("aria-labelledby"));
+		Assert.Equal("0", pane.GetAttribute("tabindex"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTabPanel_AriaAttributes_TablistRoleOnNav()
 	{
 		// Arrange & Act
@@ -264,10 +263,10 @@ public class HxTabPanelTests : BunitTestBase
 		);
 
 		var nav = component.Find("nav");
-		Assert.AreEqual("tablist", nav.GetAttribute("role"), "Nav container should have role=tablist");
+		Assert.Equal("tablist", nav.GetAttribute("role"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTabPanel_AriaAttributes_ActiveTabOnly_InactiveTabHasNoAriaControls()
 	{
 		// Arrange & Act
@@ -289,9 +288,9 @@ public class HxTabPanelTests : BunitTestBase
 		var navLinks = component.FindAll("a.nav-link");
 
 		// Active tab should still have aria-controls (its panel is rendered)
-		Assert.AreEqual("tab1", navLinks[0].GetAttribute("aria-controls"), "Active tab should have aria-controls in ActiveTabOnly mode");
+		Assert.Equal("tab1", navLinks[0].GetAttribute("aria-controls"));
 
 		// Inactive tab should NOT have aria-controls (its panel is not in the DOM)
-		Assert.IsNull(navLinks[1].GetAttribute("aria-controls"), "Inactive tab should not have aria-controls in ActiveTabOnly mode");
+		Assert.Null(navLinks[1].GetAttribute("aria-controls"));
 	}
 }

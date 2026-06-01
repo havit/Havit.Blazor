@@ -2,10 +2,9 @@
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxOffcanvasTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxOffcanvas_RenderModeAlways_RendersStructure()
 	{
 		// Act
@@ -16,21 +15,21 @@ public class HxOffcanvasTests : BunitTestBase
 
 		// Assert
 		var offcanvas = cut.Find("div.offcanvas");
-		Assert.IsNotNull(offcanvas);
+		Assert.NotNull(offcanvas);
 
 		var header = cut.Find("div.offcanvas-header");
-		Assert.IsNotNull(header);
+		Assert.NotNull(header);
 
 		var title = cut.Find("h5.offcanvas-title");
-		Assert.IsNotNull(title);
-		Assert.AreEqual("Test Title", title.TextContent);
+		Assert.NotNull(title);
+		Assert.Equal("Test Title", title.TextContent);
 
 		var body = cut.Find("div.offcanvas-body");
-		Assert.IsNotNull(body);
+		Assert.NotNull(body);
 		Assert.Contains("Body content", body.TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxOffcanvas_PlacementStart_HasCorrectCssClass()
 	{
 		// Act
@@ -41,14 +40,14 @@ public class HxOffcanvasTests : BunitTestBase
 
 		// Assert
 		var offcanvas = cut.Find("div.offcanvas");
-		Assert.IsTrue(offcanvas.ClassList.Contains("offcanvas-start"));
+		Assert.True(offcanvas.ClassList.Contains("offcanvas-start"));
 	}
 
-	[TestMethod]
-	[DataRow(OffcanvasPlacement.End, "offcanvas-end")]
-	[DataRow(OffcanvasPlacement.Start, "offcanvas-start")]
-	[DataRow(OffcanvasPlacement.Top, "offcanvas-top")]
-	[DataRow(OffcanvasPlacement.Bottom, "offcanvas-bottom")]
+	[Theory]
+	[InlineData(OffcanvasPlacement.End, "offcanvas-end")]
+	[InlineData(OffcanvasPlacement.Start, "offcanvas-start")]
+	[InlineData(OffcanvasPlacement.Top, "offcanvas-top")]
+	[InlineData(OffcanvasPlacement.Bottom, "offcanvas-bottom")]
 	public void HxOffcanvas_Placement_AllDirections(OffcanvasPlacement placement, string expectedCss)
 	{
 		// Act
@@ -59,10 +58,10 @@ public class HxOffcanvasTests : BunitTestBase
 
 		// Assert
 		var offcanvas = cut.Find("div.offcanvas");
-		Assert.IsTrue(offcanvas.ClassList.Contains(expectedCss), $"Expected CSS class '{expectedCss}' for placement {placement}.");
+		Assert.True(offcanvas.ClassList.Contains(expectedCss), $"Expected CSS class '{expectedCss}' for placement {placement}.");
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxOffcanvas_ShowCloseButtonTrue_RendersCloseButton()
 	{
 		// Act
@@ -74,11 +73,11 @@ public class HxOffcanvasTests : BunitTestBase
 
 		// Assert
 		var closeBtn = cut.Find("button.btn-close");
-		Assert.IsNotNull(closeBtn);
-		Assert.AreEqual("offcanvas", closeBtn.GetAttribute("data-bs-dismiss"));
+		Assert.NotNull(closeBtn);
+		Assert.Equal("offcanvas", closeBtn.GetAttribute("data-bs-dismiss"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxOffcanvas_ShowCloseButtonFalse_NoCloseButton()
 	{
 		// Act
@@ -89,10 +88,10 @@ public class HxOffcanvasTests : BunitTestBase
 			.Add(o => o.BodyTemplate, (RenderFragment)(b => b.AddContent(0, "Body"))));
 
 		// Assert
-		Assert.IsEmpty(cut.FindAll("button.btn-close"));
+		Assert.Empty(cut.FindAll("button.btn-close"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxOffcanvas_FooterTemplate_RendersFooter()
 	{
 		// Act
@@ -103,11 +102,11 @@ public class HxOffcanvasTests : BunitTestBase
 
 		// Assert
 		var footer = cut.Find("div.hx-offcanvas-footer");
-		Assert.IsNotNull(footer);
+		Assert.NotNull(footer);
 		Assert.Contains("Footer content", footer.TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxOffcanvas_SizeLarge_HasSizeCssClass()
 	{
 		// Act
@@ -118,10 +117,10 @@ public class HxOffcanvasTests : BunitTestBase
 
 		// Assert
 		var offcanvas = cut.Find("div.offcanvas");
-		Assert.IsTrue(offcanvas.ClassList.Contains("hx-offcanvas-lg"));
+		Assert.True(offcanvas.ClassList.Contains("hx-offcanvas-lg"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxOffcanvas_RenderModeOpenOnly_DoesNotRenderContentWhenClosed()
 	{
 		// Act - default RenderMode is OpenOnly
@@ -131,7 +130,7 @@ public class HxOffcanvasTests : BunitTestBase
 
 		// Assert - the offcanvas div exists but header/body should not be rendered
 		var offcanvas = cut.Find("div.offcanvas");
-		Assert.IsNotNull(offcanvas);
-		Assert.IsEmpty(cut.FindAll("div.offcanvas-header"), "Header should not be rendered when closed and RenderMode is OpenOnly.");
+		Assert.NotNull(offcanvas);
+		Assert.Empty(cut.FindAll("div.offcanvas-header"));
 	}
 }

@@ -1,9 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxPopoverTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxPopover_Title_RendersDataBsToggle()
 	{
 		// Act
@@ -13,10 +12,10 @@ public class HxPopoverTests : BunitTestBase
 
 		// Assert
 		var span = cut.Find("span");
-		Assert.AreEqual("popover", span.GetAttribute("data-bs-toggle"));
+		Assert.Equal("popover", span.GetAttribute("data-bs-toggle"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxPopover_Title_RendersDataBsTitle()
 	{
 		// Act
@@ -26,10 +25,10 @@ public class HxPopoverTests : BunitTestBase
 
 		// Assert
 		var span = cut.Find("span");
-		Assert.AreEqual("My Title", span.GetAttribute("data-bs-title"));
+		Assert.Equal("My Title", span.GetAttribute("data-bs-title"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxPopover_Content_RendersDataBsContent()
 	{
 		// Act
@@ -40,10 +39,10 @@ public class HxPopoverTests : BunitTestBase
 
 		// Assert
 		var span = cut.Find("span");
-		Assert.AreEqual("Popover body content", span.GetAttribute("data-bs-content"));
+		Assert.Equal("Popover body content", span.GetAttribute("data-bs-content"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxPopover_Placement_RendersDataBsPlacement()
 	{
 		// Act
@@ -54,10 +53,10 @@ public class HxPopoverTests : BunitTestBase
 
 		// Assert
 		var span = cut.Find("span");
-		Assert.AreEqual("left", span.GetAttribute("data-bs-placement"));
+		Assert.Equal("left", span.GetAttribute("data-bs-placement"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxPopover_ContentOnly_RendersSpan()
 	{
 		// Act - popover with content but no title should still render span
@@ -67,11 +66,11 @@ public class HxPopoverTests : BunitTestBase
 
 		// Assert
 		var span = cut.Find("span");
-		Assert.AreEqual("popover", span.GetAttribute("data-bs-toggle"));
-		Assert.AreEqual("Just content", span.GetAttribute("data-bs-content"));
+		Assert.Equal("popover", span.GetAttribute("data-bs-toggle"));
+		Assert.Equal("Just content", span.GetAttribute("data-bs-content"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxPopover_EmptyTitleAndContent_NoSpanWrapper()
 	{
 		// Act
@@ -80,7 +79,7 @@ public class HxPopoverTests : BunitTestBase
 
 		// Assert - no span wrapper
 		var spans = cut.FindAll("span");
-		Assert.IsEmpty(spans, "No span should render when both Title and Content are empty.");
+		Assert.Empty(spans);
 		Assert.Contains("Just content", cut.Markup);
 	}
 }

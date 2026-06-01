@@ -1,7 +1,10 @@
+using Xunit;
+
+[assembly: AssemblyFixture(typeof(Havit.Blazor.E2ETests.TestAppAssemblyInitializer))]
+
 namespace Havit.Blazor.E2ETests;
 
-[TestClass]
-public static class TestAppAssemblyInitializer
+public sealed class TestAppAssemblyInitializer : IDisposable
 {
 	private static TestAppWebApplicationFactory _factory;
 	private static string _baseUrl;
@@ -21,8 +24,7 @@ public static class TestAppAssemblyInitializer
 		}
 	}
 
-	[AssemblyInitialize]
-	public static void Initialize(TestContext testContext)
+	public TestAppAssemblyInitializer()
 	{
 		_factory = new TestAppWebApplicationFactory();
 
@@ -31,8 +33,7 @@ public static class TestAppAssemblyInitializer
 		_baseUrl = _factory.GetServerAddress();
 	}
 
-	[AssemblyCleanup]
-	public static void AssemblyCleanup()
+	public void Dispose()
 	{
 		_factory?.Dispose();
 	}

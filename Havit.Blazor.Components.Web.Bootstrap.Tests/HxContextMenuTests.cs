@@ -1,9 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxContextMenuTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxContextMenu_Render_HasContextMenuStructure()
 	{
 		// Act
@@ -13,18 +12,18 @@ public class HxContextMenuTests : BunitTestBase
 
 		// Assert
 		var contextMenu = cut.Find("div.hx-context-menu");
-		Assert.IsNotNull(contextMenu);
+		Assert.NotNull(contextMenu);
 
 		var dropdown = cut.Find("div.dropdown");
-		Assert.IsNotNull(dropdown);
+		Assert.NotNull(dropdown);
 
 		var triggerButton = cut.Find("div.hx-context-menu-btn");
-		Assert.IsNotNull(triggerButton);
-		Assert.AreEqual("dropdown", triggerButton.GetAttribute("data-bs-toggle"));
-		Assert.AreEqual("button", triggerButton.GetAttribute("role"));
+		Assert.NotNull(triggerButton);
+		Assert.Equal("dropdown", triggerButton.GetAttribute("data-bs-toggle"));
+		Assert.Equal("button", triggerButton.GetAttribute("role"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxContextMenu_RendersDropdownMenu()
 	{
 		// Act
@@ -34,10 +33,10 @@ public class HxContextMenuTests : BunitTestBase
 
 		// Assert
 		var menu = cut.Find("ul.dropdown-menu");
-		Assert.IsNotNull(menu);
+		Assert.NotNull(menu);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxContextMenuItem_RendersCorrectStructure()
 	{
 		// Act
@@ -47,14 +46,14 @@ public class HxContextMenuTests : BunitTestBase
 
 		// Assert
 		var li = cut.Find("li.hx-context-menu-item");
-		Assert.IsNotNull(li);
+		Assert.NotNull(li);
 
 		var a = cut.Find("a.dropdown-item");
-		Assert.IsNotNull(a);
+		Assert.NotNull(a);
 		Assert.Contains("Edit", a.TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxContextMenuItem_Disabled_HasDisabledCssClass()
 	{
 		// Act
@@ -65,10 +64,10 @@ public class HxContextMenuTests : BunitTestBase
 
 		// Assert
 		var a = cut.Find("a.dropdown-item");
-		Assert.IsTrue(a.ClassList.Contains("disabled"), "Disabled menu item should have 'disabled' CSS class.");
+		Assert.True(a.ClassList.Contains("disabled"), "Disabled menu item should have 'disabled' CSS class.");
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxContextMenuItem_Enabled_NoDisabledCssClass()
 	{
 		// Act
@@ -79,10 +78,10 @@ public class HxContextMenuTests : BunitTestBase
 
 		// Assert
 		var a = cut.Find("a.dropdown-item");
-		Assert.IsFalse(a.ClassList.Contains("disabled"), "Enabled menu item should not have 'disabled' CSS class.");
+		Assert.False(a.ClassList.Contains("disabled"), "Enabled menu item should not have 'disabled' CSS class.");
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxContextMenu_MultipleItems_RendersAll()
 	{
 		// Act
@@ -104,6 +103,6 @@ public class HxContextMenuTests : BunitTestBase
 
 		// Assert
 		var items = cut.FindAll("li.hx-context-menu-item");
-		Assert.HasCount(3, items);
+		Assert.Equal(3, items.Count());
 	}
 }

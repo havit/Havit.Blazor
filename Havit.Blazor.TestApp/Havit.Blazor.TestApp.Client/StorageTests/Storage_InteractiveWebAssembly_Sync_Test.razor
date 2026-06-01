@@ -1,0 +1,152 @@
+@page "/Storage_InteractiveWebAssembly_Sync_Test/{StorageArea}"
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
+@using Havit.Blazor.Storage
+@using Havit.Blazor.Storage.Exceptions
+
+<h3>Storage sync test: @StorageArea</h3>
+
+@if (_interactive)
+{
+	<span data-testid="ready"></span>
+}
+
+<input data-testid="key-input" @bind="_key" @bind:event="oninput" />
+<input data-testid="value-input" @bind="_value" @bind:event="oninput" />
+<input data-testid="index-input" @bind="_index" @bind:event="oninput" />
+
+<HxButton data-testid="set-string-button" Text="SetString" Color="ThemeColor.Primary" OnClick="SetString" />
+<HxButton data-testid="get-string-button" Text="GetString" Color="ThemeColor.Primary" OnClick="GetString" />
+<HxButton data-testid="try-get-string-button" Text="TryGetString" Color="ThemeColor.Primary" OnClick="TryGetString" />
+<HxButton data-testid="try-get-value-button" Text="TryGetValue" Color="ThemeColor.Primary" OnClick="TryGetValueButton" />
+<HxButton data-testid="remove-button" Text="Remove" Color="ThemeColor.Primary" OnClick="Remove" />
+<HxButton data-testid="clear-button" Text="Clear" Color="ThemeColor.Primary" OnClick="Clear" />
+<HxButton data-testid="length-button" Text="Length" Color="ThemeColor.Primary" OnClick="Length" />
+<HxButton data-testid="key-by-index-button" Text="KeyByIndex" Color="ThemeColor.Primary" OnClick="KeyByIndex" />
+<HxButton data-testid="try-key-by-index-button" Text="TryKeyByIndex" Color="ThemeColor.Primary" OnClick="TryKeyByIndex" />
+<HxButton data-testid="set-value-button" Text="SetValue" Color="ThemeColor.Primary" OnClick="SetValue" />
+<HxButton data-testid="get-value-button" Text="GetValue" Color="ThemeColor.Primary" OnClick="GetValue" />
+
+<p data-testid="result">@_result</p>
+<p data-testid="length-result">@_lengthResult</p>
+
+@code {
+	[Parameter] public string StorageArea { get; set; }
+
+	[Inject] private ILocalStorageService LocalStorage { get; set; }
+	[Inject] private ISessionStorageService SessionStorage { get; set; }
+
+	private bool _interactive;
+	private string _key = "";
+	private string _value = "";
+	private string _index = "";
+	private string _result = "";
+	private string _lengthResult = "";
+
+	private IBrowserStorage Storage => string.Equals(StorageArea, "session", StringComparison.OrdinalIgnoreCase)
+		? SessionStorage
+		: LocalStorage;
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		// OnAfterRender runs only on the (WebAssembly) client once the component is interactive,
+		// which guarantees IJSInProcessRuntime required by the synchronous storage methods is available.
+		if (firstRender)
+		{
+			_interactive = true;
+			StateHasChanged();
+		}
+	}
+
+	private void SetString()
+	{
+		Storage.SetStringValue(_key, _value);
+		_result = "set";
+	}
+
+	private void GetString()
+	{
+		try
+		{
+			_result = Storage.GetStringValue(_key);
+		}
+		catch (StorageKeyNotFoundException)
+		{
+			_result = "<missing>";
+		}
+	}
+
+	private void TryGetString()
+	{
+		var success = Storage.TryGetStringValue(_key, out var value);
+		_result = $"{success}:{value ?? "<null>"}";
+	}
+
+	private void TryGetValueButton()
+	{
+		var success = Storage.TryGetValue<Person>(_key, out var person);
+		_result = $"{success}:{(person is null ? "<null>" : $"{person.Name}:{person.Age}")}";
+	}
+
+	private void Remove()
+	{
+		Storage.Remove(_key);
+		_result = "removed";
+	}
+
+	private void Clear()
+	{
+		Storage.Clear();
+		_result = "cleared";
+	}
+
+	private void Length()
+	{
+		var length = Storage.GetLength();
+		_lengthResult = length.ToString();
+	}
+
+	private void KeyByIndex()
+	{
+		var index = int.Parse(_index);
+		try
+		{
+			_result = Storage.GetKeyByIndex(index);
+		}
+		catch (StorageIndexOutOfRangeException)
+		{
+			_result = "<out-of-range>";
+		}
+	}
+
+	private void TryKeyByIndex()
+	{
+		var index = int.Parse(_index);
+		var success = Storage.TryGetKeyByIndex(index, out var key);
+		_result = $"{success}:{key ?? "<null>"}";
+	}
+
+	private void SetValue()
+	{
+		Storage.SetValue(_key, new Person { Name = _value, Age = 42 });
+		_result = "set";
+	}
+
+	private void GetValue()
+	{
+		try
+		{
+			var person = Storage.GetValue<Person>(_key);
+			_result = person is null ? "<null>" : $"{person.Name}:{person.Age}";
+		}
+		catch (StorageKeyNotFoundException)
+		{
+			_result = "<missing>";
+		}
+	}
+
+	private class Person
+	{
+		public string Name { get; init; }
+		public int Age { get; init; }
+	}
+}

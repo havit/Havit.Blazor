@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxToastTests;
 
-[TestClass]
 public class HxToast_Messenger_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxToast_ShowViaMessenger_DisplaysToast()
 	{
 		// Arrange - Navigate to the messenger test page
@@ -20,7 +19,7 @@ public class HxToast_Messenger_Tests : TestAppTestBase
 		await Expect(toastBody).ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxToast_AutoHide_DisappearsAfterDelay()
 	{
 		// Arrange - Navigate to the messenger test page
@@ -37,7 +36,7 @@ public class HxToast_Messenger_Tests : TestAppTestBase
 		await Expect(toastBody).Not.ToBeVisibleAsync(new() { Timeout = 10_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxToast_ClickCloseButton_DismissesImmediately()
 	{
 		// Arrange - Navigate to the messenger test page
@@ -58,7 +57,7 @@ public class HxToast_Messenger_Tests : TestAppTestBase
 		await Expect(toast).Not.ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxToast_ShowMultiple_AllDisplayCorrectly()
 	{
 		// Arrange - Navigate to the messenger test page

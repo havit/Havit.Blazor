@@ -1,9 +1,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Progress;
 
-[TestClass]
 public class HxProgressIndicatorTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxProgressIndicator_InProgressTrue_ShowsOverlay()
 	{
 		// Arrange & Act
@@ -14,10 +13,10 @@ public class HxProgressIndicatorTests : BunitTestBase
 
 		// Assert
 		var overlay = cut.Find(".hx-progress-indicator");
-		Assert.IsNotNull(overlay);
+		Assert.NotNull(overlay);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxProgressIndicator_InProgressFalse_HidesOverlay()
 	{
 		// Arrange & Act
@@ -27,10 +26,10 @@ public class HxProgressIndicatorTests : BunitTestBase
 
 		// Assert
 		var overlayElements = cut.FindAll(".hx-progress-indicator");
-		Assert.IsEmpty(overlayElements);
+		Assert.Empty(overlayElements);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxProgressIndicator_Content_RemainsVisibleUnderOverlay()
 	{
 		// Arrange & Act
@@ -42,10 +41,10 @@ public class HxProgressIndicatorTests : BunitTestBase
 
 		// Assert - overlay is visible
 		var overlay = cut.Find(".hx-progress-indicator");
-		Assert.IsNotNull(overlay);
+		Assert.NotNull(overlay);
 
 		// Assert - content is also visible
 		var content = cut.Find("#test-content");
-		Assert.IsNotNull(content);
+		Assert.NotNull(content);
 	}
 }

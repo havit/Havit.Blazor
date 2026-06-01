@@ -1,0 +1,434 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Havit.Blazor.Storage</name>
+    </assembly>
+    <members>
+        <member name="T:Havit.Blazor.Storage.Exceptions.StorageIndexOutOfRangeException">
+            <summary>
+            Thrown when the requested zero-based index is out of range of the keys present in the browser storage area
+            (<c>localStorage</c> or <c>sessionStorage</c>).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Storage.Exceptions.StorageKeyNotFoundException">
+            <summary>
+            Thrown when the requested key is not present in the browser storage area
+            (<c>localStorage</c> or <c>sessionStorage</c>).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">
+            <summary>
+            Thrown when the requested browser storage area (<c>localStorage</c> or <c>sessionStorage</c>) is not accessible,
+            for example, when the user disabled it in the browser or access is blocked by the browser privacy settings.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Storage.IBrowserStorage">
+            <summary>
+            Provides access to a browser Web Storage area (<c>localStorage</c> or <c>sessionStorage</c>).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.TryGetStringValue(System.String,System.String@)">
+            <summary>
+            Tries to get the string value stored under the given <paramref name="key"/>.
+            </summary>
+            <param name="key">The key to look up.</param>
+            <param name="value">The stored value when the key is present; otherwise <c>null</c>.</param>
+            <returns><c>true</c> when the key is present; otherwise <c>false</c>.</returns>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when the IJSInProcessRuntime is not available (not in Interactive WebAssembly mode).</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.TryGetValue``1(System.String,``0@,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Tries to get the value stored under the given <paramref name="key"/> deserialized from JSON.
+            </summary>
+            <param name="key">The key to look up.</param>
+            <param name="value">The deserialized value when the key is present; otherwise the default value of <typeparamref name="TValue"/>.</param>
+            <param name="jsonSerializerOptions">
+            The serializer options to use. When <c>null</c>, the options configured during the service registration are used.
+            </param>
+            <returns><c>true</c> when the key is present; otherwise <c>false</c>.</returns>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when the IJSInProcessRuntime is not available (not in Interactive WebAssembly mode).</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.Remove(System.String)">
+            <summary>
+            Removes the value stored under the given <paramref name="key"/>.
+            </summary>
+            <param name="key">The key to remove.</param>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when the IJSInProcessRuntime is not available (not in Interactive WebAssembly mode).</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.Clear">
+            <summary>
+            Removes all keys from the storage area.
+            </summary>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when the IJSInProcessRuntime is not available (not in Interactive WebAssembly mode).</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.GetLength">
+            <summary>
+            Returns the number of keys stored in the storage area.
+            </summary>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when the IJSInProcessRuntime is not available (not in Interactive WebAssembly mode).</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.GetKeyByIndex(System.Int32)">
+            <summary>
+            Returns the name of the key at the given zero-based <paramref name="index"/>.
+            </summary>
+            <param name="index">The zero-based index of the key.</param>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageIndexOutOfRangeException">Thrown when the <paramref name="index"/> is out of range.</exception>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when the IJSInProcessRuntime is not available (not in Interactive WebAssembly mode).</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.TryGetKeyByIndex(System.Int32,System.String@)">
+            <summary>
+            Tries to get the name of the key at the given zero-based <paramref name="index"/>.
+            </summary>
+            <param name="index">The zero-based index of the key.</param>
+            <param name="key">The name of the key when the <paramref name="index"/> is in range; otherwise <c>null</c>.</param>
+            <returns><c>true</c> when the <paramref name="index"/> is in range; otherwise <c>false</c>.</returns>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when the IJSInProcessRuntime is not available (not in Interactive WebAssembly mode).</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.SetStringValue(System.String,System.String)">
+            <summary>
+            Stores the given string <paramref name="value"/> under the given <paramref name="key"/>.
+            </summary>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when the IJSInProcessRuntime is not available (not in Interactive WebAssembly mode).</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown when the <paramref name="value"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.SetValue``1(System.String,``0,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Serializes <paramref name="value"/> to JSON and stores it under the given <paramref name="key"/>.
+            </summary>
+            <param name="key">The key to store the value under.</param>
+            <param name="value">The value to store.</param>
+            <param name="jsonSerializerOptions">
+            The serializer options to use. When <c>null</c>, the options configured during the service registration are used.
+            </param>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when the IJSInProcessRuntime is not available (not in Interactive WebAssembly mode).</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown when the <paramref name="value"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.GetStringValue(System.String)">
+            <summary>
+            Returns the string value stored under the given <paramref name="key"/>.
+            </summary>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageKeyNotFoundException">Thrown when the key is not present.</exception>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when the IJSInProcessRuntime is not available (not in Interactive WebAssembly mode).</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.GetValue``1(System.String,System.Text.Json.JsonSerializerOptions)">
+            <summary>
+            Returns the value stored under the given <paramref name="key"/> deserialized from JSON.
+            </summary>
+            <param name="key">The key to look up.</param>
+            <param name="jsonSerializerOptions">
+            The serializer options to use. When <c>null</c>, the options configured during the service registration are used.
+            </param>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageKeyNotFoundException">Thrown when the key is not present.</exception>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown when the IJSInProcessRuntime is not available (not in Interactive WebAssembly mode).</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.TryGetStringValueAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Tries to get the string value stored under the given <paramref name="key"/>.
+            </summary>
+            <param name="key">The key to look up.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A tuple where <c>Success</c> indicates whether the key is present and <c>Value</c> contains the stored value
+            (or <c>null</c> when the key is not present).
+            </returns>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.TryGetValueAsync``1(System.String,System.Text.Json.JsonSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            Tries to get the value stored under the given <paramref name="key"/> deserialized from JSON.
+            </summary>
+            <param name="key">The key to look up.</param>
+            <param name="jsonSerializerOptions">
+            The serializer options to use. When <c>null</c>, the options configured during the service registration are used.
+            </param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A tuple where <c>Success</c> indicates whether the key is present and <c>Value</c> contains the deserialized value
+            (or the default value of <typeparamref name="TValue"/> when the key is not present).
+            </returns>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.RemoveAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Removes the value stored under the given <paramref name="key"/>.
+            </summary>
+            <param name="key">The key to remove.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.ClearAsync(System.Threading.CancellationToken)">
+            <summary>
+            Removes all keys from the storage area.
+            </summary>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.GetLengthAsync(System.Threading.CancellationToken)">
+            <summary>
+            Returns the number of keys stored in the storage area.
+            </summary>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.GetKeyByIndexAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Returns the name of the key at the given zero-based <paramref name="index"/>.
+            </summary>
+            <param name="index">The zero-based index of the key.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageIndexOutOfRangeException">Thrown when the <paramref name="index"/> is out of range.</exception>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.TryGetKeyByIndexAsync(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Tries to get the name of the key at the given zero-based <paramref name="index"/>.
+            </summary>
+            <param name="index">The zero-based index of the key.</param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <returns>
+            A tuple where <c>Success</c> indicates whether the <paramref name="index"/> is in range and <c>Key</c> contains the
+            name of the key (or <c>null</c> when the <paramref name="index"/> is out of range).
+            </returns>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.SetStringValueAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <summary>
+            Stores the given string <paramref name="value"/> under the given <paramref name="key"/>.
+            </summary>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown when the <paramref name="value"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.SetValueAsync``1(System.String,``0,System.Text.Json.JsonSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            Serializes <paramref name="value"/> to JSON and stores it under the given <paramref name="key"/>.
+            </summary>
+            <param name="key">The key to store the value under.</param>
+            <param name="value">The value to store.</param>
+            <param name="jsonSerializerOptions">
+            The serializer options to use. When <c>null</c>, the options configured during the service registration are used.
+            </param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown when the <paramref name="value"/> is <c>null</c>.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.GetStringValueAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Returns the string value stored under the given <paramref name="key"/>.
+            </summary>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageKeyNotFoundException">Thrown when the key is not present.</exception>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Storage.IBrowserStorage.GetValueAsync``1(System.String,System.Text.Json.JsonSerializerOptions,System.Threading.CancellationToken)">
+            <summary>
+            Returns the value stored under the given <paramref name="key"/> deserialized from JSON.
+            </summary>
+            <param name="key">The key to look up.</param>
+            <param name="jsonSerializerOptions">
+            The serializer options to use. When <c>null</c>, the options configured during the service registration are used.
+            </param>
+            <param name="cancellationToken">The cancellation token.</param>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageKeyNotFoundException">Thrown when the key is not present.</exception>
+            <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
+        </member>
+        <member name="T:Havit.Blazor.Storage.ILocalStorageService">
+            <summary>
+            Provides access to the browser <c>window.localStorage</c> area.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Storage.Infrastructure.BrowserStorageAccessor">
+            <summary>
+            Shared implementation of the browser storage access. It contains the actual JS Interop calls and accepts a
+            <see cref="T:Havit.Blazor.Storage.Infrastructure.BrowserStorageType"/> parameter that determines which storage area (<c>localStorage</c> or
+            <c>sessionStorage</c>) is accessed. The public <see cref="T:Havit.Blazor.Storage.ILocalStorageService"/> and <see cref="T:Havit.Blazor.Storage.ISessionStorageService"/>
+            implementations only delegate to this class passing the correct <see cref="T:Havit.Blazor.Storage.Infrastructure.BrowserStorageType"/>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageAccessor.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Options.IOptions{Havit.Blazor.Storage.StorageServiceOptions})">
+            <summary>
+            Shared implementation of the browser storage access. It contains the actual JS Interop calls and accepts a
+            <see cref="T:Havit.Blazor.Storage.Infrastructure.BrowserStorageType"/> parameter that determines which storage area (<c>localStorage</c> or
+            <c>sessionStorage</c>) is accessed. The public <see cref="T:Havit.Blazor.Storage.ILocalStorageService"/> and <see cref="T:Havit.Blazor.Storage.ISessionStorageService"/>
+            implementations only delegate to this class passing the correct <see cref="T:Havit.Blazor.Storage.Infrastructure.BrowserStorageType"/>.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Storage.Infrastructure.BrowserStorageService">
+            <summary>
+            Base class for the browser storage services. It delegates all calls to the shared <see cref="T:Havit.Blazor.Storage.Infrastructure.BrowserStorageAccessor"/>
+            passing the <see cref="T:Havit.Blazor.Storage.Infrastructure.BrowserStorageType"/> of the concrete service.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.#ctor(Havit.Blazor.Storage.Infrastructure.BrowserStorageAccessor)">
+            <summary>
+            Base class for the browser storage services. It delegates all calls to the shared <see cref="T:Havit.Blazor.Storage.Infrastructure.BrowserStorageAccessor"/>
+            passing the <see cref="T:Havit.Blazor.Storage.Infrastructure.BrowserStorageType"/> of the concrete service.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.TryGetStringValue(System.String,System.String@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.TryGetValue``1(System.String,``0@,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.Remove(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.Clear">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.GetLength">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.GetKeyByIndex(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.TryGetKeyByIndex(System.Int32,System.String@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.SetStringValue(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.SetValue``1(System.String,``0,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.GetStringValue(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.GetValue``1(System.String,System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.TryGetStringValueAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.TryGetValueAsync``1(System.String,System.Text.Json.JsonSerializerOptions,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.RemoveAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.ClearAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.GetLengthAsync(System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.GetKeyByIndexAsync(System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.TryGetKeyByIndexAsync(System.Int32,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.SetStringValueAsync(System.String,System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.SetValueAsync``1(System.String,``0,System.Text.Json.JsonSerializerOptions,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.GetStringValueAsync(System.String,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageService.GetValueAsync``1(System.String,System.Text.Json.JsonSerializerOptions,System.Threading.CancellationToken)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Havit.Blazor.Storage.Infrastructure.BrowserStorageType">
+            <summary>
+            Identifies which Web Storage area is accessed.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Storage.Infrastructure.BrowserStorageType.Local">
+            <summary>
+            The <c>window.localStorage</c> area.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Storage.Infrastructure.BrowserStorageType.Session">
+            <summary>
+            The <c>window.sessionStorage</c> area.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Storage.ISessionStorageService">
+            <summary>
+            Provides access to the browser <c>window.sessionStorage</c> area.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Storage.LocalStorageService">
+            <inheritdoc cref="T:Havit.Blazor.Storage.ILocalStorageService"/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.LocalStorageService.#ctor(Havit.Blazor.Storage.Infrastructure.BrowserStorageAccessor)">
+            <inheritdoc cref="T:Havit.Blazor.Storage.ILocalStorageService"/>
+        </member>
+        <member name="T:Havit.Blazor.Storage.SessionStorageService">
+            <inheritdoc cref="T:Havit.Blazor.Storage.ISessionStorageService"/>
+        </member>
+        <member name="M:Havit.Blazor.Storage.SessionStorageService.#ctor(Havit.Blazor.Storage.Infrastructure.BrowserStorageAccessor)">
+            <inheritdoc cref="T:Havit.Blazor.Storage.ISessionStorageService"/>
+        </member>
+        <member name="T:Havit.Blazor.Storage.StorageServiceCollectionExtensions">
+            <summary>
+            <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> extensions for registering the browser storage services
+            (<see cref="T:Havit.Blazor.Storage.ILocalStorageService"/> and <see cref="T:Havit.Blazor.Storage.ISessionStorageService"/>).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Storage.StorageServiceCollectionExtensions.AddHavitBlazorStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Havit.Blazor.Storage.StorageServiceOptions},Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
+            <summary>
+            Registers <see cref="T:Havit.Blazor.Storage.ILocalStorageService"/> and <see cref="T:Havit.Blazor.Storage.ISessionStorageService"/> providing access to the
+            browser <c>localStorage</c> and <c>sessionStorage</c>.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="configureOptions">
+            An optional delegate to configure the <see cref="T:Havit.Blazor.Storage.StorageServiceOptions"/> (e.g. the default
+            <see cref="T:System.Text.Json.JsonSerializerOptions"/> used by <c>SetValue</c>/<c>GetValue</c> when no options are passed to the call).
+            </param>
+            <param name="lifetime">
+            The lifetime to use for the registered services. The default is <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>.
+            </param>
+        </member>
+        <member name="M:Havit.Blazor.Storage.StorageServiceCollectionExtensions.AddHavitBlazorStorage(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Text.Json.JsonSerializerOptions,Microsoft.Extensions.DependencyInjection.ServiceLifetime)">
+            <summary>
+            Registers <see cref="T:Havit.Blazor.Storage.ILocalStorageService"/> and <see cref="T:Havit.Blazor.Storage.ISessionStorageService"/> providing access to the
+            browser <c>localStorage</c> and <c>sessionStorage</c>.
+            </summary>
+            <param name="services">The service collection.</param>
+            <param name="jsonSerializerOptions">
+            The default <see cref="T:System.Text.Json.JsonSerializerOptions"/> used by <c>SetValue</c>/<c>GetValue</c> when no options are passed to the call.
+            </param>
+            <param name="lifetime">
+            The lifetime to use for the registered services. The default is <see cref="F:Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped"/>.
+            </param>
+        </member>
+        <member name="T:Havit.Blazor.Storage.StorageServiceOptions">
+            <summary>
+            Options for the browser storage services (<see cref="T:Havit.Blazor.Storage.ILocalStorageService"/> and <see cref="T:Havit.Blazor.Storage.ISessionStorageService"/>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Storage.StorageServiceOptions.JsonSerializerOptions">
+            <summary>
+            Default <see cref="P:Havit.Blazor.Storage.StorageServiceOptions.JsonSerializerOptions"/> used by <c>SetValue</c>/<c>GetValue</c> (and their async variants)
+            when no options are passed to the method call.
+            When <c>null</c>, the default <see cref="N:System.Text.Json"/> behavior is used.
+            </summary>
+        </member>
+    </members>
+</doc>

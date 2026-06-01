@@ -1,0 +1,13 @@
+@attribute [Route(NavigationRoutes.BlazorApplicationInsightsScriptTests.RouteTemplate)]
+
+<h1>Test BlazorApplicationInsightsScript</h1>
+<h3>Render mode: @(GetRenderMode()?.GetType().Name ?? "SSR")</h3>
+
+<BlazorApplicationInsightsScript @rendermode="GetRenderMode()" />
+
+@code {
+	[Parameter]
+	public string Mode { get; set; }
+
+	private IComponentRenderMode GetRenderMode() => RenderModeRouteHelper.GetRenderMode(Mode);
+}

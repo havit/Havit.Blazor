@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxSearchBoxTests;
 
-[TestClass]
 public class HxSearchBox_Disabled_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxSearchBox_DisabledTrue_InputIsDisabled()
 	{
 		// Arrange
@@ -14,7 +13,7 @@ public class HxSearchBox_Disabled_Tests : TestAppTestBase
 		await Expect(input).ToBeDisabledAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxSearchBox_DisabledTrue_CannotType()
 	{
 		// Arrange

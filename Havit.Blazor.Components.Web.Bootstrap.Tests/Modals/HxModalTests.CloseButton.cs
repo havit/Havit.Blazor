@@ -1,9 +1,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public partial class HxModalTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxModal_CloseButton_DefaultShouldNotHaveWhiteClass()
 	{
 		// Arrange & Act
@@ -16,10 +15,10 @@ public partial class HxModalTests : BunitTestBase
 
 		// Assert
 		var closeButton = cut.Find("button.btn-close");
-		Assert.IsFalse(closeButton.ClassList.Contains("btn-close-white"));
+		Assert.False(closeButton.ClassList.Contains("btn-close-white"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxModal_CloseButtonSettings_WhiteTrue_ShouldAddWhiteClass()
 	{
 		// Arrange & Act
@@ -33,10 +32,10 @@ public partial class HxModalTests : BunitTestBase
 
 		// Assert
 		var closeButton = cut.Find("button.btn-close");
-		Assert.IsTrue(closeButton.ClassList.Contains("btn-close-white"));
+		Assert.True(closeButton.ClassList.Contains("btn-close-white"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxModal_CloseButtonSettings_WhiteFalse_ShouldNotHaveWhiteClass()
 	{
 		// Arrange & Act
@@ -50,10 +49,10 @@ public partial class HxModalTests : BunitTestBase
 
 		// Assert
 		var closeButton = cut.Find("button.btn-close");
-		Assert.IsFalse(closeButton.ClassList.Contains("btn-close-white"));
+		Assert.False(closeButton.ClassList.Contains("btn-close-white"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxModal_CloseButtonSettings_WhiteTrue_ViaSettings_ShouldAddWhiteClass()
 	{
 		// Arrange & Act
@@ -70,6 +69,6 @@ public partial class HxModalTests : BunitTestBase
 
 		// Assert
 		var closeButton = cut.Find("button.btn-close");
-		Assert.IsTrue(closeButton.ClassList.Contains("btn-close-white"));
+		Assert.True(closeButton.ClassList.Contains("btn-close-white"));
 	}
 }
