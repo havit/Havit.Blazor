@@ -45,10 +45,7 @@ The `.editorconfig` file in the repository root contains the complete coding sta
 
 ### Testing Framework
 - Tests use **xUnit** (`xunit.v3`) running on the **Microsoft.Testing.Platform** (MTP). Do **not** reintroduce MSTest or downgrade to VSTest (`Microsoft.NET.Test.Sdk`).
-- Use xUnit conventions: `[Fact]` for simple tests, `[Theory]` with `[InlineData]`/`[MemberData]` for data-driven tests, and the `Assert.*` xUnit API (e.g. `Assert.Equal`, `Assert.True`, `Assert.Single`, `Assert.Empty`, `Assert.Contains`, `Assert.Throws<T>`). xUnit analyzers are treated as errors (warnings-as-errors is enabled), so prefer the analyzer-suggested assertions.
-- Per-test setup/teardown uses the class constructor and `IDisposable.Dispose()`; assembly-wide setup/teardown uses `[assembly: AssemblyFixture(typeof(...))]`.
-- E2E tests (`Havit.Blazor.E2ETests/`) use **Playwright** via `Microsoft.Playwright.Xunit.v3` (base class `PageTest`). Moq and Playwright remain the mocking/automation libraries.
-- Every test project references `Microsoft.Testing.Extensions.TrxReport`; produce a TRX report with `dotnet test -- --report-trx`.
+- Every test project references `Microsoft.Testing.Extensions.TrxReport` to produce a TRX report within CI build.
 
 ### Important Files
 - `Directory.Build.props` - Global build properties
