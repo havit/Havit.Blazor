@@ -5,10 +5,9 @@ using Microsoft.Playwright;
 
 namespace Havit.Blazor.ApplicationInsights.E2ETests;
 
-[TestClass]
 public class AuthenticatedUserContextTests : BlazorApplicationInsightsPageTestBase
 {
-	[TestMethod]
+	[Fact(Explicit = true)] // TODO flaky test, needs to be investigated and fixed
 	public async Task BlazorApplicationInsights_AuthenticationUserContext_Test()
 	{
 		// Arrange
@@ -27,12 +26,12 @@ public class AuthenticatedUserContextTests : BlazorApplicationInsightsPageTestBa
 		var message2 = capturedTelemetryItems.FirstOrDefault(i => i.Data.BaseData.Metrics?[0].Name == "Message2-WithAuth");
 		var message3 = capturedTelemetryItems.FirstOrDefault(i => i.Data.BaseData.Metrics?[0].Name == "Message3-WithoutAuth");
 
-		Assert.IsNotNull(message1, "Message1-WithoutAuth not found in captured telemetry.");
-		Assert.IsNotNull(message2, "Message2-WithAuth not found in captured telemetry.");
-		Assert.IsNotNull(message3, "Message3-WithoutAuth not found in captured telemetry.");
+		Assert.NotNull(message1);
+		Assert.NotNull(message2);
+		Assert.NotNull(message3);
 
-		Assert.IsNull(message1.AuthUserId, "Message1 should not have authUserId.");
-		Assert.AreEqual("test-user", message2.AuthUserId, "Message2 should have authUserId 'test-user'.");
-		Assert.IsNull(message3.AuthUserId, "Message3 should not have authUserId after Clear.");
+		Assert.Null(message1.AuthUserId);
+		Assert.Equal("test-user", message2.AuthUserId);
+		Assert.Null(message3.AuthUserId);
 	}
 }

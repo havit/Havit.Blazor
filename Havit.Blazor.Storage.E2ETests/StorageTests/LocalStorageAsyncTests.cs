@@ -4,7 +4,6 @@ namespace Havit.Blazor.Storage.E2ETests.StorageTests;
 /// E2E tests verifying that <see cref="ILocalStorageService"/> reads/writes the browser <c>localStorage</c>
 /// through the JS Interop.
 /// </summary>
-[TestClass]
 public class LocalStorageAsyncTests : StorageAsyncTests
 {
 	protected override string StorageArea => "local";

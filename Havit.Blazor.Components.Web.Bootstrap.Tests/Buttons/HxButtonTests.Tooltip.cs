@@ -1,9 +1,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public partial class HxButtonTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxButton_TooltipSettings_Trigger_ShouldBeConfigurableViaParameter()
 	{
 		// Arrange & Act
@@ -17,12 +16,12 @@ public partial class HxButtonTests : BunitTestBase
 
 		// Assert
 		var tooltipElement = cut.Find("span[data-bs-toggle='tooltip']");
-		Assert.IsNotNull(tooltipElement);
+		Assert.NotNull(tooltipElement);
 		var trigger = tooltipElement.GetAttribute("data-bs-trigger");
-		Assert.AreEqual("click", trigger);
+		Assert.Equal("click", trigger);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxButton_TooltipSettings_Trigger_ShouldBeConfigurableViaSettings()
 	{
 		// Arrange & Act
@@ -39,12 +38,12 @@ public partial class HxButtonTests : BunitTestBase
 
 		// Assert
 		var tooltipElement = cut.Find("span[data-bs-toggle='tooltip']");
-		Assert.IsNotNull(tooltipElement);
+		Assert.NotNull(tooltipElement);
 		var trigger = tooltipElement.GetAttribute("data-bs-trigger");
-		Assert.AreEqual("click hover", trigger); // order does not matter
+		Assert.Equal("click hover", trigger); // order does not matter
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxButton_TooltipSettings_DefaultTrigger_ShouldNotBeSet()
 	{
 		// Arrange & Act
@@ -54,13 +53,13 @@ public partial class HxButtonTests : BunitTestBase
 
 		// Assert
 		var tooltipElement = cut.Find("span[data-bs-toggle='tooltip']");
-		Assert.IsNotNull(tooltipElement);
+		Assert.NotNull(tooltipElement);
 		var trigger = tooltipElement.GetAttribute("data-bs-trigger");
 		// The default trigger should not be set as an attribute, Bootstrap uses its own default.
-		Assert.IsNull(trigger);
+		Assert.Null(trigger);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxButton_TooltipSettings_Placement_ShouldBeConfigurableViaParameter()
 	{
 		// Arrange & Act
@@ -74,12 +73,12 @@ public partial class HxButtonTests : BunitTestBase
 
 		// Assert
 		var tooltipElement = cut.Find("span[data-bs-toggle='tooltip']");
-		Assert.IsNotNull(tooltipElement);
+		Assert.NotNull(tooltipElement);
 		var placement = tooltipElement.GetAttribute("data-bs-placement");
-		Assert.AreEqual("bottom", placement);
+		Assert.Equal("bottom", placement);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxButton_TooltipSettings_Placement_ShouldBeConfigurableViaSettings()
 	{
 		// Arrange & Act
@@ -96,12 +95,12 @@ public partial class HxButtonTests : BunitTestBase
 
 		// Assert
 		var tooltipElement = cut.Find("span[data-bs-toggle='tooltip']");
-		Assert.IsNotNull(tooltipElement);
+		Assert.NotNull(tooltipElement);
 		var placement = tooltipElement.GetAttribute("data-bs-placement");
-		Assert.AreEqual("left", placement);
+		Assert.Equal("left", placement);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxButton_TooltipSettings_DefaultPlacement_ShouldNotBeSet()
 	{
 		// Arrange & Act
@@ -111,9 +110,9 @@ public partial class HxButtonTests : BunitTestBase
 
 		// Assert
 		var tooltipElement = cut.Find("span[data-bs-toggle='tooltip']");
-		Assert.IsNotNull(tooltipElement);
+		Assert.NotNull(tooltipElement);
 		var placement = tooltipElement.GetAttribute("data-bs-placement");
 		// The default placement should not be set as an attribute, Bootstrap uses its own default.
-		Assert.IsNull(placement);
+		Assert.Null(placement);
 	}
 }

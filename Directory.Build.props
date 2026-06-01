@@ -20,10 +20,8 @@
 		<ApplicationInsightsPackageVersion>0.9.0-pre03</ApplicationInsightsPackageVersion>
 		<StoragePackagesVersion>1.0.0</StoragePackagesVersion>
 
-		<EnableMSTestRunner>true</EnableMSTestRunner>
 		<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
 		<TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
-		<MSTestAnalysisMode>Recommended</MSTestAnalysisMode>
 	</PropertyGroup>
 
 	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" Condition="Exists($([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../')))"/>

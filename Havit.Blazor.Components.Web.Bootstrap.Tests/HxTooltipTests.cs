@@ -1,9 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxTooltipTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxTooltip_Text_RendersDataBsToggle()
 	{
 		// Act
@@ -13,10 +12,10 @@ public class HxTooltipTests : BunitTestBase
 
 		// Assert
 		var span = cut.Find("span");
-		Assert.AreEqual("tooltip", span.GetAttribute("data-bs-toggle"));
+		Assert.Equal("tooltip", span.GetAttribute("data-bs-toggle"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTooltip_Text_RendersDataBsTitle()
 	{
 		// Act
@@ -26,10 +25,10 @@ public class HxTooltipTests : BunitTestBase
 
 		// Assert
 		var span = cut.Find("span");
-		Assert.AreEqual("My tooltip text", span.GetAttribute("data-bs-title"));
+		Assert.Equal("My tooltip text", span.GetAttribute("data-bs-title"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTooltip_Placement_RendersDataBsPlacement()
 	{
 		// Act
@@ -40,10 +39,10 @@ public class HxTooltipTests : BunitTestBase
 
 		// Assert
 		var span = cut.Find("span");
-		Assert.AreEqual("bottom", span.GetAttribute("data-bs-placement"));
+		Assert.Equal("bottom", span.GetAttribute("data-bs-placement"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTooltip_EmptyText_DoesNotRenderSpanWrapper()
 	{
 		// Act
@@ -52,11 +51,11 @@ public class HxTooltipTests : BunitTestBase
 
 		// Assert - no span wrapper should be rendered, only the child content
 		var spans = cut.FindAll("span");
-		Assert.IsEmpty(spans, "No span wrapper should be rendered when Text is empty.");
+		Assert.Empty(spans);
 		Assert.Contains("Just content", cut.Markup);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTooltip_ChildContent_IsRenderedInsideSpan()
 	{
 		// Act
@@ -69,7 +68,7 @@ public class HxTooltipTests : BunitTestBase
 		Assert.Contains("<em>Styled content</em>", span.InnerHtml);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTooltip_SpanWrapper_HasInlineBlockClass()
 	{
 		// Act
@@ -79,10 +78,10 @@ public class HxTooltipTests : BunitTestBase
 
 		// Assert
 		var span = cut.Find("span");
-		Assert.IsTrue(span.ClassList.Contains("d-inline-block"));
+		Assert.True(span.ClassList.Contains("d-inline-block"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTooltip_WrapperCssClass_IsApplied()
 	{
 		// Act
@@ -93,6 +92,6 @@ public class HxTooltipTests : BunitTestBase
 
 		// Assert
 		var span = cut.Find("span");
-		Assert.IsTrue(span.ClassList.Contains("my-wrapper"));
+		Assert.True(span.ClassList.Contains("my-wrapper"));
 	}
 }

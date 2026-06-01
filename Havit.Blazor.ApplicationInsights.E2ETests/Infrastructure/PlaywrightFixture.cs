@@ -1,17 +1,18 @@
+using Xunit;
+
+[assembly: AssemblyFixture(typeof(Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure.PlaywrightFixture))]
+
 namespace Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure;
 
-[TestClass]
-public static class PlaywrightFixture
+public sealed class PlaywrightFixture : IDisposable
 {
 	internal static BlazorWebApplicationFactory Factory = null!;
 
-	[AssemblyInitialize]
-	public static void AssemblyInitialize(TestContext _)
+	public PlaywrightFixture()
 	{
 		Factory = new BlazorWebApplicationFactory();
 		Factory.CreateClient(); // triggers CreateHost → starts Kestrel
 	}
 
-	[AssemblyCleanup]
-	public static void AssemblyCleanup() => Factory.Dispose();
+	public void Dispose() => Factory.Dispose();
 }

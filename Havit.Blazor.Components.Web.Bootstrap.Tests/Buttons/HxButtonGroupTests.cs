@@ -1,9 +1,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxButtonGroupTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxButtonGroup_Render_GroupsButtonsHorizontally()
 	{
 		// Arrange & Act
@@ -15,11 +14,11 @@ public class HxButtonGroupTests : BunitTestBase
 
 		// Assert - the group should have the correct CSS class and role
 		var group = cut.Find("div");
-		Assert.IsTrue(group.ClassList.Contains("btn-group"), "Button group should have 'btn-group' CSS class");
-		Assert.AreEqual("group", group.GetAttribute("role"));
+		Assert.True(group.ClassList.Contains("btn-group"), "Button group should have 'btn-group' CSS class");
+		Assert.Equal("group", group.GetAttribute("role"));
 
 		// Assert - both buttons should be rendered inside the group
 		var buttons = cut.FindAll("button");
-		Assert.HasCount(2, buttons, "Both buttons should be rendered inside the group");
+		Assert.Equal(2, buttons.Count());
 	}
 }

@@ -1,9 +1,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
-[TestClass]
 public class HxCheckboxListTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxCheckboxList_Render_DisplaysItemsFromData()
 	{
 		// Arrange
@@ -21,7 +20,7 @@ public class HxCheckboxListTests : BunitTestBase
 
 		// Assert - All three items should be rendered as checkboxes
 		var checkboxInputs = cut.FindAll("input[type='checkbox']");
-		Assert.HasCount(3, checkboxInputs);
+		Assert.Equal(3, checkboxInputs.Count());
 
 		// Verify each item text is present in the rendered markup
 		Assert.Contains("Alpha", cut.Markup);
@@ -29,7 +28,7 @@ public class HxCheckboxListTests : BunitTestBase
 		Assert.Contains("Gamma", cut.Markup);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxCheckboxList_SelectMultiple_AllChecked()
 	{
 		// Arrange
@@ -47,14 +46,14 @@ public class HxCheckboxListTests : BunitTestBase
 
 		// Assert - All checkboxes should be checked
 		var checkboxInputs = cut.FindAll("input[type='checkbox']");
-		Assert.HasCount(3, checkboxInputs);
+		Assert.Equal(3, checkboxInputs.Count());
 		foreach (var checkbox in checkboxInputs)
 		{
-			Assert.IsTrue(checkbox.HasAttribute("checked"), "All checkboxes should be checked when all values are selected.");
+			Assert.True(checkbox.HasAttribute("checked"), "All checkboxes should be checked when all values are selected.");
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxCheckboxList_DeselectItem_RemovesFromCollection()
 	{
 		// Arrange
@@ -74,13 +73,13 @@ public class HxCheckboxListTests : BunitTestBase
 		checkboxInputs[1].Change(false);
 
 		// Assert - "Beta" should be removed from the selected values
-		Assert.HasCount(2, selectedValues);
+		Assert.Equal(2, selectedValues.Count());
 		Assert.Contains("Alpha", selectedValues);
 		Assert.DoesNotContain("Beta", selectedValues);
 		Assert.Contains("Gamma", selectedValues);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxCheckboxList_BoundValue_MatchesSelection()
 	{
 		// Arrange
@@ -104,13 +103,13 @@ public class HxCheckboxListTests : BunitTestBase
 		checkboxInputs[2].Change(true);
 
 		// Assert - Bound value should contain "Alpha" and "Gamma"
-		Assert.HasCount(2, selectedValues);
+		Assert.Equal(2, selectedValues.Count());
 		Assert.Contains("Alpha", selectedValues);
 		Assert.Contains("Gamma", selectedValues);
 		Assert.DoesNotContain("Beta", selectedValues);
 
 		// Verify the component's Value property matches
-		Assert.HasCount(2, cut.Instance.Value);
+		Assert.Equal(2, cut.Instance.Value.Count());
 		Assert.Contains("Alpha", cut.Instance.Value);
 		Assert.Contains("Gamma", cut.Instance.Value);
 	}

@@ -1,11 +1,10 @@
 namespace Havit.Blazor.E2ETests.HxInputDateTests;
 
-[TestClass]
 public class HxInputDate_CalendarPopup_Tests : TestAppTestBase
 {
 	private const int DefaultTimeout = 5_000;
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDate_ClickCalendarIcon_OpensCalendarPopup()
 	{
 		// Arrange
@@ -20,7 +19,7 @@ public class HxInputDate_CalendarPopup_Tests : TestAppTestBase
 		await Expect(wrapper.Locator(".hx-calendar")).ToBeVisibleAsync(new() { Timeout = DefaultTimeout });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDate_CalendarPickDay_SetsValueAndCloses()
 	{
 		// Arrange

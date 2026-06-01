@@ -1,5 +1,6 @@
-﻿using Microsoft.Playwright;
-using Microsoft.Playwright.MSTest;
+using Microsoft.Playwright;
+using Microsoft.Playwright.Xunit.v3;
+using Xunit;
 
 namespace Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure;
 
@@ -15,9 +16,10 @@ public class BlazorApplicationInsightsPageTestBase : PageTest
 		BaseURL = PlaywrightFixture.Factory.GetServerAddress()
 	};
 
-	[TestInitialize]
-	public async Task PageConfigureAsync()
+	public override async ValueTask InitializeAsync()
 	{
+		await base.InitializeAsync();
+
 		Page.SetDefaultTimeout(DefaultTimeoutMilliseconds);
 
 		_consoleMessages = new List<IConsoleMessage>();
@@ -27,8 +29,7 @@ public class BlazorApplicationInsightsPageTestBase : PageTest
 		};
 	}
 
-	[TestCleanup]
-	public void PageCleanUp()
+	public override async ValueTask DisposeAsync()
 	{
 		if (!AllowConsoleErrors)
 		{
@@ -38,5 +39,7 @@ public class BlazorApplicationInsightsPageTestBase : PageTest
 				Assert.Fail($"There were {errors.Count} console errors: {string.Join(Environment.NewLine, errors.Select(e => e.Text))}");
 			}
 		}
+
+		await base.DisposeAsync();
 	}
 }

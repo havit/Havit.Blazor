@@ -1,9 +1,8 @@
 ﻿namespace Havit.Blazor.E2ETests.HxTooltipTests;
 
-[TestClass]
 public class HxTooltipTests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxTooltip_Hover_ShowsTooltip()
 	{
 		// Arrange
@@ -17,7 +16,7 @@ public class HxTooltipTests : TestAppTestBase
 		await Expect(Page.Locator(".tooltip")).ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxTooltip_Content_ShowsExpectedText()
 	{
 		// Arrange
@@ -31,7 +30,7 @@ public class HxTooltipTests : TestAppTestBase
 		await Expect(Page.Locator(".tooltip-inner")).ToHaveTextAsync("Hello, Tooltip!", new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxTooltip_MouseLeave_HidesTooltip()
 	{
 		// Arrange
@@ -51,7 +50,7 @@ public class HxTooltipTests : TestAppTestBase
 		await Expect(Page.Locator(".tooltip")).Not.ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxTooltip_EmptyText_DoesNotThrow()
 	{
 		// Arrange - collect any page-level JS errors
@@ -68,6 +67,6 @@ public class HxTooltipTests : TestAppTestBase
 		await Expect(Page.Locator(".tooltip")).Not.ToBeVisibleAsync(new() { Timeout = 2_000 });
 
 		// Assert - no JavaScript errors should have occurred
-		Assert.IsEmpty(pageErrors, $"Unexpected page errors: {string.Join(", ", pageErrors)}");
+		Assert.Empty(pageErrors);
 	}
 }

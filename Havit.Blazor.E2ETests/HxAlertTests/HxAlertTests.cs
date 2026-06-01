@@ -2,10 +2,9 @@ using System.Text.RegularExpressions;
 
 namespace Havit.Blazor.E2ETests.HxAlertTests;
 
-[TestClass]
 public class HxAlertTests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxAlert_Render_DisplaysContentAndColor()
 	{
 		// Arrange & Act
@@ -18,7 +17,7 @@ public class HxAlertTests : TestAppTestBase
 		await Expect(alert).ToContainTextAsync("Primary alert content");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxAlert_ClickDismiss_HidesAlert()
 	{
 		// Arrange
@@ -35,7 +34,7 @@ public class HxAlertTests : TestAppTestBase
 		await Expect(alert).Not.ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxAlert_AfterDismiss_RemovedFromDOM()
 	{
 		// Arrange

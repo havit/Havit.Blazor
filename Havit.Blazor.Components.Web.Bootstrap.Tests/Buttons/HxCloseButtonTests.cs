@@ -1,9 +1,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxCloseButtonTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxCloseButton_Render_OutputsButtonElement()
 	{
 		// Arrange & Act
@@ -11,11 +10,11 @@ public class HxCloseButtonTests : BunitTestBase
 
 		// Assert
 		var button = cut.Find("button");
-		Assert.IsNotNull(button);
-		Assert.IsTrue(button.ClassList.Contains("btn-close"));
+		Assert.NotNull(button);
+		Assert.True(button.ClassList.Contains("btn-close"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxCloseButton_Click_TriggersOnClick()
 	{
 		// Arrange
@@ -28,6 +27,6 @@ public class HxCloseButtonTests : BunitTestBase
 		await cut.Find("button").ClickAsync(new());
 
 		// Assert
-		Assert.IsTrue(clicked);
+		Assert.True(clicked);
 	}
 }

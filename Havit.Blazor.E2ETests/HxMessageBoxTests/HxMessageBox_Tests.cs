@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxMessageBoxTests;
 
-[TestClass]
 public class HxMessageBox_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxMessageBox_Show_DisplaysTitleAndMessage()
 	{
 		// Arrange
@@ -23,7 +22,7 @@ public class HxMessageBox_Tests : TestAppTestBase
 		await Expect(modalBody).ToContainTextAsync("Test Message");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxMessageBox_ClickConfirm_ClosesWithPositiveResult()
 	{
 		// Arrange
@@ -49,7 +48,7 @@ public class HxMessageBox_Tests : TestAppTestBase
 		await Expect(result).ToHaveTextAsync("Positive");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxMessageBox_ClickCancel_ClosesWithNegativeResult()
 	{
 		// Arrange

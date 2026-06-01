@@ -5,12 +5,11 @@ using Microsoft.Playwright;
 
 namespace Havit.Blazor.ApplicationInsights.E2ETests;
 
-[TestClass]
 public class LoggingTests : BlazorApplicationInsightsPageTestBase
 {
 	protected override bool AllowConsoleErrors => true;
 
-	[TestMethod]
+	[Fact]
 	public async Task BlazorApplicationInsights_Logging_TraceLogProducesMessageDataTelemetry()
 	{
 		// Arrange
@@ -22,12 +21,11 @@ public class LoggingTests : BlazorApplicationInsightsPageTestBase
 
 		// Assert
 		Assert.Contains(
-			i => i.BaseType == "MessageData" && i.Data.BaseData.Message == "test-log-warning",
 			capturedTelemetryItems,
-			"Expected MessageData with message 'test-log-warning'.");
+			i => i.BaseType == "MessageData" && i.Data.BaseData.Message == "test-log-warning");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task BlazorApplicationInsights_Logging_TraceLogRespectsLogLevelConfiguration()
 	{
 		// Arrange
@@ -39,12 +37,11 @@ public class LoggingTests : BlazorApplicationInsightsPageTestBase
 
 		// Assert		
 		Assert.DoesNotContain(
-			i => i.BaseType == "MessageData" && i.Data.BaseData.Message == "test-log-information",
 			capturedTelemetryItems,
-			"Should not produce MessageData with message 'test-log-information'.");
+			i => i.BaseType == "MessageData" && i.Data.BaseData.Message == "test-log-information");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task BlazorApplicationInsights_Logging_ExceptionLogProducesExceptionDataTelemetry()
 	{
 		// Arrange
@@ -56,10 +53,9 @@ public class LoggingTests : BlazorApplicationInsightsPageTestBase
 
 		// Assert
 		Assert.Contains(
-			i => i.BaseType == "ExceptionData"
-			  && i.Data.BaseData.Exceptions?[0].TypeName?.Contains("InvalidOperationException") == true,
 			capturedTelemetryItems,
-			"Expected ExceptionData for InvalidOperationException.");
+			i => i.BaseType == "ExceptionData"
+			  && i.Data.BaseData.Exceptions?[0].TypeName?.Contains("InvalidOperationException") == true);
 	}
 
 	private async Task ActAsync()
@@ -67,7 +63,7 @@ public class LoggingTests : BlazorApplicationInsightsPageTestBase
 		await Page.GotoAsync(NavigationRoutes.Logging.LoggingTestPage);
 		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
-		await Task.Delay(1000, TestContext.CancellationToken);
+		await Task.Delay(1000, TestContext.Current.CancellationToken);
 		await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 		await Page.CloseAsync();
 	}

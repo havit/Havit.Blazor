@@ -9,7 +9,8 @@
 
 	<ItemGroup>
 		<PackageReference Include="bunit.web" />
-		<PackageReference Include="MSTest" />
+		<PackageReference Include="xunit.v3" />
+		<PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
 	</ItemGroup>
 
 	<ItemGroup>

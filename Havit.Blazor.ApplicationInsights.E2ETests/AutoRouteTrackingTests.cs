@@ -5,10 +5,9 @@ using Microsoft.Playwright;
 
 namespace Havit.Blazor.ApplicationInsights.E2ETests;
 
-[TestClass]
 public class AutoRouteTrackingTests : BlazorApplicationInsightsPageTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task EnableAutoRouteTracking_True_SendsPageViewOnNavigation()
 	{
 		// Arrange
@@ -20,10 +19,10 @@ public class AutoRouteTrackingTests : BlazorApplicationInsightsPageTestBase
 		await ActAsync(factory);
 
 		// Assert
-		Assert.Contains(i => i.BaseType == "PageviewData" && i.Data.BaseData.Url?.Contains(NavigationRoutes.PageViewTracking.AutoRouteTrackingPage2) == true, capturedTelemetryItems, "Expected a PageviewData item for Page 2 URL.");
+		Assert.Contains(capturedTelemetryItems, i => i.BaseType == "PageviewData" && i.Data.BaseData.Url?.Contains(NavigationRoutes.PageViewTracking.AutoRouteTrackingPage2) == true);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task EnableAutoRouteTracking_False_DoesNotSendPageViewOnNavigation()
 	{
 		// Arrange
@@ -35,7 +34,7 @@ public class AutoRouteTrackingTests : BlazorApplicationInsightsPageTestBase
 		await ActAsync(factory);
 
 		// Assert
-		Assert.DoesNotContain(i => i.BaseType == "PageviewData" && i.Data.BaseData.Url?.Contains(NavigationRoutes.PageViewTracking.AutoRouteTrackingPage2) == true, capturedTelemetryItems, "Expected no PageviewData for Page 2 URL when EnableAutoRouteTracking is false.");
+		Assert.DoesNotContain(capturedTelemetryItems, i => i.BaseType == "PageviewData" && i.Data.BaseData.Url?.Contains(NavigationRoutes.PageViewTracking.AutoRouteTrackingPage2) == true);
 	}
 
 	private async Task ActAsync(BlazorWebApplicationFactory factory)
@@ -45,7 +44,7 @@ public class AutoRouteTrackingTests : BlazorApplicationInsightsPageTestBase
 		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core"); // Wait for the JS SDK full initialization.
 		await Page.ClickAsync("#goto-page2");
 		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
-		await Task.Delay(1000, TestContext.CancellationToken);
+		await Task.Delay(1000, TestContext.Current.CancellationToken);
 		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
 		await Page.CloseAsync();
 	}

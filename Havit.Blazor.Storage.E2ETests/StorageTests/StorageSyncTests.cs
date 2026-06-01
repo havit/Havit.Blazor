@@ -17,7 +17,7 @@ public abstract class StorageSyncTests : StorageTests
 		await Page.WaitForSelectorAsync("[data-testid='ready']", new() { State = WaitForSelectorState.Attached });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task SetStringValue_StoresValueInBrowserStorage()
 	{
 		// Arrange
@@ -31,10 +31,10 @@ public abstract class StorageSyncTests : StorageTests
 
 		// Assert — the value is present in the real browser storage
 		var stored = await ReadItemDirectlyAsync("fruit");
-		Assert.AreEqual("apple", stored);
+		Assert.Equal("apple", stored);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task GetStringValue_ReadsValueFromBrowserStorage()
 	{
 		// Arrange — a value written directly into the browser storage
@@ -49,7 +49,7 @@ public abstract class StorageSyncTests : StorageTests
 		await Expect(Result).ToHaveTextAsync("banana");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task GetStringValue_ThrowsWhenKeyMissing()
 	{
 		// Arrange
@@ -63,7 +63,7 @@ public abstract class StorageSyncTests : StorageTests
 		await Expect(Result).ToHaveTextAsync("<missing>");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task TryGetStringValue_ReturnsTrueAndValueWhenPresent()
 	{
 		// Arrange
@@ -78,7 +78,7 @@ public abstract class StorageSyncTests : StorageTests
 		await Expect(Result).ToHaveTextAsync("True:value1");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task TryGetStringValue_ReturnsFalseWhenKeyMissing()
 	{
 		// Arrange
@@ -92,7 +92,7 @@ public abstract class StorageSyncTests : StorageTests
 		await Expect(Result).ToHaveTextAsync("False:<null>");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task TryGetValue_ReturnsTrueAndDeserializedValueWhenPresent()
 	{
 		// Arrange — a serialized object written directly into the browser storage
@@ -107,7 +107,7 @@ public abstract class StorageSyncTests : StorageTests
 		await Expect(Result).ToHaveTextAsync("True:John:42");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task TryGetValue_ReturnsFalseWhenKeyMissing()
 	{
 		// Arrange
@@ -121,7 +121,7 @@ public abstract class StorageSyncTests : StorageTests
 		await Expect(Result).ToHaveTextAsync("False:<null>");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task Remove_RemovesValueFromBrowserStorage()
 	{
 		// Arrange
@@ -135,10 +135,10 @@ public abstract class StorageSyncTests : StorageTests
 
 		// Assert — the key is gone from the real browser storage
 		var stored = await ReadItemDirectlyAsync("key1");
-		Assert.IsNull(stored);
+		Assert.Null(stored);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task Clear_RemovesAllValuesFromBrowserStorage()
 	{
 		// Arrange
@@ -152,10 +152,10 @@ public abstract class StorageSyncTests : StorageTests
 
 		// Assert — the storage area is empty
 		var length = await GetLengthDirectlyAsync();
-		Assert.AreEqual(0, length);
+		Assert.Equal(0, length);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task GetLength_ReturnsActualKeyCount()
 	{
 		// Arrange
@@ -170,7 +170,7 @@ public abstract class StorageSyncTests : StorageTests
 		await Expect(LengthResult).ToHaveTextAsync("2");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task GetKeyByIndex_ReturnsKeyAtIndex()
 	{
 		// Arrange — a single key so its index is deterministic
@@ -185,7 +185,7 @@ public abstract class StorageSyncTests : StorageTests
 		await Expect(Result).ToHaveTextAsync("theOnlyKey");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task GetKeyByIndex_ThrowsWhenIndexOutOfRange()
 	{
 		// Arrange — empty storage so any index is out of range
@@ -199,7 +199,7 @@ public abstract class StorageSyncTests : StorageTests
 		await Expect(Result).ToHaveTextAsync("<out-of-range>");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task TryGetKeyByIndex_ReturnsTrueAndKeyWhenInRange()
 	{
 		// Arrange — a single key so its index is deterministic
@@ -214,7 +214,7 @@ public abstract class StorageSyncTests : StorageTests
 		await Expect(Result).ToHaveTextAsync("True:theOnlyKey");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task TryGetKeyByIndex_ReturnsFalseWhenIndexOutOfRange()
 	{
 		// Arrange — empty storage so any index is out of range
@@ -228,7 +228,7 @@ public abstract class StorageSyncTests : StorageTests
 		await Expect(Result).ToHaveTextAsync("False:<null>");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task SetValueGetValue_SerializesAndDeserializesJsonViaBrowserStorage()
 	{
 		// Arrange

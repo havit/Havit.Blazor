@@ -7,11 +7,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Havit.Blazor.Documentation.Tests;
 
-[TestClass]
 public class DemosSmokeTests
 {
-	[TestMethod]
-	[DynamicData(nameof(GetDemos))]
+	[Theory]
+	[MemberData(nameof(GetDemos))]
 	public void DocumentationDemo_SmokeTest(Type demoComponent)
 	{
 		// Arrange
@@ -37,10 +36,13 @@ public class DemosSmokeTests
 		// Smoke test - no exception should occur
 	}
 
-	public static IEnumerable<object[]> GetDemos()
+	public static TheoryData<Type> GetDemos()
 	{
-		return typeof(Demo).Assembly.GetTypes()
-			.Where(t => t.Name.Contains("_Demo"))
-			.Select(t => new object[] { t });
+		var data = new TheoryData<Type>();
+		foreach (var demoType in typeof(Demo).Assembly.GetTypes().Where(t => t.Name.Contains("_Demo")))
+		{
+			data.Add(demoType);
+		}
+		return data;
 	}
 }

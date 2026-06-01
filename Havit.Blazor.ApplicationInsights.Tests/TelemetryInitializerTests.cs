@@ -2,10 +2,9 @@ using Havit.Blazor.ApplicationInsights.Telemetry;
 
 namespace Havit.Blazor.ApplicationInsights.Tests;
 
-[TestClass]
 public class TelemetryInitializerTests
 {
-	[TestMethod]
+	[Fact]
 	public void TelemetryInitializer_Tags_SetToNull_KeepsTagsUsable()
 	{
 		// Arrange
@@ -16,7 +15,7 @@ public class TelemetryInitializerTests
 		initializer.ApplicationVersion = "1.2.3";
 
 		// Assert
-		Assert.AreEqual("TestRole", initializer.CloudRoleName);
-		Assert.AreEqual("1.2.3", initializer.ApplicationVersion);
+		Assert.Equal("TestRole", initializer.CloudRoleName);
+		Assert.Equal("1.2.3", initializer.ApplicationVersion);
 	}
 }

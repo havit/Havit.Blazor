@@ -3,22 +3,21 @@ using Havit.Blazor.ApplicationInsights.TestApp.Client;
 
 namespace Havit.Blazor.ApplicationInsights.E2ETests;
 
-[TestClass]
 public class BlazorApplicationInsightsScriptTests : BlazorApplicationInsightsPageTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task ApplicationInsightsScript_SSR_AppInsightsLoadedAndConfigured() => await TestApplicationInsightsLoadedAndConfigured(NavigationRoutes.BlazorApplicationInsightsScriptTests.ServerSideRendering, TestApp.ConnectionStrings.ApplicationInsights);
 
-	[TestMethod]
+	[Fact]
 	public async Task ApplicationInsightsScript_InteractiveServer_AppInsightsLoadedAndConfigured() => await TestApplicationInsightsLoadedAndConfigured(NavigationRoutes.BlazorApplicationInsightsScriptTests.InteractiveServer, TestApp.ConnectionStrings.ApplicationInsights);
 
-	[TestMethod]
+	[Fact]
 	public async Task ApplicationInsightsScript_InteractiveServerPrerendering_AppInsightsLoadedAndConfigured() => await TestApplicationInsightsLoadedAndConfigured(NavigationRoutes.BlazorApplicationInsightsScriptTests.InteractiveServerPrerendering, TestApp.ConnectionStrings.ApplicationInsights);
 
-	[TestMethod]
+	[Fact]
 	public async Task ApplicationInsightsScript_InteractiveWebAssembly_AppInsightsLoadedAndConfigured() => await TestApplicationInsightsLoadedAndConfigured(NavigationRoutes.BlazorApplicationInsightsScriptTests.InteractiveWebAssembly, TestApp.Client.ConnectionStrings.ApplicationInsights);
 
-	[TestMethod]
+	[Fact]
 	public async Task ApplicationInsightsScript_InteractiveWebAssemblyPrerendering_AppInsightsLoadedAndConfigured() => await TestApplicationInsightsLoadedAndConfigured(NavigationRoutes.BlazorApplicationInsightsScriptTests.InteractiveWebAssemblyPrerendering, TestApp.ConnectionStrings.ApplicationInsights);
 
 	private async Task TestApplicationInsightsLoadedAndConfigured(string url, string expectedConnectionString)
@@ -34,6 +33,6 @@ public class BlazorApplicationInsightsScriptTests : BlazorApplicationInsightsPag
 		await Page.CloseAsync();
 
 		// Assert
-		Assert.AreEqual(expectedConnectionString, currentConnectionString);
+		Assert.Equal(expectedConnectionString, currentConnectionString);
 	}
 }

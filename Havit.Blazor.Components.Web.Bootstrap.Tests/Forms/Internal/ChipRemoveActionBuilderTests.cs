@@ -3,7 +3,6 @@ using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms.Internal;
 
-[TestClass]
 public class ChipRemoveActionBuilderTests
 {
 	private class SimpleModel
@@ -21,7 +20,7 @@ public class ChipRemoveActionBuilderTests
 		public int Age { get; set; } = 42;
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ChipRemoveActionBuilder_SimplePropertyToDefault()
 	{
 		var model = new SimpleModel { Name = "Set" };
@@ -30,10 +29,10 @@ public class ChipRemoveActionBuilderTests
 
 		action(model);
 
-		Assert.IsNull(model.Name);
+		Assert.Null(model.Name);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ChipRemoveActionBuilder_SimplePropertyToExplicit_Value()
 	{
 		var model = new SimpleModel { Name = "Set" };
@@ -42,10 +41,10 @@ public class ChipRemoveActionBuilderTests
 
 		action(model);
 
-		Assert.AreEqual("Reset", model.Name);
+		Assert.Equal("Reset", model.Name);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ChipRemoveActionBuilder_NestedProperty()
 	{
 		var model = new NestedModel();
@@ -54,10 +53,10 @@ public class ChipRemoveActionBuilderTests
 
 		action(model);
 
-		Assert.AreEqual(0, model.Inner.Age);
+		Assert.Equal(0, model.Inner.Age);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ChipRemoveActionBuilder_WorksWithCapturedContext()
 	{
 		var context = new NestedModel();
@@ -67,20 +66,20 @@ public class ChipRemoveActionBuilderTests
 		var model = new NestedModel { Inner = new InnerModel { Age = 99 } };
 		action(model);
 
-		Assert.AreEqual(0, model.Inner.Age);
+		Assert.Equal(0, model.Inner.Age);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ChipRemoveActionBuilder_ThrowsIfModelInstanceIsNull()
 	{
 		var model = new SimpleModel();
 		var builder = new ChipRemoveActionBuilder(() => model.Name);
 		var action = builder.Build();
 
-		Assert.ThrowsExactly<ArgumentNullException>(() => action(null));
+		Assert.Throws<ArgumentNullException>(() => action(null));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ChipRemoveActionBuilder_ThrowsIfNoMemberMatchesModelType()
 	{
 		var model = new SimpleModel();
@@ -89,27 +88,27 @@ public class ChipRemoveActionBuilderTests
 		var builder = new ChipRemoveActionBuilder(() => model.Name);
 		var action = builder.Build();
 
-		Assert.ThrowsExactly<InvalidOperationException>(() => action(unrelated));
+		Assert.Throws<InvalidOperationException>(() => action(unrelated));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ChipRemoveActionBuilder_ThrowsIfIntermediateIsNull()
 	{
 		var model = new NestedModel { Inner = null };
 		var builder = new ChipRemoveActionBuilder(() => model.Inner.Age);
 		var action = builder.Build();
 
-		Assert.ThrowsExactly<NullReferenceException>(() => action(model));
+		Assert.Throws<NullReferenceException>(() => action(model));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ChipRemoveActionBuilder_ThrowsIfFinalMemberIsNotProperty()
 	{
 		var model = new WithField();
 		var builder = new ChipRemoveActionBuilder(() => model.Field);
 		var action = builder.Build();
 
-		Assert.ThrowsExactly<NotSupportedException>(() => action(model));
+		Assert.Throws<NotSupportedException>(() => action(model));
 	}
 
 	private class WithField

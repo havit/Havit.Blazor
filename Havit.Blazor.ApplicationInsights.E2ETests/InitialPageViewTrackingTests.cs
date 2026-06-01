@@ -5,10 +5,9 @@ using Microsoft.Playwright;
 
 namespace Havit.Blazor.ApplicationInsights.E2ETests;
 
-[TestClass]
 public class InitialPageViewTrackingTests : BlazorApplicationInsightsPageTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task EnableInitialPageViewTracking_True_SendsInitialPageView()
 	{
 		// Arrange
@@ -20,10 +19,10 @@ public class InitialPageViewTrackingTests : BlazorApplicationInsightsPageTestBas
 		await ActAsync(factory);
 
 		// Assert
-		Assert.Contains(i => i.BaseType == "PageviewData", capturedTelemetryItems, "Expected at least one PageviewData item.");
+		Assert.Contains(capturedTelemetryItems, i => i.BaseType == "PageviewData");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task EnableInitialPageViewTracking_False_DoesNotSendInitialPageView()
 	{
 		// Arrange
@@ -35,7 +34,7 @@ public class InitialPageViewTrackingTests : BlazorApplicationInsightsPageTestBas
 		await ActAsync(factory);
 
 		// Assert
-		Assert.DoesNotContain(i => i.BaseType == "PageviewData", capturedTelemetryItems, "Expected no PageviewData items when EnableInitialPageViewTracking is false.");
+		Assert.DoesNotContain(capturedTelemetryItems, i => i.BaseType == "PageviewData");
 	}
 
 	private async Task ActAsync(BlazorWebApplicationFactory factory)

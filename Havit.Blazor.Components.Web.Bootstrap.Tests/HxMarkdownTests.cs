@@ -1,11 +1,10 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxMarkdownTests : BunitTestBase
 {
 	#region Basic Rendering
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_NullContent_RendersNothing()
 	{
 		// Act
@@ -14,10 +13,10 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.AreEqual(string.Empty, cut.Markup.Trim());
+		Assert.Equal(string.Empty, cut.Markup.Trim());
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_EmptyContent_RendersNothing()
 	{
 		// Act
@@ -26,10 +25,10 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.AreEqual(string.Empty, cut.Markup.Trim());
+		Assert.Equal(string.Empty, cut.Markup.Trim());
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_SimpleText_RendersParagraph()
 	{
 		// Act
@@ -39,10 +38,10 @@ public class HxMarkdownTests : BunitTestBase
 
 		// Assert
 		cut.Find("p"); // throws if not found
-		Assert.AreEqual("Hello world", cut.Find("p").TextContent);
+		Assert.Equal("Hello world", cut.Find("p").TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_Heading_RendersH1()
 	{
 		// Act
@@ -51,14 +50,14 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.AreEqual("My Heading", cut.Find("h1").TextContent);
+		Assert.Equal("My Heading", cut.Find("h1").TextContent);
 	}
 
 	#endregion
 
 	#region Wrapper div Behavior
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_NoWrapperByDefault()
 	{
 		// Act
@@ -67,10 +66,10 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert – no wrapper div, content rendered directly
-		Assert.IsEmpty(cut.FindAll("div"));
+		Assert.Empty(cut.FindAll("div"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_CssClass_RendersWrapperDiv()
 	{
 		// Act
@@ -81,11 +80,11 @@ public class HxMarkdownTests : BunitTestBase
 
 		// Assert
 		var div = cut.Find("div.my-class");
-		Assert.IsNotNull(div);
-		Assert.AreEqual("Text", div.QuerySelector("p").TextContent);
+		Assert.NotNull(div);
+		Assert.Equal("Text", div.QuerySelector("p").TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_AdditionalAttributes_RendersWrapperDiv()
 	{
 		// Act
@@ -96,14 +95,14 @@ public class HxMarkdownTests : BunitTestBase
 
 		// Assert
 		var div = cut.Find("div#my-md");
-		Assert.IsNotNull(div);
+		Assert.NotNull(div);
 	}
 
 	#endregion
 
 	#region SanitizeHtml Parameter
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_SanitizeHtml_DefaultTrue_EscapesHtml()
 	{
 		// Act
@@ -112,11 +111,11 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert – HTML should be escaped (< encoded to &lt;, > remains)
-		Assert.IsEmpty(cut.FindAll("b"));
-		Assert.IsTrue(cut.Markup.Contains("&lt;b&gt;") || cut.Markup.Contains("&lt;b>"));
+		Assert.Empty(cut.FindAll("b"));
+		Assert.True(cut.Markup.Contains("&lt;b&gt;") || cut.Markup.Contains("&lt;b>"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_SanitizeHtml_False_PreservesHtml()
 	{
 		// Act
@@ -126,14 +125,14 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert – HTML should pass through
-		Assert.AreEqual("bold", cut.Find("b").TextContent);
+		Assert.Equal("bold", cut.Find("b").TextContent);
 	}
 
 	#endregion
 
 	#region Settings / Defaults
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_Settings_OverridesDefaults()
 	{
 		var settings = new MarkdownSettings
@@ -152,7 +151,7 @@ public class HxMarkdownTests : BunitTestBase
 		Assert.Contains("table-bordered", table.GetAttribute("class"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_ParameterOverridesSettings()
 	{
 		var settings = new MarkdownSettings
@@ -169,10 +168,10 @@ public class HxMarkdownTests : BunitTestBase
 
 		// Assert
 		var table = cut.Find("table");
-		Assert.AreEqual("custom-table", table.GetAttribute("class"));
+		Assert.Equal("custom-table", table.GetAttribute("class"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_Defaults_ApplyTableClass()
 	{
 		// Act – use default settings (table class = "table")
@@ -182,10 +181,10 @@ public class HxMarkdownTests : BunitTestBase
 
 		// Assert
 		var table = cut.Find("table");
-		Assert.AreEqual("table", table.GetAttribute("class"));
+		Assert.Equal("table", table.GetAttribute("class"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_Defaults_ApplyBlockquoteClass()
 	{
 		// Act
@@ -195,10 +194,10 @@ public class HxMarkdownTests : BunitTestBase
 
 		// Assert
 		var bq = cut.Find("blockquote");
-		Assert.AreEqual("blockquote", bq.GetAttribute("class"));
+		Assert.Equal("blockquote", bq.GetAttribute("class"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_Defaults_ApplyImageClass()
 	{
 		// Act
@@ -208,14 +207,14 @@ public class HxMarkdownTests : BunitTestBase
 
 		// Assert
 		var img = cut.Find("img");
-		Assert.AreEqual("img-fluid", img.GetAttribute("class"));
+		Assert.Equal("img-fluid", img.GetAttribute("class"));
 	}
 
 	#endregion
 
 	#region Complex Rendering
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_CodeBlock_RendersPreCode()
 	{
 		// Act
@@ -224,10 +223,10 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.IsNotNull(cut.Find("pre code"));
+		Assert.NotNull(cut.Find("pre code"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_UnorderedList_RendersUl()
 	{
 		// Act
@@ -236,10 +235,10 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.HasCount(2, cut.FindAll("ul li"));
+		Assert.Equal(2, cut.FindAll("ul li").Count());
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_OrderedList_RendersOl()
 	{
 		// Act
@@ -248,10 +247,10 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.HasCount(2, cut.FindAll("ol li"));
+		Assert.Equal(2, cut.FindAll("ol li").Count());
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_HorizontalRule_RendersHr()
 	{
 		// Act
@@ -260,10 +259,10 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.IsNotNull(cut.Find("hr"));
+		Assert.NotNull(cut.Find("hr"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_InlineBold_RendersStrong()
 	{
 		// Act
@@ -272,10 +271,10 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.AreEqual("bold", cut.Find("strong").TextContent);
+		Assert.Equal("bold", cut.Find("strong").TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_InlineLink_RendersAnchor()
 	{
 		// Act
@@ -285,22 +284,22 @@ public class HxMarkdownTests : BunitTestBase
 
 		// Assert
 		var link = cut.Find("a");
-		Assert.AreEqual("https://example.com", link.GetAttribute("href"));
-		Assert.AreEqual("Click", link.TextContent);
+		Assert.Equal("https://example.com", link.GetAttribute("href"));
+		Assert.Equal("Click", link.TextContent);
 	}
 
 	#endregion
 
 	#region Re-render on Content Change
 
-	[TestMethod]
+	[Fact]
 	public void HxMarkdown_ContentChange_UpdatesRenderedOutput()
 	{
 		// Arrange
 		var cut = RenderComponent<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "# First")
 		);
-		Assert.AreEqual("First", cut.Find("h1").TextContent);
+		Assert.Equal("First", cut.Find("h1").TextContent);
 
 		// Act
 		cut.SetParametersAndRender(parameters => parameters
@@ -308,8 +307,8 @@ public class HxMarkdownTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.IsEmpty(cut.FindAll("h1"));
-		Assert.AreEqual("Second", cut.Find("h2").TextContent);
+		Assert.Empty(cut.FindAll("h1"));
+		Assert.Equal("Second", cut.Find("h2").TextContent);
 	}
 
 	#endregion

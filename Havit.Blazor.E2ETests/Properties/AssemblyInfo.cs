@@ -1,1 +1,1 @@
-﻿[assembly: Parallelize(Scope = ExecutionScope.MethodLevel)]
+[assembly: CollectionBehavior(CollectionBehavior.CollectionPerAssembly)] // disable test parallelization

@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
-[TestClass]
 public class HxRadioButtonListTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxRadioButtonList_Render_DisplaysOptionsFromData()
 	{
 		// Arrange
@@ -29,16 +28,16 @@ public class HxRadioButtonListTests : BunitTestBase
 
 		// Assert
 		var inputs = cut.FindAll("input[type='radio']");
-		Assert.HasCount(3, inputs);
+		Assert.Equal(3, inputs.Count());
 
 		var labels = cut.FindAll("label");
-		Assert.HasCount(3, labels);
-		Assert.AreEqual("Option A", labels[0].TextContent);
-		Assert.AreEqual("Option B", labels[1].TextContent);
-		Assert.AreEqual("Option C", labels[2].TextContent);
+		Assert.Equal(3, labels.Count());
+		Assert.Equal("Option A", labels[0].TextContent);
+		Assert.Equal("Option B", labels[1].TextContent);
+		Assert.Equal("Option C", labels[2].TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxRadioButtonList_SelectOption_UpdatesBoundValue()
 	{
 		// Arrange
@@ -61,10 +60,10 @@ public class HxRadioButtonListTests : BunitTestBase
 		cut.FindAll("input[type='radio']")[1].Click();
 
 		// Assert
-		Assert.AreEqual("Banana", selectedValue);
+		Assert.Equal("Banana", selectedValue);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxRadioButtonList_SingleSelection_OnlyOneChecked()
 	{
 		// Arrange — pre-select "Green" so exactly one item is checked from the start
@@ -85,13 +84,13 @@ public class HxRadioButtonListTests : BunitTestBase
 
 		// Assert — exactly one input should be checked, and it should be "Green"
 		var checkedInputs = cut.FindAll("input[type='radio'][checked]");
-		Assert.HasCount(1, checkedInputs);
+		Assert.Single(checkedInputs);
 
 		var checkedLabel = cut.Find($"label[for='{checkedInputs[0].Id}']");
-		Assert.AreEqual("Green", checkedLabel.TextContent);
+		Assert.Equal("Green", checkedLabel.TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxRadioButtonList_ToggleButtonMode_RendersBtnCheck()
 	{
 		// Arrange — regression for #1181: toggle button support
@@ -114,20 +113,18 @@ public class HxRadioButtonListTests : BunitTestBase
 
 		// Assert — inputs should have btn-check class instead of form-check-input
 		var inputs = cut.FindAll("input[type='radio']");
-		Assert.HasCount(2, inputs);
+		Assert.Equal(2, inputs.Count());
 		foreach (var input in inputs)
 		{
-			Assert.IsTrue(input.ClassList.Contains("btn-check"),
-				"Radio input should have btn-check class in toggle button mode.");
+			Assert.True(input.ClassList.Contains("btn-check"), "Radio input should have btn-check class in toggle button mode.");
 		}
 
 		// Assert — labels should have btn class with color
 		var labels = cut.FindAll("label");
-		Assert.HasCount(2, labels);
+		Assert.Equal(2, labels.Count());
 		foreach (var label in labels)
 		{
-			Assert.IsTrue(label.ClassList.Contains("btn"),
-				"Label should have btn class in toggle button mode.");
+			Assert.True(label.ClassList.Contains("btn"), "Label should have btn class in toggle button mode.");
 		}
 	}
 }

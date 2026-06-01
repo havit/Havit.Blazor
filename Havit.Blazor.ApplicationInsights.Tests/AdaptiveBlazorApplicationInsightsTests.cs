@@ -3,10 +3,9 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.ApplicationInsights.Tests;
 
-[TestClass]
 public class AdaptiveBlazorApplicationInsightsTests
 {
-	[TestMethod]
+	[Fact]
 	public async Task AdaptiveBlazorApplicationInsights_WhenJsNotAvailable_FirstCallDoesNotThrow()
 	{
 		// Arrange
@@ -17,7 +16,7 @@ public class AdaptiveBlazorApplicationInsightsTests
 		await sut.TrackEventAsync(new EventTelemetry { Name = "test" });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task AdaptiveBlazorApplicationInsights_WhenJsNotAvailable_SubsequentCallsAreSkippedWithoutCallingJs()
 	{
 		// Arrange
@@ -30,10 +29,10 @@ public class AdaptiveBlazorApplicationInsightsTests
 		await sut.TrackEventAsync(new EventTelemetry { Name = "third" });  // fast-path skip
 
 		// Assert — JS was touched only during the initial probe
-		Assert.AreEqual(1, jsRuntime.InvocationCount);
+		Assert.Equal(1, jsRuntime.InvocationCount);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task AdaptiveBlazorApplicationInsights_WhenJsAvailable_CallIsForwardedToJs()
 	{
 		// Arrange
@@ -44,10 +43,10 @@ public class AdaptiveBlazorApplicationInsightsTests
 		await sut.TrackEventAsync(new EventTelemetry { Name = "test" });
 
 		// Assert
-		Assert.AreEqual(1, jsRuntime.InvocationCount);
+		Assert.Equal(1, jsRuntime.InvocationCount);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task AdaptiveBlazorApplicationInsights_WhenJsWasAvailableAndThenThrows_ExceptionPropagates()
 	{
 		// Arrange
@@ -59,7 +58,7 @@ public class AdaptiveBlazorApplicationInsightsTests
 		jsRuntime.ShouldThrow = true;
 
 		// Assert — exception must propagate; the catch 'when' guard does not fire for _isJsAvailable == true
-		await Assert.ThrowsExactlyAsync<InvalidOperationException>(() => sut.TrackEventAsync(new EventTelemetry { Name = "second" }));
+		await Assert.ThrowsAsync<InvalidOperationException>(() => sut.TrackEventAsync(new EventTelemetry { Name = "second" }));
 	}
 
 	private static AdaptiveBlazorApplicationInsights CreateSut(IJSRuntime jsRuntime)

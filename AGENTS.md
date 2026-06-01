@@ -43,6 +43,10 @@ The `.editorconfig` file in the repository root contains the complete coding sta
 - `Havit.Blazor.ApplicationInsights.TestApp/` (server) + `Havit.Blazor.ApplicationInsights.TestApp.Client/` (WASM client) - Test app for E2E tests
 - `Havit.Blazor.ApplicationInsights.E2ETests/` - Playwright E2E tests for ApplicationInsights
 
+### Testing Framework
+- Tests use **xUnit** (`xunit.v3`) running on the **Microsoft.Testing.Platform** (MTP). Do **not** reintroduce MSTest or downgrade to VSTest (`Microsoft.NET.Test.Sdk`).
+- Every test project references `Microsoft.Testing.Extensions.TrxReport` to produce a TRX report within CI build.
+
 ### Important Files
 - `Directory.Build.props` - Global build properties
 - `Directory.Packages.props` - Central package version management

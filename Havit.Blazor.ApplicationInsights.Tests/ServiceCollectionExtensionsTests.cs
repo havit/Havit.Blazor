@@ -3,10 +3,9 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.ApplicationInsights.Tests;
 
-[TestClass]
 public class ServiceCollectionExtensionsTests
 {
-	[TestMethod]
+	[Fact]
 	public void ServiceCollectionExtensions_AddBlazorApplicationInsights_WithoutConfigureOptions_ServicesCanBeResolved()
 	{
 		// Arrange
@@ -20,7 +19,7 @@ public class ServiceCollectionExtensionsTests
 		var blazorApplicationInsights = scope.ServiceProvider.GetService<IBlazorApplicationInsights>();
 
 		// Assert
-		Assert.IsNotNull(blazorApplicationInsights, "BlazorApplicationInsights could not be resolved from the service provider.");
+		Assert.NotNull(blazorApplicationInsights);
 	}
 
 	private class StubJSRuntime : IJSRuntime

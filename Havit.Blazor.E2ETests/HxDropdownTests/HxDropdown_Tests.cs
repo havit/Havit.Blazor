@@ -1,11 +1,10 @@
 namespace Havit.Blazor.E2ETests.HxDropdownTests;
 
-[TestClass]
 public class HxDropdown_Tests : TestAppTestBase
 {
 	private const int DropdownAnimationTimeout = 5_000;
 
-	[TestMethod]
+	[Fact]
 	public async Task HxDropdown_ClickToggle_OpensMenu()
 	{
 		// Arrange - navigate to the test page
@@ -24,7 +23,7 @@ public class HxDropdown_Tests : TestAppTestBase
 		await Expect(dropdownMenu).ToBeVisibleAsync(new() { Timeout = DropdownAnimationTimeout });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxDropdown_ClickOutside_ClosesMenu()
 	{
 		// Arrange - navigate to the test page
@@ -44,7 +43,7 @@ public class HxDropdown_Tests : TestAppTestBase
 		await Expect(dropdownMenu).Not.ToBeVisibleAsync(new() { Timeout = DropdownAnimationTimeout });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxDropdown_ClickItem_TriggersActionAndCloses()
 	{
 		// Arrange - navigate to the test page
@@ -65,7 +64,7 @@ public class HxDropdown_Tests : TestAppTestBase
 		await Expect(dropdownMenu).Not.ToBeVisibleAsync(new() { Timeout = DropdownAnimationTimeout });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxDropdown_HeaderAndDivider_RenderInMenu()
 	{
 		// Arrange - navigate to the test page

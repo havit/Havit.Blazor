@@ -5,26 +5,25 @@ using Microsoft.Playwright;
 
 namespace Havit.Blazor.ApplicationInsights.E2ETests;
 
-[TestClass]
 public class DefaultTelemetryInitializerTests : BlazorApplicationInsightsPageTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task DefaultTelemetryInitializer_SSR_CloudRoleNameAppliedToInitialPageView()
 		=> await TestDefaultTelemetryInitializerCloudRoleName(NavigationRoutes.DefaultTelemetryInitializerTests.ServerSideRendering);
 
-	[TestMethod]
+	[Fact]
 	public async Task DefaultTelemetryInitializer_InteractiveServer_CloudRoleNameAppliedToInitialPageView()
 		=> await TestDefaultTelemetryInitializerCloudRoleName(NavigationRoutes.DefaultTelemetryInitializerTests.InteractiveServer);
 
-	[TestMethod]
+	[Fact]
 	public async Task DefaultTelemetryInitializer_InteractiveServerPrerendering_CloudRoleNameAppliedToInitialPageView()
 		=> await TestDefaultTelemetryInitializerCloudRoleName(NavigationRoutes.DefaultTelemetryInitializerTests.InteractiveServerPrerendering);
 
-	[TestMethod]
+	[Fact]
 	public async Task DefaultTelemetryInitializer_InteractiveWebAssembly_CloudRoleNameAppliedToInitialPageView()
 		=> await TestDefaultTelemetryInitializerCloudRoleName(NavigationRoutes.DefaultTelemetryInitializerTests.InteractiveWebAssembly);
 
-	[TestMethod]
+	[Fact]
 	public async Task DefaultTelemetryInitializer_InteractiveWebAssemblyPrerendering_CloudRoleNameAppliedToInitialPageView()
 		=> await TestDefaultTelemetryInitializerCloudRoleName(NavigationRoutes.DefaultTelemetryInitializerTests.InteractiveWebAssemblyPrerendering);
 
@@ -40,13 +39,13 @@ public class DefaultTelemetryInitializerTests : BlazorApplicationInsightsPageTes
 		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
 		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core");
 		await Page.EvaluateAsync("window.appInsights.flush()");
-		await Task.Delay(1000, TestContext.CancellationToken);
+		await Task.Delay(1000, TestContext.Current.CancellationToken);
 		await Page.WaitForLoadStateAsync(LoadState.NetworkIdle);
 		await Page.CloseAsync();
 
 		// Assert
 		var pageViewItem = capturedTelemetryItems.FirstOrDefault(i => i.BaseType == "PageviewData");
-		Assert.IsNotNull(pageViewItem, "Expected initial PageviewData item not found in captured telemetry.");
-		Assert.AreEqual(TestDefaults.DefaultTelemetryInitializerCloudRoleName, pageViewItem.CloudRoleName, "Initial page view should have CloudRoleName from DefaultTelemetryInitializer.");
+		Assert.NotNull(pageViewItem);
+		Assert.Equal(TestDefaults.DefaultTelemetryInitializerCloudRoleName, pageViewItem.CloudRoleName);
 	}
 }

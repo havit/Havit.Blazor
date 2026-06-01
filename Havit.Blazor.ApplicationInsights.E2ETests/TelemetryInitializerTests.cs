@@ -5,10 +5,9 @@ using Microsoft.Playwright;
 
 namespace Havit.Blazor.ApplicationInsights.E2ETests;
 
-[TestClass]
 public class TelemetryInitializerTests : BlazorApplicationInsightsPageTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task BlazorApplicationInsights_TelemetryInitializer_CloudRoleNameAppliedAfterRegistration()
 	{
 		// Arrange
@@ -26,10 +25,10 @@ public class TelemetryInitializerTests : BlazorApplicationInsightsPageTestBase
 		var beforeItem = capturedTelemetryItems.FirstOrDefault(i => i.Data.BaseData.Metrics?[0].Name == "before-initializer");
 		var afterItem = capturedTelemetryItems.FirstOrDefault(i => i.Data.BaseData.Metrics?[0].Name == "after-initializer");
 
-		Assert.IsNotNull(beforeItem, "before-initializer metric not found in captured telemetry.");
-		Assert.IsNotNull(afterItem, "after-initializer metric not found in captured telemetry.");
+		Assert.NotNull(beforeItem);
+		Assert.NotNull(afterItem);
 
-		Assert.AreNotEqual("test-role", beforeItem.CloudRoleName, "before-initializer should not have ai.cloud.role 'test-role'.");
-		Assert.AreEqual("test-role", afterItem.CloudRoleName, "after-initializer should have ai.cloud.role 'test-role'.");
+		Assert.NotEqual("test-role", beforeItem.CloudRoleName);
+		Assert.Equal("test-role", afterItem.CloudRoleName);
 	}
 }

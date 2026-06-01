@@ -4,14 +4,11 @@ using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
-[TestClass]
 public class HxInputTextTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxInputText_BindingToArrayOfString_Issue874()
 	{
 		// Arrange
@@ -33,7 +30,7 @@ public class HxInputTextTests : BunitTestBase
 		Assert.DoesNotContain("maxlength", cut.Markup);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputText_BindingToListOfString_Issue874()
 	{
 		// Arrange
@@ -55,7 +52,7 @@ public class HxInputTextTests : BunitTestBase
 		Assert.DoesNotContain("maxlength", cut.Markup);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputText_BindingToArrayOfModel_Issue874()
 	{
 		// Arrange
@@ -77,7 +74,7 @@ public class HxInputTextTests : BunitTestBase
 		Assert.Contains("maxlength=\"100\"", cut.Markup);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputText_BindingToListOfModel_Issue874()
 	{
 		// Arrange
@@ -99,7 +96,7 @@ public class HxInputTextTests : BunitTestBase
 		Assert.Contains("maxlength=\"100\"", cut.Markup);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputText_TypeText_UpdatesBoundValue()
 	{
 		// Arrange
@@ -120,10 +117,10 @@ public class HxInputTextTests : BunitTestBase
 		cut.Find("input").Change("Hello World");
 
 		// Assert
-		Assert.AreEqual("Hello World", currentValue);
+		Assert.Equal("Hello World", currentValue);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputText_RequiredEmpty_ShowsValidationError()
 	{
 		// Arrange
@@ -153,12 +150,12 @@ public class HxInputTextTests : BunitTestBase
 		cut.Find("input").Change("");
 
 		// Assert
-		Assert.AreEqual("", model.Name);
+		Assert.Equal("", model.Name);
 		Assert.Contains("invalid-feedback", cut.Markup);
 		Assert.Contains("Name is required.", cut.Markup);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputText_ClearInput_ResetsValue()
 	{
 		// Arrange
@@ -179,10 +176,10 @@ public class HxInputTextTests : BunitTestBase
 		cut.Find("input").Change("");
 
 		// Assert
-		Assert.AreEqual("", currentValue);
+		Assert.Equal("", currentValue);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputText_Placeholder_DisplayedWhenEmpty()
 	{
 		// Arrange
@@ -202,7 +199,7 @@ public class HxInputTextTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert
-		Assert.AreEqual("Enter your name", cut.Find("input").GetAttribute("placeholder"));
+		Assert.Equal("Enter your name", cut.Find("input").GetAttribute("placeholder"));
 	}
 
 	private record FormData

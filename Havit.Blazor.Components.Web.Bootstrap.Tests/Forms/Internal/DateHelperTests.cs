@@ -13,10 +13,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms.Internal;
 ///		<li>ko-KR: yyyy.M.d.</li>
 /// </ul>
 /// </summary>
-[TestClass]
 public class DateHelperTests
 {
-	[TestMethod]
+	[Fact]
 	public void DateHelper_TryParseDateFromString_DayMonthYear_Relaxed()
 	{
 		// Arrange
@@ -48,7 +47,7 @@ public class DateHelperTests
 		fixture.ExecuteTest<DateTime?>("cs-CZ", "2000 02 31", expectedResult: false, expectedParsedDate: default);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void DateHelper_TryParseDateFromString_DayMonth_Strict()
 	{
 		// Arrange
@@ -66,7 +65,7 @@ public class DateHelperTests
 		fixture.ExecuteTest<DateTime?>("ko-KR", "087", expectedResult: false, expectedParsedDate: default);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void DateHelper_TryParseDateFromString_DayMonth_Relaxed()
 	{
 		// Arrange
@@ -106,7 +105,7 @@ public class DateHelperTests
 		fixture.ExecuteTest<DateTime?>("ko-KR", "08-07-", expectedResult: true, expectedParsedDate: new DateTime(fixture.CurrentYear, 08, 07));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void DateHelper_TryParseDateFromString_DayMonthYear_Strict()
 	{
 		// Arrange
@@ -124,7 +123,7 @@ public class DateHelperTests
 		fixture.ExecuteTest<DateTime?>("ko-KR", "2487", expectedResult: false, expectedParsedDate: default);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void DateHelper_TryParseDateFromString_DayMonthYear_Strict_8digits()
 	{
 		// Arrange
@@ -145,7 +144,7 @@ public class DateHelperTests
 		fixture.ExecuteTest<DateTime?>("cs-CZ", "070820244", expectedResult: false, expectedParsedDate: default);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void DateHelper_TryParseDateFromString_Day_Strict()
 	{
 		// arrange
@@ -166,7 +165,7 @@ public class DateHelperTests
 		fixture.ExecuteTest<DateTime?>("ko-KR", "4", expectedResult: true, expectedParsedDate: new DateTime(fixture.CurrentYear, fixture.CurrentMonth, 4));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void DateHelper_TryParseDateFromString_Day_Relaxed()
 	{
 		// arrange
@@ -190,7 +189,7 @@ public class DateHelperTests
 		fixture.ExecuteTest<DateTime?>("ko-KR", " -03- ", expectedResult: true, expectedParsedDate: new DateTime(fixture.CurrentYear, fixture.CurrentMonth, 3));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void DateHelper_TryParseDateFromString_DateTimeNullable_ShouldAcceptEmptyInputAsNull()
 	{
 		// arrange
@@ -201,7 +200,7 @@ public class DateHelperTests
 		fixture.ExecuteTest<DateTime?>("cs-CZ", " ", expectedResult: true, expectedParsedDate: default);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void DateHelper_TryParseDateFromString_DateTimeNonNullable_ShouldNotAcceptEmptyInput()
 	{
 		// arrange
@@ -212,7 +211,7 @@ public class DateHelperTests
 		fixture.ExecuteTest<DateTime>("cs-CZ", " ", expectedResult: false, expectedParsedDate: default);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void DateHelper_GetValueFromDateTimeOffset()
 	{
 		// Arrange
@@ -221,23 +220,23 @@ public class DateHelperTests
 		// Act + Assert
 
 		// DateTime
-		Assert.AreEqual(dateTimeOffset.DateTime, DateHelper.GetValueFromDateTimeOffset<DateTime>(dateTimeOffset));
-		Assert.AreEqual(default(DateTime), DateHelper.GetValueFromDateTimeOffset<DateTime>(null));
+		Assert.Equal(dateTimeOffset.DateTime, DateHelper.GetValueFromDateTimeOffset<DateTime>(dateTimeOffset));
+		Assert.Equal(default(DateTime), DateHelper.GetValueFromDateTimeOffset<DateTime>(null));
 
 		// DateTime?
-		Assert.AreEqual(dateTimeOffset.DateTime, DateHelper.GetValueFromDateTimeOffset<DateTime?>(dateTimeOffset));
-		Assert.IsNull(DateHelper.GetValueFromDateTimeOffset<DateTime?>(null));
+		Assert.Equal(dateTimeOffset.DateTime, DateHelper.GetValueFromDateTimeOffset<DateTime?>(dateTimeOffset));
+		Assert.Null(DateHelper.GetValueFromDateTimeOffset<DateTime?>(null));
 
 		// DateTimeOffset
-		Assert.AreEqual(dateTimeOffset, DateHelper.GetValueFromDateTimeOffset<DateTimeOffset>(dateTimeOffset));
-		Assert.AreEqual(default(DateTimeOffset), DateHelper.GetValueFromDateTimeOffset<DateTimeOffset>(null));
+		Assert.Equal(dateTimeOffset, DateHelper.GetValueFromDateTimeOffset<DateTimeOffset>(dateTimeOffset));
+		Assert.Equal(default(DateTimeOffset), DateHelper.GetValueFromDateTimeOffset<DateTimeOffset>(null));
 
 		// DateTimeOffset?
-		Assert.AreEqual(dateTimeOffset, DateHelper.GetValueFromDateTimeOffset<DateTimeOffset?>(dateTimeOffset));
-		Assert.IsNull(DateHelper.GetValueFromDateTimeOffset<DateTimeOffset?>(null));
+		Assert.Equal(dateTimeOffset, DateHelper.GetValueFromDateTimeOffset<DateTimeOffset?>(dateTimeOffset));
+		Assert.Null(DateHelper.GetValueFromDateTimeOffset<DateTimeOffset?>(null));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void DateHelper_TryParseDateFromString_UnsupportedPatterns()
 	{
 		// Arrange
@@ -295,8 +294,8 @@ public class DateHelperTests
 			}
 
 			// Assert
-			Assert.AreEqual(expectedResult, result, message: $"Culture {culture}, input '{input}'.");
-			Assert.AreEqual(expectedParsedDate, parsedDate, message: $"Culture {culture}, input '{input}'.");
+			Assert.Equal(expectedResult, result);
+			Assert.Equal(expectedParsedDate, parsedDate);
 
 		}
 	}

@@ -5,10 +5,9 @@ using Microsoft.Playwright;
 
 namespace Havit.Blazor.ApplicationInsights.E2ETests;
 
-[TestClass]
 public class TrackingMethodsTests : BlazorApplicationInsightsPageTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task BlazorApplicationInsights_TrackingMethods_AllMethodsProduceTelemetry()
 	{
 		// Arrange
@@ -26,7 +25,7 @@ public class TrackingMethodsTests : BlazorApplicationInsightsPageTestBase
 		void AssertItemCaptured(string expectedBaseType, string expectedIdentifier, Func<AiTelemetryItem, string> getIdentifierFunc, string methodNameToAssert)
 		{
 			var item = capturedTelemetryItems.FirstOrDefault(i => i.BaseType == expectedBaseType && getIdentifierFunc(i) == expectedIdentifier);
-			Assert.IsNotNull(item, $"{methodNameToAssert}: Telemetry item with baseType '{expectedBaseType}' (and identifier '{expectedIdentifier}') not found in captured telemetry.");
+			Assert.NotNull(item);
 		}
 
 		AssertItemCaptured("EventData", "test-event", i => i.Data.BaseData.Name, nameof(IBlazorApplicationInsights.TrackEventAsync));
