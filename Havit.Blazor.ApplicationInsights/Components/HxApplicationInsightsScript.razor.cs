@@ -28,7 +28,7 @@ namespace Havit.Blazor.ApplicationInsights.Components;
 /// </list>
 /// </para>
 /// </summary>
-public partial class BlazorApplicationInsightsScript : IDisposable
+public partial class HxApplicationInsightsScript : IDisposable
 {
 	/// <summary>
 	/// Key to prerender state to store whether the script was emitted during prerendering.	

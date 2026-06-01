@@ -6,7 +6,7 @@ namespace Havit.Blazor.ApplicationInsights.Components;
 /// Component which tracks exception whenever the <c>Exception</c> parameter is set (changed).
 /// Intended for use within an <c>ErrorBoundary</c>'s <c>ErrorContent</c> to automatically track unhandled exceptions with Application Insights.
 /// </summary>
-public class BlazorApplicationInsightsException : ComponentBase
+public class HxApplicationInsightsException : ComponentBase
 {
 	/// <summary>
 	/// Service used to interact with Application Insights in Blazor applications.
