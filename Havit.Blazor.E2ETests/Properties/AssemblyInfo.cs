@@ -1,0 +1,1 @@
+[assembly: CollectionBehavior(CollectionBehavior.CollectionPerAssembly)] // disable test parallelization
