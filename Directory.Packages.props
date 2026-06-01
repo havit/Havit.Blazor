@@ -1,4 +1,4 @@
-<Project>
+﻿<Project>
 	<PropertyGroup>
 <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
@@ -32,8 +32,8 @@
 		<PackageVersion Include="Microsoft.CodeAnalysis" Version="5.3.0" />
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing" Version="1.1.4" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.8" Condition="'$(TargetFramework)' == 'net10.0'" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.16" Condition="'$(TargetFramework)' != 'net10.0'" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' == 'net10.0'" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' != 'net10.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(AspNetCoreVersion10)" />
 		<!-- TFM-conditional so transitive references stay aligned with the target framework's shared assembly version (avoids MSB3277 conflicts on net8.0/net9.0). The non-net8/net9 entry is the default and also applies to net10.0 and netstandard2.0. -->
 		<PackageVersion Include="Microsoft.Extensions.Localization" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net9.0' AND '$(TargetFramework)' != 'net8.0'" />
@@ -42,11 +42,11 @@
 		<PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net9.0' AND '$(TargetFramework)' != 'net8.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="10.0.8" Condition="'$(TargetFramework)' != 'net9.0' AND '$(TargetFramework)' != 'net8.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.16" Condition="'$(TargetFramework)' == 'net9.0'" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net9.0' AND '$(TargetFramework)' != 'net8.0'" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.3" Condition="'$(TargetFramework)' == 'net8.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="10.0.8" Condition="'$(TargetFramework)' != 'net9.0' AND '$(TargetFramework)' != 'net8.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="9.0.16" Condition="'$(TargetFramework)' == 'net9.0'" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net9.0' AND '$(TargetFramework)' != 'net8.0'" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="8.0.1" Condition="'$(TargetFramework)' == 'net8.0'" />
 		<PackageVersion Include="Microsoft.Playwright.Xunit.v3" Version="1.60.0" />
 		<PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="1.9.1" />
@@ -61,9 +61,9 @@
 		<PackageVersion Include="SmartComponents.AspNetCore.Components" Version="0.1.0-preview10148" />
 		<PackageVersion Include="SmartComponents.Inference.OpenAI" Version="0.1.0-preview10148" />
 		<PackageVersion Include="SmartComponents.LocalEmbeddings" Version="0.1.0-preview10148" />
-		<PackageVersion Include="System.Text.Json" Version="10.0.8" />
+		<PackageVersion Include="System.Text.Json" Version="$(AspNetCoreVersion10)" />
 		<!-- Transient vulnerabilities -->
-		<PackageVersion Include="System.Formats.Asn1" Version="10.0.8" />
+		<PackageVersion Include="System.Formats.Asn1" Version="$(AspNetCoreVersion10)" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(ProjectName.EndsWith(`Tests`))' == 'False'">
 		<GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15">
