@@ -2,7 +2,7 @@
 
 public static class NavigationRoutes
 {
-	public static class HxApplicationInsightsScriptTests
+	public static class HxApplicationInsightsTests
 	{
 		private const string Base = "/blazorapplicationinsightsscript";
 		public const string RouteTemplate = Base + "/{mode}";

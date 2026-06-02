@@ -1,9 +1,9 @@
-@attribute [Route(NavigationRoutes.HxApplicationInsightsScriptTests.RouteTemplate)]
+@attribute [Route(NavigationRoutes.HxApplicationInsightsTests.RouteTemplate)]
 
-<h1>Test HxApplicationInsightsScript</h1>
+<h1>Test HxApplicationInsights</h1>
 <h3>Render mode: @(GetRenderMode()?.GetType().Name ?? "SSR")</h3>
 
-<HxApplicationInsightsScript @rendermode="GetRenderMode()" />
+<HxApplicationInsights @rendermode="GetRenderMode()" />
 
 @code {
 	[Parameter]
