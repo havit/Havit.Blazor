@@ -61,11 +61,11 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 
 	/// <summary>
 	/// Returns an empty filter header cell template because this internal selection column does not support filtering.
-	/// <returns>An empty <see cref="GridCellTemplate" />.</returns>
 	/// </summary>
+	/// <returns>An empty <see cref="GridCellTemplate" />.</returns>
 	protected override GridCellTemplate GetFilterHeaderCellTemplate()
 	{
-		return null;
+		return GridCellTemplate.Empty;
 	}
 
 	/// <inheritdoc />
@@ -114,7 +114,7 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 
 	public override int? GetTabIndexEffective()
 	{
-		throw new NotImplementedException();
+		return null;
 	}
 
 	/// <inheritdoc />

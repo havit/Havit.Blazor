@@ -2596,8 +2596,8 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetFilterHeaderCellTemplate">
             <summary>
             Returns an empty filter header cell template because this internal selection column does not support filtering.
-            <returns>An empty <see cref="T:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate" />.</returns>
             </summary>
+            <returns>An empty <see cref="T:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate" />.</returns>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetItemCellTemplate(`0)">
             <inheritdoc />

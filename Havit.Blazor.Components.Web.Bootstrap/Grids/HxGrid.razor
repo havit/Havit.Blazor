@@ -116,7 +116,7 @@
 						@foreach (IHxGridColumn<TItem> column in columnsToRender)
 						{
 							var headerFilterCellTemplate = column.GetFilterHeaderCellTemplate();
-								<th>
+								<th class="@headerFilterCellTemplate.CssClass">
 									<div class="hx-grid-header-cell-container">
 										<div class="hx-grid-header-cell-template">@headerFilterCellTemplate.Template</div>
 									</div>
