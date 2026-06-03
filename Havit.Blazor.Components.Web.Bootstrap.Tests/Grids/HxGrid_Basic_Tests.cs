@@ -174,4 +174,26 @@ public class HxGrid_Basic_Tests : BunitTestBase
 		Assert.Null(header.GetAttribute("role"));
 	}
 
+	[Fact]
+	public async Task HxGrid_RefreshDataAsync_AfterDispose_ThrowsInvalidOperationException()
+	{
+		// Arrange
+		var items = Enumerable.Range(1, 3).Select(i => new TestItem(i, $"Item {i}")).ToList();
+		GridDataProviderDelegate<TestItem> dataProvider = (GridDataProviderRequest<TestItem> request) =>
+			Task.FromResult(request.ApplyTo(items));
+
+		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+			.Add(p => p.DataProvider, dataProvider)
+			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
+				.Add(c => c.HeaderText, "Name")
+				.Add(c => c.ItemTextSelector, item => item.Name)));
+
+		var grid = cut.Instance;
+		await grid.DisposeAsync();
+
+		// Act + Assert
+		var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => grid.RefreshDataAsync()));
+		Assert.Equal("Cannot call RefreshDataAsync method on disposed component.", exception.Message);
+	}
+
 }
