@@ -74,7 +74,7 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	protected abstract GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context);
 
 	/// <summary>
-	/// Returns the header cell template.
+	/// Returns the filter header cell template.
 	/// </summary>
 	protected abstract GridCellTemplate GetFilterHeaderCellTemplate();
 
