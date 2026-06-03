@@ -167,12 +167,13 @@ builder.Services.AddHavitBlazorStorage(options =>
 </DocAlert>
 
 <DocHeading Title="Error handling" Id="error-handling" />
-<p>The storage methods can throw the following exceptions (all in the <code>Havit.Blazor.Storage.Exceptions</code> namespace):</p>
+<p>The storage methods can throw the following exceptions:</p>
 <ul>
 	<li><code>StorageNotAvailableException</code> &ndash; the storage area is not accessible (e.g. disabled or blocked by the browser privacy settings).</li>
 	<li><code>StorageKeyNotFoundException</code> &ndash; thrown by <code>GetStringValue</code>/<code>GetValue</code> when the key is not present.</li>
 	<li><code>StorageIndexOutOfRangeException</code> &ndash; thrown by <code>GetKeyByIndex</code> when the index is out of range.</li>
 	<li><code>InvalidOperationException</code> &ndash; thrown by the synchronous methods when <code>IJSInProcessRuntime</code> is not available (i.e. not in the Interactive WebAssembly render mode).</li>
+	<li><code>ArgumentException</code> / <code>ArgumentNullException</code> &ndash; thrown when invalid arguments are provided (e.g. key is null/whitespace, or a stored value is null).</li>
 </ul>
 <CodeSnippet Language="csharp">@("""
 try
