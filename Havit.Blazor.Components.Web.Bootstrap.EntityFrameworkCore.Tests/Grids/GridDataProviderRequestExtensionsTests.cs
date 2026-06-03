@@ -1,15 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore.Query.Internal;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Grids;
 
-[TestClass]
 public class GridDataProviderRequestExtensionsTests
 {
-	[TestMethod]
+	[Fact]
 	public void GridDataProviderRequestExtensions_ApplyGridDataProviderRequest_EntityFrameworkCore_CanBeCompiledForSqlServer()
 	{
 		// Arrange

@@ -2,7 +2,6 @@
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class MarkdownParserTests
 {
 	private static MarkdownRenderOptions DefaultOptions => new MarkdownRenderOptions
@@ -15,104 +14,104 @@ public class MarkdownParserTests
 
 	#region Null / Empty / Whitespace
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NullInput_ReturnsEmpty()
 	{
 		var result = MarkdownParser.ToHtml(null, DefaultOptions);
-		Assert.AreEqual(string.Empty, result);
+		Assert.Equal(string.Empty, result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_EmptyInput_ReturnsEmpty()
 	{
 		var result = MarkdownParser.ToHtml("", DefaultOptions);
-		Assert.AreEqual(string.Empty, result);
+		Assert.Equal(string.Empty, result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_WhitespaceOnlyInput_ReturnsEmpty()
 	{
 		var result = MarkdownParser.ToHtml("   \n  \n  ", DefaultOptions);
-		Assert.AreEqual(string.Empty, result);
+		Assert.Equal(string.Empty, result);
 	}
 
 	#endregion
 
 	#region Paragraphs
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_SimpleText_RendersAsParagraph()
 	{
 		var result = MarkdownParser.ToHtml("Hello world", DefaultOptions);
-		Assert.AreEqual("<p>Hello world</p>", result);
+		Assert.Equal("<p>Hello world</p>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_TwoParagraphs_SeparatedByBlankLine()
 	{
 		var result = MarkdownParser.ToHtml("First paragraph\n\nSecond paragraph", DefaultOptions);
-		Assert.AreEqual("<p>First paragraph</p><p>Second paragraph</p>", result);
+		Assert.Equal("<p>First paragraph</p><p>Second paragraph</p>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_MultipleLinesWithinParagraph_JoinedWithSpace()
 	{
 		var result = MarkdownParser.ToHtml("Line one\nLine two", DefaultOptions);
-		Assert.AreEqual("<p>Line one Line two</p>", result);
+		Assert.Equal("<p>Line one Line two</p>", result);
 	}
 
 	#endregion
 
 	#region Headings
 
-	[TestMethod]
-	[DataRow("# Heading 1", "<h1>Heading 1</h1>", DisplayName = "H1")]
-	[DataRow("## Heading 2", "<h2>Heading 2</h2>", DisplayName = "H2")]
-	[DataRow("### Heading 3", "<h3>Heading 3</h3>", DisplayName = "H3")]
-	[DataRow("#### Heading 4", "<h4>Heading 4</h4>", DisplayName = "H4")]
-	[DataRow("##### Heading 5", "<h5>Heading 5</h5>", DisplayName = "H5")]
-	[DataRow("###### Heading 6", "<h6>Heading 6</h6>", DisplayName = "H6")]
+	[Theory]
+	[InlineData("# Heading 1", "<h1>Heading 1</h1>")]
+	[InlineData("## Heading 2", "<h2>Heading 2</h2>")]
+	[InlineData("### Heading 3", "<h3>Heading 3</h3>")]
+	[InlineData("#### Heading 4", "<h4>Heading 4</h4>")]
+	[InlineData("##### Heading 5", "<h5>Heading 5</h5>")]
+	[InlineData("###### Heading 6", "<h6>Heading 6</h6>")]
 	public void MarkdownParser_Headings_RenderedCorrectly(string markdown, string expected)
 	{
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.AreEqual(expected, result);
+		Assert.Equal(expected, result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_HeadingWithTrailingHashes_Stripped()
 	{
 		var result = MarkdownParser.ToHtml("## Heading ##", DefaultOptions);
-		Assert.AreEqual("<h2>Heading</h2>", result);
+		Assert.Equal("<h2>Heading</h2>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_HashWithoutSpace_NotAHeading()
 	{
 		var result = MarkdownParser.ToHtml("#NotAHeading", DefaultOptions);
-		Assert.AreEqual("<p>#NotAHeading</p>", result);
+		Assert.Equal("<p>#NotAHeading</p>", result);
 	}
 
 	#endregion
 
 	#region Code Blocks
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_FencedCodeBlock_RendersPreCode()
 	{
 		var markdown = "```\nvar x = 1;\n```";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.AreEqual("<pre><code>var x = 1;</code></pre>", result);
+		Assert.Equal("<pre><code>var x = 1;</code></pre>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_FencedCodeBlock_WithLanguage()
 	{
 		var markdown = "```csharp\nvar x = 1;\n```";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.AreEqual("<pre><code class=\"language-csharp\">var x = 1;</code></pre>", result);
+		Assert.Equal("<pre><code class=\"language-csharp\">var x = 1;</code></pre>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_FencedCodeBlock_HtmlEncoded()
 	{
 		var markdown = "```\n<div>test</div>\n```";
@@ -120,54 +119,54 @@ public class MarkdownParserTests
 		Assert.Contains("&lt;div&gt;test&lt;/div&gt;", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_TildeFencedCodeBlock_RendersPreCode()
 	{
 		var markdown = "~~~\ncode here\n~~~";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.AreEqual("<pre><code>code here</code></pre>", result);
+		Assert.Equal("<pre><code>code here</code></pre>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_FencedCodeBlock_LongerOpeningFence_NotClosedByShorterFence()
 	{
 		// Opening fence of 4 backticks requires closing fence of >= 4 backticks (CommonMark).
 		// A 3-backtick closing line should appear literally in the code content, not close the block.
 		var markdown = "````\nvar x = 1;\n```\nvar y = 2;\n````";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.AreEqual("<pre><code>var x = 1;\n```\nvar y = 2;</code></pre>", result);
+		Assert.Equal("<pre><code>var x = 1;\n```\nvar y = 2;</code></pre>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_FencedCodeBlock_LongerClosingFence_ClosesBlock()
 	{
 		// A closing fence longer than the opening fence must also close the block (CommonMark).
 		var markdown = "```\nvar x = 1;\n`````";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.AreEqual("<pre><code>var x = 1;</code></pre>", result);
+		Assert.Equal("<pre><code>var x = 1;</code></pre>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_FencedCodeBlock_FourBackticksWithLanguage()
 	{
 		// 4-backtick opening with language hint should be supported
 		var markdown = "````csharp\nvar x = 1;\n````";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.AreEqual("<pre><code class=\"language-csharp\">var x = 1;</code></pre>", result);
+		Assert.Equal("<pre><code class=\"language-csharp\">var x = 1;</code></pre>", result);
 	}
 
 	#endregion
 
 	#region Blockquotes
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Blockquote_RenderedWithClass()
 	{
 		var result = MarkdownParser.ToHtml("> This is a quote", DefaultOptions);
-		Assert.AreEqual("<blockquote class=\"blockquote\"><p>This is a quote</p></blockquote>", result);
+		Assert.Equal("<blockquote class=\"blockquote\"><p>This is a quote</p></blockquote>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Blockquote_CustomCssClass()
 	{
 		var options = new MarkdownRenderOptions { SanitizeHtml = true, BlockquoteCssClass = "custom-quote" };
@@ -175,7 +174,7 @@ public class MarkdownParserTests
 		Assert.Contains("class=\"custom-quote\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_MultilineBlockquote_JoinedCorrectly()
 	{
 		var markdown = "> Line one\n> Line two";
@@ -184,90 +183,90 @@ public class MarkdownParserTests
 		Assert.Contains("Line two", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NestedBlockquote_TwoLevels()
 	{
 		// >> nested should produce a blockquote inside a blockquote
 		var result = MarkdownParser.ToHtml(">> nested", DefaultOptions);
-		Assert.AreEqual("<blockquote class=\"blockquote\"><blockquote class=\"blockquote\"><p>nested</p></blockquote></blockquote>", result);
+		Assert.Equal("<blockquote class=\"blockquote\"><blockquote class=\"blockquote\"><p>nested</p></blockquote></blockquote>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NestedBlockquote_ThreeLevels()
 	{
 		// >>> triple-nested
 		var result = MarkdownParser.ToHtml(">>> triple", DefaultOptions);
-		Assert.AreEqual("<blockquote class=\"blockquote\"><blockquote class=\"blockquote\"><blockquote class=\"blockquote\"><p>triple</p></blockquote></blockquote></blockquote>", result);
+		Assert.Equal("<blockquote class=\"blockquote\"><blockquote class=\"blockquote\"><blockquote class=\"blockquote\"><p>triple</p></blockquote></blockquote></blockquote>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NestedBlockquote_WithSpaceSyntax()
 	{
 		// CommonMark: "> > nested" (space between markers) also produces nested blockquote
 		var result = MarkdownParser.ToHtml("> > nested", DefaultOptions);
-		Assert.AreEqual("<blockquote class=\"blockquote\"><blockquote class=\"blockquote\"><p>nested</p></blockquote></blockquote>", result);
+		Assert.Equal("<blockquote class=\"blockquote\"><blockquote class=\"blockquote\"><p>nested</p></blockquote></blockquote>", result);
 	}
 
 	#endregion
 
 	#region Horizontal Rules
 
-	[TestMethod]
-	[DataRow("---", DisplayName = "Dashes")]
-	[DataRow("***", DisplayName = "Asterisks")]
-	[DataRow("___", DisplayName = "Underscores")]
-	[DataRow("- - -", DisplayName = "Spaced dashes")]
+	[Theory]
+	[InlineData("---")]
+	[InlineData("***")]
+	[InlineData("___")]
+	[InlineData("- - -")]
 	public void MarkdownParser_HorizontalRule_RendersHr(string markdown)
 	{
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.AreEqual("<hr />", result);
+		Assert.Equal("<hr />", result);
 	}
 
 	#endregion
 
 	#region Unordered Lists
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_UnorderedList_WithDash()
 	{
 		var markdown = "- Item 1\n- Item 2\n- Item 3";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.AreEqual("<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>", result);
+		Assert.Equal("<ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_UnorderedList_WithAsterisk()
 	{
 		var markdown = "* Item A\n* Item B";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.AreEqual("<ul><li>Item A</li><li>Item B</li></ul>", result);
+		Assert.Equal("<ul><li>Item A</li><li>Item B</li></ul>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_UnorderedList_WithPlus()
 	{
 		var markdown = "+ First\n+ Second";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.AreEqual("<ul><li>First</li><li>Second</li></ul>", result);
+		Assert.Equal("<ul><li>First</li><li>Second</li></ul>", result);
 	}
 
 	#endregion
 
 	#region Ordered Lists
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_OrderedList_RenderedCorrectly()
 	{
 		var markdown = "1. First\n2. Second\n3. Third";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.AreEqual("<ol><li>First</li><li>Second</li><li>Third</li></ol>", result);
+		Assert.Equal("<ol><li>First</li><li>Second</li><li>Third</li></ol>", result);
 	}
 
 	#endregion
 
 	#region Tables
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Table_RenderedWithBootstrapClass()
 	{
 		var markdown = "| Header 1 | Header 2 |\n|---|---|\n| Cell 1 | Cell 2 |";
@@ -280,7 +279,7 @@ public class MarkdownParserTests
 		Assert.Contains("<td>Cell 2</td>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Table_CustomCssClass()
 	{
 		var options = new MarkdownRenderOptions { SanitizeHtml = true, TableCssClass = "table table-striped" };
@@ -289,7 +288,7 @@ public class MarkdownParserTests
 		Assert.Contains("class=\"table table-striped\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Table_MultipleDataRows()
 	{
 		var markdown = "| Name | Value |\n|---|---|\n| A | 1 |\n| B | 2 |\n| C | 3 |";
@@ -301,7 +300,7 @@ public class MarkdownParserTests
 		Assert.Contains("<td>3</td>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Table_AlignmentLeft_EmitsStyleAttribute()
 	{
 		// :--- means left alignment
@@ -311,7 +310,7 @@ public class MarkdownParserTests
 		Assert.Contains("<td style=\"text-align:left\">", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Table_AlignmentRight_EmitsStyleAttribute()
 	{
 		// ---: means right alignment
@@ -321,7 +320,7 @@ public class MarkdownParserTests
 		Assert.Contains("<td style=\"text-align:right\">", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Table_AlignmentCenter_EmitsStyleAttribute()
 	{
 		// :---: means center alignment
@@ -331,7 +330,7 @@ public class MarkdownParserTests
 		Assert.Contains("<td style=\"text-align:center\">", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Table_AlignmentNone_NoStyleAttribute()
 	{
 		// --- with no colons means no alignment (default)
@@ -340,7 +339,7 @@ public class MarkdownParserTests
 		Assert.DoesNotContain("style=", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Table_MixedAlignments_PerColumn()
 	{
 		// Each column may have a different alignment
@@ -360,63 +359,63 @@ public class MarkdownParserTests
 
 	#region Inline Elements
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_BoldWithDoubleAsterisks_RendersStrong()
 	{
 		var result = MarkdownParser.ToHtml("This is **bold** text", DefaultOptions);
-		Assert.AreEqual("<p>This is <strong>bold</strong> text</p>", result);
+		Assert.Equal("<p>This is <strong>bold</strong> text</p>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_BoldWithDoubleUnderscores_RendersStrong()
 	{
 		var result = MarkdownParser.ToHtml("This is __bold__ text", DefaultOptions);
-		Assert.AreEqual("<p>This is <strong>bold</strong> text</p>", result);
+		Assert.Equal("<p>This is <strong>bold</strong> text</p>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_ItalicWithSingleAsterisk_RendersEm()
 	{
 		var result = MarkdownParser.ToHtml("This is *italic* text", DefaultOptions);
-		Assert.AreEqual("<p>This is <em>italic</em> text</p>", result);
+		Assert.Equal("<p>This is <em>italic</em> text</p>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_ItalicWithSingleUnderscore_RendersEm()
 	{
 		var result = MarkdownParser.ToHtml("This is _italic_ text", DefaultOptions);
-		Assert.AreEqual("<p>This is <em>italic</em> text</p>", result);
+		Assert.Equal("<p>This is <em>italic</em> text</p>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_InlineCode_RendersCodeTag()
 	{
 		var result = MarkdownParser.ToHtml("Use `var x = 1;` here", DefaultOptions);
-		Assert.AreEqual("<p>Use <code>var x = 1;</code> here</p>", result);
+		Assert.Equal("<p>Use <code>var x = 1;</code> here</p>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Strikethrough_RendersSTag()
 	{
 		var result = MarkdownParser.ToHtml("This is ~~deleted~~ text", DefaultOptions);
-		Assert.AreEqual("<p>This is <s>deleted</s> text</p>", result);
+		Assert.Equal("<p>This is <s>deleted</s> text</p>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Link_RendersAnchor()
 	{
 		var result = MarkdownParser.ToHtml("[Click here](https://example.com)", DefaultOptions);
-		Assert.AreEqual("<p><a href=\"https://example.com\">Click here</a></p>", result);
+		Assert.Equal("<p><a href=\"https://example.com\">Click here</a></p>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_LinkWithTitle_RendersTitleAttribute()
 	{
 		var result = MarkdownParser.ToHtml("[Link](https://example.com \"My Title\")", DefaultOptions);
 		Assert.Contains("title=\"My Title\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Image_RendersImgTag()
 	{
 		var result = MarkdownParser.ToHtml("![Alt text](https://example.com/img.png)", DefaultOptions);
@@ -424,7 +423,7 @@ public class MarkdownParserTests
 		Assert.Contains("class=\"img-fluid\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Image_CustomCssClass()
 	{
 		var options = new MarkdownRenderOptions { SanitizeHtml = true, ImageCssClass = "custom-img" };
@@ -436,7 +435,7 @@ public class MarkdownParserTests
 
 	#region HTML Sanitization
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_SanitizeHtml_True_EscapesHtmlTags()
 	{
 		var options = new MarkdownRenderOptions { SanitizeHtml = true };
@@ -445,7 +444,7 @@ public class MarkdownParserTests
 		Assert.DoesNotContain("<script>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_SanitizeHtml_False_PreservesHtmlTags()
 	{
 		var options = new MarkdownRenderOptions { SanitizeHtml = false };
@@ -457,7 +456,7 @@ public class MarkdownParserTests
 
 	#region Mixed Content
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_MixedContent_HeadingAndParagraph()
 	{
 		var markdown = "# Title\n\nSome text here.";
@@ -466,7 +465,7 @@ public class MarkdownParserTests
 		Assert.Contains("<p>Some text here.</p>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_MixedContent_ListFollowedByParagraph()
 	{
 		var markdown = "- Item 1\n- Item 2\n\nParagraph text.";
@@ -475,7 +474,7 @@ public class MarkdownParserTests
 		Assert.Contains("<p>Paragraph text.</p>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_BoldAndItalicCombined()
 	{
 		var result = MarkdownParser.ToHtml("***bold and italic***", DefaultOptions);
@@ -484,7 +483,7 @@ public class MarkdownParserTests
 		Assert.Contains("<em>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_TableImmediatelyAfterParagraph_WithoutBlankLine_ParsedSeparately()
 	{
 		// Table immediately after paragraph text (no blank line separator) must be parsed as a separate table block
@@ -500,27 +499,27 @@ public class MarkdownParserTests
 
 	#region Line Endings
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_CrLfLineEndings_ParsedCorrectly()
 	{
 		var markdown = "# Title\r\n\r\nParagraph text";
 		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
-		Assert.AreEqual("<h1>Title</h1><p>Paragraph text</p>", result);
+		Assert.Equal("<h1>Title</h1><p>Paragraph text</p>", result);
 	}
 
 	#endregion
 
 	#region Inline Code - Protection and Encoding
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_InlineCode_MarkdownInsideCode_NotProcessed()
 	{
 		// Bold markers inside a code span must not be processed — content is literal
 		var result = MarkdownParser.ToHtml("`**bold**`", DefaultOptions);
-		Assert.AreEqual("<p><code>**bold**</code></p>", result);
+		Assert.Equal("<p><code>**bold**</code></p>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_InlineCode_LinkInsideCode_NotProcessed()
 	{
 		// Link syntax inside a code span must not be rendered as a hyperlink
@@ -529,7 +528,7 @@ public class MarkdownParserTests
 		Assert.Contains("<code>[link](https://example.com)</code>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_InlineCode_HtmlTagInCode_AlwaysEncoded()
 	{
 		// Code content must always be HTML-encoded, regardless of SanitizeHtml
@@ -543,7 +542,7 @@ public class MarkdownParserTests
 
 	#region Links - Relative URL Handling
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Link_BareRelativeUrl_IsPreserved()
 	{
 		// A bare relative URL (no leading /) must not be replaced with #
@@ -551,7 +550,7 @@ public class MarkdownParserTests
 		Assert.Contains("href=\"page.html\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Image_BareRelativeUrl_IsPreserved()
 	{
 		// A bare relative image path (no leading /) must not be replaced with #
@@ -563,7 +562,7 @@ public class MarkdownParserTests
 
 	#region Security - XSS and Attribute Injection
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Image_AltWithQuote_AttributeInjectionPrevented()
 	{
 		// A " in the alt text must be encoded to prevent breaking out of the attribute and injecting new attributes.
@@ -573,42 +572,42 @@ public class MarkdownParserTests
 		Assert.Contains("alt=\"alt&quot; onerror=&quot;", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Image_AltWithQuote_EncodedAsHtmlEntity()
 	{
 		var result = MarkdownParser.ToHtml("![say \"hello\"](image.png)", DefaultOptions);
 		Assert.Contains("alt=\"say &quot;hello&quot;\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Image_JavascriptUrlInSrc_IsBlocked()
 	{
 		var result = MarkdownParser.ToHtml("![alt](javascript:alert(1))", DefaultOptions);
 		Assert.DoesNotContain("javascript:", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Image_DataUrlInSrc_IsBlocked()
 	{
 		var result = MarkdownParser.ToHtml("![alt](data:text/html,payload)", DefaultOptions);
 		Assert.DoesNotContain("data:", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Image_SafeHttpsUrl_IsPreserved()
 	{
 		var result = MarkdownParser.ToHtml("![alt](https://example.com/img.png)", DefaultOptions);
 		Assert.Contains("src=\"https://example.com/img.png\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Image_SafeRelativeUrl_IsPreserved()
 	{
 		var result = MarkdownParser.ToHtml("![alt](/images/photo.png)", DefaultOptions);
 		Assert.Contains("src=\"/images/photo.png\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Image_JavascriptUrl_SanitizeHtmlFalse_IsPreserved()
 	{
 		// SanitizeHtml=false opts out of all sanitization; URL scheme is kept as-is.
@@ -617,28 +616,28 @@ public class MarkdownParserTests
 		Assert.Contains("javascript:", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Link_JavascriptUrlInHref_IsBlocked()
 	{
 		var result = MarkdownParser.ToHtml("[Click here](javascript:alert(1))", DefaultOptions);
 		Assert.DoesNotContain("javascript:", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Link_DataUrlInHref_IsBlocked()
 	{
 		var result = MarkdownParser.ToHtml("[Click here](data:text/html,payload)", DefaultOptions);
 		Assert.DoesNotContain("data:", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Link_SafeHttpsUrl_IsPreserved()
 	{
 		var result = MarkdownParser.ToHtml("[Link](https://example.com)", DefaultOptions);
 		Assert.Contains("href=\"https://example.com\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Link_JavascriptUrl_SanitizeHtmlFalse_IsPreserved()
 	{
 		// SanitizeHtml=false opts out of all sanitization; URL scheme is kept as-is.
@@ -647,21 +646,21 @@ public class MarkdownParserTests
 		Assert.Contains("javascript:", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Image_ProtocolRelativeUrl_IsBlocked()
 	{
 		var result = MarkdownParser.ToHtml("![alt](//evil.com/image.png)", DefaultOptions);
 		Assert.DoesNotContain("//evil.com", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Link_ProtocolRelativeUrl_IsBlocked()
 	{
 		var result = MarkdownParser.ToHtml("[Link](//evil.com)", DefaultOptions);
 		Assert.DoesNotContain("//evil.com", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Image_UrlWithQuote_AttributeInjectionPrevented()
 	{
 		// A " in the URL must be encoded to prevent breaking out of src="..." and injecting attributes.
@@ -672,7 +671,7 @@ public class MarkdownParserTests
 		Assert.Contains("src=\"url&quot;onclick=&quot;alert(1\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Image_UrlWithQuote_SanitizeHtmlFalse_AttributeInjectionPrevented()
 	{
 		// Even with SanitizeHtml=false, " in URL must be encoded to produce valid HTML attributes.
@@ -683,7 +682,7 @@ public class MarkdownParserTests
 		Assert.Contains("src=\"url&quot;onclick=&quot;alert(1\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Image_AltWithQuote_SanitizeHtmlFalse_AttributeInjectionPrevented()
 	{
 		// Even with SanitizeHtml=false, " in alt must be encoded to produce valid HTML attributes.
@@ -693,7 +692,7 @@ public class MarkdownParserTests
 		Assert.Contains("alt=\"alt&quot; onerror=&quot;alert(1)\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Link_UrlWithQuote_AttributeInjectionPrevented()
 	{
 		// A " in the href URL must be encoded to prevent breaking out of href="..." and injecting attributes.
@@ -704,7 +703,7 @@ public class MarkdownParserTests
 		Assert.Contains("href=\"url&quot;onclick=&quot;alert(1\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_Link_UrlWithQuote_SanitizeHtmlFalse_AttributeInjectionPrevented()
 	{
 		// Even with SanitizeHtml=false, " in URL must be encoded to produce valid HTML attributes.
@@ -715,7 +714,7 @@ public class MarkdownParserTests
 		Assert.Contains("href=\"url&quot;onclick=&quot;alert(1\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_TableHeaderWithoutTrailingPipe_AfterParagraph_NotSplitIncorrectly()
 	{
 		// Header line without trailing pipe (| A | B) must NOT break the paragraph,
@@ -727,7 +726,7 @@ public class MarkdownParserTests
 		Assert.DoesNotContain("<table", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_TableHeaderWithTrailingWhitespace_AfterParagraph_ParsedSeparately()
 	{
 		// Trailing whitespace after the last | must not prevent table detection.
@@ -738,7 +737,7 @@ public class MarkdownParserTests
 		Assert.Contains("<table", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_LinkUrlWithMarkdownMarkers_NotMangledByEmphasis()
 	{
 		// Bold markers ** inside a URL must not be converted to <strong>.
@@ -748,7 +747,7 @@ public class MarkdownParserTests
 		Assert.DoesNotContain("<strong>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_ImageAltWithUnderscores_NotMangledByEmphasis()
 	{
 		// Underscores in image alt text must not be converted to <em>.
@@ -758,7 +757,7 @@ public class MarkdownParserTests
 		Assert.DoesNotContain("<em>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_LinkUrlWithAmpersand_SanitizeHtmlFalse_AmpEncoded()
 	{
 		// & in URLs must be encoded as &amp; in attribute values even when SanitizeHtml=false.
@@ -767,7 +766,7 @@ public class MarkdownParserTests
 		Assert.Contains("href=\"https://x.com?a=1&amp;b=2\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_ImageUrlWithAmpersand_SanitizeHtmlFalse_AmpEncoded()
 	{
 		// & in image URLs must be encoded as &amp; in attribute values even when SanitizeHtml=false.
@@ -780,21 +779,21 @@ public class MarkdownParserTests
 
 	#region Naked URLs (Autolinks)
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_HttpsUrl_RenderedAsLink()
 	{
 		var result = MarkdownParser.ToHtml("Some text with link to https://www.havit.cz/test should work.", DefaultOptions);
 		Assert.Contains("<a href=\"https://www.havit.cz/test\">https://www.havit.cz/test</a>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_HttpUrl_RenderedAsLink()
 	{
 		var result = MarkdownParser.ToHtml("Visit http://example.com for details.", DefaultOptions);
 		Assert.Contains("<a href=\"http://example.com\">http://example.com</a>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_TrailingPeriod_PeriodNotIncludedInUrl()
 	{
 		var result = MarkdownParser.ToHtml("Visit https://example.com.", DefaultOptions);
@@ -802,7 +801,7 @@ public class MarkdownParserTests
 		Assert.DoesNotContain("href=\"https://example.com.\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_TrailingComma_CommaNotIncludedInUrl()
 	{
 		var result = MarkdownParser.ToHtml("Visit https://example.com, then continue.", DefaultOptions);
@@ -810,7 +809,7 @@ public class MarkdownParserTests
 		Assert.DoesNotContain("href=\"https://example.com,\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_TrailingClosingParenthesis_ParenNotIncludedInUrl()
 	{
 		var result = MarkdownParser.ToHtml("(see https://example.com)", DefaultOptions);
@@ -818,7 +817,7 @@ public class MarkdownParserTests
 		Assert.DoesNotContain("href=\"https://example.com)\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_BalancedParentheses_ParensPreservedInUrl()
 	{
 		// Balanced parentheses in the URL (e.g. Wikipedia disambiguation) must not be stripped.
@@ -826,14 +825,14 @@ public class MarkdownParserTests
 		Assert.Contains("href=\"https://en.wikipedia.org/wiki/C_(programming_language)\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_AtEndOfText_RenderedAsLink()
 	{
 		var result = MarkdownParser.ToHtml("Link: https://example.com", DefaultOptions);
 		Assert.Contains("<a href=\"https://example.com\">https://example.com</a>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_MultipleUrls_AllRenderedAsLinks()
 	{
 		var result = MarkdownParser.ToHtml("See https://one.com and https://two.com for details.", DefaultOptions);
@@ -841,7 +840,7 @@ public class MarkdownParserTests
 		Assert.Contains("href=\"https://two.com\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_InsideCodeSpan_NotProcessed()
 	{
 		// URLs inside a code span must not be converted to hyperlinks.
@@ -850,23 +849,23 @@ public class MarkdownParserTests
 		Assert.Contains("<code>https://example.com</code>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_ExplicitLinkNotDoubleProcessed()
 	{
 		// An explicit [text](url) link must not also create a naked-URL link for the same URL.
 		var result = MarkdownParser.ToHtml("[click here](https://example.com)", DefaultOptions);
 		var count = result.Split("<a ").Length - 1;
-		Assert.AreEqual(1, count);
+		Assert.Equal(1, count);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_WithQueryStringAndAmpersand_CorrectlyEncoded()
 	{
 		var result = MarkdownParser.ToHtml("See https://example.com?a=1&b=2 for info.", DefaultOptions);
 		Assert.Contains("href=\"https://example.com?a=1&amp;b=2\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_WithQueryStringAndAmpersand_SanitizeHtmlFalse_DisplayTextCorrectlyEncoded()
 	{
 		var options = new MarkdownRenderOptions
@@ -881,7 +880,7 @@ public class MarkdownParserTests
 		Assert.Contains("href=\"https://example.com?a=1&amp;b=2\">https://example.com?a=1&amp;b=2</a>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_WithBoldText_UrlNotMangledByEmphasis()
 	{
 		// **bold** surrounding a naked URL must not corrupt the URL.
@@ -890,7 +889,7 @@ public class MarkdownParserTests
 		Assert.Contains("<strong>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_NakedUrlAdjacentToExplicitLink_BothRenderedCorrectly()
 	{
 		// A naked URL next to an explicit Markdown link — both must produce exactly one <a> each.
@@ -898,10 +897,10 @@ public class MarkdownParserTests
 		Assert.Contains("href=\"https://example.com\">example</a>", result);
 		Assert.Contains("href=\"https://other.com\">https://other.com</a>", result);
 		var count = result.Split("<a ").Length - 1;
-		Assert.AreEqual(2, count);
+		Assert.Equal(2, count);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_InsideSingleQuotedHtmlAttribute_SanitizeHtmlFalse_NotAutolinked()
 	{
 		// When SanitizeHtml=false, raw HTML passes through. A URL inside a single-quoted
@@ -914,7 +913,7 @@ public class MarkdownParserTests
 		Assert.Contains("href='https://example.com'", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_TrailingSingleQuote_QuoteNotIncludedInUrl()
 	{
 		// A URL that is immediately followed by a single quote must not include that quote in the href.
@@ -926,7 +925,7 @@ public class MarkdownParserTests
 		Assert.Contains("</a>'", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_IPv6_NoPath_RenderedAsLink()
 	{
 		// IPv6 URL with no path — the closing ] is part of the host, not trailing punctuation.
@@ -935,7 +934,7 @@ public class MarkdownParserTests
 		Assert.DoesNotContain("href=\"https://[::1\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_IPv6_WithPath_RenderedAsLink()
 	{
 		// IPv6 URL with a path — the ] is followed by the path, should be preserved.
@@ -943,7 +942,7 @@ public class MarkdownParserTests
 		Assert.Contains("href=\"https://[::1]/api/v1\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_IPv6_WithPort_RenderedAsLink()
 	{
 		// IPv6 URL with port number.
@@ -951,7 +950,7 @@ public class MarkdownParserTests
 		Assert.Contains("href=\"http://[2001:db8::1]:8080/path\"", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_NakedUrl_IPv6_EndOfSentence_PeriodStrippedBracketKept()
 	{
 		// Trailing period is stripped but the closing ] of the IPv6 host must be preserved.
@@ -964,7 +963,7 @@ public class MarkdownParserTests
 
 	#region Regular Markdown Links — Unaffected by Naked-URL Feature
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_RegularLink_WithNakedUrlInSameParagraph_BothRenderedCorrectly()
 	{
 		// A regular Markdown link and a naked URL in the same paragraph: each must produce exactly one <a>.
@@ -972,10 +971,10 @@ public class MarkdownParserTests
 		Assert.Contains("href=\"https://docs.example.com\">docs</a>", result);
 		Assert.Contains("href=\"https://example.com\">https://example.com</a>", result);
 		var count = result.Split("<a ").Length - 1;
-		Assert.AreEqual(2, count);
+		Assert.Equal(2, count);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_RegularLink_LinkTextPreservedExactly()
 	{
 		// The link text of a regular Markdown link must not be modified by the naked-URL pass.
@@ -983,26 +982,26 @@ public class MarkdownParserTests
 		Assert.Contains(">Click here</a>", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_RegularLink_UrlInLinkText_NotAutolinked()
 	{
 		// A URL appearing as the display text of a [url](url) link must not be double-linked.
 		var result = MarkdownParser.ToHtml("[https://example.com](https://example.com)", DefaultOptions);
 		var count = result.Split("<a ").Length - 1;
-		Assert.AreEqual(1, count);
+		Assert.Equal(1, count);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_RegularLink_HttpsUrlInHref_NotAutolinkedAgain()
 	{
 		// The href value of an explicit link must not also be picked up by the naked-URL regex.
 		var result = MarkdownParser.ToHtml("[link](https://example.com)", DefaultOptions);
 		Assert.Contains("href=\"https://example.com\"", result);
 		var count = result.Split("<a ").Length - 1;
-		Assert.AreEqual(1, count);
+		Assert.Equal(1, count);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_RegularLink_WithTitle_TitlePreserved()
 	{
 		// The title attribute of a regular Markdown link must not be lost or mangled.
@@ -1010,20 +1009,20 @@ public class MarkdownParserTests
 		Assert.Contains("title=\"My title\"", result);
 		Assert.Contains("href=\"https://example.com\"", result);
 		var count = result.Split("<a ").Length - 1;
-		Assert.AreEqual(1, count);
+		Assert.Equal(1, count);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_RegularLink_UrlWithQueryString_HrefEncoded()
 	{
 		// A regular link whose URL contains & must still have & encoded as &amp; in href.
 		var result = MarkdownParser.ToHtml("[link](https://example.com?a=1&b=2)", DefaultOptions);
 		Assert.Contains("href=\"https://example.com?a=1&amp;b=2\"", result);
 		var count = result.Split("<a ").Length - 1;
-		Assert.AreEqual(1, count);
+		Assert.Equal(1, count);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_RegularLink_MultipleExplicitLinks_EachRenderedOnce()
 	{
 		// Two separate explicit Markdown links — each must produce exactly one <a>, total two.
@@ -1031,10 +1030,10 @@ public class MarkdownParserTests
 		Assert.Contains("href=\"https://first.com\">first</a>", result);
 		Assert.Contains("href=\"https://second.com\">second</a>", result);
 		var count = result.Split("<a ").Length - 1;
-		Assert.AreEqual(2, count);
+		Assert.Equal(2, count);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_RegularLink_InsideStrongEmphasis_RenderedCorrectly()
 	{
 		// An explicit link inside bold text: link and bold must both render, URL not duplicated.
@@ -1042,10 +1041,10 @@ public class MarkdownParserTests
 		Assert.Contains("<strong>", result);
 		Assert.Contains("href=\"https://example.com\">bold link</a>", result);
 		var count = result.Split("<a ").Length - 1;
-		Assert.AreEqual(1, count);
+		Assert.Equal(1, count);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void MarkdownParser_RegularLink_RelativeUrl_NotAutolinked()
 	{
 		// A regular Markdown link with a relative URL must render normally; the relative URL
@@ -1053,7 +1052,7 @@ public class MarkdownParserTests
 		var result = MarkdownParser.ToHtml("[page](../docs/page.html)", DefaultOptions);
 		Assert.Contains("href=\"../docs/page.html\"", result);
 		var count = result.Split("<a ").Length - 1;
-		Assert.AreEqual(1, count);
+		Assert.Equal(1, count);
 	}
 
 	#endregion

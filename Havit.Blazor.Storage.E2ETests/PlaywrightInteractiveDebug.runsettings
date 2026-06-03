@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Use this runSettings file only when you want to debug Playwright tests interactively, no runSettings file needed for regular testing. -->
+<RunSettings>
+  <RunConfiguration>
+    <EnvironmentVariables>
+        <HEADED>1</HEADED>
+		<PWDEBUG>1</PWDEBUG>
+    </EnvironmentVariables>
+  </RunConfiguration>
+</RunSettings>

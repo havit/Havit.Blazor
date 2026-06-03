@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
 public partial class HxButtonTests
 {
-	[TestMethod]
+	[Fact]
 	public void HxButton_Click_TriggersOnClick()
 	{
 		// Arrange
@@ -19,10 +19,10 @@ public partial class HxButtonTests
 		cut.Find("button").Click();
 
 		// Assert
-		Assert.IsTrue(clicked);
+		Assert.True(clicked);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxButton_Disabled_RendersDisabledAttribute()
 	{
 		// Arrange & Act
@@ -33,10 +33,10 @@ public partial class HxButtonTests
 
 		// Assert - button should be rendered with the disabled attribute
 		var button = cut.Find("button");
-		Assert.IsTrue(button.HasAttribute("disabled"));
+		Assert.True(button.HasAttribute("disabled"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxButton_Spinner_ShowsDuringAsyncOnClick()
 	{
 		// Arrange
@@ -53,7 +53,7 @@ public partial class HxButtonTests
 		cut.WaitForAssertion(() =>
 		{
 			var spinners = cut.FindAll(".spinner-border");
-			Assert.IsNotEmpty(spinners, "Spinner should be rendered during async OnClick");
+			Assert.NotEmpty(spinners);
 		});
 
 		// Complete the async operation
@@ -64,7 +64,7 @@ public partial class HxButtonTests
 		cut.WaitForAssertion(() =>
 		{
 			var spinners = cut.FindAll(".spinner-border");
-			Assert.IsEmpty(spinners, "Spinner should not be rendered after async OnClick completes");
+			Assert.Empty(spinners);
 		});
 	}
 }

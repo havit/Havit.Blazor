@@ -2,10 +2,9 @@
 
 namespace Havit.Blazor.E2ETests.HxInputDateRangeTests;
 
-[TestClass]
 public class HxInputDateRange_EditForm_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_EditForm_BlocksInvalidFromDate_WhenTyping()
 	{
 		// Arrange
@@ -46,7 +45,7 @@ public class HxInputDateRange_EditForm_Tests : TestAppTestBase
 		await Expect(Page.Locator("text=TestDateOrderErrorMessage")).ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_EditForm_BlocksInvalidToDate_WhenTyping()
 	{
 		// Arrange
@@ -87,7 +86,7 @@ public class HxInputDateRange_EditForm_Tests : TestAppTestBase
 		await Expect(Page.Locator("text=TestDateOrderErrorMessage")).ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_EditForm_AllowsValidFromDate_WhenTyping()
 	{
 		// Arrange
@@ -128,7 +127,7 @@ public class HxInputDateRange_EditForm_Tests : TestAppTestBase
 		await Expect(Page.Locator("text=TestDateOrderErrorMessage")).Not.ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_EditForm_AllowsValidToDate_WhenTyping()
 	{
 		// Arrange
@@ -169,7 +168,7 @@ public class HxInputDateRange_EditForm_Tests : TestAppTestBase
 		await Expect(Page.Locator("text=TestDateOrderErrorMessage")).Not.ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_EditForm_AllowsEqualDates_WhenTyping()
 	{
 		// Arrange
@@ -209,7 +208,7 @@ public class HxInputDateRange_EditForm_Tests : TestAppTestBase
 		await Expect(Page.Locator("text=TestDateOrderErrorMessage")).Not.ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_EditForm_AllowsClearingBothDates_WhenTyping()
 	{
 		// Arrange
@@ -252,7 +251,7 @@ public class HxInputDateRange_EditForm_Tests : TestAppTestBase
 		await Expect(Page.Locator("text=TestDateOrderErrorMessage")).Not.ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_EditForm_BlocksInvalidFromDate_UsingCalendar()
 	{
 		// Arrange
@@ -302,7 +301,7 @@ public class HxInputDateRange_EditForm_Tests : TestAppTestBase
 		await Expect(Page.Locator("text=TestDateOrderErrorMessage")).ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_EditForm_AllowsValidFromDate_UsingCalendar()
 	{
 		// Arrange
@@ -350,7 +349,7 @@ public class HxInputDateRange_EditForm_Tests : TestAppTestBase
 		await Expect(Page.Locator("text=TestDateOrderErrorMessage")).Not.ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_EditForm_ClearButton_ClearsFromDate()
 	{
 		// Arrange

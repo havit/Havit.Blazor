@@ -1,13 +1,11 @@
 ﻿using Bunit;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-public abstract class BunitTestBase : TestContextWrapper
+public abstract class BunitTestBase : TestContextWrapper, IDisposable
 {
-	[TestInitialize]
-	public void Setup()
+	protected BunitTestBase()
 	{
 		TestContext = new Bunit.TestContext();
 		Services.AddSingleton(TimeProvider.System);
@@ -18,8 +16,7 @@ public abstract class BunitTestBase : TestContextWrapper
 		JSInterop.Mode = JSRuntimeMode.Loose;
 	}
 
-	[TestCleanup]
-	public void TearDown()
+	public void Dispose()
 	{
 		TestContext?.Dispose();
 	}

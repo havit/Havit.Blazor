@@ -1,0 +1,30 @@
+@attribute [Route(NavigationRoutes.TelemetryInitializerTests)]
+@rendermode InteractiveServerWithoutPrerendering
+@inject IBlazorApplicationInsights BlazorApplicationInsights
+
+<h1>Test Telemetry Initializer</h1>
+
+<HxApplicationInsights />
+
+@if (_done)
+{
+    <span id="done">done</span>
+}
+
+@code
+{
+    private bool _done;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await BlazorApplicationInsights.TrackMetricAsync(new MetricTelemetry { Name = "before-initializer", Average = 1 });
+            await BlazorApplicationInsights.AddTelemetryInitializerAsync(new TelemetryInitializer { CloudRoleName = "test-role" });
+            await BlazorApplicationInsights.TrackMetricAsync(new MetricTelemetry { Name = "after-initializer", Average = 2 });
+            await BlazorApplicationInsights.FlushAsync();
+            _done = true;
+            StateHasChanged();
+        }
+    }
+}

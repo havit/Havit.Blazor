@@ -1,13 +1,11 @@
 ﻿using Havit.Blazor.Components.Web.Services.DataStores;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
 namespace Havit.Blazor.Components.Web.Tests.DataStores;
 
-[TestClass]
 public class StaticDataStoreTests
 {
-	[TestMethod]
+	[Fact]
 	public async Task StaticDataStore_FirstLoad_Async()
 	{
 		// arrange
@@ -21,12 +19,12 @@ public class StaticDataStoreTests
 		var isLoaded = sut.Object.IsLoaded;
 
 		// assert
-		Assert.AreEqual("Adam", result);
+		Assert.Equal("Adam", result);
 		sut.Verify(s => s.LoadDataAsync(), Times.Once);
-		Assert.IsTrue(isLoaded);
+		Assert.True(isLoaded);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task StaticDataStore_FirstLoad_Sync()
 	{
 		// arrange
@@ -41,12 +39,12 @@ public class StaticDataStoreTests
 		var isLoaded = sut.Object.IsLoaded;
 
 		// assert
-		Assert.AreEqual("Adam", result);
+		Assert.Equal("Adam", result);
 		sut.Verify(s => s.LoadDataAsync(), Times.Once);
-		Assert.IsTrue(isLoaded);
+		Assert.True(isLoaded);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task StaticDataStore_SecondCallShouldUseExistingData()
 	{
 		// arrange
@@ -61,12 +59,12 @@ public class StaticDataStoreTests
 		var result = await sut.Object.GetValueAsync();
 
 		// assert
-		Assert.IsTrue(isLoaded);
+		Assert.True(isLoaded);
 		sut.Verify(s => s.LoadDataAsync(), Times.Once);
-		Assert.AreEqual("Adam", result);
+		Assert.Equal("Adam", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task StaticDataStore_ShouldRefresh_SecondCallShouldReloadData()
 	{
 		// arrange
@@ -81,12 +79,12 @@ public class StaticDataStoreTests
 		var result = await sut.Object.GetValueAsync();
 
 		// assert
-		Assert.IsFalse(isLoaded);
+		Assert.False(isLoaded);
 		sut.Verify(s => s.LoadDataAsync(), Times.Exactly(2));
-		Assert.AreEqual("Adam", result);
+		Assert.Equal("Adam", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task StaticDataStore_Clear_ShouldReloadData()
 	{
 		// arrange
@@ -102,12 +100,12 @@ public class StaticDataStoreTests
 		var result = await sut.Object.GetValueAsync();
 
 		// assert
-		Assert.IsFalse(isLoaded);
+		Assert.False(isLoaded);
 		sut.Verify(s => s.LoadDataAsync(), Times.Exactly(2));
-		Assert.AreEqual("Adam", result);
+		Assert.Equal("Adam", result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void StaticDataStore_ManyParallelCallsShouldNotReloadData()
 	{
 		// arrange
@@ -127,7 +125,7 @@ public class StaticDataStoreTests
 		sut.Verify(s => s.LoadDataAsync(), Times.Once);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void StaticDataStore_SyncNotLoaded_ShouldReturnDefault()
 	{
 		// arrange
@@ -139,10 +137,10 @@ public class StaticDataStoreTests
 		// act
 		var result = sut.Object.GetValue();
 
-		Assert.IsNull(result);
+		Assert.Null(result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void StaticDataStore_SyncThrowIfNotLoaded_ShouldRaiseException()
 	{
 		// arrange
@@ -152,13 +150,13 @@ public class StaticDataStoreTests
 		sut.Setup(s => s.ShouldRefresh()).Returns(false);
 
 		// act
-		Assert.ThrowsExactly<InvalidOperationException>(() => sut.Object.GetValue(throwIfNotLoaded: true));
+		Assert.Throws<InvalidOperationException>(() => sut.Object.GetValue(throwIfNotLoaded: true));
 
 		// assert
 		// expected exception
 	}
 
-	[TestMethod]
+	[Fact]
 	public void StaticDataStore_IsLoadedBeforeLoad_ShouldReturnFalse()
 	{
 		// arrange
@@ -171,6 +169,6 @@ public class StaticDataStoreTests
 		var isLoaded = sut.Object.IsLoaded;
 
 		// assert
-		Assert.IsFalse(isLoaded);
+		Assert.False(isLoaded);
 	}
 }

@@ -1,6 +1,5 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxTreeViewTests : BunitTestBase
 {
 	private class TreeItem
@@ -33,7 +32,7 @@ public class HxTreeViewTests : BunitTestBase
 		};
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTreeView_Render_DisplaysRootNodes()
 	{
 		// Arrange & Act
@@ -51,12 +50,12 @@ public class HxTreeViewTests : BunitTestBase
 			.Select(item => item.QuerySelector(".hx-tree-view-item-title")?.TextContent)
 			.Where(text => text is not null)
 			.ToList();
-		Assert.HasCount(2, titleTexts);
+		Assert.Equal(2, titleTexts.Count());
 		Assert.Contains("Root1", titleTexts);
 		Assert.Contains("Root2", titleTexts);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTreeView_ExpandNode_ShowsChildren()
 	{
 		// Arrange & Act - Use ItemInitialExpandedSelector to expand Root1
@@ -70,7 +69,7 @@ public class HxTreeViewTests : BunitTestBase
 		// Assert - The collapse container for Root1's children should have "show" class
 		var treeView = cut.Find(".hx-tree-view");
 		var expandedCollapses = treeView.QuerySelectorAll(".collapse.show");
-		Assert.HasCount(1, expandedCollapses);
+		Assert.Single(expandedCollapses);
 
 		// Verify children are within the expanded section
 		var childTitleTexts = expandedCollapses[0].QuerySelectorAll(".hx-tree-view-item-title").Select(t => t.TextContent).ToList();
@@ -78,7 +77,7 @@ public class HxTreeViewTests : BunitTestBase
 		Assert.Contains("Child1B", childTitleTexts);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTreeView_DefaultState_NodesAreCollapsed()
 	{
 		// Arrange & Act - Default state: all nodes collapsed
@@ -91,14 +90,14 @@ public class HxTreeViewTests : BunitTestBase
 		// Assert - No collapse should have "show" class
 		var treeView = cut.Find(".hx-tree-view");
 		var expandedCollapses = treeView.QuerySelectorAll(".collapse.show");
-		Assert.IsEmpty(expandedCollapses);
+		Assert.Empty(expandedCollapses);
 
 		// Verify collapse elements exist (items with children have collapse containers)
 		var allCollapses = treeView.QuerySelectorAll(".collapse");
-		Assert.IsNotEmpty(allCollapses);
+		Assert.NotEmpty(allCollapses);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTreeView_SelectNode_HighlightsIt()
 	{
 		// Arrange
@@ -119,17 +118,17 @@ public class HxTreeViewTests : BunitTestBase
 		root1Item.Click();
 
 		// Assert - Callback should have been invoked
-		Assert.IsNotNull(selectedItem);
-		Assert.AreEqual("Root1", selectedItem.Title);
+		Assert.NotNull(selectedItem);
+		Assert.Equal("Root1", selectedItem.Title);
 
 		// Assert - The clicked item should have "selected" class
 		var selectedItems = cut.FindAll(".hx-tree-view-item.selected");
-		Assert.HasCount(1, selectedItems);
+		Assert.Single(selectedItems);
 		var selectedTitle = selectedItems[0].QuerySelector(".hx-tree-view-item-title");
-		Assert.AreEqual("Root1", selectedTitle.TextContent);
+		Assert.Equal("Root1", selectedTitle.TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxTreeView_NestedExpansion_WorksCorrectly()
 	{
 		// Arrange & Act - Expand all levels
@@ -143,11 +142,10 @@ public class HxTreeViewTests : BunitTestBase
 		// Assert - All collapse elements should have "show" class (fully expanded)
 		var treeView = cut.Find(".hx-tree-view");
 		var allCollapses = treeView.QuerySelectorAll(".collapse");
-		Assert.IsNotEmpty(allCollapses);
+		Assert.NotEmpty(allCollapses);
 		foreach (var collapse in allCollapses)
 		{
-			Assert.IsTrue(collapse.ClassList.Contains("show"),
-				"All collapse elements should have 'show' class when fully expanded.");
+			Assert.True(collapse.ClassList.Contains("show"), "All collapse elements should have 'show' class when fully expanded.");
 		}
 
 		// Verify all titles at every level are present

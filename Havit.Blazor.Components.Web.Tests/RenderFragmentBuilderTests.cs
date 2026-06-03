@@ -1,33 +1,30 @@
 ﻿using Bunit;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Havit.Blazor.Components.Web.Tests;
 
-[TestClass]
 public class RenderFragmentBuilderTests
 {
-	[TestMethod]
+	[Fact]
 	public void RenderFragmentBuilder_Empty_ReturnsNull()
 	{
 		// act
 		var result = RenderFragmentBuilder.Empty();
 
 		// assert
-		Assert.IsNull(result);
+		Assert.Null(result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void RenderFragmentBuilder_CreateFrom_BothNull_ReturnsNull()
 	{
 		// act
 		var result = RenderFragmentBuilder.CreateFrom(null, null);
 
 		// assert
-		Assert.IsNull(result);
+		Assert.Null(result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void RenderFragmentBuilder_CreateFrom_BothSet_RendersContentFirst()
 	{
 		// assert
@@ -40,7 +37,7 @@ public class RenderFragmentBuilderTests
 		result.MarkupMatches("contenttemplate");
 	}
 
-	[TestMethod]
+	[Fact]
 	public void RenderFragmentBuilder_CreateFrom_OnlyContentSet_RendersContent()
 	{
 		// arrange
@@ -53,7 +50,7 @@ public class RenderFragmentBuilderTests
 		result.MarkupMatches("content");
 	}
 
-	[TestMethod]
+	[Fact]
 	public void RenderFragmentBuilder_CreateFrom_OnlyTemplateSet_RendersTemplate()
 	{
 		// arrange
@@ -66,7 +63,7 @@ public class RenderFragmentBuilderTests
 		result.MarkupMatches("template");
 	}
 
-	[TestMethod]
+	[Fact]
 	public void RenderFragmentBuilder_CreateFrom_EmptyStringContent_ReturnsFragmentWhichRendersStringEmpty()
 	{
 		// arrange

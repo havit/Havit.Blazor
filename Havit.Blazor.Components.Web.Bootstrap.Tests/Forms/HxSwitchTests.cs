@@ -4,20 +4,19 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
-[TestClass]
 public class HxSwitchTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxSwitch_Render_InitiallyOff()
 	{
 		// Act
 		var (cut, _) = RenderSwitch(initialValue: false);
 
 		// Assert
-		Assert.IsFalse(cut.Find("input").HasAttribute("checked"));
+		Assert.False(cut.Find("input").HasAttribute("checked"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxSwitch_Change_TogglesOnAndUpdatesValue()
 	{
 		// Arrange
@@ -27,11 +26,11 @@ public class HxSwitchTests : BunitTestBase
 		cut.Find("input").Change(true);
 
 		// Assert
-		Assert.IsTrue(valueHolder[0]);
-		Assert.IsTrue(cut.Find("input").HasAttribute("checked"));
+		Assert.True(valueHolder[0]);
+		Assert.True(cut.Find("input").HasAttribute("checked"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxSwitch_Change_TogglesOffAndUpdatesValue()
 	{
 		// Arrange
@@ -41,8 +40,8 @@ public class HxSwitchTests : BunitTestBase
 		cut.Find("input").Change(false);
 
 		// Assert
-		Assert.IsFalse(valueHolder[0]);
-		Assert.IsFalse(cut.Find("input").HasAttribute("checked"));
+		Assert.False(valueHolder[0]);
+		Assert.False(cut.Find("input").HasAttribute("checked"));
 	}
 
 	private (IRenderedFragment cut, bool[] valueHolder) RenderSwitch(bool initialValue = false)

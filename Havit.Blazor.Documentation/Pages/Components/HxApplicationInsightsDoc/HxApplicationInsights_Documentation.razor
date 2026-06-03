@@ -1,0 +1,197 @@
+@page "/components/HxApplicationInsights"
+
+<PageTitle>HxApplicationInsights | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
+<DocHeadContent CanonicalRelativeUrl="/components/HxApplicationInsights" />
+
+<DocHeading Title="HxApplicationInsights" Level="1" />
+<p class="lead">
+	Blazor wrapper for the <a href="https://github.com/microsoft/ApplicationInsights-JS">Application Insights JavaScript SDK</a>.
+	Targets browser-side telemetry.
+</p>
+<p>
+	Server-side rendering is also supported, but telemetry there is typically handled by the
+	<a href="https://www.nuget.org/packages/Microsoft.ApplicationInsights">Application Insights</a> SDK
+	or the <a href="https://www.nuget.org/packages/Azure.Monitor.OpenTelemetry.Exporter">Azure Monitor OpenTelemetry Exporter</a>.
+</p>
+
+<DocAlert Type="DocAlertType.Warning">
+	The components are distributed in a separate NuGet package: <a href="https://www.nuget.org/packages/Havit.Blazor.ApplicationInsights">Havit.Blazor.ApplicationInsights</a>.
+</DocAlert>
+
+<DocHeading Title="Setup" Level="2" />
+
+<DocHeading Title="1. Register services" Id="setup-register-services" Level="3" />
+<p><strong>Server project</strong> (<code>Program.cs</code>):</p>
+<CodeSnippet File="~\Pages\Components\HxApplicationInsightsDoc\HxApplicationInsights_ServerRegistration.CodeSnippet.cs" />
+<p>
+	Call <code>AddBlazorApplicationInsights</code> in both the server project and the WebAssembly client project (if any).
+	Configure <strong>options</strong> in the project where <code>&lt;HxApplicationInsights&gt;</code> is rendered.
+	If the component is prerendered or used in SSR, configure it in the <strong>server</strong> project.
+	If it is rendered in WebAssembly without prerendering, configure it in the <strong>client</strong> project.
+</p>
+
+<DocHeading Title="2. Add the script component" Id="setup-script-component" Level="3" />
+<p>
+	Place <code>&lt;HxApplicationInsights /&gt;</code> inside the <code>&lt;head&gt;</code> element of your root layout
+	or <code>App.razor</code>, <strong>before</strong> any other scripts:
+</p>
+<CodeSnippet File="~\Pages\Components\HxApplicationInsightsDoc\HxApplicationInsights_ScriptComponent.CodeSnippet.razor" />
+
+<DocHeading Title="3. Inject and use" Id="setup-inject-and-use" Level="3" />
+<p>
+	Inject <code>IBlazorApplicationInsights</code> to send <strong>custom telemetry</strong> — events, metrics, page views,
+	traces, dependencies and exceptions reported explicitly from your application code.
+	This is <strong>in addition to</strong> the standard automatic tracking (page views, AJAX/Fetch requests and
+	unhandled exceptions) handled by the JS SDK out of the box.
+</p>
+<CodeSnippet File="~\Pages\Components\HxApplicationInsightsDoc\HxApplicationInsights_InjectAndUse.CodeSnippet.razor" />
+
+<DocHeading Title="Configuration" Level="2" />
+<p>Options are split into two groups.</p>
+
+<DocHeading Title="JsSdkOptions — JavaScript SDK configuration" Id="configuration-jssdkoptions" Level="3" />
+<p>Settings in <code>JsSdkOptions</code> are serialized to JSON and passed directly to the JS SDK. Commonly used properties:</p>
+<table class="table table-bordered w-auto">
+	<thead>
+		<tr>
+			<th>Property</th>
+			<th>Description</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><code>ConnectionString</code></td>
+			<td>Application Insights connection string.</td>
+		</tr>
+		<tr>
+			<td><code>EnableAutoRouteTracking</code></td>
+			<td>Automatically track page views on Blazor navigation (<code>history.pushState</code>). Default: <code>false</code>.</td>
+		</tr>
+		<tr>
+			<td><code>DisableAjaxTracking</code></td>
+			<td>Disable automatic tracking of AJAX/Fetch requests. Default: <code>false</code>.</td>
+		</tr>
+		<tr>
+			<td><code>DisableExceptionTracking</code></td>
+			<td>Disable automatic tracking of unhandled exceptions. Default: <code>false</code>.</td>
+		</tr>
+	</tbody>
+</table>
+
+<DocHeading Title="Blazor wrapper options" Id="configuration-wrapper-options" Level="3" />
+<p>These options control behavior of the C# wrapper and are <strong>not</strong> forwarded to the JS SDK.</p>
+<table class="table table-bordered w-auto">
+	<thead>
+		<tr>
+			<th>Property</th>
+			<th>Description</th>
+			<th>Default</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><code>EnableInitialPageViewTracking</code></td>
+			<td>Whether the SDK snippet calls <code>trackPageView({})</code> on startup.</td>
+			<td><code>true</code></td>
+		</tr>
+		<tr>
+			<td><code>DefaultTelemetryInitializer</code></td>
+			<td>Static tags applied to every telemetry item — registered before the initial page view, so the tags are present even on the auto-tracked page view on startup. See <a href="#telemetry-initializer">Telemetry initializer</a>.</td>
+			<td><code>null</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<DocHeading Title="Logging" Level="2" />
+<p>
+	The library includes an ASP.NET Core logging provider that forwards <code>ILogger</code> entries to Application Insights
+	as traces (or exceptions). It is designed primarily for <strong>Interactive WebAssembly</strong>. In other render modes
+	(SSR, Interactive Server), log entries are silently discarded because no browser JS runtime is available server-side.
+</p>
+
+<DocHeading Title="Register the logging provider" Id="logging-register-provider" Level="3" />
+<p><strong>WebAssembly (Client) project</strong> (<code>Program.cs</code>):</p>
+<CodeSnippet File="~\Pages\Components\HxApplicationInsightsDoc\HxApplicationInsights_LoggingRegistration.CodeSnippet.cs" />
+
+<DocHeading Title="Configure log levels in wwwroot/appsettings.json" Id="logging-log-levels" Level="3" />
+<p>The provider alias is <code>BlazorApplicationInsights</code>. Use it to set per-provider log levels:</p>
+<CodeSnippet Language="json">{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Warning"
+    },
+    "BlazorApplicationInsights": {
+      "LogLevel": {
+        "Default": "Error",
+        "MyApp.Pages": "Warning"
+      }
+    }
+  }
+}
+</CodeSnippet>
+
+<DocAlert Type="DocAlertType.Info">
+	<strong>Why is <code>AddConfiguration</code> needed?</strong>
+	Server-side ASP.NET Core (<code>WebApplicationBuilder</code>) reads <code>Logging</code> from <code>appsettings.json</code> automatically.
+	Blazor WebAssembly (<code>WebAssemblyHostBuilder</code>) does not — you must call
+	<code>builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"))</code> explicitly.
+	This applies to <strong>all</strong> logging providers in WASM, not just this one.
+</DocAlert>
+
+<DocHeading Title="Page view tracking" Id="page-view-tracking" Level="2" />
+
+<DocHeading Title="Automatic tracking on initial load" Id="page-view-tracking-initial" Level="3" />
+<p>
+	By default, the SDK snippet calls <code>trackPageView({})</code> on initialization. Disable it via
+	<code>EnableInitialPageViewTracking = false</code> if you need full control.
+</p>
+
+<DocHeading Title="Automatic tracking on Blazor navigation" Id="page-view-tracking-navigation" Level="3" />
+<p>Enable <code>EnableAutoRouteTracking</code> to track page views on URL changes:</p>
+<CodeSnippet Language="cs">options.JsSdkOptions.EnableAutoRouteTracking = true;</CodeSnippet>
+
+<DocHeading Title="Manual page view tracking" Id="page-view-tracking-manual" Level="3" />
+<CodeSnippet Language="cs">await AppInsights.TrackPageViewAsync(new PageViewTelemetry
+{
+	Name = "Product detail",
+	Uri = "/products/42"
+});
+</CodeSnippet>
+
+<DocHeading Title="ErrorBoundary integration" Id="error-boundary-integration" Level="2" />
+<p>
+	.NET exceptions in Blazor are invisible to the JS SDK and must be tracked manually. This component is useful only
+	if you are not using the logging provider (<code>AddBlazorApplicationInsights</code> on <code>ILoggingBuilder</code>)
+	or if exceptions are not being written to <code>ILogger</code> in your application.
+</p>
+<p>
+	Use <code>&lt;HxApplicationInsightsExceptionTracker&gt;</code> inside an <code>ErrorBoundary</code> to report caught exceptions automatically:
+</p>
+<CodeSnippet File="~\Pages\Components\HxApplicationInsightsDoc\HxApplicationInsights_ErrorBoundary.CodeSnippet.razor" />
+
+<DocHeading Title="Authenticated user context" Id="authenticated-user-context" Level="2" />
+<CodeSnippet Language="cs">await AppInsights.SetAuthenticatedUserContextAsync(authenticatedUserId: userId);</CodeSnippet>
+<p>Clear on sign-out:</p>
+<CodeSnippet Language="cs">await AppInsights.ClearAuthenticatedUserContextAsync();</CodeSnippet>
+
+<DocHeading Title="Telemetry initializer" Id="telemetry-initializer" Level="2" />
+<p>
+	Attach tags to every telemetry item. Tags are static (key-value pairs set at registration time)
+	because the JS SDK does not support dynamic callbacks from .NET code per telemetry item.
+</p>
+
+<DocHeading Title="Default telemetry initializer (via options)" Id="telemetry-initializer-default" Level="3" />
+<p>Set once during registration and applies to all telemetry including the auto-tracked initial page view:</p>
+<CodeSnippet File="~\Pages\Components\HxApplicationInsightsDoc\HxApplicationInsights_DefaultTelemetryInitializer.CodeSnippet.cs" />
+
+<DocHeading Title="Runtime telemetry initializer" Id="telemetry-initializer-runtime" Level="3" />
+<p>To attach tags dynamically, call <code>AddTelemetryInitializerAsync</code> at runtime.</p>
+<CodeSnippet File="~\Pages\Components\HxApplicationInsightsDoc\HxApplicationInsights_RuntimeTelemetryInitializer.CodeSnippet.cs" />
+
+<DocHeading Title="CSP nonce" Id="csp-nonce" Level="2" />
+<p>If your Content Security Policy uses <code>nonce-*</code>, pass the nonce to the script component:</p>
+<CodeSnippet Language="html">@("<HxApplicationInsights Nonce=\"@cspNonce\" />")</CodeSnippet>
+
+<DocAlert Type="DocAlertType.Info">
+	<code>CookieMgr</code> is not yet implemented.
+</DocAlert>

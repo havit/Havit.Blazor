@@ -1,12 +1,11 @@
 namespace Havit.Blazor.E2ETests.HxSidebarTests;
 
-[TestClass]
 public class HxSidebar_Tests : TestAppTestBase
 {
 	/// <summary>
 	/// Verifies that the HxSidebar correctly renders the brand, items, and footer.
 	/// </summary>
-	[TestMethod]
+	[Fact]
 	public async Task HxSidebar_Render_ShowsItemsAndBrand()
 	{
 		await NavigateToTestAppAsync("/HxSidebarTests");
@@ -27,7 +26,7 @@ public class HxSidebar_Tests : TestAppTestBase
 	/// <summary>
 	/// Verifies that clicking a sidebar item navigates to the item's href.
 	/// </summary>
-	[TestMethod]
+	[Fact]
 	public async Task HxSidebar_ClickItem_Navigates()
 	{
 		await NavigateToTestAppAsync("/HxSidebarTests");
@@ -40,7 +39,7 @@ public class HxSidebar_Tests : TestAppTestBase
 	/// <summary>
 	/// Verifies that clicking the collapse toggler collapses and expands the sidebar.
 	/// </summary>
-	[TestMethod]
+	[Fact]
 	public async Task HxSidebar_CollapseToggle_CollapsesAndExpands()
 	{
 		await NavigateToTestAppAsync("/HxSidebarTests");
@@ -65,7 +64,7 @@ public class HxSidebar_Tests : TestAppTestBase
 	/// <summary>
 	/// Verifies that the sidebar item matching the current route has the active highlight styling.
 	/// </summary>
-	[TestMethod]
+	[Fact]
 	public async Task HxSidebar_ActiveItem_HasHighlightStyling()
 	{
 		await NavigateToTestAppAsync("/HxSidebarTests/navigate-target");
@@ -77,7 +76,7 @@ public class HxSidebar_Tests : TestAppTestBase
 	/// Verifies that the Bootstrap JS mobile navbar toggler shows the nav content
 	/// via data-bs-toggle="collapse" below the responsive breakpoint.
 	/// </summary>
-	[TestMethod]
+	[Fact]
 	public async Task HxSidebar_MobileNavbarToggler_ShowsNavContent()
 	{
 		// Set viewport below the default Medium (768px) responsive breakpoint so the mobile toggler is visible

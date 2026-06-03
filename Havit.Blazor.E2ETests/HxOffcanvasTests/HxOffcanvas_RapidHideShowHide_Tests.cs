@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxOffcanvasTests;
 
-[TestClass]
 public class HxOffcanvas_RapidHideShowHide_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxOffcanvas_RapidHideShowHide_OffcanvasShouldCloseCompletely()
 	{
 		// Arrange - navigate to the test page

@@ -2,14 +2,11 @@
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
-[TestClass]
 public class HxCheckboxTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxCheckbox_Render_InitiallyUnchecked()
 	{
 		// Arrange
@@ -29,10 +26,10 @@ public class HxCheckboxTests : BunitTestBase
 
 		// Assert
 		var input = cut.Find("input[type='checkbox']");
-		Assert.IsFalse(input.HasAttribute("checked"));
+		Assert.False(input.HasAttribute("checked"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxCheckbox_Click_ChecksAndUpdatesValue()
 	{
 		// Arrange
@@ -54,10 +51,10 @@ public class HxCheckboxTests : BunitTestBase
 		input.Change(true);
 
 		// Assert
-		Assert.IsTrue(value);
+		Assert.True(value);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxCheckbox_ClickChecked_UnchecksAndUpdatesValue()
 	{
 		// Arrange
@@ -79,10 +76,10 @@ public class HxCheckboxTests : BunitTestBase
 		input.Change(false);
 
 		// Assert
-		Assert.IsFalse(value);
+		Assert.False(value);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxCheckbox_Label_RendersCorrectText()
 	{
 		// Arrange
@@ -104,6 +101,6 @@ public class HxCheckboxTests : BunitTestBase
 
 		// Assert
 		var label = cut.Find("label.form-check-label");
-		Assert.AreEqual(labelText, label.TextContent);
+		Assert.Equal(labelText, label.TextContent);
 	}
 }

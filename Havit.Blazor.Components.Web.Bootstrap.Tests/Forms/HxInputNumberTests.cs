@@ -5,25 +5,22 @@ using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
-[TestClass]
 public class HxInputNumberTests : BunitTestBase
 {
-	[TestMethod]
-	[DataRow("en-US", "123", 123.0, "123.00")]
-	[DataRow("en-US", "123,123", 123123.0, "123123.00")]
-	[DataRow("cs-CZ", "123,123", 123.12, "123,12")] // Decimals = 2 (rounding)
-	[DataRow("en-US", "123.123", 123.12, "123.12")]
-	[DataRow("cs-CZ", "123.123", 123.12, "123,12")] // replace . with , (if possible)
-	[DataRow("en-US", "15,81.549", 1581.55, "1581.55")]
-	[DataRow("cs-CZ", "15 81,549", 1581.55, "1581,55")]
-	[DataRow("cs-CZ", "1.234", 1.23, "1,23")] // Replace . with , (if possible)
-	[DataRow("en-US", "1.237", 1.24, "1.24")] // rounding
-	[DataRow("en-US", "abc", null, "abc")] // invalid input
-	[DataRow("en-US", "", null, null)] // empty input
+	[Theory]
+	[InlineData("en-US", "123", 123.0, "123.00")]
+	[InlineData("en-US", "123,123", 123123.0, "123123.00")]
+	[InlineData("cs-CZ", "123,123", 123.12, "123,12")] // Decimals = 2 (rounding)
+	[InlineData("en-US", "123.123", 123.12, "123.12")]
+	[InlineData("cs-CZ", "123.123", 123.12, "123,12")] // replace . with , (if possible)
+	[InlineData("en-US", "15,81.549", 1581.55, "1581.55")]
+	[InlineData("cs-CZ", "15 81,549", 1581.55, "1581,55")]
+	[InlineData("cs-CZ", "1.234", 1.23, "1,23")] // Replace . with , (if possible)
+	[InlineData("en-US", "1.237", 1.24, "1.24")] // rounding
+	[InlineData("en-US", "abc", null, "abc")] // invalid input
+	[InlineData("en-US", "", null, null)] // empty input
 	public void HxInputNumber_NullableDecimal_ValueConversions(string culture, string input, double? expectedValue, string expectedInputText)
 	{
 		// Arrange
@@ -41,11 +38,11 @@ public class HxInputNumberTests : BunitTestBase
 		cut.Find("input").Change(input);
 
 		// assert
-		Assert.AreEqual((decimal?)expectedValue, cut.Instance.Value);
-		Assert.AreEqual(expectedInputText, cut.Find("input").GetAttribute("value"));
+		Assert.Equal((decimal?)expectedValue, cut.Instance.Value);
+		Assert.Equal(expectedInputText, cut.Find("input").GetAttribute("value"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputNumber_TypeValidNumber_UpdatesBoundValue()
 	{
 		// Arrange
@@ -60,10 +57,10 @@ public class HxInputNumberTests : BunitTestBase
 		cut.Find("input").Change("42");
 
 		// Assert
-		Assert.AreEqual(42, currentValue);
+		Assert.Equal(42, currentValue);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputNumber_TypeNonNumeric_ShowsValidationError()
 	{
 		// Arrange
@@ -84,12 +81,12 @@ public class HxInputNumberTests : BunitTestBase
 		cut.Find("input").Change("abc");
 
 		// Assert
-		Assert.AreEqual(0, myValue, "Model value should remain unchanged.");
-		Assert.IsNotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"));
-		Assert.AreEqual("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent, "ParsingValidationError should be displayed.");
+		Assert.Equal(0, myValue);
+		Assert.NotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"));
+		Assert.Equal("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputNumber_ValueOutOfRange_ShowsValidationError()
 	{
 		// Arrange
@@ -119,11 +116,11 @@ public class HxInputNumberTests : BunitTestBase
 		cut.Find("form").Submit();
 
 		// Assert
-		Assert.IsNotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"));
-		Assert.AreNotEqual("", cut.Find("div.invalid-feedback").TextContent, "Validation error message should be displayed.");
+		Assert.NotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"));
+		Assert.NotEqual("", cut.Find("div.invalid-feedback").TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputNumber_NonNullable_EmptyInputShouldRaiseParsingError_Issue892()
 	{
 		// https://github.com/havit/Havit.Blazor/issues/892 (related for comparison)
@@ -146,10 +143,10 @@ public class HxInputNumberTests : BunitTestBase
 		cut.Find("input").Change("");
 
 		// Assert
-		Assert.AreEqual(15, myValue, "Model value should remain unchanged.");
-		Assert.AreEqual("", cut.Find("input").GetAttribute("value"), "Input value should be empty.");
-		Assert.IsNotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"));
-		Assert.AreEqual("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent, "ParsingValidationError should be displayed.");
+		Assert.Equal(15, myValue);
+		Assert.Equal("", cut.Find("input").GetAttribute("value"));
+		Assert.NotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"));
+		Assert.Equal("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent);
 	}
 
 	private class RangeModel

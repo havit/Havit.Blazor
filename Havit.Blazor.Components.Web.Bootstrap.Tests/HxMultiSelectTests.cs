@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxMultiSelectTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxMultiSelect_Render_DisplaysDropdownStructure()
 	{
 		// Arrange
@@ -34,10 +33,10 @@ public class HxMultiSelectTests : BunitTestBase
 
 		// Assert — renders dropdown menu with items as checkboxes
 		var checkboxes = cut.FindAll("input[type='checkbox']");
-		Assert.HasCount(3, checkboxes);
+		Assert.Equal(3, checkboxes.Count());
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMultiSelect_SelectedValues_CheckboxesAreChecked()
 	{
 		// Arrange
@@ -61,10 +60,10 @@ public class HxMultiSelectTests : BunitTestBase
 
 		// Assert — exactly one checkbox should be checked
 		var checkedBoxes = cut.FindAll("input[type='checkbox'][checked]");
-		Assert.HasCount(1, checkedBoxes);
+		Assert.Single(checkedBoxes);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMultiSelect_Label_RendersLabel()
 	{
 		// Arrange
@@ -92,7 +91,7 @@ public class HxMultiSelectTests : BunitTestBase
 		Assert.Contains("Fruits", label.TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMultiSelect_NullData_RendersWithNullDataText()
 	{
 		// Arrange
@@ -115,10 +114,10 @@ public class HxMultiSelectTests : BunitTestBase
 
 		// Assert — renders without checkboxes
 		var checkboxes = cut.FindAll("input[type='checkbox']");
-		Assert.IsEmpty(checkboxes);
+		Assert.Empty(checkboxes);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMultiSelect_Enabled_False_DisablesInput()
 	{
 		// Arrange
@@ -143,6 +142,6 @@ public class HxMultiSelectTests : BunitTestBase
 
 		// Assert — the input should be disabled
 		var input = cut.Find("input[type='text']");
-		Assert.IsNotNull(input.GetAttribute("disabled"));
+		Assert.NotNull(input.GetAttribute("disabled"));
 	}
 }

@@ -9,7 +9,13 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
-		<PackageReference Include="MSTest" />
+		<PackageReference Include="xunit.v3" />
+		<PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
+	</ItemGroup>
+
+	<!-- On net8.0 this project uses the .NET 9 EF Core stack (see Directory.Packages.props), which requires Microsoft.Extensions.Logging.Abstractions >= 9, higher than the net8.0 central pin. Override here only; the project is not packable, so it does not cause assembly-version conflicts in shipped packages. -->
+	<ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" VersionOverride="$(AspNetCoreVersion9)" />
 	</ItemGroup>
 
 	<ItemGroup>

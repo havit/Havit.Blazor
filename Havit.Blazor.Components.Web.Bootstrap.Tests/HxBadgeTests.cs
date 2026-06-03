@@ -1,9 +1,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxBadgeTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxBadge_Render_DisplaysContent()
 	{
 		// Arrange & Act
@@ -13,10 +12,10 @@ public class HxBadgeTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.AreEqual("New", cut.Find("span.badge").TextContent);
+		Assert.Equal("New", cut.Find("span.badge").TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxBadge_Color_AppliesCorrectCssClass()
 	{
 		// Arrange & Act
@@ -25,10 +24,10 @@ public class HxBadgeTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.IsNotNull(cut.Find("span.badge.text-bg-primary"));
+		Assert.NotNull(cut.Find("span.badge.text-bg-primary"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxBadge_RoundedPill_AppliesPillClass()
 	{
 		// Arrange & Act
@@ -38,6 +37,6 @@ public class HxBadgeTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.IsNotNull(cut.Find("span.badge.rounded-pill"));
+		Assert.NotNull(cut.Find("span.badge.rounded-pill"));
 	}
 }

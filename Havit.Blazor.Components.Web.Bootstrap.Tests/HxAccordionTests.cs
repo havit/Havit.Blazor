@@ -2,10 +2,9 @@
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxAccordionTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxAccordion_Render_HasAccordionStructure()
 	{
 		// Act
@@ -17,11 +16,11 @@ public class HxAccordionTests : BunitTestBase
 
 		// Assert
 		var accordion = cut.Find("div.accordion");
-		Assert.IsNotNull(accordion);
-		Assert.IsTrue(accordion.ClassList.Contains("hx-accordion"));
+		Assert.NotNull(accordion);
+		Assert.True(accordion.ClassList.Contains("hx-accordion"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxAccordion_MultipleItems_RendersAllItems()
 	{
 		// Act
@@ -49,10 +48,10 @@ public class HxAccordionTests : BunitTestBase
 
 		// Assert
 		var items = cut.FindAll("div.accordion-item");
-		Assert.HasCount(3, items);
+		Assert.Equal(3, items.Count());
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxAccordionItem_Render_HasCorrectStructure()
 	{
 		// Act
@@ -64,24 +63,24 @@ public class HxAccordionTests : BunitTestBase
 
 		// Assert
 		var item = cut.Find("div.hx-accordion-item");
-		Assert.IsNotNull(item);
-		Assert.IsTrue(item.ClassList.Contains("accordion-item"));
+		Assert.NotNull(item);
+		Assert.True(item.ClassList.Contains("accordion-item"));
 
 		var header = cut.Find("h2.accordion-header");
-		Assert.IsNotNull(header);
+		Assert.NotNull(header);
 
 		var button = cut.Find("button.accordion-button");
-		Assert.IsNotNull(button);
-		Assert.AreEqual("button", button.GetAttribute("type"));
-		Assert.AreEqual("collapse", button.GetAttribute("data-bs-toggle"));
+		Assert.NotNull(button);
+		Assert.Equal("button", button.GetAttribute("type"));
+		Assert.Equal("collapse", button.GetAttribute("data-bs-toggle"));
 		Assert.Contains("Header Text", button.TextContent);
 
 		var body = cut.Find("div.accordion-body");
-		Assert.IsNotNull(body);
+		Assert.NotNull(body);
 		Assert.Contains("Body Text", body.TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxAccordionItem_DataBsTarget_MatchesCollapseId()
 	{
 		// Act
@@ -94,15 +93,15 @@ public class HxAccordionTests : BunitTestBase
 		// Assert - button data-bs-target should match collapse id
 		var button = cut.Find("button.accordion-button");
 		var dataBsTarget = button.GetAttribute("data-bs-target");
-		Assert.IsNotNull(dataBsTarget, "data-bs-target should be set.");
-		Assert.StartsWith("#collapse-", dataBsTarget, "data-bs-target should reference a collapse element.");
+		Assert.NotNull(dataBsTarget);
+		Assert.StartsWith("#collapse-", dataBsTarget);
 
 		// The aria-controls should match the collapse id (without #)
 		var ariaControls = button.GetAttribute("aria-controls");
-		Assert.AreEqual(dataBsTarget.TrimStart('#'), ariaControls);
+		Assert.Equal(dataBsTarget.TrimStart('#'), ariaControls);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxAccordion_StayOpenFalse_SetsDataBsParent()
 	{
 		// Act
@@ -119,10 +118,10 @@ public class HxAccordionTests : BunitTestBase
 
 		var collapseDiv = cut.Find("div.accordion-collapse");
 		var dataBsParent = collapseDiv.GetAttribute("data-bs-parent");
-		Assert.AreEqual($"#{accordionId}", dataBsParent, "data-bs-parent should reference the accordion element.");
+		Assert.Equal($"#{accordionId}", dataBsParent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxAccordion_StayOpenTrue_NoDataBsParent()
 	{
 		// Act
@@ -136,10 +135,10 @@ public class HxAccordionTests : BunitTestBase
 		// Assert - the collapse element should NOT have data-bs-parent
 		var collapseDiv = cut.Find("div.accordion-collapse");
 		var dataBsParent = collapseDiv.GetAttribute("data-bs-parent");
-		Assert.IsTrue(string.IsNullOrEmpty(dataBsParent), "data-bs-parent should not be set when StayOpen is true.");
+		Assert.True(string.IsNullOrEmpty(dataBsParent), "data-bs-parent should not be set when StayOpen is true.");
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxAccordion_CssClass_IsApplied()
 	{
 		// Act
@@ -152,6 +151,6 @@ public class HxAccordionTests : BunitTestBase
 
 		// Assert
 		var accordion = cut.Find("div.accordion");
-		Assert.IsTrue(accordion.ClassList.Contains("custom-accordion"));
+		Assert.True(accordion.ClassList.Contains("custom-accordion"));
 	}
 }

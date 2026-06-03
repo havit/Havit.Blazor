@@ -1,9 +1,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxBootstrapIconTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxBootstrapIcon_Render_OutputsIconElement()
 	{
 		// Arrange & Act
@@ -13,10 +12,10 @@ public class HxBootstrapIconTests : BunitTestBase
 
 		// Assert
 		var element = cut.Find("i");
-		Assert.IsNotNull(element);
+		Assert.NotNull(element);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxBootstrapIcon_Icon_AppliesCorrectCssClass()
 	{
 		// Arrange & Act
@@ -26,10 +25,10 @@ public class HxBootstrapIconTests : BunitTestBase
 
 		// Assert
 		var element = cut.Find("i");
-		Assert.IsTrue(element.ClassList.Contains("bi-alarm"));
+		Assert.True(element.ClassList.Contains("bi-alarm"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxBootstrapIcon_CssClass_IsApplied()
 	{
 		// Arrange & Act
@@ -40,6 +39,6 @@ public class HxBootstrapIconTests : BunitTestBase
 
 		// Assert
 		var element = cut.Find("i");
-		Assert.IsTrue(element.ClassList.Contains("my-custom-class"));
+		Assert.True(element.ClassList.Contains("my-custom-class"));
 	}
 }

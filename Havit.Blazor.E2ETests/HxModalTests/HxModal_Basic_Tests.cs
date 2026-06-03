@@ -1,9 +1,8 @@
 ﻿namespace Havit.Blazor.E2ETests.HxModalTests;
 
-[TestClass]
 public class HxModal_Basic_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxModal_Open_ShowsModalDialog()
 	{
 		// Arrange - navigate to the test page
@@ -19,7 +18,7 @@ public class HxModal_Basic_Tests : TestAppTestBase
 		await Expect(modalDialog).ToBeVisibleAsync(new() { Timeout = 10_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxModal_ClickCloseButton_ClosesModal()
 	{
 		// Arrange - navigate to the test page and open the modal
@@ -43,7 +42,7 @@ public class HxModal_Basic_Tests : TestAppTestBase
 		await Expect(backdrop).ToHaveCountAsync(0, new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxModal_ClickBackdrop_ClosesModal()
 	{
 		// Arrange - navigate to the test page and open the modal
@@ -80,7 +79,7 @@ public class HxModal_Basic_Tests : TestAppTestBase
 		await Expect(backdrop).ToHaveCountAsync(0, new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxModal_TitleBodyFooter_RenderCorrectly()
 	{
 		// Arrange - navigate to the test page

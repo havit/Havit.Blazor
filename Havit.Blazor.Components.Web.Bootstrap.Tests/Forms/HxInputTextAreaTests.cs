@@ -4,14 +4,11 @@ using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
-[TestClass]
 public class HxInputTextAreaTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxInputTextArea_TypeText_UpdatesBoundValue()
 	{
 		// Arrange
@@ -26,11 +23,11 @@ public class HxInputTextAreaTests : BunitTestBase
 		cut.Find("textarea").Change("Line 1\nLine 2\nLine 3");
 
 		// Assert
-		Assert.AreEqual("Line 1\nLine 2\nLine 3", currentValue, "Bound value should be updated with multiline text.");
-		Assert.AreEqual("Line 1\nLine 2\nLine 3", cut.Find("textarea").GetAttribute("value"), "Textarea value attribute should reflect the entered text.");
+		Assert.Equal("Line 1\nLine 2\nLine 3", currentValue);
+		Assert.Equal("Line 1\nLine 2\nLine 3", cut.Find("textarea").GetAttribute("value"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputTextArea_RequiredEmpty_ShowsValidationError()
 	{
 		// Arrange
@@ -59,11 +56,11 @@ public class HxInputTextAreaTests : BunitTestBase
 		cut.Find("form").Submit();
 
 		// Assert
-		Assert.IsNotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"), "Component should display invalid CSS class.");
-		Assert.IsGreaterThan(0, cut.Find("div.invalid-feedback").TextContent.Length, "Validation error message should be displayed.");
+		Assert.NotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"));
+		Assert.True(cut.Find("div.invalid-feedback").TextContent.Length > 0, "Validation error message should be displayed.");
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputTextArea_AdditionalAttributes_RenderedOnTextarea()
 	{
 		// Arrange
@@ -84,7 +81,7 @@ public class HxInputTextAreaTests : BunitTestBase
 
 		// Assert
 		var textarea = cut.Find("textarea");
-		Assert.AreEqual("5", textarea.GetAttribute("rows"), "Additional HTML attributes should be splatted onto the textarea element.");
+		Assert.Equal("5", textarea.GetAttribute("rows"));
 	}
 
 	private class FormModel
