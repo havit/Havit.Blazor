@@ -3,7 +3,7 @@
 <h1>Test Default Telemetry Initializer</h1>
 <h3>Render mode: @(GetRenderMode()?.GetType().Name ?? "SSR")</h3>
 
-<BlazorApplicationInsightsScript @rendermode="GetRenderMode()" />
+<HxApplicationInsights @rendermode="GetRenderMode()" />
 
 @code {
 	[Parameter]

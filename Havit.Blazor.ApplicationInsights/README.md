@@ -31,14 +31,14 @@ builder.Services.AddBlazorApplicationInsights(options =>
 ```
 
 Call `AddBlazorApplicationInsights` in both server project and WebAssembly client project (if any).
-Configure **options** in the project where `<BlazorApplicationInsightsScript>` is rendered.
+Configure **options** in the project where `<HxApplicationInsights>` is rendered.
 If the component is prerendered or used in SSR, configure in the **server** project.
 If rendered in WebAssembly without prerendering, configure in the **client** project.
  
 
 ### 2. Add the script component
 
-Place `<BlazorApplicationInsightsScript />` inside the `<head>` element of your root layout or `App.razor`,
+Place `<HxApplicationInsights />` inside the `<head>` element of your root layout or `App.razor`,
 **before** any other scripts:
 
 ```razor
@@ -46,7 +46,7 @@ Place `<BlazorApplicationInsightsScript />` inside the `<head>` element of your 
 
 <head>
     ...
-    <BlazorApplicationInsightsScript @rendermode="..." />
+    <HxApplicationInsights @rendermode="..." />
     ...
 </head>
 ```
@@ -169,7 +169,7 @@ await AppInsights.TrackPageViewAsync(new PageViewTelemetry
 This component is useful only if you are not using the logging provider (`AddBlazorApplicationInsights` on `ILoggingBuilder`)
 or if exceptions are not being written to `ILogger` in your application.
 
-Use `<BlazorApplicationInsightsException>` inside an `ErrorBoundary` to report caught exceptions automatically:
+Use `<HxApplicationInsightsExceptionTracker>` inside an `ErrorBoundary` to report caught exceptions automatically:
 
 ```razor
 @using Havit.Blazor.ApplicationInsights.Components
@@ -179,7 +179,7 @@ Use `<BlazorApplicationInsightsException>` inside an `ErrorBoundary` to report c
         ...
     </ChildContent>
     <ErrorContent Context="ex">
-        <BlazorApplicationInsightsException Exception="ex" />
+        <HxApplicationInsightsExceptionTracker Exception="ex" />
         <p>An error occurred. Please try again.</p>
     </ErrorContent>
 </ErrorBoundary>
@@ -235,5 +235,5 @@ await AppInsights.AddTelemetryInitializerAsync(new TelemetryInitializer
 If your Content Security Policy uses `nonce-*`, pass the nonce to the script component:
 
 ```razor
-<BlazorApplicationInsightsScript Nonce="@cspNonce" />
+<HxApplicationInsights Nonce="@cspNonce" />
 ```
