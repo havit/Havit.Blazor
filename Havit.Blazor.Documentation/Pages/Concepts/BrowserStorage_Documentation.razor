@@ -1,0 +1,191 @@
+@page "/concepts/browser-storage"
+
+<PageTitle>Browser Web Storage | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
+<DocHeadContent CanonicalRelativeUrl="/concepts/browser-storage" />
+
+<DocHeading Level="1" Title="Browser Web Storage" />
+<p>
+	<code>Havit.Blazor.Storage</code> provides strongly-typed access to the browser <a href="https://developer.mozilla.org/docs/Web/API/Web_Storage_API">Web Storage</a> areas
+	&ndash; <code>window.localStorage</code> and <code>window.sessionStorage</code> &ndash; from your Blazor application.
+	It exposes two services, <code>ILocalStorageService</code> and <code>ISessionStorageService</code>, both implementing the same
+	<code>IBrowserStorage</code> interface. You can store and retrieve plain <code>string</code> values or any object (serialized to/from JSON).
+</p>
+
+<DocAlert Type="DocAlertType.Info">
+	This feature is distributed in a separate NuGet package:
+	<a href="https://www.nuget.org/packages/Havit.Blazor.Storage">Havit.Blazor.Storage</a>.<br />
+	The package has no dependency on Bootstrap or the other Havit.Blazor component packages, so you can use it on its own.
+</DocAlert>
+
+<DocHeading Title="Installation" />
+
+<DocHeading Title="1. NuGet package" Id="nuget-package" Level="3" />
+<p>
+	Add the <a href="https://www.nuget.org/packages/Havit.Blazor.Storage">Havit.Blazor.Storage NuGet package</a> to your Blazor project.
+	In a Blazor Web App with a separate <code>.Client</code> project, add it to the project where you intend to consume the storage
+	(typically the <code>.Client</code> project, so that the synchronous API is available in the WebAssembly render mode).
+</p>
+<CodeSnippet Language="none">dotnet add package Havit.Blazor.Storage</CodeSnippet>
+
+<DocHeading Title="2. Register services" Id="register-services" Level="3" />
+<p>Register the services in your <code>Program.cs</code>:</p>
+<CodeSnippet Language="csharp">@("""
+using Havit.Blazor.Storage;
+
+builder.Services.AddHavitBlazorStorage();
+""")</CodeSnippet>
+<p>
+	This registers both <code>ILocalStorageService</code> and <code>ISessionStorageService</code> with a <code>Scoped</code> lifetime.
+	No <code>&lt;script&gt;</code> reference is required &ndash; the small supporting JavaScript module is loaded automatically by the Blazor JS initializer.
+</p>
+
+<DocHeading Title="Basic usage" />
+<p>
+	Inject <code>ILocalStorageService</code> and/or <code>ISessionStorageService</code> into your component. Both share the same API
+	(<code>IBrowserStorage</code>), so the only difference is which browser storage area they target.
+</p>
+<CodeSnippet Language="razor">@("""
+@inject ILocalStorageService LocalStorage
+
+<button @onclick="StoreAsync">Store</button>
+<button @onclick="LoadAsync">Load</button>
+<p>@_value</p>
+
+@code {
+    private string _value;
+
+    private async Task StoreAsync()
+    {
+        await LocalStorage.SetStringValueAsync("greeting", "Hello world!");
+    }
+
+    private async Task LoadAsync()
+    {
+        var (success, value) = await LocalStorage.TryGetStringValueAsync("greeting");
+        _value = success ? value : "<not stored yet>";
+    }
+}
+""")</CodeSnippet>
+
+<DocHeading Title="Synchronous vs. asynchronous API" Id="sync-vs-async" />
+<p>
+	Every operation comes in two flavors &ndash; a synchronous one (e.g. <code>GetStringValue</code>) and an asynchronous one (e.g. <code>GetStringValueAsync</code>).
+</p>
+<ul>
+	<li>
+		<strong>Asynchronous methods</strong> use the standard <code>IJSRuntime</code> and work in <strong>any render mode</strong>
+		(Interactive Server, Interactive WebAssembly, Auto).
+	</li>
+	<li>
+		<strong>Synchronous methods</strong> require <code>IJSInProcessRuntime</code>, which is only available in the
+		<strong>Interactive WebAssembly</strong> render mode. Calling them in any other context throws an
+		<code>InvalidOperationException</code>.
+	</li>
+</ul>
+<DocAlert Type="DocAlertType.Warning">
+	Browser storage is <strong>not available during server-side prerendering</strong> &ndash; the browser <code>localStorage</code>/<code>sessionStorage</code>
+	objects do not exist on the server. Access the storage only once the component has become interactive
+	(for example from an event handler, or from <code>OnAfterRender(Async)</code> / <code>OnInitializedAsync</code> in an interactive render mode), not during prerendering.
+</DocAlert>
+<p>The synchronous API is convenient in a WebAssembly app, where it avoids the asynchronous state machine:</p>
+<CodeSnippet Language="razor">@("""
+@inject ILocalStorageService LocalStorage
+
+@code {
+    protected override void OnAfterRender(bool firstRender)
+    {
+        // OnAfterRender runs only on the (WebAssembly) client once the component is interactive,
+        // which guarantees the IJSInProcessRuntime required by the synchronous methods is available.
+        if (firstRender)
+        {
+            if (LocalStorage.TryGetStringValue("greeting", out var value))
+            {
+                // ...
+            }
+        }
+    }
+}
+""")</CodeSnippet>
+
+<DocHeading Title="Storing objects (JSON)" Id="storing-objects" />
+<p>
+	Beside the raw <code>string</code> methods (<code>SetStringValue</code>/<code>GetStringValue</code>), you can store any value with
+	<code>SetValue&lt;TValue&gt;</code> and read it back with <code>GetValue&lt;TValue&gt;</code>. The value is serialized to/from JSON
+	using <code>System.Text.Json</code>.
+</p>
+<CodeSnippet Language="csharp">@("""
+public record UserPreferences(string Theme, bool CompactMode);
+
+// store
+await LocalStorage.SetValueAsync("preferences", new UserPreferences("dark", CompactMode: true));
+
+// read
+var (success, preferences) = await LocalStorage.TryGetValueAsync<UserPreferences>("preferences");
+
+// read (throws StorageKeyNotFoundException when the key is missing)
+var preferences2 = await LocalStorage.GetValueAsync<UserPreferences>("preferences");
+""")</CodeSnippet>
+
+<DocHeading Title="Configuring JSON serialization" Id="json-options" Level="3" />
+<p>
+	You can configure the default <code>JsonSerializerOptions</code> used by <code>SetValue</code>/<code>GetValue</code> (and their async variants)
+	during the service registration. The options are used whenever no <code>JsonSerializerOptions</code> are passed to the individual method call.
+</p>
+<CodeSnippet Language="csharp">@("""
+builder.Services.AddHavitBlazorStorage(new JsonSerializerOptions
+{
+    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+});
+
+// or via the options delegate:
+builder.Services.AddHavitBlazorStorage(options =>
+{
+    options.JsonSerializerOptions = new JsonSerializerOptions
+    {
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+    };
+});
+""")</CodeSnippet>
+<p>Individual calls can always override the configured options by passing their own <code>JsonSerializerOptions</code>.</p>
+
+<DocHeading Title="API overview" Id="api-overview" />
+<p>All members are available in both synchronous and asynchronous (suffixed with <code>Async</code>) variants on <code>IBrowserStorage</code>:</p>
+<ul>
+	<li><code>SetStringValue</code> / <code>GetStringValue</code> &ndash; store and read a raw <code>string</code> value.</li>
+	<li><code>TryGetStringValue</code> &ndash; read a <code>string</code> value without throwing when the key is missing.</li>
+	<li><code>SetValue&lt;T&gt;</code> / <code>GetValue&lt;T&gt;</code> &ndash; store and read a JSON-serialized object.</li>
+	<li><code>TryGetValue&lt;T&gt;</code> &ndash; read a JSON-serialized object without throwing when the key is missing.</li>
+	<li><code>Remove</code> &ndash; remove a single key.</li>
+	<li><code>Clear</code> &ndash; remove all keys from the storage area.</li>
+	<li><code>GetLength</code> &ndash; the number of keys stored.</li>
+	<li><code>GetKeyByIndex</code> / <code>TryGetKeyByIndex</code> &ndash; enumerate the keys by their zero-based index.</li>
+</ul>
+<DocAlert Type="DocAlertType.Info">
+	The <code>Get*</code> / <code>GetKeyByIndex</code> methods throw <code>StorageKeyNotFoundException</code> /
+	<code>StorageIndexOutOfRangeException</code> when the requested key/index is not present.
+	Use the <code>TryGet*</code> overloads when a missing value is an expected, non-exceptional case.
+</DocAlert>
+
+<DocHeading Title="Error handling" Id="error-handling" />
+<p>The storage methods can throw the following exceptions (all in the <code>Havit.Blazor.Storage.Exceptions</code> namespace):</p>
+<ul>
+	<li><code>StorageNotAvailableException</code> &ndash; the storage area is not accessible (e.g. disabled or blocked by the browser privacy settings).</li>
+	<li><code>StorageKeyNotFoundException</code> &ndash; thrown by <code>GetStringValue</code>/<code>GetValue</code> when the key is not present.</li>
+	<li><code>StorageIndexOutOfRangeException</code> &ndash; thrown by <code>GetKeyByIndex</code> when the index is out of range.</li>
+	<li><code>InvalidOperationException</code> &ndash; thrown by the synchronous methods when <code>IJSInProcessRuntime</code> is not available (i.e. not in the Interactive WebAssembly render mode).</li>
+</ul>
+<CodeSnippet Language="csharp">@("""
+try
+{
+    var token = await LocalStorage.GetStringValueAsync("token");
+    // ...
+}
+catch (StorageKeyNotFoundException)
+{
+    // the key has not been stored yet
+}
+catch (StorageNotAvailableException)
+{
+    // storage is disabled/blocked in the browser
+}
+""")</CodeSnippet>

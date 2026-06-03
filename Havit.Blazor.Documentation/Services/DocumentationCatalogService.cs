@@ -108,6 +108,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/concepts/defaults-and-settings", "Defaults & Settings", "configuration themes wide preset"),
 		new("/concepts/Debouncer", "Debouncer", "delay timer"),
 		new("/concepts/dark-color-mode-theme", "Dark color mode", "dark color theme"),
+		new("/concepts/browser-storage", "Browser Web Storage", "localStorage sessionStorage local session storage persist cache key value json"),
 
 		// Supportive types
 
