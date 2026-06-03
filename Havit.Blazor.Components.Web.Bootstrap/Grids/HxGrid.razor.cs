@@ -676,7 +676,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// <param name="resetOptions">Specifies which aspects of the grid state should be reset before refreshing data (e.g., position).</param>
 	public async Task RefreshDataAsync(GridStateResetOptions resetOptions)
 	{
-		Contract.Requires<InvalidOperationException>(_isDisposed == false, "Cannot call RefreshDataAsync method on disposed component.");
+		Contract.Requires<InvalidOperationException>(!_isDisposed, "Cannot call RefreshDataAsync method on disposed component.");
 
 		await ResetGridStateAsync(resetOptions);
 
