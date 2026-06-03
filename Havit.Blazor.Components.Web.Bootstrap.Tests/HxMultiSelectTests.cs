@@ -145,7 +145,7 @@ public class HxMultiSelectTests : BunitTestBase
 		Assert.NotNull(input.GetAttribute("disabled"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxMultiSelect_Render_DoesNotEmitListboxOptionRoles()
 	{
 		// Arrange
@@ -168,7 +168,7 @@ public class HxMultiSelectTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert
-		Assert.IsEmpty(cut.FindAll("[role='listbox']"));
-		Assert.IsEmpty(cut.FindAll("[role='option']"));
+		Assert.Empty(cut.FindAll("[role='listbox']"));
+		Assert.Empty(cut.FindAll("[role='option']"));
 	}
 }

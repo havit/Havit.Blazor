@@ -44,7 +44,7 @@ public class HxPager_Basic_Tests : BunitTestBase
 		Assert.Equal(1, currentPageIndex);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxPager_Render_DefaultIconButtons_HaveAccessibleLabels()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -56,13 +56,13 @@ public class HxPager_Basic_Tests : BunitTestBase
 
 			// Assert
 			var labeledButtons = cut.FindAll("button.page-link[aria-label]");
-			CollectionAssert.AreEqual(
+			Assert.Equal(
 				new[] { "First page", "Previous page", "Next page", "Last page" },
 				labeledButtons.Select(button => button.GetAttribute("aria-label")).ToArray());
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxPager_Render_EllipsisButtons_HaveAccessibleLabels()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -77,7 +77,7 @@ public class HxPager_Basic_Tests : BunitTestBase
 				.Select(button => button.GetAttribute("aria-label"))
 				.ToArray();
 
-			CollectionAssert.AreEquivalent(
+			Assert.Equivalent(
 				new[] { "First page", "Previous page", "Previous pages", "Next pages", "Next page", "Last page" },
 				labeledButtons);
 		}
