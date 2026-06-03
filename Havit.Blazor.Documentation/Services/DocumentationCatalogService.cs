@@ -51,6 +51,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/components/HxFormState", "HxFormState", "enabled disabled"),
 		new("/components/HxFormValue", "HxFormValue", "readonly"),
 		new("/components/HxGoogleTagManager", "HxGoogleTagManager", "gtm ga analytics"),
+		new("/components/HxApplicationInsights", "HxApplicationInsights", "telemetry monitoring azure logging exception tracking page view HxApplicationInsightsExceptionTracker appinsights application insights"),
 		new("/components/HxGrid", "HxGrid", "data row column table datalist"),
 		new("/components/HxGrid#InfiniteScroll", "HxGrid > Infinite scroll (Virtualized)", ""),
 		new("/components/HxGrid#context-menu", "HxGrid > Context menu", ""),

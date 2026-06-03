@@ -1,0 +1,11 @@
+@inject IBlazorApplicationInsights AppInsights
+
+@code {
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await AppInsights.TrackEventAsync(new EventTelemetry { Name = "my-event" });
+		}
+	}
+}

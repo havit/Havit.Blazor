@@ -1,4 +1,5 @@
 ﻿@using Havit.Blazor.Components.Web.ECharts
+@using Havit.Blazor.ApplicationInsights.Components
 <HxSidebar @bind-Collapsed="_isDesktopCollapsed" CssClass="sticky-md-top doc-sidebar">
     <HeaderTemplate>
         <div class="d-flex flex-grow-1 d-lg-none">
@@ -124,6 +125,7 @@
         <HxSidebarItem Text="Special" Icon="BootstrapIcon.BagHeart">
             <HxSidebarItem Href="@($"/components/{nameof(HxDynamicElement)}")" Text="@nameof(HxDynamicElement)" />
             <HxSidebarItem Href="@($"/components/{nameof(GoogleTagManager.HxGoogleTagManager)}")" Text="@nameof(GoogleTagManager.HxGoogleTagManager)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxApplicationInsights)}")" Text="@nameof(HxApplicationInsights)" />
         </HxSidebarItem>
 
         <HxSidebarItem Text="Concepts" Icon="BootstrapIcon.Lightbulb">
