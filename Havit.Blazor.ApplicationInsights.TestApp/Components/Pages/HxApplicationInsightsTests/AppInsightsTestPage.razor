@@ -1,0 +1,13 @@
+@attribute [Route(NavigationRoutes.HxApplicationInsightsTests.RouteTemplate)]
+
+<h1>Test HxApplicationInsights</h1>
+<h3>Render mode: @(GetRenderMode()?.GetType().Name ?? "SSR")</h3>
+
+<HxApplicationInsights @rendermode="GetRenderMode()" />
+
+@code {
+	[Parameter]
+	public string Mode { get; set; }
+
+	private IComponentRenderMode GetRenderMode() => RenderModeRouteHelper.GetRenderMode(Mode);
+}

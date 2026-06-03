@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxAccordionTests;
 
-[TestClass]
 public class HxAccordionTests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxAccordion_Render_AllItemsCollapsed()
 	{
 		// Arrange & Act - Navigate to the HxAccordion test page
@@ -19,7 +18,7 @@ public class HxAccordionTests : TestAppTestBase
 		await Expect(body3).Not.ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxAccordion_ClickHeader_ExpandsContent()
 	{
 		// Arrange - Navigate to the HxAccordion test page
@@ -38,7 +37,7 @@ public class HxAccordionTests : TestAppTestBase
 		await Expect(body1).ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxAccordion_ClickExpandedHeader_CollapsesContent()
 	{
 		// Arrange - Navigate to the HxAccordion test page
@@ -63,7 +62,7 @@ public class HxAccordionTests : TestAppTestBase
 		await Expect(body1).Not.ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxAccordion_StayOpenFalse_ClosesOtherItem()
 	{
 		// Arrange - Navigate to the HxAccordion test page
@@ -86,7 +85,7 @@ public class HxAccordionTests : TestAppTestBase
 		await Expect(body1).Not.ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxAccordion_StayOpenTrue_AllowsMultipleOpen()
 	{
 		// Arrange - Navigate to the HxAccordion StayOpen test page

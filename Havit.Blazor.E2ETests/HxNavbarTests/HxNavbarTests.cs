@@ -1,11 +1,10 @@
 ﻿namespace Havit.Blazor.E2ETests.HxNavbarTests;
 
-[TestClass]
 public class HxNavbarTests : TestAppTestBase
 {
 	private static readonly System.Text.RegularExpressions.Regex CollapseShowClassRegex = new System.Text.RegularExpressions.Regex("\\bshow\\b");
 
-	[TestMethod]
+	[Fact]
 	public async Task HxNavbar_Render_ShowsBrandAndItems()
 	{
 		// Arrange
@@ -23,7 +22,7 @@ public class HxNavbarTests : TestAppTestBase
 		await Expect(navItemAbout).ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxNavbar_Toggler_TogglesNavOnSmallViewport()
 	{
 		// Arrange - narrow viewport so the navbar is collapsed
@@ -54,7 +53,7 @@ public class HxNavbarTests : TestAppTestBase
 		await Expect(navCollapse).Not.ToHaveClassAsync(CollapseShowClassRegex, new() { Timeout = 10_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxNavbar_Brand_RendersCorrectly()
 	{
 		// Arrange

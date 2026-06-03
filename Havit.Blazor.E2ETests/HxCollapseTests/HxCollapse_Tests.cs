@@ -2,10 +2,9 @@ using System.Text.RegularExpressions;
 
 namespace Havit.Blazor.E2ETests.HxCollapseTests;
 
-[TestClass]
 public class HxCollapse_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxCollapse_InitialState_ContentHidden()
 	{
 		// Arrange - navigate to the test page
@@ -16,7 +15,7 @@ public class HxCollapse_Tests : TestAppTestBase
 		await Expect(collapseContent).Not.ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxCollapse_ClickToggle_ShowsContent()
 	{
 		// Arrange - navigate to the test page
@@ -32,7 +31,7 @@ public class HxCollapse_Tests : TestAppTestBase
 		await Expect(collapseContent).ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxCollapse_ClickToggleAgain_HidesContent()
 	{
 		// Arrange - navigate to the test page
@@ -56,7 +55,7 @@ public class HxCollapse_Tests : TestAppTestBase
 		await Expect(collapseContent).Not.ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxCollapse_MultipleShowCalls_DoesNotBreak()
 	{
 		// Arrange - navigate to the test page

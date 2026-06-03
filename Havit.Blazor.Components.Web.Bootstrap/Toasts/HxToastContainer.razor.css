@@ -1,4 +1,4 @@
 ﻿.hx-toast-container {
 	z-index: 1080;
-	margin: var(--hx-toast-container-margin);
+	padding: var(--hx-toast-container-padding);
 }

@@ -1,9 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Grids;
 
-[TestClass]
 public class HxGrid_LoadMore_Tests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxGrid_LoadMore_ButtonShouldRemainVisibleDuringLoadingOnSecondToLastPage()
 	{
 		// Arrange: 20 items with page size 10
@@ -32,20 +31,20 @@ public class HxGrid_LoadMore_Tests : BunitTestBase
 				.Add(c => c.ItemTextSelector, item => item.ToString())));
 
 		// Verify: Load More button should be visible initially (10 items shown out of 20 total)
-		Assert.HasCount(1, cut.FindAll(".hx-grid-load-more-container"), "Load More button should be visible initially.");
+		Assert.Single(cut.FindAll(".hx-grid-load-more-container"));
 
 		// Act: Start loading more data (data provider will block on the second call)
 		var loadMoreTask = cut.InvokeAsync(() => cut.Instance.LoadMoreAsync());
 
 		// Assert: Button should remain visible while loading is in progress
 		// (Without the fix, the button would disappear because LoadMoreAdditionalItemsCount is already incremented)
-		Assert.HasCount(1, cut.FindAll(".hx-grid-load-more-container"), "Load More button should remain visible during loading.");
+		Assert.Single(cut.FindAll(".hx-grid-load-more-container"));
 
 		// Complete the data loading
 		dataProviderTCS.SetResult();
 		await loadMoreTask;
 
 		// Assert: Button should disappear after all data is loaded (all 20 items are now displayed)
-		Assert.IsEmpty(cut.FindAll(".hx-grid-load-more-container"), "Load More button should disappear after all data is loaded.");
+		Assert.Empty(cut.FindAll(".hx-grid-load-more-container"));
 	}
 }

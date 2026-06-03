@@ -1,0 +1,38 @@
+@attribute [Route(NavigationRoutes.TrackingMethodsTests)]
+@rendermode InteractiveServerWithoutPrerendering
+@inject IBlazorApplicationInsights BlazorApplicationInsights
+
+<h1>Test Tracking Methods</h1>
+
+<HxApplicationInsights />
+
+@if (_done)
+{
+    <span id="done">done</span>
+}
+
+@code
+{
+    private bool _done;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await BlazorApplicationInsights.TrackEventAsync(new EventTelemetry { Name = "test-event" });
+            await BlazorApplicationInsights.TrackPageViewAsync(new PageViewTelemetry { Name = "test-page-view" });
+            await BlazorApplicationInsights.TrackExceptionAsync(new ExceptionTelemetry { Exception = new ExceptionDetails { Name = "test-exception", Message = "test-exception-message" } });
+            await BlazorApplicationInsights.TrackTraceAsync(new TraceTelemetry { Message = "test-trace" });
+            await BlazorApplicationInsights.TrackMetricAsync(new MetricTelemetry { Name = "test-metric", Average = 42 });
+            await BlazorApplicationInsights.StartTrackPageAsync("test-tracked-page");
+            await BlazorApplicationInsights.StopTrackPageAsync("test-tracked-page");
+            await BlazorApplicationInsights.StartTrackEventAsync("test-tracked-event");
+            await BlazorApplicationInsights.StopTrackEventAsync("test-tracked-event");
+            await BlazorApplicationInsights.TrackPageViewPerformanceAsync(new PageViewPerformanceTelemetry { Name = "test-page-view-performance" });
+            await BlazorApplicationInsights.TrackDependencyDataAsync(new DependencyTelemetry { Name = "test-dependency", ResponseCode = 200 });
+            await BlazorApplicationInsights.FlushAsync();
+            _done = true;
+            StateHasChanged();
+        }
+    }
+}

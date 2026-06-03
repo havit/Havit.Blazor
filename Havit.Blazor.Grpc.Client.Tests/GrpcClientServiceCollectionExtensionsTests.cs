@@ -3,10 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Havit.Blazor.Grpc.Client.Tests;
 
-[TestClass]
 public class GrpcClientServiceCollectionExtensionsTests
 {
-	[TestMethod]
+	[Fact]
 	public void GrpcClientServiceCollectionExtensions_AddGrpcClientsByApiContractAttributes_RegistersServicesWithAttribute()
 	{
 		// arrange
@@ -16,6 +15,6 @@ public class GrpcClientServiceCollectionExtensionsTests
 		services.AddGrpcClientsByApiContractAttributes(typeof(Dto).Assembly);
 
 		// assert
-		Assert.IsNotNull(services.FirstOrDefault(sd => sd.ServiceType == typeof(ITestFacade)));
+		Assert.NotNull(services.FirstOrDefault(sd => sd.ServiceType == typeof(ITestFacade)));
 	}
 }

@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxOffcanvasTests;
 
-[TestClass]
 public class HxOffcanvas_BasicTests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxOffcanvas_Open_ShowsPanel()
 	{
 		// Arrange
@@ -19,7 +18,7 @@ public class HxOffcanvas_BasicTests : TestAppTestBase
 		await Expect(offcanvasContent).ToBeVisibleAsync(new() { Timeout = 10_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxOffcanvas_ClickCloseButton_ClosesPanel()
 	{
 		// Arrange
@@ -39,7 +38,7 @@ public class HxOffcanvas_BasicTests : TestAppTestBase
 		await Expect(offcanvasContent).Not.ToBeVisibleAsync(new() { Timeout = 10_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxOffcanvas_ClickBackdrop_ClosesPanel()
 	{
 		// Arrange
@@ -59,7 +58,7 @@ public class HxOffcanvas_BasicTests : TestAppTestBase
 		await Expect(offcanvasContent).Not.ToBeVisibleAsync(new() { Timeout = 10_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxOffcanvas_Content_RendersCorrectly()
 	{
 		// Arrange

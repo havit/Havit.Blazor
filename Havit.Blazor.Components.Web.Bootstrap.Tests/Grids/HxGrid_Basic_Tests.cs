@@ -4,12 +4,11 @@ using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Grids;
 
-[TestClass]
 public class HxGrid_Basic_Tests : BunitTestBase
 {
 	private record TestItem(int Id, string Name);
 
-	[TestMethod]
+	[Fact]
 	public async Task HxGrid_Render_DisplaysCorrectRowCount()
 	{
 		// Arrange
@@ -28,10 +27,10 @@ public class HxGrid_Basic_Tests : BunitTestBase
 
 		// Assert: 5 data rows rendered (excluding empty-data and placeholder rows)
 		var dataRows = cut.FindAll("tbody tr:not(.hx-grid-empty-data-row)");
-		Assert.HasCount(5, dataRows);
+		Assert.Equal(5, dataRows.Count());
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxGrid_ClickColumnHeader_SortsAscending()
 	{
 		// Arrange
@@ -63,11 +62,11 @@ public class HxGrid_Basic_Tests : BunitTestBase
 		await cut.InvokeAsync(() => header.Click());
 
 		// Assert: column is now marked as sorted and sort direction is ascending
-		Assert.IsNotEmpty(cut.FindAll("th.hx-grid-sorted"), "Column header should have the sorted CSS class.");
-		Assert.AreEqual(SortDirection.Ascending, lastSortDirection);
+		Assert.NotEmpty(cut.FindAll("th.hx-grid-sorted"));
+		Assert.Equal(SortDirection.Ascending, lastSortDirection);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxGrid_ClickColumnHeaderTwice_SortsDescending()
 	{
 		// Arrange
@@ -100,10 +99,10 @@ public class HxGrid_Basic_Tests : BunitTestBase
 		await cut.InvokeAsync(() => cut.Find("th.hx-grid-sorted").Click());
 
 		// Assert: sort direction is now descending
-		Assert.AreEqual(SortDirection.Descending, lastSortDirection);
+		Assert.Equal(SortDirection.Descending, lastSortDirection);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxGrid_EmptyData_ShowsEmptyMessage()
 	{
 		// Arrange
@@ -120,10 +119,10 @@ public class HxGrid_Basic_Tests : BunitTestBase
 		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
 
 		// Assert: empty data row is displayed
-		Assert.HasCount(1, cut.FindAll("tr.hx-grid-empty-data-row"), "Empty data row should be rendered when there are no items.");
+		Assert.Single(cut.FindAll("tr.hx-grid-empty-data-row"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxGrid_EmptyData_RendersCustomEmptyDataTemplate()
 	{
 		// Arrange — regression for #623: custom EmptyDataTemplate should render when data is empty
@@ -151,7 +150,7 @@ public class HxGrid_Basic_Tests : BunitTestBase
 		Assert.Contains("No records found", customEmpty.TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxGrid_NonSortableColumnHeader_IsNotInteractive()
 	{
 		// Arrange — regression for #1166: non-sortable column header should not be clickable
@@ -169,12 +168,32 @@ public class HxGrid_Basic_Tests : BunitTestBase
 
 		// Assert — non-sortable header should not be interactive (no sortable class, no role)
 		var headers = cut.FindAll("th");
-		Assert.IsNotEmpty(headers, "Grid should have at least one header.");
+		Assert.NotEmpty(headers);
 		var header = headers[0];
-		Assert.IsFalse(header.ClassList.Contains("hx-grid-sortable"),
-			"Non-sortable column should not have sortable CSS class.");
-		Assert.IsNull(header.GetAttribute("role"),
-			"Non-sortable column should not have role attribute.");
+		Assert.False(header.ClassList.Contains("hx-grid-sortable"), "Non-sortable column should not have sortable CSS class.");
+		Assert.Null(header.GetAttribute("role"));
+	}
+
+	[Fact]
+	public async Task HxGrid_RefreshDataAsync_AfterDispose_ThrowsInvalidOperationException()
+	{
+		// Arrange
+		var items = Enumerable.Range(1, 3).Select(i => new TestItem(i, $"Item {i}")).ToList();
+		GridDataProviderDelegate<TestItem> dataProvider = (GridDataProviderRequest<TestItem> request) =>
+			Task.FromResult(request.ApplyTo(items));
+
+		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+			.Add(p => p.DataProvider, dataProvider)
+			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
+				.Add(c => c.HeaderText, "Name")
+				.Add(c => c.ItemTextSelector, item => item.Name)));
+
+		var grid = cut.Instance;
+		await grid.DisposeAsync();
+
+		// Act + Assert
+		var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => grid.RefreshDataAsync()));
+		Assert.Equal("Cannot call RefreshDataAsync method on disposed component.", exception.Message);
 	}
 
 }

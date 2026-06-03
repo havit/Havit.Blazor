@@ -1,0 +1,16 @@
+@page "/HxInputNumber_SmartKeyboardNegative"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<div data-testid="input-number-wrapper">
+	<HxInputNumber @bind-Value="_value"
+				   Decimals="0"
+				   SelectOnFocus="true"
+				   SmartKeyboard="true"
+				   Label="Test number" />
+</div>
+
+<p data-testid="current-value">@_value</p>
+
+@code {
+	private int _value = 123;
+}

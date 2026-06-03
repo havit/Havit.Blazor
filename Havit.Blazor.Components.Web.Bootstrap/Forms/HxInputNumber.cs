@@ -241,9 +241,10 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 			// When the user presses '-' key, we toggle the sign of the value.
 			// We also set the modifiedByCode flag to allow fire change event in onblur event later.
 			// Selection handling:
-			// - When everything (but non-empty) is selected before adding -, everything is selected after adding -.
+			// - When everything (but non-empty) is selected before adding -, the digit portion (without the leading -) remains selected after adding -.
+			//   This way the user can type a digit to replace the digits and end up with a negative number (issue #1142).
 			// - When selected -12 in the value -1234, 12 must remain selected after - removal.
-			builder.AddAttribute(1006, "onkeydown", "if (event.key === '-') { let newValue = this.value; let newSelectionStart = -1; let newSelectionEnd = -1; if (this.value.startsWith('-')) { newValue = this.value.substring(1); newSelectionStart = Math.max(0, this.selectionStart - 1); newSelectionEnd = Math.max(0, this.selectionEnd - 1);  } else { newValue = '-' + this.value; newSelectionStart = (this.selectionStart == 0 && this.selectionEnd > 0 && this.selectionEnd == this.value.length) ? 0 : this.selectionStart + 1; newSelectionEnd = (this.selectionStart == 0 && this.selectionEnd > 0 && this.selectionEnd == this.value.length) ? newValue.length : this.selectionEnd + 1;}  if (this.value !== newValue) { this.value = newValue; this.setSelectionRange(newSelectionStart, newSelectionEnd); this.dispatchEvent(new Event('input', { bubbles: true })); this.modifiedByCode = true; return false; } }");
+			builder.AddAttribute(1006, "onkeydown", "if (event.key === '-') { let newValue = this.value; let newSelectionStart = -1; let newSelectionEnd = -1; if (this.value.startsWith('-')) { newValue = this.value.substring(1); newSelectionStart = Math.max(0, this.selectionStart - 1); newSelectionEnd = Math.max(0, this.selectionEnd - 1);  } else { newValue = '-' + this.value; newSelectionStart = (this.selectionStart == 0 && this.selectionEnd > 0 && this.selectionEnd == this.value.length) ? 1 : this.selectionStart + 1; newSelectionEnd = (this.selectionStart == 0 && this.selectionEnd > 0 && this.selectionEnd == this.value.length) ? newValue.length : this.selectionEnd + 1;}  if (this.value !== newValue) { this.value = newValue; this.setSelectionRange(newSelectionStart, newSelectionEnd); this.dispatchEvent(new Event('input', { bubbles: true })); this.modifiedByCode = true; return false; } }");
 			builder.SetUpdatesAttributeName("value");
 		}
 

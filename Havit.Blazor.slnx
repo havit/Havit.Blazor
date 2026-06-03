@@ -4,6 +4,13 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Folder Name="/ApplicationInsights/">
+    <Project Path="Havit.Blazor.ApplicationInsights.E2ETests/Havit.Blazor.ApplicationInsights.E2ETests.csproj" />
+    <Project Path="Havit.Blazor.ApplicationInsights.TestApp.Client/Havit.Blazor.ApplicationInsights.TestApp.Client.csproj" />
+    <Project Path="Havit.Blazor.ApplicationInsights.TestApp/Havit.Blazor.ApplicationInsights.TestApp.csproj" />
+    <Project Path="Havit.Blazor.ApplicationInsights.Tests/Havit.Blazor.ApplicationInsights.Tests.csproj" />
+    <Project Path="Havit.Blazor.ApplicationInsights/Havit.Blazor.ApplicationInsights.csproj" />
+  </Folder>
   <Folder Name="/Havit.Blazor.Grpc/">
     <Project Path="Havit.Blazor.Grpc.Client.ServerSideRendering/Havit.Blazor.Grpc.Client.ServerSideRendering.csproj" />
     <Project Path="Havit.Blazor.Grpc.Client.Tests/Havit.Blazor.Grpc.Client.Tests.csproj" />
@@ -14,6 +21,10 @@
     <Project Path="Havit.Blazor.Grpc.Server.Tests/Havit.Blazor.Grpc.Server.Tests.csproj" />
     <Project Path="Havit.Blazor.Grpc.Server/Havit.Blazor.Grpc.Server.csproj" />
     <Project Path="Havit.Blazor.Grpc.TestContracts/Havit.Blazor.Grpc.TestContracts.csproj" />
+  </Folder>
+  <Folder Name="/Havit.Blazor.Storage/">
+    <Project Path="Havit.Blazor.Storage/Havit.Blazor.Storage.csproj" />
+    <Project Path="Havit.Blazor.Storage.E2ETests/Havit.Blazor.Storage.E2ETests.csproj" />
   </Folder>
   <Folder Name="/Localization/">
     <Project Path="Havit.Extensions.Localization/Havit.Extensions.Localization.csproj" />

@@ -3,10 +3,9 @@ using Havit;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Grids;
 
-[TestClass]
 public class HxPager_Basic_Tests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxPager_Render_ShowsCorrectPageCount()
 	{
 		// Arrange & Act
@@ -23,10 +22,10 @@ public class HxPager_Basic_Tests : BunitTestBase
 			var link = li.QuerySelector(".page-link");
 			return link != null && int.TryParse(link.TextContent.Trim(), out _);
 		});
-		Assert.AreEqual(5, numericPageCount, "Pager should show 5 numeric page buttons for TotalPages=5.");
+		Assert.Equal(5, numericPageCount);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxPager_ClickPage_ShowsRequestedPage()
 	{
 		// Arrange
@@ -42,7 +41,7 @@ public class HxPager_Basic_Tests : BunitTestBase
 		await cut.InvokeAsync(() => page2Link.Click());
 
 		// Assert: page index changed to 1 (second page, zero-based)
-		Assert.AreEqual(1, currentPageIndex, "Clicking page 2 should set page index to 1.");
+		Assert.Equal(1, currentPageIndex);
 	}
 
 	[TestMethod]

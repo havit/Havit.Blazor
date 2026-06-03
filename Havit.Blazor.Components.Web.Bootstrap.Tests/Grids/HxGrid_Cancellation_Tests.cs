@@ -2,10 +2,9 @@
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Grids;
 
-[TestClass]
 public class HxGrid_Cancellation_Tests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxGrid_Cancellation_ShouldRequestCancellationWhenDisposed()
 	{
 		// Arrange
@@ -40,7 +39,7 @@ public class HxGrid_Cancellation_Tests : BunitTestBase
 		var wasCancellationRequested = await dataProviderTCS.Task;
 
 		// Assert
-		Assert.IsTrue(wasCancellationRequested);
+		Assert.True(wasCancellationRequested);
 	}
 
 	// When we dispose CancellationTokenSource in HxGrid, the CancellationToken originated from it throws ObjectDisposedException in some scenarios.
@@ -48,7 +47,7 @@ public class HxGrid_Cancellation_Tests : BunitTestBase
 	// We should not dispose the CancellationTokenSource in HxGrid either.
 	// https://stackoverflow.com/questions/6960520/when-to-dispose-cancellationtokensource#:~:text=One%20more%20comment%20by%20Stephen,it%27s%20used%20with%20a%20timeout
 	// http://web.archive.org/web/20160203062224/http://blogs.msdn.com/b/pfxteam/archive/2012/03/25/10287435.aspx (see Steve Toube's comments bellow)
-	[TestMethod]
+	[Fact]
 	public async Task HxGrid_Cancellation_CancellationTokenUsageInDataProviderShouldNotThrowObjectDisposedExceptionWhenHxGridGetsDisposed()
 	{
 		// Arrange
@@ -87,6 +86,6 @@ public class HxGrid_Cancellation_Tests : BunitTestBase
 
 		// Assert
 		// the main assertion is that no ObjectDisposedException was thrown
-		Assert.IsTrue(wasCancellationRequested);
+		Assert.True(wasCancellationRequested);
 	}
 }

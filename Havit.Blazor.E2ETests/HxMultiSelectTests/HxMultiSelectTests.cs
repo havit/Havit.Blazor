@@ -1,9 +1,8 @@
 ﻿namespace Havit.Blazor.E2ETests.HxMultiSelectTests;
 
-[TestClass]
 public class HxMultiSelectTests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxMultiSelect_ClickToggle_OpensDropdown()
 	{
 		// Arrange
@@ -18,7 +17,7 @@ public class HxMultiSelectTests : TestAppTestBase
 		await Expect(Page.Locator(".dropdown-menu.show")).ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxMultiSelect_CheckMultipleOptions_AllSelected()
 	{
 		// Arrange
@@ -36,7 +35,7 @@ public class HxMultiSelectTests : TestAppTestBase
 		await Expect(selectedValueDisplay).ToHaveTextAsync("Alpha, Beta");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxMultiSelect_UncheckOption_RemovedFromValue()
 	{
 		// Arrange
@@ -60,7 +59,7 @@ public class HxMultiSelectTests : TestAppTestBase
 		await Expect(selectedValueDisplay).ToHaveTextAsync("Beta");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxMultiSelect_SelectedItems_ShownAsSummaryText()
 	{
 		// Arrange
@@ -82,7 +81,7 @@ public class HxMultiSelectTests : TestAppTestBase
 		await Expect(toggle).ToHaveValueAsync("Gamma");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxMultiSelect_ClickOutside_ClosesDropdown()
 	{
 		// Arrange

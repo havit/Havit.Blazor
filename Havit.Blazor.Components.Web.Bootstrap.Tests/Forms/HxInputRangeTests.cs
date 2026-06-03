@@ -1,11 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
-namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
-
-[TestClass]
 public class HxInputRangeTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxInputRange_Render_HasCorrectMinMaxAttributes()
 	{
 		// Arrange
@@ -19,11 +16,11 @@ public class HxInputRangeTests : BunitTestBase
 
 		// Assert
 		var input = cut.Find("input[type=range]");
-		Assert.AreEqual("0", input.GetAttribute("min"));
-		Assert.AreEqual("100", input.GetAttribute("max"));
+		Assert.Equal("0", input.GetAttribute("min"));
+		Assert.Equal("100", input.GetAttribute("max"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputRange_ChangeValue_UpdatesBoundValue()
 	{
 		// Arrange
@@ -38,10 +35,10 @@ public class HxInputRangeTests : BunitTestBase
 		cut.Find("input[type=range]").Change("75");
 
 		// Assert
-		Assert.AreEqual(75, currentValue);
+		Assert.Equal(75, currentValue);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputRange_WithLabel_RendersLabelAndCorrectValueAttribute()
 	{
 		// Arrange
@@ -56,9 +53,9 @@ public class HxInputRangeTests : BunitTestBase
 
 		// Assert
 		var label = cut.Find("label");
-		Assert.AreEqual("Volume", label.TextContent);
+		Assert.Equal("Volume", label.TextContent);
 
 		var input = cut.Find("input[type=range]");
-		Assert.AreEqual("42", input.GetAttribute("value"));
+		Assert.Equal("42", input.GetAttribute("value"));
 	}
 }
