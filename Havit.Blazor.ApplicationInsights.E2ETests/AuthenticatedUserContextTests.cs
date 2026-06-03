@@ -1,13 +1,12 @@
-using Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure;
+﻿using Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure;
 using Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure.Model;
 using Havit.Blazor.ApplicationInsights.TestApp.Client;
-using Microsoft.Playwright;
 
 namespace Havit.Blazor.ApplicationInsights.E2ETests;
 
 public class AuthenticatedUserContextTests : BlazorApplicationInsightsPageTestBase
 {
-	[Fact(Explicit = true)] // TODO flaky test, needs to be investigated and fixed
+	[Fact]
 	public async Task BlazorApplicationInsights_AuthenticationUserContext_Test()
 	{
 		// Arrange
