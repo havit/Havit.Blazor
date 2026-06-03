@@ -41,7 +41,10 @@ public interface IHxGridColumn<TItem>
 	/// <summary>
 	/// Returns the filter header cell template.
 	/// </summary>
-	GridCellTemplate GetFilterHeaderCellTemplate();
+	/// <remarks>
+	/// Default interface implementation returns <see cref="GridCellTemplate.Empty"/> so that existing implementers do not break.
+	/// </remarks>
+	GridCellTemplate GetFilterHeaderCellTemplate() => GridCellTemplate.Empty;
 
 	/// <summary>
 	/// Returns the data cell template for the specific item.
@@ -59,7 +62,10 @@ public interface IHxGridColumn<TItem>
 	GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context);
 
 	/// <summary>
-	/// Returns the Tabindex.
+	/// Returns the <c>tabindex</c> applied to the column's sortable header cell, or <c>null</c> when not set.
 	/// </summary>
-	int? GetTabIndexEffective();
+	/// <remarks>
+	/// Default interface implementation returns <c>null</c> so that existing implementers do not break.
+	/// </remarks>
+	int? GetTabIndexEffective() => null;
 }

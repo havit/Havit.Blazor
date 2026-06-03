@@ -6,7 +6,8 @@
 public record GridColumnSettings
 {
 	/// <summary>
-	/// Adds tabindex to column
+	/// The <c>tabindex</c> applied to the column's sortable header cell, controlling its keyboard tab order.
+	/// Has no effect on non-sortable columns, where the header is not focusable.
 	/// </summary>
 	public int? TabIndex { get; set; }
 }

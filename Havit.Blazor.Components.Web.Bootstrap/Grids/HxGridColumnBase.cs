@@ -75,8 +75,9 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 
 	/// <summary>
 	/// Returns the filter header cell template.
+	/// Defaults to <see cref="GridCellTemplate.Empty"/>; override to provide a column filter.
 	/// </summary>
-	protected abstract GridCellTemplate GetFilterHeaderCellTemplate();
+	protected virtual GridCellTemplate GetFilterHeaderCellTemplate() => GridCellTemplate.Empty;
 
 	/// <summary>
 	/// Returns the data cell template for the specific item.
@@ -122,7 +123,8 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	}
 
 	/// <summary>
-	/// Returns the tab index effective
+	/// Returns the <c>tabindex</c> applied to the column's sortable header cell, or <c>null</c> when not set.
+	/// Defaults to <c>null</c>; override to make the sortable header focusable.
 	/// </summary>
-	public abstract int? GetTabIndexEffective();
+	public virtual int? GetTabIndexEffective() => null;
 }

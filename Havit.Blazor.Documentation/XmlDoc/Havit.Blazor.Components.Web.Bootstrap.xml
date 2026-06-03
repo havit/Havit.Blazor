@@ -6997,7 +6997,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridColumnSettings.TabIndex">
             <summary>
-            Adds tabindex to column
+            The <c>tabindex</c> applied to the column's sortable header cell, controlling its keyboard tab order.
+            Has no effect on non-sortable columns, where the header is not focusable.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode">
@@ -8071,7 +8072,8 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetFilterHeaderCellTemplate">
             <summary>
-            Returns the header cell template.
+            Returns the filter header cell template.
+            Defaults to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate.Empty"/>; override to provide a column filter.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetItemCellTemplate(`0)">
@@ -8111,7 +8113,8 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetTabIndexEffective">
             <summary>
-            Returns the tab index effective
+            Returns the <c>tabindex</c> applied to the column's sortable header cell, or <c>null</c> when not set.
+            Defaults to <c>null</c>; override to make the sortable header focusable.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPager">
@@ -8263,6 +8266,9 @@
             <summary>
             Returns the filter header cell template.
             </summary>
+            <remarks>
+            Default interface implementation returns <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate.Empty"/> so that existing implementers do not break.
+            </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetItemCellTemplate(`0)">
             <summary>
@@ -8281,8 +8287,11 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetTabIndexEffective">
             <summary>
-            Returns the Tabindex.
+            Returns the <c>tabindex</c> applied to the column's sortable header cell, or <c>null</c> when not set.
             </summary>
+            <remarks>
+            Default interface implementation returns <c>null</c> so that existing implementers do not break.
+            </remarks>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PagerSettings">
             <summary>

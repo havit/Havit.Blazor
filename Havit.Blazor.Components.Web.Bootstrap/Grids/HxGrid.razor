@@ -90,8 +90,7 @@
 							    @onclick="@(isSortingActive ? EventCallback.Factory.Create<MouseEventArgs>(this, async () => await HandleSortingClick(column)) : (EventCallback<MouseEventArgs>)default)"
 							    @onclick:stopPropagation="isSortingActive"
 							    @onkeydown="@(isSortingActive ? EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.KeyboardEventArgs>(this, async e => { if ((e.Key == "Enter") || (e.Key == " ")
-                                    || (e.Key == "Spacebar")) { await HandleSortingClick(column); } }) : (EventCallback<Microsoft.AspNetCore.Components.Web.KeyboardEventArgs>)default)"
-							    @onkeydown:preventDefault="isSortingActive">
+                                    || (e.Key == "Spacebar")) { await HandleSortingClick(column); } }) : (EventCallback<Microsoft.AspNetCore.Components.Web.KeyboardEventArgs>)default)">
 								<div class="hx-grid-header-cell-container">
 									<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
 									@if (isSortingActive)
