@@ -1,12 +1,9 @@
 # Havit.Blazor.ApplicationInsights
 
 Blazor wrapper for the [Application Insights JavaScript SDK](https://github.com/microsoft/ApplicationInsights-JS).
-Targets browser-side telemetry. Best suited for Server-Side Rendering and Blazor WebAssembly scenarios,
-including mixed Blazor Web App setups. Blazor Server, server-side are also supported but telemetry is
+Targets browser-side telemetry. Server-side rendering is also supported but telemetry is
 typically handled by the [Application Insights](https://www.nuget.org/packages/Microsoft.ApplicationInsights)
-or [Azure Monitor OpenTelemetry Exporter ](https://www.nuget.org/packages/Azure.Monitor.OpenTelemetry.Exporter).
-
-Targets .NET 9 and .NET 10.
+or [Azure Monitor OpenTelemetry Exporter](https://www.nuget.org/packages/Azure.Monitor.OpenTelemetry.Exporter).
 
 CookieMgr not yet implemented.
 
