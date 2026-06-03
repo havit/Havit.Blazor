@@ -22,7 +22,7 @@
 
 		---
 
-		Visit [Havit Blazor](https://havit.blazor.eu "Havit Blazor documentation").
+		Visit [HAVIT Blazor](https://havit.blazor.eu "Havit Blazor documentation") or go to https://www.havit.eu.
 		""";
 }
 
