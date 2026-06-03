@@ -3,7 +3,7 @@
 Blazor wrapper for the [Application Insights JavaScript SDK](https://github.com/microsoft/ApplicationInsights-JS).
 Targets browser-side telemetry. Server-side rendering is also supported but telemetry is
 typically handled by the [Application Insights](https://www.nuget.org/packages/Microsoft.ApplicationInsights)
-or [Azure Monitor OpenTelemetry Exporter ](https://www.nuget.org/packages/Azure.Monitor.OpenTelemetry.Exporter).
+or [Azure Monitor OpenTelemetry Exporter](https://www.nuget.org/packages/Azure.Monitor.OpenTelemetry.Exporter).
 
 CookieMgr not yet implemented.
 
