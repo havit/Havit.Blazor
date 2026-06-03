@@ -85,7 +85,7 @@ builder.Services.AddHavitBlazorStorage();
 <DocAlert Type="DocAlertType.Warning">
 	Browser storage is <strong>not available during server-side prerendering</strong> &ndash; the browser <code>localStorage</code>/<code>sessionStorage</code>
 	objects do not exist on the server. Access the storage only once the component has become interactive
-	(for example from an event handler, or from <code>OnAfterRender(Async)</code> / <code>OnInitializedAsync</code> in an interactive render mode), not during prerendering.
+	(for example from an event handler, or from <code>OnAfterRender(Async)</code> once the component is interactive), not during prerendering.
 </DocAlert>
 <p>The synchronous API is convenient in a WebAssembly app, where it avoids the asynchronous state machine:</p>
 <CodeSnippet Language="razor">@("""
