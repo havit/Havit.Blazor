@@ -93,9 +93,14 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	[Parameter] public RenderFragment<GridPlaceholderCellContext> PlaceholderTemplate { get; set; }
 
 	/// <summary>
-	/// TabIndex 
+	/// The <c>tabindex</c> applied to the column's sortable header cell, controlling its keyboard tab order.
+	/// Has no effect on non-sortable columns, where the header is not focusable.
 	/// </summary>
 	[Parameter] public int? TabIndex { get; set; }
+
+	/// <summary>
+	/// The effective <c>tabindex</c> resolved from <see cref="TabIndex"/>, then <see cref="Settings"/>, then the application-wide defaults; <c>null</c> when not set.
+	/// </summary>
 	public int? TabIndexEffective => TabIndex ?? GetSettings()?.TabIndex ?? GetDefaults().TabIndex;
 
 	#region Footer properties
@@ -145,26 +150,13 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 
 
 	/// <summary>
-	/// Application-wide defaults for <see cref="HxGridColumn{TItem}"/> and derived components.
-	/// </summary>
-	public static GridColumnSettings Defaults { get; set; }
-
-	static HxGridColumn()
-	{
-		Defaults = new GridColumnSettings()
-		{
-			TabIndex = null
-		};
-	}
-
-	/// <summary>
 	/// Returns application-wide defaults for the component.
 	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
-	protected virtual GridColumnSettings GetDefaults() => Defaults;
+	protected virtual GridColumnSettings GetDefaults() => HxGridColumn.Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxGridColumn.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public GridColumnSettings Settings { get; set; }
 
@@ -242,12 +234,9 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	protected override int? GetDefaultSortingOrder() => IsDefaultSortColumn ? 0 : null;
 
 	/// <summary>
-	/// Returns TabIndexEffective
+	/// Returns the effective <c>tabindex</c> for the column's sortable header cell, resolved from
+	/// <see cref="TabIndex"/>, then <see cref="Settings"/>, then the application-wide defaults; <c>null</c> when not set.
 	/// </summary>
-	/// <returns></returns>
-	public override int? GetTabIndexEffective()
-	{
-		return TabIndexEffective;
-	}
+	public override int? GetTabIndexEffective() => TabIndexEffective;
 
 }

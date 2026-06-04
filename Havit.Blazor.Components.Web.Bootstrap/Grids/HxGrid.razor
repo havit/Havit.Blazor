@@ -1,4 +1,4 @@
-﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@namespace Havit.Blazor.Components.Web.Bootstrap
 @using Havit.Blazor.Components.Web.Internal
 @using Havit.Blazor.Components.Web.Bootstrap.Internal
 @using Microsoft.AspNetCore.Components.Web.Virtualization;
@@ -89,8 +89,9 @@
 							    class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isSortingActive ? (isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable") : null)"
 							    @onclick="@(isSortingActive ? EventCallback.Factory.Create<MouseEventArgs>(this, async () => await HandleSortingClick(column)) : (EventCallback<MouseEventArgs>)default)"
 							    @onclick:stopPropagation="isSortingActive"
-							    @onkeydown="@(isSortingActive ? EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.KeyboardEventArgs>(this, async e => { if ((e.Key == "Enter") || (e.Key == " ")
-                                    || (e.Key == "Spacebar")) { await HandleSortingClick(column); } }) : (EventCallback<Microsoft.AspNetCore.Components.Web.KeyboardEventArgs>)default)">
+							    @onkeypress="@(isSortingActive ? EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.KeyboardEventArgs>(this, async e => { if ((e.Key == "Enter") || (e.Key == " ")
+                                    || (e.Key == "Spacebar")) { await HandleSortingClick(column); } }) : (EventCallback<Microsoft.AspNetCore.Components.Web.KeyboardEventArgs>)default)"
+								    @onkeypress:preventDefault="isSortingActive">
 								<div class="hx-grid-header-cell-container">
 									<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
 									@if (isSortingActive)
@@ -111,7 +112,7 @@
 
 					@if (columnsToRender.Any(x => x.GetFilterHeaderCellTemplate().Template != null))
 					{
-						<tr>
+						<tr class="@HeaderRowCssClassEffective">
 						@foreach (IHxGridColumn<TItem> column in columnsToRender)
 						{
 							var headerFilterCellTemplate = column.GetFilterHeaderCellTemplate();

@@ -53,8 +53,6 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 	/// <inheritdoc />
 	protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => GridCellTemplate.Empty;
 
-	protected override GridCellTemplate GetFilterHeaderCellTemplate() => GridCellTemplate.Empty;
-
 	/// <inheritdoc />
 	protected override GridCellTemplate GetItemCellTemplate(TItem item)
 	{
@@ -67,11 +65,6 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 
 	/// <inheritdoc />
 	protected override GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context) => GridCellTemplate.Empty;
-
-	public override int? GetTabIndexEffective()
-	{
-		return null;
-	}
 
 	/// <inheritdoc />
 	protected override IEnumerable<SortingItem<TItem>> GetSorting() => Enumerable.Empty<SortingItem<TItem>>();

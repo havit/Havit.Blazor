@@ -2593,12 +2593,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetHeaderCellTemplate(Havit.Blazor.Components.Web.Bootstrap.GridHeaderCellContext)">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetFilterHeaderCellTemplate">
-            <summary>
-            Returns an empty filter header cell template because this internal selection column does not support filtering.
-            </summary>
-            <returns>An empty <see cref="T:Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate" />.</returns>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxMultiSelectGridColumnInternal`1.GetItemCellTemplate(`0)">
             <inheritdoc />
         </member>
@@ -7904,7 +7898,13 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.TabIndex">
             <summary>
-            TabIndex 
+            The <c>tabindex</c> applied to the column's sortable header cell, controlling its keyboard tab order.
+            Has no effect on non-sortable columns, where the header is not focusable.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.TabIndexEffective">
+            <summary>
+            The effective <c>tabindex</c> resolved from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.TabIndex"/>, then <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Settings"/>, then the application-wide defaults; <c>null</c> when not set.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.FooterText">
@@ -7948,11 +7948,6 @@
             Set <c>true</c> for the column which is to be used for default sorting.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Defaults">
-            <summary>
-            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1"/> and derived components.
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetDefaults">
             <summary>
             Returns application-wide defaults for the component.
@@ -7961,7 +7956,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Settings">
             <summary>
-            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Defaults"/>, overridden by individual parameters).
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn.Defaults"/>, overridden by individual parameters).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetSettings">
@@ -8001,9 +7996,23 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetTabIndexEffective">
             <summary>
-            Returns TabIndexEffective
+            Returns the effective <c>tabindex</c> for the column's sortable header cell, resolved from
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.TabIndex"/>, then <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Settings"/>, then the application-wide defaults; <c>null</c> when not set.
             </summary>
-            <returns></returns>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn">
+            <summary>
+            Non-generic API for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1"/> component.
+            </summary>
+            <remarks>
+            Marker for resources for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1"/>.
+            It is unfriendly to create resources for generic classes.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1"/> and derived components.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1">
             <summary>

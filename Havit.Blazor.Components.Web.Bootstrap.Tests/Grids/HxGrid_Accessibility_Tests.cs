@@ -135,7 +135,7 @@ public class HxGrid_Accessibility_Tests : BunitTestBase
 	}
 
 	[Fact]
-	public async Task HxGrid_PressEnterOnSortableHeader_SortsColumn()
+	public async Task HxGrid_PressEnterKeyOnSortableHeader_SortsColumn()
 	{
 		// Arrange
 		var items = Enumerable.Range(1, 5).Select(i => new TestItem(i, $"Item {i}")).ToList();
@@ -163,7 +163,7 @@ public class HxGrid_Accessibility_Tests : BunitTestBase
 
 		// Act — activate sorting via keyboard (Enter), as a keyboard user would
 		var header = cut.Find("th.hx-grid-sortable");
-		await cut.InvokeAsync(() => header.KeyDown(new KeyboardEventArgs { Key = "Enter" }));
+		await cut.InvokeAsync(() => header.KeyPress(new KeyboardEventArgs { Key = "Enter" }));
 
 		// Assert — column is now sorted ascending
 		Assert.NotEmpty(cut.FindAll("th.hx-grid-sorted"));
