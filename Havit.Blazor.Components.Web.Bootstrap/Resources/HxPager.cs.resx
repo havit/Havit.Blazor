@@ -135,4 +135,10 @@
   <data name="LastPage" xml:space="preserve">
     <value>Poslední stránka</value>
   </data>
+  <data name="PaginationLandmark" xml:space="preserve">
+    <value>Stránkování</value>
+  </data>
+  <data name="GoToPage" xml:space="preserve">
+    <value>Přejít na stránku {0}</value>
+  </data>
 </root>

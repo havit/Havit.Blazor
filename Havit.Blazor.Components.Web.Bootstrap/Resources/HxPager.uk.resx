@@ -135,4 +135,10 @@
   <data name="LastPage" xml:space="preserve">
     <value>Остання сторінка</value>
   </data>
+  <data name="PaginationLandmark" xml:space="preserve">
+    <value>Нумерація сторінок</value>
+  </data>
+  <data name="GoToPage" xml:space="preserve">
+    <value>Перейти на сторінку {0}</value>
+  </data>
 </root>

@@ -29,4 +29,10 @@
 	<data name="LastPage" xml:space="preserve">
 		<value>Letzte Seite</value>
 	</data>
+	<data name="PaginationLandmark" xml:space="preserve">
+		<value>Seitennummerierung</value>
+	</data>
+	<data name="GoToPage" xml:space="preserve">
+		<value>Gehe zu Seite {0}</value>
+	</data>
 </root>

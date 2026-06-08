@@ -135,4 +135,10 @@
   <data name="LastPage" xml:space="preserve">
     <value>最后一页</value>
   </data>
+  <data name="PaginationLandmark" xml:space="preserve">
+    <value>分页导航</value>
+  </data>
+  <data name="GoToPage" xml:space="preserve">
+    <value>转到第 {0} 页</value>
+  </data>
 </root>

@@ -135,4 +135,10 @@
   <data name="LastPage" xml:space="preserve">
     <value>Last page</value>
   </data>
+  <data name="PaginationLandmark" xml:space="preserve">
+    <value>Pagination</value>
+  </data>
+  <data name="GoToPage" xml:space="preserve">
+    <value>Go to page {0}</value>
+  </data>
 </root>
