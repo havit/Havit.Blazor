@@ -94,12 +94,13 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 
 	/// <summary>
 	/// The <c>tabindex</c> applied to the column's sortable header cell, controlling its keyboard tab order.
+	/// Defaults to <c>0</c> so sortable headers are keyboard-focusable; set to <c>-1</c> to remove a sortable header from the tab order.
 	/// Has no effect on non-sortable columns, where the header is not focusable.
 	/// </summary>
 	[Parameter] public int? TabIndex { get; set; }
 
 	/// <summary>
-	/// The effective <c>tabindex</c> resolved from <see cref="TabIndex"/>, then <see cref="Settings"/>, then the application-wide defaults; <c>null</c> when not set.
+	/// The effective <c>tabindex</c> resolved from <see cref="TabIndex"/>, then <see cref="Settings"/>, then the application-wide defaults (<c>0</c> by default).
 	/// </summary>
 	public int? TabIndexEffective => TabIndex ?? GetSettings()?.TabIndex ?? GetDefaults().TabIndex;
 
@@ -235,8 +236,7 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 
 	/// <summary>
 	/// Returns the effective <c>tabindex</c> for the column's sortable header cell, resolved from
-	/// <see cref="TabIndex"/>, then <see cref="Settings"/>, then the application-wide defaults; <c>null</c> when not set.
+	/// <see cref="TabIndex"/>, then <see cref="Settings"/>, then the application-wide defaults (<c>0</c> by default).
 	/// </summary>
 	public override int? GetTabIndexEffective() => TabIndexEffective;
-
 }

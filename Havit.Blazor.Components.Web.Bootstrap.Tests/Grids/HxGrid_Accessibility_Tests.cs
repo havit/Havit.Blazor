@@ -113,6 +113,31 @@ public class HxGrid_Accessibility_Tests : BunitTestBase
 	}
 
 	[Fact]
+	public async Task HxGrid_SortableColumnWithoutExplicitTabIndex_DefaultsToZero()
+	{
+		// Arrange
+		var items = Enumerable.Range(1, 3).Select(i => new TestItem(i, $"Item {i}")).ToList();
+		Task<GridDataProviderResult<TestItem>> dataProvider(GridDataProviderRequest<TestItem> request) => Task.FromResult(request.ApplyTo(items));
+
+		Expression<Func<TestItem, IComparable>> sortKeySelector = item => item.Name;
+
+		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+			.Add(p => p.DataProvider, dataProvider)
+			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
+				.Add(c => c.HeaderText, "Name")
+				.Add(c => c.ItemTextSelector, item => item.Name)
+				.Add(c => c.SortKeySelector, sortKeySelector)));
+
+		// Act
+		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
+
+		// Assert — a sortable header (role="button") is keyboard-focusable out of the box
+		var header = cut.Find("th.hx-grid-sortable");
+		Assert.Equal("0", header.GetAttribute("tabindex"));
+		Assert.Equal("button", header.GetAttribute("role"));
+	}
+
+	[Fact]
 	public async Task HxGrid_NonSortableColumn_DoesNotRenderTabIndexAttribute()
 	{
 		// Arrange

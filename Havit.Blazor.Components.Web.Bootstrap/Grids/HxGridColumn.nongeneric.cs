@@ -18,7 +18,8 @@ public sealed class HxGridColumn
 	{
 		Defaults = new GridColumnSettings()
 		{
-			TabIndex = null
+			// Sortable header cells expose role="button", so they must be focusable by default to be keyboard-operable.
+			TabIndex = 0
 		};
 	}
 }

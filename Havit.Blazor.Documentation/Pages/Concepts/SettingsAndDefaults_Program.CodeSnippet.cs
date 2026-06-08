@@ -25,6 +25,5 @@
 		HxChipList.Defaults.ChipBadgeSettings.Color = ThemeColor.Light;
 		HxChipList.Defaults.ChipBadgeSettings.TextColor = ThemeColor.Dark;
 		HxChipList.Defaults.ChipBadgeSettings.CssClass = "p-2 rounded-pill";
-
 	}
 }

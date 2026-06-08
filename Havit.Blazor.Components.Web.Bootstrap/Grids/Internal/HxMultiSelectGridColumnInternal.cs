@@ -128,5 +128,4 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 			await OnSelectAllClicked.InvokeAsync();
 		}
 	}
-
 }

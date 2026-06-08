@@ -7899,12 +7899,13 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.TabIndex">
             <summary>
             The <c>tabindex</c> applied to the column's sortable header cell, controlling its keyboard tab order.
+            Defaults to <c>0</c> so sortable headers are keyboard-focusable; set to <c>-1</c> to remove a sortable header from the tab order.
             Has no effect on non-sortable columns, where the header is not focusable.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.TabIndexEffective">
             <summary>
-            The effective <c>tabindex</c> resolved from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.TabIndex"/>, then <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Settings"/>, then the application-wide defaults; <c>null</c> when not set.
+            The effective <c>tabindex</c> resolved from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.TabIndex"/>, then <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Settings"/>, then the application-wide defaults (<c>0</c> by default).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.FooterText">
@@ -7997,7 +7998,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetTabIndexEffective">
             <summary>
             Returns the effective <c>tabindex</c> for the column's sortable header cell, resolved from
-            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.TabIndex"/>, then <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Settings"/>, then the application-wide defaults; <c>null</c> when not set.
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.TabIndex"/>, then <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.Settings"/>, then the application-wide defaults (<c>0</c> by default).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn">

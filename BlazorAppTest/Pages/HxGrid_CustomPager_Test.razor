@@ -5,7 +5,7 @@
 
 <HxGrid TItem="CultureInfo" DataProvider="@CultureInfosDataProvider" @bind-CurrentUserState="gridState" PageSize="@PageSize" PagerSettings="@(new() { CssClass = "d-none" })">
     <Columns>
-	    <HxGridColumn HeaderText="Culture" ItemTextSelector="ci => ci.EnglishName" SortKeySelector="ci => ci.EnglishName" />
+       <HxGridColumn HeaderText="Culture" ItemTextSelector="ci => ci.EnglishName" SortKeySelector="ci => ci.EnglishName" />
     </Columns>    
 </HxGrid>
 
