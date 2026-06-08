@@ -85,9 +85,12 @@
 
 								<th @key="@column"
 									role="@(isSortingActive ? "button" : null)"
+									tabindex="@(isSortingActive ? column.GetTabIndexEffective() : null)"
 									class="@CssClassHelper.Combine(headerCellTemplate.CssClass, isSortingActive ? (isCurrentSorting ? "hx-grid-sorted" : "hx-grid-sortable") : null)"
 									@onclick="@(isSortingActive ? EventCallback.Factory.Create<MouseEventArgs>(this, async () => await HandleSortingClick(column)) : (EventCallback<MouseEventArgs>)default)"
-									@onclick:stopPropagation="isSortingActive">
+									@onclick:stopPropagation="isSortingActive"
+									@onkeypress="@(isSortingActive ? EventCallback.Factory.Create<KeyboardEventArgs>(this, async e => { if ((e.Key == "Enter") || (e.Key == " ") || (e.Key == "Spacebar")) { await HandleSortingClick(column); } }) : (EventCallback<KeyboardEventArgs>)default)"
+									@onkeypress:preventDefault="isSortingActive">
 									<div class="hx-grid-header-cell-container">
 										<div class="hx-grid-header-cell-template">@headerCellTemplate.Template</div>
 										@if (isSortingActive)
@@ -105,6 +108,21 @@
 								</th>
 							}
 						</tr>
+
+						@if (columnsToRender.Any(x => x.GetFilterHeaderCellTemplate().Template != null))
+						{
+							<tr class="@HeaderRowCssClassEffective">
+								@foreach (IHxGridColumn<TItem> column in columnsToRender)
+								{
+									var headerFilterCellTemplate = column.GetFilterHeaderCellTemplate();
+									<th class="@headerFilterCellTemplate.CssClass">
+										<div class="hx-grid-header-cell-container">
+											<div class="hx-grid-header-cell-template">@headerFilterCellTemplate.Template</div>
+										</div>
+									</th>
+								}
+							</tr>
+						}
 					</thead>
 					<tbody>
 						@{

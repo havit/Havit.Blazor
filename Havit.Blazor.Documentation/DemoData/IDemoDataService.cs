@@ -7,7 +7,7 @@ public interface IDemoDataService
 	IQueryable<EmployeeDto> GetEmployeesAsQueryable();
 
 	Task<DataFragmentResult<EmployeeDto>> GetEmployeesDataFragmentAsync(int startIndex, int? count, CancellationToken cancellationToken = default);
-	Task<DataFragmentResult<EmployeeDto>> GetEmployeesDataFragmentAsync(EmployeesFilterDto filter, int startIndex, int? count, CancellationToken cancellationToken = default);
+	Task<DataFragmentResult<EmployeeDto>> GetEmployeesDataFragmentAsync(EmployeesFilterDto filter, int startIndex, int? count, CancellationToken cancellationToken = default, IReadOnlyList<Havit.Blazor.Components.Web.Bootstrap.SortingItem<EmployeeDto>> sorting = null);
 	Task<int> GetEmployeesCountAsync(CancellationToken cancellationToken = default);
 	Task<int> GetEmployeesCountAsync(EmployeesFilterDto filter, CancellationToken cancellationToken = default);
 	Task<List<EmployeeDto>> FindEmployeesByNameAsync(string query, int? limitCount = null, CancellationToken cancellationToken = default);

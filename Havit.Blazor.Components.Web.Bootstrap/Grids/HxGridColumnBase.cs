@@ -31,6 +31,8 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	/// <inheritdoc />
 	GridCellTemplate IHxGridColumn<TItem>.GetHeaderCellTemplate(GridHeaderCellContext context) => GetHeaderCellTemplate(context);
 
+	GridCellTemplate IHxGridColumn<TItem>.GetFilterHeaderCellTemplate() => GetFilterHeaderCellTemplate();
+
 	/// <inheritdoc />
 	GridCellTemplate IHxGridColumn<TItem>.GetItemCellTemplate(TItem item) => GetItemCellTemplate(item);
 
@@ -70,6 +72,12 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	/// Returns the header cell template.
 	/// </summary>
 	protected abstract GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context);
+
+	/// <summary>
+	/// Returns the filter header cell template.
+	/// Defaults to <see cref="GridCellTemplate.Empty"/>; override to provide a column filter.
+	/// </summary>
+	protected virtual GridCellTemplate GetFilterHeaderCellTemplate() => GridCellTemplate.Empty;
 
 	/// <summary>
 	/// Returns the data cell template for the specific item.
@@ -113,4 +121,10 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	{
 		await ColumnsRegistration.UnregisterAsync(this);
 	}
+
+	/// <summary>
+	/// Returns the <c>tabindex</c> applied to the column's sortable header cell, or <c>null</c> when not set.
+	/// Defaults to <c>null</c>; override to make the sortable header focusable.
+	/// </summary>
+	public virtual int? GetTabIndexEffective() => null;
 }

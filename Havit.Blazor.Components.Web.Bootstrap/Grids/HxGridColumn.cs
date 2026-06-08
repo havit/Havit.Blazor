@@ -55,6 +55,11 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	[Parameter] public RenderFragment<GridHeaderCellContext> HeaderTemplate { get; set; }
 
 	/// <summary>
+	/// Header filter cell template.
+	/// </summary>
+	[Parameter] public RenderFragment HeaderFilterTemplate { get; set; }
+
+	/// <summary>
 	/// Header cell CSS class.
 	/// </summary>
 	[Parameter] public string HeaderCssClass { get; set; }
@@ -86,6 +91,18 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	/// Placeholder cell template.
 	/// </summary>
 	[Parameter] public RenderFragment<GridPlaceholderCellContext> PlaceholderTemplate { get; set; }
+
+	/// <summary>
+	/// The <c>tabindex</c> applied to the column's sortable header cell, controlling its keyboard tab order.
+	/// Defaults to <c>0</c> so sortable headers are keyboard-focusable; set to <c>-1</c> to remove a sortable header from the tab order.
+	/// Has no effect on non-sortable columns, where the header is not focusable.
+	/// </summary>
+	[Parameter] public int? TabIndex { get; set; }
+
+	/// <summary>
+	/// The effective <c>tabindex</c> resolved from <see cref="TabIndex"/>, then <see cref="Settings"/>, then the application-wide defaults (<c>0</c> by default).
+	/// </summary>
+	public int? TabIndexEffective => TabIndex ?? GetSettings()?.TabIndex ?? GetDefaults().TabIndex;
 
 	#region Footer properties
 	/// <summary>
@@ -132,6 +149,26 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	[Parameter] public bool IsDefaultSortColumn { get; set; } = false;
 	#endregion
 
+
+	/// <summary>
+	/// Returns application-wide defaults for the component.
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
+	/// </summary>
+	protected virtual GridColumnSettings GetDefaults() => HxGridColumn.Defaults;
+
+	/// <summary>
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxGridColumn.Defaults"/>, overridden by individual parameters).
+	/// </summary>
+	[Parameter] public GridColumnSettings Settings { get; set; }
+
+	/// <summary>
+	/// Provides the current settings of the grid. Override in derived classes to return a specific settings type or additional configurations.
+	/// </summary>
+	/// <remarks>
+	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in components descendants (by returning a derived settings class).
+	/// </remarks>
+	protected virtual GridColumnSettings GetSettings() => Settings;
+
 	/// <inheritdoc />
 	protected override string GetId() => Id;
 
@@ -143,6 +180,10 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 
 	/// <inheritdoc />
 	protected override GridCellTemplate GetHeaderCellTemplate(GridHeaderCellContext context) => GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(HeaderText, HeaderTemplate?.Invoke(context)), HeaderCssClass);
+
+	protected override GridCellTemplate GetFilterHeaderCellTemplate() => (HeaderFilterTemplate != null)
+		? GridCellTemplate.Create(RenderFragmentBuilder.CreateFrom(null, HeaderFilterTemplate), HeaderCssClass)
+		: GridCellTemplate.Empty;
 
 	/// <inheritdoc />
 	protected override GridCellTemplate GetItemCellTemplate(TItem item)
@@ -192,4 +233,10 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 
 	/// <inheritdoc />
 	protected override int? GetDefaultSortingOrder() => IsDefaultSortColumn ? 0 : null;
+
+	/// <summary>
+	/// Returns the effective <c>tabindex</c> for the column's sortable header cell, resolved from
+	/// <see cref="TabIndex"/>, then <see cref="Settings"/>, then the application-wide defaults (<c>0</c> by default).
+	/// </summary>
+	public override int? GetTabIndexEffective() => TabIndexEffective;
 }

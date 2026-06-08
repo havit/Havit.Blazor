@@ -1,0 +1,25 @@
+namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// Non-generic API for the <see cref="HxGridColumn{TItem}"/> component.
+/// </summary>
+/// <remarks>
+/// Marker for resources for <see cref="HxGridColumn{TItem}"/>.
+/// It is unfriendly to create resources for generic classes.
+/// </remarks>
+public sealed class HxGridColumn
+{
+	/// <summary>
+	/// Application-wide defaults for the <see cref="HxGridColumn{TItem}"/> and derived components.
+	/// </summary>
+	public static GridColumnSettings Defaults { get; set; }
+
+	static HxGridColumn()
+	{
+		Defaults = new GridColumnSettings()
+		{
+			// Sortable header cells expose role="button", so they must be focusable by default to be keyboard-operable.
+			TabIndex = 0
+		};
+	}
+}
