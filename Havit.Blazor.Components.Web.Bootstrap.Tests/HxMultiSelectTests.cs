@@ -144,4 +144,31 @@ public class HxMultiSelectTests : BunitTestBase
 		var input = cut.Find("input[type='text']");
 		Assert.NotNull(input.GetAttribute("disabled"));
 	}
+
+	[Fact]
+	public void HxMultiSelect_Render_DoesNotEmitListboxOptionRoles()
+	{
+		// Arrange
+		var items = new[] { "Apple", "Banana", "Cherry" };
+		var selectedValues = new List<string>();
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxMultiSelect<string, string>>(0);
+			builder.AddAttribute(1, "Data", (IEnumerable<string>)items);
+			builder.AddAttribute(2, "TextSelector", (Func<string, string>)(x => x));
+			builder.AddAttribute(3, "ValueSelector", (Func<string, string>)(x => x));
+			builder.AddAttribute(4, "Value", selectedValues);
+			builder.AddAttribute(5, "ValueChanged", EventCallback.Factory.Create<List<string>>(this, v => { }));
+			builder.AddAttribute(6, "ValueExpression", (Expression<Func<List<string>>>)(() => selectedValues));
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+
+		// Assert
+		Assert.Empty(cut.FindAll("[role='listbox']"));
+		Assert.Empty(cut.FindAll("[role='option']"));
+	}
 }

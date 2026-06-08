@@ -1,7 +1,7 @@
 @page "/HxAccordion"
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 
-<HxAccordion>
+<HxAccordion @bind-ExpandedItemId="_expandedItemId">
 	<HxAccordionItem Id="item1">
 		<HeaderTemplate><span data-testid="header-1">Item 1</span></HeaderTemplate>
 		<BodyTemplate><span data-testid="body-1">Content 1</span></BodyTemplate>
@@ -15,3 +15,9 @@
 		<BodyTemplate><span data-testid="body-3">Content 3</span></BodyTemplate>
 	</HxAccordionItem>
 </HxAccordion>
+
+<span data-testid="expanded-item-id">@(_expandedItemId ?? "none")</span>
+
+@code {
+	private string _expandedItemId;
+}

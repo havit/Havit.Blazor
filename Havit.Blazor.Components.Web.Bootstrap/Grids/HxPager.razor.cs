@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿using Microsoft.Extensions.Localization;
+
+namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Pager.<br />
@@ -6,6 +8,8 @@
 /// </summary>
 public partial class HxPager : ComponentBase
 {
+	[Inject] protected IStringLocalizer<HxPager> HxPagerLocalizer { get; set; }
+
 	/// <summary>
 	/// Application-wide defaults for <see cref="HxPager"/>.
 	/// </summary>
