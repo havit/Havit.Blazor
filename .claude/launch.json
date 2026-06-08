@@ -1,8 +1,27 @@
 {
-  "version": "0.0.1",
-  "configurations": [
-    {
-      "name": "Documentation.Server",
+	"version": "0.0.1",
+	"configurations": [
+		{
+			"name": "Documentation.Server",
+			"runtimeExecutable": "dotnet",
+			"runtimeArgs": ["watch", "--project", "Havit.Blazor.Documentation.Server/Havit.Blazor.Documentation.Server.csproj", "--launch-profile", "Havit.Blazor.Documentation.Server"],
+			"port": 5000
+		},
+		{
+			"name": "TestApp",
+			"runtimeExecutable": "dotnet",
+			"runtimeArgs": ["watch", "--project", "Havit.Blazor.TestApp/Havit.Blazor.TestApp/Havit.Blazor.TestApp.csproj", "--launch-profile", "http"],
+			"port": 5277
+		},
+		{
+			"name": "ApplicationInsights.TestApp",
+			"runtimeExecutable": "dotnet",
+			"runtimeArgs": ["watch", "--project", "Havit.Blazor.ApplicationInsights.TestApp/Havit.Blazor.ApplicationInsights.TestApp.csproj", "--launch-profile", "http"],
+			"port": 5024
+		},
+		{
+			"name": "Documentation.Mcp",
+			"runtimeExecutable": "dotnet",
       "runtimeExecutable": "dotnet",
       "runtimeArgs": ["watch", "--project", "Havit.Blazor.Documentation.Server/Havit.Blazor.Documentation.Server.csproj", "--launch-profile", "Havit.Blazor.Documentation.Server"],
       "port": 5000
