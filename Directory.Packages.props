@@ -2,9 +2,9 @@
 	<PropertyGroup>
 <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-<AspNetCoreVersion8>8.0.27</AspNetCoreVersion8>
-<AspNetCoreVersion9>9.0.16</AspNetCoreVersion9>
-<AspNetCoreVersion10>10.0.8</AspNetCoreVersion10>
+<AspNetCoreVersion8>8.0.28</AspNetCoreVersion8>
+<AspNetCoreVersion9>9.0.17</AspNetCoreVersion9>
+<AspNetCoreVersion10>10.0.9</AspNetCoreVersion10>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageVersion Include="Azure.Monitor.OpenTelemetry.AspNetCore" Version="1.5.0" />
@@ -49,10 +49,10 @@
 		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="8.0.1" Condition="'$(TargetFramework)' == 'net8.0'" />
 		<PackageVersion Include="Microsoft.Playwright.Xunit.v3" Version="1.60.0" />
-		<PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="1.9.1" />
+		<PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.2.3" />
 		<PackageVersion Include="ModelContextProtocol.AspNetCore" Version="1.4.0" />
 		<PackageVersion Include="Moq" Version="4.20.72" />
-		<PackageVersion Include="xunit.v3" Version="3.2.2" />
+		<PackageVersion Include="xunit.v3.mtp-v2" Version="3.2.2" />
 		<PackageVersion Include="protobuf-net" Version="3.2.56" />
 		<PackageVersion Include="protobuf-net.Grpc" Version="1.2.2" />
 		<PackageVersion Include="protobuf-net.Grpc.AspNetCore" Version="1.2.2" />
