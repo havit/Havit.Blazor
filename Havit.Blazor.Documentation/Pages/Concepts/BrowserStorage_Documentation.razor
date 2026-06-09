@@ -36,7 +36,6 @@ builder.Services.AddHavitBlazorStorage();
 """)</CodeSnippet>
 <p>
 	This registers both <code>ILocalStorageService</code> and <code>ISessionStorageService</code> with a <code>Scoped</code> lifetime.
-	No <code>&lt;script&gt;</code> reference is required &ndash; the small supporting JavaScript module is loaded automatically by the Blazor JS initializer.
 </p>
 
 <DocHeading Title="Basic usage" />
@@ -160,11 +159,6 @@ builder.Services.AddHavitBlazorStorage(options =>
 	<li><code>GetLength</code> &ndash; the number of keys stored.</li>
 	<li><code>GetKeyByIndex</code> / <code>TryGetKeyByIndex</code> &ndash; enumerate the keys by their zero-based index.</li>
 </ul>
-<DocAlert Type="DocAlertType.Info">
-	The <code>Get*</code> / <code>GetKeyByIndex</code> methods throw <code>StorageKeyNotFoundException</code> /
-	<code>StorageIndexOutOfRangeException</code> when the requested key/index is not present.
-	Use the <code>TryGet*</code> overloads when a missing value is an expected, non-exceptional case.
-</DocAlert>
 
 <DocHeading Title="Error handling" Id="error-handling" />
 <p>The storage methods can throw the following exceptions:</p>
