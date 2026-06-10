@@ -18,17 +18,17 @@ public enum SidebarResponsiveBreakpoint
 	Medium = 3,
 
 	/// <summary>
-	/// Mobile for viewports below the "large" breakpoint (<c>992px</c>, exclusive).
+	/// Mobile for viewports below the "large" breakpoint (<c>1024px</c>, exclusive).
 	/// </summary>
 	Large = 4,
 
 	/// <summary>
-	/// Mobile for viewports below the "extra-large" breakpoint (<c>1200px</c>, exclusive).
+	/// Mobile for viewports below the "extra-large" breakpoint (<c>1280px</c>, exclusive).
 	/// </summary>
 	ExtraLarge = 5,
 
 	/// <summary>
-	/// Mobile for viewports below the "XXL" breakpoint (<c>1400px</c>, exclusive).
+	/// Mobile for viewports below the "2xl" breakpoint (<c>1536px</c>, exclusive).
 	/// </summary>
 	Xxl = 6,
 }
