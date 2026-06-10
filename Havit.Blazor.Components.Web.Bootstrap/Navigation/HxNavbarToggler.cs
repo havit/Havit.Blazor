@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap 5 <see href="https://getbootstrap.com/docs/5.3/components/navbar/#toggler">navbar-toggler</see> component.
+/// Bootstrap <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/navbar/#toggler">navbar-toggler</see> component. The toggler icon is rendered via a CSS <c>mask-image</c> tinted with <c>currentcolor</c> (no separate light/dark icons needed in Bootstrap 6).
 /// Derived from <see cref="HxCollapseToggleButton"/>.
 /// </summary>
 public class HxNavbarToggler : HxCollapseToggleButton
