@@ -13,10 +13,6 @@ public enum ThemeColor
 	Danger,
 	Warning,
 	Info,
-	[Obsolete("Bootstrap 6 has no \"light\" theme color. Use ThemeColor.Secondary (typically with a subtle component variant) instead.", error: true)]
-	Light,
-	[Obsolete("Bootstrap 6 has no \"dark\" theme color. Use ThemeColor.Inverse instead.", error: true)]
-	Dark,
 	/// <summary>
 	/// This color is intended to be used for buttons only.
 	/// </summary>
