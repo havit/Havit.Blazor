@@ -50,7 +50,7 @@
 
 <DocHeading Title="Installation to your project" Id="installation" Level="2" />
 <p>Select your setup to get customized instructions.</p>
-<HxAlert Color="ThemeColor.Light">
+<HxAlert Color="ThemeColor.Secondary">
 	<p class="mb-0 fw-semibold"><small>Framework version</small></p>
 	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
 		<InputRadioGroup @bind-Value="_setup.TargetFramework" @bind-Value:after="UpdateUri">
@@ -143,7 +143,7 @@ else
 	Ensure that the link to <code>{YourBlazorApp}.styles.css</code> remains in your <code>@GetHtmlHostFile()</code>
 	and has NOT been removed.
 </p>
-<HxAlert Color="ThemeColor.Light">
+<HxAlert Color="ThemeColor.Secondary">
 	<p class="mb-0 fw-semibold"><small>Choose a Bootstrap CSS bundle</small></p>
 	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
 		<InputRadioGroup @bind-Value="_setup.BootstrapTheme" @bind-Value:after="UpdateUri">

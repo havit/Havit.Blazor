@@ -20,10 +20,10 @@
 
 <HxAutosuggest Label="With empty template and custom icons" InputSize="InputSize.Small" Placeholder="Click here" TItem="CultureInfo" MinimumLength="0" ClearIcon="BootstrapIcon.XCircleFill" SearchIcon="BootstrapIcon.QuestionCircle" TValue="int" @bind-Value="@value3" DataProvider="ProvideTemplatedSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))">
 	<InputGroupStartTemplate>
-		<HxButton Color="ThemeColor.Light" Size="ButtonSize.Small" Text="Start" />
+		<HxButton Color="ThemeColor.Secondary" Size="ButtonSize.Small" Text="Start" />
 	</InputGroupStartTemplate>
 		<InputGroupEndTemplate>
-		<HxButton Color="ThemeColor.Light" Size="ButtonSize.Small"  Text="End" />
+		<HxButton Color="ThemeColor.Secondary" Size="ButtonSize.Small"  Text="End" />
 	</InputGroupEndTemplate>
 	<ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
 	<EmptyTemplate>

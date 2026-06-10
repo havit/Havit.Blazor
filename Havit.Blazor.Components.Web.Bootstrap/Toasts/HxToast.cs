@@ -200,8 +200,8 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 			ThemeColor.Danger => true,
 			ThemeColor.Warning => false,
 			ThemeColor.Info => false,
-			ThemeColor.Light => false,
-			ThemeColor.Dark => true,
+			ThemeColor.Accent => true,
+			ThemeColor.Inverse => true,
 			_ => throw new InvalidOperationException($"Unknown {nameof(Color)}: {Color}")
 		};
 	}
