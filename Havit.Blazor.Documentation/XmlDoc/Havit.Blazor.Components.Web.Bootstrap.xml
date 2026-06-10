@@ -154,6 +154,244 @@
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AvatarSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAvatar"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AvatarSettings.Size">
+            <summary>
+            Size of the avatar.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AvatarSettings.Color">
+            <summary>
+            Theme color of the avatar (background and contrasting content color).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AvatarSettings.Subtle">
+            <summary>
+            When <c>true</c>, the avatar uses the subtle variant of the theme color.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AvatarSettings.CssClass">
+            <summary>
+            Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AvatarSize">
+            <summary>
+            Size for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAvatar"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AvatarSize.Regular">
+            <summary>
+            Regular (default) size.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AvatarSize.ExtraSmall">
+            <summary>
+            Extra small avatar (<c>avatar-xs</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AvatarSize.Small">
+            <summary>
+            Small avatar (<c>avatar-sm</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AvatarSize.Large">
+            <summary>
+            Large avatar (<c>avatar-lg</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AvatarSize.ExtraLarge">
+            <summary>
+            Extra large avatar (<c>avatar-xl</c>).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AvatarStackSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AvatarStackSettings.Size">
+            <summary>
+            Size of the avatars in the stack.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.AvatarStackSettings.CssClass">
+            <summary>
+            Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AvatarStatus">
+            <summary>
+            Status indicator for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAvatar"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AvatarStatus.None">
+            <summary>
+            No status indicator (default).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AvatarStatus.Online">
+            <summary>
+            Online status — green circle (<c>status-online</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AvatarStatus.Offline">
+            <summary>
+            Offline status — gray rounded square (<c>status-offline</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AvatarStatus.Busy">
+            <summary>
+            Busy status — red rounded square (<c>status-busy</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AvatarStatus.Away">
+            <summary>
+            Away status — yellow circle (<c>status-away</c>).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAvatar">
+            <summary>
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/avatar/">Bootstrap Avatar</see> component.
+            Represents a user or entity with an image or initials.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAvatar">https://havit.blazor.eu/components/HxAvatar</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAvatar"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.ImageSrc">
+            <summary>
+            URL of the avatar image. Renders an <c>img.avatar-img</c> element inside the avatar.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.ImageAlt">
+            <summary>
+            Alternate text for the avatar image (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.ImageSrc"/>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.ChildContent">
+            <summary>
+            Content of the avatar, usually initials (e.g. <c>AB</c>). Can also be used for fully custom content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.Size">
+            <summary>
+            Size of the avatar. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.AvatarSize.Regular"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.Color">
+            <summary>
+            Theme color of the avatar (background and contrasting content color), usually combined with initials.
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> (the default avatar background).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.Subtle">
+            <summary>
+            When <c>true</c>, the avatar uses the subtle variant of the theme color (<c>avatar-subtle</c>), composed with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.Color"/>.
+            The default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.Status">
+            <summary>
+            Status indicator of the avatar. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.AvatarStatus.None"/> (no indicator rendered).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.StatusLabel">
+            <summary>
+            Accessible label of the status indicator (rendered as <c>aria-label</c>).
+            The default is the English name of the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.Status"/> (e.g. <c>Online</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.CssClass">
+            <summary>
+            Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying HTML element.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack">
+            <summary>
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/avatar/#avatar-stack">Bootstrap Avatar stack</see> component.
+            Groups multiple <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAvatar"/> components with an overlapping effect.
+            Avatars are rendered in reverse order, so the first avatar appears on top.
+            To show a count of additional users, add an initials avatar (e.g. <c>&lt;HxAvatar Color="ThemeColor.Secondary"&gt;+5&lt;/HxAvatar&gt;</c>) as the last item.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAvatarStack">https://havit.blazor.eu/components/HxAvatarStack</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack.ChildContent">
+            <summary>
+            Content of the avatar stack (put your <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAvatar"/>s here).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack.Size">
+            <summary>
+            Size of the avatars in the stack (a shorthand for setting the size of all contained avatars).
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.AvatarSize.Regular"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack.CssClass">
+            <summary>
+            Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatarStack.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying HTML element.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.BadgeSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> and derived components.
