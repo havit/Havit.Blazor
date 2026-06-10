@@ -38,7 +38,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 	string IInputWithSize.GetInputSizeCssClass() => InputSizeEffective.AsFormSelectCssClass();
 
-	private protected override string CoreInputCssClass => "hx-multi-select-input form-select user-select-none";
+	private protected override string CoreInputCssClass => "hx-multi-select-input form-control user-select-none";
 
 	/// <summary>
 	/// Items to display. 

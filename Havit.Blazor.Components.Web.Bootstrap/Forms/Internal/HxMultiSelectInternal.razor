@@ -91,9 +91,9 @@
 					{
 						<li>
 							<button type="button" class="menu-item" @onclick="HandleSelectAllClickedAsync">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="@($"{InputId}_selectall")" checked="@_selectAllChecked" tabindex="-1" />
-									<label class="form-check-label" for="@($"{InputId}_selectall")" @onclick:preventDefault>
+								<div class="form-field">
+									<input class="check" type="checkbox" id="@($"{InputId}_selectall")" checked="@_selectAllChecked" tabindex="-1" />
+									<label for="@($"{InputId}_selectall")" @onclick:preventDefault>
 										@(GetSelectAllText())
 									</label>
 								</div>
@@ -112,9 +112,9 @@
 
 						<li>
 							<button type="button" class="menu-item" @onclick="async () => await HandleItemSelectionChangedAsync(!itemSelected, item)">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" id="@checkboxElementId" checked="@itemSelected" tabindex="-1" />
-									<label class="form-check-label" for="@checkboxElementId" @onclick:preventDefault>
+								<div class="form-field">
+									<input class="check" type="checkbox" id="@checkboxElementId" checked="@itemSelected" tabindex="-1" />
+									<label for="@checkboxElementId" @onclick:preventDefault>
 										@SelectorHelpers.GetText(TextSelector, item)
 									</label>
 								</div>

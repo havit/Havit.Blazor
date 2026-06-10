@@ -4624,22 +4624,19 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.NeedsInnerDiv">
             <summary>
-            For a naked checkbox without Label/LabelTemplate, we add form-check, form-check-inline to the parent div (allows combining with CssClass etc.).
-            It is expected that there is just the parent div, input, and label for Text/TextTemplate.
-            No label for Label/LabelTemplate, no HintTemplate, no validation message is expected.
-            For a checkbox with Label, there is a parent div followed by a label for Label/LabelTemplate.
-            Siblings label, input, label do not work well and there is nowhere to add form-check.
-            Therefore, we wrap the input and label in the additional div.
+            For a checkbox without Label/LabelTemplate, the form-field layout class goes to the parent div (allows combining with CssClass etc.).
+            For a checkbox with Label, there is a parent div followed by a label for Label/LabelTemplate,
+            so the input and text-label are wrapped in an additional div.form-field.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.NeedsFormCheck">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.NeedsFormField">
             <summary>
-            For checkbox without any Text/TextTemplate we do not add form-check class.
+            For a checkbox without any Text/TextTemplate, the form-field layout wrapper is not needed.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.NeedsFormCheckOuter">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.NeedsFormFieldOuter">
             <summary>
-            For checkbox without any Label/LabelTemplate and without Text/TextTemplate we do not add form-check to the parent div.
+            For a checkbox without any Label/LabelTemplate and without Text/TextTemplate, no form-field class goes to the parent div.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.InputElement">
@@ -4650,6 +4647,12 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.BuildRenderInput_ToggleButton(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <summary>
+            Bootstrap 6 toggle button: the <c>btn-check</c> class moves to the <c>label</c> with a nested unstyled input
+            (no <c>id</c>/<c>for</c> pairing, the styling uses <c>:has()</c>).
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.TryParseValueFromString(System.String,System.Boolean@,System.String@)">
             <inheritdoc />
@@ -6434,6 +6437,11 @@
             To render switch as a native switch.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.Color">
+            <summary>
+            Theme color of the switch (renders the <c>theme-*</c> class on the <c>.switch</c> wrapper, new in Bootstrap 6).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1">
             <summary>
             Displays a list of validation messages for a specified field within a cascaded <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1.EditContext"/>.<br />
@@ -6770,7 +6778,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.InputSizeExtensions.AsFormSelectCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
             <summary>
-            Returns CSS class to render select (form-select) with the desired size.
+            Returns CSS class to render select with the desired size (Bootstrap 6 consolidated .form-select into .form-control).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputTextSettings">
@@ -7555,6 +7563,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SwitchSettings.Native">
             <summary>
             To render switch as a native switch.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SwitchSettings.Color">
+            <summary>
+            Theme color of the switch (renders the <c>theme-*</c> class on the <c>.switch</c> wrapper).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode">
