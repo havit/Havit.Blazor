@@ -6,13 +6,18 @@
     <members>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAccordion">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/accordion/">Bootstrap accordion</see> component.<br />
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/accordion/">Bootstrap accordion</see> component (built on the native <c>&lt;details&gt;</c>/<c>&lt;summary&gt;</c> disclosure elements, no JavaScript needed).<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAccordion">https://havit.blazor.eu/components/HxAccordion</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.CssClass">
             <summary>
             Additional CSS classes for the accordion container.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.Color">
+            <summary>
+            Theme color of the accordion (renders the <c>theme-*</c> class applied to open items).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIds">
@@ -46,6 +51,13 @@
             IDs of the items you want to expand at the very beginning (overwrites <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIds"/> if set).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.NotifyItemExpandedAsync(Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem)">
+            <summary>
+            Called by an expanding <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem"/>. For exclusive accordions (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.StayOpen"/> is <c>false</c>),
+            collapses all other expanded items first (replicates the native <c>name</c>-attribute exclusivity Blazor-side,
+            as the open state is managed by Blazor).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem">
             <summary>
             Single item for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAccordion"/>.
@@ -68,8 +80,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.OnExpanded">
             <summary>
-            Raised after the transition to this item (the animation is finished).
-            Is not raised for the initial rendering even if the item is not collapsed (no transition happened).
+            Raised when the item is expanded.
+            Is not raised for the initial rendering even if the item is expanded.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.InvokeOnExpandedAsync(System.String)">
@@ -79,8 +91,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.OnCollapsed">
             <summary>
-            Raised after the transition from this item (the animation is finished).
-            Is not raised for the initial rendering even if the item is collapsed (no transition happened).
+            Raised when the item is collapsed.
+            Is not raised for the initial rendering even if the item is collapsed.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAccordionItem.InvokeOnCollapsedAsync(System.String)">
