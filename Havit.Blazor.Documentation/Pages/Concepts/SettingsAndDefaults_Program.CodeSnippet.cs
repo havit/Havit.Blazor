@@ -22,8 +22,7 @@
 		HxDrawer.Defaults.HeaderCssClass = "border-bottom";
 		HxDrawer.Defaults.FooterCssClass = "border-top";
 		
-		HxChipList.Defaults.ChipBadgeSettings.Color = ThemeColor.Secondary;
-		HxChipList.Defaults.ChipBadgeSettings. ;
-		HxChipList.Defaults.ChipBadgeSettings.CssClass = "p-2 rounded-pill";
+		HxChipList.Defaults.Color = ThemeColor.Secondary;
+		HxChipList.Defaults.CssClass = "my-chip-list";
 	}
 }
