@@ -118,6 +118,33 @@ public class HxAutosuggestTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxAutosuggest_LabelTypeFloating_ThrowsInvalidOperationException()
+	{
+		// LabelType.Floating is not supported in Bootstrap 6 — the form-adorn wrapper owns the visual chrome and cannot host a floating label.
+
+		// Arrange
+		string selectedValue = null;
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxAutosuggest<string, string>>(0);
+			builder.AddAttribute(1, "Value", selectedValue);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<string>(this, v => selectedValue = v));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<string>>)(() => selectedValue));
+			builder.AddAttribute(4, "TextSelector", (Func<string, string>)(x => x));
+			builder.AddAttribute(5, "ValueSelector", (Func<string, string>)(x => x));
+			builder.AddAttribute(6, "DataProvider", (AutosuggestDataProviderDelegate<string>)(async request =>
+				new AutosuggestDataProviderResult<string> { Data = Enumerable.Empty<string>() }));
+			builder.AddAttribute(7, "Label", "Choose item");
+			builder.AddAttribute(8, "LabelType", (LabelType?)LabelType.Floating);
+			builder.CloseComponent();
+		};
+
+		// Act + Assert
+		Assert.Throws<InvalidOperationException>(() => Render(componentRenderer));
+	}
+
+	[Fact]
 	public void HxAutosuggest_Render_HasInputStructure()
 	{
 		// Arrange

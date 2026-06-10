@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
-public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposable, IInputWithSize, IInputWithLabelType
+public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposable, IInputWithSize
 {
 	[Parameter] public string InputId { get; set; }
 
@@ -37,8 +37,6 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 
 	[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective { get; set; }
 
-	[Parameter] public LabelType LabelTypeEffective { get; set; }
-
 	/// <summary>
 	/// Custom CSS class to render with input-group span.
 	/// </summary>
@@ -60,8 +58,6 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 	/// Input-group at the end of the input.
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
-
-	[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
 	[Parameter] public TimeProvider TimeProviderEffective { get; set; }
 

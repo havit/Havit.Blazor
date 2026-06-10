@@ -1,16 +1,13 @@
-﻿.hx-input-date-icon {
-	display: flex;
-	align-items: center;
-	margin-right: 1rem;
-	z-index: 1;
-	position: absolute;
-	top: 50%;
-	right: 0;
-	transform: translateY(-50%);
+﻿::deep .hx-input-date:has(input:not(:disabled)) .hx-input-date-icon {
+	pointer-events: auto; /* .form-adorn-icon disables pointer events, the icon has to stay clickable (opens/closes the calendar) */
+	cursor: pointer;
 }
 
-::deep .hx-input-date:has(input:not(:disabled)) .hx-input-date-icon {
-	cursor: pointer;
+/* Bootstrap styles only the input itself with :disabled, the form-adorn wrapper has to reflect the disabled state of the inner form-ghost input. */
+::deep .hx-input-date:has(input:disabled) {
+	color: var(--bs-control-disabled-color);
+	background-color: var(--bs-control-disabled-bg);
+	border-color: var(--bs-control-disabled-border-color);
 }
 
 ::deep .hx-input-date-menu {
@@ -26,22 +23,6 @@
 
 .hx-input-date-menu-buttons ::deep .hx-button:nth-child(2):last-child {
     margin-left: auto;
-}
-
-.hx-input-date-has-calendar-icon ::deep .form-control {
-	padding-right: 4.25rem;
-}
-
-.hx-input-date-has-calendar-icon.input-group-lg ::deep .form-control {
-	padding-right: 4.75rem;
-}
-
-.hx-input-date-has-calendar-icon.input-group-sm ::deep .form-control {
-	padding-right: 4rem;
-}
-
-.input-group-sm > .hx-input-date-icon {
-	font-size: .75rem;
 }
 
 .hx-input-date-wrapper {
@@ -61,15 +42,6 @@
     z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be larger than 5 because otherwise the validation message is rendered on top. */
 }
 
-.input-group-start ::deep .form-control {
-	border-top-left-radius: 0;
-	border-bottom-left-radius: 0;
-}
-
-.input-group-end ::deep .form-control {
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
-}
 /* Invalid left/right input borders need to be over the input group borders in invalid state. */
 .input-group ::deep .hx-input-date:has(.is-invalid):not(:focus-within) {
 	z-index: 3;

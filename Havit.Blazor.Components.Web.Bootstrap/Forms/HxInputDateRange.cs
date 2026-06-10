@@ -159,8 +159,17 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 
 	[Inject] private IStringLocalizer<HxInputDateRange> StringLocalizer { get; set; }
 
+	private protected override string CoreInputCssClass => "form-ghost";
 
 	private HxInputDateRangeInternal _hxInputDateRangeInternalComponent;
+
+	/// <inheritdoc />
+	protected override string GetInputCssClassToRender()
+	{
+		// The input size CSS class (form-control-sm/form-control-lg) is rendered on the form-adorn segment wrappers (in HxInputDateRangeInternal), not on the inner form-ghost inputs.
+		string validationCssClass = IsValueInvalid() ? InvalidCssClass : null;
+		return CssClassHelper.Combine(CoreInputCssClass, InputCssClass, validationCssClass);
+	}
 
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{

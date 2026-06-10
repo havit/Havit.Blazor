@@ -9,8 +9,7 @@
 				InputGroupCssClass,
 				HasInputGroups ? "input-group" : null,
 				HasInputGroupEnd ? "input-group-end" : null,
-				HasInputGroupStart ? "input-group-start" : null,
-		        (CalendarIconEffective is not null) ? "hx-input-date-has-calendar-icon" : null)">
+				HasInputGroupStart ? "input-group-start" : null)">
 	@if (InputGroupStartText is not null)
 	{
 		<span class="input-group-text">@InputGroupStartText</span>
@@ -18,13 +17,16 @@
 
 	@InputGroupStartTemplate
 	<div class="@CssClassHelper.Combine(
+					    "form-control",
+					    "form-adorn",
 					    "hx-input-date",
-					    (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)">
+					    ((IInputWithSize)this).GetInputSizeCssClass())">
 	<HxMenu AutoClose="MenuAutoClose.Outside" CssClass="hx-input-date-menu">
 		<Toggle>
 		<HxMenuToggleElement @ref="_hxMenuToggleElement"
 									ElementName="input"
-									CssClass="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())"
+									CssClass="@InputCssClass"
+									MenuReference="parent"
 									type="text"
 									id="@InputId"
 									name="@GetNameAttributeValue()"
@@ -35,11 +37,6 @@
 									onfocus="this.select();"
 									inputmode="none"
 									@attributes="AdditionalAttributes" />
-
-		@if (LabelTypeEffective == LabelType.Floating)
-		{
-			<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
-		}
 
 		</Toggle>
 		<Content>
@@ -66,7 +63,7 @@
 	</HxMenu>
 		@if (HasCalendarIcon)
 		{
-			<div @ref="_iconWrapperElement" class="hx-input-date-icon">
+			<div @ref="_iconWrapperElement" class="form-adorn-icon hx-input-date-icon">
 				<HxIcon Icon="CalendarIconEffective" />
 			</div>
 		}

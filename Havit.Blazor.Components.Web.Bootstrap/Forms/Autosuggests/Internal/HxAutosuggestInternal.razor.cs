@@ -64,11 +64,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	[Parameter] public bool EnabledEffective { get; set; } = true;
 	[Parameter] public InputSize InputSizeEffective { get; set; }
 
-	[Parameter] public LabelType LabelTypeEffective { get; set; }
-
 	[Parameter] public bool? SpellcheckEffective { get; set; }
-
-	[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
 	/// <summary>
 	/// Offset between the menu and the input.

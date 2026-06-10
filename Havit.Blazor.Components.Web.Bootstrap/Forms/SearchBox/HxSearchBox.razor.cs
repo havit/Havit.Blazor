@@ -171,6 +171,11 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	[Parameter] public string Label { get; set; }
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
+	/// <remarks>
+	/// <see cref="Bootstrap.LabelType.Floating"/> is not supported since Bootstrap 6. The component renders with the
+	/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/">form-adorn</see> pattern,
+	/// where the wrapper owns the visual chrome, while Bootstrap 6 floating labels require the input itself to be the <c>.form-control</c>.
+	/// </remarks>
 	[Parameter] public LabelType? LabelType { get; set; }
 	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
 	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
@@ -272,9 +277,9 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
-		if ((LabelTypeEffective == Bootstrap.LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
+		if (LabelTypeEffective == Bootstrap.LabelType.Floating)
 		{
-			throw new InvalidOperationException($"[{GetType().Name}] Cannot use {nameof(Placeholder)} with floating labels.");
+			throw new InvalidOperationException("LabelType.Floating is not supported on HxSearchBox in Bootstrap 6 — the form-adorn wrapper owns the visual chrome and cannot host a floating label. Use LabelType.Regular.");
 		}
 	}
 

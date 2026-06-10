@@ -20,7 +20,8 @@
 		</DefaultContentTemplate>
 	</HxSearchBox>
 
-	<HxSearchBox DataProvider="ProvideSearchResults" Label="Floating Label" LabelType="LabelType.Floating" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
+	@* LabelType.Floating is not supported on HxSearchBox in Bootstrap 6 (the form-adorn wrapper owns the visual chrome and cannot host a floating label). *@
+	<HxSearchBox DataProvider="ProvideSearchResults" Label="Regular Label" LabelType="LabelType.Regular" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
 		<DefaultContentTemplate>
 			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
 		</DefaultContentTemplate>

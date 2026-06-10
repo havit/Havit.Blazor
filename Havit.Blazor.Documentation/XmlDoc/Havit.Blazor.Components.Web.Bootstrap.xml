@@ -3342,6 +3342,11 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+            <remarks>
+            <see cref="F:Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating"/> is not supported since Bootstrap 6. The component renders with the
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/">form-adorn</see> pattern,
+            where the wrapper owns the visual chrome, while Bootstrap 6 floating labels require the input itself to be the <c>.form-control</c>.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.MenuOffset">
             <summary>
@@ -3378,6 +3383,12 @@
             The input-group at the end of the input.<br/>
             Hides the search icon when used!
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.OnParametersSet">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.GetInputCssClassToRender">
+            <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)" />
@@ -5243,6 +5254,11 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+            <remarks>
+            <see cref="F:Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating"/> is not supported since Bootstrap 6. The component renders with the
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/">form-adorn</see> pattern,
+            where the wrapper owns the visual chrome, while Bootstrap 6 floating labels require the input itself to be the <c>.form-control</c>.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.InputGroupCssClass">
             <summary>
@@ -5282,6 +5298,12 @@
             <summary>
             Default month to display in menu calendar when there is no Value.
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.OnParametersSet">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.GetInputCssClassToRender">
+            <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1.FormatValueAsString(`0)">
             <inheritdocs />
@@ -5425,6 +5447,9 @@
             When enabled, validates that the "from" date is less than or equal to the "to" date.
             The default is <c>true</c> (configurable from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>).
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.GetInputCssClassToRender">
+            <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.FormatValueAsString(Havit.DateTimeRange)">
             <inheritdocs />
@@ -7340,6 +7365,11 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+            <remarks>
+            <see cref="F:Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating"/> is not supported since Bootstrap 6. The component renders with the
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/">form-adorn</see> pattern,
+            where the wrapper owns the visual chrome, while Bootstrap 6 floating labels require the input itself to be the <c>.form-control</c>.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.InputSize">
             <summary>

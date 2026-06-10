@@ -5,7 +5,8 @@
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 
-	<HxInputDate @ref="inputDateComponent" Label="HxInputDate (default, DateTime), Floating Label" @bind-Value="@model.DateTime" LabelType="LabelType.Floating" />
+	@* LabelType.Floating is not supported on HxInputDate in Bootstrap 6 (the form-adorn wrapper owns the visual chrome and cannot host a floating label). *@
+	<HxInputDate @ref="inputDateComponent" Label="HxInputDate (default, DateTime)" @bind-Value="@model.DateTime" />
 	<HxInputDate InputSize="InputSize.Small" Label="HxInputDate (default, DateTime) InputSize: Small" @bind-Value="@model.DateTime" />
 	<HxInputDate InputSize="InputSize.Large" Label="HxInputDate (default, DateTime) InputSize: Large" @bind-Value="@model.DateTime" />
 	<HxInputDate Label="HxInputDate (default, DateTime?)" @bind-Value="@model.NullableDateTime" Placeholder="Datum narození" />
