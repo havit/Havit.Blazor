@@ -42,7 +42,7 @@ public class Startup
 		//HxInputDate.Defaults.InputSize = InputSize.Large;
 		//HxInputDateRange.Defaults.InputSize = InputSize.Large;
 		//HxCalendar.Defaults.DateCustomizationProvider = request => new CalendarDateCustomizationResult { Enabled = request.Date < DateTime.Today };
-		//HxMessageBox.Defaults.ModalSettings.Centered = true;
+		//HxMessageBox.Defaults.DialogSettings.Size = DialogSize.Large;
 		//HxPlaceholder.Defaults.Color = ThemeColor.Secondary;
 	}
 

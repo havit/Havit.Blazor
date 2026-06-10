@@ -1,0 +1,52 @@
+﻿@page "/HxDialogTest"
+
+<h1>HxDialog</h1>
+
+<HxButton OnClick="HandleShowClick" Color="ThemeColor.Primary">Show</HxButton>
+
+<HxDialog @ref="myDialog" Title="Dialog title">
+	<BodyTemplate>
+		Body
+		<HxButton OnClick="HandleShowSecondClick" Color="ThemeColor.Danger">Show second</HxButton>
+	</BodyTemplate>
+	<FooterTemplate>
+		<HxButton Text="Close" OnClick="HandleHideClick" Color="ThemeColor.Secondary" />
+	</FooterTemplate>
+</HxDialog>
+
+<HxDialog @ref="mySecondDialog" Title="A very balanced close icon" CloseButtonIcon="BootstrapIcon.YinYang">
+	<BodyTemplate>
+		Second
+	</BodyTemplate>
+	<FooterTemplate>
+		<HxButton Text="Close" OnClick="HandleHideSecondClick" Color="ThemeColor.Secondary" />
+	</FooterTemplate>
+</HxDialog>
+
+
+@code
+{
+	private HxDialog myDialog;
+	private HxDialog mySecondDialog;
+
+	private async Task HandleShowClick()
+	{
+		await myDialog.ShowAsync();
+	}
+
+	private async Task HandleHideClick()
+	{
+		await myDialog.HideAsync();
+	}
+
+	private async Task HandleHideSecondClick()
+	{
+		await mySecondDialog.HideAsync();
+	}
+
+
+	private async Task HandleShowSecondClick()
+	{
+		await mySecondDialog.ShowAsync();
+	}
+}

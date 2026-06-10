@@ -1,0 +1,22 @@
+@page "/HxDialog_Basic"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxButton data-testid="open-button" OnClick="HandleOpenClick" Color="ThemeColor.Primary">Open Dialog</HxButton>
+
+<HxDialog @ref="_dialog" Title="Test Dialog Title">
+	<BodyTemplate>
+		<p data-testid="dialog-body-content">This is the dialog body content.</p>
+	</BodyTemplate>
+	<FooterTemplate>
+		<span data-testid="dialog-footer-content">This is the dialog footer content.</span>
+	</FooterTemplate>
+</HxDialog>
+
+@code {
+	private HxDialog _dialog;
+
+	private async Task HandleOpenClick()
+	{
+		await _dialog.ShowAsync();
+	}
+}
