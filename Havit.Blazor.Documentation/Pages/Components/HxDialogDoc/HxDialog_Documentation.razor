@@ -1,0 +1,35 @@
+@attribute [Route("/components/" + nameof(HxDialog))]
+
+<ApiDoc Type="typeof(HxDialog)">
+
+	<DocAlert Type="DocAlertType.Warning">
+		Bootstrap only supports one dialog window at a time. Nested dialogs aren't supported as they are believed to provide a poor user experience.
+	</DocAlert>
+
+    <DocHeading Title="Basic usage" />
+	<Demo Type="typeof(HxDialog_Demo)" Tabs="false" />
+
+    <DocHeading Title="Static backdrop" />
+	<p>When the backdrop is set to <code>DialogBackdrop.Static</code>, the dialog will not close when clicking outside of it.</p>
+	<Demo Type="typeof(HxDialog_Demo_Backdrop)" />
+
+    <DocHeading Title="Scrolling long content" />
+	<p>When dialogs become too long for the user's viewport or device, they scroll independently of the page itself. Try the demo below to see what we mean.</p>
+	<Demo Type="typeof(HxDialog_Demo_Scrolling)" />
+
+	<p>You can also create a scrollable dialog that allows scrolling the dialog body by setting the <code>Scrollable</code> parameter.</p>
+	<Demo Type="typeof(HxDialog_Demo_Scrollable)" />
+
+    <DocHeading Title="Vertical centering" />
+	<p>Dialogs are vertically centered natively, there is no parameter to set. The dialog is built on the native <code>&lt;dialog&gt;</code> element, which the browser centers in the viewport by default.</p>
+
+    <DocHeading Title="Animation" />
+	<p>Use the <code>Animation</code> parameter to choose the open/close animation of the dialog. The default is <code>DialogAnimation.Fade</code>, use <code>DialogAnimation.None</code> to disable the animation.</p>
+	<Demo Type="typeof(HxDialog_Demo_Animation)" />
+
+    <DocHeading Title="Optional sizes" />
+	<Demo Type="typeof(HxDialog_Demo_Size)" />
+
+    <DocHeading Title="Fullscreen dialog" />
+	<Demo Type="typeof(HxDialog_Demo_Fullscreen)" />
+</ApiDoc>

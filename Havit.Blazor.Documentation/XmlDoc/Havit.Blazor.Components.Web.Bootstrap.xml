@@ -1678,6 +1678,707 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Enabled">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DialogAnimation">
+            <summary>
+            Open/close animation of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDialog"/>.
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/dialog/#animations"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogAnimation.Fade">
+            <summary>
+            Fade on open and close (Bootstrap default).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogAnimation.None">
+            <summary>
+            No animation (<c>dialog-instant</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogAnimation.SlideDown">
+            <summary>
+            Slides down from the top of the viewport (<c>dialog-slide-down</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogAnimation.SlideUp">
+            <summary>
+            Slides up from the bottom of the viewport (<c>dialog-slide-up</c>).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DialogBackdrop">
+            <summary>
+            Options for controlling the behavior of the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Backdrop"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogBackdrop.True">
+            <summary>
+            A backdrop will be rendered. The dialog will be closed upon clicking on the backdrop.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogBackdrop.False">
+            <summary>
+            No backdrop will be rendered.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogBackdrop.Static">
+            <summary>
+            A static backdrop will be rendered. The dialog will not be closed upon clicking on the backdrop.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DialogFullscreen">
+            <summary>
+            Fullscreen behavior for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDialog"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogFullscreen.Disabled">
+            <summary>
+            Fullscreen mode disabled.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogFullscreen.Always">
+            <summary>
+            Always fullscreen dialog.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogFullscreen.SmallDown">
+            <summary>
+            Fullscreen for viewports below the "small" breakpoint (<c>576px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogFullscreen.MediumDown">
+            <summary>
+            Fullscreen for viewports below the "medium" breakpoint (<c>768px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogFullscreen.LargeDown">
+            <summary>
+            Fullscreen for viewports below the "large" breakpoint (<c>1024px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogFullscreen.ExtraLargeDown">
+            <summary>
+            Fullscreen for viewports below the "extra-large" breakpoint (<c>1280px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogFullscreen.XxlDown">
+            <summary>
+            Fullscreen for viewports below the "2xl" breakpoint (<c>1536px</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogHidingEventArgs.Cancel">
+            <summary>
+            Set <c>true</c> to prevent dialog hiding.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DialogRenderMode">
+            <summary>
+            Dialog render mode.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogRenderMode.OpenOnly">
+            <summary>
+            Dialog content is rendered only when it is open.
+            Suitable for item-detail, item-edit, etc.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogRenderMode.Always">
+            <summary>
+            Dialog content is always rendered (and hidden with CSS if not open).
+            Needed for rendering chips from filter, etc.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1">
+            <summary>
+            Result of the dialog.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1.Successful">
+            <summary>
+            <c>True</c> when the dialog has a successful result, <c>false</c> when it was cancelled.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1.Value">
+            <summary>
+            The value of the successful result.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Thrown when the dialog is not successful.</exception>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1.#ctor(System.Boolean,`0)">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1.CreateCancelled">
+            <summary>
+            Returns a new instance for a cancelled dialog.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1.CreateSuccessful(`0)">
+            <summary>
+            Returns a new instance for a successful dialog.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DialogSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDialog"/> component
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.Animation">
+            <summary>
+            Open/close animation of the dialog.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.ShowCloseButton">
+            <summary>
+            Indicates whether the dialog shows a close button in the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.CloseButtonIcon">
+            <summary>
+            The close icon to be used in the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.CloseButtonSettings">
+            <summary>
+            Settings for the close button in the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.CloseOnEscape">
+            <summary>
+            Indicates whether the dialog closes when the escape key is pressed.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.Size">
+            <summary>
+            The size of the dialog.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.Fullscreen">
+            <summary>
+            The fullscreen behavior of the dialog.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.Backdrop">
+            <summary>
+            Indicates whether to apply a backdrop to the body while the dialog is open.
+            If set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DialogBackdrop.Static"/>, the dialog cannot be closed by clicking on the backdrop.
+            The default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Defaults"/>) is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DialogBackdrop.True"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.Scrollable">
+            <summary>
+            Allows scrolling of the dialog body.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.NonModal">
+            <summary>
+            When <c>true</c>, the dialog opens as non-modal (no backdrop, no focus trap, page stays interactive).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.CssClass">
+            <summary>
+            Additional CSS class for the main <c>&lt;dialog&gt;</c> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.HeaderCssClass">
+            <summary>
+            Additional header CSS class (<c>div.dialog-header</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.BodyCssClass">
+            <summary>
+            Additional body CSS class (<c>div.dialog-body</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.FooterCssClass">
+            <summary>
+            Additional footer CSS class (<c>div.dialog-footer</c>).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DialogSize">
+            <summary>
+            Size for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDialog"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogSize.Small">
+            <summary>
+            Small. Dialog max-width: 300px.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogSize.Regular">
+            <summary>
+            Medium (default). Dialog max-width: 500px.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogSize.Large">
+            <summary>
+            Large. Dialog max-width: 800px.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogSize.ExtraLarge">
+            <summary>
+            Extra large. Dialog max-width: 1140px.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDialog">
+            <summary>
+            Component for rendering a dialog as a Bootstrap 6 Dialog (built on the native <c>&lt;dialog&gt;</c> element).
+            Visit <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/dialog/">Bootstrap Dialog</see> for more information.
+            Full documentation and demos available at <see href="https://havit.blazor.eu/components/HxDialog">https://havit.blazor.eu/components/HxDialog</see>
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxDialog.StaticBackdropValue">
+            <summary>
+            Specifies a value for the <c>data-bs-backdrop</c> attribute when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Backdrop"/> is set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DialogBackdrop.Static"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Defaults">
+            <summary>
+            Application-wide default settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDialog"/>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.GetDefaults">
+            <summary>
+            Provides application-wide default settings for the component.
+            Allows descendants to override these defaults with a separate set of values.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Settings">
+            <summary>
+            A set of settings applied to this component instance. Overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Defaults"/> and is itself overridden by individual parameters.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Animation">
+            <summary>
+            Open/close animation of the dialog. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DialogAnimation.Fade"/> (Bootstrap default).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.GetSettings">
+            <summary>
+            Returns optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Settings"/> in components descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Title">
+            <summary>
+            Title in dialog header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HeaderTemplate">
+            <summary>
+            Header template.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.BodyTemplate">
+            <summary>
+            Body template.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.FooterTemplate">
+            <summary>
+            Footer template.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Size">
+            <summary>
+            Size of the dialog. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DialogSize.Regular"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Fullscreen">
+            <summary>
+            Fullscreen behavior of the dialog. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DialogFullscreen.Disabled"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.RenderMode">
+            <summary>
+            Determines whether the content is always rendered or only if the dialog is open.<br />
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DialogRenderMode.OpenOnly"/>.<br />
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.ShowCloseButton">
+            <summary>
+            Indicates whether the dialog shows close button in header.
+            Default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.CloseButtonIcon">
+            <summary>
+            Close icon to be used in header.
+            If set to <c>null</c>, Bootstrap default close-button will be used.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.CloseButtonSettings">
+            <summary>
+            Settings for the close button in the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.CloseOnEscape">
+            <summary>
+            Indicates whether the dialog closes when escape key is pressed.
+            Default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Backdrop">
+            <summary>
+            Indicates whether to apply a backdrop on body while the dialog is open.
+            If set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DialogBackdrop.Static"/>, the dialog cannot be closed by clicking on the backdrop.
+            Default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Defaults"/>) is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DialogBackdrop.True"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Scrollable">
+            <summary>
+            Allows scrolling the dialog body. Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.NonModal">
+            <summary>
+            When <c>true</c>, the dialog opens as non-modal (browser-native <c>show()</c> instead of <c>showModal()</c>):
+            no backdrop, no focus trap, no blocking of the rest of the page. Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.CssClass">
+            <summary>
+            Additional CSS class for the main element (<c>div.dialog</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HeaderCssClass">
+            <summary>
+            Additional header CSS class (<c>div.dialog-header</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.BodyCssClass">
+            <summary>
+            Additional body CSS class (<c>div.dialog-body</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.FooterCssClass">
+            <summary>
+            Additional footer CSS class (<c>div.dialog-footer</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.OnHiding">
+            <summary>
+            Fired immediately when the 'hide' instance method is called.
+            This can be triggered by <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HideAsync"/>, the close button, the <kbd>Esc</kbd> key, or other interactions.
+            To cancel hiding, set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.DialogHidingEventArgs.Cancel"/> to <c>true</c>.
+            </summary>
+            <remarks>
+            There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override to avoid confusion.
+            The <code>hide.bs.dialog</code> event is only subscribed to when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.OnHiding"/> callback is set.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.OnClosed">
+            <summary>
+            Fired when the dialog has finished hiding from the user, after CSS transitions complete.
+            Triggered by <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HideAsync"/>, the close button, the <kbd>Esc</kbd> key, or other interactions.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.InvokeOnClosedAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.OnClosed"/> event. Enables derived components to intercept the event.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.OnShown">
+            <summary>
+            Fired when a dialog element becomes visible to the user, after CSS transitions complete.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.InvokeOnShownAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.OnShown"/> event. Enables derived components to intercept the event.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.ShowAsync">
+            <summary>
+            Opens the dialog.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HideAsync">
+            <summary>
+            Closes the dialog.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HandleDialogHide">
+            <summary>
+            Receives notification from JS for <c>hide.bs.dialog</c> event.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HandleDialogHidden">
+            <summary>
+            Receives notification from JS for <c>hidden.bs.dialog</c> event.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HandleDialogShown">
+            <summary>
+            Receives notification from JS for <c>shown.bs.dialog</c> event.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.GetBackdropSetupValue(Havit.Blazor.Components.Web.Bootstrap.DialogBackdrop)">
+            <summary>
+            Formats a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.DialogBackdrop"/> value for use in the <c>data-bs-backdrop</c> attribute.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDialogBase`1">
+            <summary>
+            Base class to simplify custom dialog dialog implementation.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDialogBase">https://havit.blazor.eu/components/HxDialogBase</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialogBase`1.Dialog">
+            <summary>
+            Returns the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDialog"/> component that this component controls. Override this method when you do not want to use the dialog field set using @ref.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialogBase`1.ShowAsync">
+            <summary>
+            Shows the dialog and waits until it is hidden.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialogBase`1.HideAsync(`0)">
+            <summary>
+            Hides the dialog and sets the value.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialogBase`1.HideAsCancelledAsync">
+            <summary>
+            Hides the dialog as cancelled (no value is set).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox">
+            <summary>
+            Component for displaying message boxes.<br/>
+            Usually used via <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxService"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost"/>.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMessageBox">https://havit.blazor.eu/components/HxMessageBox</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.GetDefaults">
+            <summary>
+            Returns the defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox"/>.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Title">
+            <summary>
+            Title text (Header).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.HeaderTemplate">
+            <summary>
+            Header template (Header).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Text">
+            <summary>
+            Content (body) text.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.BodyTemplate">
+            <summary>
+            Body (content) template.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.ShowCloseButton">
+            <summary>
+            Indicates whether to show the close button.
+            The default is taken from the underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDialog"/> (<c>true</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Buttons">
+            <summary>
+            Buttons to show. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Ok"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.PrimaryButton">
+            <summary>
+            Primary button (if you want to override the default).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.CustomButtonText">
+            <summary>
+            Text for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Custom"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.PrimaryButtonSettings">
+            <summary>
+            Settings for the dialog primary button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.SecondaryButtonSettings">
+            <summary>
+            Settings for dialog secondary button(s).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.DialogSettings">
+            <summary>
+            Settings for the underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDialog"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.OnClosed">
+            <summary>
+            Raised when the message box gets closed. Returns the button clicked.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.InvokeOnClosedAsync(Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.OnClosed"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDialog"/>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.ShowAsync">
+            <summary>
+            Displays the message box.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost">
+            <summary>
+            Displays message boxes initiated through <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/>.
+            To be placed in the root application component / main layout.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest">
+            <summary>
+            Represents a request to display a message box with various customizable options.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Title">
+            <summary>
+            Title in the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.HeaderTemplate">
+            <summary>
+            Template for the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Text">
+            <summary>
+            Content (body) text.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.BodyTemplate">
+            <summary>
+            Body (content) template.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.ShowCloseButton">
+            <summary>
+            Indicates whether to show the close button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Buttons">
+            <summary>
+            Buttons to show.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.PrimaryButton">
+            <summary>
+            Primary button (if you want to override the default).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.CustomButtonText">
+            <summary>
+            Text for the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Custom"/> button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Settings">
+            <summary>
+            Settings for the message box.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying UI component (Bootstrap: HxMessageBox -> HxDialog).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxServiceCollectionExtensions">
+            <summary>
+            Extension methods for installation of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/> support.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.MessageBoxServiceCollectionExtensions.AddHxMessageBoxHost(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/> support to be able to display message boxes using HxMessageBoxHost.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox"/> and derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.PrimaryButtonSettings">
+            <summary>
+            Settings for the primary dialog button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.SecondaryButtonSettings">
+            <summary>
+            Settings for the secondary dialog button(s).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.DialogSettings">
+            <summary>
+            Settings for the underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDialog"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.OkButtonText">
+            <summary>
+            Text for the OK button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.CancelButtonText">
+            <summary>
+            Text for the Cancel button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.AbortButtonText">
+            <summary>
+            Text for the Abort button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.YesButtonText">
+            <summary>
+            Text for the Yes button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.NoButtonText">
+            <summary>
+            Text for the No button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.RetryButtonText">
+            <summary>
+            Text for the Retry button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.IgnoreButtonText">
+            <summary>
+            Text for the Ignore button.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
             <summary>
             Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as a Bootstrap form control (including <c>Label</c> etc.)<br />
@@ -9001,703 +9702,6 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.MenuPlacementExtensions.ToDataBsPlacement(Havit.Blazor.Components.Web.Bootstrap.MenuPlacement)">
             <summary>
             Gets the <c>data-bs-placement</c> attribute value for the specified <see cref="T:Havit.Blazor.Components.Web.Bootstrap.MenuPlacement"/>.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1">
-            <summary>
-            Result of the dialog.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1.Successful">
-            <summary>
-            <c>True</c> when the dialog has a successful result, <c>false</c> when it was cancelled.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1.Value">
-            <summary>
-            The value of the successful result.
-            </summary>
-            <exception cref="T:System.InvalidOperationException">Thrown when the dialog is not successful.</exception>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1.#ctor(System.Boolean,`0)">
-            <summary>
-            Constructor.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1.CreateCancelled">
-            <summary>
-            Returns a new instance for a cancelled dialog.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.DialogResult`1.CreateSuccessful(`0)">
-            <summary>
-            Returns a new instance for a successful dialog.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDialogBase`1">
-            <summary>
-            Base class to simplify custom modal dialog implementation.<br />
-            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDialogBase">https://havit.blazor.eu/components/HxDialogBase</see>
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialogBase`1.Modal">
-            <summary>
-            Returns the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> component that this component controls. Override this method when you do not want to use the modal field set using @ref.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialogBase`1.ShowAsync">
-            <summary>
-            Shows the modal and waits until it is hidden.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialogBase`1.HideAsync(`0)">
-            <summary>
-            Hides the modal and sets the value.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialogBase`1.HideAsCancelledAsync">
-            <summary>
-            Hides the modal as cancelled (no value is set).
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox">
-            <summary>
-            Component for displaying message boxes.<br/>
-            Usually used via <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxService"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost"/>.<br />
-            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxMessageBox">https://havit.blazor.eu/components/HxMessageBox</see>
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Defaults">
-            <summary>
-            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> and derived components.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.GetDefaults">
-            <summary>
-            Returns the defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox"/>.
-            Enables overriding defaults in descendants (use a separate set of defaults).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Settings">
-            <summary>
-            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Defaults"/>, overridden by individual parameters).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.GetSettings">
-            <summary>
-            Returns an optional set of component settings.
-            </summary>
-            <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Settings"/> in component descendants (by returning a derived settings class).
-            </remarks>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Title">
-            <summary>
-            Title text (Header).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.HeaderTemplate">
-            <summary>
-            Header template (Header).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Text">
-            <summary>
-            Content (body) text.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.BodyTemplate">
-            <summary>
-            Body (content) template.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.ShowCloseButton">
-            <summary>
-            Indicates whether to show the close button.
-            The default is taken from the underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> (<c>true</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.Buttons">
-            <summary>
-            Buttons to show. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Ok"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.PrimaryButton">
-            <summary>
-            Primary button (if you want to override the default).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.CustomButtonText">
-            <summary>
-            Text for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Custom"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.PrimaryButtonSettings">
-            <summary>
-            Settings for the dialog primary button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.SecondaryButtonSettings">
-            <summary>
-            Settings for dialog secondary button(s).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.ModalSettings">
-            <summary>
-            Settings for the underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> component.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.OnClosed">
-            <summary>
-            Raised when the message box gets closed. Returns the button clicked.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.InvokeOnClosedAsync(Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons)">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.OnClosed"/> event. Allows interception of the event in derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.AdditionalAttributes">
-            <summary>
-            Additional attributes to be splatted onto an underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/>.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox.ShowAsync">
-            <summary>
-            Displays the message box.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBoxHost">
-            <summary>
-            Displays message boxes initiated through <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/>.
-            To be placed in the root application component / main layout.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxModal">
-            <summary>
-            Component for rendering a modal dialog as a Bootstrap Modal.
-            Visit <see href="https://getbootstrap.com/docs/5.3/components/modal/">Bootstrap Modal</see> for more information.
-            Full documentation and demos available at <see href="https://havit.blazor.eu/components/HxModal">https://havit.blazor.eu/components/HxModal</see>
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxModal.StaticBackdropValue">
-            <summary>
-            Specifies a value for the <c>data-bs-backdrop</c> attribute when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Backdrop"/> is set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.Static"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults">
-            <summary>
-            Application-wide default settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/>.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.GetDefaults">
-            <summary>
-            Provides application-wide default settings for the component.
-            Allows descendants to override these defaults with a separate set of values.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Settings">
-            <summary>
-            A set of settings applied to this component instance. Overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults"/> and is itself overridden by individual parameters.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Animated">
-            <summary>
-            Determines whether modals appear without fading in. Setting to <c>false</c> removes the <c>.fade</c> class from the modal markup.
-            Default value is <c>true</c>.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.GetSettings">
-            <summary>
-            Returns optional set of component settings.
-            </summary>
-            <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Settings"/> in components descendants (by returning a derived settings class).
-            </remarks>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Title">
-            <summary>
-            Title in modal header.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.HeaderTemplate">
-            <summary>
-            Header template.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.BodyTemplate">
-            <summary>
-            Body template.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.FooterTemplate">
-            <summary>
-            Footer template.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Size">
-            <summary>
-            Size of the modal. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalSize.Regular"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Fullscreen">
-            <summary>
-            Fullscreen behavior of the modal. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.Disabled"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.RenderMode">
-            <summary>
-            Determines whether the content is always rendered or only if the modal is open.<br />
-            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalRenderMode.OpenOnly"/>.<br />
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.ShowCloseButton">
-            <summary>
-            Indicates whether the modal shows close button in header.
-            Default value is <c>true</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CloseButtonIcon">
-            <summary>
-            Close icon to be used in header.
-            If set to <c>null</c>, Bootstrap default close-button will be used.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CloseButtonSettings">
-            <summary>
-            Settings for the close button in the header.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CloseOnEscape">
-            <summary>
-            Indicates whether the modal closes when escape key is pressed.
-            Default value is <c>true</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Backdrop">
-            <summary>
-            Indicates whether to apply a backdrop on body while the modal is open.
-            If set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.Static"/>, the modal cannot be closed by clicking on the backdrop.
-            Default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults"/>) is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.True"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Scrollable">
-            <summary>
-            Allows scrolling the modal body. Default is <c>false</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Centered">
-            <summary>
-            Allows vertical centering of the modal.<br/>
-            Default is <c>false</c> (horizontal only).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.CssClass">
-            <summary>
-            Additional CSS class for the main element (<c>div.modal</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.DialogCssClass">
-            <summary>
-            Additional CSS class for the dialog (<c>div.modal-dialog</c> element).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.HeaderCssClass">
-            <summary>
-            Additional header CSS class (<c>div.modal-header</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.BodyCssClass">
-            <summary>
-            Additional body CSS class (<c>div.modal-body</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.ContentCssClass">
-            <summary>
-            Additional content CSS class (<c>div.modal-content</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.FooterCssClass">
-            <summary>
-            Additional footer CSS class (<c>div.modal-footer</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnHiding">
-            <summary>
-            Fired immediately when the 'hide' instance method is called.
-            This can be triggered by <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HideAsync"/>, the close button, the <kbd>Esc</kbd> key, or other interactions.
-            To cancel hiding, set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.ModalHidingEventArgs.Cancel"/> to <c>true</c>.
-            </summary>
-            <remarks>
-            There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override to avoid confusion.
-            The <code>hide.bs.modal</code> event is only subscribed to when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnHiding"/> callback is set.
-            </remarks>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnClosed">
-            <summary>
-            Fired when the modal has finished hiding from the user, after CSS transitions complete.
-            Triggered by <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HideAsync"/>, the close button, the <kbd>Esc</kbd> key, or other interactions.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.InvokeOnClosedAsync">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnClosed"/> event. Enables derived components to intercept the event.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnShown">
-            <summary>
-            Fired when a modal element becomes visible to the user, after CSS transitions complete.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.InvokeOnShownAsync">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.OnShown"/> event. Enables derived components to intercept the event.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.ShowAsync">
-            <summary>
-            Opens the modal.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HideAsync">
-            <summary>
-            Closes the modal.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HandleModalHide">
-            <summary>
-            Receives notification from JS for <c>hide.bs.modal</c> event.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HandleModalHidden">
-            <summary>
-            Receives notification from JS for <c>hidden.bs.modal</c> event.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.HandleModalShown">
-            <summary>
-            Receives notification from JS for <c>shown.bs.modal</c> event.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxModal.GetBackdropSetupValue(Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop)">
-            <summary>
-            Formats a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop"/> value for use in the <c>data-bs-backdrop</c> attribute.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest">
-            <summary>
-            Represents a request to display a message box with various customizable options.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Title">
-            <summary>
-            Title in the header.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.HeaderTemplate">
-            <summary>
-            Template for the header.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Text">
-            <summary>
-            Content (body) text.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.BodyTemplate">
-            <summary>
-            Body (content) template.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.ShowCloseButton">
-            <summary>
-            Indicates whether to show the close button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Buttons">
-            <summary>
-            Buttons to show.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.PrimaryButton">
-            <summary>
-            Primary button (if you want to override the default).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.CustomButtonText">
-            <summary>
-            Text for the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MessageBoxButtons.Custom"/> button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.Settings">
-            <summary>
-            Settings for the message box.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxRequest.AdditionalAttributes">
-            <summary>
-            Additional attributes to be splatted onto an underlying UI component (Bootstrap: HxMessageBox -> HxModal).
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxServiceCollectionExtensions">
-            <summary>
-            Extension methods for installation of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/> support.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.MessageBoxServiceCollectionExtensions.AddHxMessageBoxHost(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
-            <summary>
-            Adds <see cref="T:Havit.Blazor.Components.Web.Bootstrap.IHxMessageBoxService"/> support to be able to display message boxes using HxMessageBoxHost.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings">
-            <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessageBox"/> and derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.PrimaryButtonSettings">
-            <summary>
-            Settings for the primary dialog button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.SecondaryButtonSettings">
-            <summary>
-            Settings for the secondary dialog button(s).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.ModalSettings">
-            <summary>
-            Settings for the underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> component.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.OkButtonText">
-            <summary>
-            Text for the OK button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.CancelButtonText">
-            <summary>
-            Text for the Cancel button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.AbortButtonText">
-            <summary>
-            Text for the Abort button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.YesButtonText">
-            <summary>
-            Text for the Yes button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.NoButtonText">
-            <summary>
-            Text for the No button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.RetryButtonText">
-            <summary>
-            Text for the Retry button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.MessageBoxSettings.IgnoreButtonText">
-            <summary>
-            Text for the Ignore button.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop">
-            <summary>
-            Options for controlling the behavior of the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Backdrop"/>.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.True">
-            <summary>
-            A backdrop will be rendered. The modal will be closed upon clicking on the backdrop.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.False">
-            <summary>
-            No backdrop will be rendered.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.Static">
-            <summary>
-            A static backdrop will be rendered. The modal will not be closed upon clicking on the backdrop.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen">
-            <summary>
-            Fullscreen behavior for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/>.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.Disabled">
-            <summary>
-            Fullscreen mode disabled.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.Always">
-            <summary>
-            Always fullscreen modal.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.SmallDown">
-            <summary>
-            Fullscreen for viewports below the "small" breakpoint (<c>576px</c>).
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.MediumDown">
-            <summary>
-            Fullscreen for viewports below the "medium" breakpoint (<c>768px</c>).
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.LargeDown">
-            <summary>
-            Fullscreen for viewports below the "large" breakpoint (<c>1024px</c>).
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.ExtraLargeDown">
-            <summary>
-            Fullscreen for viewports below the "extra-large" breakpoint (<c>1280px</c>).
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.XxlDown">
-            <summary>
-            Fullscreen for viewports below the "2xl" breakpoint (<c>1536px</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalHidingEventArgs.Cancel">
-            <summary>
-            Set <c>true</c> to prevent modal hiding.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalRenderMode">
-            <summary>
-            Modal render mode.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalRenderMode.OpenOnly">
-            <summary>
-            Modal content is rendered only when it is open.
-            Suitable for item-detail, item-edit, etc.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalRenderMode.Always">
-            <summary>
-            Modal content is always rendered (and hidden with CSS if not open).
-            Needed for rendering chips from filter, etc.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalSettings">
-            <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/> component
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Animated">
-            <summary>
-            For modals that simply appear rather than fade in to view, setting <c>false</c> removes the <c>.fade</c> class from your modal markup.
-            The default value is <c>true</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.ShowCloseButton">
-            <summary>
-            Indicates whether the modal shows a close button in the header.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.CloseButtonIcon">
-            <summary>
-            The close icon to be used in the header.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.CloseButtonSettings">
-            <summary>
-            Settings for the close button in the header.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.CloseOnEscape">
-            <summary>
-            Indicates whether the modal closes when the escape key is pressed.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Size">
-            <summary>
-            The size of the modal.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Fullscreen">
-            <summary>
-            The fullscreen behavior of the modal.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Backdrop">
-            <summary>
-            Indicates whether to apply a backdrop to the body while the modal is open.
-            If set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.Static"/>, the modal cannot be closed by clicking on the backdrop.
-            The default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxModal.Defaults"/>) is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ModalBackdrop.True"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Scrollable">
-            <summary>
-            Allows scrolling of the modal body.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.Centered">
-            <summary>
-            Allows vertical centering of the modal.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.CssClass">
-            <summary>
-            Additional CSS class for the main element (<c>div.modal</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.DialogCssClass">
-            <summary>
-            Additional CSS class for the dialog (<c>div.modal-dialog</c> element).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.HeaderCssClass">
-            <summary>
-            Additional header CSS class (<c>div.modal-header</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.ContentCssClass">
-            <summary>
-            Additional content CSS class (<c>div.modal-content</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.BodyCssClass">
-            <summary>
-            Additional body CSS class (<c>div.modal-body</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalSettings.FooterCssClass">
-            <summary>
-            Additional footer CSS class (<c>div.modal-footer</c>).
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ModalSize">
-            <summary>
-            Size for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxModal"/>.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalSize.Small">
-            <summary>
-            Small. Modal max-width: 300px.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalSize.Regular">
-            <summary>
-            Medium (default). Modal max-width: 500px.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalSize.Large">
-            <summary>
-            Large. Modal max-width: 800px.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalSize.ExtraLarge">
-            <summary>
-            Extra large. Modal max-width: 1140px.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.AnchorFragmentNavigationAutomationMode">
