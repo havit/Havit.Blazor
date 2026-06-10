@@ -37,7 +37,7 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 
 	protected abstract ThemeColor ColorEffective { get; }
 
-	protected abstract bool OutlineEffective { get; }
+	protected abstract ButtonVariant VariantEffective { get; }
 
 	protected virtual ButtonSize ButtonSizeEffective => ButtonSize.Regular;
 
@@ -164,7 +164,7 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 		builder.OpenElement(2000, "label");
 		builder.AddAttribute(2001, "class", CssClassHelper.Combine(
 			(RenderModeEffective == CheckboxRenderMode.ToggleButton) ? "btn" : "form-check-label",
-			(RenderModeEffective == CheckboxRenderMode.ToggleButton) ? ColorEffective.ToButtonColorCss(OutlineEffective) : null,
+			(RenderModeEffective == CheckboxRenderMode.ToggleButton) ? VariantEffective.ToButtonVariantAndColorCssClass(ColorEffective) : null,
 			(RenderModeEffective == CheckboxRenderMode.ToggleButton) ? ButtonSizeEffective.ToButtonSizeCssClass() : null,
 			TextCssClass));
 		builder.AddAttribute(2002, "for", InputId);

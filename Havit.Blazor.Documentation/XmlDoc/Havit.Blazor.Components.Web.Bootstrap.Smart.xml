@@ -143,9 +143,9 @@
             Button size. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonSize.Regular"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Outline">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Variant">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
+            Visual <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button/">variant</see> of the button (solid, outline, subtle, text, link), composed with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.Color"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Smart.HxSmartPasteButton.CssClass">

@@ -47,7 +47,7 @@ public class HxSwitch : HxCheckboxBase
 
 	protected override ThemeColor ColorEffective => throw new NotSupportedException();
 
-	protected override bool OutlineEffective => throw new NotSupportedException();
+	protected override ButtonVariant VariantEffective => throw new NotSupportedException();
 
 	protected override ButtonSize ButtonSizeEffective => throw new NotSupportedException();
 }

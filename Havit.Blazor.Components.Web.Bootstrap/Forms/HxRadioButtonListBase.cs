@@ -29,8 +29,8 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	/// Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
 	/// for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>.
 	/// </summary>
-	[Parameter] public bool? Outline { get; set; }
-	protected bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults()?.Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxRadioButtonListBase<,>) + " has to be set.");
+	[Parameter] public ButtonVariant? Variant { get; set; }
+	protected ButtonVariant VariantEffective => Variant ?? GetSettings()?.Variant ?? GetDefaults()?.Variant ?? throw new InvalidOperationException(nameof(Variant) + " default for " + nameof(HxRadioButtonListBase<,>) + " has to be set.");
 
 	/// <summary>
 	/// Size of buttons for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>.
@@ -238,7 +238,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			builder.OpenElement(300, "label");
 			builder.AddAttribute(301, "class", CssClassHelper.Combine(
 				isToggleButton ? "btn" : "form-check-label",
-				isToggleButton ? ColorEffective.ToButtonColorCss(OutlineEffective) : null,
+				isToggleButton ? VariantEffective.ToButtonVariantAndColorCssClass(ColorEffective) : null,
 				isToggleButton ? ButtonSizeEffective.ToButtonSizeCssClass() : null,
 				ItemTextCssClassImpl,
 				ItemTextCssClassSelectorImpl?.Invoke(item)));
