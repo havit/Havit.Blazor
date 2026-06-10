@@ -1678,6 +1678,411 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Enabled">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DrawerBackdrop">
+            <summary>
+            Options for controlling the behavior of the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Backdrop"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerBackdrop.True">
+            <summary>
+            A backdrop will be rendered. The drawer will be closed upon clicking on the backdrop.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerBackdrop.False">
+            <summary>
+            No backdrop will be rendered. Users can interact with other parts of the app while the drawer is open.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerBackdrop.Static">
+            <summary>
+            A static backdrop will be rendered. The drawer will not be closed upon clicking on the backdrop.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerHidingEventArgs.Cancel">
+            <summary>
+            Set <c>true</c> to prevent drawer hiding.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DrawerPlacement">
+            <summary>
+            Represents the placement of an drawer.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerPlacement.End">
+            <summary>
+            Drawer is placed at the end.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerPlacement.Start">
+            <summary>
+            Drawer is placed at the start.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerPlacement.Top">
+            <summary>
+            Drawer is placed at the top.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerPlacement.Bottom">
+            <summary>
+            Drawer is placed at the bottom.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DrawerRenderMode">
+            <summary>
+            Drawer render mode.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerRenderMode.OpenOnly">
+            <summary>
+            Drawer content is rendered only when it is open.
+            Suitable for item-detail, item-edit, etc.
+            This setting applies only when <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DrawerResponsiveBreakpoint.None"/> is set. For all other values, the content is always rendered (to be available for the mobile version).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerRenderMode.Always">
+            <summary>
+            Drawer content is always rendered (and hidden with CSS if not open).
+            Needed for HxFilterForm with HxChipList.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DrawerResponsiveBreakpoint">
+            <summary>
+            Content is displayed using the drawer when below this breakpoint, otherwise, contents are rendered in-place.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerResponsiveBreakpoint.None">
+            <summary>
+            Always render contents outside the viewport in an drawer.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerResponsiveBreakpoint.Small">
+            <summary>
+            Render contents outside the viewport in an drawer when below the "small" breakpoint (<c>576px</c>, exclusive).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerResponsiveBreakpoint.Medium">
+            <summary>
+            Render contents outside the viewport in an drawer when below the "medium" breakpoint (<c>768px</c>, exclusive).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerResponsiveBreakpoint.Large">
+            <summary>
+            Render contents outside the viewport in an drawer when below the "large" breakpoint (<c>1024px</c>, exclusive).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerResponsiveBreakpoint.ExtraLarge">
+            <summary>
+            Render contents outside the viewport in an drawer when below the "extra-large" breakpoint (<c>1280px</c>, exclusive).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerResponsiveBreakpoint.Xxl">
+            <summary>
+            Render contents outside the viewport in an drawer when below the "2xl" breakpoint (<c>1536px</c>, exclusive).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDrawer"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.CloseButtonIcon">
+            <summary>
+            Close icon to be used in the header.
+            If set to <c>null</c>, the Bootstrap default close button will be used.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.ShowCloseButton">
+            <summary>
+            Indicates whether the drawer shows a close button in the header.
+            Use the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.CloseButtonIcon"/> property to change the shape of the button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.Backdrop">
+            <summary>
+            Indicates whether to apply a backdrop on the body while the drawer is open.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.ResponsiveBreakpoint">
+            <summary>
+            The breakpoint below which the contents are rendered outside the viewport in an drawer (above this breakpoint, the drawer body is rendered inside the viewport).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.Placement">
+            <summary>
+            The placement of the drawer.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.Size">
+            <summary>
+            The size of the drawer.
+            </summary>
+            <remarks>
+            Consider customizing the drawer CSS variables instead of changing the size application-wide.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.CloseOnEscape">
+            <summary>
+            Indicates whether the drawer closes when the escape key is pressed.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.ScrollingEnabled">
+            <summary>
+            Indicates whether body (page) scrolling is allowed while the drawer is open.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.Sheet">
+            <summary>
+            When <c>true</c>, renders the drawer as a flush-to-edge sheet (no inset, border radius, or shadow) using the <c>drawer-sheet</c> variant (new in Bootstrap 6).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.CssClass">
+            <summary>
+            Additional CSS class for the drawer. Added to the root div (<c>.drawer</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.HeaderCssClass">
+            <summary>
+            Additional CSS class for the header.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.BodyCssClass">
+            <summary>
+            Additional CSS class for the body.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.FooterCssClass">
+            <summary>
+            Additional CSS class for the footer.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.DrawerSize">
+            <summary>
+            Represents the size options for the Drawer component.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerSize.Regular">
+            <summary>
+            Regular size.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerSize.Small">
+            <summary>
+            Small size.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerSize.Large">
+            <summary>
+            Large size.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDrawer">
+            <summary>
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/drawer/">Bootstrap Drawer</see> component (aka Drawer).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDrawer">https://havit.blazor.eu/components/HxDrawer</see>
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.StaticBackdropValue">
+            <summary>
+            A value that is passed to the drawer constructor (in JS), when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Backdrop"/> is set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DrawerBackdrop.Static"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDrawer"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.GetSettings">
+            <summary>
+            Returns optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Settings"/> in components descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Title">
+            <summary>
+            Text for the title in the header.
+            (Is rendered into <c>&lt;h5 class="drawer-title"&gt;</c> - in contrast to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.HeaderTemplate"/> which is rendered directly into <c>drawer-header</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.HeaderTemplate">
+            <summary>
+            Content for the header.
+            (Is rendered directly into <c>drawer-header</c> - in contrast to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Title"/> which is rendered into <c>&lt;h5 class="drawer-title"&gt;</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.BodyTemplate">
+            <summary>
+            Body content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.FooterTemplate">
+            <summary>
+            Footer content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Placement">
+            <summary>
+            Placement of the drawer. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DrawerPlacement.End"/> (right).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.ResponsiveBreakpoint">
+            <summary>
+            Breakpoint below which the contents are rendered outside the viewport in an drawer (above this breakpoint, the drawer body is rendered inside the viewport).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.RenderMode">
+            <summary>
+            Determines whether the content is always rendered or only if the drawer is open.<br />
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DrawerRenderMode.OpenOnly"/>.<br />
+            Please note, this setting applies only when <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DrawerResponsiveBreakpoint.None"/> is set. For all other values, the content is always rendered (to be available for the mobile version).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Size">
+            <summary>
+            Size of the drawer. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DrawerSize.Regular"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.ShowCloseButton">
+            <summary>
+            Indicates whether the drawer shows a close button in the header.
+            The default value is <c>true</c>.
+            Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.CloseButtonIcon"/> to change the shape of the button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.CloseOnEscape">
+            <summary>
+            Indicates whether the drawer closes when the escape key is pressed.
+            The default value is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.CloseButtonIcon">
+            <summary>
+            The close icon to be used in the header.
+            If set to <c>null</c>, the Bootstrap default close button will be used.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Backdrop">
+            <summary>
+            Indicates whether to apply a backdrop on the body while the drawer is open.
+            If set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DrawerBackdrop.Static"/>, the drawer cannot be closed by clicking on the backdrop.
+            The default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Defaults"/>) is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DrawerBackdrop.True"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.ScrollingEnabled">
+            <summary>
+            Indicates whether body (page) scrolling is allowed while the drawer is open.
+            The default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Defaults"/>) is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Sheet">
+            <summary>
+            When <c>true</c>, renders the drawer as a flush-to-edge sheet (no inset, border radius, or shadow) using the <c>drawer-sheet</c> variant (new in Bootstrap 6).
+            Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.CssClass">
+            <summary>
+            Drawer additional CSS class. Added to root <c>div</c> (<c>.drawer</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.HeaderCssClass">
+            <summary>
+            Additional header CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.BodyCssClass">
+            <summary>
+            Additional body CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.FooterCssClass">
+            <summary>
+            Additional footer CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.OnClosed">
+            <summary>
+            This event is fired when an drawer element has been hidden from the user (will wait for CSS transitions to complete).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.InvokeOnClosedAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.OnClosed"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.OnShown">
+            <summary>
+            This event is fired when an drawer element has been made visible to the user (will wait for CSS transitions to complete).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.InvokeOnShownAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.OnShown"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.OnHiding">
+            <summary>
+            Fired immediately when the 'hide' instance method is called.
+            To cancel hiding, set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.DrawerHidingEventArgs.Cancel"/> to <c>true</c>.
+            </summary>
+            <remarks>
+            1) This event should probably be named <c>OnClosing</c> to be consistent with other members, but "hide" is the Bootstrap event name and we should stick to it.
+            We should consider renaming the other members in the future.
+            2) There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override to avoid confusion.
+            The <code>hide.bs.drawer</code> event is only subscribed to when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.OnHiding"/> callback is set.
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.#ctor">
+            <summary>
+            Constructor.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.ShowAsync">
+            <summary>
+            Shows the drawer.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.HideAsync">
+            <summary>
+            Hides the drawer (if opened).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.HandleDrawerHide">
+            <summary>
+            Receives notification from JS for <c>hide.bs.drawer</c> event.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.HandleDrawerShown">
+            <summary>
+            Receives notification from JS for <c>shown.bs.drawer</c> event.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.GetBackdropSetupValue(Havit.Blazor.Components.Web.Bootstrap.DrawerBackdrop)">
+            <summary>
+            Formats a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.DrawerBackdrop"/> for supplying the value via the <c>data-bs-backdrop</c> data attribute.
+            </summary>
+            <param name="backdrop"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.DisposeAsync">
+            <inheritdoc />
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputFile">
             <summary>
             Wraps <see cref="T:Havit.Blazor.Components.Web.HxInputFileCore"/> as a Bootstrap form control (including <c>Label</c> etc.)<br />
@@ -7984,7 +8389,7 @@
             Provides a unified layout for data presentation components and associated filtering controls.<br/>
             This component orchestrates the interaction between filter controls and the data presentation component.
             The data list is typically implemented using a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/> component. Filters are displayed
-            in a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> component, while filter values are shown as <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxChipList"/>.
+            in a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDrawer"/> component, while filter values are shown as <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxChipList"/>.
             Additionally, it supports predefined named views for quick switching between different filter configurations
             and other features such as a title, search box, and commands.
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListLayout">https://havit.blazor.eu/components/HxListLayout</see>
@@ -8065,7 +8470,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.FilterOpenButtonSettings">
             <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> opening the filtering offcanvas.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> opening the filtering drawer.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.FilterSubmitButtonSettings">
@@ -8073,9 +8478,9 @@
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> submitting the filter.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.FilterOffcanvasSettings">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.FilterDrawerSettings">
             <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> with the filter.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDrawer"/> with the filter.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.CssClass">
@@ -8083,14 +8488,14 @@
             Additional CSS classes for the wrapping <c>div</c>.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.ShowFilterOffcanvasAsync">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.ShowFilterDrawerAsync">
             <summary>
-            Opens the filter offcanvas.
+            Opens the filter drawer.
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.HideFilterOffcanvasAsync">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.HideFilterDrawerAsync">
             <summary>
-            Closes the filter offcanvas.
+            Closes the filter drawer.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent">
@@ -8156,7 +8561,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ListLayoutSettings.FilterOpenButtonSettings">
             <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> that opens the filtering offcanvas.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> that opens the filtering drawer.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ListLayoutSettings.FilterSubmitButtonSettings">
@@ -8164,9 +8569,9 @@
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> that submits the filter.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ListLayoutSettings.FilterOffcanvasSettings">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ListLayoutSettings.FilterDrawerSettings">
             <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> with the filter.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDrawer"/> with the filter.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.NamedView`1">
@@ -10408,400 +10813,6 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext.SidebarCollapsed">
             <summary>
             Indicates whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar"/> is collapsed or expanded.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas">
-            <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/offcanvas/">Bootstrap Offcanvas</see> component (aka Drawer).<br />
-            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxOffcanvas">https://havit.blazor.eu/components/HxOffcanvas</see>
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.StaticBackdropValue">
-            <summary>
-            A value that is passed to the offcanvas constructor (in JS), when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Backdrop"/> is set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.Static"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults">
-            <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> and derived components.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.GetDefaults">
-            <summary>
-            Returns application-wide defaults for the component.
-            Enables overriding defaults in descendants (use separate set of defaults).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Settings">
-            <summary>
-            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults"/>, overridden by individual parameters).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.GetSettings">
-            <summary>
-            Returns optional set of component settings.
-            </summary>
-            <remarks>
-            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Settings"/> in components descendants (by returning a derived settings class).
-            </remarks>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Title">
-            <summary>
-            Text for the title in the header.
-            (Is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c> - in contrast to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderTemplate"/> which is rendered directly into <c>offcanvas-header</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderTemplate">
-            <summary>
-            Content for the header.
-            (Is rendered directly into <c>offcanvas-header</c> - in contrast to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Title"/> which is rendered into <c>&lt;h5 class="offcanvas-title"&gt;</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.BodyTemplate">
-            <summary>
-            Body content.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.FooterTemplate">
-            <summary>
-            Footer content.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Placement">
-            <summary>
-            Placement of the offcanvas. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasPlacement.End"/> (right).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.ResponsiveBreakpoint">
-            <summary>
-            Breakpoint below which the contents are rendered outside the viewport in an offcanvas (above this breakpoint, the offcanvas body is rendered inside the viewport).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.RenderMode">
-            <summary>
-            Determines whether the content is always rendered or only if the offcanvas is open.<br />
-            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasRenderMode.OpenOnly"/>.<br />
-            Please note, this setting applies only when <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.None"/> is set. For all other values, the content is always rendered (to be available for the mobile version).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Size">
-            <summary>
-            Size of the offcanvas. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSize.Regular"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.ShowCloseButton">
-            <summary>
-            Indicates whether the modal shows a close button in the header.
-            The default value is <c>true</c>.
-            Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CloseButtonIcon"/> to change the shape of the button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CloseOnEscape">
-            <summary>
-            Indicates whether the offcanvas closes when the escape key is pressed.
-            The default value is <c>true</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CloseButtonIcon">
-            <summary>
-            The close icon to be used in the header.
-            If set to <c>null</c>, the Bootstrap default close button will be used.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Backdrop">
-            <summary>
-            Indicates whether to apply a backdrop on the body while the offcanvas is open.
-            If set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.Static"/>, the offcanvas cannot be closed by clicking on the backdrop.
-            The default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults"/>) is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.True"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.ScrollingEnabled">
-            <summary>
-            Indicates whether body (page) scrolling is allowed while the offcanvas is open.
-            The default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Defaults"/>) is <c>false</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.CssClass">
-            <summary>
-            Offcanvas additional CSS class. Added to root <c>div</c> (<c>.offcanvas</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HeaderCssClass">
-            <summary>
-            Additional header CSS class.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.BodyCssClass">
-            <summary>
-            Additional body CSS class.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.FooterCssClass">
-            <summary>
-            Additional footer CSS class.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnClosed">
-            <summary>
-            This event is fired when an offcanvas element has been hidden from the user (will wait for CSS transitions to complete).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.InvokeOnClosedAsync">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnClosed"/> event. Allows interception of the event in derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnShown">
-            <summary>
-            This event is fired when an offcanvas element has been made visible to the user (will wait for CSS transitions to complete).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.InvokeOnShownAsync">
-            <summary>
-            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnShown"/> event. Allows interception of the event in derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnHiding">
-            <summary>
-            Fired immediately when the 'hide' instance method is called.
-            To cancel hiding, set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasHidingEventArgs.Cancel"/> to <c>true</c>.
-            </summary>
-            <remarks>
-            1) This event should probably be named <c>OnClosing</c> to be consistent with other members, but "hide" is the Bootstrap event name and we should stick to it.
-            We should consider renaming the other members in the future.
-            2) There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override to avoid confusion.
-            The <code>hide.bs.offcanvas</code> event is only subscribed to when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnHiding"/> callback is set.
-            </remarks>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.#ctor">
-            <summary>
-            Constructor.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.ShowAsync">
-            <summary>
-            Shows the offcanvas.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HideAsync">
-            <summary>
-            Hides the offcanvas (if opened).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HandleOffcanvasHide">
-            <summary>
-            Receives notification from JS for <c>hide.bs.offcanvas</c> event.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.HandleOffcanvasShown">
-            <summary>
-            Receives notification from JS for <c>shown.bs.offcanvas</c> event.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.OnAfterRenderAsync(System.Boolean)">
-            <inheritdoc />
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.GetBackdropSetupValue(Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop)">
-            <summary>
-            Formats a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop"/> for supplying the value via the <c>data-bs-backdrop</c> data attribute.
-            </summary>
-            <param name="backdrop"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.DisposeAsync">
-            <inheritdoc />
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop">
-            <summary>
-            Options for controlling the behavior of the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas.Backdrop"/>.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.True">
-            <summary>
-            A backdrop will be rendered. The offcanvas will be closed upon clicking on the backdrop.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.False">
-            <summary>
-            No backdrop will be rendered. Users can interact with other parts of the app while the offcanvas is open.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasBackdrop.Static">
-            <summary>
-            A static backdrop will be rendered. The offcanvas will not be closed upon clicking on the backdrop.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasHidingEventArgs.Cancel">
-            <summary>
-            Set <c>true</c> to prevent offcanvas hiding.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasPlacement">
-            <summary>
-            Represents the placement of an offcanvas.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasPlacement.End">
-            <summary>
-            Offcanvas is placed at the end.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasPlacement.Start">
-            <summary>
-            Offcanvas is placed at the start.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasPlacement.Top">
-            <summary>
-            Offcanvas is placed at the top.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasPlacement.Bottom">
-            <summary>
-            Offcanvas is placed at the bottom.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasRenderMode">
-            <summary>
-            Offcanvas render mode.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasRenderMode.OpenOnly">
-            <summary>
-            Offcanvas content is rendered only when it is open.
-            Suitable for item-detail, item-edit, etc.
-            This setting applies only when <see cref="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.None"/> is set. For all other values, the content is always rendered (to be available for the mobile version).
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasRenderMode.Always">
-            <summary>
-            Offcanvas content is always rendered (and hidden with CSS if not open).
-            Needed for HxFilterForm with HxChipList.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint">
-            <summary>
-            Content is displayed using the offcanvas when below this breakpoint, otherwise, contents are rendered in-place.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.None">
-            <summary>
-            Always render contents outside the viewport in an offcanvas.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.Small">
-            <summary>
-            Render contents outside the viewport in an offcanvas when below the "small" breakpoint (<c>576px</c>, exclusive).
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.Medium">
-            <summary>
-            Render contents outside the viewport in an offcanvas when below the "medium" breakpoint (<c>768px</c>, exclusive).
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.Large">
-            <summary>
-            Render contents outside the viewport in an offcanvas when below the "large" breakpoint (<c>1024px</c>, exclusive).
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.ExtraLarge">
-            <summary>
-            Render contents outside the viewport in an offcanvas when below the "extra-large" breakpoint (<c>1280px</c>, exclusive).
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.Xxl">
-            <summary>
-            Render contents outside the viewport in an offcanvas when below the "2xl" breakpoint (<c>1536px</c>, exclusive).
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings">
-            <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOffcanvas"/> component.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.CloseButtonIcon">
-            <summary>
-            Close icon to be used in the header.
-            If set to <c>null</c>, the Bootstrap default close button will be used.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.ShowCloseButton">
-            <summary>
-            Indicates whether the modal shows a close button in the header.
-            Use the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.CloseButtonIcon"/> property to change the shape of the button.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.Backdrop">
-            <summary>
-            Indicates whether to apply a backdrop on the body while the offcanvas is open.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.ResponsiveBreakpoint">
-            <summary>
-            The breakpoint below which the contents are rendered outside the viewport in an offcanvas (above this breakpoint, the offcanvas body is rendered inside the viewport).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.Placement">
-            <summary>
-            The placement of the offcanvas.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.Size">
-            <summary>
-            The size of the offcanvas.
-            </summary>
-            <remarks>
-            Consider customizing the offcanvas CSS variables instead of changing the size application-wide.
-            </remarks>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.CloseOnEscape">
-            <summary>
-            Indicates whether the offcanvas closes when the escape key is pressed.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.ScrollingEnabled">
-            <summary>
-            Indicates whether body (page) scrolling is allowed while the offcanvas is open.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.CssClass">
-            <summary>
-            Additional CSS class for the offcanvas. Added to the root div (<c>.offcanvas</c>).
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.HeaderCssClass">
-            <summary>
-            Additional CSS class for the header.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.BodyCssClass">
-            <summary>
-            Additional CSS class for the body.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings.FooterCssClass">
-            <summary>
-            Additional CSS class for the footer.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSize">
-            <summary>
-            Represents the size options for the Offcanvas component.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSize.Regular">
-            <summary>
-            Regular size.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSize.Small">
-            <summary>
-            Small size.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSize.Large">
-            <summary>
-            Large size.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder">
