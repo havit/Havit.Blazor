@@ -56,11 +56,11 @@ public partial class HxNavbar
 		return Expand switch
 		{
 			NavbarExpand.Always => "navbar-expand",
-			NavbarExpand.SmallUp => "navbar-expand-sm",
-			NavbarExpand.MediumUp => "navbar-expand-md",
-			NavbarExpand.LargeUp => "navbar-expand-lg",
-			NavbarExpand.ExtraLargeUp => "navbar-expand-xl",
-			NavbarExpand.XxlUp => "navbar-expand-xxl",
+			NavbarExpand.SmallUp => "sm:navbar-expand",
+			NavbarExpand.MediumUp => "md:navbar-expand",
+			NavbarExpand.LargeUp => "lg:navbar-expand",
+			NavbarExpand.ExtraLargeUp => "xl:navbar-expand",
+			NavbarExpand.XxlUp => "2xl:navbar-expand",
 			NavbarExpand.Never => null,
 			_ => throw new InvalidOperationException($"Unknown {nameof(NavbarExpand)} value {Expand}.")
 		};
