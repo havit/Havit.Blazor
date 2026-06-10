@@ -11479,7 +11479,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.TagBadgeSettings">
             <summary>
-            The settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render tags. The default is <c>Color="<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Light"/>"</c> and <c>TextColor="<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Dark"/>"</c>.
+            The settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render tags. The default is <c>Color="<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Secondary"/>"</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.LabelType">
@@ -11610,13 +11610,30 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ThemeColor">
             <summary>
-            Bootstrap theme colors. For more information, see <see href="https://getbootstrap.com/docs/5.3/customize/color/#theme-colors">https://getbootstrap.com/docs/5.3/customize/color/#theme-colors</see>.
-            Also, refer to the predefined button styles at <see href="https://getbootstrap.com/docs/5.3/components/buttons/">https://getbootstrap.com/docs/5.3/components/buttons/</see>.
+            Bootstrap theme colors. In Bootstrap 6, theme colors are applied to components via composable <c>.theme-*</c> classes
+            (e.g. <c>.btn-solid .theme-primary</c>). For more information, see <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/customize/color/">Bootstrap 6 color documentation</see>.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Link">
             <summary>
             This color is intended to be used for buttons only.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Accent">
+            <summary>
+            Accent theme color (new in Bootstrap 6).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Inverse">
+            <summary>
+            Inverse theme color (new in Bootstrap 6) — dark in light color mode, light in dark color mode.
+            Closest replacement for the former <c>Dark</c> theme color.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.ThemeColorExtensions.ToThemeCss(Havit.Blazor.Components.Web.Bootstrap.ThemeColor)">
+            <summary>
+            Returns the Bootstrap 6 composable theme class (<c>theme-*</c>) which applies the semantic
+            theme tokens (<c>--theme-bg</c>, <c>--theme-fg</c>, <c>--theme-border</c>, ...) to a component.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapMessengerMessage.Color">

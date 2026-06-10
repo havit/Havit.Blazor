@@ -25,8 +25,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 			ShowAddButton = false,
 			TagBadgeSettings = new BadgeSettings()
 			{
-				Color = ThemeColor.Light,
-				TextColor = ThemeColor.Dark,
+				Color = ThemeColor.Secondary,
 			}
 		};
 	}
@@ -108,7 +107,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	protected bool? SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck;
 
 	/// <summary>
-	/// The settings for the <see cref="HxBadge"/> used to render tags. The default is <c>Color="<see cref="ThemeColor.Light"/>"</c> and <c>TextColor="<see cref="ThemeColor.Dark"/>"</c>.
+	/// The settings for the <see cref="HxBadge"/> used to render tags. The default is <c>Color="<see cref="ThemeColor.Secondary"/>"</c>.
 	/// </summary>
 	[Parameter] public BadgeSettings TagBadgeSettings { get; set; }
 	protected BadgeSettings TagBadgeSettingsEffective => TagBadgeSettings ?? GetSettings()?.TagBadgeSettings ?? GetDefaults().TagBadgeSettings ?? throw new InvalidOperationException(nameof(TagBadgeSettings) + " default for " + nameof(HxInputTags) + " has to be set.");

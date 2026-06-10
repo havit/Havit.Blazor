@@ -19,7 +19,7 @@
 				</div>
 				@if (context.Subdirectories?.Any() ?? false)
 				{
-					<HxBadge CssClass="mx-2" TextColor="ThemeColor.Dark" Color="ThemeColor.Light">@context.Subdirectories?.Length</HxBadge>
+					<HxBadge CssClass="mx-2" TextColor="ThemeColor.Inverse" Color="ThemeColor.Secondary">@context.Subdirectories?.Length</HxBadge>
 				}
 				<div role="button" @onclick:stopPropagation class="btn-plus ms-auto"><HxIcon Icon="BootstrapIcon.PlusLg" /></div>
 			</ItemTemplate>

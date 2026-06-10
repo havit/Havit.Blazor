@@ -22,8 +22,8 @@ public class HxAlertTests : BunitTestBase
 	[InlineData(ThemeColor.Danger, "alert-danger")]
 	[InlineData(ThemeColor.Warning, "alert-warning")]
 	[InlineData(ThemeColor.Info, "alert-info")]
-	[InlineData(ThemeColor.Light, "alert-light")]
-	[InlineData(ThemeColor.Dark, "alert-dark")]
+	[InlineData(ThemeColor.Accent, "alert-accent")]
+	[InlineData(ThemeColor.Inverse, "alert-inverse")]
 	public void HxAlert_Color_AllThemeColors(ThemeColor color, string expectedCss)
 	{
 		// Act
