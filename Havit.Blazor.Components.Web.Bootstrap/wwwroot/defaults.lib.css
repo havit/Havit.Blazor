@@ -226,23 +226,3 @@ form > .hx-button {
 	cursor: pointer;
 }
 
-/* HxCheckbox/HxSwitch/HxRadioButtonList layout modifiers
-   (Bootstrap 6 has no equivalents of the former form-check-inline/form-check-reverse) */
-.form-field.hx-form-field-inline {
-	display: inline-grid;
-	margin-right: 1rem;
-}
-
-.form-field.hx-form-field-reverse:has(> .check, > .radio, > .switch) {
-	grid-template-columns: 1fr auto;
-}
-
-.form-field.hx-form-field-reverse > .check,
-.form-field.hx-form-field-reverse > .radio,
-.form-field.hx-form-field-reverse > .switch {
-	grid-column: 2;
-}
-
-.form-field.hx-form-field-reverse > :not(.check, .radio, .switch) {
-	grid-column: 1;
-}
