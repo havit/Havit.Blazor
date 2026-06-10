@@ -1,13 +1,13 @@
-﻿@page "/HxMultiSelect_ShowHideDropdown"
+﻿@page "/HxMultiSelect_ShowHideMenu"
 @rendermode InteractiveServer
 @inject IDemoDataService DemoDataService
 
 <div class="m-3">
-	<h3>HxMultiSelect ShowDropdownAsync/HideDropdownAsync Test</h3>
+	<h3>HxMultiSelect ShowMenuAsync/HideMenuAsync Test</h3>
 
 	<div class="mb-3">
-		<HxButton Color="ThemeColor.Primary" OnClick="ShowDropdownAsync">Show Dropdown</HxButton>
-		<HxButton Color="ThemeColor.Secondary" OnClick="HideDropdownAsync" CssClass="ms-2">Hide Dropdown</HxButton>
+		<HxButton Color="ThemeColor.Primary" OnClick="ShowMenuAsync">Show Menu</HxButton>
+		<HxButton Color="ThemeColor.Secondary" OnClick="HideMenuAsync" CssClass="ms-2">Hide Menu</HxButton>
 	</div>
 
 	<div class="mb-3">
@@ -36,13 +36,13 @@
 		employees = await DemoDataService.GetAllEmployeesAsync();
 	}
 
-	private async Task ShowDropdownAsync()
+	private async Task ShowMenuAsync()
 	{
-		await multiSelectComponent.ShowDropdownAsync();
+		await multiSelectComponent.ShowMenuAsync();
 	}
 
-	private async Task HideDropdownAsync()
+	private async Task HideMenuAsync()
 	{
-		await multiSelectComponent.HideDropdownAsync();
+		await multiSelectComponent.HideMenuAsync();
 	}
 }

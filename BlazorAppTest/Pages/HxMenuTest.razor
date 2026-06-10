@@ -1,0 +1,26 @@
+﻿@page "/HxMenuTest"
+
+<h1>HxMenu</h1>
+
+<HxMenu AutoClose="MenuAutoClose.Outside" CssClass="@(IsBold ? "bg-light" : null)">
+	<Toggle>
+		<HxMenuToggleButton @ref="menuToggleComponent" Color="ThemeColor.Primary" CssClass="@(IsBold ? "fw-bold" : null)">Show menu</HxMenuToggleButton>
+	</Toggle>
+	<Content>
+		<div class="row m-3" style="min-width: 100px;">
+			<div class="col">
+				<div>
+					<HxCheckbox @bind-Value="IsBold" Text="Toggle button text bold" />
+				</div>
+			</div>
+		</div>
+	</Content>
+</HxMenu>
+
+<HxButton OnClick="() => menuToggleComponent.ShowAsync()">Show</HxButton>
+<HxButton OnClick="() => menuToggleComponent.HideAsync()">Hide</HxButton>
+
+@code {
+	private HxMenuToggleButton menuToggleComponent;
+	private bool IsBold { get; set; } = false;
+}

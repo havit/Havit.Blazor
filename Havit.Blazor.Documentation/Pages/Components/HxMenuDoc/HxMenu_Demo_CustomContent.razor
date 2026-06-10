@@ -1,13 +1,15 @@
-﻿<HxDropdownButtonGroup>
-	<HxDropdownToggleButton Color="ThemeColor.Secondary">Dropdown</HxDropdownToggleButton>
-	<HxDropdownContent CssClass="px-4 py-3">
+﻿<HxMenu CssClass="px-4 py-3">
+	<Toggle>
+		<HxMenuToggleButton Color="ThemeColor.Secondary">Menu</HxMenuToggleButton>
+	</Toggle>
+	<Content>
 		<EditForm Model="model">
 			<HxInputText Label="Name" @bind-Value="model.Name" />
 			<HxInputText Label="Email address" @bind-Value="model.Email" />
 			<HxButton Text="Save" Color="ThemeColor.Primary" />
 		</EditForm>
-	</HxDropdownContent>
-</HxDropdownButtonGroup>
+	</Content>
+</HxMenu>
 @code
 {
 	private FormModel model = new();

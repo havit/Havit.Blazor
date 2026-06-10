@@ -1,0 +1,35 @@
+﻿@page "/HxMenu_OnHiding_Test"
+
+<h1>HxMenu - OnHiding test</h1>
+
+<HxMenu AutoClose="MenuAutoClose.Outside">
+	<Toggle>
+		<HxMenuToggleElement OnHiding="HandleMenuHiding">
+			HxMenuToggleElement
+		</HxMenuToggleElement>
+	</Toggle>
+	<Content>
+		<HxCheckbox @bind-Value="_allowHiding" Text="Allow hiding" />
+	</Content>
+</HxMenu>
+
+<HxMenu AutoClose="MenuAutoClose.Outside">
+	<Toggle>
+		<HxMenuToggleButton OnHiding="HandleMenuHiding" Color="ThemeColor.Primary" Text="HxMenuToggleButton" />
+	</Toggle>
+	<Content>
+		<HxCheckbox @bind-Value="_allowHiding" Text="Allow hiding" />
+	</Content>
+</HxMenu>
+
+@code {
+	private bool _allowHiding = false;
+
+	private void HandleMenuHiding(MenuHidingEventArgs args)
+	{
+		if (!_allowHiding)
+		{
+			args.Cancel = true;
+		}
+	}
+}

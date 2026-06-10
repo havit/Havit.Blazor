@@ -20,11 +20,15 @@
 
 				<HxFormValue Label="Text" Hint="This item cannot be edited.">
 					<InputGroupEndTemplate>
-						<HxDropdownToggleButton Text="Dropdown" Color="ThemeColor.Secondary" Outline="true" />
-						<HxDropdownMenu>
-							<HxDropdownItemNavLink Href="#">Item 1</HxDropdownItemNavLink>
-							<HxDropdownItemNavLink Href="#">Item 2</HxDropdownItemNavLink>
-						</HxDropdownMenu>
+						<HxMenu>
+							<Toggle>
+								<HxMenuToggleButton Text="Menu" Color="ThemeColor.Secondary" Outline="true" />
+							</Toggle>
+							<Content>
+								<HxMenuItemNavLink Href="#">Item 1</HxMenuItemNavLink>
+								<HxMenuItemNavLink Href="#">Item 2</HxMenuItemNavLink>
+							</Content>
+						</HxMenu>
 					</InputGroupEndTemplate>
 					<ValueTemplate>
 						<HxIcon Icon="@BootstrapIcon.Wrench" />Text Only...
