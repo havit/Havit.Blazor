@@ -1,0 +1,37 @@
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+
+/// <summary>
+/// Content is displayed using the drawer when below this breakpoint, otherwise, contents are rendered in-place.
+/// </summary>
+public enum DrawerResponsiveBreakpoint
+{
+	/// <summary>
+	/// Always render contents outside the viewport in an drawer.
+	/// </summary>
+	None = 0,
+
+	/// <summary>
+	/// Render contents outside the viewport in an drawer when below the "small" breakpoint (<c>576px</c>, exclusive).
+	/// </summary>
+	Small = 1,
+
+	/// <summary>
+	/// Render contents outside the viewport in an drawer when below the "medium" breakpoint (<c>768px</c>, exclusive).
+	/// </summary>
+	Medium = 3,
+
+	/// <summary>
+	/// Render contents outside the viewport in an drawer when below the "large" breakpoint (<c>1024px</c>, exclusive).
+	/// </summary>
+	Large = 4,
+
+	/// <summary>
+	/// Render contents outside the viewport in an drawer when below the "extra-large" breakpoint (<c>1280px</c>, exclusive).
+	/// </summary>
+	ExtraLarge = 5,
+
+	/// <summary>
+	/// Render contents outside the viewport in an drawer when below the "2xl" breakpoint (<c>1536px</c>, exclusive).
+	/// </summary>
+	Xxl = 6,
+}

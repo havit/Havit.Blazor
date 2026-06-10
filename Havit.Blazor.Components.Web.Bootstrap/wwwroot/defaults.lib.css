@@ -138,12 +138,12 @@
 	--hx-calendar-day-spacing: 										.125rem;
 	--hx-calendar-font-size: 										.875rem;
 
-	/* Offcanvas */
-	--hx-offcanvas-close-icon-font-size: 							2rem;
-	--hx-offcanvas-footer-padding-y: 								1rem;
-	--hx-offcanvas-footer-padding-x: 								1rem;
-	--hx-offcanvas-horizontal-width-sm: 							400px;
-	--hx-offcanvas-horizontal-width-lg: 							600px;
+	/* HxDrawer */
+	--hx-drawer-close-icon-font-size: 							2rem;
+	--hx-drawer-footer-padding-y: 								1rem;
+	--hx-drawer-footer-padding-x: 								1rem;
+	--hx-drawer-horizontal-width-sm: 							400px;
+	--hx-drawer-horizontal-width-lg: 							600px;
 
 	/* ListLayout */
 	--hx-list-layout-table-font-size: 								.875rem;

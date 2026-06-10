@@ -24,7 +24,7 @@ public sealed class HxListLayout
 				Icon = BootstrapIcon.Filter,
 				Color = ThemeColor.Secondary,
 			},
-			FilterOffcanvasSettings = new OffcanvasSettings(),
+			FilterDrawerSettings = new DrawerSettings(),
 		};
 	}
 
