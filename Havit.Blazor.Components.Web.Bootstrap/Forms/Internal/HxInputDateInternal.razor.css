@@ -28,10 +28,6 @@
     margin-left: auto;
 }
 
-.hx-input-date-has-calendar-icon ::deep .is-invalid {
-	background-position: right calc(0.375em + 2rem) center;
-}
-
 .hx-input-date-has-calendar-icon ::deep .form-control {
 	padding-right: 4.25rem;
 }

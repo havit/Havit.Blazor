@@ -40,11 +40,6 @@
     padding-right: 2.5rem;
 }
 
-.hx-input-date-has-calendar-icon ::deep .is-invalid {
-	background-position: right calc(0.375em + 2rem) center;
-    padding-right: 4.25rem;
-}
-
 .hx-input-date-range:has(input:not(:disabled)) .hx-input-date-icon {
 	cursor: pointer;
 }
