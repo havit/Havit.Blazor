@@ -1,9 +1,9 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
-public class OffcanvasHidingEventArgs
+public class DrawerHidingEventArgs
 {
 	/// <summary>
-	/// Set <c>true</c> to prevent offcanvas hiding.
+	/// Set <c>true</c> to prevent drawer hiding.
 	/// </summary>
 	public bool Cancel { get; set; }
 }

@@ -1,9 +1,9 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Represents the size options for the Offcanvas component.
+/// Represents the size options for the Drawer component.
 /// </summary>
-public enum OffcanvasSize
+public enum DrawerSize
 {
 	/// <summary>
 	/// Regular size.
