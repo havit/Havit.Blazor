@@ -8623,19 +8623,19 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsLargeUp">
             <summary>
-            Number of template columns to span for viewports above the "large" breakpoint (<c>992px</c>).<br/>
+            Number of template columns to span for viewports above the "large" breakpoint (<c>1024px</c>).<br/>
             The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c>, or <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsExtraLargeUp">
             <summary>
-            Number of template columns to span for viewports above the "extra-large" breakpoint (<c>1200px</c>).<br/>
+            Number of template columns to span for viewports above the "extra-large" breakpoint (<c>1280px</c>).<br/>
             The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c>, or <c>true</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ILayoutColumnComponent.ColumnsXxlUp">
             <summary>
-            Number of template columns to span for viewports above the "XXL" breakpoint (<c>1400px</c>).<br/>
+            Number of template columns to span for viewports above the "2xl" breakpoint (<c>1536px</c>).<br/>
             The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c>, or <c>true</c>.
             </summary>
         </member>
@@ -8853,17 +8853,17 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.LargeUp">
             <summary>
-            Horizontal for viewports above the "large" breakpoint (<c>992px</c>).
+            Horizontal for viewports above the "large" breakpoint (<c>1024px</c>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.ExtraLargeUp">
             <summary>
-            Horizontal for viewports above the "extra-large" breakpoint (<c>1200px</c>).
+            Horizontal for viewports above the "extra-large" breakpoint (<c>1280px</c>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.XxlUp">
             <summary>
-            Horizontal for viewports above the "XXL" breakpoint (<c>1400px</c>).
+            Horizontal for viewports above the "2xl" breakpoint (<c>1536px</c>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.Always">
@@ -9525,17 +9525,17 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.LargeDown">
             <summary>
-            Fullscreen for viewports below the "large" breakpoint (<c>992px</c>).
+            Fullscreen for viewports below the "large" breakpoint (<c>1024px</c>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.ExtraLargeDown">
             <summary>
-            Fullscreen for viewports below the "extra-large" breakpoint (<c>1200px</c>).
+            Fullscreen for viewports below the "extra-large" breakpoint (<c>1280px</c>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ModalFullscreen.XxlDown">
             <summary>
-            Fullscreen for viewports below the "XXL" breakpoint (<c>1400px</c>).
+            Fullscreen for viewports below the "2xl" breakpoint (<c>1536px</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ModalHidingEventArgs.Cancel">
@@ -10259,17 +10259,17 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavbarExpand.LargeUp">
             <summary>
-            Expanded for viewports above the "large" breakpoint (<c>992px</c>).
+            Expanded for viewports above the "large" breakpoint (<c>1024px</c>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavbarExpand.ExtraLargeUp">
             <summary>
-            Expanded for viewports above the "extra-large" breakpoint (<c>1200px</c>).
+            Expanded for viewports above the "extra-large" breakpoint (<c>1280px</c>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavbarExpand.XxlUp">
             <summary>
-            Expanded for viewports above the "XXL" breakpoint (<c>1400px</c>).
+            Expanded for viewports above the "2xl" breakpoint (<c>1536px</c>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavbarExpand.Never">
@@ -10360,17 +10360,17 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Large">
             <summary>
-            Mobile for viewports below the "large" breakpoint (<c>992px</c>, exclusive).
+            Mobile for viewports below the "large" breakpoint (<c>1024px</c>, exclusive).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.ExtraLarge">
             <summary>
-            Mobile for viewports below the "extra-large" breakpoint (<c>1200px</c>, exclusive).
+            Mobile for viewports below the "extra-large" breakpoint (<c>1280px</c>, exclusive).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Xxl">
             <summary>
-            Mobile for viewports below the "XXL" breakpoint (<c>1400px</c>, exclusive).
+            Mobile for viewports below the "2xl" breakpoint (<c>1536px</c>, exclusive).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext">
@@ -10674,17 +10674,17 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.Large">
             <summary>
-            Render contents outside the viewport in an offcanvas when below the "large" breakpoint (<c>992px</c>, exclusive).
+            Render contents outside the viewport in an offcanvas when below the "large" breakpoint (<c>1024px</c>, exclusive).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.ExtraLarge">
             <summary>
-            Render contents outside the viewport in an offcanvas when below the "extra-large" breakpoint (<c>1200px</c>, exclusive).
+            Render contents outside the viewport in an offcanvas when below the "extra-large" breakpoint (<c>1280px</c>, exclusive).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.OffcanvasResponsiveBreakpoint.Xxl">
             <summary>
-            Render contents outside the viewport in an offcanvas when below the "XXL" breakpoint (<c>1400px</c>, exclusive).
+            Render contents outside the viewport in an offcanvas when below the "2xl" breakpoint (<c>1536px</c>, exclusive).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.OffcanvasSettings">
