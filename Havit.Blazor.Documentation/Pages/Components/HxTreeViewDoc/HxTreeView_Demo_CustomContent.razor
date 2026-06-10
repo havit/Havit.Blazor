@@ -1,4 +1,4 @@
-<div class="row">
+﻿<div class="row">
     <div class="col-lg-4" style="height: 400px">
         <HxTreeView TItem="Directory"
                     @bind-SelectedItem="selectedDirectory"
@@ -15,7 +15,7 @@
                     </div>
                     @if (context.Subdirectories?.Any() ?? false)
                     {
-                        <HxBadge CssClass="mx-2" TextColor="ThemeColor.Inverse" Color="ThemeColor.Secondary">@context.Subdirectories?.Length</HxBadge>
+                        <HxBadge CssClass="mx-2" Color="ThemeColor.Secondary">@context.Subdirectories?.Length</HxBadge>
                     }
                     <div role="button" @onclick:stopPropagation class="btn-plus ms-auto"><HxIcon Icon="BootstrapIcon.PlusLg" /></div>
             </ItemTemplate>

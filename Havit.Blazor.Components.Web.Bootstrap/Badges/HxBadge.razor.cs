@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/badge/">Bootstrap Badge</see> component.<br />
+/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/badge/">Bootstrap Badge</see> component.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxBadge">https://havit.blazor.eu/components/HxBadge</see>
 /// </summary>
 public partial class HxBadge
@@ -16,7 +16,7 @@ public partial class HxBadge
 		Defaults = new BadgeSettings()
 		{
 			Color = null,
-			TextColor = ThemeColor.None,
+			Variant = BadgeVariant.Solid,
 			Type = BadgeType.Regular,
 			CssClass = null
 		};
@@ -50,11 +50,11 @@ public partial class HxBadge
 	protected ThemeColor ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color ?? throw new InvalidOperationException(nameof(Color) + " for " + nameof(HxBadge) + " has to be set.");
 
 	/// <summary>
-	/// Color of badge text. Use <see cref="Color"/> for the background color.
-	/// The default is <see cref="ThemeColor.None"/> (color automatically selected to work with the chosen background color).
+	/// Visual <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/badge/">variant</see> of the badge (solid, subtle, outline), composed with <see cref="Color"/>.
+	/// The default is <see cref="BadgeVariant.Solid"/>.
 	/// </summary>
-	[Parameter] public ThemeColor? TextColor { get; set; }
-	protected ThemeColor TextColorEffective => TextColor ?? GetSettings()?.TextColor ?? GetDefaults().TextColor ?? throw new InvalidOperationException(nameof(TextColor) + " default for " + nameof(HxBadge) + " has to be set.");
+	[Parameter] public BadgeVariant? Variant { get; set; }
+	protected BadgeVariant VariantEffective => Variant ?? GetSettings()?.Variant ?? GetDefaults().Variant ?? throw new InvalidOperationException(nameof(Variant) + " default for " + nameof(HxBadge) + " has to be set.");
 
 	/// <summary>
 	/// Badge type - Regular or rounded-pills. The default is <see cref="BadgeType.Regular"/>.
@@ -80,14 +80,15 @@ public partial class HxBadge
 		Contract.Requires<InvalidOperationException>(Color != ThemeColor.None, $"Parameter {nameof(Color)} of {nameof(HxBadge)} is required.");
 	}
 
-	private string GetBackgroundColorCss()
+	private string GetVariantCss()
 	{
-		// if TextColor is not set, we use the combined -text-bg-{color} class (Bootstrap 5.3.3)
-		if (TextColorEffective == ThemeColor.None)
+		return VariantEffective switch
 		{
-			return ColorEffective.ToTextBackgroundColorCss();
-		}
-		return ColorEffective.ToBackgroundColorCss();
+			BadgeVariant.Solid => null,
+			BadgeVariant.Subtle => "badge-subtle",
+			BadgeVariant.Outline => "badge-outline",
+			_ => throw new InvalidOperationException($"Unknown {nameof(BadgeVariant)} value: {VariantEffective}.")
+		};
 	}
 
 	protected string GetTypeCss()

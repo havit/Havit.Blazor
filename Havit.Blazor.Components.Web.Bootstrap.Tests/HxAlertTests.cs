@@ -12,18 +12,18 @@ public class HxAlertTests : BunitTestBase
 
 		// Assert
 		var div = cut.Find("div.alert");
-		Assert.True(div.ClassList.Contains("alert-primary"));
+		Assert.True(div.ClassList.Contains("theme-primary"));
 	}
 
 	[Theory]
-	[InlineData(ThemeColor.Primary, "alert-primary")]
-	[InlineData(ThemeColor.Secondary, "alert-secondary")]
-	[InlineData(ThemeColor.Success, "alert-success")]
-	[InlineData(ThemeColor.Danger, "alert-danger")]
-	[InlineData(ThemeColor.Warning, "alert-warning")]
-	[InlineData(ThemeColor.Info, "alert-info")]
-	[InlineData(ThemeColor.Accent, "alert-accent")]
-	[InlineData(ThemeColor.Inverse, "alert-inverse")]
+	[InlineData(ThemeColor.Primary, "theme-primary")]
+	[InlineData(ThemeColor.Secondary, "theme-secondary")]
+	[InlineData(ThemeColor.Success, "theme-success")]
+	[InlineData(ThemeColor.Danger, "theme-danger")]
+	[InlineData(ThemeColor.Warning, "theme-warning")]
+	[InlineData(ThemeColor.Info, "theme-info")]
+	[InlineData(ThemeColor.Accent, "theme-accent")]
+	[InlineData(ThemeColor.Inverse, "theme-inverse")]
 	public void HxAlert_Color_AllThemeColors(ThemeColor color, string expectedCss)
 	{
 		// Act
