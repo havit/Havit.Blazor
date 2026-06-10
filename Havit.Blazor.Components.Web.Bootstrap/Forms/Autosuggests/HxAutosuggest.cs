@@ -109,7 +109,7 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 
 	/// <summary>
 	/// The offset between the menu and the input.
-	/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
+	/// <see href="https://floating-ui.com/docs/offset#options"/>
 	/// </summary>
 	protected virtual (int Skidding, int Distance) MenuOffset { get; set; } = (0, 4);
 

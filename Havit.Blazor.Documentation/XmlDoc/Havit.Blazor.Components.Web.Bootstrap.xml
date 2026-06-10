@@ -3334,7 +3334,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.MenuOffset">
             <summary>
             The offset between the menu and the input.
-            <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
+            <see href="https://floating-ui.com/docs/offset#options"/>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAutosuggest`2.ItemFromValueResolver">
@@ -3392,7 +3392,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInputInternal.MenuOffset">
             <summary>
             Offset between the menu and the input.
-            <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
+            <see href="https://floating-ui.com/docs/offset#options"/>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInputInternal.AdditionalAttributes">
@@ -3445,7 +3445,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.MenuOffset">
             <summary>
             Offset between the menu and the input.
-            <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
+            <see href="https://floating-ui.com/docs/offset#options"/>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxAutosuggestInternal`2.InputGroupCssClass">
@@ -7310,7 +7310,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.MenuOffset">
             <summary>
             Offset between the menu and the input.
-            <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
+            <see href="https://floating-ui.com/docs/offset#options"/>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox`1.Label">
@@ -9836,7 +9836,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleButton.MenuOffset">
             <summary>
-            Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
+            Offset <c>(<see href="https://floating-ui.com/docs/offset#options">skidding</see>, <see href="https://floating-ui.com/docs/offset#options">distance</see>)</c>
             of the menu relative to its target.  Default is <c>(0, 2)</c>.
             </summary>
         </member>
@@ -9844,8 +9844,7 @@
             <summary>
             Reference element of the menu menu. Accepts the values of <c>toggle</c> (default), <c>parent</c>,
             an HTMLElement reference (e.g. <c>#id</c>) or an object providing <c>getBoundingClientRect</c>.
-            For more information, refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
-            and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
+            For more information, refer to the <see href="https://floating-ui.com/docs/computePosition">Floating UI documentation</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleButton.OnShown">
@@ -9952,13 +9951,12 @@
             <summary>
             Reference element of the menu menu. Accepts the values of <c>toggle</c> (default), <c>parent</c>,
             an HTMLElement reference (e.g. <c>#id</c>) or an object providing <c>getBoundingClientRect</c>.
-            For more information, refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
-            and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
+            For more information, refer to the <see href="https://floating-ui.com/docs/computePosition">Floating UI documentation</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleElement.MenuOffset">
             <summary>
-            Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
+            Offset <c>(<see href="https://floating-ui.com/docs/offset#options">skidding</see>, <see href="https://floating-ui.com/docs/offset#options">distance</see>)</c>
             of the menu relative to its target. Default is <c>(0, 2)</c>.
             </summary>
         </member>
@@ -10355,7 +10353,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarToggler">
             <summary>
-            Bootstrap 5 <see href="https://getbootstrap.com/docs/5.3/components/navbar/#toggler">navbar-toggler</see> component.
+            Bootstrap <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/navbar/#toggler">navbar-toggler</see> component. The toggler icon is rendered via a CSS <c>mask-image</c> tinted with <c>currentcolor</c> (no separate light/dark icons needed in Bootstrap 6).
             Derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapseToggleButton"/>.
             </summary>
         </member>

@@ -16,13 +16,12 @@ public class HxMenuToggleElement : ComponentBase, IHxMenuToggle, IAsyncDisposabl
 	/// <summary>
 	/// Reference element of the menu menu. Accepts the values of <c>toggle</c> (default), <c>parent</c>,
 	/// an HTMLElement reference (e.g. <c>#id</c>) or an object providing <c>getBoundingClientRect</c>.
-	/// For more information, refer to Popper's <see href="https://popper.js.org/docs/v2/constructors/#createpopper">constructor docs</see>
-	/// and <see href="https://popper.js.org/docs/v2/virtual-elements/">virtual element docs</see>.
+	/// For more information, refer to the <see href="https://floating-ui.com/docs/computePosition">Floating UI documentation</see>.
 	/// </summary>
 	[Parameter] public string MenuReference { get; set; }
 
 	/// <summary>
-	/// Offset <c>(<see href="https://popper.js.org/docs/v2/modifiers/offset/#skidding-1">skidding</see>, <see href="https://popper.js.org/docs/v2/modifiers/offset/#distance-1">distance</see>)</c>
+	/// Offset <c>(<see href="https://floating-ui.com/docs/offset#options">skidding</see>, <see href="https://floating-ui.com/docs/offset#options">distance</see>)</c>
 	/// of the menu relative to its target. Default is <c>(0, 2)</c>.
 	/// </summary>
 	[Parameter] public (int Skidding, int Distance)? MenuOffset { get; set; }

@@ -212,15 +212,12 @@ public partial class HxTabPanel : ComponentBase
 			return null;
 		}
 
-		if (NavVariant == NavVariant.Pills)
-		{
-			return "card-header-pills";
-		}
-		else if (NavVariant == NavVariant.Tabs)
+		if (NavVariant == NavVariant.Tabs)
 		{
 			return "card-header-tabs";
 		}
 
+		// Bootstrap 6 has no card-header-pills class (only card-header-tabs remains).
 		return null;
 	}
 }

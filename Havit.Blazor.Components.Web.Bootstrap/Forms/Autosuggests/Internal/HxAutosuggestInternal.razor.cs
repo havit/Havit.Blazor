@@ -72,7 +72,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 
 	/// <summary>
 	/// Offset between the menu and the input.
-	/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
+	/// <see href="https://floating-ui.com/docs/offset#options"/>
 	/// </summary>
 	[Parameter] public (int Skidding, int Distance) MenuOffset { get; set; } = (0, 4);
 
