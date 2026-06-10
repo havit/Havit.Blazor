@@ -3,7 +3,7 @@
 public partial class HxDialogTests : BunitTestBase
 {
 	[Fact]
-	public async Task HxDialog_CloseButton_DefaultShouldNotHaveWhiteClass()
+	public async Task HxDialog_CloseButton_RendersBtnClose()
 	{
 		// Arrange & Act
 		var cut = RenderComponent<HxDialog>(parameters => parameters
@@ -15,60 +15,24 @@ public partial class HxDialogTests : BunitTestBase
 
 		// Assert
 		var closeButton = cut.Find("button.btn-close");
-		Assert.False(closeButton.ClassList.Contains("btn-close-white"));
+		Assert.Equal("dialog", closeButton.GetAttribute("data-bs-dismiss"));
+		// Bootstrap 6: the icon is a CSS mask tinted with currentcolor; no btn-close-white class exists
+		Assert.DoesNotContain("btn-close-white", closeButton.ClassList);
 	}
 
 	[Fact]
-	public async Task HxDialog_CloseButtonSettings_WhiteTrue_ShouldAddWhiteClass()
+	public async Task HxDialog_CloseButton_ShowCloseButtonFalse_NotRendered()
 	{
 		// Arrange & Act
 		var cut = RenderComponent<HxDialog>(parameters => parameters
 			.Add(p => p.Title, "Test Dialog")
-			.Add(p => p.CloseButtonSettings, new CloseButtonSettings { White = true })
+			.Add(p => p.ShowCloseButton, false)
 		);
 
 		// Simulate opening the dialog
 		await cut.InvokeAsync(() => cut.Instance.ShowAsync());
 
 		// Assert
-		var closeButton = cut.Find("button.btn-close");
-		Assert.True(closeButton.ClassList.Contains("btn-close-white"));
-	}
-
-	[Fact]
-	public async Task HxDialog_CloseButtonSettings_WhiteFalse_ShouldNotHaveWhiteClass()
-	{
-		// Arrange & Act
-		var cut = RenderComponent<HxDialog>(parameters => parameters
-			.Add(p => p.Title, "Test Dialog")
-			.Add(p => p.CloseButtonSettings, new CloseButtonSettings { White = false })
-		);
-
-		// Simulate opening the dialog
-		await cut.InvokeAsync(() => cut.Instance.ShowAsync());
-
-		// Assert
-		var closeButton = cut.Find("button.btn-close");
-		Assert.False(closeButton.ClassList.Contains("btn-close-white"));
-	}
-
-	[Fact]
-	public async Task HxDialog_CloseButtonSettings_WhiteTrue_ViaSettings_ShouldAddWhiteClass()
-	{
-		// Arrange & Act
-		var cut = RenderComponent<HxDialog>(parameters => parameters
-			.Add(p => p.Title, "Test Dialog")
-			.Add(p => p.Settings, new DialogSettings
-			{
-				CloseButtonSettings = new CloseButtonSettings { White = true }
-			})
-		);
-
-		// Simulate opening the dialog
-		await cut.InvokeAsync(() => cut.Instance.ShowAsync());
-
-		// Assert
-		var closeButton = cut.Find("button.btn-close");
-		Assert.True(closeButton.ClassList.Contains("btn-close-white"));
+		Assert.Empty(cut.FindAll("button.btn-close"));
 	}
 }
