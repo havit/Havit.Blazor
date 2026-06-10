@@ -1,10 +1,10 @@
-::deep .feedback-floating {
+﻿::deep .feedback-floating {
     left: 0;
 }
 
-::deep .hx-input-date-range-dropdown-menu {
-	--bs-dropdown-padding-x: 0.5rem;
-	--bs-dropdown-padding-y: 0.5rem;
+::deep .hx-input-date-range-menu {
+	--bs-menu-padding-x: 0.5rem;
+	--bs-menu-padding-y: 0.5rem;
 	width: min-content;
 }
 
@@ -17,11 +17,11 @@
     margin-left: auto;
 }
 
-::deep .dropdown {
+::deep .hx-input-date-range-segment {
     flex: 1 0 50%;
 }
 
-::deep .dropdown:focus-within {
+::deep .hx-input-date-range-segment:focus-within {
     z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be larger than 5 because otherwise the validation message is rendered on top. */
 }
 

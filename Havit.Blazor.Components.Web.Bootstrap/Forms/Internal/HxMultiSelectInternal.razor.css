@@ -1,18 +1,18 @@
-﻿.dropdown {
+﻿.hx-multi-select-toggle {
 	flex-grow: 1;
 }
 
-.dropdown-menu {
-    min-width: var(--hx-multi-select-dropdown-menu-width);
+.menu {
+    min-width: var(--hx-multi-select-menu-width);
     overflow: auto;
-    max-height: var(--hx-multi-select-dropdown-menu-height);
+    max-height: var(--hx-multi-select-menu-height);
 }
 
 .form-select[readonly]:not([disabled]) {
     background-color: var(--hx-multi-select-background-color);
 }
 
-button.dropdown-item,
+button.menu-item,
 .form-control[readonly] {
     cursor: default;
 }

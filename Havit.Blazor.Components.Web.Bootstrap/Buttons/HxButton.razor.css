@@ -4,7 +4,3 @@
 	justify-content: center;
 	gap: var(--hx-button-gap);
 }
-
-.btn.dropdown-toggle::after  {
-	margin-left: 0;
-}

@@ -1,10 +1,10 @@
-:root,
+﻿:root,
 [data-bs-theme=dark] {
 	/* HxAutosuggest */
 	--hx-autosuggest-input-close-icon-opacity: 						.25;
 	--hx-autosuggest-item-highlighted-background-color: 			var(--bs-tertiary-bg);
-	--hx-autosuggest-dropdown-menu-height: 							300px;
-	--hx-autosuggest-dropdown-menu-width: 							100%;
+	--hx-autosuggest-menu-height: 							300px;
+	--hx-autosuggest-menu-width: 							100%;
 	--hx-autosuggest-input-search-icon-color:						unset;
 	--hx-autosuggest-input-clear-icon-color:						unset;
 
@@ -91,8 +91,6 @@
 	--hx-context-menu-button-font-size:								inherit;
 	--hx-context-menu-item-icon-margin: 							0 .5rem 0 0;
 
-	/* HxDropdown */
-	--hx-dropdown-menu-item-icon-margin: 							0 .5rem 0 0;
 
 	/* HxGrid */
 	--hx-grid-button-hover-background: 								var(--bs-secondary-bg);
@@ -153,9 +151,9 @@
 
 	/* HxMultiSelect */
 	--hx-multi-select-background-color: 							var(--bs-body-bg);
-	--hx-multi-select-dropdown-menu-height: 						300px;
+	--hx-multi-select-menu-height: 						300px;
 	--hx-multi-select-filter-input-icon-opacity: 					.25;
-	--hx-multi-select-dropdown-menu-width: 							100%;
+	--hx-multi-select-menu-width: 							100%;
 
 	/* TagInput */
 	--hx-input-tags-tag-gap: 										.25rem;
@@ -168,7 +166,7 @@
 	--hx-input-tags-add-button-text-margin: 						0 0 0 .25rem;
 	--hx-input-tags-add-button-disabled-opacity: 					.65;
 	--hx-input-tags-remove-button-margin: 							0 0 0 .25rem;
-	--hx-input-tags-dropdown-item-highlighted-background-color: 	var(--bs-tertiary-bg);
+	--hx-input-tags-menu-item-highlighted-background-color: 	var(--bs-tertiary-bg);
 
 	/* TreeView */
 	--hx-tree-view-item-border-radius: 								var(--bs-border-radius-sm);
@@ -206,8 +204,8 @@
 	--hx-search-box-item-subtitle-color: 							var(--bs-secondary);
 	--hx-search-box-item-subtitle-font-size: 						.75rem;
 	--hx-search-box-item-highlighted-background-color: 				var(--bs-tertiary-bg);
-	--hx-search-box-dropdown-menu-height: 							300px;
-	--hx-search-box-dropdown-menu-width: 							100%;
+	--hx-search-box-menu-height: 							300px;
+	--hx-search-box-menu-width: 							100%;
 	--hx-search-box-input-search-icon-color:						unset;
 	--hx-search-box-input-clear-icon-color:							unset;
 }

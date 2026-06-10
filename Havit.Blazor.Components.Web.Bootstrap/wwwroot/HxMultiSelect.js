@@ -4,31 +4,31 @@
 	}
 
 	element.hxMultiSelectDotnetObjectReference = hxMultiSelectDotnetObjectReference;
-	element.addEventListener('shown.bs.dropdown', handleDropdownShown);
-	element.addEventListener('hidden.bs.dropdown', handleDropdownHidden);
+	element.addEventListener('shown.bs.menu', handleMenuShown);
+	element.addEventListener('hidden.bs.menu', handleMenuHidden);
 
-	const d = new bootstrap.Dropdown(element);
+	const d = new bootstrap.Menu(element);
 }
 
 export function show(element) {
-	const d = bootstrap.Dropdown.getInstance(element);
+	const d = bootstrap.Menu.getInstance(element);
 	if (d) {
 		d.show();
 	}
 };
 
 export function hide(element) {
-	const d = bootstrap.Dropdown.getInstance(element);
+	const d = bootstrap.Menu.getInstance(element);
 	if (d) {
 		d.hide();
 	}
 };
 
-function handleDropdownShown(event) {
+function handleMenuShown(event) {
 	event.currentTarget.hxMultiSelectDotnetObjectReference.invokeMethodAsync('HxMultiSelect_HandleJsShown');
 };
 
-function handleDropdownHidden(event) {
+function handleMenuHidden(event) {
 	event.currentTarget.hxMultiSelectDotnetObjectReference.invokeMethodAsync('HxMultiSelect_HandleJsHidden');
 };
 
@@ -37,11 +37,11 @@ export function dispose(element) {
 		return;
 	}
 
-	element.removeEventListener('shown.bs.dropdown', handleDropdownShown);
-	element.removeEventListener('hidden.bs.dropdown', handleDropdownHidden);
+	element.removeEventListener('shown.bs.menu', handleMenuShown);
+	element.removeEventListener('hidden.bs.menu', handleMenuHidden);
 	element.hxMultiSelectDotnetObjectReference = null;
 
-	const d = bootstrap.Dropdown.getInstance(element);
+	const d = bootstrap.Menu.getInstance(element);
 	if (d) {
 		d.dispose();
 	}

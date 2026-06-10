@@ -5,15 +5,17 @@
         <HxNav CssClass="me-auto mb-2 mb-lg-0">
             <HxNavLink Href="/components/HxNavbar">Home</HxNavLink>
             <HxNavLink Href="#">Link</HxNavLink>
-            <HxDropdown>
-                <HxDropdownToggleElement ElementName="a" Caret="true" role="button">Dropdown</HxDropdownToggleElement>
-                <HxDropdownMenu>
-                    <HxDropdownItemNavLink Href="#">Action</HxDropdownItemNavLink>
-                    <HxDropdownItemNavLink Href="#">Another action</HxDropdownItemNavLink>
-                    <HxDropdownDivider />
-                    <HxDropdownItemNavLink Href="#">Something else here</HxDropdownItemNavLink>
-                </HxDropdownMenu>
-            </HxDropdown>
+            <HxMenu>
+                <Toggle>
+                    <HxMenuToggleElement ElementName="a" role="button">Menu</HxMenuToggleElement>
+                </Toggle>
+                <Content>
+                    <HxMenuItemNavLink Href="#">Action</HxMenuItemNavLink>
+                    <HxMenuItemNavLink Href="#">Another action</HxMenuItemNavLink>
+                    <HxMenuDivider />
+                    <HxMenuItemNavLink Href="#">Something else here</HxMenuItemNavLink>
+                </Content>
+            </HxMenu>
             <HxNavLink Enabled="false">Disabled</HxNavLink>
         </HxNav>
         <EditForm Model="@query">

@@ -7,9 +7,11 @@
 
 	<div class="@CssClassHelper.Combine("hx-input-date-range", (CalendarIconEffective is not null) ? "hx-input-date-has-calendar-icon" : null)">
 		<div class="input-group flex-nowrap">
-			<HxDropdown AutoClose="DropdownAutoClose.Outside">
-				@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-				<HxDropdownToggleElement @ref="_fromDropdownToggleElement"
+			<div class="hx-input-date-range-segment">
+			<HxMenu AutoClose="MenuAutoClose.Outside" CssClass="hx-input-date-range-menu">
+				<Toggle>
+				@*Input must not be rendered when bootstrap menu is opened. Therefore we add is-invalid class via IJSRuntime. *@
+				<HxMenuToggleElement @ref="_fromMenuToggleElement"
 										 ElementName="input"
 										 type="text"
 										 CssClass="@CssClassHelper.Combine(InputCssClass,
@@ -25,7 +27,8 @@
 									 inputmode="none"
 									 @attributes="this.AdditionalAttributes" />
 
-				<HxDropdownContent CssClass="hx-input-date-range-dropdown-menu">
+				</Toggle>
+				<Content>
 				@if (EnabledEffective)
 					{
 						<div class="hx-input-date-range-calendar">
@@ -49,25 +52,28 @@
 											  Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)"
 											  Color="ThemeColor.Link"
 											  Size="ButtonSize.Small"
-											  OnClick="() => HandleDateRangeClick(item.DateRange, _fromDropdownToggleElement)"
+											  OnClick="() => HandleDateRangeClick(item.DateRange, _fromMenuToggleElement)"
 											  tabindex="-1"
 											  Enabled="this.EnabledEffective" />
 								}
 							}
 						</div>
 					}
-				</HxDropdownContent>
+				</Content>
+			</HxMenu>
 				@if (CalendarIconEffective is not null)
 				{
 					<div @ref="_fromIconWrapperElement" class="hx-input-date-icon">
 						<HxIcon Icon="CalendarIconEffective" />
 					</div>
 				}
-			</HxDropdown>
+			</div>
 
-			<HxDropdown AutoClose="DropdownAutoClose.Outside">
-				@*Input must not be rendered when bootstrap dropdown is opened. Therefore we add is-invalid class via IJSRuntime. *@
-				<HxDropdownToggleElement @ref="_toDropdownToggleElement"
+			<div class="hx-input-date-range-segment">
+			<HxMenu AutoClose="MenuAutoClose.Outside" CssClass="hx-input-date-range-menu">
+				<Toggle>
+				@*Input must not be rendered when bootstrap menu is opened. Therefore we add is-invalid class via IJSRuntime. *@
+				<HxMenuToggleElement @ref="_toMenuToggleElement"
 										 ElementName="input"
 										 type="text"
 										 CssClass="@CssClassHelper.Combine(InputCssClass,
@@ -82,7 +88,8 @@
 									 inputmode="none"
 									 @attributes="this.AdditionalAttributes" />
 
-				<HxDropdownContent CssClass="hx-input-date-range-dropdown-menu">
+				</Toggle>
+				<Content>
 				@if (EnabledEffective)
 					{
 						<div class="hx-input-date-range-calendar">
@@ -106,21 +113,22 @@
 											  Text="@StringLocalizerFactory.GetLocalizedValue(item.Label, item.ResourceType)"
 											  Color="ThemeColor.Link"
 											  Size="ButtonSize.Small"
-											  OnClick="() => HandleDateRangeClick(item.DateRange, _toDropdownToggleElement)"
+											  OnClick="() => HandleDateRangeClick(item.DateRange, _toMenuToggleElement)"
 											  tabindex="-1"
 											  Enabled="this.EnabledEffective" />
 								}
 							}
 						</div>
 					}
-				</HxDropdownContent>
+				</Content>
+			</HxMenu>
 				@if (CalendarIconEffective is not null)
 				{
 					<div @ref="_toIconWrapperElement" class="hx-input-date-icon">
 						<HxIcon Icon="CalendarIconEffective" />
 					</div>
 				}
-			</HxDropdown>
+			</div>
 		</div>
 
 		<HxValidationMessage TValue="DateTimeRange"

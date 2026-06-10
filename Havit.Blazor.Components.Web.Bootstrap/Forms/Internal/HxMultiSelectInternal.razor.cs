@@ -232,9 +232,9 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Shows the dropdown.
+	/// Shows the menu.
 	/// </summary>
-	public async Task ShowDropdownAsync()
+	public async Task ShowMenuAsync()
 	{
 		await EnsureJsModuleAsync();
 		if (_disposed)
@@ -245,9 +245,9 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Hides the dropdown.
+	/// Hides the menu.
 	/// </summary>
-	public async Task HideDropdownAsync()
+	public async Task HideMenuAsync()
 	{
 		await EnsureJsModuleAsync();
 		if (_disposed)

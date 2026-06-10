@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// A search input component with automatic suggestions, initial dropdown template, and support for free-text queries.<br />
+/// A search input component with automatic suggestions, initial menu template, and support for free-text queries.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSearchBox">https://havit.blazor.eu/components/HxSearchBox</see>
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
@@ -52,7 +52,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	protected virtual Task InvokeTextQueryChangedAsync(string newTextQueryValue) => TextQueryChanged.InvokeAsync(newTextQueryValue);
 
 	/// <summary>
-	/// Raised when the enter key is pressed or when the text-query item is selected in the dropdown menu.
+	/// Raised when the enter key is pressed or when the text-query item is selected in the menu menu.
 	/// (Does not trigger when <see cref="AllowTextQuery"/> is <c>false</c>.)
 	/// </summary>
 	[Parameter] public EventCallback<string> OnTextQueryTriggered { get; set; }
@@ -117,13 +117,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	[Parameter] public RenderFragment DefaultContentTemplate { get; set; }
 
 	/// <summary>
-	/// Additional CSS classes for the dropdown.
+	/// Additional CSS classes for the menu.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
-	/// Additional CSS classes for the items in the dropdown menu.
+	/// Additional CSS classes for the items in the menu menu.
 	/// </summary>
 	[Parameter] public string ItemCssClass { get; set; }
 	protected string ItemCssClassEffective => ItemCssClass ?? GetSettings()?.ItemCssClass ?? GetDefaults().ItemCssClass;
@@ -160,10 +160,10 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	protected IconBase ClearIconEffective => ClearIcon ?? GetSettings()?.ClearIcon ?? GetDefaults().ClearIcon;
 
 	/// <summary>
-	/// Offset between the dropdown and the input.
+	/// Offset between the menu and the input.
 	/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
 	/// </summary>
-	[Parameter] public (int Skidding, int Distance) DropdownOffset { get; set; } = (0, 4);
+	[Parameter] public (int Skidding, int Distance) MenuOffset { get; set; } = (0, 4);
 
 	/// <summary>
 	/// Label of the input field.
@@ -229,13 +229,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
 	/// <summary>
-	/// Fired immediately when the 'hide' method of the dropdown is called.
-	/// To prevent hiding, set <see cref="DropdownHidingEventArgs.Cancel"/> to <c>true</c>.
+	/// Fired immediately when the 'hide' method of the menu is called.
+	/// To prevent hiding, set <see cref="MenuHidingEventArgs.Cancel"/> to <c>true</c>.
 	/// </summary>
 	/// <remarks>
-	/// Exposed to allow derived custom components to cancel hiding the dropdown, for example, when the dropdown contains draggable content and the mouseup event is fired outside the dropdown.
+	/// Exposed to allow derived custom components to cancel hiding the menu, for example, when the menu contains draggable content and the mouseup event is fired outside the menu.
 	/// </remarks>
-	[Parameter] public EventCallback<DropdownHidingEventArgs> OnHiding { get; set; }
+	[Parameter] public EventCallback<MenuHidingEventArgs> OnHiding { get; set; }
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -243,12 +243,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	private bool HasInputGroupStart => !String.IsNullOrWhiteSpace(InputGroupStartText) || (InputGroupStartTemplate is not null);
 	private bool HasInputGroupEnd => !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupEndTemplate is not null);
 
-	private string _dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
+	private string _menuToggleElementId = "hx" + Guid.NewGuid().ToString("N");
 	private string _inputId = "hx" + Guid.NewGuid().ToString("N");
 	private ElementReference _inputElementReference;
 	private List<TItem> _searchResults = new();
-	private HxDropdownToggleElement _dropdownToggle;
-	private bool _dropdownMenuActive = false;
+	private HxMenuToggleElement _menuToggle;
+	private bool _menuActive = false;
 	private bool _initialized = false;
 	/// <summary>
 	/// Indicates whether the <see cref="TextQuery"/> has been below minimum required length recently (before data provider loading is completed).
@@ -382,7 +382,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 		_searchResults = result?.Data?.ToList() ?? new();
 
 		_textQueryHasBeenBelowMinimumLength = false;
-		await ShowDropdownAsync();
+		await ShowMenuAsync();
 
 		StateHasChanged();
 	}
@@ -419,13 +419,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 			_textQueryHasBeenBelowMinimumLength = true;
 		}
 
-		if (ShouldDropdownMenuBeDisplayed())
+		if (ShouldMenuBeDisplayed())
 		{
-			await ShowDropdownAsync();
+			await ShowMenuAsync();
 		}
-		else if (_dropdownMenuActive)
+		else if (_menuActive)
 		{
-			await HideDropdownAsync();
+			await HideMenuAsync();
 		}
 		await InvokeTextQueryChangedAsync(newTextQuery);
 	}
@@ -557,14 +557,14 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 			await UpdateSuggestionsAsync();
 		}
 
-		await ShowDropdownAsync();
+		await ShowMenuAsync();
 	}
 
 	private void HandleInputBlur()
 	{
 		_inputFormHasFocus = false;
 
-		if (!_dropdownMenuActive)
+		if (!_menuActive)
 		{
 			ClearInputValueIfTextQueryDisabled();
 		}
@@ -593,7 +593,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 		{
 			CancelDataProviderAndDebounce();
 
-			await HideDropdownAsync();
+			await HideMenuAsync();
 			await InvokeOnTextQueryTriggeredAsync(TextQuery);
 		}
 	}
@@ -612,56 +612,56 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 				throw new InvalidOperationException($"Invalid {nameof(SearchBoxItemSelectionBehavior)} value: {ItemSelectionBehaviorEffective}");
 		}
 
-		await HideDropdownAsync();
+		await HideMenuAsync();
 		await InvokeTextQueryChangedAsync(TextQuery);
 		await InvokeOnItemSelectedAsync(item);
 	}
 
-	private async Task HandleDropdownMenuShown()
+	private async Task HandleMenuShown()
 	{
-		_dropdownMenuActive = true;
+		_menuActive = true;
 
-		if (!ShouldDropdownMenuBeDisplayed())
+		if (!ShouldMenuBeDisplayed())
 		{
-			await HideDropdownAsync();
+			await HideMenuAsync();
 		}
 	}
 
-	private void HandleDropdownMenuHidden()
+	private void HandleMenuHidden()
 	{
-		_dropdownMenuActive = false;
+		_menuActive = false;
 		if (!_inputFormHasFocus)
 		{
 			ClearInputValueIfTextQueryDisabled();
 		}
 	}
 
-	private async Task ShowDropdownAsync()
+	private async Task ShowMenuAsync()
 	{
 		if (!_clickIsComing)
 		{
 			// clickIsComing logic fixes #572 - Initial suggestions disappear when the DataProvider response is quick
-			// If click is coming, we do not want to show the dropdown as it will be toggled by the later click event (if we open it here, onfocus, click will hide it)
-			await _dropdownToggle.ShowAsync();
+			// If click is coming, we do not want to show the menu as it will be toggled by the later click event (if we open it here, onfocus, click will hide it)
+			await _menuToggle.ShowAsync();
 		}
 	}
 
 	/// <summary>
-	/// Hides the dropdown menu.
+	/// Hides the menu menu.
 	/// </summary>
 	/// <remarks>
-	/// Allows custom actions from <see cref="DefaultContentTemplate" /> or <see cref="NotFoundTemplate" /> to hide the dropdown menu.
+	/// Allows custom actions from <see cref="DefaultContentTemplate" /> or <see cref="NotFoundTemplate" /> to hide the menu menu.
 	/// </remarks>
-	public async Task HideDropdownAsync()
+	public async Task HideMenuAsync()
 	{
-		await _dropdownToggle.HideAsync();
+		await _menuToggle.HideAsync();
 	}
 
 	/// <summary>
 	/// If the <see cref="DefaultContentTemplate"/> is empty, we don't want to display anything when nothing (or below the minimum amount of characters) is typed into the input.
 	/// </summary>
 	/// <returns></returns>
-	private bool ShouldDropdownMenuBeDisplayed()
+	private bool ShouldMenuBeDisplayed()
 	{
 		if (_textQueryHasBeenBelowMinimumLength
 			&& ((TextQuery?.Length ?? 0) >= MinimumLengthEffective))
@@ -698,7 +698,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 			try
 			{
 				await _jsModule.InvokeVoidAsync("dispose", _inputId);
-				await _dropdownToggle.DisposeAsync();
+				await _menuToggle.DisposeAsync();
 				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)

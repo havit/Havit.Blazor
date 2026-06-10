@@ -1,4 +1,4 @@
-@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 
 <span class="@CssClassHelper.Combine((HasInputGroupsEffective ? "input-group" : null), InputSizeEffective.AsInputGroupCssClass(), InputGroupCssClass)">
 
@@ -33,7 +33,7 @@
 			</HxBadge>
 		}
 
-		@if (ShowAddButtonEffective && !_currentlyFocused && !_isDropdownOpened)
+		@if (ShowAddButtonEffective && !_currentlyFocused && !_isMenuOpened)
 		{
 			var showAddButtonText = !ValueEffective.Any() && !String.IsNullOrEmpty(AddButtonText);
 
@@ -53,7 +53,7 @@
 			</HxBadge>
 		}
 
-		<div id="@_dropdownId" class="@CssClassHelper.Combine("dropdown", (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)">
+		<div id="@_menuId" class="@CssClassHelper.Combine("hx-input-tags-toggle", (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)">
 			<HxInputTagsInputInternal @ref="_inputComponent"
 									  InputId="@InputId"
 									  EnabledEffective="@EnabledEffective"
@@ -74,7 +74,7 @@
 			<HxAutosuggestItemsInternal TItem="string"
 										Items="_suggestions"
 										OnItemClick="HandleItemSelected"
-										FocusedItemCssClass="hx-input-tags-dropdown-item-focused"
+										FocusedItemCssClass="hx-input-tags-menu-item-focused"
 										FocusedItemIndex="_focusedItemIndex">
 
 				<ItemTemplate>

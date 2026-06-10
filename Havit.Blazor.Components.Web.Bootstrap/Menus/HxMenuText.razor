@@ -1,0 +1,6 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@using Havit.Blazor.Components.Web.Bootstrap.Internal
+<span class="@CssClassHelper.Combine("menu-text", CssClass)">
+    <HxMenuItemIconInternal Icon="@Icon" CssClass="@IconCssClass" />
+    @ChildContent
+</span>

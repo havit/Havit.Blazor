@@ -99,28 +99,28 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	[Parameter] public string DateOrderErrorMessage { get; set; }
 
 	/// <summary>
-	/// Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
+	/// Indicates whether the <i>Clear</i> button in the menu calendar should be visible.<br/>
 	/// The default is <c>true</c> (configurable in <see cref="HxInputDate.Defaults"/>).
 	/// </summary>
 	[Parameter] public bool? ShowClearButton { get; set; }
 	protected bool ShowClearButtonEffective => ShowClearButton ?? GetSettings()?.ShowClearButton ?? GetDefaults().ShowClearButton ?? throw new InvalidOperationException(nameof(ShowClearButton) + " default for " + nameof(HxInputDateRange) + " has to be set.");
 
 	/// <summary>
-	/// The first date selectable from the dropdown calendar.<br />
+	/// The first date selectable from the menu calendar.<br />
 	/// The default is <c>1.1.1900</c> (configurable from <see cref="HxInputDateRange.Defaults"/>).
 	/// </summary>
 	[Parameter] public DateTime? MinDate { get; set; }
 	protected DateTime MinDateEffective => MinDate ?? GetSettings()?.MinDate ?? GetDefaults().MinDate ?? throw new InvalidOperationException(nameof(MinDate) + " default for " + nameof(HxInputDateRange) + " has to be set.");
 
 	/// <summary>
-	/// The last date selectable from the dropdown calendar.<br />
+	/// The last date selectable from the menu calendar.<br />
 	/// The default is <c>31.12.2099</c> (configurable from <see cref="HxInputDateRange.Defaults"/>).
 	/// </summary>
 	[Parameter] public DateTime? MaxDate { get; set; }
 	protected DateTime MaxDateEffective => MaxDate ?? GetSettings()?.MaxDate ?? GetDefaults().MaxDate ?? throw new InvalidOperationException(nameof(MaxDate) + " default for " + nameof(HxInputDateRange) + " has to be set.");
 
 	/// <summary>
-	/// Allows customization of the dates in the dropdown calendars.<br />
+	/// Allows customization of the dates in the menu calendars.<br />
 	/// The default customization is configurable with <see cref="HxInputDateRange.Defaults"/>.
 	/// </summary>
 	[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
