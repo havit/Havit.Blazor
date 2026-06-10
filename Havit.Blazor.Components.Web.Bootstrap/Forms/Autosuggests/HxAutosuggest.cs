@@ -108,10 +108,10 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
 
 	/// <summary>
-	/// The offset between the dropdown and the input.
+	/// The offset between the menu and the input.
 	/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
 	/// </summary>
-	protected virtual (int Skidding, int Distance) DropdownOffset { get; set; } = (0, 4);
+	protected virtual (int Skidding, int Distance) MenuOffset { get; set; } = (0, 4);
 
 	/// <summary>
 	/// Returns the corresponding item for the (selected) value.
@@ -175,7 +175,7 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 		builder.AddAttribute(1015, nameof(HxAutosuggestInternal<TItem, TValue>.EmptyTemplate), EmptyTemplate);
 		builder.AddAttribute(1016, nameof(HxAutosuggestInternal<TItem, TValue>.SearchIconEffective), SearchIconEffective);
 		builder.AddAttribute(1017, nameof(HxAutosuggestInternal<TItem, TValue>.ClearIconEffective), ClearIconEffective);
-		builder.AddAttribute(1018, nameof(HxAutosuggestInternal<TItem, TValue>.DropdownOffset), DropdownOffset);
+		builder.AddAttribute(1018, nameof(HxAutosuggestInternal<TItem, TValue>.MenuOffset), MenuOffset);
 		builder.AddAttribute(1021, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupStartText), InputGroupStartText);
 		builder.AddAttribute(1023, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupStartTemplate), InputGroupStartTemplate);
 		builder.AddAttribute(1024, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndText), InputGroupEndText);

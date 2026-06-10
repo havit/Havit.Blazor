@@ -71,10 +71,10 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
 	/// <summary>
-	/// Offset between the dropdown and the input.
+	/// Offset between the menu and the input.
 	/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
 	/// </summary>
-	[Parameter] public (int Skidding, int Distance) DropdownOffset { get; set; } = (0, 4);
+	[Parameter] public (int Skidding, int Distance) MenuOffset { get; set; } = (0, 4);
 
 	/// <summary>
 	/// Custom CSS class to render with input-group span.
@@ -114,13 +114,13 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
-	private string _dropdownId = "hx" + Guid.NewGuid().ToString("N");
+	private string _menuId = "hx" + Guid.NewGuid().ToString("N");
 	private System.Timers.Timer _timer;
 	private string _userInput = String.Empty;
 	private CancellationTokenSource _cancellationTokenSource;
 	private List<TItem> _suggestions;
 	private bool _userInputModified;
-	private bool _isDropdownOpened = false;
+	private bool _isMenuOpened = false;
 	private bool _blurInProgress;
 	private bool _currentlyFocused;
 	private bool _disposed;
@@ -223,9 +223,9 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		}
 		else
 		{
-			// or close a dropdown
+			// or close a menu
 			_suggestions = null;
-			await DestroyDropdownAsync();
+			await DestroyMenuAsync();
 		}
 	}
 
@@ -241,7 +241,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 
 	private async Task HandleInputClick()
 	{
-		if (_currentlyFocused && (MinimumLengthEffective == 0) && !_isDropdownOpened)
+		if (_currentlyFocused && (MinimumLengthEffective == 0) && !_isMenuOpened)
 		{
 			await UpdateSuggestionsAsync();
 		}
@@ -262,7 +262,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		}
 	}
 
-	// Due to HTML update and Bootstrap Dropdown collision we are not allowed to re-render HTML in InputBlur!
+	// Due to HTML update and Bootstrap Menu collision we are not allowed to re-render HTML in InputBlur!
 	private void HandleInputBlur()
 	{
 		if (!EnabledEffective)
@@ -319,11 +319,11 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 
 		if ((_suggestions?.Any() ?? false) || (EmptyTemplate != null))
 		{
-			await OpenDropdownAsync();
+			await OpenMenuAsync();
 		}
 		else
 		{
-			await DestroyDropdownAsync();
+			await DestroyMenuAsync();
 		}
 
 		StateHasChanged();
@@ -341,7 +341,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		{
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
-				await DestroyDropdownAsync();
+				await DestroyMenuAsync();
 				await HandleItemSelected(focusedItem);
 				StateHasChanged();
 			}
@@ -356,7 +356,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 				_focusedItemIndex = previousItemIndex;
 				StateHasChanged();
 
-				await _jsModule.InvokeVoidAsync("scrollToSelectedItem", _dropdownId);
+				await _jsModule.InvokeVoidAsync("scrollToSelectedItem", _menuId);
 			}
 		}
 		else if (keyCode == KeyCodes.ArrowDown)
@@ -367,7 +367,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 				_focusedItemIndex = nextItemIndex;
 				StateHasChanged();
 
-				await _jsModule.InvokeVoidAsync("scrollToSelectedItem", _dropdownId);
+				await _jsModule.InvokeVoidAsync("scrollToSelectedItem", _menuId);
 			}
 		}
 	}
@@ -387,7 +387,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 
 	private async Task HandleItemSelected(TItem item)
 	{
-		// user selected an item in the "dropdown".
+		// user selected an item in the "menu".
 		_userInput = TextSelectorEffective(item);
 		_userInputModified = false;
 		await SetValueItemWithEventCallback(item);
@@ -420,7 +420,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		if (_blurInProgress)
 		{
 			_blurInProgress = false;
-			if (_userInputModified && !_isDropdownOpened)
+			if (_userInputModified && !_isMenuOpened)
 			{
 				_userInput = TextSelectorEffective(default);
 				_userInputModified = false;
@@ -429,10 +429,10 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			}
 		}
 	}
-	#region OpenDropdownAsync, DestroyDropdownAsync, EnsureJsModuleAsync
-	private async Task OpenDropdownAsync()
+	#region OpenMenuAsync, DestroyMenuAsync, EnsureJsModuleAsync
+	private async Task OpenMenuAsync()
 	{
-		if (!_isDropdownOpened)
+		if (!_isMenuOpened)
 		{
 			await EnsureJsModuleAsync();
 			if (_disposed)
@@ -440,17 +440,17 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 				return;
 			}
 			await _jsModule.InvokeVoidAsync("open", _autosuggestInput.InputElement, _dotnetObjectReference);
-			_isDropdownOpened = true;
+			_isMenuOpened = true;
 		}
 	}
 
-	private async Task DestroyDropdownAsync()
+	private async Task DestroyMenuAsync()
 	{
-		if (_isDropdownOpened)
+		if (_isMenuOpened)
 		{
 			await EnsureJsModuleAsync();
 			await _jsModule.InvokeVoidAsync("destroy", _autosuggestInput.InputElement);
-			_isDropdownOpened = false;
+			_isMenuOpened = false;
 		}
 	}
 
@@ -459,8 +459,8 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxAutosuggest));
 	}
 
-	[JSInvokable("HxAutosuggestInternal_HandleDropdownHidden")]
-	public async Task HandleDropdownHidden()
+	[JSInvokable("HxAutosuggestInternal_HandleMenuHidden")]
+	public async Task HandleMenuHidden()
 	{
 		if (_userInputModified && !_currentlyFocused)
 		{
@@ -469,7 +469,7 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 			await SetValueItemWithEventCallback(default);
 			StateHasChanged();
 		}
-		await DestroyDropdownAsync();
+		await DestroyMenuAsync();
 	}
 	#endregion
 

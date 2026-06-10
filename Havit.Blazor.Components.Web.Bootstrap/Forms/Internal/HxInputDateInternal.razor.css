@@ -1,4 +1,4 @@
-.hx-input-date-icon {
+﻿.hx-input-date-icon {
 	display: flex;
 	align-items: center;
 	margin-right: 1rem;
@@ -13,18 +13,18 @@
 	cursor: pointer;
 }
 
-::deep .hx-input-date-dropdown-menu {
-	--bs-dropdown-padding-x: 0.5rem;
-	--bs-dropdown-padding-y: 0.5rem;
+::deep .hx-input-date-menu {
+	--bs-menu-padding-x: 0.5rem;
+	--bs-menu-padding-y: 0.5rem;
 	width: min-content;
 }
 
-.hx-input-date-dropdown-buttons {
+.hx-input-date-menu-buttons {
 	display: flex;
 	flex-wrap: wrap;
 }
 
-.hx-input-date-dropdown-buttons ::deep .hx-button:nth-child(2):last-child {
+.hx-input-date-menu-buttons ::deep .hx-button:nth-child(2):last-child {
     margin-left: auto;
 }
 
@@ -61,7 +61,7 @@
 	min-width: 0;
 }
 
-::deep .dropdown:focus-within {
+::deep .hx-input-date:focus-within {
     z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be larger than 5 because otherwise the validation message is rendered on top. */
 }
 

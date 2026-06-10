@@ -1,7 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
 
-<div class="@CssClassHelper.Combine("dropdown-menu", CssClass)">
+<div class="@CssClassHelper.Combine("menu", CssClass)">
 	@if (Items != null && Items.Any())
 	{
 		for (int i = 0; i < Items.Count; i++)
@@ -10,7 +10,7 @@
 
 			<button
 				class="@CssClassHelper.Combine(
-					"dropdown-item text-truncate",
+					"menu-item text-truncate",
 					i == FocusedItemIndex ? FocusedItemCssClass : null)"
 				type="button"
 				@onclick="async () => await HandleItemClick(currentItem)"

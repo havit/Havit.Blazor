@@ -15,7 +15,7 @@
 						   OnClick="@(OnClick.HasDelegate ? InvokeOnClickAsync : null)"
 						   OnClickStopPropagation="OnClickStopPropagation"
 						   OnClickPreventDefault="OnClickPreventDefault"
-						   CssClass="@CssClassHelper.Combine(DropdownContainer is not null ? "dropdown-item" : null, CssClass, "hx-sidebar-item position-relative")"
+						   CssClass="@CssClassHelper.Combine(InSidebarMenu ? "menu-item" : null, CssClass, "hx-sidebar-item position-relative")"
 						   Enabled="Enabled">
 
 					@* To hide the nav-content in mobile view *@
@@ -31,7 +31,7 @@
 		}
 		else
 		{
-			<HxDropdown Direction="DropdownDirection.End" CssClass="@CssClassHelper.Combine("hx-sidebar-item", ParentSidebar.Collapsed ? ParentSidebar.ResponsiveBreakpoint.GetCssClass("d-??-block") : null)">
+			<div class="@CssClassHelper.Combine("hx-sidebar-item", ParentSidebar.Collapsed ? ParentSidebar.ResponsiveBreakpoint.GetCssClass("d-??-block") : null)">
 				<HxNavLink Href="@Href"
 						   Match="Match"
 						   OnClick="@(OnClick.HasDelegate ? InvokeOnClickAsync : null)"
@@ -40,12 +40,12 @@
 						   CssClass="@CssClass"
 						   Enabled="Enabled"
 						   role="button"
-						   onmouseenter="bootstrap.Dropdown.getOrCreateInstance(event.target).show()"
-						   onmouseleave="bootstrap.Dropdown.getInstance(event.target)?.hide()"
+						   onmouseenter="bootstrap.Menu.getOrCreateInstance(event.target).show()"
+						   onmouseleave="bootstrap.Menu.getInstance(event.target)?.hide()"
 						   data-bs-toggle="@(!String.IsNullOrEmpty(Href) ? null : "collapse")"
 						   data-bs-target="@(!ParentSidebar.Collapsed ? "#" + _id : null)"
-						   data-bs-popper-config='{"strategy": "fixed"}'
-						   data-bs-boundary="viewport"
+						   data-bs-placement="end"
+						   data-bs-floating-config='{"strategy": "fixed"}'
 						   data-bs-offset="0,0"
 						   aria-expanded="@(expanded ? "true" : "false")">
 
@@ -56,13 +56,15 @@
 														 Expandable="true"
 														 Expanded="expanded" />
 
-					<HxDropdownMenu CssClass="hx-sidebar-subitems">
-						<HxDropdownHeader>@Text</HxDropdownHeader>
-						@ChildContent
-					</HxDropdownMenu>
+					<div class="menu hx-sidebar-subitems">
+						<h6 class="menu-header">@Text</h6>
+						<CascadingValue Name="SidebarMenuContainer" Value="true" IsFixed="true">
+							@ChildContent
+						</CascadingValue>
+					</div>
 
 				</HxNavLink>
-			</HxDropdown>
+			</div>
 
 			<HxNavLink Href="@Href"
 					   CssClass="@CssClassHelper.Combine(CssClass, "hx-sidebar-item", ParentSidebar.Collapsed ? ParentSidebar.ResponsiveBreakpoint.GetCssClass("d-??-none") : null)"

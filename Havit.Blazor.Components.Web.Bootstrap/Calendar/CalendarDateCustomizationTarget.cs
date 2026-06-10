@@ -12,17 +12,17 @@ public class CalendarDateCustomizationTarget
 	public static CalendarDateCustomizationTarget Calendar { get; } = new CalendarDateCustomizationTarget();
 
 	/// <summary>
-	/// Customization is for the dropdown calendar in <see cref="HxInputDate{TValue}" />.
+	/// Customization is for the menu calendar in <see cref="HxInputDate{TValue}" />.
 	/// </summary>
 	public static CalendarDateCustomizationTarget InputDate { get; } = new CalendarDateCustomizationTarget();
 
 	/// <summary>
-	/// Customization is for the From dropdown calendar in <see cref="HxInputDateRange" />.
+	/// Customization is for the From menu calendar in <see cref="HxInputDateRange" />.
 	/// </summary>
 	public static CalendarDateCustomizationTarget InputDateRangeFrom { get; } = new CalendarDateCustomizationTarget();
 
 	/// <summary>
-	/// Customization is for the To dropdown calendar in <see cref="HxInputDateRange" />.
+	/// Customization is for the To menu calendar in <see cref="HxInputDateRange" />.
 	/// </summary>
 	public static CalendarDateCustomizationTarget InputDateRangeTo { get; } = new CalendarDateCustomizationTarget();
 }

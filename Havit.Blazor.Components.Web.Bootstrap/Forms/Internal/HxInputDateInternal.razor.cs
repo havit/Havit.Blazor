@@ -83,7 +83,7 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 
 	protected DateTime GetCalendarDisplayMonthEffective => DateHelper.GetDateTimeFromValue(CurrentValue) ?? CalendarDisplayMonth;
 
-	private HxDropdownToggleElement _hxDropdownToggleElement;
+	private HxMenuToggleElement _hxMenuToggleElement;
 	private ElementReference _iconWrapperElement;
 	private IJSObjectReference _jsModule;
 	private bool _firstRenderCompleted;
@@ -102,14 +102,14 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 		if (firstRender && HasCalendarIcon)
 		{
 			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDate));
-			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _hxDropdownToggleElement.ElementReference, (CalendarIconEffective is not null) ? _iconWrapperElement : null);
+			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _hxMenuToggleElement.ElementReference, (CalendarIconEffective is not null) ? _iconWrapperElement : null);
 		}
 	}
 
 	public async ValueTask FocusAsync()
 	{
-		await _hxDropdownToggleElement.ElementReference.FocusAsync();
-		await _hxDropdownToggleElement.ShowAsync();
+		await _hxMenuToggleElement.ElementReference.FocusAsync();
+		await _hxMenuToggleElement.ShowAsync();
 	}
 
 	private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request)
@@ -120,25 +120,25 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 	private async Task HandleClearClickAsync()
 	{
 		await SetCurrentDateAsync(null);
-		await CloseDropdownAsync();
+		await CloseMenuAsync();
 	}
 
-	private async Task CloseDropdownAsync()
+	private async Task CloseMenuAsync()
 	{
-		Contract.Requires<InvalidOperationException>(_hxDropdownToggleElement != null);
-		await _hxDropdownToggleElement.HideAsync();
+		Contract.Requires<InvalidOperationException>(_hxMenuToggleElement != null);
+		await _hxMenuToggleElement.HideAsync();
 	}
 
 	private async Task HandleCalendarValueChangedAsync(DateTime? date)
 	{
 		await SetCurrentDateAsync(date);
-		await CloseDropdownAsync();
+		await CloseMenuAsync();
 	}
 
 	protected async Task HandleCustomDateClick(DateTime value)
 	{
 		await SetCurrentDateAsync(value);
-		await CloseDropdownAsync();
+		await CloseMenuAsync();
 	}
 
 	protected async Task SetCurrentDateAsync(DateTime? date)
@@ -166,9 +166,9 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 		{
 			if (_firstRenderCompleted)
 			{
-				if (_hxDropdownToggleElement is not null)
+				if (_hxMenuToggleElement is not null)
 				{
-					await CloseDropdownAsync();
+					await CloseMenuAsync();
 				}
 
 				if (_jsModule is not null)

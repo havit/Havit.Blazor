@@ -1,4 +1,4 @@
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -118,7 +118,7 @@ public class HxAutosuggestTests : BunitTestBase
 	}
 
 	[Fact]
-	public void HxAutosuggest_Render_HasDropdownStructure()
+	public void HxAutosuggest_Render_HasInputStructure()
 	{
 		// Arrange
 		string selectedValue = null;
@@ -139,7 +139,7 @@ public class HxAutosuggestTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 
-		// Assert — dropdown structure is rendered
-		cut.Find(".dropdown");
+		// Assert — the autosuggest input (the programmatic menu toggle) is rendered
+		cut.Find("input.hx-autosuggest-input");
 	}
 }

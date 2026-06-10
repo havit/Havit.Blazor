@@ -1,7 +1,7 @@
-﻿.dropdown-menu {
-    min-width: var(--hx-autosuggest-dropdown-menu-width);
+﻿.menu {
+    min-width: var(--hx-autosuggest-menu-width);
     overflow: auto;
-    max-height: var(--hx-autosuggest-dropdown-menu-height);
+    max-height: var(--hx-autosuggest-menu-height);
 }
 
 ::deep .hx-autosuggest-item-focused:not(:active):not(:focus) {

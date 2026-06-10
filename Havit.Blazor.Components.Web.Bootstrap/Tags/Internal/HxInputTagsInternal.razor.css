@@ -1,4 +1,4 @@
-.hx-input-tags-control {
+﻿.hx-input-tags-control {
 	position: relative;
 	display: flex;
 	flex-grow: 1;
@@ -11,7 +11,7 @@ input:focus {
 	outline: none;
 }
 
-.dropdown {
+.hx-input-tags-toggle {
 	display: flex;
 	flex-grow: 1;
 	flex-basis: var(--hx-input-tags-input-width)
@@ -63,8 +63,8 @@ input:focus {
 	margin: var(--hx-input-tags-add-button-text-margin);
 }
 
-::deep .hx-input-tags-dropdown-item-focused {
-	background-color: var(--hx-input-tags-dropdown-item-highlighted-background-color);
+::deep .hx-input-tags-menu-item-focused {
+	background-color: var(--hx-input-tags-menu-item-highlighted-background-color);
 }
 
 ::deep .hx-tag-add-button-disabled {

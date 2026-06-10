@@ -1,0 +1,15 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@using Havit.Blazor.Components.Web.Bootstrap.Internal
+<HxNavLinkInternal href="@Href"
+				   Match="@(Match ?? NavLinkMatch.All)"
+				   OnClick="OnClick.HasDelegate ? InvokeOnClickAsync : null"
+				   class="@CssClassHelper.Combine("menu-item", CascadeEnabledComponent.EnabledEffective(this) ? null : "disabled", Color?.ToThemeCss(), CssClass)"
+				   ActiveClass="@(((Match is null) || (Href is null)) ? String.Empty : "active")"
+				   tabindex="@(CascadeEnabledComponent.EnabledEffective(this) ? null : "-1")"
+				   aria-disabled="@(CascadeEnabledComponent.EnabledEffective(this) ? null : "true")"
+				   role="@(OnClick.HasDelegate ? "button" : null)"
+				   @attributes="this.AdditionalAttributes">
+    <HxMenuItemIconInternal Icon="@Icon" CssClass="@IconCssClass" />
+	@Text
+	@ChildContent
+</HxNavLinkInternal>

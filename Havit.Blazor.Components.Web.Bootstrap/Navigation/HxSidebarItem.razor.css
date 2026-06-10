@@ -1,9 +1,9 @@
 ﻿::deep .hx-sidebar-item {
-	display: block; /* Overrides the inline flex from btn-group placed by HxDropdown */
+	display: block;
 }
 
 ::deep .hx-sidebar-item.dropend {
-	display: none; /* Dropdown is hidden by default and then shown whith ResponsiveBreakpoint.GetCssClass based on Sidebar settings */
+	display: none; /* The collapsed-mode submenu is hidden by default and then shown with ResponsiveBreakpoint.GetCssClass based on Sidebar settings */
 }
 
 ::deep .nav-link {
@@ -16,7 +16,7 @@
 }
 
 ::deep .hx-sidebar-subitems {
-	--bs-dropdown-border-radius: calc(var(--hx-sidebar-item-border-radius) + var(--bs-dropdown-padding-x));
+	--bs-menu-border-radius: calc(var(--hx-sidebar-item-border-radius) + var(--bs-menu-padding-x));
 }
 
 ::deep .hx-sidebar-subitems.collapse .nav-link,
@@ -44,7 +44,7 @@
 }
 
 /* Background and color for rest of the content */
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep .dropend > a.nav-link,
+.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep .hx-sidebar-item > a.nav-link,
 .hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
 	background-color: rgba(var(--hx-sidebar-parent-item-active-background-color), var(--hx-sidebar-parent-item-active-background-opacity));
 	color: var(--hx-sidebar-parent-item-active-color);
@@ -65,7 +65,7 @@
 	color: var(--hx-sidebar-item-hover-color);
 }
 
-::deep .dropdown-menu {
+::deep .menu {
 	max-height: 75vh;
 	overflow: auto;
 }
@@ -82,7 +82,7 @@
 	color: var(--hx-sidebar-item-hover-icon-color);
 }
 
-::deep .dropdown-header {
+::deep .menu-header {
 	padding-bottom: 0;
 	padding-left: .75rem;
 }

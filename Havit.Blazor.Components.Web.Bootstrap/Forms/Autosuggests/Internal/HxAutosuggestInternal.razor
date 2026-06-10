@@ -1,8 +1,8 @@
-@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
 @typeparam TValue
 
-<div id="@_dropdownId" class="@CssClassHelper.Combine("dropdown",
+<div id="@_menuId" class="@CssClassHelper.Combine(
 											HasInputGroupsEffective ? "input-group" : null,
 											HasInputGroupsEffective ? InputSizeEffective.AsInputGroupCssClass() : null,
 											InputGroupCssClass)">
@@ -27,7 +27,7 @@
 							OnClick="HandleInputClick"
 							Placeholder="@Placeholder"
 							CssClass="@InputCssClass"
-							DropdownOffset="@DropdownOffset"
+							MenuOffset="@MenuOffset"
 							AdditionalAttributes="AdditionalAttributes" />
 
 		@if (LabelTypeEffective == LabelType.Floating)
