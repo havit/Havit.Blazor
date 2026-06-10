@@ -16,7 +16,7 @@ public sealed class HxCheckboxList
 		{
 			// ValidationMessageMode = null, HxInputBase sets the default
 			// Color = null, HxCheckbox.Color is not set, HxCheckbox uses its own default then
-			// Outline = null, HxCheckbox.Outline is not set, HxCheckbox uses its own default then
+			// Variant = null, HxCheckbox.Variant is not set, HxCheckbox uses its own default then
 		};
 	}
 }

@@ -290,9 +290,9 @@
             Bootstrap button color (style).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.Outline">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.Variant">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap outline button style</see>.
+            Visual <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button/">variant</see> of the button (solid, outline, subtle, text, link), composed with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.Color"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.TooltipSettings">
@@ -303,6 +303,49 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonSize">
             <summary>
             Represents the size for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ButtonSize.ExtraSmall">
+            <summary>
+            Extra small button (new in Bootstrap 6).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonVariant">
+            <summary>
+            Visual variant of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> (composed with a theme color, see <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Color"/>).
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button/">Bootstrap 6 buttons</see>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ButtonVariant.Solid">
+            <summary>
+            Solid (filled) button. Default.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ButtonVariant.Outline">
+            <summary>
+            Outlined button.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ButtonVariant.Subtle">
+            <summary>
+            Button with a subtle (light) background.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ButtonVariant.Text">
+            <summary>
+            Text-only button (no background or border).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.ButtonVariant.Link">
+            <summary>
+            Link-styled button.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.ButtonVariantExtensions.ToButtonVariantAndColorCssClass(Havit.Blazor.Components.Web.Bootstrap.ButtonVariant,Havit.Blazor.Components.Web.Bootstrap.ThemeColor)">
+            <summary>
+            Bootstrap 6 buttons compose a variant class (<c>btn-solid</c>, <c>btn-outline</c>, ...) with a theme color class (<c>theme-*</c>).
+            Without a color, the variant classes have no theme tokens to consume, so no variant class is emitted (a plain neutral <c>btn</c> look),
+            with the exception of the standalone <c>btn-link</c> variant.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CloseButtonSettings">
@@ -377,9 +420,10 @@
             Button size. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonSize.Regular"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Outline">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Variant">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
+            Visual <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button/">variant</see> of the button (solid, outline, subtle, text, link), composed with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Color"/>.
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonVariant.Solid"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.CssClass">
@@ -3247,7 +3291,7 @@
             Color for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings.Outline">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings.Variant">
             <summary>
             Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
             for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
@@ -3293,7 +3337,7 @@
             Color for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings.Outline">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings.Variant">
             <summary>
             Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
             for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
@@ -3359,7 +3403,7 @@
             For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Outline">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.Variant">
             <summary>
             <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
             For <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>.
@@ -3555,7 +3599,7 @@
             Color for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Outline">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.Variant">
             <summary>
             Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
             for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
@@ -4906,7 +4950,7 @@
             Color for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.Outline">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.Variant">
             <summary>
             Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
             for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.
@@ -5950,7 +5994,7 @@
             Color for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings.Outline">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings.Variant">
             <summary>
             Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
             for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.

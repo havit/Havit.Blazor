@@ -1,4 +1,4 @@
-@inject IDemoDataService DemoDataService
+﻿@inject IDemoDataService DemoDataService
 
 <HxCheckboxList Label="Checkboxes (default)"
 				TItem="EmployeeDto"
@@ -28,7 +28,7 @@
 				ItemValueSelector="@(employee => employee.Id)"
 				RenderMode="CheckboxListRenderMode.ToggleButtons"
 				Color="ThemeColor.Secondary"
-				Outline="true"
+				Variant="ButtonVariant.Outline"
 				CssClass="mt-2" />
 
 <HxCheckboxList Label="Button group"
@@ -40,7 +40,7 @@
 				ItemValueSelector="@(employee => employee.Id)"
 				RenderMode="CheckboxListRenderMode.ButtonGroup"
 				Color="ThemeColor.Secondary"
-				Outline="true"
+				Variant="ButtonVariant.Outline"
 				CssClass="mt-2" />
 
 @code

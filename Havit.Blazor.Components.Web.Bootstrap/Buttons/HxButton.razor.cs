@@ -22,7 +22,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 			IconPlacement = ButtonIconPlacement.Start,
 			Color = ThemeColor.None,
 			CssClass = null,
-			Outline = false,
+			Variant = ButtonVariant.Solid,
 			Icon = null,
 			TooltipSettings = new TooltipSettings()
 		};
@@ -83,10 +83,11 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	protected ButtonSize SizeEffective => Size ?? GetSettings()?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxButton) + " has to be set.");
 
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
+	/// Visual <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button/">variant</see> of the button (solid, outline, subtle, text, link), composed with <see cref="Color"/>.
+	/// The default is <see cref="ButtonVariant.Solid"/>.
 	/// </summary>
-	[Parameter] public bool? Outline { get; set; }
-	protected bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxButton) + " has to be set.");
+	[Parameter] public ButtonVariant? Variant { get; set; }
+	protected ButtonVariant VariantEffective => Variant ?? GetSettings()?.Variant ?? GetDefaults().Variant ?? throw new InvalidOperationException(nameof(Variant) + " default for " + nameof(HxButton) + " has to be set.");
 
 	/// <summary>
 	/// Custom CSS class to render with the <c>&lt;button /&gt;</c>.<br />
@@ -229,10 +230,11 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	{
 		return CssClassHelper.Combine(
 			CoreCssClass,
-			ColorEffective.ToButtonColorCss(OutlineEffective),
+			VariantEffective.ToButtonVariantAndColorCssClass(ColorEffective),
 			SizeEffective.ToButtonSizeCssClass(),
 			CssClassEffective);
 	}
+
 
 	protected string GetTooltipWrapperCssClass()
 	{
