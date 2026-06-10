@@ -60,10 +60,12 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 	/// <inheritdoc cref="HxInputBase{TValue}.CoreInputCssClass" />
 	private protected override string CoreInputCssClass => RenderModeEffective switch
 	{
-		CheckboxRenderMode.Checkbox => "form-check-input",
-		CheckboxRenderMode.Switch => "form-check-input",
-		CheckboxRenderMode.NativeSwitch => "form-check-input",
-		CheckboxRenderMode.ToggleButton => "btn-check",
+		// Bootstrap 6: all checkbox styling is applied with the .check class directly on the input (themed via theme-*);
+		// switch inputs are unstyled (the .switch wrapper carries the styling); toggle-button inputs are nested in label.btn-check.
+		CheckboxRenderMode.Checkbox => CssClassHelper.Combine("check", (ColorEffective != ThemeColor.None) ? ColorEffective.ToThemeCss() : null),
+		CheckboxRenderMode.Switch => null,
+		CheckboxRenderMode.NativeSwitch => null,
+		CheckboxRenderMode.ToggleButton => null,
 		_ => throw new InvalidOperationException($"Unknown {nameof(CheckboxRenderMode)}: {RenderModeEffective}.")
 	};
 
@@ -80,40 +82,31 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 
 			return CssClassHelper.Combine(
 				base.CoreCssClass,
-				NeedsInnerDiv ? null : AdditionalFormElementCssClass,
-				NeedsFormCheckOuter ? CssClassHelper.Combine("form-check", Inline ? "form-check-inline" : null) : null,
-				Reverse ? "form-check-reverse" : null);
+				NeedsFormFieldOuter ? GetFormFieldCssClass() : null);
 		}
 	}
 
-	private string AdditionalFormElementCssClass => RenderModeEffective switch
-	{
-		CheckboxRenderMode.Checkbox => null,
-		CheckboxRenderMode.Switch => "form-switch",
-		CheckboxRenderMode.NativeSwitch => "form-switch",
-		CheckboxRenderMode.ToggleButton => null,
-		_ => throw new InvalidOperationException($"Unknown {nameof(CheckboxRenderMode)}: {RenderModeEffective}.")
-	};
+	private string GetFormFieldCssClass() => CssClassHelper.Combine(
+		"form-field",
+		Inline ? "hx-form-field-inline" : null,
+		Reverse ? "hx-form-field-reverse" : null);
 
 	/// <summary>
-	/// For a naked checkbox without Label/LabelTemplate, we add form-check, form-check-inline to the parent div (allows combining with CssClass etc.).
-	/// It is expected that there is just the parent div, input, and label for Text/TextTemplate.
-	/// No label for Label/LabelTemplate, no HintTemplate, no validation message is expected.
-	/// For a checkbox with Label, there is a parent div followed by a label for Label/LabelTemplate.
-	/// Siblings label, input, label do not work well and there is nowhere to add form-check.
-	/// Therefore, we wrap the input and label in the additional div.
+	/// For a checkbox without Label/LabelTemplate, the form-field layout class goes to the parent div (allows combining with CssClass etc.).
+	/// For a checkbox with Label, there is a parent div followed by a label for Label/LabelTemplate,
+	/// so the input and text-label are wrapped in an additional div.form-field.
 	/// </summary>
 	private protected bool NeedsInnerDiv => !string.IsNullOrWhiteSpace(Label) || (LabelTemplate is not null);
 
 	/// <summary>
-	/// For checkbox without any Text/TextTemplate we do not add form-check class.
+	/// For a checkbox without any Text/TextTemplate, the form-field layout wrapper is not needed.
 	/// </summary>
-	private protected bool NeedsFormCheck => (!string.IsNullOrWhiteSpace(Text) || (TextTemplate is not null)) && (RenderModeEffective != CheckboxRenderMode.ToggleButton);
+	private protected bool NeedsFormField => (!string.IsNullOrWhiteSpace(Text) || (TextTemplate is not null)) && (RenderModeEffective != CheckboxRenderMode.ToggleButton);
 
 	/// <summary>
-	/// For checkbox without any Label/LabelTemplate and without Text/TextTemplate we do not add form-check to the parent div.
+	/// For a checkbox without any Label/LabelTemplate and without Text/TextTemplate, no form-field class goes to the parent div.
 	/// </summary>
-	private protected bool NeedsFormCheckOuter => !NeedsInnerDiv && NeedsFormCheck;
+	private protected bool NeedsFormFieldOuter => !NeedsInnerDiv && NeedsFormField;
 
 	/// <summary>
 	/// The input ElementReference.
@@ -124,13 +117,27 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 	/// <inheritdoc />
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
+		if (RenderModeEffective == CheckboxRenderMode.ToggleButton)
+		{
+			BuildRenderInput_ToggleButton(builder);
+			return;
+		}
+
 		if (NeedsInnerDiv)
 		{
 			builder.OpenElement(-2, "div");
-			builder.AddAttribute(-1, "class", CssClassHelper.Combine(NeedsFormCheck ? "form-check" : null, AdditionalFormElementCssClass));
+			builder.AddAttribute(-1, "class", GetFormFieldCssClass());
 		}
 
 		EnsureInputId(); // must be called before the input is rendered
+
+		bool isSwitch = (RenderModeEffective == CheckboxRenderMode.Switch) || (RenderModeEffective == CheckboxRenderMode.NativeSwitch);
+		if (isSwitch)
+		{
+			// Bootstrap 6 switch: an unstyled checkbox layered over the styled .switch wrapper element
+			builder.OpenElement(-100, "div");
+			builder.AddAttribute(-99, "class", CssClassHelper.Combine("switch", (ColorEffective != ThemeColor.None) ? ColorEffective.ToThemeCss() : null));
+		}
 
 		builder.OpenElement(0, "input");
 		BuildRenderInput_AddCommonAttributes(builder, "checkbox");
@@ -144,7 +151,7 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 		builder.AddAttribute(1002, "onchange", value: EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
 		builder.SetUpdatesAttributeName("checked");
 
-		if ((RenderModeEffective == CheckboxRenderMode.Switch) || (RenderModeEffective == CheckboxRenderMode.NativeSwitch))
+		if (isSwitch)
 		{
 			builder.AddAttribute(1003, "role", "switch");
 		}
@@ -152,33 +159,70 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 		{
 			builder.AddAttribute(1004, "switch", true); // does not render ="true", we need only "switch" attribute to be present
 		}
-		if (RenderModeEffective == CheckboxRenderMode.ToggleButton)
-		{
-			builder.AddAttribute(1005, "autocomplete", "off");
-		}
 
 		builder.AddEventStopPropagationAttribute(1006, "onclick", true);
 		builder.AddElementReferenceCapture(1007, elementReference => InputElement = elementReference);
 		builder.CloseElement(); // input
 
-		builder.OpenElement(2000, "label");
-		builder.AddAttribute(2001, "class", CssClassHelper.Combine(
-			(RenderModeEffective == CheckboxRenderMode.ToggleButton) ? "btn" : "form-check-label",
-			(RenderModeEffective == CheckboxRenderMode.ToggleButton) ? VariantEffective.ToButtonVariantAndColorCssClass(ColorEffective) : null,
-			(RenderModeEffective == CheckboxRenderMode.ToggleButton) ? ButtonSizeEffective.ToButtonSizeCssClass() : null,
+		if (isSwitch)
+		{
+			builder.CloseElement(); // div.switch
+		}
+
+		if (!String.IsNullOrWhiteSpace(Text) || (TextTemplate is not null))
+		{
+			builder.OpenElement(2000, "label");
+			if (TextCssClass is not null)
+			{
+				builder.AddAttribute(2001, "class", TextCssClass);
+			}
+			builder.AddAttribute(2002, "for", InputId);
+			if (TextTemplate == null)
+			{
+				builder.AddContent(2003, Text);
+			}
+			builder.AddContent(2004, TextTemplate);
+			builder.CloseElement(); // label
+		}
+
+		if (NeedsInnerDiv)
+		{
+			builder.CloseElement(); // div
+		}
+	}
+
+	/// <summary>
+	/// Bootstrap 6 toggle button: the <c>btn-check</c> class moves to the <c>label</c> with a nested unstyled input
+	/// (no <c>id</c>/<c>for</c> pairing, the styling uses <c>:has()</c>).
+	/// </summary>
+	private void BuildRenderInput_ToggleButton(RenderTreeBuilder builder)
+	{
+		EnsureInputId(); // must be called before the input is rendered
+
+		builder.OpenElement(0, "label");
+		builder.AddAttribute(1, "class", CssClassHelper.Combine(
+			"btn-check",
+			VariantEffective.ToButtonVariantAndColorCssClass(ColorEffective),
+			ButtonSizeEffective.ToButtonSizeCssClass(),
 			TextCssClass));
-		builder.AddAttribute(2002, "for", InputId);
+
+		builder.OpenElement(100, "input");
+		BuildRenderInput_AddCommonAttributes(builder, "checkbox");
+		builder.AddAttribute(1000, "checked", BindConverter.FormatValue(CurrentValue));
+		builder.AddAttribute(1001, "value", bool.TrueString);
+		builder.AddAttribute(1002, "onchange", value: EventCallback.Factory.CreateBinder<bool>(this, value => CurrentValue = value, CurrentValue));
+		builder.SetUpdatesAttributeName("checked");
+		builder.AddAttribute(1005, "autocomplete", "off");
+		builder.AddEventStopPropagationAttribute(1006, "onclick", true);
+		builder.AddElementReferenceCapture(1007, elementReference => InputElement = elementReference);
+		builder.CloseElement(); // input
+
 		if (TextTemplate == null)
 		{
 			builder.AddContent(2003, Text);
 		}
 		builder.AddContent(2004, TextTemplate);
 		builder.CloseElement(); // label
-
-		if (NeedsInnerDiv)
-		{
-			builder.CloseElement(); // div
-		}
 	}
 
 	/// <inheritdoc />

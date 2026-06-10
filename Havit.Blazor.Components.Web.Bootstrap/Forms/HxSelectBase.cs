@@ -143,7 +143,7 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 	/// </summary>
 	protected ElementReference InputElement { get; set; }
 
-	private protected override string CoreInputCssClass => "form-select";
+	private protected override string CoreInputCssClass => "form-control";
 
 	private IEqualityComparer<TValue> _comparer = EqualityComparer<TValue>.Default;
 	private List<TItem> _itemsToRender;
