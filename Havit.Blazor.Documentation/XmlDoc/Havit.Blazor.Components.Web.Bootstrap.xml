@@ -11343,6 +11343,199 @@
             Represents a growing spinner. For more information, see: <see href="https://getbootstrap.com/docs/5.3/components/spinners/#growing-spinner">https://getbootstrap.com/docs/5.3/components/spinners/#growing-spinner</see>
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxStepper">
+            <summary>
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/stepper/">Bootstrap Stepper</see> component (new in Bootstrap 6).<br />
+            Displays progress through a multi-step workflow (wizards, timelines, step-by-step progress bars) as a sequence of numbered steps (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxStepperItem"/>s).
+            The component is CSS-only, there is no step-switching logic (wire up your own state).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxStepper">https://havit.blazor.eu/components/HxStepper</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepper.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxStepper"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxStepper.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepper.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxStepper.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxStepper.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxStepper.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxStepper.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepper.ChildContent">
+            <summary>
+            Content of the stepper (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxStepperItem"/>s).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepper.Horizontal">
+            <summary>
+            Changes the layout of the stepper items from vertical to horizontal, including the responsive breakpoint
+            (Bootstrap 6 responsive <c>{breakpoint}:stepper-horizontal</c> classes are container query based,
+            the component renders the required <c>contains-inline</c> wrapper automatically).
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.StepperHorizontal.Never"/> (vertical stepper).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepper.Color">
+            <summary>
+            Theme color of the stepper (renders the <c>theme-*</c> class), applies to all active items.
+            To color individual steps, use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxStepperItem.Color"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepper.Overflow">
+            <summary>
+            When <c>true</c>, the stepper is wrapped in a <c>stepper-overflow</c> container which enables horizontal scrolling
+            when the (horizontal) stepper overflows its parent. The default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepper.CssClass">
+            <summary>
+            Additional CSS class(es) for the stepper.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepper.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying HTML element
+            (e.g. use the <c>style</c> attribute to customize the gap by overriding the <c>--bs-stepper-gap</c> CSS variable).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepper.HasAnchorItems">
+            <summary>
+            Indicates whether any of the items is rendered as an anchor (has <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxStepperItem.Href"/> set).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxStepper.RegisterAnchorItem">
+            <summary>
+            Called by <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxStepperItem"/> with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxStepperItem.Href"/> set.
+            Anchor items cannot be nested in an ordered list, so the stepper re-renders as a <c>div</c> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepper.RenderContainsInlineWrapper">
+            <summary>
+            Responsive horizontal steppers use container queries, which require a <c>contains-inline</c> parent element
+            (when the <c>stepper-overflow</c> wrapper is rendered, it establishes the query container itself).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxStepperItem">
+            <summary>
+            A single step for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxStepper"/>.
+            The step number is rendered automatically by Bootstrap (CSS counter).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxStepper">https://havit.blazor.eu/components/HxStepper</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepperItem.Text">
+            <summary>
+            Step label.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepperItem.ChildContent">
+            <summary>
+            Content of the step (an alternative to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxStepperItem.Text"/> which allows complex content,
+            such as descriptions, helper messages, status indicators, badges, or other decorative elements).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepperItem.Href">
+            <summary>
+            Link of the step. When set, the item renders as an anchor element
+            (and the whole stepper renders as a <c>div</c> instead of an ordered list).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepperItem.Active">
+            <summary>
+            Set to <c>true</c> for completed steps and the current step (highlights the step number and the connecting line).
+            Bootstrap automatically renders the connecting line following the last active step in the inactive color.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepperItem.Color">
+            <summary>
+            Theme color of the step (renders the <c>theme-*</c> class).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxStepperItem.CssClass">
+            <summary>
+            Additional CSS class(es) for the step
+            (e.g. use <c>align-items-start</c> to align multi-line content with the step number).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.StepperHorizontal">
+            <summary>
+            Responsive horizontal setting (breakpoint) for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxStepper"/>.
+            The responsive breakpoints are container query based (they react to the width of the containing element, not the viewport).
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.StepperHorizontal.Never"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.StepperHorizontal.Never">
+            <summary>
+            Never horizontal, always vertical.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.StepperHorizontal.SmallUp">
+            <summary>
+            Horizontal for containers above the "small" breakpoint (<c>576px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.StepperHorizontal.MediumUp">
+            <summary>
+            Horizontal for containers above the "medium" breakpoint (<c>768px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.StepperHorizontal.LargeUp">
+            <summary>
+            Horizontal for containers above the "large" breakpoint (<c>1024px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.StepperHorizontal.ExtraLargeUp">
+            <summary>
+            Horizontal for containers above the "extra-large" breakpoint (<c>1280px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.StepperHorizontal.XxlUp">
+            <summary>
+            Horizontal for containers above the "2xl" breakpoint (<c>1536px</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.StepperHorizontal.Always">
+            <summary>
+            Always horizontal, never vertical.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.StepperSettings">
+            <summary>
+            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxStepper"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.StepperSettings.Horizontal">
+            <summary>
+            Layout of the stepper items (vertical/horizontal, including the responsive breakpoint).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.StepperSettings.Color">
+            <summary>
+            Theme color of the stepper (renders the <c>theme-*</c> class).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.StepperSettings.Overflow">
+            <summary>
+            When <c>true</c>, the stepper is wrapped in a scrollable <c>stepper-overflow</c> container.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.StepperSettings.CssClass">
+            <summary>
+            Additional CSS class(es) for the stepper.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTab">
             <summary>
             Single tab for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/>.

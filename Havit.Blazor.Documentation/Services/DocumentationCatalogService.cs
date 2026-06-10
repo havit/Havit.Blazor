@@ -96,6 +96,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/components/HxSmartTextArea", "HxSmartTextArea", "autocompletions suggest intellisense typeahead ai gpt artificial intelligence"),
 		new("/components/HxSmartComboBox", "HxSmartComboBox", "autocomplete search typeahead select suggest ai artificial intelligence autosuggest"),
 		new("/components/HxSpinner", "HxSpinner", "loading progress placeholder skeleton"),
+		new("/components/HxStepper", "HxStepper", "wizard steps progress timeline workflow"),
 		new("/components/HxSubmit#HxSubmit", "HxSubmit", "send form button"),
 		new("/components/HxSwitch", "HxSwitch", "hxinputswitch hxradiobutton checkbox"),
 		new("/components/HxTabPanel", "HxTabPanel", "page tabs"),
@@ -149,6 +150,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/types/RadioButtonListSettings", "RadioButtonList Settings", "defaults", DefaultsLevel),
 		new("/types/SelectSettings", "Select Settings", "defaults", DefaultsLevel),
 		new("/types/SearchBoxSettings", "SearchBox Settings", "defaults", DefaultsLevel),
+		new("/types/StepperSettings", "Stepper Settings", "defaults", DefaultsLevel),
 
 		// Enums
 
@@ -187,6 +189,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/types/PlaceholderSize", "PlaceholderSize", "enum", EnumsLevel),
 		new("/types/SpinnerSize", "SpinnerSize", "enum", EnumsLevel),
 		new("/types/SpinnerType", "SpinnerType", "enum", EnumsLevel),
+		new("/types/StepperHorizontal", "StepperHorizontal", "enum", EnumsLevel),
 		new("/types/ThemeColor", "ThemeColor", "enum", EnumsLevel),
 		new("/types/ToastContainerPosition", "ToastContainerPosition", "enum", EnumsLevel),
 		new("/types/PopoverPlacement", "PopoverPlacement", "enum", EnumsLevel),
