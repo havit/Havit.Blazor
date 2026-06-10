@@ -1,44 +1,44 @@
-﻿@page "/HxOffcanvas_OnHiding_Test"
+﻿@page "/HxDrawer_OnHiding_Test"
 
-<h1>HxOffcanvas OnHiding</h1>
+<h1>HxDrawer OnHiding</h1>
 
-<HxOffcanvas @ref="offcanvasComponent" Size="OffcanvasSize.Regular" OnHiding="HandleOffcanvasHiding">
+<HxDrawer @ref="drawerComponent" Size="DrawerSize.Regular" OnHiding="HandleDrawerHiding">
 	<HeaderTemplate>Title</HeaderTemplate>
 	<BodyTemplate>
 		<HxSwitch Label="Allow hiding" @bind-Value="_allowHiding" />
 	</BodyTemplate>
 	<FooterTemplate>
 		<HxButton OnClick="HandleHide" Text="Close" Color="ThemeColor.Secondary" />
-		<HxButton OnClick="@(() => secondOffcanvasComponent.ShowAsync())" Text="Second" Color="ThemeColor.Danger" />
+		<HxButton OnClick="@(() => secondDrawerComponent.ShowAsync())" Text="Second" Color="ThemeColor.Danger" />
 	</FooterTemplate>
-</HxOffcanvas>
+</HxDrawer>
 
-<HxOffcanvas @ref="secondOffcanvasComponent" Backdrop="OffcanvasBackdrop.Static">
+<HxDrawer @ref="secondDrawerComponent" Backdrop="DrawerBackdrop.Static">
 	<HeaderTemplate>
 		Second
 	</HeaderTemplate>
-</HxOffcanvas>
+</HxDrawer>
 
 <HxButton OnClick="HandleOpen" Text="Open" Color="ThemeColor.Primary" />
 <HxButton OnClick="HandleHide" Text="Hide" Color="ThemeColor.Secondary" />
 
 @code
 {
-	private HxOffcanvas offcanvasComponent;
-	private HxOffcanvas secondOffcanvasComponent;
+	private HxDrawer drawerComponent;
+	private HxDrawer secondDrawerComponent;
 	private bool _allowHiding = false;
 
 	private async Task HandleOpen()
 	{
-		await offcanvasComponent.ShowAsync();
+		await drawerComponent.ShowAsync();
 	}
 
 	private async Task HandleHide()
 	{
-		await offcanvasComponent.HideAsync();
+		await drawerComponent.HideAsync();
 	}
 
-	private void HandleOffcanvasHiding(OffcanvasHidingEventArgs args)
+	private void HandleDrawerHiding(DrawerHidingEventArgs args)
 	{
 		if (!_allowHiding)
 		{

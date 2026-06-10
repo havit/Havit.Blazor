@@ -18,9 +18,9 @@
 
 		HxButton.Defaults.Size = ButtonSize.Small;
 		
-		HxOffcanvas.Defaults.Backdrop = OffcanvasBackdrop.Static;
-		HxOffcanvas.Defaults.HeaderCssClass = "border-bottom";
-		HxOffcanvas.Defaults.FooterCssClass = "border-top";
+		HxDrawer.Defaults.Backdrop = DrawerBackdrop.Static;
+		HxDrawer.Defaults.HeaderCssClass = "border-bottom";
+		HxDrawer.Defaults.FooterCssClass = "border-top";
 		
 		HxChipList.Defaults.ChipBadgeSettings.Color = ThemeColor.Secondary;
 		HxChipList.Defaults.ChipBadgeSettings.TextColor = ThemeColor.Inverse;
