@@ -1,11 +1,11 @@
 namespace Havit.Blazor.TestApp.Client;
 
-public partial class BusinessCardValidationModal : ComponentBase
+public partial class BusinessCardValidationDialog : ComponentBase
 {
 	[Parameter] public bool StartValidation { get; set; }
 	[Parameter] public EventCallback OnValidationFinished { get; set; }
 
-	private HxModal _modalComponent;
+	private HxDialog _dialogComponent;
 
 	private bool _validationStarted;
 
@@ -14,7 +14,7 @@ public partial class BusinessCardValidationModal : ComponentBase
 		if (StartValidation && !_validationStarted)
 		{
 			_validationStarted = true;
-			await _modalComponent.ShowAsync();
+			await _dialogComponent.ShowAsync();
 		}
 	}
 
@@ -32,7 +32,7 @@ public partial class BusinessCardValidationModal : ComponentBase
 
 	private async Task FinishValidation()
 	{
-		await _modalComponent.HideAsync();
+		await _dialogComponent.HideAsync();
 		await OnValidationFinished.InvokeAsync();
 
 		_validationStarted = false;

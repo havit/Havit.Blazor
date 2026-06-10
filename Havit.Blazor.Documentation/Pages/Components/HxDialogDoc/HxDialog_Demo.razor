@@ -1,26 +1,26 @@
-﻿<HxButton OnClick="HandleShowClick" Color="ThemeColor.Primary">Show modal</HxButton>
+﻿<HxButton OnClick="HandleShowClick" Color="ThemeColor.Primary">Show dialog</HxButton>
 
-<HxModal @ref="myModal" Title="Modal title">
+<HxDialog @ref="myDialog" Title="Dialog title">
 	<BodyTemplate>
-		Modal body
+		Dialog body
 	</BodyTemplate>
 	<FooterTemplate>
 		<HxButton Text="Close" OnClick="HandleHideClick" Color="ThemeColor.Primary" />
 	</FooterTemplate>
-</HxModal>
+</HxDialog>
 
 @code
 {
-	private HxModal myModal;
+	private HxDialog myDialog;
 
 	private async Task HandleShowClick()
 	{
-		await myModal.ShowAsync();
+		await myDialog.ShowAsync();
 	}
 
 	private async Task HandleHideClick()
 	{
-		await myModal.HideAsync();
+		await myDialog.HideAsync();
 	}
 
 }

@@ -1,0 +1,47 @@
+﻿<HxDialog @ref="smDialog" Fullscreen="DialogFullscreen.SmallDown" Title="Fullscreen bellow SM">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxDialog>
+<HxDialog @ref="mdDialog" Fullscreen="DialogFullscreen.MediumDown" Title="Fullscreen bellow MD">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxDialog>
+<HxDialog @ref="lgDialog" Fullscreen="DialogFullscreen.LargeDown" Title="Fullscreen bellow LG">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxDialog>
+<HxDialog @ref="xlDialog" Fullscreen="DialogFullscreen.ExtraLargeDown"  Title="Fullscreen bellow XL">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxDialog>
+<HxDialog @ref="xxlDialog" Fullscreen="DialogFullscreen.XxlDown" Title="Fullscreen bellow XXL">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxDialog>
+<HxDialog @ref="xl2Dialog" Fullscreen="DialogFullscreen.ExtraLargeDown" Size="DialogSize.Large" Title="Fullscreen bellow XL (otherwise L)">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxDialog>
+
+<HxButton OnClick="() => smDialog.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Fullscreen bellow SM</HxButton>
+<HxButton OnClick="() => mdDialog.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Fullscreen bellow MD</HxButton>
+<HxButton OnClick="() => lgDialog.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Fullscreen bellow LG</HxButton>
+<HxButton OnClick="() => xlDialog.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Fullscreen bellow XL</HxButton>
+<HxButton OnClick="() => xxlDialog.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Fullscreen bellow XXL</HxButton>
+<HxButton OnClick="() => xl2Dialog.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Fullscreen bellow XL (otherwise L)</HxButton>
+
+@code
+{
+	private HxDialog smDialog;
+	private HxDialog mdDialog;
+	private HxDialog lgDialog;
+	private HxDialog xlDialog;
+	private HxDialog xxlDialog;
+	private HxDialog xl2Dialog;
+}

@@ -1,6 +1,6 @@
-namespace Havit.Blazor.TestApp.Client.HxModalTests;
+namespace Havit.Blazor.TestApp.Client.HxDialogTests;
 
-public partial class HxModal_BusinessCardValidation_Test : ComponentBase
+public partial class HxDialog_BusinessCardValidation_Test : ComponentBase
 {
 	private bool _startValidation;
 
