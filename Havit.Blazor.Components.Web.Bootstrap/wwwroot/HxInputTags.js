@@ -29,7 +29,8 @@ function handleInputBlur(event) {
 	// If relatedTarget is within the menu, we will ignore the blur event.
 	let isWithinMenu = false;
 	if (event.relatedTarget) {
-		isWithinMenu = event.target.parentElement.contains(event.relatedTarget);
+		const menu = event.target.parentElement.querySelector('.menu');
+		isWithinMenu = (menu !== null) && menu.contains(event.relatedTarget);
 	}
 
 	event.target.hxInputTagsDotnetObjectReference.invokeMethodAsync("HxInputTagsInternal_HandleInputBlur", isWithinMenu);

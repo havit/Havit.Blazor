@@ -74,9 +74,6 @@
 	--hx-form-spacing: 1.25rem;
 
 	/* HxChipList */
-	--hx-chip-list-chip-margin:										0.75rem 0.25rem .375rem 0;
-	--hx-chip-list-chip-gap:										.25rem;
-	--hx-chip-list-chip-remove-btn-opacity: 						.75;
 	--hx-chip-list-chip-reset-btn-padding: 							.45em .75em;
 	--hx-chip-list-chip-label-font-weight: 							400;
 	--hx-chip-list-chip-label-opacity: 								1; /* 1 cause the contrast is not accessible in the default themes*/
@@ -156,16 +153,10 @@
 	--hx-multi-select-menu-width: 							100%;
 
 	/* TagInput */
-	--hx-input-tags-tag-gap: 										.25rem;
-	--hx-input-tags-input-width: 									3em;
-	--hx-input-tags-input-placeholder-color: 						var(--bs-secondary-color);
 	--hx-input-tags-naked-font-size-lg: 							1.25em;
 	--hx-input-tags-naked-font-size-sm: 							.875em;
-	--hx-input-tags-control-focused-box-shadow: 					0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
-	--hx-input-tags-control-focused-border-color: 					rgba(var(--bs-primary-rgb), .3);
 	--hx-input-tags-add-button-text-margin: 						0 0 0 .25rem;
 	--hx-input-tags-add-button-disabled-opacity: 					.65;
-	--hx-input-tags-remove-button-margin: 							0 0 0 .25rem;
 	--hx-input-tags-menu-item-highlighted-background-color: 	var(--bs-tertiary-bg);
 
 	/* TreeView */

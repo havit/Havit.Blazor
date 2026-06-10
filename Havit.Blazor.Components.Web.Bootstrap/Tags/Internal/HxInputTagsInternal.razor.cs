@@ -59,22 +59,20 @@ public partial class HxInputTagsInternal
 	[Parameter] public string Placeholder { get; set; }
 
 	/// <summary>
-	/// Settings for the <see cref="HxBadge"/> used to render tags.
+	/// CSS class(es) rendered with the individual tag chips (theme color + any additional classes).
 	/// </summary>
-	[Parameter] public BadgeSettings TagBadgeSettingsEffective { get; set; }
+	[Parameter] public string TagCssClass { get; set; }
 
 	[Parameter] public int SuggestDelayEffective { get; set; } = 300;
 
 	/// <summary>
-	/// CSS of the wrapping .form-control container (corresponds to InputCssClass on regular inputs)
+	/// CSS of the inner input element (form-ghost, is-invalid, ...). The chip-input wrapper reflects the states via <c>:has()</c>.
 	/// </summary>
-	[Parameter] public string CoreFormControlCssClass { get; set; }
+	[Parameter] public string InputCssClass { get; set; }
 
 	[Parameter] public string InputId { get; set; }
 
 	[Parameter] public bool EnabledEffective { get; set; } = true;
-
-	[Parameter] public LabelType LabelTypeEffective { get; set; }
 
 	[Parameter] public InputSize InputSizeEffective { get; set; }
 
@@ -125,7 +123,6 @@ public partial class HxInputTagsInternal
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
-	private string _menuId = "hx" + Guid.NewGuid().ToString("N");
 	private System.Timers.Timer _timer;
 	private string _userInput = String.Empty;
 	private CancellationTokenSource _cancellationTokenSource;
@@ -525,15 +522,6 @@ public partial class HxInputTagsInternal
 	protected async Task HandleRemoveClickAsync(string tag)
 	{
 		await RemoveTagWithEventCallbackAsync(tag);
-	}
-
-	protected string GetFormControlCssClasses()
-	{
-		if (Naked)
-		{
-			return null;
-		}
-		return CssClassHelper.Combine(CoreFormControlCssClass, InputSizeEffective.AsFormControlCssClass());
 	}
 
 	protected string GetNakedCssClasses()

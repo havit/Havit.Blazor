@@ -1296,9 +1296,14 @@
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxChipList"/> component.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.ChipListSettings.Color">
+            <summary>
+            The theme color of the chips (applied as a Bootstrap <c>theme-*</c> class).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ChipListSettings.ChipBadgeSettings">
             <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render chips.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> previously used to render chips.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ChipListSettings.CssClass">
@@ -1319,7 +1324,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxChipList">
             <summary>
-            Presents a list of chips as badges.<br/>
+            Presents a list of chips (rendered as Bootstrap <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/chips/">Chip</see> elements).<br/>
             Usually used to present filter criteria gathered by <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxFilterForm`1"/>.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxChipList">https://havit.blazor.eu/components/HxChipList</see>
             </summary>
@@ -1353,11 +1358,26 @@
             Chips to be presented.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.Color">
+            <summary>
+            The theme color of the chips (applied as a Bootstrap <c>theme-*</c> class).
+            Bootstrap 6 chips use the subtle theme tokens by default.
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> (the native grayscale chip appearance).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.ChipCssClassEffective">
+            <summary>
+            Additional CSS class(es) rendered with the individual chips (legacy <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.ChipBadgeSettings"/> CssClass).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.ChipBadgeSettings">
             <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render chips.
-            The default brings <c>Color="<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Secondary" />".</c>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> previously used to render chips.
             </summary>
+            <remarks>
+            Chips are no longer rendered as badges since Bootstrap 6. Only the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BadgeSettings.Color"/> (mapped to a <c>theme-*</c> class)
+            and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BadgeSettings.CssClass"/> values are honored.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxChipList.CssClass">
             <summary>
@@ -4187,14 +4207,14 @@
             Short hint displayed in the input field before the user enters a value.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.TagBadgeSettingsEffective">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.TagCssClass">
             <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render tags.
+            CSS class(es) rendered with the individual tag chips (theme color + any additional classes).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.CoreFormControlCssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.InputCssClass">
             <summary>
-            CSS of the wrapping .form-control container (corresponds to InputCssClass on regular inputs)
+            CSS of the inner input element (form-ghost, is-invalid, ...). The chip-input wrapper reflects the states via <c>:has()</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInternal.InputOffset">
@@ -11610,13 +11630,33 @@
             Defines whether the input for new tag may be checked for spelling errors.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.Color">
+            <summary>
+            The theme color of the tag chips (applied as a Bootstrap <c>theme-*</c> class).
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> (the native grayscale chip appearance).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.TagCssClassEffective">
+            <summary>
+            The CSS class(es) rendered with the individual tag chips (theme color + legacy <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.TagBadgeSettings"/> CssClass).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.TagBadgeSettings">
             <summary>
-            The settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render tags. The default is <c>Color="<see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Secondary"/>"</c>.
+            The settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> previously used to render tags.
             </summary>
+            <remarks>
+            Tags are no longer rendered as badges since Bootstrap 6. Only the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BadgeSettings.Color"/> (mapped to a <c>theme-*</c> class)
+            and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BadgeSettings.CssClass"/> values are honored.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.LabelType">
             <inheritdoc cref="T:Havit.Blazor.Components.Web.Bootstrap.LabelType" />
+            <remarks>
+            <see cref="F:Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating"/> is not supported since Bootstrap 6. The component renders with the
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/chips/">chip-input</see> pattern,
+            where the wrapper owns the visual chrome, while Bootstrap 6 floating labels require the input itself to be the <c>.form-control</c>.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.InputSize">
             <summary>
@@ -11647,6 +11687,12 @@
             <summary>
             The input-group at the end of the input.
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.OnParametersSet">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.GetInputCssClassToRender">
+            <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputTags.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
@@ -11731,9 +11777,14 @@
             Indicates whether the add-icon (+) should be displayed.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.Color">
+            <summary>
+            The theme color of the tag chips (applied as a Bootstrap <c>theme-*</c> class).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.TagBadgeSettings">
             <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> used to render tags.
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge"/> previously used to render tags.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputTagsSettings.Spellcheck">
