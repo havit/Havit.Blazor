@@ -27,6 +27,8 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/components/HxAnchorFragmentNavigation", "HxAnchorFragmentNavigation", "id scroll"),
 		new("/components/HxApplicationInsights", "HxApplicationInsights", "telemetry monitoring azure logging exception tracking page view HxApplicationInsightsExceptionTracker appinsights application insights"),
 		new("/components/HxAutosuggest", "HxAutosuggest", "autocomplete search typeahead select combobox"),
+		new("/components/HxAvatar", "HxAvatar", "user profile picture image initials status"),
+		new("/components/HxAvatarStack", "HxAvatarStack", "avatars group overlap count"),
 		new("/components/HxBadge", "HxBadge", "chip tag"),
 		new("/components/HxBreadcrumb", "HxBreadcrumb", "navigation link"),
 		new("/components/HxButton", "HxButton", "click submit input tooltip"),
@@ -115,6 +117,8 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		// Defaults (settings)
 
 		new("/types/AutosuggestSettings", "Autosuggest Settings", "defaults", DefaultsLevel),
+		new("/types/AvatarSettings", "Avatar Settings", "defaults", DefaultsLevel),
+		new("/types/AvatarStackSettings", "AvatarStack Settings", "defaults", DefaultsLevel),
 		new("/types/BadgeSettings", "Badge Settings", "defaults", DefaultsLevel),
 		new("/types/ButtonSettings", "Button Settings", "defaults", DefaultsLevel),
 		new("/types/CalendarSettings", "Calendar Settings", "defaults", DefaultsLevel),
@@ -152,6 +156,8 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 
 		// Enums
 
+		new("/types/AvatarSize", "AvatarSize", "enum", EnumsLevel),
+		new("/types/AvatarStatus", "AvatarStatus", "enum online offline busy away", EnumsLevel),
 		new("/types/BadgeType", "BadgeType", "enum shape", EnumsLevel),
 		new("/types/BootstrapFlavor", "BootstrapFlavor", "enum", EnumsLevel),
 		new("/types/ButtonGroupOrientation", "ButtonGroupOrientation", "enum", EnumsLevel),
