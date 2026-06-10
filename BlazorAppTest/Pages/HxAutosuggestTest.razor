@@ -10,7 +10,8 @@
 </HxAutosuggest>
 <p>Value: @value1</p>
 
-<HxAutosuggest Label="Floating label" TItem="CultureInfo" LabelType="LabelType.Floating" InputGroupEndText="End" InputGroupStartText="Start" TValue="int" @bind-Value="@value1" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))" Delay="0">
+@* LabelType.Floating is not supported on HxAutosuggest in Bootstrap 6 (the form-adorn wrapper owns the visual chrome and cannot host a floating label). *@
+<HxAutosuggest Label="Regular label" TItem="CultureInfo" LabelType="LabelType.Regular" InputGroupEndText="End" InputGroupStartText="Start" TValue="int" @bind-Value="@value1" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))" Delay="0">
 	<ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
 </HxAutosuggest>
 <p>Value: @value1</p>

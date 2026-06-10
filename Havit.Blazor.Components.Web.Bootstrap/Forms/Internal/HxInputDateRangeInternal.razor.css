@@ -25,21 +25,14 @@
     z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be larger than 5 because otherwise the validation message is rendered on top. */
 }
 
-.hx-input-date-icon {
-	display: flex;
-	align-items: center;
-	margin-right: 1rem;
-	z-index: 1;
-	position: absolute;
-	top: 50%;
-	right: 0;
-	transform: translateY(-50%);
-}
-
-.hx-input-date-has-calendar-icon ::deep .form-control {
-    padding-right: 2.5rem;
-}
-
 .hx-input-date-range:has(input:not(:disabled)) .hx-input-date-icon {
+	pointer-events: auto; /* .form-adorn-icon disables pointer events, the icon has to stay clickable (opens/closes the calendar) */
 	cursor: pointer;
+}
+
+/* Bootstrap styles only the input itself with :disabled, the form-adorn wrapper has to reflect the disabled state of the inner form-ghost input. */
+::deep .hx-input-date-range-segment:has(input:disabled) {
+	color: var(--bs-control-disabled-color);
+	background-color: var(--bs-control-disabled-bg);
+	border-color: var(--bs-control-disabled-border-color);
 }

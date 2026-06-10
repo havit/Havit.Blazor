@@ -22,8 +22,8 @@
 			<HxMenuToggleElement @ref="_menuToggle"
 									 ElementName="div"
 									 CssClass="@CssClassHelper.Combine(
-													"position-relative hx-search-box-toggle",
-													(LabelTypeEffective == Bootstrap.LabelType.Floating) ? "form-floating" : null,
+													"form-control form-adorn hx-search-box-toggle",
+													((IInputWithSize)this).GetInputSizeCssClass(),
 													InputSizeEffective.AsInputGroupCssClass(),
 													(_initialized || DefaultContentTemplate is not null ? null : "disabled"))"
 									 MenuOffset="@MenuOffset"
@@ -35,7 +35,7 @@
 
 				@if ((SearchIconEffective is not null) && (SearchIconPlacementEffective == SearchBoxSearchIconPlacement.Start))
 				{
-					<div class="hx-search-box-input-icon hx-search-box-input-icon-start">
+					<div class="form-adorn-icon hx-search-box-input-icon hx-search-box-input-icon-start">
 						<HxIcon CssClass="hx-search-box-input-icon-search" Icon="SearchIconEffective" />
 					</div>
 				}
@@ -49,34 +49,26 @@
 					   inputmode="search"
 					   disabled="@(!Enabled)"
                        spellcheck="@SpellcheckEffective?.ToString().ToLower()"
-					   placeholder="@(LabelTypeEffective == Bootstrap.LabelType.Floating ? "placeholder" : Placeholder)"
+					   placeholder="@Placeholder"
 					   class="@CssClassHelper.Combine(
-									"form-control",
-									((IInputWithSize)this).GetInputSizeCssClass(),
-									(!HasInputGroupEnd && HasInputGroups ? "hx-search-box-input-with-search-icon" : null),
+									"form-ghost",
 									InputCssClassEffective)" />
-
-				@if (!string.IsNullOrEmpty(Label) && (LabelTypeEffective == Bootstrap.LabelType.Floating))
-				{
-					<label for="@_inputId">@Label</label>
-				}
 
 				@if (_dataProviderInProgress)
 				{
-					<div class="hx-search-box-input-icon hx-search-box-input-icon-end">
+					<div class="form-adorn-icon hx-search-box-input-icon hx-search-box-input-icon-end">
                         <HxSpinner Size="SpinnerSize.Small" Type="SpinnerType.Border" />
 					</div>
 				}
 				else if (!string.IsNullOrEmpty(TextQuery) && (ClearIconEffective is not null) && (Enabled == true))
 				{
-					<div role="button" class="hx-search-box-input-icon hx-search-box-input-icon-end" @onclick="ClearInputAsync">
+					<div role="button" class="form-adorn-icon hx-search-box-input-icon hx-search-box-input-icon-end" @onclick="ClearInputAsync">
 						<HxIcon CssClass="hx-search-box-input-icon-clear" Icon="ClearIconEffective" />
 					</div>
 				}
 				else if ((SearchIconEffective is not null) && (SearchIconPlacementEffective == SearchBoxSearchIconPlacement.End))
 				{
-					// Pointer events are disabled when the search is disabled to prevent triggering the menu
-					<div class="@CssClassHelper.Combine("hx-search-box-input-icon hx-search-box-input-icon-end", Enabled == false ? "pe-none" : null)">
+					<div class="form-adorn-icon hx-search-box-input-icon hx-search-box-input-icon-end">
 						<HxIcon CssClass="hx-search-box-input-icon-search" Icon="SearchIconEffective" />
 					</div>
 				}
