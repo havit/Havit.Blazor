@@ -86,10 +86,13 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 		}
 	}
 
+	// Bootstrap 6 has no form-check-inline/form-check-reverse equivalents; both are expressed with plain utilities:
+	// Inline keeps the form-field grid, just displayed inline (d-inline-grid) with the v5-like spacing (me-3);
+	// Reverse switches the form-field to a reversed flex row (control packs to the end, label adjacent), matching the v5 visual.
 	private string GetFormFieldCssClass() => CssClassHelper.Combine(
 		"form-field",
-		Inline ? "hx-form-field-inline" : null,
-		Reverse ? "hx-form-field-reverse" : null);
+		Inline ? "d-inline-grid me-3" : null,
+		Reverse ? "d-flex flex-row-reverse gap-2" : null);
 
 	/// <summary>
 	/// For a checkbox without Label/LabelTemplate, the form-field layout class goes to the parent div (allows combining with CssClass etc.).

@@ -246,7 +246,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 			else
 			{
 				builder.OpenElement(100, "div");
-				builder.AddAttribute(101, "class", CssClassHelper.Combine("form-field", Inline ? "hx-form-field-inline" : null, ItemCssClassImpl, ItemCssClassSelectorImpl?.Invoke(item)));
+				builder.AddAttribute(101, "class", CssClassHelper.Combine("form-field", Inline ? "d-inline-grid me-3" : null, ItemCssClassImpl, ItemCssClassSelectorImpl?.Invoke(item)));
 
 				builder.OpenElement(200, "input");
 				builder.AddAttribute(201, "class", CssClassHelper.Combine(
