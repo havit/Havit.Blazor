@@ -46,7 +46,7 @@
         "css-prefix": "postcss --config postcss.config.mjs --replace \"dist/css/*.css\" \"!dist/css/*.min.css\"",
         "watch": "npm-run-all --parallel watch-*",
         "watch-css-main": "nodemon --watch scss/ --ext scss --exec \"npm-run-all css-compile css-prefix\"",
-        "publish-to-blazor": "shx cp -r dist/css/* ../Havit.Blazor.Components.Web.Bootstrap/wwwroot"
+        "publish-to-blazor": "shx cp -r dist/css/* node_modules/bootstrap/dist/js/bootstrap.bundle.min.js node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map ../Havit.Blazor.Components.Web.Bootstrap/wwwroot"
     },
     "devDependencies": {
       "autoprefixer": "^10.4.21",

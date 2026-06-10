@@ -353,14 +353,14 @@ else if (_setup.BootstrapTheme == BootstrapTheme.Custom)
 {
 	<CodeSnippet Language="razor">@HxSetup.RenderBootstrapJavaScriptReference()</CodeSnippet>
 	<p>
-		This adds <i>Bootstrap JavaScript with Popper</i> to the project.
+		This adds <i>Bootstrap JavaScript (ES module, with Floating UI)</i> to the project and exposes it as <code>window.bootstrap</code>.
 	</p>
 }
 else
 {
 	<CodeSnippet Language="razor">@("""@((MarkupString)@HxSetup.RenderBootstrapJavaScriptReference())""")</CodeSnippet>
 	<p>
-		This snippet adds a <code>&lt;script&gt;</code> tag referencing <i>Bootstrap JavaScript with Popper</i>
+		This snippet adds a <code>&lt;script type="module"&gt;</code> tag referencing <i>Bootstrap JavaScript (ES module, with Floating UI)</i>
 		that always matches the version required by Havit.Blazor,
 		so you won’t need to maintain the link manually in the future.
 	</p>
