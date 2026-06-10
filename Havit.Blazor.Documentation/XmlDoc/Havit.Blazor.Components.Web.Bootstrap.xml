@@ -348,17 +348,6 @@
             with the exception of the standalone <c>btn-link</c> variant.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CloseButtonSettings">
-            <summary>
-            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton"/> and derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CloseButtonSettings.White">
-            <summary>
-            Toggles between the light and dark versions of the button.
-            The default value is <c>false</c>.
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButton">
             <summary>
             Button (<c>&lt;button type="button"&gt;</c>). See also <see href="https://getbootstrap.com/docs/5.3/components/buttons/">Bootstrap Buttons</see>.<br />
@@ -599,26 +588,12 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton">
             <summary>
-            Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/close-button/">close-button</see> component.<br />
-            A simple close button for dismissing content such as modals and alerts.<br />
+            Bootstrap <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/close-button/">close-button</see> component.<br />
+            A simple close button for dismissing content such as dialogs and alerts.
+            The icon is rendered with a CSS <c>mask-image</c> tinted with <c>currentcolor</c>, so it adapts to the surrounding
+            text color and color mode automatically (the former <c>White</c> parameter/<c>btn-close-white</c> class no longer exist;
+            use <c>data-bs-theme="dark"</c> on the button or a parent element to invert it explicitly).<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCloseButton">https://havit.blazor.eu/components/HxCloseButton</see>
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton.Defaults">
-            <summary>
-            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton"/> and derived components.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton.White">
-            <summary>
-            Toggles between the light and dark version of the button.
-            The default value is <c>false</c>.
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton.GetDefaults">
-            <summary>
-            Returns application-wide defaults for the component.
-            Enables overriding defaults in descendants (use a separate set of defaults).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSubmit">
@@ -839,6 +814,21 @@
             Additional CSS classes for the card container.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSettings.Variant">
+            <summary>
+            Visual variant of the card.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSettings.Color">
+            <summary>
+            Theme color of the card (renders the <c>theme-*</c> class).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSettings.Horizontal">
+            <summary>
+            When <c>true</c>, renders a horizontal card (<c>card-row</c>).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSettings.HeaderCssClass">
             <summary>
             Additional CSS class for the header.
@@ -852,6 +842,27 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CardSettings.FooterCssClass">
             <summary>
             Additional CSS class for the footer.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CardVariant">
+            <summary>
+            Visual variant of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/>.
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/card/">Bootstrap 6 cards</see>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CardVariant.Regular">
+            <summary>
+            Regular card. Default.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CardVariant.Subtle">
+            <summary>
+            Card with a themed subtle background (<c>card-subtle</c>, typically combined with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Color"/>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CardVariant.Translucent">
+            <summary>
+            Frosted-glass translucent card (<c>card-translucent</c>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCard">
@@ -932,6 +943,22 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.CssClass">
             <summary>
             Additional CSS classes for the card container.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Variant">
+            <summary>
+            Visual <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/card/">variant</see> of the card. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CardVariant.Regular"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Color">
+            <summary>
+            Theme color of the card (renders the <c>theme-*</c> class, typically combined with <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CardVariant.Subtle"/>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Horizontal">
+            <summary>
+            When <c>true</c>, renders a horizontal card (<c>card-row</c>, new in Bootstrap 6) - image and body side by side.
+            Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.HeaderCssClass">
@@ -1837,11 +1864,6 @@
             The close icon to be used in the header.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.CloseButtonSettings">
-            <summary>
-            Settings for the close button in the header.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.DialogSettings.CloseOnEscape">
             <summary>
             Indicates whether the dialog closes when the escape key is pressed.
@@ -2006,11 +2028,6 @@
             <summary>
             Close icon to be used in header.
             If set to <c>null</c>, Bootstrap default close-button will be used.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.CloseButtonSettings">
-            <summary>
-            Settings for the close button in the header.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.CloseOnEscape">
@@ -10148,7 +10165,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/breadcrumb/">Bootstrap 5 Breadcrumb</see> component.<br />
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/breadcrumb/">Bootstrap Breadcrumb</see> component.<br />
             Indicates the current page's location within a navigational hierarchy.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxBreadcrumb">https://havit.blazor.eu/components/HxBreadcrumb</see>
             </summary>
@@ -10158,16 +10175,16 @@
             Child content.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb.Divider">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb.DividerTemplate">
             <summary>
-            Breadcrumb divider. Default is <c>/</c>.
-            Enter either a character (such as <c>></c>) or use an embedded SVG icon.
-            Disable the divider with <c>null</c>.
+            Custom divider content rendered into the <c>breadcrumb-divider</c> elements between items (any icon, text character, or markup).
+            When <c>null</c> (default), the divider is left empty and Bootstrap renders the built-in chevron
+            (customizable globally via the <c>--bs-breadcrumb-divider-icon</c> CSS variable).
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb.IsDividerImage">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb.RegisterItem">
             <summary>
-            Indicates whether the divider is an image or text.
+            Called by <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem"/> on initialization to determine the item position (dividers are rendered between items).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem">
