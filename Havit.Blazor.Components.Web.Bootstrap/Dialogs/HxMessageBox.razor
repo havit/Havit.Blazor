@@ -1,9 +1,9 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-<HxModal @ref="_modal"
+<HxDialog @ref="_dialog"
          Title="@Title"
          ShowCloseButton="ShowCloseButton"
-         Settings="ModalSettingsEffective"
-         OnClosed="HandleModalClosed"
+         Settings="DialogSettingsEffective"
+         OnClosed="HandleDialogClosed"
          HeaderTemplate="HeaderTemplate"
          @attributes="this.AdditionalAttributes">
     <BodyTemplate>
@@ -19,4 +19,4 @@
                   tabindex="0" />
         }
     </FooterTemplate>
-</HxModal>
+</HxDialog>

@@ -51,7 +51,7 @@ public struct MessageBoxRequest
 	public MessageBoxSettings Settings { get; set; }
 
 	/// <summary>
-	/// Additional attributes to be splatted onto an underlying UI component (Bootstrap: HxMessageBox -> HxModal).
+	/// Additional attributes to be splatted onto an underlying UI component (Bootstrap: HxMessageBox -> HxDialog).
 	/// </summary>
 	public Dictionary<string, object> AdditionalAttributes { get; set; }
 }

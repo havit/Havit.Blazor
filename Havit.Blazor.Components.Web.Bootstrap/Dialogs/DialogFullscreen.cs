@@ -1,9 +1,9 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Fullscreen behavior for <see cref="HxModal"/>.
+/// Fullscreen behavior for <see cref="HxDialog"/>.
 /// </summary>
-public enum ModalFullscreen
+public enum DialogFullscreen
 {
 	/// <summary>
 	/// Fullscreen mode disabled.
@@ -11,7 +11,7 @@ public enum ModalFullscreen
 	Disabled = 0,
 
 	/// <summary>
-	/// Always fullscreen modal.
+	/// Always fullscreen dialog.
 	/// </summary>
 	Always = 1,
 

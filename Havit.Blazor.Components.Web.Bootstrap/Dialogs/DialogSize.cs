@@ -1,27 +1,27 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Size for <see cref="HxModal"/>.
+/// Size for <see cref="HxDialog"/>.
 /// </summary>
-public enum ModalSize
+public enum DialogSize
 {
 	/// <summary>
-	/// Small. Modal max-width: 300px.
+	/// Small. Dialog max-width: 300px.
 	/// </summary>
 	Small = -1,
 
 	/// <summary>
-	/// Medium (default). Modal max-width: 500px.
+	/// Medium (default). Dialog max-width: 500px.
 	/// </summary>
 	Regular = 0,
 
 	/// <summary>
-	/// Large. Modal max-width: 800px.
+	/// Large. Dialog max-width: 800px.
 	/// </summary>
 	Large = 1,
 
 	/// <summary>
-	/// Extra large. Modal max-width: 1140px.
+	/// Extra large. Dialog max-width: 1140px.
 	/// </summary>
 	ExtraLarge = 2
 }

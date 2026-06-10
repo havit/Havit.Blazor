@@ -26,9 +26,9 @@ public partial class HxMessageBox : ComponentBase
 			{
 				Color = ThemeColor.Secondary,
 			},
-			ModalSettings = new()
+			DialogSettings = new()
 			{
-				Backdrop = ModalBackdrop.Static
+				Backdrop = DialogBackdrop.Static
 			}
 		};
 	}
@@ -74,7 +74,7 @@ public partial class HxMessageBox : ComponentBase
 
 	/// <summary>
 	/// Indicates whether to show the close button.
-	/// The default is taken from the underlying <see cref="HxModal"/> (<c>true</c>).
+	/// The default is taken from the underlying <see cref="HxDialog"/> (<c>true</c>).
 	/// </summary>
 	[Parameter] public bool? ShowCloseButton { get; set; }
 
@@ -106,10 +106,10 @@ public partial class HxMessageBox : ComponentBase
 	protected ButtonSettings SecondaryButtonSettingsEffective => SecondaryButtonSettings ?? GetSettings()?.SecondaryButtonSettings ?? GetDefaults().SecondaryButtonSettings ?? throw new InvalidOperationException(nameof(SecondaryButtonSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
 
 	/// <summary>
-	/// Settings for the underlying <see cref="HxModal"/> component.
+	/// Settings for the underlying <see cref="HxDialog"/> component.
 	/// </summary>
-	[Parameter] public ModalSettings ModalSettings { get; set; }
-	protected ModalSettings ModalSettingsEffective => ModalSettings ?? GetSettings()?.ModalSettings ?? GetDefaults().ModalSettings ?? throw new InvalidOperationException(nameof(ModalSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
+	[Parameter] public DialogSettings DialogSettings { get; set; }
+	protected DialogSettings DialogSettingsEffective => DialogSettings ?? GetSettings()?.DialogSettings ?? GetDefaults().DialogSettings ?? throw new InvalidOperationException(nameof(DialogSettings) + " default for " + nameof(HxMessageBox) + " has to be set.");
 
 	/// <summary>
 	/// Raised when the message box gets closed. Returns the button clicked.
@@ -121,14 +121,14 @@ public partial class HxMessageBox : ComponentBase
 	protected virtual Task InvokeOnClosedAsync(MessageBoxButtons button) => OnClosed.InvokeAsync(button);
 
 	/// <summary>
-	/// Additional attributes to be splatted onto an underlying <see cref="HxModal"/>.
+	/// Additional attributes to be splatted onto an underlying <see cref="HxDialog"/>.
 	/// </summary>
 	[Parameter] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
 
 	[Inject] protected IStringLocalizer<HxMessageBox> MessageBoxLocalizer { get; set; }
 
-	private HxModal _modal;
+	private HxDialog _dialog;
 	private MessageBoxButtons? _result;
 
 	/// <summary>
@@ -138,16 +138,16 @@ public partial class HxMessageBox : ComponentBase
 	public async Task ShowAsync()
 	{
 		_result = null;
-		await _modal.ShowAsync();
+		await _dialog.ShowAsync();
 	}
 
 	private async Task HandleButtonClick(MessageBoxButtons button)
 	{
 		_result = button;
-		await _modal.HideAsync();  // fires HxModal.OnClose
+		await _dialog.HideAsync();  // fires HxDialog.OnClose
 	}
 
-	private async Task HandleModalClosed()
+	private async Task HandleDialogClosed()
 	{
 		await InvokeOnClosedAsync(_result ?? MessageBoxButtons.None);
 	}

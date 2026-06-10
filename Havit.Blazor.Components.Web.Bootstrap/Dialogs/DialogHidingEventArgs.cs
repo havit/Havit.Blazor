@@ -1,9 +1,9 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
-public class ModalHidingEventArgs
+public class DialogHidingEventArgs
 {
 	/// <summary>
-	/// Set <c>true</c> to prevent modal hiding.
+	/// Set <c>true</c> to prevent dialog hiding.
 	/// </summary>
 	public bool Cancel { get; set; }
 }

@@ -18,9 +18,9 @@ public record MessageBoxSettings
 	public ButtonSettings SecondaryButtonSettings { get; set; }
 
 	/// <summary>
-	/// Settings for the underlying <see cref="HxModal"/> component.
+	/// Settings for the underlying <see cref="HxDialog"/> component.
 	/// </summary>
-	public ModalSettings ModalSettings { get; set; }
+	public DialogSettings DialogSettings { get; set; }
 
 	/// <summary>
 	/// Text for the OK button.
