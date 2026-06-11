@@ -1,205 +1,94 @@
-﻿::deep .hx-sidebar-item {
-	display: block;
-}
-
-::deep .hx-sidebar-item.hx-sidebar-item-flyout {
-	display: none; /* The collapsed-mode flyout variant is shown by the breakpoint sections below. */
-}
-
-/* The collapsed (icon-only) mode applies at or above the sidebar's responsive breakpoint -
-   keyed by the hx-sidebar-item-bp-* + hx-sidebar-item-collapsed marker classes and implemented
-   in scoped CSS media queries (not responsive utilities) so it works against the unmodified
-   base Bootstrap 6 build. Below the breakpoint the items render in the mobile navbar menu. */
-
-.hx-sidebar-item-bp-none.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-flyout {
-	display: block;
-}
-
-.hx-sidebar-item-bp-none.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-expandable-toggle {
-	display: none;
-}
-
-.hx-sidebar-item-bp-none.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapse,
-.hx-sidebar-item-bp-none.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapsing {
-	display: none;
-}
-
-.hx-sidebar-item-bp-none.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-content-collapsed {
-	display: none;
-}
-
-@media (min-width: 576px) {
-	.hx-sidebar-item-bp-sm.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-flyout {
+﻿/* The isolation CSS joins Bootstrap 6's "custom" cascade layer (above Bootstrap's component
+   styles, below helpers and utilities) so the responsive display utilities rendered in the
+   markup (d-*-none/d-*-block for the collapsed mode) override these defaults - exactly as with
+   the unmodified base Bootstrap build. */
+@layer custom {
+	::deep .hx-sidebar-item {
 		display: block;
 	}
 
-	.hx-sidebar-item-bp-sm.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-expandable-toggle {
-		display: none;
+	::deep .hx-sidebar-item.hx-sidebar-item-flyout {
+		display: none; /* The collapsed-mode flyout variant is shown by the responsive d-*-block utility rendered from the markup. */
 	}
 
-	.hx-sidebar-item-bp-sm.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapse,
-	.hx-sidebar-item-bp-sm.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapsing {
-		display: none;
+	::deep .nav-link {
+		line-height: 1;
+		padding: var(--hx-sidebar-item-padding);
+		margin: var(--hx-sidebar-item-margin);
+		font-size: var(--hx-sidebar-item-font-size);
+		color: var(--hx-sidebar-item-color);
+		border-radius: var(--hx-sidebar-item-border-radius);
 	}
 
-	.hx-sidebar-item-bp-sm.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-content-collapsed {
-		display: none;
-	}
-}
-
-@media (min-width: 768px) {
-	.hx-sidebar-item-bp-md.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-flyout {
-		display: block;
+	::deep .hx-sidebar-subitems {
+		--bs-menu-border-radius: calc(var(--hx-sidebar-item-border-radius) + var(--bs-menu-padding-x));
 	}
 
-	.hx-sidebar-item-bp-md.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-expandable-toggle {
-		display: none;
+	::deep .hx-sidebar-subitems.collapse .nav-link,
+	::deep .hx-sidebar-subitems.collapsing .nav-link {
+		margin: var(--hx-sidebar-subitem-margin);
+		padding: var(--hx-sidebar-subitem-padding);
+		font-size: var(--hx-sidebar-subitem-font-size);
+		display: flex;
 	}
 
-	.hx-sidebar-item-bp-md.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapse,
-	.hx-sidebar-item-bp-md.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapsing {
-		display: none;
+	::deep .hx-sidebar-collapsed-nav {
+		flex-direction: column;
+		padding-block: .25rem;
 	}
 
-	.hx-sidebar-item-bp-md.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-content-collapsed {
-		display: none;
-	}
-}
-
-@media (min-width: 1024px) {
-	.hx-sidebar-item-bp-lg.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-flyout {
-		display: block;
+	::deep a.nav-link.active {
+		background-color: color-mix(in srgb, var(--hx-sidebar-item-active-background-color) calc(var(--hx-sidebar-item-active-background-opacity) * 100%), transparent);
+		color: var(--hx-sidebar-item-active-color);
+		font-weight: var(--hx-sidebar-item-active-font-weight);
 	}
 
-	.hx-sidebar-item-bp-lg.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-expandable-toggle {
-		display: none;
+	/* Font-weight only for first level items */
+	.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
+		font-weight: var(--hx-sidebar-parent-item-active-font-weight);
 	}
 
-	.hx-sidebar-item-bp-lg.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapse,
-	.hx-sidebar-item-bp-lg.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapsing {
-		display: none;
+	/* Background and color for rest of the content */
+	.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep .hx-sidebar-item > a.nav-link,
+	.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
+		background-color: color-mix(in srgb, var(--hx-sidebar-parent-item-active-background-color) calc(var(--hx-sidebar-parent-item-active-background-opacity) * 100%), transparent);
+		color: var(--hx-sidebar-parent-item-active-color);
 	}
 
-	.hx-sidebar-item-bp-lg.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-content-collapsed {
-		display: none;
-	}
-}
-
-@media (min-width: 1280px) {
-	.hx-sidebar-item-bp-xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-flyout {
-		display: block;
+	.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep .hx-sidebar-item .hx-sidebar-item-icon {
+		color: var(--hx-sidebar-parent-item-active-icon-color);
 	}
 
-	.hx-sidebar-item-bp-xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-expandable-toggle {
-		display: none;
+	::deep a.nav-link:hover .hx-sidebar-item-icon,
+	.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep .hx-sidebar-item:hover .hx-sidebar-item-icon {
+		color: var(--hx-sidebar-item-hover-icon-color);
 	}
 
-	.hx-sidebar-item-bp-xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapse,
-	.hx-sidebar-item-bp-xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapsing {
-		display: none;
+	::deep a.nav-link:hover,
+	.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link:hover {
+		background-color: color-mix(in srgb, var(--hx-sidebar-item-hover-background-color) calc(var(--hx-sidebar-item-hover-background-opacity) * 100%), transparent);
+		color: var(--hx-sidebar-item-hover-color);
 	}
 
-	.hx-sidebar-item-bp-xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-content-collapsed {
-		display: none;
-	}
-}
-
-@media (min-width: 1536px) {
-	.hx-sidebar-item-bp-2xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-flyout {
-		display: block;
+	::deep .menu {
+		max-height: 75vh;
+		overflow: auto;
 	}
 
-	.hx-sidebar-item-bp-2xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-expandable-toggle {
-		display: none;
+	::deep .hx-sidebar-item-icon {
+		color: var(--hx-sidebar-item-icon-color);
 	}
 
-	.hx-sidebar-item-bp-2xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapse,
-	.hx-sidebar-item-bp-2xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapsing {
-		display: none;
+	::deep a.nav-link.active .hx-sidebar-item-icon {
+		color: var(--hx-sidebar-item-active-icon-color);
 	}
 
-	.hx-sidebar-item-bp-2xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-content-collapsed {
-		display: none;
+	::deep a.nav-link.active:hover .hx-sidebar-item-icon {
+		color: var(--hx-sidebar-item-hover-icon-color);
 	}
-}
 
-::deep .nav-link {
-	line-height: 1;
-	padding: var(--hx-sidebar-item-padding);
-	margin: var(--hx-sidebar-item-margin);
-	font-size: var(--hx-sidebar-item-font-size);
-	color: var(--hx-sidebar-item-color);
-	border-radius: var(--hx-sidebar-item-border-radius);
-}
-
-::deep .hx-sidebar-subitems {
-	--bs-menu-border-radius: calc(var(--hx-sidebar-item-border-radius) + var(--bs-menu-padding-x));
-}
-
-::deep .hx-sidebar-subitems.collapse .nav-link,
-::deep .hx-sidebar-subitems.collapsing .nav-link {
-	margin: var(--hx-sidebar-subitem-margin);
-	padding: var(--hx-sidebar-subitem-padding);
-	font-size: var(--hx-sidebar-subitem-font-size);
-	display: flex;
-}
-
-::deep .hx-sidebar-collapsed-nav {
-	flex-direction: column;
-	padding-block: .25rem;
-}
-
-::deep a.nav-link.active {
-	background-color: color-mix(in srgb, var(--hx-sidebar-item-active-background-color) calc(var(--hx-sidebar-item-active-background-opacity) * 100%), transparent);
-	color: var(--hx-sidebar-item-active-color);
-	font-weight: var(--hx-sidebar-item-active-font-weight);
-}
-
-/* Font-weight only for first level items */
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
-	font-weight: var(--hx-sidebar-parent-item-active-font-weight);
-}
-
-/* Background and color for rest of the content */
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep .hx-sidebar-item > a.nav-link,
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
-	background-color: color-mix(in srgb, var(--hx-sidebar-parent-item-active-background-color) calc(var(--hx-sidebar-parent-item-active-background-opacity) * 100%), transparent);
-	color: var(--hx-sidebar-parent-item-active-color);
-}
-
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep .hx-sidebar-item .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-parent-item-active-icon-color);
-}
-
-::deep a.nav-link:hover .hx-sidebar-item-icon,
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep .hx-sidebar-item:hover .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-item-hover-icon-color);
-}
-
-::deep a.nav-link:hover,
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link:hover {
-	background-color: color-mix(in srgb, var(--hx-sidebar-item-hover-background-color) calc(var(--hx-sidebar-item-hover-background-opacity) * 100%), transparent);
-	color: var(--hx-sidebar-item-hover-color);
-}
-
-::deep .menu {
-	max-height: 75vh;
-	overflow: auto;
-}
-
-::deep .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-item-icon-color);
-}
-
-::deep a.nav-link.active .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-item-active-icon-color);
-}
-
-::deep a.nav-link.active:hover .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-item-hover-icon-color);
-}
-
-::deep .menu-header {
-	padding-bottom: 0;
-	padding-left: .75rem;
+	::deep .menu-header {
+		padding-bottom: 0;
+		padding-left: .75rem;
+	}
 }

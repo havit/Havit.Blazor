@@ -1,39 +1,40 @@
-﻿.hx-sidebar {
-	display: flex;
-	flex-direction: column;
-	flex-shrink: 0;
-	flex-basis: var(--hx-sidebar-width);
-	background-color: var(--hx-sidebar-background-color);
+﻿/* The isolation CSS joins Bootstrap 6's "custom" cascade layer: above Bootstrap's component
+   styles, below helpers and utilities - so display/spacing utilities rendered in the markup
+   (e.g. the responsive d-*-none/d-*-block/flex-*-grow-0) keep overriding these defaults, exactly
+   as with the unmodified base Bootstrap build. (The layer order is declared by bootstrap.css:
+   ..., components, custom, helpers, utilities.) */
+@layer custom {
+	.hx-sidebar {
+		display: flex;
+		flex-direction: column;
+		flex-shrink: 0;
+		flex-grow: 1;
+		flex-basis: var(--hx-sidebar-width);
+		background-color: var(--hx-sidebar-background-color);
+	}
+
+	::deep .hx-sidebar-navbar-toggler {
+		display: flex;
+	}
+
+	.hx-sidebar-toggler {
+		display: none;
+	}
+
+	.hx-sidebar-collapse {
+		flex-direction: column;
+		flex-grow: 1;
+	}
 }
 
-/* Below the responsive breakpoint (navbar mode): the sidebar stretches, the hamburger toggler
-   is shown and the content is governed by the Collapse plugin. The expanded (desktop) mode is
-   applied by the .hx-sidebar-bp-* media-query sections below - implemented in scoped CSS instead
-   of responsive display utilities so the component works against the unmodified base Bootstrap 6
-   build (utilities are layered without !important there and cannot override unlayered styles
-   such as this isolation CSS or the .collapse rules). */
-.hx-sidebar {
-	flex-grow: 1;
-}
-
-::deep .hx-sidebar-navbar-toggler {
-	display: flex;
-}
-
-.hx-sidebar-toggler {
-	display: none;
-}
-
-.hx-sidebar-collapse {
-	flex-direction: column;
-	flex-grow: 1;
-}
-
-/* Expanded (desktop) mode - keyed by the hx-sidebar-bp-* marker class (see HxSidebar.ResponsiveBreakpoint).
+/* UNLAYERED ON PURPOSE - do not move into @layer: at and above the responsive breakpoint the
+   sidebar content must override the base-Bootstrap .collapse:not(.show){display:none}, which is
+   emitted OUTSIDE any layer upstream; only an unlayered rule with higher specificity can win
+   (layered rules and the d-*-flex utilities always lose to unlayered styles).
+   Keyed by the hx-sidebar-bp-* marker class (see HxSidebar.ResponsiveBreakpoint).
    Bootstrap 6 breakpoints: sm 576, md 768, lg 1024, xl 1280, 2xl 1536. */
 
 .hx-sidebar-bp-none {
-	flex-grow: 0;
 	max-height: var(--hx-sidebar-max-height);
 }
 
@@ -45,17 +46,8 @@
 	display: flex; /* overrides the (unlayered) .collapse:not(.show) display: none by specificity and stylesheet order */
 }
 
-.hx-sidebar-bp-none ::deep .hx-sidebar-navbar-toggler {
-	display: none;
-}
-
-.hx-sidebar-bp-none .hx-sidebar-toggler {
-	display: block;
-}
-
 @media (min-width: 576px) {
 	.hx-sidebar-bp-sm {
-		flex-grow: 0;
 		max-height: var(--hx-sidebar-max-height);
 	}
 
@@ -66,19 +58,10 @@
 	.hx-sidebar-bp-sm .hx-sidebar-collapse {
 		display: flex; /* overrides the (unlayered) .collapse:not(.show) display: none by specificity and stylesheet order */
 	}
-
-	.hx-sidebar-bp-sm ::deep .hx-sidebar-navbar-toggler {
-		display: none;
-	}
-
-	.hx-sidebar-bp-sm .hx-sidebar-toggler {
-		display: block;
-	}
 }
 
 @media (min-width: 768px) {
 	.hx-sidebar-bp-md {
-		flex-grow: 0;
 		max-height: var(--hx-sidebar-max-height);
 	}
 
@@ -89,19 +72,10 @@
 	.hx-sidebar-bp-md .hx-sidebar-collapse {
 		display: flex; /* overrides the (unlayered) .collapse:not(.show) display: none by specificity and stylesheet order */
 	}
-
-	.hx-sidebar-bp-md ::deep .hx-sidebar-navbar-toggler {
-		display: none;
-	}
-
-	.hx-sidebar-bp-md .hx-sidebar-toggler {
-		display: block;
-	}
 }
 
 @media (min-width: 1024px) {
 	.hx-sidebar-bp-lg {
-		flex-grow: 0;
 		max-height: var(--hx-sidebar-max-height);
 	}
 
@@ -112,19 +86,10 @@
 	.hx-sidebar-bp-lg .hx-sidebar-collapse {
 		display: flex; /* overrides the (unlayered) .collapse:not(.show) display: none by specificity and stylesheet order */
 	}
-
-	.hx-sidebar-bp-lg ::deep .hx-sidebar-navbar-toggler {
-		display: none;
-	}
-
-	.hx-sidebar-bp-lg .hx-sidebar-toggler {
-		display: block;
-	}
 }
 
 @media (min-width: 1280px) {
 	.hx-sidebar-bp-xl {
-		flex-grow: 0;
 		max-height: var(--hx-sidebar-max-height);
 	}
 
@@ -135,19 +100,10 @@
 	.hx-sidebar-bp-xl .hx-sidebar-collapse {
 		display: flex; /* overrides the (unlayered) .collapse:not(.show) display: none by specificity and stylesheet order */
 	}
-
-	.hx-sidebar-bp-xl ::deep .hx-sidebar-navbar-toggler {
-		display: none;
-	}
-
-	.hx-sidebar-bp-xl .hx-sidebar-toggler {
-		display: block;
-	}
 }
 
 @media (min-width: 1536px) {
 	.hx-sidebar-bp-2xl {
-		flex-grow: 0;
 		max-height: var(--hx-sidebar-max-height);
 	}
 
@@ -157,14 +113,6 @@
 
 	.hx-sidebar-bp-2xl .hx-sidebar-collapse {
 		display: flex; /* overrides the (unlayered) .collapse:not(.show) display: none by specificity and stylesheet order */
-	}
-
-	.hx-sidebar-bp-2xl ::deep .hx-sidebar-navbar-toggler {
-		display: none;
-	}
-
-	.hx-sidebar-bp-2xl .hx-sidebar-toggler {
-		display: block;
 	}
 }
 
