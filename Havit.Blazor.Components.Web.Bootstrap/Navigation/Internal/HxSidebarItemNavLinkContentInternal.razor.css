@@ -1,6 +1,4 @@
-﻿/* The isolation CSS joins Bootstrap 6's "custom" cascade layer (above Bootstrap's component
-   styles, below helpers and utilities) so utility classes - e.g. the d-none passed via
-   InnerCssClass in the sidebar's collapsed (icon rail) mode - override these defaults. */
+﻿/* Layered below Bootstrap's utilities so utility classes win over these defaults. */
 @layer custom {
 	.hx-sidebar-item-navlink-content {
 		display: flex;

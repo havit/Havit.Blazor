@@ -221,13 +221,3 @@ form > .hx-button {
 .hx-tab-panel .nav-link {
 	cursor: pointer;
 }
-
-/* Bootstrap 6 defaults .nav links to center-justified content (--bs-nav-link-justify: center),
-   which visibly centers link content in vertical/full-width navs - such as the navbar drawer
-   (HxNavbarDrawer) below the expand breakpoint. Navigation reads better start-aligned; the
-   variable exists for exactly this override. Layered (custom) so utilities can still win. */
-@layer custom {
-	.navbar .drawer .nav-link {
-		--bs-nav-link-justify: flex-start;
-	}
-}

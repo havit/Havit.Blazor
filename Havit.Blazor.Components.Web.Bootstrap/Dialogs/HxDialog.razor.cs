@@ -268,10 +268,7 @@ public partial class HxDialog : IAsyncDisposable
 	/// Closes the dialog.
 	/// </summary>
 	/// <summary>
-	/// Closes the dialog from the header close button.
-	/// The button also carries <c>data-bs-dismiss="dialog"</c> for the Bootstrap data API (static SSR);
-	/// in interactive render modes this explicit handler closes the dialog through the component
-	/// (both paths are idempotent - the plugin's <c>hide()</c> no-ops on a closed dialog).
+	/// Closes the dialog from the header close button (the button's <c>data-bs-dismiss</c> covers static SSR; both paths are idempotent).
 	/// </summary>
 	private Task HandleCloseButtonClick() => HideAsync();
 

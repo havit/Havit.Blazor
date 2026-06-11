@@ -1,8 +1,7 @@
-/* The isolation CSS joins Bootstrap 6's "custom" cascade layer (above Bootstrap's component
-   styles, below helpers and utilities) so utility classes override these defaults. */
+﻿/* Layered below Bootstrap's utilities so utility classes win over these defaults. */
 @layer custom {
 	.hx-sidebar-toggler {
-		position: absolute; /* positioned on the sidebar's edge; the positioning context (position: relative) is provided by the sidebar */
+		position: absolute; /* positioning context provided by the sidebar */
 		top: 50%;
 		left: 100%;
 		transform: translate(-50%, -50%);

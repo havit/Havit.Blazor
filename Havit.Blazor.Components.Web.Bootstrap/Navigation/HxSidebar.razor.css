@@ -1,8 +1,4 @@
-﻿/* The isolation CSS joins Bootstrap 6's "custom" cascade layer: above Bootstrap's component
-   styles, below helpers and utilities - so utility classes (whether rendered by the component
-   or added by the consumer) override these defaults, exactly as with the unmodified base
-   Bootstrap build. (The layer order is declared by bootstrap.css: ..., components, custom,
-   helpers, utilities.) */
+﻿/* Layered below Bootstrap's utilities so utility classes win over these defaults. */
 @layer custom {
 	.hx-sidebar {
 		display: flex;

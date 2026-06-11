@@ -1,13 +1,11 @@
-﻿/* The isolation CSS joins Bootstrap 6's "custom" cascade layer (above Bootstrap's component
-   styles, below helpers and utilities) so the responsive display utilities rendered in the
-   markup (d-*-none/d-*-block for the collapsed mode) override these defaults - exactly as with
-   the unmodified base Bootstrap build. */
+﻿/* Layered below Bootstrap's utilities so utility classes win over these defaults. */
 @layer custom {
 	::deep .hx-sidebar-item {
 		display: block;
 	}
 
 	::deep .nav-link {
+		--bs-nav-link-justify: flex-start; /* v6 default is center */
 		line-height: 1;
 		padding: var(--hx-sidebar-item-padding);
 		margin: var(--hx-sidebar-item-margin);
