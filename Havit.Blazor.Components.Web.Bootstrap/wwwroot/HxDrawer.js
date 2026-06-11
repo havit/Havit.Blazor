@@ -23,6 +23,12 @@
 	if (subscribeToHideEvent) {
 		element.addEventListener('hide.bs.drawer', handleDrawerHide);
 	}
+	// Backdrop-click close fallback: clicks on the native ::backdrop dispatch on the <dialog> element
+	// itself. The Drawer plugin attaches an equivalent listener, but it has proven unreliable across
+	// browsers in E2E runs; this explicit listener is idempotent with it (hide() no-ops when already
+	// hidden/hiding). Static backdrops are respected (the plugin plays its own "static" bounce).
+	element.removeEventListener('click', handleDrawerElementClick);
+	element.addEventListener('click', handleDrawerElementClick);
 	element.addEventListener('hidden.bs.drawer', handleDrawerHidden);
 	element.addEventListener('shown.bs.drawer', handleDrawerShown);
 	window.drawerElement = element;
@@ -45,6 +51,17 @@ export function hide(element) {
 	if (o) {
 		o.hide();
 	}
+}
+
+function handleDrawerElementClick(event) {
+	if (event.target !== event.currentTarget) {
+		return; // click inside the drawer panel content, not on the backdrop
+	}
+	const drawer = bootstrap.Drawer.getInstance(event.currentTarget);
+	if (!drawer || drawer._config?.backdrop === 'static') {
+		return;
+	}
+	drawer.hide();
 }
 
 function handleDrawerShown(event) {

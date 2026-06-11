@@ -2,7 +2,6 @@
 
 public class HxNavbarTests : TestAppTestBase
 {
-	private static readonly System.Text.RegularExpressions.Regex CollapseShowClassRegex = new System.Text.RegularExpressions.Regex("\\bshow\\b");
 
 	[Fact]
 	public async Task HxNavbar_Render_ShowsBrandAndItems()
@@ -32,15 +31,15 @@ public class HxNavbarTests : TestAppTestBase
 		var toggler = Page.Locator("[data-testid='navbar-toggler']");
 		var navCollapse = Page.Locator("#test-navbar-collapse");
 
-		// Assert - toggler is visible and nav is collapsed (no .show class)
+		// Assert - toggler is visible and the navbar drawer is closed (Bootstrap 6 renders the responsive navbar content as a drawer)
 		await Expect(toggler).ToBeVisibleAsync();
-		await Expect(navCollapse).Not.ToHaveClassAsync(CollapseShowClassRegex, new() { Timeout = 5_000 });
+		await Expect(navCollapse).Not.ToHaveAttributeAsync("open", "", new() { Timeout = 5_000 });
 
 		// Act - click toggler to expand navigation
 		await toggler.ClickAsync();
 
-		// Assert - nav collapse now has .show class (Bootstrap JS added it)
-		await Expect(navCollapse).ToHaveClassAsync(CollapseShowClassRegex, new() { Timeout = 10_000 });
+		// Assert - the navbar drawer is open (Bootstrap Drawer plugin opened the native dialog)
+		await Expect(navCollapse).ToHaveAttributeAsync("open", "", new() { Timeout = 10_000 });
 
 		// Assert - nav items are now visible
 		var navItemHome = Page.Locator("[data-testid='nav-item-home']");
@@ -49,8 +48,8 @@ public class HxNavbarTests : TestAppTestBase
 		// Act - click toggler again to collapse navigation
 		await toggler.ClickAsync();
 
-		// Assert - nav collapse no longer has .show class
-		await Expect(navCollapse).Not.ToHaveClassAsync(CollapseShowClassRegex, new() { Timeout = 10_000 });
+		// Assert - the navbar drawer is closed again
+		await Expect(navCollapse).Not.ToHaveAttributeAsync("open", "", new() { Timeout = 10_000 });
 	}
 
 	[Fact]
