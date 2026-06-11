@@ -1,0 +1,18 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
+<dialog class="@CssClassHelper.Combine("drawer", GetPlacementCssClass(), CssClass)"
+		id="@IdEffective"
+		tabindex="-1"
+		aria-labelledby="@(Title is not null ? IdEffective + "-label" : null)"
+		@attributes="AdditionalAttributes">
+	<div class="drawer-header">
+		@if (Title is not null)
+		{
+			<h5 class="drawer-title" id="@(IdEffective + "-label")">@Title</h5>
+		}
+		<button type="button" class="btn-close" data-bs-dismiss="drawer" aria-label="Close"></button>
+	</div>
+	<div class="drawer-body">
+		@ChildContent
+	</div>
+</dialog>

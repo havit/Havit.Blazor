@@ -6,7 +6,7 @@
 /// below the navbar's expand breakpoint the content opens as a drawer (toggled by <see cref="HxNavbarToggler"/> via the Bootstrap data API),
 /// at or above the breakpoint the drawer markup is flattened into inline navbar content by the Bootstrap CSS.
 /// </summary>
-public class HxNavbarDrawer : ComponentBase
+public partial class HxNavbarDrawer : ComponentBase
 {
 	[CascadingParameter] protected HxNavbar NavbarContainer { get; set; }
 
@@ -42,44 +42,6 @@ public class HxNavbarDrawer : ComponentBase
 	protected override void OnParametersSet()
 	{
 		Contract.Requires<InvalidOperationException>(NavbarContainer is not null, $"{nameof(HxNavbarDrawer)} requires the parent {nameof(HxNavbar)}.");
-	}
-
-	protected override void BuildRenderTree(RenderTreeBuilder builder)
-	{
-		builder.OpenElement(100, "dialog");
-		builder.AddAttribute(101, "class", CssClassHelper.Combine("drawer", GetPlacementCssClass(), CssClass));
-		builder.AddAttribute(102, "id", IdEffective);
-		builder.AddAttribute(103, "tabindex", "-1");
-		if (Title is not null)
-		{
-			builder.AddAttribute(104, "aria-labelledby", IdEffective + "-label");
-		}
-		builder.AddMultipleAttributes(105, AdditionalAttributes);
-
-		builder.OpenElement(110, "div");
-		builder.AddAttribute(111, "class", "drawer-header");
-		if (Title is not null)
-		{
-			builder.OpenElement(112, "h5");
-			builder.AddAttribute(113, "class", "drawer-title");
-			builder.AddAttribute(114, "id", IdEffective + "-label");
-			builder.AddContent(115, Title);
-			builder.CloseElement(); // h5
-		}
-		builder.OpenElement(116, "button");
-		builder.AddAttribute(117, "type", "button");
-		builder.AddAttribute(118, "class", "btn-close");
-		builder.AddAttribute(119, "data-bs-dismiss", "drawer");
-		builder.AddAttribute(120, "aria-label", "Close");
-		builder.CloseElement(); // button
-		builder.CloseElement(); // div.drawer-header
-
-		builder.OpenElement(130, "div");
-		builder.AddAttribute(131, "class", "drawer-body");
-		builder.AddContent(132, ChildContent);
-		builder.CloseElement(); // div.drawer-body
-
-		builder.CloseElement(); // dialog
 	}
 
 	private string GetPlacementCssClass()

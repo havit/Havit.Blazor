@@ -6,7 +6,7 @@
 /// In Bootstrap 6 the toggler opens the navbar's responsive content as a <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/drawer/">Drawer</see>
 /// (see <see cref="HxNavbarDrawer"/>) via the Bootstrap data API — the v5 Collapse plugin is no longer used for navbars.
 /// </summary>
-public class HxNavbarToggler : ComponentBase
+public partial class HxNavbarToggler : ComponentBase
 {
 	[CascadingParameter] protected HxNavbar NavbarContainer { get; set; }
 
@@ -35,29 +35,5 @@ public class HxNavbarToggler : ComponentBase
 	protected override void OnParametersSet()
 	{
 		Contract.Requires<InvalidOperationException>(NavbarContainer is not null, $"{nameof(HxNavbarToggler)} requires the parent {nameof(HxNavbar)}.");
-	}
-
-	protected override void BuildRenderTree(RenderTreeBuilder builder)
-	{
-		builder.OpenElement(100, "button");
-		builder.AddAttribute(101, "type", "button");
-		builder.AddAttribute(102, "class", CssClassHelper.Combine("btn-icon navbar-toggler", CssClass));
-		builder.AddAttribute(103, "data-bs-toggle", "drawer");
-		builder.AddAttribute(104, "data-bs-target", DrawerTargetEffective);
-		builder.AddAttribute(105, "aria-controls", DrawerTargetEffective.TrimStart('#'));
-		builder.AddAttribute(106, "aria-expanded", "false");
-		builder.AddAttribute(107, "aria-label", "Toggle navigation");
-		builder.AddMultipleAttributes(108, AdditionalAttributes);
-
-		if (ChildContent is not null)
-		{
-			builder.AddContent(110, ChildContent);
-		}
-		else
-		{
-			builder.AddMarkupContent(111, "<span class=\"navbar-toggler-icon\" aria-hidden=\"true\"></span>");
-		}
-
-		builder.CloseElement(); // button
 	}
 }
