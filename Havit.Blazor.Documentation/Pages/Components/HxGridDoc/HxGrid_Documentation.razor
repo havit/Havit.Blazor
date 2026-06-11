@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxGrid))]
+﻿@attribute [Route("/components/" + nameof(HxGrid))]
 @attribute [Route("/components/" + nameof(HxGridColumn<object>))]
 
 <ApiDoc Type="typeof(HxGrid<TItem>)">
@@ -208,16 +208,16 @@
 	</MainContent>
 
 	<CssVariables>
-		<ApiDocCssVariable Name="--hx-grid-button-hover-background" Default="var(--bs-secondary-bg)">
+		<ApiDocCssVariable Name="--hx-grid-button-hover-background" Default="var(--bs-bg-2)">
 			Grid button background color on hover.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-grid-button-border-radius" Default=".25rem">
+		<ApiDocCssVariable Name="--hx-grid-button-border-radius" Default="var(--bs-radius-4)">
 			Grid button border radius.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-grid-sorted-icon-color" Default="var(--bs-primary)">
+		<ApiDocCssVariable Name="--hx-grid-sorted-icon-color" Default="var(--bs-primary-fg)">
 			Color of the sorted icon.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-grid-progress-indicator-color" Default="var(--bs-primary)">
+		<ApiDocCssVariable Name="--hx-grid-progress-indicator-color" Default="var(--bs-primary-fg)">
 			Color of the grid progress indicator line.
 		</ApiDocCssVariable>
 	</CssVariables>
