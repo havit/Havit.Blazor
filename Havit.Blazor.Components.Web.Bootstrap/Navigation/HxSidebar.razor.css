@@ -27,6 +27,13 @@
 	}
 }
 
+@media (min-width: 768px) {
+	.hx-sidebar,
+	.hx-sidebar .nav-menu {
+		max-height: var(--hx-sidebar-max-height);
+	}
+}
+
 /* UNLAYERED ON PURPOSE - do not move into @layer: at and above the responsive breakpoint the
    sidebar content must override the base-Bootstrap .collapse:not(.show){display:none}, which is
    emitted OUTSIDE any layer upstream; only an unlayered rule with higher specificity can win
@@ -34,85 +41,37 @@
    Keyed by the hx-sidebar-bp-* marker class (see HxSidebar.ResponsiveBreakpoint).
    Bootstrap 6 breakpoints: sm 576, md 768, lg 1024, xl 1280, 2xl 1536. */
 
-.hx-sidebar-bp-none {
-	max-height: var(--hx-sidebar-max-height);
-}
-
-.hx-sidebar-bp-none .nav-menu {
-	max-height: var(--hx-sidebar-max-height);
-}
-
 .hx-sidebar-bp-none .hx-sidebar-collapse {
-	display: flex; /* overrides the (unlayered) .collapse:not(.show) display: none by specificity and stylesheet order */
+	display: flex;
 }
 
 @media (min-width: 576px) {
-	.hx-sidebar-bp-sm {
-		max-height: var(--hx-sidebar-max-height);
-	}
-
-	.hx-sidebar-bp-sm .nav-menu {
-		max-height: var(--hx-sidebar-max-height);
-	}
-
 	.hx-sidebar-bp-sm .hx-sidebar-collapse {
-		display: flex; /* overrides the (unlayered) .collapse:not(.show) display: none by specificity and stylesheet order */
+		display: flex;
 	}
 }
 
 @media (min-width: 768px) {
-	.hx-sidebar-bp-md {
-		max-height: var(--hx-sidebar-max-height);
-	}
-
-	.hx-sidebar-bp-md .nav-menu {
-		max-height: var(--hx-sidebar-max-height);
-	}
-
 	.hx-sidebar-bp-md .hx-sidebar-collapse {
-		display: flex; /* overrides the (unlayered) .collapse:not(.show) display: none by specificity and stylesheet order */
+		display: flex;
 	}
 }
 
 @media (min-width: 1024px) {
-	.hx-sidebar-bp-lg {
-		max-height: var(--hx-sidebar-max-height);
-	}
-
-	.hx-sidebar-bp-lg .nav-menu {
-		max-height: var(--hx-sidebar-max-height);
-	}
-
 	.hx-sidebar-bp-lg .hx-sidebar-collapse {
-		display: flex; /* overrides the (unlayered) .collapse:not(.show) display: none by specificity and stylesheet order */
+		display: flex;
 	}
 }
 
 @media (min-width: 1280px) {
-	.hx-sidebar-bp-xl {
-		max-height: var(--hx-sidebar-max-height);
-	}
-
-	.hx-sidebar-bp-xl .nav-menu {
-		max-height: var(--hx-sidebar-max-height);
-	}
-
 	.hx-sidebar-bp-xl .hx-sidebar-collapse {
-		display: flex; /* overrides the (unlayered) .collapse:not(.show) display: none by specificity and stylesheet order */
+		display: flex;
 	}
 }
 
 @media (min-width: 1536px) {
-	.hx-sidebar-bp-2xl {
-		max-height: var(--hx-sidebar-max-height);
-	}
-
-	.hx-sidebar-bp-2xl .nav-menu {
-		max-height: var(--hx-sidebar-max-height);
-	}
-
 	.hx-sidebar-bp-2xl .hx-sidebar-collapse {
-		display: flex; /* overrides the (unlayered) .collapse:not(.show) display: none by specificity and stylesheet order */
+		display: flex;
 	}
 }
 
