@@ -85,7 +85,7 @@
 }
 
 .hx-sidebar-toggler:hover .hx-sidebar-toggler-arrow {
-	background-color: var(--bs-body-color);
+	background-color: var(--bs-fg-body);
 }
 
 .hx-sidebar-toggler-arrow + .hx-sidebar-toggler-arrow {
@@ -109,7 +109,7 @@
 }
 
 ::deep .hx-sidebar-navbar-toggler:hover {
-	color: var(--bs-primary);
+	color: var(--bs-primary-fg);
 }
 
 ::deep a[aria-expanded="true"] .bi-chevron-right {
