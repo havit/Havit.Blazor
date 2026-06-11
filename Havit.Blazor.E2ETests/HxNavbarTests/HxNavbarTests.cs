@@ -46,7 +46,10 @@ public class HxNavbarTests : TestAppTestBase
 		await Expect(navItemHome).ToBeVisibleAsync();
 
 		// Act - click toggler again to collapse navigation
-		await toggler.ClickAsync();
+		// Close via the drawer's close button - the open modal drawer intercepts pointer
+		// events over the rest of the page, so the toggler underneath is not clickable
+		// (Bootstrap 6 navbar UX: close via the close button, the backdrop, or Escape).
+		await Page.Locator("#test-navbar-collapse .btn-close").ClickAsync();
 
 		// Assert - the navbar drawer is closed again
 		await Expect(navCollapse).Not.ToHaveAttributeAsync("open", "", new() { Timeout = 10_000 });
