@@ -1,9 +1,13 @@
-﻿::deep .hx-sidebar-item {
-	display: block;
-}
+﻿/* Layered (globally-named components layer) so the responsive display utilities from the markup
+   can override: Bootstrap 6 utilities are layered without !important and lose to unlayered styles. */
+@layer components {
+	::deep .hx-sidebar-item {
+		display: block;
+	}
 
-::deep .hx-sidebar-item.dropend {
-	display: none; /* The collapsed-mode submenu is hidden by default and then shown with ResponsiveBreakpoint.GetCssClass based on Sidebar settings */
+	::deep .hx-sidebar-item.hx-sidebar-item-flyout {
+		display: none; /* The collapsed-mode flyout variant is hidden by default and shown with ResponsiveBreakpoint.GetCssClass based on Sidebar settings. */
+	}
 }
 
 ::deep .nav-link {

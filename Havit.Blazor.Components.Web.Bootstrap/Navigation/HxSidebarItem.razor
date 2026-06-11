@@ -31,7 +31,7 @@
 		}
 		else
 		{
-			<div class="@CssClassHelper.Combine("hx-sidebar-item", ParentSidebar.Collapsed ? ParentSidebar.ResponsiveBreakpoint.GetCssClass("d-??-block") : null)">
+			<div class="@CssClassHelper.Combine("hx-sidebar-item hx-sidebar-item-flyout", ParentSidebar.Collapsed ? ParentSidebar.ResponsiveBreakpoint.GetCssClass("d-??-block") : null)">
 				<HxNavLink Href="@Href"
 						   Match="Match"
 						   OnClick="@(OnClick.HasDelegate ? InvokeOnClickAsync : null)"

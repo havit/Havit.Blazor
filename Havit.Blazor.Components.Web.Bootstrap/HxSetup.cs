@@ -31,7 +31,8 @@ public static class HxSetup
 	/// </remarks>
 	public static string RenderBootstrapJavaScriptReference()
 	{
-		return "<script type=\"module\">import * as bootstrap from \"_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.bundle.min.js?v=" + VersionIdentifierHavitBlazorBootstrap + "\"; window.bootstrap = bootstrap;</script>";
+		// window.bootstrap ??= : the library JS initializer (beforeWebStart/beforeStart) may have already established the bridge; guarding prevents a second module instance (different URL due to ?v=) with duplicate data-API listeners.
+		return "<script type=\"module\">window.bootstrap ??= await import(\"./_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.bundle.min.js?v=" + VersionIdentifierHavitBlazorBootstrap + "\");</script>";
 	}
 
 	/// <summary>

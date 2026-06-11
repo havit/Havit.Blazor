@@ -1,4 +1,4 @@
-namespace Havit.Blazor.E2ETests.HxMessageBoxTests;
+﻿namespace Havit.Blazor.E2ETests.HxMessageBoxTests;
 
 public class HxMessageBox_Tests : TestAppTestBase
 {
@@ -32,7 +32,7 @@ public class HxMessageBox_Tests : TestAppTestBase
 		await showButton.ClickAsync();
 
 		// Wait for the dialog to fully show
-		var confirmButton = Page.Locator(".dialog-footer .btn-primary");
+		var confirmButton = Page.Locator(".dialog-footer .btn.theme-primary");
 		await Expect(confirmButton).ToBeVisibleAsync(new() { Timeout = 10_000 });
 
 		// Act - click the confirm (OK) button
@@ -58,7 +58,7 @@ public class HxMessageBox_Tests : TestAppTestBase
 		await showButton.ClickAsync();
 
 		// Wait for the dialog to fully show
-		var cancelButton = Page.Locator(".dialog-footer .btn-secondary");
+		var cancelButton = Page.Locator(".dialog-footer .btn.theme-secondary");
 		await Expect(cancelButton).ToBeVisibleAsync(new() { Timeout = 10_000 });
 
 		// Act - click the cancel button

@@ -3,8 +3,25 @@
 	flex-direction: column;
 	flex-shrink: 0;
 	flex-basis: var(--hx-sidebar-width);
-	flex-grow: 1;
 	background-color: var(--hx-sidebar-background-color);
+}
+
+/* Layered so the responsive utilities (md:flex-grow-0, md:d-none, md:d-block) can override these
+   defaults: Bootstrap 6 utilities live in @layer utilities without !important, and unlayered
+   (scoped) styles would always beat them. Joining the globally-named components layer restores
+   the utility-over-component cascade. */
+@layer components {
+	.hx-sidebar {
+		flex-grow: 1;
+	}
+
+	::deep .hx-sidebar-navbar-toggler {
+		display: flex;
+	}
+
+	.hx-sidebar-toggler {
+		display: none; /* Hidden in navbar mode (below the responsive breakpoint); shown via the responsive d-block utility. */
+	}
 }
 
 .hx-sidebar-collapse {
@@ -49,7 +66,6 @@
 	border: none !important;
 	width: 2.5rem !important;
 	height: 2.5rem !important;
-	display: flex;
 	justify-content: center;
 	align-items: center;
 	margin-left: auto;
@@ -64,7 +80,6 @@
 	top: 50%;
 	left: 100%;
 	transform: translate(-50%, -50%);
-	display: none; /* Hide the sidebar toggler in navbar mode (when below the responsive breakpoint). */
 	padding: 0;
 	border: 0;
 	background: transparent;
