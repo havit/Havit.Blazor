@@ -12287,8 +12287,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgress">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/progress/">Bootstrap 5 Progress</see> component.<br/>
-            A wrapping component for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar" />.<br />
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/progress/">Bootstrap 6 Progress</see> component.<br/>
+            A wrapping component (<c>.progress-stacked</c>) for one or more <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar" /> components.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxProgress">https://havit.blazor.eu/components/HxProgress</see>
             </summary>
         </member>
@@ -12329,7 +12329,9 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar">
             <summary>
-            A progress bar to be placed inside <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgress" />.
+            A progress bar to be placed inside <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgress" />.<br />
+            Renders the Bootstrap 6 progress markup — a <c>.progress</c> wrapper carrying <c>role="progressbar"</c> and the <c>aria-*</c> attributes,
+            with an inner <c>.progress-bar</c> used purely for the visual bar and label.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.ChildContent">
@@ -12359,7 +12361,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.Label">
             <summary>
-            Text to be displayed on the progress bar.
+            Text to be displayed on the progress bar. Also used as the accessible name (<c>aria-label</c>) of the progress bar.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.Color">

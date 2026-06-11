@@ -115,6 +115,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/concepts/Debouncer", "Debouncer", "delay timer"),
 		new("/concepts/dark-color-mode-theme", "Dark color mode", "dark color theme"),
 		new("/concepts/browser-storage", "Browser Web Storage", "localStorage sessionStorage local session storage persist cache key value json"),
+		new("/concepts/bootstrap-data-api", "Bootstrap data APIs", "toggler data-bs-toggle data attributes native javascript declarative toggle class"),
 
 		// Supportive types
 

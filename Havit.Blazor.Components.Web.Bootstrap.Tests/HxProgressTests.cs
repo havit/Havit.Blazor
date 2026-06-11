@@ -3,18 +3,18 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 public class HxProgressTests : BunitTestBase
 {
 	[Fact]
-	public void HxProgress_Render_OutputsProgressContainer()
+	public void HxProgress_Render_OutputsProgressStackedContainer()
 	{
 		// Act
 		var cut = RenderComponent<HxProgress>();
 
 		// Assert
-		var progressDiv = cut.Find("div.progress");
+		var progressDiv = cut.Find("div.progress-stacked");
 		Assert.NotNull(progressDiv);
 	}
 
 	[Fact]
-	public void HxProgressBar_Value_SetsCorrectWidth()
+	public void HxProgressBar_Value_SetsCorrectWidthAndAriaAttributes()
 	{
 		// Act
 		var cut = RenderComponent<HxProgress>(parameters => parameters
@@ -23,9 +23,15 @@ public class HxProgressTests : BunitTestBase
 			)
 		);
 
-		// Assert
-		var progressBar = cut.Find("div.progress-bar");
-		Assert.Contains("width: 50%", progressBar.GetAttribute("style"));
+		// Assert — Bootstrap 6 structure: .progress wrapper carries role/aria and the width, .progress-bar is purely visual
+		var progress = cut.Find("div.progress");
+		Assert.Contains("width: 50%", progress.GetAttribute("style"));
+		Assert.Equal("progressbar", progress.GetAttribute("role"));
+		Assert.Equal("50", progress.GetAttribute("aria-valuenow"));
+		Assert.Equal("0", progress.GetAttribute("aria-valuemin"));
+		Assert.Equal("100", progress.GetAttribute("aria-valuemax"));
+		var progressBar = cut.Find("div.progress > div.progress-bar");
+		Assert.Null(progressBar.GetAttribute("role"));
 	}
 
 	[Fact]
@@ -88,8 +94,8 @@ public class HxProgressTests : BunitTestBase
 			)
 		);
 
-		// Assert — Value 25 in range [0, 50] should be 50% width
-		var progressBar = cut.Find("div.progress-bar");
-		Assert.Contains("width: 50%", progressBar.GetAttribute("style"));
+		// Assert — Value 25 in range [0, 50] should be 50% width (set on the .progress wrapper since Bootstrap 6)
+		var progress = cut.Find("div.progress");
+		Assert.Contains("width: 50%", progress.GetAttribute("style"));
 	}
 }
