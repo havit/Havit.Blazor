@@ -15,6 +15,5 @@
 }
 
 .hx-drawer-close-button {
-    --bs-text-opacity: 1;
     color: inherit;
 }

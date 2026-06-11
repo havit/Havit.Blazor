@@ -3897,6 +3897,34 @@
             Receives notification from JavaScript when item is hidden.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSelectInternal`2.SelectedItemIndex">
+            <summary>
+            Index of the selected item within <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSelectInternal`2.ItemsToRender"/> (<c>-1</c> for no selection or the <c>null</c> item).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSelectInternal`2.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto an underlying HTML element.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSelectInternal`2.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSelectInternal`2.FocusAsync">
+            <summary>
+            Focuses the toggle.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSelectInternal`2.HandleJsShown">
+            <summary>
+            Receives notification from JavaScript when the menu is shown.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSelectInternal`2.HandleJsHidden">
+            <summary>
+            Receives notification from JavaScript when the menu is hidden.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent">
             <summary>
             Represents properties (and methods) of a component that renders a form value (i.e., form inputs).
@@ -6288,6 +6316,123 @@
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMultiSelect`2"/>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput">
+            <summary>
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/otp-input/">Bootstrap OTP input</see> component (new in Bootstrap 6).<br />
+            Connected input fields for one-time passwords, PIN codes, and verification codes
+            with automatic focus advancement, backspace navigation, paste support, and browser autofill (<c>autocomplete="one-time-code"</c>).
+            The <c>Value</c> is bound as a <see cref="T:System.String"/> (the concatenated code).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxOtpInput">https://havit.blazor.eu/components/HxOtpInput</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Defaults">
+            <summary>
+            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput"/> component.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Length">
+            <summary>
+            The number of inputs (digits) to render. The default is <c>6</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Mask">
+            <summary>
+            When <c>true</c>, the inputs render as <c>type="password"</c> fields to hide the entered values.
+            The default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Connected">
+            <summary>
+            When <c>true</c>, the inputs are visually connected into a single cohesive field (Bootstrap <c>input-group</c> styles).
+            When used together with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.GroupSize"/>, each group of inputs is wrapped in a nested <c>input-group</c>.
+            The default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.GroupSize">
+            <summary>
+            When set, the inputs are split into groups of this size with a visual <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Separator"/> between the groups (e.g. <c>123-456</c>).
+            The separator is purely visual, it does not affect the <c>Value</c>.
+            The default is <c>null</c> (no groups).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Separator">
+            <summary>
+            The separator text rendered between the groups of inputs (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.GroupSize"/>). The default is <c>–</c> (en dash).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.OnCompleted">
+            <summary>
+            Raised when all inputs are filled (Bootstrap <c>complete.bs.otp-input</c> event).
+            Receives the complete code as a parameter.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.InvokeOnCompletedAsync(System.String)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.OnCompleted"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.CoreInputCssClass">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreInputCssClass" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.OnParametersSet">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.BuildRenderInput_RenderDigitInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,System.Int32)">
+            <summary>
+            Renders a single digit input.
+            The attributes follow the Bootstrap OTP input accessibility guidance
+            (the same attributes the Bootstrap plugin sets on the inputs, rendered by Blazor to keep the render tree consistent with the DOM).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.HandleJsInput(System.String)">
+            <summary>
+            Receives notification from JavaScript when the value of any of the inputs changes (Bootstrap <c>input.bs.otp-input</c> event).
+            </summary>
+            <remarks>
+            The method is intended for JS interop, do not call it directly.
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.HandleJsComplete(System.String)">
+            <summary>
+            Receives notification from JavaScript when all inputs are filled (Bootstrap <c>complete.bs.otp-input</c> event).
+            </summary>
+            <remarks>
+            The method is intended for JS interop, do not call it directly.
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.TryParseValueFromString(System.String,System.String@,System.String@)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.FocusAsync">
+            <summary>
+            Focuses the component (the first empty input, or the last input when all inputs are filled).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2">
             <summary>
             Data-based list of radio buttons. Consider creating a custom picker derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2"/>.<br />
@@ -6564,6 +6709,45 @@
             When returns <c>true</c>, the corresponding option will be rendered with <c>disabled</c> attribute.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.AllowFiltering">
+            <summary>
+            Enables filtering capabilities.
+            When enabled, the component renders the Bootstrap Combobox (a toggle with a menu containing a filter input) instead of the native <c>select</c> element.
+            The default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.FilterPredicate">
+            <summary>
+            Defines a custom filtering predicate to apply to the list of items.
+            If not specified, the default behavior filters items based on whether the item text (obtained via <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.TextSelector"/>) contains the filter query string.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.ClearFilterOnHide">
+            <summary>
+            When enabled, the filter will be cleared when the menu is closed.
+            The default is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.FilterEmptyResultTemplate">
+            <summary>
+            Template that defines what should be rendered in case of empty filtered items.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.FilterEmptyResultText">
+            <summary>
+            Text to display when the filtered results list is empty and when not using <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.FilterEmptyResultTemplate"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.FilterSearchIcon">
+            <summary>
+            Icon displayed in filter input for searching the filter.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2.FilterClearIcon">
+            <summary>
+            Icon displayed in filter input for clearing the filter.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect">
             <summary>
             Non-generic API for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSelect`2"/>.
@@ -6674,6 +6858,69 @@
             Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.AllowFilteringImpl">
+            <summary>
+            Enables filtering capabilities (renders the Bootstrap Combobox instead of the native <c>select</c>).
+            Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.AllowFilteringEffective">
+            <summary>
+            Effective value of the filtering capabilities (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.AllowFilteringImpl"/> property, settings, defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.FilterPredicateImpl">
+            <summary>
+            Defines a custom filtering predicate to apply to the list of items.
+            If not specified, the default behavior filters items based on whether the item text (obtained via <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.TextSelectorImpl"/>) contains the filter query string.
+            Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.ClearFilterOnHideImpl">
+            <summary>
+            When enabled, the filter will be cleared when the menu is closed.
+            Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.ClearFilterOnHideEffective">
+            <summary>
+            Effective value of clearing the filter when the menu is closed (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.ClearFilterOnHideImpl"/> property, settings, defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.FilterEmptyResultTemplateImpl">
+            <summary>
+            Template that defines what should be rendered in case of empty filtered items.
+            Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.FilterEmptyResultTextImpl">
+            <summary>
+            Text to display when the filtered results list is empty and when not using <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.FilterEmptyResultTemplateImpl"/>.
+            Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.FilterSearchIconImpl">
+            <summary>
+            Icon displayed in the filter input for searching the filter.
+            Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.FilterSearchIconEffective">
+            <summary>
+            Effective value of the filter search icon (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.FilterSearchIconImpl"/> property, settings, defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.FilterClearIconImpl">
+            <summary>
+            Icon displayed in the filter input for clearing the filter.
+            Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.FilterClearIconEffective">
+            <summary>
+            Effective value of the filter clear icon (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.FilterClearIconImpl"/> property, settings, defaults).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.EnabledEffective">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.EnabledEffective" />
         </member>
@@ -6683,8 +6930,22 @@
             Can be <c>null</c>. 
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.RenderOrder">
+            <inheritdoc/>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc/>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.BuildRenderInput_Combobox(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <summary>
+            Renders the Bootstrap Combobox (used when filtering is enabled, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.AllowFilteringEffective"/>).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.HandleComboboxSelectedItemIndexChanged(System.Int32)">
+            <summary>
+            Handles the item selection in the combobox rendering (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.AllowFilteringEffective"/>).
+            Receives the index of the selected item within the sorted items (<c>-1</c> for the <c>null</c> item) and sets the <c>CurrentValue</c>.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSelectBase`2.TryParseValueFromString(System.String,`0@,System.String@)">
             <inheritdoc/>
@@ -7418,6 +7679,26 @@
             Icon displayed in the filter input for clearing the filter.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.OtpInputSettings">
+            <summary>
+            Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OtpInputSettings.Length">
+            <summary>
+            The number of inputs (digits) to render.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OtpInputSettings.Mask">
+            <summary>
+            When <c>true</c>, the inputs render as <c>type="password"</c> fields to hide the entered values.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.OtpInputSettings.Connected">
+            <summary>
+            When <c>true</c>, the inputs are visually connected into a single cohesive field (Bootstrap <c>input-group</c> styles).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode">
             <summary>
             Render mode for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2"/>
@@ -7848,6 +8129,26 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectSettings.LabelType">
             <summary>
             The label type.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectSettings.AllowFiltering">
+            <summary>
+            Enables filtering capabilities.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectSettings.ClearFilterOnHide">
+            <summary>
+            When enabled, the filter will be cleared when the menu is closed.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectSettings.FilterSearchIcon">
+            <summary>
+            Icon displayed in the filter input for searching the filter.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SelectSettings.FilterClearIcon">
+            <summary>
+            Icon displayed in the filter input for clearing the filter.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SwitchSettings">
