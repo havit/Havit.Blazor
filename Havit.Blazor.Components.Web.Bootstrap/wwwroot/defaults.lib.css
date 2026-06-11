@@ -146,6 +146,9 @@
 	--hx-list-layout-table-font-size: 								.875rem;
 	--hx-list-layout-header-gap:									.5rem;
 
+	/* HxSelect */
+	--hx-select-filter-input-icon-opacity: 						.25;
+
 	/* HxMultiSelect */
 	--hx-multi-select-background-color: 							var(--bs-body-bg);
 	--hx-multi-select-menu-height: 						300px;
