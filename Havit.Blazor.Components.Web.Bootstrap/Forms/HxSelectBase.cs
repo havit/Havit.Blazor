@@ -134,6 +134,69 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 	/// </summary>
 	protected Func<TItem, bool> ItemDisabledSelectorImpl { get; set; }
 
+	/// <summary>
+	/// Enables filtering capabilities (renders the Bootstrap Combobox instead of the native <c>select</c>).
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected bool? AllowFilteringImpl { get; set; }
+
+	/// <summary>
+	/// Effective value of the filtering capabilities (<see cref="AllowFilteringImpl"/> property, settings, defaults).
+	/// </summary>
+	protected bool AllowFilteringEffective => AllowFilteringImpl ?? GetSettings()?.AllowFiltering ?? GetDefaults().AllowFiltering;
+
+	/// <summary>
+	/// Defines a custom filtering predicate to apply to the list of items.
+	/// If not specified, the default behavior filters items based on whether the item text (obtained via <see cref="TextSelectorImpl"/>) contains the filter query string.
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected Func<TItem, string, bool> FilterPredicateImpl { get; set; }
+
+	/// <summary>
+	/// When enabled, the filter will be cleared when the menu is closed.
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected bool? ClearFilterOnHideImpl { get; set; }
+
+	/// <summary>
+	/// Effective value of clearing the filter when the menu is closed (<see cref="ClearFilterOnHideImpl"/> property, settings, defaults).
+	/// </summary>
+	protected bool ClearFilterOnHideEffective => ClearFilterOnHideImpl ?? GetSettings()?.ClearFilterOnHide ?? GetDefaults().ClearFilterOnHide;
+
+	/// <summary>
+	/// Template that defines what should be rendered in case of empty filtered items.
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected RenderFragment FilterEmptyResultTemplateImpl { get; set; }
+
+	/// <summary>
+	/// Text to display when the filtered results list is empty and when not using <see cref="FilterEmptyResultTemplateImpl"/>.
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected string FilterEmptyResultTextImpl { get; set; }
+
+	/// <summary>
+	/// Icon displayed in the filter input for searching the filter.
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected IconBase FilterSearchIconImpl { get; set; }
+
+	/// <summary>
+	/// Effective value of the filter search icon (<see cref="FilterSearchIconImpl"/> property, settings, defaults).
+	/// </summary>
+	protected IconBase FilterSearchIconEffective => FilterSearchIconImpl ?? GetSettings()?.FilterSearchIcon ?? GetDefaults().FilterSearchIcon;
+
+	/// <summary>
+	/// Icon displayed in the filter input for clearing the filter.
+	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
+	/// </summary>
+	protected IconBase FilterClearIconImpl { get; set; }
+
+	/// <summary>
+	/// Effective value of the filter clear icon (<see cref="FilterClearIconImpl"/> property, settings, defaults).
+	/// </summary>
+	protected IconBase FilterClearIconEffective => FilterClearIconImpl ?? GetSettings()?.FilterClearIcon ?? GetDefaults().FilterClearIcon;
+
 	/// <inheritdoc cref="HxInputBase{TValue}.EnabledEffective" />
 	protected override bool EnabledEffective => base.EnabledEffective && (_itemsToRender != null);
 
@@ -143,12 +206,19 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 	/// </summary>
 	protected ElementReference InputElement { get; set; }
 
-	private protected override string CoreInputCssClass => "form-control";
+	private protected override string CoreInputCssClass => AllowFilteringEffective ? "form-control combobox-toggle" : "form-control";
+
+	/// <inheritdoc/>
+	protected override LabelValueRenderOrder RenderOrder =>
+		(AllowFilteringEffective && (LabelTypeEffective == Bootstrap.LabelType.Floating))
+			? LabelValueRenderOrder.ValueOnly // floating label is rendered inside the HxSelectInternal component
+			: base.RenderOrder;
 
 	private IEqualityComparer<TValue> _comparer = EqualityComparer<TValue>.Default;
 	private List<TItem> _itemsToRender;
 	private int _selectedItemIndex;
 	private string _chipValue;
+	private HxSelectInternal<TValue, TItem> _hxSelectInternalComponent;
 
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
@@ -156,6 +226,12 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 		_chipValue = null;
 
 		RefreshState();
+
+		if (AllowFilteringEffective)
+		{
+			BuildRenderInput_Combobox(builder);
+			return;
+		}
 
 		bool enabledEffective = EnabledEffective;
 
@@ -219,6 +295,54 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 			}
 		}
 		builder.CloseElement();
+	}
+
+	/// <summary>
+	/// Renders the Bootstrap Combobox (used when filtering is enabled, <see cref="AllowFilteringEffective"/>).
+	/// </summary>
+	private void BuildRenderInput_Combobox(RenderTreeBuilder builder)
+	{
+		if ((_itemsToRender != null) && (_selectedItemIndex > -1))
+		{
+			_chipValue = SelectorHelpers.GetText(TextSelectorImpl, _itemsToRender[_selectedItemIndex]);
+		}
+
+		builder.OpenComponent<HxSelectInternal<TValue, TItem>>(100);
+		builder.AddAttribute(101, nameof(HxSelectInternal<TValue, TItem>.InputId), InputId);
+		builder.AddAttribute(102, nameof(HxSelectInternal<TValue, TItem>.InputCssClass), GetInputCssClassToRender());
+		builder.AddAttribute(103, nameof(HxSelectInternal<TValue, TItem>.InputSizeEffective), InputSizeEffective);
+		builder.AddAttribute(104, nameof(HxSelectInternal<TValue, TItem>.EnabledEffective), EnabledEffective);
+		builder.AddAttribute(105, nameof(HxSelectInternal<TValue, TItem>.LabelTypeEffective), LabelTypeEffective);
+		builder.AddAttribute(106, nameof(HxSelectInternal<TValue, TItem>.FormValueComponent), this);
+		builder.AddAttribute(107, nameof(HxSelectInternal<TValue, TItem>.ItemsToRender), _itemsToRender);
+		builder.AddAttribute(108, nameof(HxSelectInternal<TValue, TItem>.SelectedItemIndex), _selectedItemIndex);
+		builder.AddAttribute(109, nameof(HxSelectInternal<TValue, TItem>.SelectedItemIndexChanged), EventCallback.Factory.Create<int>(this, HandleComboboxSelectedItemIndexChanged));
+		builder.AddAttribute(110, nameof(HxSelectInternal<TValue, TItem>.NullableEffective), NullableEffective);
+		builder.AddAttribute(111, nameof(HxSelectInternal<TValue, TItem>.NullText), NullTextImpl);
+		builder.AddAttribute(112, nameof(HxSelectInternal<TValue, TItem>.NullDataText), NullDataTextImpl);
+		builder.AddAttribute(113, nameof(HxSelectInternal<TValue, TItem>.TextSelector), TextSelectorImpl);
+		builder.AddAttribute(114, nameof(HxSelectInternal<TValue, TItem>.ItemDisabledSelector), ItemDisabledSelectorImpl);
+		builder.AddAttribute(115, nameof(HxSelectInternal<TValue, TItem>.FilterPredicate), FilterPredicateImpl);
+		builder.AddAttribute(116, nameof(HxSelectInternal<TValue, TItem>.ClearFilterOnHide), ClearFilterOnHideEffective);
+		builder.AddAttribute(117, nameof(HxSelectInternal<TValue, TItem>.FilterEmptyResultTemplate), FilterEmptyResultTemplateImpl);
+		builder.AddAttribute(118, nameof(HxSelectInternal<TValue, TItem>.FilterEmptyResultText), FilterEmptyResultTextImpl);
+		builder.AddAttribute(119, nameof(HxSelectInternal<TValue, TItem>.FilterSearchIcon), FilterSearchIconEffective);
+		builder.AddAttribute(120, nameof(HxSelectInternal<TValue, TItem>.FilterClearIcon), FilterClearIconEffective);
+
+		builder.AddMultipleAttributes(200, AdditionalAttributes);
+
+		builder.AddComponentReferenceCapture(300, r => _hxSelectInternalComponent = (HxSelectInternal<TValue, TItem>)r);
+
+		builder.CloseComponent();
+	}
+
+	/// <summary>
+	/// Handles the item selection in the combobox rendering (<see cref="AllowFilteringEffective"/>).
+	/// Receives the index of the selected item within the sorted items (<c>-1</c> for the <c>null</c> item) and sets the <c>CurrentValue</c>.
+	/// </summary>
+	private void HandleComboboxSelectedItemIndexChanged(int selectedItemIndex)
+	{
+		CurrentValueAsString = selectedItemIndex.ToString();
 	}
 
 	private void RefreshState()
@@ -288,6 +412,19 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 	/// <summary>
 	/// Focuses the component.
 	/// </summary>
-	public async ValueTask FocusAsync() => await InputElement.FocusOrThrowAsync(this);
+	public async ValueTask FocusAsync()
+	{
+		if (AllowFilteringEffective)
+		{
+			if (_hxSelectInternalComponent == null)
+			{
+				throw new InvalidOperationException($"[{GetType().Name}] Unable to focus. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
+			}
+			await _hxSelectInternalComponent.FocusAsync();
+			return;
+		}
+
+		await InputElement.FocusOrThrowAsync(this);
+	}
 
 }
