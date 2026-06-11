@@ -9594,48 +9594,36 @@
     border-radius: var(--bs-tooltip-border-radius);
   }
 }
-@layer components{
 .fade {
   transition: opacity 0.15s linear;
-}
 }
 @media (prefers-reduced-motion: reduce) {
   .fade {
     transition: none;
   }
 }
-@layer components{
 .fade:not(.show) {
   opacity: 0;
 }
-}
-
-@layer components{
 
 .collapse:not(.show) {
   display: none;
 }
-}
-
-@layer components{
 
 .collapsing {
   height: 0;
   overflow: hidden;
   transition: height 0.35s ease;
 }
-}
 @media (prefers-reduced-motion: reduce) {
   .collapsing {
     transition: none;
   }
 }
-@layer components{
 .collapsing.collapse-horizontal {
   width: 0;
   height: auto;
   transition: width 0.35s ease;
-}
 }
 @media (prefers-reduced-motion: reduce) {
   .collapsing.collapse-horizontal {

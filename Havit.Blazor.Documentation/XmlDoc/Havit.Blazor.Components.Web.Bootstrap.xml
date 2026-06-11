@@ -12098,6 +12098,14 @@
             Mobile for viewports below the "2xl" breakpoint (<c>1536px</c>, exclusive).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpointExtensions.GetMarkerCssClass(Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint,System.String)">
+            <summary>
+            Returns a breakpoint marker CSS class (e.g. <c>prefix-md</c>) consumed by the component's scoped CSS media queries.
+            The sidebar's responsive behavior is implemented in scoped CSS (not responsive utilities) so it works against
+            the unmodified base Bootstrap 6 build, where utilities live in @layer utilities and cannot override
+            unlayered styles such as the component isolation CSS or the (unlayered) .collapse rules.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext">
             <summary>
             Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate" />.

@@ -1,12 +1,125 @@
-﻿/* Layered (globally-named components layer) so the responsive display utilities from the markup
-   can override: Bootstrap 6 utilities are layered without !important and lose to unlayered styles. */
-@layer components {
-	::deep .hx-sidebar-item {
+﻿::deep .hx-sidebar-item {
+	display: block;
+}
+
+::deep .hx-sidebar-item.hx-sidebar-item-flyout {
+	display: none; /* The collapsed-mode flyout variant is shown by the breakpoint sections below. */
+}
+
+/* The collapsed (icon-only) mode applies at or above the sidebar's responsive breakpoint -
+   keyed by the hx-sidebar-item-bp-* + hx-sidebar-item-collapsed marker classes and implemented
+   in scoped CSS media queries (not responsive utilities) so it works against the unmodified
+   base Bootstrap 6 build. Below the breakpoint the items render in the mobile navbar menu. */
+
+.hx-sidebar-item-bp-none.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-flyout {
+	display: block;
+}
+
+.hx-sidebar-item-bp-none.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-expandable-toggle {
+	display: none;
+}
+
+.hx-sidebar-item-bp-none.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapse,
+.hx-sidebar-item-bp-none.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapsing {
+	display: none;
+}
+
+.hx-sidebar-item-bp-none.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-content-collapsed {
+	display: none;
+}
+
+@media (min-width: 576px) {
+	.hx-sidebar-item-bp-sm.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-flyout {
 		display: block;
 	}
 
-	::deep .hx-sidebar-item.hx-sidebar-item-flyout {
-		display: none; /* The collapsed-mode flyout variant is hidden by default and shown with ResponsiveBreakpoint.GetCssClass based on Sidebar settings. */
+	.hx-sidebar-item-bp-sm.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-expandable-toggle {
+		display: none;
+	}
+
+	.hx-sidebar-item-bp-sm.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapse,
+	.hx-sidebar-item-bp-sm.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapsing {
+		display: none;
+	}
+
+	.hx-sidebar-item-bp-sm.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-content-collapsed {
+		display: none;
+	}
+}
+
+@media (min-width: 768px) {
+	.hx-sidebar-item-bp-md.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-flyout {
+		display: block;
+	}
+
+	.hx-sidebar-item-bp-md.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-expandable-toggle {
+		display: none;
+	}
+
+	.hx-sidebar-item-bp-md.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapse,
+	.hx-sidebar-item-bp-md.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapsing {
+		display: none;
+	}
+
+	.hx-sidebar-item-bp-md.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-content-collapsed {
+		display: none;
+	}
+}
+
+@media (min-width: 1024px) {
+	.hx-sidebar-item-bp-lg.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-flyout {
+		display: block;
+	}
+
+	.hx-sidebar-item-bp-lg.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-expandable-toggle {
+		display: none;
+	}
+
+	.hx-sidebar-item-bp-lg.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapse,
+	.hx-sidebar-item-bp-lg.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapsing {
+		display: none;
+	}
+
+	.hx-sidebar-item-bp-lg.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-content-collapsed {
+		display: none;
+	}
+}
+
+@media (min-width: 1280px) {
+	.hx-sidebar-item-bp-xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-flyout {
+		display: block;
+	}
+
+	.hx-sidebar-item-bp-xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-expandable-toggle {
+		display: none;
+	}
+
+	.hx-sidebar-item-bp-xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapse,
+	.hx-sidebar-item-bp-xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapsing {
+		display: none;
+	}
+
+	.hx-sidebar-item-bp-xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-content-collapsed {
+		display: none;
+	}
+}
+
+@media (min-width: 1536px) {
+	.hx-sidebar-item-bp-2xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-flyout {
+		display: block;
+	}
+
+	.hx-sidebar-item-bp-2xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-expandable-toggle {
+		display: none;
+	}
+
+	.hx-sidebar-item-bp-2xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapse,
+	.hx-sidebar-item-bp-2xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-subitems.collapsing {
+		display: none;
+	}
+
+	.hx-sidebar-item-bp-2xl.hx-sidebar-item-collapsed ::deep .hx-sidebar-item-content-collapsed {
+		display: none;
 	}
 }
 

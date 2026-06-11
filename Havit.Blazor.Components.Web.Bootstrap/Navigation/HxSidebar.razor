@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<div class="@CssClassHelper.Combine("hx-sidebar", ResponsiveBreakpoint.GetCssClass("flex-??-grow-0"), GetCollapsedCssClass(), CssClass)" id="@Id">
+<div class="@CssClassHelper.Combine("hx-sidebar", ResponsiveBreakpoint.GetMarkerCssClass("hx-sidebar-bp"), GetCollapsedCssClass(), CssClass)" id="@Id">
 	<div class="nav-menu d-flex flex-column flex-grow-1 position-relative">
 
 		@if (HeaderTemplate is not null)
@@ -9,7 +9,7 @@
 				<CascadingValue Value="@(this)">
 					@HeaderTemplate
 				</CascadingValue>
-				<HxButton CssClass="@CssClassHelper.Combine("hx-sidebar-navbar-toggler", ResponsiveBreakpoint.GetCssClass("d-??-none"))"
+				<HxButton CssClass="hx-sidebar-navbar-toggler"
 						  data-bs-toggle="collapse"
 						  data-bs-target="@($"#{NavContentElementId}")"
 						  aria-controls="@NavContentElementId"
@@ -19,7 +19,7 @@
 			</div>
 		}
 
-		<div class="@CssClassHelper.Combine("hx-sidebar-collapse collapse overflow-auto", ResponsiveBreakpoint.GetCssClass("d-??-flex"))" id="@NavContentElementId">
+		<div class="hx-sidebar-collapse collapse overflow-auto" id="@NavContentElementId">
 			<div class="hx-sidebar-body mb-auto w-100">
 				<HxNav Id="@_navId" Orientation="NavOrientation.Vertical">
 					<CascadingValue Value="@(this)" IsFixed="true">
@@ -27,7 +27,7 @@
 					</CascadingValue>
 				</HxNav>
 				<button type="button"
-						class="@CssClassHelper.Combine("hx-sidebar-toggler", Collapsed ? "collapsed" : null, ResponsiveBreakpoint.GetCssClass("d-??-block"))"
+						class="@CssClassHelper.Combine("hx-sidebar-toggler", Collapsed ? "collapsed" : null)"
 						aria-controls="@Id"
 						aria-expanded="@(!Collapsed)"
 						aria-label="@(Collapsed ? Localizer["Expand"] : Localizer["Collapse"])"
