@@ -23,14 +23,6 @@
 	if (subscribeToHideEvent) {
 		element.addEventListener('hide.bs.drawer', handleDrawerHide);
 	}
-	// Backdrop-click close fallback. The Drawer plugin listens for clicks dispatched on the
-	// <dialog> element itself (the Chromium ::backdrop behavior), but WebKit does not target
-	// the dialog for backdrop clicks at all - so we listen at the document level (capture
-	// phase) while the drawer is open and close on any click that lands on the backdrop or
-	// outside the drawer. Idempotent with the plugin's own listener (hide() no-ops when
-	// already hidden); static backdrops are respected.
-	document.removeEventListener('click', handleDocumentClick, true);
-	document.addEventListener('click', handleDocumentClick, true);
 	element.addEventListener('hidden.bs.drawer', handleDrawerHidden);
 	element.addEventListener('shown.bs.drawer', handleDrawerShown);
 	window.drawerElement = element;
@@ -55,25 +47,6 @@ export function hide(element) {
 	}
 }
 
-function handleDocumentClick(event) {
-	const element = window.drawerElement;
-	if (!element || !element.open) {
-		return;
-	}
-	if (event.target !== element && element.contains(event.target)) {
-		return; // click inside the drawer panel content
-	}
-	const drawer = bootstrap.Drawer.getInstance(element);
-	if (!drawer) {
-		return;
-	}
-	const backdrop = drawer._config?.backdrop;
-	if (!backdrop || backdrop === 'static') {
-		return; // no backdrop = no light dismiss; static backdrop = the plugin plays its own bounce
-	}
-	drawer.hide();
-}
-
 function handleDrawerShown(event) {
 	event.target.hxDrawerDotnetObjectReference.invokeMethodAsync('HxDrawer_HandleDrawerShown');
 }
@@ -96,12 +69,7 @@ async function handleDrawerHide(event) {
 	}
 };
 
-function detachDocumentClickListener() {
-	document.removeEventListener('click', handleDocumentClick, true);
-}
-
 function handleDrawerHidden(event) {
-	detachDocumentClickListener();
 	event.target.hxDrawerHiding = false;
 
 	if (event.target === window.drawerElement) {
@@ -118,7 +86,6 @@ function handleDrawerHidden(event) {
 }
 
 export function dispose(element, opened) {
-	detachDocumentClickListener();
 	if (!element) {
 		return;
 	}
