@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<div class="@CssClassHelper.Combine("hx-sidebar", ResponsiveBreakpoint.GetMarkerCssClass("hx-sidebar-bp"), ResponsiveBreakpoint.GetCssClass("flex-??-grow-0"), GetCollapsedCssClass(), CssClass)" id="@Id">
+<div class="@CssClassHelper.Combine("hx-sidebar", ResponsiveBreakpoint.GetCssClass("flex-??-grow-0"), GetCollapsedCssClass(), CssClass)" id="@Id">
 	<div class="nav-menu d-flex flex-column flex-grow-1 position-relative">
 
 		@if (HeaderTemplate is not null)
@@ -10,16 +10,15 @@
 					@HeaderTemplate
 				</CascadingValue>
 				<HxButton CssClass="@CssClassHelper.Combine("hx-sidebar-navbar-toggler", ResponsiveBreakpoint.GetCssClass("d-??-none"))"
-						  data-bs-toggle="collapse"
-						  data-bs-target="@($"#{NavContentElementId}")"
+						  OnClick="HandleNavbarTogglerClick"
 						  aria-controls="@NavContentElementId"
-						  aria-expanded="false"
+						  aria-expanded="@(_mobileMenuOpen ? "true" : "false")"
 						  aria-label="Toggle navigation"
 						  Icon="BootstrapIcon.List" />
 			</div>
 		}
 
-		<div class="hx-sidebar-collapse collapse overflow-auto" id="@NavContentElementId">
+		<div class="@CssClassHelper.Combine("hx-sidebar-collapse overflow-auto", _mobileMenuOpen ? "hx-sidebar-collapse-show" : null, ResponsiveBreakpoint.GetCssClass("d-??-flex"))" id="@NavContentElementId">
 			<div class="hx-sidebar-body mb-auto w-100">
 				<HxNav Id="@_navId" Orientation="NavOrientation.Vertical">
 					<CascadingValue Value="@(this)" IsFixed="true">

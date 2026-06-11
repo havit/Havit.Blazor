@@ -18,8 +18,8 @@
 						   CssClass="@CssClassHelper.Combine(InSidebarMenu ? "menu-item" : null, CssClass, "hx-sidebar-item position-relative")"
 						   Enabled="Enabled">
 
-					@* To hide the nav-content in mobile view *@
-					<div data-bs-toggle="collapse" data-bs-target="#@ParentSidebar.NavContentElementId" class="stretched-link">
+					@* Closes the mobile (navbar mode) menu upon navigation. *@
+					<div @onclick="ParentSidebar.CloseMobileMenu" class="stretched-link">
 						<HxSidebarItemNavLinkContentInternal Text="@Text"
 															 Icon="Icon"
 															 InnerCssClass="@((ParentSidebar.Collapsed && ParentSidebarItem is null) ? ParentSidebar.ResponsiveBreakpoint.GetCssClass("d-??-none") : null)"

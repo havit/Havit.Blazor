@@ -22,56 +22,25 @@
 	}
 
 	.hx-sidebar-collapse {
+		display: none; /* navbar mode (below the responsive breakpoint), mobile menu closed */
 		flex-direction: column;
 		flex-grow: 1;
 	}
+
+	.hx-sidebar-collapse.hx-sidebar-collapse-show {
+		display: flex; /* navbar mode, mobile menu open (component state, no Collapse plugin) */
+	}
+
+	/* The expanded (desktop) mode is the responsive d-*-flex utility rendered from the markup
+	   (HxSidebar.ResponsiveBreakpoint): utilities live in a later cascade layer than this
+	   isolation CSS and come from the consumer's own Bootstrap build, so customized breakpoint
+	   definitions are honored without any breakpoint values in this file. */
 }
 
 @media (min-width: 768px) {
 	.hx-sidebar,
 	.hx-sidebar .nav-menu {
 		max-height: var(--hx-sidebar-max-height);
-	}
-}
-
-/* UNLAYERED ON PURPOSE - do not move into @layer: at and above the responsive breakpoint the
-   sidebar content must override the base-Bootstrap .collapse:not(.show){display:none}, which is
-   emitted OUTSIDE any layer upstream; only an unlayered rule with higher specificity can win
-   (layered rules and the d-*-flex utilities always lose to unlayered styles).
-   Keyed by the hx-sidebar-bp-* marker class (see HxSidebar.ResponsiveBreakpoint).
-   Bootstrap 6 breakpoints: sm 576, md 768, lg 1024, xl 1280, 2xl 1536. */
-
-.hx-sidebar-bp-none .hx-sidebar-collapse {
-	display: flex;
-}
-
-@media (min-width: 576px) {
-	.hx-sidebar-bp-sm .hx-sidebar-collapse {
-		display: flex;
-	}
-}
-
-@media (min-width: 768px) {
-	.hx-sidebar-bp-md .hx-sidebar-collapse {
-		display: flex;
-	}
-}
-
-@media (min-width: 1024px) {
-	.hx-sidebar-bp-lg .hx-sidebar-collapse {
-		display: flex;
-	}
-}
-
-@media (min-width: 1280px) {
-	.hx-sidebar-bp-xl .hx-sidebar-collapse {
-		display: flex;
-	}
-}
-
-@media (min-width: 1536px) {
-	.hx-sidebar-bp-2xl .hx-sidebar-collapse {
-		display: flex;
 	}
 }
 

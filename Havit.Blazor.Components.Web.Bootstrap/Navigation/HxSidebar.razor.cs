@@ -88,6 +88,33 @@ public partial class HxSidebar : ComponentBase
 
 	private string GetCollapsedCssClass() => Collapsed ? "collapsed" : null;
 
+	/// <summary>
+	/// Indicates whether the mobile (navbar mode) menu is open.
+	/// The mobile menu is plain Blazor state - the Bootstrap Collapse plugin is intentionally not used:
+	/// base Bootstrap 6 emits .collapse:not(.show) outside any cascade layer, which would force the
+	/// expanded (desktop) mode to fight it with unlayered breakpoint-specific CSS. With component-owned
+	/// state, the expanded mode is a plain responsive d-*-flex utility from the consumer's Bootstrap
+	/// build, so changed or custom breakpoint definitions are honored automatically.
+	/// </summary>
+	private bool _mobileMenuOpen;
+
+	private void HandleNavbarTogglerClick()
+	{
+		_mobileMenuOpen = !_mobileMenuOpen;
+	}
+
+	/// <summary>
+	/// Closes the mobile (navbar mode) menu. Called by the contained <see cref="HxSidebarItem"/>s upon navigation.
+	/// </summary>
+	protected internal void CloseMobileMenu()
+	{
+		if (_mobileMenuOpen)
+		{
+			_mobileMenuOpen = false;
+			StateHasChanged();
+		}
+	}
+
 	private async Task HandleCollapseToggleClick()
 	{
 		Collapsed = !Collapsed;

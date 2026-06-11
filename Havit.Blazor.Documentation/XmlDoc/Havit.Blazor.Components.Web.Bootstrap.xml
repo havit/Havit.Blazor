@@ -11740,6 +11740,21 @@
             The ID of the immediate parent of the contained <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/> components.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSidebar._mobileMenuOpen">
+            <summary>
+            Indicates whether the mobile (navbar mode) menu is open.
+            The mobile menu is plain Blazor state - the Bootstrap Collapse plugin is intentionally not used:
+            base Bootstrap 6 emits .collapse:not(.show) outside any cascade layer, which would force the
+            expanded (desktop) mode to fight it with unlayered breakpoint-specific CSS. With component-owned
+            state, the expanded mode is a plain responsive d-*-flex utility from the consumer's Bootstrap
+            build, so changed or custom breakpoint definitions are honored automatically.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.CloseMobileMenu">
+            <summary>
+            Closes the mobile (navbar mode) menu. Called by the contained <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/>s upon navigation.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarBrand">
             <summary>
             Brand for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.HeaderTemplate"/>.
@@ -12096,14 +12111,6 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Xxl">
             <summary>
             Mobile for viewports below the "2xl" breakpoint (<c>1536px</c>, exclusive).
-            </summary>
-        </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpointExtensions.GetMarkerCssClass(Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint,System.String)">
-            <summary>
-            Returns a breakpoint marker CSS class (e.g. <c>prefix-md</c>) consumed by the component's scoped CSS media queries.
-            The sidebar's responsive behavior is implemented in scoped CSS (not responsive utilities) so it works against
-            the unmodified base Bootstrap 6 build, where utilities live in @layer utilities and cannot override
-            unlayered styles such as the component isolation CSS or the (unlayered) .collapse rules.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext">
