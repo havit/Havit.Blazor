@@ -51,54 +51,6 @@
 	padding: var(--hx-sidebar-footer-padding);
 }
 
-.hx-sidebar-toggler {
-	position: absolute;
-	top: 50%;
-	left: 100%;
-	transform: translate(-50%, -50%);
-	padding: 0;
-	border: 0;
-	background: transparent;
-	cursor: pointer;
-}
-
-.hx-sidebar-toggler-inner {
-	padding: .625rem;
-}
-
-.hx-sidebar-toggler-arrow {
-	width: .25rem;
-	height: .75rem;
-	border-radius: .25rem;
-	background-color: var(--hx-sidebar-toggler-background);
-	transition: all .25s ease-in-out;
-	transform: translateY(.15rem) rotate(0deg) translateZ(0px);
-}
-
-.hx-sidebar-toggler:hover .hx-sidebar-toggler-arrow {
-	background-color: var(--bs-fg-body);
-}
-
-.hx-sidebar-toggler-arrow + .hx-sidebar-toggler-arrow {
-	transform: translateY(-.15rem) rotate(0deg) translateZ(0px);
-}
-
-.hx-sidebar-toggler:hover .hx-sidebar-toggler-arrow {
-	transform: translateY(.15rem) rotate(15deg) translateZ(0px);
-}
-
-.hx-sidebar-toggler:hover .hx-sidebar-toggler-arrow + .hx-sidebar-toggler-arrow {
-	transform: translateY(-.15rem) rotate(-15deg) translateZ(0px);
-}
-
-.collapsed .hx-sidebar-toggler:hover .hx-sidebar-toggler-arrow {
-	transform: translateY(.15rem) rotate(-15deg) translateZ(0px);
-}
-
-.collapsed .hx-sidebar-toggler:hover .hx-sidebar-toggler-arrow + .hx-sidebar-toggler-arrow {
-	transform: translateY(-.15rem) rotate(15deg) translateZ(0px);
-}
-
 ::deep a[aria-expanded="true"] .bi-chevron-right {
 	transform: rotate(90deg);
 }

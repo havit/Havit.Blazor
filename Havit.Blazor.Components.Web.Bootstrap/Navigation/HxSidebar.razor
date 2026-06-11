@@ -1,4 +1,5 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@using Havit.Blazor.Components.Web.Bootstrap.Internal
 
 <div class="@CssClassHelper.Combine("hx-sidebar", GetCollapsedCssClass(), CssClass)" id="@Id">
 	<div class="nav-menu d-flex flex-column flex-grow-1 position-relative">
@@ -19,28 +20,10 @@
 						@ItemsTemplate
 					</CascadingValue>
 				</HxNav>
-				<button type="button"
-						class="@CssClassHelper.Combine("hx-sidebar-toggler", Collapsed ? "collapsed" : null)"
-						aria-controls="@Id"
-						aria-expanded="@(!Collapsed)"
-						aria-label="@(Collapsed ? Localizer["Expand"] : Localizer["Collapse"])"
-						@onclick="HandleCollapseToggleClick"
-						@onclick:stopPropagation="true">
-
-					@if (TogglerTemplate is null)
-					{
-						<HxTooltip Placement="TooltipPlacement.Right" Text="@(Collapsed ? Localizer["Expand"] : Localizer["Collapse"])">
-							<div class="hx-sidebar-toggler-inner">
-								<div class="hx-sidebar-toggler-arrow"></div>
-								<div class="hx-sidebar-toggler-arrow"></div>
-							</div>
-						</HxTooltip>
-					}
-					else
-					{
-						@TogglerTemplate(new() { SidebarCollapsed = Collapsed })
-					}
-				</button>
+				<HxSidebarTogglerInternal Collapsed="Collapsed"
+										  AriaControlsId="@Id"
+										  TogglerTemplate="TogglerTemplate"
+										  OnClick="HandleCollapseToggleClick" />
 			</div>
 
 			@if (FooterTemplate is not null)

@@ -4692,6 +4692,26 @@
             Tooltip/Popover placement.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSidebarTogglerInternal.Collapsed">
+            <summary>
+            Indicates whether the sidebar is collapsed (drives the toggler direction, tooltip and aria attributes).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSidebarTogglerInternal.AriaControlsId">
+            <summary>
+            The ID of the sidebar element the toggler controls.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSidebarTogglerInternal.TogglerTemplate">
+            <summary>
+            Custom toggler visual to be rendered instead of the default bar/arrow.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSidebarTogglerInternal.OnClick">
+            <summary>
+            Raised on toggler click.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.BindEvent">
             <summary>
             Event to use for data-binding.
