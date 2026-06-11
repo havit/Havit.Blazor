@@ -1,6 +1,6 @@
 ﻿@using Havit.Blazor.Components.Web.ECharts
 @using Havit.Blazor.ApplicationInsights.Components
-<HxSidebar @bind-Collapsed="_isDesktopCollapsed" CssClass="md:sticky-top doc-sidebar">
+<HxSidebar @bind-Collapsed="_isDesktopCollapsed" CssClass="@CssClassHelper.Combine("md:sticky-top doc-sidebar", CssClass)">
     <HeaderTemplate>
         <div class="d-flex flex-grow-1 lg:d-none">
             <HxSidebarBrand BrandName="HAVIT Blazor">
@@ -233,5 +233,7 @@
 
 @code
 {
-    private bool _isDesktopCollapsed;
+	[Parameter] public string CssClass { get; set; }
+
+	private bool _isDesktopCollapsed;
 }

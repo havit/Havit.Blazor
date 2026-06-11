@@ -31,6 +31,12 @@
 				</a>
 				<Havit.Blazor.Documentation.Shared.Components.DocColorMode.DocColorModeSwitcher />
 			</div>
+
+			@* Component navigation for mobile (the desktop sidebar is hidden below the lg breakpoint by the layout).
+			   Hidden at lg and up, where the drawer content is flattened inline into the navbar. *@
+			<div class="lg:d-none mt-3">
+				<Sidebar />
+			</div>
 		</HxNavbarCollapse>
 	</HxNavbar>
 </div>

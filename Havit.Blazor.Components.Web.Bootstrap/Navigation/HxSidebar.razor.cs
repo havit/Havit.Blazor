@@ -71,15 +71,7 @@ public partial class HxSidebar : ComponentBase
 	/// </summary>
 	[Parameter] public bool MultipleItemsExpansion { get; set; } = true;
 
-	/// <summary>
-	/// The breakpoint below which the sidebar switches to the mobile version (exclusive).<br/>
-	/// The default is <see cref="SidebarResponsiveBreakpoint.Medium"/>.
-	/// </summary>
-	[Parameter] public SidebarResponsiveBreakpoint ResponsiveBreakpoint { get; set; } = SidebarResponsiveBreakpoint.Medium;
-
 	[Inject] protected IStringLocalizer<HxSidebar> Localizer { get; set; }
-
-	protected internal string NavContentElementId => Id + "-nav-content";
 
 	/// <summary>
 	/// The ID of the immediate parent of the contained <see cref="HxSidebarItem"/> components.
@@ -87,33 +79,6 @@ public partial class HxSidebar : ComponentBase
 	internal string _navId = "hx" + Guid.NewGuid().ToString("N");
 
 	private string GetCollapsedCssClass() => Collapsed ? "collapsed" : null;
-
-	/// <summary>
-	/// Indicates whether the mobile (navbar mode) menu is open.
-	/// The mobile menu is plain Blazor state - the Bootstrap Collapse plugin is intentionally not used:
-	/// base Bootstrap 6 emits .collapse:not(.show) outside any cascade layer, which would force the
-	/// expanded (desktop) mode to fight it with unlayered breakpoint-specific CSS. With component-owned
-	/// state, the expanded mode is a plain responsive d-*-flex utility from the consumer's Bootstrap
-	/// build, so changed or custom breakpoint definitions are honored automatically.
-	/// </summary>
-	private bool _mobileMenuOpen;
-
-	private void HandleNavbarTogglerClick()
-	{
-		_mobileMenuOpen = !_mobileMenuOpen;
-	}
-
-	/// <summary>
-	/// Closes the mobile (navbar mode) menu. Called by the contained <see cref="HxSidebarItem"/>s upon navigation.
-	/// </summary>
-	protected internal void CloseMobileMenu()
-	{
-		if (_mobileMenuOpen)
-		{
-			_mobileMenuOpen = false;
-			StateHasChanged();
-		}
-	}
 
 	private async Task HandleCollapseToggleClick()
 	{

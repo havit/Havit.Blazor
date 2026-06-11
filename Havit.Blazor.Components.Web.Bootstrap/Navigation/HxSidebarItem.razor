@@ -18,20 +18,20 @@
 						   CssClass="@CssClassHelper.Combine(InSidebarMenu ? "menu-item" : null, CssClass, "hx-sidebar-item position-relative")"
 						   Enabled="Enabled">
 
-					@* Closes the mobile (navbar mode) menu upon navigation. *@
-					<div @onclick="ParentSidebar.CloseMobileMenu" class="stretched-link">
+					<div class="stretched-link">
 						<HxSidebarItemNavLinkContentInternal Text="@Text"
 															 Icon="Icon"
-															 InnerCssClass="@((ParentSidebar.Collapsed && ParentSidebarItem is null) ? ParentSidebar.ResponsiveBreakpoint.GetCssClass("d-??-none") : null)"
+															 InnerCssClass="@((ParentSidebar.Collapsed && ParentSidebarItem is null) ? "d-none" : null)"
 															 ContentTemplate="ContentTemplate" />
 
 					</div>
 				</HxNavLink>
 			</HxTooltip>
 		}
-		else
+		else if (ParentSidebar.Collapsed)
 		{
-			<div class="@CssClassHelper.Combine("hx-sidebar-item hx-sidebar-item-flyout", ParentSidebar.Collapsed ? ParentSidebar.ResponsiveBreakpoint.GetCssClass("d-??-block") : null)">
+			@* Collapsed (icon rail) mode: the subitems open as a hover flyout menu. *@
+			<div class="hx-sidebar-item hx-sidebar-item-flyout">
 				<HxNavLink Href="@Href"
 						   Match="Match"
 						   OnClick="@(OnClick.HasDelegate ? InvokeOnClickAsync : null)"
@@ -43,7 +43,7 @@
 						   onmouseenter="bootstrap.Menu.getOrCreateInstance(event.target).show()"
 						   onmouseleave="bootstrap.Menu.getInstance(event.target)?.hide()"
 						   data-bs-toggle="@(!String.IsNullOrEmpty(Href) ? null : "collapse")"
-						   data-bs-target="@(!ParentSidebar.Collapsed ? "#" + _id : null)"
+						   data-bs-target="@(null)"
 						   data-bs-placement="end"
 						   data-bs-floating-config='{"strategy": "fixed"}'
 						   data-bs-offset="0,0"
@@ -52,7 +52,7 @@
 					<HxSidebarItemNavLinkContentInternal Text="@Text"
 														 Icon="Icon"
 														 ContentTemplate="ContentTemplate"
-														 InnerCssClass="@CssClassHelper.Combine(ParentSidebar.Collapsed ? "d-none" : null)"
+														 InnerCssClass="d-none"
 														 Expandable="true"
 														 Expanded="expanded" />
 
@@ -65,9 +65,11 @@
 
 				</HxNavLink>
 			</div>
-
+		}
+		else
+		{
 			<HxNavLink Href="@Href"
-					   CssClass="@CssClassHelper.Combine(CssClass, "hx-sidebar-item", ParentSidebar.Collapsed ? ParentSidebar.ResponsiveBreakpoint.GetCssClass("d-??-none") : null)"
+					   CssClass="@CssClassHelper.Combine(CssClass, "hx-sidebar-item")"
 					   Match="Match"
 					   Enabled="Enabled"
 					   OnClick="HandleExpandableItemClick"
@@ -89,7 +91,7 @@
 			<HxCollapse Id="@_id"
 						Parent="@(ParentSidebar.MultipleItemsExpansion ? null : $"#{ParentSidebar._navId}")"
 						@ref="collapseComponent"
-						CssClass="@CssClassHelper.Combine("hx-sidebar-subitems", ParentSidebar.Collapsed ? ParentSidebar.ResponsiveBreakpoint.GetCssClass("d-??-none") : null)"
+						CssClass="hx-sidebar-subitems"
 						InitiallyExpanded="expanded"
 						OnShown="HandleCollapseShown"
 						OnHidden="HandleCollapseHidden">

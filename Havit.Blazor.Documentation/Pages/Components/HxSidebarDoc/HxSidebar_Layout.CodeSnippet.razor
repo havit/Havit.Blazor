@@ -6,7 +6,9 @@
 @* Add .container-xxl or similar, if you want to limit page width as this documentation does. *@
 <div class="md:d-flex min-vh-100">
 
-	<HxSidebar CssClass="sticky-top">
+	@* The sidebar does not implement mobile navigation - hide it below your breakpoint of choice
+	   and provide mobile navigation via HxNavbar (its HxNavbarCollapse opens as a drawer). *@
+	<HxSidebar CssClass="sticky-top d-none md:d-flex">
 		...
 	</HxSidebar>
 

@@ -7,10 +7,6 @@
 		display: block;
 	}
 
-	::deep .hx-sidebar-item.hx-sidebar-item-flyout {
-		display: none; /* The collapsed-mode flyout variant is shown by the responsive d-*-block utility rendered from the markup. */
-	}
-
 	::deep .nav-link {
 		line-height: 1;
 		padding: var(--hx-sidebar-item-padding);
