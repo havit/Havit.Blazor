@@ -4,10 +4,13 @@
 // Awaiting the import here (Blazor awaits the before*Start initializers before starting the runtime)
 // guarantees the bridge exists before any component JS interop can run - the script emitted by
 // HxSetup.RenderBootstrapJavaScriptReference() is a deferred module and can lose that race on first load.
-async function ensureBootstrapBridgeAsync() {
-	if (!window.bootstrap) {
-		window.bootstrap = await import('./bootstrap.bundle.min.js');
-	}
+function ensureBootstrapBridgeAsync() {
+	// The promise slot is claimed synchronously (??=) so this initializer and the script emitted by
+	// HxSetup.RenderBootstrapJavaScriptReference() can never both import the bundle (two module
+	// instances would duplicate the Bootstrap data-API listeners). Whichever runs first wins;
+	// the other awaits the same promise.
+	window.havitBlazorBootstrapReady ??= import('./bootstrap.bundle.min.js').then(m => { window.bootstrap = m; });
+	return window.havitBlazorBootstrapReady;
 }
 
 // Blazor Web App (blazor.web.js)

@@ -31,8 +31,12 @@ public static class HxSetup
 	/// </remarks>
 	public static string RenderBootstrapJavaScriptReference()
 	{
-		// window.bootstrap ??= : the library JS initializer (beforeWebStart/beforeStart) may have already established the bridge; guarding prevents a second module instance (different URL due to ?v=) with duplicate data-API listeners.
-		return "<script type=\"module\">window.bootstrap ??= await import(\"./_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.bundle.min.js?v=" + VersionIdentifierHavitBlazorBootstrap + "\");</script>";
+		// The shared window.havitBlazorBootstrapReady promise slot is claimed SYNCHRONOUSLY (??= with no
+		// preceding await) so this script and the library's JS initializer (beforeWebStart/beforeStart)
+		// can never both import the bundle - a non-atomic guard (await before assignment) would let the
+		// other party start a second import of a differently-URLed copy, duplicating the Bootstrap
+		// data-API listeners (every delegated toggle would fire twice).
+		return "<script type=\"module\">window.havitBlazorBootstrapReady ??= import(\"./_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.bundle.min.js?v=" + VersionIdentifierHavitBlazorBootstrap + "\").then(m => { window.bootstrap = m; }); await window.havitBlazorBootstrapReady;</script>";
 	}
 
 	/// <summary>

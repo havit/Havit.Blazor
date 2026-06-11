@@ -2,13 +2,13 @@
 @using Havit.Blazor.ApplicationInsights.Components
 <HxSidebar @bind-Collapsed="_isDesktopCollapsed" CssClass="md:sticky-top doc-sidebar">
     <HeaderTemplate>
-        <div class="d-flex flex-grow-1 d-lg-none">
+        <div class="d-flex flex-grow-1 lg:d-none">
             <HxSidebarBrand BrandName="HAVIT Blazor">
                 <LogoTemplate>
                     <img src="/logo.png" width="32" height="30" class="mx-1" />
                 </LogoTemplate>
             </HxSidebarBrand>
-            <div class="@CssClassHelper.Combine("ms-auto d-flex gap-2", _isDesktopCollapsed ? "d-md-none" : null)">
+            <div class="@CssClassHelper.Combine("ms-auto d-flex gap-2", _isDesktopCollapsed ? "md:d-none" : null)">
                 <Havit.Blazor.Documentation.Shared.Components.DocColorMode.DocColorModeSwitcher />
                 <GitHubLink />
             </div>
