@@ -7411,6 +7411,365 @@
             Icon displayed in the filter input for clearing the filter.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength">
+            <summary>
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/password-strength/">Bootstrap Password strength</see> meter (new in Bootstrap 6).<br />
+            Provides real-time visual feedback on password strength. Attaches the Bootstrap Strength plugin to a password input&#8212;either a password input
+            placed in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.ChildContent"/> or any input targeted with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.InputSelector"/>. The password is evaluated in JavaScript on every keystroke
+            (no server round-trips, the password itself never leaves the browser); strength level changes are surfaced to .NET via <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.OnStrengthChanged"/>.<br />
+            This is not a form input component&#8212;it does not participate in <c>EditForm</c> validation and does not interfere with validation classes of the associated input.<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPasswordStrength">https://havit.blazor.eu/components/HxPasswordStrength</see>
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.SegmentCount">
+            <summary>
+            Number of segments of the segmented meter (corresponds to the number of strength levels).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.ChildContent">
+            <summary>
+            Content rendered above the strength meter, typically containing the password input the meter should evaluate
+            (e.g. <c>HxInputText</c> with <c>Type="InputType.Password"</c>).
+            When no <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.InputSelector"/> is set, the meter automatically attaches to the first <c>input[type="password"]</c> found in the content.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.InputSelector">
+            <summary>
+            CSS selector of the password input to evaluate (the <c>input</c> option of the underlying plugin).
+            Use when the password input cannot be placed in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.ChildContent"/> (the meter then attaches to the input anywhere in the document).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.Variant">
+            <summary>
+            Visualization variant of the strength meter.
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthVariant.Segments"/> (a four-segment meter); use <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthVariant.ProgressBar"/> for a single growing bar.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.MinLength">
+            <summary>
+            Minimum password length required for the first strength point (the <c>minLength</c> option of the underlying plugin).
+            The default is <c>8</c> (underlying plugin default).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.Weights">
+            <summary>
+            Point values for the individual criteria of the scoring algorithm (the <c>weights</c> option of the underlying plugin).
+            Set a weight to <c>0</c> to disable the corresponding criterion. When not set, the underlying plugin defaults are used (all criteria worth <c>1</c> point).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.Thresholds">
+            <summary>
+            Score boundaries for the strength levels (the <c>thresholds</c> option of the underlying plugin).
+            When not set, the underlying plugin defaults are used (weak &#8804; 2, fair &#8804; 4, good &#8804; 6, strong &gt; 6).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.ShowText">
+            <summary>
+            When <c>true</c>, a text feedback element (<c>strength-text</c>) displaying the strength level message is rendered below the meter.
+            The default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.WeakText">
+            <summary>
+            Text feedback message for the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Weak"/> level. The default is a localized <c>Weak</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.FairText">
+            <summary>
+            Text feedback message for the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Fair"/> level. The default is a localized <c>Fair</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.GoodText">
+            <summary>
+            Text feedback message for the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Good"/> level. The default is a localized <c>Good</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.StrongText">
+            <summary>
+            Text feedback message for the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Strong"/> level. The default is a localized <c>Strong</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.Strength">
+            <summary>
+            Strength level for a static (CSS-only) display.
+            When set, the meter renders the level directly (filled segments, <c>data-bs-strength</c> attribute, text feedback)
+            and no JavaScript evaluation takes place (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.OnStrengthChanged"/> is never raised).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.OnStrengthChanged">
+            <summary>
+            Raised when the strength level of the evaluated password changes (the <c>strengthChange.bs.strength</c> event of the underlying plugin).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.InvokeOnStrengthChangedAsync(Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthChangedEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.OnStrengthChanged"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.CssClass">
+            <summary>
+            Additional CSS class(es) for the strength meter.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the strength meter element.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.GetJsOptions">
+            <summary>
+            Builds the options for the underlying Bootstrap Strength plugin.
+            Only options explicitly set are included (the plugin merges its own defaults shallowly;
+            <see cref="T:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthWeights"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthThresholds"/> are therefore always passed complete).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.HandleStrengthChanged(System.String,System.Int32)">
+            <summary>
+            Receives notification from JavaScript when the strength level changes.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.GetStrengthAsync">
+            <summary>
+            Gets the current strength level of the evaluated password (<c>null</c> when the password is empty).
+            For a static display (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.Strength"/> set), returns the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.Strength"/> value.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.EvaluateAsync">
+            <summary>
+            Manually triggers the password evaluation.
+            Useful when the input value is changed programmatically (no <c>input</c> event is raised in such a case).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.GetStaticStrengthAttributeValue">
+            <summary>
+            Returns the <c>data-bs-strength</c> attribute value for the static display (<c>null</c> in the dynamic mode, the attribute is managed by the plugin).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.GetStaticTextStyle">
+            <summary>
+            Returns the text feedback color for the static display (the plugin sets the <c>--strength-color</c> custom property the same way in the dynamic mode).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.DisposeAsync">
+            <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthChangedEventArgs">
+            <summary>
+            Arguments for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.OnStrengthChanged"/> event.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthChangedEventArgs.Strength">
+            <summary>
+            Current strength level of the password (<c>null</c> when the password is empty).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthChangedEventArgs.Score">
+            <summary>
+            Score computed by the scoring algorithm.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel">
+            <summary>
+            Password strength level used by <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Weak">
+            <summary>
+            Weak password (one segment of the meter is filled).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Fair">
+            <summary>
+            Fair password (two segments of the meter are filled).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Good">
+            <summary>
+            Good password (three segments of the meter are filled).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Strong">
+            <summary>
+            Strong password (all four segments of the meter are filled).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthSettings">
+            <summary>
+            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthSettings.Variant">
+            <summary>
+            Visualization variant of the strength meter (segmented meter or a single progress bar).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthSettings.MinLength">
+            <summary>
+            Minimum password length required for the first strength point.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthSettings.Weights">
+            <summary>
+            Point values for the individual criteria of the scoring algorithm.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthSettings.Thresholds">
+            <summary>
+            Score boundaries for the strength levels.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthSettings.ShowText">
+            <summary>
+            When <c>true</c>, a text feedback element is rendered below the meter.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthSettings.WeakText">
+            <summary>
+            Text feedback message for the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Weak"/> level.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthSettings.FairText">
+            <summary>
+            Text feedback message for the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Fair"/> level.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthSettings.GoodText">
+            <summary>
+            Text feedback message for the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Good"/> level.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthSettings.StrongText">
+            <summary>
+            Text feedback message for the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Strong"/> level.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthSettings.CssClass">
+            <summary>
+            Additional CSS class(es) for the strength meter.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthThresholds">
+            <summary>
+            Score boundaries for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength"/> strength levels
+            (mirrors the <c>thresholds</c> option of the underlying Bootstrap Strength plugin).
+            Scores above <see cref="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthThresholds.Good"/> are evaluated as <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Strong"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthThresholds.Weak">
+            <summary>
+            Maximum score evaluated as <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Weak"/>.
+            The default value is <c>2</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthThresholds.Fair">
+            <summary>
+            Maximum score evaluated as <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Fair"/>.
+            The default value is <c>4</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthThresholds.Good">
+            <summary>
+            Maximum score evaluated as <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthLevel.Good"/>.
+            The default value is <c>6</c>.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthVariant">
+            <summary>
+            Visualization variant of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength"/> meter.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthVariant.Segments">
+            <summary>
+            Segmented meter&#8212;four segments that fill progressively as the password strength increases (renders the <c>strength</c> CSS class).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthVariant.ProgressBar">
+            <summary>
+            Single progress bar that grows with the password strength (renders the <c>strength-bar</c> CSS class).
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthWeights">
+            <summary>
+            Point values for the individual criteria of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength"/> scoring algorithm
+            (mirrors the <c>weights</c> option of the underlying Bootstrap Strength plugin).
+            Set a weight to <c>0</c> to disable the corresponding criterion.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthWeights.MinLength">
+            <summary>
+            Points for meeting the minimum length (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.MinLength"/>, <c>8</c> characters by default).
+            The default value is <c>1</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthWeights.ExtraLength">
+            <summary>
+            Points for exceeding the minimum length by 4 or more characters.
+            The default value is <c>1</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthWeights.Lowercase">
+            <summary>
+            Points for containing lowercase letters.
+            The default value is <c>1</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthWeights.Uppercase">
+            <summary>
+            Points for containing uppercase letters.
+            The default value is <c>1</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthWeights.Numbers">
+            <summary>
+            Points for containing numbers.
+            The default value is <c>1</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthWeights.Special">
+            <summary>
+            Points for containing special characters.
+            The default value is <c>1</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthWeights.MultipleSpecial">
+            <summary>
+            Points for containing multiple special characters.
+            The default value is <c>1</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthWeights.LongPassword">
+            <summary>
+            Points for a long password (16 or more characters).
+            The default value is <c>1</c>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode">
             <summary>
             Render mode for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2"/>

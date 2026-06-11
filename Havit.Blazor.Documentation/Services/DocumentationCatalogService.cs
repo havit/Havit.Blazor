@@ -83,6 +83,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/components/HxNavLink#HxNavLink", "HxNavLink", "href redirect navigation"),
 		new("/components/HxNavbar", "HxNavbar", "navigation header"),
 		new("/components/HxPager", "HxPager", "list pagination"),
+		new("/components/HxPasswordStrength", "HxPasswordStrength", "password strength meter security score weak fair good strong indicator"),
 		new("/components/HxPlaceholder", "HxPlaceholder", "loading skeleton spinner progress"),
 		new("/components/HxPopover", "HxPopover", "hover tooltip popper dropdown"),
 		new("/components/HxProgress", "HxProgress", "loading bar indicator"),
@@ -148,6 +149,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/types/MessengerServiceExtensionsSettings", "MessengerServiceExtensions Settings", "defaults", DefaultsLevel),
 		new("/types/MessageBoxSettings", "MessageBox Settings", "defaults", DefaultsLevel),
 		new("/types/PagerSettings", "Pager Settings", "defaults", DefaultsLevel),
+		new("/types/PasswordStrengthSettings", "PasswordStrength Settings", "defaults", DefaultsLevel),
 		new("/types/PlaceholderContainerSettings", "PlaceholderContainer Settings", "defaults", DefaultsLevel),
 		new("/types/PlaceholderSettings", "Placeholder Settings", "defaults", DefaultsLevel),
 		new("/types/ProgressIndicatorSettings", "ProgressIndicator Settings", "defaults", DefaultsLevel),
@@ -191,6 +193,8 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/types/NavbarExpand", "NavbarExpand", "enum responsive expand breakpoint", EnumsLevel),
 		new("/types/NavOrientation", "NavOrientation", "enum", EnumsLevel),
 		new("/types/NavVariant", "NavVariant", "enum", EnumsLevel),
+		new("/types/PasswordStrengthLevel", "PasswordStrengthLevel", "enum weak fair good strong", EnumsLevel),
+		new("/types/PasswordStrengthVariant", "PasswordStrengthVariant", "enum segments progress bar", EnumsLevel),
 		new("/types/PlaceholderAnimation", "PlaceholderAnimation", "enum", EnumsLevel),
 		new("/types/PlaceholderSize", "PlaceholderSize", "enum", EnumsLevel),
 		new("/types/SpinnerSize", "SpinnerSize", "enum", EnumsLevel),
@@ -209,6 +213,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/types/FileUploadedEventArgs", "FileUploadedEventArgs", "argument event", EventArgsLevel),
 		new("/types/UploadCompletedEventArgs", "UploadCompletedEventArgs", "argument event", EventArgsLevel),
 		new("/types/UploadProgressEventArgs", "UploadProgressEventArgs", "argument event", EventArgsLevel),
+		new("/types/PasswordStrengthChangedEventArgs", "PasswordStrengthChangedEventArgs", "argument event", EventArgsLevel),
 
 		// Delegates
 
