@@ -2,7 +2,7 @@
 
 /// <summary>
 /// <see href="https://getbootstrap.com/docs/5.3/components/navbar/">Bootstrap 5 Navbar</see> component - a responsive navigation header.<br/>
-/// Provides support for branding, navigation, and more, including support for the collapse plugin.<br />
+/// Provides support for branding, navigation, and more, including support for the responsive drawer.<br />
 /// For full documentation and demos, visit: <see href="https://havit.blazor.eu/components/HxNavbar">https://havit.blazor.eu/components/HxNavbar</see>
 /// </summary>
 public partial class HxNavbar
@@ -46,9 +46,9 @@ public partial class HxNavbar
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
-	protected internal string GetDefaultCollapseId()
+	protected internal string GetDefaultDrawerId()
 	{
-		return Id + "-collapse";
+		return Id + "-drawer";
 	}
 
 	protected virtual string GetExpandCssClass()

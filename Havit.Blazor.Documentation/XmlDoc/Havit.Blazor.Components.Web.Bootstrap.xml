@@ -11261,7 +11261,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar">
             <summary>
             <see href="https://getbootstrap.com/docs/5.3/components/navbar/">Bootstrap 5 Navbar</see> component - a responsive navigation header.<br/>
-            Provides support for branding, navigation, and more, including support for the collapse plugin.<br />
+            Provides support for branding, navigation, and more, including support for the responsive drawer.<br />
             For full documentation and demos, visit: <see href="https://havit.blazor.eu/components/HxNavbar">https://havit.blazor.eu/components/HxNavbar</see>
             </summary>
         </member>
@@ -11324,7 +11324,7 @@
             Content of the navbar-brand.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarCollapse">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer">
             <summary>
             Container for the responsive content of the <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/navbar/">navbar</see>.
             Bootstrap 6 replaced the v5 <c>.navbar-collapse</c> (Collapse plugin) with a <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/drawer/">Drawer</see>:
@@ -11332,27 +11332,27 @@
             at or above the breakpoint the drawer markup is flattened into inline navbar content by the Bootstrap CSS.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarCollapse.Id">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer.Id">
             <summary>
             The drawer element ID. The default value is derived from the parent navbar (matches the default <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarToggler"/> target).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarCollapse.Title">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer.Title">
             <summary>
             Title rendered in the drawer header (visible only below the navbar's expand breakpoint).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarCollapse.Placement">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer.Placement">
             <summary>
             Placement of the drawer when opened below the expand breakpoint. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DrawerPlacement.End"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarCollapse.CssClass">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer.CssClass">
             <summary>
             Additional CSS class(es) for the drawer element.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarCollapse.AdditionalAttributes">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto the drawer element.
             </summary>
@@ -11372,12 +11372,12 @@
             Bootstrap <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/navbar/#toggler">navbar-toggler</see> component.
             The toggler icon is rendered via a CSS <c>mask-image</c> tinted with <c>currentcolor</c> (no separate light/dark icons needed in Bootstrap 6).
             In Bootstrap 6 the toggler opens the navbar's responsive content as a <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/drawer/">Drawer</see>
-            (see <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarCollapse"/>) via the Bootstrap data API — the v5 Collapse plugin is no longer used for navbars.
+            (see <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer"/>) via the Bootstrap data API — the v5 Collapse plugin is no longer used for navbars.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarToggler.DrawerTarget">
             <summary>
-            Selector of the drawer to toggle. The default value is derived from the parent navbar (matches the default <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarCollapse"/> ID).
+            Selector of the drawer to toggle. The default value is derived from the parent navbar (matches the default <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer"/> ID).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarToggler.ChildContent">

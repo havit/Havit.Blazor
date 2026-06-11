@@ -1,4 +1,4 @@
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Container for the responsive content of the <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/navbar/">navbar</see>.
@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// below the navbar's expand breakpoint the content opens as a drawer (toggled by <see cref="HxNavbarToggler"/> via the Bootstrap data API),
 /// at or above the breakpoint the drawer markup is flattened into inline navbar content by the Bootstrap CSS.
 /// </summary>
-public class HxNavbarCollapse : ComponentBase
+public class HxNavbarDrawer : ComponentBase
 {
 	[CascadingParameter] protected HxNavbar NavbarContainer { get; set; }
 
@@ -37,11 +37,11 @@ public class HxNavbarCollapse : ComponentBase
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
-	protected string IdEffective => Id ?? NavbarContainer?.GetDefaultCollapseId();
+	protected string IdEffective => Id ?? NavbarContainer?.GetDefaultDrawerId();
 
 	protected override void OnParametersSet()
 	{
-		Contract.Requires<InvalidOperationException>(NavbarContainer is not null, $"{nameof(HxNavbarCollapse)} requires the parent {nameof(HxNavbar)}.");
+		Contract.Requires<InvalidOperationException>(NavbarContainer is not null, $"{nameof(HxNavbarDrawer)} requires the parent {nameof(HxNavbar)}.");
 	}
 
 	protected override void BuildRenderTree(RenderTreeBuilder builder)
