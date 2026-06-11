@@ -23,7 +23,10 @@ public static class HxSetup
 	/// The bundle is shipped with this library (static web asset) to stay in lock-step with the compiled CSS
 	/// (Bootstrap 6 alpha is not available on public CDNs yet).
 	/// The rendered module script re-exposes <c>window.bootstrap</c> as a compatibility bridge for the Hx* JS modules
-	/// (to be replaced by explicit imports as components are migrated to v6).<br/>
+	/// (to be replaced by explicit imports as components are migrated to v6).
+	/// Note: the library's JS initializer (<c>Havit.Blazor.Components.Web.Bootstrap.lib.module.js</c>, <c>beforeWebStart</c>/<c>beforeStart</c>)
+	/// also establishes this bridge before the Blazor runtime starts, which guarantees availability for component JS interop regardless of
+	/// module-script timing; this reference remains recommended so the bundle download starts as early as possible.<br/>
 	/// We do not want to use TagHelper or HTML Helper here as we do not want to introduce a dependency on server-side ASP.NET Core (MVC/Razor) to our library (a separate NuGet package would have to be created).
 	/// </remarks>
 	public static string RenderBootstrapJavaScriptReference()
