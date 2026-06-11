@@ -1,24 +1,29 @@
-.hx-sidebar-item-navlink-content {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	align-self: stretch;
-	gap: var(--hx-sidebar-item-content-gap);
-}
+﻿/* The isolation CSS joins Bootstrap 6's "custom" cascade layer (above Bootstrap's component
+   styles, below helpers and utilities) so utility classes - e.g. the d-none passed via
+   InnerCssClass in the sidebar's collapsed (icon rail) mode - override these defaults. */
+@layer custom {
+	.hx-sidebar-item-navlink-content {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		align-self: stretch;
+		gap: var(--hx-sidebar-item-content-gap);
+	}
 
-.hx-sidebar-subitems.show .hx-sidebar-item-navlink-content-inner {
-	display: inline-flex;
-}
+	.hx-sidebar-subitems.show .hx-sidebar-item-navlink-content-inner {
+		display: inline-flex;
+	}
 
-.hx-sidebar-item-navlink-content-inner {
-	display: flex;
-	align-items: center;
-	flex-grow: 1;
-}
+	.hx-sidebar-item-navlink-content-inner {
+		display: flex;
+		align-items: center;
+		flex-grow: 1;
+	}
 
-::deep .expand-icon {
-	font-size: .75rem;
-	color: var(--hx-sidebar-item-icon-color);
-	transition: transform .35s ease;
-	transform-origin: .5em 50%;
+	::deep .expand-icon {
+		font-size: .75rem;
+		color: var(--hx-sidebar-item-icon-color);
+		transition: transform .35s ease;
+		transform-origin: .5em 50%;
+	}
 }
