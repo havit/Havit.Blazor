@@ -1,0 +1,44 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@using Havit.Blazor.Components.Web.Bootstrap.Internal
+
+<nav id="@Id" class="@GetClasses()" @ref="_navOverflowElement" @attributes="AdditionalAttributes">
+	@ChildContent
+	<div class="nav-item nav-overflow-item" data-bs-nav-overflow="true">
+		<button type="button" class="nav-link nav-overflow-toggle" data-bs-toggle="menu" data-bs-placement="@MenuPlacementEffective.ToDataBsPlacement()" aria-expanded="false">
+			@if (IconPlacementEffective == NavOverflowIconPlacement.End)
+			{
+				@TextFragment
+				@IconFragment
+			}
+			else
+			{
+				@IconFragment
+				@TextFragment
+			}
+		</button>
+		<div class="nav-overflow-menu menu">
+			<CascadingValue Value="NavOverflowMenuRenderContext.Default" IsFixed="true">
+				@ChildContent
+			</CascadingValue>
+		</div>
+	</div>
+</nav>
+
+@code
+{
+	private RenderFragment IconFragment => __builder =>
+	{
+		@if (MoreIconEffective is not null)
+		{
+			<span class="nav-overflow-icon"><HxIcon Icon="MoreIconEffective" /></span>
+		}
+	};
+
+	private RenderFragment TextFragment => __builder =>
+	{
+		@if (!String.IsNullOrEmpty(MoreTextEffective))
+		{
+			<span class="nav-overflow-text">@MoreTextEffective</span>
+		}
+	};
+}

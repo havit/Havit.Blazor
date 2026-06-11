@@ -4393,6 +4393,13 @@
             Inner content of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/>.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.NavOverflowMenuRenderContext">
+            <summary>
+            Cascading marker indicating that the content is being rendered inside the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow"/> overflow menu
+            (the second render of the nav content). <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavLink"/> components render as menu items (<c>menu-item</c>)
+            instead of nav links (<c>nav-link</c>) in this context.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxInputTagsInputInternal.Offset">
             <summary>
             Offset between menu input and menu menu
@@ -10676,6 +10683,16 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNavLink#HxNavLink">https://havit.blazor.eu/components/HxNavLink#HxNavLink</see>
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.NavOverflowMenuRenderContext">
+            <summary>
+            Set when the nav link is rendered inside the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow"/> overflow menu (the link renders as a menu item).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.CoreCssClass">
+            <summary>
+            Core CSS class of the link (<c>menu-item</c> inside the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow"/> overflow menu, <c>nav-link</c> otherwise).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.Href">
             <summary>
             Navigation target.
@@ -10730,6 +10747,140 @@
             <summary>
             Additional attributes to be splatted onto an underlying <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> component.
             </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow">
+            <summary>
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/nav-overflow/">Bootstrap Nav overflow</see> component (new in Bootstrap 6, "Priority+" pattern).<br />
+            Automatically moves nav items which do not fit the available width into a "More" overflow menu.
+            The overflow is responsive to the container width (uses a <c>ResizeObserver</c>), not the viewport width.<br />
+            Unlike the Bootstrap <c>NavOverflow</c> plugin (which clones nav items into the menu and is therefore incompatible with Blazor rendering),
+            the component renders the nav content twice (once in the nav, once in the overflow menu) and only toggles the visibility of the individual items.
+            All items remain fully Blazor-owned (re-rendering, event handlers, and active state work in both places).<br />
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNavOverflow">https://havit.blazor.eu/components/HxNavOverflow</see>
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.KeepVisibleCssClass">
+            <summary>
+            CSS class which prevents an item from being moved to the overflow menu (Bootstrap <c>nav-overflow-keep</c>).
+            Apply to the nav item, e.g. <c>&lt;HxNavLink CssClass="@HxNavOverflow.KeepVisibleCssClass" /&gt;</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.Defaults">
+            <summary>
+            Application-wide defaults for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow"/> and derived components.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.GetDefaults">
+            <summary>
+            Returns application-wide defaults for the component.
+            Enables overriding defaults in descendants (use a separate set of defaults).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.Settings">
+            <summary>
+            Set of settings to be applied to the component instance (overrides <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.Defaults"/>, overridden by individual parameters).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.GetSettings">
+            <summary>
+            Returns an optional set of component settings.
+            </summary>
+            <remarks>
+            Similar to <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.GetDefaults"/>, enables defining wider <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.Settings"/> in component descendants (by returning a derived settings class).
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.Id">
+            <summary>
+            ID of the nav element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.Variant">
+            <summary>
+            The visual variant of the nav items.
+            The default value is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Standard"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.MoreText">
+            <summary>
+            Text of the "More" toggle button. The default is <c>More</c>.
+            Set to <c>null</c> or an empty string to render an icon-only toggle.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.MoreIcon">
+            <summary>
+            Icon of the "More" toggle button. The default is <see cref="P:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon.ThreeDots"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.IconPlacement">
+            <summary>
+            Position of the icon relative to the text in the "More" toggle button.
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavOverflowIconPlacement.Start"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.MenuPlacement">
+            <summary>
+            Placement of the overflow menu relative to the "More" toggle button.
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.MenuPlacement.BottomEnd"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.MinimumVisibleItems">
+            <summary>
+            Minimum number of items to keep visible before the remaining items overflow into the menu
+            (mirrors the Bootstrap <c>threshold</c> option). The default is <c>0</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.CollapseBelow">
+            <summary>
+            Container width threshold below which all items collapse into the overflow menu
+            (mirrors the Bootstrap <c>collapseBelow</c> option).
+            A breakpoint name (e.g. <c>md</c>, resolved from the <c>--bs-breakpoint-{name}</c> CSS variable) or a pixel value (e.g. <c>768</c>).
+            Items with the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.KeepVisibleCssClass"/> CSS class remain visible.
+            The default is <c>null</c> (disabled).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.OnOverflowChanged">
+            <summary>
+            Raised when the number of items in the overflow menu changes (including back to zero).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.InvokeOnOverflowChangedAsync(Havit.Blazor.Components.Web.Bootstrap.NavOverflowChangedEventArgs)">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.OnOverflowChanged"/> event. Allows interception of the event in derived components.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.CssClass">
+            <summary>
+            Additional CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.ChildContent">
+            <summary>
+            Content of the nav (typically <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavLink"/> components).
+            The content is rendered twice&#8212;once as the nav items and once as the overflow menu items
+            (visibility of the individual items is toggled based on the available width).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the underlying <c>&lt;nav&gt;</c> element.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.UpdateAsync">
+            <summary>
+            Recalculates which items should overflow. Called automatically on container resize and on nav content changes,
+            use only when the automatic detection is not sufficient.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.HandleOverflowChanged(System.Int32,System.Int32)">
+            <summary>
+            Receives a notification from JavaScript when the overflow changes.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.DisposeAsync">
+            <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy">
             <summary>
@@ -11070,6 +11221,77 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Vertical">
             <summary>
             <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#vertical">https://getbootstrap.com/docs/5.3/components/navs-tabs/#vertical</see>.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavOverflowChangedEventArgs">
+            <summary>
+            Arguments for the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.OnOverflowChanged"/> event.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.NavOverflowChangedEventArgs.OverflowCount">
+            <summary>
+            Number of items currently moved to the overflow menu.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.NavOverflowChangedEventArgs.VisibleCount">
+            <summary>
+            Number of items currently visible in the nav.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavOverflowIconPlacement">
+            <summary>
+            Position of the icon relative to the text in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow"/> "More" toggle button.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavOverflowIconPlacement.Start">
+            <summary>
+            Icon before the text.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavOverflowIconPlacement.End">
+            <summary>
+            Icon after the text.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavOverflowSettings">
+            <summary>
+            Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.NavOverflowSettings.MoreText">
+            <summary>
+            Text of the "More" toggle button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.NavOverflowSettings.MoreIcon">
+            <summary>
+            Icon of the "More" toggle button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.NavOverflowSettings.IconPlacement">
+            <summary>
+            Position of the icon relative to the text in the "More" toggle button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.NavOverflowSettings.MenuPlacement">
+            <summary>
+            Placement of the overflow menu relative to the "More" toggle button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.NavOverflowSettings.MinimumVisibleItems">
+            <summary>
+            Minimum number of items to keep visible before the remaining items overflow into the menu.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.NavOverflowSettings.CollapseBelow">
+            <summary>
+            Container width threshold below which all items collapse into the overflow menu.
+            A breakpoint name (e.g. <c>md</c>, resolved from the <c>--bs-breakpoint-{name}</c> CSS variable) or a pixel value (e.g. <c>768</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.NavOverflowSettings.CssClass">
+            <summary>
+            Additional CSS class(es) for the nav.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavVariant">
