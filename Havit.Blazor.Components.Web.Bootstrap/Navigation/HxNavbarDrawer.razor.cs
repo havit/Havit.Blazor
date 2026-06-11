@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿using Microsoft.JSInterop;
+
+namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Container for the responsive content of the <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/navbar/">navbar</see>.
@@ -6,9 +8,12 @@
 /// below the navbar's expand breakpoint the content opens as a drawer (toggled by <see cref="HxNavbarToggler"/> via the Bootstrap data API),
 /// at or above the breakpoint the drawer markup is flattened into inline navbar content by the Bootstrap CSS.
 /// </summary>
-public partial class HxNavbarDrawer : ComponentBase
+public partial class HxNavbarDrawer : ComponentBase, IAsyncDisposable
 {
 	[CascadingParameter] protected HxNavbar NavbarContainer { get; set; }
+
+	[Inject] protected NavigationManager NavigationManager { get; set; }
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	/// <summary>
 	/// The drawer element ID. The default value is derived from the parent navbar (matches the default <see cref="HxNavbarToggler"/> target).
@@ -39,9 +44,66 @@ public partial class HxNavbarDrawer : ComponentBase
 
 	protected string IdEffective => Id ?? NavbarContainer?.GetDefaultDrawerId();
 
+	private ElementReference _drawerElement;
+	private IJSObjectReference _jsModule;
+	private bool _navigationSubscribed;
+
 	protected override void OnParametersSet()
 	{
 		Contract.Requires<InvalidOperationException>(NavbarContainer is not null, $"{nameof(HxNavbarDrawer)} requires the parent {nameof(HxNavbar)}.");
+	}
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		if (firstRender)
+		{
+			// Close the drawer upon in-app navigation - the modal drawer would otherwise stay open
+			// over the (inert) navigated page.
+			NavigationManager.LocationChanged += HandleLocationChanged;
+			_navigationSubscribed = true;
+		}
+	}
+
+	private void HandleLocationChanged(object sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+	{
+		_ = InvokeAsync(CloseAsync);
+	}
+
+	private async Task CloseAsync()
+	{
+		try
+		{
+			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxDrawer));
+			await _jsModule.InvokeVoidAsync("hide", _drawerElement); // no-op when the drawer is not open
+		}
+		catch (JSDisconnectedException)
+		{
+			// NOOP
+		}
+		catch (TaskCanceledException)
+		{
+			// NOOP
+		}
+	}
+
+	public async ValueTask DisposeAsync()
+	{
+		if (_navigationSubscribed)
+		{
+			NavigationManager.LocationChanged -= HandleLocationChanged;
+		}
+
+		if (_jsModule is not null)
+		{
+			try
+			{
+				await _jsModule.DisposeAsync();
+			}
+			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+		}
 	}
 
 	private string GetPlacementCssClass()

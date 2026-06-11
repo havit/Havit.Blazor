@@ -1,6 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<dialog class="@CssClassHelper.Combine("drawer", GetPlacementCssClass(), CssClass)"
+<dialog @ref="_drawerElement"
+		class="@CssClassHelper.Combine("drawer", GetPlacementCssClass(), CssClass)"
 		id="@IdEffective"
 		tabindex="-1"
 		aria-labelledby="@(Title is not null ? IdEffective + "-label" : null)"

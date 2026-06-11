@@ -22,7 +22,7 @@
 		</ItemsTemplate>
 
 		<FooterTemplate>
-			<HxSidebarFooter Icon="BootstrapIcon.PersonCircle" TextCssClass="@(context.SidebarCollapsed ? "d-md-none" : null)" Text="Login" Href="/components/HxSidebar/login" />
+			<HxSidebarFooter Icon="BootstrapIcon.PersonCircle" TextCssClass="@(context.SidebarCollapsed ? "d-none" : null)" Text="Login" Href="/components/HxSidebar/login" />
 		</FooterTemplate>
 	</HxSidebar>
 </div>

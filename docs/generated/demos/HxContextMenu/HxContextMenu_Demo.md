@@ -4,7 +4,7 @@
 <HxContextMenu>
 	<HxContextMenuItem OnClick="() => SetMessage(1)">Item 1</HxContextMenuItem>
 	<HxContextMenuItem OnClick="() => SetMessage(2)">Item 2</HxContextMenuItem>
-	<HxDropdownDivider />
+	<HxMenuDivider />
 	<HxContextMenuItem Href="https://www.havit.eu">www.havit.eu</HxContextMenuItem>
 </HxContextMenu>
 

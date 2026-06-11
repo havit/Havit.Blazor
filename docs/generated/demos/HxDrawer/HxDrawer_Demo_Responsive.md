@@ -1,0 +1,31 @@
+﻿# HxDrawer_Demo_Responsive.razor
+
+```razor
+<HxButton OnClick="HandleShow" Text="Show" Color="ThemeColor.Primary" CssClass="lg:d-none" />
+
+<HxDrawer @ref="drawerComponent" Title="Title" ResponsiveBreakpoint="DrawerResponsiveBreakpoint.Large">
+    <BodyTemplate>
+        <p class="mb-0">
+            This is drawer body.<br />
+            It is displayed using the drawer when below the selected breakpoint (otherwise in-place).<br />
+            Resize your browser to see the responsive drawer behavior.<br />
+        </p>
+    </BodyTemplate>
+</HxDrawer>
+
+@code
+{
+    private HxDrawer drawerComponent;
+
+    private async Task HandleShow()
+    {
+        await drawerComponent.ShowAsync();
+    }
+
+    private async Task HandleHide()
+    {
+        await drawerComponent.HideAsync();
+    }
+}
+
+```

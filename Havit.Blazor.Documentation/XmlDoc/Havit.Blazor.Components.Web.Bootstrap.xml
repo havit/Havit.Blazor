@@ -2404,10 +2404,12 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HandleCloseButtonClick">
             <summary>
-            Closes the dialog.
+            Closes the dialog from the header close button.
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HideAsync">
             <summary>
-            Closes the dialog from the header close button (the button's <c>data-bs-dismiss</c> covers static SSR; both paths are idempotent).
+            Closes the dialog.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HandleDialogHide">
@@ -11679,7 +11681,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar">
             <summary>
-            Sidebar component - responsive navigation sidebar.<br />
+            Sidebar component - vertical navigation with a horizontal (icon rail) collapse. Does not provide mobile navigation (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar"/> with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer"/>).<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSidebar">https://havit.blazor.eu/components/HxSidebar</see>
             </summary>
         </member>

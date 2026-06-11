@@ -18,13 +18,10 @@
 						   CssClass="@CssClassHelper.Combine(InSidebarMenu ? "menu-item" : null, CssClass, "hx-sidebar-item position-relative")"
 						   Enabled="Enabled">
 
-					<div class="stretched-link">
-						<HxSidebarItemNavLinkContentInternal Text="@Text"
-															 Icon="Icon"
-															 InnerCssClass="@((ParentSidebar.Collapsed && ParentSidebarItem is null) ? "d-none" : null)"
-															 ContentTemplate="ContentTemplate" />
-
-					</div>
+					<HxSidebarItemNavLinkContentInternal Text="@Text"
+														 Icon="Icon"
+														 InnerCssClass="@((ParentSidebar.Collapsed && ParentSidebarItem is null) ? "d-none" : null)"
+														 ContentTemplate="ContentTemplate" />
 				</HxNavLink>
 			</HxTooltip>
 		}
@@ -42,12 +39,10 @@
 						   role="button"
 						   onmouseenter="bootstrap.Menu.getOrCreateInstance(event.target).show()"
 						   onmouseleave="bootstrap.Menu.getInstance(event.target)?.hide()"
-						   data-bs-toggle="@(!String.IsNullOrEmpty(Href) ? null : "collapse")"
-						   data-bs-target="@(null)"
 						   data-bs-placement="end"
 						   data-bs-floating-config='{"strategy": "fixed"}'
 						   data-bs-offset="0,0"
-						   aria-expanded="@(expanded ? "true" : "false")">
+						   aria-expanded="false">
 
 					<HxSidebarItemNavLinkContentInternal Text="@Text"
 														 Icon="Icon"

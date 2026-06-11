@@ -1,0 +1,11 @@
+﻿# HxStepper_Demo_Anchors.razor
+
+```razor
+<HxStepper>
+	<HxStepperItem Href="#" Active="true" Text="Create account" />
+	<HxStepperItem Href="#" Active="true" Text="Confirm email" />
+	<HxStepperItem Href="#" Color="ThemeColor.Secondary" Text="Update profile" />
+	<HxStepperItem Href="#" Color="ThemeColor.Secondary" Text="Finish" />
+</HxStepper>
+
+```

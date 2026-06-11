@@ -1,6 +1,6 @@
 ﻿# HxListLayout
 
-Provides a unified layout for data presentation components and associated filtering controls. This component orchestrates the interaction between filter controls and the data presentation component. The data list is typically implemented using a `HxGrid` component. Filters are displayed in a `HxOffcanvas` component, while filter values are shown as `HxChipList`. Additionally, it supports predefined named views for quick switching between different filter configurations and other features such as a title, search box, and commands.
+Provides a unified layout for data presentation components and associated filtering controls. This component orchestrates the interaction between filter controls and the data presentation component. The data list is typically implemented using a `HxGrid` component. Filters are displayed in a `HxDrawer` component, while filter values are shown as `HxChipList`. Additionally, it supports predefined named views for quick switching between different filter configurations and other features such as a title, search box, and commands.
 
 ## Parameters
 
@@ -11,10 +11,10 @@ Provides a unified layout for data presentation components and associated filter
 | CssClass | `string` | Additional CSS classes for the wrapping `div`. |
 | DataTemplate | `RenderFragment` |  |
 | DetailTemplate | `RenderFragment` |  |
+| FilterDrawerSettings | `DrawerSettings` | Settings for the `HxDrawer` with the filter. |
 | FilterModel | `TFilterModel` |  |
 | FilterModelChanged | `EventCallback<TFilterModel>` |  |
-| FilterOffcanvasSettings | `OffcanvasSettings` | Settings for the `HxOffcanvas` with the filter. |
-| FilterOpenButtonSettings | `ButtonSettings` | Settings for the `HxButton` opening the filtering offcanvas. |
+| FilterOpenButtonSettings | `ButtonSettings` | Settings for the `HxButton` opening the filtering drawer. |
 | FilterSubmitButtonSettings | `ButtonSettings` | Settings for the `HxButton` submitting the filter. |
 | FilterTemplate | `RenderFragment<TFilterModel>` |  |
 | NamedViews | `IEnumerable<NamedView<TFilterModel>>` | Represents the collection of Named Views available for selection. Each Named View defines a pre-set filter configuration that can be applied to the data. |
@@ -30,8 +30,8 @@ Provides a unified layout for data presentation components and associated filter
 
 | Method | Returns | Description |
 |--------|---------|-------------|
-| HideFilterOffcanvasAsync() | `Task` | Closes the filter offcanvas. |
-| ShowFilterOffcanvasAsync() | `Task` | Opens the filter offcanvas. |
+| HideFilterDrawerAsync() | `Task` | Closes the filter drawer. |
+| ShowFilterDrawerAsync() | `Task` | Opens the filter drawer. |
 
 ## Static properties
 

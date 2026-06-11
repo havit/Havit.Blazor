@@ -1,0 +1,10 @@
+﻿# HxAvatar_Demo_StatusSizes.razor
+
+```razor
+<HxAvatar Size="AvatarSize.ExtraSmall" ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" Status="AvatarStatus.Online" />
+<HxAvatar Size="AvatarSize.Small" ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" Status="AvatarStatus.Online" />
+<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" Status="AvatarStatus.Online" />
+<HxAvatar Size="AvatarSize.Large" ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" Status="AvatarStatus.Online" />
+<HxAvatar Size="AvatarSize.ExtraLarge" ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" Status="AvatarStatus.Online" />
+
+```

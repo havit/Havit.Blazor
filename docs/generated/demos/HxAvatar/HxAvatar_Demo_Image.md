@@ -1,0 +1,6 @@
+﻿# HxAvatar_Demo_Image.razor
+
+```razor
+<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
+
+```

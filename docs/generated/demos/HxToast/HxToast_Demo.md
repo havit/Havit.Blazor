@@ -22,6 +22,8 @@
 
 	<HxToast ShowCloseButton="false" CssClass="mb-2" ContentText="Always visible. No close button here." />
 
+	<HxToast Translucent="true" HeaderText="Translucent" ContentText="Translucent toast with backdrop blur (new in Bootstrap 6)." CssClass="mb-2" />
+
 </HxToastContainer>
 
 

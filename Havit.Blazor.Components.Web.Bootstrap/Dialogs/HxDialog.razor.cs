@@ -265,13 +265,13 @@ public partial class HxDialog : IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Closes the dialog.
-	/// </summary>
-	/// <summary>
-	/// Closes the dialog from the header close button (the button's <c>data-bs-dismiss</c> covers static SSR; both paths are idempotent).
+	/// Closes the dialog from the header close button.
 	/// </summary>
 	private Task HandleCloseButtonClick() => HideAsync();
 
+	/// <summary>
+	/// Closes the dialog.
+	/// </summary>
 	public Task HideAsync()
 	{
 		if (_transitionInProgress)

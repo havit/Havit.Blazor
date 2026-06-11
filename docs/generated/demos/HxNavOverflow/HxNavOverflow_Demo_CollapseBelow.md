@@ -1,0 +1,14 @@
+﻿# HxNavOverflow_Demo_CollapseBelow.razor
+
+```razor
+<div class="border rounded p-2" style="resize: horizontal; overflow: hidden; min-width: 250px; max-width: 100%;">
+	<HxNavOverflow CollapseBelow="md" Variant="NavVariant.Pills">
+		<HxNavLink Href="#" Text="Home" CssClass="@HxNavOverflow.KeepVisibleCssClass" />
+		<HxNavLink Href="#" Text="Products" />
+		<HxNavLink Href="#" Text="Services" />
+		<HxNavLink Href="#" Text="About" />
+		<HxNavLink Href="#" Text="Contact" />
+	</HxNavOverflow>
+</div>
+
+```

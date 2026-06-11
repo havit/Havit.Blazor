@@ -1,10 +1,10 @@
-@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 @using Microsoft.Extensions.Localization
 
 <button type="button"
 		class="@CssClassHelper.Combine("hx-sidebar-toggler", Collapsed ? "collapsed" : null)"
 		aria-controls="@AriaControlsId"
-		aria-expanded="@(!Collapsed)"
+		aria-expanded="@(!Collapsed ? "true" : "false")"
 		aria-label="@(Collapsed ? Localizer["Expand"] : Localizer["Collapse"])"
 		@onclick="InvokeOnClickAsync"
 		@onclick:stopPropagation="true">

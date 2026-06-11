@@ -52,17 +52,15 @@ public class HxDrawer_BasicTests : TestAppTestBase
 		await NavigateToTestAppAsync("/HxDrawer_BasicTests");
 
 		var showButton = Page.Locator("[data-testid='show-button']");
+		await Page.EvaluateAsync("window.__hxDrawerShown = new Promise(resolve => document.addEventListener('shown.bs.drawer', resolve, { once: true }))");
 		await showButton.ClickAsync();
 
 		var drawerContent = Page.Locator("[data-testid='drawer-content']");
 		await Expect(drawerContent).ToBeVisibleAsync(new() { Timeout = 10_000 });
 
-		// Wait out the drawer's entry transition (--bs-drawer-transition-duration: .3s).
-		// Bootstrap 6 (alpha) DialogBase.hide() early-returns while _isTransitioning is true
-		// and its cancel handler preventDefault()s the native close, so an Escape pressed
-		// during the entry transition is silently swallowed (upstream-reported limitation).
-		// Content becomes "visible" on the first transition frame, hence the explicit wait.
-		await Page.WaitForTimeoutAsync(500);
+		// Wait for the entry transition to finish (shown.bs.drawer): Bootstrap 6 (alpha)
+		// silently swallows dismissals (incl. native Escape) while _isTransitioning is true.
+		await Page.EvaluateAsync("window.__hxDrawerShown");
 
 		// Act - press Escape
 		await Page.Keyboard.PressAsync("Escape");

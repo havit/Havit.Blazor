@@ -1,9 +1,7 @@
-﻿using Microsoft.Extensions.Localization;
-
-namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Sidebar component - responsive navigation sidebar.<br />
+/// Sidebar component - vertical navigation with a horizontal (icon rail) collapse. Does not provide mobile navigation (use <see cref="HxNavbar"/> with <see cref="HxNavbarDrawer"/>).<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSidebar">https://havit.blazor.eu/components/HxSidebar</see>
 /// </summary>
 public partial class HxSidebar : ComponentBase
@@ -70,8 +68,6 @@ public partial class HxSidebar : ComponentBase
 	/// The default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool MultipleItemsExpansion { get; set; } = true;
-
-	[Inject] protected IStringLocalizer<HxSidebar> Localizer { get; set; }
 
 	/// <summary>
 	/// The ID of the immediate parent of the contained <see cref="HxSidebarItem"/> components.

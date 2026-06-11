@@ -8,6 +8,7 @@ Switch input. (Replaces the former `HxInputSwitch` component which was dropped i
 |------|------|-------------|
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
 | ChipTemplate | `RenderFragment` | The chip template. |
+| Color | `ThemeColor?` | Theme color of the switch (renders the `theme-*` class on the `.switch` wrapper, new in Bootstrap 6). |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
 | Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading `FormState`. When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use HxFormState. |

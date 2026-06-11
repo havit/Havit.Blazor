@@ -9,4 +9,5 @@ Represents the size for `HxButton`.
 | Regular | 0 |  |
 | Small | 1 |  |
 | Large | 2 |  |
+| ExtraSmall | 3 | Extra small button (new in Bootstrap 6). |
 

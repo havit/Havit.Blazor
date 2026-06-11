@@ -5,9 +5,9 @@
 <HxBadge Color="ThemeColor.Secondary">Secondary</HxBadge>
 <HxBadge Color="ThemeColor.Success">Success</HxBadge>
 <HxBadge Color="ThemeColor.Danger">Danger</HxBadge>
-<HxBadge Color="ThemeColor.Warning" TextColor="ThemeColor.Dark">Warning</HxBadge>
+<HxBadge Color="ThemeColor.Warning">Warning</HxBadge>
 <HxBadge Color="ThemeColor.Info">Info</HxBadge>
-<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">Light</HxBadge>
-<HxBadge Color="ThemeColor.Dark">Dark</HxBadge>
+<HxBadge Color="ThemeColor.Secondary">Light</HxBadge>
+<HxBadge Color="ThemeColor.Inverse">Dark</HxBadge>
 
 ```

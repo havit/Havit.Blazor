@@ -15,7 +15,8 @@ public partial class HxDialogTests : BunitTestBase
 
 		// Assert
 		var closeButton = cut.Find("button.btn-close");
-		Assert.Equal("dialog", closeButton.GetAttribute("data-bs-dismiss"));
+		// The close button is wired via @onclick (single close owner); it intentionally carries no data-bs-dismiss.
+		Assert.Null(closeButton.GetAttribute("data-bs-dismiss"));
 		// Bootstrap 6: the icon is a CSS mask tinted with currentcolor; no btn-close-white class exists
 		Assert.DoesNotContain("btn-close-white", closeButton.ClassList);
 	}

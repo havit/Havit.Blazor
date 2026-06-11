@@ -9,7 +9,12 @@ function ensureBootstrapBridgeAsync() {
 	// HxSetup.RenderBootstrapJavaScriptReference() can never both import the bundle (two module
 	// instances would duplicate the Bootstrap data-API listeners). Whichever runs first wins;
 	// the other awaits the same promise.
-	window.havitBlazorBootstrapReady ??= import('./bootstrap.bundle.min.js').then(m => { window.bootstrap = m; });
+	// window.bootstrap check: best-effort guard against a legacy HxSetup script (pre-promise-slot) that
+	// sets the global without claiming the slot; a deferred legacy module can still lose this race -
+	// consumers should update to the current RenderBootstrapJavaScriptReference() output.
+	window.havitBlazorBootstrapReady ??= window.bootstrap
+		? Promise.resolve()
+		: import('./bootstrap.bundle.min.js').then(m => { window.bootstrap = m; });
 	return window.havitBlazorBootstrapReady;
 }
 
