@@ -1,0 +1,104 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+@typeparam TValue
+@typeparam TItem
+
+<div class="@CssClassHelper.Combine("hx-select", (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)">
+
+	<button @ref="_toggleElementReference"
+			type="button"
+			id="@InputId"
+			class="@InputCssClass"
+			disabled="@(!EnabledEffective)"
+			aria-haspopup="listbox"
+			aria-expanded="@(_isShown ? "true" : "false")"
+			data-bs-toggle="@(EnabledEffective ? "menu" : null)"
+			@attributes="this.AdditionalAttributes">
+		<span class="@CssClassHelper.Combine("combobox-value", ShowPlaceholderStyle ? "combobox-placeholder" : null)">@GetToggleText()</span>
+		<svg class="combobox-caret" width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.46967 5.46967C0.762563 5.17678 1.23744 5.17678 1.53033 5.46967L5 8.93934L8.46967 5.46967C8.76256 5.17678 9.23744 5.17678 9.53033 5.46967C9.82322 5.76256 9.82322 6.23744 9.53033 6.53033L5.53033 10.5303C5.23744 10.8232 4.76256 10.8232 4.46967 10.5303L0.46967 6.53033C0.176777 6.23744 0.176777 5.76256 0.46967 5.46967Z" fill="currentcolor" /></svg>
+	</button>
+
+	@* The menu must always be rendered, otherwise it does not work after the disabled->enabled transition. *@
+	<div class="@CssClassHelper.Combine("menu", _isShown ? "show" : null)" role="listbox">
+		@if (EnabledEffective)
+		{
+			<div class="combobox-search hx-select-filter-input-wrapper">
+				<input @ref="_filterInputReference"
+					   id="@($"{InputId}_filter")"
+					   type="text"
+					   class="@CssClassHelper.Combine("form-control", "combobox-search-input", InputSizeEffective.AsFormControlCssClass())"
+					   autocomplete="off"
+					   spellcheck="false"
+					   value="@_filterText"
+					   @oninput="HandleFilterInputChanged"
+					   @onclick:stopPropagation
+					   onfocusin="this.select()" />
+
+				<div class="hx-select-filter-input-icon">
+					@if (string.IsNullOrEmpty(_filterText))
+					{
+						<HxIcon CssClass="hx-select-filter-input-icon-search" Icon="@FilterSearchIcon" />
+					}
+					else
+					{
+						<div role="button" @onclick="HandleClearIconClick" @onclick:stopPropagation>
+							<HxIcon CssClass="hx-select-filter-input-icon-clear" Icon="@FilterClearIcon" />
+						</div>
+					}
+				</div>
+			</div>
+
+			if (NullableEffective || (SelectedItemIndex == -1))
+			{
+				bool nullItemSelected = (SelectedItemIndex == -1);
+				<button type="button"
+						class="@CssClassHelper.Combine("menu-item", nullItemSelected ? "selected" : null)"
+						role="option"
+						aria-selected="@(nullItemSelected ? "true" : "false")"
+						@onclick="async () => await HandleItemClickAsync(-1)">
+					<span>@NullText</span>
+					<svg class="menu-item-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="m2 7 4 5 8-8" /></svg>
+				</button>
+			}
+
+			var filteredItemIndexes = GetFilteredItemIndexes();
+			if (filteredItemIndexes.Count == 0)
+			{
+				if (FilterEmptyResultTemplate is not null)
+				{
+					@FilterEmptyResultTemplate
+				}
+				else
+				{
+					<div class="combobox-no-results">@GetFilterEmptyResultText()</div>
+				}
+			}
+			else
+			{
+				foreach (int itemIndex in filteredItemIndexes)
+				{
+					int index = itemIndex; // capture for lambda
+					var item = ItemsToRender[index];
+					bool selected = (index == SelectedItemIndex);
+					bool disabled = SelectorHelpers.GetDisabled(ItemDisabledSelector, item);
+
+					<button @key="@index"
+							type="button"
+							class="@CssClassHelper.Combine("menu-item", selected ? "selected" : null)"
+							role="option"
+							aria-selected="@(selected ? "true" : "false")"
+							disabled="@disabled"
+							aria-disabled="@(disabled ? "true" : null)"
+							@onclick="async () => await HandleItemClickAsync(index)">
+						<span>@SelectorHelpers.GetText(TextSelector, item)</span>
+						<svg class="menu-item-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="m2 7 4 5 8-8" /></svg>
+					</button>
+				}
+			}
+		}
+	</div>
+
+	@if (LabelTypeEffective == LabelType.Floating)
+	{
+		<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
+	}
+</div>
