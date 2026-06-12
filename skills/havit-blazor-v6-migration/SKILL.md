@@ -41,7 +41,7 @@ Read `references/class-renames.md` now — it contains the full old→new tables
 Bootstrap 6 replaces the v5 infix (`d-md-flex`, `col-md-6`) with a breakpoint **prefix** (`md:d-flex`, `md:col-6`) and renames `xxl` → `2xl`. Find all candidates:
 
 ```
-rg -o '\b([a-z][a-z0-9-]*)-(sm|md|lg|xl|xxl)-([a-z0-9-]+)\b' -g '!{bin,obj}' --no-filename -N | sort -u
+rg -o '\b([a-z][a-z0-9-]*)-(sm|md|lg|xl|xxl)-([a-z0-9-]+)\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**' --no-filename -N | sort -u
 ```
 
 Conversion rule: `{utility}-{bp}-{value}` → `{bp}:{utility}-{value}`, with `xxl` → `2xl` (e.g. `col-xxl-4` → `2xl:col-4`, `mt-md-3` → `md:mt-3`, `justify-content-lg-between` → `lg:justify-content-between`). Also convert the breakpoint-suffix forms the regex misses: `navbar-expand-{bp}` → `{bp}:navbar-expand`, `sticky-{bp}-top` → `{bp}:sticky-top`, `container-{bp}` → `{bp}:container`, and `*-{bp}-down` forms → `{bp}-down:` prefix.
@@ -84,7 +84,7 @@ Apply per `references/class-renames.md`: `text-{color}` → `fg-{color}`, `text-
 Bootstrap 6 raised the upper breakpoints: `lg` 992→**1024**, `xl` 1200→**1280**, `xxl`/`2xl` 1400→**1536** (`sm` 576 and `md` 768 unchanged). Consumer media queries written to align with Bootstrap's no longer match:
 
 ```
-rg -n '(992|1200|1400)px' -g '*.css' -g '*.razor' -g '!{bin,obj}'
+rg -n '(992|1200|1400)px' -g '*.css' -g '*.razor' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
 ```
 
 **Flag every hit** and update to 1024/1280/1536 only where the query is clearly meant to mirror a Bootstrap breakpoint; otherwise report it for human review.
@@ -204,7 +204,7 @@ If the app referenced the internal class `hx-sidebar-collapse` in CSS, it is ren
 
 ### 4.10 CSS variable overrides: RGB triplets → full colors
 
-Bootstrap 6 dropped the `--bs-*-rgb` channel variables (only `--bs-link-color-rgb` survives). Consumer overrides that supplied **RGB triplets** must now supply full colors: `--hx-sidebar-item-*-background-color`, `--hx-tree-view-item-*-background`, `--hx-calendar-day-today-background` (e.g. `--hx-tree-view-item-hover-background: 13,110,253;` → `: #0d6efd;`). Consumer CSS using `rgba(var(--bs-primary-rgb), .25)` → `color-mix(in srgb, var(--bs-primary) 25%, transparent)`. Search: `rg -n -- '--bs-[a-z-]*-rgb|--hx-.*(background|color):\s*[0-9]+\s*,' -g '*.css'`.
+Bootstrap 6 dropped the `--bs-*-rgb` channel variables (only `--bs-link-color-rgb` survives). Consumer overrides that supplied **RGB triplets** must now supply full colors: `--hx-sidebar-item-*-background-color`, `--hx-tree-view-item-*-background`, `--hx-calendar-day-today-background` (e.g. `--hx-tree-view-item-hover-background: 13,110,253;` → `--hx-tree-view-item-hover-background: #0d6efd;`). Consumer CSS using `rgba(var(--bs-primary-rgb), .25)` → `color-mix(in srgb, var(--bs-primary) 25%, transparent)`. Search: `rg -n -- '--bs-[a-z-]*-rgb|--hx-.*(background|color):\s*[0-9]+\s*,' -g '*.css'`.
 
 ### 4.11 Consumer scoped CSS that fights utilities → `@layer custom`
 
@@ -224,8 +224,8 @@ Audit `*.razor.css` files for rules setting properties that utility classes on t
 2. Leftover scan — all of these should return nothing (or only deliberate, flagged exceptions):
    ```
    rg -n 'HxModal|HxOffcanvas|HxDropdown|HxNavbarCollapse' -g '*.razor' -g '*.cs' -g '!{bin,obj}'
-   rg -n 'form-select|text-bg-|btn-outline-[a-z]+|\bbtn-(primary|secondary|success|danger|warning|info|light|dark)\b' -g '!{bin,obj}'
-   rg -on '\b[a-z][a-z0-9-]*-(sm|md|lg|xl|xxl)-[a-z0-9-]+\b' -g '!{bin,obj}'
+   rg -n 'form-select|text-bg-|btn-outline-[a-z]+|\bbtn-(primary|secondary|success|danger|warning|info|light|dark)\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
+   rg -on '\b[a-z][a-z0-9-]*-(sm|md|lg|xl|xxl)-[a-z0-9-]+\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
    ```
 3. Run the application and visually check:
    - **Forms**: labels/validation render; selects styled (no bare native select); checkboxes/radios/switches; any toggle-button groups respond to clicks.
