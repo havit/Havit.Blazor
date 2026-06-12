@@ -1,18 +1,21 @@
 ﻿@using Havit.Blazor.Components.Web.ECharts
 @using Havit.Blazor.ApplicationInsights.Components
-<HxSidebar @bind-Collapsed="_isDesktopCollapsed" CssClass="sticky-md-top doc-sidebar">
+<HxSidebar @bind-Collapsed="_isDesktopCollapsed" CssClass="@CssClassHelper.Combine("md:sticky-top doc-sidebar", Embedded ? "doc-sidebar-embedded" : null, CssClass)">
     <HeaderTemplate>
-        <div class="d-flex flex-grow-1 d-lg-none">
+        @if (!Embedded)
+        {
+        <div class="d-flex flex-grow-1 lg:d-none">
             <HxSidebarBrand BrandName="HAVIT Blazor">
                 <LogoTemplate>
                     <img src="/logo.png" width="32" height="30" class="mx-1" />
                 </LogoTemplate>
             </HxSidebarBrand>
-            <div class="@CssClassHelper.Combine("ms-auto d-flex gap-2", _isDesktopCollapsed ? "d-md-none" : null)">
+            <div class="@CssClassHelper.Combine("ms-auto d-flex gap-2", _isDesktopCollapsed ? "d-none" : null)">
                 <Havit.Blazor.Documentation.Shared.Components.DocColorMode.DocColorModeSwitcher />
                 <GitHubLink />
             </div>
         </div>
+        }
     </HeaderTemplate>
     <ItemsTemplate>
 		<HxSidebarItem Text="Getting started" Href="getting-started" Icon="BootstrapIcon.RocketTakeoff" TooltipText="Getting started" Match="NavLinkMatch.All" />
@@ -140,6 +143,7 @@
             <HxSidebarItem Href="/concepts/Debouncer" Text="Debouncer" />
             <HxSidebarItem Href="/concepts/dark-color-mode-theme" Text="Dark color mode" />
             <HxSidebarItem Href="/concepts/browser-storage" Text="Browser Web Storage" />
+            <HxSidebarItem Href="/concepts/bootstrap-data-api" Text="Bootstrap data APIs" />
         </HxSidebarItem>
 
 		<HxSidebarItem Href="/getting-started/mcp" CssClass="w-100" Icon="BootstrapIcon.Stars" TooltipText="MCP Server">
@@ -235,7 +239,14 @@
 
 @code
 {
-    private bool _isDesktopCollapsed;
+	[Parameter] public string CssClass { get; set; }
+
+	/// <summary>
+	/// Embedded usage (inside the navbar drawer): suppresses the header (brand/switchers duplicate the drawer chrome) and the desktop collapse toggler.
+	/// </summary>
+	[Parameter] public bool Embedded { get; set; }
+
+	private bool _isDesktopCollapsed;
 
 	// Pages new in v6 get a subtle "New" badge in the navigation (rendered by SidebarItemContentTemplate).
 	private static readonly HashSet<string> s_newPages = new()

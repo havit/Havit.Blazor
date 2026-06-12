@@ -1,0 +1,18 @@
+﻿# HxNavOverflow_Demo_Toggle.razor
+
+```razor
+<div class="border rounded p-2" style="resize: horizontal; overflow: hidden; min-width: 250px; max-width: 100%;">
+	<HxNavOverflow MoreText="Menu"
+				   MoreIcon="BootstrapIcon.List"
+				   IconPlacement="NavOverflowIconPlacement.End"
+				   MenuPlacement="MenuPlacement.BottomStart">
+		<HxNavLink Href="#" Text="Home" />
+		<HxNavLink Href="#" Text="Dashboard" />
+		<HxNavLink Href="#" Text="Products" />
+		<HxNavLink Href="#" Text="Services" />
+		<HxNavLink Href="#" Text="Analytics" />
+		<HxNavLink Href="#" Text="Reports" />
+	</HxNavOverflow>
+</div>
+
+```

@@ -6,12 +6,12 @@ Settings for `HxInputDateRange`.
 
 | Name | Type | Description |
 |------|------|-------------|
-| CalendarDateCustomizationProvider | `CalendarDateCustomizationProviderDelegate` | Allows customization of the dates in the dropdown calendars. |
+| CalendarDateCustomizationProvider | `CalendarDateCustomizationProviderDelegate` | Allows customization of the dates in the menu calendars. |
 | CalendarIcon | `IconBase` | Optional icon to display within the input. |
 | FromPlaceholder | `string` | Placeholder for the start-date input. |
 | InputSize | `InputSize?` | Input size. |
-| MaxDate | `DateTime?` | The last date selectable from the dropdown calendar. |
-| MinDate | `DateTime?` | The first date selectable from the dropdown calendar. |
+| MaxDate | `DateTime?` | The last date selectable from the menu calendar. |
+| MinDate | `DateTime?` | The first date selectable from the menu calendar. |
 | PredefinedDateRanges | `IEnumerableInputDateRangePredefinedRangesItem>` | The predefined date ranges to be displayed. |
 | RequireDateOrder | `bool?` | When enabled, validates that the "from" date is less than or equal to the "to" date. The default is `true`. |
 | ShowClearButton | `bool?` |  |

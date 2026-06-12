@@ -265,6 +265,11 @@ public partial class HxDialog : IAsyncDisposable
 	}
 
 	/// <summary>
+	/// Closes the dialog from the header close button.
+	/// </summary>
+	private Task HandleCloseButtonClick() => HideAsync();
+
+	/// <summary>
 	/// Closes the dialog.
 	/// </summary>
 	public Task HideAsync()

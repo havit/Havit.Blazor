@@ -4,17 +4,19 @@
 <HxButtonGroup>
     <HxButton Text="1" Color="ThemeColor.Primary" />
     <HxButton Text="2" Color="ThemeColor.Primary" />
-    <HxDropdownButtonGroup>
-        <HxDropdownToggleButton Color="ThemeColor.Primary">Dropdown</HxDropdownToggleButton>
-        <HxDropdownMenu>
-            <HxDropdownItemNavLink Href="#">
-                Dropdown link
-            </HxDropdownItemNavLink>
-            <HxDropdownItemNavLink Href="#">
-                Dropdown link
-            </HxDropdownItemNavLink>
-        </HxDropdownMenu>
-    </HxDropdownButtonGroup>
+    <HxMenu>
+        <Toggle>
+            <HxMenuToggleButton Color="ThemeColor.Primary">Menu</HxMenuToggleButton>
+        </Toggle>
+        <Content>
+            <HxMenuItemNavLink Href="#">
+                Menu link
+            </HxMenuItemNavLink>
+            <HxMenuItemNavLink Href="#">
+                Menu link
+            </HxMenuItemNavLink>
+        </Content>
+    </HxMenu>
 </HxButtonGroup>
 
 ```

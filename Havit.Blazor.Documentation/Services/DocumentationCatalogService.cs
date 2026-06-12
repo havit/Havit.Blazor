@@ -96,7 +96,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/components/HxScrollspy", "HxScrollspy", "anchor navigation link"),
 		new("/components/HxSearchBox", "HxSearchBox", "autosuggest autocomplete searchbar omnibox input"),
 		new("/components/HxSelect", "HxSelect", "dropdownlist picker"),
-		new("/components/HxSidebar", "HxSidebar", "navigation collapse layout responsive"),
+		new("/components/HxSidebar", "HxSidebar", "navigation collapse layout"),
 		new("/components/HxSmartPasteButton", "HxSmartPasteButton", "clipboard ai gpt artificial intelligence copy"),
 		new("/components/HxSmartTextArea", "HxSmartTextArea", "autocompletions suggest intellisense typeahead ai gpt artificial intelligence"),
 		new("/components/HxSmartComboBox", "HxSmartComboBox", "autocomplete search typeahead select suggest ai artificial intelligence autosuggest"),
@@ -116,6 +116,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/concepts/Debouncer", "Debouncer", "delay timer"),
 		new("/concepts/dark-color-mode-theme", "Dark color mode", "dark color theme"),
 		new("/concepts/browser-storage", "Browser Web Storage", "localStorage sessionStorage local session storage persist cache key value json"),
+		new("/concepts/bootstrap-data-api", "Bootstrap data APIs", "toggler data-bs-toggle data attributes native javascript declarative toggle class"),
 
 		// Supportive types
 

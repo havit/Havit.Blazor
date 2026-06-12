@@ -4,6 +4,7 @@
 import postcssPrefixCustomProperties from 'postcss-prefix-custom-properties'
 import autoprefixer from 'autoprefixer'
 
+
 const mapConfig = {
   inline: false,
   annotation: true,

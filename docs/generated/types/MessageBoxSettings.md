@@ -8,8 +8,8 @@ Settings for the `HxMessageBox` and derived components.
 |------|------|-------------|
 | AbortButtonText | `string` | Text for the Abort button. |
 | CancelButtonText | `string` | Text for the Cancel button. |
+| DialogSettings | `DialogSettings` | Settings for the underlying `HxDialog` component. |
 | IgnoreButtonText | `string` | Text for the Ignore button. |
-| ModalSettings | `ModalSettings` | Settings for the underlying `HxModal` component. |
 | NoButtonText | `string` | Text for the No button. |
 | OkButtonText | `string` | Text for the OK button. |
 | PrimaryButtonSettings | `ButtonSettings` | Settings for the primary dialog button. |

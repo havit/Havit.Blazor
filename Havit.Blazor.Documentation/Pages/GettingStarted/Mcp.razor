@@ -17,21 +17,16 @@
 <p>Select your IDE to get customized instructions.</p>
 <HxAlert Color="ThemeColor.Secondary">
 	<p class="mb-0 fw-semibold"><small>IDE / AI assistant</small></p>
-	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
-		<InputRadioGroup @bind-Value="_ide">
-			<InputRadio id="ideVsCode" class="btn-check" Value="@IdeChoice.VsCode" />
-			<label class="btn btn-outline-primary" for="ideVsCode">VS Code</label>
-
-			<InputRadio id="ideVs" class="btn-check" Value="@IdeChoice.VisualStudio" />
-			<label class="btn btn-outline-primary" for="ideVs">Visual Studio</label>
-
-			<InputRadio id="ideClaudeCode" class="btn-check" Value="@IdeChoice.ClaudeCode" />
-			<label class="btn btn-outline-primary" for="ideClaudeCode">Claude Code</label>
-
-			<InputRadio id="ideOther" class="btn-check" Value="@IdeChoice.Other" />
-			<label class="btn btn-outline-primary" for="ideOther">Other</label>
-		</InputRadioGroup>
-	</HxButtonGroup>
+	<HxRadioButtonList TItem="IdeChoice"
+					   TValue="IdeChoice"
+					   Data="_ideChoices"
+					   ItemTextSelector="GetIdeChoiceText"
+					   @bind-Value="_ide"
+					   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+					   Variant="ButtonVariant.Outline"
+					   Color="ThemeColor.Primary"
+					   ButtonSize="ButtonSize.Small"
+					   CssClass="mb-2" />
 </HxAlert>
 
 @if (_ide == IdeChoice.VsCode)

@@ -2402,6 +2402,11 @@
             Opens the dialog.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HandleCloseButtonClick">
+            <summary>
+            Closes the dialog from the header close button.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HideAsync">
             <summary>
             Closes the dialog.
@@ -4684,6 +4689,26 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.ITooltipInternalSettings.Placement">
             <summary>
             Tooltip/Popover placement.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSidebarTogglerInternal.Collapsed">
+            <summary>
+            Indicates whether the sidebar is collapsed (drives the toggler direction, tooltip and aria attributes).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSidebarTogglerInternal.AriaControlsId">
+            <summary>
+            The ID of the sidebar element the toggler controls.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSidebarTogglerInternal.TogglerTemplate">
+            <summary>
+            Custom toggler visual to be rendered instead of the default bar/arrow.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSidebarTogglerInternal.OnClick">
+            <summary>
+            Raised on toggler click.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.BindEvent">
@@ -10025,7 +10050,10 @@
             The bundle is shipped with this library (static web asset) to stay in lock-step with the compiled CSS
             (Bootstrap 6 alpha is not available on public CDNs yet).
             The rendered module script re-exposes <c>window.bootstrap</c> as a compatibility bridge for the Hx* JS modules
-            (to be replaced by explicit imports as components are migrated to v6).<br/>
+            (to be replaced by explicit imports as components are migrated to v6).
+            Note: the library's JS initializer (<c>Havit.Blazor.Components.Web.Bootstrap.lib.module.js</c>, <c>beforeWebStart</c>/<c>beforeStart</c>)
+            also establishes this bridge before the Blazor runtime starts, which guarantees availability for component JS interop regardless of
+            module-script timing; this reference remains recommended so the bundle download starts as early as possible.<br/>
             We do not want to use TagHelper or HTML Helper here as we do not want to introduce a dependency on server-side ASP.NET Core (MVC/Razor) to our library (a separate NuGet package would have to be created).
             </remarks>
         </member>
@@ -11252,7 +11280,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar">
             <summary>
             <see href="https://getbootstrap.com/docs/5.3/components/navbar/">Bootstrap 5 Navbar</see> component - a responsive navigation header.<br/>
-            Provides support for branding, navigation, and more, including support for the collapse plugin.<br />
+            Provides support for branding, navigation, and more, including support for the responsive drawer.<br />
             For full documentation and demos, visit: <see href="https://havit.blazor.eu/components/HxNavbar">https://havit.blazor.eu/components/HxNavbar</see>
             </summary>
         </member>
@@ -11315,10 +11343,37 @@
             Content of the navbar-brand.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarCollapse">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer">
             <summary>
-            Collapse section for Bootstrap 5 <see href="https://getbootstrap.com/docs/5.3/components/navbar/">navbar</see> component.
-            Derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse"/>.
+            Container for the responsive content of the <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/navbar/">navbar</see>.
+            Bootstrap 6 replaced the v5 <c>.navbar-collapse</c> (Collapse plugin) with a <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/drawer/">Drawer</see>:
+            below the navbar's expand breakpoint the content opens as a drawer (toggled by <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarToggler"/> via the Bootstrap data API),
+            at or above the breakpoint the drawer markup is flattened into inline navbar content by the Bootstrap CSS.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer.Id">
+            <summary>
+            The drawer element ID. The default value is derived from the parent navbar (matches the default <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarToggler"/> target).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer.Title">
+            <summary>
+            Title rendered in the drawer header (visible only below the navbar's expand breakpoint).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer.Placement">
+            <summary>
+            Placement of the drawer when opened below the expand breakpoint. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DrawerPlacement.End"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer.CssClass">
+            <summary>
+            Additional CSS class(es) for the drawer element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the drawer element.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarText">
@@ -11333,8 +11388,30 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarToggler">
             <summary>
-            Bootstrap <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/navbar/#toggler">navbar-toggler</see> component. The toggler icon is rendered via a CSS <c>mask-image</c> tinted with <c>currentcolor</c> (no separate light/dark icons needed in Bootstrap 6).
-            Derived from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapseToggleButton"/>.
+            Bootstrap <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/navbar/#toggler">navbar-toggler</see> component.
+            The toggler icon is rendered via a CSS <c>mask-image</c> tinted with <c>currentcolor</c> (no separate light/dark icons needed in Bootstrap 6).
+            In Bootstrap 6 the toggler opens the navbar's responsive content as a <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/drawer/">Drawer</see>
+            (see <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer"/>) via the Bootstrap data API — the v5 Collapse plugin is no longer used for navbars.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarToggler.DrawerTarget">
+            <summary>
+            Selector of the drawer to toggle. The default value is derived from the parent navbar (matches the default <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer"/> ID).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarToggler.ChildContent">
+            <summary>
+            Content of the toggler button. The default renders the <c>navbar-toggler-icon</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarToggler.CssClass">
+            <summary>
+            Additional CSS class(es) for the toggler button.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarToggler.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the toggler button.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavLink">
@@ -11604,7 +11681,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar">
             <summary>
-            Sidebar component - responsive navigation sidebar.<br />
+            Sidebar component - vertical navigation with a horizontal (icon rail) collapse. Does not provide mobile navigation (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar"/> with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer"/>).<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSidebar">https://havit.blazor.eu/components/HxSidebar</see>
             </summary>
         </member>
@@ -11669,12 +11746,6 @@
             Whether multiple items can be in the expanded state at once.
             If set to <c>false</c>, upon item expansion, all other items are collapsed.
             The default is <c>true</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.ResponsiveBreakpoint">
-            <summary>
-            The breakpoint below which the sidebar switches to the mobile version (exclusive).<br/>
-            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Medium"/>.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxSidebar._navId">
@@ -12010,36 +12081,6 @@
             Indicates whether a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/> is collapsed or expanded. Is <c>null</c> when the item has no expandable content.
             </summary>
         </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.None">
-            <summary>
-            Mobile mode disabled, always render as a sidebar.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Small">
-            <summary>
-            Mobile for viewports below the "small" breakpoint (<c>576px</c>, exclusive).
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Medium">
-            <summary>
-            Mobile for viewports below the "medium" breakpoint (<c>768px</c>, exclusive).
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Large">
-            <summary>
-            Mobile for viewports below the "large" breakpoint (<c>1024px</c>, exclusive).
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.ExtraLarge">
-            <summary>
-            Mobile for viewports below the "extra-large" breakpoint (<c>1280px</c>, exclusive).
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.SidebarResponsiveBreakpoint.Xxl">
-            <summary>
-            Mobile for viewports below the "2xl" breakpoint (<c>1536px</c>, exclusive).
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarTogglerTemplateContext">
             <summary>
             Context provided to the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSidebar.TogglerTemplate" />.
@@ -12287,8 +12328,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgress">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/progress/">Bootstrap 5 Progress</see> component.<br/>
-            A wrapping component for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar" />.<br />
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/progress/">Bootstrap 6 Progress</see> component.<br/>
+            A wrapping component (<c>.progress-stacked</c>) for one or more <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar" /> components.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxProgress">https://havit.blazor.eu/components/HxProgress</see>
             </summary>
         </member>
@@ -12329,7 +12370,9 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar">
             <summary>
-            A progress bar to be placed inside <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgress" />.
+            A progress bar to be placed inside <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxProgress" />.<br />
+            Renders the Bootstrap 6 progress markup — a <c>.progress</c> wrapper carrying <c>role="progressbar"</c> and the <c>aria-*</c> attributes,
+            with an inner <c>.progress-bar</c> used purely for the visual bar and label.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.ChildContent">
@@ -12359,7 +12402,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.Label">
             <summary>
-            Text to be displayed on the progress bar.
+            Text to be displayed on the progress bar. Also used as the accessible name (<c>aria-label</c>) of the progress bar.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.Color">

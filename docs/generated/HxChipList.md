@@ -1,13 +1,14 @@
 ﻿# HxChipList
 
-Presents a list of chips as badges. Usually used to present filter criteria gathered by `HxFilterForm`.
+Presents a list of chips (rendered as Bootstrap Chip elements). Usually used to present filter criteria gathered by `HxFilterForm`.
 
 ## Parameters
 
 | Name | Type | Description |
 |------|------|-------------|
-| ChipBadgeSettings | `BadgeSettings` | Settings for the `HxBadge` used to render chips. |
+| ChipBadgeSettings | `BadgeSettings` | Settings for the `HxBadge` previously used to render chips. |
 | Chips | `IEnumerableChipItem>` | Chips to be presented. |
+| Color | `ThemeColor?` | The theme color of the chips (applied as a Bootstrap `theme-*` class). Bootstrap 6 chips use the subtle theme tokens by default. The default is `ThemeColor.None` (the native grayscale chip appearance). |
 | CssClass | `string` | Additional CSS class. |
 | ResetButtonTemplate | `RenderFragment` | Template for the reset button. If used, the `ResetButtonText` is ignored and the `OnResetClick` callback is not triggered (you are expected to wire the reset logic on your own). |
 | ResetButtonText | `string` | Text of the reset button. |

@@ -91,7 +91,7 @@ public partial class HxCollapse : IAsyncDisposable
 	{
 		parameters.SetParameterProperties(this);
 
-		// To be able to use another default value in ancestors (HxNavbarCollapse)
+		// To be able to use another default value in ancestors (HxNavbarDrawer)
 		Id = parameters.GetValueOrDefault(nameof(Id), Id ?? _defaultId);
 
 		return base.SetParametersAsync(ParameterView.Empty);

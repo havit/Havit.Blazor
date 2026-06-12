@@ -33,13 +33,13 @@ Data-based list of radio buttons. Consider creating a custom picker derived from
 | Label | `string` | The label text. |
 | LabelCssClass | `string` | The custom CSS class to render with the label. |
 | LabelTemplate | `RenderFragment` | The label content. |
-| Outline | `bool?` | Indicates whether to use Bootstrap "outline" buttons. for `RadioButtonListRenderMode.ToggleButtons` and `RadioButtonListRenderMode.ButtonGroup`. |
 | RenderMode | `RadioButtonListRenderMode` | Radio button list render mode. The default value is `RadioButtonListRenderMode.RadioButtons`. |
 | Settings | `RadioButtonListSettings` | Set of settings to be applied to the component instance (overrides , overridden by individual parameters). |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in . |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |
+| Variant | `ButtonVariant?` | Indicates whether to use Bootstrap "outline" buttons. for `RadioButtonListRenderMode.ToggleButtons` and `RadioButtonListRenderMode.ButtonGroup`. |
 
 ## Static properties
 

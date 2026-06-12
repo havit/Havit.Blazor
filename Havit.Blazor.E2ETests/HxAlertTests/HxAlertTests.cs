@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Havit.Blazor.E2ETests.HxAlertTests;
 
@@ -13,7 +13,7 @@ public class HxAlertTests : TestAppTestBase
 		// Assert - primary alert is visible with correct content and color class
 		var alert = Page.Locator("[data-testid='alert-primary'] .alert");
 		await Expect(alert).ToBeVisibleAsync();
-		await Expect(alert).ToHaveClassAsync(new Regex("alert-primary"));
+		await Expect(alert).ToHaveClassAsync(new Regex("theme-primary"));
 		await Expect(alert).ToContainTextAsync("Primary alert content");
 	}
 

@@ -1,0 +1,12 @@
+﻿# HxPasswordStrength_Demo_InputSelector.razor
+
+```razor
+<HxInputText Label="Password" Type="InputType.Password" @bind-Value="password" BindEvent="BindEvent.OnInput" InputCssClass="demo-password-strength-input" />
+
+<HxPasswordStrength InputSelector=".demo-password-strength-input" ShowText="true" />
+
+@code {
+	private string password;
+}
+
+```

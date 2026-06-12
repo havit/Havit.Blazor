@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxSidebar))]
+﻿@attribute [Route("/components/" + nameof(HxSidebar))]
 @attribute [Route("/components/" + nameof(HxSidebar) + "/{*RouteCatchAll}")]
 @attribute [Route("/components/" + nameof(HxSidebarItem))]
 @attribute [Route("/components/" + nameof(HxSidebarBrand))]
@@ -50,7 +50,10 @@
 
 		<DocHeading Title="Responsive layout sample" />
 		<p>
-			To achieve responsiveness of the sidebar (such as this documentation site has), you need to adjust the application layout.
+			The sidebar intentionally does not implement mobile navigation - it is a sidebar with a horizontal (icon rail) collapse only.
+			Responsiveness is the application layout's concern: hide the sidebar below your breakpoint of choice with display utilities
+			and provide mobile navigation with another component, typically <a href="/components/HxNavbar">HxNavbar</a>
+			(its responsive content opens as a drawer), as this documentation site does.
 			The main layout might look like this:
 		</p>
 		<CodeSnippet File="~\Pages\Components\HxSidebarDoc\HxSidebar_Layout.CodeSnippet.razor" />

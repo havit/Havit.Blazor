@@ -1,4 +1,4 @@
-.doc-sidebar {
+﻿.doc-sidebar {
 	--hx-sidebar-width: 					320px;
 	--hx-sidebar-collapsed-width: 			56px;
 	--hx-sidebar-max-height: 				calc(100vh - 56px);
@@ -140,4 +140,9 @@ pre[class*="language-"] {
 
 .hero {
 	background-image: radial-gradient(56.1514% 56.1514% at 49.972% var(--hero-position-y, 38.959%), rgba(var(--bs-primary-rgb), var(--hero-opacity, .3)) 0%, var(--bs-body-bg) 100%);
+}
+
+/* Sidebar embedded in the navbar drawer: the horizontal (icon rail) collapse makes no sense there. */
+.doc-sidebar-embedded .hx-sidebar-toggler {
+	display: none;
 }

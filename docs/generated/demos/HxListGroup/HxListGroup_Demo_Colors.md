@@ -8,8 +8,8 @@
     <HxListGroupItem Color="ThemeColor.Danger" OnClick="() => HandleClick(ThemeColor.Danger)">Danger</HxListGroupItem>
     <HxListGroupItem Color="ThemeColor.Warning" OnClick="() => HandleClick(ThemeColor.Warning)">Warning</HxListGroupItem>
     <HxListGroupItem Color="ThemeColor.Info" OnClick="() => HandleClick(ThemeColor.Info)">Info</HxListGroupItem>
-    <HxListGroupItem Color="ThemeColor.Light" OnClick="() => HandleClick(ThemeColor.Light)">Light</HxListGroupItem>
-    <HxListGroupItem Color="ThemeColor.Dark" OnClick="() => HandleClick(ThemeColor.Dark)">Dark</HxListGroupItem>
+    <HxListGroupItem Color="ThemeColor.Secondary" OnClick="() => HandleClick(ThemeColor.Secondary)">Light</HxListGroupItem>
+    <HxListGroupItem Color="ThemeColor.Inverse" OnClick="() => HandleClick(ThemeColor.Inverse)">Dark</HxListGroupItem>
 </HxListGroup>
 
 <p class="mt-3">Last click color: @lastClickColor</p>

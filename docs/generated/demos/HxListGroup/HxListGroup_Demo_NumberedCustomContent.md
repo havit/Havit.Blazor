@@ -7,21 +7,21 @@
             <div class="fw-bold">Subheading</div>
             Cras justo odio
         </div>
-        <HxBadge Color="ThemeColor.Primary" Variant="BadgeVariant.RoundedPill">14</HxBadge>
+        <HxBadge Color="ThemeColor.Primary" Type="BadgeType.RoundedPill">14</HxBadge>
     </HxListGroupItem>
     <HxListGroupItem CssClass="d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
             <div class="fw-bold">Subheading</div>
             Cras justo odio
         </div>
-        <HxBadge Color="ThemeColor.Primary" Variant="BadgeVariant.RoundedPill">14</HxBadge>
+        <HxBadge Color="ThemeColor.Primary" Type="BadgeType.RoundedPill">14</HxBadge>
     </HxListGroupItem>
     <HxListGroupItem CssClass="d-flex justify-content-between align-items-start">
         <div class="ms-2 me-auto">
             <div class="fw-bold">Subheading</div>
             Cras justo odio
         </div>
-        <HxBadge Color="ThemeColor.Primary" Variant="BadgeVariant.RoundedPill">14</HxBadge>
+        <HxBadge Color="ThemeColor.Primary" Type="BadgeType.RoundedPill">14</HxBadge>
     </HxListGroupItem>
 </HxListGroup>
 

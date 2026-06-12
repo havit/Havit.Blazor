@@ -21,7 +21,6 @@ Checkbox input. (Replaces the former `HxInputCheckbox` component which was dropp
 | Label | `string` | The label text. |
 | LabelCssClass | `string` | The custom CSS class to render with the label. |
 | LabelTemplate | `RenderFragment` | The label content. |
-| Outline | `bool?` | Bootstrap "outline" button style. For `CheckboxRenderMode.ToggleButton`. |
 | RenderMode | `CheckboxRenderMode?` | Checkbox render mode. |
 | Reverse | `bool` | Put the checkbox on the opposite side - first text, then checkbox. |
 | Settings | `CheckboxSettings` | Set of settings to be applied to the component instance. |
@@ -32,6 +31,7 @@ Checkbox input. (Replaces the former `HxInputCheckbox` component which was dropp
 | Value | `bool` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<bool>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<bool>>` | An expression that identifies the bound value. |
+| Variant | `ButtonVariant?` | Bootstrap "outline" button style. For `CheckboxRenderMode.ToggleButton`. |
 
 ## Methods
 

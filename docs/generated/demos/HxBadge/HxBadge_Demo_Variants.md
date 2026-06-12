@@ -1,0 +1,10 @@
+﻿# HxBadge_Demo_Variants.razor
+
+```razor
+<HxBadge Color="ThemeColor.Primary">Solid</HxBadge>
+<HxBadge Variant="BadgeVariant.Subtle" Color="ThemeColor.Primary">Subtle</HxBadge>
+<HxBadge Variant="BadgeVariant.Outline" Color="ThemeColor.Primary">Outline</HxBadge>
+<HxBadge Variant="BadgeVariant.Subtle" Color="ThemeColor.Danger">Subtle danger</HxBadge>
+<HxBadge Variant="BadgeVariant.Outline" Color="ThemeColor.Success">Outline success</HxBadge>
+
+```

@@ -1,12 +1,13 @@
 ﻿# HxAccordion
 
-Bootstrap accordion component.
+Bootstrap accordion component (built on the native `<details>`/`<summary>` disclosure elements, no JavaScript needed).
 
 ## Parameters
 
 | Name | Type | Description |
 |------|------|-------------|
 | ChildContent | `RenderFragment` | Content of the component. |
+| Color | `ThemeColor?` | Theme color of the accordion (renders the `theme-*` class applied to open items). |
 | CssClass | `string` | Additional CSS classes for the accordion container. |
 | ExpandedItemId | `string` | ID of the single expanded item. If `StayOpen` is `true`, this parameter is ignored, and you must use `ExpandedItemIds` instead. When `StayOpen` is `true`, the `ExpandedItemIdChanged` event callback will not be invoked. Do not use a constant value as it reverts the accordion to that item on every roundtrip. Use `InitialExpandedItemId` to set the initial state. |
 | ExpandedItemIdChanged | `EventCallback<string>` |  |

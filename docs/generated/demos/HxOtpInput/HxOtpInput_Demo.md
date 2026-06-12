@@ -1,0 +1,12 @@
+﻿# HxOtpInput_Demo.razor
+
+```razor
+<HxOtpInput Label="Verification code" @bind-Value="value" Hint="Enter the 6-digit code sent to your phone." />
+
+<p class="mt-3">Current value: @value</p>
+
+@code {
+	private string value;
+}
+
+```
