@@ -52,87 +52,59 @@
 <p>Select your setup to get customized instructions.</p>
 <HxAlert Color="ThemeColor.Secondary">
 	<p class="mb-0 fw-semibold"><small>Framework version</small></p>
-	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
-		<InputRadioGroup @bind-Value="_setup.TargetFramework" @bind-Value:after="UpdateUri">
-			<label class="btn-check btn-outline theme-primary">
-				<InputRadio Value="@TargetFramework.Net10" />
-				.NET 10
-			</label>
-
-			<label class="btn-check btn-outline theme-primary">
-				<InputRadio Value="@TargetFramework.Net9" />
-				.NET 9
-			</label>
-
-			<label class="btn-check btn-outline theme-primary">
-				<InputRadio Value="@TargetFramework.Net8" />
-				.NET 8
-			</label>
-		</InputRadioGroup>
-	</HxButtonGroup>
+	<HxRadioButtonList TItem="TargetFramework"
+					   TValue="TargetFramework"
+					   Data="_targetFrameworks"
+					   ItemTextSelector="GetSetupOptionText"
+					   @bind-Value="_setup.TargetFramework"
+					   @bind-Value:after="UpdateUri"
+					   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+					   Variant="ButtonVariant.Outline"
+					   Color="ThemeColor.Primary"
+					   ButtonSize="ButtonSize.Small"
+					   CssClass="mb-2" />
 
 	<p class="mb-0 fw-semibold"><small>Blazor app model</small></p>
-	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
-		<InputRadioGroup @bind-Value="_setup.ProjectSetup" @bind-Value:after="UpdateUri">
-			<label class="btn-check btn-outline theme-primary">
-				<InputRadio Value="@ProjectSetup.BlazorWebApp" />
-				Blazor Web App
-			</label>
-
-			<label class="btn-check btn-outline theme-primary">
-				<InputRadio Value="@ProjectSetup.Server" />
-				Blazor Server App
-			</label>
-
-			<label class="btn-check btn-outline theme-primary">
-				<InputRadio Value="@ProjectSetup.WasmStandalone" />
-				Blazor WebAssembly Standalone App
-			</label>
-		</InputRadioGroup>
-	</HxButtonGroup>
+	<HxRadioButtonList TItem="ProjectSetup"
+					   TValue="ProjectSetup"
+					   Data="_projectSetups"
+					   ItemTextSelector="GetSetupOptionText"
+					   @bind-Value="_setup.ProjectSetup"
+					   @bind-Value:after="UpdateUri"
+					   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+					   Variant="ButtonVariant.Outline"
+					   Color="ThemeColor.Primary"
+					   ButtonSize="ButtonSize.Small"
+					   CssClass="mb-2" />
 
 	@if (_setup.ProjectSetup == ProjectSetup.BlazorWebApp)
 	{
 		<p class="mb-0 fw-semibold"><small>Interactive render mode</small></p>
-		<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
-			<InputRadioGroup @bind-Value="_setup.BwaRenderMode" @bind-Value:after="UpdateUri">
-				<label class="btn-check btn-outline theme-primary">
-					<InputRadio Value="@BwaRenderMode.Auto" />
-					Auto
-				</label>
-
-				<label class="btn-check btn-outline theme-primary">
-					<InputRadio Value="@BwaRenderMode.Server" />
-					Server
-				</label>
-
-				<label class="btn-check btn-outline theme-primary">
-					<InputRadio Value="@BwaRenderMode.Wasm" />
-					WebAssembly
-				</label>
-
-				<label class="btn-check btn-outline theme-primary">
-					<InputRadio Value="@BwaRenderMode.None" />
-					None
-				</label>
-			</InputRadioGroup>
-		</HxButtonGroup>
+		<HxRadioButtonList TItem="BwaRenderMode"
+						   TValue="BwaRenderMode"
+						   Data="_bwaRenderModes"
+						   ItemTextSelector="GetSetupOptionText"
+						   @bind-Value="_setup.BwaRenderMode"
+						   @bind-Value:after="UpdateUri"
+						   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+						   Variant="ButtonVariant.Outline"
+						   Color="ThemeColor.Primary"
+						   ButtonSize="ButtonSize.Small"
+						   CssClass="mb-2" />
 	}
 
 	<p class="mb-0 fw-semibold"><small>Did you opt for sample pages when creating the project?</small></p>
-	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
-		<InputRadioGroup @bind-Value="_setup.SamplePagesCreated" @bind-Value:after="UpdateUri">
-			<label class="btn-check btn-outline theme-primary">
-				<InputRadio Value="false" />
-				Empty project
-			</label>
-
-			<label class="btn-check btn-outline theme-primary">
-				<InputRadio Value="true" />
-				Sample pages included
-			</label>
-		</InputRadioGroup>
-	</HxButtonGroup>
+	<HxRadioButtonList TItem="bool"
+					   TValue="bool"
+					   Data="_samplePagesOptions"
+					   ItemTextSelector="GetSetupOptionText"
+					   @bind-Value="_setup.SamplePagesCreated"
+					   @bind-Value:after="UpdateUri"
+					   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+					   Variant="ButtonVariant.Outline"
+					   Color="ThemeColor.Primary"
+					   ButtonSize="ButtonSize.Small"
+					   CssClass="mb-2" />
 </HxAlert>
 
 
@@ -169,29 +141,17 @@ else
 </p>
 <HxAlert Color="ThemeColor.Secondary">
 	<p class="mb-0 fw-semibold"><small>Choose a Bootstrap CSS bundle</small></p>
-	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
-		<InputRadioGroup @bind-Value="_setup.BootstrapTheme" @bind-Value:after="UpdateUri">
-			<label class="btn-check btn-outline theme-primary">
-				<InputRadio Value="@BootstrapTheme.HavitBlazor" />
-				Havit.Blazor
-			</label>
-
-			<label class="btn-check btn-outline theme-primary">
-				<InputRadio Value="@BootstrapTheme.PlainCdn" />
-				standard Bootstrap from CDN
-			</label>
-
-			<label class="btn-check btn-outline theme-primary">
-				<InputRadio Value="@BootstrapTheme.PlainProject" />
-				standard Bootstrap from project
-			</label>
-
-			<label class="btn-check btn-outline theme-primary">
-				<InputRadio Value="@BootstrapTheme.Custom" />
-				Custom
-			</label>
-		</InputRadioGroup>
-	</HxButtonGroup>
+	<HxRadioButtonList TItem="BootstrapTheme"
+					   TValue="BootstrapTheme"
+					   Data="_bootstrapThemes"
+					   ItemTextSelector="GetSetupOptionText"
+					   @bind-Value="_setup.BootstrapTheme"
+					   @bind-Value:after="UpdateUri"
+					   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+					   Variant="ButtonVariant.Outline"
+					   Color="ThemeColor.Primary"
+					   ButtonSize="ButtonSize.Small"
+					   CssClass="mb-2" />
 </HxAlert>
 
 @if ((_setup.BootstrapTheme == BootstrapTheme.HavitBlazor) || (_setup.BootstrapTheme == BootstrapTheme.PlainCdn))
