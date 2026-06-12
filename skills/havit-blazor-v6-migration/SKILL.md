@@ -168,9 +168,9 @@ Bootstrap 6 removed `.navbar-collapse`; responsive navbar content is a **Drawer*
 </HxNavbar>                           </HxNavbar>
 ```
 
-### 4.7 HxSidebar: ResponsiveBreakpoint removed — mobile-nav recipe
+### 4.7 HxSidebar: mobile navigation dropped — mobile-nav recipe
 
-`HxSidebar.ResponsiveBreakpoint` and the `SidebarResponsiveBreakpoint` enum are **removed**; the sidebar's only mode is the horizontal icon-rail collapse. Mobile navigation is the layout's concern: hide the sidebar below a breakpoint with display utilities and serve navigation from a navbar drawer instead.
+`HxSidebar` no longer implements mobile navigation: `HxSidebar.ResponsiveBreakpoint`, the `SidebarResponsiveBreakpoint` enum, and the built-in mobile hamburger toggler are **removed**; the sidebar's only mode is the horizontal icon-rail collapse. The application layout must provide mobile navigation itself — hide the sidebar below a breakpoint with display utilities and serve navigation from `HxNavbar` with `HxNavbarDrawer` instead. If the migrated app relied on the sidebar's built-in mobile mode, this recipe is the replacement (apply it; do not look for a renamed parameter):
 
 ```razor
 @* v6 layout recipe (lg = navbar's default expand breakpoint) *@
