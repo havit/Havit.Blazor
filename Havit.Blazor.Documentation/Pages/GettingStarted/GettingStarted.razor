@@ -54,28 +54,40 @@
 	<p class="mb-0 fw-semibold"><small>Framework version</small></p>
 	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
 		<InputRadioGroup @bind-Value="_setup.TargetFramework" @bind-Value:after="UpdateUri">
-			<InputRadio id="tfnet10" class="btn-check" Value="@TargetFramework.Net10" />
-			<label class="btn btn-outline-primary" for="tfnet10">.NET 10</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="@TargetFramework.Net10" />
+				.NET 10
+			</label>
 
-			<InputRadio id="tfnet9" class="btn-check" Value="@TargetFramework.Net9" />
-			<label class="btn btn-outline-primary" for="tfnet9">.NET 9</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="@TargetFramework.Net9" />
+				.NET 9
+			</label>
 
-			<InputRadio id="tfnet8" class="btn-check" Value="@TargetFramework.Net8" />
-			<label class="btn btn-outline-primary" for="tfnet8">.NET 8</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="@TargetFramework.Net8" />
+				.NET 8
+			</label>
 		</InputRadioGroup>
 	</HxButtonGroup>
 
 	<p class="mb-0 fw-semibold"><small>Blazor app model</small></p>
 	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
 		<InputRadioGroup @bind-Value="_setup.ProjectSetup" @bind-Value:after="UpdateUri">
-			<InputRadio id="psbwa" class="btn-check" Value="@ProjectSetup.BlazorWebApp" />
-			<label class="btn btn-outline-primary" for="psbwa">Blazor Web App</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="@ProjectSetup.BlazorWebApp" />
+				Blazor Web App
+			</label>
 
-			<InputRadio id="psserver" class="btn-check" Value="@ProjectSetup.Server" />
-			<label class="btn btn-outline-primary" for="psserver">Blazor Server App</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="@ProjectSetup.Server" />
+				Blazor Server App
+			</label>
 
-			<InputRadio id="pswasm" class="btn-check" Value="@ProjectSetup.WasmStandalone" />
-			<label class="btn btn-outline-primary" for="pswasm">Blazor WebAssembly Standalone App</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="@ProjectSetup.WasmStandalone" />
+				Blazor WebAssembly Standalone App
+			</label>
 		</InputRadioGroup>
 	</HxButtonGroup>
 
@@ -84,17 +96,25 @@
 		<p class="mb-0 fw-semibold"><small>Interactive render mode</small></p>
 		<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
 			<InputRadioGroup @bind-Value="_setup.BwaRenderMode" @bind-Value:after="UpdateUri">
-				<InputRadio id="bwaauto" class="btn-check" Value="@BwaRenderMode.Auto" />
-				<label class="btn btn-outline-primary" for="bwaauto">Auto</label>
+				<label class="btn-check btn-outline theme-primary">
+					<InputRadio Value="@BwaRenderMode.Auto" />
+					Auto
+				</label>
 
-				<InputRadio id="bwaserver" class="btn-check" Value="@BwaRenderMode.Server" />
-				<label class="btn btn-outline-primary" for="bwaserver">Server</label>
+				<label class="btn-check btn-outline theme-primary">
+					<InputRadio Value="@BwaRenderMode.Server" />
+					Server
+				</label>
 
-				<InputRadio id="bwawasm" class="btn-check" Value="@BwaRenderMode.Wasm" />
-				<label class="btn btn-outline-primary" for="bwawasm">WebAssembly</label>
+				<label class="btn-check btn-outline theme-primary">
+					<InputRadio Value="@BwaRenderMode.Wasm" />
+					WebAssembly
+				</label>
 
-				<InputRadio id="bwanone" class="btn-check" Value="@BwaRenderMode.None" />
-				<label class="btn btn-outline-primary" for="bwanone">None</label>
+				<label class="btn-check btn-outline theme-primary">
+					<InputRadio Value="@BwaRenderMode.None" />
+					None
+				</label>
 			</InputRadioGroup>
 		</HxButtonGroup>
 	}
@@ -102,11 +122,15 @@
 	<p class="mb-0 fw-semibold"><small>Did you opt for sample pages when creating the project?</small></p>
 	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
 		<InputRadioGroup @bind-Value="_setup.SamplePagesCreated" @bind-Value:after="UpdateUri">
-			<InputRadio id="samplePagesNo" class="btn-check" Value="false" />
-			<label class="btn btn-outline-primary" for="samplePagesNo">Empty project</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="false" />
+				Empty project
+			</label>
 
-			<InputRadio id="samplePagesYes" class="btn-check" Value="true" />
-			<label class="btn btn-outline-primary" for="samplePagesYes">Sample pages included</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="true" />
+				Sample pages included
+			</label>
 		</InputRadioGroup>
 	</HxButtonGroup>
 </HxAlert>
@@ -147,17 +171,25 @@ else
 	<p class="mb-0 fw-semibold"><small>Choose a Bootstrap CSS bundle</small></p>
 	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
 		<InputRadioGroup @bind-Value="_setup.BootstrapTheme" @bind-Value:after="UpdateUri">
-			<InputRadio id="bsHavit" class="btn-check" Value="@BootstrapTheme.HavitBlazor" />
-			<label class="btn btn-outline-primary" for="bsHavit">Havit.Blazor</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="@BootstrapTheme.HavitBlazor" />
+				Havit.Blazor
+			</label>
 
-			<InputRadio id="bsPlainCdn" class="btn-check" Value="@BootstrapTheme.PlainCdn" />
-			<label class="btn btn-outline-primary" for="bsPlainCdn">standard Bootstrap from CDN</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="@BootstrapTheme.PlainCdn" />
+				standard Bootstrap from CDN
+			</label>
 
-			<InputRadio id="bsPlainProj" class="btn-check" Value="@BootstrapTheme.PlainProject" />
-			<label class="btn btn-outline-primary" for="bsPlainProj">standard Bootstrap from project</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="@BootstrapTheme.PlainProject" />
+				standard Bootstrap from project
+			</label>
 
-			<InputRadio id="bsCustom" class="btn-check" Value="@BootstrapTheme.Custom" />
-			<label class="btn btn-outline-primary" for="bsCustom">Custom</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="@BootstrapTheme.Custom" />
+				Custom
+			</label>
 		</InputRadioGroup>
 	</HxButtonGroup>
 </HxAlert>

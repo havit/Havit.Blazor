@@ -19,17 +19,25 @@
 	<p class="mb-0 fw-semibold"><small>IDE / AI assistant</small></p>
 	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
 		<InputRadioGroup @bind-Value="_ide">
-			<InputRadio id="ideVsCode" class="btn-check" Value="@IdeChoice.VsCode" />
-			<label class="btn btn-outline-primary" for="ideVsCode">VS Code</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="@IdeChoice.VsCode" />
+				VS Code
+			</label>
 
-			<InputRadio id="ideVs" class="btn-check" Value="@IdeChoice.VisualStudio" />
-			<label class="btn btn-outline-primary" for="ideVs">Visual Studio</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="@IdeChoice.VisualStudio" />
+				Visual Studio
+			</label>
 
-			<InputRadio id="ideClaudeCode" class="btn-check" Value="@IdeChoice.ClaudeCode" />
-			<label class="btn btn-outline-primary" for="ideClaudeCode">Claude Code</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="@IdeChoice.ClaudeCode" />
+				Claude Code
+			</label>
 
-			<InputRadio id="ideOther" class="btn-check" Value="@IdeChoice.Other" />
-			<label class="btn btn-outline-primary" for="ideOther">Other</label>
+			<label class="btn-check btn-outline theme-primary">
+				<InputRadio Value="@IdeChoice.Other" />
+				Other
+			</label>
 		</InputRadioGroup>
 	</HxButtonGroup>
 </HxAlert>

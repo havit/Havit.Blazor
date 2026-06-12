@@ -4,14 +4,20 @@
 <EditForm Model="@model">
     <HxButtonGroup>
         <InputRadioGroup @bind-Value="model.selectedRadio">
-            <InputRadio id="radio1"  class="btn-check" Value="@("Radio1 ")" />
-            <label class="btn btn-outline-primary" for="radio1">Radio 1</label>
+            <label class="btn-check btn-outline theme-primary">
+                <InputRadio Value="@("Radio 1")" />
+                Radio 1
+            </label>
 
-            <InputRadio id="radio2" class="btn-check" Value="@("Radio 2")" />
-            <label class="btn btn-outline-primary" for="radio2">Radio 2</label>
+            <label class="btn-check btn-outline theme-primary">
+                <InputRadio Value="@("Radio 2")" />
+                Radio 2
+            </label>
 
-            <InputRadio id="radio3" class="btn-check" Value="@("Radio 3")" />
-            <label class="btn btn-outline-primary" for="radio3">Radio 3</label>
+            <label class="btn-check btn-outline theme-primary">
+                <InputRadio Value="@("Radio 3")" />
+                Radio 3
+            </label>
         </InputRadioGroup>
     </HxButtonGroup>
 </EditForm>
