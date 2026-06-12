@@ -111,6 +111,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/components/HxValidationMessage", "HxValidationMessage", "form"),
 
 		// Concepts
+		new("/concepts/migration-guide-v6", "Migration guide (v4 → v6)", "upgrade breaking changes bootstrap 6 migration migrate"),
 		new("/concepts/defaults-and-settings", "Defaults & Settings", "configuration themes wide preset"),
 		new("/concepts/Debouncer", "Debouncer", "delay timer"),
 		new("/concepts/dark-color-mode-theme", "Dark color mode", "dark color theme"),
