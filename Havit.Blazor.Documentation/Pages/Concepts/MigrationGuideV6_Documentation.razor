@@ -401,16 +401,27 @@
 	<code>HxSidebar</code> no longer implements mobile navigation &ndash; its only mode is the horizontal (icon rail) collapse.
 	The <code>ResponsiveBreakpoint</code> parameter, the <code>SidebarResponsiveBreakpoint</code> enum, and the built-in hamburger toggler
 	were <strong>removed</strong>. Mobile navigation is the application layout's concern: hide the sidebar below your breakpoint of choice
-	with display utilities and provide mobile navigation with another component, typically <a href="/components/HxNavbar">HxNavbar</a>
-	(its responsive content opens as a drawer in v6):
+	with display utilities and provide the mobile navigation via <a href="/components/HxNavbar">HxNavbar</a> with
+	<code>HxNavbarDrawer</code> (the navbar's responsive content opens as a drawer in v6):
 </p>
 <CodeSnippet Language="razor">@("""
 @inherits LayoutComponentBase
 
-<HxNavbar><!-- always visible on mobile; HxNavbarDrawer opens the navigation as a drawer --></HxNavbar>
+<HxNavbar>
+	<HxNavbarBrand>My application</HxNavbarBrand>
+	<HxNavbarToggler />
+	<HxNavbarDrawer>
+		<HxNav>...top-level links...</HxNav>
+		@* mobile-only navigation; hidden at/above the navbar expand breakpoint (lg by default),
+		   where the drawer content is flattened inline into the navbar *@
+		<div class="lg:d-none mt-3">
+			...navigation items mirroring the sidebar...
+		</div>
+	</HxNavbarDrawer>
+</HxNavbar>
 
-<div class="md:d-flex min-vh-100">
-	<HxSidebar CssClass="sticky-top d-none md:d-flex">
+<div class="lg:d-flex min-vh-100">
+	<HxSidebar CssClass="sticky-top d-none lg:d-flex">
 		...
 	</HxSidebar>
 	<div class="main p-4 flex-grow-1 overflow-hidden">
