@@ -76,6 +76,13 @@ pre[class*="language-"] {
 	flex-wrap: wrap;
 }
 
+/* Subtle "New" badge marking new pages in the sidebar navigation */
+.doc-sidebar .doc-new-badge {
+	min-height: 0;
+	padding: .125rem .375rem;
+	font-size: .625rem;
+}
+
 @media screen and (min-width: 992px) {
 	.doc-sidebar {
 		top: 56px;
