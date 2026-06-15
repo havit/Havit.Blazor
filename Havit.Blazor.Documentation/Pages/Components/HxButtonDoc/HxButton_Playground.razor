@@ -1,0 +1,172 @@
+@using System.Text
+@inject IJSRuntime JSRuntime
+
+<HxCard CssClass="card-demo my-3" BodyCssClass="p-0">
+	<BodyTemplate>
+		<div class="p-3 w-100">
+			<div class="bg-1 p-3 rounded-5 mb-3">
+				<div class="d-flex flex-wrap gap-3">
+					<div>
+						<HxSelect Label="Color"
+								  TItem="ThemeColor"
+								  TValue="ThemeColor"
+								  Data="_colors"
+								  TextSelector="@(color => color.ToString())"
+								  @bind-Value="_color"
+								  Nullable="false"
+								  AutoSort="false"
+								  InputSize="InputSize.Small" />
+					</div>
+					<div>
+						<HxRadioButtonList Label="Style"
+										   TItem="StyleOption"
+										   TValue="StyleOption"
+										   Data="_styleOptions"
+										   ItemTextSelector="@(style => style.ToString())"
+										   @bind-Value="_style"
+										   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+										   Inline="true"
+										   AutoSort="false"
+										   Color="ThemeColor.Secondary"
+										   Variant="ButtonVariant.Outline"
+										   ButtonSize="ButtonSize.Small" />
+					</div>
+					<div>
+						<HxSelect Label="Size"
+								  TItem="ButtonSize"
+								  TValue="ButtonSize"
+								  Data="_sizes"
+								  TextSelector="GetSizeText"
+								  @bind-Value="_size"
+								  Nullable="false"
+								  AutoSort="false"
+								  InputSize="InputSize.Small" />
+					</div>
+					<div>
+						<HxRadioButtonList Label="Rounded"
+										   TItem="Rounded"
+										   TValue="Rounded"
+										   Data="_roundedValues"
+										   ItemTextSelector="@(rounded => rounded.ToString())"
+										   @bind-Value="_rounded"
+										   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+										   Inline="true"
+										   AutoSort="false"
+										   Color="ThemeColor.Secondary"
+										   Variant="ButtonVariant.Outline"
+										   ButtonSize="ButtonSize.Small" />
+					</div>
+				</div>
+			</div>
+
+			<div class="d-flex flex-wrap align-items-start gap-2">
+				<HxButton Text="Button" Variant="GetVariant()" Color="_color" Size="_size" CssClass="@GetCssClass()" />
+				<HxButton Text="Left icon" Icon="BootstrapIcon.ArrowLeft" Variant="GetVariant()" Color="_color" Size="_size" CssClass="@GetCssClass()" />
+				<HxButton Text="Right icon" Icon="BootstrapIcon.ArrowRight" IconPlacement="ButtonIconPlacement.End" Variant="GetVariant()" Color="_color" Size="_size" CssClass="@GetCssClass()" />
+				<HxButton Icon="BootstrapIcon.PlusLg" AriaLabel="Icon only" Variant="GetVariant()" Color="_color" Size="_size" CssClass="@GetCssClass(iconOnly: true)" />
+			</div>
+		</div>
+		<pre @key="@GeneratedCode" class="bg-body-tertiary w-100"><code class="language-cshtml">@GeneratedCode</code></pre>
+	</BodyTemplate>
+</HxCard>
+
+@code {
+	private readonly List<ThemeColor> _colors = [ThemeColor.Primary, ThemeColor.Secondary, ThemeColor.Success, ThemeColor.Danger, ThemeColor.Warning, ThemeColor.Info, ThemeColor.Accent, ThemeColor.Inverse];
+	private readonly List<StyleOption> _styleOptions = [StyleOption.Styled, StyleOption.Solid, StyleOption.Outline, StyleOption.Subtle, StyleOption.Text];
+	private readonly List<ButtonSize> _sizes = [ButtonSize.ExtraSmall, ButtonSize.Small, ButtonSize.Regular, ButtonSize.Large];
+	private readonly List<Rounded> _roundedValues = [Rounded.Default, Rounded.Pill, Rounded.Square];
+
+	private ThemeColor _color = ThemeColor.Primary;
+	private StyleOption _style = StyleOption.Solid;
+	private ButtonSize _size = ButtonSize.Regular;
+	private Rounded _rounded = Rounded.Default;
+
+	private string GeneratedCode => String.Join(Environment.NewLine,
+		BuildButtonCode(text: "Button"),
+		BuildButtonCode(text: "Left icon", icon: "ArrowLeft"),
+		BuildButtonCode(text: "Right icon", icon: "ArrowRight", iconPlacementEnd: true),
+		BuildButtonCode(text: null, icon: "PlusLg", iconOnly: true));
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		await JSRuntime.InvokeVoidAsync("highlightCode");
+	}
+
+	private string GetSizeText(ButtonSize size) => size switch
+	{
+		ButtonSize.ExtraSmall => "Extra small",
+		_ => size.ToString()
+	};
+
+	private ButtonVariant GetVariant() => _style switch
+	{
+		StyleOption.Outline => ButtonVariant.Outline,
+		StyleOption.Subtle => ButtonVariant.Subtle,
+		StyleOption.Text => ButtonVariant.Text,
+		_ => ButtonVariant.Solid // Styled is a CSS modifier of the Solid variant
+	};
+
+	private string GetCssClass(bool iconOnly = false)
+	{
+		string result = CssClassHelper.Combine(
+			(_style == StyleOption.Styled) ? "btn-styled" : null,
+			iconOnly ? "btn-icon" : null,
+			_rounded switch
+			{
+				Rounded.Pill => "rounded-pill",
+				Rounded.Square => "rounded-0",
+				_ => null
+			});
+		return String.IsNullOrEmpty(result) ? null : result;
+	}
+
+	private string BuildButtonCode(string text, string icon = null, bool iconPlacementEnd = false, bool iconOnly = false)
+	{
+		var sb = new StringBuilder("<HxButton");
+		if (text is not null)
+		{
+			sb.Append($" Text=\"{text}\"");
+		}
+		if (icon is not null)
+		{
+			sb.Append($" Icon=\"BootstrapIcon.{icon}\"");
+		}
+		if (iconPlacementEnd)
+		{
+			sb.Append(" IconPlacement=\"ButtonIconPlacement.End\"");
+		}
+		sb.Append($" Variant=\"ButtonVariant.{GetVariant()}\"");
+		sb.Append($" Color=\"ThemeColor.{_color}\"");
+		if (_size != ButtonSize.Regular)
+		{
+			sb.Append($" Size=\"ButtonSize.{_size}\"");
+		}
+		string cssClass = GetCssClass(iconOnly);
+		if (cssClass is not null)
+		{
+			sb.Append($" CssClass=\"{cssClass}\"");
+		}
+		if (iconOnly)
+		{
+			sb.Append(" AriaLabel=\"Icon only\"");
+		}
+		sb.Append(" />");
+		return sb.ToString();
+	}
+
+	private enum StyleOption
+	{
+		Styled,
+		Solid,
+		Outline,
+		Subtle,
+		Text
+	}
+
+	private enum Rounded
+	{
+		Default,
+		Pill,
+		Square
+	}
+}

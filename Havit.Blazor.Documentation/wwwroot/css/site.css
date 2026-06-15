@@ -139,7 +139,9 @@ pre[class*="language-"] {
 }
 
 .hero {
-	background-image: radial-gradient(56.1514% 56.1514% at 49.972% var(--hero-position-y, 38.959%), rgba(var(--bs-primary-rgb), var(--hero-opacity, .3)) 0%, var(--bs-body-bg) 100%);
+	background-image:
+		radial-gradient(56% 56% at 30% var(--hero-position-y, 39%), color-mix(in srgb, var(--bs-blue-500) calc(var(--hero-opacity, .15) * 100%), transparent), transparent 100%),
+		radial-gradient(56% 56% at 70% var(--hero-position-y, 39%), color-mix(in srgb, var(--bs-green-500) calc(var(--hero-opacity, .15) * 100%), transparent), transparent 100%);
 }
 
 /* Sidebar embedded in the navbar drawer: the horizontal (icon rail) collapse makes no sense there. */
