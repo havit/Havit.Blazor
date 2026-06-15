@@ -152,7 +152,6 @@
 	--hx-select-filter-input-icon-opacity: 						.25;
 
 	/* HxMultiSelect */
-	--hx-multi-select-background-color: 							var(--bs-bg-body);
 	--hx-multi-select-menu-height: 						300px;
 	--hx-multi-select-filter-input-icon-opacity: 					.25;
 	--hx-multi-select-menu-width: 							100%;

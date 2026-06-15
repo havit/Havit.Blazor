@@ -1,9 +1,10 @@
-﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TValue
 @typeparam TItem
 
 @{
 	bool enabled = EnabledEffective && (ItemsToRender != null);
+	string menuId = $"{InputId}_menu";
 }
 <div class="@CssClassHelper.Combine("hx-multi-select",
 									HasInputGroups ? "input-group" : null,
@@ -16,114 +17,105 @@
 	}
 
 	@InputGroupStartTemplate
-	<div @ref="_elementReference"
-		 class="@CssClassHelper.Combine("hx-multi-select-toggle", (LabelTypeEffective == LabelType.Floating) ? "form-floating": null)">
+	<div class="@CssClassHelper.Combine("hx-multi-select-toggle", (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)">
 
-		<input @ref="_inputElementReference"
-			   type="text"
-			   id="@InputId"
-			   class="@InputCssClass"
-			   value="@(((ItemsToRender == null) && !String.IsNullOrEmpty(NullDataText)) ? NullDataText : InputText)"
-			   disabled="@(!enabled)"
-			   readonly="true"
-			   aria-expanded="@_isShown"
-			   data-bs-toggle="@(enabled ? "menu" : null)"
-			   data-bs-auto-close="outside"
-			   @attributes="this.AdditionalAttributes" />
+		<button @ref="_toggleElementReference"
+				type="button"
+				id="@InputId"
+				class="@InputCssClass"
+				disabled="@(!enabled)"
+				aria-haspopup="listbox"
+				aria-expanded="@(_isShown ? "true" : "false")"
+				aria-controls="@menuId"
+				data-bs-toggle="@(enabled ? "menu" : null)"
+				data-bs-auto-close="outside"
+				@attributes="this.AdditionalAttributes">
+			<span class="@CssClassHelper.Combine("combobox-value", ShowPlaceholderStyle ? "combobox-placeholder" : null)">@GetToggleText()</span>
+			<svg class="combobox-caret" width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0.46967 5.46967C0.762563 5.17678 1.23744 5.17678 1.53033 5.46967L5 8.93934L8.46967 5.46967C8.76256 5.17678 9.23744 5.17678 9.53033 5.46967C9.82322 5.76256 9.82322 6.23744 9.53033 6.53033L5.53033 10.5303C5.23744 10.8232 4.76256 10.8232 4.46967 10.5303L0.46967 6.53033C0.176777 6.23744 0.176777 5.76256 0.46967 5.46967Z" fill="currentcolor" /></svg>
+		</button>
 
-		@if (LabelTypeEffective == LabelType.Floating)
-		{
-			<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
-		}
-
-		@* Must be always rendered otherwise does not work after disable->enabled scenario *@
-		<ul class="@CssClassHelper.Combine("menu", _isShown ? "show" : null)">
+		@* The menu must always be rendered, otherwise it does not work after the disabled->enabled transition. *@
+		<div id="@menuId" class="@CssClassHelper.Combine("menu", _isShown ? "show" : null)" role="listbox" aria-multiselectable="true">
 			@if (enabled)
 			{
 				if (AllowFiltering)
 				{
-					<li>
-						<div class="hx-multi-select-filter-input-wrapper">
-							<input @ref="_filterInputReference"
-								   id="@($"{InputId}_filter")"
-								   type="text"
-								   class="@CssClassHelper.Combine("form-control", InputSizeEffective.AsFormControlCssClass())"
-								   autocomplete="off"
-								   spellcheck="false"
-								   value="@_filterText"
-								   @oninput="HandleFilterInputChanged"
-								   @onclick:stopPropagation
-								   onfocusin="this.select()" />
+					<div class="combobox-search hx-multi-select-filter-input-wrapper">
+						<input @ref="_filterInputReference"
+							   id="@($"{InputId}_filter")"
+							   type="text"
+							   class="@CssClassHelper.Combine("form-control", "combobox-search-input", InputSizeEffective.AsFormControlCssClass())"
+							   autocomplete="off"
+							   spellcheck="false"
+							   value="@_filterText"
+							   @oninput="HandleFilterInputChanged"
+							   @onclick:stopPropagation
+							   onfocusin="this.select()" />
 
-							<div class="hx-multi-select-filter-input-icon">
-								@if (string.IsNullOrEmpty(_filterText))
-								{
-									<HxIcon CssClass="hx-multi-select-filter-input-icon-search" Icon="@FilterSearchIcon" />
-								}
-								else
-								{
-									<div role="button" @onclick="HandleClearIconClick" @onclick:stopPropagation>
-										<HxIcon CssClass="hx-multi-select-filter-input-icon-clear" Icon="@FilterClearIcon" />
-									</div>
-								}
-							</div>
+						<div class="hx-multi-select-filter-input-icon">
+							@if (string.IsNullOrEmpty(_filterText))
+							{
+								<HxIcon CssClass="hx-multi-select-filter-input-icon-search" Icon="@FilterSearchIcon" />
+							}
+							else
+							{
+								<div role="button" @onclick="HandleClearIconClick" @onclick:stopPropagation>
+									<HxIcon CssClass="hx-multi-select-filter-input-icon-clear" Icon="@FilterClearIcon" />
+								</div>
+							}
 						</div>
-					</li>
+					</div>
 				}
 
 				var filteredItems = GetFilteredItems();
-				if (filteredItems.Count <= 0)
+				if (filteredItems.Count == 0)
 				{
-					<li>
-						@if (FilterEmptyResultTemplate is not null)
-						{
-							@FilterEmptyResultTemplate
-						}
-						else
-						{
-							<span class="p-2">@GetFilterEmptyResultText()</span>
-						}
-					</li>
+					if (FilterEmptyResultTemplate is not null)
+					{
+						@FilterEmptyResultTemplate
+					}
+					else
+					{
+						<div class="combobox-no-results">@GetFilterEmptyResultText()</div>
+					}
 				}
 				else
 				{
 					if (AllowSelectAll)
 					{
-						<li>
-							<button type="button" class="menu-item" @onclick="HandleSelectAllClickedAsync">
-								<div class="form-field">
-									<input class="check" type="checkbox" id="@($"{InputId}_selectall")" checked="@_selectAllChecked" tabindex="-1" />
-									<label for="@($"{InputId}_selectall")" @onclick:preventDefault>
-										@(GetSelectAllText())
-									</label>
-								</div>
-							</button>
-						</li>
+						<button type="button"
+								class="@CssClassHelper.Combine("menu-item", "hx-multi-select-item-select-all", _selectAllChecked ? "selected" : null)"
+								role="option"
+								aria-selected="@(_selectAllChecked ? "true" : "false")"
+								@onclick="HandleSelectAllClickedAsync">
+							<span>@GetSelectAllText()</span>
+							<svg class="menu-item-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="m2 7 4 5 8-8" /></svg>
+						</button>
 					}
 
-					for (var i = 0; i < filteredItems.Count; i++)
+					foreach (var item in filteredItems)
 					{
-						string checkboxElementId = InputId + "_" + i.ToString();
-
-						var item = filteredItems[i];
 						TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
-
 						bool itemSelected = _currentSelectedValues.Contains(value);
 
-						<li>
-							<button type="button" class="menu-item" @onclick="async () => await HandleItemSelectionChangedAsync(!itemSelected, item)">
-								<div class="form-field">
-									<input class="check" type="checkbox" id="@checkboxElementId" checked="@itemSelected" tabindex="-1" />
-									<label for="@checkboxElementId" @onclick:preventDefault>
-										@SelectorHelpers.GetText(TextSelector, item)
-									</label>
-								</div>
-							</button>
-						</li>
+						<button @key="item"
+								type="button"
+								class="@CssClassHelper.Combine("menu-item", itemSelected ? "selected" : null)"
+								role="option"
+								aria-selected="@(itemSelected ? "true" : "false")"
+								@onclick="async () => await HandleItemSelectionChangedAsync(!itemSelected, item)">
+							<span>@SelectorHelpers.GetText(TextSelector, item)</span>
+							<svg class="menu-item-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16"><path d="m2 7 4 5 8-8" /></svg>
+						</button>
 					}
 				}
 			}
-		</ul>
+		</div>
+
+		@if (LabelTypeEffective == LabelType.Floating)
+		{
+			<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
+		}
 	</div>
 	@InputGroupEndTemplate
 
