@@ -93,12 +93,13 @@
 						</button>
 					}
 
-					foreach (var item in filteredItems)
+					for (var i = 0; i < filteredItems.Count; i++)
 					{
+						var item = filteredItems[i];
 						TValue value = SelectorHelpers.GetValue<TItem, TValue>(ValueSelector, item);
 						bool itemSelected = _currentSelectedValues.Contains(value);
 
-						<button @key="item"
+						<button @key="i"
 								type="button"
 								class="@CssClassHelper.Combine("menu-item", itemSelected ? "selected" : null)"
 								role="option"

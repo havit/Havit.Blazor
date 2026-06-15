@@ -279,8 +279,9 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		{
 			_filterText = string.Empty;
 			SynchronizeSelectAllCheckbox();
-			StateHasChanged();
 		}
+
+		StateHasChanged();
 
 		return Task.CompletedTask;
 	}
