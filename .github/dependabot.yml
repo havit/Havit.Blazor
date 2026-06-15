@@ -1,25 +1,19 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
-
-version: 2
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/" 
-    schedule:
-      interval: "daily"
-
-  - package-ecosystem: "nuget"
-    directory: "/"
-    schedule:
-      interval: "daily"
-
-  # Bootstrap is vendored — ignore all npm updates including security PRs.
-  - package-ecosystem: "npm"
-    directory: "/Havit.Bootstrap"
-    schedule:
-      interval: "daily"
-    open-pull-requests-limit: 0
-    ignore:
-      - dependency-name: "*"
+- directory: /
+  ignore:
+  - dependency-name: "github/gh-aw-actions" # Managed by gh aw compile. Version-locked to the gh-aw compiler; do not bump.
+  package-ecosystem: github-actions
+  schedule:
+    interval: daily
+- directory: /
+  package-ecosystem: nuget
+  schedule:
+    interval: daily
+- directory: /Havit.Bootstrap
+  ignore:
+  - dependency-name: "*"
+  open-pull-requests-limit: 0
+  package-ecosystem: npm
+  schedule:
+    interval: daily
+version: 2
