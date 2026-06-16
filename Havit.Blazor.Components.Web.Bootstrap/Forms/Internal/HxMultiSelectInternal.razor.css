@@ -1,36 +1,16 @@
-﻿.hx-multi-select-toggle {
-	flex-grow: 1;
+.hx-multi-select-toggle {
+	flex: 1 1 auto;
+	min-width: 0;
 }
 
 .menu {
-    min-width: var(--hx-multi-select-menu-width);
-    overflow: auto;
-    max-height: var(--hx-multi-select-menu-height);
+	min-width: var(--hx-multi-select-menu-width);
+	max-height: var(--hx-multi-select-menu-height);
+	overflow-y: auto;
 }
 
-.form-select[readonly]:not([disabled]) {
-    background-color: var(--hx-multi-select-background-color);
-}
-
-button.menu-item,
-.form-control[readonly] {
-    cursor: default;
-}
-
-.form-check {
-    margin-bottom: 0;
-}
-
-.form-check-input {
-    margin-left: -1.625em;
-}
-
-.hx-multi-select-input:hover {
-	cursor: default;
-}
-
-.form-check-label {
-	color: inherit;
+.hx-multi-select-filter-input-wrapper {
+	position: relative;
 }
 
 .hx-multi-select-filter-input-icon {
@@ -44,28 +24,20 @@ button.menu-item,
 	z-index: 5;
 }
 
-.hx-multi-select-filter-input-wrapper {
-	position: relative;
-	flex: 1 1 auto;
-	width: 100%;
-	min-width: 0;
-	padding: 0.25em;
-}
-
 .form-control-sm ~ .hx-multi-select-filter-input-icon {
 	font-size: .75rem;
 }
 
 .hx-multi-select-filter-input-icon div[role="button"]:not(:hover) ::deep .hx-icon {
-	opacity: var(--hx-multi-select-filter-input-icon-opacity);
+	opacity: var(--hx-multi-select-filter-input-icon-opacity, .25);
 }
 
-.input-group-start ::deep .form-select {
+.input-group-start .combobox-toggle {
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 }
 
-.input-group-end ::deep .form-select {
+.input-group-end .combobox-toggle {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }
