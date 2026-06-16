@@ -51,27 +51,30 @@
 <DocHeading Title="Installation to your project" Id="installation" Level="2" />
 <p>Select your setup to get customized instructions.</p>
 <HxAlert Color="ThemeColor.Secondary">
-	<p class="mb-0 fw-semibold"><small>Framework version</small></p>
-	<HxRadioButtonList TItem="TargetFramework"
+	<div class="w-100">
+	<HxRadioButtonList Label="Framework version"
+					   TItem="TargetFramework"
 					   TValue="TargetFramework"
 					   Data="_targetFrameworks"
 					   ItemTextSelector="GetSetupOptionText"
 					   @bind-Value="_setup.TargetFramework"
 					   @bind-Value:after="UpdateUri"
 					   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+					   Inline="true"
 					   Variant="ButtonVariant.Outline"
 					   Color="ThemeColor.Primary"
 					   ButtonSize="ButtonSize.Small"
 					   CssClass="mb-2" />
 
-	<p class="mb-0 fw-semibold"><small>Blazor app model</small></p>
-	<HxRadioButtonList TItem="ProjectSetup"
+	<HxRadioButtonList Label="Blazor app model"
+					   TItem="ProjectSetup"
 					   TValue="ProjectSetup"
 					   Data="_projectSetups"
 					   ItemTextSelector="GetSetupOptionText"
 					   @bind-Value="_setup.ProjectSetup"
 					   @bind-Value:after="UpdateUri"
 					   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+					   Inline="true"
 					   Variant="ButtonVariant.Outline"
 					   Color="ThemeColor.Primary"
 					   ButtonSize="ButtonSize.Small"
@@ -79,32 +82,35 @@
 
 	@if (_setup.ProjectSetup == ProjectSetup.BlazorWebApp)
 	{
-		<p class="mb-0 fw-semibold"><small>Interactive render mode</small></p>
-		<HxRadioButtonList TItem="BwaRenderMode"
+		<HxRadioButtonList Label="Interactive render mode"
+						   TItem="BwaRenderMode"
 						   TValue="BwaRenderMode"
 						   Data="_bwaRenderModes"
 						   ItemTextSelector="GetSetupOptionText"
 						   @bind-Value="_setup.BwaRenderMode"
 						   @bind-Value:after="UpdateUri"
 						   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+						   Inline="true"
 						   Variant="ButtonVariant.Outline"
 						   Color="ThemeColor.Primary"
 						   ButtonSize="ButtonSize.Small"
 						   CssClass="mb-2" />
 	}
 
-	<p class="mb-0 fw-semibold"><small>Did you opt for sample pages when creating the project?</small></p>
-	<HxRadioButtonList TItem="bool"
+	<HxRadioButtonList Label="Did you opt for sample pages when creating the project?"
+					   TItem="bool"
 					   TValue="bool"
 					   Data="_samplePagesOptions"
 					   ItemTextSelector="GetSetupOptionText"
 					   @bind-Value="_setup.SamplePagesCreated"
 					   @bind-Value:after="UpdateUri"
 					   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+					   Inline="true"
 					   Variant="ButtonVariant.Outline"
 					   Color="ThemeColor.Primary"
 					   ButtonSize="ButtonSize.Small"
 					   CssClass="mb-2" />
+	</div>
 </HxAlert>
 
 
@@ -140,18 +146,21 @@ else
 	and has NOT been removed.
 </p>
 <HxAlert Color="ThemeColor.Secondary">
-	<p class="mb-0 fw-semibold"><small>Choose a Bootstrap CSS bundle</small></p>
-	<HxRadioButtonList TItem="BootstrapTheme"
+	<div class="w-100">
+	<HxRadioButtonList Label="Choose a Bootstrap CSS bundle"
+					   TItem="BootstrapTheme"
 					   TValue="BootstrapTheme"
 					   Data="_bootstrapThemes"
 					   ItemTextSelector="GetSetupOptionText"
 					   @bind-Value="_setup.BootstrapTheme"
 					   @bind-Value:after="UpdateUri"
 					   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+					   Inline="true"
 					   Variant="ButtonVariant.Outline"
 					   Color="ThemeColor.Primary"
 					   ButtonSize="ButtonSize.Small"
 					   CssClass="mb-2" />
+	</div>
 </HxAlert>
 
 @if ((_setup.BootstrapTheme == BootstrapTheme.HavitBlazor) || (_setup.BootstrapTheme == BootstrapTheme.PlainCdn))
