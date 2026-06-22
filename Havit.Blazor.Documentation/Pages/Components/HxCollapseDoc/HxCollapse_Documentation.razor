@@ -27,6 +27,13 @@
     <p>You can use the <code>ShowAsync()</code> and <code>HideAsync()</code> methods to expand/collapse the component from your code.</p>
 	<Demo Type="typeof(HxCollapse_Demo_Programming)" />
 
+    <DocHeading Title="Accessibility" />
+	<p>
+		<code>HxCollapseToggleButton</code> and <code>HxCollapseToggleElement</code> automatically render <code>data-bs-toggle="collapse"</code>,
+		<code>aria-expanded</code>, and (when a single <code>CollapseTarget</code> is used) <code>aria-controls</code>, so assistive technologies are informed
+		of the expanded/collapsed state and the region being controlled. Make sure the controlled <code>HxCollapse</code> has an <code>Id</code> that matches the toggle's target.
+	</p>
+
 </ApiDoc>
 
 <ApiDoc Type="typeof(HxCollapseToggleButton)" />

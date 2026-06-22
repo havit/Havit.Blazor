@@ -49,6 +49,12 @@
         <DocHeading Title="Custom content" />
 		<p>Add nearly any component or element within.</p>
 		<Demo Type="typeof(HxListGroup_Demo_CustomContent)" />
+
+        <DocHeading Title="Accessibility" />
+		<p>
+			Active items are rendered with <code>aria-current</code> and disabled items (<code>Enabled="false"</code>) with <code>aria-disabled="true"</code>.
+			Be sure to use the appropriate item type for the interaction&mdash;<code>HxListGroupItemNavLink</code> for links and an <code>OnClick</code> handler for buttons&mdash;so the rendered element carries the correct role for keyboard and screen-reader users.
+		</p>
 	</ApiDoc>
 
 	<ApiDoc Type="typeof(HxListGroupItem)" />

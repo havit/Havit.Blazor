@@ -22,6 +22,14 @@
 
     <DocHeading Title="Menus" />
     <Demo Type="typeof(HxNav_Demo_Menus)" />
+
+    <DocHeading Title="Accessibility" />
+    <p>
+        Use the <code>Match</code> behavior on <code>HxNavLink.Href</code> so the active link receives the <code>active</code> class and the current location is perceivable.
+        Disabled links (<code>Enabled="false"</code>) are rendered with <code>aria-disabled="true"</code> and removed from the tab order (<code>tabindex="-1"</code>).
+        For tabbed interfaces that swap panels, prefer <a href="/components/@nameof(HxTabPanel)">@nameof(HxTabPanel)</a>, which manages the
+        <code>role="tab"</code>/<code>tabpanel</code> and <code>aria-selected</code> semantics for you.
+    </p>
 </ApiDoc>
 
 <ApiDoc Type="typeof(HxNavLink)" />
