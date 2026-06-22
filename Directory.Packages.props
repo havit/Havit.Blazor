@@ -66,7 +66,7 @@
 		<PackageVersion Include="System.Formats.Asn1" Version="$(AspNetCoreVersion10)" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(ProjectName.EndsWith(`Tests`))' == 'False'">
-		<GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15">
+		<GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.7.23">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</GlobalPackageReference>
