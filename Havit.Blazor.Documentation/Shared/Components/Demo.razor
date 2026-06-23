@@ -32,7 +32,7 @@ else
 @code {
 	private void RenderDemo(RenderTreeBuilder __builder)
 	{
-		<div class="@CssClassHelper.Combine("p-3", DemoCardCssClass)">
+		<div class="@CssClassHelper.Combine("demo-content p-3 align-self-stretch vstack gap-3", DemoCardCssClass)">
 			<DynamicComponent Type="Type" />
 		</div>
 	}
@@ -47,7 +47,7 @@ else
 		}
 		else
 		{
-			<pre class="@(!Tabs ? "bg-body-tertiary" : null)">
+			<pre class="@CssClassHelper.Combine("align-self-stretch min-w-0", !Tabs ? "bg-body-tertiary" : null)">
 				<code class="language-cshtml">
 					@(_code.Trim())
 				</code>

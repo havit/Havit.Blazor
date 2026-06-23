@@ -8,6 +8,13 @@
 	--hx-sidebar-body-padding: 				0 1rem 0 0;
 }
 
+/* Demo content uses vstack to stack and space items; block-level elements (e.g. alerts)
+   stretch full-width by design. Buttons and button groups should keep their natural width. */
+.demo-content > .btn,
+.demo-content > .btn-group {
+	align-self: start;
+}
+
 #blazor-error-ui {
 	background: lightyellow;
 	bottom: 0;
