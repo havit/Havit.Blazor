@@ -29,6 +29,13 @@
 	</DocAlert>
 	<Demo Type="typeof(HxPopover_Demo_Dismissible)" />
 
+    <DocHeading Title="Disabled elements" />
+	<p>
+		Elements with the <code>disabled</code> attribute aren't interactive, so they can't be hovered or clicked to trigger a popover.
+		<code>HxPopover</code> renders a <code>&lt;span&gt;</code> wrapper around its content, so the popover works on disabled elements out of the box&mdash;no extra markup required.
+	</p>
+	<Demo Type="typeof(HxPopover_Demo_DisabledElements)" Tabs="false" />
+
     <DocHeading Title="Programmability" />
 	<p>
 		You can use the <code>ShowAsync()</code> and <code>HideAsync()</code> methods, as well as the <code>OnShown</code> and <code>OnHidden</code> events,
