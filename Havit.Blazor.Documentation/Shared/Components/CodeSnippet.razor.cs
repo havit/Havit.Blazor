@@ -11,6 +11,44 @@ public partial class CodeSnippet : ComponentBase
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	private string _code;
+	private ElementReference _codeElement;
+	private bool _copied;
+
+	private async Task CopyToClipboardAsync()
+	{
+		await JSRuntime.InvokeVoidAsync("copyTextFromElement", _codeElement);
+		_copied = true;
+		// Fire-and-forget the revert so the click handler returns immediately
+		// (an awaited delay keeps the button in the "click in progress" state, which shows a spinner).
+		_ = RevertCopiedAfterDelayAsync();
+	}
+
+	private async Task RevertCopiedAfterDelayAsync()
+	{
+		await Task.Delay(2000);
+		_copied = false;
+		await InvokeAsync(StateHasChanged);
+	}
+
+	private string GetEffectiveLanguage() => Language ?? GetLanguageFromFileExtension() ?? "cshtml";
+
+	private string GetLanguageLabel()
+	{
+		return GetEffectiveLanguage() switch
+		{
+			"cshtml" => "Razor",
+			"razor" => "Razor",
+			"html" => "HTML",
+			"css" => "CSS",
+			"csharp" => "C#",
+			"cs" => "C#",
+			"js" => "JavaScript",
+			"json" => "JSON",
+			"xml" => "XML",
+			"none" => null,
+			var other => other?.ToUpperInvariant()
+		};
+	}
 
 	protected override async Task OnParametersSetAsync()
 	{
@@ -52,12 +90,10 @@ public partial class CodeSnippet : ComponentBase
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		await base.OnAfterRenderAsync(firstRender);
-		await JSRuntime.InvokeVoidAsync("highlightCode");
-	}
-
-	protected override bool ShouldRender()
-	{
-		return false; // static content
+		if (firstRender)
+		{
+			await JSRuntime.InvokeVoidAsync("highlightCode");
+		}
 	}
 
 }

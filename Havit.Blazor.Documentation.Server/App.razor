@@ -65,6 +65,11 @@
 		window.highlightCode = function () {
 			Prism.highlightAll();
 		};
+		window.copyTextFromElement = function (element) {
+			if (element && navigator.clipboard) {
+				navigator.clipboard.writeText(element.textContent.trim());
+			}
+		};
 	</script>
 </body>
 </html>
