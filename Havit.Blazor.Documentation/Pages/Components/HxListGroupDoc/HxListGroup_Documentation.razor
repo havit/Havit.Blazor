@@ -53,7 +53,8 @@
         <DocHeading Title="Accessibility" />
 		<p>
 			Active items are rendered with <code>aria-current</code> and disabled items (<code>Enabled="false"</code>) with <code>aria-disabled="true"</code>.
-			Be sure to use the appropriate item type for the interaction&mdash;<code>HxListGroupItemNavLink</code> for links and an <code>OnClick</code> handler for buttons&mdash;so the rendered element carries the correct role for keyboard and screen-reader users.
+			For keyboard-accessible interactive items, prefer <code>HxListGroupItemNavLink</code>, which renders an <code>&lt;a&gt;</code> element.
+			A plain <code>HxListGroupItem</code> with an <code>OnClick</code> handler renders a <code>&lt;div role="button"&gt;</code>, which is clickable but is not focusable by keyboard on its own.
 		</p>
 	</ApiDoc>
 
