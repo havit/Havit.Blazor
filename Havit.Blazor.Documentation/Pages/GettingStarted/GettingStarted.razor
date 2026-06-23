@@ -50,7 +50,8 @@
 
 <DocHeading Title="Installation to your project" Id="installation" Level="2" />
 <p>Select your setup to get customized instructions.</p>
-<HxAlert Color="ThemeColor.Secondary">
+<HxCard CssClass="card-demo my-3" BodyCssClass="p-3">
+	<BodyTemplate>
 	<div class="w-100">
 	<HxRadioButtonList Label="Framework version"
 					   TItem="TargetFramework"
@@ -111,7 +112,8 @@
 					   ButtonSize="ButtonSize.Small"
 					   CssClass="mb-2" />
 	</div>
-</HxAlert>
+	</BodyTemplate>
+</HxCard>
 
 
 
@@ -134,7 +136,7 @@ else
 		or execute the following command:
 	</p>
 }
-<CodeSnippet Language="none">dotnet add package Havit.Blazor.Components.Web.Bootstrap</CodeSnippet>
+<CodeSnippet Language="csharp">dotnet add package Havit.Blazor.Components.Web.Bootstrap</CodeSnippet>
 
 
 
@@ -145,7 +147,8 @@ else
 	Ensure that the link to <code>{YourBlazorApp}.styles.css</code> remains in your <code>@GetHtmlHostFile()</code>
 	and has NOT been removed.
 </p>
-<HxAlert Color="ThemeColor.Secondary">
+<HxCard CssClass="card-demo my-3" BodyCssClass="p-3">
+	<BodyTemplate>
 	<div class="w-100">
 	<HxRadioButtonList Label="Choose a Bootstrap CSS bundle"
 					   TItem="BootstrapTheme"
@@ -161,7 +164,8 @@ else
 					   ButtonSize="ButtonSize.Small"
 					   CssClass="mb-2" />
 	</div>
-</HxAlert>
+	</BodyTemplate>
+</HxCard>
 
 @if ((_setup.BootstrapTheme == BootstrapTheme.HavitBlazor) || (_setup.BootstrapTheme == BootstrapTheme.PlainCdn))
 {
