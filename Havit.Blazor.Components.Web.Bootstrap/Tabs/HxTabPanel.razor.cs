@@ -185,6 +185,12 @@ public partial class HxTabPanel : ComponentBase
 	/// </summary>
 	protected async Task HandleTabClick(HxTab tab)
 	{
+		// The tab is rendered as a <button> with aria-disabled (not the native disabled attribute), so it stays
+		// focusable; guard here to ignore keyboard activation (Enter/Space) of a disabled tab.
+		if (!CascadeEnabledComponent.EnabledEffective(tab))
+		{
+			return;
+		}
 		await SetActiveTabIdAsync(tab.Id);
 	}
 
