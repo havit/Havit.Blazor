@@ -15,6 +15,12 @@
 	align-self: start;
 }
 
+/* In the tabbed demo variant the tab content is a flex child of the (flex-column) card body;
+   stretch it so the demo fills the full width like the non-tabbed variant. */
+.card-demo > .card-body > .tab-content {
+	align-self: stretch;
+}
+
 #blazor-error-ui {
 	background: lightyellow;
 	bottom: 0;
