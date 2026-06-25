@@ -31,8 +31,8 @@
 
     <DocHeading Title="Disabled elements" />
 	<p>
-		Elements with the <code>disabled</code> attribute aren't interactive, so they can't be hovered or clicked to trigger a popover.
-		<code>HxPopover</code> renders a <code>&lt;span&gt;</code> wrapper around its content, so the popover works on disabled elements out of the box&mdash;no extra markup required.
+		Disabled elements use <code>pointer-events: none</code>, so they can't directly receive the hover, focus, or click events that trigger a popover.
+		<code>HxPopover</code> wraps its content in a <code>&lt;span&gt;</code> and attaches the trigger to that wrapper, so popovers work on disabled elements out of the box&mdash;no extra markup required.
 	</p>
 	<Demo Type="typeof(HxPopover_Demo_DisabledElements)" Tabs="false" />
 
