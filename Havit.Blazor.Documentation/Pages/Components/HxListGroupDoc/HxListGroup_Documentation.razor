@@ -42,9 +42,20 @@
         <p>Add badges to any list-group item to show unread counts, activity, and more.</p>
 		<Demo Type="typeof(HxListGroup_Demo_Badges)" />
 
+        <DocHeading Title="Checkboxes and radios" />
+		<p>Place Blazor form controls such as <a href="/components/HxCheckbox">HxCheckbox</a> (or radios) within list-group items.</p>
+		<Demo Type="typeof(HxListGroup_Demo_CheckboxesAndRadios)" />
+
         <DocHeading Title="Custom content" />
 		<p>Add nearly any component or element within.</p>
 		<Demo Type="typeof(HxListGroup_Demo_CustomContent)" />
+
+        <DocHeading Title="Accessibility" />
+		<p>
+			Active items are rendered with <code>aria-current</code> and disabled items (<code>Enabled="false"</code>) with <code>aria-disabled="true"</code>.
+			For keyboard-accessible interactive items, prefer <code>HxListGroupItemNavLink</code>, which renders an <code>&lt;a&gt;</code> element.
+			A plain <code>HxListGroupItem</code> with an <code>OnClick</code> handler renders a <code>&lt;div role="button"&gt;</code>, which is clickable but is not focusable by keyboard on its own.
+		</p>
 	</ApiDoc>
 
 	<ApiDoc Type="typeof(HxListGroupItem)" />
