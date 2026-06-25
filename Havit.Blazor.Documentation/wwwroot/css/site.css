@@ -12,7 +12,7 @@
    stretch full-width by design. Buttons and button groups should keep their natural width. */
 .demo-content > .btn,
 .demo-content > .btn-group {
-	align-self: start;
+	align-self: flex-start;
 }
 
 /* In the tabbed demo variant the tab content is a flex child of the (flex-column) card body;

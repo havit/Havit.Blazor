@@ -2,7 +2,7 @@
 
 namespace Havit.Blazor.Documentation.Shared.Components;
 
-public partial class CodeSnippet : ComponentBase
+public partial class CodeSnippet : ComponentBase, IDisposable
 {
 	[Parameter] public string File { get; set; }
 	[Parameter] public RenderFragment ChildContent { get; set; }
@@ -13,21 +13,42 @@ public partial class CodeSnippet : ComponentBase
 	private string _code;
 	private ElementReference _codeElement;
 	private bool _copied;
+	private CancellationTokenSource _revertCts;
 
 	private async Task CopyToClipboardAsync()
 	{
+		if (_revertCts is not null)
+		{
+			await _revertCts.CancelAsync();
+			_revertCts.Dispose();
+		}
+		_revertCts = new CancellationTokenSource();
+
 		await JSRuntime.InvokeVoidAsync("copyTextFromElement", _codeElement);
 		_copied = true;
 		// Fire-and-forget the revert so the click handler returns immediately
 		// (an awaited delay keeps the button in the "click in progress" state, which shows a spinner).
-		_ = RevertCopiedAfterDelayAsync();
+		_ = RevertCopiedAfterDelayAsync(_revertCts.Token);
 	}
 
-	private async Task RevertCopiedAfterDelayAsync()
+	private async Task RevertCopiedAfterDelayAsync(CancellationToken cancellationToken)
 	{
-		await Task.Delay(2000);
+		try
+		{
+			await Task.Delay(2000, cancellationToken);
+		}
+		catch (OperationCanceledException)
+		{
+			return;
+		}
 		_copied = false;
 		await InvokeAsync(StateHasChanged);
+	}
+
+	public void Dispose()
+	{
+		_revertCts?.Cancel();
+		_revertCts?.Dispose();
 	}
 
 	private string GetEffectiveLanguage() => Language ?? GetLanguageFromFileExtension() ?? "cshtml";
