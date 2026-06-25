@@ -38,18 +38,19 @@
 			{
 				@if (tab.Visible)
 				{
-					<HxNavLink @key="@tab.Id"
-					           OnClick="async () => await HandleTabClick(tab)"
-					           CssClass="@CssClassHelper.Combine((IsActive(tab) ? "active" : null), tab.TitleCssClass)"
-					           Enabled="CascadeEnabledComponent.EnabledEffective(tab)"
-					           role="tab"
-					           id="@(tab.Id + "-header")"
-					           aria-controls="@((RenderMode == TabPanelRenderMode.AllTabs || IsActive(tab)) ? tab.Id : null)"
-					           aria-selected="@(IsActive(tab) ? "true" : "false")"
-					           tabindex="@(IsActive(tab) ? "0" : "-1")">
+					<button type="button"
+					        @key="@tab.Id"
+					        class="@CssClassHelper.Combine("nav-link", (IsActive(tab) ? "active" : null), (CascadeEnabledComponent.EnabledEffective(tab) ? null : "disabled"), tab.TitleCssClass)"
+					        @onclick="async () => await HandleTabClick(tab)"
+					        aria-disabled="@(CascadeEnabledComponent.EnabledEffective(tab) ? null : "true")"
+					        role="tab"
+					        id="@(tab.Id + "-header")"
+					        aria-controls="@((RenderMode == TabPanelRenderMode.AllTabs || IsActive(tab)) ? tab.Id : null)"
+					        aria-selected="@(IsActive(tab) ? "true" : "false")"
+					        tabindex="@(IsActive(tab) ? "0" : "-1")">
 						@tab.Title
 						@tab.TitleTemplate
-					</HxNavLink>
+					</button>
 				}
 			}
 		</HxNav>
