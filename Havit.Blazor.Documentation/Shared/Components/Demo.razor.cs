@@ -16,7 +16,7 @@ public partial class Demo : PerformanceLoggingComponentBase
 	private readonly RenderFragment _renderCode;
 	private readonly CardSettings _cardSettings = new()
 	{
-		CssClass = "card-demo my-3",
+		CssClass = "card-demo",
 		BodyCssClass = "p-0"
 	};
 
