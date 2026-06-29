@@ -5957,7 +5957,10 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1">
             <summary>
-            Allows the user to select a number in a specified range using a slider.
+            Allows the user to select a number in a specified range using a slider.<br />
+            Mirrors the <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/range/">Bootstrap range</see> component:
+            a JavaScript-driven control that draws a filled track and can show an optional value <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Bubble"/>
+            and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Ticks"/> (tick marks).
             </summary>
             <typeparam name="TValue">Supported values: <c>byte (Byte), sbyte (SByte), short (Int16), ushort(UInt16), int (Int32), uint(UInt32), long (Int64), ulong(UInt64), float (Single), double (Double) and decimal (Decimal)</c>.</typeparam>
         </member>
@@ -6002,11 +6005,27 @@
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.BindEvent.OnChange"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Bubble">
+            <summary>
+            When <c>true</c>, a value bubble following the thumb is shown.<br />
+            The default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Ticks">
+            <summary>
+            Tick marks rendered along the track from a linked <c>&lt;datalist&gt;</c>. Each tick is positioned at its
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeTick.Value"/> (even when the values are unevenly spaced) and an optional
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeTick.Label"/> is shown beneath it.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.InputElement">
             <summary>
             The input ElementReference.
-            Can be <c>null</c>. 
+            Can be <c>null</c>.
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.FocusAsync">
             <summary>
@@ -7310,6 +7329,27 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings.BindEvent">
             <summary>
             Determines whether the <code>Value</code> is going to be updated instantly or <code>onchange</code> (usually <code>onmouseup</code>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings.Bubble">
+            <summary>
+            Determines whether a value bubble following the thumb is shown.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputRangeTick">
+            <summary>
+            A tick mark for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1"/>. The ticks are rendered from a linked <c>&lt;datalist&gt;</c>
+            by the Bootstrap Range plugin, each positioned at its <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeTick.Value"/> (even when the values are unevenly spaced).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeTick.Value">
+            <summary>
+            The value at which the tick is positioned (on the same scale as <c>Min</c>/<c>Max</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeTick.Label">
+            <summary>
+            The optional label shown beneath the tick. When <c>null</c> or empty, only the tick mark is rendered.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputSettings">
