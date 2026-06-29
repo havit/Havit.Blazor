@@ -1,26 +1,10 @@
-﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@namespace Havit.Blazor.Components.Web.Bootstrap
 
 <div id="@_id"
      @ref="_elementReference"
-     class="@CssClassHelper.Combine("carousel", "slide", Dark ? "carousel-dark" : null, Crossfade ? "carousel-fade" : null, CssClass)"
-     data-bs-interval="@(Interval is null ? "false" : Interval)"
-     data-bs-touch="@(TouchSwiping ? "true" : "false")">
-
-    @if (Indicators && (_items is not null))
-    {
-        <div class="carousel-indicators">
-            @for (int i = 0; i < _items.Count; i++)
-            {
-                <button type="button"
-                data-bs-target="#@_id"
-                data-bs-slide-to="@i"
-                class="@(_items[i].Active ? "active" : null)"
-                aria-current="@(_items[i].Active ? "true" : null)"
-                aria-label="Slide @i"
-                @key="i"></button>
-            }
-        </div>
-    }
+     class="@CssClassHelper.Combine("carousel", "slide", Crossfade ? "carousel-fade" : null, Overlay ? "carousel-overlay" : null, VariableWidth ? "carousel-auto" : null, Center ? "carousel-center" : null, CssClass)"
+     style="@GetStyle()"
+     @attributes="GetAttributesExceptStyle()">
 
     <div class="carousel-inner">
         <CascadingValue Value="@_itemsRegistration" Name="@ItemsRegistrationCascadingValueName" IsFixed="true">
@@ -28,15 +12,45 @@
         </CascadingValue>
     </div>
 
-    @if (Controls)
+    @if (Controls || Indicators || PlayPauseControl)
     {
-        <button id="@(_id + "prev")" class="carousel-control-prev" type="button" data-bs-target="#@_id" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button id="@(_id + "next")" class="carousel-control-next" type="button" data-bs-target="#@_id" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+        <div class="@(Overlay ? "carousel-overlay-controls" : "d-flex justify-content-between align-items-center mt-3")">
+            <div>
+                @if (Controls)
+                {
+                    <button class="btn-icon btn-sm" type="button" data-bs-target="#@_id" data-bs-slide="prev">
+                        <span class="carousel-icon-prev" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="btn-icon btn-sm" type="button" data-bs-target="#@_id" data-bs-slide="next">
+                        <span class="carousel-icon-next" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                }
+                @if (PlayPauseControl)
+                {
+                    <button class="btn-icon btn-sm carousel-control-play-pause" type="button" data-bs-target="#@_id" aria-label="Pause" data-bs-pause-label="Pause" data-bs-play-label="Play">
+                        <span class="carousel-icon-pause" aria-hidden="true"></span>
+                        <span class="carousel-icon-play" aria-hidden="true"></span>
+                    </button>
+                }
+            </div>
+
+            @if (Indicators && (_items is not null))
+            {
+                <div class="carousel-indicators">
+                    @for (int i = 0; i < _items.Count; i++)
+                    {
+                        <button type="button"
+                                data-bs-target="#@_id"
+                                data-bs-slide-to="@i"
+                                class="@(_items[i].Active ? "active" : null)"
+                                aria-current="@(_items[i].Active ? "true" : null)"
+                                aria-label="Slide @(i + 1)"
+                                @key="i"></button>
+                    }
+                </div>
+            }
+        </div>
     }
 </div>

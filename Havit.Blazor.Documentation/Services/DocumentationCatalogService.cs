@@ -175,7 +175,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/types/ButtonIconPlacement", "ButtonIconPlacement", "enum", EnumsLevel),
 		new("/types/ButtonSize", "ButtonSize", "enum", EnumsLevel),
 		new("/types/CardImagePlacement", "CardImagePlacement", "enum", EnumsLevel),
-		new("/types/CarouselRide", "CarouselRide", "enum", EnumsLevel),
+		new("/types/CarouselEnds", "CarouselEnds", "enum", EnumsLevel),
 		new("/types/CollapseDirection", "CollapseDirection", "enum", EnumsLevel),
 		new("/types/DrawerBackdrop", "DrawerBackdrop", "enum static offcanvas", EnumsLevel),
 		new("/types/DrawerPlacement", "DrawerPlacement", "enum offcanvas", EnumsLevel),

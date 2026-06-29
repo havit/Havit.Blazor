@@ -1322,6 +1322,29 @@
             Additional attributes to be applied to the underlying HTML element.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CarouselEnds">
+            <summary>
+            Defines what happens at the first and last slide of a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselEnds.Loop">
+            <summary>
+            Scrolls seamlessly past the ends for an endless conveyor effect (default).
+            Applies to single-slide carousels; multi-item, peek, centered, and variable-width
+            layouts (and users who prefer reduced motion) fall back to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselEnds.Wrap"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselEnds.Wrap">
+            <summary>
+            Jumps from the last slide back to the first (and vice versa), so the controls never reach a dead end.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselEnds.Stop">
+            <summary>
+            Hard-stops at the first and last slide. The previous control is disabled on the first slide
+            and the next control on the last (via the native <c>disabled</c> attribute on <c>&lt;button&gt;</c> controls).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CarouselPause">
             <summary>
             Behavior of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel"/>.
@@ -1335,26 +1358,6 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselPause.False">
             <summary>
             The carousel won't stop sliding on hover.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CarouselRide">
-            <summary>
-            Behavior of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel"/>.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.Carousel">
-            <summary>
-            Automatically starts the carousel on load.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.False">
-            <summary>
-            Allows manual control of the carousel.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.True">
-            <summary>
-            Automatically starts the carousel after the user manually cycles the first item.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CarouselSlideEventArgs.From">
@@ -1390,7 +1393,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Controls">
             <summary>
-            Display controls to switch between slides.
+            Display previous/next controls to switch between slides.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Indicators">
@@ -1398,9 +1401,15 @@
             Display indicators showing which slide is active. Can also be used to switch between slides.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Dark">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.PlayPauseControl">
             <summary>
-            Show controls, captions, etc. with dark colors.
+            Display a play/pause button that toggles autoplay. Most useful together with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Autoplay"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Overlay">
+            <summary>
+            Overlay the controls and indicators on top of the slides (<c>.carousel-overlay</c>) instead of
+            rendering them below. Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Crossfade">
@@ -1408,15 +1417,64 @@
             Animate slides with a fade transition instead of sliding.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Interval">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Center">
             <summary>
-            Delay for automatically switching slides. Default is <c>3000 ms</c>.
+            Snap the active slide to the center of the viewport instead of its start (<c>.carousel-center</c>).
+            Pairs nicely with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.ItemsPeek"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.TouchSwiping">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.VariableWidth">
             <summary>
-            Enable or disable swiping left/right on touchscreen devices to move between slides.
-            Default is <c>true</c> (enabled).
+            Let each <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem"/> size itself (<c>.carousel-auto</c>) for variable-width slides.
+            Set the width of every item via its <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.CssClass"/> or inline styles.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.VisibleItems">
+            <summary>
+            Number of whole slides visible per view (<c>--bs-carousel-items</c>). Default (<c>null</c>) shows one.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.ItemsGap">
+            <summary>
+            Space between slides as a CSS length (<c>--bs-carousel-items-gap</c>), e.g. <c>"1rem"</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.ItemsPeek">
+            <summary>
+            How much of the neighboring slides to reveal, as a CSS length (<c>--bs-carousel-items-peek</c>), e.g. <c>"3rem"</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Autoplay">
+            <summary>
+            Automatically cycle the carousel on load. Default is <c>false</c>.
+            Autoplay pauses on hover (see <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Pause"/>) and stops for good once the visitor takes control.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Ends">
+            <summary>
+            What happens at the first and last slide. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselEnds.Loop"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Keyboard">
+            <summary>
+            Whether the carousel reacts to keyboard events. Default is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Interval">
+            <summary>
+            Delay (ms) between automatically cycling to the next item while <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Autoplay"/> is enabled.
+            When <c>null</c> (default), Bootstrap's default of <c>5000 ms</c> is used. Can be overridden per item via <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.Interval"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Pause">
+            <summary>
+            Carousel pause behavior. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselPause.Hover"/> (autoplay stops sliding on hover).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the root <c>.carousel</c> element
+            (e.g. <c>data-bs-theme="dark"</c> for a dark carousel).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.OnSlide">
@@ -1439,14 +1497,16 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.OnSlid"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Ride">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.GetStyle">
             <summary>
-            Carousel ride (autoplay) behavior. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.Carousel"/> (autoplays the carousel on load).
+            Builds the inline <c>style</c> for the root element from the CSS-variable layout parameters,
+            merged with any <c>style</c> supplied through <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.AdditionalAttributes"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Pause">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.GetAttributesExceptStyle">
             <summary>
-            Carousel pause behavior. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselPause.Hover"/> (carousel will stop sliding on hover).
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.AdditionalAttributes"/> without <c>style</c> (rendered separately by <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.GetStyle"/>),
+            to avoid a duplicate-attribute render error.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideToAsync(System.Int32)">
@@ -1479,24 +1539,15 @@
             Dispose the carousel.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCarouselCaption">
-            <summary>
-            Represents a caption for a carousel slide.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselCaption.ChildContent">
-            <summary>
-            The content of the caption.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselCaption.CssClass">
-            <summary>
-            CSS class for the caption.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.Interval">
             <summary>
             Time interval before automatically cycling to the next item.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the root <c>.carousel-item</c> element
+            (e.g. <c>style="width: 320px;"</c> for a variable-width carousel).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.ItemsRegistration">

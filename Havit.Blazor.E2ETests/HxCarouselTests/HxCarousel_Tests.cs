@@ -29,7 +29,7 @@ public class HxCarousel_Tests : TestAppTestBase
 		await Expect(firstSlide).ToHaveClassAsync(ActiveClassRegex);
 
 		// Act - click the next control
-		var nextButton = Page.Locator(".carousel-control-next");
+		var nextButton = Page.Locator("[data-bs-slide='next']");
 		await nextButton.ClickAsync();
 
 		// Assert - slide 2 (index 1) should become active
@@ -44,14 +44,14 @@ public class HxCarousel_Tests : TestAppTestBase
 		await NavigateToTestAppAsync("/HxCarousel");
 
 		// First advance to slide 2
-		var nextButton = Page.Locator(".carousel-control-next");
+		var nextButton = Page.Locator("[data-bs-slide='next']");
 		await nextButton.ClickAsync();
 
 		var secondSlide = Page.Locator(".carousel-item").Nth(1);
 		await Expect(secondSlide).ToHaveClassAsync(ActiveClassRegex, new() { Timeout = CarouselTransitionTimeout });
 
 		// Act - click the previous control
-		var prevButton = Page.Locator(".carousel-control-prev");
+		var prevButton = Page.Locator("[data-bs-slide='prev']");
 		await prevButton.ClickAsync();
 
 		// Assert - slide 1 (index 0) should be active again
@@ -73,7 +73,7 @@ public class HxCarousel_Tests : TestAppTestBase
 		await Expect(firstIndicator).ToHaveClassAsync(ActiveClassRegex);
 
 		// Act - advance to the next slide
-		var nextButton = Page.Locator(".carousel-control-next");
+		var nextButton = Page.Locator("[data-bs-slide='next']");
 		await nextButton.ClickAsync();
 
 		// Assert - the second indicator should now be active
