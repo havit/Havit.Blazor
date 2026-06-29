@@ -29,7 +29,7 @@
                 }
                 @if (PlayPauseControl)
                 {
-                    <button class="btn-icon btn-sm carousel-control-play-pause" type="button" data-bs-target="#@_id" aria-label="Pause" data-bs-pause-label="Pause" data-bs-play-label="Play">
+                    <button class="btn-icon btn-sm carousel-control-play-pause" type="button" data-bs-target="#@_id" aria-label="@(Autoplay ? "Pause" : "Play")" data-bs-pause-label="Pause" data-bs-play-label="Play">
                         <span class="carousel-icon-pause" aria-hidden="true"></span>
                         <span class="carousel-icon-play" aria-hidden="true"></span>
                     </button>

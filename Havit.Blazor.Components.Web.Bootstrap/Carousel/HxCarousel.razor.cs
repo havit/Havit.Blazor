@@ -190,7 +190,9 @@ public partial class HxCarousel : IAsyncDisposable
 	private string GetStyle()
 	{
 		var sb = new StringBuilder();
-		if (VisibleItems is not null)
+		// Bootstrap uses --bs-carousel-items as a divisor in the slide flex-basis calc,
+		// so a non-positive value produces invalid CSS / a broken layout. Ignore it.
+		if (VisibleItems is > 0)
 		{
 			sb.Append("--bs-carousel-items: ").Append(VisibleItems.Value).Append(';');
 		}
