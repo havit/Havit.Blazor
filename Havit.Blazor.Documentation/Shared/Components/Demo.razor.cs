@@ -3,7 +3,7 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Documentation.Shared.Components;
 
-public partial class Demo : PerformanceLoggingComponentBase
+public partial class Demo : PerformanceLoggingComponentBase, IDisposable
 {
 	[Parameter] public Type Type { get; set; }
 	[Parameter] public bool Tabs { get; set; } = true;
@@ -14,23 +14,47 @@ public partial class Demo : PerformanceLoggingComponentBase
 	private string _code;
 	private ElementReference _codeElement;
 	private bool _copied;
+	private CancellationTokenSource _copiedCts;
 	private readonly RenderFragment _renderDemo;
 	private readonly RenderFragment _renderCode;
 
 	private async Task CopyCodeAsync()
 	{
 		await JSRuntime.InvokeVoidAsync("copyTextFromElement", _codeElement);
+
+		// Cancel any in-flight revert before starting a new one.
+		if (_copiedCts is not null)
+		{
+			await _copiedCts.CancelAsync();
+			_copiedCts.Dispose();
+		}
+		_copiedCts = new CancellationTokenSource();
+
 		_copied = true;
 		// Fire-and-forget the revert so the click handler returns immediately (an awaited delay would show a spinner on the button).
-		_ = RevertCopiedAfterDelayAsync();
+		_ = RevertCopiedAfterDelayAsync(_copiedCts.Token);
 	}
 
-	private async Task RevertCopiedAfterDelayAsync()
+	private async Task RevertCopiedAfterDelayAsync(CancellationToken cancellationToken)
 	{
-		await Task.Delay(2000);
+		try
+		{
+			await Task.Delay(2000, cancellationToken);
+		}
+		catch (OperationCanceledException)
+		{
+			return;
+		}
 		_copied = false;
 		await InvokeAsync(StateHasChanged);
 	}
+
+	public void Dispose()
+	{
+		_copiedCts?.Cancel();
+		_copiedCts?.Dispose();
+	}
+
 	private readonly CardSettings _cardSettings = new()
 	{
 		CssClass = "card-demo",

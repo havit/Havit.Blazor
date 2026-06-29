@@ -25,10 +25,10 @@
 				</Toggle>
 				<Content>
 					<HxMenuItemNavLink Href="" Match="NavLinkMatch.All">Home</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="getting-started">Docs</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="https://blocks.havit.blazor.eu">Blocks</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="showcase">Showcase</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="premium">Premium</HxMenuItemNavLink>
+					<HxMenuItemNavLink Href="getting-started" Match="NavLinkMatch.Prefix">Docs</HxMenuItemNavLink>
+					<HxMenuItemNavLink Href="https://blocks.havit.blazor.eu" Match="@((NavLinkMatch?)null)">Blocks</HxMenuItemNavLink>
+					<HxMenuItemNavLink Href="showcase" Match="NavLinkMatch.Prefix">Showcase</HxMenuItemNavLink>
+					<HxMenuItemNavLink Href="premium" Match="NavLinkMatch.Prefix">Premium</HxMenuItemNavLink>
 				</Content>
 			</HxMenu>
 		</div>
