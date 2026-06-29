@@ -2,6 +2,7 @@
 @attribute [Route("/components/" + nameof(HxMenuToggleButton))]
 @attribute [Route("/components/" + nameof(HxMenuToggleElement))]
 @attribute [Route("/components/" + nameof(HxMenuItem))]
+@attribute [Route("/components/" + nameof(HxSubmenu))]
 @attribute [Route("/components/" + nameof(HxMenuItemNavLink))]
 @attribute [Route("/components/" + nameof(HxMenuText))]
 @attribute [Route("/components/" + nameof(HxMenuHeader))]
@@ -41,6 +42,15 @@
 		<p>Set <code>CssClass="active"</code> to highlight the item.</p>
 		<p>Set <code>Enabled="false"</code> to disable the item. The <code>HxFormState.Enabled</code> inheritance is also supported.</p>
 		<Demo Type="typeof(HxMenu_Demo_HeaderDisabledActive)" />
+
+		<DocHeading Title="Submenus" Id="submenus" />
+		<p>
+			Use <code>HxSubmenu</code> to create a nested menu. It renders a <code>.submenu</code> trigger that opens the nested
+			<code>Content</code> on hover or click. Submenus can be nested to any depth, and support the same <code>Icon</code> and
+			<code>Enabled</code> behavior as <code>HxMenuItem</code>.
+			See the <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#submenus">Bootstrap documentation</a>.
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_Submenus)" />
 
 		<DocHeading Title="Custom content" />
 		<p>Place any custom content directly into the <code>Content</code> render fragment.</p>
@@ -89,6 +99,7 @@
 <ApiDoc Type="typeof(HxMenuToggleButton)" />
 <ApiDoc Type="typeof(HxMenuToggleElement)" />
 <ApiDoc Type="typeof(HxMenuItem)" />
+<ApiDoc Type="typeof(HxSubmenu)" />
 <ApiDoc Type="typeof(HxMenuItemNavLink)" />
 <ApiDoc Type="typeof(HxMenuText)" />
 <ApiDoc Type="typeof(HxMenuHeader)" />
