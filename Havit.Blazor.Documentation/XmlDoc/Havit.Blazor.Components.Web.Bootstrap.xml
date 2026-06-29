@@ -11083,6 +11083,57 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleElement.DisposeAsync">
             <inheritdoc/>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu">
+            <summary>
+            Submenu (nested menu) for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMenu"/>. Renders a <c>div.submenu</c> wrapper with a <c>button.menu-item</c> trigger
+            and a nested <c>.menu</c> element (with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.ChildContent"/>). Submenus can be nested to any depth.<br />
+            See <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#submenus">Bootstrap 6 submenus</see>.
+            The opening (hover/click), positioning and keyboard navigation are handled by the parent <c>HxMenu</c>'s Bootstrap instance.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.Text">
+            <summary>
+            Text of the submenu trigger. Ignored when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.TitleTemplate"/> is set.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.TitleTemplate">
+            <summary>
+            Custom content of the submenu trigger. Takes precedence over <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.Text"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.Icon">
+            <summary>
+            Icon of the submenu trigger (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon" />).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.IconCssClass">
+            <summary>
+            Additional CSS class(es) for the submenu trigger icon.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.Color">
+            <summary>
+            Theme color variant of the trigger (renders the <c>theme-*</c> class).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.ChildContent">
+            <summary>
+            The nested menu content (typically <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMenuItem"/>, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMenuItemNavLink"/>, another <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu"/>, etc.).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.Enabled">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.CssClass">
+            <summary>
+            Additional CSS class for the underlying <c>.submenu</c> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the underlying <c>.submenu</c> element.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.IHxMenuToggle">
             <summary>
             Interface to help keep the menu-toggle implementations aligned.
