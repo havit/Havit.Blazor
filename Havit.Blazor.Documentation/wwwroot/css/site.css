@@ -21,6 +21,16 @@
 	align-self: stretch;
 }
 
+/* Center the docs search in the navbar on lg+ (absolute, so the nav stays hard-left and the controls hard-right).
+   In the mobile drawer (< lg) the search stays in normal flow. */
+@media (min-width: 1024px) {
+	.nav-container .navbar-search-center {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+
 #blazor-error-ui {
 	background: lightyellow;
 	bottom: 0;
@@ -44,6 +54,16 @@ code[class*=language-],
 pre[class*=language-] {
 	text-shadow: none;
 	color: var(--bs-secondary-color);
+}
+
+/* Inline code (not the Prism-highlighted source blocks) colored with a pink theme color. */
+.prose code:not([class*="language-"]) {
+	color: var(--bs-pink-500);
+}
+
+/* The active item in the navbar mobile dropdown is shown in medium weight. */
+.nav-container .menu .menu-item.active {
+	font-weight: 500;
 }
 
 
