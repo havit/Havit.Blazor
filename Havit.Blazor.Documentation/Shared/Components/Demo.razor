@@ -50,7 +50,7 @@ else
 			@* Inline (non-tabbed) code gets a header separating it from the demo, with the language name and a copy button. *@
 			if (!Tabs)
 			{
-				<div class="d-flex justify-content-between align-items-center ps-3 pe-1 py-1 align-self-stretch border-top border-subtle">
+				<div class="d-flex justify-content-between align-items-center ps-3 pe-1 py-1 align-self-stretch border-top border-bottom border-subtle bg-1">
 					<span class="fg-secondary text-uppercase fs-xs font-monospace">Razor</span>
 					<HxButton Icon="@(_copied ? BootstrapIcon.ClipboardCheck : BootstrapIcon.Clipboard)"
 							  Variant="ButtonVariant.Text"
