@@ -27,6 +27,14 @@
 	<p>Use the <code>Animation</code> parameter to choose the open/close animation of the dialog. The default is <code>DialogAnimation.Fade</code>, use <code>DialogAnimation.None</code> to disable the animation.</p>
 	<Demo Type="typeof(HxDialog_Demo_Animation)" />
 
+    <DocHeading Title="Swapping dialogs" />
+		<p>When a button inside an open dialog opens another dialog, the dialogs <strong>swap</strong> &ndash; the first one closes as the second one opens, and the backdrop stays visible the whole time without flickering. Just call <code>ShowAsync()</code> on the other dialog; you don't need to close the current one first.</p>
+		<Demo Type="typeof(HxDialog_Demo_Swapping)" />
+
+    <DocHeading Title="Non-modal dialogs" />
+		<p>Set <code>NonModal="true"</code> to open the dialog with the browser-native <code>show()</code> instead of <code>showModal()</code>. A non-modal dialog has no backdrop, no focus trap, and does not block the rest of the page.</p>
+		<Demo Type="typeof(HxDialog_Demo_NonModal)" />
+
     <DocHeading Title="Optional sizes" />
 	<Demo Type="typeof(HxDialog_Demo_Size)" />
 
