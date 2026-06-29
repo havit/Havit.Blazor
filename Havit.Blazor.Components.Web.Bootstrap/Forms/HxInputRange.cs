@@ -189,11 +189,13 @@ public class HxInputRange<TValue> : HxInputBase<TValue>, IAsyncDisposable
 		builder.CloseElement(); // div.form-range
 	}
 
-	protected async Task HandleValueChanged(TValue value)
+	protected Task HandleValueChanged(TValue value)
 	{
-		Value = value;
+		// Routing through CurrentValue (instead of setting Value + invoking ValueChanged directly) keeps the
+		// InputBase EditContext integration intact - it raises ValueChanged and notifies the field as changed (validation).
+		CurrentValue = value;
 		_jsValue = FormatValueInvariant(value); // the plugin already updated the fill from the same DOM event - keep it in sync to avoid a redundant update() call
-		await ValueChanged.InvokeAsync(Value);
+		return Task.CompletedTask;
 	}
 
 	/// <inheritdoc />
