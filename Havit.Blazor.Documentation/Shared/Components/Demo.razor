@@ -47,8 +47,22 @@ else
 		}
 		else
 		{
-			<pre class="@CssClassHelper.Combine("align-self-stretch min-w-0", !Tabs ? "bg-2" : null)">
-				<code class="language-cshtml">
+			@* Inline (non-tabbed) code gets a header separating it from the demo, with the language name and a copy button. *@
+			if (!Tabs)
+			{
+				<div class="d-flex justify-content-between align-items-center ps-3 pe-1 py-1 align-self-stretch border-top border-subtle">
+					<span class="fg-secondary text-uppercase fs-xs font-monospace">Razor</span>
+					<HxButton Icon="@(_copied ? BootstrapIcon.ClipboardCheck : BootstrapIcon.Clipboard)"
+							  Variant="ButtonVariant.Text"
+							  Color="ThemeColor.Secondary"
+							  Size="ButtonSize.Small"
+							  Tooltip="Copy to clipboard"
+							  OnClick="CopyCodeAsync"
+							  CssClass="btn-icon fg-body" />
+				</div>
+			}
+			<pre class="@CssClassHelper.Combine("align-self-stretch min-w-0 mb-0", !Tabs ? "bg-2" : null)">
+				<code @ref="_codeElement" class="language-cshtml">
 					@(_code.Trim())
 				</code>
 			</pre>

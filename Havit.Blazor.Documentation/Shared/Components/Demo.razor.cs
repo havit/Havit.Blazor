@@ -12,8 +12,25 @@ public partial class Demo : PerformanceLoggingComponentBase
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	private string _code;
+	private ElementReference _codeElement;
+	private bool _copied;
 	private readonly RenderFragment _renderDemo;
 	private readonly RenderFragment _renderCode;
+
+	private async Task CopyCodeAsync()
+	{
+		await JSRuntime.InvokeVoidAsync("copyTextFromElement", _codeElement);
+		_copied = true;
+		// Fire-and-forget the revert so the click handler returns immediately (an awaited delay would show a spinner on the button).
+		_ = RevertCopiedAfterDelayAsync();
+	}
+
+	private async Task RevertCopiedAfterDelayAsync()
+	{
+		await Task.Delay(2000);
+		_copied = false;
+		await InvokeAsync(StateHasChanged);
+	}
 	private readonly CardSettings _cardSettings = new()
 	{
 		CssClass = "card-demo",
