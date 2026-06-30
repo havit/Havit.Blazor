@@ -3175,6 +3175,30 @@
     background-color: var(--bs-control-action-hover-bg);
   }
   .form-control-plaintext {
+    --bs-control-min-height: var(--bs-btn-input-min-height);
+    --bs-control-padding-y: var(--bs-btn-input-padding-y);
+    --bs-control-padding-x: var(--bs-btn-input-padding-x);
+    --bs-control-font-size: var(--bs-btn-input-font-size);
+    --bs-control-line-height: var(--bs-btn-input-line-height);
+    --bs-control-fg: var(--bs-btn-input-fg);
+    --bs-control-bg: var(--bs-btn-input-bg);
+    --bs-control-border-width: var(--bs-border-width);
+    --bs-control-border-color: var(--bs-border-color);
+    --bs-control-border-radius: var(--bs-radius-5);
+    --bs-control-box-shadow: var(--bs-box-shadow-inset);
+    --bs-control-action-bg: var(--bs-bg-1);
+    --bs-control-action-hover-bg: var(--bs-bg-2);
+    --bs-control-transition-property: border-color, box-shadow;
+    --bs-control-transition-timing: 0.15s ease-in-out;
+    --bs-control-transition: var(--bs-control-transition-property) var(--bs-control-transition-timing);
+    --bs-control-placeholder-color: var(--bs-fg-3);
+    --bs-control-disabled-color: var(--bs-control-fg);
+    --bs-control-disabled-bg: var(--bs-bg-2);
+    --bs-control-disabled-border-color: var(--bs-control-border-color);
+    --bs-control-select-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2300000080' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+    --bs-control-select-bg-position: right 0.75rem center;
+    --bs-control-select-bg-size: 16px 12px;
+    --bs-control-select-bg-dark: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff80' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
     display: block;
     width: 100%;
     padding: var(--bs-control-padding-y) 0;
@@ -3687,9 +3711,9 @@
 }
 @layer forms {
   .form-floating {
-    --bs-form-floating-height: calc(3.5rem + var(--bs-border-width) * 2);
+    --bs-form-floating-height: calc(3.75rem + var(--bs-border-width) * 2);
     --bs-form-floating-line-height: 1.25;
-    --bs-form-floating-padding-x: var(--bs-btn-input-padding-x);
+    --bs-form-floating-padding-x: calc(var(--bs-btn-input-padding-x) * 1.25);
     --bs-form-floating-padding-y: 1rem;
     --bs-form-floating-input-padding-t: 1.625rem;
     --bs-form-floating-input-padding-b: 0.625rem;
@@ -3720,7 +3744,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     pointer-events: none;
-    border: var(--bs-input-btn-border-width) solid transparent;
+    border: var(--bs-border-width) solid transparent;
     transform-origin: 0 0;
     transition: var(--bs-form-floating-transition);
   }
@@ -3729,7 +3753,7 @@
       transition: none;
     }
   }
-  .form-floating > textarea ~ label {
+  .form-floating > label:has(~ textarea) {
     align-items: flex-start;
   }
   .form-floating > .form-control,
@@ -3754,16 +3778,16 @@
     padding-top: var(--bs-form-floating-input-padding-t);
     padding-bottom: var(--bs-form-floating-input-padding-b);
   }
-  .form-floating > .form-control:focus ~ label,
-  .form-floating > .form-control:not(:placeholder-shown) ~ label,
-  .form-floating > .form-control-plaintext ~ label {
+  .form-floating > label:has(~ .form-control:focus),
+  .form-floating > label:has(~ .form-control:not(:placeholder-shown)),
+  .form-floating > label:has(~ .form-control-plaintext) {
     transform: var(--bs-form-floating-label-transform);
   }
-  .form-floating > .form-control:-webkit-autofill ~ label {
+  .form-floating > label:has(~ .form-control:-webkit-autofill) {
     transform: var(--bs-form-floating-label-transform);
   }
-  .form-floating > textarea:focus ~ label::after,
-  .form-floating > textarea:not(:placeholder-shown) ~ label::after {
+  .form-floating > label:has(~ textarea:focus)::after,
+  .form-floating > label:has(~ textarea:not(:placeholder-shown))::after {
     position: absolute;
     inset: var(--bs-form-floating-padding-y) calc(var(--bs-form-floating-padding-x) * 0.5);
     z-index: -1;
@@ -3772,14 +3796,14 @@
     background-color: var(--bs-form-floating-label-bg);
     border-radius: var(--bs-btn-input-border-radius);
   }
-  .form-floating > textarea:disabled ~ label::after {
+  .form-floating > label:has(~ textarea:disabled)::after {
     background-color: var(--bs-form-floating-label-disabled-bg);
   }
-  .form-floating > .form-control-plaintext ~ label {
+  .form-floating > label:has(~ .form-control-plaintext) {
     border-width: var(--bs-control-border-width) 0;
   }
-  .form-floating > :disabled ~ label,
-  .form-floating > .form-control:disabled ~ label {
+  .form-floating > label:has(~ :disabled),
+  .form-floating > label:has(~ .form-control:disabled) {
     color: var(--bs-form-floating-label-disabled-color);
   }
 }
@@ -5889,7 +5913,7 @@
   }
   .nav.card-header-tabs {
     margin-inline: calc(-0.5 * var(--bs-card-cap-padding-x));
-    margin-bottom: calc(-1 * var(--bs-card-cap-padding-y));
+    margin-bottom: calc(-1 * var(--bs-card-cap-padding-y) - var(--bs-nav-tabs-border-width));
     border-block-end: 0;
   }
   .nav.card-header-tabs .nav-link.active {
@@ -6519,7 +6543,7 @@
   }
 }
 @layer components {
-  .dialog-open {
+  :root.dialog-open {
     overflow: hidden;
   }
   .dialog {
@@ -9121,6 +9145,9 @@
   .bs-popover-bottom > .popover-arrow::after, .bs-popover-auto[data-bs-placement^=bottom] > .popover-arrow::after {
     top: var(--bs-popover-border-width);
     border-block-end-color: var(--bs-popover-bg);
+  }
+  .bs-popover-bottom > .popover-arrow:has(+ .popover-header)::after, .bs-popover-auto[data-bs-placement^=bottom] > .popover-arrow:has(+ .popover-header)::after {
+    border-block-end-color: var(--bs-popover-header-bg);
   }
   .bs-popover-bottom .popover-header::before, .bs-popover-auto[data-bs-placement^=bottom] .popover-header::before {
     position: absolute;
