@@ -99,7 +99,7 @@
 		<Demo Type="typeof(HxNav_Demo_Menus)" />
 
 		<DocHeading Title="Dark menus" Id="dark" />
-		<p>Opt into darker menus to match a dark navbar or custom style by wrapping the <code>HxMenu</code> in a parent element with <code>data-bs-theme="dark"</code> (the attribute must be on a parent of the toggle and the menu, not on the <code>.menu</code> element itself).</p>
+		<p>Opt into darker menus to match a dark navbar or custom style by wrapping both the toggle and the menu in a parent element with <code>data-bs-theme="dark"</code>. <code>HxMenu</code> applies unmatched attributes to the <code>.menu</code> element and renders the toggle as a sibling, so setting <code>data-bs-theme</code> on <code>HxMenu</code> itself would theme the menu but not the toggle — use a wrapper to theme both.</p>
 		<Demo Type="typeof(HxMenu_Demo_Dark)" />
 
 		<DocHeading Title="Translucent menus" Id="translucent" />
