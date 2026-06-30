@@ -12995,6 +12995,14 @@
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.Orientation">
+            <summary>
+            Orientation of the tab navigation.
+            Use <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Vertical"/> to place the tab navigation alongside the tab content (e.g. vertical pills).
+            Applies only to the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Standard"/> variant.
+            The default value is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Horizontal"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.Variant">
             <summary>
             Set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Card"/> if you want to wrap the tab panel in a card with the tab navigation in the header.

@@ -12,8 +12,18 @@
 
 		@if (Variant == TabPanelVariant.Standard)
 		{
-			@_renderTabsNavigation
-			@_renderTabsContent
+			@if (Orientation == NavOrientation.Vertical)
+			{
+				<div class="d-flex align-items-start">
+					@_renderTabsNavigation
+					@_renderTabsContent
+				</div>
+			}
+			else
+			{
+				@_renderTabsNavigation
+				@_renderTabsContent
+			}
 		}
 
 		@if (Variant == TabPanelVariant.Card)
@@ -33,7 +43,11 @@
 @code {
 	private void RenderTabsNavigation(RenderTreeBuilder __builder)
 	{
-		<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", GetNavCssClassInCardMode(), CssClass)" Variant="NavVariant" role="tablist">
+		<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", GetNavCssClassInCardMode(), GetNavCssClassForOrientation(), CssClass)"
+		       Variant="NavVariant"
+		       Orientation="GetNavOrientation()"
+		       role="tablist"
+		       aria-orientation="@GetNavAriaOrientation()">
 			@foreach (HxTab tab in _tabsListOrdered)
 			{
 				@if (tab.Visible)

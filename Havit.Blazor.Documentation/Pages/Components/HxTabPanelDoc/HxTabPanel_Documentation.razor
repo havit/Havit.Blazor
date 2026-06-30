@@ -23,6 +23,14 @@
 	<DocHeading Title="Standard" Level="3" />
 	<Demo Type="typeof(HxTabPanel_Demo_NavVariantStandard)" />
 
+	<DocHeading Title="Vertical orientation" Id="vertical" Level="3" />
+	<p>
+		Set <code>Orientation="<a href="/types/NavOrientation#Vertical">NavOrientation.Vertical</a>"</code> to stack the tab
+		navigation next to the tab content. Combine it with <code>@nameof(HxTabPanel.NavVariant).@nameof(NavVariant.Pills)</code> for vertical pills.
+		Vertical orientation applies to the <code><a href="/types/TabPanelVariant#Standard">TabPanelVariant.Standard</a></code> variant.
+	</p>
+	<Demo Type="typeof(HxTabPanel_Demo_NavVariantPillsVertical)" />
+
 	<DocHeading Title="Card with tabs" />
 	<p>When <code>Variant</code> is set to <code><a href="/types/TabPanelVariant#Card">TabPanelVariant.Card</a></code>, the tab navigation is placed in the card header and tab contents go into the card body.</p>
 	<Demo Type="typeof(HxTabPanel_Demo_CardMode)" />
@@ -33,6 +41,16 @@
 		If you want to render the active tab only, you can use the <code>RenderMode="TabPanelRenderMode.ActiveTabOnly"</code> parameter.
 	</p>
 	<Demo Type="typeof(HxTabPanel_Demo_RenderMode)" />
+
+	<DocHeading Title="Accessibility" Id="accessibility" />
+	<p>
+		<code>HxTabPanel</code> renders the WAI-ARIA tabs pattern out of the box:
+	</p>
+	<ul>
+		<li>the navigation is a <code>role="tablist"</code> (with <code>aria-orientation="vertical"</code> when <code>Orientation</code> is vertical),</li>
+		<li>the tab headers are focusable <code>&lt;button&gt;</code> elements with <code>role="tab"</code>, <code>aria-selected</code>, <code>aria-controls</code> and a roving <code>tabindex</code> (<code>0</code> for the active tab, <code>-1</code> for the others); disabled tabs are marked with <code>aria-disabled</code>,</li>
+		<li>each tab pane is a <code>role="tabpanel"</code> linked back to its header via <code>aria-labelledby</code>.</li>
+	</ul>
 </ApiDoc>
 
 <ApiDoc Type="typeof(HxTab)" />
