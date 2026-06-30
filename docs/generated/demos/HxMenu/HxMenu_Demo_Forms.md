@@ -1,12 +1,12 @@
 ﻿# HxMenu_Demo_Forms.razor
 
 ```razor
-<HxMenu AutoClose="MenuAutoClose.Outside">
+<HxMenu AutoClose="MenuAutoClose.Outside" style="--bs-menu-min-width: 300px;">
 	<Toggle>
 		<HxMenuToggleButton Color="ThemeColor.Secondary">Sign in</HxMenuToggleButton>
 	</Toggle>
 	<Content>
-		<EditForm Model="model" class="p-3" style="min-width: 300px; --hx-form-spacing: 0.75rem;">
+		<EditForm Model="model" class="p-3" style="--hx-form-spacing: 0.75rem;">
 			<HxInputText Label="Email address" Type="InputType.Email" Placeholder="email@example.com" @bind-Value="model.Email" />
 			<HxInputText Label="Password" Type="InputType.Password" Placeholder="Password" @bind-Value="model.Password" />
 			<HxCheckbox Text="Remember me" @bind-Value="model.RememberMe" />
