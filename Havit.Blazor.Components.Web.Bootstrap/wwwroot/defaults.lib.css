@@ -139,8 +139,6 @@
 
 	/* HxDrawer */
 	--hx-drawer-close-icon-font-size: 							2rem;
-	--hx-drawer-footer-padding-y: 								1rem;
-	--hx-drawer-footer-padding-x: 								1rem;
 	--hx-drawer-horizontal-width-sm: 							400px;
 	--hx-drawer-horizontal-width-lg: 							600px;
 

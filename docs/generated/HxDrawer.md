@@ -52,6 +52,7 @@ Bootstrap Drawer component (aka Drawer).
 - HxDrawer_Demo.razor
 - HxDrawer_Demo_Backdrop.razor
 - HxDrawer_Demo_CustomCloseButtonIcon.razor
+- HxDrawer_Demo_Footer.razor
 - HxDrawer_Demo_Placement.razor
 - HxDrawer_Demo_Responsive.razor
 - HxDrawer_Demo_Sheet.razor
