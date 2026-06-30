@@ -100,6 +100,12 @@ public partial class HxListLayout<TFilterModel>
 	protected CardSettings CardSettingsEffective => CardSettings ?? GetSettings()?.CardSettings ?? GetDefaults().CardSettings ?? throw new InvalidOperationException(nameof(CardSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
 
 	/// <summary>
+	/// Text for the button opening the filter drawer.
+	/// When not set, the button renders as an icon-only button (<c>btn-icon</c>).
+	/// </summary>
+	[Parameter] public string FilterButtonText { get; set; }
+
+	/// <summary>
 	/// Settings for the <see cref="HxButton"/> opening the filtering drawer.
 	/// </summary>
 	[Parameter] public ButtonSettings FilterOpenButtonSettings { get; set; }

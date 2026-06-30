@@ -10336,6 +10336,12 @@
             Settings for the wrapping <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.FilterButtonText">
+            <summary>
+            Text for the button opening the filter drawer.
+            When not set, the button renders as an icon-only button (<c>btn-icon</c>).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListLayout`1.FilterOpenButtonSettings">
             <summary>
             Settings for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> opening the filtering drawer.
