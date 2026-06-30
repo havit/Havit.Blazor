@@ -43,6 +43,14 @@
 		<p>Set <code>Enabled="false"</code> to disable the item. The <code>HxFormState.Enabled</code> inheritance is also supported.</p>
 		<Demo Type="typeof(HxMenu_Demo_HeaderDisabledActive)" />
 
+		<DocHeading Title="Dividers" Id="dividers" />
+		<p>Separate groups of related menu items with a <code>HxMenuDivider</code> (renders an <code>hr.menu-divider</code>).</p>
+		<Demo Type="typeof(HxMenu_Demo_Dividers)" />
+
+		<DocHeading Title="Text" Id="text" />
+		<p>Create non-interactive menu items with <code>HxMenuText</code> (renders a <code>span.menu-text</code>). Feel free to style further with custom CSS or text utilities.</p>
+		<Demo Type="typeof(HxMenu_Demo_Text)" />
+
 		<DocHeading Title="Submenus" Id="submenus" />
 		<p>
 			Use <code>HxSubmenu</code> to create a nested menu. Set the trigger via <code>Text</code> (or <code>TitleTemplate</code>)
@@ -55,6 +63,13 @@
 		<DocHeading Title="Custom content" />
 		<p>Place any custom content directly into the <code>Content</code> render fragment.</p>
 		<Demo Type="typeof(HxMenu_Demo_CustomContent)" />
+
+		<DocHeading Title="Forms" Id="forms" />
+		<p>
+			Put a form within a menu and use <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/utilities/spacing/">spacing utilities</a>
+			to give it the negative space you require.
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_Forms)" />
 
 		<DocHeading Title="Split button" Id="split-button" />
 		<p>
@@ -101,6 +116,20 @@
 		<DocHeading Title="Menu with icons" Id="icons" />
 		<p>You can use the <code>Icon</code> parameter to add an icon to menu items.</p>
 		<Demo Type="typeof(HxMenu_Demo_Icons)" />
+
+		<DocHeading Title="Descriptions" Id="descriptions" />
+		<p>
+			Use a <code>menu-item-content</code> wrapper for a flex column layout and a <code>menu-item-description</code> element
+			for secondary text below the main label inside the <code>HxMenuItem</code> child content.
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_Descriptions)" />
+
+		<DocHeading Title="Selected" Id="selected" />
+		<p>
+			Add the <code>selected</code> CSS class (through the <code>CssClass</code> parameter) to a <code>HxMenuItem</code>
+			to indicate the current selection. Pair it with a <code>menu-item-check</code> SVG to render the check mark.
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_Selected)" />
 	</MainContent>
 </ApiDoc>
 
