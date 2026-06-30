@@ -31,6 +31,11 @@ public record PagerSettings
 	public int? NumericButtonsCount { get; set; }
 
 	/// <summary>
+	/// Size of the pager.
+	/// </summary>
+	public PagerSize? Size { get; set; }
+
+	/// <summary>
 	/// Any additional CSS class to apply.
 	/// </summary>
 	public string CssClass { get; set; }

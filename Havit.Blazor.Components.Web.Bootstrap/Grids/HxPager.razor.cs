@@ -23,7 +23,8 @@ public partial class HxPager : ComponentBase
 			LastPageIcon = BootstrapIcon.ChevronDoubleRight,
 			PreviousPageIcon = BootstrapIcon.ChevronLeft,
 			NextPageIcon = BootstrapIcon.ChevronRight,
-			NumericButtonsCount = 10
+			NumericButtonsCount = 10,
+			Size = PagerSize.Regular
 		};
 	}
 
@@ -116,6 +117,19 @@ public partial class HxPager : ComponentBase
 	/// </summary>
 	[Parameter] public int? NumericButtonsCount { get; set; }
 	protected int NumericButtonsCountEffective => NumericButtonsCount ?? GetSettings()?.NumericButtonsCount ?? GetDefaults().NumericButtonsCount ?? throw new InvalidOperationException(nameof(NumericButtonsCount) + " default for " + nameof(HxPager) + " has to be set.");
+
+	/// <summary>
+	/// Size of the pager. The default is <see cref="PagerSize.Regular"/>.
+	/// </summary>
+	[Parameter] public PagerSize? Size { get; set; }
+	protected PagerSize SizeEffective => Size ?? GetSettings()?.Size ?? GetDefaults().Size ?? throw new InvalidOperationException(nameof(Size) + " default for " + nameof(HxPager) + " has to be set.");
+	private string SizeCssClass => SizeEffective switch
+	{
+		PagerSize.Regular => null,
+		PagerSize.Small => "pagination-sm",
+		PagerSize.Large => "pagination-lg",
+		_ => throw new InvalidOperationException($"Unknown {nameof(PagerSize)} value {SizeEffective:g}.")
+	};
 
 	/// <summary>
 	/// Any additional CSS class to apply.

@@ -107,6 +107,45 @@ public class HxPager_Basic_Tests : BunitTestBase
 		}
 	}
 
+	[Theory]
+	[InlineData(PagerSize.Regular, null)]
+	[InlineData(PagerSize.Small, "pagination-sm")]
+	[InlineData(PagerSize.Large, "pagination-lg")]
+	public void HxPager_Render_Size_AppliesPaginationSizeCssClass(PagerSize size, string expectedCssClass)
+	{
+		// Arrange & Act
+		var cut = RenderComponent<HxPager>(parameters => parameters
+			.Add(p => p.TotalPages, 5)
+			.Add(p => p.CurrentPageIndex, 0)
+			.Add(p => p.Size, size));
+
+		// Assert
+		var pagination = cut.Find("ul.pagination");
+		if (expectedCssClass is null)
+		{
+			Assert.DoesNotContain("pagination-sm", pagination.ClassList);
+			Assert.DoesNotContain("pagination-lg", pagination.ClassList);
+		}
+		else
+		{
+			Assert.Contains(expectedCssClass, pagination.ClassList);
+		}
+	}
+
+	[Fact]
+	public void HxPager_Render_DefaultSize_DoesNotApplyPaginationSizeCssClass()
+	{
+		// Arrange & Act
+		var cut = RenderComponent<HxPager>(parameters => parameters
+			.Add(p => p.TotalPages, 5)
+			.Add(p => p.CurrentPageIndex, 0));
+
+		// Assert - the default size (Regular) renders no pagination-sm/pagination-lg modifier
+		var pagination = cut.Find("ul.pagination");
+		Assert.DoesNotContain("pagination-sm", pagination.ClassList);
+		Assert.DoesNotContain("pagination-lg", pagination.ClassList);
+	}
+
 	[Fact]
 	public void HxPager_Render_WrappedInLabeledNavLandmark()
 	{
