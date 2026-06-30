@@ -11,10 +11,10 @@
 
 	if (options) {
 		prepareOptions(options);
-		const d = new bootstrap.Menu(element, options);
+		new bootstrap.Menu(element, options);
 	}
 	else {
-		const d = new bootstrap.Menu(element);
+		new bootstrap.Menu(element);
 	}
 }
 
@@ -41,10 +41,10 @@ export function update(element, options) {
 
 	if (options) {
 		prepareOptions(options);
-		const d = new bootstrap.Menu(element, options);
+		new bootstrap.Menu(element, options);
 	}
 	else {
-		const d = new bootstrap.Menu(element);
+		new bootstrap.Menu(element);
 	}
 }
 
