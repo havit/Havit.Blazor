@@ -1,0 +1,14 @@
+.demo-resizable {
+	min-width: 280px;
+	max-width: 100%;
+	padding: 1rem;
+	overflow: auto;
+	resize: horizontal;
+	background-color: var(--bs-body-bg);
+	border: 1px dashed var(--bs-border-color);
+	border-radius: var(--bs-border-radius);
+	/* Establish a query container so components whose container queries rely on an ancestor
+	   (e.g. list-group-horizontal) respond to the box width. Components that set their own
+	   container-type (navbar, HxListLayout's card) still resolve to their nearer container. */
+	container-type: inline-size;
+}

@@ -9,6 +9,12 @@ public partial class Demo : PerformanceLoggingComponentBase, IDisposable
 	[Parameter] public bool Tabs { get; set; } = true;
 	[Parameter] public string DemoCardCssClass { get; set; }
 
+	/// <summary>
+	/// Wraps the demo in a horizontally resizable container so the reader can drag the lower-right
+	/// corner to preview container-query driven responsive behavior (e.g. <c>HxListLayout</c>).
+	/// </summary>
+	[Parameter] public bool Resizable { get; set; }
+
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	private string _code;
