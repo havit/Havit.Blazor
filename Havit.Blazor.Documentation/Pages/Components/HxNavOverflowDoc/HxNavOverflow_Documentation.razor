@@ -8,26 +8,26 @@
 		The component responds to the <strong>container width</strong> (not the viewport width),
 		so it works in any embedded or responsive context.
 	</p>
-	<Demo Type="typeof(HxNavOverflow_Demo)" Tabs="false" />
+	<Demo Type="typeof(HxNavOverflow_Demo)" Tabs="false" Resizable="true" />
 
 	<DocHeading Title="Nav variants" />
 	<p>The overflow pattern works with all nav variants&mdash;default, <code>Pills</code>, <code>Tabs</code>, and <code>Underline</code>.</p>
-	<Demo Type="typeof(HxNavOverflow_Demo_Variants)" />
+	<Demo Type="typeof(HxNavOverflow_Demo_Variants)" Resizable="true" />
 
 	<DocHeading Title="Keep items visible" />
 	<p>
 		Use the <code>HxNavOverflow.KeepVisibleCssClass</code> CSS class (<code>nav-overflow-keep</code>) on items
 		that should never be moved to the overflow menu, e.g. high-priority items like "Home" or "Contact".
 	</p>
-	<Demo Type="typeof(HxNavOverflow_Demo_KeepVisible)" />
+	<Demo Type="typeof(HxNavOverflow_Demo_KeepVisible)" Resizable="true" />
 
 	<DocHeading Title="Disabled items" />
 	<p>Disabled items (<code>Enabled="false"</code>) keep their disabled state when they are moved to the "More" overflow menu.</p>
-	<Demo Type="typeof(HxNavOverflow_Demo_DisabledItems)" />
+	<Demo Type="typeof(HxNavOverflow_Demo_DisabledItems)" Resizable="true" />
 
 	<DocHeading Title="Minimum visible items" />
 	<p>Use <code>MinimumVisibleItems</code> to ensure a minimum number of items remains visible before the overflow kicks in.</p>
-	<Demo Type="typeof(HxNavOverflow_Demo_MinimumVisibleItems)" />
+	<Demo Type="typeof(HxNavOverflow_Demo_MinimumVisibleItems)" Resizable="true" />
 
 	<DocHeading Title="Collapse all" />
 	<p>
@@ -35,7 +35,7 @@
 		Pass a breakpoint name (e.g. <code>md</code>, resolved from the <code>--bs-breakpoint-md</code> CSS variable)
 		or a pixel value (e.g. <code>768</code>). Items with the <code>nav-overflow-keep</code> CSS class always remain visible.
 	</p>
-	<Demo Type="typeof(HxNavOverflow_Demo_CollapseBelow)" />
+	<Demo Type="typeof(HxNavOverflow_Demo_CollapseBelow)" Resizable="true" />
 
 	<DocHeading Title="Customizing the toggle" />
 	<p>
@@ -43,11 +43,11 @@
 		(set <code>MoreText=""</code> for an icon-only toggle), <code>IconPlacement</code> to position the icon
 		relative to the text, and <code>MenuPlacement</code> to set the placement of the overflow menu.
 	</p>
-	<Demo Type="typeof(HxNavOverflow_Demo_Toggle)" />
+	<Demo Type="typeof(HxNavOverflow_Demo_Toggle)" Resizable="true" />
 
 	<DocHeading Title="Overflow event" />
 	<p>Use <code>OnOverflowChanged</code> to get notified whenever the number of items in the overflow menu changes.</p>
-	<Demo Type="typeof(HxNavOverflow_Demo_OnOverflowChanged)" />
+	<Demo Type="typeof(HxNavOverflow_Demo_OnOverflowChanged)" Resizable="true" />
 
 	<DocHeading Title="How it works" Id="how-it-works" />
 	<p>
