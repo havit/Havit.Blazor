@@ -5,23 +5,7 @@
  * HAVIT customizations (https://github.com/havit/Havit.Blazor)
  */
 
-// Bootstrap 6 uses the Sass module system: variable overrides are passed
-// via `with (...)` and flow into the forwarded modules (_config.scss, _colors.scss, ...).
-// CSS custom properties are prefixed with "bs-" by PostCSS (postcss.config.mjs),
-// not by Sass ($prefix has been removed upstream).
 @use "../node_modules/bootstrap/scss/bootstrap" with (
   // HAVIT brand blue; drives the generated --blue-* scale and the "primary" theme.
-  // (The v5 $min-contrast-ratio: 3 override is obsolete: the v6 theme system no longer
-  // computes contrast via color-contrast(); the "primary" theme uses white contrast by default.)
   $blue: #009de0
 );
-
-// TODO v6: port remaining v5 customizations to the new variable/theme system.
-// The former v5 override partials are kept (unimported) next to this file for reference:
-// - _variables.scss — border radius ($radii map now, #1472), shadows, form labels,
-//   custom xxxl breakpoint ($breakpoints map + prefix syntax, #1469),
-//   component-active colors, nav/card/modal/offcanvas tweaks (per-component issues)
-// - _buttons.scss   — #1442 (new button variant system)
-// - _dropdown.scss  — #1440 (Dropdown replaced by Menu)
-// - _forms.scss     — #1453/#1455/#1456 (forms rework)
-// - _tables.scss    — #1471 (verification sweep)
