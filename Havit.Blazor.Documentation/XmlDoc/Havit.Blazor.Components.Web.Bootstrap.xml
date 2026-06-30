@@ -9954,6 +9954,11 @@
             Count of numbers to display. The default value is 10.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.Size">
+            <summary>
+            Size of the pager. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PagerSize.Regular"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.CssClass">
             <summary>
             Any additional CSS class to apply.
@@ -10063,9 +10068,34 @@
             Number of buttons with numbers to display.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.Size">
+            <summary>
+            Size of the pager.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.CssClass">
             <summary>
             Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PagerSize">
+            <summary>
+            Represents the size of an <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PagerSize.Regular">
+            <summary>
+            Regular size.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PagerSize.Small">
+            <summary>
+            Small size.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PagerSize.Large">
+            <summary>
+            Large size.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1">

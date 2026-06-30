@@ -11,7 +11,7 @@
 }
 
 <nav aria-label="@HxPagerLocalizer["PaginationLandmark"]">
-	<ul class="@CssClassHelper.Combine("hx-pager pagination", CssClassEffective)">
+	<ul class="@CssClassHelper.Combine("hx-pager pagination", SizeCssClass, CssClassEffective)">
 		@if (showFirstLast)
 		{
 			<li class="@previousPageItemDisabledCssClass">
@@ -27,7 +27,7 @@
 					}
 					else
 					{
-						<HxIcon Icon="@FirstPageIconEffective" />
+						<HxIcon Icon="@FirstPageIconEffective" CssClass="d-flex" />
 					}
 				</button>
 			</li>
@@ -48,7 +48,7 @@
 					}
 					else
 					{
-						<HxIcon Icon="@PreviousPageIconEffective" />
+						<HxIcon Icon="@PreviousPageIconEffective" CssClass="d-flex" />
 					}
 				</button>
 			</li>
@@ -94,7 +94,7 @@
 					}
 					else
 					{
-						<HxIcon Icon="@NextPageIconEffective" />
+						<HxIcon Icon="@NextPageIconEffective" CssClass="d-flex" />
 					}
 				</button>
 			</li>
@@ -115,7 +115,7 @@
 					}
 					else
 					{
-						<HxIcon Icon="@LastPageIconEffective" />
+						<HxIcon Icon="@LastPageIconEffective" CssClass="d-flex" />
 					}
 				</button>
 			</li>
