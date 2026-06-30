@@ -18,13 +18,16 @@ Bootstrap 6 Menu component (replaces the Bootstrap 5 Dropdown). Renders the `HxM
 
 - HxMenu_Demo_AutoClose.razor
 - HxMenu_Demo_Basic.razor
-- HxMenu_Demo_CustomContent.razor
 - HxMenu_Demo_CustomToggle.razor
 - HxMenu_Demo_Dark.razor
+- HxMenu_Demo_Forms.razor
 - HxMenu_Demo_HeaderDisabledActive.razor
 - HxMenu_Demo_Icons.razor
 - HxMenu_Demo_OffsetAndReference.razor
 - HxMenu_Demo_Placement.razor
 - HxMenu_Demo_Reference.razor
+- HxMenu_Demo_Scrollable.razor
 - HxMenu_Demo_SplitButton.razor
+- HxMenu_Demo_Submenus.razor
+- HxMenu_Demo_Translucent.razor
 

@@ -3,7 +3,7 @@
 ```razor
 <HxMenu>
 	<Toggle>
-		<HxMenuToggleButton Color="ThemeColor.Secondary">Menu button</HxMenuToggleButton>
+		<HxMenuToggleButton Color="ThemeColor.Primary">Toggle menu</HxMenuToggleButton>
 	</Toggle>
 	<Content>
 		<HxMenuItemNavLink Href="/components/HxMenu">Link with Href</HxMenuItemNavLink>

@@ -60,14 +60,11 @@
 		</p>
 		<Demo Type="typeof(HxMenu_Demo_Submenus)" />
 
-		<DocHeading Title="Custom content" />
-		<p>Place any custom content directly into the <code>Content</code> render fragment.</p>
-		<Demo Type="typeof(HxMenu_Demo_CustomContent)" />
-
 		<DocHeading Title="Forms" Id="forms" />
 		<p>
-			Put a form within a menu and use <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/utilities/spacing/">spacing utilities</a>
-			to give it the negative space you require.
+			Put a form within a menu, or make it into a menu, and use <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/utilities/spacing/">spacing utilities</a>
+			to give it the negative space you require. Any custom content can be placed directly into the <code>Content</code> render fragment.
+			Set <code>AutoClose="MenuAutoClose.Outside"</code> so clicking inside the form does not close the menu.
 		</p>
 		<Demo Type="typeof(HxMenu_Demo_Forms)" />
 
@@ -102,7 +99,7 @@
 		<Demo Type="typeof(HxNav_Demo_Menus)" />
 
 		<DocHeading Title="Dark menus" Id="dark" />
-		<p>Opt into darker menus to match a dark navbar or custom style by adding <code>data-bs-theme="dark"</code> to the <code>HxMenu</code> component (the attribute gets rendered on the <code>.menu</code> element).</p>
+		<p>Opt into darker menus to match a dark navbar or custom style by wrapping the <code>HxMenu</code> in a parent element with <code>data-bs-theme="dark"</code> (the attribute must be on a parent of the toggle and the menu, not on the <code>.menu</code> element itself).</p>
 		<Demo Type="typeof(HxMenu_Demo_Dark)" />
 
 		<DocHeading Title="Translucent menus" Id="translucent" />

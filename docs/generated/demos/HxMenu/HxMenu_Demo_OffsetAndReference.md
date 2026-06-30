@@ -15,7 +15,7 @@
 	<HxButton Color="ThemeColor.Secondary">Reference</HxButton>
 	<HxMenu>
 		<Toggle>
-			<HxMenuToggleButton Color="ThemeColor.Secondary" MenuReference="parent">
+			<HxMenuToggleButton Color="ThemeColor.Secondary" MenuReference="parent" Icon="BootstrapIcon.ChevronExpand">
 				<span class="visually-hidden">Toggle menu</span>@* OPTIONAL (for accessibility) *@
 			</HxMenuToggleButton>
 		</Toggle>
