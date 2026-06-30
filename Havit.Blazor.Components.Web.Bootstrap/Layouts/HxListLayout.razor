@@ -71,9 +71,9 @@
 						{
 							<HxButton Settings="FilterOpenButtonSettingsEffective"
 									  OnClick="ShowFilterDrawerAsync"
-									  Text="@FilterButtonText"
-									  CssClass="@(String.IsNullOrEmpty(FilterButtonText) ? CssClassHelper.Combine(FilterOpenButtonSettingsEffective.CssClass, "btn-icon") : null)"
-									  AriaLabel="@(String.IsNullOrEmpty(FilterButtonText) ? (string)Localizer["FilterButtonAriaLabel"] : null)" />
+									  Text="@(String.IsNullOrWhiteSpace(FilterButtonText) ? null : FilterButtonText)"
+									  CssClass="@(String.IsNullOrWhiteSpace(FilterButtonText) ? CssClassHelper.Combine(FilterOpenButtonSettingsEffective.CssClass, "btn-icon") : null)"
+									  AriaLabel="@(String.IsNullOrWhiteSpace(FilterButtonText) ? (string)Localizer["FilterButtonAriaLabel"] : null)" />
 						}
 					</div>
 				}
