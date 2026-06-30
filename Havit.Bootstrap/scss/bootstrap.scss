@@ -9,3 +9,16 @@
   // HAVIT brand blue; drives the generated --blue-* scale and the "primary" theme.
   $blue: #009de0
 );
+@use "../node_modules/bootstrap/scss/mixins/tokens" as bs-tokens;
+
+// HAVIT fix: scoped dark/light theming (e.g. dark menus via a `data-bs-theme="dark"` wrapper).
+// Bootstrap 6 emits its theme tokens (--bg-body, --fg-body, ...) on `:root` only, using
+// `light-dark()`, and `[data-bs-theme=dark|light]` only flip `color-scheme`. Browsers resolve
+// `light-dark()` inside a `:root`-declared custom property against `:root`'s color-scheme, so a
+// nested `[data-bs-theme]` scope never re-tints those tokens — only a global `<html>` theme works.
+// Re-emit the full token set on every `[data-bs-theme]` scope so `light-dark()` recomputes against
+// that scope's color-scheme. This mirrors the per-scope token redeclaration Bootstrap's own docs
+// use for their custom themes (e.g. `[data-bs-theme=blue]`).
+[data-bs-theme] {
+  @include bs-tokens.tokens(bootstrap.$root-tokens);
+}
