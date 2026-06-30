@@ -1,11 +1,4 @@
-﻿.hx-drawer-footer {
-  display: flex;
-  align-items: center;
-  padding: var(--hx-drawer-footer-padding-y)
-    var(--hx-drawer-footer-padding-x);
-}
-
-.drawer-start.hx-drawer-sm,
+﻿.drawer-start.hx-drawer-sm,
 .drawer-end.hx-drawer-sm {
   width: var(--hx-drawer-horizontal-width-sm);
 }

@@ -31,20 +31,6 @@
 	</p>
 	<Demo Type="typeof(HxTabPanel_Demo_NavVariantPillsVertical)" />
 
-	<DocHeading Title="Button-based tabs" Id="buttons" />
-	<p>
-		Set <code>TabHeadersAsButtons="true"</code> to render the tab headers as <code>&lt;button&gt;</code> elements instead of anchors.
-		Buttons are the recommended markup for tabs that only switch content without navigating to a URL.
-	</p>
-	<Demo Type="typeof(HxTabPanel_Demo_ButtonTabs)" />
-
-	<DocHeading Title="Fade effect" Id="fade" />
-	<p>
-		Set <code>Fade="true"</code> to make the tab panes fade in when activated.
-		The fade transition requires the default <code>RenderMode="<a href="/types/TabPanelRenderMode#AllTabs">TabPanelRenderMode.AllTabs</a>"</code>.
-	</p>
-	<Demo Type="typeof(HxTabPanel_Demo_Fade)" />
-
 	<DocHeading Title="Card with tabs" />
 	<p>When <code>Variant</code> is set to <code><a href="/types/TabPanelVariant#Card">TabPanelVariant.Card</a></code>, the tab navigation is placed in the card header and tab contents go into the card body.</p>
 	<Demo Type="typeof(HxTabPanel_Demo_CardMode)" />
@@ -62,12 +48,8 @@
 	</p>
 	<ul>
 		<li>the navigation is a <code>role="tablist"</code> (with <code>aria-orientation="vertical"</code> when <code>Orientation</code> is vertical),</li>
-		<li>each tab header is a <code>role="tab"</code> with <code>aria-selected</code>, <code>aria-controls</code> and a roving <code>tabindex</code> (<code>0</code> for the active tab, <code>-1</code> for the others),</li>
+		<li>the tab headers are focusable <code>&lt;button&gt;</code> elements with <code>role="tab"</code>, <code>aria-selected</code>, <code>aria-controls</code> and a roving <code>tabindex</code> (<code>0</code> for the active tab, <code>-1</code> for the others); disabled tabs are marked with <code>aria-disabled</code>,</li>
 		<li>each tab pane is a <code>role="tabpanel"</code> linked back to its header via <code>aria-labelledby</code>.</li>
-	</ul>
-	<p>
-		For tabs that switch content without navigating, prefer <code>TabHeadersAsButtons="true"</code> so the headers are
-		focusable <code>&lt;button&gt;</code> elements activated with <kbd>Enter</kbd>/<kbd>Space</kbd>.
-	</p></ApiDoc>
+	</ul></ApiDoc>
 
 <ApiDoc Type="typeof(HxTab)" />

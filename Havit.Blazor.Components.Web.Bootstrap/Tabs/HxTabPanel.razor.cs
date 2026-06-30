@@ -30,20 +30,6 @@ public partial class HxTabPanel : ComponentBase
 	[Parameter] public NavOrientation Orientation { get; set; } = NavOrientation.Horizontal;
 
 	/// <summary>
-	/// When <c>true</c>, the tab panes fade in when activated (Bootstrap <c>fade</c> effect).<br />
-	/// Works with the default <see cref="TabPanelRenderMode.AllTabs"/> render mode.
-	/// The default value is <c>false</c>.
-	/// </summary>
-	[Parameter] public bool Fade { get; set; }
-
-	/// <summary>
-	/// When <c>true</c>, the tab headers are rendered as <c>&lt;button&gt;</c> elements instead of anchors.<br />
-	/// Buttons are the recommended markup for tabs that switch content without navigating (improved accessibility semantics).
-	/// The default value is <c>false</c>.
-	/// </summary>
-	[Parameter] public bool TabHeadersAsButtons { get; set; }
-
-	/// <summary>
 	/// Set to <see cref="TabPanelVariant.Card"/> if you want to wrap the tab panel in a card with the tab navigation in the header.
 	/// </summary>
 	[Parameter] public TabPanelVariant Variant { get; set; } = TabPanelVariant.Standard;
@@ -207,6 +193,12 @@ public partial class HxTabPanel : ComponentBase
 	/// </summary>
 	protected async Task HandleTabClick(HxTab tab)
 	{
+		// The tab is rendered as a <button> with aria-disabled (not the native disabled attribute), so it stays
+		// focusable; guard here to ignore keyboard activation (Enter/Space) of a disabled tab.
+		if (!CascadeEnabledComponent.EnabledEffective(tab))
+		{
+			return;
+		}
 		await SetActiveTabIdAsync(tab.Id);
 	}
 

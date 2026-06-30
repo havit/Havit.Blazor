@@ -139,8 +139,6 @@
 
 	/* HxDrawer */
 	--hx-drawer-close-icon-font-size: 							2rem;
-	--hx-drawer-footer-padding-y: 								1rem;
-	--hx-drawer-footer-padding-x: 								1rem;
 	--hx-drawer-horizontal-width-sm: 							400px;
 	--hx-drawer-horizontal-width-lg: 							600px;
 
@@ -152,7 +150,6 @@
 	--hx-select-filter-input-icon-opacity: 						.25;
 
 	/* HxMultiSelect */
-	--hx-multi-select-background-color: 							var(--bs-bg-body);
 	--hx-multi-select-menu-height: 						300px;
 	--hx-multi-select-filter-input-icon-opacity: 					.25;
 	--hx-multi-select-menu-width: 							100%;

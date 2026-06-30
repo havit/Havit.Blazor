@@ -107,7 +107,7 @@ public class HxTabPanelTests : BunitTestBase
 		);
 
 		// Assert - All three tab headers should be rendered as nav-link elements
-		var navLinks = component.FindAll("a.nav-link");
+		var navLinks = component.FindAll("button.nav-link");
 		Assert.Equal(3, navLinks.Count());
 		Assert.Equal("Alpha", navLinks[0].TextContent.Trim());
 		Assert.Equal("Beta", navLinks[1].TextContent.Trim());
@@ -136,7 +136,7 @@ public class HxTabPanelTests : BunitTestBase
 		);
 
 		// Act - Click on the second tab header
-		var navLinks = component.FindAll("a.nav-link");
+		var navLinks = component.FindAll("button.nav-link");
 		navLinks[1].Click();
 
 		// Assert - The second tab's content pane should be active
@@ -163,7 +163,7 @@ public class HxTabPanelTests : BunitTestBase
 		);
 
 		// Assert - Only the second tab header should have the active class
-		var navLinks = component.FindAll("a.nav-link");
+		var navLinks = component.FindAll("button.nav-link");
 		Assert.False(navLinks[0].ClassList.Contains("active"), "First tab should not have active class");
 		Assert.True(navLinks[1].ClassList.Contains("active"), "Second tab should have active class");
 	}
@@ -186,7 +186,7 @@ public class HxTabPanelTests : BunitTestBase
 		);
 
 		// Assert - First tab should be active by default
-		var navLinks = component.FindAll("a.nav-link");
+		var navLinks = component.FindAll("button.nav-link");
 		Assert.True(navLinks[0].ClassList.Contains("active"), "First tab should be active by default");
 		Assert.False(navLinks[1].ClassList.Contains("active"), "Second tab should not be active by default");
 
@@ -213,7 +213,7 @@ public class HxTabPanelTests : BunitTestBase
 			)
 		);
 
-		var navLinks = component.FindAll("a.nav-link");
+		var navLinks = component.FindAll("button.nav-link");
 
 		// Active tab header
 		Assert.Equal("tab", navLinks[0].GetAttribute("role"));
@@ -285,7 +285,7 @@ public class HxTabPanelTests : BunitTestBase
 			)
 		);
 
-		var navLinks = component.FindAll("a.nav-link");
+		var navLinks = component.FindAll("button.nav-link");
 
 		// Active tab should still have aria-controls (its panel is rendered)
 		Assert.Equal("tab1", navLinks[0].GetAttribute("aria-controls"));
@@ -337,11 +337,10 @@ public class HxTabPanelTests : BunitTestBase
 	}
 
 	[Fact]
-	public void HxTabPanel_Fade_PanesHaveFadeAndActiveHasShow()
+	public void HxTabPanel_PanesHaveFadeAndActiveHasShow()
 	{
 		// Arrange & Act
 		var component = RenderComponent<HxTabPanel>(parameters => parameters
-			.Add(p => p.Fade, true)
 			.Add(p => p.ActiveTabId, "tab1")
 			.AddChildContent<HxTab>(tab => tab
 				.Add(t => t.Id, "tab1")
@@ -370,11 +369,10 @@ public class HxTabPanelTests : BunitTestBase
 	}
 
 	[Fact]
-	public void HxTabPanel_TabHeadersAsButtons_RendersButtonsWithAria()
+	public void HxTabPanel_TabHeaders_RenderAsButtonsWithAria()
 	{
 		// Arrange & Act
 		var component = RenderComponent<HxTabPanel>(parameters => parameters
-			.Add(p => p.TabHeadersAsButtons, true)
 			.Add(p => p.ActiveTabId, "tab1")
 			.AddChildContent<HxTab>(tab => tab
 				.Add(t => t.Id, "tab1")
@@ -399,19 +397,18 @@ public class HxTabPanelTests : BunitTestBase
 		Assert.Equal("true", buttons[0].GetAttribute("aria-selected"));
 		Assert.True(buttons[0].ClassList.Contains("active"));
 
-		// Disabled tab renders a disabled button
-		Assert.True(buttons[1].HasAttribute("disabled"));
+		// Disabled tab renders a button marked with aria-disabled (it stays focusable)
+		Assert.Equal("true", buttons[1].GetAttribute("aria-disabled"));
 		Assert.True(buttons[1].ClassList.Contains("disabled"));
 	}
 
 	[Fact]
-	public void HxTabPanel_TabHeadersAsButtons_ClickSwitchesContent()
+	public void HxTabPanel_DisabledTab_ClickDoesNotActivate()
 	{
 		// Arrange
 		string activeTabId = "tab1";
 
 		var component = RenderComponent<HxTabPanel>(parameters => parameters
-			.Add(p => p.TabHeadersAsButtons, true)
 			.Add(p => p.ActiveTabId, activeTabId)
 			.Add(p => p.ActiveTabIdChanged, newId => activeTabId = newId)
 			.AddChildContent<HxTab>(tab => tab
@@ -422,16 +419,16 @@ public class HxTabPanelTests : BunitTestBase
 			.AddChildContent<HxTab>(tab => tab
 				.Add(t => t.Id, "tab2")
 				.Add(t => t.Title, "Second")
+				.Add(t => t.Enabled, false)
 				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "<p>Second content</p>"))
 			)
 		);
 
-		// Act - Click on the second tab header button
+		// Act - Click the disabled tab header
 		var buttons = component.FindAll("button.nav-link");
 		buttons[1].Click();
 
-		// Assert - The second tab's content pane should be active
-		var activePane = component.Find("div.tab-pane.active");
-		Assert.Contains("Second content", activePane.InnerHtml);
+		// Assert - The active tab does not change
+		Assert.Equal("tab1", activeTabId);
 	}
 }

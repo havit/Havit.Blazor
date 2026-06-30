@@ -11,21 +11,17 @@ Container for `HxTab`s for easier implementation of tabbed UI. Encapsulates `HxN
 | CardSettings | `CardSettings` | Card settings for the wrapping card. Applies only if `Variant` is set to `TabPanelVariant.Card`. |
 | ChildContent | `RenderFragment` | Tabs. |
 | CssClass | `string` | Additional CSS class. |
-| Fade | `bool` | When `true`, the tab panes fade in when activated (Bootstrap `fade` effect). Works with the default `TabPanelRenderMode.AllTabs` render mode. The default value is `false`. |
 | InitialActiveTabId | `string` | ID of the tab which should be active at the very beginning. We are considering deprecating this parameter. Please use `ActiveTabId` instead (`@bind-ActiveTabId`). |
 | NavVariant | `NavVariant` | The visual variant of the nav items. Default is `NavVariant.Tabs`. |
 | Orientation | `NavOrientation` | Orientation of the tab navigation. Use `NavOrientation.Vertical` to place the tab navigation alongside the tab content (e.g. vertical pills). Applies only to the `TabPanelVariant.Standard` variant. The default value is `NavOrientation.Horizontal`. |
 | RenderMode | `TabPanelRenderMode` | Determines whether the content of all tabs is always rendered or only if the tab is active. Default is `TabPanelRenderMode.AllTabs`. |
-| TabHeadersAsButtons | `bool` | When `true`, the tab headers are rendered as `<button>` elements instead of anchors. Buttons are the recommended markup for tabs that switch content without navigating (improved accessibility semantics). The default value is `false`. |
 | Variant | `TabPanelVariant` | Set to `TabPanelVariant.Card` if you want to wrap the tab panel in a card with the tab navigation in the header. |
 
 ## Available demo samples
 
 - HxTabPanel_Demo_ActiveTabId.razor
 - HxTabPanel_Demo_BasicUsage.razor
-- HxTabPanel_Demo_ButtonTabs.razor
 - HxTabPanel_Demo_CardMode.razor
-- HxTabPanel_Demo_Fade.razor
 - HxTabPanel_Demo_NavVariantPills.razor
 - HxTabPanel_Demo_NavVariantPillsVertical.razor
 - HxTabPanel_Demo_NavVariantStandard.razor

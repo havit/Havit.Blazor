@@ -170,4 +170,93 @@ public class HxMenuTests : BunitTestBase
 		var span = cut.Find("span.menu-text");
 		Assert.Contains("Plain text", span.TextContent);
 	}
+
+	[Fact]
+	public void HxSubmenu_RendersSubmenuStructure()
+	{
+		// Act
+		var cut = RenderComponent<HxMenu>(p => p
+			.Add<HxSubmenu>(m => m.Content, submenu => submenu
+				.Add(s => s.Text, "File")
+				.AddChildContent<HxMenuItem>(item => item
+					.AddChildContent("New"))));
+
+		// Assert
+		var submenu = cut.Find("div.submenu");
+		var trigger = submenu.QuerySelector("button.menu-item");
+		Assert.NotNull(trigger);
+		Assert.Equal("button", trigger.GetAttribute("type"));
+		Assert.Contains("File", trigger.TextContent);
+		Assert.Equal("true", trigger.GetAttribute("aria-haspopup"));
+		Assert.Equal("false", trigger.GetAttribute("aria-expanded"));
+
+		// the nested menu (sibling of the trigger) contains the items
+		var nestedMenu = submenu.QuerySelector("div.menu");
+		Assert.NotNull(nestedMenu);
+		Assert.Equal(nestedMenu, trigger.NextElementSibling);
+		Assert.Contains("New", nestedMenu.TextContent);
+	}
+
+	[Fact]
+	public void HxSubmenu_TitleTemplate_TakesPrecedenceOverText()
+	{
+		// Act
+		var cut = RenderComponent<HxMenu>(p => p
+			.Add<HxSubmenu>(m => m.Content, submenu => submenu
+				.Add(s => s.Text, "Ignored")
+				.Add(s => s.TitleTemplate, "<strong>Custom</strong>")));
+
+		// Assert
+		var trigger = cut.Find("div.submenu > button.menu-item");
+		Assert.Contains("Custom", trigger.TextContent);
+		Assert.DoesNotContain("Ignored", trigger.TextContent);
+		Assert.NotNull(trigger.QuerySelector("strong"));
+	}
+
+	[Fact]
+	public void HxSubmenu_EnabledFalse_HasDisabledTrigger()
+	{
+		// Act
+		var cut = RenderComponent<HxMenu>(p => p
+			.Add<HxSubmenu>(m => m.Content, submenu => submenu
+				.Add(s => s.Text, "File")
+				.Add(s => s.Enabled, false)));
+
+		// Assert
+		var trigger = cut.Find("div.submenu > button.menu-item");
+		Assert.True(trigger.ClassList.Contains("disabled"), "Disabled submenu trigger should have 'disabled' CSS class.");
+		Assert.True(trigger.HasAttribute("disabled"), "Disabled submenu trigger should have the 'disabled' attribute.");
+	}
+
+	[Fact]
+	public void HxSubmenu_CssClass_IsAppliedToSubmenuWrapper()
+	{
+		// Act
+		var cut = RenderComponent<HxMenu>(p => p
+			.Add<HxSubmenu>(m => m.Content, submenu => submenu
+				.Add(s => s.Text, "File")
+				.Add(s => s.CssClass, "my-submenu")));
+
+		// Assert
+		var submenu = cut.Find("div.submenu");
+		Assert.True(submenu.ClassList.Contains("my-submenu"));
+	}
+
+	[Fact]
+	public void HxSubmenu_NestedSubmenus_RenderNestedStructure()
+	{
+		// Act
+		var cut = RenderComponent<HxMenu>(p => p
+			.Add<HxSubmenu>(m => m.Content, level1 => level1
+				.Add(s => s.Text, "Level 1")
+				.AddChildContent<HxSubmenu>(level2 => level2
+					.Add(s => s.Text, "Level 2")
+					.AddChildContent<HxMenuItem>(item => item
+						.AddChildContent("Deep item")))));
+
+		// Assert
+		var submenus = cut.FindAll("div.submenu");
+		Assert.Equal(2, submenus.Count);
+		Assert.Contains("Deep item", cut.Markup);
+	}
 }

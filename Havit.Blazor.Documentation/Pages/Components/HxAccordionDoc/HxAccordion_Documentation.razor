@@ -30,6 +30,13 @@
 
 	<DocHeading Title="Complex demo" />
 	<Demo Type="typeof(HxAccordion_ComplexDemo)" />
+
+	<DocHeading Title="Accessibility" />
+	<p>
+		<code>HxAccordion</code> is built on the native <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> elements,
+		so the browser provides the disclosure semantics and keyboard support (<kbd>Enter</kbd>/<kbd>Space</kbd> toggles a section) out of the box.
+		When only one item may be open at a time (the default), the items share an HTML <code>name</code> attribute so the browser enforces the single-open behavior natively.
+	</p>
 </ApiDoc>
 
 <ApiDoc Type="typeof(HxAccordionItem)" />

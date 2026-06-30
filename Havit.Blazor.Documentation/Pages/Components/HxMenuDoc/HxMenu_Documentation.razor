@@ -2,6 +2,7 @@
 @attribute [Route("/components/" + nameof(HxMenuToggleButton))]
 @attribute [Route("/components/" + nameof(HxMenuToggleElement))]
 @attribute [Route("/components/" + nameof(HxMenuItem))]
+@attribute [Route("/components/" + nameof(HxSubmenu))]
 @attribute [Route("/components/" + nameof(HxMenuItemNavLink))]
 @attribute [Route("/components/" + nameof(HxMenuText))]
 @attribute [Route("/components/" + nameof(HxMenuHeader))]
@@ -42,6 +43,15 @@
 		<p>Set <code>Enabled="false"</code> to disable the item. The <code>HxFormState.Enabled</code> inheritance is also supported.</p>
 		<Demo Type="typeof(HxMenu_Demo_HeaderDisabledActive)" />
 
+		<DocHeading Title="Submenus" Id="submenus" />
+		<p>
+			Use <code>HxSubmenu</code> to create a nested menu. Set the trigger via <code>Text</code> (or <code>TitleTemplate</code>)
+			and place the nested items in its child content; the submenu opens on hover or click. Submenus can be nested to any depth,
+			and the trigger supports the same <code>Icon</code> and <code>Enabled</code> behavior as <code>HxMenuItem</code>.
+			See the <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#submenus">Bootstrap documentation</a>.
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_Submenus)" />
+
 		<DocHeading Title="Custom content" />
 		<p>Place any custom content directly into the <code>Content</code> render fragment.</p>
 		<Demo Type="typeof(HxMenu_Demo_CustomContent)" />
@@ -80,6 +90,14 @@
 		<p>Opt into darker menus to match a dark navbar or custom style by adding <code>data-bs-theme="dark"</code> to the <code>HxMenu</code> component (the attribute gets rendered on the <code>.menu</code> element).</p>
 		<Demo Type="typeof(HxMenu_Demo_Dark)" />
 
+		<DocHeading Title="Translucent menus" Id="translucent" />
+		<p>Add the <code>menu-translucent</code> CSS class (through the <code>CssClass</code> parameter) for a semi-transparent menu with a background blur (new in Bootstrap 6).</p>
+		<Demo Type="typeof(HxMenu_Demo_Translucent)" />
+
+		<DocHeading Title="Scrollable menus" Id="scrollable" />
+		<p>Add the <code>menu-scrollable</code> CSS class (through the <code>CssClass</code> parameter) to constrain the menu height and scroll its content.</p>
+		<Demo Type="typeof(HxMenu_Demo_Scrollable)" />
+
 		<DocHeading Title="Menu with icons" Id="icons" />
 		<p>You can use the <code>Icon</code> parameter to add an icon to menu items.</p>
 		<Demo Type="typeof(HxMenu_Demo_Icons)" />
@@ -89,6 +107,7 @@
 <ApiDoc Type="typeof(HxMenuToggleButton)" />
 <ApiDoc Type="typeof(HxMenuToggleElement)" />
 <ApiDoc Type="typeof(HxMenuItem)" />
+<ApiDoc Type="typeof(HxSubmenu)" />
 <ApiDoc Type="typeof(HxMenuItemNavLink)" />
 <ApiDoc Type="typeof(HxMenuText)" />
 <ApiDoc Type="typeof(HxMenuHeader)" />

@@ -16,17 +16,20 @@
 <DocHeading Title="Setup" Level="2" />
 <p>Select your IDE to get customized instructions.</p>
 <HxAlert Color="ThemeColor.Secondary">
-	<p class="mb-0 fw-semibold"><small>IDE / AI assistant</small></p>
-	<HxRadioButtonList TItem="IdeChoice"
-					   TValue="IdeChoice"
-					   Data="_ideChoices"
-					   ItemTextSelector="GetIdeChoiceText"
-					   @bind-Value="_ide"
-					   RenderMode="RadioButtonListRenderMode.ButtonGroup"
-					   Variant="ButtonVariant.Outline"
-					   Color="ThemeColor.Primary"
-					   ButtonSize="ButtonSize.Small"
-					   CssClass="mb-2" />
+	<div class="w-100">
+		<HxRadioButtonList Label="IDE / AI assistant"
+						   TItem="IdeChoice"
+						   TValue="IdeChoice"
+						   Data="_ideChoices"
+						   ItemTextSelector="GetIdeChoiceText"
+						   @bind-Value="_ide"
+						   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+						   Inline="true"
+						   Variant="ButtonVariant.Outline"
+						   Color="ThemeColor.Primary"
+						   ButtonSize="ButtonSize.Small"
+						   CssClass="mb-2" />
+	</div>
 </HxAlert>
 
 @if (_ide == IdeChoice.VsCode)
@@ -134,6 +137,6 @@ else
 	<a href="https://github.com/havit/Havit.Blazor/tree/master/skills/havit-blazor-v6-migration">agent skill</a>
 	&ndash; an executable migration procedure (package update, CSS class renames, component API changes, verification steps)
 	that AI coding agents such as Claude Code can follow to migrate your codebase.
-	It complements the human-readable <a href="/concepts/migration-guide-v6">migration guide</a>.
+	It complements the human-readable <a href="/migration-guide-v6">migration guide</a>.
 </p>
 

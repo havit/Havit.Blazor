@@ -1,7 +1,21 @@
-﻿<HxCard CssClass="code-snippet mb-3">
-	<pre class="bg-body-tertiary">
-		<code class="language-@(Language ?? GetLanguageFromFileExtension() ?? "cshtml")">
+<HxCard CssClass="code-snippet mb-3" HeaderCssClass="py-1 pe-1" BodyCssClass="p-0">
+	<HeaderTemplate>
+		<div class="d-flex justify-content-between align-items-center">
+			<span class="fg-secondary text-uppercase fs-xs font-monospace">@GetLanguageLabel()</span>
+			<HxButton Icon="@(_copied ? BootstrapIcon.ClipboardCheck : BootstrapIcon.Clipboard)"
+					  Variant="ButtonVariant.Text"
+					  Color="ThemeColor.Secondary"
+					  Size="ButtonSize.Small"
+					  Tooltip="Copy to clipboard"
+					  OnClick="CopyToClipboardAsync"
+					  CssClass="btn-icon fg-body" />
+		</div>
+	</HeaderTemplate>
+	<BodyTemplate>
+		<pre class="bg-2 align-self-stretch min-w-0">
+			<code @ref="_codeElement" class="language-@(GetEffectiveLanguage())">
 @ChildContent@(_code)
-		</code>
-	</pre>
+			</code>
+		</pre>
+	</BodyTemplate>
 </HxCard>

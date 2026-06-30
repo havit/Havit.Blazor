@@ -101,7 +101,7 @@ public class HxDrawerTests : BunitTestBase
 			.Add(o => o.FooterTemplate, (RenderFragment)(b => b.AddContent(0, "Footer content"))));
 
 		// Assert
-		var footer = cut.Find("div.hx-drawer-footer");
+		var footer = cut.Find("div.drawer-footer");
 		Assert.NotNull(footer);
 		Assert.Contains("Footer content", footer.TextContent);
 	}

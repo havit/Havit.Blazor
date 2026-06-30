@@ -1322,6 +1322,29 @@
             Additional attributes to be applied to the underlying HTML element.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CarouselEnds">
+            <summary>
+            Defines what happens at the first and last slide of a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselEnds.Loop">
+            <summary>
+            Scrolls seamlessly past the ends for an endless conveyor effect (default).
+            Applies to single-slide carousels; multi-item, peek, centered, and variable-width
+            layouts (and users who prefer reduced motion) fall back to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselEnds.Wrap"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselEnds.Wrap">
+            <summary>
+            Jumps from the last slide back to the first (and vice versa), so the controls never reach a dead end.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselEnds.Stop">
+            <summary>
+            Hard-stops at the first and last slide. The previous control is disabled on the first slide
+            and the next control on the last (via the native <c>disabled</c> attribute on <c>&lt;button&gt;</c> controls).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CarouselPause">
             <summary>
             Behavior of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel"/>.
@@ -1335,26 +1358,6 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselPause.False">
             <summary>
             The carousel won't stop sliding on hover.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CarouselRide">
-            <summary>
-            Behavior of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel"/>.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.Carousel">
-            <summary>
-            Automatically starts the carousel on load.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.False">
-            <summary>
-            Allows manual control of the carousel.
-            </summary>
-        </member>
-        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.True">
-            <summary>
-            Automatically starts the carousel after the user manually cycles the first item.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CarouselSlideEventArgs.From">
@@ -1390,7 +1393,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Controls">
             <summary>
-            Display controls to switch between slides.
+            Display previous/next controls to switch between slides.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Indicators">
@@ -1398,9 +1401,15 @@
             Display indicators showing which slide is active. Can also be used to switch between slides.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Dark">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.PlayPauseControl">
             <summary>
-            Show controls, captions, etc. with dark colors.
+            Display a play/pause button that toggles autoplay. Most useful together with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Autoplay"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Overlay">
+            <summary>
+            Overlay the controls and indicators on top of the slides (<c>.carousel-overlay</c>) instead of
+            rendering them below. Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Crossfade">
@@ -1408,15 +1417,64 @@
             Animate slides with a fade transition instead of sliding.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Interval">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Center">
             <summary>
-            Delay for automatically switching slides. Default is <c>3000 ms</c>.
+            Snap the active slide to the center of the viewport instead of its start (<c>.carousel-center</c>).
+            Pairs nicely with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.ItemsPeek"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.TouchSwiping">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.VariableWidth">
             <summary>
-            Enable or disable swiping left/right on touchscreen devices to move between slides.
-            Default is <c>true</c> (enabled).
+            Let each <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem"/> size itself (<c>.carousel-auto</c>) for variable-width slides.
+            Set the width of every item via its <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.CssClass"/> or inline styles.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.VisibleItems">
+            <summary>
+            Number of whole slides visible per view (<c>--bs-carousel-items</c>). Default (<c>null</c>) shows one.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.ItemsGap">
+            <summary>
+            Space between slides as a CSS length (<c>--bs-carousel-items-gap</c>), e.g. <c>"1rem"</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.ItemsPeek">
+            <summary>
+            How much of the neighboring slides to reveal, as a CSS length (<c>--bs-carousel-items-peek</c>), e.g. <c>"3rem"</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Autoplay">
+            <summary>
+            Automatically cycle the carousel on load. Default is <c>false</c>.
+            Autoplay pauses on hover (see <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Pause"/>) and stops for good once the visitor takes control.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Ends">
+            <summary>
+            What happens at the first and last slide. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselEnds.Loop"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Keyboard">
+            <summary>
+            Whether the carousel reacts to keyboard events. Default is <c>true</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Interval">
+            <summary>
+            Delay (ms) between automatically cycling to the next item while <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Autoplay"/> is enabled.
+            When <c>null</c> (default), Bootstrap's default of <c>5000 ms</c> is used. Can be overridden per item via <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.Interval"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Pause">
+            <summary>
+            Carousel pause behavior. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselPause.Hover"/> (autoplay stops sliding on hover).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the root <c>.carousel</c> element
+            (e.g. <c>data-bs-theme="dark"</c> for a dark carousel).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.OnSlide">
@@ -1439,14 +1497,16 @@
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.OnSlid"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Ride">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.GetStyle">
             <summary>
-            Carousel ride (autoplay) behavior. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselRide.Carousel"/> (autoplays the carousel on load).
+            Builds the inline <c>style</c> for the root element from the CSS-variable layout parameters,
+            merged with any <c>style</c> supplied through <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.AdditionalAttributes"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Pause">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.GetAttributesExceptStyle">
             <summary>
-            Carousel pause behavior. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselPause.Hover"/> (carousel will stop sliding on hover).
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.AdditionalAttributes"/> without <c>style</c> (rendered separately by <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.GetStyle"/>),
+            to avoid a duplicate-attribute render error.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.SlideToAsync(System.Int32)">
@@ -1479,24 +1539,15 @@
             Dispose the carousel.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCarouselCaption">
-            <summary>
-            Represents a caption for a carousel slide.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselCaption.ChildContent">
-            <summary>
-            The content of the caption.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselCaption.CssClass">
-            <summary>
-            CSS class for the caption.
-            </summary>
-        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.Interval">
             <summary>
             Time interval before automatically cycling to the next item.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the root <c>.carousel-item</c> element
+            (e.g. <c>style="width: 320px;"</c> for a variable-width carousel).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarouselItem.ItemsRegistration">
@@ -5957,7 +6008,10 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1">
             <summary>
-            Allows the user to select a number in a specified range using a slider.
+            Allows the user to select a number in a specified range using a slider.<br />
+            Mirrors the <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/range/">Bootstrap range</see> component:
+            a JavaScript-driven control that draws a filled track and can show an optional value <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Bubble"/>
+            and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Ticks"/> (tick marks).
             </summary>
             <typeparam name="TValue">Supported values: <c>byte (Byte), sbyte (SByte), short (Int16), ushort(UInt16), int (Int32), uint(UInt32), long (Int64), ulong(UInt64), float (Single), double (Double) and decimal (Decimal)</c>.</typeparam>
         </member>
@@ -6002,11 +6056,27 @@
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.BindEvent.OnChange"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Bubble">
+            <summary>
+            When <c>true</c>, a value bubble following the thumb is shown.<br />
+            The default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Ticks">
+            <summary>
+            Tick marks rendered along the track from a linked <c>&lt;datalist&gt;</c>. Each tick is positioned at its
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeTick.Value"/> (even when the values are unevenly spaced) and an optional
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeTick.Label"/> is shown beneath it.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.InputElement">
             <summary>
             The input ElementReference.
-            Can be <c>null</c>. 
+            Can be <c>null</c>.
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.FocusAsync">
             <summary>
@@ -7310,6 +7380,27 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings.BindEvent">
             <summary>
             Determines whether the <code>Value</code> is going to be updated instantly or <code>onchange</code> (usually <code>onmouseup</code>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings.Bubble">
+            <summary>
+            Determines whether a value bubble following the thumb is shown.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputRangeTick">
+            <summary>
+            A tick mark for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1"/>. The ticks are rendered from a linked <c>&lt;datalist&gt;</c>
+            by the Bootstrap Range plugin, each positioned at its <see cref="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeTick.Value"/> (even when the values are unevenly spaced).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeTick.Value">
+            <summary>
+            The value at which the tick is positioned (on the same scale as <c>Min</c>/<c>Max</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeTick.Label">
+            <summary>
+            The optional label shown beneath the tick. When <c>null</c> or empty, only the tick mark is rendered.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputSettings">
@@ -9863,6 +9954,11 @@
             Count of numbers to display. The default value is 10.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.Size">
+            <summary>
+            Size of the pager. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PagerSize.Regular"/>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.CssClass">
             <summary>
             Any additional CSS class to apply.
@@ -9972,9 +10068,34 @@
             Number of buttons with numbers to display.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.Size">
+            <summary>
+            Size of the pager.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.CssClass">
             <summary>
             Any additional CSS class to apply.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.PagerSize">
+            <summary>
+            Represents the size of an <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxPager"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PagerSize.Regular">
+            <summary>
+            Regular size.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PagerSize.Small">
+            <summary>
+            Small size.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PagerSize.Large">
+            <summary>
+            Large size.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SortingItem`1">
@@ -11082,6 +11203,57 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleElement.DisposeAsync">
             <inheritdoc/>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu">
+            <summary>
+            Submenu (nested menu) for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMenu"/>. Renders a <c>div.submenu</c> wrapper with a <c>button.menu-item</c> trigger
+            and a nested <c>.menu</c> element (with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.ChildContent"/>). Submenus can be nested to any depth.<br />
+            See <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#submenus">Bootstrap 6 submenus</see>.
+            The opening (hover/click), positioning and keyboard navigation are handled by the parent <c>HxMenu</c>'s Bootstrap instance.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.Text">
+            <summary>
+            Text of the submenu trigger. Ignored when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.TitleTemplate"/> is set.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.TitleTemplate">
+            <summary>
+            Custom content of the submenu trigger. Takes precedence over <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.Text"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.Icon">
+            <summary>
+            Icon of the submenu trigger (use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.BootstrapIcon" />).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.IconCssClass">
+            <summary>
+            Additional CSS class(es) for the submenu trigger icon.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.Color">
+            <summary>
+            Theme color variant of the trigger (renders the <c>theme-*</c> class).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.ChildContent">
+            <summary>
+            The nested menu content (typically <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMenuItem"/>, <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMenuItemNavLink"/>, another <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu"/>, etc.).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.Enabled">
+            <inheritdoc cref="P:Havit.Blazor.Components.Web.Infrastructure.ICascadeEnabledComponent.Enabled" />
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.CssClass">
+            <summary>
+            Additional CSS class for the underlying <c>.submenu</c> element.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSubmenu.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the underlying <c>.submenu</c> element.
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.IHxMenuToggle">
             <summary>
@@ -12829,20 +13001,6 @@
             Use <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Vertical"/> to place the tab navigation alongside the tab content (e.g. vertical pills).
             Applies only to the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Standard"/> variant.
             The default value is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Horizontal"/>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.Fade">
-            <summary>
-            When <c>true</c>, the tab panes fade in when activated (Bootstrap <c>fade</c> effect).<br />
-            Works with the default <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode.AllTabs"/> render mode.
-            The default value is <c>false</c>.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.TabHeadersAsButtons">
-            <summary>
-            When <c>true</c>, the tab headers are rendered as <c>&lt;button&gt;</c> elements instead of anchors.<br />
-            Buttons are the recommended markup for tabs that switch content without navigating (improved accessibility semantics).
-            The default value is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.Variant">
