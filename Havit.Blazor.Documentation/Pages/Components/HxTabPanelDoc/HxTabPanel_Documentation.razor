@@ -23,7 +23,7 @@
 	<DocHeading Title="Standard" Level="3" />
 	<Demo Type="typeof(HxTabPanel_Demo_NavVariantStandard)" />
 
-	<DocHeading Title="Vertical orientation" Id="vertical" />
+	<DocHeading Title="Vertical orientation" Id="vertical" Level="3" />
 	<p>
 		Set <code>Orientation="<a href="/types/NavOrientation#Vertical">NavOrientation.Vertical</a>"</code> to stack the tab
 		navigation next to the tab content. Combine it with <code>@nameof(HxTabPanel.NavVariant).@nameof(NavVariant.Pills)</code> for vertical pills.
@@ -50,6 +50,7 @@
 		<li>the navigation is a <code>role="tablist"</code> (with <code>aria-orientation="vertical"</code> when <code>Orientation</code> is vertical),</li>
 		<li>the tab headers are focusable <code>&lt;button&gt;</code> elements with <code>role="tab"</code>, <code>aria-selected</code>, <code>aria-controls</code> and a roving <code>tabindex</code> (<code>0</code> for the active tab, <code>-1</code> for the others); disabled tabs are marked with <code>aria-disabled</code>,</li>
 		<li>each tab pane is a <code>role="tabpanel"</code> linked back to its header via <code>aria-labelledby</code>.</li>
-	</ul></ApiDoc>
+	</ul>
+</ApiDoc>
 
 <ApiDoc Type="typeof(HxTab)" />
