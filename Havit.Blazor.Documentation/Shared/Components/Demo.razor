@@ -33,7 +33,19 @@ else
 	private void RenderDemo(RenderTreeBuilder __builder)
 	{
 		<div class="@CssClassHelper.Combine("demo-content p-3 align-self-stretch vstack gap-3", DemoCardCssClass)">
-			<DynamicComponent Type="Type" />
+			@if (Resizable)
+			{
+				<div class="demo-resizable">
+					<DynamicComponent Type="Type" />
+				</div>
+				<p class="demo-resizable-hint text-body-secondary small mb-0">
+					Use the lower-right corner grip to resize and preview the responsive behavior.
+				</p>
+			}
+			else
+			{
+				<DynamicComponent Type="Type" />
+			}
 		</div>
 	}
 
