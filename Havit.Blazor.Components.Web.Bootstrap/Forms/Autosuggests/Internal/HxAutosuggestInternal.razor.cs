@@ -337,7 +337,6 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 		{
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
-				await DestroyMenuAsync();
 				await HandleItemSelected(focusedItem);
 				StateHasChanged();
 			}
@@ -384,6 +383,9 @@ public partial class HxAutosuggestInternal<TItem, TValue> : IAsyncDisposable
 	private async Task HandleItemSelected(TItem item)
 	{
 		// user selected an item in the "menu".
+		// Close the menu explicitly: unlike the Bootstrap 5 Dropdown, the Bootstrap 6 Menu does not
+		// auto-close on item click (the item button stops click propagation, so Menu.clearMenus never runs).
+		await DestroyMenuAsync();
 		_userInput = TextSelectorEffective(item);
 		_userInputModified = false;
 		await SetValueItemWithEventCallback(item);
