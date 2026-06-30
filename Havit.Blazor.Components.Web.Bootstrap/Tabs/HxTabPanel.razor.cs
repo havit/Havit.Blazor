@@ -22,6 +22,28 @@ public partial class HxTabPanel : ComponentBase
 	[Parameter] public NavVariant NavVariant { get; set; } = NavVariant.Tabs;
 
 	/// <summary>
+	/// Orientation of the tab navigation.
+	/// Use <see cref="NavOrientation.Vertical"/> to place the tab navigation alongside the tab content (e.g. vertical pills).
+	/// Applies only to the <see cref="TabPanelVariant.Standard"/> variant.
+	/// The default value is <see cref="NavOrientation.Horizontal"/>.
+	/// </summary>
+	[Parameter] public NavOrientation Orientation { get; set; } = NavOrientation.Horizontal;
+
+	/// <summary>
+	/// When <c>true</c>, the tab panes fade in when activated (Bootstrap <c>fade</c> effect).<br />
+	/// Works with the default <see cref="TabPanelRenderMode.AllTabs"/> render mode.
+	/// The default value is <c>false</c>.
+	/// </summary>
+	[Parameter] public bool Fade { get; set; }
+
+	/// <summary>
+	/// When <c>true</c>, the tab headers are rendered as <c>&lt;button&gt;</c> elements instead of anchors.<br />
+	/// Buttons are the recommended markup for tabs that switch content without navigating (improved accessibility semantics).
+	/// The default value is <c>false</c>.
+	/// </summary>
+	[Parameter] public bool TabHeadersAsButtons { get; set; }
+
+	/// <summary>
 	/// Set to <see cref="TabPanelVariant.Card"/> if you want to wrap the tab panel in a card with the tab navigation in the header.
 	/// </summary>
 	[Parameter] public TabPanelVariant Variant { get; set; } = TabPanelVariant.Standard;
@@ -220,4 +242,12 @@ public partial class HxTabPanel : ComponentBase
 		// Bootstrap 6 has no card-header-pills class (only card-header-tabs remains).
 		return null;
 	}
+
+	private bool IsVerticalLayout => (Variant == TabPanelVariant.Standard) && (Orientation == NavOrientation.Vertical);
+
+	private NavOrientation GetNavOrientation() => IsVerticalLayout ? NavOrientation.Vertical : NavOrientation.Horizontal;
+
+	private string GetNavAriaOrientation() => IsVerticalLayout ? "vertical" : null;
+
+	private string GetNavCssClassForOrientation() => IsVerticalLayout ? "me-3" : null;
 }
