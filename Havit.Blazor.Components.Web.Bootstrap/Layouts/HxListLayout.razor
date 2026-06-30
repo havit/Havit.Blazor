@@ -10,7 +10,7 @@
                 {
                     <div class="hx-list-layout-named-view">
                         <span role="button" id="namedViewsMenuLink" class="hx-list-layout-menu-link" data-bs-toggle="menu" aria-haspopup="true" aria-expanded="false">
-                            <h5 class="card-title text-truncate">
+                            <h4 class="card-title text-truncate">
                                 @if (TitleFromNamedView && (SelectedNamedView is not null))
                                 {
                                     @SelectedNamedView.Name
@@ -25,7 +25,7 @@
                                 {
                                     @Title
                                 }
-                            </h5>
+                            </h4>
                             <HxIcon CssClass="ms-1" Icon="@BootstrapIcon.ChevronDown" />
                         </span>
                         <div class="hx-named-view menu" aria-labelledby="namedViewsMenuLink">
@@ -44,13 +44,13 @@
                 }
                 else if (TitleTemplate != null)
                 {
-                    <h5 class="hx-list-layout-title card-title d-flex align-items-center">
+                    <h4 class="hx-list-layout-title card-title d-flex align-items-center">
                         @TitleTemplate
-                    </h5>
+                    </h4>
                 }
                 else if (!String.IsNullOrEmpty(Title))
                 {
-                    <h5 class="hx-list-layout-title card-title text-truncate">@Title</h5>
+                    <h4 class="hx-list-layout-title card-title text-truncate">@Title</h4>
                 }
 
                 @if (SearchTemplate != null)
@@ -69,7 +69,11 @@
 						}
 						@if (FilterTemplate != null)
 						{
-							<HxButton Settings="FilterOpenButtonSettingsEffective" OnClick="ShowFilterDrawerAsync" AriaLabel="@Localizer["FilterButtonAriaLabel"]" />
+							<HxButton Settings="FilterOpenButtonSettingsEffective"
+									  OnClick="ShowFilterDrawerAsync"
+									  Text="@(String.IsNullOrWhiteSpace(FilterButtonText) ? null : FilterButtonText)"
+									  CssClass="@(String.IsNullOrWhiteSpace(FilterButtonText) ? CssClassHelper.Combine(FilterOpenButtonSettingsEffective.CssClass, "btn-icon") : null)"
+									  AriaLabel="@(String.IsNullOrWhiteSpace(FilterButtonText) ? (string)Localizer["FilterButtonAriaLabel"] : null)" />
 						}
 					</div>
 				}
@@ -100,7 +104,9 @@
             }
         </BodyTemplate>
         <ChildContent>
-            @DataTemplate
+            <div class="card-body hx-list-layout-data">
+                @DataTemplate
+            </div>
         </ChildContent>
     </HxCard>
     @DetailTemplate
