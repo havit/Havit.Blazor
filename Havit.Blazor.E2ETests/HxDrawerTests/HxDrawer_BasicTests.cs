@@ -52,17 +52,23 @@ public class HxDrawer_BasicTests : TestAppTestBase
 		await NavigateToTestAppAsync("/HxDrawer_BasicTests");
 
 		var showButton = Page.Locator("[data-testid='show-button']");
-		await Page.EvaluateAsync("window.__hxDrawerShown = new Promise(resolve => document.addEventListener('shown.bs.drawer', resolve, { once: true }))");
 		await showButton.ClickAsync();
 
 		var drawerContent = Page.Locator("[data-testid='drawer-content']");
 		await Expect(drawerContent).ToBeVisibleAsync(new() { Timeout = 10_000 });
 
-		// Wait for the entry transition to finish (shown.bs.drawer): Bootstrap 6 (alpha)
-		// silently swallows dismissals (incl. native Escape) while _isTransitioning is true.
-		await Page.EvaluateAsync("window.__hxDrawerShown");
+		// Move focus into the open drawer before pressing Escape. Playwright delivers key presses
+		// to the focused element; right after opening, focus is still on the trigger button in the
+		// now-inert page, so a bare Escape never reaches the dialog. (The previous implementation
+		// instead awaited a 'shown.bs.drawer' event that is never raised in a headless/CI
+		// environment - transitions emit no transitionend - which hung the whole E2E run forever.)
+		await drawerContent.ClickAsync();
 
-		// Act - press Escape
+		// Press Escape. Bootstrap 6 (alpha) silently swallows dismissals while the entry transition
+		// is still running, so the first keystroke can be ignored; a second press after a short
+		// settle reliably dismisses the drawer.
+		await Page.Keyboard.PressAsync("Escape");
+		await Page.WaitForTimeoutAsync(500);
 		await Page.Keyboard.PressAsync("Escape");
 
 		// Assert - drawer content should no longer be visible
