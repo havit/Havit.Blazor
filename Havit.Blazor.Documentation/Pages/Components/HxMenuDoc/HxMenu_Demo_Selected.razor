@@ -6,12 +6,13 @@
 		@foreach (var status in statuses)
 		{
 			<HxMenuItem CssClass="@(status.Value == selectedStatus ? "selected" : null)"
+						aria-current="@(status.Value == selectedStatus ? "true" : null)"
 						OnClick="() => selectedStatus = status.Value">
 				<div class="menu-item-content">
 					@status.Title
 					<small class="menu-item-description">@status.Description</small>
 				</div>
-				<svg class="menu-item-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16">
+				<svg class="menu-item-check" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 16 16" aria-hidden="true">
 					<path d="m2 7 4 5 8-8" />
 				</svg>
 			</HxMenuItem>
