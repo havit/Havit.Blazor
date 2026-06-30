@@ -2,27 +2,18 @@
 
 ```razor
 <HxButtonGroup>
-	<HxButton Color="ThemeColor.Secondary" OnClick="HandleMainButtonClick">Action button</HxButton>
+	<HxButton Color="ThemeColor.Secondary">Split</HxButton>
 	<HxMenu>
 		<Toggle>
-			<HxMenuToggleButton Color="ThemeColor.Secondary">
+			<HxMenuToggleButton Color="ThemeColor.Secondary" Icon="BootstrapIcon.ChevronExpand">
 				<span class="visually-hidden">Toggle menu</span>@* OPTIONAL (for accessibility) *@
 			</HxMenuToggleButton>
 		</Toggle>
 		<Content>
-			<HxMenuItemNavLink Href="#">Link with Href</HxMenuItemNavLink>
-			<HxMenuItem OnClick="HandleMenuItemClick">Item with OnClick action</HxMenuItem>
-			<HxMenuDivider />
-			<HxMenuText>Something else here</HxMenuText>
+			<HxMenuItemNavLink Href="#">Action</HxMenuItemNavLink>
+			<HxMenuItemNavLink Href="#">Another action</HxMenuItemNavLink>
 		</Content>
 	</HxMenu>
 </HxButtonGroup>
-
-@message
-@code {
-	private string message;
-	private void HandleMainButtonClick() => message = "Main button clicked";
-	private void HandleMenuItemClick() => message = "Menu item clicked";
-}
 
 ```

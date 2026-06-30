@@ -1,3 +1,6 @@
+﻿# HxMenu_Demo_Forms.razor
+
+```razor
 <HxMenu AutoClose="MenuAutoClose.Outside" style="--bs-menu-min-width: 300px;">
 	<Toggle>
 		<HxMenuToggleButton Color="ThemeColor.Secondary">Sign in</HxMenuToggleButton>
@@ -27,3 +30,5 @@
 		public bool RememberMe { get; set; }
 	}
 }
+
+```

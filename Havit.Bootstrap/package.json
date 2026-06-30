@@ -50,7 +50,7 @@
     },
     "devDependencies": {
       "autoprefixer": "^10.4.21",
-      "bootstrap": "github:twbs/bootstrap#b5a618663e6dafd3bd9ce701f95fcd247388b8ce",
+      "bootstrap": "github:twbs/bootstrap#e0fc5207281beba6658a9b2f176db5325a334517",
       "browserslist": "^4.24.4",
       "lightningcss": "^1.32.0",
       "nodemon": "^3.1.10",
