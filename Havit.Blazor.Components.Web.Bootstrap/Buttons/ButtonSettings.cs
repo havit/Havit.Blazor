@@ -36,9 +36,9 @@ public record ButtonSettings
 	public ThemeColor? Color { get; set; }
 
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap outline button style</see>.
+	/// Visual <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button/">variant</see> of the button (solid, outline, subtle, text, link), composed with <see cref="Color"/>.
 	/// </summary>
-	public bool? Outline { get; set; } = false;
+	public ButtonVariant? Variant { get; set; } = ButtonVariant.Solid;
 
 	/// <summary>
 	/// Tooltip settings.

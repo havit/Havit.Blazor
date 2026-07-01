@@ -1,0 +1,73 @@
+﻿@page "/HxMenu_UpdateReference_Test"
+
+<h1>HxMenu</h1>
+
+<HxMenu CssClass="@(IsBold ? "bg-light" : null)">
+	<Toggle>
+		<HxMenuToggleElement @ref="menuToggleElementComponent" MenuReference="@_menuReference" />
+	</Toggle>
+	<Content>
+		<div class="row m-3" style="min-width: 100px;">
+			<div class="col">
+				<div>
+					<HxCheckbox @bind-Value="IsBold" Text="Toggle button text bold" />
+				</div>
+			</div>
+		</div>
+	</Content>
+</HxMenu>
+
+<HxButton id="button1" OnClick="HandleShowElement1">Show 1</HxButton>
+<HxButton id="button2" OnClick="HandleShowElement2">Show 2</HxButton>
+
+<br />
+
+<HxMenu CssClass="@(IsBold ? "bg-light" : null)">
+	<Toggle>
+		<HxMenuToggleButton @ref="menuToggleButtonComponent" Text="HxMenuToggleButton" Color="ThemeColor.Primary" MenuReference="@_menuReference" />
+	</Toggle>
+	<Content>
+		<div class="row m-3" style="min-width: 100px;">
+			<div class="col">
+				<div>
+					<HxCheckbox @bind-Value="IsBold" Text="Toggle button text bold" />
+				</div>
+			</div>
+		</div>
+	</Content>
+</HxMenu>
+
+<HxButton id="button3" OnClick="HandleShowButton3">Show 3</HxButton>
+<HxButton id="button4" OnClick=	"HandleShowButton4">Show 4</HxButton>
+
+
+@code {
+	private HxMenuToggleElement menuToggleElementComponent;
+	private HxMenuToggleButton menuToggleButtonComponent;
+	private bool IsBold { get; set; } = false;
+	private string _menuReference = "#button1";
+
+	private async Task HandleShowElement1()
+	{
+		_menuReference = "#button1";
+		await menuToggleElementComponent.ShowAsync();
+	}
+
+	private async Task HandleShowElement2()
+	{
+		_menuReference = "#button2";
+		await menuToggleElementComponent.ShowAsync();
+	}
+
+	private async Task HandleShowButton3()
+	{
+		_menuReference = "#button3";
+		await menuToggleButtonComponent.ShowAsync();
+	}
+
+	private async Task HandleShowButton4()
+	{
+		_menuReference = "#button4";
+		await menuToggleButtonComponent.ShowAsync();
+	}
+}

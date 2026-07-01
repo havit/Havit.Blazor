@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxSidebar))]
+﻿@attribute [Route("/components/" + nameof(HxSidebar))]
 @attribute [Route("/components/" + nameof(HxSidebar) + "/{*RouteCatchAll}")]
 @attribute [Route("/components/" + nameof(HxSidebarItem))]
 @attribute [Route("/components/" + nameof(HxSidebarBrand))]
@@ -50,7 +50,10 @@
 
 		<DocHeading Title="Responsive layout sample" />
 		<p>
-			To achieve responsiveness of the sidebar (such as this documentation site has), you need to adjust the application layout.
+			The sidebar intentionally does not implement mobile navigation - it is a sidebar with a horizontal (icon rail) collapse only.
+			Responsiveness is the application layout's concern: hide the sidebar below your breakpoint of choice with display utilities
+			and provide mobile navigation with another component, typically <a href="/components/HxNavbar">HxNavbar</a>
+			(its responsive content opens as a drawer), as this documentation site does.
 			The main layout might look like this:
 		</p>
 		<CodeSnippet File="~\Pages\Components\HxSidebarDoc\HxSidebar_Layout.CodeSnippet.razor" />
@@ -61,7 +64,7 @@
 		<CodeSnippet File="~\Pages\Components\HxSidebarDoc\HxSidebar_Setup.CodeSnippet.css" />
 	</MainContent>
 	<CssVariables>
-		<ApiDocCssVariable Name="--hx-sidebar-background-color" Default="var(--bs-body-bg)">
+		<ApiDocCssVariable Name="--hx-sidebar-background-color" Default="var(--bs-bg-body)">
 			Background color.
 		</ApiDocCssVariable>
 		<ApiDocCssVariable Name="--hx-sidebar-collapsed-width" Default="72px">
@@ -88,31 +91,31 @@
 		<ApiDocCssVariable Name="--hx-sidebar-item-margin" Default="0">
 			Margin of the items.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-sidebar-item-color" Default="var(--bs-body-color)">
+		<ApiDocCssVariable Name="--hx-sidebar-item-color" Default="var(--bs-fg-body)">
 			Color of the items.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-sidebar-item-icon-color" Default="var(--bs-primary)">
+		<ApiDocCssVariable Name="--hx-sidebar-item-icon-color" Default="var(--bs-primary-fg)">
 			Color of the items icons.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-sidebar-item-border-radius" Default="var(--bs-border-radius)">
+		<ApiDocCssVariable Name="--hx-sidebar-item-border-radius" Default="var(--bs-radius-4)">
 			Border radius of the items.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-sidebar-item-hover-color" Default="var(--bs-primary)">
+		<ApiDocCssVariable Name="--hx-sidebar-item-hover-color" Default="var(--bs-primary-fg)">
 			Color of the items on hover.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-sidebar-item-hover-icon-color" Default="var(--bs-primary)">
+		<ApiDocCssVariable Name="--hx-sidebar-item-hover-icon-color" Default="var(--bs-primary-fg)">
 			Color of the items icon on hover.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-sidebar-item-hover-background-color" Default="var(--bs-primary-rgb)">
+		<ApiDocCssVariable Name="--hx-sidebar-item-hover-background-color" Default="var(--bs-primary-bg)">
 			Background color of the items on hover.
 		</ApiDocCssVariable>
 		<ApiDocCssVariable Name="--hx-sidebar-item-hover-background-opacity" Default=".1">
 			Background opacity of the items on hover.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-sidebar-item-active-color" Default="var(--bs-primary)">
+		<ApiDocCssVariable Name="--hx-sidebar-item-active-color" Default="var(--bs-primary-fg)">
 			Color of the active item.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-sidebar-item-active-icon-color" Default="var(--bs-primary)">
+		<ApiDocCssVariable Name="--hx-sidebar-item-active-icon-color" Default="var(--bs-primary-fg)">
 			Color of the active item icon.
 		</ApiDocCssVariable>
 		<ApiDocCssVariable Name="--hx-sidebar-parent-item-active-icon-color" Default="var(--hx-sidebar-item-icon-color)">
@@ -121,7 +124,7 @@
 		<ApiDocCssVariable Name="--hx-sidebar-item-active-background-opacity" Default=".1">
 			Background opacity of the active item.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-sidebar-item-active-background-color" Default="var(--bs-primary-rgb)">
+		<ApiDocCssVariable Name="--hx-sidebar-item-active-background-color" Default="var(--bs-primary-bg)">
 			Background color of the active item.
 		</ApiDocCssVariable>
 		<ApiDocCssVariable Name="--hx-sidebar-item-active-font-weight" Default="inherit">
@@ -157,10 +160,10 @@
 		<ApiDocCssVariable Name="--hx-sidebar-body-nav-gap" Default=".25rem">
 			Gap of the sidebar body nav element.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-sidebar-brand-shortname-background-color" Default="var(--bs-primary)">
+		<ApiDocCssVariable Name="--hx-sidebar-brand-shortname-background-color" Default="var(--bs-primary-bg)">
 			Background color of the brand short name.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-sidebar-brand-shortname-border-radius" Default="var(--bs-border-radius)">
+		<ApiDocCssVariable Name="--hx-sidebar-brand-shortname-border-radius" Default="var(--bs-radius-4)">
 			Border radius of the brand short name.
 		</ApiDocCssVariable>
 		<ApiDocCssVariable Name="--hx-sidebar-brand-shortname-color" Default="var(--bs-white)">
@@ -181,7 +184,7 @@
 		<ApiDocCssVariable Name="--hx-sidebar-brand-logo-height" Default="2.5rem">
 			Height of the brand logo.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-sidebar-brand-name-color" Default="var(--bs-body-color)">
+		<ApiDocCssVariable Name="--hx-sidebar-brand-name-color" Default="var(--bs-fg-body)">
 			Color of the brand name.
 		</ApiDocCssVariable>
 		<ApiDocCssVariable Name="--hx-sidebar-brand-name-font-weight" Default="600">
@@ -205,7 +208,7 @@
 		<ApiDocCssVariable Name="--hx-sidebar-footer-item-font-size" Default="1rem">
 			Font size of the items in the footer.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-sidebar-footer-item-color" Default="var(--bs-body-color)">
+		<ApiDocCssVariable Name="--hx-sidebar-footer-item-color" Default="var(--bs-fg-body)">
 			Color of the items in the footer.
 		</ApiDocCssVariable>
 		<ApiDocCssVariable Name="--hx-sidebar-footer-item-radius" Default="unset">
@@ -220,7 +223,7 @@
 		<ApiDocCssVariable Name="--hx-sidebar-footer-item-hover-background-opacity" Default="unset">
 			Background opacity on hover of the items in the footer.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-sidebar-footer-item-hover-color" Default="var(--bs-body-color)">
+		<ApiDocCssVariable Name="--hx-sidebar-footer-item-hover-color" Default="var(--bs-fg-body)">
 			Color on hover of the items in the footer.
 		</ApiDocCssVariable>
 

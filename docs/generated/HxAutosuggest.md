@@ -29,7 +29,7 @@ Component for single item selection with dynamic suggestions (based on typed cha
 | Label | `string` | The label text. |
 | LabelCssClass | `string` | The custom CSS class to render with the label. |
 | LabelTemplate | `RenderFragment` | The label content. |
-| LabelType | `LabelType?` | Label type. |
+| LabelType | `LabelType?` |  |
 | MinimumLength | `int?` | The minimal number of characters to start suggesting. |
 | Placeholder | `string` | A short hint displayed in the input field before the user enters a value. |
 | SearchIcon | `IconBase` | Icon displayed in the input when no item is selected. |

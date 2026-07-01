@@ -15,23 +15,21 @@
 
 <DocHeading Title="Setup" Level="2" />
 <p>Select your IDE to get customized instructions.</p>
-<HxAlert Color="ThemeColor.Light">
-	<p class="mb-0 fw-semibold"><small>IDE / AI assistant</small></p>
-	<HxButtonGroup Size="ButtonGroupSize.Small" CssClass="mb-2">
-		<InputRadioGroup @bind-Value="_ide">
-			<InputRadio id="ideVsCode" class="btn-check" Value="@IdeChoice.VsCode" />
-			<label class="btn btn-outline-primary" for="ideVsCode">VS Code</label>
-
-			<InputRadio id="ideVs" class="btn-check" Value="@IdeChoice.VisualStudio" />
-			<label class="btn btn-outline-primary" for="ideVs">Visual Studio</label>
-
-			<InputRadio id="ideClaudeCode" class="btn-check" Value="@IdeChoice.ClaudeCode" />
-			<label class="btn btn-outline-primary" for="ideClaudeCode">Claude Code</label>
-
-			<InputRadio id="ideOther" class="btn-check" Value="@IdeChoice.Other" />
-			<label class="btn btn-outline-primary" for="ideOther">Other</label>
-		</InputRadioGroup>
-	</HxButtonGroup>
+<HxAlert Color="ThemeColor.Secondary">
+	<div class="w-100">
+		<HxRadioButtonList Label="IDE / AI assistant"
+						   TItem="IdeChoice"
+						   TValue="IdeChoice"
+						   Data="_ideChoices"
+						   ItemTextSelector="GetIdeChoiceText"
+						   @bind-Value="_ide"
+						   RenderMode="RadioButtonListRenderMode.ButtonGroup"
+						   Inline="true"
+						   Variant="ButtonVariant.Outline"
+						   Color="ThemeColor.Primary"
+						   ButtonSize="ButtonSize.Small"
+						   CssClass="mb-2" />
+	</div>
 </HxAlert>
 
 @if (_ide == IdeChoice.VsCode)
@@ -131,5 +129,14 @@ else
 	Once configured, you can ask your AI assistant about a component, for example:
 	<i>"What parameters does HxButton have?"</i>
 	The assistant should use the <code>get_component_docs</code> tool and return the API documentation.
+</p>
+
+<DocHeading Title="Agent skill: v6 migration" Level="2" />
+<p>
+	For upgrading an application from Havit.Blazor v4.x to v6 (Bootstrap 6), we provide a ready-made
+	<a href="https://github.com/havit/Havit.Blazor/tree/master/skills/havit-blazor-v6-migration">agent skill</a>
+	&ndash; an executable migration procedure (package update, CSS class renames, component API changes, verification steps)
+	that AI coding agents such as Claude Code can follow to migrate your codebase.
+	It complements the human-readable <a href="/migration-guide-v6">migration guide</a>.
 </p>
 

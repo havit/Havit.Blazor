@@ -1,0 +1,18 @@
+﻿# HxOtpInput_Demo_OnCompleted.razor
+
+```razor
+<HxOtpInput Label="Verification code" @bind-Value="code" OnCompleted="HandleCompleted" />
+
+<p class="mt-3">@message</p>
+
+@code {
+	private string code;
+	private string message;
+
+	private void HandleCompleted(string value)
+	{
+		message = $"Code {value} entered, verifying...";
+	}
+}
+
+```

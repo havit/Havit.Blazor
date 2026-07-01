@@ -11,9 +11,9 @@ public record BadgeSettings
 	public ThemeColor? Color { get; set; }
 
 	/// <summary>
-	/// Color of the badge text. Use <see cref="Color"/> for the background color.
+	/// Visual variant of the badge (solid, subtle, outline), composed with <see cref="Color"/>.
 	/// </summary>
-	public ThemeColor? TextColor { get; set; }
+	public BadgeVariant? Variant { get; set; }
 
 	/// <summary>
 	/// Badge type - Regular or rounded pills.

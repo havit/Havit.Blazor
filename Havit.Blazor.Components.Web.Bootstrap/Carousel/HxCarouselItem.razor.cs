@@ -14,6 +14,12 @@ public partial class HxCarouselItem : IAsyncDisposable
 	[Parameter] public int? Interval { get; set; }
 
 	/// <summary>
+	/// Additional attributes to be splatted onto the root <c>.carousel-item</c> element
+	/// (e.g. <c>style="width: 320px;"</c> for a variable-width carousel).
+	/// </summary>
+	[Parameter(CaptureUnmatchedValues = true)] public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; }
+
+	/// <summary>
 	/// Cascading parameter used to register the tab.
 	/// </summary>
 	[CascadingParameter(Name = HxCarousel.ItemsRegistrationCascadingValueName)]

@@ -15,7 +15,7 @@
 
 <HxButton Color="ThemeColor.Success" OnClick="() => carousel.CycleAsync()" Text="Cycle" />
 <HxButton Color="ThemeColor.Danger" OnClick="() => carousel.PauseAsync()" Text="Pause" />
-<HxButton Color="ThemeColor.Dark" OnClick="() => carousel.SlideToAsync(1)" Text="Slide item 1" />
+<HxButton Color="ThemeColor.Inverse" OnClick="() => carousel.SlideToAsync(1)" Text="Slide item 1" />
 
 @code {
     private HxCarousel carousel;

@@ -1,18 +1,20 @@
-@attribute [Route("/components/" + nameof(HxNavbar))]
+﻿@attribute [Route("/components/" + nameof(HxNavbar))]
 @attribute [Route("/components/" + nameof(HxNavbarBrand))]
 @attribute [Route("/components/" + nameof(HxNavbarToggler))]
-@attribute [Route("/components/" + nameof(HxNavbarCollapse))]
+@attribute [Route("/components/" + nameof(HxNavbarDrawer))]
 @attribute [Route("/components/" + nameof(HxNavbarText))]
 
 <ApiDoc Type="typeof(HxNavbar)">
 
-	<DocAlert Type="DocAlertType.Warning">
-		<strong>UPDATE v4.0.1:</strong> As Bootstrap 5.3 now expects you to use <a href="https://getbootstrap.com/docs/5.3/components/navbar/#color-schemes">text and background color CSS utilities</a> to customize the navbar with the <code>CssClass</code> parameter,
-		we have changed the default value of the <code>Color</code> parameter to <code>ThemeColor.None</code> to avoid interfering with your CSS classes. You can still use <code>Color="ThemeColor.Light"</code> to get the original navbar color.
-	</DocAlert>
-
     <DocHeading Title="Basic usage" />
 	<Demo Type="typeof(HxNavbar_Demo_Basic)" Tabs="false" />
+
+    <DocHeading Title="Responsive expand" />
+	<p>
+		Use the <code>Expand</code> parameter to set the breakpoint at which the navbar expands from its collapsed (toggler) state into a full horizontal bar.
+		The collapse is driven by the width of the navbar's container, not the viewport &ndash; drag the lower-right corner of the example below to preview the behavior.
+	</p>
+	<Demo Type="typeof(HxNavbar_Demo_Responsive)" Resizable="true" />
 
     <DocHeading Title="Brand" />
     <DocHeading Title="Text brand" Level="3" />
@@ -31,5 +33,5 @@
 
 <ApiDoc Type="typeof(HxNavbarBrand)" />
 <ApiDoc Type="typeof(HxNavbarToggler)" />
-<ApiDoc Type="typeof(HxNavbarCollapse)" />
+<ApiDoc Type="typeof(HxNavbarDrawer)" />
 <ApiDoc Type="typeof(HxNavbarText)" />

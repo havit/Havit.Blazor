@@ -1,6 +1,6 @@
 ﻿# HxSearchBox
 
-A search input component with automatic suggestions, initial dropdown template, and support for free-text queries.
+A search input component with automatic suggestions, initial menu template, and support for free-text queries.
 
 ## Parameters
 
@@ -8,11 +8,10 @@ A search input component with automatic suggestions, initial dropdown template, 
 |------|------|-------------|
 | AllowTextQuery | `bool` | Indicates whether text-query mode is enabled (accepts free text in addition to suggested items). Default is `true`. |
 | ClearIcon | `IconBase` | Icon of the input, displayed when text is entered, allowing the user to clear the text. |
-| CssClass | `string` | Additional CSS classes for the dropdown. |
+| CssClass | `string` | Additional CSS classes for the menu. |
 | DataProvider | `SearchBoxDataProviderDelegate<TItem>` | Method (delegate) that provides data for the suggestions. |
 | DefaultContentTemplate | `RenderFragment` | Rendered when no input is entered (i.e. initial state). |
 | Delay | `int?` | Debounce delay in milliseconds. Default is `300` ms. |
-| DropdownOffset | `ValueTuple<int, int>` | Offset between the dropdown and the input. |
 | Enabled | `bool` | Allows you to disable the input. The default is `true`. |
 | InputCssClass | `string` | Additional CSS classes for the search box input. |
 | InputGroupCssClass | `string` | Custom CSS class to render with the input-group span. |
@@ -21,14 +20,15 @@ A search input component with automatic suggestions, initial dropdown template, 
 | InputGroupStartTemplate | `RenderFragment` | Input-group at the beginning of the input. |
 | InputGroupStartText | `string` | Input-group at the beginning of the input. |
 | InputSize | `InputSize?` | Input size of the input field. |
-| ItemCssClass | `string` | Additional CSS classes for the items in the dropdown menu. |
+| ItemCssClass | `string` | Additional CSS classes for the items in the menu menu. |
 | ItemIconSelector | `Func<TItem, IconBase>` | Selector to display the icon from the data item. |
 | ItemSelectionBehavior | `SearchBoxItemSelectionBehavior?` | Behavior when the item is selected. |
 | ItemSubtitleSelector | `Func<TItem, string>` | Selector to display the item subtitle from the data item. |
 | ItemTemplate | `RenderFragment<TItem>` | Template for the item content. |
 | ItemTitleSelector | `Func<TItem, string>` | Selector to display the item title from the data item. |
 | Label | `string` | Label of the input field. |
-| LabelType | `LabelType?` | Label type. |
+| LabelType | `LabelType?` |  |
+| MenuOffset | `ValueTuple<int, int>` | Offset between the menu and the input. |
 | MinimumLength | `int?` | Minimum length to call the data provider (display any results). Default is `2`. |
 | NotFoundTemplate | `RenderFragment` | Rendered when the `DataProvider` doesn't return any data. |
 | Placeholder | `string` | Placeholder text for the search input. |
@@ -44,16 +44,16 @@ A search input component with automatic suggestions, initial dropdown template, 
 
 | Name | Type | Description |
 |------|------|-------------|
-| OnHiding | `EventCallbackDropdownHidingEventArgs>` | Fired immediately when the 'hide' method of the dropdown is called. To prevent hiding, set `DropdownHidingEventArgs.Cancel` to `true`. |
+| OnHiding | `EventCallbackMenuHidingEventArgs>` | Fired immediately when the 'hide' method of the menu is called. To prevent hiding, set `MenuHidingEventArgs.Cancel` to `true`. |
 | OnItemSelected | `EventCallback<TItem>` | Occurs when any of the suggested items (other than plain text-query) is selected. |
-| OnTextQueryTriggered | `EventCallback<string>` | Raised when the enter key is pressed or when the text-query item is selected in the dropdown menu. (Does not trigger when `AllowTextQuery` is `false`.) |
+| OnTextQueryTriggered | `EventCallback<string>` | Raised when the enter key is pressed or when the text-query item is selected in the menu menu. (Does not trigger when `AllowTextQuery` is `false`.) |
 
 ## Methods
 
 | Method | Returns | Description |
 |--------|---------|-------------|
 | FocusAsync() | `Task` | Gives focus to the input element. |
-| HideDropdownAsync() | `Task` | Hides the dropdown menu. |
+| HideMenuAsync() | `Task` | Hides the menu menu. |
 
 ## Static properties
 

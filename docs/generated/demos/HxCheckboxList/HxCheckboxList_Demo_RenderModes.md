@@ -30,8 +30,8 @@
 				ItemTextSelector="@(employee => employee.Name)"
 				ItemValueSelector="@(employee => employee.Id)"
 				RenderMode="CheckboxListRenderMode.ToggleButtons"
-				Color="ThemeColor.Light"
-				Outline="true"
+				Color="ThemeColor.Secondary"
+				Variant="ButtonVariant.Outline"
 				CssClass="mt-2" />
 
 <HxCheckboxList Label="Button group"
@@ -42,8 +42,8 @@
 				ItemTextSelector="@(employee => employee.Name)"
 				ItemValueSelector="@(employee => employee.Id)"
 				RenderMode="CheckboxListRenderMode.ButtonGroup"
-				Color="ThemeColor.Light"
-				Outline="true"
+				Color="ThemeColor.Secondary"
+				Variant="ButtonVariant.Outline"
 				CssClass="mt-2" />
 
 @code

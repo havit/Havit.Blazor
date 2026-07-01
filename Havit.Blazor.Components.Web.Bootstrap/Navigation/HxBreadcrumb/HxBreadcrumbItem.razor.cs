@@ -24,4 +24,14 @@ public partial class HxBreadcrumbItem
 	/// Item content.
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
+
+	[CascadingParameter] protected HxBreadcrumb BreadcrumbContainer { get; set; }
+
+	private int _index;
+
+	protected override void OnInitialized()
+	{
+		base.OnInitialized();
+		_index = BreadcrumbContainer?.RegisterItem() ?? 0;
+	}
 }

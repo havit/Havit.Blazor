@@ -1,4 +1,4 @@
-<style>
+﻿<style>
 	/* Demonstration purposes only. Put this CSS into your application's CSS file or into the component's CSS file. */
 	.my-sidebar {
 		--hx-sidebar-item-hover-background-color: var(--bs-emphasis-color-rgb);
@@ -30,7 +30,7 @@
 		</ItemsTemplate>
 
 		<FooterTemplate>
-			<HxSidebarFooter Icon="BootstrapIcon.PersonCircle" TextCssClass="@(context.SidebarCollapsed ? "d-md-none" : null)" Text="Login" Href="/components/HxSidebar/login" />
+			<HxSidebarFooter Icon="BootstrapIcon.PersonCircle" TextCssClass="@(context.SidebarCollapsed ? "d-none" : null)" Text="Login" Href="/components/HxSidebar/login" />
 		</FooterTemplate>
 	</HxSidebar>
 </div>

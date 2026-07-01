@@ -1,0 +1,18 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
+<button type="button"
+		class="@CssClassHelper.Combine("btn-icon navbar-toggler", CssClass)"
+		data-bs-toggle="drawer"
+		data-bs-target="@DrawerTargetEffective"
+		aria-controls="@(DrawerTargetEffective.StartsWith('#') ? DrawerTargetEffective.TrimStart('#') : null)"
+		aria-label="Toggle navigation"
+		@attributes="AdditionalAttributes">
+	@if (ChildContent is not null)
+	{
+		@ChildContent
+	}
+	else
+	{
+		<span class="navbar-toggler-icon" aria-hidden="true"></span>
+	}
+</button>

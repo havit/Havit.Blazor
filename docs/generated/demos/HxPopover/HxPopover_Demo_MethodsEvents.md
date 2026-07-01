@@ -9,14 +9,14 @@
 		   OnHidden="HandlePopover1Hidden"
 		   Title="Popover title"
 		   Content="And here's some amazing content. It's very engaging. Right?">
-	<HxButton Color="ThemeColor.Light">Popover 1</HxButton>
+	<HxButton Color="ThemeColor.Secondary">Popover 1</HxButton>
 </HxPopover>
 
 <HxPopover @ref="popover2"
 		   Trigger="PopoverTrigger.Manual"
 		   Title="Popover title"
 		   Content="And here's some amazing content. It's very engaging. Right?">
-	<HxButton Color="ThemeColor.Light">Popover 2</HxButton>
+	<HxButton Color="ThemeColor.Secondary">Popover 2</HxButton>
 </HxPopover>
 
 @code

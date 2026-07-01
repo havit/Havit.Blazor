@@ -1,88 +1,88 @@
-﻿::deep .hx-sidebar-item {
-	display: block; /* Overrides the inline flex from btn-group placed by HxDropdown */
-}
+﻿/* Layered below Bootstrap's utilities so utility classes win over these defaults. */
+@layer custom {
+	::deep .hx-sidebar-item {
+		display: block;
+	}
 
-::deep .hx-sidebar-item.dropend {
-	display: none; /* Dropdown is hidden by default and then shown whith ResponsiveBreakpoint.GetCssClass based on Sidebar settings */
-}
+	::deep .nav-link {
+		--bs-nav-link-justify: flex-start; /* v6 default is center */
+		line-height: 1;
+		padding: var(--hx-sidebar-item-padding);
+		margin: var(--hx-sidebar-item-margin);
+		font-size: var(--hx-sidebar-item-font-size);
+		color: var(--hx-sidebar-item-color);
+		border-radius: var(--hx-sidebar-item-border-radius);
+	}
 
-::deep .nav-link {
-	line-height: 1;
-	padding: var(--hx-sidebar-item-padding);
-	margin: var(--hx-sidebar-item-margin);
-	font-size: var(--hx-sidebar-item-font-size);
-	color: var(--hx-sidebar-item-color);
-	border-radius: var(--hx-sidebar-item-border-radius);
-}
+	::deep .hx-sidebar-subitems {
+		--bs-menu-border-radius: calc(var(--hx-sidebar-item-border-radius) + var(--bs-menu-padding-x));
+	}
 
-::deep .hx-sidebar-subitems {
-	--bs-dropdown-border-radius: calc(var(--hx-sidebar-item-border-radius) + var(--bs-dropdown-padding-x));
-}
+	::deep .hx-sidebar-subitems.collapse .nav-link,
+	::deep .hx-sidebar-subitems.collapsing .nav-link {
+		margin: var(--hx-sidebar-subitem-margin);
+		padding: var(--hx-sidebar-subitem-padding);
+		font-size: var(--hx-sidebar-subitem-font-size);
+		display: flex;
+	}
 
-::deep .hx-sidebar-subitems.collapse .nav-link,
-::deep .hx-sidebar-subitems.collapsing .nav-link {
-	margin: var(--hx-sidebar-subitem-margin);
-	padding: var(--hx-sidebar-subitem-padding);
-	font-size: var(--hx-sidebar-subitem-font-size);
-	display: flex;
-}
+	::deep .hx-sidebar-collapsed-nav {
+		flex-direction: column;
+		padding-block: .25rem;
+	}
 
-::deep .hx-sidebar-collapsed-nav {
-	flex-direction: column;
-	padding-block: .25rem;
-}
+	::deep a.nav-link.active {
+		background-color: color-mix(in srgb, var(--hx-sidebar-item-active-background-color) calc(var(--hx-sidebar-item-active-background-opacity) * 100%), transparent);
+		color: var(--hx-sidebar-item-active-color);
+		font-weight: var(--hx-sidebar-item-active-font-weight);
+	}
 
-::deep a.nav-link.active {
-	background-color: rgba(var(--hx-sidebar-item-active-background-color), var(--hx-sidebar-item-active-background-opacity));
-	color: var(--hx-sidebar-item-active-color);
-	font-weight: var(--hx-sidebar-item-active-font-weight);
-}
+	/* Font-weight only for first level items */
+	.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
+		font-weight: var(--hx-sidebar-parent-item-active-font-weight);
+	}
 
-/* Font-weight only for first level items */
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
-	font-weight: var(--hx-sidebar-parent-item-active-font-weight);
-}
+	/* Background and color for rest of the content */
+	.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep .hx-sidebar-item > a.nav-link,
+	.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
+		background-color: color-mix(in srgb, var(--hx-sidebar-parent-item-active-background-color) calc(var(--hx-sidebar-parent-item-active-background-opacity) * 100%), transparent);
+		color: var(--hx-sidebar-parent-item-active-color);
+	}
 
-/* Background and color for rest of the content */
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep .dropend > a.nav-link,
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link {
-	background-color: rgba(var(--hx-sidebar-parent-item-active-background-color), var(--hx-sidebar-parent-item-active-background-opacity));
-	color: var(--hx-sidebar-parent-item-active-color);
-}
+	.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep .hx-sidebar-item .hx-sidebar-item-icon {
+		color: var(--hx-sidebar-parent-item-active-icon-color);
+	}
 
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep .hx-sidebar-item .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-parent-item-active-icon-color);
-}
+	::deep a.nav-link:hover .hx-sidebar-item-icon,
+	.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep .hx-sidebar-item:hover .hx-sidebar-item-icon {
+		color: var(--hx-sidebar-item-hover-icon-color);
+	}
 
-::deep a.nav-link:hover .hx-sidebar-item-icon,
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) > ::deep .hx-sidebar-item:hover .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-item-hover-icon-color);
-}
+	::deep a.nav-link:hover,
+	.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link:hover {
+		background-color: color-mix(in srgb, var(--hx-sidebar-item-hover-background-color) calc(var(--hx-sidebar-item-hover-background-opacity) * 100%), transparent);
+		color: var(--hx-sidebar-item-hover-color);
+	}
 
-::deep a.nav-link:hover,
-.hx-sidebar-item-highlight-on-active-child:has(.hx-sidebar-subitems .nav-link.active) ::deep > a.nav-link:hover {
-	background-color: rgba(var(--hx-sidebar-item-hover-background-color), var(--hx-sidebar-item-hover-background-opacity));
-	color: var(--hx-sidebar-item-hover-color);
-}
+	::deep .menu {
+		max-height: 75vh;
+		overflow: auto;
+	}
 
-::deep .dropdown-menu {
-	max-height: 75vh;
-	overflow: auto;
-}
+	::deep .hx-sidebar-item-icon {
+		color: var(--hx-sidebar-item-icon-color);
+	}
 
-::deep .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-item-icon-color);
-}
+	::deep a.nav-link.active .hx-sidebar-item-icon {
+		color: var(--hx-sidebar-item-active-icon-color);
+	}
 
-::deep a.nav-link.active .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-item-active-icon-color);
-}
+	::deep a.nav-link.active:hover .hx-sidebar-item-icon {
+		color: var(--hx-sidebar-item-hover-icon-color);
+	}
 
-::deep a.nav-link.active:hover .hx-sidebar-item-icon {
-	color: var(--hx-sidebar-item-hover-icon-color);
-}
-
-::deep .dropdown-header {
-	padding-bottom: 0;
-	padding-left: .75rem;
+	::deep .menu-header {
+		padding-bottom: 0;
+		padding-left: .75rem;
+	}
 }

@@ -22,8 +22,8 @@
 				   ItemTextSelector="@(employee => employee.Name)"
 				   ItemValueSelector="@(employee => employee.Id)"
 				   RenderMode="RadioButtonListRenderMode.ToggleButtons"
-				   Color="ThemeColor.Light"
-				   Outline="true"
+				   Color="ThemeColor.Secondary"
+				   Variant="ButtonVariant.Outline"
 				   CssClass="mt-2" />
 
 <HxRadioButtonList Label="Button group"
@@ -35,8 +35,8 @@
 				   ItemTextSelector="@(employee => employee.Name)"
 				   ItemValueSelector="@(employee => employee.Id)"
 				   RenderMode="RadioButtonListRenderMode.ButtonGroup"
-				   Color="ThemeColor.Light"
-				   Outline="true"
+				   Color="ThemeColor.Secondary"
+				   Variant="ButtonVariant.Outline"
 				   CssClass="mt-2" />
 
 @code

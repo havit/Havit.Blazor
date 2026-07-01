@@ -29,8 +29,8 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	/// Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
 	/// for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>.
 	/// </summary>
-	[Parameter] public bool? Outline { get; set; }
-	protected bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults()?.Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxRadioButtonListBase<,>) + " has to be set.");
+	[Parameter] public ButtonVariant? Variant { get; set; }
+	protected ButtonVariant VariantEffective => Variant ?? GetSettings()?.Variant ?? GetDefaults()?.Variant ?? throw new InvalidOperationException(nameof(Variant) + " default for " + nameof(HxRadioButtonListBase<,>) + " has to be set.");
 
 	/// <summary>
 	/// Size of buttons for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>.
@@ -206,55 +206,84 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 			bool isToggleButton = (RenderMode == RadioButtonListRenderMode.ToggleButtons) || (RenderMode == RadioButtonListRenderMode.ButtonGroup);
 
-			if (!isToggleButton)
-			{
-				builder.OpenElement(100, "div");
-
-				// TODO CoreCssClass
-				builder.AddAttribute(101, "class", CssClassHelper.Combine("form-check", Inline ? "form-check-inline" : null, ItemCssClassImpl, ItemCssClassSelectorImpl?.Invoke(item)));
-			}
-
-			builder.OpenElement(200, "input");
-			builder.AddAttribute(201, "class", CssClassHelper.Combine(
-				isToggleButton ? "btn-check" : "form-check-input",
-				(RenderMode == RadioButtonListRenderMode.ButtonGroup) ? ItemInputCssClassSelectorImpl?.Invoke(item) : CssClassHelper.Combine(ItemInputCssClassImpl, ItemInputCssClassSelectorImpl?.Invoke(item))));
-			builder.AddAttribute(202, "type", "radio");
-			builder.AddAttribute(203, "name", GroupName);
-			builder.AddAttribute(204, "id", inputId);
-			builder.AddAttribute(205, "value", index.ToString());
-			builder.AddAttribute(206, "checked", selected);
-			builder.AddAttribute(207, "disabled", !CascadeEnabledComponent.EnabledEffective(this));
-			int j = index;
-			builder.AddAttribute(208, "onclick", EventCallback.Factory.Create(this, () => HandleInputClick(j)));
-			builder.SetUpdatesAttributeName("checked");
-			builder.AddEventStopPropagationAttribute(209, "onclick", true);
 			if (isToggleButton)
 			{
-				builder.AddAttribute(210, "autocomplete", "off");
-			}
-			builder.AddMultipleAttributes(250, AdditionalAttributes);
-			builder.CloseElement(); // input
+				// Bootstrap 6 toggle button: btn-check moves to the label with a nested unstyled input (no id/for pairing, uses :has())
+				builder.OpenElement(100, "label");
+				builder.AddAttribute(101, "class", CssClassHelper.Combine(
+					"btn-check",
+					VariantEffective.ToButtonVariantAndColorCssClass(ColorEffective),
+					ButtonSizeEffective.ToButtonSizeCssClass(),
+					ItemTextCssClassImpl,
+					ItemTextCssClassSelectorImpl?.Invoke(item)));
 
-			builder.OpenElement(300, "label");
-			builder.AddAttribute(301, "class", CssClassHelper.Combine(
-				isToggleButton ? "btn" : "form-check-label",
-				isToggleButton ? ColorEffective.ToButtonColorCss(OutlineEffective) : null,
-				isToggleButton ? ButtonSizeEffective.ToButtonSizeCssClass() : null,
-				ItemTextCssClassImpl,
-				ItemTextCssClassSelectorImpl?.Invoke(item)));
-			builder.AddAttribute(302, "for", inputId);
-			if (ItemTemplateImpl != null)
-			{
-				builder.AddContent(303, ItemTemplateImpl(item));
+				builder.OpenElement(200, "input");
+				builder.AddAttribute(201, "class", (RenderMode == RadioButtonListRenderMode.ButtonGroup) ? ItemInputCssClassSelectorImpl?.Invoke(item) : CssClassHelper.Combine(ItemInputCssClassImpl, ItemInputCssClassSelectorImpl?.Invoke(item)));
+				builder.AddAttribute(202, "type", "radio");
+				builder.AddAttribute(203, "name", GroupName);
+				builder.AddAttribute(204, "id", inputId);
+				builder.AddAttribute(205, "value", index.ToString());
+				builder.AddAttribute(206, "checked", selected);
+				builder.AddAttribute(207, "disabled", !CascadeEnabledComponent.EnabledEffective(this));
+				int j = index;
+				builder.AddAttribute(208, "onclick", EventCallback.Factory.Create(this, () => HandleInputClick(j)));
+				builder.SetUpdatesAttributeName("checked");
+				builder.AddEventStopPropagationAttribute(209, "onclick", true);
+				builder.AddAttribute(210, "autocomplete", "off");
+				builder.AddMultipleAttributes(250, AdditionalAttributes);
+				builder.CloseElement(); // input
+
+				if (ItemTemplateImpl != null)
+				{
+					builder.AddContent(303, ItemTemplateImpl(item));
+				}
+				else
+				{
+					builder.AddContent(304, SelectorHelpers.GetText(ItemTextSelectorImpl, item));
+				}
+				builder.CloseElement(); // label
 			}
 			else
 			{
-				builder.AddContent(304, SelectorHelpers.GetText(ItemTextSelectorImpl, item));
-			}
-			builder.CloseElement(); // label
+				builder.OpenElement(100, "div");
+				builder.AddAttribute(101, "class", CssClassHelper.Combine("form-field", Inline ? "d-inline-grid me-3" : null, ItemCssClassImpl, ItemCssClassSelectorImpl?.Invoke(item)));
 
-			if (!isToggleButton)
-			{
+				builder.OpenElement(200, "input");
+				builder.AddAttribute(201, "class", CssClassHelper.Combine(
+					"radio",
+					(ColorEffective != ThemeColor.None) ? ColorEffective.ToThemeCss() : null,
+					ItemInputCssClassImpl,
+					ItemInputCssClassSelectorImpl?.Invoke(item)));
+				builder.AddAttribute(202, "type", "radio");
+				builder.AddAttribute(203, "name", GroupName);
+				builder.AddAttribute(204, "id", inputId);
+				builder.AddAttribute(205, "value", index.ToString());
+				builder.AddAttribute(206, "checked", selected);
+				builder.AddAttribute(207, "disabled", !CascadeEnabledComponent.EnabledEffective(this));
+				int j = index;
+				builder.AddAttribute(208, "onclick", EventCallback.Factory.Create(this, () => HandleInputClick(j)));
+				builder.SetUpdatesAttributeName("checked");
+				builder.AddEventStopPropagationAttribute(209, "onclick", true);
+				builder.AddMultipleAttributes(250, AdditionalAttributes);
+				builder.CloseElement(); // input
+
+				builder.OpenElement(300, "label");
+				string labelCssClass = CssClassHelper.Combine(ItemTextCssClassImpl, ItemTextCssClassSelectorImpl?.Invoke(item));
+				if (!String.IsNullOrEmpty(labelCssClass))
+				{
+					builder.AddAttribute(301, "class", labelCssClass);
+				}
+				builder.AddAttribute(302, "for", inputId);
+				if (ItemTemplateImpl != null)
+				{
+					builder.AddContent(303, ItemTemplateImpl(item));
+				}
+				else
+				{
+					builder.AddContent(304, SelectorHelpers.GetText(ItemTextSelectorImpl, item));
+				}
+				builder.CloseElement(); // label
+
 				builder.CloseElement(); // div
 			}
 		}

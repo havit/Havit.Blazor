@@ -11,8 +11,8 @@ Bootstrap Badge component.
 | Color | `ThemeColor?` | Badge color (background). |
 | CssClass | `string` | Any additional CSS class to apply. |
 | Settings | `BadgeSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
-| TextColor | `ThemeColor?` | Color of badge text. Use `Color` for the background color. The default is `ThemeColor.None` (color automatically selected to work with the chosen background color). |
 | Type | `BadgeType?` | Badge type - Regular or rounded-pills. The default is `BadgeType.Regular`. |
+| Variant | `BadgeVariant?` | Visual variant of the badge (solid, subtle, outline), composed with `Color`. The default is `BadgeVariant.Solid`. |
 
 ## Static properties
 
@@ -28,4 +28,5 @@ Bootstrap Badge component.
 - HxBadge_Demo_Pills.razor
 - HxBadge_Demo_Positioned.razor
 - HxBadge_Demo_Positioned_RoundedCircle.razor
+- HxBadge_Demo_Variants.razor
 

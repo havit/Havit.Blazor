@@ -11,7 +11,8 @@ public sealed class HxInputRange
 	{
 		Defaults = new InputRangeSettings()
 		{
-			BindEvent = BindEvent.OnChange
+			BindEvent = BindEvent.OnChange,
+			Bubble = false
 		};
 	}
 }

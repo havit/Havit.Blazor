@@ -22,6 +22,14 @@ public partial class HxTabPanel : ComponentBase
 	[Parameter] public NavVariant NavVariant { get; set; } = NavVariant.Tabs;
 
 	/// <summary>
+	/// Orientation of the tab navigation.
+	/// Use <see cref="NavOrientation.Vertical"/> to place the tab navigation alongside the tab content (e.g. vertical pills).
+	/// Applies only to the <see cref="TabPanelVariant.Standard"/> variant.
+	/// The default value is <see cref="NavOrientation.Horizontal"/>.
+	/// </summary>
+	[Parameter] public NavOrientation Orientation { get; set; } = NavOrientation.Horizontal;
+
+	/// <summary>
 	/// Set to <see cref="TabPanelVariant.Card"/> if you want to wrap the tab panel in a card with the tab navigation in the header.
 	/// </summary>
 	[Parameter] public TabPanelVariant Variant { get; set; } = TabPanelVariant.Standard;
@@ -185,6 +193,12 @@ public partial class HxTabPanel : ComponentBase
 	/// </summary>
 	protected async Task HandleTabClick(HxTab tab)
 	{
+		// The tab is rendered as a <button> with aria-disabled (not the native disabled attribute), so it stays
+		// focusable; guard here to ignore keyboard activation (Enter/Space) of a disabled tab.
+		if (!CascadeEnabledComponent.EnabledEffective(tab))
+		{
+			return;
+		}
 		await SetActiveTabIdAsync(tab.Id);
 	}
 
@@ -212,15 +226,20 @@ public partial class HxTabPanel : ComponentBase
 			return null;
 		}
 
-		if (NavVariant == NavVariant.Pills)
-		{
-			return "card-header-pills";
-		}
-		else if (NavVariant == NavVariant.Tabs)
+		if (NavVariant == NavVariant.Tabs)
 		{
 			return "card-header-tabs";
 		}
 
+		// Bootstrap 6 has no card-header-pills class (only card-header-tabs remains).
 		return null;
 	}
+
+	private bool IsVerticalLayout => (Variant == TabPanelVariant.Standard) && (Orientation == NavOrientation.Vertical);
+
+	private NavOrientation GetNavOrientation() => IsVerticalLayout ? NavOrientation.Vertical : NavOrientation.Horizontal;
+
+	private string GetNavAriaOrientation() => IsVerticalLayout ? "vertical" : null;
+
+	private string GetNavCssClassForOrientation() => IsVerticalLayout ? "me-3" : null;
 }

@@ -5,18 +5,21 @@
 	</InputGroupStartTemplate>
 </HxInputText>
 
-<HxInputText Label="Input groups (template with button/dropdown)" @bind-Value="@value">
+<HxInputText Label="Input groups (template with button/menu)" @bind-Value="@value">
 	<InputGroupStartTemplate>
-		<HxButton Text="Button" Color="ThemeColor.Secondary" Outline="true" />
-		<HxButton Text="Button 2" Color="ThemeColor.Secondary" Outline="true" />
+		<HxButton Text="Button" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
+		<HxButton Text="Button 2" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
 	</InputGroupStartTemplate>
 	<InputGroupEndTemplate>
-		@* Bootstrap does not expect any <HxDropdown /> wrapper here. *@
-		<HxDropdownToggleButton Text="Dropdown" Color="ThemeColor.Secondary" Outline="true" />
-		<HxDropdownMenu>
-			<HxDropdownItem>Item 1</HxDropdownItem>
-			<HxDropdownItem>Item 2</HxDropdownItem>
-		</HxDropdownMenu>
+		<HxMenu>
+			<Toggle>
+				<HxMenuToggleButton Text="Menu" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
+			</Toggle>
+			<Content>
+				<HxMenuItem>Item 1</HxMenuItem>
+				<HxMenuItem>Item 2</HxMenuItem>
+			</Content>
+		</HxMenu>
 	</InputGroupEndTemplate>
 </HxInputText>
 

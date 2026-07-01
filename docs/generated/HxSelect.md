@@ -7,12 +7,19 @@ Select - DropDownList - single-item picker. Consider creating a custom picker de
 | Name | Type | Description |
 |------|------|-------------|
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
+| AllowFiltering | `bool?` | Enables filtering capabilities. When enabled, the component renders the Bootstrap Combobox (a toggle with a menu containing a filter input) instead of the native `select` element. The default is `false`. |
 | AutoSort | `bool` | When `true`, the items are sorted before displaying in the select. The default value is `true`. |
 | ChipTemplate | `RenderFragment` | The chip template. |
+| ClearFilterOnHide | `bool?` | When enabled, the filter will be cleared when the menu is closed. The default is `true`. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | Data | `IEnumerable<TItem>` | The items to display. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
 | Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading . When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use . |
+| FilterClearIcon | `IconBase` | Icon displayed in filter input for clearing the filter. |
+| FilterEmptyResultTemplate | `RenderFragment` | Template that defines what should be rendered in case of empty filtered items. |
+| FilterEmptyResultText | `string` | Text to display when the filtered results list is empty and when not using `FilterEmptyResultTemplate`. |
+| FilterPredicate | `Func<TItem, string, bool>` | Defines a custom filtering predicate to apply to the list of items. If not specified, the default behavior filters items based on whether the item text (obtained via `TextSelector`) contains the filter query string. |
+| FilterSearchIcon | `IconBase` | Icon displayed in filter input for searching the filter. |
 | GenerateChip | `bool` | When `true`, ` is used to generate chip item(s). The default is true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
@@ -54,6 +61,8 @@ Select - DropDownList - single-item picker. Consider creating a custom picker de
 ## Available demo samples
 
 - HxSelect_Demo.razor
+- HxSelect_Demo_CustomFiltering.razor
+- HxSelect_Demo_Filtering.razor
 - HxSelect_Demo_InputGroups.razor
 - HxSelect_Demo_ItemDisabledSelector.razor
 

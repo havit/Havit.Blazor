@@ -4,8 +4,8 @@
 <HxTooltip @ref="tooltipComponent" Text="Tooltip on top">
 	<HxButton Color="ThemeColor.Secondary" Text="Tooltip on top (default)" />
 </HxTooltip>
-<HxButton Text="Disable" OnClick="HandleDisableClick" Color="ThemeColor.Warning" Outline="@(!enabled)" Spinner="false" />
-<HxButton Text="Enable" OnClick="HandleEnableClick" Color="ThemeColor.Success" Outline="@enabled" Spinner="false" />
+<HxButton Text="Disable" OnClick="HandleDisableClick" Color="ThemeColor.Warning" Variant="@(!enabled ? ButtonVariant.Outline : ButtonVariant.Solid)" Spinner="false" />
+<HxButton Text="Enable" OnClick="HandleEnableClick" Color="ThemeColor.Success" Variant="@(enabled ? ButtonVariant.Outline : ButtonVariant.Solid)" Spinner="false" />
 
 @code
 {

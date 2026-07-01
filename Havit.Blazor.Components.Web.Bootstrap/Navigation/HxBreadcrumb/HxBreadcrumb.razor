@@ -1,7 +1,9 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<nav style="--bs-breadcrumb-divider: @(Divider is null ? "none" : IsDividerImage() ? Divider : $"'{Divider}'");" aria-label="breadcrumb">
+<nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        @ChildContent
+        <CascadingValue Value="this" IsFixed="true">
+            @ChildContent
+        </CascadingValue>
     </ol>
 </nav>

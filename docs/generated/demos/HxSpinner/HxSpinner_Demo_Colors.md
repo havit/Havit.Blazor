@@ -26,11 +26,11 @@
 </div>
 
 <div style="display: inline-block; margin-right: 0.5rem;">
-    <HxSpinner Color="ThemeColor.Light" />
+    <HxSpinner Color="ThemeColor.Secondary" />
 </div>
 
 <div style="display: inline-block; margin-right: 0.5rem;">
-    <HxSpinner Color="ThemeColor.Dark" />
+    <HxSpinner Color="ThemeColor.Inverse" />
 </div>
 
 ```

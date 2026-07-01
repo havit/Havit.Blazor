@@ -46,7 +46,7 @@ public class SearchBoxSettings
 	public string CssClass { get; set; }
 
 	/// <summary>
-	/// Additional CSS classes for the items in the dropdown menu.
+	/// Additional CSS classes for the items in the menu.
 	/// </summary>
 	public string ItemCssClass { get; set; }
 

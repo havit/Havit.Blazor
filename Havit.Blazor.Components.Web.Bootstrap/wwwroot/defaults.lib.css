@@ -1,10 +1,10 @@
-:root,
+﻿:root,
 [data-bs-theme=dark] {
 	/* HxAutosuggest */
 	--hx-autosuggest-input-close-icon-opacity: 						.25;
-	--hx-autosuggest-item-highlighted-background-color: 			var(--bs-tertiary-bg);
-	--hx-autosuggest-dropdown-menu-height: 							300px;
-	--hx-autosuggest-dropdown-menu-width: 							100%;
+	--hx-autosuggest-item-highlighted-background-color: 			var(--bs-bg-1);
+	--hx-autosuggest-menu-height: 							300px;
+	--hx-autosuggest-menu-width: 							100%;
 	--hx-autosuggest-input-search-icon-color:						unset;
 	--hx-autosuggest-input-clear-icon-color:						unset;
 
@@ -12,7 +12,7 @@
 	--hx-button-gap: 							.25rem;
 
 	/* HxSidebar */
-	--hx-sidebar-background-color: 									var(--bs-body-bg);
+	--hx-sidebar-background-color: 									var(--bs-bg-body);
 	--hx-sidebar-collapsed-width: 									72px;
 	--hx-sidebar-width: 											300px;
 	--hx-sidebar-max-height: 										100vh;
@@ -20,18 +20,18 @@
 	--hx-sidebar-item-font-size: 									1rem;
 	--hx-sidebar-item-content-gap:									.75rem;
 	--hx-sidebar-item-padding: 										.75rem;
-	--hx-sidebar-item-color: 										var(--bs-body-color);
-	--hx-sidebar-item-icon-color: 									var(--bs-primary);
-	--hx-sidebar-item-border-radius: 								var(--bs-border-radius);
+	--hx-sidebar-item-color: 										var(--bs-fg-body);
+	--hx-sidebar-item-icon-color: 									var(--bs-primary-fg);
+	--hx-sidebar-item-border-radius: 								var(--bs-radius-4);
 	--hx-sidebar-item-margin: 										0;
-	--hx-sidebar-item-hover-color: 									var(--bs-primary);
-	--hx-sidebar-item-hover-background-color: 						var(--bs-primary-rgb);
+	--hx-sidebar-item-hover-color: 									var(--bs-primary-fg);
+	--hx-sidebar-item-hover-background-color: 						var(--bs-primary-bg);
 	--hx-sidebar-item-hover-background-opacity: 					.1;
-	--hx-sidebar-item-hover-icon-color: 							var(--bs-primary);
-	--hx-sidebar-item-active-color: 								var(--bs-primary);
-	--hx-sidebar-item-active-background-color: 						var(--bs-primary-rgb);
+	--hx-sidebar-item-hover-icon-color: 							var(--bs-primary-fg);
+	--hx-sidebar-item-active-color: 								var(--bs-primary-fg);
+	--hx-sidebar-item-active-background-color: 						var(--bs-primary-bg);
 	--hx-sidebar-item-active-background-opacity: 					.1;
-	--hx-sidebar-item-active-icon-color: 							var(--bs-primary);
+	--hx-sidebar-item-active-icon-color: 							var(--bs-primary-fg);
 	--hx-sidebar-item-active-font-weight: 							inherit;
 	--hx-sidebar-parent-item-active-color:							var(--hx-sidebar-item-color);
 	--hx-sidebar-parent-item-active-background-opacity:				0;
@@ -48,11 +48,11 @@
 	--hx-sidebar-brand-logo-height: 								2.5rem;
 	--hx-sidebar-brand-shortname-width: 							2.5rem;
 	--hx-sidebar-brand-shortname-height: 							2.5rem;
-	--hx-sidebar-brand-shortname-background-color: 					var(--bs-primary);
-	--hx-sidebar-brand-shortname-border-radius: 					var(--bs-border-radius);
+	--hx-sidebar-brand-shortname-background-color: 					var(--bs-primary-bg);
+	--hx-sidebar-brand-shortname-border-radius: 					var(--bs-radius-4);
 	--hx-sidebar-brand-shortname-color: 							var(--bs-white);
 	--hx-sidebar-brand-shortname-font-weight: 						600;
-	--hx-sidebar-brand-name-color: 									var(--bs-body-color);
+	--hx-sidebar-brand-name-color: 									var(--bs-fg-body);
 	--hx-sidebar-brand-name-font-weight: 							600;
 	--hx-sidebar-brand-gap: 										.5rem;
 	--hx-sidebar-footer-padding: 									0 1rem 1rem 1rem;
@@ -60,11 +60,11 @@
 	--hx-sidebar-footer-item-margin: 								0;
 	--hx-sidebar-footer-item-font-size: 							1rem;
 	--hx-sidebar-footer-item-content-gap: 							.75rem;
-	--hx-sidebar-footer-item-color: 								var(--bs-body-color);
+	--hx-sidebar-footer-item-color: 								var(--bs-fg-body);
 	--hx-sidebar-footer-item-radius: 								unset;
 	--hx-sidebar-footer-item-hover-background-color: 				unset;
 	--hx-sidebar-footer-item-hover-background-opacity: 				unset;
-	--hx-sidebar-footer-item-hover-color: 							var(--bs-body-color);
+	--hx-sidebar-footer-item-hover-color: 							var(--bs-fg-body);
 
 	/* HxProgressOverlay */
 	--hx-progress-overlay-color: 									var(--bs-white);
@@ -74,9 +74,6 @@
 	--hx-form-spacing: 1.25rem;
 
 	/* HxChipList */
-	--hx-chip-list-chip-margin:										0.75rem 0.25rem .375rem 0;
-	--hx-chip-list-chip-gap:										.25rem;
-	--hx-chip-list-chip-remove-btn-opacity: 						.75;
 	--hx-chip-list-chip-reset-btn-padding: 							.45em .75em;
 	--hx-chip-list-chip-label-font-weight: 							400;
 	--hx-chip-list-chip-label-opacity: 								1; /* 1 cause the contrast is not accessible in the default themes*/
@@ -85,103 +82,97 @@
 	/* HxContextMenu */
 	--hx-context-menu-button-color: 								unset;
 	--hx-context-menu-button-border: 								unset;
-	--hx-context-menu-button-border-radius: 						var(--bs-border-radius-sm);
+	--hx-context-menu-button-border-radius: 						var(--bs-radius-3);
 	--hx-context-menu-button-padding: 								0 .25rem;
-	--hx-context-menu-button-hover-background: 						rgba(var(--bs-emphasis-color-rgb), .1);
+	--hx-context-menu-button-hover-background: 						color-mix(in srgb, var(--bs-fg-body) 10%, transparent);
 	--hx-context-menu-button-font-size:								inherit;
 	--hx-context-menu-item-icon-margin: 							0 .5rem 0 0;
 
-	/* HxDropdown */
-	--hx-dropdown-menu-item-icon-margin: 							0 .5rem 0 0;
 
 	/* HxGrid */
-	--hx-grid-button-hover-background: 								var(--bs-secondary-bg);
-	--hx-grid-button-border-radius: 								var(--bs-border-radius);
-	--hx-grid-sorted-icon-color: 									var(--bs-primary);
-	--hx-grid-progress-indicator-color:								var(--bs-primary);
+	--hx-grid-button-hover-background: 								var(--bs-bg-2);
+	--hx-grid-button-border-radius: 								var(--bs-radius-4);
+	--hx-grid-sorted-icon-color: 									var(--bs-primary-fg);
+	--hx-grid-progress-indicator-color:								var(--bs-primary-fg);
 
 	/* HxInputFileDropZone */
 	--hx-input-file-drop-zone-border-width: 						1px;
 	--hx-input-file-drop-zone-box-shadow: 							none;
 	--hx-input-file-drop-zone-hover-box-shadow: 					0 0 0 var(--bs-focus-ring-width) var(--bs-focus-ring-color);
 	--hx-input-file-drop-zone-border-color: 						var(--bs-border-color);
-	--hx-input-file-drop-zone-disabled-color: 						var(--bs-secondary-color);
-	--hx-input-file-drop-zone-disabled-background-color: 			var(--bs-secondary-bg);
+	--hx-input-file-drop-zone-disabled-color: 						var(--bs-fg-3);
+	--hx-input-file-drop-zone-disabled-background-color: 			var(--bs-control-disabled-bg);
 	--hx-input-file-drop-zone-background-color: 					transparent;
-	--hx-input-file-drop-zone-hover-background-color: 				rgba(var(--bs-primary-rgb), .1);
-	--hx-input-file-drop-zone-hover-border-color: 					var(--bs-primary);
-	--hx-input-file-drop-zone-border-radius: 						var(--bs-border-radius-lg);
+	--hx-input-file-drop-zone-hover-background-color: 				color-mix(in srgb, var(--bs-primary-bg) 10%, transparent);
+	--hx-input-file-drop-zone-hover-border-color: 					var(--bs-primary-border);
+	--hx-input-file-drop-zone-border-radius: 						var(--bs-radius-5);
 	--hx-input-file-drop-zone-margin: 								0;
 	--hx-input-file-drop-zone-padding: 								3rem;
 
 	/* HxCalendar */
-	--hx-calendar-day-hover-background: 							var(--bs-tertiary-bg);
+	/* Defaults follow the Bootstrap 6 Datepicker (--bs-datepicker-* tokens are scoped to its [data-vc="calendar"] element, hence the fallbacks to the same global tokens). */
+	--hx-calendar-day-hover-background: 							var(--bs-datepicker-day-hover-bg, var(--bs-bg-1));
+	--hx-calendar-day-border: 										none;
 	--hx-calendar-day-hover-border: 								none;
-	--hx-calendar-day-selected-background: 							var(--bs-primary);
-	--hx-calendar-day-selected-color: 								var(--bs-white);
+	--hx-calendar-day-selected-background: 							var(--bs-datepicker-day-selected-bg, var(--bs-primary-bg));
+	--hx-calendar-day-selected-color: 								var(--bs-datepicker-day-selected-color, var(--bs-primary-contrast));
 	--hx-calendar-day-selected-border: 								none;
-	--hx-calendar-day-out-color: 									var(--bs-tertiary-color);
+	--hx-calendar-day-out-color: 									color-mix(in srgb, var(--bs-datepicker-color, var(--bs-fg-body)) 50%, transparent);
 	--hx-calendar-day-in-color: 									unset;
-	--hx-calendar-day-disabled-opacity: 							.5;
-	--hx-calendar-day-disabled-text-decoration: 					line-through;
-	--hx-calendar-day-names-color: 									unset;
-	--hx-calendar-day-names-font-weight: 							700;
-	--hx-calendar-navigation-button-hover-background: 				var(--bs-tertiary-bg);
+	--hx-calendar-day-disabled-color: 								var(--bs-datepicker-day-disabled-color, var(--bs-fg-4));
+	--hx-calendar-day-disabled-opacity: 							1;
+	--hx-calendar-day-disabled-text-decoration: 					none;
+	--hx-calendar-day-names-color: 									var(--bs-datepicker-weekday-color, var(--bs-fg-3));
+	--hx-calendar-day-names-font-weight: 							600;
+	--hx-calendar-navigation-button-hover-background: 				var(--bs-datepicker-day-hover-bg, var(--bs-bg-1));
 	--hx-calendar-navigation-button-focus-box-shadow: 				0 0 0 var(--bs-focus-ring-width) var(--bs-focus-ring-color);
-	--hx-calendar-navigation-button-text-color: 					var(--bs-tertiary-color);
+	--hx-calendar-navigation-button-text-color: 					var(--bs-datepicker-color, var(--bs-fg-body));
 	--hx-calendar-day-today-border: 								none;
-	--hx-calendar-day-today-background: 							var(--bs-primary-rgb);
-	--hx-calendar-day-today-background-opacity: 					.1;
-	--hx-calendar-day-today-color: 									var(--bs-primary);
-	--hx-calendar-day-border-radius: 								var(--bs-border-radius-sm);
-	--hx-calendar-day-padding: 										.375rem .5rem;
+	--hx-calendar-day-today-background: 							var(--bs-datepicker-day-today-bg, var(--bs-bg-2));
+	--hx-calendar-day-today-background-opacity: 					1;
+	--hx-calendar-day-today-color: 									var(--bs-datepicker-day-today-color, var(--bs-fg-1));
+	--hx-calendar-day-border-radius: 								var(--bs-radius-5);
 	--hx-calendar-day-width: 										2.25rem;
-	--hx-calendar-day-height: 										2.25rem;
-	--hx-calendar-day-spacing: 										.125rem;
-	--hx-calendar-font-size: 										.875rem;
+	--hx-calendar-day-height: 										1.875rem;
+	--hx-calendar-day-spacing: 										.25rem;
+	--hx-calendar-font-size: 										.75rem;
 
-	/* Offcanvas */
-	--hx-offcanvas-close-icon-font-size: 							2rem;
-	--hx-offcanvas-footer-padding-y: 								1rem;
-	--hx-offcanvas-footer-padding-x: 								1rem;
-	--hx-offcanvas-horizontal-width-sm: 							400px;
-	--hx-offcanvas-horizontal-width-lg: 							600px;
+	/* HxDrawer */
+	--hx-drawer-close-icon-font-size: 							2rem;
+	--hx-drawer-horizontal-width-sm: 							400px;
+	--hx-drawer-horizontal-width-lg: 							600px;
 
 	/* ListLayout */
 	--hx-list-layout-table-font-size: 								.875rem;
 	--hx-list-layout-header-gap:									.5rem;
 
+	/* HxSelect */
+	--hx-select-filter-input-icon-opacity: 						.25;
+
 	/* HxMultiSelect */
-	--hx-multi-select-background-color: 							var(--bs-body-bg);
-	--hx-multi-select-dropdown-menu-height: 						300px;
+	--hx-multi-select-menu-height: 						300px;
 	--hx-multi-select-filter-input-icon-opacity: 					.25;
-	--hx-multi-select-dropdown-menu-width: 							100%;
+	--hx-multi-select-menu-width: 							100%;
 
 	/* TagInput */
-	--hx-input-tags-tag-gap: 										.25rem;
-	--hx-input-tags-input-width: 									3em;
-	--hx-input-tags-input-placeholder-color: 						var(--bs-secondary-color);
 	--hx-input-tags-naked-font-size-lg: 							1.25em;
 	--hx-input-tags-naked-font-size-sm: 							.875em;
-	--hx-input-tags-control-focused-box-shadow: 					0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
-	--hx-input-tags-control-focused-border-color: 					rgba(var(--bs-primary-rgb), .3);
 	--hx-input-tags-add-button-text-margin: 						0 0 0 .25rem;
 	--hx-input-tags-add-button-disabled-opacity: 					.65;
-	--hx-input-tags-remove-button-margin: 							0 0 0 .25rem;
-	--hx-input-tags-dropdown-item-highlighted-background-color: 	var(--bs-tertiary-bg);
+	--hx-input-tags-menu-item-highlighted-background-color: 	var(--bs-bg-1);
 
 	/* TreeView */
-	--hx-tree-view-item-border-radius: 								var(--bs-border-radius-sm);
+	--hx-tree-view-item-border-radius: 								var(--bs-radius-3);
 	--hx-tree-view-item-border-width: 								0;
 	--hx-tree-view-item-border-style: 								unset;
 	--hx-tree-view-item-border-color: 								unset;
-	--hx-tree-view-item-color: 										var(--bs-bg-color);
-	--hx-tree-view-item-hover-color: 								var(--bs-primary);
-	--hx-tree-view-item-selected-color: 							var(--bs-primary);
+	--hx-tree-view-item-color: 										var(--bs-fg-body);
+	--hx-tree-view-item-hover-color: 								var(--bs-primary-fg);
+	--hx-tree-view-item-selected-color: 							var(--bs-primary-fg);
 	--hx-tree-view-item-background: 								transparent;
-	--hx-tree-view-item-hover-background: 							var(--bs-primary-rgb);
+	--hx-tree-view-item-hover-background: 							var(--bs-primary-bg);
 	--hx-tree-view-item-hover-background-opacity: 					.1;
-	--hx-tree-view-item-selected-background: 						var(--bs-primary-rgb);
+	--hx-tree-view-item-selected-background: 						var(--bs-primary-bg);
 	--hx-tree-view-item-spacer-width: 								1rem;
 	--hx-tree-view-item-font-size: 									.75rem;
 	--hx-tree-view-item-padding: 									.25rem .5rem;
@@ -190,10 +181,10 @@
 	--hx-tree-view-expander-container-width: 						1rem;
 
 	/* HxProgressIndicator */
-	--hx-progress-indicator-background: 							var(--bs-body-bg);
+	--hx-progress-indicator-background: 							var(--bs-bg-body);
 	--hx-progress-indicator-box-shadow: 							var(--bs-box-shadow);
 	--hx-progress-indicator-border-color: 							var(--bs-border-color);
-	--hx-progress-indicator-spinner-color: 							var(--bs-primary);
+	--hx-progress-indicator-spinner-color: 							var(--bs-primary-fg);
 
 	/* HxToastContainer */
 	--hx-toast-container-padding: 									.5rem;
@@ -203,11 +194,11 @@
 	--hx-search-box-item-icon-font-size: 							inherit;
 	--hx-search-box-item-title-font-size: 							inherit;
 	--hx-search-box-item-title-color: 								inherit;
-	--hx-search-box-item-subtitle-color: 							var(--bs-secondary);
+	--hx-search-box-item-subtitle-color: 							var(--bs-fg-3);
 	--hx-search-box-item-subtitle-font-size: 						.75rem;
-	--hx-search-box-item-highlighted-background-color: 				var(--bs-tertiary-bg);
-	--hx-search-box-dropdown-menu-height: 							300px;
-	--hx-search-box-dropdown-menu-width: 							100%;
+	--hx-search-box-item-highlighted-background-color: 				var(--bs-bg-1);
+	--hx-search-box-menu-height: 							300px;
+	--hx-search-box-menu-width: 							100%;
 	--hx-search-box-input-search-icon-color:						unset;
 	--hx-search-box-input-clear-icon-color:							unset;
 }

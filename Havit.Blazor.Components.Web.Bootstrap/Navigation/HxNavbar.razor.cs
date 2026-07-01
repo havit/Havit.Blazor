@@ -2,7 +2,7 @@
 
 /// <summary>
 /// <see href="https://getbootstrap.com/docs/5.3/components/navbar/">Bootstrap 5 Navbar</see> component - a responsive navigation header.<br/>
-/// Provides support for branding, navigation, and more, including support for the collapse plugin.<br />
+/// Provides support for branding, navigation, and more, including support for the responsive drawer.<br />
 /// For full documentation and demos, visit: <see href="https://havit.blazor.eu/components/HxNavbar">https://havit.blazor.eu/components/HxNavbar</see>
 /// </summary>
 public partial class HxNavbar
@@ -46,9 +46,9 @@ public partial class HxNavbar
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
-	protected internal string GetDefaultCollapseId()
+	protected internal string GetDefaultDrawerId()
 	{
-		return Id + "-collapse";
+		return Id + "-drawer";
 	}
 
 	protected virtual string GetExpandCssClass()
@@ -56,11 +56,11 @@ public partial class HxNavbar
 		return Expand switch
 		{
 			NavbarExpand.Always => "navbar-expand",
-			NavbarExpand.SmallUp => "navbar-expand-sm",
-			NavbarExpand.MediumUp => "navbar-expand-md",
-			NavbarExpand.LargeUp => "navbar-expand-lg",
-			NavbarExpand.ExtraLargeUp => "navbar-expand-xl",
-			NavbarExpand.XxlUp => "navbar-expand-xxl",
+			NavbarExpand.SmallUp => "sm:navbar-expand",
+			NavbarExpand.MediumUp => "md:navbar-expand",
+			NavbarExpand.LargeUp => "lg:navbar-expand",
+			NavbarExpand.ExtraLargeUp => "xl:navbar-expand",
+			NavbarExpand.XxlUp => "2xl:navbar-expand",
 			NavbarExpand.Never => null,
 			_ => throw new InvalidOperationException($"Unknown {nameof(NavbarExpand)} value {Expand}.")
 		};

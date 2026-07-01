@@ -23,11 +23,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 			SuggestDelay = 300,
 			Delimiters = new() { ',', ';', ' ' },
 			ShowAddButton = false,
-			TagBadgeSettings = new BadgeSettings()
-			{
-				Color = ThemeColor.Light,
-				TextColor = ThemeColor.Dark,
-			}
+			Color = ThemeColor.None,
 		};
 	}
 
@@ -108,12 +104,43 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	protected bool? SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck;
 
 	/// <summary>
-	/// The settings for the <see cref="HxBadge"/> used to render tags. The default is <c>Color="<see cref="ThemeColor.Light"/>"</c> and <c>TextColor="<see cref="ThemeColor.Dark"/>"</c>.
+	/// The theme color of the tag chips (applied as a Bootstrap <c>theme-*</c> class).
+	/// The default is <see cref="ThemeColor.None"/> (the native grayscale chip appearance).
 	/// </summary>
+	[Parameter] public ThemeColor? Color { get; set; }
+#pragma warning disable CS0618 // TagBadgeSettings is obsolete, we still honor its Color and CssClass for backward compatibility
+	protected ThemeColor ColorEffective => Color
+		?? TagBadgeSettings?.Color
+		?? GetSettings()?.Color
+		?? GetSettings()?.TagBadgeSettings?.Color
+		?? GetDefaults().Color
+		?? GetDefaults().TagBadgeSettings?.Color
+		?? ThemeColor.None;
+
+	/// <summary>
+	/// The CSS class(es) rendered with the individual tag chips (theme color + legacy <see cref="TagBadgeSettings"/> CssClass).
+	/// </summary>
+	protected string TagCssClassEffective => CssClassHelper.Combine(
+		ColorEffective.ToThemeCss(),
+		TagBadgeSettings?.CssClass ?? GetSettings()?.TagBadgeSettings?.CssClass ?? GetDefaults().TagBadgeSettings?.CssClass);
+#pragma warning restore CS0618
+
+	/// <summary>
+	/// The settings for the <see cref="HxBadge"/> previously used to render tags.
+	/// </summary>
+	/// <remarks>
+	/// Tags are no longer rendered as badges since Bootstrap 6. Only the <see cref="BadgeSettings.Color"/> (mapped to a <c>theme-*</c> class)
+	/// and <see cref="BadgeSettings.CssClass"/> values are honored.
+	/// </remarks>
+	[Obsolete("Tags are no longer rendered as badges since Bootstrap 6 (the native Chip component is used). Use the Color parameter (mapped to a theme-* class) instead. Only the Color and CssClass values of these settings are honored.")]
 	[Parameter] public BadgeSettings TagBadgeSettings { get; set; }
-	protected BadgeSettings TagBadgeSettingsEffective => TagBadgeSettings ?? GetSettings()?.TagBadgeSettings ?? GetDefaults().TagBadgeSettings ?? throw new InvalidOperationException(nameof(TagBadgeSettings) + " default for " + nameof(HxInputTags) + " has to be set.");
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
+	/// <remarks>
+	/// <see cref="Bootstrap.LabelType.Floating"/> is not supported since Bootstrap 6. The component renders with the
+	/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/chips/">chip-input</see> pattern,
+	/// where the wrapper owns the visual chrome, while Bootstrap 6 floating labels require the input itself to be the <c>.form-control</c>.
+	/// </remarks>
 	[Parameter] public LabelType? LabelType { get; set; }
 	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
 	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
@@ -125,7 +152,7 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize; InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 
 
-	protected override LabelValueRenderOrder RenderOrder => (LabelType == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* label rendered by HxInputTagsInternal */ : LabelValueRenderOrder.LabelValue;
+	private protected override string CoreInputCssClass => "form-ghost";
 	private protected override string CoreCssClass => "hx-input-tags position-relative";
 
 	/// <summary>
@@ -156,10 +183,27 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 	private HxInputTagsInternal _hxInputTagsInternalComponent;
 
 	/// <inheritdoc />
+	protected override void OnParametersSet()
+	{
+		if (LabelTypeEffective == Bootstrap.LabelType.Floating)
+		{
+			throw new InvalidOperationException("LabelType.Floating is not supported on HxInputTags in Bootstrap 6 — the chip-input wrapper owns the visual chrome and cannot host a floating label. Use LabelType.Regular.");
+		}
+
+		base.OnParametersSet();
+	}
+
+	/// <inheritdoc />
+	protected override string GetInputCssClassToRender()
+	{
+		// The input size CSS class (form-control-sm/form-control-lg) is not rendered, the Bootstrap 6 chip-input wrapper has no size variants.
+		string validationCssClass = IsValueInvalid() ? InvalidCssClass : null;
+		return CssClassHelper.Combine(CoreInputCssClass, InputCssClass, validationCssClass);
+	}
+
+	/// <inheritdoc />
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
-		LabelType labelTypeEffective = (this as IInputWithLabelType).LabelTypeEffective;
-
 		builder.OpenComponent<HxInputTagsInternal>(1);
 		builder.AddAttribute(1000, nameof(HxInputTagsInternal.Value), Value);
 		builder.AddAttribute(1001, nameof(HxInputTagsInternal.ValueChanged), EventCallback.Factory.Create<List<string>>(this, HandleValueChanged));
@@ -167,18 +211,17 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 		builder.AddAttribute(1005, nameof(HxInputTagsInternal.SuggestMinimumLengthEffective), SuggestMinimumLengthEffective);
 		builder.AddAttribute(1006, nameof(HxInputTagsInternal.SuggestDelayEffective), SuggestDelayEffective);
 		builder.AddAttribute(1007, nameof(HxInputTagsInternal.InputId), InputId);
-		builder.AddAttribute(1008, nameof(HxInputTagsInternal.CoreFormControlCssClass), GetInputCssClassToRender()); // we want to shift original input-classes to the wrapping .form-control container
+		builder.AddAttribute(1008, nameof(HxInputTagsInternal.InputCssClass), GetInputCssClassToRender()); // form-ghost (+ is-invalid) goes to the inner input, the chip-input wrapper reflects the states via :has()
 		builder.AddAttribute(1009, nameof(HxInputTagsInternal.EnabledEffective), EnabledEffective);
-		builder.AddAttribute(1011, nameof(HxInputTagsInternal.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
-		builder.AddAttribute(1012, nameof(HxInputTagsInternal.LabelTypeEffective), labelTypeEffective);
+		builder.AddAttribute(1011, nameof(HxInputTagsInternal.Placeholder), Placeholder);
 		builder.AddAttribute(1013, nameof(HxInputTagsInternal.AllowCustomTags), AllowCustomTags);
 		builder.AddAttribute(1014, nameof(HxInputTagsInternal.DelimitersEffective), DelimitersEffective);
 		builder.AddAttribute(1015, nameof(HxInputTagsInternal.InputSizeEffective), ((IInputWithSize)this).InputSizeEffective);
 		builder.AddAttribute(1016, nameof(HxInputTagsInternal.ShowAddButtonEffective), ShowAddButtonEffective);
 		builder.AddAttribute(1017, nameof(HxInputTagsInternal.Naked), Naked);
-		builder.AddAttribute(1018, nameof(HxInputTagsInternal.CssClass), CssClassHelper.Combine(CssClass, IsValueInvalid() ? InvalidCssClass : null));
+		builder.AddAttribute(1018, nameof(HxInputTagsInternal.CssClass), CssClass);
 		builder.AddAttribute(1019, nameof(HxInputTagsInternal.AddButtonText), AddButtonText);
-		builder.AddAttribute(1020, nameof(HxInputTagsInternal.TagBadgeSettingsEffective), TagBadgeSettingsEffective);
+		builder.AddAttribute(1020, nameof(HxInputTagsInternal.TagCssClass), TagCssClassEffective);
 		builder.AddAttribute(1021, nameof(HxInputTagsInternal.InputGroupStartText), InputGroupStartText);
 		builder.AddAttribute(1022, nameof(HxInputTagsInternal.InputGroupEndText), InputGroupEndText);
 		builder.AddAttribute(1023, nameof(HxInputTagsInternal.InputGroupStartTemplate), InputGroupStartTemplate);

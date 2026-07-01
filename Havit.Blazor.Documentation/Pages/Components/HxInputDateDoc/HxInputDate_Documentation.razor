@@ -1,6 +1,12 @@
 @attribute [Route("/components/" + nameof(HxInputDate))]
 
 <ApiDoc Type="typeof(HxInputDate<TValue>)">
+    <DocAlert Type="DocAlertType.Warning">
+        Bootstrap 6 renders this input with the <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/">form-adorn</a> pattern
+        (the wrapper carries the border and focus styling, the inner input is an unstyled <code>form-ghost</code>).
+        Floating labels (<code>LabelType.Floating</code>) are therefore no longer supported &mdash; Bootstrap 6 floating labels require the input itself to be the <code>.form-control</code>.
+    </DocAlert>
+
     <DocHeading Title="Basic usage" />
     <Demo Type="typeof(HxInputDate_Demo)" Tabs="false" />
 

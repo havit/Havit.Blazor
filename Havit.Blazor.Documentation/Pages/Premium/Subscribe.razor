@@ -1,4 +1,4 @@
-@page "/premium/subscribe"
+﻿@page "/premium/subscribe"
 @layout HomeLayout
 
 <PageTitle>Subscribe to Premium | HAVIT Blazor Bootstrap</PageTitle>
@@ -13,7 +13,7 @@
 
 <div class="container">
 	<div class="row g-4 justify-content-center mb-5">
-		<div class="col-12 col-md-6 col-lg-5">
+		<div class="col-12 md:col-6 lg:col-5">
 			<HxCard CssClass="h-100 rounded-4 bg-body-secondary border-0" BodyCssClass="p-4 d-flex flex-column">
 				<BodyTemplate>
 					<div class="d-flex align-items-center gap-2 mb-2">
@@ -27,13 +27,13 @@
 						<PlanItem Text="Manage subscription &amp; payment method anytime" />
 					<PlanItem Text="Access activation may take up to 48 hours" />
 					</div>
-					<a href="https://buy.stripe.com/8x2cN62zOggT1DvcEs4Rq00" class="btn btn-dark w-100 rounded-pill mt-auto">
+					<a href="https://buy.stripe.com/8x2cN62zOggT1DvcEs4Rq00" class="btn-solid theme-inverse w-100 rounded-pill mt-auto">
 						Subscribe with Credit Card
 					</a>
 				</BodyTemplate>
 			</HxCard>
 		</div>
-		<div class="col-12 col-md-6 col-lg-5">
+		<div class="col-12 md:col-6 lg:col-5">
 			<HxCard CssClass="h-100 rounded-4" BodyCssClass="p-4 d-flex flex-column">
 				<BodyTemplate>
 					<div class="d-flex align-items-center gap-2 mb-2">

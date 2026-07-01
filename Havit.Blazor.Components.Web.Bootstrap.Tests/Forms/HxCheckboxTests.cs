@@ -100,7 +100,7 @@ public class HxCheckboxTests : BunitTestBase
 		var cut = Render(componentRenderer);
 
 		// Assert
-		var label = cut.Find("label.form-check-label");
+		var label = cut.Find("div.form-field > label");
 		Assert.Equal(labelText, label.TextContent);
 	}
 }

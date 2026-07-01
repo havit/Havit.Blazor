@@ -4,7 +4,7 @@
 	<HxSearchBox @ref="searchBoxComponent" DataProvider="ProvideSearchResults" Label="Search needle in a haystack" InputSize="InputSize.Small" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
 		<DefaultContentTemplate>
 			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
-			<HxButton Text="Close" Color="ThemeColor.Primary" OnClick="async () => await searchBoxComponent.HideDropdownAsync()" />
+			<HxButton Text="Close" Color="ThemeColor.Primary" OnClick="async () => await searchBoxComponent.HideMenuAsync()" />
 		</DefaultContentTemplate>
 	</HxSearchBox>
 
@@ -20,7 +20,8 @@
 		</DefaultContentTemplate>
 	</HxSearchBox>
 
-	<HxSearchBox DataProvider="ProvideSearchResults" Label="Floating Label" LabelType="LabelType.Floating" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
+	@* LabelType.Floating is not supported on HxSearchBox in Bootstrap 6 (the form-adorn wrapper owns the visual chrome and cannot host a floating label). *@
+	<HxSearchBox DataProvider="ProvideSearchResults" Label="Regular Label" LabelType="LabelType.Regular" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
 		<DefaultContentTemplate>
 			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
 		</DefaultContentTemplate>
@@ -37,10 +38,10 @@
 
 	<HxSearchBox DataProvider="ProvideSearchResults" SearchIconPlacement="SearchBoxSearchIconPlacement.Start" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
 		<InputGroupStartTemplate>
-			<HxButton Color="ThemeColor.Light" Text="Start" />
+			<HxButton Color="ThemeColor.Secondary" Text="Start" />
 		</InputGroupStartTemplate>
 		<InputGroupEndTemplate>
-			<HxButton Color="ThemeColor.Light" Text="End" />
+			<HxButton Color="ThemeColor.Secondary" Text="End" />
 		</InputGroupEndTemplate>
 		<DefaultContentTemplate>
 			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
@@ -54,7 +55,7 @@
 
 	<HxSearchBox DataProvider="ProvideSearchResults" SearchIconPlacement="SearchBoxSearchIconPlacement.Start" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
 		<InputGroupEndTemplate>
-			<HxButton Color="ThemeColor.Light" Text="End" />
+			<HxButton Color="ThemeColor.Secondary" Text="End" />
 		</InputGroupEndTemplate>
 		<DefaultContentTemplate>
 			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
@@ -68,7 +69,7 @@
 
 	<HxSearchBox DataProvider="ProvideSearchResults" SearchIconPlacement="SearchBoxSearchIconPlacement.Start" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
 		<InputGroupStartTemplate>
-			<HxButton Color="ThemeColor.Light" Text="Start" />
+			<HxButton Color="ThemeColor.Secondary" Text="Start" />
 		</InputGroupStartTemplate>
 		<DefaultContentTemplate>
 			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>

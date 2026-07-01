@@ -1,0 +1,48 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
+<dialog @ref="_dialogElement"
+        class="@CssClassHelper.Combine("hx-dialog dialog", GetSizeCssClass(), GetFullscreenCssClass(), GetScrollableCssClass(), GetAnimationCssClass(), CssClassEffective)"
+        data-bs-backdrop="@GetBackdropSetupValue(BackdropEffective)"
+        data-bs-modal="@(NonModalEffective ? "false" : null)">
+	@if (_opened || (RenderMode == DialogRenderMode.Always))
+	{
+		@if (!String.IsNullOrEmpty(Title) || (HeaderTemplate != null) || ShowCloseButtonEffective)
+		{
+			<div class="@CssClassHelper.Combine("dialog-header", HeaderCssClassEffective)">
+				@if (!String.IsNullOrEmpty(Title))
+				{
+					<h1 class="dialog-title">@Title</h1>
+				}
+				@if (HeaderTemplate != null)
+				{
+					@HeaderTemplate
+				}
+				@if (ShowCloseButtonEffective)
+				{
+					if (CloseButtonIconEffective is null)
+					{
+						<button type="button" class="btn-close text-reset" aria-label="Close" @onclick="HandleCloseButtonClick"></button>
+					}
+					else
+					{
+						<button type="button" class="hx-dialog-custom-close-btn btn-close d-flex align-items-center" aria-label="Close" @onclick="HandleCloseButtonClick">
+							<HxIcon Icon="@CloseButtonIconEffective" />
+						</button>
+					}
+				}
+			</div>
+		}
+		@if (BodyTemplate != null)
+		{
+			<div class="@CssClassHelper.Combine("dialog-body", BodyCssClassEffective)">
+				@BodyTemplate
+			</div>
+		}
+		@if (FooterTemplate != null)
+		{
+			<div class="@CssClassHelper.Combine("dialog-footer", FooterCssClassEffective)">
+				@FooterTemplate
+			</div>
+		}
+	}
+</dialog>

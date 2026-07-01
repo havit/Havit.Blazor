@@ -1,0 +1,30 @@
+﻿@page "/HxDialog_Backdrops_Test"
+
+<h3>HxDialog_Backdrops_Test</h3>
+
+<HxButton Text="Show drawer" OnClick="async () => await _drawerComponent.ShowAsync()" Color="ThemeColor.Primary" />
+
+@foreach (var i in Enumerable.Range(0, 1000))
+{
+	<div>@i</div>
+}
+
+<HxDrawer @ref="_drawerComponent">
+	<BodyTemplate>
+		<HxButton Text="Close with confirm" OnClick="HandleCloseWithConfirm" Color="ThemeColor.Primary" />
+	</BodyTemplate>
+</HxDrawer>
+
+
+@code {
+	[Inject] protected IHxMessageBoxService MessageBox { get; set; }
+	HxDrawer _drawerComponent;
+
+	async void HandleCloseWithConfirm()
+	{
+		if (await MessageBox.ConfirmAsync("Really?"))
+		{
+			await _drawerComponent.HideAsync();
+		}
+	}
+}

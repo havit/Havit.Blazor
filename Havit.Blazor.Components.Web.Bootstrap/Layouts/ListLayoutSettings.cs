@@ -16,7 +16,7 @@ public record ListLayoutSettings
 	public CardSettings CardSettings { get; set; }
 
 	/// <summary>
-	/// Settings for the <see cref="HxButton"/> that opens the filtering offcanvas.
+	/// Settings for the <see cref="HxButton"/> that opens the filtering drawer.
 	/// </summary>
 	public ButtonSettings FilterOpenButtonSettings { get; set; }
 
@@ -26,7 +26,7 @@ public record ListLayoutSettings
 	public ButtonSettings FilterSubmitButtonSettings { get; set; }
 
 	/// <summary>
-	/// Settings for the <see cref="HxOffcanvas"/> with the filter.
+	/// Settings for the <see cref="HxDrawer"/> with the filter.
 	/// </summary>
-	public OffcanvasSettings FilterOffcanvasSettings { get; set; }
+	public DrawerSettings FilterDrawerSettings { get; set; }
 }

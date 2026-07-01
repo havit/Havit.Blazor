@@ -1,0 +1,29 @@
+﻿# HxMenu_Demo_OffsetAndReference.razor
+
+```razor
+<HxMenu>
+	<Toggle>
+		<HxMenuToggleButton Color="ThemeColor.Secondary" MenuOffset="(30, 20)">Offset</HxMenuToggleButton>
+	</Toggle>
+	<Content>
+		<HxMenuItemNavLink Href="#">Item 1</HxMenuItemNavLink>
+		<HxMenuItemNavLink Href="#">Some item 2</HxMenuItemNavLink>
+	</Content>
+</HxMenu>
+
+<HxButtonGroup>
+	<HxButton Color="ThemeColor.Secondary">Reference</HxButton>
+	<HxMenu>
+		<Toggle>
+			<HxMenuToggleButton Color="ThemeColor.Secondary" MenuReference="parent" Icon="BootstrapIcon.ChevronExpand">
+				<span class="visually-hidden">Toggle menu</span>@* OPTIONAL (for accessibility) *@
+			</HxMenuToggleButton>
+		</Toggle>
+		<Content>
+			<HxMenuItemNavLink Href="#">Link with Href</HxMenuItemNavLink>
+			<HxMenuDivider />
+			<HxMenuText>Something else here</HxMenuText>
+		</Content>
+	</HxMenu>
+</HxButtonGroup>
+```

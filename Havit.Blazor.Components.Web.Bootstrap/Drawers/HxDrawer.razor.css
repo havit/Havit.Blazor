@@ -1,0 +1,12 @@
+﻿.drawer-start.hx-drawer-sm,
+.drawer-end.hx-drawer-sm {
+  width: var(--hx-drawer-horizontal-width-sm);
+}
+.drawer-start.hx-drawer-lg,
+.drawer-end.hx-drawer-lg {
+  width: var(--hx-drawer-horizontal-width-lg);
+}
+
+.hx-drawer-close-button {
+    color: inherit;
+}

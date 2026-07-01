@@ -1,0 +1,140 @@
+@attribute [Route("/components/" + nameof(HxMenu))]
+@attribute [Route("/components/" + nameof(HxMenuToggleButton))]
+@attribute [Route("/components/" + nameof(HxMenuToggleElement))]
+@attribute [Route("/components/" + nameof(HxMenuItem))]
+@attribute [Route("/components/" + nameof(HxSubmenu))]
+@attribute [Route("/components/" + nameof(HxMenuItemNavLink))]
+@attribute [Route("/components/" + nameof(HxMenuText))]
+@attribute [Route("/components/" + nameof(HxMenuHeader))]
+@attribute [Route("/components/" + nameof(HxMenuDivider))]
+
+@inherits PerformanceLoggingComponentBase
+@using Components.HxNavDoc
+
+
+<ApiDoc Type="typeof(HxMenu)">
+	<MainContent>
+		<DocHeading Title="Basic usage" />
+		<p>
+			Use <code>HxMenu</code> with a <code>HxMenuToggleButton</code> in the <code>Toggle</code> render fragment
+			and menu items in the <code>Content</code> render fragment.
+			The toggle and the menu are rendered as direct siblings, the
+			<a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/">Bootstrap 6 Menu</a> requires no wrapper element.
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_Basic)" Tabs="false" />
+
+		<DocHeading Title="Custom toggle element" Id="custom-toggle" />
+		<p>
+			Use <code>HxMenuToggleElement</code> (with <code>ElementName="..."</code>) to create a menu with a custom toggle.
+			(Usually you will add <code>role="button"</code> to apply pointer cursor type.)
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_CustomToggle)" />
+
+		<DocHeading Title="Placement" />
+		<p>
+			By default, the menu is placed below the toggle and aligned to its start (<code>MenuPlacement.BottomStart</code>).
+			Use the <code>Placement</code> parameter to change the placement.
+			For responsive placements (e.g. <code>bottom-start md:bottom-end</code>), use the <code>ResponsivePlacement</code> parameter.
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_Placement)" />
+
+		<DocHeading Title="Header, Disabled, Active" />
+		<p>Set <code>CssClass="active"</code> to highlight the item.</p>
+		<p>Set <code>Enabled="false"</code> to disable the item. The <code>HxFormState.Enabled</code> inheritance is also supported.</p>
+		<Demo Type="typeof(HxMenu_Demo_HeaderDisabledActive)" />
+
+		<DocHeading Title="Dividers" Id="dividers" />
+		<p>Separate groups of related menu items with a <code>HxMenuDivider</code> (renders an <code>hr.menu-divider</code>).</p>
+		<Demo Type="typeof(HxMenu_Demo_Dividers)" />
+
+		<DocHeading Title="Text" Id="text" />
+		<p>Create non-interactive menu items with <code>HxMenuText</code> (renders a <code>span.menu-text</code>). Feel free to style further with custom CSS or text utilities.</p>
+		<Demo Type="typeof(HxMenu_Demo_Text)" />
+
+		<DocHeading Title="Submenus" Id="submenus" />
+		<p>
+			Use <code>HxSubmenu</code> to create a nested menu. Set the trigger via <code>Text</code> (or <code>TitleTemplate</code>)
+			and place the nested items in its child content; the submenu opens on hover or click. Submenus can be nested to any depth,
+			and the trigger supports the same <code>Icon</code> and <code>Enabled</code> behavior as <code>HxMenuItem</code>.
+			See the <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#submenus">Bootstrap documentation</a>.
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_Submenus)" />
+
+		<DocHeading Title="Forms" Id="forms" />
+		<p>
+			Put a form within a menu, or make it into a menu, and use <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/utilities/spacing/">spacing utilities</a>
+			to give it the negative space you require. Any custom content can be placed directly into the <code>Content</code> render fragment.
+			Set <code>AutoClose="MenuAutoClose.Outside"</code> so clicking inside the form does not close the menu.
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_Forms)" />
+
+		<DocHeading Title="Split button" Id="split-button" />
+		<p>
+			To create a split button, place a regular <code>HxButton</code> (the action) followed by a <code>HxMenu</code>
+			with an empty <code>HxMenuToggleButton</code> into a <code><a href="/components/@nameof(HxButtonGroup)">@nameof(HxButtonGroup)</a></code>.
+			Bootstrap handles the border radius of the adjacent buttons automatically.
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_SplitButton)" />
+
+		<DocHeading Title="Menu offset and reference" Id="offset-reference" />
+		<p>
+			You can change the location of the menu by setting the <code>@nameof(HxMenuToggleButton).@nameof(HxMenuToggleButton.MenuOffset)</code>
+			and/or <code>@nameof(HxMenuToggleButton).@nameof(HxMenuToggleButton.MenuReference)</code>.
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_OffsetAndReference)" />
+
+		<DocHeading Title="Reference to custom HTML element" Id="custom-reference" />
+		<p>
+			If you want to position the menu relative to a specific element, use the <code>MenuReference</code> parameter.<br />
+			Specific structure of <code>#id</code> gets recognized and handed over to the underlying Bootstrap menu.
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_Reference)" />
+
+		<DocHeading Title="AutoClose behavior" Id="AutoClose" />
+		<p>By default, the menu is closed when clicking inside or outside the menu. You can use the <code>AutoClose</code> parameter to change this behavior of the menu.</p>
+		<Demo Type="typeof(HxMenu_Demo_AutoClose)" />
+
+		<DocHeading Title="Nav with menu" Id="nav" />
+		<p>You can use <code>HxMenu</code> inside <code><a href="/components/@nameof(HxNav)">@nameof(HxNav)</a></code>.</p>
+		<Demo Type="typeof(HxNav_Demo_Menus)" />
+
+		<DocHeading Title="Dark menus" Id="dark" />
+		<p>Opt into darker menus to match a dark navbar or custom style by wrapping both the toggle and the menu in a parent element with <code>data-bs-theme="dark"</code>. <code>HxMenu</code> applies unmatched attributes to the <code>.menu</code> element and renders the toggle as a sibling, so setting <code>data-bs-theme</code> on <code>HxMenu</code> itself would theme the menu but not the toggle — use a wrapper to theme both.</p>
+		<Demo Type="typeof(HxMenu_Demo_Dark)" />
+
+		<DocHeading Title="Translucent menus" Id="translucent" />
+		<p>Add the <code>menu-translucent</code> CSS class (through the <code>CssClass</code> parameter) for a semi-transparent menu with a background blur (new in Bootstrap 6).</p>
+		<Demo Type="typeof(HxMenu_Demo_Translucent)" />
+
+		<DocHeading Title="Scrollable menus" Id="scrollable" />
+		<p>Add the <code>menu-scrollable</code> CSS class (through the <code>CssClass</code> parameter) to constrain the menu height and scroll its content.</p>
+		<Demo Type="typeof(HxMenu_Demo_Scrollable)" />
+
+		<DocHeading Title="Menu with icons" Id="icons" />
+		<p>You can use the <code>Icon</code> parameter to add an icon to menu items.</p>
+		<Demo Type="typeof(HxMenu_Demo_Icons)" />
+
+		<DocHeading Title="Descriptions" Id="descriptions" />
+		<p>
+			Use a <code>menu-item-content</code> wrapper for a flex column layout and a <code>menu-item-description</code> element
+			for secondary text below the main label inside the <code>HxMenuItem</code> child content.
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_Descriptions)" />
+
+		<DocHeading Title="Selected" Id="selected" />
+		<p>
+			Add the <code>selected</code> CSS class (through the <code>CssClass</code> parameter) to a <code>HxMenuItem</code>
+			to indicate the current selection. Pair it with a <code>menu-item-check</code> SVG to render the check mark.
+		</p>
+		<Demo Type="typeof(HxMenu_Demo_Selected)" />
+	</MainContent>
+</ApiDoc>
+
+<ApiDoc Type="typeof(HxMenuToggleButton)" />
+<ApiDoc Type="typeof(HxMenuToggleElement)" />
+<ApiDoc Type="typeof(HxMenuItem)" />
+<ApiDoc Type="typeof(HxSubmenu)" />
+<ApiDoc Type="typeof(HxMenuItemNavLink)" />
+<ApiDoc Type="typeof(HxMenuText)" />
+<ApiDoc Type="typeof(HxMenuHeader)" />
+<ApiDoc Type="typeof(HxMenuDivider)" />

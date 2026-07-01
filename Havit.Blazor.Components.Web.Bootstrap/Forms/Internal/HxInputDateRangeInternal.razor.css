@@ -1,10 +1,10 @@
-::deep .feedback-floating {
+﻿::deep .feedback-floating {
     left: 0;
 }
 
-::deep .hx-input-date-range-dropdown-menu {
-	--bs-dropdown-padding-x: 0.5rem;
-	--bs-dropdown-padding-y: 0.5rem;
+::deep .hx-input-date-range-menu {
+	--bs-menu-padding-x: 0.5rem;
+	--bs-menu-padding-y: 0.5rem;
 	width: min-content;
 }
 
@@ -17,34 +17,22 @@
     margin-left: auto;
 }
 
-::deep .dropdown {
+::deep .hx-input-date-range-segment {
     flex: 1 0 50%;
 }
 
-::deep .dropdown:focus-within {
+::deep .hx-input-date-range-segment:focus-within {
     z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be larger than 5 because otherwise the validation message is rendered on top. */
 }
 
-.hx-input-date-icon {
-	display: flex;
-	align-items: center;
-	margin-right: 1rem;
-	z-index: 1;
-	position: absolute;
-	top: 50%;
-	right: 0;
-	transform: translateY(-50%);
-}
-
-.hx-input-date-has-calendar-icon ::deep .form-control {
-    padding-right: 2.5rem;
-}
-
-.hx-input-date-has-calendar-icon ::deep .is-invalid {
-	background-position: right calc(0.375em + 2rem) center;
-    padding-right: 4.25rem;
-}
-
 .hx-input-date-range:has(input:not(:disabled)) .hx-input-date-icon {
+	pointer-events: auto; /* .form-adorn-icon disables pointer events, the icon has to stay clickable (opens/closes the calendar) */
 	cursor: pointer;
+}
+
+/* Bootstrap styles only the input itself with :disabled, the form-adorn wrapper has to reflect the disabled state of the inner form-ghost input. */
+::deep .hx-input-date-range-segment:has(input:disabled) {
+	color: var(--bs-control-disabled-color);
+	background-color: var(--bs-control-disabled-bg);
+	border-color: var(--bs-control-disabled-border-color);
 }

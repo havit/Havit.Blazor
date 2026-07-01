@@ -1,9 +1,9 @@
 {
     "name": "havit-bootstrap",
     "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
-    "version": "5.3.8",
+    "version": "6.0.0-alpha1",
     "config": {
-      "version_short": "5.3"
+      "version_short": "6.0"
     },
     "keywords": [
       "css",
@@ -34,39 +34,31 @@
         "url": "https://opencollective.com/bootstrap"
       }
     ],
-    "main": "dist/js/bootstrap.js",
-    "module": "dist/js/bootstrap.esm.js",
     "sass": "scss/bootstrap.scss",
     "style": "dist/css/bootstrap.css",
     "scripts": {
-        "css": "npm-run-all css-compile css-prefix css-rtl css-minify",
+        "css": "npm-run-all css-clean css-compile css-prefix css-minify",
+        "css-clean": "shx rm -rf dist/css",
         "css-compile": "sass --style expanded --source-map --embed-sources --no-error-css scss/:dist/css/",
-        "css-rtl": "cross-env NODE_ENV=RTL postcss --config build/postcss.config.mjs --dir \"dist/css\" --ext \".rtl.css\" \"dist/css/*.css\" \"!dist/css/*.min.css\" \"!dist/css/*.rtl.css\"",
         "css-lint": "npm-run-all --aggregate-output --continue-on-error --parallel css-lint-*",
         "css-lint-stylelint": "stylelint \"**/*.{css,scss}\" --cache --cache-location .cache/.stylelintcache",
-        "css-lint-vars": "fusv scss/ site/src/scss/",
-        "css-minify": "npm-run-all --aggregate-output --parallel css-minify-*",
-        "css-minify-main": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output dist/css/ --batch --batch-suffix \".min\" \"dist/css/*.css\" \"!dist/css/*.min.css\" \"!dist/css/*rtl*.css\"",
-        "css-minify-rtl": "cleancss -O1 --format breakWith=lf --with-rebase --source-map --source-map-inline-sources --output dist/css/ --batch --batch-suffix \".min\" \"dist/css/*rtl.css\" \"!dist/css/*.min.css\"",
-        "css-prefix": "npm-run-all --aggregate-output --parallel css-prefix-*",
-        "css-prefix-main": "postcss --config build/postcss.config.mjs --replace \"dist/css/*.css\" \"!dist/css/*.rtl*.css\" \"!dist/css/*.min.css\"",         
+        "css-minify": "node build/css-minify.mjs",
+        "css-prefix": "postcss --config postcss.config.mjs --replace \"dist/css/*.css\" \"!dist/css/*.min.css\"",
         "watch": "npm-run-all --parallel watch-*",
-        "watch-css-main": "nodemon --watch scss/ --ext scss --exec \"npm-run-all css-lint css-compile css-prefix\"",
-        "watch-css-dist": "nodemon --watch dist/css/ --ext css --ignore \"dist/css/*.rtl.*\" --exec \"npm run css-rtl\"",
-        "publish-to-blazor": "shx cp -r dist/css/* ../Havit.Blazor.Components.Web.Bootstrap/wwwroot"
+        "watch-css-main": "nodemon --watch scss/ --ext scss --exec \"npm-run-all css-compile css-prefix\"",
+        "publish-to-blazor": "shx cp -r dist/css/* node_modules/bootstrap/dist/js/bootstrap.bundle.min.js node_modules/bootstrap/dist/js/bootstrap.bundle.min.js.map ../Havit.Blazor.Components.Web.Bootstrap/wwwroot"
     },
     "devDependencies": {
       "autoprefixer": "^10.4.21",
-      "bootstrap": "5.3.8",
-      "clean-css-cli": "^5.6.3",
-      "cross-env": "^10.0.0",
-      "find-unused-sass-variables": "^6.1.0",
+      "bootstrap": "github:twbs/bootstrap#e0fc5207281beba6658a9b2f176db5325a334517",
+      "browserslist": "^4.24.4",
+      "lightningcss": "^1.32.0",
       "nodemon": "^3.1.10",
       "npm-run-all2": "^8.0.4",
       "postcss": "^8.5.6",
       "postcss-cli": "^11.0.1",
-      "rtlcss": "^4.3.0",
-      "sass": "1.78.0",
+      "postcss-prefix-custom-properties": "^0.1.0",
+      "sass": "^1.100.0",
       "stylelint": "^16.23.1",
       "stylelint-config-twbs-bootstrap": "^16.1.0",
       "shx":"^0.4.0"

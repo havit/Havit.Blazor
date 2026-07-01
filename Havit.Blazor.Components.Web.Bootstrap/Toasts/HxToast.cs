@@ -25,6 +25,12 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
+	/// When <c>true</c>, enhances the toast translucency with a backdrop blur and saturation filter (<c>toast-translucent</c>, new in Bootstrap 6).
+	/// Default is <c>false</c>.
+	/// </summary>
+	[Parameter] public bool Translucent { get; set; }
+
+	/// <summary>
 	/// Header icon.
 	/// </summary>
 	[Parameter] public IconBase HeaderIcon { get; set; }
@@ -95,6 +101,7 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 		var ssrInit = true; // TODO .NET9 - disable ssrInit for pre-rendering (keep for pure static SSR)
 		builder.AddAttribute(104, "class", CssClassHelper.Combine(
 			"hx-toast toast",
+			Translucent ? "toast-translucent" : null,
 			ssrInit ? "hx-toast-init" : null,
 			Color?.ToTextBackgroundColorCss(),
 			CssClass));
@@ -200,8 +207,8 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 			ThemeColor.Danger => true,
 			ThemeColor.Warning => false,
 			ThemeColor.Info => false,
-			ThemeColor.Light => false,
-			ThemeColor.Dark => true,
+			ThemeColor.Accent => true,
+			ThemeColor.Inverse => true,
 			_ => throw new InvalidOperationException($"Unknown {nameof(Color)}: {Color}")
 		};
 	}

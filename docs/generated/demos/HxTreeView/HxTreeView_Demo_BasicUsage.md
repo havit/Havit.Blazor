@@ -2,7 +2,7 @@
 
 ```razor
 <div class="row">
-    <div class="col-lg-4" style="height: 400px">
+    <div class="lg:col-4" style="height: 400px">
         <HxTreeView TItem="Directory"
                     @bind-SelectedItem="selectedDirectory"
                     Items="@fileSystem"
@@ -11,7 +11,7 @@
                     ItemIconSelector="@(p => p.Icon)"
                     ItemChildrenSelector="@(p => p.Subdirectories)" />
     </div>
-    <div class="col-lg-4">
+    <div class="lg:col-4">
         @if (selectedDirectory == null)
         {
             <p>No directory selected.</p>

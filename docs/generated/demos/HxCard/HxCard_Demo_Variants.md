@@ -1,7 +1,7 @@
 ﻿# HxCard_Demo_Variants.razor
 
 ```razor
-<HxCard CssClass="bg-primary text-white mb-3" style="max-width: 18rem;">
+<HxCard Color="ThemeColor.Primary" CssClass="mb-3" style="max-width: 18rem;">
 	<HeaderTemplate>Header</HeaderTemplate>
 	<BodyTemplate>
 		<HxCardTitle>Primary card title</HxCardTitle>
@@ -9,59 +9,28 @@
 	</BodyTemplate>
 </HxCard>
 
-<HxCard CssClass="bg-secondary text-white mb-3" style="max-width: 18rem;">
+<HxCard Variant="CardVariant.Subtle" Color="ThemeColor.Primary" CssClass="mb-3" style="max-width: 18rem;">
 	<HeaderTemplate>Header</HeaderTemplate>
 	<BodyTemplate>
-		<HxCardTitle>Secondary card title</HxCardTitle>
+		<HxCardTitle>Subtle primary card</HxCardTitle>
 		<HxCardText>Some quick example text to build on the card title and make up the bulk of the card's content.</HxCardText>
 	</BodyTemplate>
 </HxCard>
 
-<HxCard CssClass="bg-success text-white mb-3" style="max-width: 18rem;">
+<HxCard Variant="CardVariant.Subtle" Color="ThemeColor.Danger" CssClass="mb-3" style="max-width: 18rem;">
 	<HeaderTemplate>Header</HeaderTemplate>
 	<BodyTemplate>
-		<HxCardTitle>Success card title</HxCardTitle>
+		<HxCardTitle>Subtle danger card</HxCardTitle>
 		<HxCardText>Some quick example text to build on the card title and make up the bulk of the card's content.</HxCardText>
 	</BodyTemplate>
 </HxCard>
 
-<HxCard CssClass="bg-danger text-white mb-3" style="max-width: 18rem;">
+<HxCard Variant="CardVariant.Translucent" CssClass="mb-3" style="max-width: 18rem;">
 	<HeaderTemplate>Header</HeaderTemplate>
 	<BodyTemplate>
-		<HxCardTitle>Danger card title</HxCardTitle>
-		<HxCardText>Some quick example text to build on the card title and make up the bulk of the card's content.</HxCardText>
+		<HxCardTitle>Translucent card</HxCardTitle>
+		<HxCardText>Frosted-glass translucency (new in Bootstrap 6).</HxCardText>
 	</BodyTemplate>
 </HxCard>
 
-<HxCard CssClass="bg-warning text-white mb-3" style="max-width: 18rem;">
-	<HeaderTemplate>Header</HeaderTemplate>
-	<BodyTemplate>
-		<HxCardTitle>Warning card title</HxCardTitle>
-		<HxCardText>Some quick example text to build on the card title and make up the bulk of the card's content.</HxCardText>
-	</BodyTemplate>
-</HxCard>
-
-<HxCard CssClass="bg-info mb-3" style="max-width: 18rem;">
-	<HeaderTemplate>Header</HeaderTemplate>
-	<BodyTemplate>
-		<HxCardTitle>Info card title</HxCardTitle>
-		<HxCardText>Some quick example text to build on the card title and make up the bulk of the card's content.</HxCardText>
-	</BodyTemplate>
-</HxCard>
-
-<HxCard CssClass="bg-light mb-3" style="max-width: 18rem;">
-	<HeaderTemplate>Header</HeaderTemplate>
-	<BodyTemplate>
-		<HxCardTitle>Light card title</HxCardTitle>
-		<HxCardText>Some quick example text to build on the card title and make up the bulk of the card's content.</HxCardText>
-	</BodyTemplate>
-</HxCard>
-
-<HxCard CssClass="bg-dark text-white mb-3" style="max-width: 18rem;">
-	<HeaderTemplate>Header</HeaderTemplate>
-	<BodyTemplate>
-		<HxCardTitle>Dark card title</HxCardTitle>
-		<HxCardText>Some quick example text to build on the card title and make up the bulk of the card's content.</HxCardText>
-	</BodyTemplate>
-</HxCard>
 ```

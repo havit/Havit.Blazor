@@ -127,8 +127,8 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	/// Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
 	/// for <see cref="CheckboxListRenderMode.ToggleButtons"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>.
 	/// </summary>
-	[Parameter] public bool? Outline { get; set; }
-	protected bool? OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline; // can be null, HxCheckbox.Outline remains unset
+	[Parameter] public ButtonVariant? Variant { get; set; }
+	protected ButtonVariant? VariantEffective => Variant ?? GetSettings()?.Variant ?? GetDefaults().Variant; // can be null, HxCheckbox.Variant remains unset
 
 	/// <summary>
 	/// Size of buttons for <see cref="CheckboxListRenderMode.ToggleButtons"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>.
@@ -198,7 +198,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 
 			builder.AddAttribute(9, nameof(HxCheckbox.RenderMode), checkboxRenderMode);
 			builder.AddAttribute(10, nameof(HxCheckbox.Color), ColorEffective);
-			builder.AddAttribute(11, nameof(HxCheckbox.Outline), OutlineEffective);
+			builder.AddAttribute(11, nameof(HxCheckbox.Variant), VariantEffective);
 			builder.AddAttribute(12, nameof(HxCheckbox.ButtonSize), ButtonSizeEffective);
 
 			// We need ValueExpression. Ehm, HxCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
