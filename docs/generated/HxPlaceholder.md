@@ -10,11 +10,11 @@ Bootstrap 5 Placeholder component, also known as Skeleton. Use loading placehold
 | ChildContent | `RenderFragment` | Optional content of the placeholder (usually not used). |
 | Color | `ThemeColor?` | Color of the placeholder. |
 | Columns | `string` | Number of template columns to span. Responsive setting for all devices including the extra-small ones (XS) below "small" breakpoint (`576px`). The value can be any integer number between `1` and `12` (`.col-1`), `auto` (`.col-auto`) or `true` (`.col`). |
-| ColumnsExtraLargeUp | `string` | Number of template columns to span for viewports above the "extra-large" breakpoint (`1280px`). The value can be any integer number between `1` and `12`, `auto`, or `true`. |
-| ColumnsLargeUp | `string` | Number of template columns to span for viewports above the "large" breakpoint (`1024px`). The value can be any integer number between `1` and `12`, `auto`, or `true`. |
+| ColumnsExtraLargeUp | `string` | Number of template columns to span for viewports above the "extra-large" breakpoint (`1200px`). The value can be any integer number between `1` and `12`, `auto`, or `true`. |
+| ColumnsLargeUp | `string` | Number of template columns to span for viewports above the "large" breakpoint (`992px`). The value can be any integer number between `1` and `12`, `auto`, or `true`. |
 | ColumnsMediumUp | `string` | Number of template columns to span for viewports above the "medium" breakpoint (`768px`). The value can be any integer number between `1` and `12`, `auto`, or `true`. |
 | ColumnsSmallUp | `string` | Number of template columns to span for viewports above the "small" breakpoint (`576px`). The value can be any integer number between `1` and `12`, `auto`, or `true`. |
-| ColumnsXxlUp | `string` | Number of template columns to span for viewports above the "2xl" breakpoint (`1536px`). The value can be any integer number between `1` and `12`, `auto`, or `true`. |
+| ColumnsXxlUp | `string` | Number of template columns to span for viewports above the "XXL" breakpoint (`1400px`). The value can be any integer number between `1` and `12`, `auto`, or `true`. |
 | CssClass | `string` | Additional CSS class. |
 | Settings | `PlaceholderSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | Size | `PlaceholderSize?` | Size of the placeholder. |

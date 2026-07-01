@@ -1,19 +1,19 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-@* PERF!!! Heavily used in data-lists/grids/etc. => do not over-use subcomponents unless absolutely necessary => don't use HxMenu components here *@
-@* Bootstrap 6: no wrapper element is required - the toggle and the .menu are direct siblings. *@
+@* PERF!!! Heavily used in data-lists/grids/etc. => do not over-use subcomponents unless absolutely necessary => don't use HxDropdown components here *@
 <div class="@CssClassHelper.Combine("hx-context-menu", CssClassEffective)">
-	<div role="button"
-		 class="hx-context-menu-btn"
-		 id="@_id"
-		 data-bs-toggle="menu"
-		 data-bs-placement="@MenuPlacementEffective.ToDataBsPlacement()"
-		 data-bs-floating-config="@GetFloatingConfig()"
-		 aria-haspopup="true"
-		 aria-expanded="false"
-		 @onclick:stopPropagation="true">
-		<HxIcon Icon="IconEffective" CssClass="@IconCssClassEffective" />
-	</div>
-	<div class="@CssClassHelper.Combine("menu", MenuCssClassEffective)" aria-labelledby="@_id">
-		@ChildContent
+	<div class="@CssClassHelper.Combine("dropdown", DropdownCssClassEffective)">
+		<div role="button"
+			 class="hx-context-menu-btn"
+			 id="@_id"
+			 data-bs-toggle="dropdown"
+			 data-bs-popper-config="@GetPopperConfig()"
+			 aria-haspopup="true"
+			 aria-expanded="false"
+			 @onclick:stopPropagation="true">
+			<HxIcon Icon="IconEffective" CssClass="@IconCssClassEffective" />
+		</div>
+		<ul class="@CssClassHelper.Combine("dropdown-menu", DropdownMenuAlignmentEffective.GetCssClass(), DropdownMenuCssClassEffective)" aria-labelledby="@_id">
+			@ChildContent
+		</ul>
 	</div>
 </div>

@@ -23,8 +23,8 @@ public partial class HxAccordionItem : ComponentBase
 	[Parameter] public string Id { get; set; } = Guid.NewGuid().ToString("N");
 
 	/// <summary>
-	/// Raised when the item is expanded.
-	/// Is not raised for the initial rendering even if the item is expanded.
+	/// Raised after the transition to this item (the animation is finished).
+	/// Is not raised for the initial rendering even if the item is not collapsed (no transition happened).
 	/// </summary>
 	[Parameter] public EventCallback<string> OnExpanded { get; set; }
 	/// <summary>
@@ -33,8 +33,8 @@ public partial class HxAccordionItem : ComponentBase
 	protected virtual Task InvokeOnExpandedAsync(string expandedItemId) => OnExpanded.InvokeAsync(expandedItemId);
 
 	/// <summary>
-	/// Raised when the item is collapsed.
-	/// Is not raised for the initial rendering even if the item is collapsed.
+	/// Raised after the transition from this item (the animation is finished).
+	/// Is not raised for the initial rendering even if the item is collapsed (no transition happened).
 	/// </summary>
 	[Parameter] public EventCallback<string> OnCollapsed { get; set; }
 	/// <summary>
@@ -57,18 +57,11 @@ public partial class HxAccordionItem : ComponentBase
 	/// </summary>
 	[Parameter] public string BodyCssClass { get; set; }
 
-	internal bool IsExpanded => _lastKnownStateIsExpanded;
-
 	private string _currentId;
 	private string _idEffective;
 	private bool _lastKnownStateIsExpanded;
 	private bool _isInitialized;
-
-	protected override void OnInitialized()
-	{
-		base.OnInitialized();
-		ParentAccordion?.RegisterItem(this);
-	}
+	private HxCollapse _collapseComponent;
 
 	protected override async Task OnParametersSetAsync()
 	{
@@ -124,42 +117,35 @@ public partial class HxAccordionItem : ComponentBase
 	/// </summary>
 	public async Task ExpandAsync()
 	{
-		if (_lastKnownStateIsExpanded)
-		{
-			return;
-		}
+		await _collapseComponent.ShowAsync();
 		_lastKnownStateIsExpanded = true;
-
-		await ParentAccordion.NotifyItemExpandedAsync(this);
-		await InvokeOnExpandedAsync(Id);
-
-		StateHasChanged();
 	}
 
 	/// <summary>
 	/// Collapses the item.
 	/// </summary>
-	public Task CollapseAsync() => CollapseCoreAsync(invokeExpandedItemIdChanged: true);
-
-	internal async Task CollapseCoreAsync(bool invokeExpandedItemIdChanged)
+	public async Task CollapseAsync()
 	{
-		if (!_lastKnownStateIsExpanded)
-		{
-			return;
-		}
+		await _collapseComponent.HideAsync();
 		_lastKnownStateIsExpanded = false;
-
-		await ParentAccordion.SetItemCollapsedAsync(Id, invokeExpandedItemIdChanged);
-		await InvokeOnCollapsedAsync(Id);
-
-		StateHasChanged();
 	}
 
-	private Task HandleHeaderClick()
+	private async Task HandleCollapseShown()
 	{
-		// The native <details> toggle is prevented (@onclick:preventDefault on the <summary>) - Blazor state is the source of truth
-		// (a re-render must not revert a browser-toggled open attribute, and exclusivity has to update the bound parameters).
-		return _lastKnownStateIsExpanded ? CollapseAsync() : ExpandAsync();
+		_lastKnownStateIsExpanded = true;
+
+		await ParentAccordion.SetItemExpandedAsync(Id);
+
+		await InvokeOnExpandedAsync(Id);
+	}
+
+	private async Task HandleCollapseHidden()
+	{
+		_lastKnownStateIsExpanded = false;
+
+		await ParentAccordion.SetItemCollapsedAsync(Id);
+
+		await InvokeOnCollapsedAsync(Id);
 	}
 
 	private bool IsSetToBeExpanded() => ParentAccordion.ExpandedItemIds.Contains(Id);

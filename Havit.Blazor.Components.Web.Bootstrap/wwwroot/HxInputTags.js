@@ -23,17 +23,16 @@ function handleKeyDown(event) {
 
 function handleInputBlur(event) {
 	// We need the blur event to confirm custom tag creation.
-	// When the menu is open, the blur event is fired before the click event on the menu item.
-	// We need to recognize, whether the blur event is fired because of the menu item click or because of the user clicked somewhere else.
-	// We will use relatedTarget property of the event to recognize the click on the menu item.
-	// If relatedTarget is within the menu, we will ignore the blur event.
-	let isWithinMenu = false;
+	// When the dropdown is open, the blur event is fired before the click event on the dropdown item.
+	// We need to recognize, whether the blur event is fired because of the dropdown item click or because of the user clicked somewhere else.
+	// We will use relatedTarget property of the event to recognize the click on the dropdown item.
+	// If relatedTarget is within the dropdown, we will ignore the blur event.
+	let isWithinDropdown = false;
 	if (event.relatedTarget) {
-		const menu = event.target.parentElement.querySelector('.menu');
-		isWithinMenu = (menu !== null) && menu.contains(event.relatedTarget);
+		isWithinDropdown = event.target.parentElement.contains(event.relatedTarget);
 	}
 
-	event.target.hxInputTagsDotnetObjectReference.invokeMethodAsync("HxInputTagsInternal_HandleInputBlur", isWithinMenu);
+	event.target.hxInputTagsDotnetObjectReference.invokeMethodAsync("HxInputTagsInternal_HandleInputBlur", isWithinDropdown);
 }
 
 export function open(inputElement, hxInputTagsDotnetObjectReference, delayShow) {
@@ -41,11 +40,11 @@ export function open(inputElement, hxInputTagsDotnetObjectReference, delayShow) 
 		return;
 	}
 
-	inputElement.setAttribute("data-bs-toggle", "menu");
+	inputElement.setAttribute("data-bs-toggle", "dropdown");
 	inputElement.hxInputTagsDotnetObjectReference = hxInputTagsDotnetObjectReference;
-	inputElement.addEventListener('hidden.bs.menu', handleMenuHidden)
+	inputElement.addEventListener('hidden.bs.dropdown', handleDropdownHidden)
 
-	const dd = new bootstrap.Menu(inputElement);
+	const dd = new bootstrap.Dropdown(inputElement);
 	if (!dd) {
 		return;
 	}
@@ -53,10 +52,10 @@ export function open(inputElement, hxInputTagsDotnetObjectReference, delayShow) 
 		dd.show();
 	}
 	else {
-		// Bootstrap menu registers onClick event handler which toggles the menu
-		// For focus-triggered menus we need to delay the show() as the upcomming click event will toggle (= hide) the menu
-		window.setTimeout(function (menu) {
-			menu.show();
+		// Bootstrap dropdown registers onClick event handler which toggles the dropdown
+		// For focus-triggered dropdowns we need to delay the show() as the upcomming click event will toggle (= hide) the dropdown
+		window.setTimeout(function (dropdown) {
+			dropdown.show();
 		}, 200, dd);
 	}
 }
@@ -75,29 +74,29 @@ export function destroy(inputElement) {
 		return;
 	}
 
-	inputElement.removeAttribute("data-bs-toggle", "menu");
+	inputElement.removeAttribute("data-bs-toggle", "dropdown");
 
-	const menu = bootstrap.Menu.getInstance(inputElement);
-	if (menu) {
-		menu.hide();
+	const dropdown = bootstrap.Dropdown.getInstance(inputElement);
+	if (dropdown) {
+		dropdown.hide();
 
-		inputElement.addEventListener('hidden.bs.menu', event => {
-			menu.dispose()
+		inputElement.addEventListener('hidden.bs.dropdown', event => {
+			dropdown.dispose()
 		})
 	}
 }
 
-function handleMenuHidden(event) {
-	event.target.removeEventListener('hidden.bs.menu', handleMenuHidden);
+function handleDropdownHidden(event) {
+	event.target.removeEventListener('hidden.bs.dropdown', handleDropdownHidden);
 
 	destroy(event.target);
 
 	// In Blazor, jsinterop is "faster" then events.
-	// As a result, this method (handleMenuHidden) is first, menu item click event (Blazor OnClick Event) second.
+	// As a result, this method (handleDropdownHidden) is first, dropdown item click event (Blazor OnClick Event) second.
 	// But we need the item click event to fire first.
 	// Therefore we delay jsinterop for a while.
 	window.setTimeout(function (element) {
-		element.hxInputTagsDotnetObjectReference?.invokeMethodAsync('HxInputTagsInternal_HandleMenuHidden');
+		element.hxInputTagsDotnetObjectReference?.invokeMethodAsync('HxInputTagsInternal_HandleDropdownHidden');
 	}, 1, event.target);
 }
 

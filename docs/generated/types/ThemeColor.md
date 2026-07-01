@@ -1,6 +1,6 @@
 ﻿# ThemeColor
 
-Bootstrap theme colors. In Bootstrap 6, theme colors are applied to components via composable `.theme-*` classes (e.g. `.btn-solid .theme-primary`). For more information, see Bootstrap 6 color documentation.
+Bootstrap theme colors. For more information, see https://getbootstrap.com/docs/5.3/customize/color/#theme-colors. Also, refer to the predefined button styles at https://getbootstrap.com/docs/5.3/components/buttons/.
 
 ## Enum values
 
@@ -13,7 +13,7 @@ Bootstrap theme colors. In Bootstrap 6, theme colors are applied to components v
 | Danger | 4 |  |
 | Warning | 5 |  |
 | Info | 6 |  |
-| Link | 7 | This color is intended to be used for buttons only. |
-| Accent | 8 | Accent theme color (new in Bootstrap 6). |
-| Inverse | 9 | Inverse theme color (new in Bootstrap 6) — dark in light color mode, light in dark color mode. Closest replacement for the former `Dark` theme color. |
+| Light | 7 |  |
+| Dark | 8 |  |
+| Link | 9 | This color is intended to be used for buttons only. |
 

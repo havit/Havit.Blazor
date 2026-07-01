@@ -1,26 +1,59 @@
-﻿.hx-autosuggest-input-button {
+.hx-autosuggest-input-wrapper {
+	--input-icon-button-width: 2.375rem
+}
+.hx-autosuggest-input-icon,
+.hx-autosuggest-input-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 5;
+	width: var(--input-icon-button-width);
+}
+
+.hx-autosuggest-input-button {
 	background-color: transparent;
 	border: none;
 	padding: 0;
-	pointer-events: auto; /* .form-adorn-icon disables pointer events, the clear button has to stay clickable */
-	cursor: pointer;
 }
 
 .hx-autosuggest-input-wrapper:focus-within {
-	z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be larger than 5 because otherwise the validation message is rendered on top. */
+	z-index: 6;
 }
 
-/* Bootstrap styles only the input itself with :disabled, the form-adorn wrapper has to reflect the disabled state of the inner form-ghost input. */
-.hx-autosuggest-input-wrapper:has(input:disabled) {
-	color: var(--bs-control-disabled-color);
-	background-color: var(--bs-control-disabled-bg);
-	border-color: var(--bs-control-disabled-border-color);
+.input-group .hx-autosuggest-input-wrapper {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+}
+
+.input-group .hx-autosuggest-input-wrapper:not(:first-child) ::deep .hx-autosuggest-input {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group .hx-autosuggest-input-wrapper:not(:last-child) ::deep .hx-autosuggest-input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+
+::deep .form-control {
+	padding-right: var(--input-icon-button-width);
+}
+
+.form-control-sm ~ .hx-autosuggest-input-icon {
+    font-size: .75rem;
 }
 
 ::deep .hx-autosuggest-input-icon-clear {
-	color: var(--hx-autosuggest-input-clear-icon-color);
+    color: var(--hx-autosuggest-input-clear-icon-color);
 }
 
 ::deep .hx-autosuggest-input-icon-search {
-	color: var(--hx-autosuggest-input-search-icon-color);
+    color: var(--hx-autosuggest-input-search-icon-color);
 }

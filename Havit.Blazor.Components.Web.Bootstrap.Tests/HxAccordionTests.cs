@@ -4,22 +4,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
 public class HxAccordionTests : BunitTestBase
 {
-	private static void AddItem(Bunit.ComponentParameterCollectionBuilder<HxAccordion> p, string id, string header, string body)
-	{
-		p.AddChildContent<HxAccordionItem>(item => item
-			.Add(i => i.Id, id)
-			.Add(i => i.HeaderTemplate, (RenderFragment)(b => b.AddContent(0, header)))
-			.Add(i => i.BodyTemplate, (RenderFragment)(b => b.AddContent(0, body))));
-	}
-
 	[Fact]
 	public void HxAccordion_Render_HasAccordionStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p => AddItem(p, "item1", "Header 1", "Body 1"));
+		var cut = RenderComponent<HxAccordion>(p => p
+			.AddChildContent<HxAccordionItem>(item => item
+				.Add(i => i.Id, "item1")
+				.Add(i => i.HeaderTemplate, (RenderFragment)(b => b.AddContent(0, "Header 1")))
+				.Add(i => i.BodyTemplate, (RenderFragment)(b => b.AddContent(0, "Body 1")))));
 
 		// Assert
 		var accordion = cut.Find("div.accordion");
+		Assert.NotNull(accordion);
 		Assert.True(accordion.ClassList.Contains("hx-accordion"));
 	}
 
@@ -27,153 +24,133 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordion_MultipleItems_RendersAllItems()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
-		{
-			AddItem(p, "item1", "Header 1", "Body 1");
-			AddItem(p, "item2", "Header 2", "Body 2");
-			AddItem(p, "item3", "Header 3", "Body 3");
-		});
+		var cut = RenderComponent<HxAccordion>(p => p
+			.AddChildContent(builder =>
+			{
+				builder.OpenComponent<HxAccordionItem>(0);
+				builder.AddAttribute(1, nameof(HxAccordionItem.Id), "item1");
+				builder.AddAttribute(2, nameof(HxAccordionItem.HeaderTemplate), (RenderFragment)(b => b.AddContent(0, "Header 1")));
+				builder.AddAttribute(3, nameof(HxAccordionItem.BodyTemplate), (RenderFragment)(b => b.AddContent(0, "Body 1")));
+				builder.CloseComponent();
+
+				builder.OpenComponent<HxAccordionItem>(10);
+				builder.AddAttribute(11, nameof(HxAccordionItem.Id), "item2");
+				builder.AddAttribute(12, nameof(HxAccordionItem.HeaderTemplate), (RenderFragment)(b => b.AddContent(0, "Header 2")));
+				builder.AddAttribute(13, nameof(HxAccordionItem.BodyTemplate), (RenderFragment)(b => b.AddContent(0, "Body 2")));
+				builder.CloseComponent();
+
+				builder.OpenComponent<HxAccordionItem>(20);
+				builder.AddAttribute(21, nameof(HxAccordionItem.Id), "item3");
+				builder.AddAttribute(22, nameof(HxAccordionItem.HeaderTemplate), (RenderFragment)(b => b.AddContent(0, "Header 3")));
+				builder.AddAttribute(23, nameof(HxAccordionItem.BodyTemplate), (RenderFragment)(b => b.AddContent(0, "Body 3")));
+				builder.CloseComponent();
+			}));
 
 		// Assert
-		Assert.Equal(3, cut.FindAll("details.accordion-item").Count);
+		var items = cut.FindAll("div.accordion-item");
+		Assert.Equal(3, items.Count());
 	}
 
 	[Fact]
-	public void HxAccordionItem_Render_HasNativeDetailsStructure()
+	public void HxAccordionItem_Render_HasCorrectStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p => AddItem(p, "item1", "Header Text", "Body Text"));
+		var cut = RenderComponent<HxAccordion>(p => p
+			.AddChildContent<HxAccordionItem>(item => item
+				.Add(i => i.Id, "item1")
+				.Add(i => i.HeaderTemplate, (RenderFragment)(b => b.AddContent(0, "Header Text")))
+				.Add(i => i.BodyTemplate, (RenderFragment)(b => b.AddContent(0, "Body Text")))));
 
-		// Assert — Bootstrap 6 accordion is built on native <details>/<summary>
-		var item = cut.Find("details.hx-accordion-item");
+		// Assert
+		var item = cut.Find("div.hx-accordion-item");
+		Assert.NotNull(item);
 		Assert.True(item.ClassList.Contains("accordion-item"));
-		Assert.False(item.HasAttribute("open"));
 
-		var summary = cut.Find("summary.accordion-header");
-		Assert.Contains("Header Text", summary.TextContent);
+		var header = cut.Find("h2.accordion-header");
+		Assert.NotNull(header);
 
-		var icon = summary.QuerySelector("svg.accordion-icon");
-		Assert.NotNull(icon);
+		var button = cut.Find("button.accordion-button");
+		Assert.NotNull(button);
+		Assert.Equal("button", button.GetAttribute("type"));
+		Assert.Equal("collapse", button.GetAttribute("data-bs-toggle"));
+		Assert.Contains("Header Text", button.TextContent);
 
 		var body = cut.Find("div.accordion-body");
+		Assert.NotNull(body);
 		Assert.Contains("Body Text", body.TextContent);
 	}
 
 	[Fact]
-	public void HxAccordion_StayOpenFalse_RendersSharedNameAttribute()
+	public void HxAccordionItem_DataBsTarget_MatchesCollapseId()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
-		{
-			p.Add(a => a.StayOpen, false);
-			AddItem(p, "item1", "Header 1", "Body 1");
-			AddItem(p, "item2", "Header 2", "Body 2");
-		});
+		var cut = RenderComponent<HxAccordion>(p => p
+			.AddChildContent<HxAccordionItem>(item => item
+				.Add(i => i.Id, "testitem")
+				.Add(i => i.HeaderTemplate, (RenderFragment)(b => b.AddContent(0, "Header")))
+				.Add(i => i.BodyTemplate, (RenderFragment)(b => b.AddContent(0, "Body")))));
 
-		// Assert — exclusive accordions share the name attribute (replaces v5 data-bs-parent)
-		var accordionId = cut.Find("div.accordion").Id;
-		var items = cut.FindAll("details.accordion-item");
-		Assert.All(items, item => Assert.Equal(accordionId, item.GetAttribute("name")));
+		// Assert - button data-bs-target should match collapse id
+		var button = cut.Find("button.accordion-button");
+		var dataBsTarget = button.GetAttribute("data-bs-target");
+		Assert.NotNull(dataBsTarget);
+		Assert.StartsWith("#collapse-", dataBsTarget);
+
+		// The aria-controls should match the collapse id (without #)
+		var ariaControls = button.GetAttribute("aria-controls");
+		Assert.Equal(dataBsTarget.TrimStart('#'), ariaControls);
 	}
 
 	[Fact]
-	public void HxAccordion_StayOpenTrue_NoNameAttribute()
+	public void HxAccordion_StayOpenFalse_SetsDataBsParent()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
-		{
-			p.Add(a => a.StayOpen, true);
-			AddItem(p, "item1", "Header 1", "Body 1");
-		});
+		var cut = RenderComponent<HxAccordion>(p => p
+			.Add(a => a.StayOpen, false)
+			.AddChildContent<HxAccordionItem>(item => item
+				.Add(i => i.Id, "item1")
+				.Add(i => i.HeaderTemplate, (RenderFragment)(b => b.AddContent(0, "Header")))
+				.Add(i => i.BodyTemplate, (RenderFragment)(b => b.AddContent(0, "Body")))));
+
+		// Assert - the collapse element should have data-bs-parent pointing to accordion
+		var accordionDiv = cut.Find("div.accordion");
+		var accordionId = accordionDiv.Id;
+
+		var collapseDiv = cut.Find("div.accordion-collapse");
+		var dataBsParent = collapseDiv.GetAttribute("data-bs-parent");
+		Assert.Equal($"#{accordionId}", dataBsParent);
+	}
+
+	[Fact]
+	public void HxAccordion_StayOpenTrue_NoDataBsParent()
+	{
+		// Act
+		var cut = RenderComponent<HxAccordion>(p => p
+			.Add(a => a.StayOpen, true)
+			.AddChildContent<HxAccordionItem>(item => item
+				.Add(i => i.Id, "item1")
+				.Add(i => i.HeaderTemplate, (RenderFragment)(b => b.AddContent(0, "Header")))
+				.Add(i => i.BodyTemplate, (RenderFragment)(b => b.AddContent(0, "Body")))));
+
+		// Assert - the collapse element should NOT have data-bs-parent
+		var collapseDiv = cut.Find("div.accordion-collapse");
+		var dataBsParent = collapseDiv.GetAttribute("data-bs-parent");
+		Assert.True(string.IsNullOrEmpty(dataBsParent), "data-bs-parent should not be set when StayOpen is true.");
+	}
+
+	[Fact]
+	public void HxAccordion_CssClass_IsApplied()
+	{
+		// Act
+		var cut = RenderComponent<HxAccordion>(p => p
+			.Add(a => a.CssClass, "custom-accordion")
+			.AddChildContent<HxAccordionItem>(item => item
+				.Add(i => i.Id, "item1")
+				.Add(i => i.HeaderTemplate, (RenderFragment)(b => b.AddContent(0, "Header")))
+				.Add(i => i.BodyTemplate, (RenderFragment)(b => b.AddContent(0, "Body")))));
 
 		// Assert
-		var item = cut.Find("details.accordion-item");
-		Assert.False(item.HasAttribute("name"));
-	}
-
-	[Fact]
-	public void HxAccordion_InitialExpandedItemId_RendersOpenAttribute()
-	{
-		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
-		{
-			p.Add(a => a.InitialExpandedItemId, "item2");
-			AddItem(p, "item1", "Header 1", "Body 1");
-			AddItem(p, "item2", "Header 2", "Body 2");
-		});
-
-		// Assert
-		var items = cut.FindAll("details.accordion-item");
-		Assert.False(items[0].HasAttribute("open"));
-		Assert.True(items[1].HasAttribute("open"));
-	}
-
-	[Fact]
-	public void HxAccordion_HeaderClick_ExpandsItemAndRaisesExpandedItemIdChanged()
-	{
-		string expandedItemId = null;
-
-		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
-		{
-			p.Add(a => a.ExpandedItemIdChanged, (string id) => expandedItemId = id);
-			AddItem(p, "item1", "Header 1", "Body 1");
-		});
-		cut.Find("summary.accordion-header").Click();
-
-		// Assert
-		Assert.Equal("item1", expandedItemId);
-		Assert.True(cut.Find("details.accordion-item").HasAttribute("open"));
-	}
-
-	[Fact]
-	public void HxAccordion_ExclusiveMode_ExpandingOneItemCollapsesTheOther()
-	{
-		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
-		{
-			p.Add(a => a.InitialExpandedItemId, "item1");
-			AddItem(p, "item1", "Header 1", "Body 1");
-			AddItem(p, "item2", "Header 2", "Body 2");
-		});
-		cut.FindAll("summary.accordion-header")[1].Click();
-
-		// Assert — exclusivity is replicated Blazor-side (state is Blazor-managed)
-		var items = cut.FindAll("details.accordion-item");
-		Assert.False(items[0].HasAttribute("open"));
-		Assert.True(items[1].HasAttribute("open"));
-	}
-
-	[Fact]
-	public void HxAccordion_StayOpen_ExpandingOneItemKeepsTheOtherOpen()
-	{
-		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
-		{
-			p.Add(a => a.StayOpen, true);
-			p.Add(a => a.InitialExpandedItemIds, new List<string> { "item1" });
-			AddItem(p, "item1", "Header 1", "Body 1");
-			AddItem(p, "item2", "Header 2", "Body 2");
-		});
-		cut.FindAll("summary.accordion-header")[1].Click();
-
-		// Assert
-		var items = cut.FindAll("details.accordion-item");
-		Assert.True(items[0].HasAttribute("open"));
-		Assert.True(items[1].HasAttribute("open"));
-	}
-
-	[Fact]
-	public void HxAccordion_Color_RendersThemeCssClass()
-	{
-		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
-		{
-			p.Add(a => a.Color, ThemeColor.Primary);
-			AddItem(p, "item1", "Header 1", "Body 1");
-		});
-
-		// Assert
-		Assert.True(cut.Find("div.accordion").ClassList.Contains("theme-primary"));
+		var accordion = cut.Find("div.accordion");
+		Assert.True(accordion.ClassList.Contains("custom-accordion"));
 	}
 }

@@ -1,4 +1,4 @@
-﻿@attribute [Route("/components/" + nameof(HxBadge))]
+@attribute [Route("/components/" + nameof(HxBadge))]
 
 <ApiDoc Type="typeof(HxBadge)">
     <p>Badges scale to match the size of the immediate parent element by using relative font sizing and <code>em</code> units. As of Bootstrap v5, badges no longer have focus or hover styles for links.</p>
@@ -17,10 +17,6 @@
     <DocHeading Title="Rounded circle" Level="4" />
     <p>You can add the <code>rounded-circle</code> class and leave the content empty for a more generic indicator.</p>
     <Demo Type="typeof(HxBadge_Demo_Positioned_RoundedCircle)" />
-
-    <DocHeading Title="Variants" />
-    <p>Bootstrap 6 badges compose a visual variant (<code>BadgeVariant.Solid</code>, <code>Subtle</code>, <code>Outline</code>) with a theme color:</p>
-    <Demo Type="typeof(HxBadge_Demo_Variants)" />
 
     <DocHeading Title="Background colors" />
     <p>Use our background utility classes to quickly change the appearance of a badge. Please note that when using Bootstrap’s default <code>.bg-light</code>, you’ll likely need a text color utility like <code>.text-dark</code> for proper styling. This is because background utilities do not set anything but <code>background-color</code>.</p>

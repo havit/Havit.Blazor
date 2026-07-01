@@ -16,8 +16,8 @@
 <HxCheckbox Text="Toggle button"
 			RenderMode="CheckboxRenderMode.ToggleButton"
 			@bind-Value="isChecked"
-			Color="ThemeColor.Secondary"
-			Variant="ButtonVariant.Outline" />
+			Color="ThemeColor.Light"
+			Outline="true" />
 
 @code
 {

@@ -1,8 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/progress/">Bootstrap 6 Progress</see> component.<br/>
-/// A wrapping component (<c>.progress-stacked</c>) for one or more <see cref="HxProgressBar" /> components.<br />
+/// <see href="https://getbootstrap.com/docs/5.3/components/progress/">Bootstrap 5 Progress</see> component.<br/>
+/// A wrapping component for the <see cref="HxProgressBar" />.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxProgress">https://havit.blazor.eu/components/HxProgress</see>
 /// </summary>
 public partial class HxProgress

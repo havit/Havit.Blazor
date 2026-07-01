@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Presents a list of chips (rendered as Bootstrap <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/chips/">Chip</see> elements).<br/>
+/// Presents a list of chips as badges.<br/>
 /// Usually used to present filter criteria gathered by <see cref="HxFilterForm{TModel}"/>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxChipList">https://havit.blazor.eu/components/HxChipList</see>
 /// </summary>
@@ -20,7 +20,10 @@ public partial class HxChipList
 		Defaults = new ChipListSettings()
 		{
 			ShowResetButton = false,
-			Color = ThemeColor.None,
+			ChipBadgeSettings = new BadgeSettings()
+			{
+				Color = ThemeColor.Secondary,
+			}
 		};
 	}
 
@@ -49,35 +52,11 @@ public partial class HxChipList
 	[Parameter] public IEnumerable<ChipItem> Chips { get; set; }
 
 	/// <summary>
-	/// The theme color of the chips (applied as a Bootstrap <c>theme-*</c> class).
-	/// Bootstrap 6 chips use the subtle theme tokens by default.
-	/// The default is <see cref="ThemeColor.None"/> (the native grayscale chip appearance).
+	/// Settings for the <see cref="HxBadge"/> used to render chips.
+	/// The default brings <c>Color="<see cref="ThemeColor.Secondary" />".</c>
 	/// </summary>
-	[Parameter] public ThemeColor? Color { get; set; }
-#pragma warning disable CS0618 // ChipBadgeSettings is obsolete, we still honor its Color and CssClass for backward compatibility
-	protected ThemeColor ColorEffective => Color
-		?? ChipBadgeSettings?.Color
-		?? GetSettings()?.Color
-		?? GetSettings()?.ChipBadgeSettings?.Color
-		?? GetDefaults().Color
-		?? GetDefaults().ChipBadgeSettings?.Color
-		?? ThemeColor.None;
-
-	/// <summary>
-	/// Additional CSS class(es) rendered with the individual chips (legacy <see cref="ChipBadgeSettings"/> CssClass).
-	/// </summary>
-	protected string ChipCssClassEffective => ChipBadgeSettings?.CssClass ?? GetSettings()?.ChipBadgeSettings?.CssClass ?? GetDefaults().ChipBadgeSettings?.CssClass;
-#pragma warning restore CS0618
-
-	/// <summary>
-	/// Settings for the <see cref="HxBadge"/> previously used to render chips.
-	/// </summary>
-	/// <remarks>
-	/// Chips are no longer rendered as badges since Bootstrap 6. Only the <see cref="BadgeSettings.Color"/> (mapped to a <c>theme-*</c> class)
-	/// and <see cref="BadgeSettings.CssClass"/> values are honored.
-	/// </remarks>
-	[Obsolete("Chips are no longer rendered as badges since Bootstrap 6 (the native Chip component is used). Use the Color parameter (mapped to a theme-* class) instead. Only the Color and CssClass values of these settings are honored.")]
 	[Parameter] public BadgeSettings ChipBadgeSettings { get; set; }
+	protected BadgeSettings ChipBadgeSettingsEffective => ChipBadgeSettings ?? GetSettings()?.ChipBadgeSettings ?? GetDefaults().ChipBadgeSettings ?? throw new InvalidOperationException(nameof(ChipBadgeSettings) + " default for " + nameof(HxChipList) + " has to be set.");
 
 	/// <summary>
 	/// Additional CSS class.

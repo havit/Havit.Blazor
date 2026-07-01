@@ -1,17 +1,17 @@
-﻿@page "/showcase/{Id}"
+@page "/showcase/{Id}"
 @layout HomeLayout
 
 <PageTitle>@_showcase.Title Showcase | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
 <DocHeadContent CanonicalRelativeUrl="@($"showcase/{_showcase.Id}")" />
 
 
-<div class="showcase-detail-header hero container d-flex justify-content-between align-items-center flex-wrap md:flex-nowrap column-gap-3">
+<div class="showcase-detail-header hero container d-flex justify-content-between align-items-center flex-wrap flex-md-nowrap column-gap-3">
     <ShowcaseNavigationLink Direction="Previous"
                             Title="@_previousShowcase.Title"
                             IconStart="BootstrapIcon.ArrowLeft"
                             Href="@($"showcase/{_previousShowcase.Id}")" />
 
-    <div class="current text-center order-last md:order-0 py-4 md:py-0">
+    <div class="current text-center order-last order-md-0 py-4 py-md-0">
         <div class="small text-primary">@_showcase.Description</div>
         <h1 class="fw-bold">@_showcase.Title</h1>
     </div>

@@ -1,0 +1,19 @@
+@page "/HxOffcanvas_BasicTests"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxButton data-testid="show-button" OnClick="HandleShowClick" Color="ThemeColor.Primary">Show Offcanvas</HxButton>
+
+<HxOffcanvas @ref="_offcanvas" Title="Test Offcanvas">
+	<BodyTemplate>
+		<p data-testid="offcanvas-content">Offcanvas body content</p>
+	</BodyTemplate>
+</HxOffcanvas>
+
+@code {
+	private HxOffcanvas _offcanvas;
+
+	private async Task HandleShowClick()
+	{
+		await _offcanvas.ShowAsync();
+	}
+}

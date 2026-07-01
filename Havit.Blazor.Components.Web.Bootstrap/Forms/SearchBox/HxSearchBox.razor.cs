@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// A search input component with automatic suggestions, initial menu template, and support for free-text queries.<br />
+/// A search input component with automatic suggestions, initial dropdown template, and support for free-text queries.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSearchBox">https://havit.blazor.eu/components/HxSearchBox</see>
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
@@ -52,7 +52,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	protected virtual Task InvokeTextQueryChangedAsync(string newTextQueryValue) => TextQueryChanged.InvokeAsync(newTextQueryValue);
 
 	/// <summary>
-	/// Raised when the enter key is pressed or when the text-query item is selected in the menu menu.
+	/// Raised when the enter key is pressed or when the text-query item is selected in the dropdown menu.
 	/// (Does not trigger when <see cref="AllowTextQuery"/> is <c>false</c>.)
 	/// </summary>
 	[Parameter] public EventCallback<string> OnTextQueryTriggered { get; set; }
@@ -117,13 +117,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	[Parameter] public RenderFragment DefaultContentTemplate { get; set; }
 
 	/// <summary>
-	/// Additional CSS classes for the menu.
+	/// Additional CSS classes for the dropdown.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
-	/// Additional CSS classes for the items in the menu menu.
+	/// Additional CSS classes for the items in the dropdown menu.
 	/// </summary>
 	[Parameter] public string ItemCssClass { get; set; }
 	protected string ItemCssClassEffective => ItemCssClass ?? GetSettings()?.ItemCssClass ?? GetDefaults().ItemCssClass;
@@ -160,10 +160,10 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	protected IconBase ClearIconEffective => ClearIcon ?? GetSettings()?.ClearIcon ?? GetDefaults().ClearIcon;
 
 	/// <summary>
-	/// Offset between the menu and the input.
-	/// <see href="https://floating-ui.com/docs/offset#options"/>
+	/// Offset between the dropdown and the input.
+	/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
 	/// </summary>
-	[Parameter] public (int Skidding, int Distance) MenuOffset { get; set; } = (0, 4);
+	[Parameter] public (int Skidding, int Distance) DropdownOffset { get; set; } = (0, 4);
 
 	/// <summary>
 	/// Label of the input field.
@@ -171,11 +171,6 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	[Parameter] public string Label { get; set; }
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
-	/// <remarks>
-	/// <see cref="Bootstrap.LabelType.Floating"/> is not supported since Bootstrap 6. The component renders with the
-	/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/">form-adorn</see> pattern,
-	/// where the wrapper owns the visual chrome, while Bootstrap 6 floating labels require the input itself to be the <c>.form-control</c>.
-	/// </remarks>
 	[Parameter] public LabelType? LabelType { get; set; }
 	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
 	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
@@ -234,13 +229,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
 	/// <summary>
-	/// Fired immediately when the 'hide' method of the menu is called.
-	/// To prevent hiding, set <see cref="MenuHidingEventArgs.Cancel"/> to <c>true</c>.
+	/// Fired immediately when the 'hide' method of the dropdown is called.
+	/// To prevent hiding, set <see cref="DropdownHidingEventArgs.Cancel"/> to <c>true</c>.
 	/// </summary>
 	/// <remarks>
-	/// Exposed to allow derived custom components to cancel hiding the menu, for example, when the menu contains draggable content and the mouseup event is fired outside the menu.
+	/// Exposed to allow derived custom components to cancel hiding the dropdown, for example, when the dropdown contains draggable content and the mouseup event is fired outside the dropdown.
 	/// </remarks>
-	[Parameter] public EventCallback<MenuHidingEventArgs> OnHiding { get; set; }
+	[Parameter] public EventCallback<DropdownHidingEventArgs> OnHiding { get; set; }
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -248,12 +243,12 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	private bool HasInputGroupStart => !String.IsNullOrWhiteSpace(InputGroupStartText) || (InputGroupStartTemplate is not null);
 	private bool HasInputGroupEnd => !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupEndTemplate is not null);
 
-	private string _menuToggleElementId = "hx" + Guid.NewGuid().ToString("N");
+	private string _dropdownToggleElementId = "hx" + Guid.NewGuid().ToString("N");
 	private string _inputId = "hx" + Guid.NewGuid().ToString("N");
 	private ElementReference _inputElementReference;
 	private List<TItem> _searchResults = new();
-	private HxMenuToggleElement _menuToggle;
-	private bool _menuActive = false;
+	private HxDropdownToggleElement _dropdownToggle;
+	private bool _dropdownMenuActive = false;
 	private bool _initialized = false;
 	/// <summary>
 	/// Indicates whether the <see cref="TextQuery"/> has been below minimum required length recently (before data provider loading is completed).
@@ -277,9 +272,9 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 	/// <inheritdoc />
 	protected override void OnParametersSet()
 	{
-		if (LabelTypeEffective == Bootstrap.LabelType.Floating)
+		if ((LabelTypeEffective == Bootstrap.LabelType.Floating) && !String.IsNullOrEmpty(Placeholder))
 		{
-			throw new InvalidOperationException("LabelType.Floating is not supported on HxSearchBox in Bootstrap 6 — the form-adorn wrapper owns the visual chrome and cannot host a floating label. Use LabelType.Regular.");
+			throw new InvalidOperationException($"[{GetType().Name}] Cannot use {nameof(Placeholder)} with floating labels.");
 		}
 	}
 
@@ -387,7 +382,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 		_searchResults = result?.Data?.ToList() ?? new();
 
 		_textQueryHasBeenBelowMinimumLength = false;
-		await ShowMenuAsync();
+		await ShowDropdownAsync();
 
 		StateHasChanged();
 	}
@@ -424,13 +419,13 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 			_textQueryHasBeenBelowMinimumLength = true;
 		}
 
-		if (ShouldMenuBeDisplayed())
+		if (ShouldDropdownMenuBeDisplayed())
 		{
-			await ShowMenuAsync();
+			await ShowDropdownAsync();
 		}
-		else if (_menuActive)
+		else if (_dropdownMenuActive)
 		{
-			await HideMenuAsync();
+			await HideDropdownAsync();
 		}
 		await InvokeTextQueryChangedAsync(newTextQuery);
 	}
@@ -562,14 +557,14 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 			await UpdateSuggestionsAsync();
 		}
 
-		await ShowMenuAsync();
+		await ShowDropdownAsync();
 	}
 
 	private void HandleInputBlur()
 	{
 		_inputFormHasFocus = false;
 
-		if (!_menuActive)
+		if (!_dropdownMenuActive)
 		{
 			ClearInputValueIfTextQueryDisabled();
 		}
@@ -598,7 +593,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 		{
 			CancelDataProviderAndDebounce();
 
-			await HideMenuAsync();
+			await HideDropdownAsync();
 			await InvokeOnTextQueryTriggeredAsync(TextQuery);
 		}
 	}
@@ -617,56 +612,56 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 				throw new InvalidOperationException($"Invalid {nameof(SearchBoxItemSelectionBehavior)} value: {ItemSelectionBehaviorEffective}");
 		}
 
-		await HideMenuAsync();
+		await HideDropdownAsync();
 		await InvokeTextQueryChangedAsync(TextQuery);
 		await InvokeOnItemSelectedAsync(item);
 	}
 
-	private async Task HandleMenuShown()
+	private async Task HandleDropdownMenuShown()
 	{
-		_menuActive = true;
+		_dropdownMenuActive = true;
 
-		if (!ShouldMenuBeDisplayed())
+		if (!ShouldDropdownMenuBeDisplayed())
 		{
-			await HideMenuAsync();
+			await HideDropdownAsync();
 		}
 	}
 
-	private void HandleMenuHidden()
+	private void HandleDropdownMenuHidden()
 	{
-		_menuActive = false;
+		_dropdownMenuActive = false;
 		if (!_inputFormHasFocus)
 		{
 			ClearInputValueIfTextQueryDisabled();
 		}
 	}
 
-	private async Task ShowMenuAsync()
+	private async Task ShowDropdownAsync()
 	{
 		if (!_clickIsComing)
 		{
 			// clickIsComing logic fixes #572 - Initial suggestions disappear when the DataProvider response is quick
-			// If click is coming, we do not want to show the menu as it will be toggled by the later click event (if we open it here, onfocus, click will hide it)
-			await _menuToggle.ShowAsync();
+			// If click is coming, we do not want to show the dropdown as it will be toggled by the later click event (if we open it here, onfocus, click will hide it)
+			await _dropdownToggle.ShowAsync();
 		}
 	}
 
 	/// <summary>
-	/// Hides the menu menu.
+	/// Hides the dropdown menu.
 	/// </summary>
 	/// <remarks>
-	/// Allows custom actions from <see cref="DefaultContentTemplate" /> or <see cref="NotFoundTemplate" /> to hide the menu menu.
+	/// Allows custom actions from <see cref="DefaultContentTemplate" /> or <see cref="NotFoundTemplate" /> to hide the dropdown menu.
 	/// </remarks>
-	public async Task HideMenuAsync()
+	public async Task HideDropdownAsync()
 	{
-		await _menuToggle.HideAsync();
+		await _dropdownToggle.HideAsync();
 	}
 
 	/// <summary>
 	/// If the <see cref="DefaultContentTemplate"/> is empty, we don't want to display anything when nothing (or below the minimum amount of characters) is typed into the input.
 	/// </summary>
 	/// <returns></returns>
-	private bool ShouldMenuBeDisplayed()
+	private bool ShouldDropdownMenuBeDisplayed()
 	{
 		if (_textQueryHasBeenBelowMinimumLength
 			&& ((TextQuery?.Length ?? 0) >= MinimumLengthEffective))
@@ -703,7 +698,7 @@ public partial class HxSearchBox<TItem> : IAsyncDisposable, IInputWithSize, IInp
 			try
 			{
 				await _jsModule.InvokeVoidAsync("dispose", _inputId);
-				await _menuToggle.DisposeAsync();
+				await _dropdownToggle.DisposeAsync();
 				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)

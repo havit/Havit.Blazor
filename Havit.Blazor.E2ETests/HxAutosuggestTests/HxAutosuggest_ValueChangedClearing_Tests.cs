@@ -15,7 +15,7 @@ public class HxAutosuggest_ValueChangedClearing_Tests : TestAppTestBase
 		// Act 1 - Type to trigger suggestions and select the first item
 		await input.ClickAsync();
 		await input.FillAsync("Alpha");
-		await Page.Locator(".menu-item:has-text('Alpha')").ClickAsync();
+		await Page.Locator(".dropdown-item:has-text('Alpha')").ClickAsync();
 
 		// Assert 1 - The input should be cleared because the ValueChanged handler sets Value to null
 		await Expect(selectedValueDisplay).ToHaveTextAsync("");
@@ -25,7 +25,7 @@ public class HxAutosuggest_ValueChangedClearing_Tests : TestAppTestBase
 		// Act 2 - Select a second item (this is the scenario that was broken)
 		await input.ClickAsync();
 		await input.FillAsync("Beta");
-		await Page.Locator(".menu-item:has-text('Beta')").ClickAsync();
+		await Page.Locator(".dropdown-item:has-text('Beta')").ClickAsync();
 
 		// Assert 2 - The input should ALSO be cleared because the ValueChanged handler sets Value to null
 		await Expect(selectedValueDisplay).ToHaveTextAsync("");

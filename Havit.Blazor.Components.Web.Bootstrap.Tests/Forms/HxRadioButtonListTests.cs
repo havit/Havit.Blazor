@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -111,14 +111,20 @@ public class HxRadioButtonListTests : BunitTestBase
 
 		var cut = Render(componentRenderer);
 
-		// Assert — Bootstrap 6: btn-check moves to the label with the nested (unstyled) input, styled via :has()
-		var labels = cut.FindAll("label.btn-check");
+		// Assert — inputs should have btn-check class instead of form-check-input
+		var inputs = cut.FindAll("input[type='radio']");
+		Assert.Equal(2, inputs.Count());
+		foreach (var input in inputs)
+		{
+			Assert.True(input.ClassList.Contains("btn-check"), "Radio input should have btn-check class in toggle button mode.");
+		}
+
+		// Assert — labels should have btn class with color
+		var labels = cut.FindAll("label");
 		Assert.Equal(2, labels.Count());
 		foreach (var label in labels)
 		{
-			Assert.True(label.ClassList.Contains("btn-solid"), "Toggle button label should carry the button variant class.");
-			Assert.True(label.ClassList.Contains("theme-primary"), "Toggle button label should carry the theme color class.");
-			Assert.NotNull(label.QuerySelector("input[type='radio']"));
+			Assert.True(label.ClassList.Contains("btn"), "Label should have btn class in toggle button mode.");
 		}
 	}
 }

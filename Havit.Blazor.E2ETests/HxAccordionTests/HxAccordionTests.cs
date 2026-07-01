@@ -1,4 +1,4 @@
-﻿namespace Havit.Blazor.E2ETests.HxAccordionTests;
+namespace Havit.Blazor.E2ETests.HxAccordionTests;
 
 public class HxAccordionTests : TestAppTestBase
 {
@@ -43,7 +43,7 @@ public class HxAccordionTests : TestAppTestBase
 		// Arrange - Navigate to the HxAccordion test page
 		await NavigateToTestAppAsync("/HxAccordion");
 
-		var header1Toggle = Page.Locator("summary.accordion-header:has([data-testid='header-1'])");
+		var header1Toggle = Page.Locator("button.accordion-button:has([data-testid='header-1'])");
 		var body1 = Page.Locator("[data-testid='body-1']");
 		var expandedItemId = Page.Locator("[data-testid='expanded-item-id']");
 

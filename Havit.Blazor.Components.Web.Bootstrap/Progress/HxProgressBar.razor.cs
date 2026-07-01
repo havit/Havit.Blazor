@@ -1,9 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// A progress bar to be placed inside <see cref="HxProgress" />.<br />
-/// Renders the Bootstrap 6 progress markup — a <c>.progress</c> wrapper carrying <c>role="progressbar"</c> and the <c>aria-*</c> attributes,
-/// with an inner <c>.progress-bar</c> used purely for the visual bar and label.
+/// A progress bar to be placed inside <see cref="HxProgress" />.
 /// </summary>
 public partial class HxProgressBar
 {
@@ -33,7 +31,7 @@ public partial class HxProgressBar
 	[Parameter] public float? MaxValue { get; set; }
 
 	/// <summary>
-	/// Text to be displayed on the progress bar. Also used as the accessible name (<c>aria-label</c>) of the progress bar.
+	/// Text to be displayed on the progress bar.
 	/// </summary>
 	[Parameter] public string Label { get; set; }
 

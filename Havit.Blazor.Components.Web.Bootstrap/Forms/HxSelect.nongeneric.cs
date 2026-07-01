@@ -12,10 +12,6 @@ public sealed class HxSelect
 
 	static HxSelect()
 	{
-		Defaults = new SelectSettings()
-		{
-			AllowFiltering = false,
-			ClearFilterOnHide = true
-		};
+		Defaults = new SelectSettings();
 	}
 }

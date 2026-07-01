@@ -15,10 +15,10 @@
 	<HxMultiSelect TItem="CultureInfo" TValue="string" Label="Cultures" EmptyText="-- choose here --" TextSelector="@(item => item.EnglishName)" ValueSelector="@(item => item.EnglishName)" Data="@data" @bind-Value="@model.CultureInfos" NullDataText="Loading languages..." Enabled="@enabled">
 
 		<InputGroupStartTemplate>
-			<HxButton Text="Button" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
+			<HxButton Text="Button" Color="ThemeColor.Secondary" Outline="true" />
 		</InputGroupStartTemplate>
 		<InputGroupEndTemplate>
-			<HxButton Text="Button" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
+			<HxButton Text="Button" Color="ThemeColor.Secondary" Outline="true" />
 		</InputGroupEndTemplate>
 
 	</HxMultiSelect>

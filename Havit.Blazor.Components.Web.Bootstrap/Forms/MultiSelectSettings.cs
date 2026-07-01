@@ -28,7 +28,7 @@ public record MultiSelectSettings : InputSettings
 	public bool AllowSelectAll { get; set; }
 
 	/// <summary>
-	/// When enabled, the filter will be cleared when the menu is closed.
+	/// When enabled, the filter will be cleared when the dropdown is closed.
 	/// </summary>
 	public bool ClearFilterOnHide { get; set; }
 

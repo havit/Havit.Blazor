@@ -1,4 +1,4 @@
-using Microsoft.JSInterop;
+﻿using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -21,7 +21,7 @@ public partial class HxCarousel : IAsyncDisposable
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
-	/// Display previous/next controls to switch between slides.
+	/// Display controls to switch between slides.
 	/// </summary>
 	[Parameter] public bool Controls { get; set; }
 
@@ -31,15 +31,9 @@ public partial class HxCarousel : IAsyncDisposable
 	[Parameter] public bool Indicators { get; set; }
 
 	/// <summary>
-	/// Display a play/pause button that toggles autoplay. Most useful together with <see cref="Autoplay"/>.
+	/// Show controls, captions, etc. with dark colors.
 	/// </summary>
-	[Parameter] public bool PlayPauseControl { get; set; }
-
-	/// <summary>
-	/// Overlay the controls and indicators on top of the slides (<c>.carousel-overlay</c>) instead of
-	/// rendering them below. Default is <c>false</c>.
-	/// </summary>
-	[Parameter] public bool Overlay { get; set; }
+	[Parameter] public bool Dark { get; set; }
 
 	/// <summary>
 	/// Animate slides with a fade transition instead of sliding.
@@ -47,64 +41,15 @@ public partial class HxCarousel : IAsyncDisposable
 	[Parameter] public bool Crossfade { get; set; }
 
 	/// <summary>
-	/// Snap the active slide to the center of the viewport instead of its start (<c>.carousel-center</c>).
-	/// Pairs nicely with <see cref="ItemsPeek"/>.
+	/// Delay for automatically switching slides. Default is <c>3000 ms</c>.
 	/// </summary>
-	[Parameter] public bool Center { get; set; }
+	[Parameter] public int? Interval { get; set; } = 3000;
 
 	/// <summary>
-	/// Let each <see cref="HxCarouselItem"/> size itself (<c>.carousel-auto</c>) for variable-width slides.
-	/// Set the width of every item via its <see cref="HxCarouselItem.CssClass"/> or inline styles.
+	/// Enable or disable swiping left/right on touchscreen devices to move between slides.
+	/// Default is <c>true</c> (enabled).
 	/// </summary>
-	[Parameter] public bool VariableWidth { get; set; }
-
-	/// <summary>
-	/// Number of whole slides visible per view (<c>--bs-carousel-items</c>). Default (<c>null</c>) shows one.
-	/// </summary>
-	[Parameter] public int? VisibleItems { get; set; }
-
-	/// <summary>
-	/// Space between slides as a CSS length (<c>--bs-carousel-items-gap</c>), e.g. <c>"1rem"</c>.
-	/// </summary>
-	[Parameter] public string ItemsGap { get; set; }
-
-	/// <summary>
-	/// How much of the neighboring slides to reveal, as a CSS length (<c>--bs-carousel-items-peek</c>), e.g. <c>"3rem"</c>.
-	/// </summary>
-	[Parameter] public string ItemsPeek { get; set; }
-
-	/// <summary>
-	/// Automatically cycle the carousel on load. Default is <c>false</c>.
-	/// Autoplay pauses on hover (see <see cref="Pause"/>) and stops for good once the visitor takes control.
-	/// </summary>
-	[Parameter] public bool Autoplay { get; set; }
-
-	/// <summary>
-	/// What happens at the first and last slide. Default is <see cref="CarouselEnds.Loop"/>.
-	/// </summary>
-	[Parameter] public CarouselEnds Ends { get; set; } = CarouselEnds.Loop;
-
-	/// <summary>
-	/// Whether the carousel reacts to keyboard events. Default is <c>true</c>.
-	/// </summary>
-	[Parameter] public bool Keyboard { get; set; } = true;
-
-	/// <summary>
-	/// Delay (ms) between automatically cycling to the next item while <see cref="Autoplay"/> is enabled.
-	/// When <c>null</c> (default), Bootstrap's default of <c>5000 ms</c> is used. Can be overridden per item via <see cref="HxCarouselItem.Interval"/>.
-	/// </summary>
-	[Parameter] public int? Interval { get; set; }
-
-	/// <summary>
-	/// Carousel pause behavior. Default is <see cref="CarouselPause.Hover"/> (autoplay stops sliding on hover).
-	/// </summary>
-	[Parameter] public CarouselPause Pause { get; set; } = CarouselPause.Hover;
-
-	/// <summary>
-	/// Additional attributes to be splatted onto the root <c>.carousel</c> element
-	/// (e.g. <c>data-bs-theme="dark"</c> for a dark carousel).
-	/// </summary>
-	[Parameter(CaptureUnmatchedValues = true)] public IReadOnlyDictionary<string, object> AdditionalAttributes { get; set; }
+	[Parameter] public bool TouchSwiping { get; set; } = true;
 
 	/// <summary>
 	/// Is fired when the current slide is changed (at the very start of the sliding transition).
@@ -124,6 +69,16 @@ public partial class HxCarousel : IAsyncDisposable
 	/// Triggers the <see cref="OnSlid"/> event. Allows interception of the event in derived components.
 	/// </summary>
 	protected virtual Task InvokeOnSlidAsync(CarouselSlideEventArgs eventArgs) => OnSlid.InvokeAsync(eventArgs);
+
+	/// <summary>
+	/// Carousel ride (autoplay) behavior. Default is <see cref="CarouselRide.Carousel"/> (autoplays the carousel on load).
+	/// </summary>
+	[Parameter] public CarouselRide Ride { get; set; } = CarouselRide.Carousel;
+
+	/// <summary>
+	/// Carousel pause behavior. Default is <see cref="CarouselPause.Hover"/> (carousel will stop sliding on hover).
+	/// </summary>
+	[Parameter] public CarouselPause Pause { get; set; } = CarouselPause.Hover;
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
@@ -151,29 +106,20 @@ public partial class HxCarousel : IAsyncDisposable
 
 		if (firstRender)
 		{
-			var options = new Dictionary<string, object>
+			var options = new Dictionary<string, object>();
+			options["ride"] = Ride switch
 			{
-				["autoplay"] = Autoplay,
-				["keyboard"] = Keyboard,
-				["ends"] = Ends switch
-				{
-					CarouselEnds.Loop => "loop",
-					CarouselEnds.Wrap => "wrap",
-					CarouselEnds.Stop => "stop",
-					_ => throw new InvalidOperationException($"Unknown value of {nameof(CarouselEnds)}: {Ends}.")
-				},
-				["pause"] = Pause switch
-				{
-					CarouselPause.Hover => "hover",
-					CarouselPause.False => false,
-					_ => throw new InvalidOperationException($"Unknown value of {nameof(CarouselPause)}: {Pause}.")
-				}
+				CarouselRide.Carousel => "carousel",
+				CarouselRide.False => false,
+				CarouselRide.True => true,
+				_ => throw new InvalidOperationException($"Unknown value of {nameof(CarouselRide)}: {Ride}.")
 			};
-			if (Interval is not null)
+			options["pause"] = Pause switch
 			{
-				options["interval"] = Interval.Value;
-			}
-
+				CarouselPause.Hover => "hover",
+				CarouselPause.False => false,
+				_ => throw new InvalidOperationException($"Unknown value of {nameof(CarouselPause)}: {Pause}.")
+			};
 			await EnsureJsModule();
 			if (_disposed)
 			{
@@ -183,41 +129,10 @@ public partial class HxCarousel : IAsyncDisposable
 		}
 	}
 
-	/// <summary>
-	/// Builds the inline <c>style</c> for the root element from the CSS-variable layout parameters,
-	/// merged with any <c>style</c> supplied through <see cref="AdditionalAttributes"/>.
-	/// </summary>
-	private string GetStyle()
+	private object GetRideJavaScriptValue()
 	{
-		var sb = new StringBuilder();
-		// Bootstrap uses --bs-carousel-items as a divisor in the slide flex-basis calc,
-		// so a non-positive value produces invalid CSS / a broken layout. Ignore it.
-		if (VisibleItems is > 0)
-		{
-			sb.Append("--bs-carousel-items: ").Append(VisibleItems.Value).Append(';');
-		}
-		if (!string.IsNullOrEmpty(ItemsGap))
-		{
-			sb.Append("--bs-carousel-items-gap: ").Append(ItemsGap).Append(';');
-		}
-		if (!string.IsNullOrEmpty(ItemsPeek))
-		{
-			sb.Append("--bs-carousel-items-peek: ").Append(ItemsPeek).Append(';');
-		}
-		if (AdditionalAttributes is not null && AdditionalAttributes.TryGetValue("style", out var style) && style is not null)
-		{
-			sb.Append(style);
-		}
-		return sb.Length == 0 ? null : sb.ToString();
+		throw new NotImplementedException();
 	}
-
-	/// <summary>
-	/// <see cref="AdditionalAttributes"/> without <c>style</c> (rendered separately by <see cref="GetStyle"/>),
-	/// to avoid a duplicate-attribute render error.
-	/// </summary>
-	private IEnumerable<KeyValuePair<string, object>> GetAttributesExceptStyle()
-		=> AdditionalAttributes?.Where(a => !string.Equals(a.Key, "style", StringComparison.OrdinalIgnoreCase))
-			?? Enumerable.Empty<KeyValuePair<string, object>>();
 
 	protected async Task EnsureJsModule()
 	{

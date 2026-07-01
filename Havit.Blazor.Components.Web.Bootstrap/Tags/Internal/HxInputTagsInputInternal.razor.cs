@@ -23,7 +23,7 @@ public partial class HxInputTagsInputInternal
 	[Parameter] public bool? SpellcheckEffective { get; set; }
 
 	/// <summary>
-	/// Offset between menu input and menu menu
+	/// Offset between dropdown input and dropdown menu
 	/// </summary>
 	[Parameter] public (int X, int Y) Offset { get; set; }
 

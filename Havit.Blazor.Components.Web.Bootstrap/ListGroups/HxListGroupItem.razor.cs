@@ -59,7 +59,7 @@ public partial class HxListGroupItem
 		{
 			null => null,
 			ThemeColor.None => null,
-			_ => Color.Value.ToThemeCss()
+			_ => "list-group-item-" + Color.Value.ToString("f").ToLower()
 		};
 	}
 }

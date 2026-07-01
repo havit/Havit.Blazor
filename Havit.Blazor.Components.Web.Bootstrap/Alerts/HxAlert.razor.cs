@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/alert/">Bootstrap alert</see> component.<br />
+/// <see href="https://getbootstrap.com/docs/5.3/components/alerts/">Bootstrap alert</see> component.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAlert">https://havit.blazor.eu/components/HxAlert</see>
 /// </summary>
 public partial class HxAlert
@@ -41,7 +41,7 @@ public partial class HxAlert
 		{
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as {nameof(HxAlert)} color."),
-			_ => Color.ToThemeCss()
+			_ => "alert-" + Color.ToString("f").ToLower()
 		};
 	}
 

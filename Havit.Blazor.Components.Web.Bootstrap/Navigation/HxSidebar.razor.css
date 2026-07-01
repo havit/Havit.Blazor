@@ -1,50 +1,117 @@
-﻿/* Layered below Bootstrap's utilities so utility classes win over these defaults. */
-@layer custom {
-	.hx-sidebar {
-		display: flex;
-		flex-direction: column;
-		flex-shrink: 0;
-		flex-grow: 0;
-		flex-basis: var(--hx-sidebar-width);
-		background-color: var(--hx-sidebar-background-color);
-	}
+﻿.hx-sidebar {
+	display: flex;
+	flex-direction: column;
+	flex-shrink: 0;
+	flex-basis: var(--hx-sidebar-width);
+	flex-grow: 1;
+	background-color: var(--hx-sidebar-background-color);
+}
 
-	.hx-sidebar-content {
-		display: flex;
-		flex-direction: column;
-		flex-grow: 1;
-	}
+.hx-sidebar-collapse {
+	flex-direction: column;
+	flex-grow: 1;
+}
 
+@media (min-width: 768px) {
 	.hx-sidebar,
 	.hx-sidebar .nav-menu {
 		max-height: var(--hx-sidebar-max-height);
 	}
+}
 
-	.hx-sidebar.collapsed {
-		flex-basis: var(--hx-sidebar-collapsed-width);
-		min-width: auto;
-	}
+.hx-sidebar.collapsed {
+	flex-basis: var(--hx-sidebar-collapsed-width);
+	min-width: auto;
+}
 
-	.hx-sidebar-header {
-		padding: var(--hx-sidebar-header-padding);
-	}
+.hx-sidebar-header {
+	padding: var(--hx-sidebar-header-padding);
+}
 
-	.hx-sidebar-body {
-		padding: var(--hx-sidebar-body-padding);
-	}
+.hx-sidebar-body {
+	padding: var(--hx-sidebar-body-padding);
+}
 
-	.hx-sidebar-body ::deep .nav {
-		gap: var(--hx-sidebar-body-nav-gap);
-	}
+.hx-sidebar-body ::deep .nav {
+	gap: var(--hx-sidebar-body-nav-gap);
+}
 
-	.hx-sidebar-footer {
-		display: flex;
-		width: 100%;
-		flex-grow: 0;
-		padding: var(--hx-sidebar-footer-padding);
-	}
+.hx-sidebar-footer {
+	display: flex;
+	width: 100%;
+	flex-grow: 0;
+	padding: var(--hx-sidebar-footer-padding);
+}
 
-	::deep a[aria-expanded="true"] .bi-chevron-right {
-		transform: rotate(90deg);
-	}
+::deep .hx-sidebar-navbar-toggler {
+	font-size: 1.875rem;
+	padding: 0;
+	border: none !important;
+	width: 2.5rem !important;
+	height: 2.5rem !important;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: auto;
+}
+
+::deep .hx-sidebar-navbar-toggler:focus-within {
+	box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+}
+
+.hx-sidebar-toggler {
+	position: absolute;
+	top: 50%;
+	left: 100%;
+	transform: translate(-50%, -50%);
+	display: none; /* Hide the sidebar toggler in navbar mode (when below the responsive breakpoint). */
+	padding: 0;
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+}
+
+.hx-sidebar-toggler-inner {
+	padding: .625rem;
+}
+
+.hx-sidebar-toggler-arrow {
+	width: .25rem;
+	height: .75rem;
+	border-radius: .25rem;
+	background-color: var(--hx-sidebar-toggler-background);
+	transition: all .25s ease-in-out;
+	transform: translateY(.15rem) rotate(0deg) translateZ(0px);
+}
+
+.hx-sidebar-toggler:hover .hx-sidebar-toggler-arrow {
+	background-color: var(--bs-body-color);
+}
+
+.hx-sidebar-toggler-arrow + .hx-sidebar-toggler-arrow {
+	transform: translateY(-.15rem) rotate(0deg) translateZ(0px);
+}
+
+.hx-sidebar-toggler:hover .hx-sidebar-toggler-arrow {
+	transform: translateY(.15rem) rotate(15deg) translateZ(0px);
+}
+
+.hx-sidebar-toggler:hover .hx-sidebar-toggler-arrow + .hx-sidebar-toggler-arrow {
+	transform: translateY(-.15rem) rotate(-15deg) translateZ(0px);
+}
+
+.collapsed .hx-sidebar-toggler:hover .hx-sidebar-toggler-arrow {
+	transform: translateY(.15rem) rotate(-15deg) translateZ(0px);
+}
+
+.collapsed .hx-sidebar-toggler:hover .hx-sidebar-toggler-arrow + .hx-sidebar-toggler-arrow {
+	transform: translateY(-.15rem) rotate(15deg) translateZ(0px);
+}
+
+::deep .hx-sidebar-navbar-toggler:hover {
+	color: var(--bs-primary);
+}
+
+::deep a[aria-expanded="true"] .bi-chevron-right {
+	transform: rotate(90deg);
 }

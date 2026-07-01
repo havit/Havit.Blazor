@@ -1,20 +1,43 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/close-button/">close-button</see> component.<br />
-/// A simple close button for dismissing content such as dialogs and alerts.
-/// The icon is rendered with a CSS <c>mask-image</c> tinted with <c>currentcolor</c>, so it adapts to the surrounding
-/// text color and color mode automatically (the former <c>White</c> parameter/<c>btn-close-white</c> class no longer exist;
-/// use <c>data-bs-theme="dark"</c> on the button or a parent element to invert it explicitly).<br />
+/// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/close-button/">close-button</see> component.<br />
+/// A simple close button for dismissing content such as modals and alerts.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCloseButton">https://havit.blazor.eu/components/HxCloseButton</see>
 /// </summary>
 public class HxCloseButton : HxButton
 {
-	protected override string CoreCssClass => $"{base.CoreCssClass} btn-close";
+	/// <summary>
+	/// Application-wide defaults for <see cref="HxCloseButton"/> and derived components.
+	/// </summary>
+	public static new CloseButtonSettings Defaults { get; set; }
+
+	/// <summary>
+	/// Toggles between the light and dark version of the button.
+	/// The default value is <c>false</c>.
+	/// </summary>
+	[Parameter] public bool? White { get; set; }
+	protected bool WhiteEffective => White ?? GetDefaults().White ?? throw new InvalidOperationException(nameof(White) + " default for " + nameof(HxCloseButton) + " has to be set.");
+
+	protected override string CoreCssClass => $"{base.CoreCssClass} btn-close " + (WhiteEffective ? "btn-close-white" : string.Empty);
+
+	/// <summary>
+	/// Returns application-wide defaults for the component.
+	/// Enables overriding defaults in descendants (use a separate set of defaults).
+	/// </summary>
+	protected new virtual CloseButtonSettings GetDefaults() => Defaults;
 
 	public HxCloseButton()
 	{
 		AdditionalAttributes ??= new();
 		AdditionalAttributes.Add("aria-label", "Close"); // Adding the aria-label for accessibility.
+	}
+
+	static HxCloseButton()
+	{
+		Defaults = new CloseButtonSettings()
+		{
+			White = false
+		};
 	}
 }

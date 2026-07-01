@@ -38,14 +38,8 @@ public record InputTagsSettings : InputSettings
 	public bool? ShowAddButton { get; set; }
 
 	/// <summary>
-	/// The theme color of the tag chips (applied as a Bootstrap <c>theme-*</c> class).
+	/// Settings for the <see cref="HxBadge"/> used to render tags.
 	/// </summary>
-	public ThemeColor? Color { get; set; }
-
-	/// <summary>
-	/// Settings for the <see cref="HxBadge"/> previously used to render tags.
-	/// </summary>
-	[Obsolete("Tags are no longer rendered as badges since Bootstrap 6 (the native Chip component is used). Use the Color property (mapped to a theme-* class) instead. Only the Color and CssClass values of these settings are honored.")]
 	public BadgeSettings TagBadgeSettings { get; set; }
 
 	/// <summary>

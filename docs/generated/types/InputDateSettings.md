@@ -6,12 +6,12 @@ Settings for `HxInputDate`.
 
 | Name | Type | Description |
 |------|------|-------------|
-| CalendarDateCustomizationProvider | `CalendarDateCustomizationProviderDelegate` | Allows customization of the dates in the menu calendars. |
+| CalendarDateCustomizationProvider | `CalendarDateCustomizationProviderDelegate` | Allows customization of the dates in the dropdown calendars. |
 | CalendarIcon | `IconBase` | Optional icon to display within the input. |
 | InputSize | `InputSize?` | Input size. |
 | LabelType | `LabelType?` | The label type. |
-| MaxDate | `DateTime?` | The last date selectable from the menu calendar. |
-| MinDate | `DateTime?` | The first date selectable from the menu calendar. |
+| MaxDate | `DateTime?` | The last date selectable from the dropdown calendar. |
+| MinDate | `DateTime?` | The first date selectable from the dropdown calendar. |
 | PredefinedDates | `IEnumerableInputDatePredefinedDatesItem>` | The predefined dates to be displayed. |
 | ShowClearButton | `bool?` |  |
 | ShowPredefinedDates | `bool?` | When enabled, shows predefined days (from `HxInputDate.PredefinedDates`, e.g., Today). |

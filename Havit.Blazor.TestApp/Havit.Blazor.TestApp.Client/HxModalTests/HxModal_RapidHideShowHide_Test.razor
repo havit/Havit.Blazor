@@ -1,0 +1,27 @@
+@page "/HxModal_RapidHideShowHide"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxButton data-testid="show-button" OnClick="HandleShowClick" Color="ThemeColor.Primary">Show Modal</HxButton>
+
+<HxModal @ref="_modal" Title="Test Modal">
+	<BodyTemplate>
+		<p>Modal content</p>
+		<HxButton data-testid="hide-show-hide-button" OnClick="HandleHideShowHideClick" Color="ThemeColor.Danger">Hide → Show → Hide</HxButton>
+	</BodyTemplate>
+</HxModal>
+
+@code {
+	private HxModal _modal;
+
+	private async Task HandleShowClick()
+	{
+		await _modal.ShowAsync();
+	}
+
+	private async Task HandleHideShowHideClick()
+	{
+		await _modal.HideAsync();
+		await _modal.ShowAsync();
+		await _modal.HideAsync();
+	}
+}

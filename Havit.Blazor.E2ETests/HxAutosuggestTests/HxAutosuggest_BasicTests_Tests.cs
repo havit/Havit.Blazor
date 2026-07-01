@@ -14,8 +14,8 @@ public class HxAutosuggest_BasicTests_Tests : TestAppTestBase
 		await input.ClickAsync();
 		await input.FillAsync("Al");
 
-		// Assert - the menu with a matching suggestion is visible
-		var suggestionItem = Page.Locator(".menu-item:has-text('Alpha')");
+		// Assert - the dropdown with a matching suggestion is visible
+		var suggestionItem = Page.Locator(".dropdown-item:has-text('Alpha')");
 		await Expect(suggestionItem).ToBeVisibleAsync();
 	}
 
@@ -31,7 +31,7 @@ public class HxAutosuggest_BasicTests_Tests : TestAppTestBase
 		// Act - type to trigger suggestions and click the first matching item
 		await input.ClickAsync();
 		await input.FillAsync("Alpha");
-		await Page.Locator(".menu-item:has-text('Alpha')").ClickAsync();
+		await Page.Locator(".dropdown-item:has-text('Alpha')").ClickAsync();
 
 		// Assert - the bound value is set
 		await Expect(selectedValueDisplay).ToHaveTextAsync("Alpha");
@@ -48,7 +48,7 @@ public class HxAutosuggest_BasicTests_Tests : TestAppTestBase
 
 		await input.ClickAsync();
 		await input.FillAsync("Beta");
-		await Page.Locator(".menu-item:has-text('Beta')").ClickAsync();
+		await Page.Locator(".dropdown-item:has-text('Beta')").ClickAsync();
 		await Expect(selectedValueDisplay).ToHaveTextAsync("Beta");
 
 		// Act - click the clear button

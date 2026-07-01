@@ -1,4 +1,4 @@
-﻿namespace Havit.Blazor.E2ETests.HxMessageBoxTests;
+namespace Havit.Blazor.E2ETests.HxMessageBoxTests;
 
 public class HxMessageBox_Tests : TestAppTestBase
 {
@@ -13,13 +13,13 @@ public class HxMessageBox_Tests : TestAppTestBase
 		// Act
 		await showButton.ClickAsync();
 
-		// Assert - verify dialog is visible with correct title and message
-		var dialogTitle = Page.Locator(".dialog-title");
-		await Expect(dialogTitle).ToBeVisibleAsync(new() { Timeout = 10_000 });
-		await Expect(dialogTitle).ToHaveTextAsync("Test Title");
+		// Assert - verify modal is visible with correct title and message
+		var modalTitle = Page.Locator(".modal-title");
+		await Expect(modalTitle).ToBeVisibleAsync(new() { Timeout = 10_000 });
+		await Expect(modalTitle).ToHaveTextAsync("Test Title");
 
-		var dialogBody = Page.Locator(".dialog-body");
-		await Expect(dialogBody).ToContainTextAsync("Test Message");
+		var modalBody = Page.Locator(".modal-body");
+		await Expect(modalBody).ToContainTextAsync("Test Message");
 	}
 
 	[Fact]
@@ -31,18 +31,18 @@ public class HxMessageBox_Tests : TestAppTestBase
 		var showButton = Page.Locator("[data-testid='show-button']");
 		await showButton.ClickAsync();
 
-		// Wait for the dialog to fully show
-		var confirmButton = Page.Locator(".dialog-footer .btn.theme-primary");
+		// Wait for the modal to fully show
+		var confirmButton = Page.Locator(".modal-footer .btn-primary");
 		await Expect(confirmButton).ToBeVisibleAsync(new() { Timeout = 10_000 });
 
 		// Act - click the confirm (OK) button
 		await confirmButton.ClickAsync();
 
-		// Assert - dialog should close and result should be positive
+		// Assert - modal should close and result should be positive
 		await Expect(confirmButton).Not.ToBeVisibleAsync(new() { Timeout = 10_000 });
 
-		var openDialog = Page.Locator("dialog[open]");
-		await Expect(openDialog).ToHaveCountAsync(0);
+		var backdrop = Page.Locator(".modal-backdrop");
+		await Expect(backdrop).ToHaveCountAsync(0);
 
 		var result = Page.Locator("[data-testid='result']");
 		await Expect(result).ToHaveTextAsync("Positive");
@@ -57,18 +57,18 @@ public class HxMessageBox_Tests : TestAppTestBase
 		var showButton = Page.Locator("[data-testid='show-button']");
 		await showButton.ClickAsync();
 
-		// Wait for the dialog to fully show
-		var cancelButton = Page.Locator(".dialog-footer .btn.theme-secondary");
+		// Wait for the modal to fully show
+		var cancelButton = Page.Locator(".modal-footer .btn-secondary");
 		await Expect(cancelButton).ToBeVisibleAsync(new() { Timeout = 10_000 });
 
 		// Act - click the cancel button
 		await cancelButton.ClickAsync();
 
-		// Assert - dialog should close and result should be negative
+		// Assert - modal should close and result should be negative
 		await Expect(cancelButton).Not.ToBeVisibleAsync(new() { Timeout = 10_000 });
 
-		var openDialog = Page.Locator("dialog[open]");
-		await Expect(openDialog).ToHaveCountAsync(0);
+		var backdrop = Page.Locator(".modal-backdrop");
+		await Expect(backdrop).ToHaveCountAsync(0);
 		var result = Page.Locator("[data-testid='result']");
 		await Expect(result).ToHaveTextAsync("Negative");
 	}

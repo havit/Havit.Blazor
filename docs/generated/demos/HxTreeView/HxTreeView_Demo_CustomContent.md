@@ -2,7 +2,7 @@
 
 ```razor
 <div class="row">
-    <div class="lg:col-4" style="height: 400px">
+    <div class="col-lg-4" style="height: 400px">
         <HxTreeView TItem="Directory"
                     @bind-SelectedItem="selectedDirectory"
                     Items="@fileSystem"
@@ -18,13 +18,13 @@
                     </div>
                     @if (context.Subdirectories?.Any() ?? false)
                     {
-                        <HxBadge CssClass="mx-2" Color="ThemeColor.Secondary">@context.Subdirectories?.Length</HxBadge>
+                        <HxBadge CssClass="mx-2" TextColor="ThemeColor.Dark" Color="ThemeColor.Light">@context.Subdirectories?.Length</HxBadge>
                     }
                     <div role="button" @onclick:stopPropagation class="btn-plus ms-auto"><HxIcon Icon="BootstrapIcon.PlusLg" /></div>
             </ItemTemplate>
         </HxTreeView>
     </div>
-    <div class="lg:col-4">
+    <div class="col-lg-4">
         @if (selectedDirectory == null)
         {
             <p>No directory selected.</p>

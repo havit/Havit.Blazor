@@ -3,76 +3,48 @@
 <ApiDoc Type="typeof(HxCarousel)">
 
 	<DocAlert>
-		Set one of the items as <code>Active="true"</code> to choose the starting slide. A sliding carousel falls back to the first slide when none is marked active, but a <code>Crossfade</code> carousel hides every non-active slide &mdash; so without an active item it shows nothing.
+		Always set one of the items as <code>Active="true"</code>, otherwise the carousel won't show at all.
 	</DocAlert>
 
 	<DocHeading Title="Slides only" />
 	<Demo Type="typeof(HxCarousel_Demo_SlidesOnly)" />
 
-	<DocHeading Title="Controls" />
-	<p>Add <code>Controls="true"</code> to render previous/next buttons below the slides.</p>
+    <DocHeading Title="Controls" />
 	<Demo Type="typeof(HxCarousel_Demo_Controls)" />
 
-	<DocHeading Title="Indicators" />
+    <DocHeading Title="Indicators" />
 	<Demo Type="typeof(HxCarousel_Demo_Indicators)" />
 
-	<DocHeading Title="Custom content" />
-	<p>You can put any markup you like inside each <code>HxCarouselItem</code> — text, buttons, cards, or media.</p>
-	<Demo Type="typeof(HxCarousel_Demo_CustomContent)" />
+    <DocHeading Title="Captions" />
+	<Demo Type="typeof(HxCarousel_Demo_Captions)" />
 
-	<DocHeading Title="Overlay controls" />
-	<p>Set <code>Overlay="true"</code> to overlay the controls and indicators on top of the slides instead of rendering them below.</p>
-	<Demo Type="typeof(HxCarousel_Demo_Overlay)" />
-
-	<DocHeading Title="Crossfade" />
-	<p>Set <code>Crossfade="true"</code> to animate slides with a fade transition instead of a slide.</p>
+    <DocHeading Title="Crossfade" />
 	<Demo Type="typeof(HxCarousel_Demo_Crossfade)" />
 
-	<DocHeading Title="Multiple items" />
-	<p>Set <code>VisibleItems</code> to show several slides at once, and combine it with <code>ItemsGap</code> for the spacing between them.</p>
-	<Demo Type="typeof(HxCarousel_Demo_MultipleItems)" />
-
-	<DocHeading Title="Peeking" />
-	<p>Set <code>ItemsPeek</code> to reveal a sliver of the previous and next slides, hinting that there's more to scroll.</p>
-	<Demo Type="typeof(HxCarousel_Demo_Peeking)" />
-
-	<DocHeading Title="Variable width" />
-	<p>Set <code>VariableWidth="true"</code> and size each item yourself (via its <code>style</code> or <code>CssClass</code>). Snap points still land on every slide.</p>
-	<Demo Type="typeof(HxCarousel_Demo_VariableWidth)" />
-
-	<DocHeading Title="Autoplay" />
-	<p>
-		Set <code>Autoplay="true"</code> to cycle the carousel automatically on load. For accessibility, pair it with a play/pause button via <code>PlayPauseControl="true"</code>.
-		Autoplay pauses on hover (see <a href="#pause-on-hover">below</a>) and stops for good once the visitor takes control.
-	</p>
-	<Demo Type="typeof(HxCarousel_Demo_Autoplay)" />
-
-	<DocHeading Title="Individual interval" Id="individual-interval" />
-	<p>With the per-item <code>Interval</code> parameter, you can set the amount of time to delay (ms) before automatically cycling to the next item.</p>
+	<DocHeading Title="Individual interval" />
+	<p>With the <code>Interval</code> parameter, you can set the amount of time to delay (ms) between automatically cycling to the next item.</p>
 	<Demo Type="typeof(HxCarousel_Demo_Intervals)" />
 
-	<DocHeading Title="End behavior" Id="end-behavior" />
-	<p>
-		The <code>Ends</code> parameter controls what happens at the first and last slide: <code>CarouselEnds.Loop</code> (default, scrolls seamlessly past the ends),
-		<code>CarouselEnds.Wrap</code> (jumps from the last slide back to the first and vice versa), or <code>CarouselEnds.Stop</code> (hard-stops and disables the relevant control at each end).
-	</p>
-	<Demo Type="typeof(HxCarousel_Demo_EndsWrap)" />
-	<Demo Type="typeof(HxCarousel_Demo_EndsStop)" />
+    <DocHeading Title="Disable automatic sliding" Id="automatic-sliding" />
+	<p>If you want to disable automatic sliding, set the <code>Ride="CarouselRide.False"</code> parameter.</p>
+	<Demo Type="typeof(HxCarousel_Demo_NoAutoSliding)" />
 
-	<DocHeading Title="Disable pausing on hover" Id="pause-on-hover" />
+    <DocHeading Title="Disable touch swiping" Id="touch-swiping"/>
+	<Demo Type="typeof(HxCarousel_Demo_TouchSwiping)" />
+
+    <DocHeading Title="Disable pausing on hover" Id="slide-on-hover" />
 	<p>
-		Set <code>@nameof(HxCarousel.Pause)="@nameof(CarouselPause).@nameof(CarouselPause.False)"</code> to keep an autoplaying carousel cycling on <code>mouseenter</code>.
-		By default (<code>@nameof(HxCarousel.Pause)="@nameof(CarouselPause).@nameof(CarouselPause.Hover)"</code>), the carousel pauses the cycling on <code>mouseenter</code> and resumes on <code>mouseleave</code>.
-	</p>
+        Set <code>@nameof(HxCarousel.Pause)="@nameof(CarouselPause).@nameof(CarouselPause.False)"</code> to disable pausing the carousel on <code>mouseenter</code>.
+        By default (<code>@nameof(HxCarousel.Pause)="@nameof(CarouselPause).@nameof(CarouselPause.Hover)"</code>), the carousel pauses the cycling on <code>mouseenter</code> and resumes the cycling on <code>mouseleave</code>.
+    </p>
 	<Demo Type="typeof(HxCarousel_Demo_Pause)" />
 
-	<DocHeading Title="Dark variant" />
-	<p>Add <code>data-bs-theme="dark"</code> to the carousel for darker controls and indicators. This is typically most useful with an overlay carousel.</p>
+    <DocHeading Title="Dark variant" />
 	<Demo Type="typeof(HxCarousel_Demo_Dark)" />
 
-	<DocHeading Title="Events" />
+    <DocHeading Title="Events" />
 	<Demo Type="typeof(HxCarousel_Demo_Events)" />
 
-	<DocHeading Title="Programmatic control" />
+    <DocHeading Title="Programmatic control" />
 	<Demo Type="typeof(HxCarousel_Demo_ProgrammaticControl)" />
 </ApiDoc>

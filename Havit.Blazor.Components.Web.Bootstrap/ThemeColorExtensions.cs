@@ -2,39 +2,23 @@
 
 public static class ThemeColorExtensions
 {
-	/// <summary>
-	/// Returns the Bootstrap 6 composable theme class (<c>theme-*</c>) which applies the semantic
-	/// theme tokens (<c>--theme-bg</c>, <c>--theme-fg</c>, <c>--theme-border</c>, ...) to a component.
-	/// </summary>
-	public static string ToThemeCss(this ThemeColor themeColor)
-	{
-		return themeColor switch
-		{
-			ThemeColor.None => null,
-			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as a theme class."),
-			_ => "theme-" + themeColor.ToString("f").ToLower()
-		};
-	}
-
 	public static string ToBackgroundColorCss(this ThemeColor themeColor, bool subtle = false)
 	{
 		return themeColor switch
 		{
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as background color."),
-			// Bootstrap 6: the subtle variant moved from suffix (bg-primary-subtle) to infix (bg-subtle-primary).
-			_ => (subtle ? "bg-subtle-" : "bg-") + themeColor.ToString("f").ToLower()
+			_ => "bg-" + themeColor.ToString("f").ToLower() + (subtle ? "-subtle" : null)
 		};
 	}
 
 	public static string ToTextBackgroundColorCss(this ThemeColor themeColor)
 	{
-		// Bootstrap 6 removed the text-bg-* utilities; the theme-* class sets both background and contrast foreground.
 		return themeColor switch
 		{
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as text-bg color."),
-			_ => themeColor.ToThemeCss()
+			_ => "text-bg-" + themeColor.ToString("f").ToLower()
 		};
 	}
 
@@ -44,20 +28,42 @@ public static class ThemeColorExtensions
 		{
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as text color."),
-			// Bootstrap 6: text color utilities were renamed from text-* to fg-* (emphasis: fg-emphasis-*).
-			_ => (emphasis ? "fg-emphasis-" : "fg-") + themeColor.ToString("f").ToLower()
+			_ => "text-" + themeColor.ToString("f").ToLower() + (emphasis ? "-emphasis" : null)
 		};
 	}
-
 	public static string ToBorderColorCss(this ThemeColor themeColor, bool subtle = false)
 	{
 		return themeColor switch
 		{
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as border color."),
-			// Bootstrap 6: the subtle variant moved from suffix (border-primary-subtle) to infix (border-subtle-primary).
-			_ => (subtle ? "border-subtle-" : "border-") + themeColor.ToString("f").ToLower()
+			_ => "border-" + themeColor.ToString("f").ToLower() + (subtle ? "-subtle" : null)
 		};
 	}
 
+	public static string ToButtonColorCss(this ThemeColor themeColor, bool outline = false)
+	{
+		return (themeColor, outline) switch
+		{
+			(ThemeColor.Primary, false) => "btn-primary",
+			(ThemeColor.Primary, true) => "btn-outline-primary",
+			(ThemeColor.Secondary, false) => "btn-secondary",
+			(ThemeColor.Secondary, true) => "btn-outline-secondary",
+			(ThemeColor.Success, false) => "btn-success",
+			(ThemeColor.Success, true) => "btn-outline-success",
+			(ThemeColor.Danger, false) => "btn-danger",
+			(ThemeColor.Danger, true) => "btn-outline-danger",
+			(ThemeColor.Warning, false) => "btn-warning",
+			(ThemeColor.Warning, true) => "btn-outline-warning",
+			(ThemeColor.Info, false) => "btn-info",
+			(ThemeColor.Info, true) => "btn-outline-info",
+			(ThemeColor.Light, false) => "btn-light",
+			(ThemeColor.Light, true) => "btn-outline-light",
+			(ThemeColor.Dark, false) => "btn-dark",
+			(ThemeColor.Dark, true) => "btn-outline-dark",
+			(ThemeColor.Link, _) => "btn-link",
+			(ThemeColor.None, _) => null,
+			_ => throw new InvalidOperationException($"Unknown color {themeColor:g}.")
+		};
+	}
 }

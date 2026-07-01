@@ -5,9 +5,9 @@
 <HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Secondary">Secondary</HxBadge>
 <HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Success">Success</HxBadge>
 <HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Danger">Danger</HxBadge>
-<HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Warning">Warning</HxBadge>
+<HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Warning" TextColor="ThemeColor.Dark">Warning</HxBadge>
 <HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Info">Info</HxBadge>
-<HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Secondary">Light</HxBadge>
-<HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Inverse">Dark</HxBadge>
+<HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Light" TextColor="ThemeColor.Dark">Light</HxBadge>
+<HxBadge Type="BadgeType.RoundedPill" Color="ThemeColor.Dark">Dark</HxBadge>
 
 ```

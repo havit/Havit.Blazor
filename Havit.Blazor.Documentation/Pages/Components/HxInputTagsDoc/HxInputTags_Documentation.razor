@@ -1,16 +1,7 @@
-﻿@attribute [Route("/components/" + nameof(HxInputTags))]
+@attribute [Route("/components/" + nameof(HxInputTags))]
 
 <ApiDoc Type="typeof(HxInputTags)">
     <MainContent>
-        <DocAlert Type="DocAlertType.Info">
-            Since Bootstrap 6, the component renders with the native
-            <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/chips/">chip-input</a> pattern
-            — the <code>chip-input</code> wrapper carries the border and focus styling, tags render as <code>chip</code> elements,
-            and the inner input is an unstyled <code>form-ghost</code>.
-            As a consequence, <code>LabelType.Floating</code> is no longer supported
-            (Bootstrap 6 floating labels require the input itself to be the <code>.form-control</code>); use a regular label instead.
-        </DocAlert>
-
         <DocAlert Type="DocAlertType.Warning">
             Due to a breaking change in Bootstrap 5.2, the keyboard navigation stopped working for dropdowns triggered from <code>input</code> (the <code>Up</code> and <code>Down</code> keys).
             As an experimental feature, we have added our own keyboard navigation routines to the affected components. This might be subject to future change.
@@ -40,7 +31,7 @@
         <Demo Type="typeof(HxInputTags_Demo_AllowCustomTags)" />
 
         <DocHeading Title="Colors" />
-        <p>Use the <code>Color</code> parameter to apply a Bootstrap theme color (a <code>theme-*</code> class) to the tag chips.</p>
+        <p>Use <code>TagBackgroundColor</code> and <code>TagTextColor</code> via <code>TagBadgeSettings</code> to adjust the colors.</p>
         <Demo Type="typeof(HxInputTags_Demo_Colors)" />
 
         <DocHeading Title="Naked" />
@@ -67,20 +58,35 @@
     </MainContent>
 
     <CssVariables>
+        <ApiDocCssVariable Name="--hx-input-tags-tag-gap" Default=".25rem">
+            Gap between the tags.
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--hx-input-tags-input-width" Default="3em">
+            Input width.
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--hx-input-tags-input-placeholder-color" Default="var(--bs-secondary-color)">
+            Color of the placeholder input.
+        </ApiDocCssVariable>
         <ApiDocCssVariable Name="--hx-input-tags-naked-font-size-lg" Default="1.25em">
             Naked font size large.
         </ApiDocCssVariable>
         <ApiDocCssVariable Name="--hx-input-tags-naked-font-size-sm" Default=".875em">
             Naked font size small.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-input-tags-add-button-text-margin" Default="0 0 0 .25rem">
+        <ApiDocCssVariable Name="--hx-input-tags-control-focused-box-shadow" Default="0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25)">
+            Box shadow of the control when focused.
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--hx-input-tags-control-focused-border-color" Default="rgba(var(--bs-primary-rgb), .3)">
+            Border color of the control when focused (as the color is not exposed via CSS variables from Bootstrap, we use rgba derivative from --bs-primary-rgb and the color is not 100% accurate).
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--hx-input-tags-add-button-text-margin" Default="rgba(var(--bs-primary-rgb), .3)">
             Margin of an add button text.
         </ApiDocCssVariable>
         <ApiDocCssVariable Name="--hx-input-tags-add-button-disabled-opacity" Default=".65">
             Opacity of disabled add button.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-input-tags-menu-item-highlighted-background-color" Default="var(--bs-bg-1)">
-            Background color of a menu item when highlighted.
+        <ApiDocCssVariable Name="--hx-input-tags-dropdown-item-highlighted-background-color" Default="var(--bs-tertiary-bg)">
+            Background color of a dropdown item when highlighted.
         </ApiDocCssVariable>
     </CssVariables>
 </ApiDoc>

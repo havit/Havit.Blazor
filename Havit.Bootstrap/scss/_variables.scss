@@ -1,0 +1,79 @@
+// We use contrast ratio 3 so the HAVIT blue has white text;
+$min-contrast-ratio:                  3;
+
+$border-color:                        $gray-300;
+$border-color-translucent:            rgba($black, .1);
+
+$border-radius:                       .5rem ;
+$border-radius-sm:                    .375rem;
+$border-radius-lg:                    .625rem;
+
+$box-shadow:                          0 .5rem 1rem rgba(var(--#{$prefix}body-color-rgb), .1);
+$box-shadow-sm:                       0 .125rem .25rem rgba(var(--#{$prefix}body-color-rgb), .05);
+$box-shadow-lg:                       0 1rem 3rem rgba(var(--#{$prefix}body-color-rgb), .15);
+
+$nav-tabs-border-color:               var(--#{$prefix}border-color-translucent);
+
+$card-border-radius:                  var(--#{$prefix}border-radius-lg);
+$card-inner-border-radius:            subtract($card-border-radius, $card-border-width);
+$card-cap-bg:                         rgba(var(--#{$prefix}body-color-rgb), .02);
+
+$table-active-bg-factor:              .075;
+$table-active-bg:                     rgba($black, $table-active-bg-factor);
+$table-hover-bg-factor:               .05;
+$table-hover-bg:                      rgba($black, $table-hover-bg-factor);
+
+$form-label-margin-bottom:            .25rem;
+$form-label-font-size:                .875rem;
+$form-label-color:                    $gray-600;
+$form-check-label-color:              $form-label-color;
+$form-label-font-weight:              500;
+$form-feedback-tooltip-font-size:     .75rem;
+$form-feedback-margin-top:            .125rem;
+$form-feedback-font-size:             .75rem;
+
+$popover-header-bg:                   rgba(var(--#{$prefix}body-color-rgb), .03);
+
+$modal-backdrop-opacity:              .25;
+
+$offcanvas-horizontal-width:          500px;
+
+$dropdown-box-shadow:                 $box-shadow-sm;
+$dropdown-item-padding-y:             .375rem;
+$dropdown-divider-margin-y:           $spacer * .125;
+
+$pagination-disabled-bg:              transparent;
+
+$accordion-border-color:              var(--#{$prefix}border-color-translucent);
+
+$toast-padding-x:                     1rem;
+$toast-padding-y:                     .75rem;
+
+$badge-font-weight:                   $font-weight-semibold;
+
+$list-group-border-color:             var(--#{$prefix}border-color-translucent);
+
+$hr-opacity: .125;
+
+// scss-docs-start grid-breakpoints
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1400px,
+  xxxl: 1600px
+);
+// scss-docs-end grid-breakpoints
+
+$component-active-color:            rgba($primary, 1);  
+$component-active-bg:               rgba($primary, .1);  
+$nav-pills-link-active-color:       $component-active-color;
+$nav-pills-link-active-bg:          $component-active-bg;
+$dropdown-link-active-color:        $component-active-color;
+$dropdown-link-active-bg:           $component-active-bg;
+$form-switch-color:                 $white;
+$form-switch-bg-image:            url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color}'/></svg>");
+$form-switch-color-dark:            $white;
+$form-switch-bg-image-dark:         url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'><circle r='3' fill='#{$form-switch-color-dark}'/></svg>");

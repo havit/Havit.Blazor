@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/breadcrumb/">Bootstrap Breadcrumb</see> component.<br />
+/// <see href="https://getbootstrap.com/docs/5.3/components/breadcrumb/">Bootstrap 5 Breadcrumb</see> component.<br />
 /// Indicates the current page's location within a navigational hierarchy.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxBreadcrumb">https://havit.blazor.eu/components/HxBreadcrumb</see>
 /// </summary>
@@ -13,16 +13,17 @@ public partial class HxBreadcrumb
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	/// <summary>
-	/// Custom divider content rendered into the <c>breadcrumb-divider</c> elements between items (any icon, text character, or markup).
-	/// When <c>null</c> (default), the divider is left empty and Bootstrap renders the built-in chevron
-	/// (customizable globally via the <c>--bs-breadcrumb-divider-icon</c> CSS variable).
+	/// Breadcrumb divider. Default is <c>/</c>.
+	/// Enter either a character (such as <c>></c>) or use an embedded SVG icon.
+	/// Disable the divider with <c>null</c>.
 	/// </summary>
-	[Parameter] public RenderFragment DividerTemplate { get; set; }
-
-	private int _itemCounter;
+	[Parameter] public string Divider { get; set; } = "/";
 
 	/// <summary>
-	/// Called by <see cref="HxBreadcrumbItem"/> on initialization to determine the item position (dividers are rendered between items).
+	/// Indicates whether the divider is an image or text.
 	/// </summary>
-	internal int RegisterItem() => _itemCounter++;
+	private bool IsDividerImage()
+	{
+		return Divider.Contains("url(");
+	}
 }

@@ -1,0 +1,22 @@
+@page "/HxModal_Basic"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxButton data-testid="open-button" OnClick="HandleOpenClick" Color="ThemeColor.Primary">Open Modal</HxButton>
+
+<HxModal @ref="_modal" Title="Test Modal Title">
+	<BodyTemplate>
+		<p data-testid="modal-body-content">This is the modal body content.</p>
+	</BodyTemplate>
+	<FooterTemplate>
+		<span data-testid="modal-footer-content">This is the modal footer content.</span>
+	</FooterTemplate>
+</HxModal>
+
+@code {
+	private HxModal _modal;
+
+	private async Task HandleOpenClick()
+	{
+		await _modal.ShowAsync();
+	}
+}

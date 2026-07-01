@@ -1,6 +1,6 @@
 ﻿# HxProgress
 
-Bootstrap 6 Progress component. A wrapping component (`.progress-stacked`) for one or more `HxProgressBar` components.
+Bootstrap 5 Progress component. A wrapping component for the `HxProgressBar`.
 
 ## Parameters
 

@@ -45,13 +45,9 @@ public class HxSwitch : HxCheckboxBase
 
 	protected override CheckboxRenderMode RenderModeEffective => NativeEffective ? CheckboxRenderMode.NativeSwitch : CheckboxRenderMode.Switch;
 
-	/// <summary>
-	/// Theme color of the switch (renders the <c>theme-*</c> class on the <c>.switch</c> wrapper, new in Bootstrap 6).
-	/// </summary>
-	[Parameter] public ThemeColor? Color { get; set; }
-	protected override ThemeColor ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color ?? ThemeColor.None;
+	protected override ThemeColor ColorEffective => throw new NotSupportedException();
 
-	protected override ButtonVariant VariantEffective => throw new NotSupportedException();
+	protected override bool OutlineEffective => throw new NotSupportedException();
 
 	protected override ButtonSize ButtonSizeEffective => throw new NotSupportedException();
 }

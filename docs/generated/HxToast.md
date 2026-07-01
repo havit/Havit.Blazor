@@ -15,7 +15,6 @@ Bootstrap Toast component. Not intended to be used in user code, use `HxMessenge
 | HeaderTemplate | `RenderFragment` | Header template. |
 | HeaderText | `string` | Header text. |
 | ShowCloseButton | `bool` | Indicates whether to show the close button. |
-| Translucent | `bool` | When `true`, enhances the toast translucency with a backdrop blur and saturation filter (`toast-translucent`, new in Bootstrap 6). Default is `false`. |
 
 ## Event callbacks
 

@@ -38,7 +38,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
 	string IInputWithSize.GetInputSizeCssClass() => InputSizeEffective.AsFormSelectCssClass();
 
-	private protected override string CoreInputCssClass => "form-control combobox-toggle";
+	private protected override string CoreInputCssClass => "hx-multi-select-input form-select user-select-none";
 
 	/// <summary>
 	/// Items to display. 
@@ -123,7 +123,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	[Parameter] public Func<TItem, string, bool> FilterPredicate { get; set; }
 
 	/// <summary>
-	/// When enabled the filter will be cleared when the menu is closed.
+	/// When enabled the filter will be cleared when the dropdown is closed.
 	/// </summary>
 	[Parameter] public bool? ClearFilterOnHide { get; set; }
 	protected bool ClearFilterOnHideEffective => ClearFilterOnHide ?? GetSettings()?.ClearFilterOnHide ?? GetDefaults().ClearFilterOnHide;
@@ -145,7 +145,7 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	protected bool AllowSelectAllEffective => AllowSelectAll ?? GetSettings()?.AllowSelectAll ?? GetDefaults().AllowSelectAll;
 
 	/// <summary>
-	/// Text to display for the select all menu option.
+	/// Text to display for the select all dropdown option.
 	/// </summary>
 	[Parameter] public string SelectAllText { get; set; }
 
@@ -225,29 +225,29 @@ public class HxMultiSelect<TValue, TItem> : HxInputBase<List<TValue>>, IInputWit
 	}
 
 	/// <summary>
-	/// Shows the menu.
+	/// Shows the dropdown.
 	/// </summary>
-	public async Task ShowMenuAsync()
+	public async Task ShowDropdownAsync()
 	{
 		if (_hxMultiSelectInternalComponent == null)
 		{
-			throw new InvalidOperationException($"[{GetType().Name}] Unable to show menu. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unable to show dropdown. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 
-		await _hxMultiSelectInternalComponent.ShowMenuAsync();
+		await _hxMultiSelectInternalComponent.ShowDropdownAsync();
 	}
 
 	/// <summary>
-	/// Hides the menu.
+	/// Hides the dropdown.
 	/// </summary>
-	public async Task HideMenuAsync()
+	public async Task HideDropdownAsync()
 	{
 		if (_hxMultiSelectInternalComponent == null)
 		{
-			throw new InvalidOperationException($"[{GetType().Name}] Unable to hide menu. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
+			throw new InvalidOperationException($"[{GetType().Name}] Unable to hide dropdown. The component reference is not available. You are most likely calling the method too early. The first render must complete before calling this method.");
 		}
 
-		await _hxMultiSelectInternalComponent.HideMenuAsync();
+		await _hxMultiSelectInternalComponent.HideDropdownAsync();
 	}
 
 	/// <inheritdoc/>

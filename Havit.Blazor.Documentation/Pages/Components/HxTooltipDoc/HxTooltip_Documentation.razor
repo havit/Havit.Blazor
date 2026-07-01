@@ -30,14 +30,6 @@
 	<p>Use <code>Html="true"</code> to enable HTML in the tooltip.</p>
 	<Demo Type="typeof(HxTooltip_Demo_HtmlContent)" />
 
-    <DocHeading Title="Disabled elements" />
-	<p>
-		Disabled elements use <code>pointer-events: none</code>, so they can't directly receive the events that trigger a tooltip.
-		<code>HxTooltip</code> wraps its content in a <code>&lt;span&gt;</code> and attaches the trigger to that wrapper, so a <strong>hover</strong>-triggered tooltip works on disabled elements out of the box&mdash;no extra markup required.
-		Focus triggering doesn't apply here, as neither the disabled control nor the wrapper is focusable.
-	</p>
-	<Demo Type="typeof(HxTooltip_Demo_DisabledElements)" Tabs="false" />
-
     <DocHeading Title="Programmability" />
 	<p>
 		You can use the <code>ShowAsync()</code> and <code>HideAsync()</code> methods, as well as the <code>OnShown</code> and <code>OnHidden</code> events,

@@ -14,7 +14,7 @@ public record CheckboxSettings : InputSettings
 	/// Indicates whether to use <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" buttons</see>.
 	/// for <see cref="CheckboxRenderMode.ToggleButton"/>.
 	/// </summary>
-	public ButtonVariant? Variant { get; set; }
+	public bool? Outline { get; set; }
 
 	/// <summary>
 	/// Size of the button for <see cref="CheckboxRenderMode.ToggleButton"/>.

@@ -25,10 +25,10 @@ public partial class HxAutosuggestInputInternal
 	[Parameter] public bool? SpellcheckEffective { get; set; }
 
 	/// <summary>
-	/// Offset between the menu and the input.
-	/// <see href="https://floating-ui.com/docs/offset#options"/>
+	/// Offset between the dropdown and the input.
+	/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
 	/// </summary>
-	[Parameter] public (int Skidding, int Distance) MenuOffset { get; set; }
+	[Parameter] public (int Skidding, int Distance) DropdownOffset { get; set; }
 
 	[Parameter] public string NameAttributeValue { get; set; }
 

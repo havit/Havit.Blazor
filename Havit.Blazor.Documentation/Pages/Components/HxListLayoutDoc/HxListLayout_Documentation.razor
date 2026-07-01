@@ -4,7 +4,7 @@
 	<MainContent>
 
 		<DocHeading Title="Basic usage" />
-		<Demo Type="typeof(HxListLayout_Demo_Basic)" Resizable="true" />
+		<Demo Type="typeof(HxListLayout_Demo_Basic)" />
 		<DocDemoDataServiceNote />
 
 		<DocHeading Title="Infinite scroll with sticky header" Id="sticky-header" />
@@ -32,21 +32,13 @@
 			You can add a search input to the toolbar using the <code>SearchTemplate</code> parameter.<br/>
 			Consider using <code>BindEvent.OnInput</code> and the <a href="concepts/Debouncer">Debouncer</a> to avoid unnecessary requests to the server.
 		</p>
-		<Demo Type="typeof(HxListLayout_Demo_SearchTemplate)" Resizable="true" />
+		<Demo Type="typeof(HxListLayout_Demo_SearchTemplate)" />
 
 		<DocHeading Title="Named views" />
 		<p>
 			Predefined named views allow quick switching between different filter configurations.
 		</p>
 		<Demo Type="typeof(HxListLayout_Demo_NamedViews)" />
-
-		<DocHeading Title="Flush (edge-to-edge content)" Id="flush" />
-		<p>
-			By default the data area keeps the card padding. Add the <code>hx-list-layout-flush</code> CSS class
-			(through the <code>CssClass</code> parameter) to remove that padding so the grid sits edge to edge with
-			the card. This works with all the other features &ndash; search, commands, filter chips, and the pager.
-		</p>
-		<Demo Type="typeof(HxListLayout_Demo_Flush)" />
 
 	</MainContent>
 	<CssVariables>

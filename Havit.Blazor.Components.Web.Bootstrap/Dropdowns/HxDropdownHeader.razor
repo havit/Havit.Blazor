@@ -1,0 +1,8 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+@using Havit.Blazor.Components.Web.Bootstrap.Internal
+<li>
+    <h6 class="@CssClassHelper.Combine("dropdown-header", CssClass)">
+        <HxDropdownIconInternal Icon="@Icon" CssClass="@IconCssClass" />
+        @ChildContent
+    </h6>
+</li>

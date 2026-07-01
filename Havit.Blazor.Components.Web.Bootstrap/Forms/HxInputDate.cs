@@ -70,42 +70,39 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	protected IconBase CalendarIconEffective => CalendarIcon ?? GetSettings()?.CalendarIcon ?? GetDefaults().CalendarIcon;
 
 	/// <summary>
-	/// Indicates whether the <i>Clear</i> button in the menu calendar should be visible.<br/>
+	/// Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
 	/// The default is <c>true</c> (configurable in <see cref="HxInputDate.Defaults"/>).
 	/// </summary>
 	[Parameter] public bool? ShowClearButton { get; set; }
 	protected bool ShowClearButtonEffective => ShowClearButton ?? GetSettings()?.ShowClearButton ?? GetDefaults().ShowClearButton ?? throw new InvalidOperationException(nameof(ShowClearButton) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 	/// <summary>
-	/// The first date selectable from the menu calendar.<br />
+	/// The first date selectable from the dropdown calendar.<br />
 	/// The default is <c>1.1.1900</c> (configurable from <see cref="HxInputDate.Defaults"/>).
 	/// </summary>
 	[Parameter] public DateTime? MinDate { get; set; }
 	protected DateTime MinDateEffective => MinDate ?? GetSettings()?.MinDate ?? GetDefaults().MinDate ?? throw new InvalidOperationException(nameof(MinDate) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 	/// <summary>
-	/// The last date selectable from the menu calendar.<br />
+	/// The last date selectable from the dropdown calendar.<br />
 	/// The default is <c>31.12.2099</c> (configurable from <see cref="HxInputDate.Defaults"/>).
 	/// </summary>
 	[Parameter] public DateTime? MaxDate { get; set; }
 	protected DateTime MaxDateEffective => MaxDate ?? GetSettings()?.MaxDate ?? GetDefaults().MaxDate ?? throw new InvalidOperationException(nameof(MaxDate) + " default for " + nameof(HxInputDate) + " has to be set.");
 
 	/// <summary>
-	/// Allows customization of the dates in the menu calendar.<br />
+	/// Allows customization of the dates in the dropdown calendar.<br />
 	/// The default customization is configurable with <see cref="HxInputDate.Defaults"/>.
 	/// </summary>
 	[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
 	protected CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective => CalendarDateCustomizationProvider ?? GetSettings()?.CalendarDateCustomizationProvider ?? GetDefaults().CalendarDateCustomizationProvider;
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
-	/// <remarks>
-	/// <see cref="Bootstrap.LabelType.Floating"/> is not supported since Bootstrap 6. The component renders with the
-	/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/">form-adorn</see> pattern,
-	/// where the wrapper owns the visual chrome, while Bootstrap 6 floating labels require the input itself to be the <c>.form-control</c>.
-	/// </remarks>
 	[Parameter] public LabelType? LabelType { get; set; }
 	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
 	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
+
+	protected override LabelValueRenderOrder RenderOrder => (LabelTypeEffective == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* label rendered by HxInputDateInternal */ : LabelValueRenderOrder.LabelValue;
 
 	/// <summary>
 	/// Custom CSS class to render with the input-group span.
@@ -142,13 +139,12 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings()?.TimeProvider ?? GetDefaults().TimeProvider ?? TimeProviderFromServices;
 
 	/// <summary>
-	/// Default month to display in menu calendar when there is no Value.
+	/// Default month to display in dropdown calendar when there is no Value.
 	/// </summary>
 	[Parameter] public DateTime CalendarDisplayMonth { get; set; }
 
 	[Inject] private IStringLocalizer<HxInputDate> StringLocalizer { get; set; }
 
-	private protected override string CoreInputCssClass => "form-ghost";
 
 	private HxInputDateInternal<TValue> _hxInputDateInternalComponent;
 
@@ -162,25 +158,6 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 		}
 	}
 
-	/// <inheritdoc />
-	protected override void OnParametersSet()
-	{
-		if (LabelTypeEffective == Bootstrap.LabelType.Floating)
-		{
-			throw new InvalidOperationException("LabelType.Floating is not supported on HxInputDate in Bootstrap 6 — the form-adorn wrapper owns the visual chrome and cannot host a floating label. Use LabelType.Regular.");
-		}
-
-		base.OnParametersSet();
-	}
-
-	/// <inheritdoc />
-	protected override string GetInputCssClassToRender()
-	{
-		// The input size CSS class (form-control-sm/form-control-lg) is rendered on the form-adorn wrapper (in HxInputDateInternal), not on the inner form-ghost input.
-		string validationCssClass = IsValueInvalid() ? InvalidCssClass : null;
-		return CssClassHelper.Combine(CoreInputCssClass, InputCssClass, validationCssClass);
-	}
-
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
 		RenderWithAutoCreatedEditContextAsCascadingValue(builder, 0, BuildRenderInputCore);
@@ -188,6 +165,8 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 
 	protected virtual void BuildRenderInputCore(RenderTreeBuilder builder)
 	{
+		LabelType labelTypeEffective = (this as IInputWithLabelType).LabelTypeEffective;
+
 		builder.OpenComponent(1, typeof(HxInputDateInternal<TValue>));
 
 		builder.AddAttribute(100, nameof(HxInputDateInternal<TValue>.CurrentValue), CurrentValue);
@@ -197,7 +176,7 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 		builder.AddAttribute(200, nameof(HxInputDateInternal<TValue>.InputId), InputId);
 		builder.AddAttribute(201, nameof(HxInputDateInternal<TValue>.InputCssClass), GetInputCssClassToRender());
 		builder.AddAttribute(202, nameof(HxInputDateInternal<TValue>.EnabledEffective), EnabledEffective);
-		builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.Placeholder), Placeholder);
+		builder.AddAttribute(203, nameof(HxInputDateInternal<TValue>.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
 		builder.AddAttribute(204, nameof(HxInputDateInternal<TValue>.NameAttributeValue), NameAttributeValue);
 
 		builder.AddAttribute(205, nameof(HxInputDateInternal<TValue>.InputSizeEffective), InputSizeEffective);
@@ -208,6 +187,8 @@ public class HxInputDate<TValue> : HxInputBase<TValue>, IInputWithPlaceholder, I
 		builder.AddAttribute(209, nameof(HxInputDateInternal<TValue>.MinDateEffective), MinDateEffective);
 		builder.AddAttribute(210, nameof(HxInputDateInternal<TValue>.MaxDateEffective), MaxDateEffective);
 		builder.AddAttribute(211, nameof(HxInputDateInternal<TValue>.CalendarDateCustomizationProviderEffective), CalendarDateCustomizationProviderEffective);
+		builder.AddAttribute(212, nameof(HxInputDateInternal<TValue>.LabelTypeEffective), labelTypeEffective);
+		builder.AddAttribute(213, nameof(HxInputDateInternal<TValue>.FormValueComponent), this);
 		builder.AddAttribute(214, nameof(HxInputDateInternal<TValue>.TimeProviderEffective), TimeProviderEffective);
 
 		builder.AddAttribute(214, nameof(HxInputDateInternal<TValue>.InputGroupStartText), InputGroupStartText);

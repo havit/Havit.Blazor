@@ -1,8 +1,0 @@
-@page "/HxDialog_BusinessCardValidation"
-
-@rendermode InteractiveWebAssembly
-
-<HxButton Color="ThemeColor.Primary" OnClick="TriggerValidation">Start validation</HxButton>
-
-<BusinessCardValidationDialog StartValidation="_startValidation"
-                              OnValidationFinished="HandleValidationFinished"/>

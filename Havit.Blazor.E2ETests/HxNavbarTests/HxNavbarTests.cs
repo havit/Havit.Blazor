@@ -2,6 +2,7 @@
 
 public class HxNavbarTests : TestAppTestBase
 {
+	private static readonly System.Text.RegularExpressions.Regex CollapseShowClassRegex = new System.Text.RegularExpressions.Regex("\\bshow\\b");
 
 	[Fact]
 	public async Task HxNavbar_Render_ShowsBrandAndItems()
@@ -29,30 +30,27 @@ public class HxNavbarTests : TestAppTestBase
 		await NavigateToTestAppAsync("/HxNavbar");
 
 		var toggler = Page.Locator("[data-testid='navbar-toggler']");
-		var navCollapse = Page.Locator("#test-navbar-drawer");
+		var navCollapse = Page.Locator("#test-navbar-collapse");
 
-		// Assert - toggler is visible and the navbar drawer is closed (Bootstrap 6 renders the responsive navbar content as a drawer)
+		// Assert - toggler is visible and nav is collapsed (no .show class)
 		await Expect(toggler).ToBeVisibleAsync();
-		await Expect(navCollapse).Not.ToHaveAttributeAsync("open", "", new() { Timeout = 5_000 });
+		await Expect(navCollapse).Not.ToHaveClassAsync(CollapseShowClassRegex, new() { Timeout = 5_000 });
 
 		// Act - click toggler to expand navigation
 		await toggler.ClickAsync();
 
-		// Assert - the navbar drawer is open (Bootstrap Drawer plugin opened the native dialog)
-		await Expect(navCollapse).ToHaveAttributeAsync("open", "", new() { Timeout = 10_000 });
+		// Assert - nav collapse now has .show class (Bootstrap JS added it)
+		await Expect(navCollapse).ToHaveClassAsync(CollapseShowClassRegex, new() { Timeout = 10_000 });
 
 		// Assert - nav items are now visible
 		var navItemHome = Page.Locator("[data-testid='nav-item-home']");
 		await Expect(navItemHome).ToBeVisibleAsync();
 
 		// Act - click toggler again to collapse navigation
-		// Close via the drawer's close button - the open modal drawer intercepts pointer
-		// events over the rest of the page, so the toggler underneath is not clickable
-		// (Bootstrap 6 navbar UX: close via the close button, the backdrop, or Escape).
-		await Page.Locator("#test-navbar-drawer .btn-close").ClickAsync();
+		await toggler.ClickAsync();
 
-		// Assert - the navbar drawer is closed again
-		await Expect(navCollapse).Not.ToHaveAttributeAsync("open", "", new() { Timeout = 10_000 });
+		// Assert - nav collapse no longer has .show class
+		await Expect(navCollapse).Not.ToHaveClassAsync(CollapseShowClassRegex, new() { Timeout = 10_000 });
 	}
 
 	[Fact]

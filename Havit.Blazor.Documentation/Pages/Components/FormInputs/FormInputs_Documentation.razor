@@ -38,18 +38,11 @@
 	Floating labels provide a sleek and simple design, floating elegantly over your input fields.
 	See <a href="https://getbootstrap.com/docs/5.3/forms/floating-labels/">Bootstrap 5 documentation on Floating labels</a>.<br />
 	They are supported by <code>HxInputText</code>, <code>HxInputTextArea</code>,
-	<code>HxInputNumber</code>, <code>HxSelect</code> and <code>HxMultiSelect</code>.
+	<code>HxInputNumber</code>, <code>HxInputDate</code>, <code>HxAutosuggest</code>,
+	<code>HxSelect</code>, <code>HxMultiSelect</code> and <code>HxInputTags</code>.
 </p>
 <DocAlert Type="DocAlertType.Warning">
 	Inputs with floating labels can't have the <code>Placeholder</code> parameter set.
-</DocAlert>
-<DocAlert Type="DocAlertType.Warning">
-	Since Bootstrap 6, floating labels are no longer supported by <code>HxAutosuggest</code>, <code>HxSearchBox</code>,
-	<code>HxInputDate</code>, <code>HxInputDateRange</code> and <code>HxInputTags</code>. These composite inputs render with the
-	<a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/">form-adorn</a> /
-	<a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/chips/">chip-input</a> pattern
-	(the wrapper carries the border and focus styling, the inner input is an unstyled <code>form-ghost</code>),
-	while Bootstrap 6 floating labels require the input itself to be the <code>.form-control</code>.
 </DocAlert>
 <Demo Type="@typeof(FormInputs_Demo_FloatingLabels)" />
 

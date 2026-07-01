@@ -20,12 +20,12 @@
 
 .hx-tree-view-item.selected,
 .hx-tree-view-item.selected:hover {
-	background-color: color-mix(in srgb, var(--hx-tree-view-item-selected-background) calc(var(--hx-tree-view-item-hover-background-opacity) * 100%), transparent);
+	background-color: rgba(var(--hx-tree-view-item-selected-background), var(--hx-tree-view-item-hover-background-opacity));
 	color: var(--hx-tree-view-item-selected-color);
 }
 
 .hx-tree-view-item:hover {
-	background-color: color-mix(in srgb, var(--hx-tree-view-item-hover-background) calc(var(--hx-tree-view-item-hover-background-opacity) * 100%), transparent);
+	background-color: rgba(var(--hx-tree-view-item-hover-background), var(--hx-tree-view-item-hover-background-opacity));
 	color: var(--hx-tree-view-item-hover-color);
 }
 

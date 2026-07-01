@@ -21,17 +21,17 @@ public enum NavbarExpand
 	MediumUp,
 
 	/// <summary>
-	/// Expanded for viewports above the "large" breakpoint (<c>1024px</c>).
+	/// Expanded for viewports above the "large" breakpoint (<c>992px</c>).
 	/// </summary>
 	LargeUp,
 
 	/// <summary>
-	/// Expanded for viewports above the "extra-large" breakpoint (<c>1280px</c>).
+	/// Expanded for viewports above the "extra-large" breakpoint (<c>1200px</c>).
 	/// </summary>
 	ExtraLargeUp,
 
 	/// <summary>
-	/// Expanded for viewports above the "2xl" breakpoint (<c>1536px</c>).
+	/// Expanded for viewports above the "XXL" breakpoint (<c>1400px</c>).
 	/// </summary>
 	XxlUp,
 

@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Ready-made context menu (based on <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/">Bootstrap Menu</see>) with built-in support for confirmation messages after clicking on the menu items.<br />
+/// Ready-made context menu (based on <see href="https://getbootstrap.com/docs/5.3/components/dropdowns/">Bootstrap Dropdown</see>) with built-in support for confirmation messages after clicking on the menu items.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxContextMenu">https://havit.blazor.eu/components/HxContextMenu</see>
 /// </summary>
 public partial class HxContextMenu
@@ -16,7 +16,7 @@ public partial class HxContextMenu
 		Defaults = new ContextMenuSettings()
 		{
 			Icon = BootstrapIcon.ThreeDotsVertical,
-			MenuPlacement = Bootstrap.MenuPlacement.BottomEnd
+			DropdownMenuAlignment = Bootstrap.DropdownMenuAlignment.End
 		};
 	}
 
@@ -46,10 +46,16 @@ public partial class HxContextMenu
 	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
-	/// Additional CSS class(es) for the context menu <c>.menu</c> element.
+	/// Additional CSS class(es) for the context menu dropdown (container).
 	/// </summary>
-	[Parameter] public string MenuCssClass { get; set; }
-	protected string MenuCssClassEffective => MenuCssClass ?? GetSettings()?.MenuCssClass ?? GetDefaults().MenuCssClass;
+	[Parameter] public string DropdownCssClass { get; set; }
+	protected string DropdownCssClassEffective => DropdownCssClass ?? GetSettings()?.DropdownCssClass ?? GetDefaults().DropdownCssClass;
+
+	/// <summary>
+	/// Additional CSS class(es) for the context menu dropdown menu.
+	/// </summary>
+	[Parameter] public string DropdownMenuCssClass { get; set; }
+	protected string DropdownMenuCssClassEffective => DropdownMenuCssClass ?? GetSettings()?.DropdownMenuCssClass ?? GetDefaults().DropdownMenuCssClass;
 
 	/// <summary>
 	/// Icon carrying the menu (use <see cref="BootstrapIcon" /> or any other <see cref="IconBase"/>).<br />
@@ -65,11 +71,11 @@ public partial class HxContextMenu
 	protected string IconCssClassEffective => IconCssClass ?? GetSettings()?.IconCssClass ?? GetDefaults().IconCssClass;
 
 	/// <summary>
-	/// Placement of the context menu.
-	/// The default is <see cref="MenuPlacement.BottomEnd"/>.
+	/// Alignment for the context menu dropdown menu.
+	/// The default is <see cref="DropdownMenuAlignment.End"/>.
 	/// </summary>
-	[Parameter] public MenuPlacement? MenuPlacement { get; set; }
-	protected MenuPlacement MenuPlacementEffective => MenuPlacement ?? GetSettings()?.MenuPlacement ?? GetDefaults().MenuPlacement ?? throw new InvalidOperationException(nameof(MenuPlacement) + " default for " + nameof(HxContextMenu) + " has to be set.");
+	[Parameter] public DropdownMenuAlignment? DropdownMenuAlignment { get; set; }
+	protected DropdownMenuAlignment DropdownMenuAlignmentEffective => DropdownMenuAlignment ?? GetSettings()?.DropdownMenuAlignment ?? GetDefaults().DropdownMenuAlignment ?? throw new InvalidOperationException(nameof(DropdownMenuAlignment) + " default for " + nameof(HxContextMenu) + " has to be set.");
 
 	/// <summary>
 	/// Items of the context menu. Use <see cref="HxContextMenuItem"/> components.
@@ -77,21 +83,21 @@ public partial class HxContextMenu
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
 	/// <summary>
-	/// Floating UI positioning strategy. Default is <see cref="FloatingStrategy.Absolute"/>.
+	/// Popper positioning strategy. Default is <see cref="PopperStrategy.Absolute"/>.
 	/// </summary>
-	[Parameter] public FloatingStrategy FloatingStrategy { get; set; } = FloatingStrategy.Absolute;
+	[Parameter] public PopperStrategy PopperStrategy { get; set; } = PopperStrategy.Absolute;
 
 
 	private string _id = "hx" + Guid.NewGuid().ToString("N");
 
-	private string GetFloatingConfig()
+	private string GetPopperConfig()
 	{
-		if (FloatingStrategy == FloatingStrategy.Absolute)
+		if (PopperStrategy == PopperStrategy.Absolute)
 		{
-			return null; // data-bs-floating-config is not needed for the default strategy
+			return null; // data-bs-popper-config is not needed for the default strategy
 		}
 		return $$"""
-			{"strategy": "{{FloatingStrategy.ToString().ToLowerInvariant()}}"}
+			{"strategy": "{{PopperStrategy.ToString().ToLowerInvariant()}}"}
 			""";
 	}
 }

@@ -22,9 +22,9 @@ public sealed class HxListLayout
 			FilterOpenButtonSettings = new ButtonSettings()
 			{
 				Icon = BootstrapIcon.Filter,
-				Color = ThemeColor.Secondary,
+				Color = ThemeColor.Light,
 			},
-			FilterDrawerSettings = new DrawerSettings(),
+			FilterOffcanvasSettings = new OffcanvasSettings(),
 		};
 	}
 

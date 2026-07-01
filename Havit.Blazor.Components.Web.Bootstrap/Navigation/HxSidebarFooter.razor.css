@@ -8,7 +8,7 @@
 }
 
 ::deep .nav-link:hover {
-	background-color: color-mix(in srgb, var(--hx-sidebar-footer-item-hover-background-color) calc(var(--hx-sidebar-footer-item-hover-background-opacity) * 100%), transparent);
+	background-color: rgba(var(--hx-sidebar-footer-item-hover-background-color), var(--hx-sidebar-footer-item-hover-background-opacity));
 	color: var(--hx-sidebar-footer-item-hover-color);
 }
 

@@ -71,11 +71,10 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	protected bool HasInputGroupEnd => !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupEndTemplate is not null);
 	protected bool HasInputGroupStart => !String.IsNullOrWhiteSpace(InputGroupStartText) || (InputGroupStartTemplate is not null);
 
-	private bool ShowPlaceholderStyle => (ItemsToRender == null) || (_currentSelectedValues.Count == 0);
-
 	private IJSObjectReference _jsModule;
 	private readonly DotNetObjectReference<HxMultiSelectInternal<TValue, TItem>> _dotnetObjectReference;
-	private ElementReference _toggleElementReference;
+	private ElementReference _inputElementReference;
+	private ElementReference _elementReference;
 	private ElementReference _filterInputReference;
 	private bool _isShown;
 	private string _filterText = string.Empty;
@@ -106,7 +105,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 				return;
 			}
 
-			await _jsModule.InvokeVoidAsync("initialize", _toggleElementReference, _dotnetObjectReference);
+			await _jsModule.InvokeVoidAsync("initialize", _elementReference, _dotnetObjectReference);
 		}
 	}
 
@@ -212,16 +211,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		}
 	}
 
-	private string GetToggleText()
-	{
-		if ((ItemsToRender == null) && !string.IsNullOrEmpty(NullDataText))
-		{
-			return NullDataText;
-		}
-
-		return InputText;
-	}
-
 	private string GetSelectAllText()
 	{
 		return SelectAllText ?? StringLocalizer["SelectAllDefaultText"];
@@ -234,37 +223,38 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	public async ValueTask FocusAsync()
 	{
-		if (EqualityComparer<ElementReference>.Default.Equals(_toggleElementReference, default))
+		if (EqualityComparer<ElementReference>.Default.Equals(_inputElementReference, default))
 		{
 			throw new InvalidOperationException($"[{GetType().Name}] Unable to focus. The method must be called after first render.");
 		}
-		await _toggleElementReference.FocusAsync();
+		await _inputElementReference.FocusAsync();
+		_isShown = true;
 	}
 
 	/// <summary>
-	/// Shows the menu.
+	/// Shows the dropdown.
 	/// </summary>
-	public async Task ShowMenuAsync()
+	public async Task ShowDropdownAsync()
 	{
 		await EnsureJsModuleAsync();
 		if (_disposed)
 		{
 			return;
 		}
-		await _jsModule.InvokeVoidAsync("show", _toggleElementReference);
+		await _jsModule.InvokeVoidAsync("show", _elementReference);
 	}
 
 	/// <summary>
-	/// Hides the menu.
+	/// Hides the dropdown.
 	/// </summary>
-	public async Task HideMenuAsync()
+	public async Task HideDropdownAsync()
 	{
 		await EnsureJsModuleAsync();
 		if (_disposed)
 		{
 			return;
 		}
-		await _jsModule.InvokeVoidAsync("hide", _toggleElementReference);
+		await _jsModule.InvokeVoidAsync("hide", _elementReference);
 	}
 
 	/// <summary>
@@ -279,9 +269,8 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		{
 			_filterText = string.Empty;
 			SynchronizeSelectAllCheckbox();
+			StateHasChanged();
 		}
-
-		StateHasChanged();
 
 		return Task.CompletedTask;
 	}
@@ -290,7 +279,6 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 	public async Task HandleJsShown()
 	{
 		_isShown = true;
-		StateHasChanged();
 
 		if (AllowFiltering)
 		{
@@ -311,7 +299,7 @@ public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 		{
 			try
 			{
-				await _jsModule.InvokeVoidAsync("dispose", _toggleElementReference);
+				await _jsModule.InvokeVoidAsync("dispose", _elementReference);
 				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)

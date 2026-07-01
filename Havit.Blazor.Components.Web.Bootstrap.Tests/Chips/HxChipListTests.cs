@@ -1,9 +1,9 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Chips;
+namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Chips;
 
 public class HxChipListTests : BunitTestBase
 {
 	[Fact]
-	public void HxChipList_Render_DisplaysChips()
+	public void HxChipList_Render_DisplaysChipBadges()
 	{
 		// Arrange
 		var chips = new[]
@@ -17,8 +17,8 @@ public class HxChipListTests : BunitTestBase
 		var cut = RenderComponent<HxChipList>(parameters => parameters
 			.Add(p => p.Chips, chips));
 
-		// Assert – three chip elements are rendered
-		Assert.Equal(3, cut.FindAll(".chip").Count());
+		// Assert – three badge elements are rendered
+		Assert.Equal(3, cut.FindAll(".badge").Count());
 	}
 
 	[Fact]
@@ -37,7 +37,7 @@ public class HxChipListTests : BunitTestBase
 			.Add(p => p.Chips, chips)
 			.Add(p => p.OnChipRemoveClick, (ChipItem chip) => { removedChip = chip; }));
 
-		Assert.Equal(3, cut.FindAll(".chip").Count());
+		Assert.Equal(3, cut.FindAll(".badge").Count());
 		Assert.Equal(2, cut.FindAll(".hx-chip-list-remove-btn").Count());
 
 		// Act – click the first remove button (the "Name: Peter" chip)
@@ -50,8 +50,8 @@ public class HxChipListTests : BunitTestBase
 		chips.Remove(removedChip);
 		cut.SetParametersAndRender(p => p.Add(x => x.Chips, chips));
 
-		// Assert – one chip disappeared
-		Assert.Equal(2, cut.FindAll(".chip").Count());
+		// Assert – one chip badge disappeared
+		Assert.Equal(2, cut.FindAll(".badge").Count());
 	}
 
 	[Fact]
@@ -81,14 +81,14 @@ public class HxChipListTests : BunitTestBase
 		chips.Remove(removedChip);
 		cut.SetParametersAndRender(p => p.Add(x => x.Chips, chips));
 
-		// Assert – remaining chips contain the expected content; "Name: Peter" is gone
-		var chipTexts = cut.FindAll(".chip")
+		// Assert – remaining badges contain the expected content; "Name: Peter" is gone
+		var badgeTexts = cut.FindAll(".badge")
 			.Select(b => b.TextContent.Trim())
 			.ToList();
 
-		Assert.Equal(2, chipTexts.Count());
-		Assert.Contains(chipTexts, t => t.Contains("State: Active"));
-		Assert.Contains(chipTexts, t => t.Contains("Company: HAVIT"));
-		Assert.DoesNotContain(chipTexts, t => t.Contains("Name: Peter"));
+		Assert.Equal(2, badgeTexts.Count());
+		Assert.Contains(badgeTexts, t => t.Contains("State: Active"));
+		Assert.Contains(badgeTexts, t => t.Contains("Company: HAVIT"));
+		Assert.DoesNotContain(badgeTexts, t => t.Contains("Name: Peter"));
 	}
 }

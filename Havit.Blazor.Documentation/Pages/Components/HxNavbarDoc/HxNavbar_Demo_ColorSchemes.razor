@@ -1,82 +1,76 @@
-﻿<HxNavbar ColorMode="ColorMode.Dark" Color="ThemeColor.Inverse">
+﻿<HxNavbar ColorMode="ColorMode.Dark" Color="ThemeColor.Dark">
 	<HxNavbarBrand>Navbar</HxNavbarBrand>
 	<HxNavbarToggler />
-	<HxNavbarDrawer>
-		<HxNav CssClass="me-auto mb-2 lg:mb-0">
+	<HxNavbarCollapse>
+		<HxNav CssClass="me-auto mb-2 mb-lg-0">
 			<HxNavLink Href="/components/HxNavbar">Home</HxNavLink>
 			<HxNavLink Href="#">Link</HxNavLink>
-			<HxMenu>
-				<Toggle>
-					<HxMenuToggleElement ElementName="a" role="button">Menu</HxMenuToggleElement>
-				</Toggle>
-				<Content>
-					<HxMenuItemNavLink Href="#">Action</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="#">Another action</HxMenuItemNavLink>
-					<HxMenuDivider />
-					<HxMenuItemNavLink Href="#">Something else here</HxMenuItemNavLink>
-				</Content>
-			</HxMenu>
+			<HxDropdown>
+                <HxDropdownToggleElement ElementName="a" Caret="true" role="button">Dropdown</HxDropdownToggleElement>
+				<HxDropdownMenu>
+					<HxDropdownItemNavLink Href="#">Action</HxDropdownItemNavLink>
+					<HxDropdownItemNavLink Href="#">Another action</HxDropdownItemNavLink>
+					<HxDropdownDivider />
+					<HxDropdownItemNavLink Href="#">Something else here</HxDropdownItemNavLink>
+				</HxDropdownMenu>
+			</HxDropdown>
 			<HxNavLink Enabled="false">Disabled</HxNavLink>
 		</HxNav>
 		<div class="d-flex">
 			<HxInputText CssClass="me-2" Placeholder="Search" @bind-Value="@query" />
-			<HxSubmit Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline">Search</HxSubmit>
+			<HxSubmit Color="ThemeColor.Light" Outline="true">Search</HxSubmit>
 		</div>
-	</HxNavbarDrawer>
+	</HxNavbarCollapse>
 </HxNavbar>
 
 <HxNavbar ColorMode="ColorMode.Dark" Color="ThemeColor.Primary" CssClass="mt-3">
 	<HxNavbarBrand>Navbar</HxNavbarBrand>
 	<HxNavbarToggler />
-	<HxNavbarDrawer>
-		<HxNav CssClass="me-auto mb-2 lg:mb-0">
+	<HxNavbarCollapse>
+		<HxNav CssClass="me-auto mb-2 mb-lg-0">
 			<HxNavLink Href="/components/HxNavbar">Home</HxNavLink>
 			<HxNavLink Href="#">Link</HxNavLink>
-			<HxMenu>
-				<Toggle>
-					<HxMenuToggleElement ElementName="a" role="button">Menu</HxMenuToggleElement>
-				</Toggle>
-				<Content>
-					<HxMenuItemNavLink Href="#">Action</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="#">Another action</HxMenuItemNavLink>
-					<HxMenuDivider />
-					<HxMenuItemNavLink Href="#">Something else here</HxMenuItemNavLink>
-				</Content>
-			</HxMenu>
+			<HxDropdown>
+                <HxDropdownToggleElement ElementName="a" Caret="true" role="button">Dropdown</HxDropdownToggleElement>
+				<HxDropdownMenu>
+					<HxDropdownItemNavLink Href="#">Action</HxDropdownItemNavLink>
+					<HxDropdownItemNavLink Href="#">Another action</HxDropdownItemNavLink>
+					<HxDropdownDivider />
+					<HxDropdownItemNavLink Href="#">Something else here</HxDropdownItemNavLink>
+				</HxDropdownMenu>
+			</HxDropdown>
 			<HxNavLink Enabled="false">Disabled</HxNavLink>
 		</HxNav>
 		<div class="d-flex">
 			<HxInputText CssClass="me-2" Placeholder="Search" @bind-Value="@query" />
-			<HxSubmit Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline">Search</HxSubmit>
+			<HxSubmit Color="ThemeColor.Light" Outline="true">Search</HxSubmit>
 		</div>
-	</HxNavbarDrawer>
+	</HxNavbarCollapse>
 </HxNavbar>
 
 <HxNavbar Color="ThemeColor.Warning" CssClass="mt-3">
 	<HxNavbarBrand>Navbar</HxNavbarBrand>
 	<HxNavbarToggler />
-	<HxNavbarDrawer>
-		<HxNav CssClass="me-auto mb-2 lg:mb-0">
+	<HxNavbarCollapse>
+		<HxNav CssClass="me-auto mb-2 mb-lg-0">
 			<HxNavLink Href="/components/HxNavbar">Home</HxNavLink>
 			<HxNavLink Href="#">Link</HxNavLink>
-			<HxMenu>
-				<Toggle>
-					<HxMenuToggleElement ElementName="a" role="button">Menu</HxMenuToggleElement>
-				</Toggle>
-				<Content>
-					<HxMenuItemNavLink Href="#">Action</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="#">Another action</HxMenuItemNavLink>
-					<HxMenuDivider />
-					<HxMenuItemNavLink Href="#">Something else here</HxMenuItemNavLink>
-				</Content>
-			</HxMenu>
+			<HxDropdown>
+                <HxDropdownToggleElement ElementName="a" Caret="true" role="button">Dropdown</HxDropdownToggleElement>
+				<HxDropdownMenu>
+					<HxDropdownItemNavLink Href="#">Action</HxDropdownItemNavLink>
+					<HxDropdownItemNavLink Href="#">Another action</HxDropdownItemNavLink>
+					<HxDropdownDivider />
+					<HxDropdownItemNavLink Href="#">Something else here</HxDropdownItemNavLink>
+				</HxDropdownMenu>
+			</HxDropdown>
 			<HxNavLink Enabled="false">Disabled</HxNavLink>
 		</HxNav>
 		<div class="d-flex">
 			<HxInputText CssClass="me-2" Placeholder="Search" @bind-Value="@query" />
-			<HxSubmit Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline">Search</HxSubmit>
+			<HxSubmit Color="ThemeColor.Light" Outline="true">Search</HxSubmit>
 		</div>
-	</HxNavbarDrawer>
+	</HxNavbarCollapse>
 </HxNavbar>
 
 @code {

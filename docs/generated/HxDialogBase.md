@@ -1,12 +1,12 @@
 ﻿# HxDialogBase
 
-Base class to simplify custom dialog dialog implementation.
+Base class to simplify custom modal dialog implementation.
 
 ## Methods
 
 | Method | Returns | Description |
 |--------|---------|-------------|
-| ShowAsync() | `Task<DialogResult<TResult>>` | Shows the dialog and waits until it is hidden. |
+| ShowAsync() | `Task<DialogResult<TResult>>` | Shows the modal and waits until it is hidden. |
 
 ## Available demo samples
 

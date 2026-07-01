@@ -16,7 +16,6 @@ public static class ButtonSizeExtensions
 			ButtonSize.Regular => null,
 			ButtonSize.Small => "btn-sm",
 			ButtonSize.Large => "btn-lg",
-			ButtonSize.ExtraSmall => "btn-xs",
 			_ => throw new InvalidOperationException($"Unknown button size: {size:g}.")
 		};
 	}

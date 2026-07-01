@@ -1,0 +1,23 @@
+﻿# HxDropdown_Demo_CustomContent.razor
+
+```razor
+<HxDropdownButtonGroup>
+	<HxDropdownToggleButton Color="ThemeColor.Secondary">Dropdown</HxDropdownToggleButton>
+	<HxDropdownContent CssClass="px-4 py-3">
+		<EditForm Model="model">
+			<HxInputText Label="Name" @bind-Value="model.Name" />
+			<HxInputText Label="Email address" @bind-Value="model.Email" />
+			<HxButton Text="Save" Color="ThemeColor.Primary" />
+		</EditForm>
+	</HxDropdownContent>
+</HxDropdownButtonGroup>
+@code
+{
+	private FormModel model = new();
+	public class FormModel
+	{
+		public string Name { get; set; }
+		public string Email { get; set; }
+	}
+}
+```

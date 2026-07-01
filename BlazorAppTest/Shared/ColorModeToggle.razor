@@ -1,9 +1,7 @@
-﻿<HxMenu>
-	<Toggle>
-		<HxMenuToggleButton Variant="ButtonVariant.Outline" Color="ThemeColor.Primary" CssClass="align-self-center ms-auto">Color mode</HxMenuToggleButton>
-	</Toggle>
-	<Content>
-		<HxMenuItem OnClick="() => SetColorModeAsync(ColorMode.Dark)">Dark color mode</HxMenuItem>
-		<HxMenuItem OnClick="() => SetColorModeAsync(ColorMode.Light)">Light color mode</HxMenuItem>
-	</Content>
-</HxMenu>
+﻿<HxDropdownButtonGroup CssClass="align-self-center ms-auto">
+	<HxDropdownToggleButton Outline="true" Color="ThemeColor.Primary">Color mode</HxDropdownToggleButton>
+	<HxDropdownMenu>
+		<HxDropdownItem OnClick="() => SetColorModeAsync(ColorMode.Dark)">Dark color mode</HxDropdownItem>
+		<HxDropdownItem OnClick="() => SetColorModeAsync(ColorMode.Light)">Light color mode</HxDropdownItem>
+	</HxDropdownMenu>
+</HxDropdownButtonGroup>

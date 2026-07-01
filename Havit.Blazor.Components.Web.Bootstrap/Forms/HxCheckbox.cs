@@ -17,7 +17,7 @@ public class HxCheckbox : HxCheckboxBase
 		Defaults = new CheckboxSettings()
 		{
 			Color = ThemeColor.None,
-			Variant = ButtonVariant.Solid,
+			Outline = false,
 			RenderMode = CheckboxRenderMode.Checkbox,
 			ButtonSize = global::Havit.Blazor.Components.Web.Bootstrap.ButtonSize.Regular
 		};
@@ -57,8 +57,8 @@ public class HxCheckbox : HxCheckboxBase
 	/// <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
 	/// For <see cref="CheckboxRenderMode.ToggleButton"/>.
 	/// </summary>
-	[Parameter] public ButtonVariant? Variant { get; set; }
-	protected override ButtonVariant VariantEffective => Variant ?? GetSettings()?.Variant ?? GetDefaults().Variant ?? throw new InvalidOperationException(nameof(Variant) + " default for " + nameof(HxCheckbox) + " has to be set.");
+	[Parameter] public bool? Outline { get; set; }
+	protected override bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxCheckbox) + " has to be set.");
 
 	/// <summary>
 	/// Size of the button for <see cref="CheckboxRenderMode.ToggleButton"/>.

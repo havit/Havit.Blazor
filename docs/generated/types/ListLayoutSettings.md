@@ -8,7 +8,7 @@ Settings for the `HxListLayout` and derived components.
 |------|------|-------------|
 | CardSettings | `CardSettings` | Settings for the wrapping `HxCard`. |
 | CssClass | `string` | Additional CSS classes for the wrapping `div`. |
-| FilterDrawerSettings | `DrawerSettings` | Settings for the `HxDrawer` with the filter. |
-| FilterOpenButtonSettings | `ButtonSettings` | Settings for the `HxButton` that opens the filtering drawer. |
+| FilterOffcanvasSettings | `OffcanvasSettings` | Settings for the `HxOffcanvas` with the filter. |
+| FilterOpenButtonSettings | `ButtonSettings` | Settings for the `HxButton` that opens the filtering offcanvas. |
 | FilterSubmitButtonSettings | `ButtonSettings` | Settings for the `HxButton` that submits the filter. |
 

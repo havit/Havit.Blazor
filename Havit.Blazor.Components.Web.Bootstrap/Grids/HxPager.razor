@@ -11,7 +11,7 @@
 }
 
 <nav aria-label="@HxPagerLocalizer["PaginationLandmark"]">
-	<ul class="@CssClassHelper.Combine("hx-pager pagination", SizeCssClass, CssClassEffective)">
+	<ul class="@CssClassHelper.Combine("hx-pager pagination", CssClassEffective)">
 		@if (showFirstLast)
 		{
 			<li class="@previousPageItemDisabledCssClass">
@@ -27,7 +27,7 @@
 					}
 					else
 					{
-						<HxIcon Icon="@FirstPageIconEffective" CssClass="d-flex" />
+						<HxIcon Icon="@FirstPageIconEffective" />
 					}
 				</button>
 			</li>
@@ -48,7 +48,7 @@
 					}
 					else
 					{
-						<HxIcon Icon="@PreviousPageIconEffective" CssClass="d-flex" />
+						<HxIcon Icon="@PreviousPageIconEffective" />
 					}
 				</button>
 			</li>
@@ -56,7 +56,7 @@
 
 		@if (pageFromInclusive > 0)
 		{
-			<li class="page-item d-none md:d-block"><button type="button" class="page-link" aria-label="@HxPagerLocalizer["PreviousPages"]" @onclick="async () => await SetCurrentPageIndexTo(pageFromInclusive - 1)" @onclick:stopPropagation>...</button></li>
+			<li class="page-item d-none d-md-block"><button type="button" class="page-link" aria-label="@HxPagerLocalizer["PreviousPages"]" @onclick="async () => await SetCurrentPageIndexTo(pageFromInclusive - 1)" @onclick:stopPropagation>...</button></li>
 		}
 
 		@for (int i = pageFromInclusive; i < pageToExclusive; i++)
@@ -70,13 +70,13 @@
 			}
 			else
 			{
-				<li class="page-item d-none md:d-block"><button type="button" class="page-link" aria-label="@HxPagerLocalizer["GoToPage", (j + 1).ToString("N0")]" @onclick="async () => await SetCurrentPageIndexTo(j)" @onclick:stopPropagation>@((j + 1).ToString("N0"))</button></li>
+				<li class="page-item d-none d-md-block"><button type="button" class="page-link" aria-label="@HxPagerLocalizer["GoToPage", (j + 1).ToString("N0")]" @onclick="async () => await SetCurrentPageIndexTo(j)" @onclick:stopPropagation>@((j + 1).ToString("N0"))</button></li>
 			}
 		}
 
 		@if (pageToExclusive < (TotalPages - 1))
 		{
-			<li class="page-item d-none md:d-block"><button type="button" class="page-link" aria-label="@HxPagerLocalizer["NextPages"]" @onclick="async () => await SetCurrentPageIndexTo(pageToExclusive)" @onclick:stopPropagation>...</button></li>
+			<li class="page-item d-none d-md-block"><button type="button" class="page-link" aria-label="@HxPagerLocalizer["NextPages"]" @onclick="async () => await SetCurrentPageIndexTo(pageToExclusive)" @onclick:stopPropagation>...</button></li>
 		}
 
 		@if (showPreviousNext)
@@ -94,7 +94,7 @@
 					}
 					else
 					{
-						<HxIcon Icon="@NextPageIconEffective" CssClass="d-flex" />
+						<HxIcon Icon="@NextPageIconEffective" />
 					}
 				</button>
 			</li>
@@ -115,7 +115,7 @@
 					}
 					else
 					{
-						<HxIcon Icon="@LastPageIconEffective" CssClass="d-flex" />
+						<HxIcon Icon="@LastPageIconEffective" />
 					}
 				</button>
 			</li>

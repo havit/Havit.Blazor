@@ -5,8 +5,7 @@
 	<DataAnnotationsValidator />
 	<ValidationSummary />
 
-	@* LabelType.Floating is not supported on HxInputDate in Bootstrap 6 (the form-adorn wrapper owns the visual chrome and cannot host a floating label). *@
-	<HxInputDate @ref="inputDateComponent" Label="HxInputDate (default, DateTime)" @bind-Value="@model.DateTime" />
+	<HxInputDate @ref="inputDateComponent" Label="HxInputDate (default, DateTime), Floating Label" @bind-Value="@model.DateTime" LabelType="LabelType.Floating" />
 	<HxInputDate InputSize="InputSize.Small" Label="HxInputDate (default, DateTime) InputSize: Small" @bind-Value="@model.DateTime" />
 	<HxInputDate InputSize="InputSize.Large" Label="HxInputDate (default, DateTime) InputSize: Large" @bind-Value="@model.DateTime" />
 	<HxInputDate Label="HxInputDate (default, DateTime?)" @bind-Value="@model.NullableDateTime" Placeholder="Datum narození" />
@@ -16,20 +15,20 @@
     <HxInputDate Label="HxInputDate (default, DateOnly?)" @bind-Value="@model.NullableDateOnly" />
     <HxInputDate Label="HxInputDate (InputGroupStart, w/ CalendarIcon)" CalendarIcon="BootstrapIcon.Calendar" @bind-Value="@model.DateTime">
 	<InputGroupStartTemplate>
-		<HxButton Text="Button" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
+		<HxButton Text="Button" Color="ThemeColor.Secondary" Outline="true" />
 	</InputGroupStartTemplate>
 	</HxInputDate>
 	<HxInputDate Label="HxInputDate (InputGroupEnd, w/ CalendarIcon)" CalendarIcon="BootstrapIcon.Calendar" @bind-Value="@model.DateTime" >
 	<InputGroupEndTemplate>
-		<HxButton Text="Button" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
+		<HxButton Text="Button" Color="ThemeColor.Secondary" Outline="true" />
 	</InputGroupEndTemplate>
 	</HxInputDate>
 	<HxInputDate Label="HxInputDate (InputGroups, w/ CalendarIcon)" CalendarIcon="BootstrapIcon.Calendar" @bind-Value="@model.DateTime" >
 	<InputGroupStartTemplate>
-		<HxButton Text="Button" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
+		<HxButton Text="Button" Color="ThemeColor.Secondary" Outline="true" />
 	</InputGroupStartTemplate>
 	<InputGroupEndTemplate>
-		<HxButton Text="Button" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
+		<HxButton Text="Button" Color="ThemeColor.Secondary" Outline="true" />
 	</InputGroupEndTemplate>
 	</HxInputDate>
 	<HxInputDate Label="HxInputDate (InputGroups, w/ CalendarIcon)" CalendarIcon="BootstrapIcon.Calendar" @bind-Value="@model.DateTime" InputGroupEndText="InputGroupEndText" />

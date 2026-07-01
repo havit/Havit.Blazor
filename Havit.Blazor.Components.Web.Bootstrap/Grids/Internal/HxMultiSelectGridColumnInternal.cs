@@ -35,7 +35,7 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 
 					builder.OpenElement(103, "input");
 					builder.AddAttribute(104, "type", "checkbox");
-					builder.AddAttribute(105, "class", "check");
+					builder.AddAttribute(105, "class", "form-check-input");
 
 					builder.AddAttribute(106, "checked", AllDataItemsSelected);
 					builder.AddAttribute(107, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectAllOrNoneClick));
@@ -76,7 +76,7 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 
 				builder.OpenElement(103, "input");
 				builder.AddAttribute(104, "type", "checkbox");
-				builder.AddAttribute(105, "class", "check");
+				builder.AddAttribute(105, "class", "form-check-input");
 
 				bool selected = SelectedDataItems?.Contains(item) ?? false;
 				builder.AddAttribute(106, "checked", selected);

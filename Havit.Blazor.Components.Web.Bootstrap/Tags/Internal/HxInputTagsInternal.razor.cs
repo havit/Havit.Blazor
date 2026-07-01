@@ -59,25 +59,27 @@ public partial class HxInputTagsInternal
 	[Parameter] public string Placeholder { get; set; }
 
 	/// <summary>
-	/// CSS class(es) rendered with the individual tag chips (theme color + any additional classes).
+	/// Settings for the <see cref="HxBadge"/> used to render tags.
 	/// </summary>
-	[Parameter] public string TagCssClass { get; set; }
+	[Parameter] public BadgeSettings TagBadgeSettingsEffective { get; set; }
 
 	[Parameter] public int SuggestDelayEffective { get; set; } = 300;
 
 	/// <summary>
-	/// CSS of the inner input element (form-ghost, is-invalid, ...). The chip-input wrapper reflects the states via <c>:has()</c>.
+	/// CSS of the wrapping .form-control container (corresponds to InputCssClass on regular inputs)
 	/// </summary>
-	[Parameter] public string InputCssClass { get; set; }
+	[Parameter] public string CoreFormControlCssClass { get; set; }
 
 	[Parameter] public string InputId { get; set; }
 
 	[Parameter] public bool EnabledEffective { get; set; } = true;
 
+	[Parameter] public LabelType LabelTypeEffective { get; set; }
+
 	[Parameter] public InputSize InputSizeEffective { get; set; }
 
 	/// <summary>
-	/// Offset between menu input and menu menu
+	/// Offset between dropdown input and dropdown menu
 	/// </summary>
 	[Parameter] public (int X, int Y) InputOffset { get; set; }
 
@@ -123,11 +125,12 @@ public partial class HxInputTagsInternal
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
+	private string _dropdownId = "hx" + Guid.NewGuid().ToString("N");
 	private System.Timers.Timer _timer;
 	private string _userInput = String.Empty;
 	private CancellationTokenSource _cancellationTokenSource;
 	private List<string> _suggestions;
-	private bool _isMenuOpened = false;
+	private bool _isDropdownOpened = false;
 	private bool _currentlyFocused;
 	private bool _mouseDownFocus;
 	private bool _disposed;
@@ -214,9 +217,9 @@ public partial class HxInputTagsInternal
 			}
 			else
 			{
-				// or close a menu
+				// or close a dropdown
 				_suggestions = null;
-				await TryDestroyMenuAsync();
+				await TryDestroyDropdownAsync();
 			}
 		}
 	}
@@ -248,7 +251,7 @@ public partial class HxInputTagsInternal
 
 	private async Task HandleInputClick()
 	{
-		if (_currentlyFocused && (SuggestMinimumLengthEffective == 0) && !_isMenuOpened)
+		if (_currentlyFocused && (SuggestMinimumLengthEffective == 0) && !_isDropdownOpened)
 		{
 			await UpdateSuggestionsAsync();
 		}
@@ -260,19 +263,19 @@ public partial class HxInputTagsInternal
 
 		if (SuggestMinimumLengthEffective == 0)
 		{
-			await UpdateSuggestionsAsync(delayMenuShow: _mouseDownFocus);
+			await UpdateSuggestionsAsync(delayDropdownShow: _mouseDownFocus);
 		}
 		_mouseDownFocus = false;
 	}
 
 	[JSInvokable("HxInputTagsInternal_HandleInputBlur")]
-	public async Task HandleInputBlur(bool isWithinMenu)
+	public async Task HandleInputBlur(bool isWithinDropdown)
 	{
 		_currentlyFocused = false;
 
 		CancelDelayedSuggestionsUpdate();
 
-		if (!isWithinMenu)
+		if (!isWithinDropdown)
 		{
 			await TryProcessCustomTagsAsync();
 		}
@@ -316,7 +319,7 @@ public partial class HxInputTagsInternal
 		StateHasChanged();
 	}
 
-	private async Task UpdateSuggestionsAsync(bool delayMenuShow = false)
+	private async Task UpdateSuggestionsAsync(bool delayDropdownShow = false)
 	{
 		// Cancelation is performed in HandleInputInput method
 		_cancellationTokenSource?.Dispose();
@@ -358,11 +361,11 @@ public partial class HxInputTagsInternal
 
 		if (_suggestions?.Any() ?? false)
 		{
-			await OpenMenuAsync(delayMenuShow);
+			await OpenDropdownAsync(delayDropdownShow);
 		}
 		else
 		{
-			await TryDestroyMenuAsync();
+			await TryDestroyDropdownAsync();
 		}
 
 		StateHasChanged();
@@ -385,7 +388,7 @@ public partial class HxInputTagsInternal
 		if ((keyCode == KeyCodes.Enter) || (keyCode == KeyCodes.NumpadEnter))
 		{
 			CancelDelayedSuggestionsUpdate();
-			await TryDestroyMenuAsync();
+			await TryDestroyDropdownAsync();
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
 				await HandleItemSelected(focusedItem);
@@ -433,9 +436,9 @@ public partial class HxInputTagsInternal
 
 	private async Task HandleItemSelected(string tag)
 	{
-		_isMenuOpened = false; // menu is closed because the user selected an item
+		_isDropdownOpened = false; // dropdown is closed because the user selected an item
 
-		// user clicked on an item in the "menu".
+		// user clicked on an item in the "dropdown".
 		_userInput = String.Empty;
 		await AddTagWithEventCallbackAsync(tag);
 
@@ -467,9 +470,9 @@ public partial class HxInputTagsInternal
 		}
 	}
 
-	private async Task OpenMenuAsync(bool delayShow = false)
+	private async Task OpenDropdownAsync(bool delayShow = false)
 	{
-		if (!_isMenuOpened)
+		if (!_isDropdownOpened)
 		{
 			await EnsureJsModuleAsync();
 			if (_disposed)
@@ -477,24 +480,24 @@ public partial class HxInputTagsInternal
 				return;
 			}
 			await _jsModule.InvokeVoidAsync("open", _inputComponent.InputElement, _dotnetObjectReference, delayShow);
-			_isMenuOpened = true;
+			_isDropdownOpened = true;
 		}
 	}
 
-	private async Task TryDestroyMenuAsync()
+	private async Task TryDestroyDropdownAsync()
 	{
-		if (_isMenuOpened)
+		if (_isDropdownOpened)
 		{
-			await DestroyMenuAsync();
+			await DestroyDropdownAsync();
 		}
 	}
 
-	private async Task DestroyMenuAsync()
+	private async Task DestroyDropdownAsync()
 	{
 		await EnsureJsModuleAsync();
 		await _jsModule.InvokeVoidAsync("destroy", _inputComponent.InputElement);
 
-		_isMenuOpened = false;
+		_isDropdownOpened = false;
 		StateHasChanged();
 	}
 
@@ -503,10 +506,10 @@ public partial class HxInputTagsInternal
 		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputTags));
 	}
 
-	[JSInvokable("HxInputTagsInternal_HandleMenuHidden")]
-	public async Task HandleMenuHidden()
+	[JSInvokable("HxInputTagsInternal_HandleDropdownHidden")]
+	public async Task HandleDropdownHidden()
 	{
-		_isMenuOpened = false;
+		_isDropdownOpened = false;
 		if (!_currentlyFocused)
 		{
 			await TryProcessCustomTagsAsync();
@@ -515,13 +518,22 @@ public partial class HxInputTagsInternal
 		}
 		if (SuggestMinimumLengthEffective > 0)
 		{
-			await DestroyMenuAsync();
+			await DestroyDropdownAsync();
 		}
 	}
 
 	protected async Task HandleRemoveClickAsync(string tag)
 	{
 		await RemoveTagWithEventCallbackAsync(tag);
+	}
+
+	protected string GetFormControlCssClasses()
+	{
+		if (Naked)
+		{
+			return null;
+		}
+		return CssClassHelper.Combine(CoreFormControlCssClass, InputSizeEffective.AsFormControlCssClass());
 	}
 
 	protected string GetNakedCssClasses()

@@ -9,25 +9,25 @@
 				InputGroupCssClass,
 				HasInputGroups ? "input-group" : null,
 				HasInputGroupEnd ? "input-group-end" : null,
-				HasInputGroupStart ? "input-group-start" : null)">
+				HasInputGroupStart ? "input-group-start" : null,
+		        (CalendarIconEffective is not null) ? "hx-input-date-has-calendar-icon" : null)">
 	@if (InputGroupStartText is not null)
 	{
 		<span class="input-group-text">@InputGroupStartText</span>
 	}
 
 	@InputGroupStartTemplate
-	<div class="@CssClassHelper.Combine(
-					    "form-control",
-					    "form-adorn",
+	<HxDropdown CssClass="@CssClassHelper.Combine(
 					    "hx-input-date",
-					    ((IInputWithSize)this).GetInputSizeCssClass())">
-	<HxMenu AutoClose="MenuAutoClose.Outside" CssClass="hx-input-date-menu">
-		<Toggle>
-		<HxMenuToggleElement @ref="_hxMenuToggleElement"
+					    (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)"
+				AutoClose="DropdownAutoClose.Outside">
+
+
+		<HxDropdownToggleElement @ref="_hxDropdownToggleElement"
 									ElementName="input"
-									CssClass="@InputCssClass"
-									MenuReference="parent"
+									CssClass="@CssClassHelper.Combine(InputCssClass, ((IInputWithSize)this).GetInputSizeCssClass())"
 									type="text"
+									Caret="false"
 									id="@InputId"
 									name="@GetNameAttributeValue()"
 									Value="@CurrentValueAsString"
@@ -38,14 +38,18 @@
 									inputmode="none"
 									@attributes="AdditionalAttributes" />
 
-		</Toggle>
-		<Content>
+		@if (LabelTypeEffective == LabelType.Floating)
+		{
+			<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
+		}
+
+		<HxDropdownContent CssClass="hx-input-date-dropdown-menu">
 			@if (EnabledEffective)
 			{
 				<div class="hx-input-date-calendar">
 					<HxCalendar Value="@DateHelper.GetDateTimeFromValue(CurrentValue)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" KeyboardNavigation="false" DisplayMonth="@GetCalendarDisplayMonthEffective" TimeProvider="TimeProviderEffective" />
 				</div>
-				<div class="hx-input-date-menu-buttons">
+				<div class="hx-input-date-dropdown-buttons">
 					@if (ShowClearButtonEffective)
 					{
 						<HxButton Text="@StringLocalizerFactory.GetLocalizedValue("Clear", typeof(HxInputDate))" Color="ThemeColor.Link" Size="ButtonSize.Small" OnClick="HandleClearClickAsync" tabindex="-1" Enabled="this.EnabledEffective" />
@@ -59,15 +63,14 @@
 					}
 				</div>
 			}
-		</Content>
-	</HxMenu>
+		</HxDropdownContent>
 		@if (HasCalendarIcon)
 		{
-			<div @ref="_iconWrapperElement" class="form-adorn-icon hx-input-date-icon">
+			<div @ref="_iconWrapperElement" class="hx-input-date-icon">
 				<HxIcon Icon="CalendarIconEffective" />
 			</div>
 		}
-	</div>
+	</HxDropdown>
 	@InputGroupEndTemplate
 
 	@if (InputGroupEndText is not null)

@@ -10,7 +10,6 @@ Input for entering tags. Does not allow duplicate tags.
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
 | AllowCustomTags | `bool` | Indicates whether you are restricted to suggested items only (`false`). Default is `true` (you can type your own tags). |
 | ChipTemplate | `RenderFragment` | The chip template. |
-| Color | `ThemeColor?` | The theme color of the tag chips (applied as a Bootstrap `theme-*` class). The default is `ThemeColor.None` (the native grayscale chip appearance). |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | DataProvider | `InputTagsDataProviderDelegate` | Set to a method providing data for tag suggestions. |
 | Delimiters | `List<char>` | Characters that divide the current input into separate tags when typed. The default is comma, semicolon, and space. |
@@ -29,7 +28,7 @@ Input for entering tags. Does not allow duplicate tags.
 | Label | `string` | The label text. |
 | LabelCssClass | `string` | The custom CSS class to render with the label. |
 | LabelTemplate | `RenderFragment` | The label content. |
-| LabelType | `LabelType?` |  |
+| LabelType | `LabelType?` | Label type. |
 | Naked | `bool` | Indicates whether a "naked" variant should be displayed (no border). The default is `false`. Consider enabling `ShowAddButton` when using `Naked`. |
 | Placeholder | `string` | A short hint displayed in the input field before the user enters a value. |
 | Settings | `InputTagsSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
@@ -37,7 +36,7 @@ Input for entering tags. Does not allow duplicate tags.
 | Spellcheck | `bool?` | Defines whether the input for new tag may be checked for spelling errors. |
 | SuggestDelay | `int?` | The debounce delay in milliseconds. The default is `300 ms`. |
 | SuggestMinimumLength | `int?` | The minimum number of characters to start suggesting. The default is `2`. |
-| TagBadgeSettings | `BadgeSettings` | The settings for the `HxBadge` previously used to render tags. |
+| TagBadgeSettings | `BadgeSettings` | The settings for the `HxBadge` used to render tags. The default is `Color="ThemeColor.Light`" and `TextColor="ThemeColor.Dark`". |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `List<string>` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<List<string>>` | A callback that updates the bound value. |

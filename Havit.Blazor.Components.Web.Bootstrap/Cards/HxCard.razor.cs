@@ -88,25 +88,6 @@ public partial class HxCard
 	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
-	/// Visual <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/card/">variant</see> of the card. The default is <see cref="CardVariant.Regular"/>.
-	/// </summary>
-	[Parameter] public CardVariant? Variant { get; set; }
-	protected CardVariant VariantEffective => Variant ?? GetSettings()?.Variant ?? GetDefaults().Variant ?? CardVariant.Regular;
-
-	/// <summary>
-	/// Theme color of the card (renders the <c>theme-*</c> class, typically combined with <see cref="CardVariant.Subtle"/>).
-	/// </summary>
-	[Parameter] public ThemeColor? Color { get; set; }
-	protected ThemeColor? ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color;
-
-	/// <summary>
-	/// When <c>true</c>, renders a horizontal card (<c>card-row</c>, new in Bootstrap 6) - image and body side by side.
-	/// Default is <c>false</c>.
-	/// </summary>
-	[Parameter] public bool? Horizontal { get; set; }
-	protected bool HorizontalEffective => Horizontal ?? GetSettings()?.Horizontal ?? GetDefaults().Horizontal ?? false;
-
-	/// <summary>
 	/// Additional CSS class for the header.
 	/// </summary>
 	[Parameter] public string HeaderCssClass { get; set; }
@@ -133,15 +114,4 @@ public partial class HxCard
 	/// Additional attributes to be splatted onto an underlying HTML element.
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
-
-	private string GetVariantCssClass()
-	{
-		return VariantEffective switch
-		{
-			CardVariant.Regular => null,
-			CardVariant.Subtle => "card-subtle",
-			CardVariant.Translucent => "card-translucent",
-			_ => throw new InvalidOperationException($"Unknown {nameof(CardVariant)} value {VariantEffective}.")
-		};
-	}
 }

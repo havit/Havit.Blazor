@@ -1,0 +1,48 @@
+﻿@page "/HxOffcanvas_OnHiding_Test"
+
+<h1>HxOffcanvas OnHiding</h1>
+
+<HxOffcanvas @ref="offcanvasComponent" Size="OffcanvasSize.Regular" OnHiding="HandleOffcanvasHiding">
+	<HeaderTemplate>Title</HeaderTemplate>
+	<BodyTemplate>
+		<HxSwitch Label="Allow hiding" @bind-Value="_allowHiding" />
+	</BodyTemplate>
+	<FooterTemplate>
+		<HxButton OnClick="HandleHide" Text="Close" Color="ThemeColor.Secondary" />
+		<HxButton OnClick="@(() => secondOffcanvasComponent.ShowAsync())" Text="Second" Color="ThemeColor.Danger" />
+	</FooterTemplate>
+</HxOffcanvas>
+
+<HxOffcanvas @ref="secondOffcanvasComponent" Backdrop="OffcanvasBackdrop.Static">
+	<HeaderTemplate>
+		Second
+	</HeaderTemplate>
+</HxOffcanvas>
+
+<HxButton OnClick="HandleOpen" Text="Open" Color="ThemeColor.Primary" />
+<HxButton OnClick="HandleHide" Text="Hide" Color="ThemeColor.Secondary" />
+
+@code
+{
+	private HxOffcanvas offcanvasComponent;
+	private HxOffcanvas secondOffcanvasComponent;
+	private bool _allowHiding = false;
+
+	private async Task HandleOpen()
+	{
+		await offcanvasComponent.ShowAsync();
+	}
+
+	private async Task HandleHide()
+	{
+		await offcanvasComponent.HideAsync();
+	}
+
+	private void HandleOffcanvasHiding(OffcanvasHidingEventArgs args)
+	{
+		if (!_allowHiding)
+		{
+			args.Cancel = true;
+		}
+	}
+}

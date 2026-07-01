@@ -6,25 +6,6 @@
     <Demo Type="typeof(HxSelect_Demo)" Tabs="false" />
 	<DocDemoDataServiceNote />
 
-	<DocHeading Title="Filtering" />
-	<p>
-		You can enable client-side filtering by setting <code>AllowFiltering="true"</code>.
-		Instead of the native <code>select</code> element, the component then renders the Bootstrap 6
-		<a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/combobox/">Combobox</a> markup
-		(a toggle with a menu containing a filter input) while the filtering, selection, and menu-content rendering remain fully owned by Blazor (C# state).
-		The <code>combobox.js</code> plugin is intentionally not used, as its direct DOM mutations (filtering by <code>style.display</code>, rewriting item classes and texts)
-		would conflict with the Blazor renderer; only the Bootstrap Menu component is used for positioning and keyboard navigation.<br />
-		You can use the <code>FilterEmptyResultText</code> or <code>FilterEmptyResultTemplate</code> to customize the message displayed when no items are found.
-	</p>
-	<Demo Type="typeof(HxSelect_Demo_Filtering)" />
-
-	<DocHeading Title="Custom filtering" Level="3" />
-	<p>
-		You can customize filtering by setting <code>FilterPredicate</code> to a delegate that returns <code>bool</code> and accepts two parameters: <code>TItem</code> and <code>string</code> (filter).
-		The default behavior filters items based on whether the item text (obtained via <code>TextSelector</code>) contains the filter query string (case-insensitive).
-	</p>
-	<Demo Type="typeof(HxSelect_Demo_CustomFiltering)" />
-
     <DocHeading Title="Disabled options" />
 	<p>You can disable individual options by setting the <code>ItemDisabledSelector</code>.</p>
     <Demo Type="typeof(HxSelect_Demo_ItemDisabledSelector)" />

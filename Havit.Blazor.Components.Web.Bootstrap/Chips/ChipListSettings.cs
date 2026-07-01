@@ -6,14 +6,8 @@
 public class ChipListSettings
 {
 	/// <summary>
-	/// The theme color of the chips (applied as a Bootstrap <c>theme-*</c> class).
+	/// Settings for the <see cref="HxBadge"/> used to render chips.
 	/// </summary>
-	public ThemeColor? Color { get; set; }
-
-	/// <summary>
-	/// Settings for the <see cref="HxBadge"/> previously used to render chips.
-	/// </summary>
-	[Obsolete("Chips are no longer rendered as badges since Bootstrap 6 (the native Chip component is used). Use the Color property (mapped to a theme-* class) instead. Only the Color and CssClass values of these settings are honored.")]
 	public BadgeSettings ChipBadgeSettings { get; set; }
 
 	/// <summary>

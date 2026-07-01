@@ -1,8 +1,0 @@
-﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-<span class="@GetCssClass()" @attributes="AdditionalAttributes">@if (!String.IsNullOrEmpty(ImageSrc))
-	{
-		<img class="avatar-img" src="@ImageSrc" alt="@ImageAlt" />
-	}@ChildContent@if (Status != AvatarStatus.None)
-	{
-		<span class="@CssClassHelper.Combine("avatar-status", GetStatusCssClass())" role="img" aria-label="@StatusLabelEffective"></span>
-	}</span>

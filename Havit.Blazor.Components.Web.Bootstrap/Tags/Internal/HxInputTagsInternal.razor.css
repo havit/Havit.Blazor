@@ -1,18 +1,29 @@
 .hx-input-tags-control {
 	position: relative;
+	display: flex;
 	flex-grow: 1;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: var(--hx-input-tags-tag-gap);
 }
 
-/* Naked variant - the chip-input class provides the layout, we strip the field chrome. */
-.hx-input-tags-naked {
-	padding: 0;
-	background-color: transparent;
-	border: 0;
+input:focus {
+	outline: none;
 }
 
-.hx-input-tags-naked:focus-within {
-	border: 0;
-	outline: 0;
+.dropdown {
+	display: flex;
+	flex-grow: 1;
+	flex-basis: var(--hx-input-tags-input-width)
+}
+
+::deep .hx-tag {
+	display: flex;
+	align-items: center;
+}
+
+::deep .hx-icon {
+	display: flex;
 }
 
 .hx-input-tags-naked-sm  {
@@ -23,19 +34,40 @@
 	font-size: var(--hx-input-tags-naked-font-size-lg);
 }
 
-::deep .hx-icon {
-	display: flex;
+.hx-tag-remove-button {
+	display: inline-flex;
+	align-items: center;
+	margin: var(--hx-input-tags-remove-button-margin);
+	opacity: .625;
+	background-color: transparent;
+	padding: 0;
+	border: 0;
+	color: currentColor;
+}
+
+.hx-tag-remove-button:hover {
+	opacity: 1;
+}
+
+.hx-input-tags-control:focus-within:not(.hx-input-tags-naked) {
+	box-shadow: var(--hx-input-tags-control-focused-box-shadow);
+	border-color: var(--hx-input-tags-control-focused-border-color);
+	outline: 0;
+}
+
+.hx-input-tags-control-disabled:not(.hx-input-tags-naked) {
+	background-color: var(--bs-secondary-bg);
 }
 
 .hx-tag-add-button-text {
 	margin: var(--hx-input-tags-add-button-text-margin);
 }
 
-::deep .hx-input-tags-menu-item-focused {
-	background-color: var(--hx-input-tags-menu-item-highlighted-background-color);
+::deep .hx-input-tags-dropdown-item-focused {
+	background-color: var(--hx-input-tags-dropdown-item-highlighted-background-color);
 }
 
-.hx-tag-add-button-disabled {
+::deep .hx-tag-add-button-disabled {
 	opacity: var(--hx-input-tags-add-button-disabled-opacity);
 	cursor: default;
 }

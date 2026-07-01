@@ -1,13 +1,13 @@
 ﻿# HxBreadcrumb
 
-Bootstrap Breadcrumb component. Indicates the current page's location within a navigational hierarchy.
+Bootstrap 5 Breadcrumb component. Indicates the current page's location within a navigational hierarchy.
 
 ## Parameters
 
 | Name | Type | Description |
 |------|------|-------------|
 | ChildContent | `RenderFragment` | Child content. |
-| DividerTemplate | `RenderFragment` | Custom divider content rendered into the `breadcrumb-divider` elements between items (any icon, text character, or markup). When `null` (default), the divider is left empty and Bootstrap renders the built-in chevron (customizable globally via the `--bs-breadcrumb-divider-icon` CSS variable). |
+| Divider | `string` | Breadcrumb divider. Default is `/`. Enter either a character (such as `>`) or use an embedded SVG icon. Disable the divider with `null`. |
 
 ## Available demo samples
 

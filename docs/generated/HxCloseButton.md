@@ -1,6 +1,6 @@
 ﻿# HxCloseButton
 
-Bootstrap close-button component. A simple close button for dismissing content such as dialogs and alerts. The icon is rendered with a CSS `mask-image` tinted with `currentcolor`, so it adapts to the surrounding text color and color mode automatically (the former `White` parameter/`btn-close-white` class no longer exist; use `data-bs-theme="dark"` on the button or a parent element to invert it explicitly).
+Bootstrap close-button component. A simple close button for dismissing content such as modals and alerts.
 
 ## Parameters
 
@@ -19,6 +19,7 @@ Bootstrap close-button component. A simple close button for dismissing content s
 | IconPlacement | `ButtonIconPlacement?` | Position of the icon within the button. The default is `ButtonIconPlacement.Start` (configurable through `Defaults`). |
 | OnClickPreventDefault | `bool` | Prevents the default action for the onclick event. Default is `false`. |
 | OnClickStopPropagation | `bool` | Stops onClick-event propagation. Default is `true`. |
+| Outline | `bool?` | Bootstrap "outline" button style. |
 | Settings | `ButtonSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | SingleClickProtection | `bool` | Sets `false` if you want to allow multiple `OnClick` handlers in parallel. Default is `true`. |
 | Size | `ButtonSize?` | Button size. The default is `ButtonSize.Regular`. |
@@ -30,7 +31,7 @@ Bootstrap close-button component. A simple close button for dismissing content s
 | TooltipPlacement | `TooltipPlacement?` | Tooltip placement. |
 | TooltipSettings | `TooltipSettings` | Tooltip settings (overrides `ButtonSettings.TooltipSettings`, overridden by individual Tooltip* parameters). |
 | TooltipWrapperCssClass | `string` | Custom CSS class to render with the tooltip `span` wrapper of the `<button />`. If set, the `span` wrapper will be rendered no matter whether the `Tooltip` text is set or not. |
-| Variant | `ButtonVariant?` | Visual variant of the button (solid, outline, subtle, text, link), composed with `Color`. The default is `ButtonVariant.Solid`. |
+| White | `bool?` | Toggles between the light and dark version of the button. The default value is `false`. |
 
 ## Event callbacks
 
@@ -44,10 +45,12 @@ Bootstrap close-button component. A simple close button for dismissing content s
 
 | Property | Type | Description |
 |----------|------|-------------|
+| Defaults | `CloseButtonSettings` | Application-wide defaults for `HxCloseButton` and derived components. |
 | Defaults | `ButtonSettings` | Application-wide defaults for `HxButton` and derived components. |
 
 ## Available demo samples
 
 - HxCloseButton_Demo.razor
 - HxCloseButton_Demo_DisabledState.razor
+- HxCloseButton_Demo_White.razor
 

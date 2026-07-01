@@ -30,7 +30,7 @@ public class HxInputDateRange_CalendarPicker_Tests : TestAppTestBase
 		await fromCalendar.Locator("button.hx-calendar-day-in:has-text('10')").ClickAsync();
 
 		// Wait for "To" dropdown to auto-open (the "To" dropdown menu gets the "show" class)
-		var toDropdownMenu = Page.Locator(".hx-input-date-range-menu").Last;
+		var toDropdownMenu = Page.Locator(".hx-input-date-range-dropdown-menu").Last;
 		await Expect(toDropdownMenu).ToHaveClassAsync(new Regex(".*\\bshow\\b.*"));
 
 		var toCalendar = Page.Locator(".hx-calendar").Last;

@@ -1,0 +1,30 @@
+﻿@page "/HxModal_Backdrops_Test"
+
+<h3>HxModal_Backdrops_Test</h3>
+
+<HxButton Text="Show offcanvas" OnClick="async () => await _offcanvasComponent.ShowAsync()" Color="ThemeColor.Primary" />
+
+@foreach (var i in Enumerable.Range(0, 1000))
+{
+	<div>@i</div>
+}
+
+<HxOffcanvas @ref="_offcanvasComponent">
+	<BodyTemplate>
+		<HxButton Text="Close with confirm" OnClick="HandleCloseWithConfirm" Color="ThemeColor.Primary" />
+	</BodyTemplate>
+</HxOffcanvas>
+
+
+@code {
+	[Inject] protected IHxMessageBoxService MessageBox { get; set; }
+	HxOffcanvas _offcanvasComponent;
+
+	async void HandleCloseWithConfirm()
+	{
+		if (await MessageBox.ConfirmAsync("Really?"))
+		{
+			await _offcanvasComponent.HideAsync();
+		}
+	}
+}

@@ -32,20 +32,8 @@ else
 @code {
 	private void RenderDemo(RenderTreeBuilder __builder)
 	{
-		<div class="@CssClassHelper.Combine("demo-content not-prose p-3 align-self-stretch vstack gap-3", DemoCardCssClass)">
-			@if (Resizable)
-			{
-				<div class="demo-resizable">
-					<DynamicComponent Type="Type" />
-				</div>
-				<p class="demo-resizable-hint text-body-secondary small mb-0">
-					Use the lower-right corner grip to resize and preview the responsive behavior.
-				</p>
-			}
-			else
-			{
-				<DynamicComponent Type="Type" />
-			}
+		<div class="@CssClassHelper.Combine("p-3", DemoCardCssClass)">
+			<DynamicComponent Type="Type" />
 		</div>
 	}
 
@@ -59,22 +47,8 @@ else
 		}
 		else
 		{
-			@* Inline (non-tabbed) code gets a header separating it from the demo, with the language name and a copy button. *@
-			if (!Tabs)
-			{
-				<div class="d-flex justify-content-between align-items-center ps-3 pe-1 py-1 align-self-stretch border-top border-bottom border-subtle bg-1">
-					<span class="fg-secondary text-uppercase fs-xs font-monospace">Razor</span>
-					<HxButton Icon="@(_copied ? BootstrapIcon.ClipboardCheck : BootstrapIcon.Clipboard)"
-							  Variant="ButtonVariant.Text"
-							  Color="ThemeColor.Secondary"
-							  Size="ButtonSize.Small"
-							  Tooltip="Copy to clipboard"
-							  OnClick="CopyCodeAsync"
-							  CssClass="btn-icon fg-body" />
-				</div>
-			}
-			<pre class="@CssClassHelper.Combine("align-self-stretch min-w-0 mb-0", !Tabs ? "bg-2" : null)">
-				<code @ref="_codeElement" class="language-cshtml">
+			<pre class="@(!Tabs ? "bg-body-tertiary" : null)">
+				<code class="language-cshtml">
 					@(_code.Trim())
 				</code>
 			</pre>

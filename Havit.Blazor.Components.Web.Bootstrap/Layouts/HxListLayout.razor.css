@@ -1,4 +1,4 @@
-﻿::deep .hx-grid-container {
+::deep .hx-grid-container {
 	border-top: 1px solid var(--bs-border-color);
 }
 
@@ -6,41 +6,23 @@
     isolation: isolate;
 }
 
-.hx-list-layout:has(.sticky-top) ::deep .menu {
-	--bs-menu-zindex: 1030;
+.hx-list-layout:has(.sticky-top) ::deep .dropdown-menu {
+	--bs-dropdown-zindex: 1030;
 }
 
 .hx-list-layout:has(.hx-grid-infinite-scroll) ::deep .card {
 	overflow: hidden;
 }
 
-/* Bootstrap 6 makes .card-body a flex column with align-items: flex-start,
-   so block-level content no longer fills the width. Restore stretching
-   so the header grid and chip list span the full card width. */
-.hx-list-layout ::deep .card-body {
-	align-items: stretch;
-}
-
-/* The data (grid) renders in its own card-body so Bootstrap 6's section-based
-   border model (.card-body:last-child) gives the region its side + bottom
-   borders and bottom rounding. The header card-body directly above already
-   supplies the bottom padding, so the data body drops its top padding to avoid
-   doubling the space before the grid. */
-.hx-list-layout-data {
-	padding-top: 0;
-}
-
-/* The flush modifier (e.g. via CssClass) drops the data padding entirely so the
-   table sits edge to edge. */
-.hx-list-layout-flush .hx-list-layout-data {
-	padding: 0;
+::deep .hx-chip-list {
+	margin-top: var(--hx-list-layout-header-gap);
 }
 
 .hx-list-layout-header ::deep button {
     white-space: nowrap;
 }
 
-.hx-list-layout-menu-link {
+.hx-list-layout-dropdown-menu-link {
     display: flex;
     align-items: center;
 }
@@ -59,20 +41,23 @@
     padding-right: 1rem;
 }
 
-/* Spacing between card-body sections (header / chip list / grid / pager) is
-   managed by the card-body gap + padding, so these elements carry no margins.
-   The flush variant removes the data-body padding, so the pager takes a side and
-   bottom margin to stay inset from the card edges (aligned with the table cell
-   inset). The top spacing is left to the card-body gap to avoid doubling it. */
+.hx-list-layout:has(.hx-pager) ::deep .hx-grid {
+    margin-bottom: 0;
+}
+
+.hx-list-layout:not(:has(.hx-pager)) ::deep .hx-grid tr:last-of-type td:first-child {
+	border-bottom-left-radius: var(--bs-card-inner-border-radius);
+}
+
+.hx-list-layout:not(:has(.hx-pager)) ::deep .hx-grid tr:last-of-type td:last-child {
+	border-bottom-right-radius: var(--bs-card-inner-border-radius);
+}
+
 ::deep .hx-pager {
-	margin: 0;
+	margin: 1rem;
 }
 
-.hx-list-layout-flush ::deep .hx-pager {
-	margin: 0 1rem 1rem;
-}
-
-.hx-list-layout-menu-link:hover {
+.hx-list-layout-dropdown-menu-link:hover {
 	text-decoration: underline;
 }
 
@@ -91,24 +76,11 @@
 .hx-list-layout-header {
 	display: grid;
 	grid-template-columns: 1fr auto;
-	grid-template-areas: "title buttons";
-	align-items: center;
-	gap: var(--hx-list-layout-header-gap);
-}
-
-/* Vertically center every header item (title, search, buttons) in its row.
-   Without this the items stretch to the row height and their content (the
-   heading text, the search input) pins to the top. */
-.hx-list-layout-header > * {
-	align-self: center;
-}
-
-/* A search box stacks on its own full-width row below the title and buttons.
-   Without one, no extra row is reserved (avoids a trailing gap). */
-.hx-list-layout-header:has(.hx-list-layout-header-search) {
 	grid-template-areas:
 		"title buttons"
 		"search search";
+	align-items: center;
+	gap: var(--hx-list-layout-header-gap);
 }
 
 .hx-list-layout-header-buttons {
@@ -120,19 +92,12 @@
 }
 
 .hx-list-layout-named-view,
-.hx-list-layout-title {
+.hx-list-layout-header-title {
 	grid-area: title;
 }
 
 .hx-list-layout-header-search {
 	grid-area: search;
-}
-
-/* The search input lives in the toolbar row, so collapse the form-group's
-   validation-row gap. Otherwise the empty validation area makes the field
-   taller than the input, leaving the input pinned to the top of the row. */
-.hx-list-layout-header-search ::deep .hx-form-group {
-	gap: 0;
 }
 
 .hx-list-layout > ::deep .card:first-child {
@@ -141,10 +106,7 @@
 }
 
 @container hx-list-layout-card (min-width: 768px) {
-	/* With a search box, lay title / search / buttons out in one row. Without
-	   one, the base "title buttons" (1fr auto) layout is kept, so the title
-	   expands and no empty search column is reserved. */
-	.hx-list-layout-header:has(.hx-list-layout-header-search) {
+	.hx-list-layout-header {
 		grid-template-columns: 1fr 1fr 1fr;
 		grid-template-areas: "title search buttons";
 	}

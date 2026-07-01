@@ -14,15 +14,16 @@
 	private static void SetHxComponents()
 	{
 		HxPlaceholderContainer.Defaults.Animation = PlaceholderAnimation.Glow;
-		HxPlaceholder.Defaults.Color = ThemeColor.Secondary;
+		HxPlaceholder.Defaults.Color = ThemeColor.Light;
 
 		HxButton.Defaults.Size = ButtonSize.Small;
 		
-		HxDrawer.Defaults.Backdrop = DrawerBackdrop.Static;
-		HxDrawer.Defaults.HeaderCssClass = "border-bottom";
-		HxDrawer.Defaults.FooterCssClass = "border-top";
+		HxOffcanvas.Defaults.Backdrop = OffcanvasBackdrop.Static;
+		HxOffcanvas.Defaults.HeaderCssClass = "border-bottom";
+		HxOffcanvas.Defaults.FooterCssClass = "border-top";
 		
-		HxChipList.Defaults.Color = ThemeColor.Secondary;
-		HxChipList.Defaults.CssClass = "my-chip-list";
+		HxChipList.Defaults.ChipBadgeSettings.Color = ThemeColor.Light;
+		HxChipList.Defaults.ChipBadgeSettings.TextColor = ThemeColor.Dark;
+		HxChipList.Defaults.ChipBadgeSettings.CssClass = "p-2 rounded-pill";
 	}
 }

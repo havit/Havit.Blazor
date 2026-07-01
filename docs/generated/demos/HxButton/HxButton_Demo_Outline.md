@@ -1,0 +1,14 @@
+﻿# HxButton_Demo_Outline.razor
+
+```razor
+<HxButton Outline="true" Color="ThemeColor.Primary" Text="Primary" />
+<HxButton Outline="true" Color="ThemeColor.Secondary" Text="Secondary" />
+<HxButton Outline="true" Color="ThemeColor.Success" Text="Success" />
+<HxButton Outline="true" Color="ThemeColor.Danger" Text="Danger" />
+<HxButton Outline="true" Color="ThemeColor.Warning" Text="Warning" />
+<HxButton Outline="true" Color="ThemeColor.Info" Text="Info" />
+<HxButton Outline="true" Color="ThemeColor.Light" Text="Light" />
+<HxButton Outline="true" Color="ThemeColor.Dark" Text="Dark" />
+<HxButton Outline="true" Color="ThemeColor.Link" Text="Link" />
+
+```

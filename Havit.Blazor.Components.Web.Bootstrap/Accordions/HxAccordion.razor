@@ -1,5 +1,5 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-<div id="@Id" class="@CssClassHelper.Combine("hx-accordion", "accordion", Color?.ToThemeCss(), CssClass)">
+<div id="@Id" class="@CssClassHelper.Combine("hx-accordion","accordion", CssClass)">
 	<CascadingValue Value="this" IsFixed="true">
 		@ChildContent
 	</CascadingValue>

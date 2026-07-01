@@ -1,0 +1,52 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
+<div @ref="_modalElement"
+     class="@CssClassHelper.Combine("hx-modal modal", AnimatedEffective ? "fade" : null, CssClassEffective)"
+     tabindex="-1"
+     data-bs-backdrop="@GetBackdropSetupValue(BackdropEffective)">
+	<div class="@CssClassHelper.Combine("modal-dialog", GetDialogSizeCssClass(), GetDialogFullscreenCssClass(), GetDialogScrollableCssClass(), GetDialogCenteredCssClass(), DialogCssClassEffective)">
+		@if (_opened || (RenderMode == ModalRenderMode.Always))
+		{
+			<div class="@CssClassHelper.Combine("modal-content", ContentCssClassEffective)">
+				@if (!String.IsNullOrEmpty(Title) || (HeaderTemplate != null) || ShowCloseButtonEffective)
+				{
+					<div class="@CssClassHelper.Combine("modal-header", HeaderCssClassEffective)">
+						@if (!String.IsNullOrEmpty(Title))
+						{
+							<h5 class="modal-title">@Title</h5>
+						}
+						@if (HeaderTemplate != null)
+						{
+							@HeaderTemplate
+						}
+						@if (ShowCloseButtonEffective)
+						{
+							if (CloseButtonIconEffective is null)
+							{
+								<button type="button" class="@CssClassHelper.Combine("btn-close text-reset", (CloseButtonSettingsEffective?.White == true) ? "btn-close-white" : null)" data-bs-dismiss="modal" aria-label="Close"></button>
+							}
+							else
+							{
+								<button type="button" class="@CssClassHelper.Combine("hx-modal-custom-close-btn btn-close d-flex align-items-center", (CloseButtonSettingsEffective?.White == true) ? "btn-close-white" : null)" data-bs-dismiss="modal" aria-label="Close">
+									<HxIcon Icon="@CloseButtonIconEffective" />
+								</button>
+							}
+						}
+					</div>
+				}
+				@if (BodyTemplate != null)
+				{
+					<div class="@CssClassHelper.Combine("modal-body", BodyCssClassEffective)">
+						@BodyTemplate
+					</div>
+				}
+				@if (FooterTemplate != null)
+				{
+					<div class="@CssClassHelper.Combine("modal-footer", FooterCssClassEffective)">
+						@FooterTemplate
+					</div>
+				}
+			</div>
+		}
+	</div>
+</div>

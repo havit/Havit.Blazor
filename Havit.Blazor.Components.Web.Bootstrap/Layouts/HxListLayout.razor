@@ -8,9 +8,9 @@
             <div class="hx-list-layout-header">
                 @if ((NamedViews != null) && NamedViews.Any())
                 {
-                    <div class="hx-list-layout-named-view">
-                        <span role="button" id="namedViewsMenuLink" class="hx-list-layout-menu-link" data-bs-toggle="menu" aria-haspopup="true" aria-expanded="false">
-                            <h4 class="card-title text-truncate">
+                    <div class="hx-list-layout-named-view dropdown">
+                        <span role="button" id="dropdownMenuLink" class="hx-list-layout-dropdown-menu-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <h5 class="card-title text-truncate">
                                 @if (TitleFromNamedView && (SelectedNamedView is not null))
                                 {
                                     @SelectedNamedView.Name
@@ -25,14 +25,14 @@
                                 {
                                     @Title
                                 }
-                            </h4>
+                            </h5>
                             <HxIcon CssClass="ms-1" Icon="@BootstrapIcon.ChevronDown" />
                         </span>
-                        <div class="hx-named-view menu" aria-labelledby="namedViewsMenuLink">
+                        <div class="hx-named-view dropdown-menu" aria-labelledby="dropdownMenuLink">
                             @foreach (var namedView in NamedViews)
                             {
                                 <a @key="@namedView"
-                                   class="@CssClassHelper.Combine("menu-item", namedView.Equals(SelectedNamedView) ? "active" : null)"
+                                   class="@CssClassHelper.Combine("dropdown-item", namedView.Equals(SelectedNamedView) ? "active" : null)"
                                    role="button"
                                    @onclick="async () => await HandleNamedViewClickAsync(namedView)"
                                    @onclick:stopPropagation="true">
@@ -44,13 +44,13 @@
                 }
                 else if (TitleTemplate != null)
                 {
-                    <h4 class="hx-list-layout-title card-title d-flex align-items-center">
+                    <h5 class="hx-list-layout-title card-title d-flex align-items-center">
                         @TitleTemplate
-                    </h4>
+                    </h5>
                 }
                 else if (!String.IsNullOrEmpty(Title))
                 {
-                    <h4 class="hx-list-layout-title card-title text-truncate">@Title</h4>
+                    <h5 class="hx-list-layout-title card-title text-truncate">@Title</h5>
                 }
 
                 @if (SearchTemplate != null)
@@ -69,11 +69,7 @@
 						}
 						@if (FilterTemplate != null)
 						{
-							<HxButton Settings="FilterOpenButtonSettingsEffective"
-									  OnClick="ShowFilterDrawerAsync"
-									  Text="@(String.IsNullOrWhiteSpace(FilterButtonText) ? null : FilterButtonText)"
-									  CssClass="@(String.IsNullOrWhiteSpace(FilterButtonText) ? CssClassHelper.Combine(FilterOpenButtonSettingsEffective.CssClass, "btn-icon") : null)"
-									  AriaLabel="@(String.IsNullOrWhiteSpace(FilterButtonText) ? (string)Localizer["FilterButtonAriaLabel"] : null)" />
+							<HxButton Settings="FilterOpenButtonSettingsEffective" OnClick="ShowFilterOffcanvasAsync" AriaLabel="@Localizer["FilterButtonAriaLabel"]" />
 						}
 					</div>
 				}
@@ -81,11 +77,11 @@
 
             @if (FilterModel != null)
             {
-                <HxChipList Chips="_chips" OnChipRemoveClick="HandleChipRemoveClick" CssClass="flex-nowrap md:flex-wrap overflow-x-auto" />
+                <HxChipList Chips="_chips" OnChipRemoveClick="HandleChipRemoveClick" CssClass="flex-nowrap flex-md-wrap overflow-x-auto" />
             }
             @if (FilterTemplate != null)
             {
-                <HxDrawer @ref="_filterDrawerComponent" RenderMode="DrawerRenderMode.Always" Title="@Localizer["FilterHeaderTitle"]" Settings="FilterDrawerSettingsEffective">
+                <HxOffcanvas @ref="_filterOffcanvasComponent" RenderMode="OffcanvasRenderMode.Always" Title="@Localizer["FilterHeaderTitle"]" Settings="FilterOffcanvasSettingsEffective">
                     <BodyTemplate>
                         <HxFilterForm @ref="_filterForm"
                                       Id="@_filterFormId"
@@ -100,13 +96,11 @@
                     <FooterTemplate>
                         <HxSubmit Settings="FilterSubmitButtonSettingsEffective" FormId="@_filterFormId" Text="@Localizer["FilterApplyButtonText"]" />
                     </FooterTemplate>
-                </HxDrawer>
+                </HxOffcanvas>
             }
         </BodyTemplate>
         <ChildContent>
-            <div class="card-body hx-list-layout-data">
-                @DataTemplate
-            </div>
+            @DataTemplate
         </ChildContent>
     </HxCard>
     @DetailTemplate

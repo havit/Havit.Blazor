@@ -13,16 +13,6 @@ public partial class HxNavLink : ICascadeEnabledComponent
 	FormState ICascadeEnabledComponent.FormState { get => FormState; set => FormState = value; }
 
 	/// <summary>
-	/// Set when the nav link is rendered inside the <see cref="HxNavOverflow"/> overflow menu (the link renders as a menu item).
-	/// </summary>
-	[CascadingParameter] internal Internal.NavOverflowMenuRenderContext NavOverflowMenuRenderContext { get; set; }
-
-	/// <summary>
-	/// Core CSS class of the link (<c>menu-item</c> inside the <see cref="HxNavOverflow"/> overflow menu, <c>nav-link</c> otherwise).
-	/// </summary>
-	private string CoreCssClass => (NavOverflowMenuRenderContext is null) ? "nav-link" : "menu-item";
-
-	/// <summary>
 	/// Navigation target.
 	/// </summary>
 	[Parameter] public string Href { get; set; }

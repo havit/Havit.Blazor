@@ -23,22 +23,4 @@ public class HxSearchBoxTests : BunitTestBase
 		// Assert
 		Assert.True(cut.Find("input").HasAttribute("disabled"));
 	}
-
-	[Fact]
-	public void HxSearchBox_LabelTypeFloating_ThrowsInvalidOperationException()
-	{
-		// LabelType.Floating is not supported in Bootstrap 6 — the form-adorn wrapper owns the visual chrome and cannot host a floating label.
-
-		// Arrange
-		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
-		{
-			builder.OpenComponent<HxSearchBox<string>>(0);
-			builder.AddAttribute(1, nameof(HxSearchBox<string>.Label), "Search");
-			builder.AddAttribute(2, nameof(HxSearchBox<string>.LabelType), (LabelType?)LabelType.Floating);
-			builder.CloseComponent();
-		};
-
-		// Act + Assert
-		Assert.Throws<InvalidOperationException>(() => Render(componentRenderer));
-	}
 }

@@ -1,4 +1,4 @@
-﻿@attribute [Route("/components/" + nameof(HxBreadcrumb))]
+@attribute [Route("/components/" + nameof(HxBreadcrumb))]
 @attribute [Route("/components/" + nameof(HxBreadcrumbItem))]
 
 <ApiDoc Type="typeof(HxBreadcrumb)">
@@ -7,17 +7,11 @@
     <Demo Type="typeof(HxBreadcrumb_Demo)" Tabs="false" />
 
     <DocHeading Title="Dividers" />
-    <p>Dividers are rendered automatically between items. By default, Bootstrap 6 renders a built-in chevron (a CSS <code>mask-image</code> tinted with <code>currentcolor</code>); use <code>DividerTemplate</code> to provide custom separator content.</p>
+    <p>Dividers are automatically added. They can be modified by changing the <code>Divider</code> parameter. The default value is <code>/</code>.</p>
     <Demo Type="typeof(HxBreadcrumb_Demo_Dividers)" />
 
-    <p>It is also possible to use an embedded SVG icon in the <code>DividerTemplate</code> as shown below.</p>
+    <p>It is also possible to use an embedded SVG icon. Apply it using the <code>Divider</code> parameter as shown below.</p>
     <Demo Type="typeof(HxBreadcrumb_Demo_SVGIcon)" />
-
-    <DocHeading Title="Accessibility" />
-    <p>
-        <code>HxBreadcrumb</code> renders its items inside a <code>&lt;nav aria-label="breadcrumb"&gt;</code> landmark, and the item marked
-        <code>Active="true"</code> is output with <code>aria-current="page"</code> so assistive technologies announce the current location.
-    </p>
 </ApiDoc>
 
 <ApiDoc Type="typeof(HxBreadcrumbItem)" />

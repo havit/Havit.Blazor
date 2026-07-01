@@ -65,15 +65,6 @@
 		window.highlightCode = function () {
 			Prism.highlightAll();
 		};
-		window.copyTextFromElement = async function (element) {
-			if (element && navigator.clipboard) {
-				try {
-					await navigator.clipboard.writeText(element.textContent.trim());
-				} catch (e) {
-					// clipboard write failed (e.g., permission denied)
-				}
-			}
-		};
 	</script>
 </body>
 </html>

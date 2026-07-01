@@ -1,5 +1,0 @@
-﻿.hx-dialog-custom-close-btn {
-	/* Remove custom bootstrap styling (mask-based icon) to preserve custom icon style */
-	--bs-btn-close-icon: none;
-	background-color: transparent;
-}

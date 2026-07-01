@@ -1,7 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
-@using Havit.Blazor.Components.Web.Bootstrap.Internal
 
-<div class="@CssClassHelper.Combine("hx-sidebar", GetCollapsedCssClass(), CssClass)" id="@Id">
+<div class="@CssClassHelper.Combine("hx-sidebar", ResponsiveBreakpoint.GetCssClass("flex-??-grow-0"), GetCollapsedCssClass(), CssClass)" id="@Id">
 	<div class="nav-menu d-flex flex-column flex-grow-1 position-relative">
 
 		@if (HeaderTemplate is not null)
@@ -10,20 +9,45 @@
 				<CascadingValue Value="@(this)">
 					@HeaderTemplate
 				</CascadingValue>
+				<HxButton CssClass="@CssClassHelper.Combine("hx-sidebar-navbar-toggler", ResponsiveBreakpoint.GetCssClass("d-??-none"))"
+						  data-bs-toggle="collapse"
+						  data-bs-target="@($"#{NavContentElementId}")"
+						  aria-controls="@NavContentElementId"
+						  aria-expanded="false"
+						  aria-label="Toggle navigation"
+						  Icon="BootstrapIcon.List" />
 			</div>
 		}
 
-		<div class="hx-sidebar-content overflow-auto">
+		<div class="@CssClassHelper.Combine("hx-sidebar-collapse collapse overflow-auto", ResponsiveBreakpoint.GetCssClass("d-??-flex"))" id="@NavContentElementId">
 			<div class="hx-sidebar-body mb-auto w-100">
 				<HxNav Id="@_navId" Orientation="NavOrientation.Vertical">
 					<CascadingValue Value="@(this)" IsFixed="true">
 						@ItemsTemplate
 					</CascadingValue>
 				</HxNav>
-				<HxSidebarTogglerInternal Collapsed="Collapsed"
-										  AriaControlsId="@Id"
-										  TogglerTemplate="TogglerTemplate"
-										  OnClick="HandleCollapseToggleClick" />
+				<button type="button"
+						class="@CssClassHelper.Combine("hx-sidebar-toggler", Collapsed ? "collapsed" : null, ResponsiveBreakpoint.GetCssClass("d-??-block"))"
+						aria-controls="@Id"
+						aria-expanded="@(!Collapsed)"
+						aria-label="@(Collapsed ? Localizer["Expand"] : Localizer["Collapse"])"
+						@onclick="HandleCollapseToggleClick"
+						@onclick:stopPropagation="true">
+
+					@if (TogglerTemplate is null)
+					{
+						<HxTooltip Placement="TooltipPlacement.Right" Text="@(Collapsed ? Localizer["Expand"] : Localizer["Collapse"])">
+							<div class="hx-sidebar-toggler-inner">
+								<div class="hx-sidebar-toggler-arrow"></div>
+								<div class="hx-sidebar-toggler-arrow"></div>
+							</div>
+						</HxTooltip>
+					}
+					else
+					{
+						@TogglerTemplate(new() { SidebarCollapsed = Collapsed })
+					}
+				</button>
 			</div>
 
 			@if (FooterTemplate is not null)

@@ -1,6 +1,6 @@
 ﻿# HxNavbar
 
-Bootstrap 5 Navbar component - a responsive navigation header. Provides support for branding, navigation, and more, including support for the responsive drawer.
+Bootstrap 5 Navbar component - a responsive navigation header. Provides support for branding, navigation, and more, including support for the collapse plugin.
 
 ## Parameters
 

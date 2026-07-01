@@ -1,0 +1,15 @@
+﻿# HxDropdown_Demo_HeaderDisabledActive.razor
+
+```razor
+<HxDropdownButtonGroup>
+	<HxDropdownToggleButton Color="ThemeColor.Secondary">Dropdown</HxDropdownToggleButton>
+	<HxDropdownMenu>
+		<HxDropdownHeader>Dropdown header</HxDropdownHeader>
+		<HxDropdownItemNavLink Href="#">Link with Href</HxDropdownItemNavLink>
+		<HxDropdownItemNavLink Href="#" Enabled="false">Disabled item</HxDropdownItemNavLink>
+		<HxDropdownItemNavLink Href="#">Some other item</HxDropdownItemNavLink>
+		<HxDropdownItemNavLink Href="#" CssClass="active">Active link with Href</HxDropdownItemNavLink>
+		<HxDropdownItemText>Some other item</HxDropdownItemText>
+	</HxDropdownMenu>
+</HxDropdownButtonGroup>
+```

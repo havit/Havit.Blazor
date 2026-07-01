@@ -13,8 +13,8 @@ public class HxMultiSelectTests : TestAppTestBase
 		// Act
 		await toggle.ClickAsync();
 
-		// Assert - the menu should be visible
-		await Expect(Page.Locator(".menu.show")).ToBeVisibleAsync();
+		// Assert - the dropdown menu should be visible
+		await Expect(Page.Locator(".dropdown-menu.show")).ToBeVisibleAsync();
 	}
 
 	[Fact]
@@ -26,10 +26,10 @@ public class HxMultiSelectTests : TestAppTestBase
 		var toggle = Page.Locator("[data-testid='toggle']");
 		var selectedValueDisplay = Page.Locator("[data-testid='selected-value']");
 
-		// Act - open menu and select Alpha and Beta
+		// Act - open dropdown and select Alpha and Beta
 		await toggle.ClickAsync();
-		await Page.Locator(".menu-item:has-text('Alpha')").ClickAsync();
-		await Page.Locator(".menu-item:has-text('Beta')").ClickAsync();
+		await Page.Locator(".dropdown-item:has-text('Alpha')").ClickAsync();
+		await Page.Locator(".dropdown-item:has-text('Beta')").ClickAsync();
 
 		// Assert - both items are reflected in the selected value display
 		await Expect(selectedValueDisplay).ToHaveTextAsync("Alpha, Beta");
@@ -44,16 +44,16 @@ public class HxMultiSelectTests : TestAppTestBase
 		var toggle = Page.Locator("[data-testid='toggle']");
 		var selectedValueDisplay = Page.Locator("[data-testid='selected-value']");
 
-		// Act - open menu and select Alpha and Beta
+		// Act - open dropdown and select Alpha and Beta
 		await toggle.ClickAsync();
-		await Page.Locator(".menu-item:has-text('Alpha')").ClickAsync();
-		await Page.Locator(".menu-item:has-text('Beta')").ClickAsync();
+		await Page.Locator(".dropdown-item:has-text('Alpha')").ClickAsync();
+		await Page.Locator(".dropdown-item:has-text('Beta')").ClickAsync();
 
 		// Verify both are selected
 		await Expect(selectedValueDisplay).ToHaveTextAsync("Alpha, Beta");
 
 		// Uncheck Alpha
-		await Page.Locator(".menu-item:has-text('Alpha')").ClickAsync();
+		await Page.Locator(".dropdown-item:has-text('Alpha')").ClickAsync();
 
 		// Assert - only Beta remains selected
 		await Expect(selectedValueDisplay).ToHaveTextAsync("Beta");
@@ -70,9 +70,9 @@ public class HxMultiSelectTests : TestAppTestBase
 		// Assert initial empty state shows EmptyText
 		await Expect(toggle).ToHaveValueAsync("-select items-");
 
-		// Act - open menu and select Gamma
+		// Act - open dropdown and select Gamma
 		await toggle.ClickAsync();
-		await Page.Locator(".menu-item:has-text('Gamma')").ClickAsync();
+		await Page.Locator(".dropdown-item:has-text('Gamma')").ClickAsync();
 
 		// Close by clicking outside
 		await Page.Locator("[data-testid='outside-click-target']").ClickAsync();
@@ -89,14 +89,14 @@ public class HxMultiSelectTests : TestAppTestBase
 
 		var toggle = Page.Locator("[data-testid='toggle']");
 
-		// Open menu
+		// Open dropdown
 		await toggle.ClickAsync();
-		await Expect(Page.Locator(".menu.show")).ToBeVisibleAsync();
+		await Expect(Page.Locator(".dropdown-menu.show")).ToBeVisibleAsync();
 
-		// Act - click outside the menu
+		// Act - click outside the dropdown
 		await Page.Locator("[data-testid='outside-click-target']").ClickAsync();
 
-		// Assert - menu is no longer shown
-		await Expect(Page.Locator(".menu.show")).ToHaveCountAsync(0);
+		// Assert - dropdown is no longer shown
+		await Expect(Page.Locator(".dropdown-menu.show")).ToHaveCountAsync(0);
 	}
 }

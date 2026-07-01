@@ -20,6 +20,7 @@ Bootstrap Collapse toggle (in the form of a button) which triggers the `HxCollap
 | IconPlacement | `ButtonIconPlacement?` | Position of the icon within the button. The default is `ButtonIconPlacement.Start` (configurable through `Defaults`). |
 | OnClickPreventDefault | `bool` | Prevents the default action for the onclick event. Default is `false`. |
 | OnClickStopPropagation | `bool` | Stops onClick-event propagation. Default is `true`. |
+| Outline | `bool?` | Bootstrap "outline" button style. |
 | Settings | `ButtonSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | SingleClickProtection | `bool` | Sets `false` if you want to allow multiple `OnClick` handlers in parallel. Default is `true`. |
 | Size | `ButtonSize?` | Button size. The default is `ButtonSize.Regular`. |
@@ -31,7 +32,6 @@ Bootstrap Collapse toggle (in the form of a button) which triggers the `HxCollap
 | TooltipPlacement | `TooltipPlacement?` | Tooltip placement. |
 | TooltipSettings | `TooltipSettings` | Tooltip settings (overrides `ButtonSettings.TooltipSettings`, overridden by individual Tooltip* parameters). |
 | TooltipWrapperCssClass | `string` | Custom CSS class to render with the tooltip `span` wrapper of the `<button />`. If set, the `span` wrapper will be rendered no matter whether the `Tooltip` text is set or not. |
-| Variant | `ButtonVariant?` | Visual variant of the button (solid, outline, subtle, text, link), composed with `Color`. The default is `ButtonVariant.Solid`. |
 
 ## Event callbacks
 

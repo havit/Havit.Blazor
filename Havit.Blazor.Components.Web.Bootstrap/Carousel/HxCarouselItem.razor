@@ -1,7 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap 
 
 <div class="@CssClassHelper.Combine("carousel-item", Active ? "active" : null, CssClass)"
-     data-bs-interval="@Interval"
-     @attributes="AdditionalAttributes">
+     data-bs-interval="@Interval">
     @ChildContent
 </div>

@@ -2,12 +2,6 @@
 
 <ApiDoc Type="typeof(HxCalendar)">
     <MainContent>
-        <DocAlert Type="DocAlertType.Info">
-            <code>HxCalendar</code> is rendered entirely by Blazor — it has no JavaScript dependency, supports full .NET <code>CultureInfo</code> localization,
-            and works with static server-side rendering (SSR). It is styled to visually match the Bootstrap 6 Datepicker,
-            but it intentionally does not wrap the Bootstrap Datepicker JavaScript plugin (Vanilla Calendar Pro).
-        </DocAlert>
-
         <DocHeading Title="Basic usage" />
         <Demo Type="typeof(HxCalendar_Demo)" Tabs="false" />
 
@@ -55,7 +49,7 @@
 
     </MainContent>
     <CssVariables>
-        <ApiDocCssVariable Name="--hx-calendar-day-hover-background" Default="var(--bs-datepicker-day-hover-bg, var(--bs-bg-1))">
+        <ApiDocCssVariable Name="--hx-calendar-day-hover-background" Default="var(--bs-tertiary-bg)">
             Day background on hover.
         </ApiDocCssVariable>
         <ApiDocCssVariable Name="--hx-calendar-day-border" Default="none">
@@ -64,71 +58,68 @@
         <ApiDocCssVariable Name="--hx-calendar-day-hover-border" Default="none">
             Day border on hover.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-day-selected-background" Default="var(--bs-datepicker-day-selected-bg, var(--bs-primary-bg))">
+        <ApiDocCssVariable Name="--hx-calendar-day-selected-background" Default="var(--bs-primary)">
             Background of the selected day.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-day-selected-color" Default="var(--bs-datepicker-day-selected-color, var(--bs-primary-contrast))">
+        <ApiDocCssVariable Name="--hx-calendar-day-selected-color" Default="var(--bs-white)">
             Color of the selected day.
         </ApiDocCssVariable>
         <ApiDocCssVariable Name="--hx-calendar-day-selected-border" Default="none">
             Border of the selected day.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-day-out-color" Default="color-mix(in srgb, var(--bs-datepicker-color, var(--bs-fg-body)) 50%, transparent)">
+        <ApiDocCssVariable Name="--hx-calendar-day-out-color" Default="var(--bs-tertiary-color)">
             Day outer color.
         </ApiDocCssVariable>
         <ApiDocCssVariable Name="--hx-calendar-day-in-color" Default="unset">
             Day inner color.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-day-disabled-color" Default="var(--bs-datepicker-day-disabled-color, var(--bs-fg-4))">
-            Disabled day color.
-        </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-day-disabled-opacity" Default="1">
+        <ApiDocCssVariable Name="--hx-calendar-day-disabled-opacity" Default=".5">
             Disabled day opacity.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-day-disabled-text-decoration" Default="none">
+        <ApiDocCssVariable Name="--hx-calendar-day-disabled-text-decoration" Default="line-through">
             Disabled day text decoration.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-day-names-color" Default="var(--bs-datepicker-weekday-color, var(--bs-fg-3))">
+        <ApiDocCssVariable Name="--hx-calendar-day-names-color" Default="unset">
             Color of the day names.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-day-names-font-weight" Default="600">
+        <ApiDocCssVariable Name="--hx-calendar-day-names-font-weight" Default="700">
             Font weight of the day names.
         </ApiDocCssVariable>
         <ApiDocCssVariable Name="--hx-calendar-navigation-button-focus-box-shadow" Default="0 0 0 var(--bs-focus-ring-width) var(--bs-focus-ring-color)">
             Navigation button box shadow when focused.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-navigation-button-hover-background" Default="var(--bs-datepicker-day-hover-bg, var(--bs-bg-1))">
+        <ApiDocCssVariable Name="--hx-calendar-navigation-button-hover-background" Default="var(--bs-tertiary-bg)">
             Navigation button background on hover.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-navigation-button-text-color" Default="var(--bs-datepicker-color, var(--bs-fg-body))">
+        <ApiDocCssVariable Name="--hx-calendar-navigation-button-text-color" Default="var(--bs-tertiary-color)">
             Navigation button text color.
         </ApiDocCssVariable>
         <ApiDocCssVariable Name="--hx-calendar-day-today-border" Default="none">
             Border of today.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-day-today-background" Default="var(--bs-datepicker-day-today-bg, var(--bs-bg-2))">
+        <ApiDocCssVariable Name="--hx-calendar-day-today-background" Default="var(--bs-primary-rgb)">
             Background of today.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-day-today-background-opacity" Default="1">
+        <ApiDocCssVariable Name="--hx-calendar-day-today-background-opacity" Default=".1">
             Background opacity of today.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-day-today-color" Default="var(--bs-datepicker-day-today-color, var(--bs-fg-1))">
+        <ApiDocCssVariable Name="--hx-calendar-day-today-color" Default="var(--bs-primary)">
             Color of today.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-day-border-radius" Default="var(--bs-radius-5)">
+        <ApiDocCssVariable Name="--hx-calendar-day-border-radius" Default=".25rem">
             Day border radius.
         </ApiDocCssVariable>
         <ApiDocCssVariable Name="--hx-calendar-day-width" Default="2.25rem">
             Day width.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-day-height" Default="1.875rem">
+        <ApiDocCssVariable Name="--hx-calendar-day-height" Default="2.25rem">
             Day height.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-day-spacing" Default=".25rem">
-            Vertical spacing between the week rows.
+        <ApiDocCssVariable Name="--hx-calendar-day-spacing" Default=".125rem">
+            Day spacing.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-calendar-font-size" Default=".75rem">
-            Font size of the days.
+        <ApiDocCssVariable Name="--hx-calendar-font-size" Default=".875rem">
+            Font size within the calendar.
         </ApiDocCssVariable>
     </CssVariables>
 

@@ -1,13 +1,10 @@
 ﻿# HxBreadcrumb_Demo_Dividers.razor
 
 ```razor
-<HxBreadcrumb>
-    <DividerTemplate>&gt;</DividerTemplate>
-    <ChildContent>
-        <HxBreadcrumbItem Href="#" Text="Home" />
-        <HxBreadcrumbItem Href="#" Text="Library" />
-        <HxBreadcrumbItem Text="Data" Active="true" />
-    </ChildContent>
+<HxBreadcrumb Divider=">">
+    <HxBreadcrumbItem Href="#" Text="Home" />
+    <HxBreadcrumbItem Href="#" Text="Library" />
+    <HxBreadcrumbItem Text="Data" Active="true" />
 </HxBreadcrumb>
 
 ```

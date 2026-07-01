@@ -10,8 +10,7 @@
 </HxAutosuggest>
 <p>Value: @value1</p>
 
-@* LabelType.Floating is not supported on HxAutosuggest in Bootstrap 6 (the form-adorn wrapper owns the visual chrome and cannot host a floating label). *@
-<HxAutosuggest Label="Regular label" TItem="CultureInfo" LabelType="LabelType.Regular" InputGroupEndText="End" InputGroupStartText="Start" TValue="int" @bind-Value="@value1" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))" Delay="0">
+<HxAutosuggest Label="Floating label" TItem="CultureInfo" LabelType="LabelType.Floating" InputGroupEndText="End" InputGroupStartText="Start" TValue="int" @bind-Value="@value1" DataProvider="ProvideSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))" Delay="0">
 	<ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
 </HxAutosuggest>
 <p>Value: @value1</p>
@@ -21,10 +20,10 @@
 
 <HxAutosuggest Label="With empty template and custom icons" InputSize="InputSize.Small" Placeholder="Click here" TItem="CultureInfo" MinimumLength="0" ClearIcon="BootstrapIcon.XCircleFill" SearchIcon="BootstrapIcon.QuestionCircle" TValue="int" @bind-Value="@value3" DataProvider="ProvideTemplatedSuggestions" ValueSelector="(CultureInfo c) => c.LCID" ItemFromValueResolver="(int lcid) => Task.FromResult(CultureInfo.GetCultureInfo(lcid))">
 	<InputGroupStartTemplate>
-		<HxButton Color="ThemeColor.Secondary" Size="ButtonSize.Small" Text="Start" />
+		<HxButton Color="ThemeColor.Light" Size="ButtonSize.Small" Text="Start" />
 	</InputGroupStartTemplate>
 		<InputGroupEndTemplate>
-		<HxButton Color="ThemeColor.Secondary" Size="ButtonSize.Small"  Text="End" />
+		<HxButton Color="ThemeColor.Light" Size="ButtonSize.Small"  Text="End" />
 	</InputGroupEndTemplate>
 	<ItemTemplate Context="item">@item.EnglishName <sup>@item.LCID</sup></ItemTemplate>
 	<EmptyTemplate>

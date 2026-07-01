@@ -75,8 +75,8 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 	private ElementReference _fromIconWrapperElement;
 	private ElementReference _toIconWrapperElement;
 
-	private HxMenuToggleElement _fromMenuToggleElement;
-	private HxMenuToggleElement _toMenuToggleElement;
+	private HxDropdownToggleElement _fromDropdownToggleElement;
+	private HxDropdownToggleElement _toDropdownToggleElement;
 
 	private DateTime GetFromCalendarDisplayMonthEffective => CurrentValue.StartDate ?? FromCalendarDisplayMonth;
 
@@ -135,15 +135,15 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		if (firstRender && (CalendarIconEffective is not null))
 		{
 			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDateRange));
-			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _fromMenuToggleElement.ElementReference, (CalendarIconEffective is not null) ? _fromIconWrapperElement : null);
-			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _toMenuToggleElement.ElementReference, (CalendarIconEffective is not null) ? _toIconWrapperElement : null);
+			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _fromDropdownToggleElement.ElementReference, (CalendarIconEffective is not null) ? _fromIconWrapperElement : null);
+			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _toDropdownToggleElement.ElementReference, (CalendarIconEffective is not null) ? _toIconWrapperElement : null);
 		}
 	}
 
 	public async ValueTask FocusAsync()
 	{
-		await _fromMenuToggleElement.ElementReference.FocusAsync();
-		await _fromMenuToggleElement.ShowAsync();
+		await _fromDropdownToggleElement.ElementReference.FocusAsync();
+		await _fromDropdownToggleElement.ShowAsync();
 	}
 
 	private string FormatDate(DateTime? date)
@@ -270,7 +270,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
 		ClearPreviousRangeValidationMessage();
 
-		await CloseMenuAsync(_fromMenuToggleElement);
+		await CloseDropdownAsync(_fromDropdownToggleElement);
 	}
 
 	private async Task HandleToClearClickAsync()
@@ -284,16 +284,16 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
 		ClearPreviousRangeValidationMessage();
 
-		await CloseMenuAsync(_toMenuToggleElement);
+		await CloseDropdownAsync(_toDropdownToggleElement);
 	}
 
-	private async Task OpenMenuAsync(HxMenuToggleElement triggerElement)
+	private async Task OpenDropDownAsync(HxDropdownToggleElement triggerElement)
 	{
 		Contract.Assert<ArgumentNullException>(triggerElement != null, nameof(triggerElement));
 		await triggerElement.ShowAsync();
 	}
 
-	private async Task CloseMenuAsync(HxMenuToggleElement triggerElement)
+	private async Task CloseDropdownAsync(HxDropdownToggleElement triggerElement)
 	{
 		Contract.Assert<ArgumentNullException>(triggerElement != null, nameof(triggerElement));
 		await triggerElement.HideAsync();
@@ -323,8 +323,8 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 			ClearPreviousParsingMessage(ref _fromPreviousParsingAttemptFailed, _fromFieldIdentifier);
 			ClearPreviousRangeValidationMessage();
 
-			await CloseMenuAsync(_fromMenuToggleElement);
-			await OpenMenuAsync(_toMenuToggleElement);
+			await CloseDropdownAsync(_fromDropdownToggleElement);
+			await OpenDropDownAsync(_toDropdownToggleElement);
 		}
 		else
 		{
@@ -335,7 +335,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 				_previousRangeValidationAttemptFailed = true;
 			}
 		}
-		// If validation failed, we don't close the menu - user needs to select a different date
+		// If validation failed, we don't close the dropdown - user needs to select a different date
 	}
 
 	private async Task HandleToCalendarValueChanged(DateTime? date)
@@ -362,7 +362,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 			ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
 			ClearPreviousRangeValidationMessage();
 
-			await CloseMenuAsync(_toMenuToggleElement);
+			await CloseDropdownAsync(_toDropdownToggleElement);
 		}
 		else
 		{
@@ -373,10 +373,10 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 				_previousRangeValidationAttemptFailed = true;
 			}
 		}
-		// If validation failed, we don't close the menu - user needs to select a different date
+		// If validation failed, we don't close the dropdown - user needs to select a different date
 	}
 
-	protected async Task HandleDateRangeClick(DateTimeRange value, HxMenuToggleElement menuElement)
+	protected async Task HandleDateRangeClick(DateTimeRange value, HxDropdownToggleElement dropdownElement)
 	{
 		_validationMessageStore.Clear(FieldIdentifier);
 
@@ -400,7 +400,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 			ClearPreviousParsingMessage(ref _toPreviousParsingAttemptFailed, _toFieldIdentifier);
 			ClearPreviousRangeValidationMessage();
 
-			await CloseMenuAsync(menuElement);
+			await CloseDropdownAsync(dropdownElement);
 		}
 		else
 		{
@@ -411,7 +411,7 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 				_previousRangeValidationAttemptFailed = true;
 			}
 		}
-		// If validation failed, we don't close the menu
+		// If validation failed, we don't close the dropdown
 	}
 
 	private void ClearPreviousParsingMessage(ref bool previousParsingAttemptFailed, FieldIdentifier fieldIdentifier)
@@ -450,13 +450,13 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		{
 			try
 			{
-				if (_fromMenuToggleElement is not null)
+				if (_fromDropdownToggleElement is not null)
 				{
-					await CloseMenuAsync(_fromMenuToggleElement);
+					await CloseDropdownAsync(_fromDropdownToggleElement);
 				}
-				if (_toMenuToggleElement is not null)
+				if (_toDropdownToggleElement is not null)
 				{
-					await CloseMenuAsync(_toMenuToggleElement);
+					await CloseDropdownAsync(_toDropdownToggleElement);
 				}
 			}
 			catch (JSDisconnectedException)

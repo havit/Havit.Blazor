@@ -1,25 +1,21 @@
 ﻿@using Havit.Blazor.Components.Web.ECharts
 @using Havit.Blazor.ApplicationInsights.Components
-<HxSidebar @bind-Collapsed="_isDesktopCollapsed" CssClass="@CssClassHelper.Combine("md:sticky-top doc-sidebar", Embedded ? "doc-sidebar-embedded" : null, CssClass)">
+<HxSidebar @bind-Collapsed="_isDesktopCollapsed" CssClass="sticky-md-top doc-sidebar">
     <HeaderTemplate>
-        @if (!Embedded)
-        {
-        <div class="d-flex flex-grow-1 lg:d-none">
+        <div class="d-flex flex-grow-1 d-lg-none">
             <HxSidebarBrand BrandName="HAVIT Blazor">
                 <LogoTemplate>
                     <img src="/logo.png" width="32" height="30" class="mx-1" />
                 </LogoTemplate>
             </HxSidebarBrand>
-            <div class="@CssClassHelper.Combine("ms-auto d-flex gap-2", _isDesktopCollapsed ? "d-none" : null)">
+            <div class="@CssClassHelper.Combine("ms-auto d-flex gap-2", _isDesktopCollapsed ? "d-md-none" : null)">
                 <Havit.Blazor.Documentation.Shared.Components.DocColorMode.DocColorModeSwitcher />
                 <GitHubLink />
             </div>
         </div>
-        }
     </HeaderTemplate>
     <ItemsTemplate>
 		<HxSidebarItem Text="Getting started" Href="getting-started" Icon="BootstrapIcon.RocketTakeoff" TooltipText="Getting started" Match="NavLinkMatch.All" />
-		<HxSidebarItem Text="Migration guide (v4 → v6)" Href="/migration-guide-v6" Icon="BootstrapIcon.ArrowUpCircle" TooltipText="Migration guide (v4 → v6)" />
 		<HxSidebarItem Href="https://blocks.havit.blazor.eu" CssClass="w-100" Icon="BootstrapIcon.Boxes" TooltipText="Blocks" >
             <ContentTemplate>
 				<div class="flex-grow-1">Blocks</div>
@@ -41,7 +37,6 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxInputTags)}")" Text="@(nameof(HxInputTags))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputText)}")" Text="@(nameof(HxInputText))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxInputTextArea)}")" Text="@(nameof(HxInputTextArea))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxOtpInput)}")" ContentTemplate="@SidebarItemContentTemplate(nameof(HxOtpInput))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxCheckbox)}")" Text="@(nameof(HxCheckbox))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxCheckboxList<object, object>)}")" Text="@(nameof(HxCheckboxList<object, object>))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxSwitch)}")" Text="@(nameof(HxSwitch))" />
@@ -51,7 +46,6 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxSelect)}")" Text="@nameof(HxSelect)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxMultiSelect<object, object>)}")" Text="@nameof(HxMultiSelect<object, object>)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxSearchBox<object>)}")" Text="@nameof(HxSearchBox<object>)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxPasswordStrength)}")" ContentTemplate="@SidebarItemContentTemplate(nameof(HxPasswordStrength))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxFilterForm<object>)}")" Text="@(nameof(HxFilterForm<object>))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxValidationMessage<object>)}")" Text="@(nameof(HxValidationMessage<object>))" />
         </HxSidebarItem>
@@ -61,22 +55,19 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxButtonGroup)}")" Text="@nameof(HxButtonGroup)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxButtonToolbar)}#{nameof(HxButtonToolbar)}")" Text="@nameof(HxButtonToolbar)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxCloseButton)}")" Text="@nameof(HxCloseButton)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxStepper)}")" ContentTemplate="@SidebarItemContentTemplate(nameof(HxStepper))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxSubmit)}#{nameof(HxSubmit)}")" Text="@nameof(HxSubmit)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxAvatar)}")" ContentTemplate="@SidebarItemContentTemplate(nameof(HxAvatar))" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxDropdownButtonGroup)}")" Text="@nameof(HxDropdownButtonGroup)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxBadge)}")" Text="@nameof(HxBadge)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxChipList)}")" Text="@(nameof(HxChipList))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxSpinner)}")" Text="@nameof(HxSpinner)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxProgress)}")" Text="@nameof(HxProgress)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxProgressIndicator)}")" Text="@nameof(HxProgressIndicator)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxStepper)}")" ContentTemplate="@SidebarItemContentTemplate(nameof(HxStepper))" />
         </HxSidebarItem>
 
         <HxSidebarItem Text="Data & Grid" Icon="BootstrapIcon.Table">
             <HxSidebarItem Href="@($"/components/{nameof(HxGrid<object>)}")" Text="@nameof(HxGrid<object>)" />
 			<HxSidebarItem Href="@($"/components/{nameof(HxEChart)}")" Text="@nameof(HxEChart)" />
 			<HxSidebarItem Href="@($"/components/{nameof(HxContextMenu)}")" Text="@(nameof(HxContextMenu))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxOtpInput)}")" ContentTemplate="@SidebarItemContentTemplate(nameof(HxOtpInput))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxPager)}")" Text="@(nameof(HxPager))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxRepeater<object>)}")" Text="@nameof(HxRepeater<object>)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxTreeView<object>)}")" Text="@(nameof(HxTreeView<object>))" />
@@ -88,7 +79,7 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxCard)}")" Text="@nameof(HxCard)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxCarousel)}")" Text="@nameof(HxCarousel)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxCollapse)}")" Text="@(nameof(HxCollapse))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxMenu)}")" Text="@nameof(HxMenu)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxDropdown)}")" Text="@nameof(HxDropdown)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxIcon)}")" Text="@nameof(HxIcon)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxPlaceholder)}")" Text="@nameof(HxPlaceholder)" />
 			<HxSidebarItem Href="@($"/components/{nameof(HxTooltip)}")" Text="@nameof(HxTooltip)" />
@@ -104,7 +95,6 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxSidebar)}")" Text="@nameof(HxSidebar)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxNav)}")" Text="@nameof(HxNav)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxNavLink)}#{nameof(HxNavLink)}")" Text="@nameof(HxNavLink)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxNavOverflow)}")" ContentTemplate="@SidebarItemContentTemplate(nameof(HxNavOverflow))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxScrollspy)}")" Text="@nameof(HxScrollspy)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxBreadcrumb)}")" Text="@nameof(HxBreadcrumb)" />
 			@{
@@ -117,11 +107,11 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxRedirectTo)}")" Text="@nameof(HxRedirectTo)" />
         </HxSidebarItem>
 
-        <HxSidebarItem Text="Dialogs & Interactions" Icon="BootstrapIcon.ChatText">
+        <HxSidebarItem Text="Modals & Interactions" Icon="BootstrapIcon.ChatText">
             <HxSidebarItem Href="@($"/components/{nameof(HxMessageBox)}")" Text="@nameof(HxMessageBox)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxDialog)}")" Text="@nameof(HxDialog)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxModal)}")" Text="@nameof(HxModal)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxDialogBase<object>)}")" Text="@nameof(HxDialogBase<object>)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxDrawer)}")" Text="@nameof(HxDrawer)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxOffcanvas)}")" Text="@nameof(HxOffcanvas)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxMessenger)}")" Text="@nameof(HxMessenger)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxToast)}")" Text="@nameof(HxToast)" />
         </HxSidebarItem>
@@ -143,7 +133,6 @@
             <HxSidebarItem Href="/concepts/Debouncer" Text="Debouncer" />
             <HxSidebarItem Href="/concepts/dark-color-mode-theme" Text="Dark color mode" />
             <HxSidebarItem Href="/concepts/browser-storage" Text="Browser Web Storage" />
-            <HxSidebarItem Href="/concepts/bootstrap-data-api" Text="Bootstrap data APIs" />
         </HxSidebarItem>
 
 		<HxSidebarItem Href="/getting-started/mcp" CssClass="w-100" Icon="BootstrapIcon.Stars" TooltipText="MCP Server">
@@ -165,8 +154,6 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxAccordion)}")" Text="@nameof(HxAccordion)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxAlert)}")" Text="@nameof(HxAlert)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxAutosuggest)}")" Text="@nameof(HxAutosuggest)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxAvatar)}")" ContentTemplate="@SidebarItemContentTemplate(nameof(HxAvatar))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxAvatarStack)}")" Text="@nameof(HxAvatarStack)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxBadge)}")" Text="@nameof(HxBadge)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxBreadcrumb)}")" Text="@nameof(HxBreadcrumb)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxButton)}")" Text="@nameof(HxButton)" />
@@ -181,9 +168,9 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxCloseButton)}")" Text="@nameof(HxCloseButton)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxCollapse)}")" Text="@(nameof(HxCollapse))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxContextMenu)}")" Text="@(nameof(HxContextMenu))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxDialog)}")" Text="@nameof(HxDialog)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxDialogBase<object>)}")" Text="@nameof(HxDialogBase<object>)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxDrawer)}")" Text="@nameof(HxDrawer)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxDropdown)}")" Text="@nameof(HxDropdown)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxDropdownButtonGroup)}")" Text="@nameof(HxDropdownButtonGroup)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxDynamicElement)}")" Text="@nameof(HxDynamicElement)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxFilterForm<object>)}")" Text="@(nameof(HxFilterForm<object>))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxFormState)}")" Text="@nameof(HxFormState)" />
@@ -204,16 +191,15 @@
             <HxSidebarItem Href="@($"/components/{nameof(HxListGroup)}")" Text="@(nameof(HxListGroup))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxListLayout)}")" Text="@(nameof(HxListLayout))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxMarkdown)}")" Text="@nameof(HxMarkdown)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxMenu)}")" Text="@nameof(HxMenu)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxMessageBox)}")" Text="@nameof(HxMessageBox)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxMessenger)}")" Text="@nameof(HxMessenger)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxModal)}")" Text="@nameof(HxModal)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxMultiSelect<object, object>)}")" Text="@nameof(HxMultiSelect<object, object>)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxNav)}")" Text="@nameof(HxNav)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxNavbar)}")" Text="@nameof(HxNavbar)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxNavLink)}#{nameof(HxNavLink)}")" Text="@nameof(HxNavLink)" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxNavOverflow)}")" ContentTemplate="@SidebarItemContentTemplate(nameof(HxNavOverflow))" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxOffcanvas)}")" Text="@nameof(HxOffcanvas)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxPager)}")" Text="@(nameof(HxPager))" />
-            <HxSidebarItem Href="@($"/components/{nameof(HxPasswordStrength)}")" ContentTemplate="@SidebarItemContentTemplate(nameof(HxPasswordStrength))" />
             <HxSidebarItem Href="@($"/components/{nameof(HxPlaceholder)}")" Text="@nameof(HxPlaceholder)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxPopover)}")" Text="@nameof(HxPopover)" />
             <HxSidebarItem Href="@($"/components/{nameof(HxProgress)}")" Text="@nameof(HxProgress)" />
@@ -239,28 +225,5 @@
 
 @code
 {
-	[Parameter] public string CssClass { get; set; }
-
-	/// <summary>
-	/// Embedded usage (inside the navbar drawer): suppresses the header (brand/switchers duplicate the drawer chrome) and the desktop collapse toggler.
-	/// </summary>
-	[Parameter] public bool Embedded { get; set; }
-
-	private bool _isDesktopCollapsed;
-
-	// Pages new in v6 get a subtle "New" badge in the navigation (rendered by SidebarItemContentTemplate).
-	private static readonly HashSet<string> s_newPages = new()
-	{
-		nameof(HxAvatar),
-		nameof(HxStepper),
-		nameof(HxOtpInput),
-		nameof(HxPasswordStrength),
-		nameof(HxNavOverflow)
-	};
-
-	private RenderFragment<SidebarItemContentTemplateContext> SidebarItemContentTemplate(string text) => (context) =>
-		@<text><div class="flex-grow-1">@text</div>@if (s_newPages.Contains(text))
-		{
-			<HxBadge CssClass="doc-new-badge ms-2 fw-normal" Variant="BadgeVariant.Subtle" Color="ThemeColor.Primary">New</HxBadge>
-		}</text>;
+    private bool _isDesktopCollapsed;
 }

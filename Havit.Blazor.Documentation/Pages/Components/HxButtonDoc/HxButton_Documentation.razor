@@ -1,4 +1,4 @@
-﻿@attribute [Route("/components/" + nameof(HxButton))]
+@attribute [Route("/components/" + nameof(HxButton))]
 @attribute [Route("/components/" + nameof(HxSubmit))]
 
 <ApiDoc Type="typeof(HxButton)">
@@ -9,52 +9,17 @@
 		<p>Several predefined button styles are included, each serving its own semantic purpose, with a few extras thrown in for more control.</p>
 		<Demo Type="typeof(HxButton_Demo_Colors)" />
 
-		<DocHeading Title="Playground" />
-		<p>Combine the <code>Color</code>, <code>Variant</code>, and <code>Size</code> parameters (plus utility classes through <code>CssClass</code>) to get the desired button appearance:</p>
-		<HxButton_Playground />
-
-		<DocHeading Title="Variants" />
-		<p>Bootstrap 6 buttons compose a visual variant (<code>ButtonVariant.Solid</code>, <code>Outline</code>, <code>Subtle</code>, <code>Text</code>, <code>Link</code>) with a theme color:</p>
-		<Demo Type="typeof(HxButton_Demo_Variants)" />
-
-		<DocHeading Title="Styled buttons" />
-		<p>
-			Add visual depth to solid buttons with gradients and shadows by using the <code>btn-styled</code> CSS class
-			(through the <code>CssClass</code> parameter). The appearance can be customized further with
-			<a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button/#styled-buttons">CSS variables</a>.
-		</p>
-		<Demo Type="typeof(HxButton_Demo_Styled)" />
+		<DocHeading Title="Outline buttons" />
+		<p>You can remove the background with <code>Outline="true"</code>:</p>
+		<Demo Type="typeof(HxButton_Demo_Outline)" />
 
 		<DocHeading Title="Sizes" />
 		<Demo Type="typeof(HxButton_Demo_Sizes)" Tabs="false" />
 		<Demo Type="typeof(HxButton_Demo_Sizes_Small)" Tabs="false" />
-		<p>Bootstrap 6 adds an extra-small size, available through <code>ButtonSize.ExtraSmall</code>:</p>
-		<Demo Type="typeof(HxButton_Demo_Sizes_ExtraSmall)" Tabs="false" />
-
-		<DocHeading Title="Disabled state" />
-		<p>Set <code>Enabled="false"</code> to render the button in a disabled state.</p>
-		<Demo Type="typeof(HxButton_Demo_Disabled)" Tabs="false" />
-
-		<DocHeading Title="Block buttons" />
-		<p>
-			Create responsive stacks of full-width, "block" buttons by wrapping them in a <code>.d-grid</code> container
-			(a <a href="https://getbootstrap.com/docs/5.3/utilities/display/">display utility</a>).
-			Use the <code>gap-*</code> utilities to control spacing between the buttons.
-		</p>
-		<Demo Type="typeof(HxButton_Demo_Block)" Tabs="false" />
 
 		<DocHeading Title="Icons" />
 		<p>You can add an icon to the button by using the <code>Icon</code> parameter. The position of the icon can be changed with <code>IconPlacement</code>.</p>
 		<Demo Type="typeof(HxButton_Demo_Icons)" />
-
-		<DocHeading Title="Icon buttons" Level="3" />
-		<p>
-			Use the <code>btn-icon</code> CSS class (through the <code>CssClass</code> parameter) for square buttons that contain only an icon.
-			Always set <code>AriaLabel</code> on icon-only buttons to ensure they are accessible to screen reader users.
-		</p>
-		<Demo Type="typeof(HxButton_Demo_IconButtons)" />
-		<p>Combine with the <code>Size</code> parameter for different icon button sizes:</p>
-		<Demo Type="typeof(HxButton_Demo_IconButtons_Sizes)" Tabs="false" />
 
 		<DocHeading Title="Spinners" />
 		<p>Button will show a spinner whenever the <code>@nameof(HxButton.OnClick)</code>, <code>@nameof(HxButton.OnValidClick)</code> or <code>@nameof(HxButton.OnInvalidClick)</code> handler returns an incomplete awaitable <code>Task</code>.</p>
@@ -80,7 +45,7 @@
 
 		<DocHeading Title="Submit outside EditForm" />
 		<p>
-			There are scenarios where you may want to submit an <code>EditForm</code> from a button located outside the form (e.g., an <code>HxDrawer</code> with the form in the body and a button in the footer).
+			There are scenarios where you may want to submit an <code>EditForm</code> from a button located outside the form (e.g., an <code>HxOffcanvas</code> with the form in the body and a button in the footer).
 			You can use the <code>HxSubmit</code> or <code>HxButton</code> located outside the <code>EditForm</code> to submit the form.
 			<ul>
 				<li>Set the same <code>EditContext</code> for both the <code>EditForm</code> and the <code>HxButton</code> or <code>HxSubmit</code>.</li>

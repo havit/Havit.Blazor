@@ -14,14 +14,17 @@ public class HxContextMenuTests : BunitTestBase
 		var contextMenu = cut.Find("div.hx-context-menu");
 		Assert.NotNull(contextMenu);
 
+		var dropdown = cut.Find("div.dropdown");
+		Assert.NotNull(dropdown);
+
 		var triggerButton = cut.Find("div.hx-context-menu-btn");
 		Assert.NotNull(triggerButton);
-		Assert.Equal("menu", triggerButton.GetAttribute("data-bs-toggle"));
+		Assert.Equal("dropdown", triggerButton.GetAttribute("data-bs-toggle"));
 		Assert.Equal("button", triggerButton.GetAttribute("role"));
 	}
 
 	[Fact]
-	public void HxContextMenu_RendersMenu()
+	public void HxContextMenu_RendersDropdownMenu()
 	{
 		// Act
 		var cut = RenderComponent<HxContextMenu>(p => p
@@ -29,7 +32,7 @@ public class HxContextMenuTests : BunitTestBase
 				.Add(i => i.Text, "Action 1")));
 
 		// Assert
-		var menu = cut.Find("div.menu");
+		var menu = cut.Find("ul.dropdown-menu");
 		Assert.NotNull(menu);
 	}
 
@@ -42,7 +45,10 @@ public class HxContextMenuTests : BunitTestBase
 				.Add(i => i.Text, "Edit")));
 
 		// Assert
-		var a = cut.Find("a.menu-item.hx-context-menu-item");
+		var li = cut.Find("li.hx-context-menu-item");
+		Assert.NotNull(li);
+
+		var a = cut.Find("a.dropdown-item");
 		Assert.NotNull(a);
 		Assert.Contains("Edit", a.TextContent);
 	}
@@ -57,7 +63,7 @@ public class HxContextMenuTests : BunitTestBase
 				.Add(i => i.Enabled, false)));
 
 		// Assert
-		var a = cut.Find("a.menu-item");
+		var a = cut.Find("a.dropdown-item");
 		Assert.True(a.ClassList.Contains("disabled"), "Disabled menu item should have 'disabled' CSS class.");
 	}
 
@@ -71,7 +77,7 @@ public class HxContextMenuTests : BunitTestBase
 				.Add(i => i.Enabled, true)));
 
 		// Assert
-		var a = cut.Find("a.menu-item");
+		var a = cut.Find("a.dropdown-item");
 		Assert.False(a.ClassList.Contains("disabled"), "Enabled menu item should not have 'disabled' CSS class.");
 	}
 
@@ -96,7 +102,7 @@ public class HxContextMenuTests : BunitTestBase
 			}));
 
 		// Assert
-		var items = cut.FindAll("a.hx-context-menu-item");
+		var items = cut.FindAll("li.hx-context-menu-item");
 		Assert.Equal(3, items.Count());
 	}
 }

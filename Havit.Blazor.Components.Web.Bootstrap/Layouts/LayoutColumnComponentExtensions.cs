@@ -13,20 +13,22 @@ public static class LayoutColumnComponentExtensions
 			GetColumnCssClass(columnComponent.ColumnsMediumUp, "md"),
 			GetColumnCssClass(columnComponent.ColumnsLargeUp, "lg"),
 			GetColumnCssClass(columnComponent.ColumnsExtraLargeUp, "xl"),
-			GetColumnCssClass(columnComponent.ColumnsXxlUp, "2xl"));
+			GetColumnCssClass(columnComponent.ColumnsXxlUp, "xxl"));
 	}
 
-	private static string GetColumnCssClass(string value, string breakpoint)
+	private static string GetColumnCssClass(string value, string infix)
 	{
-		// Bootstrap 6 uses prefix syntax for responsive grid classes (col-md-6 -> md:col-6).
-		string prefix = String.IsNullOrWhiteSpace(breakpoint) ? String.Empty : breakpoint + ":";
+		if (!String.IsNullOrWhiteSpace(infix))
+		{
+			infix = "-" + infix;
+		}
 		return value switch
 		{
 			null => null,
 			"" => null,
-			"1" or "2" or "3" or "4" or "5" or "6" or "7" or "8" or "9" or "10" or "11" or "12" => prefix + "col-" + value,
-			"auto" => prefix + "col-auto",
-			"true" => prefix + "col",
+			"1" or "2" or "3" or "4" or "5" or "6" or "7" or "8" or "9" or "10" or "11" or "12" => "col" + infix + "-" + value,
+			"auto" => "col" + infix + "-auto",
+			"true" => "col" + infix,
 			_ => throw new ArgumentException($"Unknown column value {value}")
 		};
 	}

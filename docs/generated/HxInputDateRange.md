@@ -7,7 +7,7 @@ Date range picker. Form input component for entering a start date and an end dat
 | Name | Type | Description |
 |------|------|-------------|
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
-| CalendarDateCustomizationProvider | `CalendarDateCustomizationProviderDelegate` | Allows customization of the dates in the menu calendars. The default customization is configurable with `Defaults`. |
+| CalendarDateCustomizationProvider | `CalendarDateCustomizationProviderDelegate` | Allows customization of the dates in the dropdown calendars. The default customization is configurable with `Defaults`. |
 | CalendarIcon | `IconBase` |  |
 | ChipTemplate | `RenderFragment` | The chip template. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
@@ -25,12 +25,12 @@ Date range picker. Form input component for entering a start date and an end dat
 | Label | `string` | The label text. |
 | LabelCssClass | `string` | The custom CSS class to render with the label. |
 | LabelTemplate | `RenderFragment` | The label content. |
-| MaxDate | `DateTime?` | The last date selectable from the menu calendar. The default is `31.12.2099` (configurable from `Defaults`). |
-| MinDate | `DateTime?` | The first date selectable from the menu calendar. The default is `1.1.1900` (configurable from `Defaults`). |
+| MaxDate | `DateTime?` | The last date selectable from the dropdown calendar. The default is `31.12.2099` (configurable from `Defaults`). |
+| MinDate | `DateTime?` | The first date selectable from the dropdown calendar. The default is `1.1.1900` (configurable from `Defaults`). |
 | PredefinedDateRanges | `IEnumerableInputDateRangePredefinedRangesItem>` | Predefined dates to be displayed. |
 | RequireDateOrder | `bool?` | When enabled, validates that the "from" date is less than or equal to the "to" date. The default is `true` (configurable from `Defaults`). |
 | Settings | `InputDateRangeSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
-| ShowClearButton | `bool?` | Indicates whether the Clear button in the menu calendar should be visible. The default is `true` (configurable in `HxInputDate.Defaults`). |
+| ShowClearButton | `bool?` | Indicates whether the Clear button in the dropdown calendar should be visible. The default is `true` (configurable in `HxInputDate.Defaults`). |
 | ShowPredefinedDateRanges | `bool?` | When enabled (default is `true`), shows predefined days (from `PredefinedDateRanges`, e.g. Today). |
 | TimeProvider | `TimeProvider` | TimeProvider is resolved in the following order: 1. TimeProvider from this parameter 2. Settings TimeProvider (configurable from `Settings`) 3. Defaults TimeProvider (configurable from `Defaults`) |
 | ToCalendarDisplayMonth | `DateTime` | The month to display in the to calendar when no end date or start date is selected. It will default to `FromCalendarDisplayMonth`. |

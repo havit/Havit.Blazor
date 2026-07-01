@@ -18,6 +18,7 @@ Bootstrap Button groups.
 - HxButtonGroup_Demo_Checkboxes.razor
 - HxButtonGroup_Demo_Nesting.razor
 - HxButtonGroup_Demo_Outlined.razor
+- HxButtonGroup_Demo_Radios.razor
 - HxButtonGroup_Demo_Sizes.razor
 - HxButtonGroup_Demo_Tooltips.razor
 - HxButtonGroup_Demo_Vertical.razor

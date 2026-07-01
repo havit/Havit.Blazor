@@ -3,9 +3,9 @@
 ```razor
 <EditForm Model="@model">
     <HxButtonGroup>
-        <HxCheckbox Text="Checkbox 1" @bind-Value="@model.checkbox1" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Primary" Variant="ButtonVariant.Outline" />
-        <HxCheckbox Text="Checkbox 2" @bind-Value="@model.checkbox2" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Primary" Variant="ButtonVariant.Outline" />
-        <HxCheckbox Text="Checkbox 3" @bind-Value="@model.checkbox3" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Primary" Variant="ButtonVariant.Outline" />
+        <HxCheckbox Text="Checkbox 1" @bind-Value="@model.checkbox1" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Primary" Outline="true" />
+        <HxCheckbox Text="Checkbox 2" @bind-Value="@model.checkbox2" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Primary" Outline="true" />
+        <HxCheckbox Text="Checkbox 3" @bind-Value="@model.checkbox3" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Primary" Outline="true" />
     </HxButtonGroup>
 </EditForm>
 

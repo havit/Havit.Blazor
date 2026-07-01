@@ -1,40 +1,71 @@
-﻿::deep .hx-search-box-toggle {
+﻿.hx-search-box {
+	--input-icon-button-width: 2.375rem;
+}
+
+::deep .dropdown {
     flex-grow: 1;
 }
 
-::deep .menu {
-    min-width: var(--hx-search-box-menu-width); /* override for current .btn-group, see issue #117 */
+::deep .dropdown-menu {
+    min-width: var(--hx-search-box-dropdown-menu-width); /* override for current .btn-group, see issue #117 */
 }
 
-::deep .hx-search-box-input-icon[role="button"] {
-    pointer-events: auto; /* .form-adorn-icon disables pointer events, the clear icon has to stay clickable */
-    cursor: pointer;
+::deep .hx-search-box-input-icon {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 5;
+	width: var(--input-icon-button-width);
 }
 
-/* Bootstrap styles only the input itself with :disabled, the form-adorn wrapper has to reflect the disabled state of the inner form-ghost input.
-   pointer-events: none prevents the wrapper (menu toggle) from opening the menu when the search box is disabled. */
-::deep .hx-search-box-toggle:has(input:disabled) {
-    pointer-events: none;
-    color: var(--bs-control-disabled-color);
-    background-color: var(--bs-control-disabled-bg);
-    border-color: var(--bs-control-disabled-border-color);
+::deep .hx-search-box-input-icon-end {
+    right: 0;
 }
 
-.menu-item:not(:active) ::deep .hx-search-box-item-title {
+::deep .hx-search-box-input-icon-start {
+    left: 0;
+}
+
+.hx-search-box:has(.hx-search-box-input-icon-end) .form-control  {
+	padding-right: var(--input-icon-button-width);
+}
+
+.hx-search-box:has(.hx-search-box-input-icon-start) .form-control {
+	padding-left: var(--input-icon-button-width);
+}
+
+.dropdown-item:not(:active) ::deep .hx-search-box-item-title {
     color: var(--hx-search-box-item-title-color);
 }
 
-.menu-item:not(:active) ::deep .hx-search-box-item-subtitle {
+.dropdown-item:not(:active) ::deep .hx-search-box-item-subtitle {
     color: var(--hx-search-box-item-subtitle-color);
 }
 
-::deep .hx-menu-item-focused {
+::deep .hx-dropdown-item-focused {
     background-color: var(--hx-search-box-item-highlighted-background-color);
 }
 
-::deep .menu {
+::deep .dropdown-menu {
     overflow: auto;
-    max-height: var(--hx-search-box-menu-height);
+    max-height: var(--hx-search-box-dropdown-menu-height);
+}
+
+.input-group-start ::deep .form-control {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group-end ::deep .form-control {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+::deep .dropdown:focus-within {
+    z-index: 6; /* Assures that the inputs' box shadows are always fully visible (rendered on top). Must be larger than 5 because otherwise the validation message is rendered on top. */
 }
 
 ::deep .hx-search-box-input-icon-clear {

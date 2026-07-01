@@ -1,0 +1,16 @@
+﻿# HxDropdown_Demo_DropdownReference.razor
+
+```razor
+<HxDropdownButtonGroup>
+    <HxDropdownToggleButton Color="ThemeColor.Secondary"
+                            DropdownReference="#my-reference">Dropdown button with tooltip</HxDropdownToggleButton>
+    <HxDropdownMenu>
+        <HxDropdownItemText>Text item 1</HxDropdownItemText>
+        <HxDropdownItemText>Text item 2</HxDropdownItemText>
+        <HxDropdownDivider />
+        <HxDropdownItemText>Text item 3</HxDropdownItemText>
+    </HxDropdownMenu>
+</HxDropdownButtonGroup>
+
+<div id="my-reference" class="bg-info d-inline-block px-3 py-1 ms-5">Reference element</div>
+```

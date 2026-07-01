@@ -1,4 +1,4 @@
-﻿.doc-sidebar {
+.doc-sidebar {
 	--hx-sidebar-width: 					320px;
 	--hx-sidebar-collapsed-width: 			56px;
 	--hx-sidebar-max-height: 				calc(100vh - 56px);
@@ -6,29 +6,6 @@
 	--hx-sidebar-brand-logo-height: 		30px;
 	--hx-sidebar-header-padding: 			.5rem 0;
 	--hx-sidebar-body-padding: 				0 1rem 0 0;
-}
-
-/* Demo content uses vstack to stack and space items; block-level elements (e.g. alerts)
-   stretch full-width by design. Buttons and button groups should keep their natural width. */
-.demo-content > .btn,
-.demo-content > .btn-group {
-	align-self: flex-start;
-}
-
-/* In the tabbed demo variant the tab content is a flex child of the (flex-column) card body;
-   stretch it so the demo fills the full width like the non-tabbed variant. */
-.card-demo > .card-body > .tab-content {
-	align-self: stretch;
-}
-
-/* Center the docs search in the navbar on lg+ (absolute, so the nav stays hard-left and the controls hard-right).
-   In the mobile drawer (< lg) the search stays in normal flow. */
-@media (min-width: 1024px) {
-	.nav-container .navbar-search-center {
-		position: absolute;
-		left: 50%;
-		transform: translateX(-50%);
-	}
 }
 
 #blazor-error-ui {
@@ -54,16 +31,6 @@ code[class*=language-],
 pre[class*=language-] {
 	text-shadow: none;
 	color: var(--bs-secondary-color);
-}
-
-/* Inline code (not the Prism-highlighted source blocks) colored with a pink theme color. */
-.prose code:not([class*="language-"]) {
-	color: var(--bs-pink-500);
-}
-
-/* The active item in the navbar mobile dropdown is shown in medium weight. */
-.nav-container .menu .menu-item.active {
-	font-weight: 500;
 }
 
 
@@ -107,13 +74,6 @@ pre[class*="language-"] {
 
 .doc-sidebar .hx-sidebar-header {
 	flex-wrap: wrap;
-}
-
-/* Subtle "New" badge marking new pages in the sidebar navigation */
-.doc-sidebar .doc-new-badge {
-	min-height: 0;
-	padding: .125rem .375rem;
-	font-size: .625rem;
 }
 
 @media screen and (min-width: 992px) {
@@ -172,12 +132,5 @@ pre[class*="language-"] {
 }
 
 .hero {
-	background-image:
-		radial-gradient(56% 56% at 30% var(--hero-position-y, 39%), color-mix(in srgb, var(--bs-blue-500) calc(var(--hero-opacity, .15) * 100%), transparent), transparent 100%),
-		radial-gradient(56% 56% at 70% var(--hero-position-y, 39%), color-mix(in srgb, var(--bs-green-500) calc(var(--hero-opacity, .15) * 100%), transparent), transparent 100%);
-}
-
-/* Sidebar embedded in the navbar drawer: the horizontal (icon rail) collapse makes no sense there. */
-.doc-sidebar-embedded .hx-sidebar-toggler {
-	display: none;
+	background-image: radial-gradient(56.1514% 56.1514% at 49.972% var(--hero-position-y, 38.959%), rgba(var(--bs-primary-rgb), var(--hero-opacity, .3)) 0%, var(--bs-body-bg) 100%);
 }

@@ -10,13 +10,11 @@ Bootstrap card component.
 | BodyCssClass | `string` | Additional CSS class for the body. |
 | BodyTemplate | `RenderFragment` | The body content. |
 | ChildContent | `RenderFragment` | The generic card content (outside `.card-body`). |
-| Color | `ThemeColor?` | Theme color of the card (renders the `theme-*` class, typically combined with `CardVariant.Subtle`). |
 | CssClass | `string` | Additional CSS classes for the card container. |
 | FooterCssClass | `string` | Additional CSS class for the footer. |
 | FooterTemplate | `RenderFragment` | The footer content. |
 | HeaderCssClass | `string` | Additional CSS class for the header. |
 | HeaderTemplate | `RenderFragment` | The header content. |
-| Horizontal | `bool?` | When `true`, renders a horizontal card (`card-row`, new in Bootstrap 6) - image and body side by side. Default is `false`. |
 | ImageAlt | `string` | The value of the image's `alt` attribute. |
 | ImageCssClass | `string` | Additional CSS class for the image. |
 | ImageHeight | `int?` | The value of the image's `height` attribute. |
@@ -24,7 +22,6 @@ Bootstrap card component.
 | ImageSrc | `string` | Image to be placed in the card. For the image position, see `ImagePlacement`. |
 | ImageWidth | `int?` | The value of the image's `width` attribute. |
 | Settings | `CardSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
-| Variant | `CardVariant?` | Visual variant of the card. The default is `CardVariant.Regular`. |
 
 ## Static properties
 

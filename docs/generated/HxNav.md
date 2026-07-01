@@ -16,7 +16,7 @@ Bootstrap Nav component.
 ## Available demo samples
 
 - HxNav_Demo_BaseNav.razor
-- HxNav_Demo_Menus.razor
+- HxNav_Demo_Dropdowns.razor
 - HxNav_Demo_Pills.razor
 - HxNav_Demo_Tabs.razor
 - HxNav_Demo_Underline.razor

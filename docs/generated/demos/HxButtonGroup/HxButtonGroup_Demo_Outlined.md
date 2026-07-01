@@ -2,9 +2,9 @@
 
 ```razor
 <HxButtonGroup>
-    <HxButton Text="Left" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
-    <HxButton Text="Middle" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
-    <HxButton Text="Right" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
+    <HxButton Text="Left" Color="ThemeColor.Secondary" Outline="true" />
+    <HxButton Text="Middle" Color="ThemeColor.Secondary" Outline="true" />
+    <HxButton Text="Right" Color="ThemeColor.Secondary" Outline="true" />
 </HxButtonGroup>
 
 ```

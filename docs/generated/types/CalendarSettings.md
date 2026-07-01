@@ -6,7 +6,7 @@ Settings for the `HxCalendar` and derived components.
 
 | Name | Type | Description |
 |------|------|-------------|
-| DateCustomizationProvider | `CalendarDateCustomizationProviderDelegate` | Allows customization of the dates in the menu calendars. |
+| DateCustomizationProvider | `CalendarDateCustomizationProviderDelegate` | Allows customization of the dates in the dropdown calendars. |
 | MaxDate | `DateTime?` | Maximum value to choose from the calendar. |
 | MinDate | `DateTime?` | Minimum value to choose from the calendar. |
 | TimeProvider | `TimeProvider` | TimeProvider to customize the today's date. |

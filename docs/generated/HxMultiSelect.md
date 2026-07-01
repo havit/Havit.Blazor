@@ -11,7 +11,7 @@ MultiSelect. Unlike a normal select, multiselect allows the user to select multi
 | AllowSelectAll | `bool?` | Enables select all capabilities. |
 | AutoSort | `bool` | When set to `false`, items will no longer be sorted. Default value is `true`. |
 | ChipTemplate | `RenderFragment` | The chip template. |
-| ClearFilterOnHide | `bool?` | When enabled the filter will be cleared when the menu is closed. |
+| ClearFilterOnHide | `bool?` | When enabled the filter will be cleared when the dropdown is closed. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | Data | `IEnumerable<TItem>` | Items to display. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
@@ -38,7 +38,7 @@ MultiSelect. Unlike a normal select, multiselect allows the user to select multi
 | LabelTemplate | `RenderFragment` | The label content. |
 | LabelType | `LabelType?` | Label type. |
 | NullDataText | `string` | Text to display when `Data` is `null`. |
-| SelectAllText | `string` | Text to display for the select all menu option. |
+| SelectAllText | `string` | Text to display for the select all dropdown option. |
 | Settings | `MultiSelectSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | SortKeySelector | `Func<TItem, IComparable>` | Selects value for item sorting. When not set, `TextSelector` property will be used. If you need complex sorting, pre-sort data manually or create a custom comparable property. |
 | TextSelector | `Func<TItem, string>` | Selects text to display from an item. When not set, `ToString()` is used. |
@@ -53,8 +53,8 @@ MultiSelect. Unlike a normal select, multiselect allows the user to select multi
 | Method | Returns | Description |
 |--------|---------|-------------|
 | FocusAsync() | `ValueTask` | Focuses the multi select component. |
-| HideMenuAsync() | `Task` | Hides the menu. |
-| ShowMenuAsync() | `Task` | Shows the menu. |
+| HideDropdownAsync() | `Task` | Hides the dropdown. |
+| ShowDropdownAsync() | `Task` | Shows the dropdown. |
 
 ## Static properties
 

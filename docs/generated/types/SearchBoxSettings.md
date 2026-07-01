@@ -12,7 +12,7 @@ Settings for the `HxSearchBox` and derived components.
 | InputCssClass | `string` | Additional CSS classes for the search box input. |
 | InputGroupCssClass | `string` | Custom CSS class to render with the input-group span. |
 | InputSize | `InputSize?` | The input size. |
-| ItemCssClass | `string` | Additional CSS classes for the items in the menu. |
+| ItemCssClass | `string` | Additional CSS classes for the items in the dropdown menu. |
 | ItemSelectionBehavior | `SearchBoxItemSelectionBehavior?` | The behavior when the item is selected. |
 | LabelType | `LabelType?` | The label type. |
 | MinimumLength | `int?` | The minimum number of characters to start suggesting. |

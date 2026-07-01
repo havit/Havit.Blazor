@@ -53,11 +53,11 @@ public partial class HxListGroup
 		{
 			ListGroupHorizontal.Never => null,
 			ListGroupHorizontal.Always => "list-group-horizontal",
-			ListGroupHorizontal.SmallUp => "sm:list-group-horizontal",
-			ListGroupHorizontal.MediumUp => "md:list-group-horizontal",
-			ListGroupHorizontal.LargeUp => "lg:list-group-horizontal",
-			ListGroupHorizontal.ExtraLargeUp => "xl:list-group-horizontal",
-			ListGroupHorizontal.XxlUp => "2xl:list-group-horizontal",
+			ListGroupHorizontal.SmallUp => "list-group-horizontal-sm",
+			ListGroupHorizontal.MediumUp => "list-group-horizontal-md",
+			ListGroupHorizontal.LargeUp => "list-group-horizontal-lg",
+			ListGroupHorizontal.ExtraLargeUp => "list-group-horizontal-xl",
+			ListGroupHorizontal.XxlUp => "list-group-horizontal-xxl",
 			_ => throw new InvalidOperationException($"Unknown {nameof(ListGroupHorizontal)} value {Horizontal}.")
 		};
 	}

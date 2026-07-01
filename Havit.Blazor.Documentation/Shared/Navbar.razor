@@ -1,90 +1,41 @@
-@inject NavigationManager NavigationManager
-
-<div class="@CssClassHelper.Combine(CssClass, "nav-container mx-auto sticky-top border-bottom border-subtle")">
-	<HxNavbar CssClass="navbar-translucent" ContainerCssClass="container-fluid position-relative">
-		<HxNavbarBrand CssClass="py-0 d-flex align-items-center gap-2 me-0 xl:me-3">
+<div class="@CssClassHelper.Combine(CssClass, "nav-container mx-auto sticky-top bg-body")">
+	<HxNavbar ContainerCssClass="container-fluid">
+		<HxNavbarBrand CssClass="py-0">
 			<img src="./logo.png" width="32" height="30" alt="HAVIT Blazor">
-			<span class="fw-semibold d-none sm:d-inline">HAVIT Blazor</span>
+			<span class="fw-semibold">HAVIT Blazor</span>
 		</HxNavbarBrand>
-
-		@* Separator between the brand and the mobile section dropdown (Bootstrap docs style: "Brand / Docs"). *@
-		<span class="xl:d-none text-body-secondary mx-2" aria-hidden="true">/</span>
-
-		@* Main navigation as a dropdown below xl; the inline nav in the drawer takes over at xl+.
-		   Wrap in an xl:d-none element because HxMenu's own CssClass applies to the menu panel, not the toggle. *@
-		<div class="xl:d-none">
-			<HxMenu>
-				<Toggle>
-					<HxMenuToggleButton Color="ThemeColor.Secondary"
-										Variant="ButtonVariant.Text"
-										Icon="BootstrapIcon.ChevronExpand"
-										IconPlacement="ButtonIconPlacement.End"
-										CssClass="nav-link fw-medium link-body-emphasis">
-						@GetCurrentSectionLabel()
-					</HxMenuToggleButton>
-				</Toggle>
-				<Content>
-					<HxMenuItemNavLink Href="" Match="NavLinkMatch.All">Home</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="getting-started" Match="NavLinkMatch.Prefix">Docs</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="https://blocks.havit.blazor.eu" Match="@((NavLinkMatch?)null)">Blocks</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="showcase" Match="NavLinkMatch.Prefix">Showcase</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="premium" Match="NavLinkMatch.Prefix">Premium</HxMenuItemNavLink>
-				</Content>
-			</HxMenu>
-		</div>
-
-		<HxNavbarDrawer>
-			@* Inline horizontal navigation for xl+ (below xl the main nav collapses to the dropdown so it doesn't overlap the centered search); aligned to the left. *@
-			<HxNav CssClass="d-none xl:d-flex fs-sm gap-2 my-3 lg:my-0">
-				<HxNavLink Href="getting-started" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Docs</HxNavLink>
-				<HxNavLink Href="https://blocks.havit.blazor.eu" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Blocks</HxNavLink>
-				<HxNavLink Href="showcase" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Showcase</HxNavLink>
-				<HxNavLink Href="premium" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Premium</HxNavLink>
+		<HxNavbarToggler CssClass="border-0" />
+		<HxNavbarCollapse>
+			<HxNav CssClass="mx-auto justify-content-center gap-3 my-3 my-lg-0">
+				<HxNavLink Href="" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover" Match="NavLinkMatch.All">
+					Introduction
+				</HxNavLink>
+				<HxNavLink Href="getting-started" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">
+					Documentation
+				</HxNavLink>
+				<HxNavLink Href="https://blocks.havit.blazor.eu" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">
+					Blocks
+				</HxNavLink>
+				<HxNavLink Href="showcase" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">
+					Showcase
+				</HxNavLink>
+				<HxNavLink Href="premium" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">
+					Premium
+				</HxNavLink>
 			</HxNav>
+            <div class="d-flex gap-3 align-items-center justify-content-center">
+                <Search />
 
-			@* Search absolutely centered in the navbar on lg+ (see site.css .navbar-search-center); normal flow in the mobile drawer. *@
-			<div class="d-flex justify-content-center my-3 lg:my-0 navbar-search-center">
-				<Search />
+				<a href="https://github.com/havit/Havit.Blazor" class="text-body" target="_blank">
+					<HxIcon Icon="BootstrapIcon.Github" AriaLabel="GitHub repository" />
+				</a>
+				<Havit.Blazor.Documentation.Shared.Components.DocColorMode.DocColorModeSwitcher />
 			</div>
-
-			@* Component navigation for mobile (the desktop sidebar is hidden below the lg breakpoint by the layout).
-			   Hidden at lg and up, where the drawer content is flattened inline into the navbar. *@
-			<div class="lg:d-none mt-3">
-				<Sidebar Embedded="true" />
-			</div>
-		</HxNavbarDrawer>
-
-		@* GitHub link + theme switcher stay always visible in the navbar (not tucked into the offcanvas on mobile). *@
-		<div class="d-flex gap-3 align-items-center ms-auto">
-			<a href="https://github.com/havit/Havit.Blazor" class="btn-text theme-secondary btn-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
-				<HxIcon Icon="BootstrapIcon.Github" />
-			</a>
-			<Havit.Blazor.Documentation.Shared.Components.DocColorMode.DocColorModeSwitcher />
-		</div>
-
-		<HxNavbarToggler CssClass="border-0 ms-3" />
+		</HxNavbarCollapse>
 	</HxNavbar>
 </div>
 
 @code
 {
 	[Parameter] public string CssClass { get; set; }
-
-	private string GetCurrentSectionLabel()
-	{
-		var relativePath = NavigationManager.ToBaseRelativePath(NavigationManager.Uri).ToLowerInvariant();
-		if (string.IsNullOrEmpty(relativePath))
-		{
-			return "Home";
-		}
-		if (relativePath.StartsWith("showcase"))
-		{
-			return "Showcase";
-		}
-		if (relativePath.StartsWith("premium"))
-		{
-			return "Premium";
-		}
-		return "Docs";
-	}
 }

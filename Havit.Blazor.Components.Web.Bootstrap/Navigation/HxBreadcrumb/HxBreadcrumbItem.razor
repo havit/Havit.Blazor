@@ -1,22 +1,18 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-@if (_index > 0)
+@if (Active)
 {
-	<li class="breadcrumb-divider">@BreadcrumbContainer?.DividerTemplate</li>
+	<li class="breadcrumb-item active" aria-current="page">
+		@Text
+		@ChildContent
+	</li>
 }
-<li class="breadcrumb-item" aria-current="@(Active ? "page" : null)">
-	@if (Href is not null)
-	{
-		<a class="@CssClassHelper.Combine("breadcrumb-link", Active ? "active" : null)" href="@Href">
+else
+{
+	<li class="breadcrumb-item">
+		<a href="@Href">
 			@Text
 			@ChildContent
 		</a>
-	}
-	else
-	{
-		<span class="@CssClassHelper.Combine("breadcrumb-link", Active ? "active" : null)">
-			@Text
-			@ChildContent
-		</span>
-	}
-</li>
+	</li>
+}

@@ -124,29 +124,6 @@ public class HxInputDateTests : BunitTestBase
 	}
 
 	[Fact]
-	public void HxInputDate_LabelTypeFloating_ThrowsInvalidOperationException()
-	{
-		// LabelType.Floating is not supported in Bootstrap 6 — the form-adorn wrapper owns the visual chrome and cannot host a floating label.
-
-		// Arrange
-		DateTime? myValue = null;
-
-		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
-		{
-			builder.OpenComponent<HxInputDate<DateTime?>>(0);
-			builder.AddAttribute(1, "Value", myValue);
-			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTime?>(this, (value) => { myValue = value; }));
-			builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTime?>>)(() => myValue));
-			builder.AddAttribute(4, nameof(HxInputDate<DateTime?>.Label), "Date");
-			builder.AddAttribute(5, nameof(HxInputDate<DateTime?>.LabelType), (LabelType?)LabelType.Floating);
-			builder.CloseComponent();
-		};
-
-		// Act + Assert
-		Assert.Throws<InvalidOperationException>(() => Render(componentRenderer));
-	}
-
-	[Fact]
 	public void HxInputDate_NonNullable_EmptyInputShouldRaiseParsingError_Issue892()
 	{
 		// https://github.com/havit/Havit.Blazor/issues/892

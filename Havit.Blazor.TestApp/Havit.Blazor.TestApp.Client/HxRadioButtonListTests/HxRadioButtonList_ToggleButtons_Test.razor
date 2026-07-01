@@ -1,4 +1,4 @@
-﻿@page "/HxRadioButtonList_ToggleButtons"
+@page "/HxRadioButtonList_ToggleButtons"
 @rendermode InteractiveServer
 @using System.ComponentModel.DataAnnotations
 
@@ -13,7 +13,7 @@
 				   ItemValueSelector="@(item => item)"
 				   RenderMode="RadioButtonListRenderMode.ToggleButtons"
 				   Color="ThemeColor.Success"
-				   Variant="ButtonVariant.Outline" />
+				   Outline="true" />
 
 <h3>Toggle buttons - Inline</h3>
 <HxRadioButtonList TItem="string"
@@ -25,7 +25,7 @@
 				   RenderMode="RadioButtonListRenderMode.ToggleButtons"
 				   Color="ThemeColor.Info"
 				   Inline="true"
-				   Variant="ButtonVariant.Outline" />
+				   Outline="true" />
 
 <h3>Toggle buttons in a button group</h3>
 <HxRadioButtonList TItem="string"
@@ -36,7 +36,7 @@
 				   ItemValueSelector="@(item => item)"
 				   RenderMode="RadioButtonListRenderMode.ButtonGroup"
 				   Color="ThemeColor.Primary"
-				   Variant="ButtonVariant.Outline" />
+				   Outline="true" />
 
 <h3>Toggle buttons in a vertical button group (inline)</h3>
 <HxRadioButtonList TItem="string"
@@ -48,7 +48,7 @@
 				   RenderMode="RadioButtonListRenderMode.ButtonGroup"
 				   Inline="true"
 				   Color="ThemeColor.Secondary"
-				   Variant="ButtonVariant.Outline" />
+				   Outline="true" />
 
 <h3>In edit form</h3>
 <EditForm @bind-Model="@model">
@@ -63,7 +63,7 @@
 					   ItemValueSelector="@(item => item)"
 					   RenderMode="RadioButtonListRenderMode.ToggleButtons"
 					   Color="ThemeColor.Success"
-					   Variant="ButtonVariant.Outline"
+					   Outline="true"
 					   Label="Select an option" />
 
 	<HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>

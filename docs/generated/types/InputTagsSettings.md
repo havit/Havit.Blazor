@@ -6,7 +6,6 @@ Settings for the `HxInputTags` component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| Color | `ThemeColor?` | The theme color of the tag chips (applied as a Bootstrap `theme-*` class). |
 | Delimiters | `List<char>` | Characters that, when typed, divide the current input into separate tags. |
 | InputSize | `InputSize?` | Input size. |
 | LabelType | `LabelType?` | The label type. |
@@ -14,6 +13,6 @@ Settings for the `HxInputTags` component.
 | Spellcheck | `bool?` | Defines whether the input for new tag may be checked for spelling errors. |
 | SuggestDelay | `int?` | Debounce delay in milliseconds. |
 | SuggestMinimumLength | `int?` | Minimum number of characters to start suggesting. |
-| TagBadgeSettings | `BadgeSettings` | Settings for the `HxBadge` previously used to render tags. |
+| TagBadgeSettings | `BadgeSettings` | Settings for the `HxBadge` used to render tags. |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. |
 

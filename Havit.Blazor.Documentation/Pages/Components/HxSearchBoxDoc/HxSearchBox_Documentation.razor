@@ -12,12 +12,6 @@
 			</ul>
 		</p>
 
-		<DocAlert Type="DocAlertType.Warning">
-			Bootstrap 6 renders this input with the <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/">form-adorn</a> pattern
-			(the wrapper carries the border and focus styling, the inner input is an unstyled <code>form-ghost</code>).
-			Floating labels (<code>LabelType.Floating</code>) are therefore no longer supported &mdash; Bootstrap 6 floating labels require the input itself to be the <code>.form-control</code>.
-		</DocAlert>
-
 		<DocHeading Title="Basic usage" />
 		<Demo Type="typeof(HxSearchBox_Demo)" />
 		<DocDemoDataServiceNote />
@@ -57,13 +51,13 @@
 		<ApiDocCssVariable Name="--hx-search-box-item-subtitle-font-size" Default=".75rem">
 			Item subtitle font-size.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-search-box-item-subtitle-color" Default="var(--bs-fg-3)">
+		<ApiDocCssVariable Name="--hx-search-box-item-subtitle-color" Default="var(--bs-secondary)">
 			Item subtitle color.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-search-box-menu-height" Default="300px">
-			Maximum height of the results menu.
+		<ApiDocCssVariable Name="--hx-search-box-dropdown-menu-height" Default="300px">
+			Maximum height of the results dropdown menu.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-search-box-item-highlighted-background-color" Default="var(--bs-bg-1)">
+		<ApiDocCssVariable Name="--hx-search-box-item-highlighted-background-color" Default="var(--bs-tertiary-bg)">
 			Background color of an item when highlighted.
 		</ApiDocCssVariable>
 		<ApiDocCssVariable Name="--hx-search-box-input-search-icon-color" Default="unset">
@@ -72,8 +66,8 @@
         <ApiDocCssVariable Name="--hx-search-box-input-clear-icon-color" Default="unset">
             Color of the clear icon.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-search-box-menu-width" Default="100%">
-            Minimal width of the results menu.
+        <ApiDocCssVariable Name="--hx-search-box-dropdown-menu-width" Default="100%">
+            Minimal width of the results dropdown menu.
         </ApiDocCssVariable>
 	</CssVariables>
 </ApiDoc>

@@ -3,28 +3,16 @@
 <ApiDoc Type="typeof(HxInputRange<TValue>)">
 
     <DocHeading Title="Basic usage" />
-    <p>The <code>Min</code> and <code>Max</code> parameters are required. The component is JavaScript-driven &ndash; the plugin keeps the filled track in sync with the value.</p>
+    <p>The <code>Min</code> and <code>Max</code> parameters are required.</p>
     <Demo Type="typeof(HxInputRange_Demo)" Tabs="false" />
 
     <DocHeading Title="Disabled" />
     <p>Set the <code>Enabled</code> parameter to <code>false</code> in order to give the input a grayed out appearance and make it not interactable.</p>
     <Demo Type="typeof(HxInputRange_Demo_Disabled)" />
 
-    <DocHeading Title="Min and max" />
-    <p>Range inputs have implicit values for <code>Min</code> and <code>Max</code> in HTML (<code>0</code> and <code>100</code>). With <code>HxInputRange</code> both are required, so you always set your own boundaries.</p>
-    <Demo Type="typeof(HxInputRange_Demo_MinMax)" />
-
     <DocHeading Title="Steps" />
     <p>By default, <code>HxInputRange</code> "snaps" to integer values. To change this, you can supply a value to the <code>Step</code> parameter.</p>
     <Demo Type="typeof(HxInputRange_Demo_Steps)" />
-
-    <DocHeading Title="Value bubble" />
-    <p>Set <code>Bubble</code> to <code>true</code> to show a value bubble that follows the thumb. The bubble reuses the <a href="/components/HxTooltip">tooltip</a> styles.</p>
-    <Demo Type="typeof(HxInputRange_Demo_Bubble)" />
-
-    <DocHeading Title="Tick marks" />
-    <p>Pass a collection of <code>InputRangeTick</code> items to the <code>Ticks</code> parameter and a tick mark is rendered for each one, positioned at its value (even when the values are unevenly spaced). A tick's <code>Label</code> is shown beneath it.</p>
-    <Demo Type="typeof(HxInputRange_Demo_Ticks)" />
 
     <DocHeading Title="Bind event" />
     <p>Decide whether the <code>Value</code> is going to be updated <code>onchange</code> or <code>oninput</code> (immediately). The default is <code>BindEvent.OnChange</code>.</p>
