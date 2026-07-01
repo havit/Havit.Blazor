@@ -68,7 +68,7 @@ public class HxMultiSelectTests : TestAppTestBase
 		var toggle = Page.Locator("[data-testid='toggle']");
 
 		// Assert initial empty state shows EmptyText
-		await Expect(toggle).ToHaveValueAsync("-select items-");
+		await Expect(toggle).ToHaveTextAsync("-select items-");
 
 		// Act - open menu and select Gamma
 		await toggle.ClickAsync();
@@ -77,8 +77,8 @@ public class HxMultiSelectTests : TestAppTestBase
 		// Close by clicking outside
 		await Page.Locator("[data-testid='outside-click-target']").ClickAsync();
 
-		// Assert - the input reflects the selected item
-		await Expect(toggle).ToHaveValueAsync("Gamma");
+		// Assert - the toggle reflects the selected item
+		await Expect(toggle).ToHaveTextAsync("Gamma");
 	}
 
 	[Fact]
