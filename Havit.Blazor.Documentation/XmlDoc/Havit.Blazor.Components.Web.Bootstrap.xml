@@ -3835,6 +3835,11 @@
             Returns <c>true</c> if <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" /> should render input groups (at least one input group).
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueComponentExtensions.ShouldRenderAdorn(Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent)">
+            <summary>
+            Returns <c>true</c> if <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" /> should render the <c>form-adorn</c> wrapper (at least one adornment).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.FormValueRenderer">
             <summary>
             Renders <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent" />.
@@ -3872,6 +3877,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.BuildRenderInputGroups(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,Microsoft.AspNetCore.Components.RenderFragment)">
             <summary>
             Renders the input groups (with content).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.BuildRenderAdorn(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,Microsoft.AspNetCore.Components.RenderFragment)">
+            <summary>
+            Renders the form-adorn wrapper (with content) when the component has at least one adornment.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxFormValueComponentRenderer.BuildRenderValue(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
@@ -4055,6 +4065,37 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.RenderOrder">
             <summary>
             Render order LabelValue or ValueLabel.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithAdorns">
+            <summary>
+            Extends <see cref="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent"/> with properties for rendering the <c>form-adorn</c> wrapper
+            (icon/text decorations rendered inside the field chrome, as opposed to input groups which render outside it).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithAdorns.AdornCssClass">
+            <summary>
+            Custom CSS class to be rendered with the <c>form-adorn</c> wrapper.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithAdorns.AdornStartText">
+            <summary>
+            Text adornment at the beginning of the input, rendered as <c>.form-adorn-text</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithAdorns.AdornStartTemplate">
+            <summary>
+            Adornment (typically an icon) at the beginning of the input, rendered as <c>.form-adorn-icon</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithAdorns.AdornEndText">
+            <summary>
+            Text adornment at the end of the input, rendered as <c>.form-adorn-text</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithAdorns.AdornEndTemplate">
+            <summary>
+            Adornment (typically an icon) at the end of the input, rendered as <c>.form-adorn-icon</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithInputGroups">
@@ -5510,6 +5551,44 @@
             <summary>
             Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1"/> and derived components.
             </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithAdorns`1">
+            <summary>
+            A base class for form input components. This base class automatically integrates
+            with a Microsoft.AspNetCore.Components.Forms.EditContext, which must be supplied
+            as a cascading parameter.
+            Extends the <seealso cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1" /> class.
+            Adds support for adorns (icons/text rendered inside the field chrome),
+            see <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/">form-adorn</see>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithAdorns`1.AdornCssClass">
+            <summary>
+            Custom CSS class to be rendered with the <c>form-adorn</c> wrapper.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithAdorns`1.AdornStartText">
+            <summary>
+            Text adornment at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithAdorns`1.AdornStartTemplate">
+            <summary>
+            Adornment (typically an icon) at the beginning of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithAdorns`1.AdornEndText">
+            <summary>
+            Text adornment at the end of the input.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithAdorns`1.AdornEndTemplate">
+            <summary>
+            Adornment (typically an icon) at the end of the input.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithAdorns`1.OnParametersSet">
+            <inheritdoc />
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithInputGroups`1">
             <summary>

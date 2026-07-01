@@ -146,7 +146,7 @@ public class HxFormValueComponentRenderer : ComponentBase
 		}
 
 		builder.OpenRegion(400);
-		content(builder);
+		BuildRenderAdorn(builder, content);
 		builder.CloseRegion();
 
 		if (shouldRenderInputGroups)
@@ -164,6 +164,68 @@ public class HxFormValueComponentRenderer : ComponentBase
 			}
 
 			builder.CloseElement(); // span.input-group
+		}
+	}
+
+	/// <summary>
+	/// Renders the form-adorn wrapper (with content) when the component has at least one adornment.
+	/// </summary>
+	protected virtual void BuildRenderAdorn(RenderTreeBuilder builder, RenderFragment content)
+	{
+		IFormValueComponentWithAdorns formValueComponentWithAdorns = FormValueComponent as IFormValueComponentWithAdorns;
+		IInputWithSize formValueComponentWithSize = FormValueComponent as IInputWithSize;
+
+		bool shouldRenderAdorn = FormValueComponent.ShouldRenderAdorn();
+
+		if (shouldRenderAdorn)
+		{
+			builder.OpenElement(800, "div");
+			builder.AddAttribute(801, "class", CssClassHelper.Combine(
+				"form-control",
+				"form-adorn",
+				formValueComponentWithSize is not null ? formValueComponentWithSize.GetInputSizeCssClass() : null,
+				formValueComponentWithAdorns.AdornCssClass));
+
+			if (formValueComponentWithAdorns.AdornStartTemplate is not null)
+			{
+				builder.OpenElement(810, "div");
+				builder.AddAttribute(811, "class", "form-adorn-icon");
+				builder.AddContent(812, formValueComponentWithAdorns.AdornStartTemplate);
+				builder.CloseElement(); // div.form-adorn-icon
+			}
+
+			if (!String.IsNullOrEmpty(formValueComponentWithAdorns.AdornStartText))
+			{
+				builder.OpenElement(820, "span");
+				builder.AddAttribute(821, "class", "form-adorn-text");
+				builder.AddContent(822, formValueComponentWithAdorns.AdornStartText);
+				builder.CloseElement(); // span.form-adorn-text
+			}
+		}
+
+		builder.OpenRegion(830);
+		content(builder);
+		builder.CloseRegion();
+
+		if (shouldRenderAdorn)
+		{
+			if (!String.IsNullOrEmpty(formValueComponentWithAdorns.AdornEndText))
+			{
+				builder.OpenElement(840, "span");
+				builder.AddAttribute(841, "class", "form-adorn-text");
+				builder.AddContent(842, formValueComponentWithAdorns.AdornEndText);
+				builder.CloseElement(); // span.form-adorn-text
+			}
+
+			if (formValueComponentWithAdorns.AdornEndTemplate is not null)
+			{
+				builder.OpenElement(850, "div");
+				builder.AddAttribute(851, "class", "form-adorn-icon");
+				builder.AddContent(852, formValueComponentWithAdorns.AdornEndTemplate);
+				builder.CloseElement(); // div.form-adorn-icon
+			}
+
+			builder.CloseElement(); // div.form-adorn
 		}
 	}
 

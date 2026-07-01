@@ -463,6 +463,14 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	protected virtual string GetInputCssClassToRender()
 	{
 		string validationCssClass = IsValueInvalid() ? InvalidCssClass : null;
+
+		if (this.ShouldRenderAdorn())
+		{
+			// The form-adorn wrapper (rendered by HxFormValueComponentRenderer) owns the form-control/size chrome,
+			// the input itself becomes an unstyled form-ghost.
+			return CssClassHelper.Combine("form-ghost", InputCssClass, validationCssClass);
+		}
+
 		return CssClassHelper.Combine(CoreInputCssClass, InputCssClass, validationCssClass, (this is IInputWithSize inputWithSize) ? inputWithSize.GetInputSizeCssClass() : null);
 	}
 
