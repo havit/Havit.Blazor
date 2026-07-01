@@ -7,7 +7,7 @@
 	element.addEventListener('shown.bs.menu', handleMenuShown);
 	element.addEventListener('hidden.bs.menu', handleMenuHidden);
 
-	const d = new bootstrap.Menu(element);
+	new bootstrap.Menu(element);
 }
 
 export function show(element) {
