@@ -1,0 +1,21 @@
+<HxInputText Label="Adorn (icon)" @bind-Value="@value" Placeholder="Search...">
+	<AdornStartTemplate>
+		<HxIcon Icon="BootstrapIcon.Search" />
+	</AdornStartTemplate>
+</HxInputText>
+
+<HxInputText Label="Adorn (text)" @bind-Value="@value" Placeholder="username" AdornEndText="@@example.com" />
+
+<HxInputNumber @bind-Value="@valueDecimal" Label="Adorn (currency)" AdornStartText="€" />
+
+<HxInputText Label="Adorn (icon, end)" @bind-Value="@value" Placeholder="you@example.com">
+	<AdornEndTemplate>
+		<HxIcon Icon="BootstrapIcon.EnvelopeFill" />
+	</AdornEndTemplate>
+</HxInputText>
+
+@code
+{
+	private string value;
+	private decimal valueDecimal;
+}

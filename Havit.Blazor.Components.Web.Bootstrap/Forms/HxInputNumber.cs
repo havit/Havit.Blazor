@@ -12,7 +12,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Defaults located in separate non-generic type <see cref="HxInputNumber"/>.
 /// </remarks>
 /// <typeparam name="TValue">Supported values: <c>byte (Byte), sbyte (SByte), short (Int16), ushort(UInt16), int (Int32), uint(UInt32), long (Int64), ulong(UInt64), float (Single), double (Double) and decimal (Decimal)</c>.</typeparam>
-public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
+public class HxInputNumber<TValue> : HxInputBaseWithAdorns<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 {
 	// DO NOT FORGET TO MAINTAIN DOCUMENTATION! (documentation comment of this class)
 	private static HashSet<Type> s_supportedTypes = new HashSet<Type>

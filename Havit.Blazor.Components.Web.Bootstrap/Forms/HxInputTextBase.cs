@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Text-based (string) input base class.
 /// </summary>
-public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
+public abstract class HxInputTextBase : HxInputBaseWithAdorns<string>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 {
 	/// <summary>
 	/// Return <see cref="HxInputText"/> defaults.

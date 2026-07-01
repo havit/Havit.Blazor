@@ -33,6 +33,18 @@
 </p>
 <Demo Type="@typeof(FormInputs_Demo_InputGroups)" />
 
+<DocHeading Title="Adorns" Id="adorns" />
+<p>
+	<code>@nameof(HxInputBaseWithAdorns<object>.AdornStartText), @nameof(HxInputBaseWithAdorns<object>.AdornEndText), @nameof(HxInputBaseWithAdorns<object>.AdornStartTemplate), @nameof(HxInputBaseWithAdorns<object>.AdornEndTemplate)</code>
+	render an icon or text inside the field's own chrome (border, background, focus ring) rather than in a separate box next to it, as with input groups.
+	Available on <code>HxInputText</code>, <code>HxInputTextArea</code>, and <code>HxInputNumber</code>.
+	See <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/">form-adorn in the Bootstrap documentation</a>.
+</p>
+<DocAlert Type="DocAlertType.Warning">
+	Adorns cannot be combined with <code>LabelType.Floating</code> — the <code>form-adorn</code> wrapper owns the visual chrome and cannot host a floating label.
+</DocAlert>
+<Demo Type="@typeof(FormInputs_Demo_Adorns)" />
+
 <DocHeading Title="Floating labels" Id="floating-labels" />
 <p>
 	Floating labels provide a sleek and simple design, floating elegantly over your input fields.
