@@ -26,6 +26,13 @@
 		display: flex;
 	}
 
+	/* Flyout menu items (collapsed sidebar) should default to the same size as HxMenu items, not the top-level sidebar item size. */
+	::deep .menu.hx-sidebar-subitems .nav-link {
+		padding: var(--bs-menu-item-padding-y) var(--bs-menu-item-padding-x);
+		font-size: var(--bs-menu-font-size);
+		line-height: var(--bs-body-line-height, 1.5);
+	}
+
 	::deep .hx-sidebar-collapsed-nav {
 		flex-direction: column;
 		padding-block: .25rem;
@@ -81,8 +88,4 @@
 		color: var(--hx-sidebar-item-hover-icon-color);
 	}
 
-	::deep .menu-header {
-		padding-bottom: 0;
-		padding-left: .75rem;
-	}
 }
