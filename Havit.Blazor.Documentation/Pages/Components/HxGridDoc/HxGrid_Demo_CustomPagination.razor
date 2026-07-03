@@ -14,18 +14,18 @@
 			int firstItemPosition = pagination.CurrentUserState.PageIndex * pagination.PageSize + 1;
 			int lastItemPosition = Math.Min(firstItemPosition + pagination.PageSize - 1, pagination.TotalCount);
 		}
-		<div class="row">
-			<div class="col d-flex gap-2 align-items-center">
-				Rows per page: <HxSelect @bind-Value="@_pageSize" Data="_pageSizes" Nullable="false" AutoSort="false" InputSize="InputSize.Small" />
+		<div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
+			<div class="d-flex align-items-center gap-2">
+				Page size: <HxSelect @bind-Value="@_pageSize" Data="_pageSizes" Nullable="false" AutoSort="false" InputSize="InputSize.Small" ValidationMessageMode="ValidationMessageMode.None" />
 			</div>
-			<div class="col d-flex justify-content-center align-items-center">
+			<div class="text-nowrap">
 				Showing @firstItemPosition to @lastItemPosition of @pagination.TotalCount entries
 			</div>
-			<div class="col d-flex align-items-center justify-content-end">
-				<HxButton Icon="BootstrapIcon.ChevronBarLeft" Enabled="pagination.CurrentUserState.PageIndex > 0" OnClick="() => pagination.ChangeCurrentPageIndexAsync(0)" Color="ThemeColor.Link" />
-				<HxButton Icon="BootstrapIcon.ChevronLeft" Enabled="pagination.CurrentUserState.PageIndex > 0" OnClick="() => pagination.ChangeCurrentPageIndexAsync(pagination.CurrentUserState.PageIndex - 1)" Color="ThemeColor.Link" />
-				<HxButton Icon="BootstrapIcon.ChevronRight" Enabled="pagination.CurrentUserState.PageIndex + 1 < totalPages" OnClick="() => pagination.ChangeCurrentPageIndexAsync(pagination.CurrentUserState.PageIndex + 1)" Color="ThemeColor.Link" />
-				<HxButton Icon="BootstrapIcon.ChevronBarRight" Enabled="pagination.CurrentUserState.PageIndex + 1 < totalPages" OnClick="() => pagination.ChangeCurrentPageIndexAsync(totalPages - 1)" Color="ThemeColor.Link" />
+			<div class="d-flex align-items-center gap-1">
+				<HxButton Icon="BootstrapIcon.ChevronBarLeft" Enabled="pagination.CurrentUserState.PageIndex > 0" OnClick="() => pagination.ChangeCurrentPageIndexAsync(0)" Color="ThemeColor.Link" Size="ButtonSize.Small" CssClass="btn-icon" AriaLabel="First page" />
+				<HxButton Icon="BootstrapIcon.ChevronLeft" Enabled="pagination.CurrentUserState.PageIndex > 0" OnClick="() => pagination.ChangeCurrentPageIndexAsync(pagination.CurrentUserState.PageIndex - 1)" Color="ThemeColor.Link" Size="ButtonSize.Small" CssClass="btn-icon" AriaLabel="Previous page" />
+				<HxButton Icon="BootstrapIcon.ChevronRight" Enabled="pagination.CurrentUserState.PageIndex + 1 < totalPages" OnClick="() => pagination.ChangeCurrentPageIndexAsync(pagination.CurrentUserState.PageIndex + 1)" Color="ThemeColor.Link" Size="ButtonSize.Small" CssClass="btn-icon" AriaLabel="Next page" />
+				<HxButton Icon="BootstrapIcon.ChevronBarRight" Enabled="pagination.CurrentUserState.PageIndex + 1 < totalPages" OnClick="() => pagination.ChangeCurrentPageIndexAsync(totalPages - 1)" Color="ThemeColor.Link" Size="ButtonSize.Small" CssClass="btn-icon" AriaLabel="Last page" />
 			</div>
 		</div>
 	</PaginationTemplate>
