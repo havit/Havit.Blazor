@@ -9,7 +9,7 @@
         <Demo Type="typeof(HxTreeView_Demo_CustomContent)" />
     </MainContent>
     <CssVariables>
-        <ApiDocCssVariable Name="--hx-tree-view-item-border-radius" Default="var(--bs-radius-3)">
+        <ApiDocCssVariable Name="--hx-tree-view-item-border-radius" Default="calc(var(--bs-radius-5) + var(--hx-tree-view-item-padding))">
             Border radius.
         </ApiDocCssVariable>
         <ApiDocCssVariable Name="--hx-tree-view-item-border-width" Default="0">
@@ -33,7 +33,7 @@
         <ApiDocCssVariable Name="--hx-tree-view-item-font-size" Default=".75rem">
             Item font size.
         </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-tree-view-item-padding" Default=".25rem .5rem;">
+        <ApiDocCssVariable Name="--hx-tree-view-item-padding" Default=".25rem">
             Item padding.
         </ApiDocCssVariable>
         <ApiDocCssVariable Name="--hx-tree-view-item-margin" Default="0 0 .125rem 0">
@@ -56,9 +56,6 @@
         </ApiDocCssVariable>
         <ApiDocCssVariable Name="--hx-tree-view-item-hover-background-opacity" Default=".1">
             Hovered/selected item background color opacity.
-        </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-tree-view-expander-container-width" Default="1rem">
-            Width of expander container to make items with and without children aligned.
         </ApiDocCssVariable>
     </CssVariables>
 

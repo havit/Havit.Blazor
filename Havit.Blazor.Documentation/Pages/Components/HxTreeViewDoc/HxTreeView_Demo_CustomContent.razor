@@ -1,5 +1,5 @@
 ﻿<div class="row">
-    <div class="lg:col-4" style="height: 400px">
+    <div class="lg:col-6" style="height: 400px;">
         <HxTreeView TItem="Directory"
                     @bind-SelectedItem="selectedDirectory"
                     Items="@fileSystem"
@@ -10,18 +10,18 @@
                     ItemChildrenSelector="@(p => p.Subdirectories)"
                     ItemIconSelector="@(p => p.Icon)">
             <ItemTemplate>
-                    <div class="text-truncate">            
+                    <div class="text-truncate">
                         @context.Name
                     </div>
                     @if (context.Subdirectories?.Any() ?? false)
                     {
-                        <HxBadge CssClass="mx-2" Color="ThemeColor.Secondary">@context.Subdirectories?.Length</HxBadge>
+                        <HxBadge CssClass="mx-2" Color="ThemeColor.Secondary" style="--bs-badge-font-size: 10px; --bs-badge-padding-x: 0.4em; --bs-badge-padding-y: 0.15em; min-height: 1rem;">@context.Subdirectories?.Length</HxBadge>
                     }
-                    <div role="button" @onclick:stopPropagation class="btn-plus ms-auto"><HxIcon Icon="BootstrapIcon.PlusLg" /></div>
+                    <HxButton Icon="BootstrapIcon.PlusLg" Variant="ButtonVariant.Text" Color="ThemeColor.Primary" Size="ButtonSize.ExtraSmall" CssClass="btn-icon ms-auto tree-item-add-btn" AriaLabel="Add" />
             </ItemTemplate>
         </HxTreeView>
     </div>
-    <div class="lg:col-4">
+    <div class="lg:col-6">
         @if (selectedDirectory == null)
         {
             <p>No directory selected.</p>

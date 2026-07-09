@@ -162,7 +162,6 @@
 	--hx-input-tags-menu-item-highlighted-background-color: 	var(--bs-bg-1);
 
 	/* TreeView */
-	--hx-tree-view-item-border-radius: 								var(--bs-radius-3);
 	--hx-tree-view-item-border-width: 								0;
 	--hx-tree-view-item-border-style: 								unset;
 	--hx-tree-view-item-border-color: 								unset;
@@ -175,10 +174,10 @@
 	--hx-tree-view-item-selected-background: 						var(--bs-primary-bg);
 	--hx-tree-view-item-spacer-width: 								1rem;
 	--hx-tree-view-item-font-size: 									.75rem;
-	--hx-tree-view-item-padding: 									.25rem .5rem;
+	--hx-tree-view-item-padding: 									.25rem;
+	--hx-tree-view-item-border-radius: 								calc(var(--bs-radius-5) + var(--hx-tree-view-item-padding));
 	--hx-tree-view-item-margin: 									0 0 .125rem 0;
 	--hx-tree-view-item-gap:										.25rem;
-	--hx-tree-view-expander-container-width: 						1rem;
 
 	/* HxProgressIndicator */
 	--hx-progress-indicator-background: 							var(--bs-bg-body);
