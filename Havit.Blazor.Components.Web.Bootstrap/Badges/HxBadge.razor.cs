@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/badge/">Bootstrap Badge</see> component.<br />
+/// Small <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/badge/">Bootstrap badge</see> for counts and labels.<br />
+/// Attach it to headings, buttons, or icons; position it as a notification dot; and style it with any theme color or pill shape.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxBadge">https://havit.blazor.eu/components/HxBadge</see>
 /// </summary>
 public partial class HxBadge

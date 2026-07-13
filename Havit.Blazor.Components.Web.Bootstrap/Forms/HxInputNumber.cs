@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Numeric input.<br />
+/// Numeric input field for whole numbers or decimals, with configurable input mode, HTML input type, and select-on-focus behavior.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputNumber">https://havit.blazor.eu/components/HxInputNumber</see>
 /// </summary>
 /// <remarks>

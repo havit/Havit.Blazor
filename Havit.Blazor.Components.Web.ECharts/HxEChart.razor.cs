@@ -6,7 +6,8 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.ECharts;
 
 /// <summary>
-/// Component for convenient rendering of Apache ECharts.
+/// Blazor wrapper for <see href="https://echarts.apache.org/">Apache ECharts</see> — render rich, interactive charts (line, bar, pie, and more) from .NET without writing JavaScript.<br />
+/// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxEChart">https://havit.blazor.eu/components/HxEChart</see>
 /// </summary>
 public partial class HxEChart : IAsyncDisposable
 {

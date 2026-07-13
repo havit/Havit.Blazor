@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/card/#titles-text-and-links">card-subtitle</see> component.
+/// Secondary heading placed under a <see cref="HxCardTitle"/>, rendered as Bootstrap's <see href="https://getbootstrap.com/docs/5.3/components/card/#titles-text-and-links">card-subtitle</see>.
 /// </summary>
 public class HxCardSubtitle : ComponentBase
 {

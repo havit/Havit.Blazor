@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/collapse/">Bootstrap 5 Collapse</see> component.<br />
+/// <see href="https://getbootstrap.com/docs/5.3/components/collapse/">Bootstrap 5 Collapse</see> for toggling the visibility of content — accordions, expandable panels, collapsible sidebars — with a smooth height animation.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCollapse">https://havit.blazor.eu/components/HxCollapse</see>
 /// </summary>
 public partial class HxCollapse : IAsyncDisposable

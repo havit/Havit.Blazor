@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Displays the content of the component as "in progress".<br />
+/// Wraps content and shows a spinner overlay while an operation is in progress, with a configurable delay to avoid flicker on fast operations.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxProgressIndicator">https://havit.blazor.eu/components/HxProgressIndicator</see>
 /// </summary>
 public partial class HxProgressIndicator : IDisposable

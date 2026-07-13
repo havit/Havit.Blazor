@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/button-group/">Button groups</see>.<br />
+/// Groups related <see cref="HxButton"/> controls into a single visual block, with support for sizing, nesting, and vertical stacking (<see href="https://getbootstrap.com/docs/5.3/components/button-group/">Bootstrap Button groups</see>).<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxButtonGroup">https://havit.blazor.eu/components/HxButtonGroup</see>
 /// </summary>
 public partial class HxButtonGroup

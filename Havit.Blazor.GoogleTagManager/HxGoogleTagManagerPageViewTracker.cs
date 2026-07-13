@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Components.Routing;
 
 namespace Havit.Blazor.GoogleTagManager;
 
+/// <summary>
+/// Tracks Blazor route changes and pushes a page-view event to the Google Tag Manager data layer. Add it once alongside <see cref="HxGoogleTagManager"/> to track SPA navigation as page views.
+/// </summary>
 public class HxGoogleTagManagerPageViewTracker : ComponentBase, IDisposable
 {
 	[Inject] protected NavigationManager NavigationManager { get; set; }

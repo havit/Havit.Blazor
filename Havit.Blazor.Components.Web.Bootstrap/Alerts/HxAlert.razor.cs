@@ -1,7 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/alert/">Bootstrap alert</see> component.<br />
+/// Contextual feedback message (success, warning, danger, info, and more) with an optional icon, links, and a dismiss button.<br />
+/// Renders the <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/alert/">Bootstrap alert</see> markup.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAlert">https://havit.blazor.eu/components/HxAlert</see>
 /// </summary>
 public partial class HxAlert

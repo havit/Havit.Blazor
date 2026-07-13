@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Pager.<br />
+/// Pagination control for navigating pages of data, typically used alongside <see cref="HxGrid{TItem}"/>, with configurable sizes and a customizable button template.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPager">https://havit.blazor.eu/components/HxPager</see>
 /// </summary>
 public partial class HxPager : ComponentBase

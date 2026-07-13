@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/drawer/">Bootstrap Drawer</see> component (aka Drawer).<br />
+/// Off-canvas <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/drawer/">Bootstrap Drawer</see> panel that slides in from any edge of the screen — ideal for navigation, filters, or supplementary content.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDrawer">https://havit.blazor.eu/components/HxDrawer</see>
 /// </summary>
 public partial class HxDrawer : IAsyncDisposable
