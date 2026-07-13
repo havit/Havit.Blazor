@@ -86,7 +86,7 @@ public partial class OnThisPageNavigation(
 
 			builder.OpenElement(86, "a");
 			builder.AddAttribute(87, "href", item.GetItemUrl(_currentUriWithoutFragment)); // TODO direct usage of HxAnchorFragmentNavigation.ScrollToAnchorAsync() ?
-			builder.AddAttribute(88, "class", "text-secondary mb-1 text-truncate");
+			builder.AddAttribute(88, "class", "fg-secondary mb-1 text-truncate");
 			builder.AddContent(89, item.Title);
 			builder.CloseElement();
 
