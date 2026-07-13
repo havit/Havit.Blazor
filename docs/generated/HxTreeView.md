@@ -1,6 +1,6 @@
 ﻿# HxTreeView
 
-Component to display a hierarchy data structure.
+Tree component for displaying and navigating hierarchical data, with expandable/collapsible items, single-item selection, per-item icons and custom content, and full keyboard accessibility.
 
 ## Parameters
 
