@@ -120,3 +120,20 @@ Rule: `{utility}-{bp}-{value}` → `{bp}:{utility}-{value}`; breakpoint name `xx
 | `navbar-collapse` | — (responsive content is a `dialog.drawer`, flattened inline at/above the expand breakpoint) |
 | `navbar-expand-{bp}` | `{bp}:navbar-expand` |
 | `navbar-dark` / `navbar-light` | — (toggler icon uses `mask-image` + `currentcolor`; use `data-bs-theme` / theme classes) |
+
+## 10. Border radius (`rounded-*`)
+
+**The classes are NOT renamed** — this is an additive change, not a breaking one. `rounded-0`…`rounded-5`, `rounded-circle`, `rounded-pill`, and the side-scoped variants (`rounded-top-*`, `rounded-end-*`, `rounded-bottom-*`, `rounded-start-*`, each with their own `-0`…`-5`/`-circle`/`-pill`) all still exist verbatim in v6 — nothing to sweep here. v6 extends the scale with `rounded-6` through `rounded-9` (larger radii) and adds a new `rounded-size-{0-9|circle|pill}` utility family (a standalone radius token not tied to border sides).
+
+**The underlying CSS variable IS renamed**, though — same pattern as `--bs-secondary-color` → `--bs-secondary-fg`. `--bs-border-radius` and its `-sm`/`-lg`/`-xl`/`-xxl`/`-2xl`/`-pill` siblings are replaced by a numbered `--bs-radius-0`…`--bs-radius-9` scale plus `--bs-radius-pill`. Any consumer CSS overriding `--bs-border-radius*` directly (a common BS5 theming technique) needs to target the numbered variable instead. Mapping (verified against this repo's actual pre-migration BS5 defaults vs. the v6 bundle, not the stock Bootstrap 5.3 defaults — re-verify the pre-migration values for any other project before reusing this table):
+
+| v5 (removed) | value | v6 | value |
+|---|---|---|---|
+| `--bs-border-radius-sm` | 0.375rem | `--bs-radius-4` | 0.375rem (exact) |
+| `--bs-border-radius` | 0.5rem | `--bs-radius-5` | 0.5rem (exact) |
+| `--bs-border-radius-lg` | 0.625rem | `--bs-radius-6` | 0.625rem (exact) |
+| `--bs-border-radius-xl` | 1rem | `--bs-radius-8` | 1rem (exact) |
+| `--bs-border-radius-xxl` / `-2xl` | 2rem | `--bs-radius-9` | 1.5rem (**not exact** — v6's largest step tops out lower; flag for human review if the visual size matters) |
+| `--bs-border-radius-pill` | 50rem | `--bs-radius-pill` | 50rem (exact) |
+
+Search: `rg -n -- '--bs-border-radius' -g '*.css' -g '*.razor' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'`.
