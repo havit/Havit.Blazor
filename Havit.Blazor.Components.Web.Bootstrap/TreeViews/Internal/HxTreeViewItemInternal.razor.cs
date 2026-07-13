@@ -37,6 +37,14 @@ public partial class HxTreeViewItemInternal<TItem> : ComponentBase
 		await OnItemSelected.InvokeAsync(Item);
 	}
 
+	private async Task HandleItemKeyDownAsync(KeyboardEventArgs args)
+	{
+		if (args.Key is "Enter" or " ")
+		{
+			await OnItemSelected.InvokeAsync(Item);
+		}
+	}
+
 	private async Task HandleCollapseHiddenAsync()
 	{
 		IsExpanded = false;

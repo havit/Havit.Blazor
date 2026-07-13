@@ -17,7 +17,7 @@
                     {
                         <HxBadge CssClass="mx-2" Color="ThemeColor.Secondary" style="--bs-badge-font-size: 10px; --bs-badge-padding-x: 0.4em; --bs-badge-padding-y: 0.15em; min-height: 1rem;">@context.Subdirectories?.Length</HxBadge>
                     }
-                    <HxButton Icon="BootstrapIcon.PlusLg" Variant="ButtonVariant.Text" Color="ThemeColor.Primary" Size="ButtonSize.ExtraSmall" CssClass="btn-icon ms-auto tree-item-add-btn" AriaLabel="Add" />
+                    <HxButton Icon="BootstrapIcon.PlusLg" Variant="ButtonVariant.Text" Color="ThemeColor.Primary" Size="ButtonSize.ExtraSmall" CssClass="btn-icon ms-auto tree-item-add-btn" AriaLabel="Add" @onkeydown:stopPropagation />
             </ItemTemplate>
         </HxTreeView>
     </div>

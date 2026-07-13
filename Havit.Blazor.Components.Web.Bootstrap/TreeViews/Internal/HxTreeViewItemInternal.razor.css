@@ -29,6 +29,11 @@
 	color: var(--hx-tree-view-item-hover-color);
 }
 
+.hx-tree-view-item:focus-visible {
+	outline: var(--bs-focus-ring);
+	outline-offset: -2px;
+}
+
 .hx-tree-view-item-spacer {
 	flex: 0 0 var(--hx-tree-view-item-spacer-width);
 }

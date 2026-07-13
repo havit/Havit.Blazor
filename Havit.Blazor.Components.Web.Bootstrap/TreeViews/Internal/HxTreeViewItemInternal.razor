@@ -10,7 +10,12 @@
     bool isSelected = Item.Equals(TreeViewContainer.SelectedItem);
 }
 
-<div class="@CssClassHelper.Combine("hx-tree-view-item", isSelected ? "selected" : "", CssClass, cssClassFromSelector)" @onclick="@HandleItemClicked" @onclick:stopPropagation="true">
+<div class="@CssClassHelper.Combine("hx-tree-view-item", isSelected ? "selected" : "", CssClass, cssClassFromSelector)"
+     tabindex="0"
+     role="treeitem"
+     aria-selected="@(isSelected ? "true" : "false")"
+     @onclick="@HandleItemClicked" @onclick:stopPropagation="true"
+     @onkeydown="@HandleItemKeyDownAsync" @onkeydown:stopPropagation="true">
     @for (int i = 0; i < Level; i++)
     {
         <div class="hx-tree-view-item-spacer"></div>
@@ -18,7 +23,7 @@
 	<div class="hx-tree-view-item-expander-container">
 		@if (hasChildren)
 		{
-			<HxCollapseToggleElement ElementName="button" type="button" @onclick:stopPropagation CollapseTarget="@($"#{_collapseId}")" CssClass="@CssClassHelper.Combine("hx-tree-view-item-expander btn btn-text theme-primary btn-xs btn-icon", (IsExpanded != true) ? "collapsed" : null)" aria-label="@(IsExpanded == true ? "Collapse" : "Expand")" aria-expanded="@((IsExpanded == true) ? "true" : "false")">
+			<HxCollapseToggleElement ElementName="button" type="button" @onclick:stopPropagation @onkeydown:stopPropagation CollapseTarget="@($"#{_collapseId}")" CssClass="@CssClassHelper.Combine("hx-tree-view-item-expander btn btn-text theme-primary btn-xs btn-icon", (IsExpanded != true) ? "collapsed" : null)" aria-label="@(IsExpanded == true ? "Collapse" : "Expand")" aria-expanded="@((IsExpanded == true) ? "true" : "false")">
 				<HxIcon Icon="@BootstrapIcon.ChevronDown" CssClass="d-block" />
 			</HxCollapseToggleElement>
 		}
