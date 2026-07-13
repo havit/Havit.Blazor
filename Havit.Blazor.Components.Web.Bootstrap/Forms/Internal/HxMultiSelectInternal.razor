@@ -19,6 +19,13 @@
 	@InputGroupStartTemplate
 	<div class="@CssClassHelper.Combine("hx-multi-select-toggle", (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)">
 
+		@if (LabelTypeEffective == LabelType.Floating)
+		{
+			@* Bootstrap 6 floats the label via ":has(~ .form-control...)", a relational selector that only matches
+				a *following* sibling, so the label must precede the toggle button in the DOM. *@
+			<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
+		}
+
 		<button @ref="_toggleElementReference"
 				type="button"
 				id="@InputId"
@@ -112,11 +119,6 @@
 				}
 			}
 		</div>
-
-		@if (LabelTypeEffective == LabelType.Floating)
-		{
-			<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
-		}
 	</div>
 	@InputGroupEndTemplate
 

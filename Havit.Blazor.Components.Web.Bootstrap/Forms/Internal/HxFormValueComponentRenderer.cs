@@ -90,12 +90,14 @@ public class HxFormValueComponentRenderer : ComponentBase
 		builder.OpenElement(1, "div");
 		builder.AddAttribute(2, "class", "form-floating");
 
+		// Bootstrap 6 floats the label via ":has(~ .form-control...)", a relational selector that only matches
+		// a *following* sibling, so the label must precede the control in the DOM (unlike Bootstrap 5).
 		builder.OpenRegion(3);
-		BuildRenderValue(builder);
+		BuildRenderLabel(builder);
 		builder.CloseRegion();
 
 		builder.OpenRegion(4);
-		BuildRenderLabel(builder);
+		BuildRenderValue(builder);
 		builder.CloseRegion();
 
 		builder.CloseElement(); // div.form-floating
