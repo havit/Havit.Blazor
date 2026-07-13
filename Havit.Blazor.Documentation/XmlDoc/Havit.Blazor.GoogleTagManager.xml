@@ -56,7 +56,7 @@
         </member>
         <member name="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker">
             <summary>
-            Tracks Blazor route changes and pushes a page-view event to the Google Tag Manager data layer. Add it once alongside <see cref="P:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker.HxGoogleTagManager"/> to track SPA navigation as page views.
+            Tracks Blazor route changes and pushes a page-view event to the Google Tag Manager data layer. Add it once alongside <see cref="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManager"/> to track SPA navigation as page views.
             </summary>
         </member>
         <member name="T:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager">
