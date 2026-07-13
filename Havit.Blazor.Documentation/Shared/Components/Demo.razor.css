@@ -4,9 +4,9 @@
 	padding: 1rem;
 	overflow: auto;
 	resize: horizontal;
-	background-color: var(--bs-body-bg);
+	background-color: var(--bs-bg-body);
 	border: 1px dashed var(--bs-border-color);
-	border-radius: var(--bs-border-radius);
+	border-radius: var(--bs-radius-5);
 	/* Establish a query container so components whose container queries rely on an ancestor
 	   (e.g. list-group-horizontal) respond to the box width. Components that set their own
 	   container-type (navbar, HxListLayout's card) still resolve to their nearer container. */
