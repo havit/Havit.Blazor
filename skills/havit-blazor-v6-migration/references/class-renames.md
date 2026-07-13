@@ -49,11 +49,27 @@ Rule: `{utility}-{bp}-{value}` → `{bp}:{utility}-{value}`; breakpoint name `xx
 | `bg-{color}-subtle` | `bg-subtle-{color}` |
 | `border-{color}-subtle` | `border-subtle-{color}` |
 | `text-bg-{color}` | `theme-{color}` (sets bg + contrast fg via theme tokens) |
-| `bg-light` / `bg-dark` | `bg-secondary` / `bg-inverse` (or semantic `bg-body-*`) |
+| `bg-light` / `bg-dark` | `bg-secondary` / `bg-inverse` |
 | `text-light` / `text-dark` | `fg-secondary` / `fg-inverse` |
 | `alert-{color}`, `badge` color via `text-bg-*`, `list-group-item-{color}` | component class + `theme-{color}` |
+| `bg-body-secondary` / `bg-body-tertiary` | `bg-2` / `bg-3` (numbered surfaces — see below) |
+| `text-body-secondary` | `fg-secondary` |
+| `text-muted` | `fg-secondary` (v6 has no muted-specific fg token; nearest match) |
 
-`bg-{color}` and `border-{color}` keep their names. The `--bs-{color}-rgb` CSS variables are removed (only `--bs-link-color-rgb` remains) — replace `rgba(var(--bs-primary-rgb), .25)` with `color-mix(in srgb, var(--bs-primary) 25%, transparent)`.
+`bg-{color}` and `border-{color}` keep their names. `bg-body` (unmodified) keeps its name too — it's only the `-secondary`/`-tertiary` body-surface variants that are renamed.
+
+**Numbered surfaces**: v6 replaces the body-surface ladder (`bg-body`, `bg-body-secondary`, `bg-body-tertiary`) with `bg-body`, `bg-1`, `bg-2`, `bg-3`, `bg-4` (increasingly distinct from the page background — `bg-1` subtlest, `bg-4` most). `bg-body-secondary` maps to `bg-2` and `bg-body-tertiary` maps to `bg-3` (confirmed by comparing computed gray-scale steps against the BS5 defaults — verify against the bundle same as other renames, and re-check against a real card/surface in the browser since the numbered scale isn't a strict 1:1 semantic match).
+
+**CSS custom properties** (not just classes — consumer CSS/`<style>` blocks and `.razor.css` files referencing Bootstrap variables directly need the same sweep): the `--bs-{color}-rgb` channel variables are removed (only `--bs-link-color-rgb` remains) — replace `rgba(var(--bs-primary-rgb), .25)` with `color-mix(in srgb, var(--bs-primary) 25%, transparent)` (and `rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity))` similarly becomes `color-mix(in srgb, var(--bs-bg-body) calc(var(--bs-bg-opacity) * 100%), transparent)`). Beyond the RGB drop, several variables were also renamed outright:
+
+| v5 (removed) | v6 |
+|---|---|
+| `--bs-secondary-color` | `--bs-secondary-fg` |
+| `--bs-emphasis-color` | `--bs-fg-body` |
+| `--bs-{color}-text-emphasis` (e.g. `--bs-primary-text-emphasis`) | `--bs-{color}-fg-emphasis` (e.g. `--bs-primary-fg-emphasis`) |
+| `--bs-body-bg` / `--bs-body-color` | `--bs-bg-body` / `--bs-fg-body` |
+
+Search: `rg -n -- '--bs-(secondary-color|emphasis-color|[a-z]+-text-emphasis|body-bg\b|body-color\b)' -g '*.css' -g '*.razor' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'`.
 
 ## 4. Buttons
 

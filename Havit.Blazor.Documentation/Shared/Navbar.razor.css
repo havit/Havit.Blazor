@@ -10,7 +10,7 @@
 
 .nav-container {
 	--bs-bg-opacity: .5;
-	background-color: rgba(var(--bs-body-bg-rgb),var(--bs-bg-opacity)) !important;
+	background-color: color-mix(in srgb, var(--bs-bg-body) calc(var(--bs-bg-opacity) * 100%), transparent) !important;
 	-webkit-backdrop-filter: saturate(120%) blur(20px);
 	backdrop-filter: saturate(120%) blur(20px);
 	z-index: 1030;
