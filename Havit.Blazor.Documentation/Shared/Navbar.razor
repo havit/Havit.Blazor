@@ -1,74 +1,124 @@
+@implements IDisposable
 @inject NavigationManager NavigationManager
 
 <div class="@CssClassHelper.Combine(CssClass, "nav-container mx-auto sticky-top border-bottom border-subtle")">
 	<HxNavbar CssClass="navbar-translucent" ContainerCssClass="container-fluid position-relative">
-		<HxNavbarBrand CssClass="py-0 d-flex align-items-center gap-2 me-0 xl:me-3">
-			<img src="./logo.png" width="32" height="30" alt="HAVIT Blazor">
-			<span class="fw-semibold d-none sm:d-inline">HAVIT Blazor</span>
-		</HxNavbarBrand>
+		<div class="d-flex align-items-center flex-grow-1" style="min-width: 0;">
+			<HxNavbarBrand CssClass="py-0 d-flex align-items-center gap-2 me-0 xl:me-3">
+				<img src="./logo.png" width="32" height="30" alt="HAVIT Blazor">
+				<span class="fw-semibold d-none sm:d-inline">HAVIT Blazor</span>
+			</HxNavbarBrand>
 
-		@* Separator between the brand and the mobile section dropdown (Bootstrap docs style: "Brand / Docs"). *@
-		<span class="xl:d-none text-body-secondary mx-2" aria-hidden="true">/</span>
+			@* Separator between the brand and the mobile section dropdown (Bootstrap docs style: "Brand / Docs"). *@
+			<span class="xl:d-none text-body-secondary mx-2" aria-hidden="true">/</span>
 
-		@* Main navigation as a dropdown below xl; the inline nav in the drawer takes over at xl+.
-		   Wrap in an xl:d-none element because HxMenu's own CssClass applies to the menu panel, not the toggle. *@
-		<div class="xl:d-none">
-			<HxMenu>
-				<Toggle>
-					<HxMenuToggleButton Color="ThemeColor.Secondary"
-										Variant="ButtonVariant.Text"
-										Icon="BootstrapIcon.ChevronExpand"
-										IconPlacement="ButtonIconPlacement.End"
-										CssClass="nav-link fw-medium link-body-emphasis">
-						@GetCurrentSectionLabel()
-					</HxMenuToggleButton>
-				</Toggle>
-				<Content>
-					<HxMenuItemNavLink Href="" Match="NavLinkMatch.All">Home</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="getting-started" Match="NavLinkMatch.Prefix">Docs</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="https://blocks.havit.blazor.eu" Match="@((NavLinkMatch?)null)">Blocks</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="showcase" Match="NavLinkMatch.Prefix">Showcase</HxMenuItemNavLink>
-					<HxMenuItemNavLink Href="premium" Match="NavLinkMatch.Prefix">Premium</HxMenuItemNavLink>
-				</Content>
-			</HxMenu>
-		</div>
-
-		<HxNavbarDrawer>
-			@* Inline horizontal navigation for xl+ (below xl the main nav collapses to the dropdown so it doesn't overlap the centered search); aligned to the left. *@
-			<HxNav CssClass="d-none xl:d-flex fs-sm gap-2 my-3 lg:my-0">
-				<HxNavLink Href="getting-started" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Docs</HxNavLink>
-				<HxNavLink Href="https://blocks.havit.blazor.eu" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Blocks</HxNavLink>
-				<HxNavLink Href="showcase" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Showcase</HxNavLink>
-				<HxNavLink Href="premium" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Premium</HxNavLink>
-			</HxNav>
-
-			@* Search absolutely centered in the navbar on lg+ (see site.css .navbar-search-center); normal flow in the mobile drawer. *@
-			<div class="d-flex justify-content-center my-3 lg:my-0 navbar-search-center">
-				<Search />
+			@* Main navigation as a dropdown below xl; the inline nav in the drawer takes over at xl+.
+			   Wrap in an xl:d-none element because HxMenu's own CssClass applies to the menu panel, not the toggle. *@
+			<div class="xl:d-none">
+				<HxMenu>
+					<Toggle>
+						<HxMenuToggleButton Color="ThemeColor.Secondary"
+											Variant="ButtonVariant.Text"
+											Icon="BootstrapIcon.ChevronExpand"
+											IconPlacement="ButtonIconPlacement.End"
+											CssClass="nav-link fw-medium link-body-emphasis">
+							@GetCurrentSectionLabel()
+						</HxMenuToggleButton>
+					</Toggle>
+					<Content>
+						<HxMenuItemNavLink Href="" Match="NavLinkMatch.All">Home</HxMenuItemNavLink>
+						<HxMenuItemNavLink Href="getting-started" Match="NavLinkMatch.Prefix">Docs</HxMenuItemNavLink>
+						<HxMenuItemNavLink Href="https://blocks.havit.blazor.eu" Match="@((NavLinkMatch?)null)">Blocks</HxMenuItemNavLink>
+						<HxMenuItemNavLink Href="showcase" Match="NavLinkMatch.Prefix">Showcase</HxMenuItemNavLink>
+						<HxMenuItemNavLink Href="premium" Match="NavLinkMatch.Prefix">Premium</HxMenuItemNavLink>
+					</Content>
+				</HxMenu>
 			</div>
 
-			@* Component navigation for mobile (the desktop sidebar is hidden below the lg breakpoint by the layout).
-			   Hidden at lg and up, where the drawer content is flattened inline into the navbar. *@
-			<div class="lg:d-none mt-3">
-				<Sidebar Embedded="true" />
+			<HxNavbarDrawer Title="Navigation" Placement="DrawerPlacement.Bottom" CssClass="mobile-nav-drawer">
+				@* Inline horizontal navigation for xl+ (below xl the main nav collapses to the dropdown so it doesn't overlap the centered search); aligned to the left. *@
+				<HxNav CssClass="d-none xl:d-flex fs-sm gap-2 my-3 lg:my-0">
+					<HxNavLink Href="getting-started" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Docs</HxNavLink>
+					<HxNavLink Href="https://blocks.havit.blazor.eu" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Blocks</HxNavLink>
+					<HxNavLink Href="showcase" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Showcase</HxNavLink>
+					<HxNavLink Href="premium" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Premium</HxNavLink>
+				</HxNav>
+
+				@* Search absolutely centered in the navbar on lg+ (see site.css .navbar-search-center).
+				   Below lg the search icon button opens a dialog instead (see the HxDialog at the bottom of this file).
+				   AutoFocus="false" - this instance is always mounted (not just when the user asks for search),
+				   so auto-focusing it would steal focus on every page load. *@
+				<div class="d-none lg:d-flex justify-content-center my-3 lg:my-0 navbar-search-center">
+					<Search AutoFocus="false" />
+				</div>
+
+				@* Component navigation for mobile (the desktop sidebar is hidden below the lg breakpoint by the layout).
+				   Hidden at lg and up, where the drawer content is flattened inline into the navbar. *@
+				<div class="lg:d-none mt-3">
+					<Sidebar Embedded="true" />
+				</div>
+			</HxNavbarDrawer>
+
+			@* GitHub link, the mobile search trigger, and the theme switcher stay always visible in the navbar (not tucked into the drawer). *@
+			<div class="d-flex gap-3 align-items-center ms-auto">
+				<button type="button" class="btn-text theme-secondary btn-icon lg:d-none" @onclick="OpenMobileSearchAsync" aria-label="Search">
+					<HxIcon Icon="BootstrapIcon.Search" />
+				</button>
+				<a href="https://github.com/havit/Havit.Blazor" class="btn-text theme-secondary btn-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
+					<HxIcon Icon="BootstrapIcon.Github" />
+				</a>
+				<Havit.Blazor.Documentation.Shared.Components.DocColorMode.DocColorModeSwitcher />
 			</div>
-		</HxNavbarDrawer>
 
-		@* GitHub link + theme switcher stay always visible in the navbar (not tucked into the offcanvas on mobile). *@
-		<div class="d-flex gap-3 align-items-center ms-auto">
-			<a href="https://github.com/havit/Havit.Blazor" class="btn-text theme-secondary btn-icon" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
-				<HxIcon Icon="BootstrapIcon.Github" />
-			</a>
-			<Havit.Blazor.Documentation.Shared.Components.DocColorMode.DocColorModeSwitcher />
+			<HxNavbarToggler CssClass="border-0 ms-3" />
 		</div>
-
-		<HxNavbarToggler CssClass="border-0 ms-3" />
 	</HxNavbar>
+</div>
+
+@* Mobile search, opened via the search icon above. A dialog gives us the same blur backdrop as
+   HxDrawer/HxMessageBox for free, plus native focus-trapping, Escape-to-close and click-outside-to-close -
+   no bespoke overlay/backdrop markup or focus-tracking JS needed. No close button; dismissed via Escape,
+   tapping outside, or navigating to a result. *@
+@* Pinned flush to the top (see .mobile-search-dialog in Navbar.razor.css) instead of the dialog's default
+   vertical centering, since sliding down FROM the top only reads as "sliding down" if it also rests at
+   the top. BodyCssClass="p-4" matches the mobile navigation drawer's body padding (--bs-drawer-padding-x/y:
+   var(--bs-spacer), i.e. 1rem; this build's p-4 utility - not p-3 - is the one that equals 1rem).
+   The wrapping div (display:contents, so it doesn't affect layout) is required for ::deep in
+   Navbar.razor.css to reach the dialog markup below - <HxDialog> is a component reference, not a literal
+   element, so it carries no scope attribute of its own for ::deep to anchor on. *@
+@* AutoFocus="false" + explicit focus from OnShown: Search's own auto-focus-on-mount races the dialog's
+   own show animation/JS (both fire from separate components' OnAfterRenderAsync, with no guaranteed
+   ordering between them) and can lose - OnShown only fires once the dialog is genuinely done showing,
+   so focusing from there is reliable regardless of that race. *@
+<div style="display: contents">
+	<HxDialog @ref="_mobileSearchDialog" CssClass="mobile-search-dialog" BodyCssClass="p-4" Animation="DialogAnimation.SlideDown" ShowCloseButton="false" OnShown="HandleMobileSearchDialogShownAsync">
+		<BodyTemplate>
+			<Search @ref="_mobileSearchComponent" AutoFocus="false" />
+		</BodyTemplate>
+	</HxDialog>
 </div>
 
 @code
 {
 	[Parameter] public string CssClass { get; set; }
+
+	private HxDialog _mobileSearchDialog;
+	private Search _mobileSearchComponent;
+
+	protected override void OnInitialized()
+	{
+		// Close the mobile search dialog on in-app navigation (e.g. a search result was selected).
+		NavigationManager.LocationChanged += HandleLocationChanged;
+	}
+
+	private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
+	{
+		_ = _mobileSearchDialog.HideAsync();
+	}
+
+	private Task OpenMobileSearchAsync() => _mobileSearchDialog.ShowAsync();
+
+	private Task HandleMobileSearchDialogShownAsync() => _mobileSearchComponent?.FocusSearchInputAsync() ?? Task.CompletedTask;
 
 	private string GetCurrentSectionLabel()
 	{
@@ -86,5 +136,10 @@
 			return "Premium";
 		}
 		return "Docs";
+	}
+
+	public void Dispose()
+	{
+		NavigationManager.LocationChanged -= HandleLocationChanged;
 	}
 }

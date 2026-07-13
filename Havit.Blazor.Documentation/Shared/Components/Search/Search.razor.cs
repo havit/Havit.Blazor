@@ -5,6 +5,12 @@ namespace Havit.Blazor.Documentation.Shared.Components;
 
 public partial class Search : IAsyncDisposable
 {
+	/// <summary>
+	/// Whether the search input focuses itself as soon as it's mounted. Default is <c>true</c>.
+	/// Ctrl+K/⌘K always focuses it regardless of this setting.
+	/// </summary>
+	[Parameter] public bool AutoFocus { get; set; } = true;
+
 	[Inject] private NavigationManager NavigationManager { get; set; }
 	[Inject] private IDocumentationCatalogService CatalogService { get; set; }
 	[Inject] private IJSRuntime JSRuntime { get; set; }
@@ -46,7 +52,10 @@ public partial class Search : IAsyncDisposable
 			}
 			await _jsModule.InvokeVoidAsync("initializeGlobalSearchShortcut", _dotNetObjectReference);
 
-			await FocusSearchInputAsync();
+			if (AutoFocus)
+			{
+				await FocusSearchInputAsync();
+			}
 		}
 	}
 
@@ -63,9 +72,12 @@ public partial class Search : IAsyncDisposable
 	{
 		_userInput = request.UserInput.Trim();
 
+		// Every item "contains" an empty string, so GetSearchItems() would return arbitrary top-level
+		// items instead of nothing - short-circuit so the EmptyTemplate's "what can I search for" hint
+		// shows for an empty query instead of a seemingly-random result list.
 		return Task.FromResult(new AutosuggestDataProviderResult<SearchItem>
 		{
-			Data = GetSearchItems()
+			Data = string.IsNullOrEmpty(_userInput) ? [] : GetSearchItems()
 		});
 	}
 

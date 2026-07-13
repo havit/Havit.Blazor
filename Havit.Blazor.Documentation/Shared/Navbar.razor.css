@@ -15,3 +15,17 @@
 	backdrop-filter: saturate(120%) blur(20px);
 	z-index: 1030;
 }
+
+/* Pins the mobile search dialog near the top instead of the dialog's default vertical centering
+   (margin: auto on all sides) - only the block-start/end margins are overridden, so it stays horizontally
+   centered. */
+::deep .mobile-search-dialog {
+	margin-block-start: 2rem;
+	margin-block-end: auto;
+}
+
+/* Bottom-placed drawer defaults to --bs-drawer-height: 30vh; full height reads better for the mobile
+   nav drawer (Docs/Blocks/Showcase/Premium + search + full sidebar), which can easily exceed that. */
+::deep .mobile-nav-drawer {
+	--bs-drawer-height: 100dvh;
+}
