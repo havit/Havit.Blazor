@@ -41,3 +41,13 @@
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }
+
+/* A floating label always makes the toggle button match ":not(:placeholder-shown)" (buttons never show a
+   placeholder), so Bootstrap 6 permanently shifts its padding down to clear the shrunk label. That shift is
+   meant for the value text's baseline, not the caret icon, so undo it here to keep the caret centered. */
+.form-floating .combobox-caret {
+	/* Flexbox align-items:center only shifts an item by half of any single-sided margin applied to it
+	   (the other half is absorbed back into the centering split), so the full padding delta is needed here,
+	   not half of it. */
+	margin-top: calc(var(--bs-form-floating-input-padding-b) - var(--bs-form-floating-input-padding-t));
+}
