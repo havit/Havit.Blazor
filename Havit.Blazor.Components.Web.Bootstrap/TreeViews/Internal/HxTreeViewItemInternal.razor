@@ -18,7 +18,7 @@
 	<div class="hx-tree-view-item-expander-container">
 		@if (hasChildren)
 		{
-			<HxCollapseToggleElement ElementName="button" type="button" @onclick:stopPropagation CollapseTarget="@($"#{_collapseId}")" CssClass="hx-tree-view-item-expander btn btn-text theme-primary btn-xs btn-icon" aria-label="@(IsExpanded == true ? "Collapse" : "Expand")">
+			<HxCollapseToggleElement ElementName="button" type="button" @onclick:stopPropagation CollapseTarget="@($"#{_collapseId}")" CssClass="@CssClassHelper.Combine("hx-tree-view-item-expander btn btn-text theme-primary btn-xs btn-icon", (IsExpanded != true) ? "collapsed" : null)" aria-label="@(IsExpanded == true ? "Collapse" : "Expand")" aria-expanded="@((IsExpanded == true) ? "true" : "false")">
 				<HxIcon Icon="@BootstrapIcon.ChevronDown" CssClass="d-block" />
 			</HxCollapseToggleElement>
 		}

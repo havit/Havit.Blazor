@@ -1,8 +1,11 @@
 ::deep .hx-tree-view-item .tree-item-add-btn {
     opacity: 0;
+    pointer-events: none;
     transition: opacity .15s ease-in-out;
 }
 
-::deep .hx-tree-view-item:hover .tree-item-add-btn {
+::deep .hx-tree-view-item:hover .tree-item-add-btn,
+::deep .hx-tree-view-item:focus-within .tree-item-add-btn {
     opacity: 1;
+    pointer-events: auto;
 }

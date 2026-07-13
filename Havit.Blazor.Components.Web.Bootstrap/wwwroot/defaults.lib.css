@@ -175,7 +175,7 @@
 	--hx-tree-view-item-spacer-width: 								1rem;
 	--hx-tree-view-item-font-size: 									.75rem;
 	--hx-tree-view-item-padding: 									.25rem;
-	--hx-tree-view-item-border-radius: 								calc(var(--bs-radius-5) + var(--hx-tree-view-item-padding));
+	--hx-tree-view-item-border-radius: 								calc(var(--bs-radius-5) + .25rem);
 	--hx-tree-view-item-margin: 									0 0 .125rem 0;
 	--hx-tree-view-item-gap:										.25rem;
 
