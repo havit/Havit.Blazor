@@ -89,9 +89,11 @@
 @* AutoFocus="false" + explicit focus from OnShown: Search's own auto-focus-on-mount races the dialog's
    own show animation/JS (both fire from separate components' OnAfterRenderAsync, with no guaranteed
    ordering between them) and can lose - OnShown only fires once the dialog is genuinely done showing,
-   so focusing from there is reliable regardless of that race. *@
+   so focusing from there is reliable regardless of that race.
+   Title="Search" + HeaderCssClass="visually-hidden": gives the dialog an accessible name (there's no
+   visible header/close button by design) without rendering a visible title bar. *@
 <div style="display: contents">
-	<HxDialog @ref="_mobileSearchDialog" CssClass="mobile-search-dialog" BodyCssClass="p-4" Animation="DialogAnimation.SlideDown" ShowCloseButton="false" OnShown="HandleMobileSearchDialogShownAsync">
+	<HxDialog @ref="_mobileSearchDialog" CssClass="mobile-search-dialog" BodyCssClass="p-4" Animation="DialogAnimation.SlideDown" ShowCloseButton="false" Title="Search" HeaderCssClass="visually-hidden" OnShown="HandleMobileSearchDialogShownAsync">
 		<BodyTemplate>
 			<Search @ref="_mobileSearchComponent" AutoFocus="false" />
 		</BodyTemplate>
@@ -113,7 +115,7 @@
 
 	private void HandleLocationChanged(object sender, LocationChangedEventArgs e)
 	{
-		_ = _mobileSearchDialog.HideAsync();
+		_ = _mobileSearchDialog?.HideAsync();
 	}
 
 	private Task OpenMobileSearchAsync() => _mobileSearchDialog.ShowAsync();
