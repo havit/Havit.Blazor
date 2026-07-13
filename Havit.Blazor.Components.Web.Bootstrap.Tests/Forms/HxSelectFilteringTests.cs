@@ -193,4 +193,59 @@ public class HxSelectFilteringTests : BunitTestBase
 		cut.Find("select");
 		Assert.Empty(cut.FindAll(".combobox-toggle"));
 	}
+
+	[Fact]
+	public void HxSelect_AllowFilteringNotSet_FloatingLabel_LabelPrecedesSelectInDom()
+	{
+		// Arrange — regression: Bootstrap 6 floats the label via ":has(~ .form-control...)", a relational
+		// selector that only matches a *following* sibling, so the label must precede the native <select>.
+		string selectedValue = null;
+		Expression<Func<string>> valueExpression = () => selectedValue;
+
+		// Act
+		var cut = RenderComponent<HxSelect<string, string>>(parameters => parameters
+			.Add(p => p.Data, new List<string> { "Apple", "Banana" })
+			.Add(p => p.Value, selectedValue)
+			.Add(p => p.ValueChanged, value => selectedValue = value)
+			.Add(p => p.ValueExpression, valueExpression)
+			.Add(p => p.Nullable, true)
+			.Add(p => p.LabelType, LabelType.Floating)
+			.Add(p => p.Label, "Employee")
+		);
+
+		// Assert
+		var formFloating = cut.Find(".form-floating");
+		var children = formFloating.Children;
+		Assert.Equal(2, children.Length);
+		Assert.Equal("LABEL", children[0].TagName);
+		Assert.Equal("SELECT", children[1].TagName);
+		Assert.Equal(children[1].GetAttribute("id"), children[0].GetAttribute("for"));
+	}
+
+	[Fact]
+	public void HxSelect_AllowFiltering_FloatingLabel_LabelPrecedesToggleButtonInDom()
+	{
+		// Arrange — regression: with AllowFiltering, the floating label is rendered by HxSelectInternal
+		// itself (not the shared HxFormValueComponentRenderer), which must also put the label before the
+		// toggle button (not after it, and not after the menu) for the same ":has(~ ...)" reason.
+		string selectedValue = null;
+		Expression<Func<string>> valueExpression = () => selectedValue;
+
+		var cut = RenderComponent<HxSelect<string, string>>(parameters => parameters
+			.Add(p => p.Data, new List<string> { "Apple", "Banana" })
+			.Add(p => p.Value, selectedValue)
+			.Add(p => p.ValueChanged, value => selectedValue = value)
+			.Add(p => p.ValueExpression, valueExpression)
+			.Add(p => p.AllowFiltering, true)
+			.Add(p => p.LabelType, LabelType.Floating)
+			.Add(p => p.Label, "Employee")
+		);
+
+		// Assert — the label is the first child of .form-floating, preceding both the toggle button and the menu
+		var formFloating = cut.Find(".form-floating");
+		var children = formFloating.Children;
+		Assert.Equal("LABEL", children[0].TagName);
+		Assert.Equal("BUTTON", children[1].TagName);
+		Assert.Equal(children[1].GetAttribute("id"), children[0].GetAttribute("for"));
+	}
 }

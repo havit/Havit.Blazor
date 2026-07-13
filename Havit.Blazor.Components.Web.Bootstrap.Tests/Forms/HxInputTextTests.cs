@@ -202,6 +202,37 @@ public class HxInputTextTests : BunitTestBase
 		Assert.Equal("Enter your name", cut.Find("input").GetAttribute("placeholder"));
 	}
 
+	[Fact]
+	public void HxInputText_FloatingLabel_LabelPrecedesInputInDom()
+	{
+		// Arrange — regression: Bootstrap 6 floats the label via ":has(~ .form-control...)", a relational
+		// selector that only matches a *following* sibling, so the label must be the first child of
+		// .form-floating, immediately before the control (the reverse of Bootstrap 5's control-then-label order).
+		string currentValue = "";
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputText>(0);
+			builder.AddAttribute(1, "Value", currentValue);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<string>(this, (value) => { currentValue = value; }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<string>>)(() => currentValue));
+			builder.AddAttribute(4, "LabelType", (LabelType?)LabelType.Floating);
+			builder.AddAttribute(5, "Label", "Your name");
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+
+		// Assert
+		var formFloating = cut.Find(".form-floating");
+		var children = formFloating.Children;
+		Assert.Equal(2, children.Length);
+		Assert.Equal("LABEL", children[0].TagName);
+		Assert.Equal("INPUT", children[1].TagName);
+		Assert.Equal(children[1].GetAttribute("id"), children[0].GetAttribute("for"));
+	}
+
 	private record FormData
 	{
 		[MaxLength(100)]

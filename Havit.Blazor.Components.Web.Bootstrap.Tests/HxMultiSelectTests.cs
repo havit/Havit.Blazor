@@ -149,6 +149,40 @@ public class HxMultiSelectTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxMultiSelect_FloatingLabel_LabelPrecedesToggleButtonInDom()
+	{
+		// Arrange — regression: Bootstrap 6 floats the label via ":has(~ .form-control...)", a relational
+		// selector that only matches a *following* sibling, so the label must be the first child of
+		// .form-floating, before the toggle button (not after it, and not after the menu).
+		var items = new[] { "Apple", "Banana" };
+		var selectedValues = new List<string>();
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxMultiSelect<string, string>>(0);
+			builder.AddAttribute(1, "Data", (IEnumerable<string>)items);
+			builder.AddAttribute(2, "TextSelector", (Func<string, string>)(x => x));
+			builder.AddAttribute(3, "ValueSelector", (Func<string, string>)(x => x));
+			builder.AddAttribute(4, "Value", selectedValues);
+			builder.AddAttribute(5, "ValueChanged", EventCallback.Factory.Create<List<string>>(this, v => { }));
+			builder.AddAttribute(6, "ValueExpression", (Expression<Func<List<string>>>)(() => selectedValues));
+			builder.AddAttribute(7, "LabelType", (LabelType?)LabelType.Floating);
+			builder.AddAttribute(8, "Label", "Employees");
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+
+		// Assert
+		var formFloating = cut.Find(".form-floating");
+		var children = formFloating.Children;
+		Assert.Equal("LABEL", children[0].TagName);
+		Assert.Equal("BUTTON", children[1].TagName);
+		Assert.Equal(children[1].GetAttribute("id"), children[0].GetAttribute("for"));
+	}
+
+	[Fact]
 	public void HxMultiSelect_Render_EmitsAccessibleListboxRoles()
 	{
 		// Arrange
