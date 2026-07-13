@@ -1,10 +1,45 @@
-﻿<HxInputText LabelType="LabelType.Floating" Label="Your name" @bind-Value="@name" CssClass="my-3" />
+﻿@inject IDemoDataService DemoDataService
+
+<HxInputText LabelType="LabelType.Floating" Label="Your name" @bind-Value="@name" CssClass="my-3" />
 <HxInputTextArea LabelType="LabelType.Floating" Label="Comments" @bind-Value="@comments" style="height:80px" CssClass="my-3" />
 <HxInputNumber LabelType="LabelType.Floating" Label="Age" @bind-Value="@age" CssClass="my-3" />
+
+<HxSelect TItem="EmployeeDto"
+		  TValue="int?"
+		  LabelType="LabelType.Floating"
+		  Label="Employee"
+		  Data="employees"
+		  @bind-Value="employeeId"
+		  TextSelector="@(employee => employee.Name)"
+		  ValueSelector="@(employee => employee.Id)"
+		  Nullable="true"
+		  NullText="-select employee-"
+		  NullDataText="Loading employees..."
+		  CssClass="my-3" />
+
+<HxMultiSelect TItem="EmployeeDto"
+			   TValue="int"
+			   LabelType="LabelType.Floating"
+			   Label="Employees"
+			   Data="employees"
+			   @bind-Value="selectedEmployeeIds"
+			   TextSelector="@(employee => employee.Name)"
+			   ValueSelector="@(employee => employee.Id)"
+			   NullDataText="Loading employees..."
+			   EmptyText="-select employees-"
+			   CssClass="my-3" />
 
 @code
 {
 	private string name;
 	private string comments;
 	private int? age;
+	private IEnumerable<EmployeeDto> employees;
+	private int? employeeId;
+	private List<int> selectedEmployeeIds = new();
+
+	protected override async Task OnInitializedAsync()
+	{
+		employees = await DemoDataService.GetAllEmployeesAsync();
+	}
 }
