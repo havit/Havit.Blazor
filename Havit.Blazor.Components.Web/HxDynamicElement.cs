@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web;
 
 /// <summary>
-/// Renders an element with the specified name, attributes, and child content.<br />
+/// Renders an HTML element whose tag name is chosen at runtime — pass any tag (e.g., <c>h1</c>..<c>h6</c>, <c>div</c>, <c>span</c>) along with attributes and content as parameters.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDynamicElement">https://havit.blazor.eu/components/HxDynamicElement</see>
 /// </summary>
 public class HxDynamicElement : ComponentBase

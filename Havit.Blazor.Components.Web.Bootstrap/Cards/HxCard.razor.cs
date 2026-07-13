@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/card/">Bootstrap card</see> component.<br />
+/// Flexible content container — a <see href="https://getbootstrap.com/docs/5.3/components/card/">Bootstrap card</see> — for grouping a title, text, image, and actions into a single bordered panel.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCard">https://havit.blazor.eu/components/HxCard</see>
 /// </summary>
 public partial class HxCard

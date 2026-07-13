@@ -1,5 +1,8 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
+/// <summary>
+/// Positions and stacks the <see cref="HxToast"/> messages on the screen; rendered automatically by <see cref="HxMessenger"/>.
+/// </summary>
 public partial class HxToastContainer : ComponentBase
 {
 	/// <summary>

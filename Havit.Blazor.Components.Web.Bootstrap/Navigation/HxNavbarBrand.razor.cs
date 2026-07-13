@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/navbar/#brand">navbar-brand</see> component.
+/// Brand/logo slot for <see cref="HxNavbar"/>, rendered as Bootstrap's <see href="https://getbootstrap.com/docs/5.3/components/navbar/#brand">navbar-brand</see>.
 /// </summary>
 public partial class HxNavbarBrand
 {

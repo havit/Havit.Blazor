@@ -4,7 +4,7 @@ using Havit.Collections;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Grid column.
+/// Defines a single column of a <see cref="HxGrid{TItem}"/> — its header, cell template, sorting, and width.
 /// </summary>
 /// <typeparam name="TItem">Grid row data type.</typeparam>
 public class HxGridColumn<TItem> : HxGridColumnBase<TItem>

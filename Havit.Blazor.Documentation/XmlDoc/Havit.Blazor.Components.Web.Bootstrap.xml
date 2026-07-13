@@ -130,7 +130,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAlert">
             <summary>
-            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/alert/">Bootstrap alert</see> component.<br />
+            Contextual feedback message (success, warning, danger, info, and more) with an optional icon, links, and a dismiss button.<br />
+            Renders the <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/alert/">Bootstrap alert</see> markup.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAlert">https://havit.blazor.eu/components/HxAlert</see>
             </summary>
         </member>
@@ -451,7 +452,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxBadge">
             <summary>
-            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/badge/">Bootstrap Badge</see> component.<br />
+            Small <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/badge/">Bootstrap badge</see> for counts and labels.<br />
+            Attach it to headings, buttons, or icons; position it as a notification dot; and style it with any theme color or pill shape.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxBadge">https://havit.blazor.eu/components/HxBadge</see>
             </summary>
         </member>
@@ -812,7 +814,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup">
             <summary>
-            Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/button-group/">Button groups</see>.<br />
+            Groups related <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> controls into a single visual block, with support for sizing, nesting, and vertical stacking (<see href="https://getbootstrap.com/docs/5.3/components/button-group/">Bootstrap Button groups</see>).<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxButtonGroup">https://havit.blazor.eu/components/HxButtonGroup</see>
             </summary>
         </member>
@@ -964,7 +966,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCalendar">
             <summary>
-            Basic calendar building block. Used for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> implementation.<br />
+            Standalone month calendar for picking a single date or a date range — the same calendar used inside <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDate`1"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/>, available on its own for building custom date pickers.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCalendar">https://havit.blazor.eu/components/HxCalendar</see>
             </summary>
         </member>
@@ -1138,7 +1140,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCard">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/card/">Bootstrap card</see> component.<br />
+            Flexible content container — a <see href="https://getbootstrap.com/docs/5.3/components/card/">Bootstrap card</see> — for grouping a title, text, image, and actions into a single bordered panel.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCard">https://havit.blazor.eu/components/HxCard</see>
             </summary>
         </member>
@@ -1259,7 +1261,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCardSubtitle">
             <summary>
-            Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/card/#titles-text-and-links">card-subtitle</see> component.
+            Secondary heading placed under a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCardTitle"/>, rendered as Bootstrap's <see href="https://getbootstrap.com/docs/5.3/components/card/#titles-text-and-links">card-subtitle</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardSubtitle.ChildContent">
@@ -1284,7 +1286,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCardText">
             <summary>
-            Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/card/#titles-text-and-links">card-text</see> component.
+            Paragraph of body text for a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/>, rendered as Bootstrap's <see href="https://getbootstrap.com/docs/5.3/components/card/#titles-text-and-links">card-text</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardText.ChildContent">
@@ -1299,7 +1301,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCardTitle">
             <summary>
-            Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/card/#titles-text-and-links">card-title</see> component.
+            Heading for a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/>'s content, rendered as Bootstrap's <see href="https://getbootstrap.com/docs/5.3/components/card/#titles-text-and-links">card-title</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardTitle.ChildContent">
@@ -1738,7 +1740,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/collapse/">Bootstrap 5 Collapse</see> component.<br />
+            <see href="https://getbootstrap.com/docs/5.3/components/collapse/">Bootstrap 5 Collapse</see> for toggling the visibility of content — accordions, expandable panels, collapsible sidebars — with a smooth height animation.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCollapse">https://havit.blazor.eu/components/HxCollapse</see>
             </summary>
         </member>
@@ -1989,6 +1991,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu.FloatingStrategy">
             <summary>
             Floating UI positioning strategy. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.FloatingStrategy.Absolute"/>.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem">
+            <summary>
+            Single item for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenu"/>, with an optional confirmation message shown before its action runs.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuItem.Text">
@@ -2943,7 +2950,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxDrawer">
             <summary>
-            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/drawer/">Bootstrap Drawer</see> component (aka Drawer).<br />
+            Off-canvas <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/drawer/">Bootstrap Drawer</see> panel that slides in from any edge of the screen — ideal for navigation, filters, or supplementary content.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxDrawer">https://havit.blazor.eu/components/HxDrawer</see>
             </summary>
         </member>
@@ -5919,7 +5926,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1">
             <summary>
-            Numeric input.<br />
+            Numeric input field for whole numbers or decimals, with configurable input mode, HTML input type, and select-on-focus behavior.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputNumber">https://havit.blazor.eu/components/HxInputNumber</see>
             </summary>
             <remarks>
@@ -9638,7 +9645,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1">
             <summary>
-            Grid column.
+            Defines a single column of a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/> — its header, cell template, sorting, and width.
             </summary>
             <typeparam name="TItem">Grid row data type.</typeparam>
         </member>
@@ -9936,9 +9943,14 @@
             Defaults to <c>null</c>; override to make the sortable header focusable.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxGridEmptyDataTemplateDefaultContent">
+            <summary>
+            Default placeholder shown by <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/> when there is no data to display.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPager">
             <summary>
-            Pager.<br />
+            Pagination control for navigating pages of data, typically used alongside <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/>, with configurable sizes and a customizable button template.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPager">https://havit.blazor.eu/components/HxPager</see>
             </summary>
         </member>
@@ -10630,7 +10642,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/list-group/#links-and-buttons">Bootstrap 5 List group link item</see> component.
+            Clickable, linkable item for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListGroup"/>, rendered as an anchor styled as a <see href="https://getbootstrap.com/docs/5.3/components/list-group/#links-and-buttons">Bootstrap list-group item</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItemNavLink.Href">
@@ -11436,8 +11448,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAnchorFragmentNavigation">
             <summary>
-            Temporarily (?) compensates for a Blazor deficiency in anchor fragments (scrolling to <c>page#id</c> URLs). Supports navigation with the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> component.
-            <see href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</see>.<br />
+            Enables navigation to in-page anchors (<c>page#id</c> URLs) by scrolling to the target element — Blazor routing does not do this on its own (<see href="https://github.com/dotnet/aspnetcore/issues/8393">tracking issue</see>). Pairs with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/>.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAnchorFragmentNavigation">https://havit.blazor.eu/components/HxAnchorFragmentNavigation</see>
             </summary>
         </member>
@@ -11498,7 +11509,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNav">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/">Bootstrap Nav</see> component.<br />
+            <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/">Bootstrap Nav</see> component for building tabs, pills, and vertical or underline navigation from a list of links.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNav">https://havit.blazor.eu/components/HxNav</see>
             </summary>
         </member>
@@ -11582,7 +11593,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarBrand">
             <summary>
-            Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/navbar/#brand">navbar-brand</see> component.
+            Brand/logo slot for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar"/>, rendered as Bootstrap's <see href="https://getbootstrap.com/docs/5.3/components/navbar/#brand">navbar-brand</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarBrand.Href">
@@ -11878,7 +11889,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/scrollspy/">Bootstrap Scrollspy</see> component.<br />
+            <see href="https://getbootstrap.com/docs/5.3/components/scrollspy/">Bootstrap Scrollspy</see> that automatically highlights the navigation link matching the section currently scrolled into view.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxScrollspy">https://havit.blazor.eu/components/HxScrollspy</see>
             </summary>
         </member>
@@ -12679,7 +12690,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator">
             <summary>
-            Displays the content of the component as "in progress".<br />
+            Wraps content and shows a spinner overlay while an operation is in progress, with a configurable delay to avoid flicker on fast operations.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxProgressIndicator">https://havit.blazor.eu/components/HxProgressIndicator</see>
             </summary>
         </member>
@@ -13588,6 +13599,11 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxToast.DisposeAsync">
             <inheritdoc />
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer">
+            <summary>
+            Positions and stacks the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxToast"/> messages on the screen; rendered automatically by <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessenger"/>.
+            </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer.Position">
             <summary>

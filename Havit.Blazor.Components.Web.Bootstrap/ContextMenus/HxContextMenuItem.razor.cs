@@ -5,6 +5,9 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
+/// <summary>
+/// Single item for <see cref="HxContextMenu"/>, with an optional confirmation message shown before its action runs.
+/// </summary>
 public partial class HxContextMenuItem : ComponentBase, ICascadeEnabledComponent
 {
 	/// <summary>
