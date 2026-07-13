@@ -1,7 +1,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Component to display a hierarchy data structure.<br />
+/// Tree component for displaying and navigating hierarchical data, with expandable/collapsible items, single-item selection, per-item icons and custom content, and full keyboard accessibility.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTreeView">https://havit.blazor.eu/components/HxTreeView</see>
 /// </summary>
 /// <typeparam name="TItem">Type of tree data item.</typeparam>
