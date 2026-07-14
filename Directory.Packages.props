@@ -4,7 +4,7 @@
 <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
 <AspNetCoreVersion8>8.0.28</AspNetCoreVersion8>
 <AspNetCoreVersion9>9.0.17</AspNetCoreVersion9>
-<AspNetCoreVersion10>10.0.9</AspNetCoreVersion10>
+<AspNetCoreVersion10>10.0.10</AspNetCoreVersion10>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageVersion Include="Azure.Monitor.OpenTelemetry.AspNetCore" Version="1.5.0" />
