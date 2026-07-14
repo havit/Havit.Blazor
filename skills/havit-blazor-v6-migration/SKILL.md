@@ -77,7 +77,11 @@ Run the searches in `references/class-renames.md` and apply the mappings: `form-
 
 ### 3c. Theme color utilities (Bootstrap 6 token system)
 
-Apply per `references/class-renames.md`: `text-{color}` → `fg-{color}`, `text-{color}-emphasis` → `fg-emphasis-{color}`, `bg-{color}-subtle` → `bg-subtle-{color}`, `border-{color}-subtle` → `border-subtle-{color}`, `text-bg-{color}` → `theme-{color}`. The `light`/`dark` theme colors are **removed** — map `light` → `secondary` and `dark` → `inverse` (new `accent` and `inverse` colors exist). Verify each result against the bundle as in 3a.
+Apply per `references/class-renames.md`: `text-{color}` → `fg-{color}`, `text-{color}-emphasis` → `fg-emphasis-{color}`, `bg-{color}-subtle` → `bg-subtle-{color}`, `border-{color}-subtle` → `border-subtle-{color}`, `text-bg-{color}` → `theme-{color}`. The `light`/`dark` theme colors are **removed** — map `light` → `secondary` and `dark` → `inverse` (new `accent` and `inverse` colors exist). Also apply the body-surface renames: `bg-body-secondary`/`bg-body-tertiary` → `bg-2`/`bg-3`, `text-body-secondary` → `fg-secondary`, `text-muted` → `fg-secondary`. Verify each result against the bundle as in 3a.
+
+**Don't stop at `class="..."` markup searches.** Classes are frequently built as C# string literals — a hardcoded `CssClass = "text-danger"` in a demo's `@code` block, a `RenderTreeBuilder.AddAttribute(..., "text-secondary mb-1 ...")` in a `.razor.cs` file, an `ItemCssClassSelector` lambda returning a literal string, or a class embedded inside an HTML string passed to a `Content`/`Html` parameter. A plain `rg 'class="..."' -g '*.razor'` search misses all of these. Grep `.cs`/`.razor.cs` files for the same old class names as plain quoted substrings, not just attribute syntax.
+
+**Also sweep CSS custom properties, not just utility classes.** Consumer `<style>` blocks, `.razor.css` files, and inline `style="--my-var: var(--bs-...)"` overrides that reference renamed Bootstrap variables (`--bs-secondary-color`, `--bs-emphasis-color`, `--bs-{color}-text-emphasis`, `--bs-body-bg`/`--bs-body-color`) break silently the same way a stale class does — see the CSS custom properties table in `references/class-renames.md`.
 
 ### 3d. Breakpoint VALUE changes
 
@@ -232,8 +236,11 @@ The CSS variables ARE renamed, though: `--bs-border-radius` and its `-sm`/`-lg`/
    rg -n 'HxModal|HxOffcanvas|HxDropdown|HxNavbarCollapse' -g '*.razor' -g '*.cs' -g '!{bin,obj}'
    rg -n 'form-select|text-bg-|btn-outline-[a-z]+|\bbtn-(primary|secondary|success|danger|warning|info|light|dark)\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
    rg -on '\b[a-z][a-z0-9-]*-(sm|md|lg|xl|xxl)-[a-z0-9-]+\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
+   rg -n '\btext-(primary|secondary|success|danger|warning|info|light|dark|muted|white|black|body-secondary|body-tertiary)\b|\bbg-body-(secondary|tertiary)\b' -g '*.razor' -g '*.cs' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
+   rg -n -- '--bs-(secondary-color|emphasis-color|[a-z]+-text-emphasis|[a-z-]*-rgb\b)' -g '*.css' -g '*.razor' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
    rg -n -- '--bs-border-radius' -g '*.css' -g '*.razor' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
    ```
+   The `text-*`/`bg-body-*` and `--bs-*` commands also need a `.cs` pass beyond `class="..."` markup — see the C# string-literal note in Step 3c. Don't assume any `text-{value}` survives just because a same-named `bg-{value}` does (e.g. `bg-white`/`bg-black` are unchanged but `text-white`/`text-black` are not) — verify each hit against the bundle individually.
 3. Run the application and visually check:
    - **Forms**: labels/validation render; selects styled (no bare native select); checkboxes/radios/switches; any toggle-button groups respond to clicks.
    - **Dialogs**: open/close (button, Escape, backdrop), sizes/fullscreen, message boxes.

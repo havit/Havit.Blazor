@@ -12,7 +12,7 @@
                             Href="@($"showcase/{_previousShowcase.Id}")" />
 
     <div class="current text-center order-last md:order-0 py-4 md:py-0">
-        <div class="small text-primary">@_showcase.Description</div>
+        <div class="small fg-primary">@_showcase.Description</div>
         <h1 class="fw-bold">@_showcase.Title</h1>
     </div>
 
@@ -23,7 +23,7 @@
                             CssClass="text-end" />
 </div>
 
-<div class="showcase-detail bg-body-tertiary">
+<div class="showcase-detail bg-3">
     <div class="container d-flex gap-3 flex-wrap justify-content-center">
         <img src="@_showcase.ImageUrl" class="rounded-3 border shadow-lg mw-100" alt="@_showcase.Title" style="max-height: 750px">
     </div>
