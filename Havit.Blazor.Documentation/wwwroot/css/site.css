@@ -8,11 +8,12 @@
 	--hx-sidebar-body-padding: 				0 1rem 0 0;
 }
 
-/* Demo content uses vstack to stack and space items; block-level elements (e.g. alerts)
-   stretch full-width by design. Buttons and button groups should keep their natural width. */
-.demo-content > .btn,
-.demo-content > .btn-group {
-	align-self: flex-start;
+/* Demo content flows as normal block/inline content (not flex), so block-level demo
+   elements (e.g. alerts, cards) stay full-width by default while inline elements
+   (buttons, badges, avatars, ...) keep their natural width instead of being stretched.
+   Only multiple block-level root children need spacing between them. */
+.demo-content > * + * {
+	margin-top: 1rem;
 }
 
 /* In the tabbed demo variant the tab content is a flex child of the (flex-column) card body;
