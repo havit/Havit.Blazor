@@ -8,11 +8,7 @@
 	--hx-sidebar-body-padding: 				0 1rem 0 0;
 }
 
-/* Demo content flows as normal block/inline content (not flex), so block-level demo
-   elements (e.g. alerts, cards) stay full-width by default while inline elements
-   (buttons, badges, avatars, ...) keep their natural width instead of being stretched.
-   Only multiple block-level root children need spacing between them. */
-.demo-content > * + * {
+:where(.demo-content) > * + :not(.btn, .btn-group, .badge, .avatar, .avatar-stack, .hx-context-menu) {
 	margin-top: 1rem;
 }
 
