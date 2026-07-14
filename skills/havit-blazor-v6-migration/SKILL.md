@@ -222,6 +222,12 @@ Bootstrap 6 utilities no longer use `!important`; everything Bootstrap ships is 
 
 Audit `*.razor.css` files for rules setting properties that utility classes on the same elements also set (`display`, `margin`, `padding`, `position`, ...) and move them into `@layer custom`.
 
+### 4.12 `rounded-*` classes are unchanged; `--bs-border-radius*` variables are renamed
+
+`rounded-0`…`rounded-5`, `rounded-circle`, `rounded-pill`, and the side-scoped variants (`rounded-top-*`/`rounded-end-*`/`rounded-bottom-*`/`rounded-start-*`) are **not** renamed — v6 only extends the scale additively (new `rounded-6`…`rounded-9`, new standalone `rounded-size-*` family). Don't spend time sweeping `rounded-*` class usage.
+
+The CSS variables ARE renamed, though: `--bs-border-radius` and its `-sm`/`-lg`/`-xl`/`-xxl`/`-2xl`/`-pill` siblings become a numbered `--bs-radius-0`…`--bs-radius-9` scale plus `--bs-radius-pill`. Apply the mapping in `references/class-renames.md` § 10 to any consumer CSS overriding `--bs-border-radius*` directly.
+
 ## Step 5 — Verification loop
 
 1. `dotnet build` — iterate until clean. Compile errors name the removed types from Step 4; do not suppress with `#pragma`/aliases.
@@ -230,10 +236,11 @@ Audit `*.razor.css` files for rules setting properties that utility classes on t
    rg -n 'HxModal|HxOffcanvas|HxDropdown|HxNavbarCollapse' -g '*.razor' -g '*.cs' -g '!{bin,obj}'
    rg -n 'form-select|text-bg-|btn-outline-[a-z]+|\bbtn-(primary|secondary|success|danger|warning|info|light|dark)\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
    rg -on '\b[a-z][a-z0-9-]*-(sm|md|lg|xl|xxl)-[a-z0-9-]+\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
-   rg -n '\btext-(primary|secondary|success|danger|warning|info|light|dark|muted|body-secondary|body-tertiary)\b|\bbg-body-(secondary|tertiary)\b' -g '*.razor' -g '*.cs' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
+   rg -n '\btext-(primary|secondary|success|danger|warning|info|light|dark|muted|white|black|body-secondary|body-tertiary)\b|\bbg-body-(secondary|tertiary)\b' -g '*.razor' -g '*.cs' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
    rg -n -- '--bs-(secondary-color|emphasis-color|[a-z]+-text-emphasis|[a-z-]*-rgb\b)' -g '*.css' -g '*.razor' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
+   rg -n -- '--bs-border-radius' -g '*.css' -g '*.razor' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
    ```
-   The third-to-last and second-to-last commands also need a `.cs` pass beyond `class="..."` markup — see the C# string-literal note in Step 3c.
+   The `text-*`/`bg-body-*` and `--bs-*` commands also need a `.cs` pass beyond `class="..."` markup — see the C# string-literal note in Step 3c. Don't assume any `text-{value}` survives just because a same-named `bg-{value}` does (e.g. `bg-white`/`bg-black` are unchanged but `text-white`/`text-black` are not) — verify each hit against the bundle individually.
 3. Run the application and visually check:
    - **Forms**: labels/validation render; selects styled (no bare native select); checkboxes/radios/switches; any toggle-button groups respond to clicks.
    - **Dialogs**: open/close (button, Escape, backdrop), sizes/fullscreen, message boxes.
