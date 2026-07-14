@@ -55,8 +55,9 @@ Rule: `{utility}-{bp}-{value}` → `{bp}:{utility}-{value}`; breakpoint name `xx
 | `bg-body-secondary` / `bg-body-tertiary` | `bg-2` / `bg-3` (numbered surfaces — see below) |
 | `text-body-secondary` | `fg-secondary` |
 | `text-muted` | `fg-secondary` (v6 has no muted-specific fg token; nearest match) |
+| `text-white` / `text-black` | `fg-white` / `fg-black` |
 
-`bg-{color}` and `border-{color}` keep their names. `bg-body` (unmodified) keeps its name too — it's only the `-secondary`/`-tertiary` body-surface variants that are renamed.
+`bg-{color}` and `border-{color}` keep their names — **including `bg-white`/`bg-black`/`bg-body`**, which are unaffected. Only the `text-*` family is renamed to `fg-*`; don't assume `text-white`/`text-black` survive just because their `bg-*` counterparts do (verify each one against the bundle, same as any other `text-*` class — this exact assumption caused a real miss in an earlier pass of this sweep).
 
 **Numbered surfaces**: v6 replaces the body-surface ladder (`bg-body`, `bg-body-secondary`, `bg-body-tertiary`) with `bg-body`, `bg-1`, `bg-2`, `bg-3`, `bg-4` (increasingly distinct from the page background — `bg-1` subtlest, `bg-4` most). `bg-body-secondary` maps to `bg-2` and `bg-body-tertiary` maps to `bg-3` (confirmed by comparing computed gray-scale steps against the BS5 defaults — verify against the bundle same as other renames, and re-check against a real card/surface in the browser since the numbered scale isn't a strict 1:1 semantic match).
 
