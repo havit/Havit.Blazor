@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.JSInterop;
@@ -19,6 +21,7 @@ public partial class HxEChart : IAsyncDisposable
 
 	/// <summary>
 	/// Options for the chart. See <a href="https://echarts.apache.org/en/option.html">ECharts Option</a> for more details.
+	/// The chart is updated only when a new instance is provided (in-place mutations of the previously passed instance are not detected).
 	/// </summary>
 	[Parameter, EditorRequired] public object Options { get; set; }
 
@@ -46,7 +49,9 @@ public partial class HxEChart : IAsyncDisposable
 
 	private IJSObjectReference _jsModule;
 	private DotNetObjectReference<HxEChart> _dotNetObjectReference;
-	private string _currentOptions;
+	private object _lastOptionsReference;
+	private byte[] _currentOptionsHash;
+	private string _optionsToApply;
 	private bool _shouldSetupChartOnAfterRender;
 	private bool _disposed;
 
@@ -71,13 +76,18 @@ public partial class HxEChart : IAsyncDisposable
 
 	protected override void OnParametersSet()
 	{
-		if (Options is not null)
+		if ((Options is not null) && !ReferenceEquals(Options, _lastOptionsReference))
 		{
-			var newOptions = JsonSerializer.Serialize(Options, s_JsonSerializerOptions);
-			if (!string.Equals(_currentOptions, newOptions, StringComparison.Ordinal))
+			_lastOptionsReference = Options;
+
+			var newOptions = JsonSerializer.SerializeToUtf8Bytes(Options, s_JsonSerializerOptions);
+			var newOptionsHash = SHA256.HashData(newOptions);
+
+			if ((_currentOptionsHash is null) || !newOptionsHash.AsSpan().SequenceEqual(_currentOptionsHash))
 			{
 				_shouldSetupChartOnAfterRender = true;
-				_currentOptions = newOptions;
+				_currentOptionsHash = newOptionsHash;
+				_optionsToApply = Encoding.UTF8.GetString(newOptions);
 			}
 		}
 	}
@@ -92,7 +102,8 @@ public partial class HxEChart : IAsyncDisposable
 				return;
 			}
 
-			await _jsModule.InvokeVoidAsync("setupChart", ChartId, _dotNetObjectReference, _currentOptions, AutoResize, OnAxisPointerUpdated.HasDelegate);
+			await _jsModule.InvokeVoidAsync("setupChart", ChartId, _dotNetObjectReference, _optionsToApply, AutoResize, OnAxisPointerUpdated.HasDelegate);
+			_optionsToApply = null; // release the serialized JSON, only the hash is kept for change detection
 		}
 
 		_shouldSetupChartOnAfterRender = false;
