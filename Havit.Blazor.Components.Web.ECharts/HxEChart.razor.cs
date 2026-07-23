@@ -21,7 +21,6 @@ public partial class HxEChart : IAsyncDisposable
 
 	/// <summary>
 	/// Options for the chart. See <a href="https://echarts.apache.org/en/option.html">ECharts Option</a> for more details.
-	/// The chart is updated only when a new instance is provided (in-place mutations of the previously passed instance are not detected).
 	/// </summary>
 	[Parameter, EditorRequired] public object Options { get; set; }
 
@@ -49,7 +48,6 @@ public partial class HxEChart : IAsyncDisposable
 
 	private IJSObjectReference _jsModule;
 	private DotNetObjectReference<HxEChart> _dotNetObjectReference;
-	private object _lastOptionsReference;
 	private byte[] _currentOptionsHash;
 	private string _optionsToApply;
 	private bool _shouldSetupChartOnAfterRender;
@@ -76,10 +74,8 @@ public partial class HxEChart : IAsyncDisposable
 
 	protected override void OnParametersSet()
 	{
-		if ((Options is not null) && !ReferenceEquals(Options, _lastOptionsReference))
+		if (Options is not null)
 		{
-			_lastOptionsReference = Options;
-
 			var newOptions = JsonSerializer.SerializeToUtf8Bytes(Options, s_JsonSerializerOptions);
 			var newOptionsHash = SHA256.HashData(newOptions);
 

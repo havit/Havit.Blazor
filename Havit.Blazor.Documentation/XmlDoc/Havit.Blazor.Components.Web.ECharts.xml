@@ -112,7 +112,6 @@
         <member name="P:Havit.Blazor.Components.Web.ECharts.HxEChart.Options">
             <summary>
             Options for the chart. See <a href="https://echarts.apache.org/en/option.html">ECharts Option</a> for more details.
-            The chart is updated only when a new instance is provided (in-place mutations of the previously passed instance are not detected).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.ECharts.HxEChart.Height">
