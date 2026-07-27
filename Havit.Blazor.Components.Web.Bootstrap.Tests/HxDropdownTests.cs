@@ -6,7 +6,7 @@ public class HxDropdownTests : BunitTestBase
 	public void HxDropdown_DefaultDirection_HasDropdownCssClass()
 	{
 		// Act
-		var cut = RenderComponent<HxDropdown>(p => p
+		var cut = Render<HxDropdown>(p => p
 			.AddChildContent("Content"));
 
 		// Assert
@@ -22,7 +22,7 @@ public class HxDropdownTests : BunitTestBase
 	public void HxDropdown_Direction_CorrectCssClass(DropdownDirection direction, string expectedCss)
 	{
 		// Act
-		var cut = RenderComponent<HxDropdown>(p => p
+		var cut = Render<HxDropdown>(p => p
 			.Add(d => d.Direction, direction)
 			.AddChildContent("Content"));
 
@@ -35,7 +35,7 @@ public class HxDropdownTests : BunitTestBase
 	public void HxDropdown_CssClass_IsApplied()
 	{
 		// Act
-		var cut = RenderComponent<HxDropdown>(p => p
+		var cut = Render<HxDropdown>(p => p
 			.Add(d => d.CssClass, "my-dropdown")
 			.AddChildContent("Content"));
 
@@ -48,7 +48,7 @@ public class HxDropdownTests : BunitTestBase
 	public void HxDropdownToggleElement_RendersDataBsToggle()
 	{
 		// Act
-		var cut = RenderComponent<HxDropdown>(p => p
+		var cut = Render<HxDropdown>(p => p
 			.AddChildContent<HxDropdownToggleElement>(toggle => toggle
 				.AddChildContent("Toggle")));
 
@@ -62,7 +62,7 @@ public class HxDropdownTests : BunitTestBase
 	public void HxDropdownMenu_RendersDropdownMenuCssClass()
 	{
 		// Act
-		var cut = RenderComponent<HxDropdown>(p => p
+		var cut = Render<HxDropdown>(p => p
 			.AddChildContent<HxDropdownMenu>(menu => menu
 				.AddChildContent("Menu content")));
 
@@ -75,7 +75,7 @@ public class HxDropdownTests : BunitTestBase
 	public void HxDropdownItem_RendersCorrectStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxDropdown>(p => p
+		var cut = Render<HxDropdown>(p => p
 			.AddChildContent<HxDropdownMenu>(menu => menu
 				.AddChildContent<HxDropdownItem>(item => item
 					.AddChildContent("Item text"))));
@@ -94,7 +94,7 @@ public class HxDropdownTests : BunitTestBase
 	public void HxDropdownItem_DisabledFalse_HasDisabledCssClass()
 	{
 		// Act
-		var cut = RenderComponent<HxDropdown>(p => p
+		var cut = Render<HxDropdown>(p => p
 			.AddChildContent<HxDropdownMenu>(menu => menu
 				.AddChildContent<HxDropdownItem>(item => item
 					.Add(i => i.Enabled, false)
@@ -109,7 +109,7 @@ public class HxDropdownTests : BunitTestBase
 	public void HxDropdownDivider_RendersDividerStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxDropdown>(p => p
+		var cut = Render<HxDropdown>(p => p
 			.AddChildContent<HxDropdownMenu>(menu => menu
 				.AddChildContent<HxDropdownDivider>()));
 
@@ -122,7 +122,7 @@ public class HxDropdownTests : BunitTestBase
 	public void HxDropdownHeader_RendersHeaderStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxDropdown>(p => p
+		var cut = Render<HxDropdown>(p => p
 			.AddChildContent<HxDropdownMenu>(menu => menu
 				.AddChildContent<HxDropdownHeader>(header => header
 					.AddChildContent("Section title"))));
@@ -137,7 +137,7 @@ public class HxDropdownTests : BunitTestBase
 	public void HxDropdownButtonGroup_HasBtnGroupClass()
 	{
 		// Act
-		var cut = RenderComponent<HxDropdownButtonGroup>(p => p
+		var cut = Render<HxDropdownButtonGroup>(p => p
 			.AddChildContent("Content"));
 
 		// Assert

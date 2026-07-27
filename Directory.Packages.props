@@ -9,7 +9,7 @@
 	<ItemGroup>
 		<PackageVersion Include="Azure.Monitor.OpenTelemetry.AspNetCore" Version="1.5.0" />
 		<PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
-		<PackageVersion Include="bunit.web" Version="1.40.0" />
+		<PackageVersion Include="bunit" Version="2.8.6" />
 		<PackageVersion Include="Grpc.AspNetCore.Server" Version="2.80.0" />
 		<PackageVersion Include="Grpc.AspNetCore.Web" Version="2.80.0" />
 		<PackageVersion Include="Grpc.Net.Client" Version="2.80.0" />
@@ -64,13 +64,6 @@
 		<PackageVersion Include="System.Text.Json" Version="$(AspNetCoreVersion10)" />
 		<!-- Transient vulnerabilities -->
 		<PackageVersion Include="System.Formats.Asn1" Version="$(AspNetCoreVersion10)" />
-	</ItemGroup>
-	<ItemGroup>
-		<!-- AngleSharp 1.2.0 (pulled in by bunit.web 1.40.0, the latest release) has a known moderate severity
-		     vulnerability. Later AngleSharp versions break binary compatibility with bunit.web's compiled
-		     assemblies (MissingMethodException on IHtmlCollection<T>.get_Item), so it can't be bumped yet;
-		     suppress the advisory until bunit.web ships a build against a patched AngleSharp. -->
-		<NuGetAuditSuppress Include="https://github.com/advisories/GHSA-pgww-w46g-26qg" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(ProjectName.EndsWith(`Tests`))' == 'False'">
 		<GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.7.23">

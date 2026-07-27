@@ -6,7 +6,7 @@ public class HxPopoverTests : BunitTestBase
 	public void HxPopover_Title_RendersDataBsToggle()
 	{
 		// Act
-		var cut = RenderComponent<HxPopover>(p => p
+		var cut = Render<HxPopover>(p => p
 			.Add(po => po.Title, "Popover title")
 			.AddChildContent("Click me"));
 
@@ -19,7 +19,7 @@ public class HxPopoverTests : BunitTestBase
 	public void HxPopover_Title_RendersDataBsTitle()
 	{
 		// Act
-		var cut = RenderComponent<HxPopover>(p => p
+		var cut = Render<HxPopover>(p => p
 			.Add(po => po.Title, "My Title")
 			.AddChildContent("Click me"));
 
@@ -32,7 +32,7 @@ public class HxPopoverTests : BunitTestBase
 	public void HxPopover_Content_RendersDataBsContent()
 	{
 		// Act
-		var cut = RenderComponent<HxPopover>(p => p
+		var cut = Render<HxPopover>(p => p
 			.Add(po => po.Title, "Title")
 			.Add(po => po.Content, "Popover body content")
 			.AddChildContent("Click me"));
@@ -46,7 +46,7 @@ public class HxPopoverTests : BunitTestBase
 	public void HxPopover_Placement_RendersDataBsPlacement()
 	{
 		// Act
-		var cut = RenderComponent<HxPopover>(p => p
+		var cut = Render<HxPopover>(p => p
 			.Add(po => po.Title, "Title")
 			.Add(po => po.Placement, PopoverPlacement.Left)
 			.AddChildContent("Click me"));
@@ -60,7 +60,7 @@ public class HxPopoverTests : BunitTestBase
 	public void HxPopover_ContentOnly_RendersSpan()
 	{
 		// Act - popover with content but no title should still render span
-		var cut = RenderComponent<HxPopover>(p => p
+		var cut = Render<HxPopover>(p => p
 			.Add(po => po.Content, "Just content")
 			.AddChildContent("Click me"));
 
@@ -74,7 +74,7 @@ public class HxPopoverTests : BunitTestBase
 	public void HxPopover_EmptyTitleAndContent_NoSpanWrapper()
 	{
 		// Act
-		var cut = RenderComponent<HxPopover>(p => p
+		var cut = Render<HxPopover>(p => p
 			.AddChildContent("Just content"));
 
 		// Assert - no span wrapper

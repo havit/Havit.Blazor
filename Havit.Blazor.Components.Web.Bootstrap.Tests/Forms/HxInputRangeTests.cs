@@ -9,7 +9,7 @@ public class HxInputRangeTests : BunitTestBase
 		int currentValue = 50;
 
 		// Act
-		var cut = RenderComponent<HxInputRange<int>>(parameters => parameters
+		var cut = Render<HxInputRange<int>>(parameters => parameters
 			.Add(p => p.Min, 0)
 			.Add(p => p.Max, 100)
 			.Bind(p => p.Value, currentValue, newValue => currentValue = newValue));
@@ -26,7 +26,7 @@ public class HxInputRangeTests : BunitTestBase
 		// Arrange
 		int currentValue = 25;
 
-		var cut = RenderComponent<HxInputRange<int>>(parameters => parameters
+		var cut = Render<HxInputRange<int>>(parameters => parameters
 			.Add(p => p.Min, 0)
 			.Add(p => p.Max, 100)
 			.Bind(p => p.Value, currentValue, newValue => currentValue = newValue));
@@ -45,7 +45,7 @@ public class HxInputRangeTests : BunitTestBase
 		int currentValue = 42;
 
 		// Act
-		var cut = RenderComponent<HxInputRange<int>>(parameters => parameters
+		var cut = Render<HxInputRange<int>>(parameters => parameters
 			.Add(p => p.Min, 0)
 			.Add(p => p.Max, 100)
 			.Add(p => p.Label, "Volume")

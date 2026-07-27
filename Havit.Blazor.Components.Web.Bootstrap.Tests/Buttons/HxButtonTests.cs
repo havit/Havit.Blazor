@@ -10,7 +10,7 @@ public partial class HxButtonTests
 	{
 		// Arrange
 		var clicked = false;
-		var cut = RenderComponent<HxButton>(parameters => parameters
+		var cut = Render<HxButton>(parameters => parameters
 			.Add(p => p.Text, "Click me")
 			.Add(p => p.OnClick, EventCallback.Factory.Create<MouseEventArgs>(this, () => clicked = true))
 		);
@@ -26,7 +26,7 @@ public partial class HxButtonTests
 	public void HxButton_Disabled_RendersDisabledAttribute()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxButton>(parameters => parameters
+		var cut = Render<HxButton>(parameters => parameters
 			.Add(p => p.Text, "Disabled")
 			.Add(p => p.Enabled, false)
 		);
@@ -41,7 +41,7 @@ public partial class HxButtonTests
 	{
 		// Arrange
 		var tcs = new TaskCompletionSource();
-		var cut = RenderComponent<HxButton>(parameters => parameters
+		var cut = Render<HxButton>(parameters => parameters
 			.Add(p => p.Text, "Async")
 			.Add(p => p.OnClick, EventCallback.Factory.Create<MouseEventArgs>(this, () => tcs.Task))
 		);

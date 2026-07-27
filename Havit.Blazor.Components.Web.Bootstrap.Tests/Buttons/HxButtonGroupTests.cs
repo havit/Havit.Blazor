@@ -6,7 +6,7 @@ public class HxButtonGroupTests : BunitTestBase
 	public void HxButtonGroup_Render_GroupsButtonsHorizontally()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxButtonGroup>(parameters => parameters
+		var cut = Render<HxButtonGroup>(parameters => parameters
 			.Add(p => p.AriaLabel, "Test group")
 			.AddChildContent<HxButton>(buttonParams => buttonParams.Add(p => p.Text, "First"))
 			.AddChildContent<HxButton>(buttonParams => buttonParams.Add(p => p.Text, "Second"))

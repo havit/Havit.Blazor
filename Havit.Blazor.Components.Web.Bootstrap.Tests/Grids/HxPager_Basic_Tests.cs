@@ -9,7 +9,7 @@ public class HxPager_Basic_Tests : BunitTestBase
 	public void HxPager_Render_ShowsCorrectPageCount()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxPager>(parameters => parameters
+		var cut = Render<HxPager>(parameters => parameters
 			.Add(p => p.TotalPages, 5)
 			.Add(p => p.CurrentPageIndex, 0));
 
@@ -30,7 +30,7 @@ public class HxPager_Basic_Tests : BunitTestBase
 	{
 		// Arrange
 		int currentPageIndex = 0;
-		var cut = RenderComponent<HxPager>(parameters => parameters
+		var cut = Render<HxPager>(parameters => parameters
 			.Add(p => p.TotalPages, 3)
 			.Add(p => p.CurrentPageIndex, currentPageIndex)
 			.Add(p => p.CurrentPageIndexChanged, (int newIndex) => currentPageIndex = newIndex));
@@ -50,7 +50,7 @@ public class HxPager_Basic_Tests : BunitTestBase
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
 			// Arrange & Act
-			var cut = RenderComponent<HxPager>(parameters => parameters
+			var cut = Render<HxPager>(parameters => parameters
 				.Add(p => p.TotalPages, 5)
 				.Add(p => p.CurrentPageIndex, 0));
 
@@ -69,7 +69,7 @@ public class HxPager_Basic_Tests : BunitTestBase
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
 			// Arrange & Act
-			var cut = RenderComponent<HxPager>(parameters => parameters
+			var cut = Render<HxPager>(parameters => parameters
 				.Add(p => p.TotalPages, 25)
 				.Add(p => p.CurrentPageIndex, 10));
 
@@ -91,7 +91,7 @@ public class HxPager_Basic_Tests : BunitTestBase
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
 			// Arrange & Act
-			var cut = RenderComponent<HxPager>(parameters => parameters
+			var cut = Render<HxPager>(parameters => parameters
 				.Add(p => p.TotalPages, 5)
 				.Add(p => p.CurrentPageIndex, 0));
 
@@ -113,7 +113,7 @@ public class HxPager_Basic_Tests : BunitTestBase
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
 		{
 			// Arrange & Act
-			var cut = RenderComponent<HxPager>(parameters => parameters
+			var cut = Render<HxPager>(parameters => parameters
 				.Add(p => p.TotalPages, 5)
 				.Add(p => p.CurrentPageIndex, 0));
 

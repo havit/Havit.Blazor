@@ -8,7 +8,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordion_Render_HasAccordionStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p => p
+		var cut = Render<HxAccordion>(p => p
 			.AddChildContent<HxAccordionItem>(item => item
 				.Add(i => i.Id, "item1")
 				.Add(i => i.HeaderTemplate, (RenderFragment)(b => b.AddContent(0, "Header 1")))
@@ -24,7 +24,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordion_MultipleItems_RendersAllItems()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p => p
+		var cut = Render<HxAccordion>(p => p
 			.AddChildContent(builder =>
 			{
 				builder.OpenComponent<HxAccordionItem>(0);
@@ -55,7 +55,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordionItem_Render_HasCorrectStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p => p
+		var cut = Render<HxAccordion>(p => p
 			.AddChildContent<HxAccordionItem>(item => item
 				.Add(i => i.Id, "item1")
 				.Add(i => i.HeaderTemplate, (RenderFragment)(b => b.AddContent(0, "Header Text")))
@@ -84,7 +84,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordionItem_DataBsTarget_MatchesCollapseId()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p => p
+		var cut = Render<HxAccordion>(p => p
 			.AddChildContent<HxAccordionItem>(item => item
 				.Add(i => i.Id, "testitem")
 				.Add(i => i.HeaderTemplate, (RenderFragment)(b => b.AddContent(0, "Header")))
@@ -105,7 +105,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordion_StayOpenFalse_SetsDataBsParent()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p => p
+		var cut = Render<HxAccordion>(p => p
 			.Add(a => a.StayOpen, false)
 			.AddChildContent<HxAccordionItem>(item => item
 				.Add(i => i.Id, "item1")
@@ -125,7 +125,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordion_StayOpenTrue_NoDataBsParent()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p => p
+		var cut = Render<HxAccordion>(p => p
 			.Add(a => a.StayOpen, true)
 			.AddChildContent<HxAccordionItem>(item => item
 				.Add(i => i.Id, "item1")
@@ -142,7 +142,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordion_CssClass_IsApplied()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p => p
+		var cut = Render<HxAccordion>(p => p
 			.Add(a => a.CssClass, "custom-accordion")
 			.AddChildContent<HxAccordionItem>(item => item
 				.Add(i => i.Id, "item1")

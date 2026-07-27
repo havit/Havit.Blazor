@@ -6,7 +6,7 @@ public class HxListGroupTests : BunitTestBase
 	public void HxListGroup_Render_DisplaysAllItems()
 	{
 		// Act
-		var cut = RenderComponent<HxListGroup>(parameters => parameters
+		var cut = Render<HxListGroup>(parameters => parameters
 			.AddChildContent<HxListGroupItem>(item => item
 				.AddChildContent("First item"))
 			.AddChildContent<HxListGroupItem>(item => item
@@ -29,7 +29,7 @@ public class HxListGroupTests : BunitTestBase
 		// Arrange
 		int clickCount = 0;
 
-		var cut = RenderComponent<HxListGroup>(parameters => parameters
+		var cut = Render<HxListGroup>(parameters => parameters
 			.AddChildContent<HxListGroupItem>(item => item
 				.Add(i => i.OnClick, () => clickCount++)
 				.AddChildContent("Clickable item"))
@@ -46,7 +46,7 @@ public class HxListGroupTests : BunitTestBase
 	public void HxListGroup_ActiveItem_HasActiveClass()
 	{
 		// Act
-		var cut = RenderComponent<HxListGroup>(parameters => parameters
+		var cut = Render<HxListGroup>(parameters => parameters
 			.AddChildContent<HxListGroupItem>(item => item
 				.Add(i => i.Active, false)
 				.AddChildContent("Inactive item"))

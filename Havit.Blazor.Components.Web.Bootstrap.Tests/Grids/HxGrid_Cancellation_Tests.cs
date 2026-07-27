@@ -30,11 +30,11 @@ public class HxGrid_Cancellation_Tests : BunitTestBase
 			}
 		};
 
-		var cut = RenderComponent<HxGrid<object>>(parameters => parameters
+		var cut = Render<HxGrid<object>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider));
 
 		// Act
-		DisposeComponents();
+		await DisposeComponentsAsync();
 		disposedTCS.SetResult(); // signal that the component is disposed
 		var wasCancellationRequested = await dataProviderTCS.Task;
 
@@ -76,11 +76,11 @@ public class HxGrid_Cancellation_Tests : BunitTestBase
 			}
 		};
 
-		var cut = RenderComponent<HxGrid<object>>(parameters => parameters
+		var cut = Render<HxGrid<object>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider));
 
 		// Act
-		DisposeComponents();
+		await DisposeComponentsAsync();
 		disposedTCS.SetResult(); // signal that the component is disposed
 		var wasCancellationRequested = await dataProviderTCS.Task;
 

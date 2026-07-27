@@ -28,7 +28,7 @@ public class HxInputNumberTests : BunitTestBase
 		CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo(culture);
 
 		decimal? currentValue = null;
-		var cut = RenderComponent<HxInputNumber<decimal?>>(parameters =>
+		var cut = Render<HxInputNumber<decimal?>>(parameters =>
 			parameters.Bind(p =>
 				p.Value,
 				currentValue,
@@ -47,7 +47,7 @@ public class HxInputNumberTests : BunitTestBase
 	{
 		// Arrange
 		int currentValue = 0;
-		var cut = RenderComponent<HxInputNumber<int>>(parameters =>
+		var cut = Render<HxInputNumber<int>>(parameters =>
 			parameters.Bind(p =>
 				p.Value,
 				currentValue,

@@ -10,7 +10,7 @@ public class HxInputPercentTests : BunitTestBase
 	{
 		// Arrange
 		decimal currentValue = 0m;
-		var cut = RenderComponent<HxInputPercent<decimal>>(parameters =>
+		var cut = Render<HxInputPercent<decimal>>(parameters =>
 			parameters.Bind(p =>
 				p.Value,
 				currentValue,
@@ -54,7 +54,7 @@ public class HxInputPercentTests : BunitTestBase
 	{
 		// Arrange
 		decimal currentValue = 0.75m;
-		var cut = RenderComponent<HxInputPercent<decimal>>(parameters =>
+		var cut = Render<HxInputPercent<decimal>>(parameters =>
 		{
 			parameters.Bind(p =>
 				p.Value,

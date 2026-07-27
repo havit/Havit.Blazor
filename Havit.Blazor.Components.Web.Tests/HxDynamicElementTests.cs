@@ -12,7 +12,7 @@ public class HxDynamicElementTests : BunitTestBase
 	public void HxDynamicElement_OnClickNotSet_ShouldNotSubscribeToClickEvent()
 	{
 		// Arrange
-		var ctx = new Bunit.TestContext();
+		var ctx = new Bunit.BunitContext();
 
 		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 		{
@@ -32,7 +32,7 @@ public class HxDynamicElementTests : BunitTestBase
 	public void HxDynamicElement_OnClickIsSet_ShouldRaiseCallbackAndRerender()
 	{
 		// Arrange
-		var ctx = new Bunit.TestContext();
+		var ctx = new Bunit.BunitContext();
 		var onClickCallbackCallCounter = 0;
 
 		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>

@@ -12,7 +12,7 @@ public class HxInputBaseTests
 	public void HxInputBase_Renders_WithoutEditContext()
 	{
 		// Arrange
-		var ctx = new Bunit.TestContext();
+		var ctx = new Bunit.BunitContext();
 		var formData = new FormData();
 
 		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
@@ -52,7 +52,7 @@ public class HxInputBaseTests
 	public void HxInputBase_Renders_AriaDescribedBy_WhenHintProvided()
 	{
 		// Arrange — regression for #1110: input must have aria-describedby referencing hint
-		using var ctx = new Bunit.TestContext();
+		using var ctx = new Bunit.BunitContext();
 		ctx.Services.AddSingleton(TimeProvider.System);
 		ctx.Services.AddLocalization();
 		ctx.Services.AddLogging();

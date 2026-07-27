@@ -14,7 +14,7 @@ public class DemosSmokeTests
 	public void DocumentationDemo_SmokeTest(Type demoComponent)
 	{
 		// Arrange
-		var ctx = new Bunit.TestContext();
+		var ctx = new Bunit.BunitContext();
 		ctx.JSInterop.Mode = JSRuntimeMode.Loose;
 		ctx.Services.AddLogging();
 		ctx.Services.AddHxServices();

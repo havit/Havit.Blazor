@@ -6,7 +6,7 @@ public class HxTooltipTests : BunitTestBase
 	public void HxTooltip_Text_RendersDataBsToggle()
 	{
 		// Act
-		var cut = RenderComponent<HxTooltip>(p => p
+		var cut = Render<HxTooltip>(p => p
 			.Add(t => t.Text, "Tooltip text")
 			.AddChildContent("Hover me"));
 
@@ -19,7 +19,7 @@ public class HxTooltipTests : BunitTestBase
 	public void HxTooltip_Text_RendersDataBsTitle()
 	{
 		// Act
-		var cut = RenderComponent<HxTooltip>(p => p
+		var cut = Render<HxTooltip>(p => p
 			.Add(t => t.Text, "My tooltip text")
 			.AddChildContent("Hover me"));
 
@@ -32,7 +32,7 @@ public class HxTooltipTests : BunitTestBase
 	public void HxTooltip_Placement_RendersDataBsPlacement()
 	{
 		// Act
-		var cut = RenderComponent<HxTooltip>(p => p
+		var cut = Render<HxTooltip>(p => p
 			.Add(t => t.Text, "Tooltip")
 			.Add(t => t.Placement, TooltipPlacement.Bottom)
 			.AddChildContent("Hover me"));
@@ -46,7 +46,7 @@ public class HxTooltipTests : BunitTestBase
 	public void HxTooltip_EmptyText_DoesNotRenderSpanWrapper()
 	{
 		// Act
-		var cut = RenderComponent<HxTooltip>(p => p
+		var cut = Render<HxTooltip>(p => p
 			.AddChildContent("Just content"));
 
 		// Assert - no span wrapper should be rendered, only the child content
@@ -59,7 +59,7 @@ public class HxTooltipTests : BunitTestBase
 	public void HxTooltip_ChildContent_IsRenderedInsideSpan()
 	{
 		// Act
-		var cut = RenderComponent<HxTooltip>(p => p
+		var cut = Render<HxTooltip>(p => p
 			.Add(t => t.Text, "Tooltip text")
 			.AddChildContent("<em>Styled content</em>"));
 
@@ -72,7 +72,7 @@ public class HxTooltipTests : BunitTestBase
 	public void HxTooltip_SpanWrapper_HasInlineBlockClass()
 	{
 		// Act
-		var cut = RenderComponent<HxTooltip>(p => p
+		var cut = Render<HxTooltip>(p => p
 			.Add(t => t.Text, "Tooltip")
 			.AddChildContent("Content"));
 
@@ -85,7 +85,7 @@ public class HxTooltipTests : BunitTestBase
 	public void HxTooltip_WrapperCssClass_IsApplied()
 	{
 		// Act
-		var cut = RenderComponent<HxTooltip>(p => p
+		var cut = Render<HxTooltip>(p => p
 			.Add(t => t.Text, "Tooltip")
 			.Add(t => t.WrapperCssClass, "my-wrapper")
 			.AddChildContent("Content"));

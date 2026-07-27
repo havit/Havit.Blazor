@@ -22,7 +22,7 @@ public class HxGrid_LoadMore_Tests : BunitTestBase
 			return request.ApplyTo(items);
 		};
 
-		var cut = RenderComponent<HxGrid<object>>(parameters => parameters
+		var cut = Render<HxGrid<object>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add(p => p.PageSize, 10)
 			.Add(p => p.ContentNavigationMode, GridContentNavigationMode.LoadMore)

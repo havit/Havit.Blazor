@@ -10,7 +10,7 @@ public class HxCheckboxListTests : BunitTestBase
 		List<string> selectedValues = new();
 
 		// Act
-		var cut = RenderComponent<HxCheckboxList<string, string>>(parameters => parameters
+		var cut = Render<HxCheckboxList<string, string>>(parameters => parameters
 			.Add(p => p.Data, data)
 			.Add(p => p.ItemTextSelector, item => item)
 			.Add(p => p.ItemValueSelector, item => item)
@@ -36,7 +36,7 @@ public class HxCheckboxListTests : BunitTestBase
 		List<string> selectedValues = new() { "Alpha", "Beta", "Gamma" };
 
 		// Act
-		var cut = RenderComponent<HxCheckboxList<string, string>>(parameters => parameters
+		var cut = Render<HxCheckboxList<string, string>>(parameters => parameters
 			.Add(p => p.Data, data)
 			.Add(p => p.ItemTextSelector, item => item)
 			.Add(p => p.ItemValueSelector, item => item)
@@ -60,7 +60,7 @@ public class HxCheckboxListTests : BunitTestBase
 		var data = new List<string> { "Alpha", "Beta", "Gamma" };
 		List<string> selectedValues = new() { "Alpha", "Beta", "Gamma" };
 
-		var cut = RenderComponent<HxCheckboxList<string, string>>(parameters => parameters
+		var cut = Render<HxCheckboxList<string, string>>(parameters => parameters
 			.Add(p => p.Data, data)
 			.Add(p => p.ItemTextSelector, item => item)
 			.Add(p => p.ItemValueSelector, item => item)
@@ -86,7 +86,7 @@ public class HxCheckboxListTests : BunitTestBase
 		var data = new List<string> { "Alpha", "Beta", "Gamma" };
 		List<string> selectedValues = new();
 
-		var cut = RenderComponent<HxCheckboxList<string, string>>(parameters => parameters
+		var cut = Render<HxCheckboxList<string, string>>(parameters => parameters
 			.Add(p => p.Data, data)
 			.Add(p => p.ItemTextSelector, item => item)
 			.Add(p => p.ItemValueSelector, item => item)

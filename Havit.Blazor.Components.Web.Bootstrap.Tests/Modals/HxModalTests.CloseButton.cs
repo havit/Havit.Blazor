@@ -6,7 +6,7 @@ public partial class HxModalTests : BunitTestBase
 	public async Task HxModal_CloseButton_DefaultShouldNotHaveWhiteClass()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxModal>(parameters => parameters
+		var cut = Render<HxModal>(parameters => parameters
 			.Add(p => p.Title, "Test Modal")
 		);
 
@@ -22,7 +22,7 @@ public partial class HxModalTests : BunitTestBase
 	public async Task HxModal_CloseButtonSettings_WhiteTrue_ShouldAddWhiteClass()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxModal>(parameters => parameters
+		var cut = Render<HxModal>(parameters => parameters
 			.Add(p => p.Title, "Test Modal")
 			.Add(p => p.CloseButtonSettings, new CloseButtonSettings { White = true })
 		);
@@ -39,7 +39,7 @@ public partial class HxModalTests : BunitTestBase
 	public async Task HxModal_CloseButtonSettings_WhiteFalse_ShouldNotHaveWhiteClass()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxModal>(parameters => parameters
+		var cut = Render<HxModal>(parameters => parameters
 			.Add(p => p.Title, "Test Modal")
 			.Add(p => p.CloseButtonSettings, new CloseButtonSettings { White = false })
 		);
@@ -56,7 +56,7 @@ public partial class HxModalTests : BunitTestBase
 	public async Task HxModal_CloseButtonSettings_WhiteTrue_ViaSettings_ShouldAddWhiteClass()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxModal>(parameters => parameters
+		var cut = Render<HxModal>(parameters => parameters
 			.Add(p => p.Title, "Test Modal")
 			.Add(p => p.Settings, new ModalSettings
 			{

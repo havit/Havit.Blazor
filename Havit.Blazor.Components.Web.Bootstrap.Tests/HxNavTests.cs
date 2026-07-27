@@ -9,7 +9,7 @@ public class HxNavTests : BunitTestBase
 	public void HxNav_Render_DisplaysLinks()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxNav>(parameters => parameters
+		var cut = Render<HxNav>(parameters => parameters
 			.AddChildContent<HxNavLink>(link => link
 				.Add(l => l.Text, "Home")
 				.Add(l => l.Href, "/")
@@ -31,10 +31,10 @@ public class HxNavTests : BunitTestBase
 	public void HxNav_ActiveRoute_LinkHasActiveClass()
 	{
 		// Arrange — navigate to /active-page so the matching link becomes active
-		Services.GetRequiredService<Bunit.TestDoubles.FakeNavigationManager>().NavigateTo("http://localhost/active-page");
+		Services.GetRequiredService<Bunit.TestDoubles.BunitNavigationManager>().NavigateTo("http://localhost/active-page");
 
 		// Act
-		var cut = RenderComponent<HxNav>(parameters => parameters
+		var cut = Render<HxNav>(parameters => parameters
 			.AddChildContent<HxNavLink>(link => link
 				.Add(l => l.Text, "Active")
 				.Add(l => l.Href, "/active-page")
