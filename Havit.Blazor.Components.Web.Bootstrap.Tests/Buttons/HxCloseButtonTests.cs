@@ -6,7 +6,7 @@ public class HxCloseButtonTests : BunitTestBase
 	public void HxCloseButton_Render_OutputsButtonElement()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxCloseButton>();
+		var cut = Render<HxCloseButton>();
 
 		// Assert
 		var button = cut.Find("button");
@@ -19,7 +19,7 @@ public class HxCloseButtonTests : BunitTestBase
 	{
 		// Arrange
 		var clicked = false;
-		var cut = RenderComponent<HxCloseButton>(parameters => parameters
+		var cut = Render<HxCloseButton>(parameters => parameters
 			.Add(p => p.OnClick, () => clicked = true)
 		);
 

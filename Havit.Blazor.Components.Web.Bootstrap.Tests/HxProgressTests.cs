@@ -6,7 +6,7 @@ public class HxProgressTests : BunitTestBase
 	public void HxProgress_Render_OutputsProgressContainer()
 	{
 		// Act
-		var cut = RenderComponent<HxProgress>();
+		var cut = Render<HxProgress>();
 
 		// Assert
 		var progressDiv = cut.Find("div.progress");
@@ -17,7 +17,7 @@ public class HxProgressTests : BunitTestBase
 	public void HxProgressBar_Value_SetsCorrectWidth()
 	{
 		// Act
-		var cut = RenderComponent<HxProgress>(parameters => parameters
+		var cut = Render<HxProgress>(parameters => parameters
 			.AddChildContent<HxProgressBar>(bar => bar
 				.Add(b => b.Value, 50f)
 			)
@@ -32,7 +32,7 @@ public class HxProgressTests : BunitTestBase
 	public void HxProgressBar_Color_AppliesColorClass()
 	{
 		// Act
-		var cut = RenderComponent<HxProgress>(parameters => parameters
+		var cut = Render<HxProgress>(parameters => parameters
 			.AddChildContent<HxProgressBar>(bar => bar
 				.Add(b => b.Color, ThemeColor.Success)
 			)
@@ -47,7 +47,7 @@ public class HxProgressTests : BunitTestBase
 	public void HxProgressBar_Striped_AppliesStripedClass()
 	{
 		// Act
-		var cut = RenderComponent<HxProgress>(parameters => parameters
+		var cut = Render<HxProgress>(parameters => parameters
 			.AddChildContent<HxProgressBar>(bar => bar
 				.Add(b => b.Striped, true)
 			)
@@ -65,7 +65,7 @@ public class HxProgressTests : BunitTestBase
 		const string labelText = "Loading...";
 
 		// Act
-		var cut = RenderComponent<HxProgress>(parameters => parameters
+		var cut = Render<HxProgress>(parameters => parameters
 			.AddChildContent<HxProgressBar>(bar => bar
 				.Add(b => b.Label, labelText)
 			)
@@ -80,7 +80,7 @@ public class HxProgressTests : BunitTestBase
 	public void HxProgressBar_CustomMinMaxRange_CalculatesCorrectWidth()
 	{
 		// Act — regression for #813: HxProgressBar must work with custom MinValue/MaxValue range
-		var cut = RenderComponent<HxProgress>(parameters => parameters
+		var cut = Render<HxProgress>(parameters => parameters
 			.AddChildContent<HxProgressBar>(bar => bar
 				.Add(b => b.Value, 25f)
 				.Add(b => b.MinValue, 0f)

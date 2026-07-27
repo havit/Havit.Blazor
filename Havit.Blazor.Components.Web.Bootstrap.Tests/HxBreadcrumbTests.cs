@@ -6,7 +6,7 @@ public class HxBreadcrumbTests : BunitTestBase
 	public void HxBreadcrumb_Render_DisplaysAllItems()
 	{
 		// Act
-		var cut = RenderComponent<HxBreadcrumb>(parameters => parameters
+		var cut = Render<HxBreadcrumb>(parameters => parameters
 			.AddChildContent<HxBreadcrumbItem>(item => item
 				.Add(i => i.Href, "/home")
 				.Add(i => i.Text, "Home"))
@@ -30,7 +30,7 @@ public class HxBreadcrumbTests : BunitTestBase
 	public void HxBreadcrumb_ActiveItem_HasNoLink()
 	{
 		// Act
-		var cut = RenderComponent<HxBreadcrumb>(parameters => parameters
+		var cut = Render<HxBreadcrumb>(parameters => parameters
 			.AddChildContent<HxBreadcrumbItem>(item => item
 				.Add(i => i.Href, "/home")
 				.Add(i => i.Text, "Home"))
@@ -51,7 +51,7 @@ public class HxBreadcrumbTests : BunitTestBase
 	public void HxBreadcrumb_NonActiveItems_RenderLinksWithHrefs()
 	{
 		// Act
-		var cut = RenderComponent<HxBreadcrumb>(parameters => parameters
+		var cut = Render<HxBreadcrumb>(parameters => parameters
 			.AddChildContent<HxBreadcrumbItem>(item => item
 				.Add(i => i.Href, "/home")
 				.Add(i => i.Text, "Home"))

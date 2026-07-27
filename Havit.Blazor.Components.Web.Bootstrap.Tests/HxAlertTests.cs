@@ -6,7 +6,7 @@ public class HxAlertTests : BunitTestBase
 	public void HxAlert_Color_RendersCorrectCssClass()
 	{
 		// Act
-		var cut = RenderComponent<HxAlert>(p => p
+		var cut = Render<HxAlert>(p => p
 			.Add(a => a.Color, ThemeColor.Primary)
 			.AddChildContent("Test alert"));
 
@@ -27,7 +27,7 @@ public class HxAlertTests : BunitTestBase
 	public void HxAlert_Color_AllThemeColors(ThemeColor color, string expectedCss)
 	{
 		// Act
-		var cut = RenderComponent<HxAlert>(p => p
+		var cut = Render<HxAlert>(p => p
 			.Add(a => a.Color, color)
 			.AddChildContent("Content"));
 
@@ -40,7 +40,7 @@ public class HxAlertTests : BunitTestBase
 	public void HxAlert_ChildContent_IsRendered()
 	{
 		// Act
-		var cut = RenderComponent<HxAlert>(p => p
+		var cut = Render<HxAlert>(p => p
 			.Add(a => a.Color, ThemeColor.Info)
 			.AddChildContent("<strong>Hello</strong> World"));
 
@@ -54,7 +54,7 @@ public class HxAlertTests : BunitTestBase
 	public void HxAlert_Dismissible_AddsCloseButton()
 	{
 		// Act
-		var cut = RenderComponent<HxAlert>(p => p
+		var cut = Render<HxAlert>(p => p
 			.Add(a => a.Color, ThemeColor.Warning)
 			.Add(a => a.Dismissible, true)
 			.AddChildContent("Dismissible alert"));
@@ -74,7 +74,7 @@ public class HxAlertTests : BunitTestBase
 	public void HxAlert_NotDismissible_NoCloseButton()
 	{
 		// Act
-		var cut = RenderComponent<HxAlert>(p => p
+		var cut = Render<HxAlert>(p => p
 			.Add(a => a.Color, ThemeColor.Success)
 			.Add(a => a.Dismissible, false)
 			.AddChildContent("Non-dismissible alert"));
@@ -89,7 +89,7 @@ public class HxAlertTests : BunitTestBase
 	public void HxAlert_HasRoleAttribute()
 	{
 		// Act
-		var cut = RenderComponent<HxAlert>(p => p
+		var cut = Render<HxAlert>(p => p
 			.Add(a => a.Color, ThemeColor.Primary)
 			.AddChildContent("Alert"));
 
@@ -102,7 +102,7 @@ public class HxAlertTests : BunitTestBase
 	public void HxAlert_CssClass_IsApplied()
 	{
 		// Act
-		var cut = RenderComponent<HxAlert>(p => p
+		var cut = Render<HxAlert>(p => p
 			.Add(a => a.Color, ThemeColor.Primary)
 			.Add(a => a.CssClass, "my-custom-class")
 			.AddChildContent("Alert"));

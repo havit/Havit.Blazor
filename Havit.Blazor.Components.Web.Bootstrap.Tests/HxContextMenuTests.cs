@@ -6,7 +6,7 @@ public class HxContextMenuTests : BunitTestBase
 	public void HxContextMenu_Render_HasContextMenuStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxContextMenu>(p => p
+		var cut = Render<HxContextMenu>(p => p
 			.AddChildContent<HxContextMenuItem>(item => item
 				.Add(i => i.Text, "Action 1")));
 
@@ -27,7 +27,7 @@ public class HxContextMenuTests : BunitTestBase
 	public void HxContextMenu_RendersDropdownMenu()
 	{
 		// Act
-		var cut = RenderComponent<HxContextMenu>(p => p
+		var cut = Render<HxContextMenu>(p => p
 			.AddChildContent<HxContextMenuItem>(item => item
 				.Add(i => i.Text, "Action 1")));
 
@@ -40,7 +40,7 @@ public class HxContextMenuTests : BunitTestBase
 	public void HxContextMenuItem_RendersCorrectStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxContextMenu>(p => p
+		var cut = Render<HxContextMenu>(p => p
 			.AddChildContent<HxContextMenuItem>(item => item
 				.Add(i => i.Text, "Edit")));
 
@@ -57,7 +57,7 @@ public class HxContextMenuTests : BunitTestBase
 	public void HxContextMenuItem_Disabled_HasDisabledCssClass()
 	{
 		// Act
-		var cut = RenderComponent<HxContextMenu>(p => p
+		var cut = Render<HxContextMenu>(p => p
 			.AddChildContent<HxContextMenuItem>(item => item
 				.Add(i => i.Text, "Disabled action")
 				.Add(i => i.Enabled, false)));
@@ -71,7 +71,7 @@ public class HxContextMenuTests : BunitTestBase
 	public void HxContextMenuItem_Enabled_NoDisabledCssClass()
 	{
 		// Act
-		var cut = RenderComponent<HxContextMenu>(p => p
+		var cut = Render<HxContextMenu>(p => p
 			.AddChildContent<HxContextMenuItem>(item => item
 				.Add(i => i.Text, "Active action")
 				.Add(i => i.Enabled, true)));
@@ -85,7 +85,7 @@ public class HxContextMenuTests : BunitTestBase
 	public void HxContextMenu_MultipleItems_RendersAll()
 	{
 		// Act
-		var cut = RenderComponent<HxContextMenu>(p => p
+		var cut = Render<HxContextMenu>(p => p
 			.AddChildContent(builder =>
 			{
 				builder.OpenComponent<HxContextMenuItem>(0);

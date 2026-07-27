@@ -2,20 +2,20 @@
 	<PropertyGroup>
 <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-<AspNetCoreVersion8>8.0.28</AspNetCoreVersion8>
-<AspNetCoreVersion9>9.0.17</AspNetCoreVersion9>
-<AspNetCoreVersion10>10.0.9</AspNetCoreVersion10>
+<AspNetCoreVersion8>8.0.29</AspNetCoreVersion8>
+<AspNetCoreVersion9>9.0.18</AspNetCoreVersion9>
+<AspNetCoreVersion10>10.0.10</AspNetCoreVersion10>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageVersion Include="Azure.Monitor.OpenTelemetry.AspNetCore" Version="1.5.0" />
 		<PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
-		<PackageVersion Include="bunit.web" Version="1.40.0" />
+		<PackageVersion Include="bunit" Version="2.8.6" />
 		<PackageVersion Include="Grpc.AspNetCore.Server" Version="2.80.0" />
 		<PackageVersion Include="Grpc.AspNetCore.Web" Version="2.80.0" />
 		<PackageVersion Include="Grpc.Net.Client" Version="2.80.0" />
 		<PackageVersion Include="Grpc.Net.Client.Web" Version="2.80.0" />
-		<PackageVersion Include="Havit.Core" Version="2.0.38" />
-		<PackageVersion Include="Havit.AspNetCore" Version="2.0.31" />
+		<PackageVersion Include="Havit.Core" Version="2.0.39" />
+		<PackageVersion Include="Havit.AspNetCore" Version="2.0.32" />
 		<PackageVersion Include="LoxSmoke.DocXml" Version="3.9.0" />
 		<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' == 'net10.0'" />
 		<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
@@ -29,8 +29,8 @@
 		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(AspNetCoreVersion10)" />
 		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(AspNetCoreVersion10)" />
 		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreVersion10)" />
-		<PackageVersion Include="Microsoft.CodeAnalysis" Version="5.3.0" />
-		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.3.0" />
+		<PackageVersion Include="Microsoft.CodeAnalysis" Version="5.6.0" />
+		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.6.0" />
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing" Version="1.1.4" />
 		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' == 'net10.0'" />
 		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' != 'net10.0'" />

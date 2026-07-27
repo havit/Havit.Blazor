@@ -13,7 +13,7 @@ public class HxSelectTests : BunitTestBase
 		Expression<Func<string>> valueExpression = () => selectedValue;
 
 		// Act
-		var cut = RenderComponent<HxSelect<string, string>>(parameters => parameters
+		var cut = Render<HxSelect<string, string>>(parameters => parameters
 			.Add(p => p.Data, items)
 			.Add(p => p.Value, selectedValue)
 			.Add(p => p.ValueChanged, value => selectedValue = value)
@@ -37,7 +37,7 @@ public class HxSelectTests : BunitTestBase
 		string selectedValue = null;
 		Expression<Func<string>> valueExpression = () => selectedValue;
 
-		var cut = RenderComponent<HxSelect<string, string>>(parameters => parameters
+		var cut = Render<HxSelect<string, string>>(parameters => parameters
 			.Add(p => p.Data, items)
 			.Add(p => p.Value, selectedValue)
 			.Add(p => p.ValueChanged, value => selectedValue = value)
@@ -66,7 +66,7 @@ public class HxSelectTests : BunitTestBase
 		Expression<Func<string>> valueExpression = () => selectedValue;
 
 		// Act
-		var cut = RenderComponent<HxSelect<string, string>>(parameters => parameters
+		var cut = Render<HxSelect<string, string>>(parameters => parameters
 			.Add(p => p.Data, items)
 			.Add(p => p.Value, selectedValue)
 			.Add(p => p.ValueChanged, value => selectedValue = value)
