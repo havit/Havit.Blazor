@@ -8,7 +8,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_NullContent_RendersNothing()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, null)
 		);
 
@@ -20,7 +20,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_EmptyContent_RendersNothing()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "")
 		);
 
@@ -32,7 +32,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_SimpleText_RendersParagraph()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "Hello world")
 		);
 
@@ -45,7 +45,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_Heading_RendersH1()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "# My Heading")
 		);
 
@@ -61,7 +61,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_NoWrapperByDefault()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "Text")
 		);
 
@@ -73,7 +73,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_CssClass_RendersWrapperDiv()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "Text")
 			.Add(p => p.CssClass, "my-class")
 		);
@@ -88,7 +88,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_AdditionalAttributes_RendersWrapperDiv()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "Text")
 			.AddUnmatched("id", "my-md")
 		);
@@ -106,7 +106,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_SanitizeHtml_DefaultTrue_EscapesHtml()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "<b>bold</b>")
 		);
 
@@ -119,7 +119,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_SanitizeHtml_False_PreservesHtml()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "<b>bold</b>")
 			.Add(p => p.SanitizeHtml, false)
 		);
@@ -141,7 +141,7 @@ public class HxMarkdownTests : BunitTestBase
 		};
 
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "| A |\n|---|\n| 1 |")
 			.Add(p => p.Settings, settings)
 		);
@@ -160,7 +160,7 @@ public class HxMarkdownTests : BunitTestBase
 		};
 
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "| A |\n|---|\n| 1 |")
 			.Add(p => p.Settings, settings)
 			.Add(p => p.TableCssClass, "custom-table")
@@ -175,7 +175,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_Defaults_ApplyTableClass()
 	{
 		// Act – use default settings (table class = "table")
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "| A |\n|---|\n| 1 |")
 		);
 
@@ -188,7 +188,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_Defaults_ApplyBlockquoteClass()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "> Quote")
 		);
 
@@ -201,7 +201,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_Defaults_ApplyImageClass()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "![Alt](https://example.com/img.png)")
 		);
 
@@ -218,7 +218,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_CodeBlock_RendersPreCode()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "```\nvar x = 1;\n```")
 		);
 
@@ -230,7 +230,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_UnorderedList_RendersUl()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "- Item 1\n- Item 2")
 		);
 
@@ -242,7 +242,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_OrderedList_RendersOl()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "1. First\n2. Second")
 		);
 
@@ -254,7 +254,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_HorizontalRule_RendersHr()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "---")
 		);
 
@@ -266,7 +266,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_InlineBold_RendersStrong()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "This is **bold**")
 		);
 
@@ -278,7 +278,7 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_InlineLink_RendersAnchor()
 	{
 		// Act
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "[Click](https://example.com)")
 		);
 
@@ -296,13 +296,13 @@ public class HxMarkdownTests : BunitTestBase
 	public void HxMarkdown_ContentChange_UpdatesRenderedOutput()
 	{
 		// Arrange
-		var cut = RenderComponent<HxMarkdown>(parameters => parameters
+		var cut = Render<HxMarkdown>(parameters => parameters
 			.Add(p => p.Content, "# First")
 		);
 		Assert.Equal("First", cut.Find("h1").TextContent);
 
 		// Act
-		cut.SetParametersAndRender(parameters => parameters
+		cut.Render(parameters => parameters
 			.Add(p => p.Content, "## Second")
 		);
 

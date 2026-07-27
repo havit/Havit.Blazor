@@ -13,7 +13,7 @@ public class HxInputTextAreaTests : BunitTestBase
 	{
 		// Arrange
 		string currentValue = null;
-		var cut = RenderComponent<HxInputTextArea>(parameters =>
+		var cut = Render<HxInputTextArea>(parameters =>
 			parameters.Bind(p =>
 				p.Value,
 				currentValue,

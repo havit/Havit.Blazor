@@ -44,7 +44,7 @@ public class HxSwitchTests : BunitTestBase
 		Assert.False(cut.Find("input").HasAttribute("checked"));
 	}
 
-	private (IRenderedFragment cut, bool[] valueHolder) RenderSwitch(bool initialValue = false)
+	private (IRenderedComponent<HxSwitch> cut, bool[] valueHolder) RenderSwitch(bool initialValue = false)
 	{
 		var valueHolder = new bool[] { initialValue };
 
@@ -57,6 +57,6 @@ public class HxSwitchTests : BunitTestBase
 			builder.CloseComponent();
 		};
 
-		return (Render(componentRenderer), valueHolder);
+		return (Render<HxSwitch>(componentRenderer), valueHolder);
 	}
 }

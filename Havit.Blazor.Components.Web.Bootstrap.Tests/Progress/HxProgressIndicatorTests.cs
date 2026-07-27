@@ -6,7 +6,7 @@ public class HxProgressIndicatorTests : BunitTestBase
 	public void HxProgressIndicator_InProgressTrue_ShowsOverlay()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxProgressIndicator>(parameters => parameters
+		var cut = Render<HxProgressIndicator>(parameters => parameters
 			.Add(p => p.InProgress, true)
 			.Add(p => p.Delay, 0)
 		);
@@ -20,7 +20,7 @@ public class HxProgressIndicatorTests : BunitTestBase
 	public void HxProgressIndicator_InProgressFalse_HidesOverlay()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxProgressIndicator>(parameters => parameters
+		var cut = Render<HxProgressIndicator>(parameters => parameters
 			.Add(p => p.InProgress, false)
 		);
 
@@ -33,7 +33,7 @@ public class HxProgressIndicatorTests : BunitTestBase
 	public void HxProgressIndicator_Content_RemainsVisibleUnderOverlay()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxProgressIndicator>(parameters => parameters
+		var cut = Render<HxProgressIndicator>(parameters => parameters
 			.Add(p => p.InProgress, true)
 			.Add(p => p.Delay, 0)
 			.Add(p => p.ChildContent, builder => builder.AddMarkupContent(0, "<p id=\"test-content\">Content</p>"))

@@ -10,7 +10,7 @@ public class HxTabPanelTests : BunitTestBase
 		string activeTabId = null;
 
 		// Act - Render component with async OnTabDeactivated callback
-		var component = RenderComponent<HxTabPanel>(parameters => parameters
+		var component = Render<HxTabPanel>(parameters => parameters
 			.Add(p => p.ActiveTabId, activeTabId)
 			.Add(p => p.ActiveTabIdChanged, newActiveTabId => activeTabId = newActiveTabId)
 			.AddChildContent<HxTab>(tab => tab
@@ -35,7 +35,7 @@ public class HxTabPanelTests : BunitTestBase
 		Assert.NotNull(component);
 
 		// Trigger a tab change to activate the callback
-		component.SetParametersAndRender(parameters => parameters
+		component.Render(parameters => parameters
 			.Add(p => p.ActiveTabId, "2")
 		);
 
@@ -52,7 +52,7 @@ public class HxTabPanelTests : BunitTestBase
 		string activeTabId = "1";
 
 		// Act - Render component
-		var component = RenderComponent<HxTabPanel>(parameters => parameters
+		var component = Render<HxTabPanel>(parameters => parameters
 			.Add(p => p.ActiveTabId, activeTabId)
 			.Add(p => p.ActiveTabIdChanged, newActiveTabId => activeTabId = newActiveTabId)
 			.AddChildContent<HxTab>(tab => tab
@@ -73,7 +73,7 @@ public class HxTabPanelTests : BunitTestBase
 		);
 
 		// Set the same parameters again (no actual change to active tab)
-		component.SetParametersAndRender(parameters => parameters
+		component.Render(parameters => parameters
 			.Add(p => p.ActiveTabId, activeTabId)
 		);
 
@@ -87,7 +87,7 @@ public class HxTabPanelTests : BunitTestBase
 	public void HxTabPanel_Render_DisplaysAllTabHeaders()
 	{
 		// Act
-		var component = RenderComponent<HxTabPanel>(parameters => parameters
+		var component = Render<HxTabPanel>(parameters => parameters
 			.Add(p => p.ActiveTabId, "tab1")
 			.AddChildContent<HxTab>(tab => tab
 				.Add(t => t.Id, "tab1")
@@ -120,7 +120,7 @@ public class HxTabPanelTests : BunitTestBase
 		// Arrange
 		string activeTabId = "tab1";
 
-		var component = RenderComponent<HxTabPanel>(parameters => parameters
+		var component = Render<HxTabPanel>(parameters => parameters
 			.Add(p => p.ActiveTabId, activeTabId)
 			.Add(p => p.ActiveTabIdChanged, newId => activeTabId = newId)
 			.AddChildContent<HxTab>(tab => tab
@@ -148,7 +148,7 @@ public class HxTabPanelTests : BunitTestBase
 	public void HxTabPanel_ActiveTab_HasActiveClass()
 	{
 		// Arrange & Act
-		var component = RenderComponent<HxTabPanel>(parameters => parameters
+		var component = Render<HxTabPanel>(parameters => parameters
 			.Add(p => p.ActiveTabId, "tab2")
 			.AddChildContent<HxTab>(tab => tab
 				.Add(t => t.Id, "tab1")
@@ -172,7 +172,7 @@ public class HxTabPanelTests : BunitTestBase
 	public void HxTabPanel_FirstTab_ActiveByDefault()
 	{
 		// Act - Render without specifying ActiveTabId
-		var component = RenderComponent<HxTabPanel>(parameters => parameters
+		var component = Render<HxTabPanel>(parameters => parameters
 			.AddChildContent<HxTab>(tab => tab
 				.Add(t => t.Id, "tab1")
 				.Add(t => t.Title, "First")
@@ -199,7 +199,7 @@ public class HxTabPanelTests : BunitTestBase
 	public void HxTabPanel_AriaAttributes_ActiveTabHasCorrectRolesAndAttributes()
 	{
 		// Arrange & Act
-		var component = RenderComponent<HxTabPanel>(parameters => parameters
+		var component = Render<HxTabPanel>(parameters => parameters
 			.Add(p => p.ActiveTabId, "tab1")
 			.AddChildContent<HxTab>(tab => tab
 				.Add(t => t.Id, "tab1")
@@ -232,7 +232,7 @@ public class HxTabPanelTests : BunitTestBase
 	public void HxTabPanel_AriaAttributes_TabPanelHasCorrectRoleAndLabelledBy()
 	{
 		// Arrange & Act
-		var component = RenderComponent<HxTabPanel>(parameters => parameters
+		var component = Render<HxTabPanel>(parameters => parameters
 			.Add(p => p.ActiveTabId, "tab1")
 			.AddChildContent<HxTab>(tab => tab
 				.Add(t => t.Id, "tab1")
@@ -253,7 +253,7 @@ public class HxTabPanelTests : BunitTestBase
 	public void HxTabPanel_AriaAttributes_TablistRoleOnNav()
 	{
 		// Arrange & Act
-		var component = RenderComponent<HxTabPanel>(parameters => parameters
+		var component = Render<HxTabPanel>(parameters => parameters
 			.Add(p => p.ActiveTabId, "tab1")
 			.AddChildContent<HxTab>(tab => tab
 				.Add(t => t.Id, "tab1")
@@ -270,7 +270,7 @@ public class HxTabPanelTests : BunitTestBase
 	public void HxTabPanel_AriaAttributes_ActiveTabOnly_InactiveTabHasNoAriaControls()
 	{
 		// Arrange & Act
-		var component = RenderComponent<HxTabPanel>(parameters => parameters
+		var component = Render<HxTabPanel>(parameters => parameters
 			.Add(p => p.ActiveTabId, "tab1")
 			.Add(p => p.RenderMode, TabPanelRenderMode.ActiveTabOnly)
 			.AddChildContent<HxTab>(tab => tab

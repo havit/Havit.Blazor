@@ -16,7 +16,7 @@ public class HxGrid_Accessibility_Tests : BunitTestBase
 		var items = Enumerable.Range(1, 3).Select(i => new TestItem(i, $"Item {i}")).ToList();
 		Task<GridDataProviderResult<TestItem>> dataProvider(GridDataProviderRequest<TestItem> request) => Task.FromResult(request.ApplyTo(items));
 
-		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
 				.Add(c => c.HeaderText, "Name")
@@ -36,7 +36,7 @@ public class HxGrid_Accessibility_Tests : BunitTestBase
 		var items = Enumerable.Range(1, 3).Select(i => new TestItem(i, $"Item {i}")).ToList();
 		Task<GridDataProviderResult<TestItem>> dataProvider(GridDataProviderRequest<TestItem> request) => Task.FromResult(request.ApplyTo(items));
 
-		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
 				.Add(c => c.HeaderText, "Name")
@@ -63,7 +63,7 @@ public class HxGrid_Accessibility_Tests : BunitTestBase
 		var items = Enumerable.Range(1, 3).Select(i => new TestItem(i, $"Item {i}")).ToList();
 		Task<GridDataProviderResult<TestItem>> dataProvider(GridDataProviderRequest<TestItem> request) => Task.FromResult(request.ApplyTo(items));
 
-		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
 				.Add(c => c.HeaderText, "Name")
@@ -95,7 +95,7 @@ public class HxGrid_Accessibility_Tests : BunitTestBase
 
 		Expression<Func<TestItem, IComparable>> sortKeySelector = item => item.Name;
 
-		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
 				.Add(c => c.HeaderText, "Name")
@@ -121,7 +121,7 @@ public class HxGrid_Accessibility_Tests : BunitTestBase
 
 		Expression<Func<TestItem, IComparable>> sortKeySelector = item => item.Name;
 
-		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
 				.Add(c => c.HeaderText, "Name")
@@ -144,7 +144,7 @@ public class HxGrid_Accessibility_Tests : BunitTestBase
 		var items = Enumerable.Range(1, 3).Select(i => new TestItem(i, $"Item {i}")).ToList();
 		Task<GridDataProviderResult<TestItem>> dataProvider(GridDataProviderRequest<TestItem> request) => Task.FromResult(request.ApplyTo(items));
 
-		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
 				.Add(c => c.HeaderText, "Name")
@@ -177,7 +177,7 @@ public class HxGrid_Accessibility_Tests : BunitTestBase
 
 		Expression<Func<TestItem, IComparable>> sortKeySelector = item => item.Name;
 
-		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
 				.Add(c => c.HeaderText, "Name")

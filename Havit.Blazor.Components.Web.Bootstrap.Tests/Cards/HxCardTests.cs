@@ -6,7 +6,7 @@ public class HxCardTests : BunitTestBase
 	public void HxCard_Render_DisplaysBodyContent()
 	{
 		// Act
-		var cut = RenderComponent<HxCard>(parameters => parameters
+		var cut = Render<HxCard>(parameters => parameters
 			.Add(p => p.BodyTemplate, "Body content here")
 		);
 
@@ -20,7 +20,7 @@ public class HxCardTests : BunitTestBase
 	public void HxCard_HeaderAndFooter_RenderCorrectly()
 	{
 		// Act
-		var cut = RenderComponent<HxCard>(parameters => parameters
+		var cut = Render<HxCard>(parameters => parameters
 			.Add(p => p.HeaderTemplate, "Header text")
 			.Add(p => p.BodyTemplate, "Body text")
 			.Add(p => p.FooterTemplate, "Footer text")
@@ -38,7 +38,7 @@ public class HxCardTests : BunitTestBase
 	public void HxCard_ImageTop_RendersImageAboveBody()
 	{
 		// Act
-		var cut = RenderComponent<HxCard>(parameters => parameters
+		var cut = Render<HxCard>(parameters => parameters
 			.Add(p => p.ImageSrc, "test-image.png")
 			.Add(p => p.ImagePlacement, CardImagePlacement.Top)
 			.Add(p => p.BodyTemplate, "Body text")
@@ -63,7 +63,7 @@ public class HxCardTests : BunitTestBase
 	public void HxCardTitle_Render_OutputsH5WithText()
 	{
 		// Act
-		var cut = RenderComponent<HxCardTitle>(parameters => parameters
+		var cut = Render<HxCardTitle>(parameters => parameters
 			.AddChildContent("Card Title Text")
 		);
 
@@ -77,7 +77,7 @@ public class HxCardTests : BunitTestBase
 	public void HxCardSubtitle_Render_OutputsH6WithText()
 	{
 		// Act
-		var cut = RenderComponent<HxCardSubtitle>(parameters => parameters
+		var cut = Render<HxCardSubtitle>(parameters => parameters
 			.AddChildContent("Card Subtitle Text")
 		);
 
@@ -91,7 +91,7 @@ public class HxCardTests : BunitTestBase
 	public void HxCardText_Render_OutputsParagraphWithText()
 	{
 		// Act
-		var cut = RenderComponent<HxCardText>(parameters => parameters
+		var cut = Render<HxCardText>(parameters => parameters
 			.AddChildContent("Card text content")
 		);
 

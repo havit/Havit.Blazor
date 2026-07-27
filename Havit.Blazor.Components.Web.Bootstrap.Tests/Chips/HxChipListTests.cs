@@ -14,7 +14,7 @@ public class HxChipListTests : BunitTestBase
 		};
 
 		// Act
-		var cut = RenderComponent<HxChipList>(parameters => parameters
+		var cut = Render<HxChipList>(parameters => parameters
 			.Add(p => p.Chips, chips));
 
 		// Assert – three badge elements are rendered
@@ -33,7 +33,7 @@ public class HxChipListTests : BunitTestBase
 		};
 		ChipItem removedChip = null;
 
-		var cut = RenderComponent<HxChipList>(parameters => parameters
+		var cut = Render<HxChipList>(parameters => parameters
 			.Add(p => p.Chips, chips)
 			.Add(p => p.OnChipRemoveClick, (ChipItem chip) => { removedChip = chip; }));
 
@@ -48,7 +48,7 @@ public class HxChipListTests : BunitTestBase
 		Assert.Same(chips[1], removedChip);
 		// Simulate the parent updating the chips list in response to the callback
 		chips.Remove(removedChip);
-		cut.SetParametersAndRender(p => p.Add(x => x.Chips, chips));
+		cut.Render(p => p.Add(x => x.Chips, chips));
 
 		// Assert – one chip badge disappeared
 		Assert.Equal(2, cut.FindAll(".badge").Count());
@@ -66,7 +66,7 @@ public class HxChipListTests : BunitTestBase
 		};
 		ChipItem removedChip = null;
 
-		var cut = RenderComponent<HxChipList>(parameters => parameters
+		var cut = Render<HxChipList>(parameters => parameters
 			.Add(p => p.Chips, chips)
 			.Add(p => p.OnChipRemoveClick, (ChipItem chip) => { removedChip = chip; }));
 
@@ -79,7 +79,7 @@ public class HxChipListTests : BunitTestBase
 
 		// Simulate the parent updating the chips list in response to the callback
 		chips.Remove(removedChip);
-		cut.SetParametersAndRender(p => p.Add(x => x.Chips, chips));
+		cut.Render(p => p.Add(x => x.Chips, chips));
 
 		// Assert – remaining badges contain the expected content; "Name: Peter" is gone
 		var badgeTexts = cut.FindAll(".badge")

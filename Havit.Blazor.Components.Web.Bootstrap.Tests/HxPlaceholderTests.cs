@@ -6,7 +6,7 @@ public class HxPlaceholderTests : BunitTestBase
 	public void HxPlaceholder_Render_OutputsPlaceholderElement()
 	{
 		// Act
-		var cut = RenderComponent<HxPlaceholder>();
+		var cut = Render<HxPlaceholder>();
 
 		// Assert
 		var element = cut.Find("span");
@@ -17,7 +17,7 @@ public class HxPlaceholderTests : BunitTestBase
 	public void HxPlaceholderContainer_AnimationGlow_AppliesGlowClass()
 	{
 		// Act
-		var cut = RenderComponent<HxPlaceholderContainer>(parameters => parameters
+		var cut = Render<HxPlaceholderContainer>(parameters => parameters
 			.Add(p => p.Animation, PlaceholderAnimation.Glow)
 			.AddChildContent("<span>content</span>"));
 
@@ -30,7 +30,7 @@ public class HxPlaceholderTests : BunitTestBase
 	public void HxPlaceholderContainer_AnimationWave_AppliesWaveClass()
 	{
 		// Act
-		var cut = RenderComponent<HxPlaceholderContainer>(parameters => parameters
+		var cut = Render<HxPlaceholderContainer>(parameters => parameters
 			.Add(p => p.Animation, PlaceholderAnimation.Wave)
 			.AddChildContent("<span>content</span>"));
 
@@ -43,7 +43,7 @@ public class HxPlaceholderTests : BunitTestBase
 	public void HxPlaceholderButton_Render_HasDisabledAppearance()
 	{
 		// Act
-		var cut = RenderComponent<HxPlaceholderButton>();
+		var cut = Render<HxPlaceholderButton>();
 
 		// Assert
 		var button = cut.Find("button");

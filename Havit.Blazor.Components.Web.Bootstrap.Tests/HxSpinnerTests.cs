@@ -6,7 +6,7 @@ public class HxSpinnerTests : BunitTestBase
 	public void HxSpinner_Render_DefaultBorderSpinner()
 	{
 		// Act
-		var cut = RenderComponent<HxSpinner>();
+		var cut = Render<HxSpinner>();
 
 		// Assert
 		Assert.True(cut.Find("div").ClassList.Contains("spinner-border"));
@@ -16,7 +16,7 @@ public class HxSpinnerTests : BunitTestBase
 	public void HxSpinner_TypeGrow_RendersGrowClass()
 	{
 		// Act
-		var cut = RenderComponent<HxSpinner>(parameters => parameters
+		var cut = Render<HxSpinner>(parameters => parameters
 			.Add(p => p.Type, SpinnerType.Grow)
 		);
 
@@ -28,7 +28,7 @@ public class HxSpinnerTests : BunitTestBase
 	public void HxSpinner_SizeSmall_RendersSizeClass()
 	{
 		// Act
-		var cut = RenderComponent<HxSpinner>(parameters => parameters
+		var cut = Render<HxSpinner>(parameters => parameters
 			.Add(p => p.Size, SpinnerSize.Small)
 		);
 

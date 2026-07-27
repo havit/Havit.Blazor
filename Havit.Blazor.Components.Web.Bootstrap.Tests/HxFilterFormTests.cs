@@ -14,7 +14,7 @@ public class HxFilterFormTests : BunitTestBase
 		var model = new FilterModel { Name = "Test" };
 
 		// Act
-		var cut = RenderComponent<HxFilterForm<FilterModel>>(parameters => parameters
+		var cut = Render<HxFilterForm<FilterModel>>(parameters => parameters
 			.Add(p => p.Model, model)
 			.Add(p => p.ChildContent, (FilterModel m) => (RenderTreeBuilder builder) =>
 			{
@@ -40,7 +40,7 @@ public class HxFilterFormTests : BunitTestBase
 		var model = new FilterModel { Name = "Initial" };
 		FilterModel updatedModel = null;
 
-		var cut = RenderComponent<HxFilterForm<FilterModel>>(parameters => parameters
+		var cut = Render<HxFilterForm<FilterModel>>(parameters => parameters
 			.Add(p => p.Model, model)
 			.Add(p => p.ModelChanged, (FilterModel m) => updatedModel = m)
 			.Add(p => p.ChildContent, (FilterModel m) => (RenderTreeBuilder builder) =>
@@ -70,7 +70,7 @@ public class HxFilterFormTests : BunitTestBase
 		var initialModel = new FilterModel { Name = "ActiveFilter" };
 		var defaultModel = new FilterModel { Name = null };
 
-		var cut = RenderComponent<HxFilterForm<FilterModel>>(parameters => parameters
+		var cut = Render<HxFilterForm<FilterModel>>(parameters => parameters
 			.Add(p => p.Model, initialModel)
 			.Add(p => p.ChildContent, (FilterModel m) => (RenderTreeBuilder builder) =>
 			{
@@ -85,7 +85,7 @@ public class HxFilterFormTests : BunitTestBase
 		Assert.Equal("ActiveFilter", cut.Find("#filter-name").TextContent);
 
 		// Act — reset by providing a new default model from outside
-		cut.SetParametersAndRender(parameters => parameters
+		cut.Render(parameters => parameters
 			.Add(p => p.Model, defaultModel)
 		);
 

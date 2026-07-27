@@ -11,14 +11,14 @@ public class HxGrid_PreserveSelection_Tests : BunitTestBase
 
 		GridDataProviderDelegate<object> dataProvider = (GridDataProviderRequest<object> request) => Task.FromResult(request.ApplyTo(items));
 
-		var cut = RenderComponent<HxGrid<object>>(parameters => parameters
+		var cut = Render<HxGrid<object>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add(p => p.PageSize, 10) // selectedItem visible
 			.Bind(p => p.SelectedDataItem, selectedItem, newValue => selectedItem = newValue, () => selectedItem)
 			.Add(p => p.PreserveSelection, false));
 
 		// Act
-		cut.SetParametersAndRender(parameters => parameters
+		cut.Render(parameters => parameters
 			.Add(p => p.PageSize, 5)); // selectedItem no longer visible
 
 		// Assert
@@ -34,14 +34,14 @@ public class HxGrid_PreserveSelection_Tests : BunitTestBase
 
 		GridDataProviderDelegate<object> dataProvider = (GridDataProviderRequest<object> request) => Task.FromResult(request.ApplyTo(items));
 
-		var cut = RenderComponent<HxGrid<object>>(parameters => parameters
+		var cut = Render<HxGrid<object>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add(p => p.PageSize, 10) // selectedItem visible
 			.Bind(p => p.SelectedDataItems, selectedItems, newValue => selectedItems = newValue, () => selectedItems)
 			.Add(p => p.PreserveSelection, false));
 
 		// Act
-		cut.SetParametersAndRender(parameters => parameters
+		cut.Render(parameters => parameters
 			.Add(p => p.PageSize, 5)); // someItems no longer visible
 
 		// Assert
@@ -57,7 +57,7 @@ public class HxGrid_PreserveSelection_Tests : BunitTestBase
 
 		GridDataProviderDelegate<object> dataProvider = (GridDataProviderRequest<object> request) => Task.FromResult(request.ApplyTo(items));
 
-		var cut = RenderComponent<HxGrid<object>>(parameters => parameters
+		var cut = Render<HxGrid<object>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add(p => p.PageSize, 10) // selectedItem visible
 			.Bind(p => p.SelectedDataItem, selectedItem, newValue => selectedItem = newValue, () => selectedItem)
@@ -79,14 +79,14 @@ public class HxGrid_PreserveSelection_Tests : BunitTestBase
 
 		GridDataProviderDelegate<object> dataProvider = (GridDataProviderRequest<object> request) => Task.FromResult(request.ApplyTo(items));
 
-		var cut = RenderComponent<HxGrid<object>>(parameters => parameters
+		var cut = Render<HxGrid<object>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add(p => p.PageSize, 10) // selectedItem visible
 			.Bind(p => p.SelectedDataItem, selectedItem, newValue => selectedItem = newValue, () => selectedItem)
 			.Add(p => p.PreserveSelection, true));
 
 		// Act
-		cut.SetParametersAndRender(parameters => parameters
+		cut.Render(parameters => parameters
 			.Add(p => p.PageSize, 5)); // selectedItem no longer visible
 
 		// Assert
@@ -102,14 +102,14 @@ public class HxGrid_PreserveSelection_Tests : BunitTestBase
 
 		GridDataProviderDelegate<object> dataProvider = (GridDataProviderRequest<object> request) => Task.FromResult(request.ApplyTo(items));
 
-		var cut = RenderComponent<HxGrid<object>>(parameters => parameters
+		var cut = Render<HxGrid<object>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add(p => p.PageSize, 10) // selectedItem visible
 			.Bind(p => p.SelectedDataItems, selectedItems, newValue => selectedItems = newValue, () => selectedItems)
 			.Add(p => p.PreserveSelection, true));
 
 		// Act
-		cut.SetParametersAndRender(parameters => parameters
+		cut.Render(parameters => parameters
 			.Add(p => p.PageSize, 5)); // someItems no longer visible
 
 		// Assert
