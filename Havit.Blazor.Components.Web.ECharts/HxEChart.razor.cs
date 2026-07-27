@@ -95,6 +95,8 @@ public partial class HxEChart : IAsyncDisposable
 			await EnsureJsModuleAsync();
 			if (_disposed)
 			{
+				_shouldSetupChartOnAfterRender = false;
+				_optionsToApply = null;
 				return;
 			}
 
