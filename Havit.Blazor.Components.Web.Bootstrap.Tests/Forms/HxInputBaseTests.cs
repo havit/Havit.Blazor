@@ -12,7 +12,7 @@ public class HxInputBaseTests
 	public void HxInputBase_Renders_WithoutEditContext()
 	{
 		// Arrange
-		var ctx = new Bunit.BunitContext();
+		using var ctx = new Bunit.BunitContext();
 		var formData = new FormData();
 
 		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>

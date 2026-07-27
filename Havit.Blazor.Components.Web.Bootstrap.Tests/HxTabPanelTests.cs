@@ -293,4 +293,4 @@ public class HxTabPanelTests : BunitTestBase
 		// Inactive tab should NOT have aria-controls (its panel is not in the DOM)
 		Assert.Null(navLinks[1].GetAttribute("aria-controls"));
 	}
-}
+}

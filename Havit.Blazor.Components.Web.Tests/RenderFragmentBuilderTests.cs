@@ -28,7 +28,7 @@ public class RenderFragmentBuilderTests
 	public void RenderFragmentBuilder_CreateFrom_BothSet_RendersContentFirst()
 	{
 		// assert
-		var ctx = new Bunit.BunitContext();
+		using var ctx = new Bunit.BunitContext();
 
 		// act
 		var result = ctx.Render(RenderFragmentBuilder.CreateFrom("content", (RenderTreeBuilder builder) => builder.AddContent(0, "template")));
@@ -41,7 +41,7 @@ public class RenderFragmentBuilderTests
 	public void RenderFragmentBuilder_CreateFrom_OnlyContentSet_RendersContent()
 	{
 		// arrange
-		var ctx = new Bunit.BunitContext();
+		using var ctx = new Bunit.BunitContext();
 
 		// act
 		var result = ctx.Render(RenderFragmentBuilder.CreateFrom("content", null));
@@ -54,7 +54,7 @@ public class RenderFragmentBuilderTests
 	public void RenderFragmentBuilder_CreateFrom_OnlyTemplateSet_RendersTemplate()
 	{
 		// arrange
-		var ctx = new Bunit.BunitContext();
+		using var ctx = new Bunit.BunitContext();
 
 		// act
 		var result = ctx.Render(RenderFragmentBuilder.CreateFrom(null, (RenderTreeBuilder builder) => builder.AddContent(0, "template")));
@@ -67,7 +67,7 @@ public class RenderFragmentBuilderTests
 	public void RenderFragmentBuilder_CreateFrom_EmptyStringContent_ReturnsFragmentWhichRendersStringEmpty()
 	{
 		// arrange
-		var ctx = new Bunit.BunitContext();
+		using var ctx = new Bunit.BunitContext();
 
 		// act
 		var result = ctx.Render(RenderFragmentBuilder.CreateFrom(String.Empty, null));
