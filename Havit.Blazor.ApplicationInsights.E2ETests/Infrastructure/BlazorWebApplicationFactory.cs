@@ -1,10 +1,12 @@
 using Havit.Blazor.ApplicationInsights.Options;
+using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure;
 
@@ -22,6 +24,17 @@ public class BlazorWebApplicationFactory : WebApplicationFactory<TestApp.Program
 	protected override void ConfigureWebHost(IWebHostBuilder builder)
 	{
 		builder.UseEnvironment("Development");
+		builder.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
+
+		builder.ConfigureServices(services =>
+		{
+			// full exception details (incl. stack trace) get sent to the browser console instead of the generic "unhandled exception on the current circuit" message
+			services.Configure<CircuitOptions>(options =>
+			{
+				options.DetailedErrors = true;
+			});
+		});
+
 		if (_optionsOverride != null)
 		{
 			builder.ConfigureServices(services =>
