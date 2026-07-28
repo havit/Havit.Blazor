@@ -77,12 +77,13 @@ public partial class HxEChart : IAsyncDisposable
 		if (Options is not null)
 		{
 			var newOptions = JsonSerializer.SerializeToUtf8Bytes(Options, s_JsonSerializerOptions);
-			var newOptionsHash = SHA256.HashData(newOptions);
+			Span<byte> newOptionsHash = stackalloc byte[SHA256.HashSizeInBytes];
+			SHA256.HashData(newOptions, newOptionsHash);
 
-			if ((_currentOptionsHash is null) || !newOptionsHash.AsSpan().SequenceEqual(_currentOptionsHash))
+			if ((_currentOptionsHash is null) || !newOptionsHash.SequenceEqual(_currentOptionsHash))
 			{
 				_shouldSetupChartOnAfterRender = true;
-				_currentOptionsHash = newOptionsHash;
+				_currentOptionsHash = newOptionsHash.ToArray();
 				_optionsToApply = Encoding.UTF8.GetString(newOptions);
 			}
 		}
