@@ -19,6 +19,7 @@
 		<GrpcPackagesVersion>1.8.5</GrpcPackagesVersion>
 		<ApplicationInsightsPackageVersion>1.0.0</ApplicationInsightsPackageVersion>
 		<StoragePackagesVersion>1.0.0</StoragePackagesVersion>
+		<LocalizationPackagesVersion>3.1.0</LocalizationPackagesVersion>
 
 		<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
 		<TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
