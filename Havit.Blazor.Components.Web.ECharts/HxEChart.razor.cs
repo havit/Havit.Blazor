@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Microsoft.JSInterop;
@@ -46,7 +48,8 @@ public partial class HxEChart : IAsyncDisposable
 
 	private IJSObjectReference _jsModule;
 	private DotNetObjectReference<HxEChart> _dotNetObjectReference;
-	private string _currentOptions;
+	private byte[] _currentOptionsHash;
+	private string _optionsToApply;
 	private bool _shouldSetupChartOnAfterRender;
 	private bool _disposed;
 
@@ -73,11 +76,15 @@ public partial class HxEChart : IAsyncDisposable
 	{
 		if (Options is not null)
 		{
-			var newOptions = JsonSerializer.Serialize(Options, s_JsonSerializerOptions);
-			if (!string.Equals(_currentOptions, newOptions, StringComparison.Ordinal))
+			var newOptions = JsonSerializer.SerializeToUtf8Bytes(Options, s_JsonSerializerOptions);
+			Span<byte> newOptionsHash = stackalloc byte[SHA256.HashSizeInBytes];
+			SHA256.HashData(newOptions, newOptionsHash);
+
+			if ((_currentOptionsHash is null) || !newOptionsHash.SequenceEqual(_currentOptionsHash))
 			{
 				_shouldSetupChartOnAfterRender = true;
-				_currentOptions = newOptions;
+				_currentOptionsHash = newOptionsHash.ToArray();
+				_optionsToApply = Encoding.UTF8.GetString(newOptions);
 			}
 		}
 	}
@@ -89,10 +96,13 @@ public partial class HxEChart : IAsyncDisposable
 			await EnsureJsModuleAsync();
 			if (_disposed)
 			{
+				_shouldSetupChartOnAfterRender = false;
+				_optionsToApply = null;
 				return;
 			}
 
-			await _jsModule.InvokeVoidAsync("setupChart", ChartId, _dotNetObjectReference, _currentOptions, AutoResize, OnAxisPointerUpdated.HasDelegate);
+			await _jsModule.InvokeVoidAsync("setupChart", ChartId, _dotNetObjectReference, _optionsToApply, AutoResize, OnAxisPointerUpdated.HasDelegate);
+			_optionsToApply = null; // release the serialized JSON, only the hash is kept for change detection
 		}
 
 		_shouldSetupChartOnAfterRender = false;
