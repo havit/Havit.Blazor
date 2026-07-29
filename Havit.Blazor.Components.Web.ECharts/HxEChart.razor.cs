@@ -172,6 +172,7 @@ public partial class HxEChart : IAsyncDisposable
 		// and, once this pass has released the payload, hand null to setupChart.
 		_shouldSetupChartOnAfterRender = false;
 		var optionsToApply = _optionsToApply;
+		var claimedOptionsHash = _currentOptionsHash; // generation token: OnParametersSet allocates a new array for every accepted options change
 		_optionsToApply = null; // release the serialized JSON, only the hash is kept for change detection
 
 		try
@@ -181,14 +182,21 @@ public partial class HxEChart : IAsyncDisposable
 			{
 				return;
 			}
+			if (!ReferenceEquals(_currentOptionsHash, claimedOptionsHash))
+			{
+				// newer options arrived while awaiting - the pass queued by their render applies them,
+				// do not overwrite the chart with the stale payload
+				return;
+			}
 
 			await _jsModule.InvokeVoidAsync("setupChart", ChartIdEffective, _dotNetObjectReference, optionsToApply, AutoResize, OnAxisPointerUpdated.HasDelegate);
 		}
 		catch
 		{
 			// restore the pending setup so the next render retries after a transient interop failure
-			// (unless newer options arrived in the meantime - those take precedence)
-			if (!_shouldSetupChartOnAfterRender)
+			// (unless newer options were observed in the meantime - those take precedence,
+			// whether still pending or already applied by a concurrent pass)
+			if (!_shouldSetupChartOnAfterRender && ReferenceEquals(_currentOptionsHash, claimedOptionsHash))
 			{
 				_shouldSetupChartOnAfterRender = true;
 				_optionsToApply = optionsToApply;
