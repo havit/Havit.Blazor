@@ -10,11 +10,19 @@
 
 <h4 class="mt-5">Height omitted (sized by the flex parent)</h4>
 <div style="display: flex; height: 200px;">
-	<HxEChart Options="_options" ChartId="chart-no-height" Height="null" CssClass="flex-grow-1" />
+	<HxEChart Options="_options" ChartId="chart-no-height" Height="@null" CssClass="flex-grow-1" AutoResize="true" />
+</div>
+
+<h4 class="mt-5">Height omitted via an empty string (sized by the flex parent)</h4>
+<div style="display: flex; height: 150px;">
+	<HxEChart Options="_options" ChartId="chart-empty-height" Height="" CssClass="flex-grow-1" AutoResize="true" />
 </div>
 
 <h4 class="mt-5">Width</h4>
 <HxEChart Options="_options" ChartId="chart-width" Width="600px" Height="200px" />
+
+<h4 class="mt-5">id via AdditionalAttributes (must still render the chart)</h4>
+<HxEChart Options="_options" id="chart-splatted-id" Height="200px" />
 
 @code {
 	private object _options;
