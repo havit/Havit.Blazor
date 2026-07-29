@@ -113,18 +113,12 @@ public partial class HxEChart : IAsyncDisposable
 	{
 		get
 		{
-			if (AdditionalAttributes is not null)
-			{
-				foreach (var attribute in AdditionalAttributes)
-				{
-					if (String.Equals(attribute.Key, "id", StringComparison.OrdinalIgnoreCase))
-					{
-						var splattedId = attribute.Value?.ToString();
-						return String.IsNullOrEmpty(splattedId) ? ChartId : splattedId;
-					}
-				}
-			}
-			return ChartId;
+			var splattedId = AdditionalAttributes?
+				.Where(attribute => String.Equals(attribute.Key, "id", StringComparison.OrdinalIgnoreCase))
+				.Select(attribute => attribute.Value?.ToString())
+				.FirstOrDefault();
+
+			return String.IsNullOrEmpty(splattedId) ? ChartId : splattedId;
 		}
 	}
 
