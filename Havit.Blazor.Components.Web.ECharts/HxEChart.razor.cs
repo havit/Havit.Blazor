@@ -174,13 +174,27 @@ public partial class HxEChart : IAsyncDisposable
 		var optionsToApply = _optionsToApply;
 		_optionsToApply = null; // release the serialized JSON, only the hash is kept for change detection
 
-		await EnsureJsModuleAsync();
-		if (_disposed)
+		try
 		{
-			return;
-		}
+			await EnsureJsModuleAsync();
+			if (_disposed)
+			{
+				return;
+			}
 
-		await _jsModule.InvokeVoidAsync("setupChart", ChartIdEffective, _dotNetObjectReference, optionsToApply, AutoResize, OnAxisPointerUpdated.HasDelegate);
+			await _jsModule.InvokeVoidAsync("setupChart", ChartIdEffective, _dotNetObjectReference, optionsToApply, AutoResize, OnAxisPointerUpdated.HasDelegate);
+		}
+		catch
+		{
+			// restore the pending setup so the next render retries after a transient interop failure
+			// (unless newer options arrived in the meantime - those take precedence)
+			if (!_shouldSetupChartOnAfterRender)
+			{
+				_shouldSetupChartOnAfterRender = true;
+				_optionsToApply = optionsToApply;
+			}
+			throw;
+		}
 	}
 
 	private async Task EnsureJsModuleAsync()
