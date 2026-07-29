@@ -191,12 +191,17 @@ public partial class HxEChart : IAsyncDisposable
 
 			await _jsModule.InvokeVoidAsync("setupChart", ChartIdEffective, _dotNetObjectReference, optionsToApply, AutoResize, OnAxisPointerUpdated.HasDelegate);
 		}
-		catch
+		catch (Exception exception)
 		{
 			// restore the pending setup so the next render retries after a transient interop failure
 			// (unless newer options were observed in the meantime - those take precedence,
 			// whether still pending or already applied by a concurrent pass)
-			if (!_shouldSetupChartOnAfterRender && ReferenceEquals(_currentOptionsHash, claimedOptionsHash))
+			// a disposed component or a disconnected circuit gets no further renders, so do not
+			// re-retain the payload there - retry is not meaningful
+			if (!_disposed
+				&& (exception is not JSDisconnectedException)
+				&& !_shouldSetupChartOnAfterRender
+				&& ReferenceEquals(_currentOptionsHash, claimedOptionsHash))
 			{
 				_shouldSetupChartOnAfterRender = true;
 				_optionsToApply = optionsToApply;
