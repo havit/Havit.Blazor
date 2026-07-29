@@ -1,0 +1,45 @@
+﻿@page "/HxEChart_Container"
+@using Havit.Blazor.Components.Web.ECharts
+@rendermode InteractiveAuto
+
+<h4>Default (no CssClass, Width, nor Height set)</h4>
+<HxEChart Options="_options" ChartId="chart-default" />
+
+<h4 class="mt-5">CssClass + AdditionalAttributes</h4>
+<HxEChart Options="_options" ChartId="chart-styled" CssClass="border rounded" data-testid="my-chart" title="My chart" />
+
+<h4 class="mt-5">Height omitted (sized by the flex parent)</h4>
+<div style="display: flex; height: 200px;">
+	<HxEChart Options="_options" ChartId="chart-no-height" Height="null" CssClass="flex-grow-1" />
+</div>
+
+<h4 class="mt-5">Width</h4>
+<HxEChart Options="_options" ChartId="chart-width" Width="600px" Height="200px" />
+
+@code {
+	private object _options;
+
+	protected override void OnParametersSet()
+	{
+		_options = new
+		{
+			XAxis = new
+			{
+				Type = "category",
+				Data = new[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" }
+			},
+			YAxis = new
+			{
+				Type = "value"
+			},
+			Series = new[]
+			{
+				new
+				{
+					Data = new[] { 150, 230, 224, 218, 135, 147, 260 },
+					Type = "line"
+				}
+			}
+		};
+	}
+}
