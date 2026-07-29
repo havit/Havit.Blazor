@@ -27,8 +27,17 @@
 <h4 class="mt-5">Id via AdditionalAttributes - different casing (must still render the chart)</h4>
 <HxEChart Options="_options" Id="chart-pascal-id" Height="200px" />
 
+<h4 class="mt-5">Id in an explicitly passed case-sensitive dictionary (must still render the chart)</h4>
+<HxEChart Options="_options" AdditionalAttributes="_caseSensitiveIdAttributes" Height="200px" />
+
 @code {
 	private object _options;
+
+	// deliberately an ordinal (case-sensitive) dictionary supplied by the consumer, with a differently cased "id" key
+	private readonly Dictionary<string, object> _caseSensitiveIdAttributes = new(StringComparer.Ordinal)
+	{
+		["Id"] = "chart-explicit-dict-id"
+	};
 
 	protected override void OnParametersSet()
 	{
