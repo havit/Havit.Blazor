@@ -162,21 +162,52 @@ public partial class HxEChart : IAsyncDisposable
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (_shouldSetupChartOnAfterRender)
+		if (!_shouldSetupChartOnAfterRender)
+		{
+			return;
+		}
+
+		// Claim the flag and the payload before the first await: a re-render occurring while this pass
+		// is suspended queues another OnAfterRenderAsync pass which would otherwise enter here as well
+		// and, once this pass has released the payload, hand null to setupChart.
+		_shouldSetupChartOnAfterRender = false;
+		var optionsToApply = _optionsToApply;
+		var claimedOptionsHash = _currentOptionsHash; // generation token: OnParametersSet allocates a new array for every accepted options change
+		_optionsToApply = null; // release the serialized JSON, only the hash is kept for change detection
+
+		try
 		{
 			await EnsureJsModuleAsync();
 			if (_disposed)
 			{
-				_shouldSetupChartOnAfterRender = false;
-				_optionsToApply = null;
+				return;
+			}
+			if (!ReferenceEquals(_currentOptionsHash, claimedOptionsHash))
+			{
+				// newer options arrived while awaiting - the pass queued by their render applies them,
+				// do not overwrite the chart with the stale payload
 				return;
 			}
 
-			await _jsModule.InvokeVoidAsync("setupChart", ChartIdEffective, _dotNetObjectReference, _optionsToApply, AutoResize, OnAxisPointerUpdated.HasDelegate);
-			_optionsToApply = null; // release the serialized JSON, only the hash is kept for change detection
+			await _jsModule.InvokeVoidAsync("setupChart", ChartIdEffective, _dotNetObjectReference, optionsToApply, AutoResize, OnAxisPointerUpdated.HasDelegate);
 		}
-
-		_shouldSetupChartOnAfterRender = false;
+		catch (Exception exception)
+		{
+			// restore the pending setup so the next render retries after a transient interop failure
+			// (unless newer options were observed in the meantime - those take precedence,
+			// whether still pending or already applied by a concurrent pass)
+			// a disposed component or a disconnected circuit gets no further renders, so do not
+			// re-retain the payload there - retry is not meaningful
+			if (!_disposed
+				&& (exception is not JSDisconnectedException)
+				&& !_shouldSetupChartOnAfterRender
+				&& ReferenceEquals(_currentOptionsHash, claimedOptionsHash))
+			{
+				_shouldSetupChartOnAfterRender = true;
+				_optionsToApply = optionsToApply;
+			}
+			throw;
+		}
 	}
 
 	private async Task EnsureJsModuleAsync()
