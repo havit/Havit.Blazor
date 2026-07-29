@@ -162,21 +162,25 @@ public partial class HxEChart : IAsyncDisposable
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		if (_shouldSetupChartOnAfterRender)
+		if (!_shouldSetupChartOnAfterRender)
 		{
-			await EnsureJsModuleAsync();
-			if (_disposed)
-			{
-				_shouldSetupChartOnAfterRender = false;
-				_optionsToApply = null;
-				return;
-			}
-
-			await _jsModule.InvokeVoidAsync("setupChart", ChartIdEffective, _dotNetObjectReference, _optionsToApply, AutoResize, OnAxisPointerUpdated.HasDelegate);
-			_optionsToApply = null; // release the serialized JSON, only the hash is kept for change detection
+			return;
 		}
 
+		// Claim the flag and the payload before the first await: a re-render occurring while this pass
+		// is suspended queues another OnAfterRenderAsync pass which would otherwise enter here as well
+		// and, once this pass has released the payload, hand null to setupChart.
 		_shouldSetupChartOnAfterRender = false;
+		var optionsToApply = _optionsToApply;
+		_optionsToApply = null; // release the serialized JSON, only the hash is kept for change detection
+
+		await EnsureJsModuleAsync();
+		if (_disposed)
+		{
+			return;
+		}
+
+		await _jsModule.InvokeVoidAsync("setupChart", ChartIdEffective, _dotNetObjectReference, optionsToApply, AutoResize, OnAxisPointerUpdated.HasDelegate);
 	}
 
 	private async Task EnsureJsModuleAsync()

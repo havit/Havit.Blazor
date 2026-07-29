@@ -1,6 +1,11 @@
 ﻿const AXIS_POINTER_DEBOUNCE_MS = 50;
 
 export function setupChart(id, dotnetReference, options, autoResize, subscribeOnAxisPointerUpdate) {
+	if (!options) {
+		// defensive: a null/undefined payload would crash echarts.setOption() and take the whole render down
+		return;
+	}
+
 	let optionsObject = eval('(' + options + ')');
 
 	const element = document.getElementById(id);
