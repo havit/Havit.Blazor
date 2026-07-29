@@ -107,7 +107,8 @@ public partial class HxEChart : IAsyncDisposable
 	/// so an <c>Id</c>/<c>ID</c> key wins in the rendered markup just like a lowercase <c>id</c> does.
 	/// We cannot rely on the dictionary comparer here - the framework builds the splatted dictionary with
 	/// <see cref="StringComparer.OrdinalIgnoreCase"/>, but a consumer passing <see cref="AdditionalAttributes"/> explicitly
-	/// may well use a case-sensitive one.
+	/// may well use a case-sensitive one (which can therefore even hold several keys differing only by casing).
+	/// The last match is taken for the same reason - Blazor keeps the last of the duplicates in render order.
 	/// </remarks>
 	private string ChartIdEffective
 	{
@@ -116,7 +117,7 @@ public partial class HxEChart : IAsyncDisposable
 			var splattedId = AdditionalAttributes?
 				.Where(attribute => String.Equals(attribute.Key, "id", StringComparison.OrdinalIgnoreCase))
 				.Select(attribute => attribute.Value?.ToString())
-				.FirstOrDefault();
+				.LastOrDefault();
 
 			return String.IsNullOrEmpty(splattedId) ? ChartId : splattedId;
 		}

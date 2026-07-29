@@ -30,6 +30,9 @@
 <h4 class="mt-5">Id in an explicitly passed case-sensitive dictionary (must still render the chart)</h4>
 <HxEChart Options="_options" AdditionalAttributes="_caseSensitiveIdAttributes" Height="200px" />
 
+<h4 class="mt-5">Two id keys differing only by casing (must still render the chart)</h4>
+<HxEChart Options="_options" AdditionalAttributes="_duplicateCasingIdAttributes" Height="200px" />
+
 @code {
 	private object _options;
 
@@ -37,6 +40,13 @@
 	private readonly Dictionary<string, object> _caseSensitiveIdAttributes = new(StringComparer.Ordinal)
 	{
 		["Id"] = "chart-explicit-dict-id"
+	};
+
+	// two keys differing only by casing - Blazor keeps the last one in render order
+	private readonly Dictionary<string, object> _duplicateCasingIdAttributes = new(StringComparer.Ordinal)
+	{
+		["Id"] = "chart-casing-first",
+		["id"] = "chart-casing-last"
 	};
 
 	protected override void OnParametersSet()

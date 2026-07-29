@@ -170,7 +170,8 @@
             so an <c>Id</c>/<c>ID</c> key wins in the rendered markup just like a lowercase <c>id</c> does.
             We cannot rely on the dictionary comparer here - the framework builds the splatted dictionary with
             <see cref="P:System.StringComparer.OrdinalIgnoreCase"/>, but a consumer passing <see cref="P:Havit.Blazor.Components.Web.ECharts.HxEChart.AdditionalAttributes"/> explicitly
-            may well use a case-sensitive one.
+            may well use a case-sensitive one (which can therefore even hold several keys differing only by casing).
+            The last match is taken for the same reason - Blazor keeps the last of the duplicates in render order.
             </remarks>
         </member>
         <member name="T:Havit.Blazor.Components.Web.ECharts.HxEChart.JSFunc">
