@@ -8,7 +8,7 @@ public class HxSelectFilteringTests : BunitTestBase
 	{
 		Expression<Func<string>> valueExpression = () => value;
 
-		return RenderComponent<HxSelect<string, string>>(parameters =>
+		return Render<HxSelect<string, string>>(parameters =>
 		{
 			parameters
 				.Add(p => p.Data, items)
@@ -181,7 +181,7 @@ public class HxSelectFilteringTests : BunitTestBase
 		Expression<Func<string>> valueExpression = () => selectedValue;
 
 		// Act
-		var cut = RenderComponent<HxSelect<string, string>>(parameters => parameters
+		var cut = Render<HxSelect<string, string>>(parameters => parameters
 			.Add(p => p.Data, new List<string> { "Apple", "Banana" })
 			.Add(p => p.Value, selectedValue)
 			.Add(p => p.ValueChanged, value => selectedValue = value)
@@ -203,7 +203,7 @@ public class HxSelectFilteringTests : BunitTestBase
 		Expression<Func<string>> valueExpression = () => selectedValue;
 
 		// Act
-		var cut = RenderComponent<HxSelect<string, string>>(parameters => parameters
+		var cut = Render<HxSelect<string, string>>(parameters => parameters
 			.Add(p => p.Data, new List<string> { "Apple", "Banana" })
 			.Add(p => p.Value, selectedValue)
 			.Add(p => p.ValueChanged, value => selectedValue = value)
@@ -231,7 +231,7 @@ public class HxSelectFilteringTests : BunitTestBase
 		string selectedValue = null;
 		Expression<Func<string>> valueExpression = () => selectedValue;
 
-		var cut = RenderComponent<HxSelect<string, string>>(parameters => parameters
+		var cut = Render<HxSelect<string, string>>(parameters => parameters
 			.Add(p => p.Data, new List<string> { "Apple", "Banana" })
 			.Add(p => p.Value, selectedValue)
 			.Add(p => p.ValueChanged, value => selectedValue = value)

@@ -9,7 +9,7 @@ public class HxNavOverflowTests : BunitTestBase
 	public void HxNavOverflow_Render_BasicStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxNavOverflow>(parameters => parameters
+		var cut = Render<HxNavOverflow>(parameters => parameters
 			.AddChildContent<HxNavLink>(link => link
 				.Add(l => l.Text, "Home")
 				.Add(l => l.Href, "/")
@@ -47,7 +47,7 @@ public class HxNavOverflowTests : BunitTestBase
 	public void HxNavOverflow_Variant_RendersVariantCssClass()
 	{
 		// Act
-		var cut = RenderComponent<HxNavOverflow>(parameters => parameters
+		var cut = Render<HxNavOverflow>(parameters => parameters
 			.Add(c => c.Variant, NavVariant.Pills)
 			.AddChildContent<HxNavLink>(link => link.Add(l => l.Text, "Home").Add(l => l.Href, "/"))
 		);
@@ -60,7 +60,7 @@ public class HxNavOverflowTests : BunitTestBase
 	public void HxNavOverflow_MoreTextAndIcon_AreRendered()
 	{
 		// Act
-		var cut = RenderComponent<HxNavOverflow>(parameters => parameters
+		var cut = Render<HxNavOverflow>(parameters => parameters
 			.Add(c => c.MoreText, "See all")
 			.Add(c => c.MoreIcon, BootstrapIcon.ThreeDotsVertical)
 			.AddChildContent<HxNavLink>(link => link.Add(l => l.Text, "Home").Add(l => l.Href, "/"))
@@ -76,7 +76,7 @@ public class HxNavOverflowTests : BunitTestBase
 	public void HxNavOverflow_MoreTextEmpty_RendersIconOnlyToggle()
 	{
 		// Act
-		var cut = RenderComponent<HxNavOverflow>(parameters => parameters
+		var cut = Render<HxNavOverflow>(parameters => parameters
 			.Add(c => c.MoreText, "")
 			.AddChildContent<HxNavLink>(link => link.Add(l => l.Text, "Home").Add(l => l.Href, "/"))
 		);
@@ -91,7 +91,7 @@ public class HxNavOverflowTests : BunitTestBase
 	public void HxNavOverflow_IconPlacementEnd_RendersIconAfterText()
 	{
 		// Act
-		var cut = RenderComponent<HxNavOverflow>(parameters => parameters
+		var cut = Render<HxNavOverflow>(parameters => parameters
 			.Add(c => c.IconPlacement, NavOverflowIconPlacement.End)
 			.AddChildContent<HxNavLink>(link => link.Add(l => l.Text, "Home").Add(l => l.Href, "/"))
 		);
@@ -106,7 +106,7 @@ public class HxNavOverflowTests : BunitTestBase
 	public void HxNavOverflow_MenuPlacement_RendersDataBsPlacement()
 	{
 		// Act
-		var cut = RenderComponent<HxNavOverflow>(parameters => parameters
+		var cut = Render<HxNavOverflow>(parameters => parameters
 			.Add(c => c.MenuPlacement, MenuPlacement.TopStart)
 			.AddChildContent<HxNavLink>(link => link.Add(l => l.Text, "Home").Add(l => l.Href, "/"))
 		);
@@ -119,10 +119,10 @@ public class HxNavOverflowTests : BunitTestBase
 	public void HxNavOverflow_ActiveRoute_LinkIsActiveInBothCopies()
 	{
 		// Arrange
-		Services.GetRequiredService<Bunit.TestDoubles.FakeNavigationManager>().NavigateTo("http://localhost/active-page");
+		Services.GetRequiredService<Bunit.TestDoubles.BunitNavigationManager>().NavigateTo("http://localhost/active-page");
 
 		// Act
-		var cut = RenderComponent<HxNavOverflow>(parameters => parameters
+		var cut = Render<HxNavOverflow>(parameters => parameters
 			.AddChildContent<HxNavLink>(link => link
 				.Add(l => l.Text, "Active")
 				.Add(l => l.Href, "/active-page")
@@ -144,7 +144,7 @@ public class HxNavOverflowTests : BunitTestBase
 	public void HxNavOverflow_Render_InitializesJavaScript()
 	{
 		// Act
-		var cut = RenderComponent<HxNavOverflow>(parameters => parameters
+		var cut = Render<HxNavOverflow>(parameters => parameters
 			.Add(c => c.MinimumVisibleItems, 2)
 			.AddChildContent<HxNavLink>(link => link.Add(l => l.Text, "Home").Add(l => l.Href, "/"))
 		);
@@ -160,7 +160,7 @@ public class HxNavOverflowTests : BunitTestBase
 	{
 		// Arrange
 		NavOverflowChangedEventArgs eventArgs = null;
-		var cut = RenderComponent<HxNavOverflow>(parameters => parameters
+		var cut = Render<HxNavOverflow>(parameters => parameters
 			.Add(c => c.OnOverflowChanged, (NavOverflowChangedEventArgs args) => { eventArgs = args; })
 			.AddChildContent<HxNavLink>(link => link.Add(l => l.Text, "Home").Add(l => l.Href, "/"))
 		);
@@ -178,7 +178,7 @@ public class HxNavOverflowTests : BunitTestBase
 	public async Task HxNavOverflow_UpdateAsync_InvokesJavaScriptUpdate()
 	{
 		// Arrange
-		var cut = RenderComponent<HxNavOverflow>(parameters => parameters
+		var cut = Render<HxNavOverflow>(parameters => parameters
 			.AddChildContent<HxNavLink>(link => link.Add(l => l.Text, "Home").Add(l => l.Href, "/"))
 		);
 
@@ -193,7 +193,7 @@ public class HxNavOverflowTests : BunitTestBase
 	public void HxNavLink_OutsideNavOverflow_RendersNavLinkCssClass()
 	{
 		// Act
-		var cut = RenderComponent<HxNavLink>(parameters => parameters
+		var cut = Render<HxNavLink>(parameters => parameters
 			.Add(l => l.Text, "Home")
 			.Add(l => l.Href, "/")
 		);

@@ -46,9 +46,10 @@ The `.editorconfig` file in the repository root contains the complete coding sta
 ### Testing Framework
 - Tests use **xUnit** (`xunit.v3`) running on the **Microsoft.Testing.Platform** (MTP). Do **not** reintroduce MSTest or downgrade to VSTest (`Microsoft.NET.Test.Sdk`).
 - Every test project references `Microsoft.Testing.Extensions.TrxReport` to produce a TRX report within CI build.
+If Playwright reports that browsers need to be installed/updated, run the `playwright.ps1 install` command from the error message and re-run the tests.
 
 ### Important Files
-- `Directory.Build.props` - Global build properties
+- `Directory.Build.props` - Global build properties (includes `<TreatWarningsAsErrors>true</TreatWarningsAsErrors>` for all projects)
 - `Directory.Packages.props` - Central package version management
 - `.editorconfig` - Coding standards and style rules
 - `.github/workflows/dotnet.yml` - CI/CD pipeline
@@ -76,11 +77,11 @@ Bootstrap icons are generated via source generator from `Havit.Bootstrap/Icons/b
 1. Install .NET prerequisites (one-time setup)
 2. `dotnet restore`
 3. Make your changes following `.editorconfig` standards
-4. Build with warnings as errors: `s`
+4. Build: `dotnet build` (warnings are treated as errors via `TreatWarningsAsErrors` in `Directory.Build.props`, no extra switch needed)
 5. Run tests: `dotnet test` or `dotnet test --project path/to/YourComponentTests.csproj` to run specific tests
 6. Validate changes manually
 
-**Important:** Every code change must be verified with a build that treats warnings as errors (`-warnaserror`). Do not consider a change complete until the build passes with zero warnings.
+**Important:** Every code change must be verified with a successful build. Since warnings are treated as errors, do not consider a change complete until the build passes with zero warnings.
 
 ### Azure DevOps
 When referring to Azure DevOps, it's the **DEV** project.

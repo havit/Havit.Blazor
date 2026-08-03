@@ -6,7 +6,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxMenu_RendersMenuElementWithContent()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add(m => m.Content, "Content"));
 
 		// Assert
@@ -18,7 +18,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxMenu_CssClass_IsAppliedToMenuElement()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add(m => m.CssClass, "my-menu")
 			.Add(m => m.Content, "Content"));
 
@@ -31,7 +31,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxMenu_ToggleAndMenu_AreRenderedAsSiblings()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add<HxMenuToggleElement>(m => m.Toggle, toggle => toggle
 				.AddChildContent("Toggle"))
 			.Add(m => m.Content, "Content"));
@@ -46,7 +46,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxMenuToggleElement_RendersDataBsToggle()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add<HxMenuToggleElement>(m => m.Toggle, toggle => toggle
 				.AddChildContent("Toggle"))
 			.Add(m => m.Content, "Content"));
@@ -65,7 +65,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxMenuToggleElement_Placement_RendersDataBsPlacement(MenuPlacement placement, string expectedAttributeValue)
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add(m => m.Placement, placement)
 			.Add<HxMenuToggleElement>(m => m.Toggle, toggle => toggle
 				.AddChildContent("Toggle"))
@@ -80,7 +80,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxMenuToggleElement_DefaultPlacement_DoesNotRenderDataBsPlacement()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add<HxMenuToggleElement>(m => m.Toggle, toggle => toggle
 				.AddChildContent("Toggle"))
 			.Add(m => m.Content, "Content"));
@@ -94,7 +94,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxMenuItem_RendersCorrectStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add<HxMenuItem>(m => m.Content, item => item
 				.AddChildContent("Item text")));
 
@@ -108,7 +108,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxMenuItem_EnabledFalse_HasDisabledCssClass()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add<HxMenuItem>(m => m.Content, item => item
 				.Add(i => i.Enabled, false)
 				.AddChildContent("Disabled item")));
@@ -123,7 +123,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxMenuItem_Color_RendersThemeCssClass()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add<HxMenuItem>(m => m.Content, item => item
 				.Add(i => i.Color, ThemeColor.Danger)
 				.AddChildContent("Remove")));
@@ -137,7 +137,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxMenuDivider_RendersDividerStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add<HxMenuDivider>(m => m.Content));
 
 		// Assert
@@ -149,7 +149,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxMenuHeader_RendersHeaderStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add<HxMenuHeader>(m => m.Content, header => header
 				.AddChildContent("Section title")));
 
@@ -162,7 +162,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxMenuText_RendersMenuTextStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add<HxMenuText>(m => m.Content, text => text
 				.AddChildContent("Plain text")));
 
@@ -175,7 +175,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxSubmenu_RendersSubmenuStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add<HxSubmenu>(m => m.Content, submenu => submenu
 				.Add(s => s.Text, "File")
 				.AddChildContent<HxMenuItem>(item => item
@@ -201,7 +201,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxSubmenu_TitleTemplate_TakesPrecedenceOverText()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add<HxSubmenu>(m => m.Content, submenu => submenu
 				.Add(s => s.Text, "Ignored")
 				.Add(s => s.TitleTemplate, "<strong>Custom</strong>")));
@@ -217,7 +217,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxSubmenu_EnabledFalse_HasDisabledTrigger()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add<HxSubmenu>(m => m.Content, submenu => submenu
 				.Add(s => s.Text, "File")
 				.Add(s => s.Enabled, false)));
@@ -232,7 +232,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxSubmenu_CssClass_IsAppliedToSubmenuWrapper()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add<HxSubmenu>(m => m.Content, submenu => submenu
 				.Add(s => s.Text, "File")
 				.Add(s => s.CssClass, "my-submenu")));
@@ -246,7 +246,7 @@ public class HxMenuTests : BunitTestBase
 	public void HxSubmenu_NestedSubmenus_RenderNestedStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxMenu>(p => p
+		var cut = Render<HxMenu>(p => p
 			.Add<HxSubmenu>(m => m.Content, level1 => level1
 				.Add(s => s.Text, "Level 1")
 				.AddChildContent<HxSubmenu>(level2 => level2

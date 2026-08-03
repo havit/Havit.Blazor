@@ -11,7 +11,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	public void HxPasswordStrength_Render_RendersSegmentedMeter()
 	{
 		// Act
-		var cut = RenderComponent<HxPasswordStrength>();
+		var cut = Render<HxPasswordStrength>();
 
 		// Assert
 		var meter = cut.Find(".hx-password-strength > .strength");
@@ -27,7 +27,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	public void HxPasswordStrength_VariantProgressBar_RendersStrengthBarWithoutSegments()
 	{
 		// Act
-		var cut = RenderComponent<HxPasswordStrength>(parameters => parameters
+		var cut = Render<HxPasswordStrength>(parameters => parameters
 			.Add(p => p.Variant, PasswordStrengthVariant.ProgressBar));
 
 		// Assert
@@ -40,7 +40,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	public void HxPasswordStrength_ChildContent_RendersContentBeforeMeter()
 	{
 		// Act
-		var cut = RenderComponent<HxPasswordStrength>(parameters => parameters
+		var cut = Render<HxPasswordStrength>(parameters => parameters
 			.AddChildContent("<input type=\"password\" id=\"my-password\" />"));
 
 		// Assert
@@ -57,7 +57,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	public void HxPasswordStrength_ShowText_RendersEmptyTextElement()
 	{
 		// Act
-		var cut = RenderComponent<HxPasswordStrength>(parameters => parameters
+		var cut = Render<HxPasswordStrength>(parameters => parameters
 			.Add(p => p.ShowText, true));
 
 		// Assert
@@ -69,7 +69,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	public void HxPasswordStrength_NoShowText_DoesNotRenderTextElement()
 	{
 		// Act
-		var cut = RenderComponent<HxPasswordStrength>();
+		var cut = Render<HxPasswordStrength>();
 
 		// Assert
 		Assert.Empty(cut.FindAll(".strength-text"));
@@ -83,7 +83,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	public void HxPasswordStrength_StaticStrength_RendersDataAttributeAndActiveSegments(PasswordStrengthLevel level, string expectedAttributeValue, int expectedActiveSegments)
 	{
 		// Act
-		var cut = RenderComponent<HxPasswordStrength>(parameters => parameters
+		var cut = Render<HxPasswordStrength>(parameters => parameters
 			.Add(p => p.Strength, level));
 
 		// Assert
@@ -98,7 +98,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	public void HxPasswordStrength_StaticStrengthWithShowText_RendersTextMessage()
 	{
 		// Act
-		var cut = RenderComponent<HxPasswordStrength>(parameters => parameters
+		var cut = Render<HxPasswordStrength>(parameters => parameters
 			.Add(p => p.Strength, PasswordStrengthLevel.Good)
 			.Add(p => p.ShowText, true)
 			.Add(p => p.GoodText, "Good password"));
@@ -113,7 +113,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	public void HxPasswordStrength_StaticStrengthProgressBar_RendersDataAttribute()
 	{
 		// Act
-		var cut = RenderComponent<HxPasswordStrength>(parameters => parameters
+		var cut = Render<HxPasswordStrength>(parameters => parameters
 			.Add(p => p.Strength, PasswordStrengthLevel.Strong)
 			.Add(p => p.Variant, PasswordStrengthVariant.ProgressBar));
 
@@ -126,7 +126,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	public void HxPasswordStrength_CssClassAndAdditionalAttributes_RenderedOnMeterElement()
 	{
 		// Act
-		var cut = RenderComponent<HxPasswordStrength>(parameters => parameters
+		var cut = Render<HxPasswordStrength>(parameters => parameters
 			.Add(p => p.CssClass, "my-class")
 			.AddUnmatched("data-custom", "value"));
 
@@ -140,7 +140,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	public void HxPasswordStrength_Settings_AppliedWhenParameterNotSet()
 	{
 		// Act
-		var cut = RenderComponent<HxPasswordStrength>(parameters => parameters
+		var cut = Render<HxPasswordStrength>(parameters => parameters
 			.Add(p => p.Settings, new PasswordStrengthSettings { Variant = PasswordStrengthVariant.ProgressBar, ShowText = true }));
 
 		// Assert
@@ -152,7 +152,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	public void HxPasswordStrength_FirstRender_InitializesJsPlugin()
 	{
 		// Act
-		var cut = RenderComponent<HxPasswordStrength>();
+		var cut = Render<HxPasswordStrength>();
 
 		// Assert
 		var importInvocation = JSInterop.Invocations.Single(i => i.Identifier == "import");
@@ -164,7 +164,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	public void HxPasswordStrength_StaticStrength_DoesNotInitializeJsPlugin()
 	{
 		// Act
-		var cut = RenderComponent<HxPasswordStrength>(parameters => parameters
+		var cut = Render<HxPasswordStrength>(parameters => parameters
 			.Add(p => p.Strength, PasswordStrengthLevel.Weak));
 
 		// Assert
@@ -175,7 +175,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	public async Task HxPasswordStrength_DisposeAsync_DisposesJsPlugin()
 	{
 		// Arrange
-		var cut = RenderComponent<HxPasswordStrength>();
+		var cut = Render<HxPasswordStrength>();
 
 		// Act
 		await cut.Instance.DisposeAsync();
@@ -189,7 +189,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	{
 		// Arrange
 		PasswordStrengthChangedEventArgs eventArgs = null;
-		var cut = RenderComponent<HxPasswordStrength>(parameters => parameters
+		var cut = Render<HxPasswordStrength>(parameters => parameters
 			.Add(p => p.OnStrengthChanged, (PasswordStrengthChangedEventArgs args) => eventArgs = args));
 
 		// Act
@@ -206,7 +206,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 	{
 		// Arrange
 		PasswordStrengthChangedEventArgs eventArgs = null;
-		var cut = RenderComponent<HxPasswordStrength>(parameters => parameters
+		var cut = Render<HxPasswordStrength>(parameters => parameters
 			.Add(p => p.OnStrengthChanged, (PasswordStrengthChangedEventArgs args) => eventArgs = args));
 
 		// Act
@@ -225,7 +225,7 @@ public class HxPasswordStrengthTests : BunitTestBase
 		var model = new TestModel();
 
 		// Act
-		var cut = RenderComponent<EditForm>(parameters => parameters
+		var cut = Render<EditForm>(parameters => parameters
 			.Add(p => p.Model, model)
 			.Add(p => p.ChildContent, (RenderFragment<EditContext>)(_ => builder =>
 			{
