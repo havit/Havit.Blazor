@@ -6,7 +6,7 @@ public class HxCollapse_Basic_Tests : BunitTestBase
 	public void HxCollapse_Render_DoesNotSetAriaExpandedOnContentContainer()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxCollapse>(parameters => parameters
+		var cut = Render<HxCollapse>(parameters => parameters
 			.AddChildContent("Test content"));
 
 		// Assert

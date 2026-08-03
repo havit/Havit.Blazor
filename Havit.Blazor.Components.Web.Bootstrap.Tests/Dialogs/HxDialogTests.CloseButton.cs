@@ -6,7 +6,7 @@ public partial class HxDialogTests : BunitTestBase
 	public async Task HxDialog_CloseButton_RendersBtnClose()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxDialog>(parameters => parameters
+		var cut = Render<HxDialog>(parameters => parameters
 			.Add(p => p.Title, "Test Dialog")
 		);
 
@@ -25,7 +25,7 @@ public partial class HxDialogTests : BunitTestBase
 	public async Task HxDialog_CloseButton_ShowCloseButtonFalse_NotRendered()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxDialog>(parameters => parameters
+		var cut = Render<HxDialog>(parameters => parameters
 			.Add(p => p.Title, "Test Dialog")
 			.Add(p => p.ShowCloseButton, false)
 		);

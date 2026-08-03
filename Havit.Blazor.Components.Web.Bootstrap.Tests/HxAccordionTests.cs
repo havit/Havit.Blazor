@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
@@ -16,7 +16,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordion_Render_HasAccordionStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p => AddItem(p, "item1", "Header 1", "Body 1"));
+		var cut = Render<HxAccordion>(p => AddItem(p, "item1", "Header 1", "Body 1"));
 
 		// Assert
 		var accordion = cut.Find("div.accordion");
@@ -27,7 +27,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordion_MultipleItems_RendersAllItems()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
+		var cut = Render<HxAccordion>(p =>
 		{
 			AddItem(p, "item1", "Header 1", "Body 1");
 			AddItem(p, "item2", "Header 2", "Body 2");
@@ -42,7 +42,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordionItem_Render_HasNativeDetailsStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p => AddItem(p, "item1", "Header Text", "Body Text"));
+		var cut = Render<HxAccordion>(p => AddItem(p, "item1", "Header Text", "Body Text"));
 
 		// Assert — Bootstrap 6 accordion is built on native <details>/<summary>
 		var item = cut.Find("details.hx-accordion-item");
@@ -63,7 +63,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordion_StayOpenFalse_RendersSharedNameAttribute()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
+		var cut = Render<HxAccordion>(p =>
 		{
 			p.Add(a => a.StayOpen, false);
 			AddItem(p, "item1", "Header 1", "Body 1");
@@ -80,7 +80,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordion_StayOpenTrue_NoNameAttribute()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
+		var cut = Render<HxAccordion>(p =>
 		{
 			p.Add(a => a.StayOpen, true);
 			AddItem(p, "item1", "Header 1", "Body 1");
@@ -95,7 +95,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordion_InitialExpandedItemId_RendersOpenAttribute()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
+		var cut = Render<HxAccordion>(p =>
 		{
 			p.Add(a => a.InitialExpandedItemId, "item2");
 			AddItem(p, "item1", "Header 1", "Body 1");
@@ -114,7 +114,7 @@ public class HxAccordionTests : BunitTestBase
 		string expandedItemId = null;
 
 		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
+		var cut = Render<HxAccordion>(p =>
 		{
 			p.Add(a => a.ExpandedItemIdChanged, (string id) => expandedItemId = id);
 			AddItem(p, "item1", "Header 1", "Body 1");
@@ -130,7 +130,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordion_ExclusiveMode_ExpandingOneItemCollapsesTheOther()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
+		var cut = Render<HxAccordion>(p =>
 		{
 			p.Add(a => a.InitialExpandedItemId, "item1");
 			AddItem(p, "item1", "Header 1", "Body 1");
@@ -148,7 +148,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordion_StayOpen_ExpandingOneItemKeepsTheOtherOpen()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
+		var cut = Render<HxAccordion>(p =>
 		{
 			p.Add(a => a.StayOpen, true);
 			p.Add(a => a.InitialExpandedItemIds, new List<string> { "item1" });
@@ -167,7 +167,7 @@ public class HxAccordionTests : BunitTestBase
 	public void HxAccordion_Color_RendersThemeCssClass()
 	{
 		// Act
-		var cut = RenderComponent<HxAccordion>(p =>
+		var cut = Render<HxAccordion>(p =>
 		{
 			p.Add(a => a.Color, ThemeColor.Primary);
 			AddItem(p, "item1", "Header 1", "Body 1");
@@ -175,5 +175,19 @@ public class HxAccordionTests : BunitTestBase
 
 		// Assert
 		Assert.True(cut.Find("div.accordion").ClassList.Contains("theme-primary"));
+	}
+
+	[Fact]
+	public void HxAccordion_CssClass_IsApplied()
+	{
+		// Act
+		var cut = Render<HxAccordion>(p =>
+		{
+			p.Add(a => a.CssClass, "custom-accordion");
+			AddItem(p, "item1", "Header 1", "Body 1");
+		});
+
+		// Assert
+		Assert.True(cut.Find("div.accordion").ClassList.Contains("custom-accordion"));
 	}
 }

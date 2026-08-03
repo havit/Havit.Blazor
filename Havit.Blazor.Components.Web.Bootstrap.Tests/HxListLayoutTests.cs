@@ -13,7 +13,7 @@ public class HxListLayoutTests : BunitTestBase
 	public void HxListLayout_Render_DisplaysGridAndFilterArea()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxListLayout<TestFilterModel>>(parameters => parameters
+		var cut = Render<HxListLayout<TestFilterModel>>(parameters => parameters
 			.Add(p => p.Title, "Test Title")
 			.Add(p => p.FilterModel, new TestFilterModel())
 			.Add(p => p.DataTemplate, (RenderFragment)(builder =>
@@ -51,7 +51,7 @@ public class HxListLayoutTests : BunitTestBase
 		var filterModel = new TestFilterModel { Name = "Initial" };
 		TestFilterModel appliedFilter = null;
 
-		var cut = RenderComponent<HxListLayout<TestFilterModel>>(parameters => parameters
+		var cut = Render<HxListLayout<TestFilterModel>>(parameters => parameters
 			.Add(p => p.FilterModel, filterModel)
 			.Add(p => p.FilterModelChanged, newFilter => appliedFilter = newFilter)
 			.Add(p => p.FilterTemplate, (RenderFragment<TestFilterModel>)(model => builder => { })));
@@ -70,7 +70,7 @@ public class HxListLayoutTests : BunitTestBase
 		// Arrange
 		var filterModel = new TestFilterModel { Name = "ActiveFilter" };
 
-		var cut = RenderComponent<HxListLayout<TestFilterModel>>(parameters => parameters
+		var cut = Render<HxListLayout<TestFilterModel>>(parameters => parameters
 			.Add(p => p.FilterModel, filterModel)
 			.Add(p => p.FilterTemplate, (RenderFragment<TestFilterModel>)(model => builder =>
 			{
@@ -95,7 +95,7 @@ public class HxListLayoutTests : BunitTestBase
 		var filterModel = new TestFilterModel { Name = "FilterToRemove" };
 		TestFilterModel updatedFilter = null;
 
-		var cut = RenderComponent<HxListLayout<TestFilterModel>>(parameters => parameters
+		var cut = Render<HxListLayout<TestFilterModel>>(parameters => parameters
 			.Add(p => p.FilterModel, filterModel)
 			.Add(p => p.FilterModelChanged, newFilter => updatedFilter = newFilter)
 			.Add(p => p.FilterTemplate, (RenderFragment<TestFilterModel>)(model => builder =>
@@ -129,7 +129,7 @@ public class HxListLayoutTests : BunitTestBase
 	public void HxListLayout_FilterButton_HasAriaLabel()
 	{
 		// Arrange — regression for #1190: filter button must have aria-label for accessibility
-		var cut = RenderComponent<HxListLayout<TestFilterModel>>(parameters => parameters
+		var cut = Render<HxListLayout<TestFilterModel>>(parameters => parameters
 			.Add(p => p.FilterModel, new TestFilterModel())
 			.Add(p => p.FilterTemplate, (RenderFragment<TestFilterModel>)(model => builder => { }))
 			.Add(p => p.DataTemplate, (RenderFragment)(builder => { })));

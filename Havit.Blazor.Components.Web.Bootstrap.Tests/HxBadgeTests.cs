@@ -6,7 +6,7 @@ public class HxBadgeTests : BunitTestBase
 	public void HxBadge_Render_DisplaysContent()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxBadge>(parameters => parameters
+		var cut = Render<HxBadge>(parameters => parameters
 			.Add(p => p.Color, ThemeColor.Primary)
 			.AddChildContent("New")
 		);
@@ -19,7 +19,7 @@ public class HxBadgeTests : BunitTestBase
 	public void HxBadge_Color_AppliesCorrectCssClass()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxBadge>(parameters => parameters
+		var cut = Render<HxBadge>(parameters => parameters
 			.Add(p => p.Color, ThemeColor.Primary)
 		);
 
@@ -31,7 +31,7 @@ public class HxBadgeTests : BunitTestBase
 	public void HxBadge_RoundedPill_AppliesPillClass()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxBadge>(parameters => parameters
+		var cut = Render<HxBadge>(parameters => parameters
 			.Add(p => p.Color, ThemeColor.Primary)
 			.Add(p => p.Type, BadgeType.RoundedPill)
 		);

@@ -6,7 +6,7 @@ public class HxAvatarTests : BunitTestBase
 	public void HxAvatar_Render_DisplaysInitials()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxAvatar>(parameters => parameters
+		var cut = Render<HxAvatar>(parameters => parameters
 			.AddChildContent("AB")
 		);
 
@@ -18,7 +18,7 @@ public class HxAvatarTests : BunitTestBase
 	public void HxAvatar_ImageSrc_RendersAvatarImg()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxAvatar>(parameters => parameters
+		var cut = Render<HxAvatar>(parameters => parameters
 			.Add(p => p.ImageSrc, "avatar.png")
 			.Add(p => p.ImageAlt, "John Doe")
 		);
@@ -37,7 +37,7 @@ public class HxAvatarTests : BunitTestBase
 	public void HxAvatar_Size_AppliesCorrectCssClass(AvatarSize size, string expectedCssClass)
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxAvatar>(parameters => parameters
+		var cut = Render<HxAvatar>(parameters => parameters
 			.Add(p => p.Size, size)
 		);
 
@@ -49,7 +49,7 @@ public class HxAvatarTests : BunitTestBase
 	public void HxAvatar_RegularSize_DoesNotRenderSizeCssClass()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxAvatar>(parameters => parameters
+		var cut = Render<HxAvatar>(parameters => parameters
 			.Add(p => p.Size, AvatarSize.Regular)
 		);
 
@@ -65,7 +65,7 @@ public class HxAvatarTests : BunitTestBase
 	public void HxAvatar_Status_RendersStatusIndicator(AvatarStatus status, string expectedCssClass, string expectedLabel)
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxAvatar>(parameters => parameters
+		var cut = Render<HxAvatar>(parameters => parameters
 			.Add(p => p.Status, status)
 		);
 
@@ -79,7 +79,7 @@ public class HxAvatarTests : BunitTestBase
 	public void HxAvatar_NoStatus_DoesNotRenderStatusIndicator()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxAvatar>();
+		var cut = Render<HxAvatar>();
 
 		// Assert
 		Assert.Empty(cut.FindAll("span.avatar-status"));
@@ -89,7 +89,7 @@ public class HxAvatarTests : BunitTestBase
 	public void HxAvatar_StatusLabel_OverridesAriaLabel()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxAvatar>(parameters => parameters
+		var cut = Render<HxAvatar>(parameters => parameters
 			.Add(p => p.Status, AvatarStatus.Online)
 			.Add(p => p.StatusLabel, "Available")
 		);
@@ -102,7 +102,7 @@ public class HxAvatarTests : BunitTestBase
 	public void HxAvatar_Color_AppliesThemeCssClass()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxAvatar>(parameters => parameters
+		var cut = Render<HxAvatar>(parameters => parameters
 			.Add(p => p.Color, ThemeColor.Primary)
 		);
 
@@ -114,7 +114,7 @@ public class HxAvatarTests : BunitTestBase
 	public void HxAvatar_Subtle_AppliesSubtleCssClass()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxAvatar>(parameters => parameters
+		var cut = Render<HxAvatar>(parameters => parameters
 			.Add(p => p.Color, ThemeColor.Danger)
 			.Add(p => p.Subtle, true)
 		);
@@ -127,7 +127,7 @@ public class HxAvatarTests : BunitTestBase
 	public void HxAvatarStack_Render_RendersAvatars()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxAvatarStack>(parameters => parameters
+		var cut = Render<HxAvatarStack>(parameters => parameters
 			.AddChildContent<HxAvatar>(avatar => avatar.AddChildContent("AB"))
 			.AddChildContent<HxAvatar>(avatar => avatar.AddChildContent("+5"))
 		);
@@ -144,7 +144,7 @@ public class HxAvatarTests : BunitTestBase
 	public void HxAvatarStack_Size_AppliesCorrectCssClass(AvatarSize size, string expectedCssClass)
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxAvatarStack>(parameters => parameters
+		var cut = Render<HxAvatarStack>(parameters => parameters
 			.Add(p => p.Size, size)
 		);
 
@@ -156,7 +156,7 @@ public class HxAvatarTests : BunitTestBase
 	public void HxAvatarStack_RegularSize_DoesNotRenderSizeCssClass()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxAvatarStack>();
+		var cut = Render<HxAvatarStack>();
 
 		// Assert
 		Assert.Equal("avatar-stack", cut.Find("div").GetAttribute("class"));

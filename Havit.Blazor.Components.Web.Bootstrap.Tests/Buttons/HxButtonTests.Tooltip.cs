@@ -6,7 +6,7 @@ public partial class HxButtonTests : BunitTestBase
 	public void HxButton_TooltipSettings_Trigger_ShouldBeConfigurableViaParameter()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxButton>(parameters => parameters
+		var cut = Render<HxButton>(parameters => parameters
 			.Add(p => p.Tooltip, "Test Tooltip")
 			.Add(p => p.TooltipSettings, new TooltipSettings()
 			{
@@ -25,7 +25,7 @@ public partial class HxButtonTests : BunitTestBase
 	public void HxButton_TooltipSettings_Trigger_ShouldBeConfigurableViaSettings()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxButton>(parameters => parameters
+		var cut = Render<HxButton>(parameters => parameters
 			.Add(p => p.Tooltip, "Test Tooltip")
 			.Add(p => p.Settings, new ButtonSettings()
 			{
@@ -47,7 +47,7 @@ public partial class HxButtonTests : BunitTestBase
 	public void HxButton_TooltipSettings_DefaultTrigger_ShouldNotBeSet()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxButton>(parameters => parameters
+		var cut = Render<HxButton>(parameters => parameters
 			.Add(p => p.Tooltip, "Test Tooltip")
 		);
 
@@ -63,7 +63,7 @@ public partial class HxButtonTests : BunitTestBase
 	public void HxButton_TooltipSettings_Placement_ShouldBeConfigurableViaParameter()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxButton>(parameters => parameters
+		var cut = Render<HxButton>(parameters => parameters
 			.Add(p => p.Tooltip, "Test Tooltip")
 			.Add(p => p.TooltipSettings, new TooltipSettings()
 			{
@@ -82,7 +82,7 @@ public partial class HxButtonTests : BunitTestBase
 	public void HxButton_TooltipSettings_Placement_ShouldBeConfigurableViaSettings()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxButton>(parameters => parameters
+		var cut = Render<HxButton>(parameters => parameters
 			.Add(p => p.Tooltip, "Test Tooltip")
 			.Add(p => p.Settings, new ButtonSettings()
 			{
@@ -104,7 +104,7 @@ public partial class HxButtonTests : BunitTestBase
 	public void HxButton_TooltipSettings_DefaultPlacement_ShouldNotBeSet()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxButton>(parameters => parameters
+		var cut = Render<HxButton>(parameters => parameters
 			.Add(p => p.Tooltip, "Test Tooltip")
 		);
 

@@ -7,7 +7,7 @@ public class HxInputTextAdornTests : BunitTestBase
 	public void HxInputText_NoAdorn_RendersPlainFormControl()
 	{
 		// Act
-		var cut = RenderComponent<HxInputText>(parameters => parameters
+		var cut = Render<HxInputText>(parameters => parameters
 			.Bind(p => p.Value, "initial", _ => { }));
 
 		// Assert
@@ -21,7 +21,7 @@ public class HxInputTextAdornTests : BunitTestBase
 	public void HxInputText_AdornStartText_RendersFormAdornWrapperWithGhostInput()
 	{
 		// Act
-		var cut = RenderComponent<HxInputText>(parameters => parameters
+		var cut = Render<HxInputText>(parameters => parameters
 			.Bind(p => p.Value, "initial", _ => { })
 			.Add(p => p.AdornStartText, "€"));
 
@@ -42,7 +42,7 @@ public class HxInputTextAdornTests : BunitTestBase
 	public void HxInputText_AdornEndTemplate_RendersFormAdornIconAfterInput()
 	{
 		// Act
-		var cut = RenderComponent<HxInputText>(parameters => parameters
+		var cut = Render<HxInputText>(parameters => parameters
 			.Bind(p => p.Value, "initial", _ => { })
 			.Add(p => p.AdornEndTemplate, (builder) => builder.AddMarkupContent(0, "<span class=\"my-icon\"></span>")));
 
@@ -56,7 +56,7 @@ public class HxInputTextAdornTests : BunitTestBase
 	public void HxInputText_AdornWithFloatingLabel_Throws()
 	{
 		// Act & Assert
-		Assert.Throws<InvalidOperationException>(() => RenderComponent<HxInputText>(parameters => parameters
+		Assert.Throws<InvalidOperationException>(() => Render<HxInputText>(parameters => parameters
 			.Bind(p => p.Value, "initial", _ => { })
 			.Add(p => p.LabelType, LabelType.Floating)
 			.Add(p => p.Label, "Name")

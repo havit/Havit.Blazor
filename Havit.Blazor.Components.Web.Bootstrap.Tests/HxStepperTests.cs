@@ -6,7 +6,7 @@ public class HxStepperTests : BunitTestBase
 	public void HxStepper_Render_RendersOrderedListWithAllItems()
 	{
 		// Act
-		var cut = RenderComponent<HxStepper>(parameters => parameters
+		var cut = Render<HxStepper>(parameters => parameters
 			.AddChildContent<HxStepperItem>(item => item
 				.Add(i => i.Text, "Create account"))
 			.AddChildContent<HxStepperItem>(item => item
@@ -28,7 +28,7 @@ public class HxStepperTests : BunitTestBase
 	public void HxStepper_ActiveItem_HasActiveClass()
 	{
 		// Act
-		var cut = RenderComponent<HxStepper>(parameters => parameters
+		var cut = Render<HxStepper>(parameters => parameters
 			.AddChildContent<HxStepperItem>(item => item
 				.Add(i => i.Active, true)
 				.Add(i => i.Text, "Active item"))
@@ -46,7 +46,7 @@ public class HxStepperTests : BunitTestBase
 	public void HxStepper_HorizontalAlways_HasHorizontalClassAndNoWrapper()
 	{
 		// Act
-		var cut = RenderComponent<HxStepper>(parameters => parameters
+		var cut = Render<HxStepper>(parameters => parameters
 			.Add(p => p.Horizontal, StepperHorizontal.Always)
 			.AddChildContent<HxStepperItem>(item => item
 				.Add(i => i.Text, "Step"))
@@ -68,7 +68,7 @@ public class HxStepperTests : BunitTestBase
 	public void HxStepper_ResponsiveHorizontal_HasResponsiveClassAndContainsInlineWrapper(StepperHorizontal horizontal, string expectedCssClass)
 	{
 		// Act
-		var cut = RenderComponent<HxStepper>(parameters => parameters
+		var cut = Render<HxStepper>(parameters => parameters
 			.Add(p => p.Horizontal, horizontal)
 			.AddChildContent<HxStepperItem>(item => item
 				.Add(i => i.Text, "Step"))
@@ -85,7 +85,7 @@ public class HxStepperTests : BunitTestBase
 	public void HxStepper_Overflow_RendersStepperOverflowWrapper()
 	{
 		// Act
-		var cut = RenderComponent<HxStepper>(parameters => parameters
+		var cut = Render<HxStepper>(parameters => parameters
 			.Add(p => p.Horizontal, StepperHorizontal.Always)
 			.Add(p => p.Overflow, true)
 			.AddChildContent<HxStepperItem>(item => item
@@ -102,7 +102,7 @@ public class HxStepperTests : BunitTestBase
 	public void HxStepper_OverflowWithResponsiveHorizontal_DoesNotRenderContainsInlineWrapper()
 	{
 		// Act
-		var cut = RenderComponent<HxStepper>(parameters => parameters
+		var cut = Render<HxStepper>(parameters => parameters
 			.Add(p => p.Horizontal, StepperHorizontal.MediumUp)
 			.Add(p => p.Overflow, true)
 			.AddChildContent<HxStepperItem>(item => item
@@ -118,7 +118,7 @@ public class HxStepperTests : BunitTestBase
 	public void HxStepper_Color_RendersThemeClass()
 	{
 		// Act
-		var cut = RenderComponent<HxStepper>(parameters => parameters
+		var cut = Render<HxStepper>(parameters => parameters
 			.Add(p => p.Color, ThemeColor.Success)
 			.AddChildContent<HxStepperItem>(item => item
 				.Add(i => i.Text, "Step"))
@@ -132,7 +132,7 @@ public class HxStepperTests : BunitTestBase
 	public void HxStepperItem_Color_RendersThemeClass()
 	{
 		// Act
-		var cut = RenderComponent<HxStepper>(parameters => parameters
+		var cut = Render<HxStepper>(parameters => parameters
 			.AddChildContent<HxStepperItem>(item => item
 				.Add(i => i.Color, ThemeColor.Danger)
 				.Add(i => i.Text, "Step"))
@@ -146,7 +146,7 @@ public class HxStepperTests : BunitTestBase
 	public void HxStepperItem_Href_RendersAnchorItemsAndDivStepper()
 	{
 		// Act
-		var cut = RenderComponent<HxStepper>(parameters => parameters
+		var cut = Render<HxStepper>(parameters => parameters
 			.AddChildContent<HxStepperItem>(item => item
 				.Add(i => i.Href, "/step-1")
 				.Add(i => i.Active, true)
@@ -171,7 +171,7 @@ public class HxStepperTests : BunitTestBase
 	public void HxStepperItem_MixedAnchorAndPlainItems_RendersPlainItemsAsDivs()
 	{
 		// Act
-		var cut = RenderComponent<HxStepper>(parameters => parameters
+		var cut = Render<HxStepper>(parameters => parameters
 			.AddChildContent<HxStepperItem>(item => item
 				.Add(i => i.Href, "/step-1")
 				.Add(i => i.Text, "Create account"))
@@ -190,7 +190,7 @@ public class HxStepperTests : BunitTestBase
 	public void HxStepper_CssClassAndAdditionalAttributes_AreRendered()
 	{
 		// Act
-		var cut = RenderComponent<HxStepper>(parameters => parameters
+		var cut = Render<HxStepper>(parameters => parameters
 			.Add(p => p.CssClass, "w-100")
 			.AddUnmatched("style", "--bs-stepper-gap: 3rem")
 			.AddChildContent<HxStepperItem>(item => item
@@ -209,7 +209,7 @@ public class HxStepperTests : BunitTestBase
 	public void HxStepperItem_TextAndChildContent_RendersBoth()
 	{
 		// Act
-		var cut = RenderComponent<HxStepper>(parameters => parameters
+		var cut = Render<HxStepper>(parameters => parameters
 			.AddChildContent<HxStepperItem>(item => item
 				.Add(i => i.Text, "Create account")
 				.AddChildContent("<span class=\"badge\">Complete</span>"))

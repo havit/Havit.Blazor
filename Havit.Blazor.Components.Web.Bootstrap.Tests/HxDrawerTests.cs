@@ -8,7 +8,7 @@ public class HxDrawerTests : BunitTestBase
 	public void HxDrawer_RenderModeAlways_RendersStructure()
 	{
 		// Act
-		var cut = RenderComponent<HxDrawer>(p => p
+		var cut = Render<HxDrawer>(p => p
 			.Add(o => o.RenderMode, DrawerRenderMode.Always)
 			.Add(o => o.Title, "Test Title")
 			.Add(o => o.BodyTemplate, (RenderFragment)(b => b.AddContent(0, "Body content"))));
@@ -33,7 +33,7 @@ public class HxDrawerTests : BunitTestBase
 	public void HxDrawer_PlacementStart_HasCorrectCssClass()
 	{
 		// Act
-		var cut = RenderComponent<HxDrawer>(p => p
+		var cut = Render<HxDrawer>(p => p
 			.Add(o => o.RenderMode, DrawerRenderMode.Always)
 			.Add(o => o.Placement, DrawerPlacement.Start)
 			.Add(o => o.BodyTemplate, (RenderFragment)(b => b.AddContent(0, "Body"))));
@@ -51,7 +51,7 @@ public class HxDrawerTests : BunitTestBase
 	public void HxDrawer_Placement_AllDirections(DrawerPlacement placement, string expectedCss)
 	{
 		// Act
-		var cut = RenderComponent<HxDrawer>(p => p
+		var cut = Render<HxDrawer>(p => p
 			.Add(o => o.RenderMode, DrawerRenderMode.Always)
 			.Add(o => o.Placement, placement)
 			.Add(o => o.BodyTemplate, (RenderFragment)(b => b.AddContent(0, "Body"))));
@@ -65,7 +65,7 @@ public class HxDrawerTests : BunitTestBase
 	public void HxDrawer_ShowCloseButtonTrue_RendersCloseButton()
 	{
 		// Act
-		var cut = RenderComponent<HxDrawer>(p => p
+		var cut = Render<HxDrawer>(p => p
 			.Add(o => o.RenderMode, DrawerRenderMode.Always)
 			.Add(o => o.ShowCloseButton, true)
 			.Add(o => o.Title, "Title")
@@ -81,7 +81,7 @@ public class HxDrawerTests : BunitTestBase
 	public void HxDrawer_ShowCloseButtonFalse_NoCloseButton()
 	{
 		// Act
-		var cut = RenderComponent<HxDrawer>(p => p
+		var cut = Render<HxDrawer>(p => p
 			.Add(o => o.RenderMode, DrawerRenderMode.Always)
 			.Add(o => o.ShowCloseButton, false)
 			.Add(o => o.Title, "Title")
@@ -95,7 +95,7 @@ public class HxDrawerTests : BunitTestBase
 	public void HxDrawer_FooterTemplate_RendersFooter()
 	{
 		// Act
-		var cut = RenderComponent<HxDrawer>(p => p
+		var cut = Render<HxDrawer>(p => p
 			.Add(o => o.RenderMode, DrawerRenderMode.Always)
 			.Add(o => o.BodyTemplate, (RenderFragment)(b => b.AddContent(0, "Body")))
 			.Add(o => o.FooterTemplate, (RenderFragment)(b => b.AddContent(0, "Footer content"))));
@@ -110,7 +110,7 @@ public class HxDrawerTests : BunitTestBase
 	public void HxDrawer_SizeLarge_HasSizeCssClass()
 	{
 		// Act
-		var cut = RenderComponent<HxDrawer>(p => p
+		var cut = Render<HxDrawer>(p => p
 			.Add(o => o.RenderMode, DrawerRenderMode.Always)
 			.Add(o => o.Size, DrawerSize.Large)
 			.Add(o => o.BodyTemplate, (RenderFragment)(b => b.AddContent(0, "Body"))));
@@ -124,7 +124,7 @@ public class HxDrawerTests : BunitTestBase
 	public void HxDrawer_RenderModeOpenOnly_DoesNotRenderContentWhenClosed()
 	{
 		// Act - default RenderMode is OpenOnly
-		var cut = RenderComponent<HxDrawer>(p => p
+		var cut = Render<HxDrawer>(p => p
 			.Add(o => o.Title, "Title")
 			.Add(o => o.BodyTemplate, (RenderFragment)(b => b.AddContent(0, "Body"))));
 

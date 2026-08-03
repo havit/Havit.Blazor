@@ -36,7 +36,7 @@ public class HxTreeViewTests : BunitTestBase
 	public void HxTreeView_Render_DisplaysRootNodes()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxTreeView<TreeItem>>(parameters => parameters
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
 			.Add(p => p.Items, CreateTestData())
 			.Add(p => p.ItemTitleSelector, item => item.Title)
 			.Add(p => p.ItemChildrenSelector, item => item.Children)
@@ -59,7 +59,7 @@ public class HxTreeViewTests : BunitTestBase
 	public void HxTreeView_ExpandNode_ShowsChildren()
 	{
 		// Arrange & Act - Use ItemInitialExpandedSelector to expand Root1
-		var cut = RenderComponent<HxTreeView<TreeItem>>(parameters => parameters
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
 			.Add(p => p.Items, CreateTestData())
 			.Add(p => p.ItemTitleSelector, item => item.Title)
 			.Add(p => p.ItemChildrenSelector, item => item.Children)
@@ -81,7 +81,7 @@ public class HxTreeViewTests : BunitTestBase
 	public void HxTreeView_DefaultState_NodesAreCollapsed()
 	{
 		// Arrange & Act - Default state: all nodes collapsed
-		var cut = RenderComponent<HxTreeView<TreeItem>>(parameters => parameters
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
 			.Add(p => p.Items, CreateTestData())
 			.Add(p => p.ItemTitleSelector, item => item.Title)
 			.Add(p => p.ItemChildrenSelector, item => item.Children)
@@ -104,7 +104,7 @@ public class HxTreeViewTests : BunitTestBase
 		var testData = CreateTestData();
 		TreeItem selectedItem = null;
 
-		var cut = RenderComponent<HxTreeView<TreeItem>>(parameters => parameters
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
 			.Add(p => p.Items, testData)
 			.Add(p => p.ItemTitleSelector, item => item.Title)
 			.Add(p => p.ItemChildrenSelector, item => item.Children)
@@ -132,7 +132,7 @@ public class HxTreeViewTests : BunitTestBase
 	public void HxTreeView_NestedExpansion_WorksCorrectly()
 	{
 		// Arrange & Act - Expand all levels
-		var cut = RenderComponent<HxTreeView<TreeItem>>(parameters => parameters
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
 			.Add(p => p.Items, CreateTestData())
 			.Add(p => p.ItemTitleSelector, item => item.Title)
 			.Add(p => p.ItemChildrenSelector, item => item.Children)

@@ -1,4 +1,5 @@
 using Havit.Blazor.ApplicationInsights.Options;
+using Microsoft.AspNetCore.Components.Server;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Hosting.Server.Features;
@@ -22,6 +23,17 @@ public class BlazorWebApplicationFactory : WebApplicationFactory<TestApp.Program
 	protected override void ConfigureWebHost(IWebHostBuilder builder)
 	{
 		builder.UseEnvironment("Development");
+		builder.UseSetting(WebHostDefaults.DetailedErrorsKey, "true");
+
+		builder.ConfigureServices(services =>
+		{
+			// full exception details (incl. stack trace) get sent to the browser console instead of the generic "unhandled exception on the current circuit" message
+			services.Configure<CircuitOptions>(options =>
+			{
+				options.DetailedErrors = true;
+			});
+		});
+
 		if (_optionsOverride != null)
 		{
 			builder.ConfigureServices(services =>

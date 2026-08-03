@@ -16,7 +16,7 @@ public class HxGrid_Basic_Tests : BunitTestBase
 
 		GridDataProviderDelegate<TestItem> dataProvider = (GridDataProviderRequest<TestItem> request) => Task.FromResult(request.ApplyTo(items));
 
-		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
 				.Add(c => c.HeaderText, "Name")
@@ -48,7 +48,7 @@ public class HxGrid_Basic_Tests : BunitTestBase
 
 		Expression<Func<TestItem, IComparable>> sortKeySelector = item => item.Name;
 
-		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
 				.Add(c => c.HeaderText, "Name")
@@ -84,7 +84,7 @@ public class HxGrid_Basic_Tests : BunitTestBase
 
 		Expression<Func<TestItem, IComparable>> sortKeySelector = item => item.Name;
 
-		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
 				.Add(c => c.HeaderText, "Name")
@@ -109,7 +109,7 @@ public class HxGrid_Basic_Tests : BunitTestBase
 		GridDataProviderDelegate<TestItem> dataProvider = (GridDataProviderRequest<TestItem> request) =>
 			Task.FromResult(new GridDataProviderResult<TestItem> { Data = [], TotalCount = 0 });
 
-		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
 				.Add(c => c.HeaderText, "Name")
@@ -129,7 +129,7 @@ public class HxGrid_Basic_Tests : BunitTestBase
 		GridDataProviderDelegate<TestItem> dataProvider = (GridDataProviderRequest<TestItem> request) =>
 			Task.FromResult(new GridDataProviderResult<TestItem> { Data = [], TotalCount = 0 });
 
-		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add(p => p.EmptyDataTemplate, (RenderFragment)(builder =>
 			{
@@ -158,7 +158,7 @@ public class HxGrid_Basic_Tests : BunitTestBase
 		GridDataProviderDelegate<TestItem> dataProvider = (GridDataProviderRequest<TestItem> request) =>
 			Task.FromResult(request.ApplyTo(items));
 
-		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
 				.Add(c => c.HeaderText, "Name")
@@ -182,7 +182,7 @@ public class HxGrid_Basic_Tests : BunitTestBase
 		GridDataProviderDelegate<TestItem> dataProvider = (GridDataProviderRequest<TestItem> request) =>
 			Task.FromResult(request.ApplyTo(items));
 
-		var cut = RenderComponent<HxGrid<TestItem>>(parameters => parameters
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
 			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
 				.Add(c => c.HeaderText, "Name")

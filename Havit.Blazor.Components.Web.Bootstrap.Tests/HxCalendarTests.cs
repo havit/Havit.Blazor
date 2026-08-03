@@ -12,7 +12,7 @@ public class HxCalendarTests : BunitTestBase
 		var displayMonth = new DateTime(2025, 6, 1);
 
 		// Act
-		var cut = RenderComponent<HxCalendar>(parameters => parameters
+		var cut = Render<HxCalendar>(parameters => parameters
 			.Add(p => p.DisplayMonth, displayMonth)
 			.Add(p => p.DisplayMonthChanged, (DateTime _) => { })
 		);
@@ -33,7 +33,7 @@ public class HxCalendarTests : BunitTestBase
 		var displayMonth = new DateTime(2025, 3, 1);
 		DateTime? reportedMonth = null;
 
-		var cut = RenderComponent<HxCalendar>(parameters => parameters
+		var cut = Render<HxCalendar>(parameters => parameters
 			.Add(p => p.DisplayMonth, displayMonth)
 			.Add(p => p.DisplayMonthChanged, (DateTime newMonth) => { reportedMonth = newMonth; })
 		);
@@ -55,7 +55,7 @@ public class HxCalendarTests : BunitTestBase
 		var displayMonth = new DateTime(2025, 3, 1);
 		DateTime? reportedMonth = null;
 
-		var cut = RenderComponent<HxCalendar>(parameters => parameters
+		var cut = Render<HxCalendar>(parameters => parameters
 			.Add(p => p.DisplayMonth, displayMonth)
 			.Add(p => p.DisplayMonthChanged, (DateTime newMonth) => { reportedMonth = newMonth; })
 		);
@@ -79,7 +79,7 @@ public class HxCalendarTests : BunitTestBase
 			var displayMonth = new DateTime(2025, 3, 1);
 			DateTime? selectedValue = null;
 
-			var cut = RenderComponent<HxCalendar>(parameters => parameters
+			var cut = Render<HxCalendar>(parameters => parameters
 				.Add(p => p.DisplayMonth, displayMonth)
 				.Add(p => p.DisplayMonthChanged, (DateTime _) => { })
 				.Add(p => p.ValueChanged, (DateTime? newValue) => { selectedValue = newValue; })
@@ -105,7 +105,7 @@ public class HxCalendarTests : BunitTestBase
 			var selectedDate = new DateTime(2025, 3, 20);
 
 			// Act
-			var cut = RenderComponent<HxCalendar>(parameters => parameters
+			var cut = Render<HxCalendar>(parameters => parameters
 				.Add(p => p.Value, selectedDate)
 				.Add(p => p.ValueChanged, (DateTime? _) => { })
 				.Add(p => p.DisplayMonth, new DateTime(2025, 3, 1))
@@ -123,7 +123,7 @@ public class HxCalendarTests : BunitTestBase
 	public void HxCalendar_AllButtons_HaveTypeButton()
 	{
 		// Arrange & Act — regression for #1064: calendar buttons must not submit forms
-		var cut = RenderComponent<HxCalendar>(parameters => parameters
+		var cut = Render<HxCalendar>(parameters => parameters
 			.Add(p => p.DisplayMonth, new DateTime(2025, 3, 1))
 			.Add(p => p.DisplayMonthChanged, (DateTime _) => { }));
 
