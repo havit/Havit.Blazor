@@ -64,7 +64,6 @@
 		<PackageVersion Include="System.Text.Json" Version="$(AspNetCoreVersion10)" />
 		<!-- Transient vulnerabilities -->
 		<PackageVersion Include="System.Formats.Asn1" Version="$(AspNetCoreVersion10)" />
-		<PackageVersion Include="AngleSharp" Version="1.5.2" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(ProjectName.EndsWith(`Tests`))' == 'False'">
 		<GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.7.23">
