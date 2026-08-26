@@ -7,40 +7,34 @@ namespace Havit.Blazor.GoogleTagManager;
 
 /// <summary>
 /// Initializes Google Tag Manager and tracks page-views to the GTM data-layer.
-/// <para>
-/// The component covers all render modes:
+/// </summary>
+/// <remarks>
+/// Supports all render modes:
 /// <list type="bullet">
 ///   <item><description>
-///     <b>Static SSR and prerendering:</b> the GTM snippet is emitted inline as a <c>&lt;script&gt;</c> tag
-///     directly into the HTML response (see the <c>.razor</c> file), so GTM starts loading while the page
-///     is still being parsed. No JS interop is available in this phase.
+///     <b>Static SSR and prerendering</b> — the GTM snippet is rendered inline, so GTM starts loading
+///     while the page is still being parsed.
 ///   </description></item>
 ///   <item><description>
-///     <b>Static SSR with enhanced navigation:</b> the inline snippet is not executed again when Blazor
-///     patches a new page into the DOM, so page-views for enhanced navigations are pushed by the
-///     <c>Havit.Blazor.GoogleTagManager.lib.module.js</c> JS initializer, which listens for the
-///     <c>enhancedload</c> event.
+///     <b>Static SSR with enhanced navigation</b> — page-views are pushed by the
+///     <c>Havit.Blazor.GoogleTagManager.lib.module.js</c> JS initializer, which listens for <c>enhancedload</c>.
 ///   </description></item>
 ///   <item><description>
-///     <b>Interactive rendering (Server, WebAssembly, Auto):</b> page-views are pushed in reaction to
-///     <see cref="NavigationManager.LocationChanged"/>, which is what covers navigations handled by the
-///     interactive router. When the page was prerendered, GTM is already initialized by the inline snippet;
-///     otherwise the first push initializes it through JS interop.
+///     <b>Interactive Server, WebAssembly and Auto</b> — page-views are pushed in reaction to
+///     <see cref="NavigationManager.LocationChanged"/>, which covers navigations resolved by the interactive router.
 ///   </description></item>
 /// </list>
-/// </para>
+/// Initialization and automatic page-views are deduplicated in JavaScript, so rendering the component more
+/// than once (e.g. in <c>App.razor</c> for the earliest possible GTM load and in the layout to cover
+/// interactive routing) does not produce duplicate events.
 /// <para>
-/// Initialization and automatic page-views are deduplicated in JavaScript through shared
-/// <c>window.hxGoogleTagManager</c> state, so more than one instance of the component (for example one in
-/// <c>App.razor</c> for the earliest possible GTM load and one in the layout to cover interactive routing)
-/// is safe and does not produce duplicate events.
-/// </para>
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxGoogleTagManager">https://havit.blazor.eu/components/HxGoogleTagManager</see>
-/// </summary>
+/// </para>
+/// </remarks>
 public partial class HxGoogleTagManagerPageViewTracker : IDisposable
 {
 	/// <summary>
-	/// Optional CSP nonce to include on the inline <c>&lt;script&gt;</c> tag (static SSR/prerendering scenario).
+	/// CSP nonce for the inline <c>&lt;script&gt;</c> tag rendered during static SSR and prerendering.
 	/// Required when a Content Security Policy with <c>nonce-*</c> is in use.
 	/// </summary>
 	[Parameter] public string Nonce { get; set; }
@@ -52,36 +46,31 @@ public partial class HxGoogleTagManagerPageViewTracker : IDisposable
 	private LocationChangedEventArgs _locationChangedEventArgsToReportOnAfterRenderAsync;
 	private bool _subscribedToLocationChanged;
 
-	/// <summary>
-	/// <c>false</c> during static SSR and prerendering, where JS interop is not available and the inline
-	/// snippet has to be rendered instead.
-	/// </summary>
 	private bool IsInteractiveRendering =>
 #if NET9_0_OR_GREATER
 		(this.AssignedRenderMode is not null) && this.RendererInfo.IsInteractive;
 #else
-		true; // RendererInfo/AssignedRenderMode are .NET 9+; on .NET 8 keep the original interactive-only behavior
+		true; // RendererInfo and AssignedRenderMode are .NET 9+, so .NET 8 keeps the original interactive-only behavior
 #endif
 
 	protected override void OnInitialized()
 	{
 		base.OnInitialized();
 
-		if (IsInteractiveRendering)
+		if (this.IsInteractiveRendering)
 		{
-			NavigationManager.LocationChanged += OnLocationChanged;
+			this.NavigationManager.LocationChanged += this.OnLocationChanged;
 			_subscribedToLocationChanged = true;
 		}
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
-		// OnAfterRenderAsync is never called during static SSR, so this is the interactive path only.
 		if (firstRender || (_locationChangedEventArgsToReportOnAfterRenderAsync is not null))
 		{
 			var argsToReport = _locationChangedEventArgsToReportOnAfterRenderAsync;
 			_locationChangedEventArgsToReportOnAfterRenderAsync = null;
-			await HxGoogleTagManager.PushPageViewAsync(argsToReport);
+			await this.HxGoogleTagManager.PushPageViewAsync(argsToReport);
 		}
 
 		await base.OnAfterRenderAsync(firstRender);
@@ -90,22 +79,26 @@ public partial class HxGoogleTagManagerPageViewTracker : IDisposable
 	private void OnLocationChanged(object sender, LocationChangedEventArgs args)
 	{
 		_locationChangedEventArgsToReportOnAfterRenderAsync = args;
-		StateHasChanged();
+		this.StateHasChanged();
 	}
 
 	/// <summary>
-	/// Returns the inline GTM snippet for static SSR/prerendering.
-	/// It intentionally repeats what <c>HxGoogleTagManager.js</c> <c>initialize()</c> does - the snippet has to run
-	/// during HTML parsing, long before any ES module can be imported - and joins the same
-	/// <c>window.hxGoogleTagManager</c> state, so whichever of the two runs first is the one that initializes GTM.
+	/// Repeats what <c>HxGoogleTagManager.js</c> <c>initialize()</c> does, because the snippet has to run while
+	/// the HTML is being parsed, long before any ES module can be imported. Both share the same
+	/// <c>window.hxGoogleTagManager</c> state, so whichever runs first is the one that initializes GTM.
 	/// </summary>
 	private string GetInitializationScript()
 	{
-		var options = Options.Value;
+		var options = this.Options.Value;
 		return $$"""
 			(function () {
 				var s = window.hxGoogleTagManager = window.hxGoogleTagManager || { initialized: false, config: null, lastPageViewUrl: null, initialPageViewHandled: false };
-				s.config = { gtmId: {{ToJsString(options.GtmId)}}, pageViewEventName: {{ToJsString(options.PageViewEventName)}}, pageViewUrlVariableName: {{ToJsString(options.PageViewUrlVariableName)}}, enableInitialPageViewTracking: {{(options.EnableInitialPageViewTracking ? "true" : "false")}} };
+				s.config = {
+					gtmId: {{ToJavaScriptString(options.GtmId)}},
+					pageViewEventName: {{ToJavaScriptString(options.PageViewEventName)}},
+					pageViewUrlVariableName: {{ToJavaScriptString(options.PageViewUrlVariableName)}},
+					enableInitialPageViewTracking: {{(options.EnableInitialPageViewTracking ? "true" : "false")}}
+				};
 				if (s.initialized) {
 					return;
 				}
@@ -122,7 +115,7 @@ public partial class HxGoogleTagManagerPageViewTracker : IDisposable
 			""";
 	}
 
-	private static string ToJsString(string value)
+	private static string ToJavaScriptString(string value)
 	{
 		return (value is null)
 			? "null"
@@ -131,14 +124,14 @@ public partial class HxGoogleTagManagerPageViewTracker : IDisposable
 
 	public void Dispose()
 	{
-		Dispose(true);
+		this.Dispose(true);
 	}
 
 	protected virtual void Dispose(bool disposing)
 	{
 		if (disposing && _subscribedToLocationChanged)
 		{
-			NavigationManager.LocationChanged -= OnLocationChanged;
+			this.NavigationManager.LocationChanged -= this.OnLocationChanged;
 		}
 	}
 }

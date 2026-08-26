@@ -1,10 +1,7 @@
-﻿// Shared state so that every entry point converges on a single GTM initialization
-// and a single automatic page-view per URL:
-//  - the inline snippet rendered by HxGoogleTagManagerPageViewTracker during static SSR/prerendering,
-//  - the JS initializer (Havit.Blazor.GoogleTagManager.lib.module.js) reacting to enhanced navigation,
-//  - the IHxGoogleTagManager service used from interactive rendering.
-// The inline snippet creates the very same object, so whichever runs first wins and the others join in.
-const state = (window.hxGoogleTagManager = window.hxGoogleTagManager || { initialized: false, config: null, lastPageViewUrl: null, initialPageViewHandled: false });
+﻿// Lives on window because the inline snippet rendered by HxGoogleTagManagerPageViewTracker during
+// static SSR is a plain <script> and cannot reach this module's scope. Both have to agree on whether
+// GTM is already running and which page-view was tracked last.
+const state = window.hxGoogleTagManager = window.hxGoogleTagManager || { initialized: false, config: null, lastPageViewUrl: null, initialPageViewHandled: false };
 
 export function initialize(GTMID) {
 	if (state.initialized) {
@@ -52,15 +49,9 @@ export function pushPageViewEvent(eventName, urlVariableName, url, eventData) {
 	push(eventData);
 }
 
-// Used by the automatic tracking paths (JS initializer + HxGoogleTagManagerPageViewTracker).
-// A single navigation can reach us more than once - the enhancedload event is raised for every
-// enhanced page update including streaming updates, and in a Blazor Web App an interactive tracker
-// can react to the very same navigation - so the URL last tracked is remembered and repeats are ignored.
-// Explicit IHxGoogleTagManager.PushPageViewAsync() calls bypass this and always push.
-//
-// trackInitialPageView (HxGoogleTagManagerOptions.EnableInitialPageViewTracking) decides whether the page
-// the document was loaded with is announced here as well. The state is per-document, so the first automatic
-// page-view to arrive is the initial one, whichever path produced it. Passing undefined keeps it tracked.
+// One navigation reaches automatic tracking more than once: enhancedload is raised for every enhanced
+// page update including streaming ones, and an interactive HxGoogleTagManagerPageViewTracker reacts to
+// the same navigation. Explicit IHxGoogleTagManager.PushPageViewAsync() calls do not come through here.
 export function pushPageViewEventOnce(eventName, urlVariableName, url, eventData, trackInitialPageView) {
 	if (url === state.lastPageViewUrl) {
 		return;
@@ -70,8 +61,8 @@ export function pushPageViewEventOnce(eventName, urlVariableName, url, eventData
 	state.initialPageViewHandled = true;
 
 	if (isInitialPageView && (trackInitialPageView === false)) {
-		// Remembered anyway, so that a repeated enhancedload for the same URL is not mistaken
-		// for a navigation and pushed after all.
+		// Suppressed but still remembered, otherwise the next enhancedload for the same URL would look
+		// like a navigation and push it after all.
 		state.lastPageViewUrl = url;
 		return;
 	}

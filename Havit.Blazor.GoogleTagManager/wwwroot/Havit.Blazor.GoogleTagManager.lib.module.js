@@ -1,22 +1,19 @@
-﻿// JS initializer - loaded automatically by Blazor, no <script> reference needed.
-// Adds Google Tag Manager support for static server-side rendering (static SSR) with enhanced navigation,
-// where no interactive runtime exists to observe NavigationManager.LocationChanged.
+﻿// Tracks page-views for static SSR, where there is no interactive runtime to observe
+// NavigationManager.LocationChanged.
 import { initialize, pushPageViewEventOnce } from './HxGoogleTagManager.js';
 
-// Blazor Web App (blazor.web.js).
+// Blazor Web App.
 export function afterWebStarted(blazor) {
 	start(blazor);
 }
 
-// Standalone WebAssembly (blazor.webassembly.js) and classic Blazor Server (blazor.server.js)
-// do not raise afterWebStarted. Only one of the two callbacks is ever invoked for a given host.
+// Blazor Server and standalone WebAssembly apps.
 export function afterStarted(blazor) {
 	start(blazor);
 }
 
 function start(blazor) {
-	// enhancedload is not raised for the page the app started on.
-	trackCurrentPage();
+	trackCurrentPage(); // enhancedload is not raised for the page the app started on
 
 	blazor.addEventListener('enhancedload', trackCurrentPage);
 }
@@ -24,9 +21,7 @@ function start(blazor) {
 function trackCurrentPage() {
 	const config = window.hxGoogleTagManager?.config;
 	if (!config) {
-		// HxGoogleTagManagerPageViewTracker is not rendered on this page, or it is rendered
-		// interactively and tracks page-views through NavigationManager.LocationChanged instead.
-		return;
+		return; // no HxGoogleTagManagerPageViewTracker was rendered on the server, so there is nothing to track from here
 	}
 
 	initialize(config.gtmId);

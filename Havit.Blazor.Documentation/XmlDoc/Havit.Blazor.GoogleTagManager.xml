@@ -57,77 +57,53 @@
         <member name="P:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerOptions.EnableInitialPageViewTracking">
             <summary>
             Whether <see cref="P:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerOptions.PageViewEventName"/> is pushed for the page the document was loaded with.
-            Default is <c>true</c>.
             <para>
-            The GTM snippet already announces a document load on its own (the container's built-in Page View trigger,
-            plus a <c>pageview</c> event pushed for backwards compatibility), so with the default the first page of
-            a session is announced twice - once as <c>pageview</c> and once as <see cref="P:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerOptions.PageViewEventName"/>.
-            That is what you want when the container treats <see cref="P:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerOptions.PageViewEventName"/> as the single source
-            of truth and ignores <c>pageview</c>.
+            Set to <c>false</c> when the GTM container already covers document loads with the <c>pageview</c> event
+            or its built-in Page View trigger — otherwise the landing page of every session is counted twice.
+            Explicit <see cref="M:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager.PushPageViewAsync(System.Object)"/> calls are not affected.
             </para>
-            <para>
-            Set to <c>false</c> when the container instead uses <c>pageview</c> (or its built-in Page View trigger)
-            for real document loads and <see cref="P:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerOptions.PageViewEventName"/> only for the navigations that follow.
-            Without it those containers count the landing page of every session twice.
-            </para>
-            <para>
-            Only automatic tracking is affected - an explicit <see cref="M:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager.PushPageViewAsync(System.Object)"/>
-            call always pushes.
-            </para>
+            Default: <c>true</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker">
             <summary>
             Initializes Google Tag Manager and tracks page-views to the GTM data-layer.
-            <para>
-            The component covers all render modes:
+            </summary>
+            <remarks>
+            Supports all render modes:
             <list type="bullet">
               <item><description>
-                <b>Static SSR and prerendering:</b> the GTM snippet is emitted inline as a <c>&lt;script&gt;</c> tag
-                directly into the HTML response (see the <c>.razor</c> file), so GTM starts loading while the page
-                is still being parsed. No JS interop is available in this phase.
+                <b>Static SSR and prerendering</b> — the GTM snippet is rendered inline, so GTM starts loading
+                while the page is still being parsed.
               </description></item>
               <item><description>
-                <b>Static SSR with enhanced navigation:</b> the inline snippet is not executed again when Blazor
-                patches a new page into the DOM, so page-views for enhanced navigations are pushed by the
-                <c>Havit.Blazor.GoogleTagManager.lib.module.js</c> JS initializer, which listens for the
-                <c>enhancedload</c> event.
+                <b>Static SSR with enhanced navigation</b> — page-views are pushed by the
+                <c>Havit.Blazor.GoogleTagManager.lib.module.js</c> JS initializer, which listens for <c>enhancedload</c>.
               </description></item>
               <item><description>
-                <b>Interactive rendering (Server, WebAssembly, Auto):</b> page-views are pushed in reaction to
-                <see cref="E:Microsoft.AspNetCore.Components.NavigationManager.LocationChanged"/>, which is what covers navigations handled by the
-                interactive router. When the page was prerendered, GTM is already initialized by the inline snippet;
-                otherwise the first push initializes it through JS interop.
+                <b>Interactive Server, WebAssembly and Auto</b> — page-views are pushed in reaction to
+                <see cref="E:Microsoft.AspNetCore.Components.NavigationManager.LocationChanged"/>, which covers navigations resolved by the interactive router.
               </description></item>
             </list>
-            </para>
+            Initialization and automatic page-views are deduplicated in JavaScript, so rendering the component more
+            than once (e.g. in <c>App.razor</c> for the earliest possible GTM load and in the layout to cover
+            interactive routing) does not produce duplicate events.
             <para>
-            Initialization and automatic page-views are deduplicated in JavaScript through shared
-            <c>window.hxGoogleTagManager</c> state, so more than one instance of the component (for example one in
-            <c>App.razor</c> for the earliest possible GTM load and one in the layout to cover interactive routing)
-            is safe and does not produce duplicate events.
-            </para>
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxGoogleTagManager">https://havit.blazor.eu/components/HxGoogleTagManager</see>
-            </summary>
+            </para>
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker.Nonce">
             <summary>
-            Optional CSP nonce to include on the inline <c>&lt;script&gt;</c> tag (static SSR/prerendering scenario).
+            CSP nonce for the inline <c>&lt;script&gt;</c> tag rendered during static SSR and prerendering.
             Required when a Content Security Policy with <c>nonce-*</c> is in use.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker.IsInteractiveRendering">
-            <summary>
-            <c>false</c> during static SSR and prerendering, where JS interop is not available and the inline
-            snippet has to be rendered instead.
             </summary>
         </member>
         <member name="M:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker.GetInitializationScript">
             <summary>
-            Returns the inline GTM snippet for static SSR/prerendering.
-            It intentionally repeats what <c>HxGoogleTagManager.js</c> <c>initialize()</c> does - the snippet has to run
-            during HTML parsing, long before any ES module can be imported - and joins the same
-            <c>window.hxGoogleTagManager</c> state, so whichever of the two runs first is the one that initializes GTM.
+            Repeats what <c>HxGoogleTagManager.js</c> <c>initialize()</c> does, because the snippet has to run while
+            the HTML is being parsed, long before any ES module can be imported. Both share the same
+            <c>window.hxGoogleTagManager</c> state, so whichever runs first is the one that initializes GTM.
             </summary>
         </member>
         <member name="T:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager">
@@ -154,13 +130,14 @@
         </member>
         <member name="M:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager.PushPageViewAsync(System.Object)">
             <summary>
-            Push page-view to GTM data-layer.
+            Push page-view to GTM data-layer. Always pushes, even for the page-view tracked last.
             Consider using <see cref="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker"/> instead of manual handling.
             </summary>
         </member>
         <member name="M:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager.PushPageViewAsync(Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs)">
             <summary>
             Used by <see cref="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker"/> to track location changes.
+            Deduplicated, as the same navigation can also be seen by the package's JS initializer.
             </summary>
         </member>
     </members>

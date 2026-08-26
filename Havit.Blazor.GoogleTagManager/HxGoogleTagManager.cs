@@ -60,16 +60,12 @@ public class HxGoogleTagManager : IHxGoogleTagManager, IAsyncDisposable
 	/// <inheritdoc/>
 	public async Task PushPageViewAsync(object additionalData = null)
 	{
-		// An explicit call is always pushed - the caller asked for it.
 		await PushPageViewCoreAsync(_navigationManager.Uri, additionalData, deduplicate: false);
 	}
 
 	/// <inheritdoc/>
 	async Task IHxGoogleTagManager.PushPageViewAsync(LocationChangedEventArgs args)
 	{
-		// Automatic tracking. The very same navigation can also be seen by the JS initializer
-		// (enhancedload) in a Blazor Web App that mixes static SSR and interactive pages,
-		// so let JavaScript drop the repeated URL.
 		if (args is null)
 		{
 			// App firstRender

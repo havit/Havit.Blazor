@@ -18,91 +18,96 @@
 	<CodeSnippet Language="html">@("<HxGoogleTagManagerPageViewTracker />")</CodeSnippet>
 
 	<DocHeading Title="Render modes" Id="HxGoogleTagManagerPageViewTracker-render-modes" Level="3" />
-	<p>
-		The component supports every render mode. What it does depends on where it ends up being rendered:
-	</p>
-	<ul>
-		<li>
-			<strong>Static SSR and prerendering</strong> - the GTM snippet is emitted inline as a <code>&lt;script&gt;</code> tag
-			into the HTML response, so GTM starts loading while the page is still being parsed. No JS interop is available
-			in this phase, which is why the tracker cannot rely on <code>IHxGoogleTagManager</code> here.
-		</li>
-		<li>
-			<strong>Static SSR with <a href="https://learn.microsoft.com/aspnet/core/blazor/fundamentals/navigation#enhanced-navigation-and-form-handling">enhanced navigation</a></strong> -
-			an inline <code>&lt;script&gt;</code> is not executed again when Blazor patches a new page into the DOM,
-			so page-views for enhanced navigations are pushed by a
-			<a href="https://learn.microsoft.com/aspnet/core/blazor/fundamentals/startup#javascript-initializers">JS initializer</a>
-			shipped with the package, which listens for the <code>enhancedload</code> event. Nothing needs to be referenced
-			or configured - Blazor loads JS initializers automatically.
-		</li>
-		<li>
-			<strong>Interactive Server, WebAssembly and Auto</strong> - page-views are pushed in reaction to
-			<code>NavigationManager.LocationChanged</code>, which is what covers navigations handled by the interactive router.
-			The <code>enhancedload</code> event is not raised for those.
-		</li>
-	</ul>
+	<p>All render modes are supported. What the component does depends on where it is rendered:</p>
+	<table class="table table-bordered w-auto">
+		<thead>
+			<tr>
+				<th>Render mode</th>
+				<th>How GTM is started and page-views tracked</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Static SSR, prerendering</td>
+				<td>The GTM snippet is rendered inline, so GTM starts loading while the page is still being parsed.</td>
+			</tr>
+			<tr>
+				<td>Static SSR with <a href="https://learn.microsoft.com/aspnet/core/blazor/fundamentals/navigation#enhanced-navigation-and-form-handling">enhanced navigation</a></td>
+				<td>
+					A <a href="https://learn.microsoft.com/aspnet/core/blazor/fundamentals/startup#javascript-initializers">JS initializer</a>
+					shipped with the package listens for <code>enhancedload</code>. Blazor loads it automatically, nothing needs to be referenced.
+				</td>
+			</tr>
+			<tr>
+				<td>Interactive Server, WebAssembly, Auto</td>
+				<td>Page-views are pushed in reaction to <code>NavigationManager.LocationChanged</code>, which covers navigations resolved by the interactive router.</td>
+			</tr>
+		</tbody>
+	</table>
 
 	<DocHeading Title="Where to place the component" Id="HxGoogleTagManagerPageViewTracker-placement" Level="3" />
 	<p>
-		In a Blazor Web App the render mode the component ends up with is the render mode of the position it is rendered in,
-		and that decides which of the paths above it can take:
+		In a Blazor Web App the component takes the render mode of the position it is rendered in, and that decides
+		which of the rows above applies to it:
 	</p>
 	<ul>
 		<li>
-			<code>App.razor</code> is always statically rendered, so the component emits the inline snippet on every response.
-			This gives the earliest possible GTM load, and enhanced navigations are covered by the JS initializer -
-			but navigations performed by an interactive router are not seen.
+			<code>App.razor</code> is always statically rendered, which gives the earliest possible GTM load and covers
+			enhanced navigation — but not navigations performed by an interactive router.
 		</li>
 		<li>
-			A layout or page inside an interactive island is rendered interactively, so the component subscribes to
-			<code>LocationChanged</code> and covers interactive routing. With
+			A layout or page inside an interactive island covers interactive routing. With
 			<a href="https://learn.microsoft.com/aspnet/core/blazor/components/render-modes#static-ssr-pages-in-an-interactive-app">global interactivity</a>
-			this is the placement that covers the whole app.
+			this placement covers the whole app.
 		</li>
 	</ul>
 	<p>
-		Rendering the component more than once (for example in <code>App.razor</code> <em>and</em> in the layout) is safe.
-		GTM initialization and automatic page-views are deduplicated in JavaScript through shared
-		<code>window.hxGoogleTagManager</code> state, so a navigation seen by both paths still produces a single event.
-		An explicit <code>IHxGoogleTagManager.PushPageViewAsync()</code> call is never deduplicated - it always pushes.
+		Rendering the component more than once (for example in both positions) is safe. Initialization and automatic
+		page-views are deduplicated in JavaScript, so a navigation seen by both paths still produces a single event.
 	</p>
 
 	<DocHeading Title="Events pushed to the data-layer" Id="HxGoogleTagManagerPageViewTracker-events" Level="3" />
-	<ul>
-		<li>
-			<code>gtm.js</code> and <code>pageview</code> - once per document load, from the GTM snippet itself.
-			(<code>pageview</code> is not part of Google's snippet; it is pushed for backwards compatibility.)
-		</li>
-		<li>
-			<code>@nameof(HxGoogleTagManagerOptions.PageViewEventName)</code> (<code>virtualPageView</code> by default) - once per navigation,
-			including enhanced navigations and interactive routing. Configure a trigger for it in your GTM container;
-			the <code>pageview</code> event alone fires only on real page loads.
-		</li>
-	</ul>
+	<table class="table table-bordered w-auto">
+		<thead>
+			<tr>
+				<th>Event</th>
+				<th>When</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>gtm.js</code></td>
+				<td>Once per document load, from the GTM snippet.</td>
+			</tr>
+			<tr>
+				<td><code>pageview</code></td>
+				<td>Once per document load. Not part of Google's snippet — pushed for backwards compatibility.</td>
+			</tr>
+			<tr>
+				<td><code>@nameof(HxGoogleTagManagerOptions.PageViewEventName)</code><br />(<code>virtualPageView</code> by default)</td>
+				<td>Once per navigation, enhanced navigation and interactive routing included. Configure a trigger for it in your GTM container — <code>pageview</code> alone fires only on real page loads.</td>
+			</tr>
+		</tbody>
+	</table>
 	<p>
-		By default the page the document was loaded with is announced by both - once as <code>pageview</code> and once as
-		<code>@nameof(HxGoogleTagManagerOptions.PageViewEventName)</code>. Which of the two conventions your container follows
-		decides whether that is what you want:
+		By default the page the document was loaded with is announced by both <code>pageview</code> and
+		<code>@nameof(HxGoogleTagManagerOptions.PageViewEventName)</code>. Which convention your container follows decides
+		whether that is what you want:
 	</p>
 	<ul>
 		<li>
 			<code>@nameof(HxGoogleTagManagerOptions.PageViewEventName)</code> is the single source of truth and <code>pageview</code>
-			is ignored - keep <code>@nameof(HxGoogleTagManagerOptions.EnableInitialPageViewTracking)</code> at its default <code>true</code>.
+			is ignored — keep <code>@nameof(HxGoogleTagManagerOptions.EnableInitialPageViewTracking)</code> at its default <code>true</code>.
 		</li>
 		<li>
 			<code>pageview</code> (or the container's built-in Page View trigger) covers real document loads and
-			<code>@nameof(HxGoogleTagManagerOptions.PageViewEventName)</code> only the navigations that follow - set
-			<code>@nameof(HxGoogleTagManagerOptions.EnableInitialPageViewTracking)</code> to <code>false</code>,
-			otherwise the landing page of every session is counted twice.
+			<code>@nameof(HxGoogleTagManagerOptions.PageViewEventName)</code> only the navigations that follow — set
+			<code>@nameof(HxGoogleTagManagerOptions.EnableInitialPageViewTracking)</code> to <code>false</code>, otherwise the
+			landing page of every session is counted twice.
 		</li>
 	</ul>
-	<p>
-		The option affects automatic tracking only. An explicit <code>IHxGoogleTagManager.PushPageViewAsync()</code> call always pushes.
-	</p>
 
 	<DocHeading Title="Content Security Policy" Id="HxGoogleTagManagerPageViewTracker-csp" Level="3" />
-	<p>
-		When a Content Security Policy with <code>nonce-*</code> is in use, pass the nonce to the inline snippet:
-	</p>
+	<p>When a Content Security Policy with <code>nonce-*</code> is in use, pass the nonce to the inline snippet:</p>
 	<CodeSnippet Language="html">@("<HxGoogleTagManagerPageViewTracker Nonce=\"@Nonce\" />")</CodeSnippet>
 </ApiDoc>
