@@ -47,23 +47,22 @@
 
 	<DocHeading Title="Where to place the component" Id="HxGoogleTagManagerPageViewTracker-placement" Level="3" />
 	<p>
-		In a Blazor Web App the component takes the render mode of the position it is rendered in, and that decides
-		which of the rows above applies to it:
+		<code>App.razor</code> is the natural place — it is rendered on every response, so GTM starts loading as early
+		as possible. <code>App</code> itself is always rendered statically though, and a statically rendered component
+		cannot observe <code>NavigationManager.LocationChanged</code>, so navigations resolved by an interactive router
+		would go untracked. Give the component its own render mode to cover those as well:
 	</p>
-	<ul>
-		<li>
-			<code>App.razor</code> is always statically rendered, which gives the earliest possible GTM load and covers
-			enhanced navigation — but not navigations performed by an interactive router.
-		</li>
-		<li>
-			A layout or page inside an interactive island covers interactive routing. With
-			<a href="https://learn.microsoft.com/aspnet/core/blazor/components/render-modes#static-ssr-pages-in-an-interactive-app">global interactivity</a>
-			this placement covers the whole app.
-		</li>
-	</ul>
+	<CodeSnippet File="~\Pages\Components\HxGoogleTagManagerDoc\HxGoogleTagManager_Placement.CodeSnippet.razor" />
 	<p>
-		Rendering the component more than once (for example in both positions) is safe. Initialization and automatic
-		page-views are deduplicated in JavaScript, so a navigation seen by both paths still produces a single event.
+		The component then becomes an interactive root component of its own, sharing the runtime and the
+		<code>NavigationManager</code> with the rest of the app. Prerendering keeps the GTM snippet in the initial HTML
+		even when the pages themselves are not prerendered, and pages excluded from interactive routing stay static, so
+		they do not have to download the runtime just for tracking.
+	</p>
+	<p>
+		A layout or page inside an interactive island works too, and rendering the component more than once is safe —
+		initialization and automatic page-views are deduplicated in JavaScript, so a navigation seen by more than one
+		instance still produces a single event.
 	</p>
 
 	<DocHeading Title="Events pushed to the data-layer" Id="HxGoogleTagManagerPageViewTracker-events" Level="3" />
