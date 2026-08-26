@@ -1,0 +1,6 @@
+﻿@if (!IsInteractiveRendering) @* static SSR and prerendering - no JS interop is available here *@
+{
+	<script type="text/javascript" nonce="@Nonce">
+		@((MarkupString)GetInitializationScript())
+	</script>
+}

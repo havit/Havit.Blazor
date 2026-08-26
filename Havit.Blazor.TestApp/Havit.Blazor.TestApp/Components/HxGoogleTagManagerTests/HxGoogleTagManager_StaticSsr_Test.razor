@@ -1,0 +1,16 @@
+@page "/HxGoogleTagManagerTests/StaticSsr"
+@page "/HxGoogleTagManagerTests/StaticSsr2"
+
+<h1>GTM - Static SSR</h1>
+<p>Path: <strong>@NavigationManager.ToBaseRelativePath(NavigationManager.Uri)</strong>, interactive: @RendererInfo.IsInteractive</p>
+
+<ul>
+	<li><a href="/HxGoogleTagManagerTests/StaticSsr">Static SSR (1)</a></li>
+	<li><a href="/HxGoogleTagManagerTests/StaticSsr2">Static SSR (2)</a></li>
+	<li><a href="/HxGoogleTagManagerTests/Server">Interactive Server</a></li>
+	<li><a href="/HxGoogleTagManagerTests/Wasm">Interactive WebAssembly</a></li>
+</ul>
+
+@code {
+	[Inject] protected NavigationManager NavigationManager { get; set; }
+}

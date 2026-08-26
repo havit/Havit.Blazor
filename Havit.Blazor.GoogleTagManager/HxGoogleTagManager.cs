@@ -60,27 +60,31 @@ public class HxGoogleTagManager : IHxGoogleTagManager, IAsyncDisposable
 	/// <inheritdoc/>
 	public async Task PushPageViewAsync(object additionalData = null)
 	{
-		await PushPageViewCoreAsync(_navigationManager.Uri, additionalData);
+		// An explicit call is always pushed - the caller asked for it.
+		await PushPageViewCoreAsync(_navigationManager.Uri, additionalData, deduplicate: false);
 	}
 
 	/// <inheritdoc/>
 	async Task IHxGoogleTagManager.PushPageViewAsync(LocationChangedEventArgs args)
 	{
+		// Automatic tracking. The very same navigation can also be seen by the JS initializer
+		// (enhancedload) in a Blazor Web App that mixes static SSR and interactive pages,
+		// so let JavaScript drop the repeated URL.
 		if (args is null)
 		{
 			// App firstRender
-			await PushPageViewAsync();
+			await PushPageViewCoreAsync(_navigationManager.Uri, additionalData: null, deduplicate: true);
 		}
 		else
 		{
-			await PushPageViewCoreAsync(args.Location, new Dictionary<string, string>() { { "isNavigationIntercepted", args.IsNavigationIntercepted.ToString() } });
+			await PushPageViewCoreAsync(args.Location, new Dictionary<string, string>() { { "isNavigationIntercepted", args.IsNavigationIntercepted.ToString() } }, deduplicate: true);
 		}
 	}
 
-	private async Task PushPageViewCoreAsync(string url, object additionalData = null)
+	private async Task PushPageViewCoreAsync(string url, object additionalData, bool deduplicate)
 	{
 		await InitializeAsync();
-		await _jsModule.InvokeVoidAsync("pushPageViewEvent", _gtmOptions.PageViewEventName, _gtmOptions.PageViewUrlVariableName, url, additionalData);
+		await _jsModule.InvokeVoidAsync(deduplicate ? "pushPageViewEventOnce" : "pushPageViewEvent", _gtmOptions.PageViewEventName, _gtmOptions.PageViewUrlVariableName, url, additionalData);
 	}
 
 	public async ValueTask DisposeAsync()

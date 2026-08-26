@@ -1,0 +1,19 @@
+@page "/HxGoogleTagManagerTests/WasmNoPrerender"
+@rendermode @(new InteractiveWebAssemblyRenderMode(prerender: false))
+
+<HxGoogleTagManagerPageViewTracker />
+
+<h1>GTM - Interactive WebAssembly (prerender: false)</h1>
+<p>Path: <strong>@NavigationManager.ToBaseRelativePath(NavigationManager.Uri)</strong>, interactive: @RendererInfo.IsInteractive</p>
+
+<ul>
+	<li><a href="/HxGoogleTagManagerTests/StaticSsr">Static SSR (1)</a></li>
+	<li><a href="/HxGoogleTagManagerTests/StaticSsr2">Static SSR (2)</a></li>
+	<li><a href="/HxGoogleTagManagerTests/Server">Interactive Server</a></li>
+	<li><a href="/HxGoogleTagManagerTests/Wasm">Interactive WebAssembly</a></li>
+	<li><a href="/HxGoogleTagManagerTests/WasmNoPrerender">Interactive WebAssembly (prerender: false)</a></li>
+</ul>
+
+@code {
+	[Inject] protected NavigationManager NavigationManager { get; set; }
+}

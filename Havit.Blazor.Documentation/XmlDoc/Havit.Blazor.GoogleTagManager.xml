@@ -54,6 +54,60 @@
             Name of the variabel to be used for URL when page-view is tracked.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker">
+            <summary>
+            Initializes Google Tag Manager and tracks page-views to the GTM data-layer.
+            <para>
+            The component covers all render modes:
+            <list type="bullet">
+              <item><description>
+                <b>Static SSR and prerendering:</b> the GTM snippet is emitted inline as a <c>&lt;script&gt;</c> tag
+                directly into the HTML response (see the <c>.razor</c> file), so GTM starts loading while the page
+                is still being parsed. No JS interop is available in this phase.
+              </description></item>
+              <item><description>
+                <b>Static SSR with enhanced navigation:</b> the inline snippet is not executed again when Blazor
+                patches a new page into the DOM, so page-views for enhanced navigations are pushed by the
+                <c>Havit.Blazor.GoogleTagManager.lib.module.js</c> JS initializer, which listens for the
+                <c>enhancedload</c> event.
+              </description></item>
+              <item><description>
+                <b>Interactive rendering (Server, WebAssembly, Auto):</b> page-views are pushed in reaction to
+                <see cref="E:Microsoft.AspNetCore.Components.NavigationManager.LocationChanged"/>, which is what covers navigations handled by the
+                interactive router. When the page was prerendered, GTM is already initialized by the inline snippet;
+                otherwise the first push initializes it through JS interop.
+              </description></item>
+            </list>
+            </para>
+            <para>
+            Initialization and automatic page-views are deduplicated in JavaScript through shared
+            <c>window.hxGoogleTagManager</c> state, so more than one instance of the component (for example one in
+            <c>App.razor</c> for the earliest possible GTM load and one in the layout to cover interactive routing)
+            is safe and does not produce duplicate events.
+            </para>
+            Full documentation and demos: <see href="https://havit.blazor.eu/components/HxGoogleTagManager">https://havit.blazor.eu/components/HxGoogleTagManager</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker.Nonce">
+            <summary>
+            Optional CSP nonce to include on the inline <c>&lt;script&gt;</c> tag (static SSR/prerendering scenario).
+            Required when a Content Security Policy with <c>nonce-*</c> is in use.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker.IsInteractiveRendering">
+            <summary>
+            <c>false</c> during static SSR and prerendering, where JS interop is not available and the inline
+            snippet has to be rendered instead.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.GoogleTagManager.HxGoogleTagManagerPageViewTracker.GetInitializationScript">
+            <summary>
+            Returns the inline GTM snippet for static SSR/prerendering.
+            It intentionally repeats what <c>HxGoogleTagManager.js</c> <c>initialize()</c> does - the snippet has to run
+            during HTML parsing, long before any ES module can be imported - and joins the same
+            <c>window.hxGoogleTagManager</c> state, so whichever of the two runs first is the one that initializes GTM.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.GoogleTagManager.IHxGoogleTagManager">
             <summary>
             Support for <see href="https://developers.google.com/tag-manager/devguide">Google Tag Manager</see> - initialization and pushing data to data-layer.
