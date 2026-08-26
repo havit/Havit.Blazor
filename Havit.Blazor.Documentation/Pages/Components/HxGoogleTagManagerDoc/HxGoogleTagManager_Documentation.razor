@@ -18,6 +18,12 @@
 	<CodeSnippet Language="html">@("<HxGoogleTagManagerPageViewTracker />")</CodeSnippet>
 
 	<DocHeading Title="Render modes" Id="HxGoogleTagManagerPageViewTracker-render-modes" Level="3" />
+	<DocAlert Type="DocAlertType.Info">
+		The non-interactive render modes below (static SSR and prerendering, including static SSR with enhanced navigation)
+		are supported on <strong>.NET 9 and later</strong>, as they rely on <code>RendererInfo</code> and
+		<code>AssignedRenderMode</code>. On <code>net8.0</code> the component keeps its original behavior and tracks
+		page-views in interactive render modes only.
+	</DocAlert>
 	<p>All render modes are supported. What the component does depends on where it is rendered:</p>
 	<table class="table table-bordered w-auto">
 		<thead>

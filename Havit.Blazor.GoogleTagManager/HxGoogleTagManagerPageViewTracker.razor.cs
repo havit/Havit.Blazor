@@ -24,9 +24,13 @@ namespace Havit.Blazor.GoogleTagManager;
 ///     <see cref="NavigationManager.LocationChanged"/>, which covers navigations resolved by the interactive router.
 ///   </description></item>
 /// </list>
+/// The non-interactive render modes are supported on .NET 9 and later; on <c>net8.0</c> the component keeps its
+/// original behavior and tracks page-views in interactive render modes only.
+/// <para>
 /// Initialization and automatic page-views are deduplicated in JavaScript, so rendering the component more
 /// than once (e.g. in <c>App.razor</c> for the earliest possible GTM load and in the layout to cover
 /// interactive routing) does not produce duplicate events.
+/// </para>
 /// <para>
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxGoogleTagManager">https://havit.blazor.eu/components/HxGoogleTagManager</see>
 /// </para>
