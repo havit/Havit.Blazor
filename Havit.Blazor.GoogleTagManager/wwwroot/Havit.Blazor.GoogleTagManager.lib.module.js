@@ -30,5 +30,5 @@ function trackCurrentPage() {
 	}
 
 	initialize(config.gtmId);
-	pushPageViewEventOnce(config.pageViewEventName, config.pageViewUrlVariableName, location.href, null);
+	pushPageViewEventOnce(config.pageViewEventName, config.pageViewUrlVariableName, location.href, null, config.enableInitialPageViewTracking);
 }

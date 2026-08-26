@@ -84,7 +84,15 @@ public class HxGoogleTagManager : IHxGoogleTagManager, IAsyncDisposable
 	private async Task PushPageViewCoreAsync(string url, object additionalData, bool deduplicate)
 	{
 		await InitializeAsync();
-		await _jsModule.InvokeVoidAsync(deduplicate ? "pushPageViewEventOnce" : "pushPageViewEvent", _gtmOptions.PageViewEventName, _gtmOptions.PageViewUrlVariableName, url, additionalData);
+
+		if (deduplicate)
+		{
+			await _jsModule.InvokeVoidAsync("pushPageViewEventOnce", _gtmOptions.PageViewEventName, _gtmOptions.PageViewUrlVariableName, url, additionalData, _gtmOptions.EnableInitialPageViewTracking);
+		}
+		else
+		{
+			await _jsModule.InvokeVoidAsync("pushPageViewEvent", _gtmOptions.PageViewEventName, _gtmOptions.PageViewUrlVariableName, url, additionalData);
+		}
 	}
 
 	public async ValueTask DisposeAsync()

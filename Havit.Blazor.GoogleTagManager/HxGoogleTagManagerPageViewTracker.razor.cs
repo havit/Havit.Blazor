@@ -104,8 +104,8 @@ public partial class HxGoogleTagManagerPageViewTracker : IDisposable
 		var options = Options.Value;
 		return $$"""
 			(function () {
-				var s = window.hxGoogleTagManager = window.hxGoogleTagManager || { initialized: false, config: null, lastPageViewUrl: null };
-				s.config = { gtmId: {{ToJsString(options.GtmId)}}, pageViewEventName: {{ToJsString(options.PageViewEventName)}}, pageViewUrlVariableName: {{ToJsString(options.PageViewUrlVariableName)}} };
+				var s = window.hxGoogleTagManager = window.hxGoogleTagManager || { initialized: false, config: null, lastPageViewUrl: null, initialPageViewHandled: false };
+				s.config = { gtmId: {{ToJsString(options.GtmId)}}, pageViewEventName: {{ToJsString(options.PageViewEventName)}}, pageViewUrlVariableName: {{ToJsString(options.PageViewUrlVariableName)}}, enableInitialPageViewTracking: {{(options.EnableInitialPageViewTracking ? "true" : "false")}} };
 				if (s.initialized) {
 					return;
 				}
