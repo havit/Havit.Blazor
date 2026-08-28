@@ -35,7 +35,7 @@ Renders a multi-selection list of `HxCheckbox` controls.
 | Outline | `bool?` | Indicates whether to use Bootstrap "outline" buttons. for `CheckboxListRenderMode.ToggleButtons` and `CheckboxListRenderMode.ButtonGroup`. |
 | RenderMode | `CheckboxListRenderMode` | Checkbox render mode. |
 | Settings | `CheckboxListSettings` | Set of settings to be applied to the component instance (overrides `HxInputDate.Defaults`, overridden by individual parameters). |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in . |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in . |
 | Value | `List<TValue>` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<List<TValue>>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<List<TValue>>>` | An expression that identifies the bound value. |

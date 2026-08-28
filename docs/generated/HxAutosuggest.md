@@ -36,7 +36,7 @@ Component for single item selection with dynamic suggestions (based on typed cha
 | Settings | `AutosuggestSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | Spellcheck | `bool?` | Defines whether the input may be checked for spelling errors. Default is `false`. |
 | TextSelector | `Func<TItem, string>` | Selects the text to display from an item. When not set, `ToString()` is used. |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in . |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in . |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |

@@ -37,7 +37,7 @@ Input for entering tags. Does not allow duplicate tags.
 | SuggestDelay | `int?` | The debounce delay in milliseconds. The default is `300 ms`. |
 | SuggestMinimumLength | `int?` | The minimum number of characters to start suggesting. The default is `2`. |
 | TagBadgeSettings | `BadgeSettings` | The settings for the `HxBadge` used to render tags. The default is `Color="ThemeColor.Light`" and `TextColor="ThemeColor.Dark`". |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in `Defaults`. |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `List<string>` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<List<string>>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<List<string>>>` | An expression that identifies the bound value. |

@@ -33,7 +33,7 @@ Select - DropDownList - single-item picker. Consider creating a custom picker de
 | Settings | `SelectSettings` | Set of settings to be applied to the component instance (overrides , overridden by individual parameters). |
 | SortKeySelector | `Func<TItem, IComparable>` | Selects the value to sort items. Uses the `TextSelector` property when not set. When complex sorting is required, sort the data manually and don't let this component sort them. Alternatively, create a custom comparable property. |
 | TextSelector | `Func<TItem, string>` | Selects the text to display from the item. When not set, `ToString()` is used. |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in . |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in . |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |
