@@ -42,7 +42,7 @@ MultiSelect. Unlike a normal select, multiselect allows the user to select multi
 | Settings | `MultiSelectSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | SortKeySelector | `Func<TItem, IComparable>` | Selects value for item sorting. When not set, `TextSelector` property will be used. If you need complex sorting, pre-sort data manually or create a custom comparable property. |
 | TextSelector | `Func<TItem, string>` | Selects text to display from an item. When not set, `ToString()` is used. |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in . |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in . |
 | Value | `List<TValue>` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<List<TValue>>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<List<TValue>>>` | An expression that identifies the bound value. |
