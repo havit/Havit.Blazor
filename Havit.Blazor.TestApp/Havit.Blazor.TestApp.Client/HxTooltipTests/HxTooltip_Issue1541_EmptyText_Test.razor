@@ -1,0 +1,22 @@
+@page "/HxTooltip_Issue1541_EmptyText"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+@* Issue #1541 - HxTooltip does not support empty strings.
+   With nullable reference types enabled, Text is often bound to a non-nullable string property
+   whose "no tooltip" value is an empty string (not null).
+   WrapperCssClass forces the span to render, so the tooltip gets initialized with data-bs-title="",
+   which Bootstrap normalizes to null and throws:
+   TOOLTIP: Option "title" provided type "null" but expected type "(string|element|function)". *@
+
+<HxTooltip Text="@text" WrapperCssClass="issue-1541-wrapper" Animation="false">
+	<span data-testid="empty-text-tooltip-trigger">Element with empty-text tooltip</span>
+</HxTooltip>
+
+<p>
+	<button type="button" data-testid="set-text-button" @onclick="() => text = TooltipText">Set tooltip text</button>
+</p>
+
+@code {
+	private const string TooltipText = "Tooltip text set later";
+	private string text = ""; // empty string, not null (nullable reference types scenario)
+}

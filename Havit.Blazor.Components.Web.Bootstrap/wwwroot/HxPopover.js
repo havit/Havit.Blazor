@@ -42,6 +42,10 @@ export function disable(element) {
 export function setContent(element, newContent) {
 	const i = bootstrap.Popover.getInstance(element);
 	if (i) {
+		// #1541 Bootstrap's setContent() does not update the title/content config which drives _isWithContent(),
+		// a popover initialized with an empty title+content would never show (and vice versa).
+		i._config.title = newContent['.popover-header'] ?? '';
+		i._config.content = newContent['.popover-body'] ?? '';
 		i.setContent(newContent);
 	}
 }
