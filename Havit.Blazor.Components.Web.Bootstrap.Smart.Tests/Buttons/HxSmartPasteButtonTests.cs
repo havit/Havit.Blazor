@@ -1,6 +1,4 @@
-using Havit.Blazor.Components.Web.Bootstrap.Smart;
-
-namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
+namespace Havit.Blazor.Components.Web.Bootstrap.Smart.Tests;
 
 public class HxSmartPasteButtonTests : BunitTestBase
 {

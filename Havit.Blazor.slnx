@@ -60,6 +60,7 @@
   <Project Path="Havit.Blazor.Components.Web.Bootstrap.EntityFrameworkCore.Tests/Havit.Blazor.Components.Web.Bootstrap.EntityFrameworkCore.Tests.csproj" />
   <Project Path="Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators/Havit.Blazor.Components.Web.Bootstrap.InternalSourceGenerators.csproj" />
   <Project Path="Havit.Blazor.Components.Web.Bootstrap.Smart/Havit.Blazor.Components.Web.Bootstrap.Smart.csproj" />
+  <Project Path="Havit.Blazor.Components.Web.Bootstrap.Smart.Tests/Havit.Blazor.Components.Web.Bootstrap.Smart.Tests.csproj" />
   <Project Path="Havit.Blazor.Components.Web.Bootstrap.Tests/Havit.Blazor.Components.Web.Bootstrap.Tests.csproj" />
   <Project Path="Havit.Blazor.Components.Web.Bootstrap/Havit.Blazor.Components.Web.Bootstrap.csproj" />
   <Project Path="Havit.Blazor.Components.Web.ECharts/Havit.Blazor.Components.Web.ECharts.csproj" />
