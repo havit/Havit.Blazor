@@ -77,11 +77,23 @@ public class MarkdownParserTests
 		Assert.Equal(expected, result);
 	}
 
-	[Fact]
-	public void MarkdownParser_HeadingWithTrailingHashes_Stripped()
+	[Theory]
+	[InlineData("## Heading ##", "<h2>Heading</h2>")]
+	[InlineData("## Heading\t##", "<h2>Heading</h2>")]
+	[InlineData("### ###", "<h3></h3>")]
+	public void MarkdownParser_HeadingWithClosingSequence_Stripped(string markdown, string expected)
 	{
-		var result = MarkdownParser.ToHtml("## Heading ##", DefaultOptions);
-		Assert.Equal("<h2>Heading</h2>", result);
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.Equal(expected, result);
+	}
+
+	[Theory]
+	[InlineData("# Learn C#", "<h1>Learn C#</h1>")]
+	[InlineData("## Issue #123#", "<h2>Issue #123#</h2>")]
+	public void MarkdownParser_HeadingWithTrailingHashesWithoutSeparator_Preserved(string markdown, string expected)
+	{
+		var result = MarkdownParser.ToHtml(markdown, DefaultOptions);
+		Assert.Equal(expected, result);
 	}
 
 	[Fact]
