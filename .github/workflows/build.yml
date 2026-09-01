@@ -1,0 +1,118 @@
+name: Build
+run-name: "Build | #${{ github.run_number }}${{ github.event_name == 'schedule' && ' [Scheduled]' || (github.event_name == 'pull_request' && ' [PullRequest]' || '') }}"
+
+on:
+  push:
+    branches: [ main, v6 ]
+  pull_request:
+    branches: [ main, v6 ]
+  schedule:
+    # Sunday 07:00 Europe/Prague
+    - cron: '0 7 * * 0'
+      timezone: "Europe/Prague"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      with:
+        path: s
+        #ref: ${{ (github.event_name == 'schedule' && inputs.scheduled-build-ref) || '' }} # scheduled build always checks out the main branch (default)
+
+    - name: Create artifacts folder
+      run: mkdir a
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
+      with:
+        dotnet-version: |
+          8.0.x
+          9.0.x
+          10.0.x
+
+    - name: Cache NuGet packages
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+      with:
+        path: ~/.nuget/packages
+        key: nuget-${{ runner.os }}-${{ hashFiles('s/Directory.Packages.props', 's/**/*.csproj') }}
+        restore-keys: |
+          nuget-${{ runner.os }}-
+
+    - name: Restore dependencies
+      working-directory: s
+      run: dotnet restore
+
+    - name: Build solution
+      working-directory: s
+      run: dotnet build --no-restore -c Release -p:ContinuousIntegrationBuild=true -p:PublishDirectory=${{ github.workspace }}/a
+
+    - name: Publish Documentation.Server
+      working-directory: s
+      run: dotnet publish Havit.Blazor.Documentation.Server/Havit.Blazor.Documentation.Server.csproj --no-restore -c Release -p:ContinuousIntegrationBuild=true -p:PublishDirectory=${{ github.workspace }}/a
+
+    - name: Publish Documentation.Mcp
+      working-directory: s
+      run: dotnet publish Havit.Blazor.Documentation.Mcp/Havit.Blazor.Documentation.Mcp.csproj --no-restore -c Release -p:ContinuousIntegrationBuild=true -p:PublishDirectory=${{ github.workspace }}/a
+
+    - name: Cache Playwright browsers
+      id: playwright-cache
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('s/Directory.Packages.props') }}
+
+    - name: Install Playwright browsers
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
+      working-directory: s
+      run: pwsh Havit.Blazor.E2ETests/bin/Release/net10.0/playwright.ps1 install --with-deps
+
+    - name: Install Playwright system dependencies
+      if: steps.playwright-cache.outputs.cache-hit == 'true'
+      working-directory: s
+      run: pwsh Havit.Blazor.E2ETests/bin/Release/net10.0/playwright.ps1 install-deps
+
+    - name: Run unit tests
+      id: run-unit-tests
+      working-directory: s
+      run: dotnet test --no-build -c Release --verbosity normal --report-trx --results-directory ${{ runner.temp }}/test-results --ignore-exit-code "1;8"
+
+    - name: Publish test report
+      if: ${{ steps.run-unit-tests.conclusion == 'success' || steps.run-unit-tests.conclusion == 'failure' }}
+      uses: jirikanda/test-reporter@dbe114e2028c31b2946d2c74aeb4bf26910b54f0 # fork of dorny/test-reporter that can strip paths from TRX file names in the report
+      with:
+        name: Test Report
+        path: ${{ runner.temp }}/test-results/**/*.trx
+        reporter: dotnet-trx
+        report-title: 'Test Report'
+        list-suites: 'failed' # only test classes with failed tests
+        list-tests: 'failed' # only failed tests
+        max-annotations: 50
+        fail-on-error: 'false'
+        fail-on-empty: 'false'
+        working-directory: s
+        path-replace-backslashes: true
+        file-name-only: true # not a property of dorny/test-reporter, but of jirikanda/test-reporter
+
+    - name: Upload artifacts - PublicNuGets
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+      with:
+        name: PublicNuGets
+        path: a/PublicNuGets
+        compression-level: 0
+
+    - name: Upload artifact - DocumentationWeb
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+      with:
+        name: DocumentationWeb
+        path: a/DocumentationWeb
+        compression-level: 0
+
+    - name: Upload artifact - DocumentationMcp
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+      with:
+        name: DocumentationMcp
+        path: a/DocumentationMcp
+        compression-level: 0
