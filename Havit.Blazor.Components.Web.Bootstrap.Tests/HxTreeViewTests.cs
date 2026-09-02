@@ -156,4 +156,30 @@ public class HxTreeViewTests : BunitTestBase
 		Assert.Contains("Child1B", allTitleTexts);
 		Assert.Contains("GrandChild1B1", allTitleTexts);
 	}
+
+	[Fact]
+	public void HxTreeView_ExpandOnSelection_ExpandsNestedItem()
+	{
+		// Arrange
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
+			.Add(p => p.Items, CreateTestData())
+			.Add(p => p.ItemTitleSelector, item => item.Title)
+			.Add(p => p.ItemChildrenSelector, item => item.Children)
+			.Add(p => p.ItemInitialExpandedSelector, _ => false)
+			.Add(p => p.ExpandOnSelection, true)
+		);
+
+		// Act - select the nested Child1B item.
+		var child1BTitle = cut.FindAll(".hx-tree-view-item-title")
+			.Single(e => e.TextContent == "Child1B");
+
+		child1BTitle.ParentElement!.Click();
+
+		// Assert - its child is expanded.
+		var collapseElement = cut.FindAll(".collapse")
+			.Single(e => e.TextContent == "GrandChild1B1");
+
+		var invocation = JSInterop.Invocations.Single(i => i.Identifier.EndsWith("show"));
+		invocation.Arguments[0].ShouldBeElementReferenceTo(collapseElement);
+	}
 }

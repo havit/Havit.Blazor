@@ -17,11 +17,13 @@ public partial class HxTreeViewItemInternal<TItem> : ComponentBase
 	[Parameter] public Func<TItem, IEnumerable<TItem>> ChildrenSelector { get; set; }
 	[Parameter] public int Level { get; set; }
 	[Parameter] public RenderFragment<TItem> ContentTemplate { get; set; }
+	[Parameter] public bool ExpandOnSelection { get; set; }
 
 	[CascadingParameter] protected HxTreeView<TItem> TreeViewContainer { get; set; }
 
 	private string _collapseId = "hx" + Guid.NewGuid().ToString("N");
 	private bool _initiallyExpanded;
+	private HxCollapse _collapseReference;
 
 	protected override void OnInitialized()
 	{
@@ -34,6 +36,10 @@ public partial class HxTreeViewItemInternal<TItem> : ComponentBase
 
 	private async Task HandleItemClicked()
 	{
+		if (ExpandOnSelection && _collapseReference is HxCollapse collapse)
+		{
+			await collapse.ShowAsync();
+		}
 		await OnItemSelected.InvokeAsync(Item);
 	}
 

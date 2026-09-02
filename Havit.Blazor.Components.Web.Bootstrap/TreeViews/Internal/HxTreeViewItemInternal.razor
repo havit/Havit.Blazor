@@ -45,7 +45,8 @@
                 CollapseDirection="CollapseDirection.Vertical"
                 InitiallyExpanded="IsExpanded ?? false"
                 OnHidden="HandleCollapseHiddenAsync"
-                OnShown="HandleCollapseShownAsync">
+                OnShown="HandleCollapseShownAsync"
+                @ref="_collapseReference">
 
         @foreach (var item in children)
         {
@@ -62,7 +63,8 @@
                                     ContentTemplate="this.ContentTemplate"
                                     OnItemSelected="this.OnItemSelected"
                                     OnItemExpanded="OnItemExpanded"
-                                    OnItemCollapsed="OnItemCollapsed" />
+                                    OnItemCollapsed="OnItemCollapsed"
+                                    ExpandOnSelection="ExpandOnSelection" />
         }
 
     </HxCollapse>
