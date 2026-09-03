@@ -32,7 +32,7 @@ Text input (including password, search, etc.)
 | Settings | `InputTextSettings` | Set of settings to be applied to the component instance (overrides `HxInputText.Defaults`, overridden by individual parameters). |
 | Spellcheck | `bool?` | Defines whether the input may be checked for spelling errors. |
 | Type | `InputType` | Input type. |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in `Defaults`. |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `string` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<string>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<string>>` | An expression that identifies the bound value. |

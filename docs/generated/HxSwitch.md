@@ -25,7 +25,7 @@ Switch input. (Replaces the former `HxInputSwitch` component which was dropped i
 | Text | `string` | Text to display next to the checkbox. |
 | TextCssClass | `string` | CSS class to apply to the text. |
 | TextTemplate | `RenderFragment` | Content to display next to the checkbox. |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in `Defaults`. |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `bool` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<bool>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<bool>>` | An expression that identifies the bound value. |
