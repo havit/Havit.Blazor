@@ -111,6 +111,7 @@ public partial class HxGoogleTagManagerPageViewTracker : IDisposable
 				dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
 				var j = document.createElement("script");
 				j.async = true;
+				j.nonce = document.currentScript.nonce;
 				j.src = "https://www.googletagmanager.com/gtm.js?id=" + s.config.gtmId;
 				document.getElementsByTagName("head")[0].appendChild(j);
 				dataLayer.push({ event: "pageview" });
