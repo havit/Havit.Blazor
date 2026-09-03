@@ -53,12 +53,12 @@ export function pushPageViewEvent(eventName, urlVariableName, url, eventData) {
 // page update including streaming ones, and an interactive HxGoogleTagManagerPageViewTracker reacts to
 // the same navigation. Explicit IHxGoogleTagManager.PushPageViewAsync() calls do not come through here.
 export function pushPageViewEventOnce(eventName, urlVariableName, url, eventData, trackInitialPageView) {
+	const isInitialPageView = !state.initialPageViewHandled;
+	state.initialPageViewHandled = true;
+
 	if (url === state.lastPageViewUrl) {
 		return;
 	}
-
-	const isInitialPageView = !state.initialPageViewHandled;
-	state.initialPageViewHandled = true;
 
 	if (isInitialPageView && (trackInitialPageView === false)) {
 		// Suppressed but still remembered, otherwise the next enhancedload for the same URL would look
