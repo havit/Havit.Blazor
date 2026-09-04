@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxGoogleTagManager))]
+﻿@attribute [Route("/components/" + nameof(HxGoogleTagManager))]
 @attribute [Route("/components/" + nameof(HxGoogleTagManagerPageViewTracker))]
 @using Havit.Blazor.GoogleTagManager
 
@@ -16,4 +16,103 @@
     <DocHeading Title="Basic usage" Id="HxGoogleTagManagerPageViewTracker-basic-usage" />
 	<p>Install GTM support through application startup (see above) and add <code>HxGoogleTagManagerPageViewTracker</code> to <code>App.razor</code> or <code>MainLayout.razor</code></p>
 	<CodeSnippet Language="html">@("<HxGoogleTagManagerPageViewTracker />")</CodeSnippet>
+
+	<DocHeading Title="Render modes" Id="HxGoogleTagManagerPageViewTracker-render-modes" Level="3" />
+	<DocAlert Type="DocAlertType.Info">
+		The non-interactive render modes below (static SSR and prerendering, including static SSR with enhanced navigation)
+		are supported on <strong>.NET 9 and later</strong>, as they rely on <code>RendererInfo</code> and
+		<code>AssignedRenderMode</code>. On <code>net8.0</code> the component keeps its original behavior and tracks
+		page-views in interactive render modes only.
+	</DocAlert>
+	<p>All render modes are supported. What the component does depends on where it is rendered:</p>
+	<table class="table table-bordered w-auto">
+		<thead>
+			<tr>
+				<th>Render mode</th>
+				<th>How GTM is started and page-views tracked</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Static SSR, prerendering</td>
+				<td>The GTM snippet is rendered inline, so GTM starts loading while the page is still being parsed.</td>
+			</tr>
+			<tr>
+				<td>Static SSR with <a href="https://learn.microsoft.com/aspnet/core/blazor/fundamentals/navigation#enhanced-navigation-and-form-handling">enhanced navigation</a></td>
+				<td>
+					A <a href="https://learn.microsoft.com/aspnet/core/blazor/fundamentals/startup#javascript-initializers">JS initializer</a>
+					shipped with the package listens for <code>enhancedload</code>. Blazor loads it automatically, nothing needs to be referenced.
+				</td>
+			</tr>
+			<tr>
+				<td>Interactive Server, WebAssembly, Auto</td>
+				<td>Page-views are pushed in reaction to <code>NavigationManager.LocationChanged</code>, which covers navigations resolved by the interactive router.</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<DocHeading Title="Where to place the component" Id="HxGoogleTagManagerPageViewTracker-placement" Level="3" />
+	<p>
+		<code>App.razor</code> is the natural place — it is rendered on every response, so GTM starts loading as early
+		as possible. <code>App</code> itself is always rendered statically though, and a statically rendered component
+		cannot observe <code>NavigationManager.LocationChanged</code>, so navigations resolved by an interactive router
+		would go untracked. Give the component its own render mode to cover those as well:
+	</p>
+	<CodeSnippet File="~\Pages\Components\HxGoogleTagManagerDoc\HxGoogleTagManager_Placement.CodeSnippet.razor" />
+	<p>
+		The component then becomes an interactive root component of its own, sharing the runtime and the
+		<code>NavigationManager</code> with the rest of the app. Prerendering keeps the GTM snippet in the initial HTML
+		even when the pages themselves are not prerendered, and pages excluded from interactive routing stay static, so
+		they do not have to download the runtime just for tracking.
+	</p>
+	<p>
+		A layout or page inside an interactive island works too, and rendering the component more than once is safe —
+		initialization and automatic page-views are deduplicated in JavaScript, so a navigation seen by more than one
+		instance still produces a single event.
+	</p>
+
+	<DocHeading Title="Events pushed to the data-layer" Id="HxGoogleTagManagerPageViewTracker-events" Level="3" />
+	<table class="table table-bordered w-auto">
+		<thead>
+			<tr>
+				<th>Event</th>
+				<th>When</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><code>gtm.js</code></td>
+				<td>Once per document load, from the GTM snippet.</td>
+			</tr>
+			<tr>
+				<td><code>pageview</code></td>
+				<td>Once per document load. Not part of Google's snippet — pushed for backwards compatibility.</td>
+			</tr>
+			<tr>
+				<td><code>@nameof(HxGoogleTagManagerOptions.PageViewEventName)</code><br />(<code>virtualPageView</code> by default)</td>
+				<td>Once per navigation, enhanced navigation and interactive routing included. Configure a trigger for it in your GTM container — <code>pageview</code> alone fires only on real page loads.</td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		By default the page the document was loaded with is announced by both <code>pageview</code> and
+		<code>@nameof(HxGoogleTagManagerOptions.PageViewEventName)</code>. Which convention your container follows decides
+		whether that is what you want:
+	</p>
+	<ul>
+		<li>
+			<code>@nameof(HxGoogleTagManagerOptions.PageViewEventName)</code> is the single source of truth and <code>pageview</code>
+			is ignored — keep <code>@nameof(HxGoogleTagManagerOptions.EnableInitialPageViewTracking)</code> at its default <code>true</code>.
+		</li>
+		<li>
+			<code>pageview</code> (or the container's built-in Page View trigger) covers real document loads and
+			<code>@nameof(HxGoogleTagManagerOptions.PageViewEventName)</code> only the navigations that follow — set
+			<code>@nameof(HxGoogleTagManagerOptions.EnableInitialPageViewTracking)</code> to <code>false</code>, otherwise the
+			landing page of every session is counted twice.
+		</li>
+	</ul>
+
+	<DocHeading Title="Content Security Policy" Id="HxGoogleTagManagerPageViewTracker-csp" Level="3" />
+	<p>When a Content Security Policy with <code>nonce-*</code> is in use, pass the nonce to the inline snippet:</p>
+	<CodeSnippet Language="html">@("<HxGoogleTagManagerPageViewTracker Nonce=\"@Nonce\" />")</CodeSnippet>
 </ApiDoc>

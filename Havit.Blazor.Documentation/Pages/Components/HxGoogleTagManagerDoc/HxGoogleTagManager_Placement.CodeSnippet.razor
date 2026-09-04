@@ -1,0 +1,12 @@
+﻿@* App.razor *@
+<head>
+    ...
+    <HxGoogleTagManagerPageViewTracker @rendermode="@PageViewTrackerRenderMode" />
+</head>
+
+@code {
+    [CascadingParameter] private HttpContext HttpContext { get; set; }
+
+    private IComponentRenderMode PageViewTrackerRenderMode
+        => HttpContext.AcceptsInteractiveRouting() ? new InteractiveWebAssemblyRenderMode(prerender: true) : null;
+}
