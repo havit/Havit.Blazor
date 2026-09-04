@@ -175,12 +175,16 @@ public class HxGrid_Basic_Tests : BunitTestBase
 	}
 
 	[Fact]
-	public async Task HxGrid_RefreshDataAsync_AfterDispose_ThrowsInvalidOperationException()
+	public async Task HxGrid_RefreshDataAsync_AfterDispose_IsNoOp()
 	{
 		// Arrange
 		var items = Enumerable.Range(1, 3).Select(i => new TestItem(i, $"Item {i}")).ToList();
+		var dataProviderCallCount = 0;
 		GridDataProviderDelegate<TestItem> dataProvider = (GridDataProviderRequest<TestItem> request) =>
-			Task.FromResult(request.ApplyTo(items));
+		{
+			dataProviderCallCount++;
+			return Task.FromResult(request.ApplyTo(items));
+		};
 
 		var cut = Render<HxGrid<TestItem>>(parameters => parameters
 			.Add(p => p.DataProvider, dataProvider)
@@ -188,12 +192,17 @@ public class HxGrid_Basic_Tests : BunitTestBase
 				.Add(c => c.HeaderText, "Name")
 				.Add(c => c.ItemTextSelector, item => item.Name)));
 
+		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
+		var dataProviderCallCountBeforeDispose = dataProviderCallCount;
+
 		var grid = cut.Instance;
 		await grid.DisposeAsync();
 
-		// Act + Assert
-		var exception = await Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => grid.RefreshDataAsync()));
-		Assert.Equal("Cannot call RefreshDataAsync method on disposed component.", exception.Message);
+		// Act — must not throw (disposal during in-flight async work, e.g. navigation away, is a routine scenario)
+		await cut.InvokeAsync(() => grid.RefreshDataAsync());
+
+		// Assert — data provider not invoked after dispose
+		Assert.Equal(dataProviderCallCountBeforeDispose, dataProviderCallCount);
 	}
 
 }
