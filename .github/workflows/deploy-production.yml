@@ -18,7 +18,7 @@ jobs:
       run: mkdir a
 
     - name: Download artifact - PublicNuGets
-      uses: dawidd6/action-download-artifact@b6e2e70617bc3265edd6dab6c906732b2f1ae151 # v21
+      uses: dawidd6/action-download-artifact@d63b86af1b34672e53c440b1b83979861906bad7 # v24
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         workflow: build.yml
@@ -28,7 +28,7 @@ jobs:
         path: a/PublicNuGets
 
     - name: Download artifact - DocumentationWeb
-      uses: dawidd6/action-download-artifact@b6e2e70617bc3265edd6dab6c906732b2f1ae151 # v21
+      uses: dawidd6/action-download-artifact@d63b86af1b34672e53c440b1b83979861906bad7 # v24
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         workflow: build.yml
@@ -38,7 +38,7 @@ jobs:
         path: a/DocumentationWeb
 
     - name: Download artifact - DocumentationMcp
-      uses: dawidd6/action-download-artifact@b6e2e70617bc3265edd6dab6c906732b2f1ae151 # v21
+      uses: dawidd6/action-download-artifact@d63b86af1b34672e53c440b1b83979861906bad7 # v24
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         workflow: build.yml
