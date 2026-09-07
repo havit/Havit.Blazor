@@ -46,12 +46,18 @@ public class HxGoogleTagManager_InitialPageViewTracking_Tests : PageTest
 		// Act + Assert - overlap with interactive tracker
 		await Page.GetByRole(AriaRole.Link, new() { Name = "Interactive Server" }).ClickAsync();
 		await Page.WaitForURLAsync("**/HxGoogleTagManagerTests/Server");
-		await WaitForVirtualPageViewCountAsync(expectedTotalVirtualPageViewCount);
+		await Page.GetByText("interactive: True").WaitForAsync();
+
+		// Act + Assert - interactive server navigation
+		await Page.GetByRole(AriaRole.Link, new() { Name = "Interactive Server (2)" }).ClickAsync();
+		await Page.WaitForURLAsync("**/HxGoogleTagManagerTests/Server2");
+		await WaitForVirtualPageViewCountAsync(expectedTotalVirtualPageViewCount + 1);
 
 		var trackedUrls = await GetTrackedPageUrlsAsync();
-		Assert.Equal(expectedTotalVirtualPageViewCount, trackedUrls.Count);
-		Assert.EndsWith("/HxGoogleTagManagerTests/StaticSsr2", trackedUrls[^2]);
-		Assert.EndsWith("/HxGoogleTagManagerTests/Server", trackedUrls[^1]);
+		Assert.Equal(expectedTotalVirtualPageViewCount + 1, trackedUrls.Count);
+		Assert.EndsWith("/HxGoogleTagManagerTests/StaticSsr2", trackedUrls[^3]);
+		Assert.EndsWith("/HxGoogleTagManagerTests/Server", trackedUrls[^2]);
+		Assert.EndsWith("/HxGoogleTagManagerTests/Server2", trackedUrls[^1]);
 	}
 
 	private async Task WaitForVirtualPageViewCountAsync(int expectedCount)
