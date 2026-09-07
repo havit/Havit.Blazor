@@ -21,9 +21,9 @@ function start(blazor) {
 function trackCurrentPage() {
 	const config = window.hxGoogleTagManager?.config;
 	if (!config) {
-		return; // no HxGoogleTagManagerPageViewTracker was rendered on the server, so there is nothing to track from here
+		return; // GTM has not been configured yet (no HxGoogleTagManagerPageViewTracker rendered on the server and no JS interop initialization), so there is nothing to track from here
 	}
 
-	initialize(config.gtmId);
+	initialize(config.gtmId, config.pageViewEventName, config.pageViewUrlVariableName, config.enableInitialPageViewTracking);
 	pushPageViewEventOnce(config.pageViewEventName, config.pageViewUrlVariableName, location.href, null, config.enableInitialPageViewTracking);
 }

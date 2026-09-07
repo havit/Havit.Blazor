@@ -3,7 +3,14 @@
 // GTM is already running and which page-view was tracked last.
 const state = window.hxGoogleTagManager = window.hxGoogleTagManager || { initialized: false, config: null, lastPageViewUrl: null, initialPageViewHandled: false };
 
-export function initialize(GTMID) {
+export function initialize(gtmId, pageViewEventName, pageViewUrlVariableName, enableInitialPageViewTracking) {
+	state.config = {
+		gtmId: gtmId,
+		pageViewEventName: pageViewEventName,
+		pageViewUrlVariableName: pageViewUrlVariableName,
+		enableInitialPageViewTracking: enableInitialPageViewTracking
+	};
+
 	if (state.initialized) {
 		return;
 	}
@@ -23,7 +30,7 @@ export function initialize(GTMID) {
 		f.appendChild(j);
 		dataLayer.push({ event: "pageview" });
 		window.isGTM = true;
-	})(window, document, "script", "dataLayer", GTMID);
+	})(window, document, "script", "dataLayer", gtmId);
 }
 
 export function push(data) {

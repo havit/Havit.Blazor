@@ -18,6 +18,40 @@ public class HxGoogleTagManager_InitialPageViewTracking_Tests : PageTest
 		await TestInitialAndEnhancedNavigationAsync(enableInitialPageViewTracking: false, expectedTotalVirtualPageViewCount: 2);
 	}
 
+	[Fact]
+	public async Task InitializedWithoutInlineSnippet_TracksEnhancedNavigationBetweenStaticSsrPages()
+	{
+		// Arrange
+		await using var factory = new TestAppWebApplicationFactory();
+
+		factory.CreateClient();
+		var baseUrl = factory.GetServerAddress();
+
+		// Act + Assert - the page is interactive without prerendering and its layout renders no tracker, so GTM
+		// gets initialized from JS interop and no inline snippet ever runs
+		await Page.GotoAsync(baseUrl + "/HxGoogleTagManagerTests/ServerNoPrerender");
+		await Page.GetByText("interactive: True").WaitForAsync();
+		await WaitForVirtualPageViewCountAsync(1);
+
+		// Act + Assert - enhanced navigation away from the interactive page
+		await Page.GetByRole(AriaRole.Link, new() { Name = "Static SSR (1)" }).ClickAsync();
+		await Page.WaitForURLAsync("**/HxGoogleTagManagerTests/StaticSsr");
+		await WaitForVirtualPageViewCountAsync(2);
+
+		// Act + Assert - enhanced navigation between static SSR pages, where there is no interactive tracker left
+		// and the initializer is the only one tracking. It needs the configuration the JS interop initialization
+		// left behind, because the inline snippet that comes with an enhanced page update is not executed.
+		await Page.GetByRole(AriaRole.Link, new() { Name = "Static SSR (2)" }).ClickAsync();
+		await Page.WaitForURLAsync("**/HxGoogleTagManagerTests/StaticSsr2");
+		await WaitForVirtualPageViewCountAsync(3);
+
+		var trackedUrls = await GetTrackedPageUrlsAsync();
+		Assert.Equal(3, trackedUrls.Count);
+		Assert.EndsWith("/HxGoogleTagManagerTests/ServerNoPrerender", trackedUrls[0]);
+		Assert.EndsWith("/HxGoogleTagManagerTests/StaticSsr", trackedUrls[1]);
+		Assert.EndsWith("/HxGoogleTagManagerTests/StaticSsr2", trackedUrls[2]);
+	}
+
 	private async Task TestInitialAndEnhancedNavigationAsync(bool enableInitialPageViewTracking, int expectedTotalVirtualPageViewCount)
 	{
 		// Arrange
@@ -44,7 +78,7 @@ public class HxGoogleTagManager_InitialPageViewTracking_Tests : PageTest
 		await WaitForVirtualPageViewCountAsync(enableInitialPageViewTracking ? 2 : 1);
 
 		// Act + Assert - overlap with interactive tracker
-		await Page.GetByRole(AriaRole.Link, new() { Name = "Interactive Server" }).ClickAsync();
+		await Page.GetByRole(AriaRole.Link, new() { Name = "Interactive Server (1)" }).ClickAsync();
 		await Page.WaitForURLAsync("**/HxGoogleTagManagerTests/Server");
 		await Page.GetByText("interactive: True").WaitForAsync();
 

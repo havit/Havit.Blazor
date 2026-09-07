@@ -52,7 +52,7 @@ public partial class HxGoogleTagManagerPageViewTracker : IDisposable
 
 	private bool IsInteractiveRendering =>
 #if NET9_0_OR_GREATER
-		(this.AssignedRenderMode is not null) && this.RendererInfo.IsInteractive;
+		this.RendererInfo.IsInteractive;
 #else
 		true; // RendererInfo and AssignedRenderMode are .NET 9+, so .NET 8 keeps the original interactive-only behavior
 #endif

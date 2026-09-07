@@ -40,7 +40,7 @@ public class HxGoogleTagManager : IHxGoogleTagManager, IAsyncDisposable
 		}
 		_isInitialized = true;
 
-		await _jsModule.InvokeVoidAsync("initialize", _gtmOptions.GtmId);
+		await _jsModule.InvokeVoidAsync("initialize", _gtmOptions.GtmId, _gtmOptions.PageViewEventName, _gtmOptions.PageViewUrlVariableName, _gtmOptions.EnableInitialPageViewTracking);
 	}
 
 	/// <inheritdoc/>
