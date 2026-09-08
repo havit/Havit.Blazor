@@ -7795,12 +7795,14 @@
             Requests a data refresh from the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/>.
             Useful for updating the grid when external data may have changed.
             To reset grid state (e.g., position), use <see cref="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync(Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions)"/> instead.
+            Does nothing (no-op) when the component is already disposed (e.g. when the user navigated away in the meantime).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.RefreshDataAsync(Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions)">
             <summary>
             Requests a data refresh from the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.DataProvider"/>.
             Useful for updating the grid when external data may have changed.
+            Does nothing (no-op) when the component is already disposed (e.g. when the user navigated away in the meantime).
             </summary>
             <param name="resetOptions">Specifies which aspects of the grid state should be reset before refreshing data (e.g., position).</param>
         </member>
@@ -12123,7 +12125,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.ExpandOnSelection">
             <summary>
-            Selecting an item should expand its children.
+            Selecting an item (by clicking it or by setting <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.SelectedItem"/>) expands its children.
             </summary>
         </member>
         <member name="T:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Strict_0">

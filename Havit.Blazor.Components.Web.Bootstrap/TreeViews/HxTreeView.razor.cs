@@ -78,7 +78,7 @@ public partial class HxTreeView<TItem> : ComponentBase
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
-	/// Selecting an item should expand its children.
+	/// Selecting an item (by clicking it or by setting <see cref="SelectedItem"/>) expands its children.
 	/// </summary>
 	[Parameter] public bool ExpandOnSelection { get; set; }
 
