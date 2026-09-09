@@ -2,14 +2,14 @@
 	<PropertyGroup>
 <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-<AspNetCoreVersion8>8.0.30</AspNetCoreVersion8>
-<AspNetCoreVersion9>9.0.19</AspNetCoreVersion9>
-<AspNetCoreVersion10>10.0.11</AspNetCoreVersion10>
+<AspNetCoreVersion8>8.0.31</AspNetCoreVersion8>
+<AspNetCoreVersion9>9.0.20</AspNetCoreVersion9>
+<AspNetCoreVersion10>10.0.12</AspNetCoreVersion10>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageVersion Include="Azure.Monitor.OpenTelemetry.AspNetCore" Version="1.6.0" />
 		<PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
-		<PackageVersion Include="bunit" Version="2.9.0" />
+		<PackageVersion Include="bunit" Version="2.10.3" />
 		<PackageVersion Include="Grpc.AspNetCore.Server" Version="2.83.0" />
 		<PackageVersion Include="Grpc.AspNetCore.Web" Version="2.83.0" />
 		<PackageVersion Include="Grpc.Net.Client" Version="2.83.0" />
