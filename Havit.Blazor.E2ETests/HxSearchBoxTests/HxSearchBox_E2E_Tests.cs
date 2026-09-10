@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxSearchBoxTests;
 
-[TestClass]
 public class HxSearchBox_E2E_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxSearchBox_TypeText_ShowsSuggestions()
 	{
 		// Arrange - navigate to the test page
@@ -20,7 +19,7 @@ public class HxSearchBox_E2E_Tests : TestAppTestBase
 		await Expect(suggestion).ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxSearchBox_ClickSuggestion_TriggersAction()
 	{
 		// Arrange - navigate to the test page
@@ -38,7 +37,7 @@ public class HxSearchBox_E2E_Tests : TestAppTestBase
 		await Expect(selectedItemDisplay).ToHaveTextAsync("Banana");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxSearchBox_PressEnter_TriggersFreeTextSearch()
 	{
 		// Arrange - navigate to the test page
@@ -56,7 +55,7 @@ public class HxSearchBox_E2E_Tests : TestAppTestBase
 		await Expect(textQueryTriggeredDisplay).ToHaveTextAsync("Cherry search");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxSearchBox_ClickClear_ResetsInput()
 	{
 		// Arrange - navigate to the test page

@@ -7,14 +7,15 @@
     <Platforms>AnyCPU</Platforms>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)' == 'ACCESSIBLITYTESTS'">
-    <DefineConstants>$(DefineConstants);ACCESSIBLITYTESTS</DefineConstants>
+  <PropertyGroup Condition="'$(Configuration)' == 'ACCESSIBILITYTESTS'">
+    <DefineConstants>$(DefineConstants);ACCESSIBILITYTESTS</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
-    <PackageReference Include="Microsoft.Playwright.MSTest.v4" />
-    <PackageReference Include="MSTest" />
+    <PackageReference Include="Microsoft.Playwright.Xunit.v3" />
+    <PackageReference Include="xunit.v3.mtp-v2" />
+    <PackageReference Include="Microsoft.Testing.Extensions.TrxReport" />
     <PackageReference Include="Playwright.Axe" />
   </ItemGroup>
 

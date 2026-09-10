@@ -3,20 +3,19 @@ using ProtoBuf.Meta;
 
 namespace Havit.Blazor.Grpc.Core.Tests;
 
-[TestClass]
 public class ProtoBufModelConfigurationTests
 {
-	[TestMethod]
+	[Fact]
 	public void ProtoBufModelConfiguration_RuntimeTypeModel_CanSerializeGenericDtoWithAttributes()
 	{
 		// act
 		var model = RuntimeTypeModel.Create();
 
 		// assert
-		Assert.IsTrue(model.CanSerialize(typeof(Dto<int>)));
+		Assert.True(model.CanSerialize(typeof(Dto<int>)));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ProtoBufModelConfiguration_RegisterApplicationContracts_RegistersDtoWithNestedClassIncludingNestedClass()
 	{
 		// arrange
@@ -26,7 +25,7 @@ public class ProtoBufModelConfigurationTests
 		model.RegisterApplicationContracts(typeof(Dto).Assembly);
 
 		// assert
-		Assert.IsTrue(model.CanSerialize(typeof(DtoWithNestedClass)));
-		Assert.IsTrue(model.CanSerialize(typeof(DtoWithNestedClass.NestedClass)));
+		Assert.True(model.CanSerialize(typeof(DtoWithNestedClass)));
+		Assert.True(model.CanSerialize(typeof(DtoWithNestedClass.NestedClass)));
 	}
 }

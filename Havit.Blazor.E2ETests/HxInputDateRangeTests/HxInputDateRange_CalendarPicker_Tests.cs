@@ -2,10 +2,9 @@
 
 namespace Havit.Blazor.E2ETests.HxInputDateRangeTests;
 
-[TestClass]
 public class HxInputDateRange_CalendarPicker_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_CalendarPicker_SelectsDateRange()
 	{
 		// Arrange

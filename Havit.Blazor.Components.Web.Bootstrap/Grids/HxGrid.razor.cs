@@ -663,6 +663,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// Requests a data refresh from the <see cref="DataProvider"/>.
 	/// Useful for updating the grid when external data may have changed.
 	/// To reset grid state (e.g., position), use <see cref="RefreshDataAsync(GridStateResetOptions)"/> instead.
+	/// Does nothing (no-op) when the component is already disposed (e.g. when the user navigated away in the meantime).
 	/// </summary>
 	public async Task RefreshDataAsync()
 	{
@@ -672,10 +673,18 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// <summary>
 	/// Requests a data refresh from the <see cref="DataProvider"/>.
 	/// Useful for updating the grid when external data may have changed.
+	/// Does nothing (no-op) when the component is already disposed (e.g. when the user navigated away in the meantime).
 	/// </summary>
 	/// <param name="resetOptions">Specifies which aspects of the grid state should be reset before refreshing data (e.g., position).</param>
 	public async Task RefreshDataAsync(GridStateResetOptions resetOptions)
 	{
+		if (_isDisposed)
+		{
+			// Disposal during an in-flight async operation is a routine scenario (e.g. the user navigates away
+			// while the parent component awaits data and then calls RefreshDataAsync). There is no UI to refresh anymore.
+			return;
+		}
+
 		await ResetGridStateAsync(resetOptions);
 
 		if (_firstRenderCompleted)
@@ -691,6 +700,11 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// </summary>
 	protected async Task RefreshDataCoreAsync()
 	{
+		if (_isDisposed)
+		{
+			return; // NOOP (same guard as in RefreshDataAsync, protects internal code paths)
+		}
+
 		switch (ContentNavigationModeEffective)
 		{
 			case GridContentNavigationMode.Pagination:

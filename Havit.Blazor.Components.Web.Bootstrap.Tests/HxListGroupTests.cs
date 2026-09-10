@@ -1,13 +1,12 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxListGroupTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxListGroup_Render_DisplaysAllItems()
 	{
 		// Act
-		var cut = RenderComponent<HxListGroup>(parameters => parameters
+		var cut = Render<HxListGroup>(parameters => parameters
 			.AddChildContent<HxListGroupItem>(item => item
 				.AddChildContent("First item"))
 			.AddChildContent<HxListGroupItem>(item => item
@@ -18,19 +17,19 @@ public class HxListGroupTests : BunitTestBase
 
 		// Assert
 		var items = cut.FindAll(".list-group-item");
-		Assert.HasCount(3, items);
-		Assert.AreEqual("First item", items[0].TextContent);
-		Assert.AreEqual("Second item", items[1].TextContent);
-		Assert.AreEqual("Third item", items[2].TextContent);
+		Assert.Equal(3, items.Count());
+		Assert.Equal("First item", items[0].TextContent);
+		Assert.Equal("Second item", items[1].TextContent);
+		Assert.Equal("Third item", items[2].TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxListGroup_ClickItem_TriggersCallback()
 	{
 		// Arrange
 		int clickCount = 0;
 
-		var cut = RenderComponent<HxListGroup>(parameters => parameters
+		var cut = Render<HxListGroup>(parameters => parameters
 			.AddChildContent<HxListGroupItem>(item => item
 				.Add(i => i.OnClick, () => clickCount++)
 				.AddChildContent("Clickable item"))
@@ -40,14 +39,14 @@ public class HxListGroupTests : BunitTestBase
 		cut.Find(".list-group-item").Click();
 
 		// Assert
-		Assert.AreEqual(1, clickCount);
+		Assert.Equal(1, clickCount);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxListGroup_ActiveItem_HasActiveClass()
 	{
 		// Act
-		var cut = RenderComponent<HxListGroup>(parameters => parameters
+		var cut = Render<HxListGroup>(parameters => parameters
 			.AddChildContent<HxListGroupItem>(item => item
 				.Add(i => i.Active, false)
 				.AddChildContent("Inactive item"))
@@ -58,7 +57,7 @@ public class HxListGroupTests : BunitTestBase
 
 		// Assert
 		var items = cut.FindAll(".list-group-item");
-		Assert.IsFalse(items[0].ClassList.Contains("active"), "First item should not have 'active' class");
-		Assert.IsTrue(items[1].ClassList.Contains("active"), "Second item should have 'active' class");
+		Assert.False(items[0].ClassList.Contains("active"), "First item should not have 'active' class");
+		Assert.True(items[1].ClassList.Contains("active"), "Second item should have 'active' class");
 	}
 }

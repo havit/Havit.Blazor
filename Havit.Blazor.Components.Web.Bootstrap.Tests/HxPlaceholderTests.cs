@@ -1,54 +1,53 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxPlaceholderTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxPlaceholder_Render_OutputsPlaceholderElement()
 	{
 		// Act
-		var cut = RenderComponent<HxPlaceholder>();
+		var cut = Render<HxPlaceholder>();
 
 		// Assert
 		var element = cut.Find("span");
-		Assert.IsTrue(element.ClassList.Contains("placeholder"));
+		Assert.True(element.ClassList.Contains("placeholder"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxPlaceholderContainer_AnimationGlow_AppliesGlowClass()
 	{
 		// Act
-		var cut = RenderComponent<HxPlaceholderContainer>(parameters => parameters
+		var cut = Render<HxPlaceholderContainer>(parameters => parameters
 			.Add(p => p.Animation, PlaceholderAnimation.Glow)
 			.AddChildContent("<span>content</span>"));
 
 		// Assert
 		var element = cut.Find("span");
-		Assert.IsTrue(element.ClassList.Contains("placeholder-glow"));
+		Assert.True(element.ClassList.Contains("placeholder-glow"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxPlaceholderContainer_AnimationWave_AppliesWaveClass()
 	{
 		// Act
-		var cut = RenderComponent<HxPlaceholderContainer>(parameters => parameters
+		var cut = Render<HxPlaceholderContainer>(parameters => parameters
 			.Add(p => p.Animation, PlaceholderAnimation.Wave)
 			.AddChildContent("<span>content</span>"));
 
 		// Assert
 		var element = cut.Find("span");
-		Assert.IsTrue(element.ClassList.Contains("placeholder-wave"));
+		Assert.True(element.ClassList.Contains("placeholder-wave"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxPlaceholderButton_Render_HasDisabledAppearance()
 	{
 		// Act
-		var cut = RenderComponent<HxPlaceholderButton>();
+		var cut = Render<HxPlaceholderButton>();
 
 		// Assert
 		var button = cut.Find("button");
-		Assert.IsTrue(button.ClassList.Contains("placeholder"));
-		Assert.IsTrue(button.HasAttribute("disabled"), "Button should have the disabled attribute.");
+		Assert.True(button.ClassList.Contains("placeholder"));
+		Assert.True(button.HasAttribute("disabled"), "Button should have the disabled attribute.");
 	}
 }

@@ -1,4 +1,6 @@
-﻿using Havit.Diagnostics.Contracts;
+﻿using Havit.Blazor.Components.Web.Bootstrap;
+using Havit.Collections;
+using Havit.Diagnostics.Contracts;
 using Havit.Linq;
 
 namespace Havit.Blazor.Documentation.DemoData;
@@ -49,19 +51,43 @@ public partial class DemoDataService : IDemoDataService
 	}
 
 
-	public async Task<DataFragmentResult<EmployeeDto>> GetEmployeesDataFragmentAsync(EmployeesFilterDto filter, int startIndex, int? count, CancellationToken cancellationToken = default)
+	public async Task<DataFragmentResult<EmployeeDto>> GetEmployeesDataFragmentAsync(EmployeesFilterDto filter, int startIndex, int? count, CancellationToken cancellationToken = default, IReadOnlyList<SortingItem<EmployeeDto>> sorting = null)
 	{
 		_logger.LogInformation($"DemoDataService.GetEmployeesDataFragmentAsync(startIndex: {startIndex}, count: {count}) called.");
 
 		await Task.Delay(80, cancellationToken); // simulate server call
 
-		IEnumerable<EmployeeDto> filteredEmployees = GetFilteredEmployees(filter);
-		var data = filteredEmployees.Skip(startIndex).Take(count ?? Int32.MaxValue).ToList();
+		var filteredEmployees = GetFilteredEmployees(filter).ToList();
+		IEnumerable<EmployeeDto> sortedEmployees = ApplySorting(filteredEmployees, sorting);
+		var data = sortedEmployees.Skip(startIndex).Take(count ?? Int32.MaxValue).ToList();
 		return new()
 		{
 			Data = data,
-			TotalCount = filteredEmployees.Count()
+			TotalCount = filteredEmployees.Count
 		};
+	}
+
+	private static IEnumerable<EmployeeDto> ApplySorting(IEnumerable<EmployeeDto> employees, IReadOnlyList<SortingItem<EmployeeDto>> sorting)
+	{
+		if ((sorting == null) || !sorting.Any())
+		{
+			return employees;
+		}
+
+		Contract.Assert(sorting.All(item => item.SortKeySelector != null), "All sorting items must have the SortKeySelector property set.");
+
+		IOrderedEnumerable<EmployeeDto> orderedEmployees = (sorting[0].SortDirection == SortDirection.Ascending)
+			? employees.OrderBy(sorting[0].SortKeySelector.Compile())
+			: employees.OrderByDescending(sorting[0].SortKeySelector.Compile());
+
+		for (int i = 1; i < sorting.Count; i++)
+		{
+			orderedEmployees = (sorting[i].SortDirection == SortDirection.Ascending)
+				? orderedEmployees.ThenBy(sorting[i].SortKeySelector.Compile())
+				: orderedEmployees.ThenByDescending(sorting[i].SortKeySelector.Compile());
+		}
+
+		return orderedEmployees;
 	}
 
 	private IEnumerable<EmployeeDto> GetFilteredEmployees(EmployeesFilterDto filter)

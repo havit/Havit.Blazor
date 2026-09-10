@@ -7,15 +7,14 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Havit.Blazor.Documentation.Tests;
 
-[TestClass]
 public class DemosSmokeTests
 {
-	[TestMethod]
-	[DynamicData(nameof(GetDemos))]
+	[Theory]
+	[MemberData(nameof(GetDemos))]
 	public void DocumentationDemo_SmokeTest(Type demoComponent)
 	{
 		// Arrange
-		var ctx = new Bunit.TestContext();
+		using var ctx = new Bunit.BunitContext();
 		ctx.JSInterop.Mode = JSRuntimeMode.Loose;
 		ctx.Services.AddLogging();
 		ctx.Services.AddHxServices();
@@ -37,10 +36,13 @@ public class DemosSmokeTests
 		// Smoke test - no exception should occur
 	}
 
-	public static IEnumerable<object[]> GetDemos()
+	public static TheoryData<Type> GetDemos()
 	{
-		return typeof(Demo).Assembly.GetTypes()
-			.Where(t => t.Name.Contains("_Demo"))
-			.Select(t => new object[] { t });
+		var data = new TheoryData<Type>();
+		foreach (var demoType in typeof(Demo).Assembly.GetTypes().Where(t => t.Name.Contains("_Demo")))
+		{
+			data.Add(demoType);
+		}
+		return data;
 	}
 }

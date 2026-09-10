@@ -2,10 +2,9 @@
 
 namespace Havit.Blazor.E2ETests.HxInputDateRangeTests;
 
-[TestClass]
 public class HxInputDateRange_RequireDateOrderDisabled_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_RequireDateOrderDisabled_AllowsInvalidFromDate_WhenTyping()
 	{
 		// Arrange
@@ -46,7 +45,7 @@ public class HxInputDateRange_RequireDateOrderDisabled_Tests : TestAppTestBase
 		await Expect(Page.Locator("text=TestDateOrderErrorMessage")).Not.ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_RequireDateOrderDisabled_AllowsInvalidToDate_WhenTyping()
 	{
 		// Arrange
@@ -87,7 +86,7 @@ public class HxInputDateRange_RequireDateOrderDisabled_Tests : TestAppTestBase
 		await Expect(Page.Locator("text=TestDateOrderErrorMessage")).Not.ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_RequireDateOrderDisabled_AllowsValidRange_WhenTyping()
 	{
 		// Arrange
@@ -122,7 +121,7 @@ public class HxInputDateRange_RequireDateOrderDisabled_Tests : TestAppTestBase
 		await Expect(Page.Locator("text=TestDateOrderErrorMessage")).Not.ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_RequireDateOrderDisabled_AllowsDateRangeOutOfOrder_UsingCalendar()
 	{
 		// Arrange
@@ -170,7 +169,7 @@ public class HxInputDateRange_RequireDateOrderDisabled_Tests : TestAppTestBase
 		await Expect(Page.Locator("text=TestDateOrderErrorMessage")).Not.ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputDateRange_RequireDateOrderDisabled_ClearButton_Works()
 	{
 		// Arrange

@@ -1,4 +1,5 @@
 ﻿@using Havit.Blazor.Components.Web.ECharts
+@using Havit.Blazor.ApplicationInsights.Components
 <HxSidebar @bind-Collapsed="_isDesktopCollapsed" CssClass="sticky-md-top doc-sidebar">
     <HeaderTemplate>
         <div class="d-flex flex-grow-1 d-lg-none">
@@ -124,12 +125,14 @@
         <HxSidebarItem Text="Special" Icon="BootstrapIcon.BagHeart">
             <HxSidebarItem Href="@($"/components/{nameof(HxDynamicElement)}")" Text="@nameof(HxDynamicElement)" />
             <HxSidebarItem Href="@($"/components/{nameof(GoogleTagManager.HxGoogleTagManager)}")" Text="@nameof(GoogleTagManager.HxGoogleTagManager)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxApplicationInsights)}")" Text="@nameof(HxApplicationInsights)" />
         </HxSidebarItem>
 
         <HxSidebarItem Text="Concepts" Icon="BootstrapIcon.Lightbulb">
             <HxSidebarItem Href="/concepts/defaults-and-settings" Text="Defaults & Settings" />
             <HxSidebarItem Href="/concepts/Debouncer" Text="Debouncer" />
             <HxSidebarItem Href="/concepts/dark-color-mode-theme" Text="Dark color mode" />
+            <HxSidebarItem Href="/concepts/browser-storage" Text="Browser Web Storage" />
         </HxSidebarItem>
 
 		<HxSidebarItem Href="/getting-started/mcp" CssClass="w-100" Icon="BootstrapIcon.Stars" TooltipText="MCP Server">
@@ -144,6 +147,7 @@
 #pragma warning disable 0618  // Obsolete
 			}
             <HxSidebarItem Href="@($"/components/{nameof(HxAnchorFragmentNavigation)}")" Text="@nameof(HxAnchorFragmentNavigation)" />
+            <HxSidebarItem Href="@($"/components/{nameof(HxApplicationInsights)}")" Text="@nameof(HxApplicationInsights)" />
 			@{
 #pragma warning restore 0618
 			}

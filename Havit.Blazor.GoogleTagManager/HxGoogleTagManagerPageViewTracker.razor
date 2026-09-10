@@ -1,0 +1,7 @@
+﻿@* JS interop is not available during static SSR and prerendering, so GTM is started by an inline snippet instead. *@
+@if (!IsInteractiveRendering)
+{
+	<script type="text/javascript" nonce="@Nonce">
+		@((MarkupString)GetInitializationScript())
+	</script>
+}

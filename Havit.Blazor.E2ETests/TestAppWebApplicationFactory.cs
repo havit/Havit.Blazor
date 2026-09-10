@@ -13,10 +13,21 @@ namespace Havit.Blazor.E2ETests;
 /// </summary>
 public class TestAppWebApplicationFactory : WebApplicationFactory<TestApp.Program>
 {
+	private readonly Action<IServiceCollection> _configureServices;
 	private IHost _host;
+
+	public TestAppWebApplicationFactory(Action<IServiceCollection> configureServices = null)
+	{
+		_configureServices = configureServices;
+	}
 
 	protected override IHost CreateHost(IHostBuilder builder)
 	{
+		if (_configureServices is not null)
+		{
+			builder.ConfigureServices(_configureServices);
+		}
+
 		var testHost = builder.Build();
 
 		// Configure Kestrel to use a dynamic port

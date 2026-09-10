@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxButtonTests;
 
-[TestClass]
 public class HxButton_SingleClickProtection_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxButton_AsyncHandler_DisablesButtonDuringExecution()
 	{
 		// Arrange
@@ -26,7 +25,7 @@ public class HxButton_SingleClickProtection_Tests : TestAppTestBase
 		await Expect(clickCount).ToHaveTextAsync("1");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxButton_DoubleClick_InvokesHandlerOnlyOnce()
 	{
 		// Arrange
@@ -45,7 +44,7 @@ public class HxButton_SingleClickProtection_Tests : TestAppTestBase
 		await Expect(clickCount).ToHaveTextAsync("1");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxButton_AfterAsyncComplete_ButtonReenabled()
 	{
 		// Arrange

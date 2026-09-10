@@ -34,7 +34,7 @@ Numeric input in percentages with value normalization (0% = 0, 100% = 1.0).
 | SmartKeyboard | `bool?` | When enabled, the input may provide an optimized keyboard experience for numeric entry. Currently, this means whenever a minus key is pressed, the sign of the number is toggled. Default is `true`. |
 | SmartPaste | `bool?` | When enabled, pasted values are normalized to contain only valid numeric characters. Default is `true`. |
 | Type | `InputType?` | Allows switching between textual and numeric input types. Only `InputType.Text` (default) and `InputType.Number` are supported. |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in . |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in . |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |

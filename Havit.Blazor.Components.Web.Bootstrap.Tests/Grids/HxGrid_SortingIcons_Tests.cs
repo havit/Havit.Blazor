@@ -1,14 +1,11 @@
 ﻿using Havit.Collections;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Grids;
 
-[TestClass]
 public class HxGrid_SortingIcons_Tests
 {
 	#region Showing icon "on hover", direction should be the same which will be used when a user clicks.
 
-	[TestMethod]
+	[Fact]
 	public void HxGrid_GetSortIconDisplayDirection_NotCurrentSorting_ColumnSortingAscending()
 	{
 		// Arrange
@@ -19,13 +16,13 @@ public class HxGrid_SortingIcons_Tests
 		SortDirection result = HxGrid<object>.GetSortIconDisplayDirection(false, currentSorting, columnSorting);
 
 		// Assert
-		Assert.AreEqual(SortDirection.Ascending, result);
+		Assert.Equal(SortDirection.Ascending, result);
 	}
 
 	/// <summary>
 	/// Showing icon "on hover", direction should be the same which will be used when click.
 	/// </summary>
-	[TestMethod]
+	[Fact]
 	public void HxGrid_GetSortIconDisplayDirection_NotCurrentSorting_ColumnSortingDescending()
 	{
 		// Arrange
@@ -36,13 +33,13 @@ public class HxGrid_SortingIcons_Tests
 		SortDirection result = HxGrid<object>.GetSortIconDisplayDirection(false, currentSorting, columnSorting);
 
 		// Assert
-		Assert.AreEqual(SortDirection.Descending, result);
+		Assert.Equal(SortDirection.Descending, result);
 	}
 	#endregion
 
 	#region Showing icon as a current state, direction should be the same which is used right now.
 
-	[TestMethod]
+	[Fact]
 	public void HxGrid_GetSortIconDisplayDirection_CurrentSorting_ColumnSortingAscending()
 	{
 		// Arrange
@@ -53,10 +50,10 @@ public class HxGrid_SortingIcons_Tests
 		SortDirection result = HxGrid<object>.GetSortIconDisplayDirection(true, currentSorting, columnSorting);
 
 		// Assert
-		Assert.AreEqual(SortDirection.Ascending, result);
+		Assert.Equal(SortDirection.Ascending, result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxGrid_GetSortIconDisplayDirection_CurrentSorting_ColumnSortingDescending()
 	{
 		// Arrange
@@ -67,10 +64,10 @@ public class HxGrid_SortingIcons_Tests
 		SortDirection result = HxGrid<object>.GetSortIconDisplayDirection(true, currentSorting, columnSorting);
 
 		// Assert
-		Assert.AreEqual(SortDirection.Descending, result);
+		Assert.Equal(SortDirection.Descending, result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxGrid_GetSortIconDisplayDirection_CurrentSorting_ReverseDirection_ColumnSortingAscending()
 	{
 		// Arrange
@@ -81,10 +78,10 @@ public class HxGrid_SortingIcons_Tests
 		SortDirection result = HxGrid<object>.GetSortIconDisplayDirection(true, currentSorting, columnSorting);
 
 		// Assert
-		Assert.AreEqual(SortDirection.Descending, result);
+		Assert.Equal(SortDirection.Descending, result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxGrid_GetSortIconDisplayDirection_CurrentSorting_ReverseDirection_ColumnSortingDescending()
 	{
 		// Arrange
@@ -95,7 +92,7 @@ public class HxGrid_SortingIcons_Tests
 		SortDirection result = HxGrid<object>.GetSortIconDisplayDirection(true, currentSorting, columnSorting);
 
 		// Assert
-		Assert.AreEqual(SortDirection.Ascending, result);
+		Assert.Equal(SortDirection.Ascending, result);
 	}
 	#endregion
 

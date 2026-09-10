@@ -1,26 +1,25 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxCloseButtonTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxCloseButton_Render_OutputsButtonElement()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxCloseButton>();
+		var cut = Render<HxCloseButton>();
 
 		// Assert
 		var button = cut.Find("button");
-		Assert.IsNotNull(button);
-		Assert.IsTrue(button.ClassList.Contains("btn-close"));
+		Assert.NotNull(button);
+		Assert.True(button.ClassList.Contains("btn-close"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxCloseButton_Click_TriggersOnClick()
 	{
 		// Arrange
 		var clicked = false;
-		var cut = RenderComponent<HxCloseButton>(parameters => parameters
+		var cut = Render<HxCloseButton>(parameters => parameters
 			.Add(p => p.OnClick, () => clicked = true)
 		);
 
@@ -28,6 +27,6 @@ public class HxCloseButtonTests : BunitTestBase
 		await cut.Find("button").ClickAsync(new());
 
 		// Assert
-		Assert.IsTrue(clicked);
+		Assert.True(clicked);
 	}
 }

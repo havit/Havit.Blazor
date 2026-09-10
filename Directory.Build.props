@@ -15,13 +15,14 @@
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
 		<!-- aligned NuGet PackageVersion for package-bundles -->
-		<ComponentsPackagesVersion>4.24.3</ComponentsPackagesVersion>
-		<GrpcPackagesVersion>1.8.5</GrpcPackagesVersion>
+		<ComponentsPackagesVersion>4.26.1</ComponentsPackagesVersion>
+		<GrpcPackagesVersion>1.8.6</GrpcPackagesVersion>
+		<ApplicationInsightsPackageVersion>1.0.1</ApplicationInsightsPackageVersion>
+		<StoragePackagesVersion>1.0.1</StoragePackagesVersion>
+		<LocalizationPackagesVersion>3.1.0</LocalizationPackagesVersion>
 
-		<EnableMSTestRunner>true</EnableMSTestRunner>
 		<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
 		<TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
-		<MSTestAnalysisMode>Recommended</MSTestAnalysisMode>
 	</PropertyGroup>
 
 	<Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" Condition="Exists($([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../')))"/>

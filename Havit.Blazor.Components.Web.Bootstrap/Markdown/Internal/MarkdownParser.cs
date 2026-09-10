@@ -232,8 +232,18 @@ internal static partial class MarkdownParser
 		}
 
 		var content = trimmed.Substring(level).Trim();
-		// Remove trailing #'s (optional closing)
-		content = content.TrimEnd('#').TrimEnd();
+		// Remove an optional closing sequence only when preceded by whitespace.
+		var closingSequenceStart = content.Length;
+		while (closingSequenceStart > 0 && content[closingSequenceStart - 1] == '#')
+		{
+			closingSequenceStart--;
+		}
+
+		if ((closingSequenceStart < content.Length)
+			&& ((closingSequenceStart == 0) || (content[closingSequenceStart - 1] is ' ' or '\t')))
+		{
+			content = content.Substring(0, closingSequenceStart).TrimEnd();
+		}
 
 		block = new MarkdownBlock
 		{

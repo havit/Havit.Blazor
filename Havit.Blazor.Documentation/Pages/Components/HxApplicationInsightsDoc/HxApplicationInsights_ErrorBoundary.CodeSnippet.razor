@@ -1,0 +1,11 @@
+@using Havit.Blazor.ApplicationInsights.Components
+
+<ErrorBoundary>
+	<ChildContent>
+		...
+	</ChildContent>
+	<ErrorContent Context="ex">
+		<HxApplicationInsightsExceptionTracker Exception="ex" />
+		<p>An error occurred. Please try again.</p>
+	</ErrorContent>
+</ErrorBoundary>

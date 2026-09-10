@@ -6,15 +6,12 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Havit.Blazor.Components.Web.Tests;
 
-[TestClass]
 public class HxDynamicElementTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxDynamicElement_OnClickNotSet_ShouldNotSubscribeToClickEvent()
 	{
 		// Arrange
-		var ctx = new Bunit.TestContext();
-
 		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 		{
 			builder.OpenComponent<HxDynamicElement>(0);
@@ -22,18 +19,17 @@ public class HxDynamicElementTests : BunitTestBase
 		};
 
 		var cut = Render(componentRenderer);
-		Assert.AreEqual(1, cut.RenderCount);
+		Assert.Equal(1, cut.RenderCount);
 
 		// Act + Assert
-		var ex = Assert.ThrowsExactly<MissingEventHandlerException>(() => cut.Find("span").Click());
+		var ex = Assert.Throws<MissingEventHandlerException>(() => cut.Find("span").Click());
 		Assert.Contains("The element does not have an event handler for the event 'onclick'", ex.Message);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxDynamicElement_OnClickIsSet_ShouldRaiseCallbackAndRerender()
 	{
 		// Arrange
-		var ctx = new Bunit.TestContext();
 		var onClickCallbackCallCounter = 0;
 
 		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
@@ -44,13 +40,13 @@ public class HxDynamicElementTests : BunitTestBase
 		};
 
 		var cut = Render(componentRenderer);
-		Assert.AreEqual(1, cut.RenderCount);
+		Assert.Equal(1, cut.RenderCount);
 
 		// Act
 		cut.Find("span").Click();
 
 		// Assert			
-		Assert.AreEqual(1, onClickCallbackCallCounter);
-		Assert.AreEqual(2, cut.RenderCount);
+		Assert.Equal(1, onClickCallbackCallCounter);
+		Assert.Equal(2, cut.RenderCount);
 	}
 }

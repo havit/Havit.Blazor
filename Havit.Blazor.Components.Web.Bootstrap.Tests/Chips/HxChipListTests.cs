@@ -1,9 +1,8 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Chips;
 
-[TestClass]
 public class HxChipListTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxChipList_Render_DisplaysChipBadges()
 	{
 		// Arrange
@@ -15,14 +14,14 @@ public class HxChipListTests : BunitTestBase
 		};
 
 		// Act
-		var cut = RenderComponent<HxChipList>(parameters => parameters
+		var cut = Render<HxChipList>(parameters => parameters
 			.Add(p => p.Chips, chips));
 
 		// Assert – three badge elements are rendered
-		Assert.HasCount(3, cut.FindAll(".badge"), "Expected three chip badges to be rendered.");
+		Assert.Equal(3, cut.FindAll(".badge").Count());
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxChipList_RemoveChip_ChipDisappears()
 	{
 		// Arrange
@@ -34,28 +33,28 @@ public class HxChipListTests : BunitTestBase
 		};
 		ChipItem removedChip = null;
 
-		var cut = RenderComponent<HxChipList>(parameters => parameters
+		var cut = Render<HxChipList>(parameters => parameters
 			.Add(p => p.Chips, chips)
 			.Add(p => p.OnChipRemoveClick, (ChipItem chip) => { removedChip = chip; }));
 
-		Assert.HasCount(3, cut.FindAll(".badge"), "Expected three chip badges before removal.");
-		Assert.HasCount(2, cut.FindAll(".hx-chip-list-remove-btn"), "Expected two remove buttons before removal.");
+		Assert.Equal(3, cut.FindAll(".badge").Count());
+		Assert.Equal(2, cut.FindAll(".hx-chip-list-remove-btn").Count());
 
 		// Act – click the first remove button (the "Name: Peter" chip)
 		await cut.InvokeAsync(() => cut.FindAll(".hx-chip-list-remove-btn")[0].Click());
 
 		// Verify that the remove callback was invoked with the expected chip ("Name: Peter")
-		Assert.IsNotNull(removedChip, "Expected OnChipRemoveClick to be invoked and provide a chip to remove.");
-		Assert.AreSame(chips[1], removedChip, "Expected the removed chip to be the \"Name: Peter\" chip.");
+		Assert.NotNull(removedChip);
+		Assert.Same(chips[1], removedChip);
 		// Simulate the parent updating the chips list in response to the callback
 		chips.Remove(removedChip);
-		cut.SetParametersAndRender(p => p.Add(x => x.Chips, chips));
+		cut.Render(p => p.Add(x => x.Chips, chips));
 
 		// Assert – one chip badge disappeared
-		Assert.HasCount(2, cut.FindAll(".badge"), "Expected two chip badges after removal.");
+		Assert.Equal(2, cut.FindAll(".badge").Count());
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxChipList_AfterRemoval_RemainingChipsCorrect()
 	{
 		// Arrange
@@ -67,7 +66,7 @@ public class HxChipListTests : BunitTestBase
 		};
 		ChipItem removedChip = null;
 
-		var cut = RenderComponent<HxChipList>(parameters => parameters
+		var cut = Render<HxChipList>(parameters => parameters
 			.Add(p => p.Chips, chips)
 			.Add(p => p.OnChipRemoveClick, (ChipItem chip) => { removedChip = chip; }));
 
@@ -75,21 +74,21 @@ public class HxChipListTests : BunitTestBase
 		await cut.InvokeAsync(() => cut.FindAll(".hx-chip-list-remove-btn")[0].Click());
 
 		// Verify that the remove callback was invoked with the expected chip ("Name: Peter")
-		Assert.IsNotNull(removedChip, "Expected OnChipRemoveClick to be invoked and provide a chip to remove.");
-		Assert.AreSame(chips[1], removedChip, "Expected the removed chip to be the \"Name: Peter\" chip.");
+		Assert.NotNull(removedChip);
+		Assert.Same(chips[1], removedChip);
 
 		// Simulate the parent updating the chips list in response to the callback
 		chips.Remove(removedChip);
-		cut.SetParametersAndRender(p => p.Add(x => x.Chips, chips));
+		cut.Render(p => p.Add(x => x.Chips, chips));
 
 		// Assert – remaining badges contain the expected content; "Name: Peter" is gone
 		var badgeTexts = cut.FindAll(".badge")
 			.Select(b => b.TextContent.Trim())
 			.ToList();
 
-		Assert.HasCount(2, badgeTexts, "Expected two remaining chip badges.");
-		Assert.Contains(t => t.Contains("State: Active"), badgeTexts, "Expected 'State: Active' chip to remain.");
-		Assert.Contains(t => t.Contains("Company: HAVIT"), badgeTexts, "Expected 'Company: HAVIT' chip to remain.");
-		Assert.DoesNotContain(t => t.Contains("Name: Peter"), badgeTexts, "Expected 'Name: Peter' chip to be removed.");
+		Assert.Equal(2, badgeTexts.Count());
+		Assert.Contains(badgeTexts, t => t.Contains("State: Active"));
+		Assert.Contains(badgeTexts, t => t.Contains("Company: HAVIT"));
+		Assert.DoesNotContain(badgeTexts, t => t.Contains("Name: Peter"));
 	}
 }

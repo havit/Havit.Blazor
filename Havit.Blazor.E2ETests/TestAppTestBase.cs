@@ -14,16 +14,15 @@ public abstract class TestAppTestBase : PageTest
 	protected static string BaseUrl => TestAppAssemblyInitializer.BaseUrl;
 
 	/// <summary>
-	/// The TestCleanup hook is intentionally used instead of a separate method invocation so that:
+	/// The DisposeAsync hook (xUnit IAsyncLifetime, invoked after each test) is intentionally used instead of a separate method invocation so that:
 	/// - A11y checks are automatically executed after the main test flow completes
 	/// - Existing tests do not need modification or duplication
 	/// - The execution order remains consistent across all tests
 	///
 	/// This approach allows the same functional tests to be reused as an "accessibility overlay suite"
-	/// by enabling the ACCESSIBILITYTESTS runtime toggle.
-	/// Using a runtime toggle enables:
+	/// by enabling the ACCESSIBILITYTESTS toggle.
+	/// Using a toggle enables:
 	/// - Clear separation between functional and accessibility test runs
-	/// - Simpler and more predictable CI pipeline behavior without relying on DefineConstants
 	/// - Zero A11y execution unless explicitly enabled
 	/// </summary>
 	private static bool AccessibilityTestsEnabled =>
@@ -33,8 +32,7 @@ public abstract class TestAppTestBase : PageTest
 		false;
 #endif
 
-	[TestCleanup]
-	public async Task Cleanup()
+	public override async ValueTask DisposeAsync()
 	{
 		try
 		{
@@ -45,7 +43,8 @@ public abstract class TestAppTestBase : PageTest
 		}
 		finally
 		{
-			await Context.CloseAsync();
+			// always let Playwright tear down the browser context (prevents orphaned headless browser processes)
+			await base.DisposeAsync();
 		}
 	}
 
@@ -128,7 +127,7 @@ public abstract class TestAppTestBase : PageTest
 					var target = string.Join(", ", node.Target ?? new List<string>());
 					target = target.Replace("|", "\\|");
 
-					message.AppendLine($"| {TestContext.TestName} | {violation.Id} | {description} | {impact} | {target} |");
+					message.AppendLine($"| {TestContext.Current.Test?.TestDisplayName} | {violation.Id} | {description} | {impact} | {target} |");
 				}
 			}
 

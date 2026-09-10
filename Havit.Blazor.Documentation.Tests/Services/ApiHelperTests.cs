@@ -1,20 +1,17 @@
 ﻿using Havit.Blazor.Components.Web.Bootstrap;
 using Havit.Blazor.Documentation.Services;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Havit.Blazor.Documentation.Tests.Services;
 
-[TestClass]
 public class ApiHelperTests
 {
-	[TestMethod]
-	[DataRow("AutosuggestDataProviderDelegate", true)]
-	[DataRow("GridDataProviderDelegate", true)]
-	[DataRow("InputTagsDataProviderDelegate", true)]
-	[DataRow("CalendarDateCustomizationProviderDelegate", true)]
-	[DataRow("SearchBoxDataProviderDelegate", true)]
-	[DataRow("HxButton", false)]
-	[DataRow("ButtonSize", false)]
+	[Theory]
+	[InlineData("AutosuggestDataProviderDelegate", true)]
+	[InlineData("GridDataProviderDelegate", true)]
+	[InlineData("InputTagsDataProviderDelegate", true)]
+	[InlineData("CalendarDateCustomizationProviderDelegate", true)]
+	[InlineData("SearchBoxDataProviderDelegate", true)]
+	[InlineData("HxButton", false)]
+	[InlineData("ButtonSize", false)]
 	public void ApiHelper_IsDelegate_ReturnsExpected(string typeName, bool expected)
 	{
 		// arrange
@@ -24,134 +21,134 @@ public class ApiHelperTests
 		bool actual = ApiTypeHelper.IsDelegate(type);
 
 		// assert
-		Assert.AreEqual(expected, actual);
+		Assert.Equal(expected, actual);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ApiHelper_GetType_ReturnsHxButton()
 	{
 		// act
 		Type result = ApiTypeHelper.GetType("HxButton");
 
 		// assert
-		Assert.AreEqual(typeof(HxButton), result);
+		Assert.Equal(typeof(HxButton), result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ApiHelper_GetType_ReturnsButtonSizeEnum()
 	{
 		// act
 		Type result = ApiTypeHelper.GetType("ButtonSize");
 
 		// assert
-		Assert.AreEqual(typeof(ButtonSize), result);
+		Assert.Equal(typeof(ButtonSize), result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ApiHelper_GetType_ReturnsGenericHxGrid()
 	{
 		// act
 		Type result = ApiTypeHelper.GetType("HxGrid");
 
 		// assert
-		Assert.AreEqual(typeof(HxGrid<>), result);
+		Assert.Equal(typeof(HxGrid<>), result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ApiHelper_GetType_ReturnsDelegateFromDictionary()
 	{
 		// act
 		Type result = ApiTypeHelper.GetType("AutosuggestDataProviderDelegate");
 
 		// assert
-		Assert.AreEqual(typeof(AutosuggestDataProviderDelegate<>), result);
+		Assert.Equal(typeof(AutosuggestDataProviderDelegate<>), result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ApiHelper_GetType_ReturnsDelegateFromDictionary_NonGeneric()
 	{
 		// act
 		Type result = ApiTypeHelper.GetType("CalendarDateCustomizationProviderDelegate");
 
 		// assert
-		Assert.AreEqual(typeof(CalendarDateCustomizationProviderDelegate), result);
+		Assert.Equal(typeof(CalendarDateCustomizationProviderDelegate), result);
 	}
 
-	[TestMethod]
-	[DataRow("NonExistentType123")]
-	[DataRow("")]
+	[Theory]
+	[InlineData("NonExistentType123")]
+	[InlineData("")]
 	public void ApiHelper_GetType_ReturnsNullForUnknownTypeName(string typeName)
 	{
 		// act
 		Type result = ApiTypeHelper.GetType(typeName);
 
 		// assert
-		Assert.IsNull(result);
+		Assert.Null(result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ApiHelper_GetType_StripsGenericBrackets()
 	{
 		// act
 		Type result = ApiTypeHelper.GetType("HxGrid<TItem>");
 
 		// assert
-		Assert.AreEqual(typeof(HxGrid<>), result);
+		Assert.Equal(typeof(HxGrid<>), result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ApiHelper_GetType_StripsMultipleGenericBrackets()
 	{
 		// act
 		Type result = ApiTypeHelper.GetType("HxAutosuggest<TItem, TValue>");
 
 		// assert
-		Assert.AreEqual(typeof(HxAutosuggest<,>), result);
+		Assert.Equal(typeof(HxAutosuggest<,>), result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ApiHelper_GetType_PrefersGenericTypeByDefault()
 	{
 		// act
 		Type result = ApiTypeHelper.GetType("HxGrid");
 
 		// assert
-		Assert.AreEqual(typeof(HxGrid<>), result);
+		Assert.Equal(typeof(HxGrid<>), result);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ApiHelper_GetType_PrefersNonGenericTypeWhenRequested()
 	{
 		// act
 		Type result = ApiTypeHelper.GetType("HxGrid", preferGenericTypes: false);
 
 		// assert
-		Assert.AreEqual(typeof(HxGrid), result);
+		Assert.Equal(typeof(HxGrid), result);
 	}
 
-	[TestMethod]
-	[DataRow("HxButton", true)]
-	[DataRow("HxGrid", true)]
-	[DataRow("ButtonSize", true)]
-	[DataRow("GridDataProviderDelegate", true)]
-	[DataRow("NonExistentType123", false)]
-	[DataRow("", false)]
+	[Theory]
+	[InlineData("HxButton", true)]
+	[InlineData("HxGrid", true)]
+	[InlineData("ButtonSize", true)]
+	[InlineData("GridDataProviderDelegate", true)]
+	[InlineData("NonExistentType123", false)]
+	[InlineData("", false)]
 	public void ApiHelper_IsLibraryType_ReturnsExpected(string typeName, bool expected)
 	{
 		// act
 		bool actual = ApiTypeHelper.IsLibraryType(typeName);
 
 		// assert
-		Assert.AreEqual(expected, actual);
+		Assert.Equal(expected, actual);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ApiHelper_GetType_WithIncludeTypesContainingTypeName_FindsType()
 	{
 		// act
 		Type result = ApiTypeHelper.GetType("GridSettings", includeTypesContainingTypeName: true);
 
 		// assert
-		Assert.AreEqual(typeof(GridSettings), result);
+		Assert.Equal(typeof(GridSettings), result);
 	}
 }

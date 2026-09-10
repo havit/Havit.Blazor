@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxInputTagsTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxInputTags_WithTags_RendersBadges()
 	{
 		// Arrange
@@ -27,10 +26,10 @@ public class HxInputTagsTests : BunitTestBase
 
 		// Assert — tags render as badge elements
 		var tagElements = cut.FindAll(".hx-tag");
-		Assert.HasCount(3, tagElements);
+		Assert.Equal(3, tagElements.Count());
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputTags_EmptyTags_NoBadges()
 	{
 		// Arrange
@@ -50,10 +49,10 @@ public class HxInputTagsTests : BunitTestBase
 
 		// Assert — no tag badges rendered
 		var tagElements = cut.FindAll(".hx-tag");
-		Assert.IsEmpty(tagElements);
+		Assert.Empty(tagElements);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputTags_Render_InputFieldPresent()
 	{
 		// Arrange
@@ -74,10 +73,10 @@ public class HxInputTagsTests : BunitTestBase
 
 		// Assert — input field is present with placeholder
 		var input = cut.Find("input[type='text']");
-		Assert.AreEqual("Add tags...", input.GetAttribute("placeholder"));
+		Assert.Equal("Add tags...", input.GetAttribute("placeholder"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputTags_Enabled_False_DisablesControl()
 	{
 		// Arrange
@@ -98,11 +97,10 @@ public class HxInputTagsTests : BunitTestBase
 
 		// Assert — control shows disabled state
 		var control = cut.Find(".hx-input-tags-control");
-		Assert.IsTrue(control.ClassList.Contains("hx-input-tags-control-disabled"),
-			"Control should have disabled CSS class when Enabled=false.");
+		Assert.True(control.ClassList.Contains("hx-input-tags-control-disabled"), "Control should have disabled CSS class when Enabled=false.");
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputTags_Label_RendersLabel()
 	{
 		// Arrange

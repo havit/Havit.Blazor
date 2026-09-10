@@ -77,7 +77,7 @@ public partial class HxSidebar : ComponentBase
 	/// </summary>
 	[Parameter] public SidebarResponsiveBreakpoint ResponsiveBreakpoint { get; set; } = SidebarResponsiveBreakpoint.Medium;
 
-	[Inject] protected IStringLocalizer<HxSpinner> Localizer { get; set; }
+	[Inject] protected IStringLocalizer<HxSidebar> Localizer { get; set; }
 
 	protected internal string NavContentElementId => Id + "-nav-content";
 

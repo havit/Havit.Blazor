@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxAutosuggestTests;
 
-[TestClass]
 public class HxAutosuggest_BasicTests_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxAutosuggest_TypeText_ShowsSuggestionDropdown()
 	{
 		// Arrange - navigate to the test page
@@ -20,7 +19,7 @@ public class HxAutosuggest_BasicTests_Tests : TestAppTestBase
 		await Expect(suggestionItem).ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxAutosuggest_ClickSuggestion_SetsValue()
 	{
 		// Arrange - navigate to the test page
@@ -38,7 +37,7 @@ public class HxAutosuggest_BasicTests_Tests : TestAppTestBase
 		await Expect(selectedValueDisplay).ToHaveTextAsync("Alpha");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxAutosuggest_ClearInput_ClearsValue()
 	{
 		// Arrange - navigate to the test page and select a value
@@ -61,7 +60,7 @@ public class HxAutosuggest_BasicTests_Tests : TestAppTestBase
 		await Expect(input).ToHaveValueAsync("");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxAutosuggest_NoMatch_ShowsNoResultsMessage()
 	{
 		// Arrange - navigate to the test page

@@ -1,39 +1,38 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxSpinnerTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxSpinner_Render_DefaultBorderSpinner()
 	{
 		// Act
-		var cut = RenderComponent<HxSpinner>();
+		var cut = Render<HxSpinner>();
 
 		// Assert
-		Assert.IsTrue(cut.Find("div").ClassList.Contains("spinner-border"));
+		Assert.True(cut.Find("div").ClassList.Contains("spinner-border"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxSpinner_TypeGrow_RendersGrowClass()
 	{
 		// Act
-		var cut = RenderComponent<HxSpinner>(parameters => parameters
+		var cut = Render<HxSpinner>(parameters => parameters
 			.Add(p => p.Type, SpinnerType.Grow)
 		);
 
 		// Assert
-		Assert.IsTrue(cut.Find("div").ClassList.Contains("spinner-grow"));
+		Assert.True(cut.Find("div").ClassList.Contains("spinner-grow"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxSpinner_SizeSmall_RendersSizeClass()
 	{
 		// Act
-		var cut = RenderComponent<HxSpinner>(parameters => parameters
+		var cut = Render<HxSpinner>(parameters => parameters
 			.Add(p => p.Size, SpinnerSize.Small)
 		);
 
 		// Assert
-		Assert.IsTrue(cut.Find("div").ClassList.Contains("spinner-border-sm"));
+		Assert.True(cut.Find("div").ClassList.Contains("spinner-border-sm"));
 	}
 }

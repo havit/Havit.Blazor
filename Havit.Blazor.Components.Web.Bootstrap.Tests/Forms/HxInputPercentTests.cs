@@ -1,19 +1,16 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
-[TestClass]
 public class HxInputPercentTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxInputPercent_TypePercentage_StoresDecimalValue()
 	{
 		// Arrange
 		decimal currentValue = 0m;
-		var cut = RenderComponent<HxInputPercent<decimal>>(parameters =>
+		var cut = Render<HxInputPercent<decimal>>(parameters =>
 			parameters.Bind(p =>
 				p.Value,
 				currentValue,
@@ -23,10 +20,10 @@ public class HxInputPercentTests : BunitTestBase
 		cut.Find("input").Change("50");
 
 		// Assert
-		Assert.AreEqual(0.5m, currentValue, "Typing 50 should store 0.5 as decimal value.");
+		Assert.Equal(0.5m, currentValue);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputPercent_TypeInvalid_ShowsValidationError()
 	{
 		// Arrange
@@ -47,17 +44,17 @@ public class HxInputPercentTests : BunitTestBase
 		cut.Find("input").Change("abc");
 
 		// Assert
-		Assert.AreEqual(0m, currentValue, "Model value should remain unchanged after invalid input.");
-		Assert.IsNotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"), "Invalid CSS class should be applied.");
-		Assert.AreEqual("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent, "Parsing validation error should be displayed.");
+		Assert.Equal(0m, currentValue);
+		Assert.NotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"));
+		Assert.Equal("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputPercent_Display_ShowsPercentageCorrectly()
 	{
 		// Arrange
 		decimal currentValue = 0.75m;
-		var cut = RenderComponent<HxInputPercent<decimal>>(parameters =>
+		var cut = Render<HxInputPercent<decimal>>(parameters =>
 		{
 			parameters.Bind(p =>
 				p.Value,
@@ -67,6 +64,6 @@ public class HxInputPercentTests : BunitTestBase
 		});
 
 		// Assert
-		Assert.AreEqual("75", cut.Find("input").GetAttribute("value"), "Value 0.75 should be displayed as 75.");
+		Assert.Equal("75", cut.Find("input").GetAttribute("value"));
 	}
 }

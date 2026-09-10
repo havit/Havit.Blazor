@@ -1,43 +1,42 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxBadgeTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxBadge_Render_DisplaysContent()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxBadge>(parameters => parameters
+		var cut = Render<HxBadge>(parameters => parameters
 			.Add(p => p.Color, ThemeColor.Primary)
 			.AddChildContent("New")
 		);
 
 		// Assert
-		Assert.AreEqual("New", cut.Find("span.badge").TextContent);
+		Assert.Equal("New", cut.Find("span.badge").TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxBadge_Color_AppliesCorrectCssClass()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxBadge>(parameters => parameters
+		var cut = Render<HxBadge>(parameters => parameters
 			.Add(p => p.Color, ThemeColor.Primary)
 		);
 
 		// Assert
-		Assert.IsNotNull(cut.Find("span.badge.text-bg-primary"));
+		Assert.NotNull(cut.Find("span.badge.text-bg-primary"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxBadge_RoundedPill_AppliesPillClass()
 	{
 		// Arrange & Act
-		var cut = RenderComponent<HxBadge>(parameters => parameters
+		var cut = Render<HxBadge>(parameters => parameters
 			.Add(p => p.Color, ThemeColor.Primary)
 			.Add(p => p.Type, BadgeType.RoundedPill)
 		);
 
 		// Assert
-		Assert.IsNotNull(cut.Find("span.badge.rounded-pill"));
+		Assert.NotNull(cut.Find("span.badge.rounded-pill"));
 	}
 }

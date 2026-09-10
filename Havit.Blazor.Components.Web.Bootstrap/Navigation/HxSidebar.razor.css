@@ -65,6 +65,10 @@
 	left: 100%;
 	transform: translate(-50%, -50%);
 	display: none; /* Hide the sidebar toggler in navbar mode (when below the responsive breakpoint). */
+	padding: 0;
+	border: 0;
+	background: transparent;
+	cursor: pointer;
 }
 
 .hx-sidebar-toggler-inner {

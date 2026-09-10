@@ -1,12 +1,10 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+﻿using Moq;
 
 namespace Havit.Blazor.Components.Web.Tests;
 
-[TestClass]
 public class ModelClonerTests
 {
-	[TestMethod]
+	[Fact]
 	public void ModelCloner_TryCloneCloneable()
 	{
 		// Arrange
@@ -17,12 +15,12 @@ public class ModelClonerTests
 		bool success = ModelCloner.TryCloneCloneable(modelMock.Object, out ICloneable modelClone);
 
 		// Assert
-		Assert.IsTrue(success);
+		Assert.True(success);
 		modelMock.Verify(m => m.Clone(), Times.Once()); // Clone was called
 	}
 
 
-	[TestMethod]
+	[Fact]
 	public void ModelCloner_TryCloneRecord()
 	{
 		// Arrange
@@ -32,12 +30,12 @@ public class ModelClonerTests
 		bool success = ModelCloner.TryCloneRecord(model, out ModelRecord modelClone);
 
 		// Assert
-		Assert.IsTrue(success);
-		Assert.AreNotSame(model, modelClone);
-		Assert.AreEqual(model.Name, modelClone.Name);
+		Assert.True(success);
+		Assert.NotSame(model, modelClone);
+		Assert.Equal(model.Name, modelClone.Name);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ModelCloner_TryCloneRecordWithList_WithItem()
 	{
 		// Arrange
@@ -48,12 +46,12 @@ public class ModelClonerTests
 		var modelClone = ModelCloner.Clone(model);
 
 		// Assert
-		Assert.AreNotSame(model, modelClone);
-		Assert.AreEqual(model, modelClone);
-		Assert.IsTrue(modelClone.Tags.SequenceEqual(model.Tags));
+		Assert.NotSame(model, modelClone);
+		Assert.Equal(model, modelClone);
+		Assert.True(modelClone.Tags.SequenceEqual(model.Tags));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ModelCloner_Clone_RecordWithList_Empty()
 	{
 		// Arrange
@@ -63,12 +61,12 @@ public class ModelClonerTests
 		var modelClone = ModelCloner.Clone(model);
 
 		// Assert
-		Assert.AreNotSame(model, modelClone);
-		Assert.AreEqual(model, modelClone);
-		Assert.IsTrue(modelClone.Tags.SequenceEqual(model.Tags));
+		Assert.NotSame(model, modelClone);
+		Assert.Equal(model, modelClone);
+		Assert.True(modelClone.Tags.SequenceEqual(model.Tags));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void ModelCloner_CloneMemberwiseClone()
 	{
 		// Arrange
@@ -78,8 +76,8 @@ public class ModelClonerTests
 		ModelClass modelClone = ModelCloner.CloneMemberwiseClone(model);
 
 		// Assert
-		Assert.AreNotSame(model, modelClone);
-		Assert.AreEqual(model.Name, modelClone.Name);
+		Assert.NotSame(model, modelClone);
+		Assert.Equal(model.Name, modelClone.Name);
 	}
 
 	public record ModelRecord

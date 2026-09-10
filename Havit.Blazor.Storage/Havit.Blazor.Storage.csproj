@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<NoWarn>1591;1701;1702;SA1134</NoWarn>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<SupportedPlatform Include="browser" />
+	</ItemGroup>
+
+	<!-- NuGet -->
+	<Import Project="../NuGet.targets" />
+	<PropertyGroup>
+		<!-- StoragePackagesVersion - variable from Directory.Build.props -->
+		<PackageVersion>$(StoragePackagesVersion)</PackageVersion>
+		<Description>HAVIT Blazor Library - Local storage and session storage access for Blazor</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/havit/Havit.Blazor</PackageProjectUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Havit.Core" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+	</ItemGroup>
+
+	<Target Name="CopyCustomContent" AfterTargets="AfterBuild">
+		<Copy SourceFiles="$(TargetDir)\Havit.Blazor.Storage.xml" DestinationFolder="$(OutDir)\..\..\..\..\Havit.Blazor.Documentation\XmlDoc" />
+	</Target>
+
+</Project>

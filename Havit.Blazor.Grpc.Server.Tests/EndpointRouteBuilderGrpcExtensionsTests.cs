@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Havit.Blazor.Grpc.Server.Tests;
 
-[TestClass]
 public class EndpointRouteBuilderGrpcExtensionsTests
 {
 	[ApiContract]
@@ -15,7 +14,7 @@ public class EndpointRouteBuilderGrpcExtensionsTests
 	/// via reflection and invoke configureEndpointAll for each [ApiContract] interface.
 	/// Previously, GetMethod("MapGrpcService") threw AmbiguousMatchException when multiple overloads existed.
 	/// </summary>
-	[TestMethod]
+	[Fact]
 	public void MapGrpcServicesByApiContractAttributes_InvokesConfigureEndpointAll_ForApiContractInterface()
 	{
 		// Arrange
@@ -31,6 +30,6 @@ public class EndpointRouteBuilderGrpcExtensionsTests
 			configureEndpointAll: endpoint => configuredEndpoints.Add(endpoint));
 
 		// Assert — configureEndpointAll must have been called (at least for IDummyFacade)
-		Assert.IsNotEmpty(configuredEndpoints, "configureEndpointAll was not invoked for any [ApiContract] interface.");
+		Assert.NotEmpty(configuredEndpoints);
 	}
 }

@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxToastTests;
 
-[TestClass]
 public class HxToast_StaticSSR_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxToast_StaticSSR_BasicToast_DisplaysAndAutoHidesAfter2Seconds()
 	{
 		// Arrange & Act - Navigate to the HxToast StaticSSR test page

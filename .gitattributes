@@ -51,3 +51,5 @@
 *.props text
 *.filters text
 *.vcxitems text
+
+.github/workflows/*.lock.yml linguist-generated=true merge=ours

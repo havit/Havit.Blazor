@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxAutosuggestTests;
 
-[TestClass]
 public class HxAutosuggest_ValueChangedClearing_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxAutosuggest_ValueChangedClearing_InputIsClearedOnSecondSelection()
 	{
 		// Arrange - navigate to the test page

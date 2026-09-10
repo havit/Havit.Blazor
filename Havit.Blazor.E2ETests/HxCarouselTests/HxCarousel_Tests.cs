@@ -2,13 +2,12 @@ using System.Text.RegularExpressions;
 
 namespace Havit.Blazor.E2ETests.HxCarouselTests;
 
-[TestClass]
 public class HxCarousel_Tests : TestAppTestBase
 {
 	private static readonly Regex ActiveClassRegex = new Regex("\\bactive\\b");
 	private const int CarouselTransitionTimeout = 5_000;
 
-	[TestMethod]
+	[Fact]
 	public async Task HxCarousel_Render_DisplaysCorrectSlideCount()
 	{
 		// Arrange & Act
@@ -19,7 +18,7 @@ public class HxCarousel_Tests : TestAppTestBase
 		await Expect(slides).ToHaveCountAsync(3);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxCarousel_ClickNext_AdvancesToNextSlide()
 	{
 		// Arrange
@@ -38,7 +37,7 @@ public class HxCarousel_Tests : TestAppTestBase
 		await Expect(secondSlide).ToHaveClassAsync(ActiveClassRegex, new() { Timeout = CarouselTransitionTimeout });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxCarousel_ClickPrevious_GoesToPreviousSlide()
 	{
 		// Arrange
@@ -60,7 +59,7 @@ public class HxCarousel_Tests : TestAppTestBase
 		await Expect(firstSlide).ToHaveClassAsync(ActiveClassRegex, new() { Timeout = CarouselTransitionTimeout });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxCarousel_Indicators_ReflectCurrentSlide()
 	{
 		// Arrange

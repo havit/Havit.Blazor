@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxInputFileTests;
 
-[TestClass]
 public class HxInputFileTests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxInputFile_UploadFile_DisplaysFileName()
 	{
 		// Arrange
@@ -30,7 +29,7 @@ public class HxInputFileTests : TestAppTestBase
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputFile_UploadMultiple_AllFilesListed()
 	{
 		// Arrange
@@ -63,7 +62,7 @@ public class HxInputFileTests : TestAppTestBase
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputFileDropZone_Hover_ShowsVisualFeedback()
 	{
 		// Arrange
@@ -81,6 +80,6 @@ public class HxInputFileTests : TestAppTestBase
 		string borderColorAfter = await dropZone.EvaluateAsync<string>("el => window.getComputedStyle(el).borderTopColor");
 
 		// Assert — border color should change on hover (as per the component's CSS hover rules)
-		Assert.AreNotEqual(borderColorBefore, borderColorAfter, "Border color should change on hover to indicate drop zone visual feedback.");
+		Assert.NotEqual(borderColorBefore, borderColorAfter);
 	}
 }

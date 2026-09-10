@@ -7,9 +7,12 @@ Component for convenient rendering of Apache ECharts.
 | Name | Type | Description |
 |------|------|-------------|
 | Options **[REQUIRED]** | `object` | Options for the chart. See ECharts Option for more details. |
+| AdditionalAttributes | `Dictionary<string, object>` | Additional attributes to be splatted onto the underlying chart container `div`. |
 | AutoResize | `bool` | Indicates whether the chart should automatically resize. Default is `false`. |
 | ChartId | `string` | Unique identifier for the HTML element representing the chart. |
-| Height | `string` | The height of the chart. Default is `400px`. |
+| CssClass | `string` | Additional CSS classes for the chart container. |
+| Height | `string` | The height of the chart. Default is `400px`. Set to an empty string (or `null`) to omit the `height` declaration and let the surrounding CSS (e.g. a flex parent) drive the height. |
+| Width | `string` | The width of the chart (rendered as both `min-width` and `max-width` of the container). Default is `100%`. Set to an empty string to omit the width declarations and let the surrounding CSS drive the width. |
 
 ## Event callbacks
 

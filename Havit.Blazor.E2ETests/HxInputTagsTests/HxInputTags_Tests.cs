@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxInputTagsTests;
 
-[TestClass]
 public class HxInputTags_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxInputTags_TypeAndEnter_AddsTag()
 	{
 		// Arrange
@@ -22,7 +21,7 @@ public class HxInputTags_Tests : TestAppTestBase
 		await Expect(tagsOutput.Locator("[data-testid='tag-item']").First).ToHaveTextAsync("Alpha");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputTags_ClickRemove_RemovesTag()
 	{
 		// Arrange
@@ -44,7 +43,7 @@ public class HxInputTags_Tests : TestAppTestBase
 		await Expect(tagsOutput.Locator("[data-testid='tag-item']")).ToHaveCountAsync(0);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputTags_AddDuplicate_IsRejected()
 	{
 		// Arrange
@@ -67,7 +66,7 @@ public class HxInputTags_Tests : TestAppTestBase
 		await Expect(tagsOutput.Locator("[data-testid='tag-item']")).ToHaveCountAsync(1);
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputTags_AddMultiple_AllDisplayed()
 	{
 		// Arrange

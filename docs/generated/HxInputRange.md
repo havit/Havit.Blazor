@@ -23,7 +23,7 @@ Allows the user to select a number in a specified range using a slider.
 | LabelTemplate | `RenderFragment` | The label content. |
 | Settings | `InputRangeSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | Step | `TValue` | By default, `HxInputRange` snaps to integer values. To change this, you can specify a step value. |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in . |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in . |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |

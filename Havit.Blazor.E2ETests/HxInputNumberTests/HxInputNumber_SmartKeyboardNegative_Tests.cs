@@ -1,6 +1,5 @@
 namespace Havit.Blazor.E2ETests.HxInputNumberTests;
 
-[TestClass]
 public class HxInputNumber_SmartKeyboardNegative_Tests : TestAppTestBase
 {
 	private const int DefaultTimeout = 5_000;
@@ -11,7 +10,7 @@ public class HxInputNumber_SmartKeyboardNegative_Tests : TestAppTestBase
 	/// Pressing '-' to make the number negative and then typing a replacement digit must preserve the negative sign,
 	/// not produce a positive number.
 	/// </summary>
-	[TestMethod]
+	[Fact]
 	public async Task HxInputNumber_PressMinusThenDigit_OnFullySelectedValue_ProducesNegativeNumber()
 	{
 		// Arrange
@@ -29,7 +28,7 @@ public class HxInputNumber_SmartKeyboardNegative_Tests : TestAppTestBase
 
 		// Sanity-check the auto-select behavior: after focus the entire value should be selected
 		var selectionLengthAfterFocus = await input.EvaluateAsync<int>("el => el.selectionEnd - el.selectionStart");
-		Assert.AreEqual(3, selectionLengthAfterFocus, "SelectOnFocus should select the entire existing value on focus.");
+		Assert.Equal(3, selectionLengthAfterFocus);
 
 		await input.PressAsync("-");
 		await input.PressAsync("5");

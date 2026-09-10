@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxInputTagsTests;
 
-[TestClass]
 public class HxInputTags_EnterPropagation_Tests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxInputTags_EnterKey_AddsTagWithoutFormSubmit()
 	{
 		// Arrange
@@ -29,7 +28,7 @@ public class HxInputTags_EnterPropagation_Tests : TestAppTestBase
 		await Expect(formSubmitted).ToHaveTextAsync("False");
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxInputTags_MultipleEnters_NeverSubmitsForm()
 	{
 		// Arrange

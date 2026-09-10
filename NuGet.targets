@@ -25,7 +25,7 @@
 	<!-- Publish NuGet -->
 	<PropertyGroup>
 		<NuGetPublishFolder Condition="'$(NuGetPublishFolder)' == ''">PublicNuGets</NuGetPublishFolder>
-		<PackageOutputPath Condition="'$(PublishDirectory)' != ''">$(PublishDirectory)\$(NuGetPublishFolder)</PackageOutputPath>
+		<PackageOutputPath Condition="'$(PublishDirectory)' != ''">$(PublishDirectory)/$(NuGetPublishFolder)</PackageOutputPath>
 	</PropertyGroup>
 	<!-- /Publish NuGet -->
 

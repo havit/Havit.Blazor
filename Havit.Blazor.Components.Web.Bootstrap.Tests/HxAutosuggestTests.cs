@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxAutosuggestTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxAutosuggest_Render_DisplaysInputField()
 	{
 		// Arrange
@@ -31,10 +30,10 @@ public class HxAutosuggestTests : BunitTestBase
 
 		// Assert — input field is rendered
 		var input = cut.Find("input[type='text']");
-		Assert.IsNotNull(input);
+		Assert.NotNull(input);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxAutosuggest_Placeholder_RendersOnInput()
 	{
 		// Arrange
@@ -59,10 +58,10 @@ public class HxAutosuggestTests : BunitTestBase
 
 		// Assert — placeholder is set on input
 		var input = cut.Find("input[type='text']");
-		Assert.AreEqual("Search...", input.GetAttribute("placeholder"));
+		Assert.Equal("Search...", input.GetAttribute("placeholder"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxAutosuggest_Label_RendersLabel()
 	{
 		// Arrange
@@ -90,7 +89,7 @@ public class HxAutosuggestTests : BunitTestBase
 		Assert.Contains("Choose item", label.TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxAutosuggest_Enabled_False_DisablesInput()
 	{
 		// Arrange
@@ -115,10 +114,10 @@ public class HxAutosuggestTests : BunitTestBase
 
 		// Assert — input should be disabled
 		var input = cut.Find("input[type='text']");
-		Assert.IsNotNull(input.GetAttribute("disabled"));
+		Assert.NotNull(input.GetAttribute("disabled"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxAutosuggest_Render_HasDropdownStructure()
 	{
 		// Arrange

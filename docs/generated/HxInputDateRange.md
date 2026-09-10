@@ -36,7 +36,7 @@ Date range picker. Form input component for entering a start date and an end dat
 | ToCalendarDisplayMonth | `DateTime` | The month to display in the to calendar when no end date or start date is selected. It will default to `FromCalendarDisplayMonth`. |
 | ToParsingErrorMessage | `string` | Gets or sets the error message used when displaying a "to" parsing error. Used with `String.Format(...)`, `{0}` is replaced by the Label property, `{1}` is replaced by the name of the bounded property. |
 | ToPlaceholder | `string` | Placeholder for the end-date input. If not set, localized default is used ("End" + localizations). |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in `Defaults`. |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `DateTimeRange` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<DateTimeRange>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<DateTimeRange>>` | An expression that identifies the bound value. |

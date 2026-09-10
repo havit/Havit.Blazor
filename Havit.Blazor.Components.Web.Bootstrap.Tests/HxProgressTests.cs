@@ -1,24 +1,23 @@
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
-[TestClass]
 public class HxProgressTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxProgress_Render_OutputsProgressContainer()
 	{
 		// Act
-		var cut = RenderComponent<HxProgress>();
+		var cut = Render<HxProgress>();
 
 		// Assert
 		var progressDiv = cut.Find("div.progress");
-		Assert.IsNotNull(progressDiv);
+		Assert.NotNull(progressDiv);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxProgressBar_Value_SetsCorrectWidth()
 	{
 		// Act
-		var cut = RenderComponent<HxProgress>(parameters => parameters
+		var cut = Render<HxProgress>(parameters => parameters
 			.AddChildContent<HxProgressBar>(bar => bar
 				.Add(b => b.Value, 50f)
 			)
@@ -29,11 +28,11 @@ public class HxProgressTests : BunitTestBase
 		Assert.Contains("width: 50%", progressBar.GetAttribute("style"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxProgressBar_Color_AppliesColorClass()
 	{
 		// Act
-		var cut = RenderComponent<HxProgress>(parameters => parameters
+		var cut = Render<HxProgress>(parameters => parameters
 			.AddChildContent<HxProgressBar>(bar => bar
 				.Add(b => b.Color, ThemeColor.Success)
 			)
@@ -41,14 +40,14 @@ public class HxProgressTests : BunitTestBase
 
 		// Assert
 		var progressBar = cut.Find("div.progress-bar");
-		Assert.IsTrue(progressBar.ClassList.Contains("bg-success"));
+		Assert.True(progressBar.ClassList.Contains("bg-success"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxProgressBar_Striped_AppliesStripedClass()
 	{
 		// Act
-		var cut = RenderComponent<HxProgress>(parameters => parameters
+		var cut = Render<HxProgress>(parameters => parameters
 			.AddChildContent<HxProgressBar>(bar => bar
 				.Add(b => b.Striped, true)
 			)
@@ -56,17 +55,17 @@ public class HxProgressTests : BunitTestBase
 
 		// Assert
 		var progressBar = cut.Find("div.progress-bar");
-		Assert.IsTrue(progressBar.ClassList.Contains("progress-bar-striped"));
+		Assert.True(progressBar.ClassList.Contains("progress-bar-striped"));
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxProgressBar_Label_DisplaysTextInBar()
 	{
 		// Arrange
 		const string labelText = "Loading...";
 
 		// Act
-		var cut = RenderComponent<HxProgress>(parameters => parameters
+		var cut = Render<HxProgress>(parameters => parameters
 			.AddChildContent<HxProgressBar>(bar => bar
 				.Add(b => b.Label, labelText)
 			)
@@ -77,11 +76,11 @@ public class HxProgressTests : BunitTestBase
 		Assert.Contains(labelText, progressBar.TextContent);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxProgressBar_CustomMinMaxRange_CalculatesCorrectWidth()
 	{
 		// Act — regression for #813: HxProgressBar must work with custom MinValue/MaxValue range
-		var cut = RenderComponent<HxProgress>(parameters => parameters
+		var cut = Render<HxProgress>(parameters => parameters
 			.AddChildContent<HxProgressBar>(bar => bar
 				.Add(b => b.Value, 25f)
 				.Add(b => b.MinValue, 0f)

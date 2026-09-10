@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+	
+	<PropertyGroup>
+		<!-- .NET 8 not supported due missing RenderInfo & AssignedRenderMode in the Blazor Component API -->
+		<TargetFrameworks>net10.0;net9.0</TargetFrameworks>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	</PropertyGroup>
+
+	<!-- NuGet -->
+	<Import Project="../NuGet.targets" />
+	<PropertyGroup>
+		<!-- ApplicationInsightsPackageVersion - variable from Directory.Build.props -->
+		<PackageVersion>$(ApplicationInsightsPackageVersion)</PackageVersion>
+		<Description>Blazor integration for the Application Insights JS SDK.</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://havit.blazor.eu</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<PackageReleaseNotes>https://github.com/havit/Havit.Blazor/releases</PackageReleaseNotes>
+		<PackageTags>blazor application-insights appinsights</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Configuration" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="Havit.Blazor.ApplicationInsights.Tests" />
+	</ItemGroup>
+
+</Project>

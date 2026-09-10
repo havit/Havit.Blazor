@@ -1,9 +1,8 @@
 namespace Havit.Blazor.E2ETests.HxAccordionTests;
 
-[TestClass]
 public class HxAccordionTests : TestAppTestBase
 {
-	[TestMethod]
+	[Fact]
 	public async Task HxAccordion_Render_AllItemsCollapsed()
 	{
 		// Arrange & Act - Navigate to the HxAccordion test page
@@ -19,7 +18,7 @@ public class HxAccordionTests : TestAppTestBase
 		await Expect(body3).Not.ToBeVisibleAsync();
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxAccordion_ClickHeader_ExpandsContent()
 	{
 		// Arrange - Navigate to the HxAccordion test page
@@ -38,33 +37,32 @@ public class HxAccordionTests : TestAppTestBase
 		await Expect(body1).ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxAccordion_ClickExpandedHeader_CollapsesContent()
 	{
 		// Arrange - Navigate to the HxAccordion test page
 		await NavigateToTestAppAsync("/HxAccordion");
 
-		var header1 = Page.Locator("[data-testid='header-1']");
+		var header1Toggle = Page.Locator("button.accordion-button:has([data-testid='header-1'])");
 		var body1 = Page.Locator("[data-testid='body-1']");
+		var expandedItemId = Page.Locator("[data-testid='expanded-item-id']");
 
 		// Act 1 - Expand the item
-		await header1.ClickAsync();
+		await header1Toggle.ClickAsync();
 		await Expect(body1).ToBeVisibleAsync(new() { Timeout = 5_000 });
 
 		// Wait for Blazor's async re-render to complete before clicking again.
-		// The collapse div's aria-expanded is only managed by Blazor (not Bootstrap JS).
-		// Initially absent (_isShown=false), it appears after re-render (_isShown=true),
-		// ensuring the SignalR-driven state sync has finished.
-		await Expect(Page.Locator(".accordion-collapse[aria-expanded]:has([data-testid='body-1'])")).ToBeAttachedAsync(new() { Timeout = 5_000 });
+		await Expect(expandedItemId).ToHaveTextAsync("item1", new() { Timeout = 5_000 });
 
 		// Act 2 - Click the header again to collapse
-		await header1.ClickAsync();
+		await header1Toggle.ClickAsync();
+		await Expect(expandedItemId).ToHaveTextAsync("none", new() { Timeout = 5_000 });
 
 		// Assert - Content should be hidden again
 		await Expect(body1).Not.ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxAccordion_StayOpenFalse_ClosesOtherItem()
 	{
 		// Arrange - Navigate to the HxAccordion test page
@@ -87,7 +85,7 @@ public class HxAccordionTests : TestAppTestBase
 		await Expect(body1).Not.ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
-	[TestMethod]
+	[Fact]
 	public async Task HxAccordion_StayOpenTrue_AllowsMultipleOpen()
 	{
 		// Arrange - Navigate to the HxAccordion StayOpen test page

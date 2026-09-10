@@ -7,11 +7,10 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
-[TestClass]
 public class HxInputDateRangeTests : BunitTestBase
 {
 	// https://github.com/havit/Havit.Blazor/issues/877
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_EnabledShouldOverrideFormStateForNestedControls()
 	{
 		// Arrange
@@ -42,12 +41,12 @@ public class HxInputDateRangeTests : BunitTestBase
 		var buttons = cut.FindComponents<HxButton>();
 		foreach (var button in buttons)
 		{
-			Assert.IsFalse(button.Find("button").HasAttribute("disabled"), $"Button {button.Instance.Text} should not be disabled.");
+			Assert.False(button.Find("button").HasAttribute("disabled"), $"Button {button.Instance.Text} should not be disabled.");
 		}
-		Assert.DoesNotContain("disabled", cut.Markup, "There should be no disabled attribute in the rendered markup.");
+		Assert.DoesNotContain("disabled", cut.Markup);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_RequireDateOrder_DefaultIsTrue()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -77,13 +76,13 @@ public class HxInputDateRangeTests : BunitTestBase
 			inputs[0].Change("12/31/2024"); // After June 30, 2024 (using en-US MM/dd/yyyy format)
 
 			// Assert - should NOT allow because validation is enabled by default
-			Assert.AreEqual(new DateTime(2024, 1, 1), myValue.StartDate, "StartDate should NOT update when validation is enabled (default) and value would be invalid");
-			Assert.AreEqual(new DateTime(2024, 6, 30), myValue.EndDate, "EndDate should remain unchanged");
-			Assert.Contains("is-invalid", cut.Markup, "Component should have validation error when RequireDateOrder is enabled by default");
+			Assert.Equal(new DateTime(2024, 1, 1), myValue.StartDate);
+			Assert.Equal(new DateTime(2024, 6, 30), myValue.EndDate);
+			Assert.Contains("is-invalid", cut.Markup);
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_RequireDateOrder_BlocksInvalidFromDate()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -109,20 +108,20 @@ public class HxInputDateRangeTests : BunitTestBase
 			// Act
 			var cut = Render(componentRenderer);
 			var inputs = cut.FindAll("input");
-			Assert.HasCount(2, inputs, "Should have two input fields (from and to)");
+			Assert.Equal(2, inputs.Count());
 
 			// Try to set "from" date to be after "to" date
 			inputs[0].Change("12/31/2024"); // December 31, 2024 - after June 30, 2024 (using en-US MM/dd/yyyy format)
 
 			// Assert
-			Assert.AreEqual(new DateTime(2024, 1, 1), myValue.StartDate, "StartDate should not change when validation fails");
-			Assert.AreEqual(new DateTime(2024, 6, 30), myValue.EndDate, "EndDate should remain unchanged");
-			Assert.Contains("is-invalid", cut.Markup, "Component should show validation error");
-			Assert.Contains("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
+			Assert.Equal(new DateTime(2024, 1, 1), myValue.StartDate);
+			Assert.Equal(new DateTime(2024, 6, 30), myValue.EndDate);
+			Assert.Contains("is-invalid", cut.Markup);
+			Assert.Contains("TestDateOrderErrorMessage", cut.Markup);
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_RequireDateOrder_BlocksInvalidToDate()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -148,20 +147,20 @@ public class HxInputDateRangeTests : BunitTestBase
 			// Act
 			var cut = Render(componentRenderer);
 			var inputs = cut.FindAll("input");
-			Assert.HasCount(2, inputs, "Should have two input fields (from and to)");
+			Assert.Equal(2, inputs.Count());
 
 			// Try to set "to" date to be before "from" date
 			inputs[1].Change("1/1/2024"); // January 1, 2024 - before June 1, 2024 (using en-US MM/dd/yyyy format)
 
 			// Assert
-			Assert.AreEqual(new DateTime(2024, 6, 1), myValue.StartDate, "StartDate should remain unchanged");
-			Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should not change when validation fails");
-			Assert.Contains("is-invalid", cut.Markup, "Component should show validation error");
-			Assert.Contains("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
+			Assert.Equal(new DateTime(2024, 6, 1), myValue.StartDate);
+			Assert.Equal(new DateTime(2024, 12, 31), myValue.EndDate);
+			Assert.Contains("is-invalid", cut.Markup);
+			Assert.Contains("TestDateOrderErrorMessage", cut.Markup);
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_RequireDateOrder_AllowsValidFromDate()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -192,14 +191,14 @@ public class HxInputDateRangeTests : BunitTestBase
 			inputs[0].Change("6/1/2024"); // June 1, 2024 - before December 31, 2024 (using en-US MM/dd/yyyy format)
 
 			// Assert
-			Assert.AreEqual(new DateTime(2024, 6, 1), myValue.StartDate, "StartDate should update to valid date");
-			Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should remain unchanged");
-			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error");
-			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
+			Assert.Equal(new DateTime(2024, 6, 1), myValue.StartDate);
+			Assert.Equal(new DateTime(2024, 12, 31), myValue.EndDate);
+			Assert.DoesNotContain("is-invalid", cut.Markup);
+			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup);
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_RequireDateOrder_AllowsValidToDate()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -230,14 +229,14 @@ public class HxInputDateRangeTests : BunitTestBase
 			inputs[1].Change("12/31/2024"); // December 31, 2024 - after January 1, 2024 (using en-US MM/dd/yyyy format)
 
 			// Assert
-			Assert.AreEqual(new DateTime(2024, 1, 1), myValue.StartDate, "StartDate should remain unchanged");
-			Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should update to valid date");
-			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error");
-			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
+			Assert.Equal(new DateTime(2024, 1, 1), myValue.StartDate);
+			Assert.Equal(new DateTime(2024, 12, 31), myValue.EndDate);
+			Assert.DoesNotContain("is-invalid", cut.Markup);
+			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup);
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_RequireDateOrder_AllowsEqualDates()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -268,14 +267,14 @@ public class HxInputDateRangeTests : BunitTestBase
 			inputs[0].Change("12/31/2024"); // Same as end date (using en-US MM/dd/yyyy format)
 
 			// Assert
-			Assert.AreEqual(new DateTime(2024, 12, 31), myValue.StartDate, "StartDate should update to equal EndDate");
-			Assert.AreEqual(new DateTime(2024, 12, 31), myValue.EndDate, "EndDate should remain unchanged");
-			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when dates are equal");
-			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
+			Assert.Equal(new DateTime(2024, 12, 31), myValue.StartDate);
+			Assert.Equal(new DateTime(2024, 12, 31), myValue.EndDate);
+			Assert.DoesNotContain("is-invalid", cut.Markup);
+			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup);
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_RequireDateOrder_AllowsWhenOnlyFromDateSet()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -306,14 +305,14 @@ public class HxInputDateRangeTests : BunitTestBase
 			inputs[0].Change("6/1/2024"); // Using en-US MM/dd/yyyy format
 
 			// Assert
-			Assert.AreEqual(new DateTime(2024, 6, 1), myValue.StartDate, "StartDate should update when EndDate is null");
-			Assert.IsNull(myValue.EndDate, "EndDate should remain null");
-			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when only from date is set");
-			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
+			Assert.Equal(new DateTime(2024, 6, 1), myValue.StartDate);
+			Assert.Null(myValue.EndDate);
+			Assert.DoesNotContain("is-invalid", cut.Markup);
+			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup);
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_RequireDateOrder_AllowsWhenOnlyToDateSet()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -344,14 +343,14 @@ public class HxInputDateRangeTests : BunitTestBase
 			inputs[1].Change("6/30/2024"); // Using en-US MM/dd/yyyy format
 
 			// Assert
-			Assert.IsNull(myValue.StartDate, "StartDate should remain null");
-			Assert.AreEqual(new DateTime(2024, 6, 30), myValue.EndDate, "EndDate should update when StartDate is null");
-			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when only to date is set");
-			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
+			Assert.Null(myValue.StartDate);
+			Assert.Equal(new DateTime(2024, 6, 30), myValue.EndDate);
+			Assert.DoesNotContain("is-invalid", cut.Markup);
+			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup);
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_RequireDateOrder_AllowsWhenBothDatesNull()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -382,14 +381,14 @@ public class HxInputDateRangeTests : BunitTestBase
 			inputs[0].Change("6/1/2024"); // Using en-US MM/dd/yyyy format
 
 			// Assert
-			Assert.AreEqual(new DateTime(2024, 6, 1), myValue.StartDate, "StartDate should update");
-			Assert.IsNull(myValue.EndDate, "EndDate should remain null");
-			Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when both dates were null");
-			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
+			Assert.Equal(new DateTime(2024, 6, 1), myValue.StartDate);
+			Assert.Null(myValue.EndDate);
+			Assert.DoesNotContain("is-invalid", cut.Markup);
+			Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup);
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_RequireDateOrder_AllowsChangingToNullNull()
 	{
 		// Arrange
@@ -422,13 +421,13 @@ public class HxInputDateRangeTests : BunitTestBase
 		inputs[1].Change("");
 
 		// Assert
-		Assert.IsNull(myValue.StartDate, "StartDate should be null after clearing");
-		Assert.IsNull(myValue.EndDate, "EndDate should be null after clearing");
-		Assert.DoesNotContain("is-invalid", cut.Markup, "Component should not show validation error when both dates are cleared");
-		Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup, "Component should show validation error text");
+		Assert.Null(myValue.StartDate);
+		Assert.Null(myValue.EndDate);
+		Assert.DoesNotContain("is-invalid", cut.Markup);
+		Assert.DoesNotContain("TestDateOrderErrorMessage", cut.Markup);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_RequireDateOrder_DoesNotDuplicateErrorMessageOnMultipleInvalidChanges()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -468,12 +467,12 @@ public class HxInputDateRangeTests : BunitTestBase
 			// Validation message: <span title="TestDateOrderErrorMessage">TestDateOrderErrorMessage</span>
 			// Each validation message is rendered as a single <span> element, so we count those
 			int errorSpanCount = Regex.Matches(cut.Markup, @"<span[^>]*>TestDateOrderErrorMessage</span>").Count;
-			Assert.AreEqual(1, errorSpanCount, "Validation error message element should appear exactly once, not be duplicated after multiple invalid changes");
-			Assert.Contains("is-invalid", cut.Markup, "Component should show validation error");
+			Assert.Equal(1, errorSpanCount);
+			Assert.Contains("is-invalid", cut.Markup);
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_MultipleInstances_FromValidationError_DoesNotShowOnOtherInstances()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -511,7 +510,7 @@ public class HxInputDateRangeTests : BunitTestBase
 			// Act
 			var cut = Render(componentRenderer);
 			var inputs = cut.FindAll("input");
-			Assert.HasCount(4, inputs, "Should have four input fields (two ranges with from/to each)");
+			Assert.Equal(4, inputs.Count());
 
 			// Trigger validation error on first range's From field by entering invalid date
 			inputs[0].Change("invalid");
@@ -520,16 +519,16 @@ public class HxInputDateRangeTests : BunitTestBase
 			// Count occurrences of the From field validation error message
 			// The error message should only appear once, under the first range
 			int fromErrorCount = Regex.Matches(cut.Markup, @"<span[^>]*>TestFromParsingErrorMessage</span>").Count;
-			Assert.AreEqual(1, fromErrorCount, "From field validation error should appear exactly once, only for Range A");
+			Assert.Equal(1, fromErrorCount);
 
 			// Verify the error is NOT shown for Range B => (the single occurence found above is for the Range A)
 			var rangeBContainer = cut.FindAll(".hx-input-date-range").Skip(1).SingleOrDefault();
-			Assert.IsNotNull(rangeBContainer, "Range B container should exist");
-			Assert.DoesNotContain("TestFromParsingErrorMessage", rangeBContainer.InnerHtml, "Range B should not show Range A's validation error");
+			Assert.NotNull(rangeBContainer);
+			Assert.DoesNotContain("TestFromParsingErrorMessage", rangeBContainer.InnerHtml);
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_MultipleInstances_ToValidationError_DoesNotShowOnOtherInstances()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -567,7 +566,7 @@ public class HxInputDateRangeTests : BunitTestBase
 			// Act
 			var cut = Render(componentRenderer);
 			var inputs = cut.FindAll("input");
-			Assert.HasCount(4, inputs, "Should have four input fields (two ranges with from/to each)");
+			Assert.Equal(4, inputs.Count());
 
 			// Trigger validation error on first range's To field by entering invalid date
 			inputs[1].Change("invalid");
@@ -576,16 +575,16 @@ public class HxInputDateRangeTests : BunitTestBase
 			// Count occurrences of the To field validation error message
 			// The error message should only appear once, under the first range
 			int toErrorCount = Regex.Matches(cut.Markup, @"<span[^>]*>TestToParsingErrorMessage</span>").Count;
-			Assert.AreEqual(1, toErrorCount, "To field validation error should appear exactly once, only for Range A");
+			Assert.Equal(1, toErrorCount);
 
 			// Verify the error is NOT shown for Range B => (the single occurence found above is for the Range A)
 			var rangeBContainer = cut.FindAll(".hx-input-date-range").Skip(1).SingleOrDefault();
-			Assert.IsNotNull(rangeBContainer, "Range B container should exist");
-			Assert.DoesNotContain("TestToParsingErrorMessage", rangeBContainer.InnerHtml, "Range B should not show Range A's validation error");
+			Assert.NotNull(rangeBContainer);
+			Assert.DoesNotContain("TestToParsingErrorMessage", rangeBContainer.InnerHtml);
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_MultipleInstances_DateRangeValidationError_DoesNotShowOnOtherInstances()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -629,7 +628,7 @@ public class HxInputDateRangeTests : BunitTestBase
 			// Act
 			var cut = Render(componentRenderer);
 			var inputs = cut.FindAll("input");
-			Assert.HasCount(4, inputs, "Should have four input fields (two ranges with from/to each)");
+			Assert.Equal(4, inputs.Count());
 
 			// Trigger date order validation error on first range by setting From after To
 			inputs[0].Change("12/31/2024"); // December 31, 2024 - after June 30, 2024
@@ -638,16 +637,16 @@ public class HxInputDateRangeTests : BunitTestBase
 			// Count occurrences of the date order validation error message
 			// The error message should only appear once, under the first range
 			int dateOrderErrorCount = Regex.Matches(cut.Markup, @"<span[^>]*>TestDateOrderErrorMessage</span>").Count;
-			Assert.AreEqual(1, dateOrderErrorCount, "Date order validation error should appear exactly once, only for Range A");
+			Assert.Equal(1, dateOrderErrorCount);
 
 			// Verify the error is NOT shown for Range B => (the single occurence found above is for the Range A)
 			var rangeBContainer = cut.FindAll(".hx-input-date-range").Skip(1).SingleOrDefault();
-			Assert.IsNotNull(rangeBContainer, "Range B container should exist");
-			Assert.DoesNotContain("TestDateOrderErrorMessage", rangeBContainer.InnerHtml, "Range B should not show Range A's date order validation error");
+			Assert.NotNull(rangeBContainer);
+			Assert.DoesNotContain("TestDateOrderErrorMessage", rangeBContainer.InnerHtml);
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_Render_ShowsFromAndToInputs()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -669,13 +668,13 @@ public class HxInputDateRangeTests : BunitTestBase
 
 			// Assert
 			var inputs = cut.FindAll("input");
-			Assert.HasCount(2, inputs, "Should render both From and To input fields");
-			Assert.AreEqual("From", inputs[0].GetAttribute("placeholder"), "First input should be the From field");
-			Assert.AreEqual("To", inputs[1].GetAttribute("placeholder"), "Second input should be the To field");
+			Assert.Equal(2, inputs.Count());
+			Assert.Equal("From", inputs[0].GetAttribute("placeholder"));
+			Assert.Equal("To", inputs[1].GetAttribute("placeholder"));
 		}
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxInputDateRange_TypeValidRange_UpdatesBoundValue()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
@@ -702,8 +701,8 @@ public class HxInputDateRangeTests : BunitTestBase
 			inputs[1].Change("6/30/2025"); // To date (using en-US MM/dd/yyyy format)
 
 			// Assert
-			Assert.AreEqual(new DateTime(2025, 1, 1), myValue.StartDate, "StartDate should be updated to January 1, 2025");
-			Assert.AreEqual(new DateTime(2025, 6, 30), myValue.EndDate, "EndDate should be updated to June 30, 2025");
+			Assert.Equal(new DateTime(2025, 1, 1), myValue.StartDate);
+			Assert.Equal(new DateTime(2025, 6, 30), myValue.EndDate);
 		}
 	}
 

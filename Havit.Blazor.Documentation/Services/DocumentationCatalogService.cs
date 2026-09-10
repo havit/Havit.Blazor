@@ -25,6 +25,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/components/HxAccordion", "HxAccordion", "collapse"),
 		new("/components/HxAlert", "HxAlert", "message warning exclamation panel"),
 		new("/components/HxAnchorFragmentNavigation", "HxAnchorFragmentNavigation", "id scroll"),
+		new("/components/HxApplicationInsights", "HxApplicationInsights", "telemetry monitoring azure logging exception tracking page view HxApplicationInsightsExceptionTracker appinsights application insights"),
 		new("/components/HxAutosuggest", "HxAutosuggest", "autocomplete search typeahead select combobox"),
 		new("/components/HxBadge", "HxBadge", "chip tag"),
 		new("/components/HxBreadcrumb", "HxBreadcrumb", "navigation link"),
@@ -108,6 +109,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/concepts/defaults-and-settings", "Defaults & Settings", "configuration themes wide preset"),
 		new("/concepts/Debouncer", "Debouncer", "delay timer"),
 		new("/concepts/dark-color-mode-theme", "Dark color mode", "dark color theme"),
+		new("/concepts/browser-storage", "Browser Web Storage", "localStorage sessionStorage local session storage persist cache key value json"),
 
 		// Supportive types
 

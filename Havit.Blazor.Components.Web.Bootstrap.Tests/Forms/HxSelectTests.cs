@@ -2,10 +2,9 @@ using System.Linq.Expressions;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
-[TestClass]
 public class HxSelectTests : BunitTestBase
 {
-	[TestMethod]
+	[Fact]
 	public void HxSelect_Render_DisplaysOptionsFromData()
 	{
 		// Arrange
@@ -14,7 +13,7 @@ public class HxSelectTests : BunitTestBase
 		Expression<Func<string>> valueExpression = () => selectedValue;
 
 		// Act
-		var cut = RenderComponent<HxSelect<string, string>>(parameters => parameters
+		var cut = Render<HxSelect<string, string>>(parameters => parameters
 			.Add(p => p.Data, items)
 			.Add(p => p.Value, selectedValue)
 			.Add(p => p.ValueChanged, value => selectedValue = value)
@@ -30,7 +29,7 @@ public class HxSelectTests : BunitTestBase
 		Assert.Contains("Cherry", optionTexts);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxSelect_SelectOption_UpdatesBoundValue()
 	{
 		// Arrange
@@ -38,7 +37,7 @@ public class HxSelectTests : BunitTestBase
 		string selectedValue = null;
 		Expression<Func<string>> valueExpression = () => selectedValue;
 
-		var cut = RenderComponent<HxSelect<string, string>>(parameters => parameters
+		var cut = Render<HxSelect<string, string>>(parameters => parameters
 			.Add(p => p.Data, items)
 			.Add(p => p.Value, selectedValue)
 			.Add(p => p.ValueChanged, value => selectedValue = value)
@@ -54,10 +53,10 @@ public class HxSelectTests : BunitTestBase
 		selectElement.Change("1");
 
 		// Assert
-		Assert.AreEqual("Banana", selectedValue, "Bound value should be updated to the selected item");
+		Assert.Equal("Banana", selectedValue);
 	}
 
-	[TestMethod]
+	[Fact]
 	public void HxSelect_NullOption_RendersPlaceholder()
 	{
 		// Arrange
@@ -67,7 +66,7 @@ public class HxSelectTests : BunitTestBase
 		Expression<Func<string>> valueExpression = () => selectedValue;
 
 		// Act
-		var cut = RenderComponent<HxSelect<string, string>>(parameters => parameters
+		var cut = Render<HxSelect<string, string>>(parameters => parameters
 			.Add(p => p.Data, items)
 			.Add(p => p.Value, selectedValue)
 			.Add(p => p.ValueChanged, value => selectedValue = value)
@@ -79,7 +78,7 @@ public class HxSelectTests : BunitTestBase
 		// Assert
 		var options = cut.FindAll("select option");
 		var nullOption = options.FirstOrDefault(o => o.GetAttribute("value") == "-1");
-		Assert.IsNotNull(nullOption, "Null/placeholder option should be rendered");
-		Assert.AreEqual(nullText, nullOption.TextContent, "Null option should display the configured placeholder text");
+		Assert.NotNull(nullOption);
+		Assert.Equal(nullText, nullOption.TextContent);
 	}
 }
