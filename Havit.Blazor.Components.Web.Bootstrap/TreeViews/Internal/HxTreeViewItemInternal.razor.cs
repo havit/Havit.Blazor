@@ -37,6 +37,12 @@ public partial class HxTreeViewItemInternal<TItem> : ComponentBase
 
 	protected override async Task OnParametersSetAsync()
 	{
+		bool hasChildren = ChildrenSelector(Item)?.Any() ?? false;
+		if (!hasChildren)
+		{
+			_collapseReference = null;
+		}
+
 		bool isSelected = Item.Equals(TreeViewContainer.SelectedItem);
 		if (ExpandOnSelection && isSelected && !_previouslySelected)
 		{
