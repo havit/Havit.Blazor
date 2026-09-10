@@ -12123,6 +12123,12 @@
             Additional CSS class to be applied.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.ExpandOnSelection">
+            <summary>
+            When enabled, selecting an item (by clicking it or by setting <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.SelectedItem"/>) expands its children.
+            Selection only expands the item, it never collapses it. Default is <c>false</c>.
+            </summary>
+        </member>
         <member name="T:System.Text.RegularExpressions.Generated.GetRegex_DayMonthYear_Strict_0">
             <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetRegex_DayMonthYear_Strict method.</summary>
         </member>
