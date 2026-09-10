@@ -1,4 +1,5 @@
-﻿using Havit.Blazor.Storage;
+﻿using Havit.Blazor.GoogleTagManager;
+using Havit.Blazor.Storage;
 
 namespace Havit.Blazor.TestApp.Client;
 
@@ -11,6 +12,8 @@ public static class DependencyInjectionExtensions
 		services.AddHxMessenger();
 
 		services.AddHavitBlazorStorage();
+
+		services.AddHxGoogleTagManager(options => options.GtmId = "GTM-TESTID");
 
 		services.AddTransient<IDemoDataService, DemoDataService>();
 		services.AddGeneratedResourceWrappers();
