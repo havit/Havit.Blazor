@@ -22,7 +22,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Havit.Core" />
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" />
 	</ItemGroup>
 
