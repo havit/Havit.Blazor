@@ -12,6 +12,13 @@ on:
       timezone: "Europe/Prague"
   workflow_dispatch:
 
+permissions:
+  contents: read
+  actions: read
+  checks: write
+  pull-requests: write
+  packages: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
