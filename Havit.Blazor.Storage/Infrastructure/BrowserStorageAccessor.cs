@@ -1,6 +1,5 @@
 using System.Text.Json;
 using Havit.Blazor.Storage.Exceptions;
-using Havit.Diagnostics.Contracts;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
@@ -18,7 +17,7 @@ internal sealed class BrowserStorageAccessor(IJSRuntime jsRuntime, IOptions<Stor
 
 	public bool TryGetStringValue(BrowserStorageType storageType, string key, out string value)
 	{
-		Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(key));
+		ArgumentException.ThrowIfNullOrWhiteSpace(key);
 
 		value = GetByKeyCore(storageType, key);
 		return value is not null;
@@ -38,7 +37,7 @@ internal sealed class BrowserStorageAccessor(IJSRuntime jsRuntime, IOptions<Stor
 
 	public void Remove(BrowserStorageType storageType, string key)
 	{
-		Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(key));
+		ArgumentException.ThrowIfNullOrWhiteSpace(key);
 
 		var jsInProcessRuntime = GetInProcessRuntime();
 		try
@@ -91,8 +90,8 @@ internal sealed class BrowserStorageAccessor(IJSRuntime jsRuntime, IOptions<Stor
 
 	public void SetStringValue(BrowserStorageType storageType, string key, string value)
 	{
-		Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(key));
-		Contract.Requires<ArgumentNullException>(value is not null);
+		ArgumentException.ThrowIfNullOrWhiteSpace(key);
+		ArgumentNullException.ThrowIfNull(value);
 
 		var jsInProcessRuntime = GetInProcessRuntime();
 		try
@@ -107,15 +106,15 @@ internal sealed class BrowserStorageAccessor(IJSRuntime jsRuntime, IOptions<Stor
 
 	public void SetValue<TValue>(BrowserStorageType storageType, string key, TValue value, JsonSerializerOptions jsonSerializerOptions)
 	{
-		Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(key));
-		Contract.Requires<ArgumentNullException>(value is not null);
+		ArgumentException.ThrowIfNullOrWhiteSpace(key);
+		ArgumentNullException.ThrowIfNull(value);
 
 		SetStringValue(storageType, key, JsonSerializer.Serialize(value, ResolveJsonSerializerOptions(jsonSerializerOptions)));
 	}
 
 	public string GetStringValue(BrowserStorageType storageType, string key)
 	{
-		Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(key));
+		ArgumentException.ThrowIfNullOrWhiteSpace(key);
 
 		var value = GetByKeyCore(storageType, key);
 		return value ?? throw CreateKeyNotFoundException(storageType, key);
@@ -129,7 +128,7 @@ internal sealed class BrowserStorageAccessor(IJSRuntime jsRuntime, IOptions<Stor
 
 	public async ValueTask<(bool Success, string Value)> TryGetStringValueAsync(BrowserStorageType storageType, string key, CancellationToken cancellationToken)
 	{
-		Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(key));
+		ArgumentException.ThrowIfNullOrWhiteSpace(key);
 
 		var value = await GetByKeyCoreAsync(storageType, key, cancellationToken);
 		return (value is not null, value);
@@ -145,7 +144,7 @@ internal sealed class BrowserStorageAccessor(IJSRuntime jsRuntime, IOptions<Stor
 
 	public async ValueTask RemoveAsync(BrowserStorageType storageType, string key, CancellationToken cancellationToken)
 	{
-		Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(key));
+		ArgumentException.ThrowIfNullOrWhiteSpace(key);
 
 		try
 		{
@@ -195,8 +194,8 @@ internal sealed class BrowserStorageAccessor(IJSRuntime jsRuntime, IOptions<Stor
 
 	public async ValueTask SetStringValueAsync(BrowserStorageType storageType, string key, string value, CancellationToken cancellationToken)
 	{
-		Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(key));
-		Contract.Requires<ArgumentNullException>(value is not null);
+		ArgumentException.ThrowIfNullOrWhiteSpace(key);
+		ArgumentNullException.ThrowIfNull(value);
 
 		try
 		{
@@ -210,15 +209,15 @@ internal sealed class BrowserStorageAccessor(IJSRuntime jsRuntime, IOptions<Stor
 
 	public async ValueTask SetValueAsync<TValue>(BrowserStorageType storageType, string key, TValue value, JsonSerializerOptions jsonSerializerOptions, CancellationToken cancellationToken)
 	{
-		Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(key));
-		Contract.Requires<ArgumentNullException>(value is not null);
+		ArgumentException.ThrowIfNullOrWhiteSpace(key);
+		ArgumentNullException.ThrowIfNull(value);
 
 		await SetStringValueAsync(storageType, key, JsonSerializer.Serialize(value, ResolveJsonSerializerOptions(jsonSerializerOptions)), cancellationToken);
 	}
 
 	public async ValueTask<string> GetStringValueAsync(BrowserStorageType storageType, string key, CancellationToken cancellationToken)
 	{
-		Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(key));
+		ArgumentException.ThrowIfNullOrWhiteSpace(key);
 
 		var value = await GetByKeyCoreAsync(storageType, key, cancellationToken);
 		return value ?? throw CreateKeyNotFoundException(storageType, key);
