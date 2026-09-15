@@ -15,11 +15,11 @@
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
 		<!-- aligned NuGet PackageVersion for package-bundles -->
-		<ComponentsPackagesVersion>4.26.1</ComponentsPackagesVersion>
-		<GrpcPackagesVersion>1.8.6</GrpcPackagesVersion>
-		<ApplicationInsightsPackageVersion>1.0.1</ApplicationInsightsPackageVersion>
-		<StoragePackagesVersion>1.0.2</StoragePackagesVersion>
-		<LocalizationPackagesVersion>3.1.0</LocalizationPackagesVersion>
+		<ComponentsPackagesVersion>4.27.0</ComponentsPackagesVersion>
+		<GrpcPackagesVersion>1.8.7</GrpcPackagesVersion>
+		<ApplicationInsightsPackageVersion>1.0.2</ApplicationInsightsPackageVersion>
+		<StoragePackagesVersion>1.0.3</StoragePackagesVersion>
+		<LocalizationPackagesVersion>3.1.1</LocalizationPackagesVersion>
 
 		<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
 		<TestingPlatformShowTestsFailure>true</TestingPlatformShowTestsFailure>
