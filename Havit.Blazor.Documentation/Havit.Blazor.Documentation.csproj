@@ -28,11 +28,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Watch Remove="xmldoc\*.xml" />
+		<Watch Remove="XmlDoc\*.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Include="xmldoc\*.xml" />
+		<EmbeddedResource Include="XmlDoc\*.xml" />
 	</ItemGroup>
 
 	<ItemGroup>
