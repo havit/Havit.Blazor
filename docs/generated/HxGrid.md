@@ -56,8 +56,8 @@ Grid to display tabular data from data source. Includes support for client-side 
 | Method | Returns | Description |
 |--------|---------|-------------|
 | PagerCurrentPageIndexChanged(int newPageIndex) | `Task` |  |
-| RefreshDataAsync() | `Task` | Requests a data refresh from the `HxGrid.DataProvider`. Useful for updating the grid when external data may have changed. To reset grid state (e.g., position), use `HxGrid.RefreshDataAsync` instead. |
-| RefreshDataAsync(GridStateResetOptions resetOptions) | `Task` | Requests a data refresh from the `HxGrid.DataProvider`. Useful for updating the grid when external data may have changed. |
+| RefreshDataAsync() | `Task` | Requests a data refresh from the `HxGrid.DataProvider`. Useful for updating the grid when external data may have changed. To reset grid state (e.g., position), use `HxGrid.RefreshDataAsync` instead. Does nothing (no-op) when the component is already disposed (e.g. when the user navigated away in the meantime). |
+| RefreshDataAsync(GridStateResetOptions resetOptions) | `Task` | Requests a data refresh from the `HxGrid.DataProvider`. Useful for updating the grid when external data may have changed. Does nothing (no-op) when the component is already disposed (e.g. when the user navigated away in the meantime). |
 
 ## Static properties
 
