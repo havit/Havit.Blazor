@@ -5897,29 +5897,24 @@
             <param name="timeProvider"><see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCalendar.TimeProvider"/></param>
             <returns></returns>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangePredefinedRangesItem`1">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangePredefinedRangesItem">
             <summary>
             Item for <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange`1.PredefinedDateRanges" />.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangePredefinedRangesItem`1.Label">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangePredefinedRangesItem.Label">
             <summary>
             Custom label.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangePredefinedRangesItem`1.ResourceType">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangePredefinedRangesItem.ResourceType">
             <summary>
             Resource type for IStringLocalizer&lt;ResourceType&gt; where the localization will be searched.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangePredefinedRangesItem`1.DateRange">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangePredefinedRangesItem.DateRange">
             <summary>
-            Date range.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangePredefinedRangesItem">
-            <summary>
-            Predefined range item for <see cref="T:Havit.DateTimeRange"/> values.
+            Date range. Converted internally when the input is bound to DateOnlyRange.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings">

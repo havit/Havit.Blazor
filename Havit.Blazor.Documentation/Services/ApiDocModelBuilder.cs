@@ -183,8 +183,7 @@ public class ApiDocModelBuilder : IApiDocModelBuilder
 			Type nongenericType = Type.GetType($"Havit.Blazor.Components.Web.Bootstrap.{ApiRenderer.RemoveSpecialCharacters(model.Type.Name)}, Havit.Blazor.Components.Web.Bootstrap");
 			if (nongenericType is not null)
 			{
-				// Only merge static defaults. A non-generic compatibility specialization may inherit the same instance properties.
-				propertyInfos = propertyInfos.Concat(nongenericType.GetProperties(BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)).ToList();
+				propertyInfos = propertyInfos.Concat(nongenericType.GetProperties(CommonBindingFlags)).ToList();
 			}
 		}
 

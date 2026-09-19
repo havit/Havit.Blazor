@@ -3,7 +3,7 @@
 /// <summary>
 /// Item for <see cref="HxInputDateRange{TValue}.PredefinedDateRanges" />.
 /// </summary>
-public class InputDateRangePredefinedRangesItem<TValue>
+public class InputDateRangePredefinedRangesItem
 {
 	/// <summary>
 	/// Custom label.
@@ -16,7 +16,7 @@ public class InputDateRangePredefinedRangesItem<TValue>
 	public Type ResourceType { get; set; }
 
 	/// <summary>
-	/// Date range.
+	/// Date range. Converted internally when the input is bound to DateOnlyRange.
 	/// </summary>
-	public TValue DateRange { get; set; }
+	public DateTimeRange DateRange { get; set; }
 }

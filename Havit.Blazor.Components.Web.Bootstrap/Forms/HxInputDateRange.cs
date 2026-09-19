@@ -42,13 +42,8 @@ public class HxInputDateRange<TValue> : HxInputBase<TValue>, IInputWithSize
 	/// <summary>
 	/// Predefined dates to be displayed.
 	/// </summary>
-	[Parameter] public IEnumerable<InputDateRangePredefinedRangesItem<TValue>> PredefinedDateRanges { get; set; }
-	private IEnumerable<InputDateRangePredefinedRangesItem<TValue>> PredefinedDateRangesEffective => PredefinedDateRanges ?? (GetSettings()?.PredefinedDateRanges ?? GetDefaults().PredefinedDateRanges)?.Select(item => new InputDateRangePredefinedRangesItem<TValue>
-	{
-		Label = item.Label,
-		ResourceType = item.ResourceType,
-		DateRange = DateRangeAdapter<TValue>.FromDateTimeRange(item.DateRange)
-	});
+	[Parameter] public IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRanges { get; set; }
+	private IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRangesEffective => PredefinedDateRanges ?? GetSettings()?.PredefinedDateRanges ?? GetDefaults().PredefinedDateRanges;
 
 	/// <summary>
 	/// Size of the input.
@@ -190,7 +185,7 @@ public class HxInputDateRange<TValue> : HxInputBase<TValue>, IInputWithSize
 		{
 			Label = item.Label,
 			ResourceType = item.ResourceType,
-			DateRange = DateRangeAdapter<TValue>.ToDateTimeRange(item.DateRange)
+			DateRange = DateRangeAdapter<TValue>.ToDateTimeRange(DateRangeAdapter<TValue>.FromDateTimeRange(item.DateRange))
 		}));
 		builder.AddAttribute(212, nameof(HxInputDateRangeInternal.ShowPredefinedDateRangesEffective), ShowPredefinedDateRangesEffective);
 		builder.AddAttribute(213, nameof(HxInputDateRangeInternal.ShowClearButtonEffective), ShowClearButtonEffective);

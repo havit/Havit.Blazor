@@ -27,7 +27,7 @@ Date range picker. Form input component for entering a start date and an end dat
 | LabelTemplate | `RenderFragment` | The label content. |
 | MaxDate | `DateTime?` | The last date selectable from the dropdown calendar. The default is `31.12.2099` (configurable from `Defaults`). |
 | MinDate | `DateTime?` | The first date selectable from the dropdown calendar. The default is `1.1.1900` (configurable from `Defaults`). |
-| PredefinedDateRanges | `IEnumerable<InputDateRangePredefinedRangesItem<TValue>>` | Predefined dates to be displayed. |
+| PredefinedDateRanges | `IEnumerableInputDateRangePredefinedRangesItem>` | Predefined dates to be displayed. |
 | RequireDateOrder | `bool?` | When enabled, validates that the "from" date is less than or equal to the "to" date. The default is `true` (configurable from `Defaults`). |
 | Settings | `InputDateRangeSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | ShowClearButton | `bool?` | Indicates whether the Clear button in the dropdown calendar should be visible. The default is `true` (configurable in `HxInputDate.Defaults`). |
