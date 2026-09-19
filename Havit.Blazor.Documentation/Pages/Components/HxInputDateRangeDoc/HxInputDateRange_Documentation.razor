@@ -1,12 +1,17 @@
-@attribute [Route("/components/" + nameof(HxInputDateRange))]
+﻿@attribute [Route("/components/" + nameof(HxInputDateRange))]
 
-<ApiDoc Type="typeof(HxInputDateRange)">
+<ApiDoc Type="typeof(HxInputDateRange<TValue>)">
+	<p>Supported <code>TValue</code> types: <code>DateTimeRange</code> and <code>DateOnlyRange</code>. The type is inferred from the bound value.</p>
     <DocAlert Type="DocAlertType.Warning">
         <code>HxInputDateRange</code> does not support additional <code>InputGroups</code>. Learn more about them <a href="/components/Inputs#InputGroups">here</a>.
     </DocAlert>
 
     <DocHeading Title="Basic usage" />
     <Demo Type="typeof(HxInputDateRange_Demo)" Tabs="false" />
+
+	<DocHeading Title="DateOnly ranges" />
+	<p>Bind to <code>DateOnlyRange</code> to work with dates without a time component. Both endpoints can be empty.</p>
+	<Demo Type="typeof(HxInputDateRange_Demo_DateOnly)" />
 
     <DocHeading Title="Calendar icon" />
     <p>
@@ -22,7 +27,7 @@
     <DocHeading Title="Predefined date ranges" />
     <p>You can add predefined date ranges with the <code>PredefinedDateRanges</code> parameter.</p>
     <Demo Type="typeof(HxInputDateRange_Demo_CustomRanges)" />
-    <p>If you set <code>HxInputDateRange.Defaults.PredefinedDateRanges</code> as default ranges for the whole application, you can hide them on individual instances with <code>ShowPredefinedDateRanges="false"</code>.</p>
+    <p>If you set <code>HxInputDateRange.Defaults.PredefinedDateRanges</code> as default ranges for the whole application (shared by both range types), you can hide them on individual instances with <code>ShowPredefinedDateRanges="false"</code>.</p>
 
     <DocHeading Title="Dropdown calendars customization" />
     <p>
