@@ -12,8 +12,8 @@ Select - DropDownList - single-item picker. Consider creating a custom picker de
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | Data | `IEnumerable<TItem>` | The items to display. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
-| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading . When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use . |
-| GenerateChip | `bool` | When `true`, ` is used to generate chip item(s). The default is true`. |
+| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading `FormState`. When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use HxFormState. |
+| GenerateChip | `bool` | When `true`, `HxChipGenerator` is used to generate chip item(s). The default is `true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
@@ -30,10 +30,10 @@ Select - DropDownList - single-item picker. Consider creating a custom picker de
 | NullDataText | `string` | The text to display when `Data` is `null`. |
 | NullText | `string` | The text to display for the `null` value. |
 | Nullable | `bool?` | Indicates whether `null` is a valid value. |
-| Settings | `SelectSettings` | Set of settings to be applied to the component instance (overrides , overridden by individual parameters). |
+| Settings | `SelectSettings` | Set of settings to be applied to the component instance (overrides `HxSelect.Defaults`, overridden by individual parameters). |
 | SortKeySelector | `Func<TItem, IComparable>` | Selects the value to sort items. Uses the `TextSelector` property when not set. When complex sorting is required, sort the data manually and don't let this component sort them. Alternatively, create a custom comparable property. |
 | TextSelector | `Func<TItem, string>` | Selects the text to display from the item. When not set, `ToString()` is used. |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in . |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |

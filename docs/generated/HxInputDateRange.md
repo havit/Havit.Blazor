@@ -37,9 +37,9 @@ Date range picker. Form input component for entering a start date and an end dat
 | ToParsingErrorMessage | `string` | Gets or sets the error message used when displaying a "to" parsing error. Used with `String.Format(...)`, `{0}` is replaced by the Label property, `{1}` is replaced by the name of the bounded property. |
 | ToPlaceholder | `string` | Placeholder for the end-date input. If not set, localized default is used ("End" + localizations). |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
-| Value | `DateTimeRange` | Value of the input. This should be used with two-way binding. |
-| ValueChanged | `EventCallback<DateTimeRange>` | A callback that updates the bound value. |
-| ValueExpression | `Expression<Func<DateTimeRange>>` | An expression that identifies the bound value. |
+| Value | `TValue` | Value of the input. This should be used with two-way binding. |
+| ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
+| ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |
 
 ## Properties
 
@@ -58,7 +58,7 @@ Date range picker. Form input component for entering a start date and an end dat
 
 | Property | Type | Description |
 |----------|------|-------------|
-| Defaults | `InputDateRangeSettings` | Application-wide defaults for the `HxInputDateRange` component. |
+| Defaults | `InputDateRangeSettings` | Application-wide defaults shared by all supported value types of `HxInputDateRange`. |
 
 ## Available demo samples
 
@@ -67,5 +67,6 @@ Date range picker. Form input component for entering a start date and an end dat
 - HxInputDateRange_Demo_CalendarIcon.razor
 - HxInputDateRange_Demo_ClearButton.razor
 - HxInputDateRange_Demo_CustomRanges.razor
+- HxInputDateRange_Demo_DateOnly.razor
 - HxInputDateRange_Demo_MinDateMaxDate.razor
 

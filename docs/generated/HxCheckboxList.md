@@ -14,8 +14,8 @@ Renders a multi-selection list of `HxCheckbox` controls.
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | Data | `IEnumerable<TItem>` | Items to display. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
-| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading . When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use . |
-| GenerateChip | `bool` | When `true`, ` is used to generate chip item(s). The default is true`. |
+| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading `FormState`. When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use HxFormState. |
+| GenerateChip | `bool` | When `true`, `HxChipGenerator` is used to generate chip item(s). The default is `true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
 | Inline | `bool` | Allows grouping checkboxes on the same horizontal row by rendering them inline. The default is `false`. |
@@ -35,7 +35,7 @@ Renders a multi-selection list of `HxCheckbox` controls.
 | Outline | `bool?` | Indicates whether to use Bootstrap "outline" buttons. for `CheckboxListRenderMode.ToggleButtons` and `CheckboxListRenderMode.ButtonGroup`. |
 | RenderMode | `CheckboxListRenderMode` | Checkbox render mode. |
 | Settings | `CheckboxListSettings` | Set of settings to be applied to the component instance (overrides `HxInputDate.Defaults`, overridden by individual parameters). |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in . |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `List<TValue>` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<List<TValue>>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<List<TValue>>>` | An expression that identifies the bound value. |

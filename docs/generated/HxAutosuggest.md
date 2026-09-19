@@ -14,8 +14,8 @@ Component for single item selection with dynamic suggestions (based on typed cha
 | Delay | `int?` | The debounce delay in milliseconds. Default is 300 ms. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
 | EmptyTemplate | `RenderFragment` | Template to display when items are empty. |
-| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading . When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use . |
-| GenerateChip | `bool` | When `true`, ` is used to generate chip item(s). The default is true`. |
+| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading `FormState`. When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use HxFormState. |
+| GenerateChip | `bool` | When `true`, `HxChipGenerator` is used to generate chip item(s). The default is `true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
@@ -36,7 +36,7 @@ Component for single item selection with dynamic suggestions (based on typed cha
 | Settings | `AutosuggestSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | Spellcheck | `bool?` | Defines whether the input may be checked for spelling errors. Default is `false`. |
 | TextSelector | `Func<TItem, string>` | Selects the text to display from an item. When not set, `ToString()` is used. |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in . |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |

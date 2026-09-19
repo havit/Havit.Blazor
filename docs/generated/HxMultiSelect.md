@@ -16,13 +16,13 @@ MultiSelect. Unlike a normal select, multiselect allows the user to select multi
 | Data | `IEnumerable<TItem>` | Items to display. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
 | EmptyText | `string` | Text to display when the selection is empty (the `Value` property is `null` or empty). |
-| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading . When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use . |
+| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading `FormState`. When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use HxFormState. |
 | FilterClearIcon | `IconBase` | Icon displayed in filter input for clearing the filter. |
 | FilterEmptyResultTemplate | `RenderFragment` | Template that defines what should be rendered in case of empty items. |
 | FilterEmptyResultText | `string` | Text to display when the filtered results list is empty and when not using `FilterEmptyResultTemplate`. |
 | FilterPredicate | `Func<TItem, string, bool>` | Defines a custom filtering predicate to apply to the list of items. If not specified, the default behavior filters items based on whether the item text (obtained via TextSelector) contains the filter query string. |
 | FilterSearchIcon | `IconBase` | Icon displayed in filter input for searching the filter. |
-| GenerateChip | `bool` | When `true`, ` is used to generate chip item(s). The default is true`. |
+| GenerateChip | `bool` | When `true`, `HxChipGenerator` is used to generate chip item(s). The default is `true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
@@ -42,7 +42,7 @@ MultiSelect. Unlike a normal select, multiselect allows the user to select multi
 | Settings | `MultiSelectSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | SortKeySelector | `Func<TItem, IComparable>` | Selects value for item sorting. When not set, `TextSelector` property will be used. If you need complex sorting, pre-sort data manually or create a custom comparable property. |
 | TextSelector | `Func<TItem, string>` | Selects text to display from an item. When not set, `ToString()` is used. |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in . |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `List<TValue>` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<List<TValue>>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<List<TValue>>>` | An expression that identifies the bound value. |

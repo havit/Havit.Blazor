@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Havit.Blazor.Components.Web.Bootstrap.Forms.Internal;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.Extensions.Localization;
 
@@ -8,34 +9,19 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Date range picker. Form input component for entering a start date and an end date.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputDateRange">https://havit.blazor.eu/components/HxInputDateRange</see>
 /// </summary>
-public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
+/// <remarks>All supported value types share <see cref="HxInputDateRange.Defaults"/>.
+/// Calendar limits, display months and customization callbacks retain their DateTime API for compatibility.</remarks>
+/// <typeparam name="TValue">Supported values: <c>DateTimeRange</c> and <c>DateOnlyRange</c>. Both types support nullable start and end dates.</typeparam>
+public class HxInputDateRange<TValue> : HxInputBase<TValue>, IInputWithSize
 {
-	/// <summary>
-	/// Application-wide defaults for the <see cref="HxInputDateRange"/> component.
-	/// </summary>
-	public static InputDateRangeSettings Defaults { get; set; }
-
-	static HxInputDateRange()
-	{
-		Defaults = new InputDateRangeSettings()
-		{
-			MinDate = HxCalendar.DefaultMinDate,
-			MaxDate = HxCalendar.DefaultMaxDate,
-			ShowClearButton = true,
-			ShowPredefinedDateRanges = true,
-			PredefinedDateRanges = null,
-			RequireDateOrder = true,
-		};
-	}
-
 	/// <summary>
 	/// Returns the application-wide defaults for the component.
 	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
-	protected override InputDateRangeSettings GetDefaults() => Defaults;
+	protected override InputDateRangeSettings GetDefaults() => HxInputDateRange.Defaults;
 
 	/// <summary>
-	/// Set of settings to be applied to the component instance (overrides <see cref="Defaults"/>, overridden by individual parameters).
+	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDateRange.Defaults"/>, overridden by individual parameters).
 	/// </summary>
 	[Parameter] public InputDateRangeSettings Settings { get; set; }
 
@@ -131,7 +117,7 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	/// </summary>
 	[Parameter] public DateTime FromCalendarDisplayMonth { get; set; }
 	/// <summary>
-	/// The month to display in the to calendar when no end date or start date is selected. It will default to <see cref="HxInputDateRange.FromCalendarDisplayMonth"/>.
+	/// The month to display in the to calendar when no end date or start date is selected. It will default to <see cref="FromCalendarDisplayMonth"/>.
 	/// </summary>
 	[Parameter] public DateTime ToCalendarDisplayMonth { get; set; }
 
@@ -139,10 +125,10 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 
 	/// <summary>
 	/// TimeProvider is resolved in the following order:<br />
-	///		1. TimeProvider from this parameter <br />
-	///		2. Settings TimeProvider (configurable from <see cref="HxInputDateRange.Settings"/>)<br />
-	///		3. Defaults TimeProvider (configurable from <see cref="HxInputDateRange.Defaults"/>)<br />
-	///		4. TimeProvider from DependencyInjection<br />
+	///     1. TimeProvider from this parameter <br />
+	///     2. Settings TimeProvider (configurable from <see cref="Settings"/>)<br />
+	///     3. Defaults TimeProvider (configurable from <see cref="HxInputDateRange.Defaults"/>)<br />
+	///     4. TimeProvider from DependencyInjection<br />
 	/// </summary>
 	[Parameter] public TimeProvider TimeProvider { get; set; } = null;
 	protected TimeProvider TimeProviderEffective => TimeProvider ?? GetSettings()?.TimeProvider ?? GetDefaults().TimeProvider ?? TimeProviderFromServices;
@@ -162,6 +148,12 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 
 	private HxInputDateRangeInternal _hxInputDateRangeInternalComponent;
 
+	protected override void OnInitialized()
+	{
+		DateRangeAdapter<TValue>.EnsureSupportedType();
+		base.OnInitialized();
+	}
+
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
 		RenderWithAutoCreatedEditContextAsCascadingValue(builder, 0, BuildRenderInputCore);
@@ -171,8 +163,8 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 	{
 		builder.OpenComponent(1, typeof(HxInputDateRangeInternal));
 
-		builder.AddAttribute(100, nameof(HxInputDateRangeInternal.CurrentValue), Value);
-		builder.AddAttribute(101, nameof(HxInputDateRangeInternal.CurrentValueChanged), EventCallback.Factory.Create<DateTimeRange>(this, value => CurrentValue = value));
+		builder.AddAttribute(100, nameof(HxInputDateRangeInternal.CurrentValue), DateRangeAdapter<TValue>.ToDateTimeRange(Value));
+		builder.AddAttribute(101, nameof(HxInputDateRangeInternal.CurrentValueChanged), EventCallback.Factory.Create<DateTimeRange>(this, value => CurrentValue = DateRangeAdapter<TValue>.FromDateTimeRange(value)));
 
 		builder.AddAttribute(110, nameof(HxInputDateRangeInternal.EditContext), EditContext);
 		builder.AddAttribute(111, nameof(HxInputDateRangeInternal.FieldIdentifier), FieldIdentifier);
@@ -189,7 +181,12 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 		builder.AddAttribute(208, nameof(HxInputDateRangeInternal.RequireDateOrderEffective), RequireDateOrderEffective);
 		builder.AddAttribute(209, nameof(HxInputDateRangeInternal.DateOrderErrorMessageEffective), GetDateOrderErrorMessage());
 		builder.AddAttribute(210, nameof(HxInputDateRangeInternal.ValidationMessageModeEffective), ValidationMessageModeEffective);
-		builder.AddAttribute(211, nameof(HxInputDateRangeInternal.PredefinedDateRangesEffective), PredefinedDateRangesEffective);
+		builder.AddAttribute(211, nameof(HxInputDateRangeInternal.PredefinedDateRangesEffective), PredefinedDateRangesEffective?.Select(item => new InputDateRangePredefinedRangesItem
+		{
+			Label = item.Label,
+			ResourceType = item.ResourceType,
+			DateRange = DateRangeAdapter<TValue>.ToDateTimeRange(DateRangeAdapter<TValue>.FromDateTimeRange(item.DateRange))
+		}));
 		builder.AddAttribute(212, nameof(HxInputDateRangeInternal.ShowPredefinedDateRangesEffective), ShowPredefinedDateRangesEffective);
 		builder.AddAttribute(213, nameof(HxInputDateRangeInternal.ShowClearButtonEffective), ShowClearButtonEffective);
 		builder.AddAttribute(214, nameof(HxInputDateRangeInternal.MinDateEffective), MinDateEffective);
@@ -227,25 +224,26 @@ public class HxInputDateRange : HxInputBase<DateTimeRange>, IInputWithSize
 
 	// For generating chips
 	/// <inheritdocs />
-	protected override string FormatValueAsString(DateTimeRange value)
+	protected override string FormatValueAsString(TValue value)
 	{
+		var range = DateRangeAdapter<TValue>.ToDateTimeRange(value);
 		string from = null;
 		string to = null;
 
-		if (value.StartDate != null)
+		if (range.StartDate != null)
 		{
-			from = StringLocalizer["From"] + " " + value.StartDate.Value.ToShortDateString();
+			from = StringLocalizer["From"] + " " + range.StartDate.Value.ToShortDateString();
 		}
 
-		if (value.EndDate != null)
+		if (range.EndDate != null)
 		{
-			to = StringLocalizer["To"] + " " + value.EndDate.Value.ToShortDateString();
+			to = StringLocalizer["To"] + " " + range.EndDate.Value.ToShortDateString();
 		}
 
 		return String.Join(" ", from, to);
 	}
 
-	protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out DateTimeRange result, [NotNullWhen(false)] out string validationErrorMessage)
+	protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string validationErrorMessage)
 	{
 		throw new NotSupportedException();
 	}

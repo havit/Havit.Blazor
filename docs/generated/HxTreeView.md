@@ -8,6 +8,7 @@ Component to display a hierarchy data structure.
 |------|------|-------------|
 | Items **[REQUIRED]** | `IEnumerable<TItem>` | Collection of hierarchical data to display. |
 | CssClass | `string` | Additional CSS class to be applied. |
+| ExpandOnSelection | `bool` | When enabled, selecting an item (by clicking it or by setting `SelectedItem`) expands its children. Selection only expands the item, it never collapses it. Default is `false`. |
 | ItemChildrenSelector | `Func<TItem, IEnumerable<TItem>>` | Selector to display the children collection for the current data item. The children collection should have the same type as the current item. |
 | ItemCssClass | `string` | Item CSS class (same for all items). |
 | ItemCssClassSelector | `Func<TItem, string>` | Selector for the item CSS class. |
