@@ -3,9 +3,9 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Settings for <see cref="HxInputDateRange"/>.
+/// Settings for <see cref="HxInputDateRange{TValue}"/>.
 /// </summary>
-public record InputDateRangeSettings : InputSettings
+public record InputDateRangeSettings<TValue> : InputSettings
 {
 	/// <summary>
 	/// Input size.
@@ -48,14 +48,14 @@ public record InputDateRangeSettings : InputSettings
 	public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
 
 	/// <summary>
-	/// When enabled, shows predefined day ranges (from <see cref="HxInputDateRange.PredefinedDateRanges"/>, e.g., Today).
+	/// When enabled, shows predefined day ranges (from <see cref="HxInputDateRange{TValue}.PredefinedDateRanges"/>, e.g., Today).
 	/// </summary>
 	public bool? ShowPredefinedDateRanges { get; set; }
 
 	/// <summary>
 	/// The predefined date ranges to be displayed.
 	/// </summary>
-	public IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRanges { get; set; }
+	public IEnumerable<InputDateRangePredefinedRangesItem<TValue>> PredefinedDateRanges { get; set; }
 
 	/// <summary>
 	/// The TimeProvider used to get DateTime.Today.

@@ -1,9 +1,9 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Item for <see cref="HxInputDateRange.PredefinedDateRanges" />.
+/// Item for <see cref="HxInputDateRange{TValue}.PredefinedDateRanges" />.
 /// </summary>
-public class InputDateRangePredefinedRangesItem
+public class InputDateRangePredefinedRangesItem<TValue>
 {
 	/// <summary>
 	/// Custom label.
@@ -18,5 +18,5 @@ public class InputDateRangePredefinedRangesItem
 	/// <summary>
 	/// Date range.
 	/// </summary>
-	public DateTimeRange DateRange { get; set; }
+	public TValue DateRange { get; set; }
 }

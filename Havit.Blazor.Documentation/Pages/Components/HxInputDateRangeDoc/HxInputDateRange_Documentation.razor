@@ -1,12 +1,47 @@
-@attribute [Route("/components/" + nameof(HxInputDateRange))]
+﻿@attribute [Route("/components/" + nameof(HxInputDateRange))]
 
-<ApiDoc Type="typeof(HxInputDateRange)">
+<ApiDoc Type="typeof(HxInputDateRange<TValue>)">
     <DocAlert Type="DocAlertType.Warning">
         <code>HxInputDateRange</code> does not support additional <code>InputGroups</code>. Learn more about them <a href="/components/Inputs#InputGroups">here</a>.
     </DocAlert>
 
     <DocHeading Title="Basic usage" />
     <Demo Type="typeof(HxInputDateRange_Demo)" Tabs="false" />
+
+	<DocHeading Title="DateOnly ranges" />
+	<p>
+		Bind directly to a <code>Havit.DateOnlyRange</code> property (from Havit.Core 2.0.41 or later).
+		The component infers its <code>TValue</code> from the binding and preserves the original model field for validation.
+		Both endpoints are nullable; the default value is an empty range. Open ranges are supported.
+	</p>
+	<Demo Type="typeof(HxInputDateRange_Demo_DateOnly)" />
+	<p>
+		Use <code>InputDateRangePredefinedRangesItem&lt;DateOnlyRange&gt;</code> and
+		<code>InputDateRangeSettings&lt;DateOnlyRange&gt;</code> for date-only presets and settings.
+		Date-only defaults are configured with <code>HxInputDateRange.DateOnlyDefaults</code>;
+		<code>HxInputDateRange.Defaults</code> continues to configure DateTime ranges independently.
+	</p>
+	<p>
+		For compatibility with <code>HxInputDate</code> and <code>HxCalendar</code>, <code>MinDate</code>,
+		<code>MaxDate</code>, <code>FromCalendarDisplayMonth</code>, <code>ToCalendarDisplayMonth</code>,
+		and calendar customization callbacks still use <code>DateTime</code>, including in settings.
+		The internal conversion of date-only values uses midnight without UTC or time-zone conversion.
+		<code>TimeProvider</code> controls the calendar's current date, not the selected dates' time zone.
+	</p>
+	<DocHeading Title="Migration to the generic component" />
+	<p>
+		Existing Razor bindings to <code>DateTimeRange</code> keep the same markup.
+		Explicit C# component references (including <code>@@ref</code> fields), component subclasses and render-tree calls
+		now use <code>HxInputDateRange&lt;DateTimeRange&gt;</code>.
+		Specify <code>TValue</code> explicitly when there is no binding from which to infer it.
+		The non-generic settings and predefined-item classes remain available for DateTime ranges;
+		their range collections now expose the generic item type.
+	</p>
+	<p>
+		Remove application-side DateTime conversion properties when adopting <code>DateOnlyRange</code>.
+		A thin wrapper can forward <code>Value</code>, <code>ValueChanged</code> and <code>ValueExpression</code>
+		directly, along with presentation and validation parameters. No separate validation message is needed.
+	</p>
 
     <DocHeading Title="Calendar icon" />
     <p>

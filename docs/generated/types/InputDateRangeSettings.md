@@ -12,7 +12,7 @@ Settings for `HxInputDateRange`.
 | InputSize | `InputSize?` | Input size. |
 | MaxDate | `DateTime?` | The last date selectable from the dropdown calendar. |
 | MinDate | `DateTime?` | The first date selectable from the dropdown calendar. |
-| PredefinedDateRanges | `IEnumerableInputDateRangePredefinedRangesItem>` | The predefined date ranges to be displayed. |
+| PredefinedDateRanges | `IEnumerable<InputDateRangePredefinedRangesItem<TValue>>` | The predefined date ranges to be displayed. |
 | RequireDateOrder | `bool?` | When enabled, validates that the "from" date is less than or equal to the "to" date. The default is `true`. |
 | ShowClearButton | `bool?` |  |
 | ShowPredefinedDateRanges | `bool?` | When enabled, shows predefined day ranges (from `HxInputDateRange.PredefinedDateRanges`, e.g., Today). |
