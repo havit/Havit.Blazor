@@ -7,11 +7,11 @@
 
 @code {
 	private readonly FormModel model = new();
-	private readonly InputDateRangeSettings<DateOnlyRange> settings = new()
+	private readonly InputDateRangeSettings settings = new()
 	{
 		PredefinedDateRanges =
 		[
-			new() { Label = "Year 2026", DateRange = new(new DateOnly(2026, 1, 1), new DateOnly(2026, 12, 31)) }
+			new() { Label = "Year 2026", DateRange = new(new DateTime(2026, 1, 1), new DateTime(2026, 12, 31)) }
 		]
 	};
 

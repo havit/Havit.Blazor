@@ -23,7 +23,7 @@ public class HxInputDateRange<TValue> : HxInputBase<TValue>, IInputWithSize
 	/// <summary>
 	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDateRange.Defaults"/>, overridden by individual parameters).
 	/// </summary>
-	[Parameter] public InputDateRangeSettings<TValue> Settings { get; set; }
+	[Parameter] public InputDateRangeSettings Settings { get; set; }
 
 	/// <summary>
 	/// Returns an optional set of component settings.
@@ -31,7 +31,7 @@ public class HxInputDateRange<TValue> : HxInputBase<TValue>, IInputWithSize
 	/// <remarks>
 	/// Similar to <see cref="GetDefaults"/>, enables defining wider <see cref="Settings"/> in component descendants (by returning a derived settings class).
 	/// </remarks>
-	protected override InputDateRangeSettings<TValue> GetSettings() => Settings;
+	protected override InputDateRangeSettings GetSettings() => Settings;
 
 	/// <summary>
 	/// When enabled (default is <c>true</c>), shows predefined days (from <see cref="PredefinedDateRanges"/>, e.g. Today).
@@ -43,7 +43,7 @@ public class HxInputDateRange<TValue> : HxInputBase<TValue>, IInputWithSize
 	/// Predefined dates to be displayed.
 	/// </summary>
 	[Parameter] public IEnumerable<InputDateRangePredefinedRangesItem<TValue>> PredefinedDateRanges { get; set; }
-	private IEnumerable<InputDateRangePredefinedRangesItem<TValue>> PredefinedDateRangesEffective => PredefinedDateRanges ?? GetSettings()?.PredefinedDateRanges ?? GetDefaults().PredefinedDateRanges?.Select(item => new InputDateRangePredefinedRangesItem<TValue>
+	private IEnumerable<InputDateRangePredefinedRangesItem<TValue>> PredefinedDateRangesEffective => PredefinedDateRanges ?? (GetSettings()?.PredefinedDateRanges ?? GetDefaults().PredefinedDateRanges)?.Select(item => new InputDateRangePredefinedRangesItem<TValue>
 	{
 		Label = item.Label,
 		ResourceType = item.ResourceType,

@@ -5922,75 +5922,70 @@
             Predefined range item for <see cref="T:Havit.DateTimeRange"/> values.
             </summary>
         </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings`1">
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings">
             <summary>
             Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange`1"/>.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings`1.InputSize">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.InputSize">
             <summary>
             Input size.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings`1.FromPlaceholder">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.FromPlaceholder">
             <summary>
             Placeholder for the start-date input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings`1.ToPlaceholder">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ToPlaceholder">
             <summary>
             Placeholder for the end-date input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings`1.CalendarIcon">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.CalendarIcon">
             <summary>
             Optional icon to display within the input.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings`1.ShowClearButton">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ShowClearButton">
             <summary>
             Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings`1.MinDate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.MinDate">
             <summary>
             The first date selectable from the dropdown calendar.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings`1.MaxDate">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.MaxDate">
             <summary>
             The last date selectable from the dropdown calendar.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings`1.CalendarDateCustomizationProvider">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.CalendarDateCustomizationProvider">
             <summary>
             Allows customization of the dates in the dropdown calendars.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings`1.ShowPredefinedDateRanges">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.ShowPredefinedDateRanges">
             <summary>
             When enabled, shows predefined day ranges (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange`1.PredefinedDateRanges"/>, e.g., Today).
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings`1.PredefinedDateRanges">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.PredefinedDateRanges">
             <summary>
-            The predefined date ranges to be displayed.
+            The predefined date ranges to be displayed. Converted internally for DateOnlyRange values.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings`1.TimeProvider">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.TimeProvider">
             <summary>
             The TimeProvider used to get DateTime.Today.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings`1.RequireDateOrder">
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings.RequireDateOrder">
             <summary>
             When enabled, validates that the "from" date is less than or equal to the "to" date.
             The default is <c>true</c>.
-            </summary>
-        </member>
-        <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateRangeSettings">
-            <summary>
-            Settings for <see cref="T:Havit.DateTimeRange"/> values.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputDateSettings">

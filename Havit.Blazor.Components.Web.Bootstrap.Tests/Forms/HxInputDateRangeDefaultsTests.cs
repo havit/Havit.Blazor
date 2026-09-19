@@ -46,12 +46,22 @@ public class HxInputDateRangeDefaultsTests : BunitTestBase
 			var overridden = Render<HxInputDateRange<DateOnlyRange>>(parameters => parameters
 				.Add(component => component.ValueExpression, () => dateOnlyValue)
 				.Add(component => component.ValueChanged, value => dateOnlyValue = value)
-				.Add(component => component.Settings, new() { FromPlaceholder = "Settings from", PredefinedDateRanges = [new() { Label = "Typed preset", DateRange = customPreset }] })
+				.Add(component => component.Settings, new() { FromPlaceholder = "Settings from", PredefinedDateRanges = [new() { Label = "Settings preset", DateRange = new(null, new DateTime(2025, 1, 1, 18, 0, 0, DateTimeKind.Utc)) }] })
 				.Add(component => component.FromPlaceholder, "Parameter from"));
 			Assert.Equal("Parameter from", overridden.Find("input").GetAttribute("placeholder"));
 			Assert.DoesNotContain(overridden.FindComponents<HxButton>(), button => button.Instance.Text == "Shared preset");
-			overridden.FindComponents<HxButton>().First(button => button.Instance.Text == "Typed preset").Find("button").Click();
+			overridden.FindComponents<HxButton>().First(button => button.Instance.Text == "Settings preset").Find("button").Click();
 			Assert.Equal(customPreset, dateOnlyValue);
+
+			var parameterPreset = new DateOnlyRange(new DateOnly(2025, 2, 1), null);
+			var parameterInput = Render<HxInputDateRange<DateOnlyRange>>(parameters => parameters
+				.Add(component => component.ValueExpression, () => dateOnlyValue)
+				.Add(component => component.ValueChanged, value => dateOnlyValue = value)
+				.Add(component => component.Settings, overridden.Instance.Settings)
+				.Add(component => component.PredefinedDateRanges, [new() { Label = "Parameter preset", DateRange = parameterPreset }]));
+			Assert.DoesNotContain(parameterInput.FindComponents<HxButton>(), button => button.Instance.Text == "Settings preset");
+			parameterInput.FindComponents<HxButton>().First(button => button.Instance.Text == "Parameter preset").Find("button").Click();
+			Assert.Equal(parameterPreset, dateOnlyValue);
 		}
 		finally
 		{

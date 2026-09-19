@@ -80,15 +80,15 @@ public class HxInputDateRangeDateOnlyTests : BunitTestBase
 	}
 
 	[Fact]
-	public async Task CalendarsAndPredefinedRanges_UseTypedSettingsAndClearEndpoints()
+	public async Task CalendarsAndPredefinedRanges_UseSharedSettingsAndClearEndpoints()
 	{
 		var model = new RangeModel();
 		var selectedRange = new DateOnlyRange(new DateOnly(2024, 2, 29), new DateOnly(2024, 3, 1));
-		var settings = new InputDateRangeSettings<DateOnlyRange>
+		var settings = new InputDateRangeSettings
 		{
 			MinDate = new DateTime(2024, 2, 1),
 			MaxDate = new DateTime(2024, 3, 31),
-			PredefinedDateRanges = [new() { Label = "Leap day range", DateRange = selectedRange }]
+			PredefinedDateRanges = [new() { Label = "Leap day range", DateRange = new(selectedRange.StartDate?.ToDateTime(TimeOnly.MinValue), selectedRange.EndDate?.ToDateTime(TimeOnly.MinValue)) }]
 		};
 		var cut = RenderForm(model, new EditContext(model), settings: settings);
 		var calendars = cut.FindComponents<HxCalendar>();
@@ -155,7 +155,7 @@ public class HxInputDateRangeDateOnlyTests : BunitTestBase
 		public override TimeZoneInfo LocalTimeZone => TimeZoneInfo.CreateCustomTimeZone("Test +14", TimeSpan.FromHours(14), "Test +14", "Test +14");
 	}
 
-	private IRenderedComponent<EditForm> RenderForm(RangeModel model, EditContext editContext, bool useWrapper = false, InputDateRangeSettings<DateOnlyRange> settings = null)
+	private IRenderedComponent<EditForm> RenderForm(RangeModel model, EditContext editContext, bool useWrapper = false, InputDateRangeSettings settings = null)
 	{
 		return Render<EditForm>(parameters => parameters
 			.Add(component => component.EditContext, editContext)
@@ -190,7 +190,7 @@ public class HxInputDateRangeDateOnlyTests : BunitTestBase
 		[Parameter] public DateOnlyRange Value { get; set; }
 		[Parameter] public EventCallback<DateOnlyRange> ValueChanged { get; set; }
 		[Parameter] public Expression<Func<DateOnlyRange>> ValueExpression { get; set; }
-		[Parameter] public InputDateRangeSettings<DateOnlyRange> Settings { get; set; }
+		[Parameter] public InputDateRangeSettings Settings { get; set; }
 		[Parameter] public string Label { get; set; }
 		[Parameter] public ValidationMessageMode? ValidationMessageMode { get; set; }
 

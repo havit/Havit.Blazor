@@ -5,10 +5,10 @@ namespace Havit.Blazor.Documentation.Tests.Services;
 public class ApiDocModelBuilderTests
 {
 	[Fact]
-	public void GenericRangeSettings_DoesNotDuplicateCompatibilitySpecializationProperties()
+	public void RangeSettings_UsesSharedNonGenericType()
 	{
 		var builder = new ApiDocModelBuilder(new DocXmlProvider());
-		var model = builder.BuildModel(typeof(InputDateRangeSettings<>));
+		var model = builder.BuildModel(typeof(InputDateRangeSettings));
 		var propertyNames = model.Properties.Select(property => property.PropertyInfo.Name).ToArray();
 
 		Assert.Equal(propertyNames.Length, propertyNames.Distinct().Count());

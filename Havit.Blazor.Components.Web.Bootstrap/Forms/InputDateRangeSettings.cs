@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Settings for <see cref="HxInputDateRange{TValue}"/>.
 /// </summary>
-public record InputDateRangeSettings<TValue> : InputSettings
+public record InputDateRangeSettings : InputSettings
 {
 	/// <summary>
 	/// Input size.
@@ -53,9 +53,9 @@ public record InputDateRangeSettings<TValue> : InputSettings
 	public bool? ShowPredefinedDateRanges { get; set; }
 
 	/// <summary>
-	/// The predefined date ranges to be displayed.
+	/// The predefined date ranges to be displayed. Converted internally for DateOnlyRange values.
 	/// </summary>
-	public IEnumerable<InputDateRangePredefinedRangesItem<TValue>> PredefinedDateRanges { get; set; }
+	public IEnumerable<InputDateRangePredefinedRangesItem> PredefinedDateRanges { get; set; }
 
 	/// <summary>
 	/// The TimeProvider used to get DateTime.Today.
