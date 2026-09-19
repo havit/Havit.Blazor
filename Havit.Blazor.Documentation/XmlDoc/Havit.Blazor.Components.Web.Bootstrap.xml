@@ -4658,10 +4658,9 @@
             Date range picker. Form input component for entering a start date and an end date.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputDateRange">https://havit.blazor.eu/components/HxInputDateRange</see>
             </summary>
-            <remarks>Defaults for DateTime ranges are in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>;
-            defaults for DateOnly ranges are in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.DateOnlyDefaults"/>.
+            <remarks>All supported value types share <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>.
             Calendar limits, display months and customization callbacks retain their DateTime API for compatibility.</remarks>
-            <typeparam name="TValue">The range type: <see cref="T:Havit.DateTimeRange"/> or <see cref="T:Havit.DateOnlyRange"/>.</typeparam>
+            <typeparam name="TValue">Supported values: <c>DateTimeRange</c> and <c>DateOnlyRange</c>. Both types support nullable start and end dates.</typeparam>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange`1.GetDefaults">
             <summary>
@@ -4801,12 +4800,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults">
             <summary>
-            Application-wide defaults for the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange"/> component.
-            </summary>
-        </member>
-        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.DateOnlyDefaults">
-            <summary>
-            Application-wide defaults for date-only ranges. Independent of <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange.Defaults"/>.
+            Application-wide defaults shared by all supported value types of <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputDateRange`1"/>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1">

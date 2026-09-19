@@ -9,17 +9,16 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Date range picker. Form input component for entering a start date and an end date.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputDateRange">https://havit.blazor.eu/components/HxInputDateRange</see>
 /// </summary>
-/// <remarks>Defaults for DateTime ranges are in <see cref="HxInputDateRange.Defaults"/>;
-/// defaults for DateOnly ranges are in <see cref="HxInputDateRange.DateOnlyDefaults"/>.
+/// <remarks>All supported value types share <see cref="HxInputDateRange.Defaults"/>.
 /// Calendar limits, display months and customization callbacks retain their DateTime API for compatibility.</remarks>
-/// <typeparam name="TValue">The range type: <see cref="DateTimeRange"/> or <see cref="DateOnlyRange"/>.</typeparam>
+/// <typeparam name="TValue">Supported values: <c>DateTimeRange</c> and <c>DateOnlyRange</c>. Both types support nullable start and end dates.</typeparam>
 public class HxInputDateRange<TValue> : HxInputBase<TValue>, IInputWithSize
 {
 	/// <summary>
 	/// Returns the application-wide defaults for the component.
 	/// Enables overriding defaults in descendants (use a separate set of defaults).
 	/// </summary>
-	protected override InputDateRangeSettings<TValue> GetDefaults() => HxInputDateRange.GetDefaults<TValue>();
+	protected override InputDateRangeSettings GetDefaults() => HxInputDateRange.Defaults;
 
 	/// <summary>
 	/// Set of settings to be applied to the component instance (overrides <see cref="HxInputDateRange.Defaults"/>, overridden by individual parameters).
@@ -44,7 +43,12 @@ public class HxInputDateRange<TValue> : HxInputBase<TValue>, IInputWithSize
 	/// Predefined dates to be displayed.
 	/// </summary>
 	[Parameter] public IEnumerable<InputDateRangePredefinedRangesItem<TValue>> PredefinedDateRanges { get; set; }
-	private IEnumerable<InputDateRangePredefinedRangesItem<TValue>> PredefinedDateRangesEffective => PredefinedDateRanges ?? GetSettings()?.PredefinedDateRanges ?? GetDefaults().PredefinedDateRanges;
+	private IEnumerable<InputDateRangePredefinedRangesItem<TValue>> PredefinedDateRangesEffective => PredefinedDateRanges ?? GetSettings()?.PredefinedDateRanges ?? GetDefaults().PredefinedDateRanges?.Select(item => new InputDateRangePredefinedRangesItem<TValue>
+	{
+		Label = item.Label,
+		ResourceType = item.ResourceType,
+		DateRange = DateRangeAdapter<TValue>.FromDateTimeRange(item.DateRange)
+	});
 
 	/// <summary>
 	/// Size of the input.

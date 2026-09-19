@@ -10,7 +10,7 @@ Both endpoints remain nullable, and an empty range is `default`. Calendar select
 - Explicit C# references, subclasses, and render-tree calls must use `HxInputDateRange<DateTimeRange>` or `HxInputDateRange<DateOnlyRange>`. This includes the fields used by `@ref`.
 - Supply `TValue` when no value/binding can infer the type.
 - For date-only values, use `InputDateRangeSettings<DateOnlyRange>` and `InputDateRangePredefinedRangesItem<DateOnlyRange>`. The non-generic settings/item classes remain DateTime specializations. Collections exposed by settings and the component now use the generic item type; code reading them into non-generic item collections may need adjustment.
-- `HxInputDateRange.Defaults` retains DateTime defaults. `HxInputDateRange.DateOnlyDefaults` configures independent DateOnly defaults.
+- `HxInputDateRange.Defaults` configures both range types. Its predefined DateTime ranges are converted to DateOnly ranges internally when needed, without time-zone conversion.
 - Calendar limits, display months, and customization callbacks retain their existing DateTime types, including in settings, consistently with `HxInputDate` and `HxCalendar`. Limits control calendar selection; manually typed dates still require application validation where applicable.
 - Replace application-side range conversion properties with direct DateOnlyRange binding. Wrappers can forward all three binding parameters without converting expressions or adding a separate validation-message component.
 

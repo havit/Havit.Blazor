@@ -16,13 +16,13 @@ public class ApiDocModelBuilderTests
 	}
 
 	[Fact]
-	public void GenericRangeComponent_IncludesBothDefaultSets()
+	public void GenericRangeComponent_IncludesSharedDefaults()
 	{
 		var builder = new ApiDocModelBuilder(new DocXmlProvider());
 		var model = builder.BuildModel(typeof(HxInputDateRange<>));
 		var propertyNames = model.StaticProperties.Select(property => property.PropertyInfo.Name).ToArray();
 
 		Assert.Contains(nameof(HxInputDateRange.Defaults), propertyNames);
-		Assert.Contains(nameof(HxInputDateRange.DateOnlyDefaults), propertyNames);
+		Assert.DoesNotContain("DateOnlyDefaults", propertyNames);
 	}
 }

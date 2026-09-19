@@ -58,8 +58,7 @@ Date range picker. Form input component for entering a start date and an end dat
 
 | Property | Type | Description |
 |----------|------|-------------|
-| DateOnlyDefaults | `InputDateRangeSettings<DateOnlyRange>` | Application-wide defaults for date-only ranges. Independent of `Defaults`. |
-| Defaults | `InputDateRangeSettings` | Application-wide defaults for the `HxInputDateRange` component. |
+| Defaults | `InputDateRangeSettings` | Application-wide defaults shared by all supported value types of `HxInputDateRange`. |
 
 ## Available demo samples
 
