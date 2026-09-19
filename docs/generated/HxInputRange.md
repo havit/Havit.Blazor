@@ -13,8 +13,8 @@ Allows the user to select a number in a specified range using a slider.
 | ChipTemplate | `RenderFragment` | The chip template. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
-| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading . When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use . |
-| GenerateChip | `bool` | When `true`, ` is used to generate chip item(s). The default is true`. |
+| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading `FormState`. When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use HxFormState. |
+| GenerateChip | `bool` | When `true`, `HxChipGenerator` is used to generate chip item(s). The default is `true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
@@ -23,7 +23,7 @@ Allows the user to select a number in a specified range using a slider.
 | LabelTemplate | `RenderFragment` | The label content. |
 | Settings | `InputRangeSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | Step | `TValue` | By default, `HxInputRange` snaps to integer values. To change this, you can specify a step value. |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in . |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |

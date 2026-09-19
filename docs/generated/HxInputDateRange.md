@@ -13,11 +13,11 @@ Date range picker. Form input component for entering a start date and an end dat
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | DateOrderErrorMessage | `string` | Gets or sets the error message used when the "from" date is greater than the "to" date (used with `RequireDateOrder`). Used with `String.Format(...)`, `{0}` is replaced by the Label property, `{1}` is replaced by the name of the bounded property. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
-| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading . When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use . |
+| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading `FormState`. When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use HxFormState. |
 | FromCalendarDisplayMonth | `DateTime` | The month to display in the from calendar when no start date is selected. |
 | FromParsingErrorMessage | `string` | Gets or sets the error message used when displaying a "from" parsing error. Used with `String.Format(...)`, `{0}` is replaced by the Label property, `{1}` is replaced by the name of the bounded property. |
 | FromPlaceholder | `string` | Placeholder for the start-date input. If not set, localized default is used ("From" + localizations). |
-| GenerateChip | `bool` | When `true`, ` is used to generate chip item(s). The default is true`. |
+| GenerateChip | `bool` | When `true`, `HxChipGenerator` is used to generate chip item(s). The default is `true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
@@ -36,7 +36,7 @@ Date range picker. Form input component for entering a start date and an end dat
 | ToCalendarDisplayMonth | `DateTime` | The month to display in the to calendar when no end date or start date is selected. It will default to `FromCalendarDisplayMonth`. |
 | ToParsingErrorMessage | `string` | Gets or sets the error message used when displaying a "to" parsing error. Used with `String.Format(...)`, `{0}` is replaced by the Label property, `{1}` is replaced by the name of the bounded property. |
 | ToPlaceholder | `string` | Placeholder for the end-date input. If not set, localized default is used ("End" + localizations). |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in . |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |

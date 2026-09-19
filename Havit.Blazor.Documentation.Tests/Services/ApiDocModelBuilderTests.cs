@@ -14,4 +14,16 @@ public class ApiDocModelBuilderTests
 		Assert.Contains(nameof(HxInputDateRange.Defaults), propertyNames);
 		Assert.DoesNotContain("DateOnlyDefaults", propertyNames);
 	}
+
+	[Fact]
+	public void GenericRangeComponent_MarkdownPreservesInheritedCommentReferences()
+	{
+		var builder = new ApiDocModelBuilder(new DocXmlProvider());
+		var model = builder.BuildModel(typeof(HxInputDateRange<>));
+		var markdown = new DocMarkdownRenderer().RenderTypeDoc(model);
+
+		Assert.Contains("the cascading `FormState`", markdown);
+		Assert.Contains("use HxFormState", markdown);
+		Assert.Contains("When `true`, `HxChipGenerator` is used to generate chip item(s). The default is `true`.", markdown);
+	}
 }

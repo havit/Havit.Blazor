@@ -13,8 +13,8 @@ Date picker. Form input component for entering a date.
 | ChipTemplate | `RenderFragment` | The chip template. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
-| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading . When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use . |
-| GenerateChip | `bool` | When `true`, ` is used to generate chip item(s). The default is true`. |
+| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading `FormState`. When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use HxFormState. |
+| GenerateChip | `bool` | When `true`, `HxChipGenerator` is used to generate chip item(s). The default is `true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
@@ -37,7 +37,7 @@ Date picker. Form input component for entering a date.
 | ShowClearButton | `bool?` | Indicates whether the Clear button in the dropdown calendar should be visible. The default is `true` (configurable in `Defaults`). |
 | ShowPredefinedDates | `bool?` | When enabled (default is `true`), shows predefined days (from `PredefinedDates`, e.g. Today). |
 | TimeProvider | `TimeProvider` | TimeProvider is resolved in the following order: 1. TimeProvider from this parameter 2. Settings TimeProvider (configurable from `Settings`) 3. Defaults TimeProvider (configurable from `Defaults`) |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in . |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |
