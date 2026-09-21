@@ -22,59 +22,59 @@ public class BrowserBlazorApplicationInsights : IBlazorApplicationInsights
 
 	/// <inheritdoc/>
 	public async Task TrackEventAsync(EventTelemetry telemetry, Dictionary<string, object> customProperties = null)
-		=> await _jsRuntime.InvokeVoidAsync("appInsights.trackEvent", telemetry, customProperties);
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.trackEvent", telemetry, customProperties);
 
 	/// <inheritdoc/>
 	public async Task TrackPageViewAsync(PageViewTelemetry telemetry = null, Dictionary<string, object> customProperties = null)
-		=> await _jsRuntime.InvokeVoidAsync("appInsights.trackPageView", telemetry, customProperties);
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.trackPageView", telemetry, customProperties);
 
 	/// <inheritdoc/>
 	public async Task TrackExceptionAsync(ExceptionTelemetry telemetry, Dictionary<string, object> customProperties = null)
-		=> await _jsRuntime.InvokeVoidAsync("appInsights.trackException", telemetry, customProperties);
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.trackException", telemetry, customProperties);
 
 	/// <inheritdoc/>
 	public async Task TrackTraceAsync(TraceTelemetry telemetry, Dictionary<string, object> customProperties = null)
-		=> await _jsRuntime.InvokeVoidAsync("appInsights.trackTrace", telemetry, customProperties);
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.trackTrace", telemetry, customProperties);
 
 	/// <inheritdoc/>
 	public async Task TrackMetricAsync(MetricTelemetry telemetry, Dictionary<string, object> customProperties = null)
-		=> await _jsRuntime.InvokeVoidAsync("appInsights.trackMetric", telemetry, customProperties);
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.trackMetric", telemetry, customProperties);
 
 	/// <inheritdoc/>
 	public async Task StartTrackPageAsync(string name = null)
-		=> await _jsRuntime.InvokeVoidAsync("appInsights.startTrackPage", name);
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.startTrackPage", name);
 
 	/// <inheritdoc/>
 	public async Task StopTrackPageAsync(string name = null, string url = null, Dictionary<string, string> properties = null, Dictionary<string, double> measurements = null)
-		=> await _jsRuntime.InvokeVoidAsync("appInsights.stopTrackPage", name, url, properties, measurements);
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.stopTrackPage", name, url, properties, measurements);
 
 	/// <inheritdoc/>
 	public async Task StartTrackEventAsync(string name)
-		=> await _jsRuntime.InvokeVoidAsync("appInsights.startTrackEvent", name);
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.startTrackEvent", name);
 
 	/// <inheritdoc/>
 	public async Task StopTrackEventAsync(string name, Dictionary<string, string> properties = null, Dictionary<string, double> measurements = null)
-		=> await _jsRuntime.InvokeVoidAsync("appInsights.stopTrackEvent", name, properties, measurements);
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.stopTrackEvent", name, properties, measurements);
 
 	/// <inheritdoc/>
 	public async Task TrackPageViewPerformanceAsync(PageViewPerformanceTelemetry telemetry, Dictionary<string, object> customProperties = null)
-		=> await _jsRuntime.InvokeVoidAsync("appInsights.trackPageViewPerformance", telemetry, customProperties);
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.trackPageViewPerformance", telemetry, customProperties);
 
 	/// <inheritdoc/>
 	public async Task SetAuthenticatedUserContextAsync(string authenticatedUserId, string accountId = null, bool storeInCookie = false)
-		=> await _jsRuntime.InvokeVoidAsync("appInsights.setAuthenticatedUserContext", authenticatedUserId, accountId, storeInCookie);
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.setAuthenticatedUserContext", authenticatedUserId, accountId, storeInCookie);
 
 	/// <inheritdoc/>
 	public async Task ClearAuthenticatedUserContextAsync()
-		=> await _jsRuntime.InvokeVoidAsync("appInsights.clearAuthenticatedUserContext");
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.clearAuthenticatedUserContext");
 
 	/// <inheritdoc/>
 	public async Task TrackDependencyDataAsync(DependencyTelemetry dependency)
-		=> await _jsRuntime.InvokeVoidAsync("appInsights.trackDependencyData", dependency);
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.trackDependencyData", dependency);
 
 	/// <inheritdoc/>
 	public async Task FlushAsync()
-		=> await _jsRuntime.InvokeVoidAsync("appInsights.flush");
+		=> await _jsRuntime.InvokeVoidAsync("havitBlazorAppInsights.flush");
 
 	/// <inheritdoc/>
 	public async Task AddTelemetryInitializerAsync(TelemetryInitializer initializer)
