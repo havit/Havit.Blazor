@@ -14,10 +14,29 @@ internal static partial class DateHelper
 			return isNullable;
 		}
 
+		string shortDatePattern = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
+
+		// Some cultures use a quoted literal in their short date pattern (e.g. bg-BG: "d.MM.yyyy 'г'.").
+		// Such a literal is a part of the value formatted by ToShortDateString() (i.e. of the value set by picking a date in the calendar),
+		// yet the regexes below cannot handle it (\W is unicode-aware, so it does not match letters of any alphabet).
+		// Therefore we remove the literal from the value being parsed and ignore it when detecting the order of the date components.
+		if (shortDatePattern.Contains('\''))
+		{
+			foreach (Match literalMatch in GetRegex_QuotedLiteral().Matches(shortDatePattern))
+			{
+				string literal = literalMatch.Groups["literal"].Value;
+				if (!String.IsNullOrWhiteSpace(literal))
+				{
+					value = value.Replace(literal, String.Empty, StringComparison.OrdinalIgnoreCase);
+				}
+			}
+			shortDatePattern = GetRegex_QuotedLiteral().Replace(shortDatePattern, String.Empty);
+		}
+
 		// expecting date format with day, month, and year components
-		int dayIndex = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.IndexOf("d");
-		int monthIndex = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.IndexOf("M");
-		int yearIndex = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.IndexOf("y");
+		int dayIndex = shortDatePattern.IndexOf("d");
+		int monthIndex = shortDatePattern.IndexOf("M");
+		int yearIndex = shortDatePattern.IndexOf("y");
 
 		if ((dayIndex < 0) || (monthIndex < 0) || (yearIndex < 0))
 		{
@@ -155,6 +174,9 @@ internal static partial class DateHelper
 	}
 
 	#region Regex patterns
+	[GeneratedRegex("'(?<literal>[^']*)'")]
+	private static partial Regex GetRegex_QuotedLiteral();
+
 	[GeneratedRegex("^(?<day>\\d{2})(?<month>\\d{2})(?<year>\\d{2}|\\d{4})$")]
 	private static partial Regex GetRegex_DayMonthYear_Strict();
 
