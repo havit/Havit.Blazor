@@ -16,6 +16,16 @@ internal static partial class DateHelper
 
 		string shortDatePattern = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
 
+		// The value formatted by ToShortDateString() (i.e. the value set by picking a date in the calendar) has to round-trip in any culture,
+		// so we always try the short date pattern of the current culture first.
+		// The regexes below cannot be relied on here - they do not handle the literal parts of the pattern
+		// (e.g. bg-BG: "d.MM.yyyy 'г'.", or "d.MM.yyyy г." with no quotes when running with HybridGlobalization in the browser).
+		if (DateTime.TryParseExact(value.Trim(), shortDatePattern, CultureInfo.CurrentCulture, DateTimeStyles.None, out DateTime shortDateValue))
+		{
+			result = GetValueFromDateTimeOffset<TValue>(new DateTimeOffset(shortDateValue.Date));
+			return true;
+		}
+
 		// Some cultures use a quoted literal in their short date pattern (e.g. bg-BG: "d.MM.yyyy 'г'.").
 		// Such a literal is a part of the value formatted by ToShortDateString() (i.e. of the value set by picking a date in the calendar),
 		// yet the regexes below cannot handle it (\W is unicode-aware, so it does not match letters of any alphabet).

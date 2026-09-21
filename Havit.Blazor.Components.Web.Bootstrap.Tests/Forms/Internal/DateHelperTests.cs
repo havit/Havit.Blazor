@@ -273,6 +273,31 @@ public class DateHelperTests
 	}
 
 	[Fact]
+	public void DateHelper_TryParseDateFromString_ShouldParseValueFormattedByHxInputDate_HybridGlobalization()
+	{
+		// https://github.com/havit/Havit.Blazor/issues/1806
+		// With HybridGlobalization (browser) the short date pattern is composed from the Intl.DateTimeFormat output,
+		// so its literal parts are not quoted (bg-BG: "d.MM.yyyy г." instead of "d.MM.yyyy 'г'.").
+		// The round-trip must not depend on the globalization mode.
+
+		// Arrange
+		var fixture = new Fixture();
+		var date = new DateTime(2026, 09, 17);
+
+		var hybridCulture = (CultureInfo)CultureInfo.GetCultureInfo("bg-BG").Clone();
+		hybridCulture.DateTimeFormat.ShortDatePattern = "d.MM.yyyy г.";
+
+		string formattedValue;
+		using (CultureInfoExt.EnterScope(hybridCulture))
+		{
+			formattedValue = HxInputDate<DateTime?>.FormatValue(date);
+		}
+
+		// Act + Assert
+		fixture.ExecuteTest<DateTime?>(hybridCulture, formattedValue, expectedResult: true, expectedParsedDate: date);
+	}
+
+	[Fact]
 	public void DateHelper_GetValueFromDateTimeOffset()
 	{
 		// Arrange
@@ -356,11 +381,16 @@ public class DateHelperTests
 
 		public void ExecuteTest<TValue>(string culture, string input, bool expectedResult, TValue expectedParsedDate)
 		{
+			ExecuteTest<TValue>(CultureInfo.GetCultureInfo(culture), input, expectedResult, expectedParsedDate);
+		}
+
+		public void ExecuteTest<TValue>(CultureInfo culture, string input, bool expectedResult, TValue expectedParsedDate)
+		{
 			// Arrange
 			bool result = default;
 			TValue parsedDate = default;
 
-			using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo(culture)))
+			using (CultureInfoExt.EnterScope(culture))
 			{
 				// Act
 				result = DateHelper.TryParseDateFromString<TValue>(input, _timeProvider, out parsedDate);
