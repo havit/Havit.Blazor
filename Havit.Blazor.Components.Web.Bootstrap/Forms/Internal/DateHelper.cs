@@ -27,7 +27,7 @@ internal static partial class DateHelper
 				string literal = literalMatch.Groups["literal"].Value;
 				if (!String.IsNullOrWhiteSpace(literal))
 				{
-					value = value.Replace(literal, String.Empty, StringComparison.OrdinalIgnoreCase);
+					value = RemoveQuotedLiteralFromValue(value, literal);
 				}
 			}
 			shortDatePattern = GetRegex_QuotedLiteral().Replace(shortDatePattern, String.Empty);
@@ -171,6 +171,30 @@ internal static partial class DateHelper
 
 		result = default;
 		return false;
+	}
+
+	/// <summary>
+	/// Removes the quoted literal of the short date pattern from the beginning/end of the value.
+	/// The literal is never removed from between the date components - it must not act as their separator
+	/// (e.g. "05г06г2025" must not be turned into the parsable "05062025").
+	/// </summary>
+	private static string RemoveQuotedLiteralFromValue(string value, string literal)
+	{
+		// leading occurrence (with no digit in front of it)
+		int leadingIndex = value.IndexOf(literal, StringComparison.OrdinalIgnoreCase);
+		if ((leadingIndex >= 0) && !value[..leadingIndex].Any(Char.IsDigit))
+		{
+			value = value.Remove(leadingIndex, literal.Length);
+		}
+
+		// trailing occurrence (with no digit behind it)
+		int trailingIndex = value.LastIndexOf(literal, StringComparison.OrdinalIgnoreCase);
+		if ((trailingIndex >= 0) && !value[(trailingIndex + literal.Length)..].Any(Char.IsDigit))
+		{
+			value = value.Remove(trailingIndex, literal.Length);
+		}
+
+		return value;
 	}
 
 	#region Regex patterns

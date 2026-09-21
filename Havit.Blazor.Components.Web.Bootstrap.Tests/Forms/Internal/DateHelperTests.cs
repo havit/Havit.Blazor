@@ -329,6 +329,12 @@ public class DateHelperTests
 		fixture.ExecuteTest<DateTime?>("bg-BG", "5a5a20", expectedResult: false, expectedParsedDate: default);
 		fixture.ExecuteTest<DateTime?>("bg-BG", "5a5", expectedResult: false, expectedParsedDate: default);
 		fixture.ExecuteTest<DateTime?>("bg-BG", "5г5г2025", expectedResult: false, expectedParsedDate: default);
+
+		// the quoted literal of the short date pattern must not act as a separator of the date components
+		fixture.ExecuteTest<DateTime?>("bg-BG", "05г06г2025", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("bg-BG", "05г062025", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("bg-BG", "0506г2025", expectedResult: false, expectedParsedDate: default);
+		fixture.ExecuteTest<DateTime?>("bg-BG", "05г0620", expectedResult: false, expectedParsedDate: default);
 	}
 
 	private class Fixture

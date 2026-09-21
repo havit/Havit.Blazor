@@ -6165,6 +6165,13 @@
             Defines whether the input may be checked for spelling errors.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.RemoveQuotedLiteralFromValue(System.String,System.String)">
+            <summary>
+            Removes the quoted literal of the short date pattern from the beginning/end of the value.
+            The literal is never removed from between the date components - it must not act as their separator
+            (e.g. "05г06г2025" must not be turned into the parsable "05062025").
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_QuotedLiteral">
             <remarks>
             Pattern:<br/>
