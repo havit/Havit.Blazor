@@ -32,16 +32,24 @@ public class InitialPageViewTrackingTests : BlazorApplicationInsightsPageTestBas
 		await Page.GotoAsync(_factory.GetServerAddress() + NavigationRoutes.PageViewTracking.InitialPageViewTrackingTest);
 
 		// Assert
-		// the page tracks the sentinel right before it flushes - once the sentinel is on the wire, a page view tracked before it would be there too
-		// (the initial page view is issued by the child HxApplicationInsights from its OnInitializedAsync, the sentinel by the page from OnAfterRenderAsync;
-		// both go through the FIFO gate, but the order in which they get enqueued is not guaranteed, so this barrier is not strictly tight)
+		// the page tracks the sentinel right before it flushes; the initial page view (if enabled) is tracked by the bootstrap script
+		// together with the creation of the gate, i.e. before any call the page can make (current behaviour of HxApplicationInsights,
+		// see GetBootstrapScript - not a documented contract, revisit this barrier if it changes), and OverridePageViewDuration
+		// (see CreateFactory) makes the SDK emit it in that order too - so once the sentinel is on the wire, a page view would be there as well
 		await telemetry.WaitForItemAsync(i => i.Data.BaseData.Name == TestDefaults.SentinelEvents.InitialPageViewTrackingPageDone, "sentinel event");
 		Assert.DoesNotContain(telemetry.Items, i => i.BaseType == "PageviewData");
 	}
 
 	private static BlazorWebApplicationFactory CreateFactory(bool enableInitialPageViewTracking)
 	{
-		var factory = new BlazorWebApplicationFactory(options => options.EnableInitialPageViewTracking = enableInitialPageViewTracking);
+		var factory = new BlazorWebApplicationFactory(options =>
+		{
+			options.EnableInitialPageViewTracking = enableInitialPageViewTracking;
+			// By default the SDK holds a page view back until the page load timing is available (polled every 100 ms) and emits it
+			// out of order, ~100 ms after telemetry tracked later. With the override it is emitted right away, so the order in which
+			// the items were tracked is also the order in which they reach the wire - which the negative test's barrier relies on.
+			options.JsSdkOptions.OverridePageViewDuration = true;
+		});
 		factory.CreateClient();
 		return factory;
 	}

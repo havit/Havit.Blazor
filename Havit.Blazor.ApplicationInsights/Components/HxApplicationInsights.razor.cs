@@ -26,6 +26,8 @@ namespace Havit.Blazor.ApplicationInsights.Components;
 ///     <c>eval()</c> in <see cref="OnInitializedAsync"/>, because no inline tag was emitted earlier.
 ///   </description></item>
 /// </list>
+/// In all three cases it is the same bootstrap text (<see cref="GetBootstrapScript"/>): gate, snippet, default
+/// telemetry initializer, initial page view.
 /// </para>
 /// <para>
 /// Alongside the snippet the component installs <c>window.havitBlazorAppInsights</c> — a thin wrapper
@@ -52,7 +54,6 @@ public partial class HxApplicationInsights : IDisposable
 	[Parameter] public string Nonce { get; set; }
 
 	[Inject] private IOptions<BlazorApplicationInsightsOptions> BlazorApplicationInsightsOptions { get; set; }
-	[Inject] private IBlazorApplicationInsights BlazorApplicationInsights { get; set; }
 	[Inject] private PersistentComponentState PersistentState { get; set; }
 	[Inject] private IJSRuntime JSRuntime { get; set; }
 
@@ -71,20 +72,11 @@ public partial class HxApplicationInsights : IDisposable
 		if (this.RendererInfo.IsInteractive && !prerendered)
 		{
 			// No prerendering occurred — the razor template did not emit the inline <script> tag,
-			// so inject the snippet programmatically via eval() now.
-			// Order matters: initializer must be registered before trackPageView so that
-			// the auto-tracked initial page view already carries the DefaultTelemetryInitializer tags.
-			await JSRuntime.InvokeVoidAsync("eval", GetApplicationInsightsScript());
-
-			if (BlazorApplicationInsightsOptions.Value.DefaultTelemetryInitializer != null)
-			{
-				await BlazorApplicationInsights.AddTelemetryInitializerAsync(BlazorApplicationInsightsOptions.Value.DefaultTelemetryInitializer);
-			}
-
-			if (BlazorApplicationInsightsOptions.Value.EnableInitialPageViewTracking)
-			{
-				await BlazorApplicationInsights.TrackPageViewAsync();
-			}
+			// so inject the very same bootstrap programmatically via eval() now.
+			// It is one script on purpose (see GetBootstrapScript): the default telemetry initializer and the
+			// initial page view get enqueued together with the creation of the gate, so no call made by the
+			// application can be ordered before them — the same ordering the inline SSR script gives.
+			await JSRuntime.InvokeVoidAsync("eval", GetBootstrapScript());
 		}
 	}
 
@@ -98,6 +90,24 @@ public partial class HxApplicationInsights : IDisposable
 		PersistentState.PersistAsJson(PrerenderedPersistentStateKey, true);
 		return Task.CompletedTask;
 	}
+
+	/// <summary>
+	/// The complete bootstrap: the readiness gate, the SDK snippet, the default telemetry initializer (if configured)
+	/// and the initial page view (if enabled), in this order. Emitted inline in SSR/prerendering and evaluated via
+	/// <c>eval()</c> in the interactive-without-prerendering scenario — the same text in both cases.
+	/// </summary>
+	/// <remarks>
+	/// Keeping the initializer and the initial page view inside the bootstrap (rather than issuing them as separate
+	/// interop calls afterwards) enqueues them in the gate atomically with its creation, so a call made by the
+	/// application — which cannot reach the gate before it exists — comes after them. Not a documented contract,
+	/// but the E2E tests (<c>InitialPageViewTrackingTests</c>) rely on it; revisit them if this changes.
+	/// </remarks>
+	private string GetBootstrapScript() => string.Concat(
+		GetApplicationInsightsScript(),
+		Environment.NewLine,
+		GetDefaultTelemetryInitializerScript(),
+		Environment.NewLine,
+		GetInitialTrackPageViewScript());
 
 	// source: https://github.com/microsoft/ApplicationInsights-JS?tab=readme-ov-file#snippet-setup-ignore-if-using-npm-setup
 	private string GetApplicationInsightsScript() => $$$$"""
@@ -159,8 +169,8 @@ public partial class HxApplicationInsights : IDisposable
 
 	/// <summary>
 	/// Returns a JS statement that registers the <see cref="BlazorApplicationInsightsOptions.DefaultTelemetryInitializer"/>
-	/// via the SDK stub queue. Called after <c>havitBlazorAppInsights</c> is defined and before
-	/// <c>trackPageView</c>, so the initializer is applied even to the auto-tracked initial page view.
+	/// through the gate. Part of <see cref="GetBootstrapScript"/>, placed after the gate is defined and before
+	/// <c>trackPageView</c>, so the initializer is applied even to the initial page view.
 	/// Returns <c>null</c> when no <see cref="BlazorApplicationInsightsOptions.DefaultTelemetryInitializer"/> is set.
 	/// </summary>
 	private string GetDefaultTelemetryInitializerScript()
