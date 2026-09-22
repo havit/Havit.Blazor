@@ -2,22 +2,15 @@
 @rendermode InteractiveServerWithoutPrerendering
 @inject IBlazorApplicationInsights AppInsights
 
-@if (_done)
-{
-	<span id="done">done</span>
-}
-
 @code
 {
-	private bool _done;
-
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
+			// sentinel for the tests asserting that NO page view was sent on navigation - see TestDefaults.SentinelEvents
+			await AppInsights.TrackEventAsync(new EventTelemetry { Name = TestDefaults.SentinelEvents.AutoRouteTrackingPage2Done });
 			await AppInsights.FlushAsync();
-			_done = true;
-			StateHasChanged();
 		}
 	}
 }

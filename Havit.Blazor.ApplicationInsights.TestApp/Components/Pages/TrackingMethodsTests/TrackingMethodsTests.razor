@@ -6,15 +6,8 @@
 
 <HxApplicationInsights />
 
-@if (_done)
-{
-    <span id="done">done</span>
-}
-
 @code
 {
-    private bool _done;
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -31,8 +24,6 @@
             await BlazorApplicationInsights.TrackPageViewPerformanceAsync(new PageViewPerformanceTelemetry { Name = "test-page-view-performance" });
             await BlazorApplicationInsights.TrackDependencyDataAsync(new DependencyTelemetry { Name = "test-dependency", ResponseCode = 200 });
             await BlazorApplicationInsights.FlushAsync();
-            _done = true;
-            StateHasChanged();
         }
     }
 }

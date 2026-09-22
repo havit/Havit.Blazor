@@ -1,7 +1,5 @@
 using Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure;
-using Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure.Model;
 using Havit.Blazor.ApplicationInsights.TestApp.Client;
-using Microsoft.Playwright;
 
 namespace Havit.Blazor.ApplicationInsights.E2ETests;
 
@@ -12,14 +10,15 @@ public class InitialPageViewTrackingTests : BlazorApplicationInsightsPageTestBas
 	{
 		// Arrange
 		await using var factory = GetFactoryForTest(enableInitialPageViewTracking: true);
-		var capturedTelemetryItems = new List<AiTelemetryItem>();
-		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
+		var telemetry = await Page.RouteApplicationInsightsTrackAsync();
 
 		// Act
-		await ActAsync(factory);
+		await Page.GotoAsync(factory.GetServerAddress() + NavigationRoutes.PageViewTracking.InitialPageViewTrackingTest);
 
 		// Assert
-		Assert.Contains(capturedTelemetryItems, i => i.BaseType == "PageviewData");
+		await telemetry.WaitForItemAsync(i => i.BaseType == "PageviewData", "initial page view");
+
+		await ClosePageBeforeHostShutdownAsync();
 	}
 
 	[Fact]
@@ -27,24 +26,24 @@ public class InitialPageViewTrackingTests : BlazorApplicationInsightsPageTestBas
 	{
 		// Arrange
 		await using var factory = GetFactoryForTest(enableInitialPageViewTracking: false);
-		var capturedTelemetryItems = new List<AiTelemetryItem>();
-		await Page.RouteApplicationInsightsTrackAsync(capturedTelemetryItems);
+		var telemetry = await Page.RouteApplicationInsightsTrackAsync();
 
 		// Act
-		await ActAsync(factory);
+		await Page.GotoAsync(factory.GetServerAddress() + NavigationRoutes.PageViewTracking.InitialPageViewTrackingTest);
 
 		// Assert
-		Assert.DoesNotContain(capturedTelemetryItems, i => i.BaseType == "PageviewData");
+		// the page tracks the sentinel right before it flushes - once the sentinel is on the wire, a page view tracked before it would be there too
+		await telemetry.WaitForItemAsync(i => i.Data.BaseData.Name == TestDefaults.SentinelEvents.InitialPageViewTrackingPageDone, "sentinel event");
+		Assert.DoesNotContain(telemetry.Items, i => i.BaseType == "PageviewData");
+
+		await ClosePageBeforeHostShutdownAsync();
 	}
 
-	private async Task ActAsync(BlazorWebApplicationFactory factory)
-	{
-		await Page.GotoAsync(factory.GetServerAddress() + NavigationRoutes.PageViewTracking.InitialPageViewTrackingTest);
-		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
-		await Page.WaitForSelectorAsync("#done", new PageWaitForSelectorOptions { State = WaitForSelectorState.Attached });
-		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
-		await Page.CloseAsync();
-	}
+	/// <summary>
+	/// The test owns the host (<c>await using var factory</c>), which gets disposed before the base class closes the page.
+	/// The page has to go first, otherwise the Blazor Server circuit loses its WebSocket and logs a console error.
+	/// </summary>
+	private Task ClosePageBeforeHostShutdownAsync() => Page.CloseAsync();
 
 	private BlazorWebApplicationFactory GetFactoryForTest(bool enableInitialPageViewTracking)
 	{

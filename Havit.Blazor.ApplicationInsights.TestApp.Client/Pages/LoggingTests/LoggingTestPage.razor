@@ -7,15 +7,8 @@
 
 <HxApplicationInsights />
 
-@if (_done)
-{
-	<span id="done">done</span>
-}
-
 @code
 {
-	private bool _done;
-
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
@@ -24,8 +17,6 @@
             Logger.LogWarning("test-log-warning");
 			Logger.LogError(new InvalidOperationException("test-log-exception"), "test-error-message");
 			await BlazorApplicationInsights.FlushAsync();
-			_done = true;
-			StateHasChanged();
 		}
 	}
 }

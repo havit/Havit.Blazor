@@ -6,15 +6,8 @@
 
 <HxApplicationInsights />
 
-@if (_done)
-{
-    <span id="done">done</span>
-}
-
 @code
 {
-    private bool _done;
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -25,8 +18,6 @@
             await BlazorApplicationInsights.ClearAuthenticatedUserContextAsync();
             await BlazorApplicationInsights.TrackMetricAsync(new MetricTelemetry { Name = "Message3-WithoutAuth", Average = 3 });
             await BlazorApplicationInsights.FlushAsync();
-            _done = true;
-            StateHasChanged();
         }
     }
 }

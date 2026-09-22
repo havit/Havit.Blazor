@@ -1,7 +1,3 @@
-using Microsoft.Playwright;
-using Microsoft.Playwright.Xunit.v3;
-using Xunit;
-
 namespace Havit.Blazor.ApplicationInsights.E2ETests.Infrastructure;
 
 public class BlazorApplicationInsightsPageTestBase : PageTest
