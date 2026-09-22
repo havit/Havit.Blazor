@@ -45,9 +45,10 @@ Place `<HxApplicationInsights />` inside the `<head>` element of your root layou
 </head>
 ```
 
-The component emits the SDK snippet — inline as a `<script>` tag in SSR and prerendering,
-via JS interop when it first renders interactively without prior prerendering.
-The snippet then downloads the SDK itself from the Microsoft CDN.
+The component runs the SDK bootstrap — inline as a `<script>` tag in SSR and prerendering,
+by importing the library's script module (`_content/Havit.Blazor.ApplicationInsights/HxApplicationInsights.js`)
+when it first renders interactively without prior prerendering.
+The bootstrap then downloads the SDK itself from the Microsoft CDN.
 
 ### 3. Inject and use
 
@@ -84,8 +85,9 @@ Two situations are worth knowing about:
   is dropped in the prerender pass — with prerendered interactivity it runs again in the interactive pass and is sent then,
   in static SSR it is simply lost.
 - **SDK download failure.** If the SDK script cannot be loaded (all CDN fallbacks exhausted — offline, blocked by a proxy or an ad blocker),
-  the wrapper releases the pending calls after 15 seconds and the snippet turns them into no-ops.
-  The wait happens once; later calls pass through immediately. No exception is thrown.
+  the wrapper gives up after 15 seconds and drops the pending calls. The wait happens once; later calls are dropped immediately
+  (unless the SDK does show up eventually). No exception is thrown. The same happens when `<HxApplicationInsights />` is not rendered at all —
+  `IBlazorApplicationInsights` installs the wrapper on its own, so calls never fail for lack of it.
 
 From JavaScript, `await window.havitBlazorAppInsights.ready` resolves once the gate opens — with `true` when the SDK initialized,
 with `false` when the 15-second fallback opened it. Resolution alone is not proof that the SDK loaded; check the value
@@ -299,15 +301,15 @@ await AppInsights.AddTelemetryInitializerAsync(new TelemetryInitializer
 
 ## Content Security Policy
 
-If your policy uses `nonce-*`, pass the nonce to the component so that the inline snippet and the SDK script tag carry it:
+If your policy uses `nonce-*`, pass the nonce to the component so that the inline bootstrap and the SDK script tag carry it:
 
 ```razor
 <HxApplicationInsights Nonce="@cspNonce" />
 ```
 
-Interactive render modes **without prerendering** inject the snippet through `eval()`, which a strict policy blocks
-unless `script-src` allows `'unsafe-eval'`. Under a strict CSP, render the component in SSR or with prerendering
-enabled so that the snippet is emitted inline.
+Interactive render modes import the bootstrap as an ES module from `_content/Havit.Blazor.ApplicationInsights/`,
+so `script-src` has to allow the application's own origin (`'self'`, or `'strict-dynamic'` together with the nonce)
+and `https://js.monitor.azure.com` for the SDK itself. `'unsafe-eval'` is not needed.
 
 ## Limitations
 
