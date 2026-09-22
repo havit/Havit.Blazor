@@ -61,25 +61,21 @@ public sealed class AiTelemetryCollector
 	/// </summary>
 	internal void Add(IEnumerable<AiTelemetryItem> items)
 	{
-		List<Waiter> satisfiedWaiters = null;
+		List<Waiter> satisfiedWaiters;
 
 		lock (_lock)
 		{
 			_items.AddRange(items);
 
-			foreach (var waiter in _waiters)
-			{
-				if (waiter.Condition(_items))
-				{
-					(satisfiedWaiters ??= new List<Waiter>()).Add(waiter);
-				}
-			}
-
-			satisfiedWaiters?.ForEach(waiter => _waiters.Remove(waiter));
+			satisfiedWaiters = _waiters.Where(waiter => waiter.Condition(_items)).ToList();
+			_waiters.RemoveAll(satisfiedWaiters.Contains);
 		}
 
 		// completed outside the lock; RunContinuationsAsynchronously keeps the test continuation off the Playwright dispatcher thread
-		satisfiedWaiters?.ForEach(waiter => waiter.Completion.TrySetResult());
+		foreach (var waiter in satisfiedWaiters)
+		{
+			waiter.Completion.TrySetResult();
+		}
 	}
 
 	private async Task WaitUntilAsync(Func<IReadOnlyList<AiTelemetryItem>, bool> condition, string description, TimeSpan timeout)

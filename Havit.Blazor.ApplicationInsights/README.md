@@ -80,13 +80,16 @@ Two situations are worth knowing about:
 
 - **Prerendering.** During server-side prerendering there is no browser to talk to.
   Calls made at that point are **silently ignored**; once the interactive circuit is up, calls work normally.
-  Issue telemetry from `OnAfterRenderAsync` (which does not run during prerendering) rather than from `OnInitialized[Async]`,
-  otherwise the same telemetry is either lost (prerender) or sent twice (prerender + interactive) depending on the render mode.
+  Issue telemetry from `OnAfterRenderAsync`, which does not run during prerendering. A call made from `OnInitialized[Async]`
+  is dropped in the prerender pass — with prerendered interactivity it runs again in the interactive pass and is sent then,
+  in static SSR it is simply lost.
 - **SDK download failure.** If the SDK script cannot be loaded (all CDN fallbacks exhausted — offline, blocked by a proxy or an ad blocker),
   the wrapper releases the pending calls after 15 seconds and the snippet turns them into no-ops.
   The wait happens once; later calls pass through immediately. No exception is thrown.
 
-From JavaScript, `await window.havitBlazorAppInsights.ready` resolves once the SDK is initialized.
+From JavaScript, `await window.havitBlazorAppInsights.ready` resolves once the gate opens — with `true` when the SDK initialized,
+with `false` when the 15-second fallback opened it. Resolution alone is not proof that the SDK loaded; check the value
+(or `window.appInsights.core`) when that matters.
 
 ## Configuration
 

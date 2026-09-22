@@ -103,12 +103,13 @@ public partial class HxApplicationInsights : IDisposable
 	private string GetApplicationInsightsScript() => $$$$"""
 		window.havitBlazorAppInsights = window.havitBlazorAppInsights || (function () {
 			var readyResolve;
+			// Resolves to true once the SDK reports initialization, to false when the gate had to open on the fallback timeout.
 			var ready = new Promise(function (resolve) { readyResolve = resolve; });
 
 			// If the SDK script never loads (all CDN fallbacks exhausted), onInit is never invoked.
 			// Open the gate anyway so that the calls do not hang forever - in that case the snippet
 			// turns its stubs into no-ops, so the calls degrade to silently doing nothing.
-			var readyTimeout = setTimeout(function () { readyResolve(); }, 15000);
+			var readyTimeout = setTimeout(function () { readyResolve(false); }, 15000);
 
 			// Every call runs after the SDK is initialized and in the order it was received
 			// (the same ordering guarantee the snippet queue provides).
@@ -128,7 +129,7 @@ public partial class HxApplicationInsights : IDisposable
 
 			var api = {
 				ready: ready,
-				markReady: function () { clearTimeout(readyTimeout); readyResolve(); },
+				markReady: function () { clearTimeout(readyTimeout); readyResolve(true); },
 				addTelemetryInitializer: function (tags) {
 					return invoke("addTelemetryInitializer", [function (item) {
 						for (var key in tags) {

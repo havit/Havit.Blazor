@@ -7,6 +7,12 @@ public class BlazorApplicationInsightsPageTestBase : PageTest
 	protected virtual bool AllowConsoleErrors => false;
 	private List<IConsoleMessage> _consoleMessages;
 
+	/// <summary>
+	/// Browser console messages captured since the page was created.
+	/// For tests which allow console errors in general but still want to assert on specific ones.
+	/// </summary>
+	protected IReadOnlyList<IConsoleMessage> ConsoleMessages => _consoleMessages;
+
 	public override BrowserNewContextOptions ContextOptions() => new BrowserNewContextOptions()
 	{
 		BaseURL = PlaywrightFixture.Factory.GetServerAddress()
