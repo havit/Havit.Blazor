@@ -48,7 +48,7 @@
 		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net9.0' AND '$(TargetFramework)' != 'net8.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="8.0.1" Condition="'$(TargetFramework)' == 'net8.0'" />
-		<PackageVersion Include="Microsoft.Playwright.Xunit.v3" Version="1.62.0" />
+		<PackageVersion Include="Microsoft.Playwright.Xunit.v3" Version="1.63.0" />
 		<PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.4.1" />
 		<PackageVersion Include="ModelContextProtocol.AspNetCore" Version="2.2.0" />
 		<PackageVersion Include="Moq" Version="4.20.72" />
