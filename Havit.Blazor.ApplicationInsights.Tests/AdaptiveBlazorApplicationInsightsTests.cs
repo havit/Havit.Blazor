@@ -42,8 +42,24 @@ public class AdaptiveBlazorApplicationInsightsTests
 		// Act
 		await sut.TrackEventAsync(new EventTelemetry { Name = "test" });
 
+		// Assert — the bootstrap module gets imported first (installs the gate), then the call goes through the gate
+		Assert.Equal(["import", "havitBlazorAppInsights.trackEvent"], jsRuntime.Identifiers);
+	}
+
+	[Fact]
+	public async Task AdaptiveBlazorApplicationInsights_WhenJsAvailable_BootstrapModuleIsImportedOnlyOnce()
+	{
+		// Arrange
+		var jsRuntime = new FakeJSRuntime { ShouldThrow = false };
+		var sut = CreateSut(jsRuntime);
+
+		// Act
+		await sut.TrackEventAsync(new EventTelemetry { Name = "first" });
+		await sut.TrackEventAsync(new EventTelemetry { Name = "second" });
+
 		// Assert
-		Assert.Equal(1, jsRuntime.InvocationCount);
+		Assert.Equal(1, jsRuntime.Identifiers.Count(identifier => identifier == "import"));
+		Assert.Equal(3, jsRuntime.InvocationCount);
 	}
 
 	[Fact]
@@ -70,11 +86,14 @@ public class AdaptiveBlazorApplicationInsightsTests
 	private class FakeJSRuntime : IJSRuntime
 	{
 		public bool ShouldThrow { get; set; }
-		public int InvocationCount { get; private set; }
+		public int InvocationCount => Identifiers.Count;
+		public List<string> Identifiers { get; } = new();
 
+		// returns default(TValue) - i.e. null for the IJSObjectReference of the bootstrap module import,
+		// which BrowserBlazorApplicationInsights has to cope with
 		public ValueTask<TValue> InvokeAsync<TValue>(string identifier, object[] args)
 		{
-			InvocationCount++;
+			Identifiers.Add(identifier);
 			if (ShouldThrow)
 			{
 				throw new InvalidOperationException("JavaScript interop calls cannot be issued at this time.");
@@ -83,13 +102,6 @@ public class AdaptiveBlazorApplicationInsightsTests
 		}
 
 		public ValueTask<TValue> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken, object[] args)
-		{
-			InvocationCount++;
-			if (ShouldThrow)
-			{
-				throw new InvalidOperationException("JavaScript interop calls cannot be issued at this time.");
-			}
-			return ValueTask.FromResult(default(TValue));
-		}
+			=> InvokeAsync<TValue>(identifier, args);
 	}
 }

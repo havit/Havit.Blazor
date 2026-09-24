@@ -28,6 +28,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<!-- The bootstrap is a static web asset (imported as a module by the interactive render modes) AND an embedded resource
+		     (emitted inline as a classic <script> by static SSR / prerendering) - the same file text in both cases. -->
+		<EmbeddedResource Include="wwwroot\HxApplicationInsights.js" LogicalName="HxApplicationInsights.js" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Configuration" />
