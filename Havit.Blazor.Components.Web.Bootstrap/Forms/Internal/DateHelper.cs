@@ -14,10 +14,39 @@ internal static partial class DateHelper
 			return isNullable;
 		}
 
+		string shortDatePattern = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
+
+		// The value formatted by ToShortDateString() (i.e. the value set by picking a date in the calendar) has to round-trip in any culture,
+		// so we always try the short date pattern of the current culture first.
+		// The regexes below cannot be relied on here - they do not handle the literal parts of the pattern
+		// (e.g. bg-BG: "d.MM.yyyy 'г'.", or "d.MM.yyyy г." with no quotes when running with HybridGlobalization in the browser).
+		if (DateTime.TryParseExact(value.Trim(), shortDatePattern, CultureInfo.CurrentCulture, DateTimeStyles.None, out DateTime shortDateValue))
+		{
+			result = GetValueFromDateTimeOffset<TValue>(new DateTimeOffset(shortDateValue.Date));
+			return true;
+		}
+
+		// Some cultures use a quoted literal in their short date pattern (e.g. bg-BG: "d.MM.yyyy 'г'.").
+		// Such a literal is a part of the value formatted by ToShortDateString() (i.e. of the value set by picking a date in the calendar),
+		// yet the regexes below cannot handle it (\W is unicode-aware, so it does not match letters of any alphabet).
+		// Therefore we remove the literal from the value being parsed and ignore it when detecting the order of the date components.
+		if (shortDatePattern.Contains('\''))
+		{
+			foreach (Match literalMatch in GetRegex_QuotedLiteral().Matches(shortDatePattern))
+			{
+				string literal = literalMatch.Groups["literal"].Value;
+				if (!String.IsNullOrWhiteSpace(literal))
+				{
+					value = RemoveQuotedLiteralFromValue(value, literal);
+				}
+			}
+			shortDatePattern = GetRegex_QuotedLiteral().Replace(shortDatePattern, String.Empty);
+		}
+
 		// expecting date format with day, month, and year components
-		int dayIndex = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.IndexOf("d");
-		int monthIndex = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.IndexOf("M");
-		int yearIndex = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern.IndexOf("y");
+		int dayIndex = shortDatePattern.IndexOf("d");
+		int monthIndex = shortDatePattern.IndexOf("M");
+		int yearIndex = shortDatePattern.IndexOf("y");
 
 		if ((dayIndex < 0) || (monthIndex < 0) || (yearIndex < 0))
 		{
@@ -154,7 +183,34 @@ internal static partial class DateHelper
 		return false;
 	}
 
+	/// <summary>
+	/// Removes the quoted literal of the short date pattern from the beginning/end of the value.
+	/// The literal is never removed from between the date components - it must not act as their separator
+	/// (e.g. "05г06г2025" must not be turned into the parsable "05062025").
+	/// </summary>
+	private static string RemoveQuotedLiteralFromValue(string value, string literal)
+	{
+		// leading occurrence (with no digit in front of it)
+		int leadingIndex = value.IndexOf(literal, StringComparison.OrdinalIgnoreCase);
+		if ((leadingIndex >= 0) && !value[..leadingIndex].Any(Char.IsDigit))
+		{
+			value = value.Remove(leadingIndex, literal.Length);
+		}
+
+		// trailing occurrence (with no digit behind it)
+		int trailingIndex = value.LastIndexOf(literal, StringComparison.OrdinalIgnoreCase);
+		if ((trailingIndex >= 0) && !value[(trailingIndex + literal.Length)..].Any(Char.IsDigit))
+		{
+			value = value.Remove(trailingIndex, literal.Length);
+		}
+
+		return value;
+	}
+
 	#region Regex patterns
+	[GeneratedRegex("'(?<literal>[^']*)'")]
+	private static partial Regex GetRegex_QuotedLiteral();
+
 	[GeneratedRegex("^(?<day>\\d{2})(?<month>\\d{2})(?<year>\\d{2}|\\d{4})$")]
 	private static partial Regex GetRegex_DayMonthYear_Strict();
 
