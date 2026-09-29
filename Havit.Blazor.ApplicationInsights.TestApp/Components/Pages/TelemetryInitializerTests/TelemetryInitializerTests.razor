@@ -6,15 +6,8 @@
 
 <HxApplicationInsights />
 
-@if (_done)
-{
-    <span id="done">done</span>
-}
-
 @code
 {
-    private bool _done;
-
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -23,8 +16,6 @@
             await BlazorApplicationInsights.AddTelemetryInitializerAsync(new TelemetryInitializer { CloudRoleName = "test-role" });
             await BlazorApplicationInsights.TrackMetricAsync(new MetricTelemetry { Name = "after-initializer", Average = 2 });
             await BlazorApplicationInsights.FlushAsync();
-            _done = true;
-            StateHasChanged();
         }
     }
 }
