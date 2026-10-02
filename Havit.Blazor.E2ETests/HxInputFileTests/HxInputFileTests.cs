@@ -94,9 +94,9 @@ public class HxInputFileTests : TestAppTestBase
 
 		await NavigateToTestAppAsync("/HxInputFile_DisposeDuringUpload");
 
-		string tmpDir = Path.Combine(Path.GetTempPath(), "hx-input-file-dispose-test", Guid.NewGuid().ToString("N"));
+		string tmpDir = Path.Join(Path.GetTempPath(), "hx-input-file-dispose-test", Guid.NewGuid().ToString("N"));
 		Directory.CreateDirectory(tmpDir);
-		string tmpFile = Path.Combine(tmpDir, "hx-test-upload.txt");
+		string tmpFile = Path.Join(tmpDir, "hx-test-upload.txt");
 		File.WriteAllText(tmpFile, "test content");
 
 		try
