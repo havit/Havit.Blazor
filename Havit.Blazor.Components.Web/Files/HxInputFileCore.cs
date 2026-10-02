@@ -192,13 +192,11 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// <exception cref="TaskCanceledException">The component was disposed before the upload completed.</exception>
 	public async Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeaderName = "RequestVerificationToken")
 	{
-		if (_uploadCompletedTaskCompletionSource != null)
+		var uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
+		if (Interlocked.CompareExchange(ref _uploadCompletedTaskCompletionSource, uploadCompletedTaskCompletionSource, null) != null)
 		{
 			throw new InvalidOperationException(nameof(UploadAsync) + " is already in progress. Wait for the previous upload to complete.");
 		}
-
-		var uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
-		_uploadCompletedTaskCompletionSource = uploadCompletedTaskCompletionSource;
 
 		try
 		{
@@ -217,10 +215,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 		}
 		finally
 		{
-			if (_uploadCompletedTaskCompletionSource == uploadCompletedTaskCompletionSource)
-			{
-				_uploadCompletedTaskCompletionSource = null;
-			}
+			Interlocked.CompareExchange(ref _uploadCompletedTaskCompletionSource, null, uploadCompletedTaskCompletionSource);
 		}
 	}
 
