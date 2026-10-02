@@ -17,15 +17,17 @@
 	}
 
 	for (let i = 0; i < Math.min(files.length, maxParallelUploads); i++) {
-		(function (curr) {
-			uploadFile(curr);
-		}(i));
+		if (uploadFile(i)) {
+			handleFileCompleted();
+		}
 	}
 
+	// Returns true when the file was completed synchronously (rejected by the client pre-check),
+	// false when the upload request was started (or the upload was cancelled).
 	function uploadFile(index) {
 
 		if (inputElement && inputElement.cancelled && inputElement.cancelled === true) {
-			return;
+			return false;
 		}
 
 		const file = files[index];
@@ -36,8 +38,7 @@
 
 			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, 413, msg);
 
-			handleFileCompleted();
-			return;
+			return true;
 		}
 
 		if (file && file.size) {
@@ -72,21 +73,23 @@
 		}
 
 		request.send(data);
+		return false;
 	}
 
 	function handleFileCompleted() {
-		completedUploads++;
+		// Consecutive oversized files complete synchronously - process them in a loop (no recursion => no stack overflow).
+		do {
+			completedUploads++;
 
-		if (completedUploads === files.length) {
-			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
-			return;
-		}
+			if (completedUploads === files.length) {
+				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
+				return;
+			}
 
-		if (nextFile < files.length) {
-			// increment the shared counter before the call - uploadFile can recurse synchronously (oversized files)
-			const next = nextFile++;
-			uploadFile(next);
-		}
+			if (nextFile >= files.length) {
+				return;
+			}
+		} while (uploadFile(nextFile++));
 	}
 }
 
