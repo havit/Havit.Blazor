@@ -36,11 +36,7 @@
 
 			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, 413, msg);
 
-			if (nextFile < files.length) {
-				uploadFile(nextFile);
-				nextFile++;
-			}
-
+			handleFileCompleted();
 			return;
 		}
 
@@ -69,21 +65,29 @@
 		};
 		request.onreadystatechange = function () {
 			if (request.readyState === 4) {
-				completedUploads++;
 				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
 
-				if (nextFile < files.length) {
-					uploadFile(nextFile);
-					nextFile++;
-				}
-			};
-			if (completedUploads === files.length) {
-				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
+				handleFileCompleted();
 			}
 		}
 
 		request.send(data);
-    }
+	}
+
+	function handleFileCompleted() {
+		completedUploads++;
+
+		if (completedUploads === files.length) {
+			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
+			return;
+		}
+
+		if (nextFile < files.length) {
+			// increment the shared counter before the call - uploadFile can recurse synchronously (oversized files)
+			const next = nextFile++;
+			uploadFile(next);
+		}
+	}
 }
 
 export function getFiles(inputElementId) {
