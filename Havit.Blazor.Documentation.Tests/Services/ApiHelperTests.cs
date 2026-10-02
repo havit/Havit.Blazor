@@ -183,9 +183,10 @@ public class ApiHelperTests
 	public void ApiHelper_GetType_WithIncludeTypesContainingTypeName_PrefersPrefixMatchOverSubstringMatch()
 	{
 		// act
-		Type result = ApiTypeHelper.GetType("HxInputTex", includeTypesContainingTypeName: true);
+		// "InputDateSettings" is a prefix match, the shorter (and generic) "HxInputDate<TValue>" is only a substring match.
+		Type result = ApiTypeHelper.GetType("InputDate", includeTypesContainingTypeName: true);
 
 		// assert
-		Assert.Equal(typeof(HxInputText), result);
+		Assert.Equal(typeof(InputDateSettings), result);
 	}
 }
