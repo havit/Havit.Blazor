@@ -120,11 +120,6 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-	/// <summary>
-	/// The last known count of associated files.
-	/// </summary>
-	public int FileCount { get; private set; }
-
 	private DotNetObjectReference<HxInputFileCore> _dotnetObjectReference;
 	private IJSObjectReference _jsModule;
 	private TaskCompletionSource<UploadCompletedEventArgs> _uploadCompletedTaskCompletionSource;

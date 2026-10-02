@@ -209,11 +209,6 @@
             The input element id.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.FileCount">
-            <summary>
-            The last known count of associated files.
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.StartUploadAsync(System.String,System.String,System.String)">
             <summary>
             Initiates the upload (does not wait for upload completion). Use OnUploadCompleted event.
