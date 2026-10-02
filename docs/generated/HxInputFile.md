@@ -27,7 +27,6 @@ Wraps `HxInputFileCore` as a Bootstrap form control (including `Label` etc.)
 
 | Name | Type | Description |
 |------|------|-------------|
-| FileCount | `int` | Last known count of associated files. |
 
 ## Event callbacks
 
