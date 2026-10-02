@@ -50,9 +50,9 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	[Parameter] public string UploadUrl { get; set; }
 
 	/// <summary>
-	/// HTTP Method (verb) used for file upload. The default is <c>POST</c>.
+	/// HTTP Method (verb) used for file upload. The default is <c>POST</c> (taken from <see cref="HxInputFileCore.Defaults"/>).
 	/// </summary>
-	[Parameter] public string UploadHttpMethod { get; set; } = "POST";
+	[Parameter] public string UploadHttpMethod { get; set; }
 	protected string UploadHttpMethodEffective => UploadHttpMethod ?? GetSettings()?.UploadHttpMethod ?? GetDefaults().UploadHttpMethod ?? throw new InvalidOperationException(nameof(UploadHttpMethod) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 	/// <summary>

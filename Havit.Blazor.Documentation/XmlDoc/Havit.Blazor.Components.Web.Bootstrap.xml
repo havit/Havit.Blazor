@@ -3206,7 +3206,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.UploadHttpMethod">
             <summary>
-            HTTP Method (verb) used for file upload. The default is <c>POST</c>.
+            HTTP Method (verb) used for file upload. The default is <c>POST</c> (taken from <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFile.OnChange">
@@ -3378,7 +3378,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.UploadHttpMethod">
             <summary>
-            HTTP Method (verb) used for file upload. The default is <c>POST</c>.
+            HTTP Method (verb) used for file upload. The default is <c>POST</c> (taken from <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputFileDropZone.OnChange">
