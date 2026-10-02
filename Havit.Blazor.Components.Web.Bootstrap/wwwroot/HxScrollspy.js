@@ -6,6 +6,9 @@
 
 export function refresh(element) {
 	const scrollspy = bootstrap.ScrollSpy.getInstance(element);
+	if (!scrollspy) {
+		return;
+	}
 
 	if (element.scrollTop > 0) {
 		// scrollspy calculates the offsets properly only if the container is scrolled to
@@ -16,5 +19,7 @@ export function refresh(element) {
 
 export function dispose(element) {
 	const scrollspy = bootstrap.ScrollSpy.getInstance(element);
-	scrollspy.dispose();
+	if (scrollspy) {
+		scrollspy.dispose();
+	}
 }
