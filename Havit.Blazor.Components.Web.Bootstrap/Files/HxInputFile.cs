@@ -46,9 +46,9 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	[Parameter] public string UploadUrl { get; set; }
 
 	/// <summary>
-	/// HTTP Method (verb) used for file upload. The default is <c>POST</c>.
+	/// HTTP Method (verb) used for file upload. The default is <c>POST</c> (taken from <see cref="HxInputFileCore.Defaults"/>).
 	/// </summary>
-	[Parameter] public string UploadHttpMethod { get; set; } = "POST";
+	[Parameter] public string UploadHttpMethod { get; set; }
 
 	/// <summary>
 	/// Gets or sets the event callback that will be invoked when the collection of selected files changes.
