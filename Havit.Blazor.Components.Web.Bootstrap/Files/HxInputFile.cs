@@ -227,18 +227,18 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 		builder.OpenComponent<HxInputFileCore>(1);
 		builder.AddAttribute(1001, nameof(HxInputFileCore.Id), InputId);
 		builder.AddAttribute(1002, nameof(HxInputFileCore.UploadUrl), UploadUrl);
-		builder.AddAttribute(1002, nameof(HxInputFileCore.UploadHttpMethod), UploadHttpMethod);
-		builder.AddAttribute(1003, nameof(HxInputFileCore.Multiple), Multiple);
-		builder.AddAttribute(1004, nameof(HxInputFileCore.OnChange), EventCallback.Factory.Create<InputFileChangeEventArgs>(this, InvokeOnChangeAsync));
-		builder.AddAttribute(1005, nameof(HxInputFileCore.OnProgress), EventCallback.Factory.Create<UploadProgressEventArgs>(this, InvokeOnProgressAsync));
-		builder.AddAttribute(1006, nameof(HxInputFileCore.OnFileUploaded), EventCallback.Factory.Create<FileUploadedEventArgs>(this, InvokeOnFileUploadedAsync));
-		builder.AddAttribute(1007, nameof(HxInputFileCore.OnUploadCompleted), EventCallback.Factory.Create<UploadCompletedEventArgs>(this, InvokeOnUploadCompletedAsync));
-		builder.AddAttribute(1008, nameof(HxInputFileCore.Accept), Accept);
-		builder.AddAttribute(1009, nameof(HxInputFileCore.MaxFileSize), MaxFileSize);
-		builder.AddAttribute(1010, nameof(HxInputFileCore.MaxParallelUploads), MaxParallelUploads);
-		builder.AddAttribute(1011, "class", CssClassHelper.Combine(CoreInputCssClass, InputCssClass, (this is IInputWithSize inputWithSize) ? inputWithSize.GetInputSizeCssClass() : null));
-		builder.AddAttribute(1012, nameof(HxInputFileCore.Enabled), CascadeEnabledComponent.EnabledEffective(this));
-		builder.AddComponentReferenceCapture(1013, r => _hxInputFileCoreComponentReference = (HxInputFileCore)r);
+		builder.AddAttribute(1003, nameof(HxInputFileCore.UploadHttpMethod), UploadHttpMethod);
+		builder.AddAttribute(1004, nameof(HxInputFileCore.Multiple), Multiple);
+		builder.AddAttribute(1005, nameof(HxInputFileCore.OnChange), EventCallback.Factory.Create<InputFileChangeEventArgs>(this, InvokeOnChangeAsync));
+		builder.AddAttribute(1006, nameof(HxInputFileCore.OnProgress), EventCallback.Factory.Create<UploadProgressEventArgs>(this, InvokeOnProgressAsync));
+		builder.AddAttribute(1007, nameof(HxInputFileCore.OnFileUploaded), EventCallback.Factory.Create<FileUploadedEventArgs>(this, InvokeOnFileUploadedAsync));
+		builder.AddAttribute(1008, nameof(HxInputFileCore.OnUploadCompleted), EventCallback.Factory.Create<UploadCompletedEventArgs>(this, InvokeOnUploadCompletedAsync));
+		builder.AddAttribute(1009, nameof(HxInputFileCore.Accept), Accept);
+		builder.AddAttribute(1010, nameof(HxInputFileCore.MaxFileSize), MaxFileSize);
+		builder.AddAttribute(1011, nameof(HxInputFileCore.MaxParallelUploads), MaxParallelUploads);
+		builder.AddAttribute(1012, "class", CssClassHelper.Combine(CoreInputCssClass, InputCssClass, (this is IInputWithSize inputWithSize) ? inputWithSize.GetInputSizeCssClass() : null));
+		builder.AddAttribute(1013, nameof(HxInputFileCore.Enabled), CascadeEnabledComponent.EnabledEffective(this));
+		builder.AddComponentReferenceCapture(1014, r => _hxInputFileCoreComponentReference = (HxInputFileCore)r);
 		builder.CloseComponent();
 	}
 }
