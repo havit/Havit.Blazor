@@ -202,7 +202,18 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 		{
 			if (!_disposed)
 			{
-				await StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
+				var startUploadTask = StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
+
+				// The completion source can be completed (or canceled by dispose) while the JS startup is still pending.
+				if (await Task.WhenAny(startUploadTask, uploadCompletedTaskCompletionSource.Task) == startUploadTask)
+				{
+					await startUploadTask; // propagate startup exceptions
+				}
+				else
+				{
+					// do not leave the startup failure (e.g. JSDisconnectedException after dispose) unobserved
+					_ = startUploadTask.ContinueWith(t => _ = t.Exception, CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default);
+				}
 			}
 
 			if (_disposed)

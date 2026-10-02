@@ -36,6 +36,25 @@ public class HxInputFileCoreTests : BunitTestBase
 	}
 
 	[Fact]
+	public async Task HxInputFileCore_UploadAsync_ShouldBeCanceledWhenComponentDisposedWhileJsStartupIsPending()
+	{
+		// Arrange
+		var module = JSInterop.SetupModule(invocation => invocation.Identifier == "import" && invocation.Arguments[0].ToString().Contains(nameof(HxInputFileCore)));
+		module.Mode = JSRuntimeMode.Loose;
+		module.SetupVoid("upload", _ => true); // never completes
+
+		var cut = Render<HxInputFileCore>(parameters => parameters.Add(p => p.UploadUrl, "/upload"));
+		var uploadTask = cut.Instance.UploadAsync();
+		Assert.False(uploadTask.IsCompleted);
+
+		// Act
+		await cut.Instance.DisposeAsync();
+
+		// Assert
+		await Assert.ThrowsAnyAsync<OperationCanceledException>(() => uploadTask.WaitAsync(TimeSpan.FromSeconds(5), Xunit.TestContext.Current.CancellationToken));
+	}
+
+	[Fact]
 	public async Task HxInputFileCore_UploadAsync_ShouldThrowWhenAnotherUploadIsInProgress()
 	{
 		// Arrange
