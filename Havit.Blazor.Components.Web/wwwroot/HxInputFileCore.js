@@ -35,11 +35,7 @@
 			console.warn(msg);
 
 			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, 413, msg);
-
-			if (nextFile < files.length) {
-				uploadFile(nextFile);
-				nextFile++;
-			}
+			handleFileCompleted();
 
 			return;
 		}
@@ -69,21 +65,30 @@
 		};
 		request.onreadystatechange = function () {
 			if (request.readyState === 4) {
-				completedUploads++;
 				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
-
-				if (nextFile < files.length) {
-					uploadFile(nextFile);
-					nextFile++;
-				}
-			};
-			if (completedUploads === files.length) {
-				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
+				handleFileCompleted();
 			}
 		}
 
 		request.send(data);
-    }
+	}
+
+	// Called once for each file when its processing finishes (uploaded, failed or rejected by the client pre-check).
+	// Starts the next file in the queue and reports the completion of the whole upload after the last file.
+	function handleFileCompleted() {
+		completedUploads++;
+
+		if (completedUploads === files.length) {
+			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
+			return;
+		}
+
+		if (nextFile < files.length) {
+			// uploadFile can complete synchronously (client pre-check) and recurse back here,
+			// so nextFile must be incremented before the call and the completion must be checked first.
+			uploadFile(nextFile++);
+		}
+	}
 }
 
 export function getFiles(inputElementId) {
