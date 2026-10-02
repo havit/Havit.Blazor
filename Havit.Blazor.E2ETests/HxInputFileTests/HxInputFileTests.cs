@@ -63,6 +63,67 @@ public class HxInputFileTests : TestAppTestBase
 	}
 
 	[Fact]
+	public async Task HxInputFile_Issue1578_DisposedDuringUpload_AbortsRequestAndCancelsUploadAsync()
+	{
+		// Arrange - collect page-level JS errors and console errors (calls to a disposed DotNetObjectReference surface as unhandled rejections)
+		var jsErrors = new List<string>();
+		Page.PageError += (_, error) => jsErrors.Add(error);
+		Page.Console += (_, message) =>
+		{
+			if (message.Type == "error")
+			{
+				jsErrors.Add(message.Text);
+			}
+		};
+
+		// Hold the upload request (never respond) so the component is removed while the upload is in flight.
+		var uploadRequestStarted = new TaskCompletionSource(TaskCreationOptions.RunContinuationsAsynchronously);
+		var uploadRequestFailed = new TaskCompletionSource<string>(TaskCreationOptions.RunContinuationsAsynchronously);
+		await Page.RouteAsync("**/hx-input-file-dispose-during-upload", _ =>
+		{
+			uploadRequestStarted.TrySetResult();
+			return Task.CompletedTask;
+		});
+		Page.RequestFailed += (_, request) =>
+		{
+			if (request.Url.EndsWith("/hx-input-file-dispose-during-upload"))
+			{
+				uploadRequestFailed.TrySetResult(request.Failure);
+			}
+		};
+
+		await NavigateToTestAppAsync("/HxInputFile_DisposeDuringUpload");
+
+		string tmpDir = Path.Combine(Path.GetTempPath(), "hx-input-file-dispose-test", Guid.NewGuid().ToString("N"));
+		Directory.CreateDirectory(tmpDir);
+		string tmpFile = Path.Combine(tmpDir, "hx-test-upload.txt");
+		File.WriteAllText(tmpFile, "test content");
+
+		try
+		{
+			await Page.Locator("[data-testid='input-file-container'] input[type='file']").SetInputFilesAsync(tmpFile);
+			await Page.Locator("[data-testid='upload-button']").ClickAsync();
+			await uploadRequestStarted.Task.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken);
+
+			// Act - remove (dispose) the component while the upload is in flight
+			await Page.Locator("[data-testid='remove-button']").ClickAsync();
+
+			// Assert
+			await Expect(Page.Locator("[data-testid='input-file-container']")).ToHaveCountAsync(0);
+			await Expect(Page.Locator("[data-testid='upload-result']")).ToHaveTextAsync("Canceled"); // the awaiting UploadAsync() is released
+			await uploadRequestFailed.Task.WaitAsync(TimeSpan.FromSeconds(10), TestContext.Current.CancellationToken); // the request is aborted
+
+			// give potential late callbacks a chance to surface
+			await Page.WaitForTimeoutAsync(500);
+			Assert.Empty(jsErrors);
+		}
+		finally
+		{
+			try { Directory.Delete(tmpDir, recursive: true); } catch (IOException) { /* best-effort cleanup */ }
+		}
+	}
+
+	[Fact]
 	public async Task HxInputFileDropZone_Hover_ShowsVisualFeedback()
 	{
 		// Arrange
