@@ -188,13 +188,37 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 	/// <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
 	/// <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
+	/// <exception cref="InvalidOperationException">Another <see cref="UploadAsync(string, string, string)"/> call is still in progress.</exception>
+	/// <exception cref="TaskCanceledException">The component was disposed before the upload completed.</exception>
 	public async Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeaderName = "RequestVerificationToken")
 	{
-		_uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
+		if (_uploadCompletedTaskCompletionSource != null)
+		{
+			throw new InvalidOperationException(nameof(UploadAsync) + " is already in progress. Wait for the previous upload to complete.");
+		}
 
-		await StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
+		var uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
+		_uploadCompletedTaskCompletionSource = uploadCompletedTaskCompletionSource;
 
-		return await _uploadCompletedTaskCompletionSource.Task;
+		try
+		{
+			await StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
+
+			if (_disposed)
+			{
+				// StartUploadAsync silently skips the upload when the component is disposed, the completion would never arrive.
+				uploadCompletedTaskCompletionSource.TrySetCanceled();
+			}
+
+			return await uploadCompletedTaskCompletionSource.Task;
+		}
+		finally
+		{
+			if (_uploadCompletedTaskCompletionSource == uploadCompletedTaskCompletionSource)
+			{
+				_uploadCompletedTaskCompletionSource = null;
+			}
+		}
 	}
 
 	/// <summary>
@@ -284,6 +308,9 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
 		_disposed = true;
+
+		// Release the caller awaiting UploadAsync, the upload completion will never arrive after dispose.
+		_uploadCompletedTaskCompletionSource?.TrySetCanceled();
 
 		// Microsoft violates the pattern - there is no protected virtual void Dispose(bool) method and the IDisposable implementation is explicit.
 		((IDisposable)this).Dispose();
