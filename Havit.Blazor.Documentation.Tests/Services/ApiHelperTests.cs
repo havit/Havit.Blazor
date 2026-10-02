@@ -151,4 +151,42 @@ public class ApiHelperTests
 		// assert
 		Assert.Equal(typeof(GridSettings), result);
 	}
+
+	[Theory]
+	[InlineData(null)]
+	[InlineData("")]
+	[InlineData("   ")]
+	[InlineData("a")]
+	[InlineData("Hx")]
+	[InlineData("Components.Web")] // namespace only, must not match on FullName
+	[InlineData("NonExistentType123")]
+	public void ApiHelper_GetType_WithIncludeTypesContainingTypeName_ReturnsNullForUnspecificInput(string typeName)
+	{
+		// act
+		Type result = ApiTypeHelper.GetType(typeName, includeTypesContainingTypeName: true);
+
+		// assert
+		Assert.Null(result);
+	}
+
+	[Fact]
+	public void ApiHelper_GetType_WithIncludeTypesContainingTypeName_IsCaseInsensitiveAndPrefersExactName()
+	{
+		// act
+		Type result = ApiTypeHelper.GetType("hxbutton", includeTypesContainingTypeName: true);
+
+		// assert
+		Assert.Equal(typeof(HxButton), result);
+	}
+
+	[Fact]
+	public void ApiHelper_GetType_WithIncludeTypesContainingTypeName_PrefersPrefixMatchOverSubstringMatch()
+	{
+		// act
+		// "InputDateSettings" is a prefix match, the shorter (and generic) "HxInputDate<TValue>" is only a substring match.
+		Type result = ApiTypeHelper.GetType("InputDate", includeTypesContainingTypeName: true);
+
+		// assert
+		Assert.Equal(typeof(InputDateSettings), result);
+	}
 }
