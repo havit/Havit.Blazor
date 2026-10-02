@@ -8,7 +8,8 @@ export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadE
 	const files = inputElement.files;
 	let totalSize = 0;
 
-	inputElement.requests = new Array();
+	// Keep requests of previous (possibly still running) uploads reachable for reset() and dispose().
+	inputElement.requests ??= new Array();
 	inputElement.cancelled = false;
 	inputElement.disposed = false;
 	if (!uploadingInputElements.has(componentKey)) {
@@ -88,6 +89,11 @@ export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadE
 		};
 		request.onreadystatechange = function () {
 			if (request.readyState === 4) {
+				const requestIndex = inputElement.requests.indexOf(request);
+				if (requestIndex >= 0) {
+					inputElement.requests.splice(requestIndex, 1);
+				}
+
 				completedUploads++;
 				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
 
@@ -120,7 +126,7 @@ export function reset(inputElementId) {
 	inputElement.cancelled = true;
 
 	if (inputElement.requests) {
-		for (const request of inputElement.requests) {
+		for (const request of [...inputElement.requests]) {
 			request.abort();
 		}
 	}
@@ -142,7 +148,7 @@ export function dispose(componentKey) {
 		inputElement.cancelled = true;
 
 		if (inputElement.requests) {
-			for (const request of inputElement.requests) {
+			for (const request of [...inputElement.requests]) {
 				request.abort();
 			}
 		}
