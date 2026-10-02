@@ -1,11 +1,26 @@
-﻿export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads, uploadHttpMethod, antiforgeryHeaderName, antiforgeryToken) {
+﻿// Input elements with an upload started, by element id.
+// Used by dispose() as the element may already be removed from the DOM when the component is being disposed.
+const uploadingInputElements = new Map();
+
+export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads, uploadHttpMethod, antiforgeryHeaderName, antiforgeryToken) {
 	const inputElement = document.getElementById(inputElementId);
-	const dotnetReference = hxInputFileDotnetObjectReference;
 	const files = inputElement.files;
 	let totalSize = 0;
 
 	inputElement.requests = new Array();
 	inputElement.cancelled = false;
+	inputElement.disposed = false;
+	uploadingInputElements.set(inputElementId, inputElement);
+
+	// Once disposed, the DotNetObjectReference is (being) disposed and must not be used anymore.
+	const dotnetReference = {
+		invokeMethodAsync: function (methodName, ...args) {
+			if (inputElement.disposed) {
+				return Promise.resolve();
+			}
+			return hxInputFileDotnetObjectReference.invokeMethodAsync(methodName, ...args);
+		}
+	};
 
 	let nextFile = maxParallelUploads;
 
@@ -111,9 +126,19 @@ export function reset(inputElementId) {
 }
 
 export function dispose(inputElementId) {
-	const inputElement = document.getElementById(inputElementId);
+	const inputElement = uploadingInputElements.get(inputElementId) ?? document.getElementById(inputElementId);
+	uploadingInputElements.delete(inputElementId);
 	if (!inputElement) {
 		return;
 	}
-	inputElement.hxInputFileDotnetObjectReference = null;
+
+	// Set the flags before aborting the requests - abort() fires onreadystatechange synchronously.
+	inputElement.disposed = true;
+	inputElement.cancelled = true;
+
+	if (inputElement.requests) {
+		for (const request of inputElement.requests) {
+			request.abort();
+		}
+	}
 }
