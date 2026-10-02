@@ -202,11 +202,14 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 
 		try
 		{
-			await StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
+			if (!_disposed)
+			{
+				await StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
+			}
 
 			if (_disposed)
 			{
-				// StartUploadAsync silently skips the upload when the component is disposed, the completion would never arrive.
+				// Disposed before or during StartUploadAsync (which silently skips the upload), the completion would never arrive.
 				uploadCompletedTaskCompletionSource.TrySetCanceled();
 			}
 

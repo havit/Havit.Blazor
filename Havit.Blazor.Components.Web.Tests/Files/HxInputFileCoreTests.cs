@@ -76,5 +76,8 @@ public class HxInputFileCoreTests : BunitTestBase
 
 		// Act + Assert
 		await Assert.ThrowsAnyAsync<OperationCanceledException>(() => cut.Instance.UploadAsync().WaitAsync(TimeSpan.FromSeconds(5), Xunit.TestContext.Current.CancellationToken));
+
+		// no JS module is imported after dispose
+		Assert.DoesNotContain(JSInterop.Invocations, invocation => invocation.Identifier == "import");
 	}
 }
