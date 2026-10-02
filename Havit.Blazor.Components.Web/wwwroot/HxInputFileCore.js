@@ -1,7 +1,24 @@
-﻿// Input elements with an upload started, by component instance key (Set of elements per component).
+﻿// Input elements with running upload requests, by component instance key (Set of elements per component).
 // Used by dispose() as the element may already be removed from the DOM when the component is being disposed
 // and the element id may have changed since the upload started.
 const uploadingInputElements = new Map();
+
+function registerUploadingInputElement(componentKey, inputElement) {
+	if (!uploadingInputElements.has(componentKey)) {
+		uploadingInputElements.set(componentKey, new Set());
+	}
+	uploadingInputElements.get(componentKey).add(inputElement);
+}
+
+function unregisterUploadingInputElement(componentKey, inputElement) {
+	const inputElements = uploadingInputElements.get(componentKey);
+	if (inputElements) {
+		inputElements.delete(inputElement);
+		if (inputElements.size === 0) {
+			uploadingInputElements.delete(componentKey);
+		}
+	}
+}
 
 export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads, uploadHttpMethod, antiforgeryHeaderName, antiforgeryToken, componentKey) {
 	const inputElement = document.getElementById(inputElementId);
@@ -12,10 +29,6 @@ export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadE
 	inputElement.requests ??= new Array();
 	inputElement.cancelled = false;
 	inputElement.disposed = false;
-	if (!uploadingInputElements.has(componentKey)) {
-		uploadingInputElements.set(componentKey, new Set());
-	}
-	uploadingInputElements.get(componentKey).add(inputElement);
 
 	// Once disposed, the DotNetObjectReference is (being) disposed and must not be used anymore.
 	const dotnetReference = {
@@ -73,6 +86,7 @@ export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadE
 
 		const request = new XMLHttpRequest();
 		inputElement.requests.push(request);
+		registerUploadingInputElement(componentKey, inputElement);
 
 		request.open(uploadHttpMethod, uploadEndpointUrl, true);
 
@@ -100,6 +114,11 @@ export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadE
 				if (nextFile < files.length) {
 					uploadFile(nextFile);
 					nextFile++;
+				}
+
+				// Do not retain the element (and its files) once all of its requests (of all uploads) are finished.
+				if (inputElement.requests.length === 0) {
+					unregisterUploadingInputElement(componentKey, inputElement);
 				}
 			};
 			if (completedUploads === files.length) {

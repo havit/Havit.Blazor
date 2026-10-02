@@ -287,6 +287,9 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	{
 		_disposed = true;
 
+		// Release callers awaiting UploadAsync() - the upload is aborted and no completion callback will arrive.
+		_uploadCompletedTaskCompletionSource?.TrySetCanceled();
+
 		// Microsoft violates the pattern - there is no protected virtual void Dispose(bool) method and the IDisposable implementation is explicit.
 		((IDisposable)this).Dispose();
 
