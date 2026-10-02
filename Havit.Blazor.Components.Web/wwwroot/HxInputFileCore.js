@@ -18,14 +18,23 @@
 
 	for (let i = 0; i < Math.min(files.length, maxParallelUploads); i++) {
 		(function (curr) {
-			uploadFile(curr);
+			startUpload(curr);
 		}(i));
 	}
 
+	// Starts the upload of the file and continues with the next files in the queue as long as they complete synchronously
+	// (rejected by the client pre-check). A loop is used instead of recursion so a long run of rejected files cannot overflow the call stack.
+	function startUpload(index) {
+		while ((index !== null) && uploadFile(index)) {
+			index = handleFileCompleted();
+		}
+	}
+
+	// Returns true when the file completed synchronously (rejected by the client pre-check), false otherwise.
 	function uploadFile(index) {
 
 		if (inputElement && inputElement.cancelled && inputElement.cancelled === true) {
-			return;
+			return false;
 		}
 
 		const file = files[index];
@@ -35,9 +44,8 @@
 			console.warn(msg);
 
 			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, 413, msg);
-			handleFileCompleted();
 
-			return;
+			return true;
 		}
 
 		if (file && file.size) {
@@ -66,28 +74,27 @@
 		request.onreadystatechange = function () {
 			if (request.readyState === 4) {
 				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
-				handleFileCompleted();
+				startUpload(handleFileCompleted());
 			}
 		}
 
 		request.send(data);
+
+		return false;
 	}
 
 	// Called once for each file when its processing finishes (uploaded, failed or rejected by the client pre-check).
-	// Starts the next file in the queue and reports the completion of the whole upload after the last file.
+	// Reports the completion of the whole upload after the last file.
+	// Returns the index of the next file to upload (reserved for the caller), or null if there is none.
 	function handleFileCompleted() {
 		completedUploads++;
 
 		if (completedUploads === files.length) {
 			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
-			return;
+			return null;
 		}
 
-		if (nextFile < files.length) {
-			// uploadFile can complete synchronously (client pre-check) and recurse back here,
-			// so nextFile must be incremented before the call and the completion must be checked first.
-			uploadFile(nextFile++);
-		}
+		return (nextFile < files.length) ? nextFile++ : null;
 	}
 }
 
