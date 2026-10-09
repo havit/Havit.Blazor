@@ -125,6 +125,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	private TaskCompletionSource<UploadCompletedEventArgs> _uploadCompletedTaskCompletionSource;
 	private ConcurrentBag<FileUploadedEventArgs> _filesUploaded;
 	private bool _disposed;
+	private readonly string _jsComponentKey = Guid.NewGuid().ToString("N"); // stable for the component lifetime (Id may change)
 
 
 	public HxInputFileCore()
@@ -174,7 +175,8 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 			MaxParallelUploadsEffective,
 			UploadHttpMethodEffective,
 			antiforgeryHeaderName,
-			antiforgeryToken);
+			antiforgeryToken,
+			_jsComponentKey);
 	}
 
 	/// <summary>
@@ -280,6 +282,9 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	{
 		_disposed = true;
 
+		// Release callers awaiting UploadAsync() - the upload is aborted and no completion callback will arrive.
+		_uploadCompletedTaskCompletionSource?.TrySetCanceled();
+
 		// Microsoft violates the pattern - there is no protected virtual void Dispose(bool) method and the IDisposable implementation is explicit.
 		((IDisposable)this).Dispose();
 
@@ -287,7 +292,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 		{
 			try
 			{
-				await _jsModule.InvokeVoidAsync("dispose", Id);
+				await _jsModule.InvokeVoidAsync("dispose", _jsComponentKey);
 				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)
