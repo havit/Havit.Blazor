@@ -51,14 +51,23 @@ export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadE
 
 	for (let i = 0; i < Math.min(files.length, maxParallelUploads); i++) {
 		(function (curr) {
-			uploadFile(curr);
+			startUpload(curr);
 		}(i));
 	}
 
+	// Starts the upload of the file and continues with the next files in the queue as long as they complete synchronously
+	// (rejected by the client pre-check). A loop is used instead of recursion so a long run of rejected files cannot overflow the call stack.
+	function startUpload(index) {
+		while ((index !== null) && uploadFile(index)) {
+			index = handleFileCompleted();
+		}
+	}
+
+	// Returns true when the file completed synchronously (rejected by the client pre-check), false otherwise.
 	function uploadFile(index) {
 
 		if (inputElement && inputElement.cancelled && inputElement.cancelled === true) {
-			return;
+			return false;
 		}
 
 		const file = files[index];
@@ -69,12 +78,7 @@ export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadE
 
 			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, 413, msg);
 
-			if (nextFile < files.length) {
-				uploadFile(nextFile);
-				nextFile++;
-			}
-
-			return;
+			return true;
 		}
 
 		if (file && file.size) {
@@ -108,26 +112,34 @@ export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadE
 					inputElement.requests.splice(requestIndex, 1);
 				}
 
-				completedUploads++;
 				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
-
-				if (nextFile < files.length) {
-					uploadFile(nextFile);
-					nextFile++;
-				}
+				startUpload(handleFileCompleted());
 
 				// Do not retain the element (and its files) once all of its requests (of all uploads) are finished.
 				if (inputElement.requests.length === 0) {
 					unregisterUploadingInputElement(componentKey, inputElement);
 				}
-			};
-			if (completedUploads === files.length) {
-				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
 			}
 		}
 
 		request.send(data);
-    }
+
+		return false;
+	}
+
+	// Called once for each file when its processing finishes (uploaded, failed or rejected by the client pre-check).
+	// Reports the completion of the whole upload after the last file.
+	// Returns the index of the next file to upload (reserved for the caller), or null if there is none.
+	function handleFileCompleted() {
+		completedUploads++;
+
+		if (completedUploads === files.length) {
+			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
+			return null;
+		}
+
+		return (nextFile < files.length) ? nextFile++ : null;
+	}
 }
 
 export function getFiles(inputElementId) {
