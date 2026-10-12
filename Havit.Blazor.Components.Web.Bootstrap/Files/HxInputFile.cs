@@ -205,6 +205,8 @@ public partial class HxInputFile : ComponentBase, ICascadeEnabledComponent, IFor
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 	/// <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
 	/// <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
+	/// <exception cref="InvalidOperationException">Another <see cref="UploadAsync(string, string, string)"/> call is still in progress.</exception>
+	/// <exception cref="TaskCanceledException">The component was disposed before the upload completed.</exception>
 	public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeaderName = "RequestVerificationToken")
 		=> _hxInputFileCoreComponentReference?.UploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
 
