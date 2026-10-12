@@ -2,6 +2,11 @@
 
 public static class ApiTypeHelper
 {
+	/// <summary>
+	/// Minimum length of the type name to search for types containing the name (to prevent returning an arbitrary type for empty or very short inputs).
+	/// </summary>
+	private const int MinimumContainingTypeNameLength = 3;
+
 	private static readonly Dictionary<string, Type> s_delegateTypes = new()
 	{
 		["AutosuggestDataProviderDelegate"] = typeof(AutosuggestDataProviderDelegate<>),
@@ -36,6 +41,11 @@ public static class ApiTypeHelper
 	public static Type GetType(string typeName, bool includeTypesContainingTypeName = false, bool preferGenericTypes = true)
 	{
 		Type result;
+
+		if (string.IsNullOrWhiteSpace(typeName))
+		{
+			return null;
+		}
 
 		// Formatting typeName.
 		int openingBracePosition = typeName.IndexOf("<");
@@ -78,23 +88,36 @@ public static class ApiTypeHelper
 			return result;
 		}
 
-		if (includeTypesContainingTypeName)
+		if (includeTypesContainingTypeName && (typeName.Trim().Length >= MinimumContainingTypeNameLength))
 		{
 			try
 			{
-				var containingTypes = typeof(HxButton).Assembly.GetTypes()
-					.Where(t => t.FullName.Contains(typeName, StringComparison.OrdinalIgnoreCase))
+				string searchedName = typeName.Trim();
+
+				// Match on the (non-generic) type name only, never on the namespace (FullName),
+				// and prefer the closest match: equality, then prefix, then substring.
+				var matchingTypes = typeof(HxButton).Assembly.GetTypes()
+					.Where(t => t.IsVisible)
+					.Select(t => new { Type = t, Name = GetNameWithoutGenericArity(t) })
+					.Select(t => new { t.Type, t.Name, Rank = GetMatchRank(t.Name, searchedName) })
+					.Where(t => t.Rank is not null)
+					.OrderBy(t => t.Rank)
+					.ThenBy(t => t.Name.Length)
+					.ThenBy(t => t.Type.FullName, StringComparer.Ordinal)
 					.ToList();
 
-				if (containingTypes.Count > 0)
+				if (matchingTypes.Count > 0)
 				{
+					int bestRank = matchingTypes[0].Rank.Value;
+					var bestMatchingTypes = matchingTypes.Where(t => t.Rank == bestRank).Select(t => t.Type).ToList();
+
 					if (preferGenericTypes)
 					{
-						result = containingTypes.FirstOrDefault(t => t.IsGenericType) ?? containingTypes[0];
+						result = bestMatchingTypes.FirstOrDefault(t => t.IsGenericType) ?? bestMatchingTypes[0];
 					}
 					else
 					{
-						result = containingTypes[0];
+						result = bestMatchingTypes[0];
 					}
 					return result;
 				}
@@ -103,6 +126,29 @@ public static class ApiTypeHelper
 		}
 
 		return null;
+	}
+
+	private static int? GetMatchRank(string candidateName, string searchedName)
+	{
+		if (candidateName.Equals(searchedName, StringComparison.OrdinalIgnoreCase))
+		{
+			return 0;
+		}
+		if (candidateName.StartsWith(searchedName, StringComparison.OrdinalIgnoreCase))
+		{
+			return 1;
+		}
+		if (candidateName.Contains(searchedName, StringComparison.OrdinalIgnoreCase))
+		{
+			return 2;
+		}
+		return null;
+	}
+
+	private static string GetNameWithoutGenericArity(Type type)
+	{
+		int backtickPosition = type.Name.IndexOf('`');
+		return (backtickPosition > 0) ? type.Name.Substring(0, backtickPosition) : type.Name;
 	}
 
 	private static void TryAddTypeCandidate(List<Type> candidates, string fullTypeName, string assemblyName)
