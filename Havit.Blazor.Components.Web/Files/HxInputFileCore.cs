@@ -183,13 +183,46 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 	/// <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
 	/// <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
+	/// <exception cref="InvalidOperationException">Another <see cref="UploadAsync(string, string, string)"/> call is still in progress.</exception>
+	/// <exception cref="TaskCanceledException">The component was disposed before the upload completed.</exception>
 	public async Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeaderName = "RequestVerificationToken")
 	{
-		_uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
+		var uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
+		if (Interlocked.CompareExchange(ref _uploadCompletedTaskCompletionSource, uploadCompletedTaskCompletionSource, null) != null)
+		{
+			throw new InvalidOperationException(nameof(UploadAsync) + " is already in progress. Wait for the previous upload to complete.");
+		}
 
-		await StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
+		try
+		{
+			if (!_disposed)
+			{
+				var startUploadTask = StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
 
-		return await _uploadCompletedTaskCompletionSource.Task;
+				// The completion source can be completed (or canceled by dispose) while the JS startup is still pending.
+				if (await Task.WhenAny(startUploadTask, uploadCompletedTaskCompletionSource.Task) == startUploadTask)
+				{
+					await startUploadTask; // propagate startup exceptions
+				}
+				else
+				{
+					// do not leave the startup failure (e.g. JSDisconnectedException after dispose) unobserved
+					_ = startUploadTask.ContinueWith(t => _ = t.Exception, CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default);
+				}
+			}
+
+			if (_disposed)
+			{
+				// Disposed before or during StartUploadAsync (which silently skips the upload), the completion would never arrive.
+				uploadCompletedTaskCompletionSource.TrySetCanceled();
+			}
+
+			return await uploadCompletedTaskCompletionSource.Task;
+		}
+		finally
+		{
+			Interlocked.CompareExchange(ref _uploadCompletedTaskCompletionSource, null, uploadCompletedTaskCompletionSource);
+		}
 	}
 
 	/// <summary>
@@ -280,6 +313,9 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	{
 		_disposed = true;
 
+		// Release the caller awaiting UploadAsync, the upload completion will never arrive after dispose.
+		_uploadCompletedTaskCompletionSource?.TrySetCanceled();
+
 		// Microsoft violates the pattern - there is no protected virtual void Dispose(bool) method and the IDisposable implementation is explicit.
 		((IDisposable)this).Dispose();
 
@@ -302,4 +338,4 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 
 		_dotnetObjectReference.Dispose();
 	}
-}
+}
