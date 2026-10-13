@@ -125,6 +125,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	private TaskCompletionSource<UploadCompletedEventArgs> _uploadCompletedTaskCompletionSource;
 	private ConcurrentBag<FileUploadedEventArgs> _filesUploaded;
 	private bool _disposed;
+	private readonly string _jsComponentKey = Guid.NewGuid().ToString("N"); // stable for the component lifetime (Id may change)
 
 
 	public HxInputFileCore()
@@ -174,7 +175,8 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 			MaxParallelUploadsEffective,
 			UploadHttpMethodEffective,
 			antiforgeryHeaderName,
-			antiforgeryToken);
+			antiforgeryToken,
+			_jsComponentKey);
 	}
 
 	/// <summary>
@@ -323,7 +325,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 		{
 			try
 			{
-				await _jsModule.InvokeVoidAsync("dispose", Id);
+				await _jsModule.InvokeVoidAsync("dispose", _jsComponentKey);
 				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)

@@ -1,11 +1,44 @@
-﻿export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads, uploadHttpMethod, antiforgeryHeaderName, antiforgeryToken) {
+﻿// Input elements with running upload requests, by component instance key (Set of elements per component).
+// Used by dispose() as the element may already be removed from the DOM when the component is being disposed
+// and the element id may have changed since the upload started.
+const uploadingInputElements = new Map();
+
+function registerUploadingInputElement(componentKey, inputElement) {
+	if (!uploadingInputElements.has(componentKey)) {
+		uploadingInputElements.set(componentKey, new Set());
+	}
+	uploadingInputElements.get(componentKey).add(inputElement);
+}
+
+function unregisterUploadingInputElement(componentKey, inputElement) {
+	const inputElements = uploadingInputElements.get(componentKey);
+	if (inputElements) {
+		inputElements.delete(inputElement);
+		if (inputElements.size === 0) {
+			uploadingInputElements.delete(componentKey);
+		}
+	}
+}
+
+export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads, uploadHttpMethod, antiforgeryHeaderName, antiforgeryToken, componentKey) {
 	const inputElement = document.getElementById(inputElementId);
-	const dotnetReference = hxInputFileDotnetObjectReference;
 	const files = inputElement.files;
 	let totalSize = 0;
 
-	inputElement.requests = new Array();
+	// Keep requests of previous (possibly still running) uploads reachable for reset() and dispose().
+	inputElement.requests ??= new Array();
 	inputElement.cancelled = false;
+	inputElement.disposed = false;
+
+	// Once disposed, the DotNetObjectReference is (being) disposed and must not be used anymore.
+	const dotnetReference = {
+		invokeMethodAsync: function (methodName, ...args) {
+			if (inputElement.disposed) {
+				return Promise.resolve();
+			}
+			return hxInputFileDotnetObjectReference.invokeMethodAsync(methodName, ...args);
+		}
+	};
 
 	let nextFile = maxParallelUploads;
 
@@ -57,6 +90,7 @@
 
 		const request = new XMLHttpRequest();
 		inputElement.requests.push(request);
+		registerUploadingInputElement(componentKey, inputElement);
 
 		request.open(uploadHttpMethod, uploadEndpointUrl, true);
 
@@ -73,8 +107,18 @@
 		};
 		request.onreadystatechange = function () {
 			if (request.readyState === 4) {
+				const requestIndex = inputElement.requests.indexOf(request);
+				if (requestIndex >= 0) {
+					inputElement.requests.splice(requestIndex, 1);
+				}
+
 				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
 				startUpload(handleFileCompleted());
+
+				// Do not retain the element (and its files) once all of its requests (of all uploads) are finished.
+				if (inputElement.requests.length === 0) {
+					unregisterUploadingInputElement(componentKey, inputElement);
+				}
 			}
 		}
 
@@ -113,7 +157,7 @@ export function reset(inputElementId) {
 	inputElement.cancelled = true;
 
 	if (inputElement.requests) {
-		for (const request of inputElement.requests) {
+		for (const request of [...inputElement.requests]) {
 			request.abort();
 		}
 	}
@@ -122,10 +166,22 @@ export function reset(inputElementId) {
 	inputElement.dispatchEvent(new Event('change'));
 }
 
-export function dispose(inputElementId) {
-	const inputElement = document.getElementById(inputElementId);
-	if (!inputElement) {
+export function dispose(componentKey) {
+	const inputElements = uploadingInputElements.get(componentKey);
+	uploadingInputElements.delete(componentKey);
+	if (!inputElements) {
 		return;
 	}
-	inputElement.hxInputFileDotnetObjectReference = null;
+
+	for (const inputElement of inputElements) {
+		// Set the flags before aborting the requests - abort() fires onreadystatechange synchronously.
+		inputElement.disposed = true;
+		inputElement.cancelled = true;
+
+		if (inputElement.requests) {
+			for (const request of [...inputElement.requests]) {
+				request.abort();
+			}
+		}
+	}
 }
