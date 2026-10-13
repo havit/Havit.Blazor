@@ -1,6 +1,7 @@
 // This file is generated from the Application Insights JS SDK TypeScript source.
 // Source: https://github.com/microsoft/ApplicationInsights-JS/blob/main/shared/AppInsightsCore/src/interfaces/ai/IFeatureOptIn.ts
 
+using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 
 namespace Havit.Blazor.ApplicationInsights.Options;
@@ -22,14 +23,14 @@ public class FeatureOptInDetails
 	/// Use flat string field names, e.g. <c>"extensionConfig.Analytics.disableAjaxTracking"</c>.
 	/// </summary>
 	[JsonPropertyName("onCfg")]
-	public IDictionary<string, object> OnCfg { get; set; }
+	public IDictionary<string, JsonNode> OnCfg { get; set; }
 
 	/// <summary>
 	/// Identifies configuration override values when the given feature is disabled.
 	/// Use flat string field names, e.g. <c>"extensionConfig.Analytics.disableAjaxTracking"</c>.
 	/// </summary>
 	[JsonPropertyName("offCfg")]
-	public IDictionary<string, object> OffCfg { get; set; }
+	public IDictionary<string, JsonNode> OffCfg { get; set; }
 
 	/// <summary>
 	/// Defines whether any changes from the CDN configuration should be blocked.
