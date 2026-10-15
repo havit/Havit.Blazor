@@ -26,9 +26,10 @@ public abstract class DictionaryStaticDataStore<TKey, TValue> : IDictionaryStati
 	protected internal abstract Func<TValue, TKey> KeySelector { get; }
 
 	/// <summary>
-	/// Indicates whether the store has valid data.
+	/// Indicates whether the store has data, i.e. whether the synchronous data-retrieval methods can be used.
+	/// The data might be stale (when <c>ShouldRefresh</c> returns <c>true</c>); it gets refreshed within the next asynchronous data-retrieval call (or <c>EnsureDataAsync</c>).
 	/// </summary>
-	public bool IsLoaded => (Data is not null) && !ShouldRefresh();
+	public bool IsLoaded => Data is not null;
 
 	/// <summary>
 	/// Template method to implement your own logic of data expiration/refresh.

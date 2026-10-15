@@ -13,7 +13,8 @@ public interface IDictionaryStaticDataStore<TKey, TValue>
 	Task EnsureDataAsync();
 
 	/// <summary>
-	/// Indicates whether the store has valid data.
+	/// Indicates whether the store has data, i.e. whether the synchronous data-retrieval methods can be used.
+	/// The data might be stale (when <c>ShouldRefresh</c> returns <c>true</c>); it gets refreshed within the next asynchronous data-retrieval call (or <c>EnsureDataAsync</c>).
 	/// </summary>
 	bool IsLoaded { get; }
 
