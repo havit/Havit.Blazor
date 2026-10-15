@@ -898,7 +898,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.IsLoaded">
             <summary>
-            Indicates whether the store has valid data.
+            Indicates whether the store has data, i.e. whether the synchronous data-retrieval methods can be used.
+            The data might be stale (when <c>ShouldRefresh</c> returns <c>true</c>); it gets refreshed within the next asynchronous data-retrieval call (or <c>EnsureDataAsync</c>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.ShouldRefresh">
@@ -971,7 +972,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.IsLoaded">
             <summary>
-            Indicates whether the store has valid data.
+            Indicates whether the store has data, i.e. whether the synchronous data-retrieval methods can be used.
+            The data might be stale (when <c>ShouldRefresh</c> returns <c>true</c>); it gets refreshed within the next asynchronous data-retrieval call (or <c>EnsureDataAsync</c>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.GetAllAsync">
@@ -1023,7 +1025,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.IsLoaded">
             <summary>
-            Indicates whether the store has valid data.
+            Indicates whether the store has data, i.e. whether the synchronous data-retrieval methods can be used.
+            The data might be stale (when <c>ShouldRefresh</c> returns <c>true</c>); it gets refreshed within the next asynchronous data-retrieval call (or <c>EnsureDataAsync</c>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.Clear">
@@ -1066,7 +1069,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.IsLoaded">
             <summary>
-            Indicates whether the store has valid data.
+            Indicates whether the store has data, i.e. whether the synchronous data-retrieval methods can be used.
+            The data might be stale (when <c>ShouldRefresh</c> returns <c>true</c>); it gets refreshed within the next asynchronous data-retrieval call (or <c>EnsureDataAsync</c>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.ShouldRefresh">
