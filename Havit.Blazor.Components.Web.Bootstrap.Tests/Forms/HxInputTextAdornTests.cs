@@ -35,6 +35,10 @@ public class HxInputTextAdornTests : BunitTestBase
 		Assert.Equal("€", adornText.TextContent);
 		Assert.Equal("true", adornText.GetAttribute("aria-hidden"));
 
+		// ...but it can be meaningful (currency, unit), so the input references it as its description
+		Assert.False(String.IsNullOrEmpty(adornText.Id));
+		Assert.Contains(adornText.Id, cut.Find("input").GetAttribute("aria-describedby").Split(' '));
+
 		var input = cut.Find("input");
 		Assert.Contains("form-ghost", input.GetAttribute("class"));
 		Assert.DoesNotContain("form-control", input.GetAttribute("class"));
@@ -65,5 +69,25 @@ public class HxInputTextAdornTests : BunitTestBase
 			.Add(p => p.LabelType, LabelType.Floating)
 			.Add(p => p.Label, "Name")
 			.Add(p => p.AdornStartText, "€")));
+	}
+
+	[Fact]
+	public void HxInputText_AdornTextsAndHint_AllReferencedInAriaDescribedBy()
+	{
+		// Act
+		var cut = Render<HxInputText>(parameters => parameters
+			.Bind(p => p.Value, "initial", _ => { })
+			.Add(p => p.AdornStartText, "https://")
+			.Add(p => p.AdornEndText, ".com")
+			.Add(p => p.Hint, "Hint"));
+
+		// Assert
+		var describedBy = cut.Find("input").GetAttribute("aria-describedby").Split(' ');
+		var adornTexts = cut.FindAll(".form-adorn-text");
+		Assert.Equal(2, adornTexts.Count);
+		Assert.Contains(adornTexts[0].Id, describedBy);
+		Assert.Contains(adornTexts[1].Id, describedBy);
+		Assert.Contains(cut.Find(".form-text").Id, describedBy);
+		Assert.DoesNotContain("", describedBy);
 	}
 }

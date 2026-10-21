@@ -346,11 +346,20 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 			builder.AddAttribute(8, "placeholder", inputWithPlaceholder.Placeholder);
 		}
 
-		string ariaDescribedBy = String.Join(" ", HintId, ValidationMessageId).Trim();
+		string ariaDescribedBy = String.Join(" ", GetAriaDescribedByIds().Where(id => !String.IsNullOrEmpty(id)));
 		if (!String.IsNullOrEmpty(ariaDescribedBy))
 		{
 			builder.AddAttribute(9, "aria-describedby", ariaDescribedBy);
 		}
+	}
+
+	/// <summary>
+	/// Returns the IDs of the elements describing the input (rendered as <c>aria-describedby</c>, empty values are skipped).
+	/// </summary>
+	private protected virtual IEnumerable<string> GetAriaDescribedByIds()
+	{
+		yield return HintId;
+		yield return ValidationMessageId;
 	}
 
 	/// <summary>

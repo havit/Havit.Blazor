@@ -210,8 +210,9 @@ public class HxFormValueComponentRenderer : ComponentBase
 			{
 				builder.OpenElement(820, "span");
 				builder.AddAttribute(821, "class", "form-adorn-text");
-				builder.AddAttribute(822, "aria-hidden", "true"); // decorative, must not join the accessible name of the input (wrapping label)
-				builder.AddContent(823, formValueComponentWithAdorns.AdornStartText);
+				builder.AddAttribute(822, "id", formValueComponentWithAdorns.AdornStartTextId); // referenced by the input aria-describedby
+				builder.AddAttribute(823, "aria-hidden", "true"); // must not join the accessible name of the input (wrapping label)
+				builder.AddContent(824, formValueComponentWithAdorns.AdornStartText);
 				builder.CloseElement(); // span.form-adorn-text
 			}
 		}
@@ -226,8 +227,9 @@ public class HxFormValueComponentRenderer : ComponentBase
 			{
 				builder.OpenElement(840, "span");
 				builder.AddAttribute(841, "class", "form-adorn-text");
-				builder.AddAttribute(842, "aria-hidden", "true"); // decorative, must not join the accessible name of the input (wrapping label)
-				builder.AddContent(843, formValueComponentWithAdorns.AdornEndText);
+				builder.AddAttribute(842, "id", formValueComponentWithAdorns.AdornEndTextId); // referenced by the input aria-describedby
+				builder.AddAttribute(843, "aria-hidden", "true"); // must not join the accessible name of the input (wrapping label)
+				builder.AddContent(844, formValueComponentWithAdorns.AdornEndText);
 				builder.CloseElement(); // span.form-adorn-text
 			}
 
