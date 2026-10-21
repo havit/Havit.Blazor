@@ -29,6 +29,19 @@ public partial class HxDialogTests
 	}
 
 	[Fact]
+	public void HxDialog_AriaLabelledByFromAdditionalAttributes_PreservedWithoutTitle()
+	{
+		// Act - heading supplied via HeaderTemplate, labelled by the caller
+		var cut = Render<HxDialog>(parameters => parameters
+			.Add(p => p.RenderMode, DialogRenderMode.Always)
+			.Add(p => p.HeaderTemplate, (Microsoft.AspNetCore.Components.RenderFragment)(b => b.AddMarkupContent(0, "<h2 id=\"custom-heading\">Custom</h2>")))
+			.AddUnmatched("aria-labelledby", "custom-heading"));
+
+		// Assert
+		Assert.Equal("custom-heading", cut.Find("dialog.dialog").GetAttribute("aria-labelledby"));
+	}
+
+	[Fact]
 	public void HxDialog_AdditionalAttributes_SplattedOnDialog()
 	{
 		// Act

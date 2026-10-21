@@ -13,15 +13,26 @@
 <HxDialog @ref="_dialog" Title="Parent Dialog">
 	<BodyTemplate>
 		<p data-testid="dialog-body-content">This is the dialog body content.</p>
+
+		@* A dialog rendered in the content of another dialog (DOM-nested) *@
+		<HxDialog @ref="_nestedDialog" Title="Nested Dialog" OnClosed="() => _nestedClosedCount++">
+			<BodyTemplate>
+				<p>Nested dialog content.</p>
+			</BodyTemplate>
+		</HxDialog>
+		<span data-testid="nested-closed-count">@_nestedClosedCount</span>
 	</BodyTemplate>
 	<FooterTemplate>
 		<HxButton data-testid="toast-button" OnClick="HandleToastClick" Color="ThemeColor.Secondary">Show toast</HxButton>
+		<HxButton data-testid="nested-button" OnClick="() => _nestedDialog.ShowAsync()" Color="ThemeColor.Secondary">Nested dialog</HxButton>
 		<HxButton data-testid="confirm-button" OnClick="HandleConfirmClick" Color="ThemeColor.Primary">Confirm</HxButton>
 	</FooterTemplate>
 </HxDialog>
 
 @code {
 	private HxDialog _dialog;
+	private HxDialog _nestedDialog;
+	private int _nestedClosedCount;
 	private string _confirmResult;
 
 	private void HandleToastClick()

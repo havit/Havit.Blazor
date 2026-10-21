@@ -29,6 +29,12 @@ export function init(element, hxToastDotnetObjectReference) {
 	}
 
 	element.classList.remove('hx-toast-init');
+
+	// The container might have been rendered after the modal dialog opened (no show.bs.* event since then).
+	const container = element.closest('.hx-toast-container-fixed');
+	if (container && document.querySelector('dialog:modal')) {
+		raiseToastContainer(container, true);
+	}
 }
 
 function handleToastHidden(event) {
@@ -55,17 +61,24 @@ export function dispose(element) {
 // The container stays in the normal document (position: fixed) until then, so the toasts work without JavaScript as well (static SSR).
 function raiseToastContainers() {
 	for (const container of document.querySelectorAll('.hx-toast-container-fixed')) {
-		if (typeof container.showPopover !== 'function') {
-			return; // popover API not supported
-		}
-		if (!container.hasAttribute('popover')) {
-			container.setAttribute('popover', 'manual');
-		}
-		if (container.matches(':popover-open')) {
-			container.hidePopover();
-		}
-		container.showPopover();
+		raiseToastContainer(container, false);
 	}
+}
+
+function raiseToastContainer(container, skipWhenRaised) {
+	if (typeof container.showPopover !== 'function') {
+		return; // popover API not supported
+	}
+	if (!container.hasAttribute('popover')) {
+		container.setAttribute('popover', 'manual');
+	}
+	if (container.matches(':popover-open')) {
+		if (skipWhenRaised) {
+			return;
+		}
+		container.hidePopover();
+	}
+	container.showPopover();
 }
 
 function handleDialogShow() {

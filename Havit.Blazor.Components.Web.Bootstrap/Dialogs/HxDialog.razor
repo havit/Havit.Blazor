@@ -1,9 +1,10 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
+@* aria-labelledby precedes @attributes, so a caller-supplied value (e.g. for a heading in HeaderTemplate) wins *@
 <dialog @ref="_dialogElement"
+        aria-labelledby="@(String.IsNullOrEmpty(Title) ? null : _titleId)"
         @attributes="AdditionalAttributes"
         class="@CssClassHelper.Combine("hx-dialog dialog", GetSizeCssClass(), GetFullscreenCssClass(), GetScrollableCssClass(), GetAnimationCssClass(), CssClassEffective)"
-        aria-labelledby="@(String.IsNullOrEmpty(Title) ? null : _titleId)"
         data-bs-backdrop="@GetBackdropSetupValue(BackdropEffective)"
         data-bs-modal="@(NonModalEffective ? "false" : null)">
 	@if (_opened || (RenderMode == DialogRenderMode.Always))

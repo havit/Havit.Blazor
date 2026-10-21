@@ -48,4 +48,26 @@ public class HxDialog_Stacking_Tests : TestAppTestBase
 		await Expect(parentDialog).ToBeVisibleAsync();
 		await Expect(Page.Locator("html.dialog-open")).ToHaveCountAsync(1);
 	}
+
+	[Fact]
+	public async Task HxDialog_NestedInDialogContent_ClosesWithoutAffectingParent()
+	{
+		// Arrange
+		await NavigateToTestAppAsync("/HxDialog_Stacking");
+		await Page.Locator("[data-testid='open-button']").ClickAsync();
+		var parentDialog = Page.Locator("dialog.dialog:has-text('Parent Dialog')").First;
+		await Expect(parentDialog).ToBeVisibleAsync(new() { Timeout = 10_000 });
+
+		// Act - open the dialog nested in the parent's content and close it
+		await Page.Locator("[data-testid='nested-button']").ClickAsync();
+		var nestedDialog = Page.Locator("dialog.dialog:has-text('Nested dialog content.')").Last;
+		await Expect(nestedDialog).ToBeVisibleAsync(new() { Timeout = 10_000 });
+		await nestedDialog.Locator(".dialog-header .btn-close").ClickAsync();
+
+		// Assert - the nested dialog's events are handled once (not again by the parent's listeners), the parent stays open
+		await Expect(nestedDialog).Not.ToBeVisibleAsync(new() { Timeout = 10_000 });
+		await Expect(Page.Locator("[data-testid='nested-closed-count']")).ToHaveTextAsync("1");
+		await Expect(parentDialog).ToBeVisibleAsync();
+		await Expect(Page.Locator("dialog[open]")).ToHaveCountAsync(1);
+	}
 }

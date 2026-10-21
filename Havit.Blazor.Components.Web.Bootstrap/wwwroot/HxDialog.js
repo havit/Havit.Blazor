@@ -80,11 +80,19 @@ function observeOverflow(element) {
 }
 
 function handleDialogShown(event) {
+	if (event.target !== event.currentTarget) {
+		return; // bubbled from a nested dialog (rendered in the content of this one)
+	}
+
 	event.target.classList.remove('dialog-swap-in');
 	event.target.hxDialogDotnetObjectReference.invokeMethodAsync('HxDialog_HandleDialogShown');
 }
 
 async function handleDialogHide(event) {
+	if (event.target !== event.currentTarget) {
+		return; // bubbled from a nested dialog (rendered in the content of this one)
+	}
+
 	const dialogInstance = bootstrap.Dialog.getInstance(event.target);
 
 	if (dialogInstance.hidePreventionDisabled || event.target.hxDialogDisposing) {
@@ -103,10 +111,18 @@ async function handleDialogHide(event) {
 }
 
 function handleDialogHidePrevented(event) {
+	if (event.target !== event.currentTarget) {
+		return; // bubbled from a nested dialog (rendered in the content of this one)
+	}
+
 	event.target.hxDialogDotnetObjectReference.invokeMethodAsync('HxDialog_HandleDialogHidePrevented');
 }
 
 function handleDialogHidden(event) {
+	if (event.target !== event.currentTarget) {
+		return; // bubbled from a nested dialog (rendered in the content of this one)
+	}
+
 	event.target.hxDialogHiding = false;
 	event.target.classList.remove('hx-dialog-swap-out');
 	event.target.hxDialogResizeObserver?.disconnect();

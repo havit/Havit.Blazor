@@ -1,10 +1,11 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
+@* aria-labelledby precedes @attributes, so a caller-supplied value (e.g. for a heading in HeaderTemplate) wins *@
 <dialog @ref="_drawerElement"
+     aria-labelledby="@(String.IsNullOrEmpty(Title) ? null : _titleId)"
      @attributes="AdditionalAttributes"
      class="@CssClassHelper.Combine(GetDrawerResponsiveCssClass(), GetPlacementCssClass(), GetSizeCssClass(), SheetEffective ? "drawer-sheet" : null, InstantEffective ? "drawer-instant" : null, TranslucentEffective ? "drawer-translucent" : null, CssClassEffective)"
      tabindex="-1"
-     aria-labelledby="@(String.IsNullOrEmpty(Title) ? null : _titleId)"
      data-bs-backdrop="@GetBackdropSetupValue(BackdropEffective)">
     @if (_opened || (RenderMode == DrawerRenderMode.Always) || (ResponsiveBreakpointEffective != DrawerResponsiveBreakpoint.None))
     {

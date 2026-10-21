@@ -53,10 +53,18 @@ export function hide(element) {
 }
 
 function handleDrawerShown(event) {
+	if (event.target !== event.currentTarget) {
+		return; // bubbled from a nested drawer (rendered in the content of this one)
+	}
+
 	event.target.hxDrawerDotnetObjectReference.invokeMethodAsync('HxDrawer_HandleDrawerShown');
 }
 
 async function handleDrawerHide(event) {
+	if (event.target !== event.currentTarget) {
+		return; // bubbled from a nested drawer (rendered in the content of this one)
+	}
+
 	const o = bootstrap.Drawer.getInstance(event.target);
 
 	if (o.hidePreventionDisabled || event.target.hxDrawerDisposing) {
@@ -75,10 +83,18 @@ async function handleDrawerHide(event) {
 };
 
 function handleDrawerHidePrevented(event) {
+	if (event.target !== event.currentTarget) {
+		return; // bubbled from a nested drawer (rendered in the content of this one)
+	}
+
 	event.target.hxDrawerDotnetObjectReference.invokeMethodAsync('HxDrawer_HandleDrawerHidePrevented');
 }
 
 function handleDrawerHidden(event) {
+	if (event.target !== event.currentTarget) {
+		return; // bubbled from a nested drawer (rendered in the content of this one)
+	}
+
 	event.target.hxDrawerHiding = false;
 
 	if (event.target === window.drawerElement) {

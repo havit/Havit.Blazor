@@ -123,6 +123,35 @@ public class HxDrawerTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxDrawer_AriaLabelledByFromAdditionalAttributes_PreservedWithoutTitle()
+	{
+		// Act - heading supplied via HeaderTemplate, labelled by the caller
+		var cut = Render<HxDrawer>(p => p
+			.Add(o => o.RenderMode, DrawerRenderMode.Always)
+			.Add(o => o.HeaderTemplate, (RenderFragment)(b => b.AddMarkupContent(0, "<h2 id=\"custom-heading\">Custom</h2>")))
+			.AddUnmatched("aria-labelledby", "custom-heading"));
+
+		// Assert
+		Assert.Equal("custom-heading", cut.Find("dialog.drawer").GetAttribute("aria-labelledby"));
+	}
+
+	[Fact]
+	public void HxNavbarDrawer_PlacementFullscreen_RendersDrawerFullscreen()
+	{
+		// Act
+		var cut = Render<HxNavbar>(p => p
+			.Add(o => o.ChildContent, (RenderFragment)(b =>
+			{
+				b.OpenComponent<HxNavbarDrawer>(0);
+				b.AddAttribute(1, nameof(HxNavbarDrawer.Placement), DrawerPlacement.Fullscreen);
+				b.CloseComponent();
+			})));
+
+		// Assert
+		Assert.Contains("drawer-fullscreen", cut.Find("dialog.drawer").ClassList);
+	}
+
+	[Fact]
 	public void HxDrawer_Variants_RenderCssClasses()
 	{
 		// Act
