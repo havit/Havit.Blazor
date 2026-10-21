@@ -26,4 +26,5 @@ Bootstrap Toast component. Not intended to be used in user code, use `HxMessenge
 ## Available demo samples
 
 - HxToast_Demo.razor
+- HxToast_Demo_Placement.razor
 

@@ -50,9 +50,9 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	[Parameter] public string UploadUrl { get; set; }
 
 	/// <summary>
-	/// HTTP Method (verb) used for file upload. The default is <c>POST</c>.
+	/// HTTP Method (verb) used for file upload. The default is <c>POST</c> (taken from <see cref="HxInputFileCore.Defaults"/>).
 	/// </summary>
-	[Parameter] public string UploadHttpMethod { get; set; } = "POST";
+	[Parameter] public string UploadHttpMethod { get; set; }
 	protected string UploadHttpMethodEffective => UploadHttpMethod ?? GetSettings()?.UploadHttpMethod ?? GetDefaults().UploadHttpMethod ?? throw new InvalidOperationException(nameof(UploadHttpMethod) + " default for " + nameof(HxInputFileCore) + " has to be set.");
 
 	/// <summary>
@@ -120,16 +120,12 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-	/// <summary>
-	/// The last known count of associated files.
-	/// </summary>
-	public int FileCount { get; private set; }
-
 	private DotNetObjectReference<HxInputFileCore> _dotnetObjectReference;
 	private IJSObjectReference _jsModule;
 	private TaskCompletionSource<UploadCompletedEventArgs> _uploadCompletedTaskCompletionSource;
 	private ConcurrentBag<FileUploadedEventArgs> _filesUploaded;
 	private bool _disposed;
+	private readonly string _jsComponentKey = Guid.NewGuid().ToString("N"); // stable for the component lifetime (Id may change)
 
 
 	public HxInputFileCore()
@@ -179,7 +175,8 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 			MaxParallelUploadsEffective,
 			UploadHttpMethodEffective,
 			antiforgeryHeaderName,
-			antiforgeryToken);
+			antiforgeryToken,
+			_jsComponentKey);
 	}
 
 	/// <summary>
@@ -188,13 +185,46 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 	/// <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
 	/// <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
+	/// <exception cref="InvalidOperationException">Another <see cref="UploadAsync(string, string, string)"/> call is still in progress.</exception>
+	/// <exception cref="TaskCanceledException">The component was disposed before the upload completed.</exception>
 	public async Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeaderName = "RequestVerificationToken")
 	{
-		_uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
+		var uploadCompletedTaskCompletionSource = new TaskCompletionSource<UploadCompletedEventArgs>();
+		if (Interlocked.CompareExchange(ref _uploadCompletedTaskCompletionSource, uploadCompletedTaskCompletionSource, null) != null)
+		{
+			throw new InvalidOperationException(nameof(UploadAsync) + " is already in progress. Wait for the previous upload to complete.");
+		}
 
-		await StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
+		try
+		{
+			if (!_disposed)
+			{
+				var startUploadTask = StartUploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
 
-		return await _uploadCompletedTaskCompletionSource.Task;
+				// The completion source can be completed (or canceled by dispose) while the JS startup is still pending.
+				if (await Task.WhenAny(startUploadTask, uploadCompletedTaskCompletionSource.Task) == startUploadTask)
+				{
+					await startUploadTask; // propagate startup exceptions
+				}
+				else
+				{
+					// do not leave the startup failure (e.g. JSDisconnectedException after dispose) unobserved
+					_ = startUploadTask.ContinueWith(t => _ = t.Exception, CancellationToken.None, TaskContinuationOptions.OnlyOnFaulted, TaskScheduler.Default);
+				}
+			}
+
+			if (_disposed)
+			{
+				// Disposed before or during StartUploadAsync (which silently skips the upload), the completion would never arrive.
+				uploadCompletedTaskCompletionSource.TrySetCanceled();
+			}
+
+			return await uploadCompletedTaskCompletionSource.Task;
+		}
+		finally
+		{
+			Interlocked.CompareExchange(ref _uploadCompletedTaskCompletionSource, null, uploadCompletedTaskCompletionSource);
+		}
 	}
 
 	/// <summary>
@@ -285,6 +315,9 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 	{
 		_disposed = true;
 
+		// Release the caller awaiting UploadAsync, the upload completion will never arrive after dispose.
+		_uploadCompletedTaskCompletionSource?.TrySetCanceled();
+
 		// Microsoft violates the pattern - there is no protected virtual void Dispose(bool) method and the IDisposable implementation is explicit.
 		((IDisposable)this).Dispose();
 
@@ -292,7 +325,7 @@ public class HxInputFileCore : InputFile, IAsyncDisposable
 		{
 			try
 			{
-				await _jsModule.InvokeVoidAsync("dispose", Id);
+				await _jsModule.InvokeVoidAsync("dispose", _jsComponentKey);
 				await _jsModule.DisposeAsync();
 			}
 			catch (JSDisconnectedException)

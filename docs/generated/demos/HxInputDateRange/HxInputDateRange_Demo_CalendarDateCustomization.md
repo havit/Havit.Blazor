@@ -15,7 +15,7 @@
 				return new CalendarDateCustomizationResult()
 				{
 					Enabled = false,
-					CssClass = "text-danger"
+					CssClass = "fg-danger"
 				};
 			}
 		}
@@ -26,7 +26,7 @@
 				return new CalendarDateCustomizationResult()
 				{
 					Enabled = false,
-					CssClass = "text-warning"
+					CssClass = "fg-warning"
 				};
 			}
 		}

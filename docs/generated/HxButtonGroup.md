@@ -1,6 +1,6 @@
 ﻿# HxButtonGroup
 
-Bootstrap Button groups.
+Groups related `HxButton` controls into a single visual block, with support for sizing, nesting, and vertical stacking (Bootstrap Button groups).
 
 ## Parameters
 

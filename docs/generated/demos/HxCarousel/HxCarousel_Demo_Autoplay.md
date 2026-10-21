@@ -1,7 +1,7 @@
-﻿# HxCarousel_Demo_TouchSwiping.razor
+﻿# HxCarousel_Demo_Autoplay.razor
 
 ```razor
-<HxCarousel Controls="true" TouchSwiping="false">
+<HxCarousel Autoplay="true" Controls="true" Indicators="true" PlayPauseControl="true">
 	<HxCarouselItem Active="true">
 		<DemoImage Text="First Slide" Color="#666" />
 	</HxCarouselItem>

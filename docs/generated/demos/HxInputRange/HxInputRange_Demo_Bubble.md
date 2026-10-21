@@ -1,0 +1,12 @@
+﻿# HxInputRange_Demo_Bubble.razor
+
+```razor
+<HxInputRange @bind-Value="value" Label="Brightness" Min="0" Max="100" Bubble="true" BindEvent="BindEvent.OnInput" />
+
+@value
+
+@code {
+    private float value = 60;
+}
+
+```

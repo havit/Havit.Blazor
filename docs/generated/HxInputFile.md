@@ -20,14 +20,8 @@ Wraps `HxInputFileCore` as a Bootstrap form control (including `Label` etc.)
 | MaxParallelUploads | `int?` | Maximum number of concurrent uploads. The default is `6` (from `HxInputFileCore`). |
 | Multiple | `bool` | Single `false` or multiple `true` files upload. |
 | Settings | `InputFileSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
-| UploadHttpMethod | `string` | HTTP Method (verb) used for file upload. The default is `POST`. |
+| UploadHttpMethod | `string` | HTTP Method (verb) used for file upload. The default is `POST` (taken from `HxInputFileCore.Defaults`). |
 | UploadUrl | `string` | URL of the server endpoint receiving the files. |
-
-## Properties
-
-| Name | Type | Description |
-|------|------|-------------|
-| FileCount | `int` | Last known count of associated files. |
 
 ## Event callbacks
 

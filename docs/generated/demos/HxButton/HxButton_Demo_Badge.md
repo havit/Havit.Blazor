@@ -2,7 +2,7 @@
 
 ```razor
 <HxButton Color="ThemeColor.Primary">
-    Send all <span class="badge bg-secondary">15</span>
+    Send all <HxBadge Color="ThemeColor.Primary" Variant="BadgeVariant.Subtle" Type="BadgeType.RoundedPill">15</HxBadge>
 </HxButton>
 
 ```

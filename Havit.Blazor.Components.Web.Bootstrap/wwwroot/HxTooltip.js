@@ -40,6 +40,9 @@ export function disable(element) {
 export function setContent(element, newContent) {
 	const i = bootstrap.Tooltip.getInstance(element);
 	if (i) {
+		// #1541 Bootstrap's setContent() does not update the title config which drives _isWithContent(),
+		// a tooltip initialized with an empty title would never show (and vice versa).
+		i._config.title = newContent['.tooltip-inner'] ?? '';
 		i.setContent(newContent);
 	}
 }

@@ -12,12 +12,19 @@ on:
       timezone: "Europe/Prague"
   workflow_dispatch:
 
+permissions:
+  contents: read
+  actions: read
+  checks: write
+  pull-requests: write
+  packages: read
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-2025-vs2026
     steps:
     - name: Checkout sources
-      uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
       with:
         path: s
         #ref: ${{ (github.event_name == 'schedule' && inputs.scheduled-build-ref) || '' }} # scheduled build always checks out the main branch (default)
@@ -61,7 +68,7 @@ jobs:
       id: playwright-cache
       uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
       with:
-        path: ~/.cache/ms-playwright
+        path: ~\AppData\Local\ms-playwright
         key: playwright-${{ runner.os }}-${{ hashFiles('s/Directory.Packages.props') }}
 
     - name: Install Playwright browsers
@@ -80,7 +87,7 @@ jobs:
       run: dotnet test --no-build -c Release --verbosity normal --report-trx --results-directory ${{ runner.temp }}/test-results --ignore-exit-code "1;8"
 
     - name: Publish test report
-      if: ${{ steps.run-unit-tests.conclusion == 'success' || steps.run-unit-tests.conclusion == 'failure' }}
+      if: ${{ !cancelled() && steps.run-unit-tests.conclusion != 'skipped' }}
       uses: jirikanda/test-reporter@dbe114e2028c31b2946d2c74aeb4bf26910b54f0 # fork of dorny/test-reporter that can strip paths from TRX file names in the report
       with:
         name: Test Report

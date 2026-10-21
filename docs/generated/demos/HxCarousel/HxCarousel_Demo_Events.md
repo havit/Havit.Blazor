@@ -1,7 +1,7 @@
 ﻿# HxCarousel_Demo_Events.razor
 
 ```razor
-<HxCarousel Controls="true" OnSlide="IncrementSlideCount" Interval="1000">
+<HxCarousel Controls="true" Autoplay="true" OnSlide="IncrementSlideCount" Interval="1000">
 	<HxCarouselItem Active="true">
 		<DemoImage Text="First Slide" Color="#666" />
 	</HxCarouselItem>

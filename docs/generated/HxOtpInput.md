@@ -24,7 +24,7 @@ Bootstrap OTP input component (new in Bootstrap 6). Connected input fields for o
 | Mask | `bool?` | When `true`, the inputs render as `type="password"` fields to hide the entered values. The default is `false`. |
 | Separator | `string` | The separator text rendered between the groups of inputs (`GroupSize`). The default is `–` (en dash). |
 | Settings | `OtpInputSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in `Defaults`. |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `string` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<string>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<string>>` | An expression that identifies the bound value. |

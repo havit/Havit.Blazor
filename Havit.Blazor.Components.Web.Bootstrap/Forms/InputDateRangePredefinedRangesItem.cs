@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Item for <see cref="HxInputDateRange.PredefinedDateRanges" />.
+/// Item for <see cref="HxInputDateRange{TValue}.PredefinedDateRanges" />.
 /// </summary>
 public class InputDateRangePredefinedRangesItem
 {
@@ -16,7 +16,7 @@ public class InputDateRangePredefinedRangesItem
 	public Type ResourceType { get; set; }
 
 	/// <summary>
-	/// Date range.
+	/// Date range. Converted internally when the input is bound to DateOnlyRange.
 	/// </summary>
 	public DateTimeRange DateRange { get; set; }
 }

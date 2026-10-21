@@ -1,19 +1,24 @@
 ﻿# HxInputNumber
 
-Numeric input.
+Numeric input field for whole numbers or decimals, with configurable input mode, HTML input type, and select-on-focus behavior.
 
 ## Parameters
 
 | Name | Type | Description |
 |------|------|-------------|
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
+| AdornCssClass | `string` | Custom CSS class to be rendered with the `form-adorn` wrapper. |
+| AdornEndTemplate | `RenderFragment` | Adornment (typically an icon) at the end of the input. |
+| AdornEndText | `string` | Text adornment at the end of the input. |
+| AdornStartTemplate | `RenderFragment` | Adornment (typically an icon) at the beginning of the input. |
+| AdornStartText | `string` | Text adornment at the beginning of the input. |
 | BindEvent | `BindEvent` | Input event used to bind the Value. Default is OnChange. |
 | ChipTemplate | `RenderFragment` | The chip template. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | Decimals | `int?` | Gets or sets the number of decimal digits. Can be used only for floating point types, for integer types throws exception (for values other than 0). When not set, 2 decimal digits are used. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
-| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading . When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use . |
-| GenerateChip | `bool` | When `true`, ` is used to generate chip item(s). The default is true`. |
+| Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading `FormState`. When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use HxFormState. |
+| GenerateChip | `bool` | When `true`, `HxChipGenerator` is used to generate chip item(s). The default is `true`. |
 | Hint | `string` | The hint to render after the input as form-text. |
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
@@ -34,7 +39,7 @@ Numeric input.
 | SmartKeyboard | `bool?` | When enabled, the input may provide an optimized keyboard experience for numeric entry. Currently, this means whenever a minus key is pressed, the sign of the number is toggled. Default is `true`. |
 | SmartPaste | `bool?` | When enabled, pasted values are normalized to contain only valid numeric characters. Default is `true`. |
 | Type | `InputType?` | Allows switching between textual and numeric input types. Only `InputType.Text` (default) and `InputType.Number` are supported. |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in . |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<TValue>>` | An expression that identifies the bound value. |

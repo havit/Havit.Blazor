@@ -1,11 +1,11 @@
 ﻿# HxNavbar_Demo_Text.razor
 
 ```razor
-<HxNavbar CssClass="bg-body-tertiary">
+<HxNavbar CssClass="bg-1">
 	<HxNavbarText>Navbar text with an inline element</HxNavbarText>
 </HxNavbar>
 
-<HxNavbar CssClass="bg-body-tertiary mt-3">
+<HxNavbar CssClass="bg-1 mt-3">
 	<HxNavbarBrand>Navbar w/ text</HxNavbarBrand>
 	<HxNavbarToggler />
 	<HxNavbarDrawer>

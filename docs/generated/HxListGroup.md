@@ -19,6 +19,7 @@ Bootstrap 5 List group component. List groups are a flexible and powerful compon
 - HxListGroup_Demo_ActiveAndDisabled.razor
 - HxListGroup_Demo_Badges.razor
 - HxListGroup_Demo_Buttons.razor
+- HxListGroup_Demo_CheckboxesAndRadios.razor
 - HxListGroup_Demo_Colors.razor
 - HxListGroup_Demo_CustomContent.razor
 - HxListGroup_Demo_Flush.razor
@@ -26,4 +27,5 @@ Bootstrap 5 List group component. List groups are a flexible and powerful compon
 - HxListGroup_Demo_Links.razor
 - HxListGroup_Demo_Numbered.razor
 - HxListGroup_Demo_NumberedCustomContent.razor
+- HxListGroup_Demo_Responsive.razor
 
