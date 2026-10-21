@@ -7,6 +7,8 @@
 				   class="@GetCssClasses()"
 				   ActiveClass="@(((Match is null) || (Href is null)) ? String.Empty : "active")"
 				   role="@(OnClick.HasDelegate ? "button" : null)"
+				   aria-current="@(Active ? "true" : null)"
+				   aria-disabled="@(CascadeEnabledComponent.EnabledEffective(this) ? null : "true")"
 				   @attributes="this.AdditionalAttributes">
 	@Text
 	@ChildContent

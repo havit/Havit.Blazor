@@ -60,4 +60,48 @@ public class HxListGroupTests : BunitTestBase
 		Assert.False(items[0].ClassList.Contains("active"), "First item should not have 'active' class");
 		Assert.True(items[1].ClassList.Contains("active"), "Second item should have 'active' class");
 	}
+
+	[Fact]
+	public void HxListGroupItem_ActiveAndDisabled_RendersAriaAttributesAsTrue()
+	{
+		// Act
+		var cut = Render<HxListGroup>(parameters => parameters
+			.AddChildContent<HxListGroupItem>(item => item
+				.AddChildContent("Default item"))
+			.AddChildContent<HxListGroupItem>(item => item
+				.Add(i => i.Active, true)
+				.Add(i => i.Enabled, false)
+				.AddChildContent("Active disabled item"))
+		);
+
+		// Assert
+		var items = cut.FindAll(".list-group-item");
+		Assert.False(items[0].HasAttribute("aria-current"));
+		Assert.False(items[0].HasAttribute("aria-disabled"));
+		Assert.Equal("true", items[1].GetAttribute("aria-current"));
+		Assert.Equal("true", items[1].GetAttribute("aria-disabled"));
+	}
+
+	[Fact]
+	public void HxListGroupItemNavLink_ActiveAndDisabled_RendersAriaAttributesAsTrue()
+	{
+		// Act
+		var cut = Render<HxListGroup>(parameters => parameters
+			.AddChildContent<HxListGroupItemNavLink>(item => item
+				.Add(i => i.Href, "/first")
+				.Add(i => i.Text, "Default item"))
+			.AddChildContent<HxListGroupItemNavLink>(item => item
+				.Add(i => i.Href, "/second")
+				.Add(i => i.Active, true)
+				.Add(i => i.Enabled, false)
+				.Add(i => i.Text, "Active disabled item"))
+		);
+
+		// Assert
+		var items = cut.FindAll(".list-group-item");
+		Assert.False(items[0].HasAttribute("aria-current"));
+		Assert.False(items[0].HasAttribute("aria-disabled"));
+		Assert.Equal("true", items[1].GetAttribute("aria-current"));
+		Assert.Equal("true", items[1].GetAttribute("aria-disabled"));
+	}
 }
