@@ -103,6 +103,22 @@ public class HxOtpInputTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxOtpInput_Render_NullSeparator_PassesEmptySeparatorToJs()
+	{
+		// Arrange
+		var model = new TestModel();
+
+		// Act
+		Render(CreateOtpInputRenderer(model, (builder) =>
+		{
+			builder.AddAttribute(10, nameof(HxOtpInput.Separator), (string)null);
+		}));
+
+		// Assert
+		Assert.Equal(String.Empty, GetJsInitializeOptions().GetProperty("separator").GetString());
+	}
+
+	[Fact]
 	public void HxOtpInput_Render_NoGroupSize_PassesNullGroupsToJs()
 	{
 		// Arrange

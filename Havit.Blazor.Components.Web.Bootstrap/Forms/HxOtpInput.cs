@@ -197,7 +197,7 @@ public class HxOtpInput : HxInputBase<string>, IAsyncDisposable
 				length = LengthEffective,
 				mask = MaskEffective,
 				groups = (GroupSize is null) ? null : new[] { GroupSize.Value }, // Bootstrap repeats the last group size
-				separator = Separator
+				separator = Separator ?? String.Empty // Bootstrap rejects null (the option has to be a string)
 			};
 			await _jsModule.InvokeVoidAsync("initialize", _otpInputElement, _dotnetObjectReference, options, _jsValue);
 		}
