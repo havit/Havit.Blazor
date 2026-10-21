@@ -20,10 +20,13 @@ public class HxNavOverflowTests : BunitTestBase
 			)
 		);
 
-		// Assert
-		var nav = cut.Find("nav");
+		// Assert - Bootstrap 6 structure: the .nav is wrapped in a .nav-overflow element
+		// (JavaScript adds nav-overflow-initialized to the wrapper once the items are distributed)
+		var wrapper = cut.Find("div.nav-overflow");
+		Assert.False(wrapper.ClassList.Contains("nav-overflow-initialized"));
+		var nav = cut.Find("div.nav-overflow > nav");
 		Assert.True(nav.ClassList.Contains("nav"));
-		Assert.True(nav.ClassList.Contains("nav-overflow"));
+		Assert.False(nav.ClassList.Contains("nav-overflow"));
 
 		// nav copy of the items
 		var navLinks = cut.FindAll("nav > a.nav-link");

@@ -1,0 +1,13 @@
+@page "/HxNavOverflow"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<h4>HxNavOverflow E2E Tests</h4>
+
+<div style="width: 360px;" data-testid="nav-overflow-container">
+	<HxNavOverflow data-testid="nav-overflow-nav">
+		@for (int i = 1; i <= 8; i++)
+		{
+			<HxNavLink Href="@($"#item{i}")" Text="@($"Item number {i}")" />
+		}
+	</HxNavOverflow>
+</div>

@@ -1,6 +1,14 @@
 ﻿const overflowAttribute = 'data-bs-nav-overflow'; // styled by Bootstrap (.nav-overflow [data-bs-nav-overflow="true"] { display: none; })
 const keepCssClass = 'nav-overflow-keep';
+const initializedCssClass = 'nav-overflow-initialized'; // Bootstrap clips and hides the nav until the wrapper gets this class
 const widthBuffer = 10; // safety buffer in px (mirrors the Bootstrap NavOverflow plugin)
+
+// The element is the .nav, Bootstrap 6 wraps it in a .nav-overflow element which is measured instead of the nav
+// (collapsing items changes the width of the nav).
+function getWrapper(element) {
+	const parent = element.parentElement;
+	return parent?.classList.contains('nav-overflow') ? parent : element;
+}
 
 export function initialize(element, hxNavOverflowDotnetObjectReference, options) {
 	if (!element) {
@@ -18,7 +26,7 @@ export function initialize(element, hxNavOverflowDotnetObjectReference, options)
 
 		if (typeof ResizeObserver !== 'undefined') {
 			state.resizeObserver = new ResizeObserver(() => recalculate(element));
-			state.resizeObserver.observe(element);
+			state.resizeObserver.observe(getWrapper(element));
 		}
 		else {
 			// fallback for older browsers
@@ -119,7 +127,9 @@ function recalculate(element) {
 	}
 	moreItem.removeAttribute(overflowAttribute);
 
-	const navWidth = element.offsetWidth;
+	const wrapper = getWrapper(element);
+	const wrapperStyle = getComputedStyle(wrapper);
+	const navWidth = wrapper.clientWidth - (Number.parseFloat(wrapperStyle.paddingInlineStart) || 0) - (Number.parseFloat(wrapperStyle.paddingInlineEnd) || 0);
 	const collapseBelow = resolveCollapseBelow(state.options?.collapseBelow);
 	const minimumVisibleItems = state.options?.minimumVisibleItems ?? 0;
 
@@ -176,6 +186,11 @@ function recalculate(element) {
 
 	if (overflowingItems.length === 0) {
 		moreItem.setAttribute(overflowAttribute, 'true');
+	}
+
+	// reveal the nav once the items are distributed (no flash of overflowing items)
+	if (!wrapper.classList.contains(initializedCssClass)) {
+		wrapper.classList.add(initializedCssClass);
 	}
 
 	if (state.lastOverflowCount !== overflowingItems.length) {
