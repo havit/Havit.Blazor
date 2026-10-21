@@ -28,6 +28,16 @@ internal static class MenuToggleExtensions
 		return null;
 	}
 
+	internal static string GetMenuDataBsStrategy(this IHxMenuToggle toggle)
+	{
+		return toggle.MenuStrategy switch
+		{
+			FloatingStrategy.Absolute => null, // Bootstrap default
+			FloatingStrategy.Fixed => "fixed",
+			_ => throw new InvalidOperationException($"Unknown {nameof(FloatingStrategy)} value {toggle.MenuStrategy}.")
+		};
+	}
+
 	private static bool IsKnownMenuReference(string menuReference)
 	{
 		return (menuReference is not null)

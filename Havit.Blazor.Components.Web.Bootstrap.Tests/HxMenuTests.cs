@@ -278,4 +278,66 @@ public class HxMenuTests : BunitTestBase
 		Assert.Equal(2, submenus.Count);
 		Assert.Contains("Deep item", cut.Markup);
 	}
+
+	[Fact]
+	public void HxMenuToggleElement_DefaultMenuStrategy_DoesNotRenderDataBsStrategy()
+	{
+		// Act
+		var cut = Render<HxMenu>(p => p
+			.Add<HxMenuToggleElement>(m => m.Toggle, toggle => toggle
+				.AddChildContent("Toggle"))
+			.Add(m => m.Content, "Content"));
+
+		// Assert
+		var toggle = cut.Find("[data-bs-toggle='menu']");
+		Assert.False(toggle.HasAttribute("data-bs-strategy"));
+	}
+
+	[Fact]
+	public void HxMenuToggleElement_MenuStrategyFixed_RendersDataBsStrategy()
+	{
+		// Act
+		var cut = Render<HxMenu>(p => p
+			.Add<HxMenuToggleElement>(m => m.Toggle, toggle => toggle
+				.Add(t => t.MenuStrategy, FloatingStrategy.Fixed)
+				.AddChildContent("Toggle"))
+			.Add(m => m.Content, "Content"));
+
+		// Assert
+		var toggle = cut.Find("[data-bs-toggle='menu']");
+		Assert.Equal("fixed", toggle.GetAttribute("data-bs-strategy"));
+	}
+
+	[Fact]
+	public void HxMenuToggleButton_MenuStrategyFixed_RendersDataBsStrategy()
+	{
+		// Act
+		var cut = Render<HxMenu>(p => p
+			.Add<HxMenuToggleButton>(m => m.Toggle, toggle => toggle
+				.Add(t => t.MenuStrategy, FloatingStrategy.Fixed)
+				.Add(t => t.Text, "Toggle"))
+			.Add(m => m.Content, "Content"));
+
+		// Assert
+		var toggle = cut.Find("button[data-bs-toggle='menu']");
+		Assert.Equal("fixed", toggle.GetAttribute("data-bs-strategy"));
+	}
+
+	[Theory]
+	[InlineData("parent", "parent")]
+	[InlineData("toggle", "toggle")]
+	[InlineData("#my-reference", null)]
+	public void HxMenuToggleButton_MenuReference_RendersDataBsReference(string menuReference, string expectedAttributeValue)
+	{
+		// Act
+		var cut = Render<HxMenu>(p => p
+			.Add<HxMenuToggleButton>(m => m.Toggle, toggle => toggle
+				.Add(t => t.MenuReference, menuReference)
+				.Add(t => t.Text, "Toggle"))
+			.Add(m => m.Content, "Content"));
+
+		// Assert
+		var toggle = cut.Find("button[data-bs-toggle='menu']");
+		Assert.Equal(expectedAttributeValue, toggle.GetAttribute("data-bs-reference"));
+	}
 }

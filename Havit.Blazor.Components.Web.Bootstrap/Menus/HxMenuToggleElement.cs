@@ -23,6 +23,12 @@ public class HxMenuToggleElement : ComponentBase, IHxMenuToggle, IAsyncDisposabl
 	[Parameter] public string MenuReference { get; set; }
 
 	/// <summary>
+	/// Floating UI positioning strategy of the menu. Default is <see cref="FloatingStrategy.Absolute"/>.
+	/// Use <see cref="FloatingStrategy.Fixed"/> when the menu gets clipped by an ancestor with <c>overflow: hidden</c> (e.g. a scrollable container or a table).
+	/// </summary>
+	[Parameter] public FloatingStrategy MenuStrategy { get; set; } = FloatingStrategy.Absolute;
+
+	/// <summary>
 	/// Offset <c>(<see href="https://floating-ui.com/docs/offset#options">skidding</see>, <see href="https://floating-ui.com/docs/offset#options">distance</see>)</c>
 	/// of the menu relative to its target. Default is <c>(0, 2)</c>.
 	/// </summary>
@@ -153,6 +159,7 @@ public class HxMenuToggleElement : ComponentBase, IHxMenuToggle, IAsyncDisposabl
 			builder.AddAttribute(6, "data-bs-placement", dataBsPlacement);
 		}
 		builder.AddAttribute(7, "class", GetCssClass());
+		builder.AddAttribute(8, "data-bs-strategy", MenuToggleExtensions.GetMenuDataBsStrategy(this));
 
 		if (String.Equals(ElementName, "input", StringComparison.OrdinalIgnoreCase))
 		{

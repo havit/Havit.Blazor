@@ -82,6 +82,8 @@
 		<p>
 			You can change the location of the menu by setting the <code>@nameof(HxMenuToggleButton).@nameof(HxMenuToggleButton.MenuOffset)</code>
 			and/or <code>@nameof(HxMenuToggleButton).@nameof(HxMenuToggleButton.MenuReference)</code>.
+			If the menu gets clipped by an ancestor with <code>overflow: hidden</code>, set
+			<code>@nameof(HxMenuToggleButton.MenuStrategy)="FloatingStrategy.Fixed"</code> (Floating UI <code>strategy</code> option).
 		</p>
 		<Demo Type="typeof(HxMenu_Demo_OffsetAndReference)" />
 

@@ -38,6 +38,12 @@ public class HxMenuToggleButton : HxButton, IAsyncDisposable, IHxMenuToggle
 	[Parameter] public string MenuReference { get; set; }
 
 	/// <summary>
+	/// Floating UI positioning strategy of the menu. Default is <see cref="FloatingStrategy.Absolute"/>.
+	/// Use <see cref="FloatingStrategy.Fixed"/> when the menu gets clipped by an ancestor with <c>overflow: hidden</c> (e.g. a scrollable container or a table).
+	/// </summary>
+	[Parameter] public FloatingStrategy MenuStrategy { get; set; } = FloatingStrategy.Absolute;
+
+	/// <summary>
 	/// Fired when the menu has been made visible to the user and CSS transitions have completed.
 	/// </summary>
 	[Parameter] public EventCallback OnShown { get; set; }
@@ -137,6 +143,7 @@ public class HxMenuToggleButton : HxButton, IAsyncDisposable, IHxMenuToggle
 		}
 
 		AdditionalAttributes["data-bs-reference"] = MenuToggleExtensions.GetMenuDataBsReference(this);
+		AdditionalAttributes["data-bs-strategy"] = MenuToggleExtensions.GetMenuDataBsStrategy(this);
 
 		string dataBsPlacement = ResponsivePlacementEffective ?? ((PlacementEffective != MenuPlacement.BottomStart) ? PlacementEffective.ToDataBsPlacement() : null);
 		if (dataBsPlacement is not null)
