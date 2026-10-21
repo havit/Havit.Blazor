@@ -35,16 +35,25 @@ export function update(element, options) {
 	}
 
 	const dOld = bootstrap.Menu.getInstance(element);
+	const wasShown = dOld?._isShown() ?? false;
 	if (dOld) {
 		dOld.dispose();
 	}
 
+	let d;
 	if (options) {
 		prepareOptions(options);
-		new bootstrap.Menu(element, options);
+		d = new bootstrap.Menu(element, options);
 	}
 	else {
-		new bootstrap.Menu(element);
+		d = new bootstrap.Menu(element);
+	}
+
+	if (wasShown) {
+		// dispose() stops the positioning and forgets the open instance, but the .show classes stay (show() would return early).
+		// Re-establish the positioning (with the new config) and the outside-click closing without raising show/shown again.
+		d._createFloating();
+		bootstrap.Menu._openInstances.add(d);
 	}
 }
 

@@ -102,6 +102,7 @@ public class HxMenuToggleButton : HxButton, IAsyncDisposable, IHxMenuToggle
 	private DotNetObjectReference<HxMenuToggleButton> _dotnetObjectReference;
 	private IJSObjectReference _jsModule;
 	private string _currentMenuReference;
+	private FloatingStrategy _currentMenuStrategy;
 	private Queue<Func<Task>> _onAfterRenderTasksQueue = new();
 	private bool _disposed;
 
@@ -173,14 +174,16 @@ public class HxMenuToggleButton : HxButton, IAsyncDisposable, IHxMenuToggle
 				return;
 			}
 			_currentMenuReference = MenuReference;
+			_currentMenuStrategy = MenuStrategy;
 			await _jsModule.InvokeVoidAsync("create", buttonElementReference, _dotnetObjectReference, GetMenuJsOptions(menuJsOptionsReference), OnHiding.HasDelegate);
 		}
 		else
 		{
-			// Bootstrap reads the data-bs-reference attribute only when the instance is created => re-create it on any reference change.
-			if (MenuReference != _currentMenuReference)
+			// Bootstrap reads the data-bs-reference/data-bs-strategy attributes only when the instance is created => re-create it on any change.
+			if ((MenuReference != _currentMenuReference) || (MenuStrategy != _currentMenuStrategy))
 			{
 				_currentMenuReference = MenuReference;
+				_currentMenuStrategy = MenuStrategy;
 				if (_jsModule is not null)
 				{
 					await _jsModule.InvokeVoidAsync("update", buttonElementReference, GetMenuJsOptions(menuJsOptionsReference));
