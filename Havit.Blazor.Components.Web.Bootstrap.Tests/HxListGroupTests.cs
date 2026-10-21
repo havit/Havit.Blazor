@@ -83,7 +83,7 @@ public class HxListGroupTests : BunitTestBase
 	}
 
 	[Fact]
-	public void HxListGroupItemNavLink_ActiveAndDisabled_RendersAriaAttributesAsTrue()
+	public void HxListGroupItemNavLink_ActiveAndDisabled_RendersAriaCurrentPageAndAriaDisabled()
 	{
 		// Act
 		var cut = Render<HxListGroup>(parameters => parameters
@@ -101,7 +101,8 @@ public class HxListGroupTests : BunitTestBase
 		var items = cut.FindAll(".list-group-item");
 		Assert.False(items[0].HasAttribute("aria-current"));
 		Assert.False(items[0].HasAttribute("aria-disabled"));
-		Assert.Equal("true", items[1].GetAttribute("aria-current"));
+		// the active NavLink item links to the current page (HxNavLinkInternal renders aria-current="page" like the base NavLink)
+		Assert.Equal("page", items[1].GetAttribute("aria-current"));
 		Assert.Equal("true", items[1].GetAttribute("aria-disabled"));
 	}
 
