@@ -45,7 +45,7 @@ public partial class HxSpinner
 		return Size switch
 		{
 			SpinnerSize.Regular => null,
-			SpinnerSize.Small => GetSpinnerTypeCssClass() + "-sm",
+			SpinnerSize.Small => "spinner-sm",
 			_ => throw new InvalidOperationException($"Unknown {nameof(SpinnerSize)}: {Size}.")
 		};
 	}

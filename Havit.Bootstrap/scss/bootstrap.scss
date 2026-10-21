@@ -22,3 +22,14 @@
 [data-bs-theme] {
   @include bs-tokens.tokens(bootstrap.$root-tokens);
 }
+
+// HAVIT fix: small grow spinner (HxSpinner Type=Grow, Size=Small).
+// Bootstrap 6 declares `.spinner-sm` before `.spinner-grow` with the same specificity, so the size tokens
+// of `.spinner-grow` win and `.spinner-grow.spinner-sm` renders at full size (`.spinner-border.spinner-sm` works).
+// Same values as Bootstrap's `.spinner-sm`; remove once fixed upstream (still present in twbs/bootstrap main).
+@layer components {
+  .spinner-grow.spinner-sm {
+    --spinner-width: .75em;
+    --spinner-height: .75em;
+  }
+}

@@ -18713,4 +18713,11 @@
   --bs-z-toast: 1070;
 }
 
+@layer components {
+  .spinner-grow.spinner-sm {
+    --bs-spinner-width: .75em;
+    --bs-spinner-height: .75em;
+  }
+}
+
 /*# sourceMappingURL=bootstrap.css.map */
