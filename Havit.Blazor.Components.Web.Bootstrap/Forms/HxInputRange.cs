@@ -81,6 +81,13 @@ public class HxInputRange<TValue> : HxInputBase<TValue>, IAsyncDisposable
 	protected virtual bool BubbleEffective => Bubble ?? GetSettings()?.Bubble ?? GetDefaults()?.Bubble ?? throw new InvalidOperationException(nameof(Bubble) + " default for " + nameof(HxInputRange<TValue>) + " has to be set.");
 
 	/// <summary>
+	/// Theme color of the filled track and the thumb (renders the <c>theme-*</c> class on the <c>.form-range</c> wrapper).<br />
+	/// The default is <see cref="ThemeColor.None"/> (the Bootstrap default, primary).
+	/// </summary>
+	[Parameter] public ThemeColor? Color { get; set; }
+	protected virtual ThemeColor ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults()?.Color ?? throw new InvalidOperationException(nameof(Color) + " default for " + nameof(HxInputRange<TValue>) + " has to be set.");
+
+	/// <summary>
 	/// Tick marks rendered along the track from a linked <c>&lt;datalist&gt;</c>. Each tick is positioned at its
 	/// <see cref="InputRangeTick.Value"/> (even when the values are unevenly spaced) and an optional
 	/// <see cref="InputRangeTick.Label"/> is shown beneath it.
@@ -125,7 +132,7 @@ public class HxInputRange<TValue> : HxInputBase<TValue>, IAsyncDisposable
 
 		// .form-range wrapper - owns the component tokens and the JS-driven --bs-range-fill custom property
 		builder.OpenElement(1, "div");
-		builder.AddAttribute(2, "class", "form-range");
+		builder.AddAttribute(2, "class", CssClassHelper.Combine("form-range", (ColorEffective != ThemeColor.None) ? ColorEffective.ToThemeCss() : null));
 		builder.AddElementReferenceCapture(3, value => _rangeElement = value);
 
 		// .form-range-input

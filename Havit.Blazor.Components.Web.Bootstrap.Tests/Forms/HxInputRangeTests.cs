@@ -125,4 +125,57 @@ public class HxInputRangeTests : BunitTestBase
 		Assert.Empty(cut.FindAll("datalist"));
 		Assert.Null(cut.Find("input[type=range]").GetAttribute("list"));
 	}
+
+	[Fact]
+	public void HxInputRange_Default_RendersFormRangeWithoutThemeClass()
+	{
+		// Arrange
+		int currentValue = 50;
+
+		// Act
+		var cut = Render<HxInputRange<int>>(parameters => parameters
+			.Add(p => p.Min, 0)
+			.Add(p => p.Max, 100)
+			.Bind(p => p.Value, currentValue, newValue => currentValue = newValue));
+
+		// Assert
+		var formRange = cut.Find("div.form-range");
+		Assert.DoesNotContain(formRange.ClassList, cssClass => cssClass.StartsWith("theme-"));
+	}
+
+	[Fact]
+	public void HxInputRange_Color_RendersThemeClassOnFormRange()
+	{
+		// Arrange
+		int currentValue = 50;
+
+		// Act
+		var cut = Render<HxInputRange<int>>(parameters => parameters
+			.Add(p => p.Min, 0)
+			.Add(p => p.Max, 100)
+			.Bind(p => p.Value, currentValue, newValue => currentValue = newValue)
+			.Add(p => p.Color, ThemeColor.Success));
+
+		// Assert
+		var formRange = cut.Find("div.form-range");
+		Assert.True(formRange.ClassList.Contains("theme-success"));
+		Assert.False(cut.Find("input[type=range]").ClassList.Contains("theme-success"));
+	}
+
+	[Fact]
+	public void HxInputRange_SettingsColor_RendersThemeClassOnFormRange()
+	{
+		// Arrange
+		int currentValue = 50;
+
+		// Act
+		var cut = Render<HxInputRange<int>>(parameters => parameters
+			.Add(p => p.Min, 0)
+			.Add(p => p.Max, 100)
+			.Bind(p => p.Value, currentValue, newValue => currentValue = newValue)
+			.Add(p => p.Settings, new InputRangeSettings { Color = ThemeColor.Danger }));
+
+		// Assert
+		Assert.True(cut.Find("div.form-range").ClassList.Contains("theme-danger"));
+	}
 }
