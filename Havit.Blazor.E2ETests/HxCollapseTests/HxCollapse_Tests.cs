@@ -56,6 +56,17 @@ public class HxCollapse_Tests : TestAppTestBase
 	}
 
 	[Fact]
+	public async Task HxCollapse_ShowAsyncBeforeInitialization_ShowsContent()
+	{
+		// Arrange & Act - the test page calls ShowAsync() before HxCollapse finishes its JS initialization
+		await NavigateToTestAppAsync("/HxCollapse_ShowBeforeInit");
+
+		// Assert - the deferred request is applied once the collapse is initialized
+		var content = Page.Locator("[data-testid='show-before-init-content']");
+		await Expect(content).ToBeVisibleAsync(new() { Timeout = 5_000 });
+	}
+
+	[Fact]
 	public async Task HxCollapse_MultipleShowCalls_DoesNotBreak()
 	{
 		// Arrange - navigate to the test page

@@ -1,4 +1,4 @@
-﻿export function initialize(element, hxCollapseDotnetObjectReference, shouldToggle) {
+﻿export function initialize(element, hxCollapseDotnetObjectReference, shouldShow) {
 	if (!element) {
 		return;
 	}
@@ -9,9 +9,12 @@
 	element.addEventListener('hide.bs.collapse', handleCollapseHide);
 	element.addEventListener('hidden.bs.collapse', handleCollapseHidden);
 
-	const c = new bootstrap.Collapse(element, {
-		toggle: shouldToggle,
-	});
+	const c = new bootstrap.Collapse(element);
+
+	// Bootstrap 6 removed the "toggle" option (which showed the collapse on initialization), so show it explicitly.
+	if (shouldShow) {
+		c.show();
+	}
 }
 
 export function show(element) {
