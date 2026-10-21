@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
@@ -126,6 +127,8 @@ public partial class HxCarousel : IAsyncDisposable
 	protected virtual Task InvokeOnSlidAsync(CarouselSlideEventArgs eventArgs) => OnSlid.InvokeAsync(eventArgs);
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
+
+	[Inject] protected IStringLocalizer<HxCarousel> Localizer { get; set; }
 
 
 	private IJSObjectReference _jsModule;
