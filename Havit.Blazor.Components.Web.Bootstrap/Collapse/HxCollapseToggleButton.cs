@@ -18,7 +18,7 @@ public class HxCollapseToggleButton : HxButton, IHxCollapseToggle
 		// which manipulates some of the parameters
 		AdditionalAttributes ??= new Dictionary<string, object>();
 		AdditionalAttributes["data-bs-toggle"] = "collapse";
-		AdditionalAttributes["aria-expanded"] = false;
+		AdditionalAttributes["aria-expanded"] = "false"; // string, Blazor drops a false bool attribute (the Bootstrap collapse updates the value on toggle)
 
 		if (!String.IsNullOrWhiteSpace(CollapseTarget))
 		{
