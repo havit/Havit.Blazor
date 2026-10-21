@@ -156,6 +156,40 @@ public class HxInputTextTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxInputText_ValidationState_RendersAriaInvalid()
+	{
+		// Arrange
+		var model = new RequiredFormData { Name = "initial" };
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<EditForm>(0);
+			builder.AddAttribute(1, "Model", model);
+			builder.AddAttribute(2, "ChildContent", (RenderFragment<EditContext>)((context) => (builder2) =>
+			{
+				builder2.OpenComponent<DataAnnotationsValidator>(0);
+				builder2.CloseComponent();
+
+				builder2.OpenComponent<HxInputText>(1);
+				builder2.AddAttribute(2, "Value", model.Name);
+				builder2.AddAttribute(3, "ValueChanged", EventCallback.Factory.Create<string>(this, (value) => { model.Name = value; }));
+				builder2.AddAttribute(4, "ValueExpression", (Expression<Func<string>>)(() => model.Name));
+				builder2.CloseComponent();
+			}));
+			builder.CloseComponent();
+		};
+
+		var cut = Render(componentRenderer);
+		Assert.False(cut.Find("input").HasAttribute("aria-invalid"));
+
+		// Act
+		cut.Find("input").Change("");
+
+		// Assert
+		Assert.Equal("true", cut.Find("input").GetAttribute("aria-invalid"));
+	}
+
+	[Fact]
 	public void HxInputText_ClearInput_ResetsValue()
 	{
 		// Arrange
