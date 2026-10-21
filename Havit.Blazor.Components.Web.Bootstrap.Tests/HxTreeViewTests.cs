@@ -285,4 +285,33 @@ public class HxTreeViewTests : BunitTestBase
 		Assert.Equal("Root1", selectedTitle.TextContent);
 		Assert.DoesNotContain(JSInterop.Invocations, i => i.Identifier.EndsWith("show"));
 	}
+
+	[Fact]
+	public void HxTreeView_Render_HasTreeAndGroupRolesAndExpanderState()
+	{
+		// Arrange & Act
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
+			.Add(p => p.Items, CreateTestData())
+			.Add(p => p.ItemTitleSelector, item => item.Title)
+			.Add(p => p.ItemChildrenSelector, item => item.Children)
+			.Add(p => p.ItemInitialExpandedSelector, item => item.Title == "Root1")
+		);
+
+		// Assert - every treeitem is owned by a tree or a group
+		var treeView = cut.Find(".hx-tree-view");
+		Assert.Equal("tree", treeView.GetAttribute("role"));
+		var treeItems = cut.FindAll("[role=treeitem]");
+		Assert.Equal(5, treeItems.Count);
+		Assert.All(treeItems, treeItem => Assert.Contains(treeItem.ParentElement.GetAttribute("role"), new[] { "tree", "group" }));
+		Assert.All(cut.FindAll(".collapse"), collapse => Assert.Equal("group", collapse.GetAttribute("role")));
+
+		// Assert - expander state is driven by aria-expanded (the chevron CSS keys on it), no collapsed class
+		var expanders = cut.FindAll(".hx-tree-view-item-expander");
+		Assert.Equal(2, expanders.Count); // Root1, Child1B
+		Assert.Equal("true", expanders[0].GetAttribute("aria-expanded"));
+		Assert.Equal("Collapse", expanders[0].GetAttribute("aria-label"));
+		Assert.Equal("false", expanders[1].GetAttribute("aria-expanded"));
+		Assert.Equal("Expand", expanders[1].GetAttribute("aria-label"));
+		Assert.All(expanders, expander => Assert.False(expander.ClassList.Contains("collapsed")));
+	}
 }
