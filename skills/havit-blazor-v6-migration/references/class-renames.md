@@ -48,7 +48,7 @@ Rule: `{utility}-{bp}-{value}` → `{bp}:{utility}-{value}`; breakpoint name `xx
 | `text-{color}-emphasis` | `fg-emphasis-{color}` |
 | `bg-{color}-subtle` | `bg-subtle-{color}` |
 | `border-{color}-subtle` | `border-subtle-{color}` |
-| `text-bg-{color}` | on a component that reads theme tokens (`badge`, `alert`, `btn-*`, `card`, `list-group-item`, ...): `theme-{color}` (HAVIT's choice). On a plain element: `bg-{color} fg-contrast-{color}` (upstream's replacement) — `theme-{color}` alone only sets `--bs-theme-*` tokens and paints nothing there |
+| `text-bg-{color}` | on a `badge`: `theme-{color}` (HAVIT's choice; the badge paints `--bs-theme-bg` + `--bs-theme-contrast`). Everywhere else — plain elements **and regular `card`s**: `bg-{color} fg-contrast-{color}` (upstream's replacement). `theme-{color}` alone only sets `--bs-theme-*` tokens: a plain element paints nothing, a regular `card` only tints its border (its fill stays `--bs-card-bg`), and `alert`/`list-group-item` get the subtle fill, not a solid one |
 | `bg-light` | adaptive `bg-1` / `bg-2` (follows color mode), or `bg-white` for a fixed light surface |
 | `bg-dark` | `bg-black` (pure black, darker than v5's gray), or `data-bs-theme="dark"` + `bg-body` (no exact shade match) |
 | `text-light` / `text-dark` | fixed `fg-white` / `fg-black`, or adaptive `fg-body` inside a `data-bs-theme` scope (upstream has no row for these — by analogy with `bg-light`/`bg-dark`; choose by intent) |
