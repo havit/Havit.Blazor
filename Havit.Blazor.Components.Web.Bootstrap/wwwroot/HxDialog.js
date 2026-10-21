@@ -1,17 +1,11 @@
-﻿export function show(element, hxDialogDotnetObjectReference, closeOnEscape, subscribeToHideEvent) {
-	if (window.dialogElement) {
-		const previousDialog = bootstrap.Dialog.getInstance(window.dialogElement);
-		if (previousDialog) {
-			previousDialog.hide();
-		}
-	}
-
+﻿export function show(element, hxDialogDotnetObjectReference, closeOnEscape, subscribeToHideEvent, subscribeToHidePreventedEvent) {
 	if (!element) {
 		return;
 	}
 
 	// Remove old listeners to prevent duplicates when show() is called multiple times
 	element.removeEventListener('hide.bs.dialog', handleDialogHide);
+	element.removeEventListener('hidePrevented.bs.dialog', handleDialogHidePrevented);
 	element.removeEventListener('hidden.bs.dialog', handleDialogHidden);
 	element.removeEventListener('shown.bs.dialog', handleDialogShown);
 
@@ -19,17 +13,31 @@
 	if (subscribeToHideEvent) {
 		element.addEventListener('hide.bs.dialog', handleDialogHide);
 	}
+	if (subscribeToHidePreventedEvent) {
+		element.addEventListener('hidePrevented.bs.dialog', handleDialogHidePrevented);
+	}
 	element.addEventListener('hidden.bs.dialog', handleDialogHidden);
 	element.addEventListener('shown.bs.dialog', handleDialogShown);
-	window.dialogElement = element;
 
-	let dialog = bootstrap.Dialog.getInstance(element);
-	if (!dialog) {
-		dialog = new bootstrap.Dialog(element, {
-			keyboard: closeOnEscape
-		});
+	// Bootstrap reads the configuration (incl. data-bs-backdrop and data-bs-modal) only in the constructor.
+	// The dialog is closed here, so we always create a fresh instance to apply the current settings.
+	bootstrap.Dialog.getInstance(element)?.dispose();
+	const dialog = new bootstrap.Dialog(element, {
+		keyboard: closeOnEscape
+	});
+
+	// Dialogs stack (native top layer). When the current dialog is just hiding (HideAsync() followed by ShowAsync() of another dialog),
+	// swap them the Bootstrap way: the new dialog's backdrop starts fully visible and the hiding dialog drops its own backdrop,
+	// so the backdrop does not flicker.
+	const hidingDialog = document.querySelector('dialog.hx-dialog.hiding:modal');
+	if (hidingDialog && (element.dataset.bsModal !== 'false')) {
+		hidingDialog.classList.add('hx-dialog-swap-out');
+		element.classList.add('dialog-swap-in');
 	}
+
 	dialog.show();
+
+	observeOverflow(element);
 }
 
 export function hide(element) {
@@ -43,7 +51,36 @@ export function hide(element) {
 	}
 }
 
+// Bootstrap 6 dialogs are overflow: visible (so dropdowns, tooltips etc. are not clipped) and the page cannot scroll behind a modal dialog.
+// For non-scrollable dialogs whose content does not fit the viewport, we let the whole dialog scroll (.hx-dialog-overflow).
+function observeOverflow(element) {
+	element.hxDialogResizeObserver?.disconnect();
+	element.hxDialogResizeObserver = null;
+
+	if (element.classList.contains('dialog-scrollable') || (typeof ResizeObserver === 'undefined')) {
+		element.classList.remove('hx-dialog-overflow');
+		return;
+	}
+
+	const update = () => {
+		// Sum of the sections (header, body, footer) - unlike scrollHeight, it is not affected by absolutely positioned content (dropdowns).
+		let contentHeight = 0;
+		for (const child of element.children) {
+			contentHeight += child.offsetHeight;
+		}
+		element.classList.toggle('hx-dialog-overflow', contentHeight > element.clientHeight + 1);
+	};
+
+	const resizeObserver = new ResizeObserver(update);
+	resizeObserver.observe(element);
+	for (const child of element.children) {
+		resizeObserver.observe(child);
+	}
+	element.hxDialogResizeObserver = resizeObserver;
+}
+
 function handleDialogShown(event) {
+	event.target.classList.remove('dialog-swap-in');
 	event.target.hxDialogDotnetObjectReference.invokeMethodAsync('HxDialog_HandleDialogShown');
 }
 
@@ -55,22 +92,25 @@ async function handleDialogHide(event) {
 		return;
 	}
 
-    event.preventDefault();
+	event.preventDefault();
 
 	const cancel = await event.target.hxDialogDotnetObjectReference.invokeMethodAsync('HxDialog_HandleDialogHide');
-    if (!cancel) {
+	if (!cancel) {
 		dialogInstance.hidePreventionDisabled = true;
 		event.target.hxDialogHiding = true;
 		dialogInstance.hide();
-    }
+	}
+}
+
+function handleDialogHidePrevented(event) {
+	event.target.hxDialogDotnetObjectReference.invokeMethodAsync('HxDialog_HandleDialogHidePrevented');
 }
 
 function handleDialogHidden(event) {
 	event.target.hxDialogHiding = false;
-
-	if (event.target === window.dialogElement) {
-		window.dialogElement = null;
-	}
+	event.target.classList.remove('hx-dialog-swap-out');
+	event.target.hxDialogResizeObserver?.disconnect();
+	event.target.hxDialogResizeObserver = null;
 
 	if (event.target.hxDialogDisposing) {
 		// fix for #110 where the dispose() gets called while the dialog is still in hiding-transition
@@ -104,16 +144,15 @@ export function dispose(element, opened) {
 	}
 
 	element.removeEventListener('hide.bs.dialog', handleDialogHide);
+	element.removeEventListener('hidePrevented.bs.dialog', handleDialogHidePrevented);
 	element.removeEventListener('hidden.bs.dialog', handleDialogHidden);
 	element.removeEventListener('shown.bs.dialog', handleDialogShown);
 	element.hxDialogDotnetObjectReference = null;
+	element.hxDialogResizeObserver?.disconnect();
+	element.hxDialogResizeObserver = null;
 
 	const dialog = bootstrap.Dialog.getInstance(element);
 	if (dialog) {
 		dialog.dispose();
-	}
-
-	if (element === window.dialogElement) { // another dialog might be already open
-		window.dialogElement = null;
 	}
 }

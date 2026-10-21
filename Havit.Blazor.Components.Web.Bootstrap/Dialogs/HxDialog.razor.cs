@@ -128,7 +128,10 @@ public partial class HxDialog : IAsyncDisposable
 	protected DialogBackdrop BackdropEffective => Backdrop ?? GetSettings()?.Backdrop ?? GetDefaults().Backdrop ?? throw new InvalidOperationException(nameof(Backdrop) + " default for " + nameof(HxDialog) + " has to be set.");
 
 	/// <summary>
-	/// Allows scrolling the dialog body. Default is <c>false</c>.
+	/// When <c>true</c>, only the dialog body scrolls (the header and footer stay visible) and the dialog always fits the viewport.
+	/// When <c>false</c>, the dialog content is not clipped (e.g. dropdowns can overflow the dialog); if the content does not fit the viewport,
+	/// the whole dialog scrolls.
+	/// Default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool? Scrollable { get; set; }
 	protected bool ScrollableEffective => Scrollable ?? GetSettings()?.Scrollable ?? GetDefaults().Scrollable ?? throw new InvalidOperationException(nameof(Scrollable) + " default for " + nameof(HxDialog) + " has to be set.");
@@ -145,6 +148,11 @@ public partial class HxDialog : IAsyncDisposable
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
+
+	/// <summary>
+	/// Additional attributes to be splatted onto the underlying <c>&lt;dialog&gt;</c> element (e.g. <c>data-bs-theme</c>).
+	/// </summary>
+	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
 	/// <summary>
 	/// Additional header CSS class (<c>div.dialog-header</c>).
@@ -174,6 +182,15 @@ public partial class HxDialog : IAsyncDisposable
 	/// The <code>hide.bs.dialog</code> event is only subscribed to when the <see cref="OnHiding"/> callback is set.
 	/// </remarks>
 	[Parameter] public EventCallback<DialogHidingEventArgs> OnHiding { get; set; }
+
+	/// <summary>
+	/// Fired when the dialog refuses to close, i.e. on a click on the <see cref="DialogBackdrop.Static"/> backdrop
+	/// or on <kbd>Esc</kbd> with <see cref="CloseOnEscape"/> set to <c>false</c> (Bootstrap <c>hidePrevented.bs.dialog</c> event).
+	/// </summary>
+	/// <remarks>
+	/// The <code>hidePrevented.bs.dialog</code> event is only subscribed to when the <see cref="OnHidePrevented"/> callback is set.
+	/// </remarks>
+	[Parameter] public EventCallback OnHidePrevented { get; set; }
 
 	/// <summary>
 	/// Fired when the dialog has finished hiding from the user, after CSS transitions complete.
@@ -206,13 +223,13 @@ public partial class HxDialog : IAsyncDisposable
 	// is in progress. This means a rapid sequence like HideAsync → ShowAsync → HideAsync can lose operations.
 	// We compensate by tracking the transition state on the C# side and deferring the next operation until the current
 	// transition completes (via shown.bs.dialog / hidden.bs.dialog callbacks).
-	// Note: HxOffcanvas does NOT need this — Bootstrap Offcanvas does not check _isTransitioning,
-	// so rapid sequences are handled correctly by Bootstrap itself.
+	// HxDrawer uses the same compensation (Bootstrap Drawer shares the DialogBase implementation).
 	private bool _transitionInProgress;
 	private PendingOperation _pendingOperation = PendingOperation.None;
 
 	private DotNetObjectReference<HxDialog> _dotnetObjectReference;
 	private ElementReference _dialogElement;
+	private string _titleId = "hx" + Guid.NewGuid().ToString("N");
 	private IJSObjectReference _jsModule;
 	private Queue<Func<Task>> _onAfterRenderTasksQueue = new();
 	private bool _disposed;
@@ -255,7 +272,7 @@ public partial class HxDialog : IAsyncDisposable
 				return;
 			}
 
-			await _jsModule.InvokeVoidAsync("show", _dialogElement, _dotnetObjectReference, CloseOnEscapeEffective, OnHiding.HasDelegate);
+			await _jsModule.InvokeVoidAsync("show", _dialogElement, _dotnetObjectReference, CloseOnEscapeEffective, OnHiding.HasDelegate, OnHidePrevented.HasDelegate);
 		});
 		_opened = true; // mark dialog as opened
 
@@ -334,6 +351,12 @@ public partial class HxDialog : IAsyncDisposable
 
 		return eventArgs.Cancel;
 	}
+
+	/// <summary>
+	/// Receives notification from JS for <c>hidePrevented.bs.dialog</c> event.
+	/// </summary>
+	[JSInvokable("HxDialog_HandleDialogHidePrevented")]
+	public Task HandleDialogHidePrevented() => OnHidePrevented.InvokeAsync();
 
 	/// <summary>
 	/// Receives notification from JS for <c>hidden.bs.dialog</c> event.

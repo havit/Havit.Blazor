@@ -1,0 +1,42 @@
+@page "/HxDialog_Stacking"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+@inject IHxMessengerService Messenger
+@inject IHxMessageBoxService MessageBox
+
+<HxMessenger Position="ToastContainerPosition.TopEnd" />
+<HxMessageBoxHost />
+
+<HxButton data-testid="open-button" OnClick="() => _dialog.ShowAsync()" Color="ThemeColor.Primary">Open Dialog</HxButton>
+<span data-testid="confirm-result">@_confirmResult</span>
+
+<HxDialog @ref="_dialog" Title="Parent Dialog">
+	<BodyTemplate>
+		<p data-testid="dialog-body-content">This is the dialog body content.</p>
+	</BodyTemplate>
+	<FooterTemplate>
+		<HxButton data-testid="toast-button" OnClick="HandleToastClick" Color="ThemeColor.Secondary">Show toast</HxButton>
+		<HxButton data-testid="confirm-button" OnClick="HandleConfirmClick" Color="ThemeColor.Primary">Confirm</HxButton>
+	</FooterTemplate>
+</HxDialog>
+
+@code {
+	private HxDialog _dialog;
+	private string _confirmResult;
+
+	private void HandleToastClick()
+	{
+		Messenger.AddMessage(new BootstrapMessengerMessage()
+		{
+			Color = ThemeColor.Success,
+			Title = "Toast over dialog",
+			Text = "This toast is shown while a modal dialog is open.",
+			AutohideDelay = null
+		});
+	}
+
+	private async Task HandleConfirmClick()
+	{
+		_confirmResult = (await MessageBox.ConfirmAsync("Confirmation", "Do you confirm?")) ? "confirmed" : "canceled";
+	}
+}
