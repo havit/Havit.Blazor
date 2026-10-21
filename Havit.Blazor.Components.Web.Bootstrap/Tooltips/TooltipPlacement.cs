@@ -11,7 +11,8 @@ public enum TooltipPlacement
 	Right = 3,
 
 	/// <summary>
-	/// When specified, it will dynamically reorient the tooltip.
+	/// When specified, it will dynamically reorient the tooltip towards the side with the most available space.
+	/// (Emulated by Havit.Blazor, Bootstrap 6 has no <c>auto</c> placement.)
 	/// </summary>
 	Auto = 4
 }
