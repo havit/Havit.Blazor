@@ -29,4 +29,53 @@ public class HxCloseButtonTests : BunitTestBase
 		// Assert
 		Assert.True(clicked);
 	}
+
+	[Fact]
+	public void HxCloseButton_Render_DoesNotRenderBtnClass()
+	{
+		// Arrange & Act
+		var cut = Render<HxCloseButton>(parameters => parameters
+			.Add(p => p.Color, ThemeColor.Primary)
+			.Add(p => p.Size, ButtonSize.Large)
+			.Add(p => p.CssClass, "custom"));
+
+		// Assert
+		// .btn hover/disabled backgrounds would paint over the masked icon
+		var button = cut.Find("button");
+		Assert.Equal(["btn-close", "custom"], button.ClassList);
+	}
+
+	[Fact]
+	public void HxCloseButton_AriaLabel_DefaultsToLocalizedClose()
+	{
+		// Arrange & Act
+		var cut = Render<HxCloseButton>();
+
+		// Assert
+		Assert.Equal("Close", cut.Find("button").GetAttribute("aria-label"));
+	}
+
+	[Fact]
+	public void HxCloseButton_AriaLabel_UsesParameterValue()
+	{
+		// Arrange & Act
+		var cut = Render<HxCloseButton>(parameters => parameters
+			.Add(p => p.AriaLabel, "Zavřít"));
+
+		// Assert
+		Assert.Equal("Zavřít", cut.Find("button").GetAttribute("aria-label"));
+	}
+
+	[Fact]
+	public void HxCloseButton_AdditionalAttributes_KeepDefaultAriaLabel()
+	{
+		// Arrange & Act
+		var cut = Render<HxCloseButton>(parameters => parameters
+			.AddUnmatched("data-test", "x"));
+
+		// Assert
+		var button = cut.Find("button");
+		Assert.Equal("x", button.GetAttribute("data-test"));
+		Assert.Equal("Close", button.GetAttribute("aria-label"));
+	}
 }

@@ -236,6 +236,11 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	}
 
 
+	/// <summary>
+	/// Gets the <c>aria-label</c> to render. The default implementation returns <see cref="AriaLabel"/>.
+	/// </summary>
+	protected virtual string GetAriaLabel() => AriaLabel;
+
 	protected string GetTooltipWrapperCssClass()
 	{
 		bool tooltipWillRenderSpan = !String.IsNullOrEmpty(Tooltip) || !String.IsNullOrWhiteSpace(TooltipWrapperCssClass);

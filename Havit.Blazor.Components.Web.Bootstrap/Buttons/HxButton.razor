@@ -15,7 +15,7 @@
 			@onclick:preventDefault="OnClickPreventDefault"
 			disabled="@DisabledEffective"
             form="@FormId"
-            aria-label="@AriaLabel"
+            aria-label="@GetAriaLabel()"
             @attributes="this.AdditionalAttributes">
 
         @if ((IconPlacementEffective == ButtonIconPlacement.Start) && ((IconEffective is not null) || SpinnerEffective))
