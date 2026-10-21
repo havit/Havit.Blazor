@@ -1,6 +1,5 @@
 ::deep .nav-link.active {
     font-weight: 600;
-    --bs-link-opacity: 1;
 }
 
 ::deep .container-fluid {

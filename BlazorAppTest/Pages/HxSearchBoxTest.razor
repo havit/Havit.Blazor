@@ -3,27 +3,27 @@
 <div class="d-flex flex-column gap-3">
 	<HxSearchBox @ref="searchBoxComponent" DataProvider="ProvideSearchResults" Label="Search needle in a haystack" InputSize="InputSize.Small" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
 		<DefaultContentTemplate>
-			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+			<div class="small py-2 px-3 fg-secondary">Search for Mouse, Table or Door...</div>
 			<HxButton Text="Close" Color="ThemeColor.Primary" OnClick="async () => await searchBoxComponent.HideMenuAsync()" />
 		</DefaultContentTemplate>
 	</HxSearchBox>
 
 	<HxSearchBox DataProvider="ProvideSearchResults" Label="Search regular stuff" InputSize="InputSize.Regular" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
 		<DefaultContentTemplate>
-			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+			<div class="small py-2 px-3 fg-secondary">Search for Mouse, Table or Door...</div>
 		</DefaultContentTemplate>
 	</HxSearchBox>
 
 	<HxSearchBox DataProvider="ProvideSearchResults" Label="Search huge things" InputSize="InputSize.Large" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
 		<DefaultContentTemplate>
-			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+			<div class="small py-2 px-3 fg-secondary">Search for Mouse, Table or Door...</div>
 		</DefaultContentTemplate>
 	</HxSearchBox>
 
 	@* LabelType.Floating is not supported on HxSearchBox in Bootstrap 6 (the form-adorn wrapper owns the visual chrome and cannot host a floating label). *@
 	<HxSearchBox DataProvider="ProvideSearchResults" Label="Regular Label" LabelType="LabelType.Regular" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem">
 		<DefaultContentTemplate>
-			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+			<div class="small py-2 px-3 fg-secondary">Search for Mouse, Table or Door...</div>
 		</DefaultContentTemplate>
 		<NotFoundTemplate>
 
@@ -32,7 +32,7 @@
 
 	<HxSearchBox DataProvider="ProvideSearchResults" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem" InputGroupEndText="Test End" InputGroupStartText="Test Start">
 		<DefaultContentTemplate>
-			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+			<div class="small py-2 px-3 fg-secondary">Search for Mouse, Table or Door...</div>
 		</DefaultContentTemplate>
 	</HxSearchBox>
 
@@ -44,10 +44,10 @@
 			<HxButton Color="ThemeColor.Secondary" Text="End" />
 		</InputGroupEndTemplate>
 		<DefaultContentTemplate>
-			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+			<div class="small py-2 px-3 fg-secondary">Search for Mouse, Table or Door...</div>
 		</DefaultContentTemplate>
 		<NotFoundTemplate>
-			<div class="p-4 text-muted">
+			<div class="p-4 fg-secondary">
 				Not found.
 			</div>
 		</NotFoundTemplate>
@@ -58,10 +58,10 @@
 			<HxButton Color="ThemeColor.Secondary" Text="End" />
 		</InputGroupEndTemplate>
 		<DefaultContentTemplate>
-			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+			<div class="small py-2 px-3 fg-secondary">Search for Mouse, Table or Door...</div>
 		</DefaultContentTemplate>
 		<NotFoundTemplate>
-			<div class="p-4 text-muted">
+			<div class="p-4 fg-secondary">
 				Not found.
 			</div>
 		</NotFoundTemplate>
@@ -72,10 +72,10 @@
 			<HxButton Color="ThemeColor.Secondary" Text="Start" />
 		</InputGroupStartTemplate>
 		<DefaultContentTemplate>
-			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+			<div class="small py-2 px-3 fg-secondary">Search for Mouse, Table or Door...</div>
 		</DefaultContentTemplate>
 		<NotFoundTemplate>
-			<div class="p-4 text-muted">
+			<div class="p-4 fg-secondary">
 				Not found.
 			</div>
 		</NotFoundTemplate>
@@ -83,7 +83,7 @@
 
 	<HxSearchBox DataProvider="ProvideSearchResults" Label="Search" ItemTitleSelector="(i) => i.Title" ItemSubtitleSelector="(i) => i.Subtitle" ItemIconSelector="(i) => i.Icon" TItem="SearchBoxItem" InputGroupEndText="Test End" InputGroupStartText="Test Start">
 		<DefaultContentTemplate>
-			<div class="small py-2 px-3 text-muted">Search for Mouse, Table or Door...</div>
+			<div class="small py-2 px-3 fg-secondary">Search for Mouse, Table or Door...</div>
 		</DefaultContentTemplate>
 	</HxSearchBox>
 

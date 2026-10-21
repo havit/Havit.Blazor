@@ -5,7 +5,7 @@
 
 <HxListLayout TFilterModel="HxListLayout.NoFilter">
 	<TitleTemplate>
-		Employees <HxBadge Color="ThemeColor.Secondary" CssClass="ms-1 fs-6">NEW</HxBadge>
+		Employees <HxBadge Color="ThemeColor.Secondary" CssClass="ms-1 fs-md">NEW</HxBadge>
 	</TitleTemplate>
 	<DataTemplate>
 		<HxGrid TItem="EmployeeDto"

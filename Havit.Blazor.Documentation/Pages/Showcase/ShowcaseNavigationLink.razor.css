@@ -1,9 +1,9 @@
 .showcase-navigation-link-text {
-	color: var(--bs-secondary);
+	color: var(--bs-secondary-fg);
 }
 
 .showcase-navigation-link:hover .showcase-navigation-link-text {
-    color: var(--bs-primary);
+    color: var(--bs-primary-fg);
 }
 
 ::deep .hx-icon {

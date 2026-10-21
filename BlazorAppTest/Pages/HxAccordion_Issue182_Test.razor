@@ -2,7 +2,7 @@
 
 <h1><a href="https://github.com/havit/Havit.Blazor/issues/182">https://github.com/havit/Havit.Blazor/issues/182</a></h1>
 
-<button class="btn btn-primary" @onclick="SortItems">@(AscOrder ? "Sort Asc": "Sort Desc")</button>
+<button class="btn btn-solid theme-primary" @onclick="SortItems">@(AscOrder ? "Sort Asc": "Sort Desc")</button>
 <Havit.Blazor.Components.Web.Bootstrap.HxAccordion @bind-ExpandedItemId="expandedItemId">
     @foreach (var team in TeamItems)
     {
@@ -16,9 +16,9 @@
                         @foreach (var player in team.Players)
                         {
                             <div @key="player" class="row">
-                                <div class="col-sm">Name:   <p>@player.Name</p></div>
-                                <div class="col-sm">Age:    <p>@player.Age</p></div>
-                                <div class="col-sm">Jersey# <p>@player.Jersey</p></div>
+                                <div class="sm:col">Name:   <p>@player.Name</p></div>
+                                <div class="sm:col">Age:    <p>@player.Age</p></div>
+                                <div class="sm:col">Jersey# <p>@player.Jersey</p></div>
                             </div>
                         }
                     </Havit.Blazor.Components.Web.Bootstrap.HxListGroup>
