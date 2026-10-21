@@ -5,13 +5,14 @@
 		id="@IdEffective"
 		tabindex="-1"
 		aria-labelledby="@(Title is not null ? IdEffective + "-label" : null)"
+		aria-label="@(Title is null ? Localizer["DrawerLabel"] : null)"
 		@attributes="AdditionalAttributes">
 	<div class="drawer-header">
 		@if (Title is not null)
 		{
 			<h5 class="drawer-title" id="@(IdEffective + "-label")">@Title</h5>
 		}
-		<button type="button" class="btn-close" data-bs-dismiss="drawer" aria-label="Close"></button>
+		<button type="button" class="btn-close" data-bs-dismiss="drawer" aria-label="@Localizer["Close"]"></button>
 	</div>
 	<div class="drawer-body">
 		@ChildContent
