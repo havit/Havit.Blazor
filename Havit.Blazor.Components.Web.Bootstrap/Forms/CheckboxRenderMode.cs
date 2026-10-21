@@ -16,8 +16,10 @@ public enum CheckboxRenderMode
 	Switch,
 
 	/// <summary>
-	/// Renders switch with native haptic feedback (mobile Safari, iOS 17.4+).
+	/// [Obsolete] Renders the same as <see cref="Switch"/>.
+	/// Since Bootstrap 6, every switch renders the <c>switch</c> attribute (native haptic feedback in mobile Safari, iOS 17.4+).
 	/// </summary>
+	[Obsolete($"Use {nameof(Switch)} instead. Since Bootstrap 6, every switch renders the switch attribute (native haptic feedback).")]
 	NativeSwitch,
 
 	/// <summary>

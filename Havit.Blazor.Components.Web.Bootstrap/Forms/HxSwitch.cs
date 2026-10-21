@@ -14,10 +14,7 @@ public class HxSwitch : HxCheckboxBase
 
 	static HxSwitch()
 	{
-		Defaults = new SwitchSettings()
-		{
-			Native = false
-		};
+		Defaults = new SwitchSettings();
 	}
 
 	/// <summary>
@@ -37,13 +34,12 @@ public class HxSwitch : HxCheckboxBase
 	protected override SwitchSettings GetSettings() => Settings;
 
 	/// <summary>
-	/// To render switch as a native switch.
+	/// [Obsolete] No effect. Since Bootstrap 6, every switch renders the <c>switch</c> attribute (native haptic feedback in mobile Safari, iOS 17.4+).
 	/// </summary>
+	[Obsolete("No effect. Since Bootstrap 6, every switch renders the switch attribute (native haptic feedback).")]
 	[Parameter] public bool? Native { get; set; }
 
-	private protected bool NativeEffective => Native ?? GetSettings()?.Native ?? GetDefaults().Native ?? throw new InvalidOperationException(nameof(Native) + " default for " + nameof(HxSwitch) + " has to be set.");
-
-	protected override CheckboxRenderMode RenderModeEffective => NativeEffective ? CheckboxRenderMode.NativeSwitch : CheckboxRenderMode.Switch;
+	protected override CheckboxRenderMode RenderModeEffective => CheckboxRenderMode.Switch;
 
 	/// <summary>
 	/// Theme color of the switch (renders the <c>theme-*</c> class on the <c>.switch</c> wrapper, new in Bootstrap 6).

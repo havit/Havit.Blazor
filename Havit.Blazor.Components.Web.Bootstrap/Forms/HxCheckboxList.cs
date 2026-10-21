@@ -222,7 +222,9 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 		{
 			CheckboxListRenderMode.Checkboxes => CheckboxRenderMode.Checkbox,
 			CheckboxListRenderMode.Switches => CheckboxRenderMode.Switch,
-			CheckboxListRenderMode.NativeSwitches => CheckboxRenderMode.NativeSwitch,
+#pragma warning disable CS0618 // Type or member is obsolete
+			CheckboxListRenderMode.NativeSwitches => CheckboxRenderMode.Switch,
+#pragma warning restore CS0618 // Type or member is obsolete
 			CheckboxListRenderMode.ToggleButtons => CheckboxRenderMode.ToggleButton,
 			CheckboxListRenderMode.ButtonGroup => CheckboxRenderMode.ToggleButton, // return (checkbox render mode) ToggleButton for (a checkboxlist render mode) ButtonGroup
 			_ => throw new InvalidOperationException(RenderMode.ToString())

@@ -64,7 +64,9 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 		// switch inputs are unstyled (the .switch wrapper carries the styling); toggle-button inputs are nested in label.btn-check.
 		CheckboxRenderMode.Checkbox => CssClassHelper.Combine("check", (ColorEffective != ThemeColor.None) ? ColorEffective.ToThemeCss() : null),
 		CheckboxRenderMode.Switch => null,
+#pragma warning disable CS0618 // Type or member is obsolete
 		CheckboxRenderMode.NativeSwitch => null,
+#pragma warning restore CS0618 // Type or member is obsolete
 		CheckboxRenderMode.ToggleButton => null,
 		_ => throw new InvalidOperationException($"Unknown {nameof(CheckboxRenderMode)}: {RenderModeEffective}.")
 	};
@@ -134,7 +136,9 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 
 		EnsureInputId(); // must be called before the input is rendered
 
+#pragma warning disable CS0618 // Type or member is obsolete
 		bool isSwitch = (RenderModeEffective == CheckboxRenderMode.Switch) || (RenderModeEffective == CheckboxRenderMode.NativeSwitch);
+#pragma warning restore CS0618 // Type or member is obsolete
 		if (isSwitch)
 		{
 			// Bootstrap 6 switch: an unstyled checkbox layered over the styled .switch wrapper element
@@ -157,10 +161,7 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 		if (isSwitch)
 		{
 			builder.AddAttribute(1003, "role", "switch");
-		}
-		if (RenderModeEffective == CheckboxRenderMode.NativeSwitch)
-		{
-			builder.AddAttribute(1004, "switch", true); // does not render ="true", we need only "switch" attribute to be present
+			builder.AddAttribute(1004, "switch", true); // does not render ="true", we need only "switch" attribute to be present (native haptic feedback in mobile Safari)
 		}
 
 		builder.AddEventStopPropagationAttribute(1006, "onclick", true);

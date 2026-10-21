@@ -1,4 +1,4 @@
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -42,6 +42,18 @@ public class HxSwitchTests : BunitTestBase
 		// Assert
 		Assert.False(valueHolder[0]);
 		Assert.False(cut.Find("input").HasAttribute("checked"));
+	}
+
+	[Fact]
+	public void HxSwitch_Render_HasSwitchAttribute()
+	{
+		// Act — Bootstrap 6 renders the switch attribute on every switch (native haptic feedback in mobile Safari)
+		var (cut, _) = RenderSwitch();
+
+		// Assert
+		var input = cut.Find(".switch > input");
+		Assert.True(input.HasAttribute("switch"));
+		Assert.Equal("switch", input.GetAttribute("role"));
 	}
 
 	private (IRenderedComponent<HxSwitch> cut, bool[] valueHolder) RenderSwitch(bool initialValue = false)
