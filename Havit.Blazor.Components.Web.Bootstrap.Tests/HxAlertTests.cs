@@ -61,9 +61,10 @@ public class HxAlertTests : BunitTestBase
 
 		// Assert
 		var div = cut.Find("div.alert");
-		Assert.True(div.ClassList.Contains("alert-dismissible"), "Should have alert-dismissible class.");
-		Assert.True(div.ClassList.Contains("fade"), "Should have fade class.");
-		Assert.True(div.ClassList.Contains("show"), "Should have show class.");
+		// Bootstrap 6 removed .alert-dismissible and fades alerts out without .fade/.show
+		Assert.False(div.ClassList.Contains("alert-dismissible"));
+		Assert.False(div.ClassList.Contains("fade"));
+		Assert.False(div.ClassList.Contains("show"));
 
 		var closeButton = cut.Find("button.btn-close");
 		Assert.NotNull(closeButton);
@@ -81,7 +82,6 @@ public class HxAlertTests : BunitTestBase
 
 		// Assert
 		var div = cut.Find("div.alert");
-		Assert.False(div.ClassList.Contains("alert-dismissible"));
 		Assert.Empty(cut.FindAll("button.btn-close"));
 	}
 

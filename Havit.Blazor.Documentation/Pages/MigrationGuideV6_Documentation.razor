@@ -380,7 +380,7 @@
 		</thead>
 		<tbody>
 			<tr><td><code>HxBadge</code></td><td>New <code>Variant</code> parameter (<code>BadgeVariant</code>: <code>Solid</code>/<code>Subtle</code>/<code>Outline</code>); <code>TextColor</code> removed (theme tokens handle contrast); renders <code>badge theme-*</code>.</td></tr>
-			<tr><td><code>HxAlert</code></td><td>Renders <code>alert theme-*</code> instead of <code>alert-*</code>.</td></tr>
+			<tr><td><code>HxAlert</code></td><td>Renders <code>alert theme-*</code> instead of <code>alert-*</code>. A <code>Dismissible</code> alert no longer renders <code>alert-dismissible fade show</code> &ndash; Bootstrap 6 removed <code>alert-dismissible</code> (the alert's flex layout positions the <code>btn-close</code>) and fades alerts out on its own.</td></tr>
 			<tr><td><code>HxListGroupItem</code></td><td>Color renders <code>theme-*</code> instead of <code>list-group-item-*</code>.</td></tr>
 			<tr><td><code>HxToast</code></td><td>New <code>Translucent</code> parameter (<code>toast-translucent</code>, new in Bootstrap 6); contrast logic uses <code>Accent</code>/<code>Inverse</code>.</td></tr>
 			<tr><td><code>HxCard</code></td><td>New <code>Variant</code> (<code>CardVariant</code>: <code>Regular</code>/<code>Subtle</code>/<code>Translucent</code>), <code>Color</code> (<code>theme-*</code>), and <code>Horizontal</code> (<code>card-row</code>) parameters.</td></tr>
