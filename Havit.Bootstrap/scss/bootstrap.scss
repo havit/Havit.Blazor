@@ -34,6 +34,19 @@
   }
 }
 
+// HAVIT fix: select caret in the automatic (system preference) dark mode.
+// Bootstrap 6 switches `select.form-control` / `.form-control-caret` to the light caret SVG only under
+// `[data-bs-theme=dark]`, so a page without `data-bs-theme` on a dark system keeps the black caret.
+// Explicit light scopes (and multi-row selects, which have no caret) are left alone.
+@layer forms {
+  @media (prefers-color-scheme: dark) {
+    // stylelint-disable-next-line selector-no-qualifying-type
+    :is(select.form-control, .form-control-caret):not([data-bs-theme="light"], [data-bs-theme="light"] *, [multiple], [size]:not([size="1"])) {
+      background-image: var(--control-select-bg-dark);
+    }
+  }
+}
+
 // HAVIT fix: small grow spinner (HxSpinner Type=Grow, Size=Small).
 // Bootstrap 6 declares `.spinner-sm` before `.spinner-grow` with the same specificity, so the size tokens
 // of `.spinner-grow` win and `.spinner-grow.spinner-sm` renders at full size (`.spinner-border.spinner-sm` works).

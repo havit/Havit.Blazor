@@ -18713,6 +18713,13 @@
     --bs-z-toast: 1070;
   }
 }
+@layer forms {
+  @media (prefers-color-scheme: dark) {
+    :is(select.form-control, .form-control-caret):not([data-bs-theme=light], [data-bs-theme=light] *, [multiple], [size]:not([size="1"])) {
+      background-image: var(--bs-control-select-bg-dark);
+    }
+  }
+}
 @layer components {
   .spinner-grow.spinner-sm {
     --bs-spinner-width: .75em;
