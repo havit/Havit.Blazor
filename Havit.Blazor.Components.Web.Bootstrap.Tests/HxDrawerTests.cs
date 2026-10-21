@@ -199,7 +199,7 @@ public class HxDrawerTests : BunitTestBase
 	public async Task HxDrawer_HideAsyncDuringShowTransition_IsDeferredUntilShown()
 	{
 		// Arrange
-		var module = JSInterop.SetupModule("./_content/Havit.Blazor.Components.Web.Bootstrap/HxDrawer.js");
+		var module = SetupHxDrawerModule();
 		module.Mode = JSRuntimeMode.Loose;
 		var cut = Render<HxDrawer>(p => p
 			.Add(o => o.Title, "Title"));
@@ -223,7 +223,7 @@ public class HxDrawerTests : BunitTestBase
 	public async Task HxDrawer_CloseButtonClickDuringShowTransition_IsDeferredUntilShown()
 	{
 		// Arrange
-		var module = JSInterop.SetupModule("./_content/Havit.Blazor.Components.Web.Bootstrap/HxDrawer.js");
+		var module = SetupHxDrawerModule();
 		module.Mode = JSRuntimeMode.Loose;
 		var cut = Render<HxDrawer>(p => p
 			.Add(o => o.Title, "Title"));
@@ -242,7 +242,7 @@ public class HxDrawerTests : BunitTestBase
 	public async Task HxDrawer_ShowAsyncDuringHideTransition_IsDeferredUntilHidden()
 	{
 		// Arrange
-		var module = JSInterop.SetupModule("./_content/Havit.Blazor.Components.Web.Bootstrap/HxDrawer.js");
+		var module = SetupHxDrawerModule();
 		module.Mode = JSRuntimeMode.Loose;
 		var cut = Render<HxDrawer>(p => p
 			.Add(o => o.Title, "Title"));
@@ -319,5 +319,13 @@ public class HxDrawerTests : BunitTestBase
 		var drawer = cut.Find("dialog.drawer");
 		Assert.NotNull(drawer);
 		Assert.Empty(cut.FindAll("div.drawer-header"));
+	}
+
+	private BunitJSModuleInterop SetupHxDrawerModule()
+	{
+		// pre-NET9 the module path is suffixed with ?v=... (see JSRuntimeExtensions.ImportHavitBlazorBootstrapModuleAsync)
+		return JSInterop.SetupModule(invocation => (invocation.Identifier == "import")
+			&& (invocation.Arguments.FirstOrDefault() is string path)
+			&& path.StartsWith("./_content/Havit.Blazor.Components.Web.Bootstrap/HxDrawer.js", StringComparison.Ordinal));
 	}
 }
