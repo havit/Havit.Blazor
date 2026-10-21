@@ -134,6 +134,7 @@ public partial class HxCarousel : IAsyncDisposable
 	private ElementReference _elementReference;
 	private List<HxCarouselItem> _items;
 	private CollectionRegistration<HxCarouselItem> _itemsRegistration;
+	private int _jsItemsCount;
 	private bool _disposed = false;
 
 	public HxCarousel()
@@ -151,36 +152,48 @@ public partial class HxCarousel : IAsyncDisposable
 
 		if (firstRender)
 		{
-			var options = new Dictionary<string, object>
-			{
-				["autoplay"] = Autoplay,
-				["keyboard"] = Keyboard,
-				["ends"] = Ends switch
-				{
-					CarouselEnds.Loop => "loop",
-					CarouselEnds.Wrap => "wrap",
-					CarouselEnds.Stop => "stop",
-					_ => throw new InvalidOperationException($"Unknown value of {nameof(CarouselEnds)}: {Ends}.")
-				},
-				["pause"] = Pause switch
-				{
-					CarouselPause.Hover => "hover",
-					CarouselPause.False => false,
-					_ => throw new InvalidOperationException($"Unknown value of {nameof(CarouselPause)}: {Pause}.")
-				}
-			};
-			if (Interval is not null)
-			{
-				options["interval"] = Interval.Value;
-			}
-
+			_jsItemsCount = _items.Count;
 			await EnsureJsModule();
 			if (_disposed)
 			{
 				return;
 			}
-			await _jsModule.InvokeVoidAsync("initialize", _elementReference, _dotnetObjectReference, options);
+			await _jsModule.InvokeVoidAsync("initialize", _elementReference, _dotnetObjectReference, GetJsOptions());
 		}
+		else if ((_jsModule is not null) && (_items.Count != _jsItemsCount))
+		{
+			// The Bootstrap carousel tracks the items present at construction only (IntersectionObserver, active item, indicators, end controls),
+			// so it has to be re-created when items are added or removed.
+			_jsItemsCount = _items.Count;
+			await _jsModule.InvokeVoidAsync("reinitialize", _elementReference, GetJsOptions());
+		}
+	}
+
+	private Dictionary<string, object> GetJsOptions()
+	{
+		var options = new Dictionary<string, object>
+		{
+			["autoplay"] = Autoplay,
+			["keyboard"] = Keyboard,
+			["ends"] = Ends switch
+			{
+				CarouselEnds.Loop => "loop",
+				CarouselEnds.Wrap => "wrap",
+				CarouselEnds.Stop => "stop",
+				_ => throw new InvalidOperationException($"Unknown value of {nameof(CarouselEnds)}: {Ends}.")
+			},
+			["pause"] = Pause switch
+			{
+				CarouselPause.Hover => "hover",
+				CarouselPause.False => false,
+				_ => throw new InvalidOperationException($"Unknown value of {nameof(CarouselPause)}: {Pause}.")
+			}
+		};
+		if (Interval is not null)
+		{
+			options["interval"] = Interval.Value;
+		}
+		return options;
 	}
 
 	/// <summary>
