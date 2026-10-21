@@ -1,0 +1,8 @@
+﻿/* Layered below Bootstrap's utilities so utility classes win over these defaults. */
+@layer custom {
+	/* Every HxBreadcrumbItem renders the divider in front of itself, the leading one is hidden.
+	   Works regardless of how the items are added, removed, or re-created (conditional rendering, @key). */
+	.breadcrumb ::deep .breadcrumb-divider:first-child {
+		display: none;
+	}
+}

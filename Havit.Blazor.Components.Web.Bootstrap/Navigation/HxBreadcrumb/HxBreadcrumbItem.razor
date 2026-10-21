@@ -1,9 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-@if (_index > 0)
-{
-	<li class="breadcrumb-divider">@BreadcrumbContainer?.DividerTemplate</li>
-}
+@* Rendered in front of every item, the leading divider is hidden by HxBreadcrumb CSS (the item does not know its position). *@
+<li class="breadcrumb-divider">@BreadcrumbContainer?.DividerTemplate</li>
 <li class="breadcrumb-item" aria-current="@(Active ? "page" : null)">
 	@if (Href is not null)
 	{
