@@ -130,42 +130,84 @@ pre[class*="language-"] {
 	}
 }
 
-/* Syntax highlighting override */
+/* Syntax highlighting override for dark mode (the Prism theme, prism-vs, is light only).
+   Dark mode = data-bs-theme="dark", or auto mode (no data-bs-theme) with a dark system preference. */
+[data-bs-theme=dark] {
+	.language-none {
+		color: var(--bs-secondary-fg-emphasis);
+	}
 
-[data-bs-theme=dark] .language-none {
-	color: var(--bs-secondary-fg-emphasis);
+	.token.namespace,
+	.token.attr-name,
+	.token.csharp.language-csharp,
+	.language-csharp {
+		color: var(--bs-primary-fg-emphasis);
+	}
+
+	.token.punctuation {
+		color: var(--bs-secondary-fg-emphasis);
+	}
+
+	.token.keyword,
+	.token.string,
+	.token.attr-value {
+		color: var(--bs-danger-fg-emphasis);
+	}
+
+	.token.tag,
+	.token.selector,
+	.token.class-name {
+		color: var(--bs-success-fg-emphasis);
+	}
+
+	.token.function {
+		color: var(--bs-warning-fg-emphasis);
+	}
+
+	.token.operator {
+		color: var(--bs-secondary-fg);
+		background-color: transparent;
+	}
 }
 
-[data-bs-theme=dark] .token.namespace,
-[data-bs-theme=dark] .token.attr-name,
-[data-bs-theme=dark] .token.csharp.language-csharp,
-[data-bs-theme=dark] .language-csharp {
-	color: var(--bs-primary-fg-emphasis);
-}
+@media (prefers-color-scheme: dark) {
+	:root:not([data-bs-theme]) {
+		.language-none {
+			color: var(--bs-secondary-fg-emphasis);
+		}
 
-[data-bs-theme=dark] .token.punctuation {
-	color: var(--bs-secondary-fg-emphasis);
-}
+		.token.namespace,
+		.token.attr-name,
+		.token.csharp.language-csharp,
+		.language-csharp {
+			color: var(--bs-primary-fg-emphasis);
+		}
 
-[data-bs-theme=dark] .token.keyword,
-[data-bs-theme=dark] .token.string,
-[data-bs-theme=dark] .token.attr-value {
-	color: var(--bs-danger-fg-emphasis);
-}
+		.token.punctuation {
+			color: var(--bs-secondary-fg-emphasis);
+		}
 
-[data-bs-theme=dark] .token.tag,
-[data-bs-theme=dark] .token.selector,
-[data-bs-theme=dark] .token.class-name {
-	color: var(--bs-success-fg-emphasis);
-}
+		.token.keyword,
+		.token.string,
+		.token.attr-value {
+			color: var(--bs-danger-fg-emphasis);
+		}
 
-[data-bs-theme=dark] .token.function {
-	color: var(--bs-warning-fg-emphasis);
-}
+		.token.tag,
+		.token.selector,
+		.token.class-name {
+			color: var(--bs-success-fg-emphasis);
+		}
 
-[data-bs-theme=dark] .token.operator {
-	color: var(--bs-secondary-fg);
-	background-color: transparent;
+		.token.function {
+			color: var(--bs-warning-fg-emphasis);
+		}
+
+		.token.operator {
+			color: var(--bs-secondary-fg);
+			background-color: transparent;
+		}
+	}
 }
 
 .hero {

@@ -10,7 +10,7 @@ namespace Havit.Blazor.Documentation.Shared.Components.DocColorMode;
 /// The cookie is used for server prerendering (see DocColorModeServerResolver).
 /// The server-prerendering value is passed to WASM client by PersistentComponentState.
 /// The client-side component uses JS to switch the color mode and save the new value to the cookie.
-/// The auto mode is resolved by color-mode-auto.js startup script (see _Layout.cshtml).
+/// The auto mode renders no data-bs-theme attribute, so Bootstrap follows the system preference (including later changes).
 /// </remarks>
 public partial class DocColorModeSwitcher(
 	IDocColorModeProvider docColorModeProvider,
