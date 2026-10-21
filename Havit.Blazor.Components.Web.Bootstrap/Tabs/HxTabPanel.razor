@@ -43,11 +43,10 @@
 @code {
 	private void RenderTabsNavigation(RenderTreeBuilder __builder)
 	{
-		<HxNav CssClass="@CssClassHelper.Combine("hx-tab-panel", GetNavCssClassInCardMode(), GetNavCssClassForOrientation(), CssClass)"
-		       Variant="NavVariant"
-		       Orientation="GetNavOrientation()"
-		       role="tablist"
-		       aria-orientation="@GetNavAriaOrientation()">
+		@* Not HxNav - role="tablist" must not override the navigation landmark role of <nav>. *@
+		<div class="@CssClassHelper.Combine("nav", HxNav.GetOrientationCssClass(GetNavOrientation(), NavVariant), HxNav.GetVariantCssClass(NavVariant), "hx-tab-panel", GetNavCssClassInCardMode(), GetNavCssClassForOrientation(), CssClass)"
+		     role="tablist"
+		     aria-orientation="@GetNavAriaOrientation()">
 			@foreach (HxTab tab in _tabsListOrdered)
 			{
 				@if (tab.Visible)
@@ -67,7 +66,7 @@
 					</button>
 				}
 			}
-		</HxNav>
+		</div>
 	}
 
 	private void RenderTabsContent(RenderTreeBuilder __builder)
@@ -80,8 +79,9 @@
 					if ((RenderMode == TabPanelRenderMode.AllTabs)
 					|| ((RenderMode == TabPanelRenderMode.ActiveTabOnly) && IsActive(tab)))
 					{
-                        <div @key="@tab.Id" id="@tab.Id" role="tabpanel" aria-labelledby="@(tab.Id + "-header")" tabindex="0"  class="@CssClassHelper.Combine("tab-pane fade", (IsActive(tab) ? "show active" : null), tab.ContentCssClass)">
-                            @tab.Content
+						@* Bootstrap 6 fades the active pane in by itself (the .fade transition would override the --bs-tab-pane-transition-* tokens). *@
+						<div @key="@tab.Id" id="@tab.Id" role="tabpanel" aria-labelledby="@(tab.Id + "-header")" tabindex="0" class="@CssClassHelper.Combine("tab-pane", (IsActive(tab) ? "active" : null), tab.ContentCssClass)">
+							@tab.Content
 						</div>
 					}
 				}

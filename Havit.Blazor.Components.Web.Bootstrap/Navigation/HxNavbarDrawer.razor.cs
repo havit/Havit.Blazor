@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -14,6 +15,7 @@ public partial class HxNavbarDrawer : ComponentBase, IAsyncDisposable
 
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
+	[Inject] protected IStringLocalizer<HxNavbarDrawer> Localizer { get; set; }
 
 	/// <summary>
 	/// The drawer element ID. The default value is derived from the parent navbar (matches the default <see cref="HxNavbarToggler"/> target).
@@ -22,6 +24,7 @@ public partial class HxNavbarDrawer : ComponentBase, IAsyncDisposable
 
 	/// <summary>
 	/// Title rendered in the drawer header (visible only below the navbar's expand breakpoint).
+	/// Also the accessible name of the drawer; without a title, the drawer gets a localized <c>aria-label</c> ("Navigation").
 	/// </summary>
 	[Parameter] public string Title { get; set; }
 

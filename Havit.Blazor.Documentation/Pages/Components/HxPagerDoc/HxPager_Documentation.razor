@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxPager))]
+﻿@attribute [Route("/components/" + nameof(HxPager))]
 
 <ApiDoc Type="typeof(HxPager)">
     <MainContent>
@@ -9,6 +9,10 @@
         <DocHeading Title="Sizes" />
         <p>Use the <code>Size</code> parameter to render a <code>Small</code> or <code>Large</code> pager (the default is <code>Regular</code>).</p>
         <Demo Type="typeof(HxPager_Demo_Sizes)" Tabs="false" />
+
+        <DocHeading Title="Colors" />
+        <p>Use the <code>Color</code> parameter to apply a theme color to the pager (hover, focus, and the active page item).</p>
+        <Demo Type="typeof(HxPager_Demo_Colors)" Tabs="false" />
 
         <DocHeading Title="Customization" />
         <p>There are several parameters that allow pager customization.</p>

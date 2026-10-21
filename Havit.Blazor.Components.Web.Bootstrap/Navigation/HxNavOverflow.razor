@@ -6,7 +6,7 @@
 <nav id="@Id" class="@GetClasses()" @ref="_navOverflowElement" @attributes="AdditionalAttributes">
 	@ChildContent
 	<div class="nav-item nav-overflow-item" data-bs-nav-overflow="true">
-		<button type="button" class="nav-link nav-overflow-toggle" data-bs-toggle="menu" data-bs-placement="@MenuPlacementEffective.ToDataBsPlacement()" aria-expanded="false">
+		<button type="button" class="nav-link nav-overflow-toggle" data-bs-toggle="menu" data-bs-placement="@MenuPlacementEffective.ToDataBsPlacement()" aria-expanded="false" aria-label="@(String.IsNullOrEmpty(MoreTextEffective) ? Localizer["MoreToggleLabel"] : null)">
 			@if (IconPlacementEffective == NavOverflowIconPlacement.End)
 			{
 				@TextFragment

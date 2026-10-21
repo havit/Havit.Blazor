@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/">Bootstrap Nav</see> component for building tabs, pills, and vertical or underline navigation from a list of links.<br />
+/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/nav/">Bootstrap Nav</see> component for building tabs, pills, and vertical or underline navigation from a list of links.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNav">https://havit.blazor.eu/components/HxNav</see>
 /// </summary>
 public partial class HxNav
@@ -49,25 +49,37 @@ public partial class HxNav
 		return "nav";
 	}
 
-	protected virtual string GetOrientationCssClass()
+	protected virtual string GetOrientationCssClass() => GetOrientationCssClass(Orientation, Variant);
+
+	protected virtual string GetVariantCssClass() => GetVariantCssClass(Variant);
+
+	/// <summary>
+	/// Shared with <see cref="HxTabPanel"/> (renders the nav markup itself).
+	/// </summary>
+	internal static string GetOrientationCssClass(NavOrientation orientation, NavVariant variant)
 	{
-		return Orientation switch
+		return orientation switch
 		{
 			NavOrientation.Horizontal => null,
+			// Bootstrap 6 vertical pills (stretches the pills to the full width of the nav)
+			NavOrientation.Vertical when variant == NavVariant.Pills => "nav-pills-vertical",
 			NavOrientation.Vertical => "flex-column",
-			_ => throw new InvalidOperationException($"Unknown {nameof(NavOrientation)} value {Orientation}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(NavOrientation)} value {orientation}.")
 		};
 	}
 
-	protected virtual string GetVariantCssClass()
+	/// <summary>
+	/// Shared with <see cref="HxTabPanel"/> (renders the nav markup itself).
+	/// </summary>
+	internal static string GetVariantCssClass(NavVariant variant)
 	{
-		return Variant switch
+		return variant switch
 		{
 			NavVariant.Standard => null,
 			NavVariant.Pills => "nav-pills",
 			NavVariant.Tabs => "nav-tabs",
 			NavVariant.Underline => "nav-underline",
-			_ => throw new InvalidOperationException($"Unknown {nameof(NavVariant)} value {Variant}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(NavVariant)} value {variant}.")
 		};
 	}
 }

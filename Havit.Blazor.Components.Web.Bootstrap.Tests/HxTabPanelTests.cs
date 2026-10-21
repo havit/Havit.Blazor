@@ -250,7 +250,7 @@ public class HxTabPanelTests : BunitTestBase
 	}
 
 	[Fact]
-	public void HxTabPanel_AriaAttributes_TablistRoleOnNav()
+	public void HxTabPanel_AriaAttributes_TablistRoleOnDivNotNav()
 	{
 		// Arrange & Act
 		var component = Render<HxTabPanel>(parameters => parameters
@@ -262,8 +262,10 @@ public class HxTabPanelTests : BunitTestBase
 			)
 		);
 
-		var nav = component.Find("nav");
-		Assert.Equal("tablist", nav.GetAttribute("role"));
+		// role="tablist" must not override the navigation landmark role of <nav>
+		Assert.Empty(component.FindAll("nav"));
+		var tabList = component.Find("div.nav[role='tablist']");
+		Assert.Contains("nav-tabs", tabList.ClassList);
 	}
 
 	[Fact]
@@ -295,7 +297,7 @@ public class HxTabPanelTests : BunitTestBase
 	}
 
 	[Fact]
-	public void HxTabPanel_VerticalOrientation_NavIsFlexColumnWithAriaOrientation()
+	public void HxTabPanel_VerticalOrientation_PillsAreVerticalWithAriaOrientation()
 	{
 		// Arrange & Act
 		var component = Render<HxTabPanel>(parameters => parameters
@@ -309,8 +311,9 @@ public class HxTabPanelTests : BunitTestBase
 			)
 		);
 
-		var nav = component.Find("nav");
-		Assert.Contains("flex-column", nav.ClassList);
+		var nav = component.Find("[role='tablist']");
+		Assert.Contains("nav-pills", nav.ClassList);
+		Assert.Contains("nav-pills-vertical", nav.ClassList);
 		Assert.Equal("vertical", nav.GetAttribute("aria-orientation"));
 
 		// The nav and the content are wrapped in a flex container so they sit side by side
@@ -331,13 +334,14 @@ public class HxTabPanelTests : BunitTestBase
 			)
 		);
 
-		var nav = component.Find("nav");
+		var nav = component.Find("[role='tablist']");
 		Assert.DoesNotContain("flex-column", nav.ClassList);
+		Assert.DoesNotContain("nav-pills-vertical", nav.ClassList);
 		Assert.Null(nav.GetAttribute("aria-orientation"));
 	}
 
 	[Fact]
-	public void HxTabPanel_PanesHaveFadeAndActiveHasShow()
+	public void HxTabPanel_PanesHaveNoFadeAndActiveIsMarked()
 	{
 		// Arrange & Act
 		var component = Render<HxTabPanel>(parameters => parameters
@@ -356,15 +360,11 @@ public class HxTabPanelTests : BunitTestBase
 
 		var panes = component.FindAll("div.tab-pane");
 
-		// Every pane has the fade class
-		Assert.All(panes, pane => Assert.Contains("fade", pane.ClassList));
+		// Bootstrap 6 fades the active pane in by itself (.fade would override the --bs-tab-pane-transition-* tokens)
+		Assert.All(panes, pane => Assert.DoesNotContain("fade", pane.ClassList));
+		Assert.All(panes, pane => Assert.DoesNotContain("show", pane.ClassList));
 
-		// Active pane additionally has show + active
-		Assert.Contains("show", panes[0].ClassList);
 		Assert.Contains("active", panes[0].ClassList);
-
-		// Inactive pane has neither show nor active
-		Assert.DoesNotContain("show", panes[1].ClassList);
 		Assert.DoesNotContain("active", panes[1].ClassList);
 	}
 

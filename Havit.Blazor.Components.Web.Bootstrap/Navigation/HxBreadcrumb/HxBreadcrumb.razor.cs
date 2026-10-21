@@ -18,11 +18,4 @@ public partial class HxBreadcrumb
 	/// (customizable globally via the <c>--bs-breadcrumb-divider-icon</c> CSS variable).
 	/// </summary>
 	[Parameter] public RenderFragment DividerTemplate { get; set; }
-
-	private int _itemCounter;
-
-	/// <summary>
-	/// Called by <see cref="HxBreadcrumbItem"/> on initialization to determine the item position (dividers are rendered between items).
-	/// </summary>
-	internal int RegisterItem() => _itemCounter++;
 }

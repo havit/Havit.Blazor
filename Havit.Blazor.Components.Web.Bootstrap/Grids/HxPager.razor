@@ -11,7 +11,7 @@
 }
 
 <nav aria-label="@HxPagerLocalizer["PaginationLandmark"]">
-	<ul class="@CssClassHelper.Combine("hx-pager pagination", SizeCssClass, CssClassEffective)">
+	<ul class="@CssClassHelper.Combine("hx-pager pagination", SizeCssClass, ColorEffective?.ToThemeCss(), CssClassEffective)">
 		@if (showFirstLast)
 		{
 			<li class="@previousPageItemDisabledCssClass">
