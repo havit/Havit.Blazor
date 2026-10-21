@@ -7,6 +7,11 @@ Numeric input in percentages with value normalization (0% = 0, 100% = 1.0).
 | Name | Type | Description |
 |------|------|-------------|
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
+| AdornCssClass | `string` | Custom CSS class to be rendered with the `form-adorn` wrapper. |
+| AdornEndTemplate | `RenderFragment` | Adornment (typically an icon) at the end of the input. |
+| AdornEndText | `string` | Text adornment at the end of the input. |
+| AdornStartTemplate | `RenderFragment` | Adornment (typically an icon) at the beginning of the input. |
+| AdornStartText | `string` | Text adornment at the beginning of the input. |
 | BindEvent | `BindEvent` | Input event used to bind the Value. Default is OnChange. |
 | ChipTemplate | `RenderFragment` | The chip template. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |

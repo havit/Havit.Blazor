@@ -1,6 +1,6 @@
 ﻿# HxBadge
 
-Bootstrap Badge component.
+Small Bootstrap badge for counts and labels. Attach it to headings, buttons, or icons; position it as a notification dot; and style it with any theme color or pill shape.
 
 ## Parameters
 

@@ -1,0 +1,16 @@
+﻿# HxCarousel_Demo_EndsStop.razor
+
+```razor
+<HxCarousel Controls="true" Ends="CarouselEnds.Stop">
+	<HxCarouselItem Active="true">
+		<DemoImage Text="First Slide" Color="#666" />
+	</HxCarouselItem>
+	<HxCarouselItem>
+		<DemoImage Text="Second Slide" Color="#555" />
+	</HxCarouselItem>
+	<HxCarouselItem>
+		<DemoImage Text="Third Slide" Color="#444" />
+	</HxCarouselItem>
+</HxCarousel>
+
+```

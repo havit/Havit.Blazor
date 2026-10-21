@@ -1,0 +1,9 @@
+﻿# HxButton_Demo_Block.razor
+
+```razor
+<div class="d-grid gap-2">
+	<HxButton Text="Block button" Color="ThemeColor.Primary" />
+	<HxButton Text="Block button" Color="ThemeColor.Primary" />
+</div>
+
+```

@@ -1,7 +1,7 @@
 ﻿# HxCarousel_Demo_Dark.razor
 
 ```razor
-<HxCarousel Controls="true" Indicators="true" Dark="true">
+<HxCarousel Overlay="true" Controls="true" Indicators="true" data-bs-theme="dark">
 	<HxCarouselItem Active="true">
 		<DemoImage Text="First Slide" Color="#f5f5f5" />
 	</HxCarouselItem>

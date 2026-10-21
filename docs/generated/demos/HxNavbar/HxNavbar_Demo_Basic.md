@@ -1,7 +1,7 @@
 ﻿# HxNavbar_Demo_Basic.razor
 
 ```razor
-<HxNavbar CssClass="bg-body-tertiary">
+<HxNavbar CssClass="bg-1">
     <HxNavbarBrand>Navbar</HxNavbarBrand>
     <HxNavbarToggler />
     <HxNavbarDrawer>

@@ -1,6 +1,6 @@
 ﻿# HxCard
 
-Bootstrap card component.
+Flexible content container — a Bootstrap card — for grouping a title, text, image, and actions into a single bordered panel.
 
 ## Parameters
 

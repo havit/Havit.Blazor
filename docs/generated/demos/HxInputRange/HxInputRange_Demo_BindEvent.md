@@ -1,7 +1,7 @@
 ﻿# HxInputRange_Demo_BindEvent.razor
 
 ```razor
-<HxInputRange Min="0" Max="100" @bind-Value="value" Label="Example slider" BindEvent="BindEvent.OnInput" />
+<HxInputRange Min="0" Max="100" @bind-Value="value" Label="Example range" BindEvent="BindEvent.OnInput" />
 
 @value
 

@@ -1,6 +1,6 @@
 ﻿# HxProgressIndicator
 
-Displays the content of the component as "in progress".
+Wraps content and shows a spinner overlay while an operation is in progress, with a configurable delay to avoid flicker on fast operations.
 
 ## Parameters
 

@@ -22,6 +22,7 @@
 				@bind-SelectedDataItem="currentEmployee"
 				@bind-SelectedDataItem:after="HandleSelectedDataItemChanged"
 				PageSize="5"
+				PagerSettings="@(new PagerSettings { Size = PagerSize.Small })"
 				Responsive="true">
 			<Columns>
 				<HxGridColumn HeaderText="Name" ItemTextSelector="employee => employee.Name" />

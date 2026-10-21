@@ -7,8 +7,8 @@
 <HxButton Color="ThemeColor.Danger" Text="Danger" />
 <HxButton Color="ThemeColor.Warning" Text="Warning" />
 <HxButton Color="ThemeColor.Info" Text="Info" />
-<HxButton Color="ThemeColor.Secondary" Text="Light" />
-<HxButton Color="ThemeColor.Inverse" Text="Dark" />
+<HxButton Color="ThemeColor.Accent" Text="Accent" />
+<HxButton Color="ThemeColor.Inverse" Text="Inverse" />
 <HxButton Color="ThemeColor.Link" Text="Link" />
 
 ```
