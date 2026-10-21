@@ -2,17 +2,17 @@
 @* PERF!!! Heavily used in data-lists/grids/etc. => do not over-use subcomponents unless absolutely necessary => don't use HxMenu components here *@
 @* Bootstrap 6: no wrapper element is required - the toggle and the .menu are direct siblings. *@
 <div class="@CssClassHelper.Combine("hx-context-menu", CssClassEffective)">
-	<div role="button"
-		 class="hx-context-menu-btn"
-		 id="@_id"
-		 data-bs-toggle="menu"
-		 data-bs-placement="@MenuPlacementEffective.ToDataBsPlacement()"
-		 data-bs-floating-config="@GetFloatingConfig()"
-		 aria-haspopup="true"
-		 aria-expanded="false"
-		 @onclick:stopPropagation="true">
+	<button type="button"
+			class="hx-context-menu-btn"
+			id="@_id"
+			data-bs-toggle="menu"
+			data-bs-placement="@MenuPlacementEffective.ToDataBsPlacement()"
+			data-bs-strategy="@(FloatingStrategy == FloatingStrategy.Fixed ? "fixed" : null)"
+			aria-haspopup="true"
+			aria-expanded="false"
+			@onclick:stopPropagation="true">
 		<HxIcon Icon="IconEffective" CssClass="@IconCssClassEffective" />
-	</div>
+	</button>
 	<div class="@CssClassHelper.Combine("menu", MenuCssClassEffective)" aria-labelledby="@_id">
 		@ChildContent
 	</div>

@@ -86,7 +86,6 @@
 	--hx-context-menu-button-padding: 								0 .25rem;
 	--hx-context-menu-button-hover-background: 						color-mix(in srgb, var(--bs-fg-body) 10%, transparent);
 	--hx-context-menu-button-font-size:								inherit;
-	--hx-context-menu-item-icon-margin: 							0 .5rem 0 0;
 
 
 	/* HxGrid */
