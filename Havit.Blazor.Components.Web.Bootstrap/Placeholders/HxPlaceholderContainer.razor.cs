@@ -75,6 +75,8 @@ public partial class HxPlaceholderContainer
 
 	/// <summary>
 	/// Indicates whether the placeholder is active (if <c>false</c>, the component acts as regular HTML element).
+	/// While active, the container renders <c>aria-hidden="true"</c> (the placeholders are not meant for assistive technologies;
+	/// override it through an explicit <c>aria-hidden</c> attribute).
 	/// Default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool Active { get; set; } = true;
@@ -96,7 +98,7 @@ public partial class HxPlaceholderContainer
 		return (AnimationEffective) switch
 		{
 			PlaceholderAnimation.None => null,
-			PlaceholderAnimation.Glow => "placeholder-glow",
+			PlaceholderAnimation.Pulse => "placeholder-pulse",
 			PlaceholderAnimation.Wave => "placeholder-wave",
 			_ => throw new InvalidOperationException($"Unknown {nameof(PlaceholderAnimation)} value {AnimationEffective}.")
 		};

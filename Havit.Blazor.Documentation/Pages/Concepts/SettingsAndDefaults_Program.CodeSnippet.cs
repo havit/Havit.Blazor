@@ -13,7 +13,7 @@
 
 	private static void SetHxComponents()
 	{
-		HxPlaceholderContainer.Defaults.Animation = PlaceholderAnimation.Glow;
+		HxPlaceholderContainer.Defaults.Animation = PlaceholderAnimation.Pulse;
 		HxPlaceholder.Defaults.Color = ThemeColor.Secondary;
 
 		HxButton.Defaults.Size = ButtonSize.Small;
