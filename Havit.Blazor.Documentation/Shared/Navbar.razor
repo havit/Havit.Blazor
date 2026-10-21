@@ -21,7 +21,7 @@
 											Variant="ButtonVariant.Text"
 											Icon="BootstrapIcon.ChevronExpand"
 											IconPlacement="ButtonIconPlacement.End"
-											CssClass="nav-link fw-medium link-body-emphasis">
+											CssClass="nav-link fw-medium fg-body">
 							@GetCurrentSectionLabel()
 						</HxMenuToggleButton>
 					</Toggle>
@@ -38,10 +38,10 @@
 			<HxNavbarDrawer Title="Navigation" Placement="DrawerPlacement.Bottom" CssClass="mobile-nav-drawer">
 				@* Inline horizontal navigation for xl+ (below xl the main nav collapses to the dropdown so it doesn't overlap the centered search); aligned to the left. *@
 				<HxNav CssClass="d-none xl:d-flex fs-sm gap-2 my-3 lg:my-0">
-					<HxNavLink Href="getting-started" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Docs</HxNavLink>
-					<HxNavLink Href="https://blocks.havit.blazor.eu" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Blocks</HxNavLink>
-					<HxNavLink Href="showcase" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Showcase</HxNavLink>
-					<HxNavLink Href="premium" CssClass="px-3 link-body-emphasis link-opacity-75 link-opacity-100-hover">Premium</HxNavLink>
+					<HxNavLink Href="getting-started" CssClass="px-3">Docs</HxNavLink>
+					<HxNavLink Href="https://blocks.havit.blazor.eu" CssClass="px-3">Blocks</HxNavLink>
+					<HxNavLink Href="showcase" CssClass="px-3">Showcase</HxNavLink>
+					<HxNavLink Href="premium" CssClass="px-3">Premium</HxNavLink>
 				</HxNav>
 
 				@* Search absolutely centered in the navbar on lg+ (see site.css .navbar-search-center).
