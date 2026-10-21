@@ -2,6 +2,7 @@
 
 /// <summary>
 /// Auto-close behavior of the <see cref="HxMenu"/> (<see cref="HxMenuToggleButton"/> respectively).
+/// The <c>Esc</c> key always closes the menu, regardless of the auto-close behavior.
 /// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior"/>.
 /// </summary>
 public enum MenuAutoClose
@@ -12,7 +13,7 @@ public enum MenuAutoClose
 	True = 0,
 
 	/// <summary>
-	/// The menu will be closed by clicking the toggle button. (It will also not be closed by pressing the esc key).
+	/// The menu will be closed (only) by clicking the toggle button (or by pressing the <c>Esc</c> key).
 	/// </summary>
 	False = 1,
 

@@ -66,8 +66,8 @@ public class HxMenuToggleButton : HxButton, IAsyncDisposable, IHxMenuToggle
 	protected virtual Task InvokeOnHiddenAsync() => OnHidden.InvokeAsync();
 
 	/// <summary>
-	/// By default, the menu menu is closed when clicking inside or outside the menu menu (<see cref="MenuAutoClose.True"/>).
-	/// You can use the AutoClose parameter to change this behavior of the menu.
+	/// By default, the menu is closed when clicking inside or outside the menu (<see cref="MenuAutoClose.True"/>).
+	/// You can use the AutoClose parameter to change this behavior of the menu (the <c>Esc</c> key always closes the menu).
 	/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior</see>.
 	/// The parameter can be used to override the settings of the <see cref="MenuContainer"/> component or to specify the auto-close behavior when the component is not used.
 	/// </summary>

@@ -26,7 +26,8 @@
 		<DocHeading Title="Custom toggle element" Id="custom-toggle" />
 		<p>
 			Use <code>HxMenuToggleElement</code> (with <code>ElementName="..."</code>) to create a menu with a custom toggle.
-			(Usually you will add <code>role="button"</code> to apply pointer cursor type.)
+			Prefer a focusable element (e.g. <code>ElementName="button" type="button"</code>) so the menu can be opened from the keyboard.
+			For a non-focusable element (<code>div</code>, <code>span</code>) add <code>tabindex="0"</code> and <code>role="button"</code>.
 		</p>
 		<Demo Type="typeof(HxMenu_Demo_CustomToggle)" />
 
@@ -64,7 +65,8 @@
 		<p>
 			Put a form within a menu, or make it into a menu, and use <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/utilities/spacing/">spacing utilities</a>
 			to give it the negative space you require. Any custom content can be placed directly into the <code>Content</code> render fragment.
-			Set <code>AutoClose="MenuAutoClose.Outside"</code> so clicking inside the form does not close the menu.
+			Clicks inside a <code>&lt;form&gt;</code> placed in the menu (inputs, labels, buttons) do not close the menu,
+			so no <code>AutoClose</code> setting is needed.
 		</p>
 		<Demo Type="typeof(HxMenu_Demo_Forms)" />
 
@@ -91,7 +93,10 @@
 		<Demo Type="typeof(HxMenu_Demo_Reference)" />
 
 		<DocHeading Title="AutoClose behavior" Id="AutoClose" />
-		<p>By default, the menu is closed when clicking inside or outside the menu. You can use the <code>AutoClose</code> parameter to change this behavior of the menu.</p>
+		<p>
+			By default, the menu is closed when clicking inside or outside the menu. You can use the <code>AutoClose</code> parameter to change this behavior of the menu.
+			The <kbd>Esc</kbd> key always closes the menu.
+		</p>
 		<Demo Type="typeof(HxMenu_Demo_AutoClose)" />
 
 		<DocHeading Title="Nav with menu" Id="nav" />

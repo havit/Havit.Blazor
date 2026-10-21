@@ -8,7 +8,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public class HxMenuToggleElement : ComponentBase, IHxMenuToggle, IAsyncDisposable
 {
 	/// <summary>
-	/// Gets or sets the name of the element to render. Default is <c>span</c>.
+	/// Gets or sets the name of the element to render. Default is <c>span</c>.<br />
+	/// Prefer a focusable element (e.g. <c>button</c> with <c>type="button"</c>) to make the menu accessible from the keyboard,
+	/// or add <c>tabindex="0"</c> (and <c>role="button"</c>) to a non-focusable element.
 	/// </summary>
 	[Parameter] public string ElementName { get; set; } = "span";
 
@@ -32,8 +34,8 @@ public class HxMenuToggleElement : ComponentBase, IHxMenuToggle, IAsyncDisposabl
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
-	/// By default, the menu menu is closed when clicking inside or outside the menu menu (<see cref="MenuAutoClose.True"/>).
-	/// You can use the AutoClose parameter to change this behavior of the menu.
+	/// By default, the menu is closed when clicking inside or outside the menu (<see cref="MenuAutoClose.True"/>).
+	/// You can use the AutoClose parameter to change this behavior of the menu (the <c>Esc</c> key always closes the menu).
 	/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior</see>.
 	/// The parameter can be used to override the settings of the <see cref="MenuContainer"/> component or to specify the auto-close behavior when the component is not used.
 	/// </summary>
