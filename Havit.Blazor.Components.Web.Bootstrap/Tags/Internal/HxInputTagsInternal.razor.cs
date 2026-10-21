@@ -134,6 +134,7 @@ public partial class HxInputTagsInternal
 	private IJSObjectReference _jsModule;
 	private HxInputTagsInputInternal _inputComponent;
 	private bool _dataProviderInProgress;
+	private string _selectedTag; // the last tag selected by the first Backspace in the empty input (the second Backspace removes it)
 	private DotNetObjectReference<HxInputTagsInternal> _dotnetObjectReference;
 
 	public HxInputTagsInternal()
@@ -269,6 +270,7 @@ public partial class HxInputTagsInternal
 	public async Task HandleInputBlur(bool isWithinMenu)
 	{
 		_currentlyFocused = false;
+		_selectedTag = null;
 
 		CancelDelayedSuggestionsUpdate();
 
@@ -374,9 +376,26 @@ public partial class HxInputTagsInternal
 	[JSInvokable("HxInputTagsInternal_HandleInputKeyDown")]
 	public async Task HandleInputKeyDown(string keyCode)
 	{
+		// Backspace in the empty input selects the last tag first, the second Backspace removes it (Bootstrap chip input keyboard behavior).
+		// Any other key cancels the selection.
 		if ((keyCode == KeyCodes.Backspace) && String.IsNullOrWhiteSpace(_userInput) && ValueEffective.Any())
 		{
-			await RemoveTagWithEventCallbackAsync(ValueEffective.Last());
+			string lastTag = ValueEffective.Last();
+			if (_selectedTag == lastTag)
+			{
+				_selectedTag = null;
+				await RemoveTagWithEventCallbackAsync(lastTag);
+			}
+			else
+			{
+				_selectedTag = lastTag;
+				StateHasChanged();
+			}
+		}
+		else if (_selectedTag is not null)
+		{
+			_selectedTag = null;
+			StateHasChanged();
 		}
 
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.

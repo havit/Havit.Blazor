@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -168,5 +169,67 @@ public class HxInputTagsTests : BunitTestBase
 		// Assert — label is rendered
 		var label = cut.Find("label");
 		Assert.Contains("Tags", label.TextContent);
+	}
+
+	[Fact]
+	public async Task HxInputTags_BackspaceInEmptyInput_FirstSelectsLastTagSecondRemovesIt()
+	{
+		// Arrange
+		var tags = new List<string> { "red", "blue" };
+		var cut = Render<HxInputTags>(parameters => parameters
+			.Bind(p => p.Value, tags, newValue => tags = newValue));
+		var inputTagsInternal = cut.FindComponent<HxInputTagsInternal>();
+
+		// Act - first Backspace
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("Backspace"));
+
+		// Assert - the last tag is selected, nothing removed
+		Assert.Equal(["red", "blue"], tags);
+		var selectedTag = cut.Find(".chip.hx-tag.active");
+		Assert.Contains("blue", selectedTag.TextContent);
+
+		// Act - second Backspace
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("Backspace"));
+
+		// Assert - the selected tag is removed, no tag selected
+		Assert.Equal(["red"], tags);
+		Assert.Empty(cut.FindAll(".chip.hx-tag.active"));
+	}
+
+	[Fact]
+	public async Task HxInputTags_BackspaceInEmptyInput_OtherKeyCancelsSelection()
+	{
+		// Arrange
+		var tags = new List<string> { "red", "blue" };
+		var cut = Render<HxInputTags>(parameters => parameters
+			.Bind(p => p.Value, tags, newValue => tags = newValue));
+		var inputTagsInternal = cut.FindComponent<HxInputTagsInternal>();
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("Backspace"));
+
+		// Act
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("ArrowRight"));
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("Backspace"));
+
+		// Assert - the selection was cancelled, the Backspace selects the last tag again (does not remove it)
+		Assert.Equal(["red", "blue"], tags);
+		Assert.Single(cut.FindAll(".chip.hx-tag.active"));
+	}
+
+	[Fact]
+	public async Task HxInputTags_BackspaceInEmptyInput_BlurCancelsSelection()
+	{
+		// Arrange
+		var tags = new List<string> { "red", "blue" };
+		var cut = Render<HxInputTags>(parameters => parameters
+			.Bind(p => p.Value, tags, newValue => tags = newValue));
+		var inputTagsInternal = cut.FindComponent<HxInputTagsInternal>();
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("Backspace"));
+
+		// Act
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputBlur(isWithinMenu: false));
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("Backspace"));
+
+		// Assert
+		Assert.Equal(["red", "blue"], tags);
 	}
 }

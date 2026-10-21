@@ -18,7 +18,7 @@
 
 		@foreach (string tag in ValueEffective)
 		{
-			<span @key="@tag" class="@CssClassHelper.Combine("chip", "hx-tag", TagCssClass)">
+			<span @key="@tag" class="@CssClassHelper.Combine("chip", "hx-tag", (tag == _selectedTag) ? "active" : null, TagCssClass)">
 				@tag
 				@if (EnabledEffective)
 				{
