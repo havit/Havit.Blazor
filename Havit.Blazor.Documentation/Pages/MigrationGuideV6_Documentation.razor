@@ -39,8 +39,7 @@
 <p>
 	The CSS reference itself does not change &ndash; keep <code>HxSetup.RenderBootstrapCssReference()</code>
 	(or the direct <code>_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.min.css</code> link); it now serves the compiled Bootstrap&nbsp;6 build.
-	The <code>BootstrapFlavor.PlainBootstrap</code> flavor is temporarily served from a pinned <code>twbs/bootstrap</code> commit via jsDelivr
-	(Bootstrap&nbsp;6 alpha is not published to npm/CDN yet).
+	The <code>BootstrapFlavor.PlainBootstrap</code> flavor references the official Bootstrap&nbsp;6.0.0-alpha.1 build on the jsDelivr CDN.
 </p>
 <DocAlert Type="DocAlertType.Warning">
 	If you maintain a <strong>custom Bootstrap build</strong> (own SCSS), you have to rebuild it on the Bootstrap 6 sources.

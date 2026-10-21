@@ -9,6 +9,7 @@
   // HAVIT brand blue; drives the generated --blue-* scale and the "primary" theme.
   $blue: #009de0
 );
+@use "sass:map";
 @use "../node_modules/bootstrap/scss/mixins/tokens" as bs-tokens;
 
 // HAVIT fix: scoped dark/light theming (e.g. dark menus via a `data-bs-theme="dark"` wrapper).
@@ -19,8 +20,10 @@
 // Re-emit the full token set on every `[data-bs-theme]` scope so `light-dark()` recomputes against
 // that scope's color-scheme. This mirrors the per-scope token redeclaration Bootstrap's own docs
 // use for their custom themes (e.g. `[data-bs-theme=blue]`).
+// `--shadow-strength` is left out: it is a plain number Bootstrap itself sets per `[data-bs-theme]`
+// (2.4 for dark), and re-emitting the :root default (1) after it would weaken the dark mode shadows.
 [data-bs-theme] {
-  @include bs-tokens.tokens(bootstrap.$root-tokens);
+  @include bs-tokens.tokens(map.remove(bootstrap.$root-tokens, "--shadow-strength"));
 }
 
 // HAVIT fix: small grow spinner (HxSpinner Type=Grow, Size=Small).

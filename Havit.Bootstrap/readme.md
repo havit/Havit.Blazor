@@ -1,7 +1,7 @@
 # Havit.Bootstrap
 
 ## General notes
-1. Bootstrap 6 sources are consumed as an npm dependency pinned to a commit of the upstream [`v6-dev` branch](https://github.com/twbs/bootstrap/tree/v6-dev) (`6.0.0-alpha1` is not published to npm yet). The pin lives in `package.json` (`bootstrap: github:twbs/bootstrap#<commit>`).
+1. Bootstrap 6 sources are consumed as an npm dependency pinned to the upstream [`v6.0.0-alpha.1` tag](https://github.com/twbs/bootstrap/releases/tag/v6.0.0-alpha.1). The pin lives in `package.json` (`bootstrap: github:twbs/bootstrap#<tag or commit>`).
 2. Havit.Bootstrap overrides are done in the *scss* folder. Bootstrap 6 uses the Sass module system — variable overrides are passed via `@use "bootstrap/scss/bootstrap" with (...)` in `scss/bootstrap.scss`.
 3. CSS custom properties are written unprefixed in the Sass sources and prefixed with `bs-` by PostCSS (`postcss-prefix-custom-properties`, see `postcss.config.mjs`). The `$prefix` Sass variable no longer exists.
 4. There is no RTL build anymore — Bootstrap 6 uses CSS logical properties.

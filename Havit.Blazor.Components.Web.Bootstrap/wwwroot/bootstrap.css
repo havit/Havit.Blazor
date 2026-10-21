@@ -18491,7 +18491,6 @@
   --bs-border-color: light-dark(var(--bs-gray-200), var(--bs-gray-700));
   --bs-border-color-translucent: color-mix(in oklch, var(--bs-fg-body) 15%, transparent);
   --bs-shadow-color: #000;
-  --bs-shadow-strength: 1;
   --bs-transition-timing-overlay: cubic-bezier(0.22, 1, 0.36, 1);
   --bs-spacer: 1rem;
   --bs-focus-ring-width: 3px;
