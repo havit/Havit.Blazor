@@ -57,6 +57,25 @@ public class HxMenuTests : BunitTestBase
 		Assert.Equal("false", toggle.GetAttribute("aria-expanded"));
 	}
 
+	[Fact]
+	public async Task HxMenu_JsShownAndHidden_RerenderShowClassImmediately()
+	{
+		// Arrange
+		var cut = Render<HxMenu>(p => p
+			.Add<HxMenuToggleElement>(m => m.Toggle, toggle => toggle
+				.AddChildContent("Toggle"))
+			.Add(m => m.Content, "Content"));
+		var toggle = cut.FindComponent<HxMenuToggleElement>().Instance;
+
+		// Act + Assert - the rendered class has to follow the JS state right away (Bootstrap toggles "show" itself),
+		// otherwise a later unrelated re-render writes the stale class during a transition (e.g. re-adds "show" while hiding).
+		await cut.InvokeAsync(toggle.HandleJsShown);
+		Assert.True(cut.Find("div.menu").ClassList.Contains("show"));
+
+		await cut.InvokeAsync(toggle.HandleJsHidden);
+		Assert.False(cut.Find("div.menu").ClassList.Contains("show"));
+	}
+
 	[Theory]
 	[InlineData(MenuPlacement.Top, "top")]
 	[InlineData(MenuPlacement.BottomEnd, "bottom-end")]
