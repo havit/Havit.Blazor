@@ -106,6 +106,39 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		}
 	}
 
+	// The months the user navigated to in the calendars (with the effective display months they were navigated from).
+	// Keep the navigation when the component re-renders, discarded when the effective display month changes (e.g. the value is set) or the dropdown gets hidden.
+	private (DateTime DisplayMonthEffective, DateTime DisplayMonth)? _fromCalendarNavigatedDisplayMonth;
+	private (DateTime DisplayMonthEffective, DateTime DisplayMonth)? _toCalendarNavigatedDisplayMonth;
+
+	private DateTime GetFromCalendarDisplayMonth() => GetCalendarDisplayMonth(GetFromCalendarDisplayMonthEffective, _fromCalendarNavigatedDisplayMonth);
+	private DateTime GetToCalendarDisplayMonth() => GetCalendarDisplayMonth(GetToCalendarDisplayMonthEffective, _toCalendarNavigatedDisplayMonth);
+
+	private static DateTime GetCalendarDisplayMonth(DateTime displayMonthEffective, (DateTime DisplayMonthEffective, DateTime DisplayMonth)? navigatedDisplayMonth)
+	{
+		return (navigatedDisplayMonth?.DisplayMonthEffective == displayMonthEffective) ? navigatedDisplayMonth.Value.DisplayMonth : displayMonthEffective;
+	}
+
+	private void HandleFromCalendarDisplayMonthChanged(DateTime displayMonth)
+	{
+		_fromCalendarNavigatedDisplayMonth = (GetFromCalendarDisplayMonthEffective, displayMonth);
+	}
+
+	private void HandleToCalendarDisplayMonthChanged(DateTime displayMonth)
+	{
+		_toCalendarNavigatedDisplayMonth = (GetToCalendarDisplayMonthEffective, displayMonth);
+	}
+
+	private void HandleFromDropdownHidden()
+	{
+		_fromCalendarNavigatedDisplayMonth = null;
+	}
+
+	private void HandleToDropdownHidden()
+	{
+		_toCalendarNavigatedDisplayMonth = null;
+	}
+
 	private bool _firstRenderCompleted;
 
 	protected override void OnParametersSet()

@@ -83,10 +83,30 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 
 	protected DateTime GetCalendarDisplayMonthEffective => DateHelper.GetDateTimeFromValue(CurrentValue) ?? CalendarDisplayMonth;
 
+	// The month the user navigated to in the calendar (with the effective display month it was navigated from).
+	// Keeps the navigation when the component re-renders, discarded when the effective display month changes (e.g. the value is set) or the dropdown gets hidden.
+	private (DateTime DisplayMonthEffective, DateTime DisplayMonth)? _calendarNavigatedDisplayMonth;
+
 	private HxDropdownToggleElement _hxDropdownToggleElement;
 	private ElementReference _iconWrapperElement;
 	private IJSObjectReference _jsModule;
 	private bool _firstRenderCompleted;
+
+	private DateTime GetCalendarDisplayMonth()
+	{
+		DateTime displayMonthEffective = GetCalendarDisplayMonthEffective;
+		return (_calendarNavigatedDisplayMonth?.DisplayMonthEffective == displayMonthEffective) ? _calendarNavigatedDisplayMonth.Value.DisplayMonth : displayMonthEffective;
+	}
+
+	private void HandleCalendarDisplayMonthChanged(DateTime displayMonth)
+	{
+		_calendarNavigatedDisplayMonth = (GetCalendarDisplayMonthEffective, displayMonth);
+	}
+
+	private void HandleDropdownHidden()
+	{
+		_calendarNavigatedDisplayMonth = null;
+	}
 
 	private async Task HandleCurrentValueAsStringChanged(string newInputValue)
 	{

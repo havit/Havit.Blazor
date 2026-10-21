@@ -151,4 +151,46 @@ public class HxInputDateTests : BunitTestBase
 		Assert.NotNull(cut.Find($"div.{HxInputBase<object>.InvalidCssClass}"));
 		Assert.Equal("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent);
 	}
+
+	[Fact]
+	public async Task HxInputDate_CalendarNavigation_IsKeptOnParentRerender()
+	{
+		// Arrange
+		DateTime? myValue = new DateTime(2020, 2, 10);
+
+		var cut = Render<HxInputDate<DateTime?>>(parameters => parameters
+			.Add(p => p.Value, myValue)
+			.Add(p => p.ValueChanged, (DateTime? value) => { myValue = value; })
+			.Add(p => p.ValueExpression, () => myValue));
+
+		// Act
+		await cut.InvokeAsync(() => cut.FindAll("button.hx-calendar-navigation-button")[1].Click()); // next month
+		cut.Render(parameters => parameters.Add(p => p.Value, myValue));
+
+		// Assert
+		Assert.Equal("2", cut.Find("select[aria-label='Month']").GetAttribute("value")); // March
+		Assert.Equal("2020", cut.Find("select[aria-label='Year']").GetAttribute("value"));
+	}
+
+	[Fact]
+	public async Task HxInputDate_CalendarNavigation_IsResetWhenDropdownHidden()
+	{
+		// Arrange
+		DateTime? myValue = new DateTime(2020, 2, 10);
+
+		var cut = Render<HxInputDate<DateTime?>>(parameters => parameters
+			.Add(p => p.Value, myValue)
+			.Add(p => p.ValueChanged, (DateTime? value) => { myValue = value; })
+			.Add(p => p.ValueExpression, () => myValue));
+
+		await cut.InvokeAsync(() => cut.FindAll("button.hx-calendar-navigation-button")[1].Click()); // next month
+		Assert.Equal("2", cut.Find("select[aria-label='Month']").GetAttribute("value")); // March
+
+		// Act
+		var dropdownToggleElement = cut.FindComponent<HxDropdownToggleElement>().Instance;
+		await cut.InvokeAsync(dropdownToggleElement.HandleJsHidden);
+
+		// Assert
+		Assert.Equal("1", cut.Find("select[aria-label='Month']").GetAttribute("value")); // February
+	}
 }

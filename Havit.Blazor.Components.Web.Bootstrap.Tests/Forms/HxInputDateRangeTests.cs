@@ -706,6 +706,57 @@ public class HxInputDateRangeTests : BunitTestBase
 		}
 	}
 
+	[Fact]
+	public async Task HxInputDateRange_CalendarNavigation_IsKeptOnParentRerender()
+	{
+		// Arrange
+		var myValue = new DateTimeRange { StartDate = new DateTime(2024, 1, 15) };
+
+		var cut = Render<HxInputDateRange<DateTimeRange>>(parameters => parameters
+			.Add(p => p.Value, myValue)
+			.Add(p => p.ValueChanged, (DateTimeRange value) => { myValue = value; })
+			.Add(p => p.ValueExpression, () => myValue));
+
+		// Act
+		await cut.InvokeAsync(() => cut.FindAll("button.hx-calendar-navigation-button")[0].Click()); // "From" calendar, previous month
+		await cut.InvokeAsync(() => cut.FindAll("button.hx-calendar-navigation-button")[3].Click()); // "To" calendar, next month
+		cut.Render(parameters => parameters.Add(p => p.Value, myValue));
+
+		// Assert
+		var monthSelects = cut.FindAll("select[aria-label='Month']");
+		var yearSelects = cut.FindAll("select[aria-label='Year']");
+		Assert.Equal("11", monthSelects[0].GetAttribute("value")); // December
+		Assert.Equal("2023", yearSelects[0].GetAttribute("value"));
+		Assert.Equal("1", monthSelects[1].GetAttribute("value")); // February
+		Assert.Equal("2024", yearSelects[1].GetAttribute("value"));
+	}
+
+	[Fact]
+	public async Task HxInputDateRange_ToCalendar_FollowsFromDate()
+	{
+		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
+		{
+			// Arrange
+			var myValue = new DateTimeRange();
+
+			var cut = Render<HxInputDateRange<DateTimeRange>>(parameters => parameters
+				.Add(p => p.Value, myValue)
+				.Add(p => p.ValueChanged, (DateTimeRange value) => { myValue = value; })
+				.Add(p => p.ValueExpression, () => myValue));
+
+			await cut.InvokeAsync(() => cut.FindAll("button.hx-calendar-navigation-button")[3].Click()); // "To" calendar, next month
+
+			// Act
+			cut.FindAll("input")[0].Change("6/15/2024");
+			cut.Render(parameters => parameters.Add(p => p.Value, myValue));
+
+			// Assert
+			Assert.Equal(new DateTime(2024, 6, 15), myValue.StartDate);
+			Assert.Equal("5", cut.FindAll("select[aria-label='Month']")[1].GetAttribute("value")); // June
+			Assert.Equal("2024", cut.FindAll("select[aria-label='Year']")[1].GetAttribute("value"));
+		}
+	}
+
 	public record class FormModel
 	{
 		public MyRange A { get; set; } = new MyRange();
