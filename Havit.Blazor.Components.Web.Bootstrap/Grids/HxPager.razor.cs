@@ -132,6 +132,13 @@ public partial class HxPager : ComponentBase
 	};
 
 	/// <summary>
+	/// Theme color of the pager (hover, focus, and the active page item), renders the Bootstrap <c>theme-*</c> class.
+	/// The default is <c>null</c> (no theme color).
+	/// </summary>
+	[Parameter] public ThemeColor? Color { get; set; }
+	protected ThemeColor? ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color;
+
+	/// <summary>
 	/// Any additional CSS class to apply.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }

@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using Havit;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Grids;
@@ -161,5 +161,43 @@ public class HxPager_Basic_Tests : BunitTestBase
 			Assert.Equal("Pagination", nav.GetAttribute("aria-label"));
 			Assert.NotNull(nav.QuerySelector("ul.pagination"));
 		}
+	}
+
+	[Fact]
+	public void HxPager_Color_RendersThemeCssClass()
+	{
+		// Act
+		var cut = Render<HxPager>(parameters => parameters
+			.Add(p => p.TotalPages, 5)
+			.Add(p => p.CurrentPageIndex, 0)
+			.Add(p => p.Color, ThemeColor.Success));
+
+		// Assert
+		Assert.Contains("theme-success", cut.Find("ul.pagination").ClassList);
+	}
+
+	[Fact]
+	public void HxPager_ColorFromSettings_RendersThemeCssClass()
+	{
+		// Act
+		var cut = Render<HxPager>(parameters => parameters
+			.Add(p => p.TotalPages, 5)
+			.Add(p => p.CurrentPageIndex, 0)
+			.Add(p => p.Settings, new PagerSettings { Color = ThemeColor.Danger }));
+
+		// Assert
+		Assert.Contains("theme-danger", cut.Find("ul.pagination").ClassList);
+	}
+
+	[Fact]
+	public void HxPager_ColorNotSet_RendersNoThemeCssClass()
+	{
+		// Act
+		var cut = Render<HxPager>(parameters => parameters
+			.Add(p => p.TotalPages, 5)
+			.Add(p => p.CurrentPageIndex, 0));
+
+		// Assert
+		Assert.DoesNotContain(cut.Find("ul.pagination").ClassList, cssClass => cssClass.StartsWith("theme-"));
 	}
 }
