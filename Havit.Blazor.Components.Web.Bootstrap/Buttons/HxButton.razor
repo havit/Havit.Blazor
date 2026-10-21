@@ -16,13 +16,14 @@
 			disabled="@DisabledEffective"
             form="@FormId"
             aria-label="@GetAriaLabel()"
+            aria-pressed="@GetAriaPressed()"
             @attributes="this.AdditionalAttributes">
 
         @if ((IconPlacementEffective == ButtonIconPlacement.Start) && ((IconEffective is not null) || SpinnerEffective))
         {
             if (SpinnerEffective)
             {
-                <HxSpinner Size="SpinnerSize.Small" />
+                <span class="spinner-border spinner-sm" aria-hidden="true"></span>
             }
             if (IconEffective is not null)
             {
@@ -38,7 +39,7 @@
         {
             if (SpinnerEffective)
             {
-                <HxSpinner Size="SpinnerSize.Small" />
+                <span class="spinner-border spinner-sm" aria-hidden="true"></span>
             }
             if (IconEffective is not null)
             {

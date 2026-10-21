@@ -14,7 +14,10 @@
 		<HxButton_Playground />
 
 		<DocHeading Title="Variants" />
-		<p>Bootstrap 6 buttons compose a visual variant (<code>ButtonVariant.Solid</code>, <code>Outline</code>, <code>Subtle</code>, <code>Text</code>, <code>Link</code>) with a theme color:</p>
+		<p>
+			Bootstrap 6 buttons compose a visual variant (<code>ButtonVariant.Solid</code>, <code>Outline</code>, <code>Subtle</code>, <code>Text</code>, <code>Link</code>) with a theme color.
+			<code>ButtonVariant.Link</code> renders in the link color unless a theme <code>Color</code> is set:
+		</p>
 		<Demo Type="typeof(HxButton_Demo_Variants)" />
 
 		<DocHeading Title="Styled buttons" />
@@ -35,10 +38,19 @@
 		<p>Set <code>Enabled="false"</code> to render the button in a disabled state.</p>
 		<Demo Type="typeof(HxButton_Demo_Disabled)" Tabs="false" />
 
+		<DocHeading Title="Toggle buttons" Id="toggle-buttons" />
+		<p>
+			Set the <code>Active</code> parameter to render an on/off <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button/#toggle-states">toggle button</a>.
+			<code>Active="true"</code> renders the <code>.active</code> class with <code>aria-pressed="true"</code>, <code>Active="false"</code> renders <code>aria-pressed="false"</code>,
+			so assistive technologies announce the button as a toggle. The state is up to you &ndash; switch it in <code>OnClick</code>.
+			For a checkbox-based toggle, use <a href="/components/HxCheckbox">HxCheckbox</a> with <code>RenderMode="CheckboxRenderMode.ToggleButton"</code> instead.
+		</p>
+		<Demo Type="typeof(HxButton_Demo_Toggle)" />
+
 		<DocHeading Title="Block buttons" />
 		<p>
 			Create responsive stacks of full-width, "block" buttons by wrapping them in a <code>.d-grid</code> container
-			(a <a href="https://getbootstrap.com/docs/5.3/utilities/display/">display utility</a>).
+			(a <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/utilities/display/">display utility</a>).
 			Use the <code>gap-*</code> utilities to control spacing between the buttons.
 		</p>
 		<Demo Type="typeof(HxButton_Demo_Block)" Tabs="false" />
@@ -112,7 +124,7 @@
 			</p>
 			<p>
 				The wrapping <code>&lt;span&gt;...&lt;/span&gt;</code> is always decorated with the <code>.d-inline-block</code> class (combined with <code>TooltipWrapperCssClass</code>) to align the behavior with plain <code>.btn</code>.
-				Feel free to override the behavior by setting <code>TooltipWrapperCssClass</code> to any other <a href="https://getbootstrap.com/docs/5.3/utilities/display/">display utility class</a> of your choice.
+				Feel free to override the behavior by setting <code>TooltipWrapperCssClass</code> to any other <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/utilities/display/">display utility class</a> of your choice.
 			</p>
 			<p>
 				Sometimes the wrapping <code>&lt;span&gt;...&lt;/span&gt;</code> breaks the HTML structure anticipated by some Bootstrap components,
