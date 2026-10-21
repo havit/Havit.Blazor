@@ -43,6 +43,8 @@ public partial class HxCard
 
 	/// <summary>
 	/// Placement of the image. The default is <see cref="CardImagePlacement.Top"/>.
+	/// In a horizontal card (<see cref="Horizontal"/>), <see cref="CardImagePlacement.Top"/> places the image at the start
+	/// and <see cref="CardImagePlacement.Bottom"/> at the end of the card.
 	/// </summary>
 	[Parameter] public CardImagePlacement ImagePlacement { get; set; }
 
@@ -142,6 +144,17 @@ public partial class HxCard
 			CardVariant.Subtle => "card-subtle",
 			CardVariant.Translucent => "card-translucent",
 			_ => throw new InvalidOperationException($"Unknown {nameof(CardVariant)} value {VariantEffective}.")
+		};
+	}
+
+	private string GetImageCssClass()
+	{
+		return ImagePlacement switch
+		{
+			CardImagePlacement.Top => HorizontalEffective ? "card-img-start" : "card-img-top",
+			CardImagePlacement.Bottom => HorizontalEffective ? "card-img-end" : "card-img-bottom",
+			CardImagePlacement.Overlay => "card-img",
+			_ => throw new InvalidOperationException($"Unknown {nameof(CardImagePlacement)} value {ImagePlacement}.")
 		};
 	}
 }

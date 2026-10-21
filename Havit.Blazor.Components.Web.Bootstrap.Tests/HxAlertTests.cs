@@ -111,4 +111,59 @@ public class HxAlertTests : BunitTestBase
 		var div = cut.Find("div.alert");
 		Assert.True(div.ClassList.Contains("my-custom-class"));
 	}
+
+	[Fact]
+	public void HxAlert_NoColor_RendersNeutralAlert()
+	{
+		// Act
+		var cut = Render<HxAlert>(p => p
+			.AddChildContent("<p>Neutral alert</p>"));
+
+		// Assert
+		var div = cut.Find("div.alert");
+		Assert.Equal(new[] { "alert" }, div.ClassList.ToArray());
+	}
+
+	[Fact]
+	public void HxAlert_NotDismissible_DoesNotImportJsModule()
+	{
+		// Act
+		Render<HxAlert>(p => p
+			.AddChildContent("<p>Alert</p>"));
+
+		// Assert
+		Assert.DoesNotContain(JSInterop.Invocations, invocation => invocation.Identifier == "import");
+	}
+
+	[Fact]
+	public void HxAlert_Dismissible_InitializesJsModule()
+	{
+		// Act
+		Render<HxAlert>(p => p
+			.Add(a => a.Dismissible, true)
+			.Add(a => a.OnClosed, () => { })
+			.AddChildContent("<p>Alert</p>"));
+
+		// Assert
+		var import = JSInterop.VerifyInvoke("import");
+		Assert.Contains("HxAlert.js", (string)import.Arguments[0]);
+		Assert.Contains(JSInterop.Invocations, invocation => invocation.Identifier == "initialize");
+	}
+
+	[Fact]
+	public async Task HxAlert_HandleJsClosed_InvokesOnClosed()
+	{
+		// Arrange
+		int closedCount = 0;
+		var cut = Render<HxAlert>(p => p
+			.Add(a => a.Dismissible, true)
+			.Add(a => a.OnClosed, () => closedCount++)
+			.AddChildContent("<p>Alert</p>"));
+
+		// Act
+		await cut.InvokeAsync(() => cut.Instance.HandleJsClosed());
+
+		// Assert
+		Assert.Equal(1, closedCount);
+	}
 }

@@ -14,18 +14,10 @@
 	overflow: hidden;
 }
 
-/* Bootstrap 6 makes .card-body a flex column with align-items: flex-start,
-   so block-level content no longer fills the width. Restore stretching
-   so the header grid and chip list span the full card width. */
-.hx-list-layout ::deep .card-body {
-	align-items: stretch;
-}
-
-/* The data (grid) renders in its own card-body so Bootstrap 6's section-based
-   border model (.card-body:last-child) gives the region its side + bottom
-   borders and bottom rounding. The header card-body directly above already
-   supplies the bottom padding, so the data body drops its top padding to avoid
-   doubling the space before the grid. */
+/* The data (grid) renders in its own card-body, a separate card section below
+   the header (Bootstrap 6 separates adjacent card sections with a divider).
+   The header card-body directly above already supplies the bottom padding, so
+   the data body drops its top padding to avoid doubling the space before the grid. */
 .hx-list-layout-data {
 	padding-top: 0;
 }

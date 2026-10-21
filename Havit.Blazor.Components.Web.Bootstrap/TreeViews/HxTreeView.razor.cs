@@ -83,6 +83,12 @@ public partial class HxTreeView<TItem> : ComponentBase
 	/// </summary>
 	[Parameter] public bool ExpandOnSelection { get; set; }
 
+	/// <summary>
+	/// Additional attributes to be splatted onto the root element (<c>role="tree"</c>),
+	/// e.g. <c>aria-label</c> or <c>aria-labelledby</c> to give the tree an accessible name.
+	/// </summary>
+	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
 	private async Task HandleItemSelected(TItem newSelectedItem)
 	{
 		SelectedItem = newSelectedItem;

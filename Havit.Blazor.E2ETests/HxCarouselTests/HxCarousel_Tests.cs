@@ -83,4 +83,29 @@ public class HxCarousel_Tests : TestAppTestBase
 		// And the first indicator should no longer be active
 		await Expect(firstIndicator).Not.ToHaveClassAsync(ActiveClassRegex, new() { Timeout = CarouselTransitionTimeout });
 	}
+
+	[Fact]
+	public async Task HxCarousel_ItemAddedAfterInitialization_IsManagedByCarousel()
+	{
+		// Arrange
+		await NavigateToTestAppAsync("/HxCarousel_DynamicItems");
+		var slides = Page.Locator(".carousel-item");
+		var indicators = Page.Locator(".carousel-indicators button");
+		await Expect(slides).ToHaveCountAsync(2);
+
+		// Act - add a third slide after the Bootstrap carousel has been initialized
+		await Page.GetByTestId("add-slide").ClickAsync();
+		await Expect(slides).ToHaveCountAsync(3);
+		await Expect(indicators).ToHaveCountAsync(3);
+
+		// navigate to the added slide using its indicator
+		await indicators.Nth(2).ClickAsync();
+
+		// Assert - the added slide becomes active, the indicator is updated, the slid event is raised (scrolling may pass through slide 1 first)
+		// and the next control is disabled at the end (Ends="CarouselEnds.Stop")
+		await Expect(slides.Nth(2)).ToHaveClassAsync(ActiveClassRegex, new() { Timeout = CarouselTransitionTimeout });
+		await Expect(indicators.Nth(2)).ToHaveClassAsync(ActiveClassRegex, new() { Timeout = CarouselTransitionTimeout });
+		await Expect(Page.GetByTestId("last-slid")).ToHaveTextAsync(new Regex("->2$"), new() { Timeout = CarouselTransitionTimeout });
+		await Expect(Page.Locator("[data-bs-slide='next']")).ToBeDisabledAsync(new() { Timeout = CarouselTransitionTimeout });
+	}
 }
