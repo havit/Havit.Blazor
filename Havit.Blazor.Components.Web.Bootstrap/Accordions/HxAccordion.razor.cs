@@ -17,6 +17,22 @@ public partial class HxAccordion
 	[Parameter] public ThemeColor? Color { get; set; }
 
 	/// <summary>
+	/// Size of the accordion. The default is <see cref="AccordionSize.Regular"/>.
+	/// </summary>
+	[Parameter] public AccordionSize Size { get; set; }
+
+	/// <summary>
+	/// When <c>true</c>, removes the outer borders and the rounded corners (<c>accordion-flush</c>)
+	/// to render the accordion edge-to-edge with its parent container.
+	/// </summary>
+	[Parameter] public bool Flush { get; set; }
+
+	/// <summary>
+	/// When <c>true</c>, puts space between the accordion items (<c>accordion-gap</c>), each item is rendered as a separate rounded card.
+	/// </summary>
+	[Parameter] public bool Gap { get; set; }
+
+	/// <summary>
 	/// IDs of the expanded items (if <see cref="StayOpen"/> is <code>true</code>, several items can be expanded).
 	/// Do not use a constant value as it resets the accordion on every roundtrip. Use <see cref="InitialExpandedItemIds"/> to set the initial state.
 	/// When <see cref="StayOpen"/> is <c>true</c>, this parameter must be used to manage expanded items, and the <see cref="ExpandedItemIdsChanged"/> event callback will be invoked for changes.

@@ -190,4 +190,36 @@ public class HxAccordionTests : BunitTestBase
 		// Assert
 		Assert.True(cut.Find("div.accordion").ClassList.Contains("custom-accordion"));
 	}
+
+	[Fact]
+	public void HxAccordion_Default_HasNoVariantClasses()
+	{
+		// Act
+		var cut = Render<HxAccordion>(p => AddItem(p, "item1", "Header 1", "Body 1"));
+
+		// Assert
+		var accordion = cut.Find("div.accordion");
+		Assert.False(accordion.ClassList.Contains("accordion-sm"));
+		Assert.False(accordion.ClassList.Contains("accordion-flush"));
+		Assert.False(accordion.ClassList.Contains("accordion-gap"));
+	}
+
+	[Fact]
+	public void HxAccordion_SizeFlushGap_RenderVariantClasses()
+	{
+		// Act
+		var cut = Render<HxAccordion>(p =>
+		{
+			p.Add(a => a.Size, AccordionSize.Small);
+			p.Add(a => a.Flush, true);
+			p.Add(a => a.Gap, true);
+			AddItem(p, "item1", "Header 1", "Body 1");
+		});
+
+		// Assert
+		var accordion = cut.Find("div.accordion");
+		Assert.True(accordion.ClassList.Contains("accordion-sm"));
+		Assert.True(accordion.ClassList.Contains("accordion-flush"));
+		Assert.True(accordion.ClassList.Contains("accordion-gap"));
+	}
 }
