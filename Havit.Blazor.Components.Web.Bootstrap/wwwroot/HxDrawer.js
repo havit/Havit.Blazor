@@ -1,4 +1,4 @@
-﻿export function show(element, hxDrawerDotnetObjectReference, closeOnEscape, scrollingEnabled, subscribeToHideEvent) {
+﻿export function show(element, hxDrawerDotnetObjectReference, closeOnEscape, scrollingEnabled, subscribeToHideEvent, subscribeToHidePreventedEvent) {
 	if (window.drawerElement) {
 		const previousDrawer = bootstrap.Drawer.getInstance(window.drawerElement);
 		if (previousDrawer) {
@@ -16,6 +16,7 @@
 
 	// Remove old listeners to prevent duplicates when show() is called multiple times
 	element.removeEventListener('hide.bs.drawer', handleDrawerHide);
+	element.removeEventListener('hidePrevented.bs.drawer', handleDrawerHidePrevented);
 	element.removeEventListener('hidden.bs.drawer', handleDrawerHidden);
 	element.removeEventListener('shown.bs.drawer', handleDrawerShown);
 
@@ -23,17 +24,21 @@
 	if (subscribeToHideEvent) {
 		element.addEventListener('hide.bs.drawer', handleDrawerHide);
 	}
+	if (subscribeToHidePreventedEvent) {
+		element.addEventListener('hidePrevented.bs.drawer', handleDrawerHidePrevented);
+	}
 	element.addEventListener('hidden.bs.drawer', handleDrawerHidden);
 	element.addEventListener('shown.bs.drawer', handleDrawerShown);
 	window.drawerElement = element;
 
-	const drawer = bootstrap.Drawer.getOrCreateInstance(element, {
+	// Bootstrap reads the configuration (incl. data-bs-backdrop) only in the constructor.
+	// The drawer is closed here, so we always create a fresh instance to apply the current settings.
+	bootstrap.Drawer.getInstance(element)?.dispose();
+	const drawer = new bootstrap.Drawer(element, {
 		keyboard: closeOnEscape,
 		scroll: scrollingEnabled
 	});
-	if (drawer) {
-		drawer.show();
-	}
+	drawer.show();
 }
 
 export function hide(element) {
@@ -68,6 +73,10 @@ async function handleDrawerHide(event) {
 		o.hide();
 	}
 };
+
+function handleDrawerHidePrevented(event) {
+	event.target.hxDrawerDotnetObjectReference.invokeMethodAsync('HxDrawer_HandleDrawerHidePrevented');
+}
 
 function handleDrawerHidden(event) {
 	event.target.hxDrawerHiding = false;
@@ -107,6 +116,8 @@ export function dispose(element, opened) {
 		return;
 	}
 
+	element.removeEventListener('hide.bs.drawer', handleDrawerHide);
+	element.removeEventListener('hidePrevented.bs.drawer', handleDrawerHidePrevented);
 	element.removeEventListener('hidden.bs.drawer', handleDrawerHidden);
 	element.removeEventListener('shown.bs.drawer', handleDrawerShown);
 	element.hxDrawerDotnetObjectReference = null;

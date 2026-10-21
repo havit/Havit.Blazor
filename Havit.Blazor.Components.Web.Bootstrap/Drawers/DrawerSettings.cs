@@ -56,6 +56,16 @@ public record DrawerSettings
 	public bool? Sheet { get; set; }
 
 	/// <summary>
+	/// When <c>true</c>, the drawer opens and closes without the slide animation (<c>drawer-instant</c>).
+	/// </summary>
+	public bool? Instant { get; set; }
+
+	/// <summary>
+	/// When <c>true</c>, renders the drawer with a translucent, blurred background (<c>drawer-translucent</c>, new in Bootstrap 6).
+	/// </summary>
+	public bool? Translucent { get; set; }
+
+	/// <summary>
 	/// Additional CSS class for the drawer. Added to the root div (<c>.drawer</c>).
 	/// </summary>
 	public string CssClass { get; set; }

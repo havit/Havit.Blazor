@@ -23,5 +23,10 @@ public enum DrawerPlacement
 	/// <summary>
 	/// Drawer is placed at the bottom.
 	/// </summary>
-	Bottom
+	Bottom,
+
+	/// <summary>
+	/// Drawer covers the whole viewport (<c>drawer-fullscreen</c>, new in Bootstrap 6).
+	/// </summary>
+	Fullscreen
 }

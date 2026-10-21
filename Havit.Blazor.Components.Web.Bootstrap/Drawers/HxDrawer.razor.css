@@ -10,3 +10,16 @@
 .hx-drawer-close-button {
     color: inherit;
 }
+
+.hx-drawer-custom-close-btn {
+    /* Remove custom bootstrap styling (mask-based icon) to preserve custom icon style */
+    --bs-btn-close-icon: none;
+    background-color: transparent;
+}
+
+/* Bootstrap 6 renders the ::backdrop unconditionally (backdrop: false only ignores backdrop clicks). */
+dialog[data-bs-backdrop="false"]::backdrop {
+    background-color: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
