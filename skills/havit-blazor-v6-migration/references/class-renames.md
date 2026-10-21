@@ -40,7 +40,7 @@ Rule: `{utility}-{bp}-{value}` → `{bp}:{utility}-{value}`; breakpoint name `xx
 
 ## 3. Theme color utilities (token system)
 
-`{color}` ∈ primary, secondary, success, danger, warning, info, accent (new), inverse (new). **`light` and `dark` are removed** — map `light` → `secondary`, `dark` → `inverse`.
+`{color}` ∈ primary, secondary, success, danger, warning, info, accent (new), inverse (new). **`light` and `dark` are removed** — for component colors (buttons, badges, alerts, ...) map `light` → `secondary`, `dark` → `inverse`. The `bg-light`/`bg-dark`/`text-light`/`text-dark` utilities are surfaces, not theme colors — see their rows below.
 
 | v5 (removed) | v6 |
 |---|---|
@@ -48,18 +48,21 @@ Rule: `{utility}-{bp}-{value}` → `{bp}:{utility}-{value}`; breakpoint name `xx
 | `text-{color}-emphasis` | `fg-emphasis-{color}` |
 | `bg-{color}-subtle` | `bg-subtle-{color}` |
 | `border-{color}-subtle` | `border-subtle-{color}` |
-| `text-bg-{color}` | `theme-{color}` (sets bg + contrast fg via theme tokens) |
-| `bg-light` / `bg-dark` | `bg-secondary` / `bg-inverse` |
-| `text-light` / `text-dark` | `fg-secondary` / `fg-inverse` |
+| `text-bg-{color}` | on a `badge`: `theme-{color}` (HAVIT's choice; the badge paints `--bs-theme-bg` + `--bs-theme-contrast`). Everywhere else — plain elements **and regular `card`s**: `bg-{color} fg-contrast-{color}` (upstream's replacement). `theme-{color}` alone only sets `--bs-theme-*` tokens: a plain element paints nothing, a regular `card` only tints its border (its fill stays `--bs-card-bg`), and `alert`/`list-group-item` get the subtle fill, not a solid one |
+| `bg-light` | adaptive `bg-1` / `bg-2` (follows color mode), or `bg-white` for a fixed light surface |
+| `bg-dark` | `bg-black` (pure black, darker than v5's gray), or `data-bs-theme="dark"` + `bg-body` (no exact shade match) |
+| `text-light` / `text-dark` | fixed `fg-white` / `fg-black`, or adaptive `fg-body` inside a `data-bs-theme` scope (upstream has no row for these — by analogy with `bg-light`/`bg-dark`; choose by intent) |
 | `alert-{color}`, `badge` color via `text-bg-*`, `list-group-item-{color}` | component class + `theme-{color}` |
-| `bg-body-secondary` / `bg-body-tertiary` | `bg-2` / `bg-3` (numbered surfaces — see below) |
+| `bg-body-secondary` / `bg-body-tertiary` | `bg-2` / `bg-1` (numbered surfaces — see below) |
 | `text-body-secondary` | `fg-secondary` |
 | `text-muted` | `fg-secondary` (v6 has no muted-specific fg token; nearest match) |
 | `text-white` / `text-black` | `fg-white` / `fg-black` |
 
 `bg-{color}` and `border-{color}` keep their names — **including `bg-white`/`bg-black`/`bg-body`**, which are unaffected. Only the `text-*` family is renamed to `fg-*`; don't assume `text-white`/`text-black` survive just because their `bg-*` counterparts do (verify each one against the bundle, same as any other `text-*` class — this exact assumption caused a real miss in an earlier pass of this sweep).
 
-**Numbered surfaces**: v6 replaces the body-surface ladder (`bg-body`, `bg-body-secondary`, `bg-body-tertiary`) with `bg-body`, `bg-1`, `bg-2`, `bg-3`, `bg-4` (increasingly distinct from the page background — `bg-1` subtlest, `bg-4` most). `bg-body-secondary` maps to `bg-2` and `bg-body-tertiary` maps to `bg-3` (confirmed by comparing computed gray-scale steps against the BS5 defaults — verify against the bundle same as other renames, and re-check against a real card/surface in the browser since the numbered scale isn't a strict 1:1 semantic match).
+**Numbered surfaces**: v6 replaces the body-surface ladder (`bg-body`, `bg-body-secondary`, `bg-body-tertiary`) with `bg-body`, `bg-1`, `bg-2`, `bg-3`, `bg-4` (increasingly distinct from the page background — `bg-1` subtlest, `bg-4` most). Per the upstream v6.0.0-alpha.1 migration guide, `bg-body-tertiary` maps to `bg-1` and `bg-body-secondary` maps to `bg-2` — in v5 *tertiary* was the lighter of the two, so the order flips. `bg-3`/`bg-4` have no v5 counterpart. Re-check against a real card/surface in the browser, since the numbered scale isn't a strict 1:1 shade match.
+
+**`bg-light` / `bg-dark` have no drop-in**: the v5 grays were fixed (they didn't follow the color mode). Choose by intent — adaptive `bg-1`/`bg-2`, or a fixed `bg-white`/`bg-black`, or scope a color mode with `data-bs-theme` and use `bg-body`. Don't map them to `bg-secondary`/`bg-inverse`: those are solid theme-color backgrounds, not neutral surfaces.
 
 **CSS custom properties** (not just classes — consumer CSS/`<style>` blocks and `.razor.css` files referencing Bootstrap variables directly need the same sweep): the `--bs-{color}-rgb` channel variables are removed (only `--bs-link-color-rgb` remains) — replace `rgba(var(--bs-primary-rgb), .25)` with `color-mix(in srgb, var(--bs-primary) 25%, transparent)` (and `rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity))` similarly becomes `color-mix(in srgb, var(--bs-bg-body) calc(var(--bs-bg-opacity) * 100%), transparent)`). Beyond the RGB drop, several variables were also renamed outright:
 
