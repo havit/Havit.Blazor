@@ -3,7 +3,7 @@
 ```razor
 <HxMenu>
 	<Toggle>
-		<HxMenuToggleElement ElementName="div" CssClass="bg-success p-3 text-white" role="button">
+		<HxMenuToggleElement ElementName="div" CssClass="bg-success p-3 fg-white" role="button">
 			Custom menu toggle element
 			<HxIcon Icon="BootstrapIcon.Trash" />
 		</HxMenuToggleElement>

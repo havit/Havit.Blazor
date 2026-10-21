@@ -14,6 +14,7 @@ Bootstrap Spinner (usually indicates an operation in progress).
 ## Available demo samples
 
 - HxSpinner_Demo.razor
+- HxSpinner_Demo_Alignment.razor
 - HxSpinner_Demo_Border.razor
 - HxSpinner_Demo_Colors.razor
 - HxSpinner_Demo_Growing.razor

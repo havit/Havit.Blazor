@@ -1,4 +1,4 @@
-# HxDialog_Demo_NonModal.razor
+﻿# HxDialog_Demo_NonModal.razor
 
 ```razor
 <HxButton OnClick="() => myDialog.ShowAsync()" Color="ThemeColor.Primary">Open non-modal dialog</HxButton>

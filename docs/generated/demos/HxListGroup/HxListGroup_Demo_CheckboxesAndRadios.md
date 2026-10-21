@@ -1,0 +1,22 @@
+﻿# HxListGroup_Demo_CheckboxesAndRadios.razor
+
+```razor
+<HxListGroup>
+	<HxListGroupItem>
+		<HxCheckbox @bind-Value="_first" Text="First checkbox" />
+	</HxListGroupItem>
+	<HxListGroupItem>
+		<HxCheckbox @bind-Value="_second" Text="Second checkbox" />
+	</HxListGroupItem>
+	<HxListGroupItem>
+		<HxCheckbox @bind-Value="_third" Text="Third checkbox" />
+	</HxListGroupItem>
+</HxListGroup>
+
+@code {
+	private bool _first;
+	private bool _second;
+	private bool _third;
+}
+
+```

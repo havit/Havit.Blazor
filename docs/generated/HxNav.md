@@ -1,6 +1,6 @@
 ﻿# HxNav
 
-Bootstrap Nav component.
+Bootstrap Nav component for building tabs, pills, and vertical or underline navigation from a list of links.
 
 ## Parameters
 

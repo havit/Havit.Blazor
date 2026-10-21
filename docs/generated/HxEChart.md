@@ -1,6 +1,6 @@
 ﻿# HxEChart
 
-Component for convenient rendering of Apache ECharts.
+Blazor wrapper for Apache ECharts — render rich, interactive charts (line, bar, pie, and more) from .NET without writing JavaScript.
 
 ## Parameters
 

@@ -1,7 +1,7 @@
 ﻿# HxCard_Demo_HeaderFooter.razor
 
 ```razor
-<HxCard CssClass="text-center" FooterCssClass="text-muted">
+<HxCard CssClass="text-center" FooterCssClass="fg-secondary">
     <HeaderTemplate>Featured</HeaderTemplate>
     <BodyTemplate>
         <HxCardTitle>Special title treatment</HxCardTitle>

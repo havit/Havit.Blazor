@@ -1,6 +1,6 @@
 ﻿# HxScrollspy
 
-Bootstrap Scrollspy component.
+Bootstrap Scrollspy that automatically highlights the navigation link matching the section currently scrolled into view.
 
 ## Parameters
 

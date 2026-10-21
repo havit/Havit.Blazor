@@ -1,6 +1,6 @@
 ﻿# HxDynamicElement
 
-Renders an element with the specified name, attributes, and child content.
+Renders an HTML element whose tag name is chosen at runtime — pass any tag (e.g., `h1`..`h6`, `div`, `span`) along with attributes and content as parameters.
 
 ## Parameters
 

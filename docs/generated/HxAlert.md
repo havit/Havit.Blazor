@@ -1,6 +1,6 @@
 ﻿# HxAlert
 
-Bootstrap alert component.
+Contextual feedback message (success, warning, danger, info, and more) with an optional icon, links, and a dismiss button. Renders the Bootstrap alert markup.
 
 ## Parameters
 
@@ -24,4 +24,5 @@ Bootstrap alert component.
 - HxAlert_Demo_Basic.razor
 - HxAlert_Demo_Dismissible.razor
 - HxAlert_Demo_Icons.razor
+- HxAlert_Demo_LinkColor.razor
 

@@ -3,7 +3,7 @@
 ```razor
 <HxDynamicElement
     ElementName="@elementName" 
-    class="fs-5 my-2 py-2">
+    class="fs-lg my-2 py-2">
         Any content <HxIcon Icon="BootstrapIcon.Trash" />
 </HxDynamicElement>
 

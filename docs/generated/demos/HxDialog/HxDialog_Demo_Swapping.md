@@ -1,4 +1,4 @@
-# HxDialog_Demo_Swapping.razor
+﻿# HxDialog_Demo_Swapping.razor
 
 ```razor
 <HxButton OnClick="() => firstDialog.ShowAsync()" Color="ThemeColor.Primary">Open first dialog</HxButton>

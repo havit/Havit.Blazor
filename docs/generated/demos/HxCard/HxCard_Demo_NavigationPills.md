@@ -3,7 +3,7 @@
 ```razor
 <HxCard>
     <HeaderTemplate>
-        <HxNav Variant="NavVariant.Pills" CssClass="card-header-pills">
+        <HxNav Variant="NavVariant.Pills">
             <HxNavLink Href="" CssClass="active">Active</HxNavLink>
             <HxNavLink Href="#">Link</HxNavLink>
             <HxNavLink Enabled="false">Disabled</HxNavLink>

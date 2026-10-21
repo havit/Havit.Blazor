@@ -1,6 +1,6 @@
 ﻿# HxInputRange
 
-Allows the user to select a number in a specified range using a slider.
+Allows the user to select a number in a specified range using a slider. Mirrors the Bootstrap range component: a JavaScript-driven control that draws a filled track and can show an optional value `HxInputRange.Bubble` and `HxInputRange.Ticks` (tick marks).
 
 ## Parameters
 
@@ -10,6 +10,7 @@ Allows the user to select a number in a specified range using a slider.
 | Min **[REQUIRED]** | `TValue` | Minimum value. |
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
 | BindEvent | `BindEvent?` | Instructs whether the `Value` is going to be updated `oninput` (immediately), or `onchange` (usually `onmouseup`). Default is `BindEvent.OnChange`. |
+| Bubble | `bool?` | When `true`, a value bubble following the thumb is shown. The default is `false`. |
 | ChipTemplate | `RenderFragment` | The chip template. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
@@ -23,6 +24,7 @@ Allows the user to select a number in a specified range using a slider.
 | LabelTemplate | `RenderFragment` | The label content. |
 | Settings | `InputRangeSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | Step | `TValue` | By default, `HxInputRange` snaps to integer values. To change this, you can specify a step value. |
+| Ticks | `IEnumerableInputRangeTick>` | Tick marks rendered along the track from a linked `<datalist>`. Each tick is positioned at its `InputRangeTick.Value` (even when the values are unevenly spaced) and an optional `InputRangeTick.Label` is shown beneath it. |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in . |
 | Value | `TValue` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<TValue>` | A callback that updates the bound value. |
@@ -44,6 +46,9 @@ Allows the user to select a number in a specified range using a slider.
 
 - HxInputRange_Demo.razor
 - HxInputRange_Demo_BindEvent.razor
+- HxInputRange_Demo_Bubble.razor
 - HxInputRange_Demo_Disabled.razor
+- HxInputRange_Demo_MinMax.razor
 - HxInputRange_Demo_Steps.razor
+- HxInputRange_Demo_Ticks.razor
 

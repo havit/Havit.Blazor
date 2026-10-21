@@ -1,6 +1,6 @@
 ﻿# HxPager
 
-Pager.
+Pagination control for navigating pages of data, typically used alongside `HxGrid`, with configurable sizes and a customizable button template.
 
 ## Parameters
 
@@ -20,6 +20,7 @@ Pager.
 | PreviousPageContentTemplate | `RenderFragment` | Content for the "Previous page" button. If not set, the `PreviousPageIcon` is used. |
 | PreviousPageIcon | `IconBase` | Icon for the "Previous page" button. |
 | Settings | `PagerSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
+| Size | `PagerSize?` | Size of the pager. The default is `PagerSize.Regular`. |
 
 ## Static properties
 
@@ -31,4 +32,5 @@ Pager.
 
 - HxPager_Demo.razor
 - HxPager_Demo_Customization.razor
+- HxPager_Demo_Sizes.razor
 
