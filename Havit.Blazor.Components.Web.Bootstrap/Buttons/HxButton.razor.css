@@ -1,0 +1,7 @@
+﻿/* Layered below Bootstrap's utilities so utility classes win over these defaults. */
+@layer custom {
+	/* Bootstrap 6 .btn-link.active (Active="true") uses the global link hover color, dropping the theme-* color of btn-link theme-{color}. */
+	.btn-link {
+		--bs-btn-active-color: var(--bs-theme-fg-emphasis, var(--bs-link-hover-color));
+	}
+}
