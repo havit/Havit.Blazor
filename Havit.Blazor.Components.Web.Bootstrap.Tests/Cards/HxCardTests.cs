@@ -100,4 +100,27 @@ public class HxCardTests : BunitTestBase
 		Assert.NotNull(text);
 		Assert.Equal("Card text content", text.TextContent);
 	}
+
+	[Theory]
+	[InlineData(false, CardImagePlacement.Top, "card-img-top")]
+	[InlineData(false, CardImagePlacement.Bottom, "card-img-bottom")]
+	[InlineData(false, CardImagePlacement.Overlay, "card-img")]
+	[InlineData(true, CardImagePlacement.Top, "card-img-start")]
+	[InlineData(true, CardImagePlacement.Bottom, "card-img-end")]
+	public void HxCard_ImagePlacement_RendersImageCssClassByOrientation(bool horizontal, CardImagePlacement imagePlacement, string expectedCssClass)
+	{
+		// Act
+		var cut = Render<HxCard>(parameters => parameters
+			.Add(p => p.Horizontal, horizontal)
+			.Add(p => p.ImageSrc, "test-image.png")
+			.Add(p => p.ImagePlacement, imagePlacement)
+			.Add(p => p.ImageCssClass, "custom-image")
+			.Add(p => p.BodyTemplate, "Body text")
+		);
+
+		// Assert
+		var img = cut.Find(".card > img");
+		Assert.Equal(horizontal, cut.Find(".card").ClassList.Contains("card-row"));
+		Assert.Equal(new[] { "custom-image", expectedCssClass }, img.ClassList.ToArray());
+	}
 }
