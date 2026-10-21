@@ -49,6 +49,7 @@ public partial class HxAvatar
 
 	/// <summary>
 	/// Alternate text for the avatar image (<see cref="ImageSrc"/>).
+	/// When not set, an empty <c>alt=""</c> is rendered (a decorative image, typically next to the person's name).
 	/// </summary>
 	[Parameter] public string ImageAlt { get; set; }
 

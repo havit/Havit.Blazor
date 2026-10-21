@@ -3,10 +3,18 @@
 
 <ApiDoc Type="typeof(HxButtonGroup)">
     <DocHeading Title="Basic usage" />
+    <p>
+        Give the group an accessible name through the <code>AriaLabel</code> parameter &ndash; most assistive technologies
+        do not announce a group without a label, despite the <code>role="group"</code>.
+    </p>
     <Demo Type="typeof(HxButtonGroup_Demo)" Tabs="false" />
 
     <DocHeading Title="Outlined styles" />
     <Demo Type="typeof(HxButtonGroup_Demo_Outlined)" />
+
+    <DocHeading Title="Dividers" />
+    <p>Set <code>Divider="true"</code> to add a divider between the buttons. Most useful with solid buttons of the same color.</p>
+    <Demo Type="typeof(HxButtonGroup_Demo_Dividers)" />
 
     <DocHeading Title="Button toolbar" />
     <p>Use <code>HxButtonToolbar</code> and combine sets of button groups into button toolbars for more complex components. Use utility classes as needed to space out groups, buttons, and more.</p>
@@ -16,6 +24,7 @@
     <Demo Type="typeof(HxButtonToolbar_Demo_2)" />
 
     <DocHeading Title="Sizing" />
+    <p>Instead of sizing every button, set the <code>Size</code> parameter of the group (<code>ButtonGroupSize.Large</code>, <code>Small</code>, or <code>ExtraSmall</code>).</p>
     <Demo Type="typeof(HxButtonGroup_Demo_Sizes)" />
 
     <DocHeading Title="Nesting" />

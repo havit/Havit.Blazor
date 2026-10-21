@@ -1,3 +1,5 @@
+using System.Globalization;
+
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
 public class HxProgressTests : BunitTestBase
@@ -44,9 +46,33 @@ public class HxProgressTests : BunitTestBase
 			)
 		);
 
-		// Assert
+		// Assert - theme-* sets both the fill (--bs-theme-bg) and the label color (--bs-theme-contrast)
 		var progressBar = cut.Find("div.progress-bar");
-		Assert.True(progressBar.ClassList.Contains("bg-success"));
+		Assert.Contains("theme-success", progressBar.ClassList);
+		Assert.DoesNotContain("bg-success", progressBar.ClassList);
+	}
+
+	[Fact]
+	public void HxProgressBar_AriaValues_UseInvariantCulture()
+	{
+		// Arrange
+		CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo("cs-CZ");
+		CultureInfo.CurrentUICulture = CultureInfo.GetCultureInfo("cs-CZ");
+
+		// Act
+		var cut = Render<HxProgress>(parameters => parameters
+			.Add(p => p.MinValue, 0.5f)
+			.Add(p => p.MaxValue, 1.5f)
+			.AddChildContent<HxProgressBar>(bar => bar
+				.Add(b => b.Value, 0.75f)
+			)
+		);
+
+		// Assert
+		var progress = cut.Find("div.progress");
+		Assert.Equal("0.75", progress.GetAttribute("aria-valuenow"));
+		Assert.Equal("0.5", progress.GetAttribute("aria-valuemin"));
+		Assert.Equal("1.5", progress.GetAttribute("aria-valuemax"));
 	}
 
 	[Fact]

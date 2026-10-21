@@ -67,4 +67,47 @@ public partial class HxButtonTests
 			Assert.Empty(spinners);
 		});
 	}
+
+	[Fact]
+	public async Task HxButton_Spinner_IsAriaHiddenWithoutStatusRole()
+	{
+		// Arrange
+		var tcs = new TaskCompletionSource();
+		var cut = Render<HxButton>(parameters => parameters
+			.Add(p => p.Text, "Save")
+			.Add(p => p.OnClick, EventCallback.Factory.Create<MouseEventArgs>(this, () => tcs.Task))
+		);
+
+		// Act
+		var clickTask = cut.InvokeAsync(() => cut.Find("button").Click());
+
+		// Assert - the spinner text must not become part of the button's accessible name
+		cut.WaitForAssertion(() =>
+		{
+			var spinner = cut.Find("button .spinner-border");
+			Assert.Equal("true", spinner.GetAttribute("aria-hidden"));
+			Assert.Empty(cut.FindAll("button [role=status]"));
+			Assert.Empty(cut.FindAll("button .visually-hidden"));
+		});
+
+		tcs.SetResult();
+		await clickTask;
+	}
+
+	[Theory]
+	[InlineData(null, false, null)]
+	[InlineData(false, false, "false")]
+	[InlineData(true, true, "true")]
+	public void HxButton_Active_RendersActiveClassAndAriaPressed(bool? active, bool expectedActiveClass, string expectedAriaPressed)
+	{
+		// Arrange & Act
+		var cut = Render<HxButton>(parameters => parameters
+			.Add(p => p.Text, "Toggle")
+			.Add(p => p.Active, active));
+
+		// Assert
+		var button = cut.Find("button");
+		Assert.Equal(expectedActiveClass, button.ClassList.Contains("active"));
+		Assert.Equal(expectedAriaPressed, button.GetAttribute("aria-pressed"));
+	}
 }

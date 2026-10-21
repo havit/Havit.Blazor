@@ -6,6 +6,7 @@ public static class ButtonVariantExtensions
 	/// Bootstrap 6 buttons compose a variant class (<c>btn-solid</c>, <c>btn-outline</c>, ...) with a theme color class (<c>theme-*</c>).
 	/// Without a color, the variant classes have no theme tokens to consume, so no variant class is emitted (a plain neutral <c>btn</c> look),
 	/// with the exception of the standalone <c>btn-link</c> variant.
+	/// <c>btn-link</c> combined with a theme color (<c>btn-link theme-danger</c>) renders the link in that color; <see cref="ThemeColor.Link"/> renders a plain <c>btn-link</c>.
 	/// </summary>
 	public static string ToButtonVariantAndColorCssClass(this ButtonVariant variant, ThemeColor color)
 	{
@@ -19,7 +20,7 @@ public static class ButtonVariantExtensions
 		}
 		return CssClassHelper.Combine(
 			variant.ToButtonVariantCssClass(),
-			(variant == ButtonVariant.Link) ? null : color.ToThemeCss());
+			color.ToThemeCss());
 	}
 
 

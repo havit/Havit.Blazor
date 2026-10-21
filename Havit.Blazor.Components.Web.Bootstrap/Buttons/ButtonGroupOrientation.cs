@@ -9,7 +9,7 @@ public enum ButtonGroupOrientation
 
 	/// <summary>
 	/// Specifies the vertical orientation of the <see cref="HxButtonGroup"/>.
-	/// <see href="https://getbootstrap.com/docs/5.3/components/button-group/#vertical-variation">https://getbootstrap.com/docs/5.3/components/button-group/#vertical-variation</see>
+	/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button-group/#vertical-variation">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button-group/#vertical-variation</see>
 	/// </summary>
 	Vertical = 1
 }

@@ -29,6 +29,20 @@ public class HxAvatarTests : BunitTestBase
 		Assert.Equal("John Doe", image.GetAttribute("alt"));
 	}
 
+	[Fact]
+	public void HxAvatar_ImageSrcWithoutImageAlt_RendersEmptyAlt()
+	{
+		// Arrange & Act
+		var cut = Render<HxAvatar>(parameters => parameters
+			.Add(p => p.ImageSrc, "avatar.png")
+		);
+
+		// Assert - an image without alt is announced by its file name; alt="" marks it as decorative
+		var image = cut.Find("img.avatar-img");
+		Assert.True(image.HasAttribute("alt"));
+		Assert.Equal("", image.GetAttribute("alt"));
+	}
+
 	[Theory]
 	[InlineData(AvatarSize.ExtraSmall, "avatar-xs")]
 	[InlineData(AvatarSize.Small, "avatar-sm")]

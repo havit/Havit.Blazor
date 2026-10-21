@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<HxDynamicElement ElementName="@ElementNameEffective" class="@GetCssClass()" @attributes="@AdditionalAttributes">
+<HxDynamicElement ElementName="@ElementNameEffective" class="@GetCssClass()" aria-hidden="@(Active ? "true" : null)" @attributes="@AdditionalAttributes">
     <CascadingValue TValue="HxPlaceholderContainer" Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>

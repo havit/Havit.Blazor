@@ -8,9 +8,6 @@
 	--hx-autosuggest-input-search-icon-color:						unset;
 	--hx-autosuggest-input-clear-icon-color:						unset;
 
-	/* HxButton */
-	--hx-button-gap: 							.25rem;
-
 	/* HxSidebar */
 	--hx-sidebar-background-color: 									var(--bs-bg-body);
 	--hx-sidebar-collapsed-width: 									72px;
@@ -65,10 +62,6 @@
 	--hx-sidebar-footer-item-hover-background-color: 				unset;
 	--hx-sidebar-footer-item-hover-background-opacity: 				unset;
 	--hx-sidebar-footer-item-hover-color: 							var(--bs-fg-body);
-
-	/* HxProgressOverlay */
-	--hx-progress-overlay-color: 									var(--bs-white);
-	--hx-progress-overlay-opacity: 									.65;
 
 	/* HxEditForm */
 	--hx-form-spacing: 1.25rem;
@@ -207,8 +200,11 @@ form {
 	gap: 					var(--hx-form-spacing);
 }
 
-form > .hx-button {
-	align-self: start;
+/* Layered below Bootstrap's utilities so utility classes (e.g. align-self-stretch) win. */
+@layer custom {
+	form > .hx-button {
+		align-self: start;
+	}
 }
 
 /* HxTabPanel - restore pointer cursor on tab headers (role="tab" overrides the default role="button" on HxNavLink, so Bootstrap's [role=button]{cursor:pointer} no longer applies). */

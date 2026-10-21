@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿using Microsoft.Extensions.Localization;
+
+namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Bootstrap <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/close-button/">close-button</see> component.<br />
@@ -10,11 +12,23 @@
 /// </summary>
 public class HxCloseButton : HxButton
 {
-	protected override string CoreCssClass => $"{base.CoreCssClass} btn-close";
+	[Inject] protected IStringLocalizer<HxCloseButton> Localizer { get; set; }
 
-	public HxCloseButton()
+	/// <summary>
+	/// The close button is a standalone <c>.btn-close</c> element (no <c>.btn</c>): the <c>.btn</c> hover/disabled backgrounds would paint over the masked icon.
+	/// </summary>
+	protected override string CoreCssClass => "btn-close";
+
+	/// <summary>
+	/// Renders only <see cref="CoreCssClass"/> and <see cref="HxButton.CssClass"/>; the button variant, color and size classes do not apply to the close button.
+	/// </summary>
+	protected override string GetButtonCssClass()
 	{
-		AdditionalAttributes ??= new();
-		AdditionalAttributes.Add("aria-label", "Close"); // Adding the aria-label for accessibility.
+		return CssClassHelper.Combine(CoreCssClass, CssClassEffective);
 	}
+
+	/// <summary>
+	/// Returns <see cref="HxButton.AriaLabel"/> or a localized "Close" text when not set.
+	/// </summary>
+	protected override string GetAriaLabel() => AriaLabel ?? Localizer["Close"];
 }

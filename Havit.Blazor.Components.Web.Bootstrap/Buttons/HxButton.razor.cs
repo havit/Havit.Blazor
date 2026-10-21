@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Forms;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Button (<c>&lt;button type="button"&gt;</c>). See also <see href="https://getbootstrap.com/docs/5.3/components/buttons/">Bootstrap Buttons</see>.<br />
+/// Button (<c>&lt;button type="button"&gt;</c>). See also <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button/">Bootstrap Buttons</see>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxButton">https://havit.blazor.eu/components/HxButton</see>
 /// </summary>
 public partial class HxButton : ComponentBase, ICascadeEnabledComponent
@@ -107,6 +107,13 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// </summary>
 	[Parameter] public string AriaLabel { get; set; }
 
+	/// <summary>
+	/// Renders the button as a <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button/#toggle-states">toggle button</see>
+	/// in the given state: <c>true</c> renders the <c>active</c> class and <c>aria-pressed="true"</c>, <c>false</c> renders <c>aria-pressed="false"</c>.
+	/// The default is <c>null</c> (a regular, non-toggle button). Toggle the value yourself, e.g. in <see cref="OnClick"/>.
+	/// </summary>
+	[Parameter] public bool? Active { get; set; }
+
 	/// <inheritdoc cref="ICascadeEnabledComponent.Enabled" />
 	[Parameter] public bool? Enabled { get; set; }
 
@@ -196,7 +203,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	[Parameter] public bool OnClickPreventDefault { get; set; }
 
 	/// <summary>
-	/// Sets the state of the embedded <see cref="HxSpinner"/>.
+	/// Sets the state of the embedded spinner (rendered with <c>aria-hidden="true"</c>, it does not become part of the button's accessible name).
 	/// Leave <c>null</c> if you want automated spinner when any of the <see cref="HxButton.OnClick"/> handlers is running.
 	/// You can set an explicit <c>false</c> constant to disable (override) the spinner automation.
 	/// </summary>
@@ -226,15 +233,35 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// </summary>
 	protected virtual string CoreCssClass => "hx-button btn";
 
+	/// <summary>
+	/// Marker class for buttons without any variant class (no <see cref="Color"/>).
+	/// Bootstrap 6 targets button group members (margins, corners, <c>.btn-group-sm/-lg/-xs</c> sizing, dividers) with <c>[class*=btn-]</c>,
+	/// which a plain <c>btn</c> does not match.
+	/// </summary>
+	internal const string NeutralButtonMarkerCssClass = "hx-btn-neutral";
+
 	protected virtual string GetButtonCssClass()
 	{
 		return CssClassHelper.Combine(
 			CoreCssClass,
-			VariantEffective.ToButtonVariantAndColorCssClass(ColorEffective),
+			VariantEffective.ToButtonVariantAndColorCssClass(ColorEffective) ?? NeutralButtonMarkerCssClass,
 			SizeEffective.ToButtonSizeCssClass(),
+			(Active == true) ? "active" : null,
 			CssClassEffective);
 	}
 
+	protected string GetAriaPressed() => Active switch
+	{
+		true => "true",
+		false => "false",
+		null => null
+	};
+
+
+	/// <summary>
+	/// Gets the <c>aria-label</c> to render. The default implementation returns <see cref="AriaLabel"/>.
+	/// </summary>
+	protected virtual string GetAriaLabel() => AriaLabel;
 
 	protected string GetTooltipWrapperCssClass()
 	{

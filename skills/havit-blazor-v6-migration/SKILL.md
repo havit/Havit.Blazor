@@ -151,7 +151,7 @@ Component map: `HxDropdown`/`HxDropdownButtonGroup`→`HxMenu`, `HxDropdownToggl
 
 ### 4.4 HxButton: Outline removed, Variant added
 
-`HxButton.Outline` (bool) is removed. Use `Variant` (`ButtonVariant.Solid` default, `Outline`, `Subtle`, `Text`, `Link`) composed with `Color`: `<HxButton Color="ThemeColor.Primary" Outline="true">` → `<HxButton Color="ThemeColor.Primary" Variant="ButtonVariant.Outline">`. `ThemeColor.Light`/`Dark` enum members are removed — use `Secondary`/`Inverse` (new: `Accent`, `Inverse`). New `ButtonSize.ExtraSmall` (`btn-xs`) exists.
+`HxButton.Outline` (bool) is removed. Use `Variant` (`ButtonVariant.Solid` default, `Outline`, `Subtle`, `Text`, `Link`) composed with `Color`: `<HxButton Color="ThemeColor.Primary" Outline="true">` → `<HxButton Color="ThemeColor.Primary" Variant="ButtonVariant.Outline">`. `ThemeColor.Light`/`Dark` enum members are removed — use `Secondary`/`Inverse` (new: `Accent`, `Inverse`). New `ButtonSize.ExtraSmall` (`btn-xs`) exists. The `--hx-button-gap` CSS variable is removed — override `--bs-btn-gap` instead. `PlaceholderAnimation.Glow` is obsolete → `PlaceholderAnimation.Pulse`.
 
 ### 4.5 ThemeColor / ThemeColorExtensions in C# code
 

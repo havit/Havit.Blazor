@@ -6,7 +6,7 @@
 public record ButtonSettings
 {
 	/// <summary>
-	/// <see href="https://getbootstrap.com/docs/5.3/components/buttons/#sizes">Bootstrap button size</see>.
+	/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button/#sizes">Bootstrap button size</see>.
 	/// </summary>
 	public ButtonSize? Size { get; set; }
 

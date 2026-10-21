@@ -9,7 +9,7 @@ public enum BadgeType
 
 	/// <summary>
 	/// Represents a rounded pill badge.
-	/// For more information, see <see href="https://getbootstrap.com/docs/5.3/components/badge/#pill-badges">https://getbootstrap.com/docs/5.3/components/badge/#pill-badges</see>.
+	/// For more information, see <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/utilities/border-radius/">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/utilities/border-radius/</see>.
 	/// </summary>
 	RoundedPill = 1
 }
