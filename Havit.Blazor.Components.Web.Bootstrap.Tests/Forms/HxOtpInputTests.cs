@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
+using System.Text.Json;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
@@ -33,28 +34,18 @@ public class HxOtpInputTests : BunitTestBase
 
 		// Assert
 		var container = cut.Find("div.otp");
-		var inputs = cut.FindAll("div.otp input");
-		Assert.Equal(6, inputs.Count); // default Length
-		Assert.DoesNotContain("input-group", container.ClassList);
+		Assert.DoesNotContain("otp-connected", container.ClassList);
 
-		foreach (var input in inputs)
-		{
-			Assert.Equal("text", input.GetAttribute("type"));
-			Assert.Contains("form-control", input.ClassList);
-			Assert.Equal("1", input.GetAttribute("maxlength"));
-			Assert.Equal("numeric", input.GetAttribute("inputmode"));
-			Assert.Equal("\\d*", input.GetAttribute("pattern"));
-			Assert.False(input.HasAttribute("disabled"));
-		}
-
-		// first input gets autocomplete for browser OTP autofill
-		Assert.Equal("one-time-code", inputs[0].GetAttribute("autocomplete"));
-		Assert.All(inputs.Skip(1), input => Assert.Equal("off", input.GetAttribute("autocomplete")));
-
-		for (int i = 0; i < inputs.Count; i++)
-		{
-			Assert.Equal($"Digit {i + 1}", inputs[i].GetAttribute("aria-label"));
-		}
+		// a single input backs the whole control (the Bootstrap plugin renders the visual slots)
+		var input = Assert.Single(cut.FindAll("div.otp input"));
+		Assert.Equal("text", input.GetAttribute("type"));
+		Assert.Contains("otp-input", input.ClassList);
+		Assert.Equal("6", input.GetAttribute("maxlength")); // default Length
+		Assert.Equal("numeric", input.GetAttribute("inputmode"));
+		Assert.Equal("[0-9]*", input.GetAttribute("pattern"));
+		Assert.Equal("one-time-code", input.GetAttribute("autocomplete"));
+		Assert.False(input.HasAttribute("disabled"));
+		Assert.False(input.HasAttribute("value"));
 	}
 
 	[Fact]
@@ -70,11 +61,12 @@ public class HxOtpInputTests : BunitTestBase
 		}));
 
 		// Assert
-		Assert.Equal(4, cut.FindAll("div.otp input").Count);
+		Assert.Equal("4", cut.Find("div.otp input").GetAttribute("maxlength"));
+		Assert.Equal(4, GetJsInitializeOptions().GetProperty("length").GetInt32());
 	}
 
 	[Fact]
-	public void HxOtpInput_Render_Connected_AddsInputGroupClass()
+	public void HxOtpInput_Render_Connected_AddsOtpConnectedClass()
 	{
 		// Arrange
 		var model = new TestModel();
@@ -86,11 +78,11 @@ public class HxOtpInputTests : BunitTestBase
 		}));
 
 		// Assert
-		Assert.Contains("input-group", cut.Find("div.otp").ClassList);
+		Assert.Contains("otp-connected", cut.Find("div.otp").ClassList);
 	}
 
 	[Fact]
-	public void HxOtpInput_Render_GroupSize_RendersSeparators()
+	public void HxOtpInput_Render_GroupSize_PassesGroupsToJs()
 	{
 		// Arrange
 		var model = new TestModel();
@@ -99,39 +91,32 @@ public class HxOtpInputTests : BunitTestBase
 		var cut = Render(CreateOtpInputRenderer(model, (builder) =>
 		{
 			builder.AddAttribute(10, nameof(HxOtpInput.GroupSize), (int?)3);
+			builder.AddAttribute(11, nameof(HxOtpInput.Separator), "-");
 		}));
 
 		// Assert
-		var separators = cut.FindAll("div.otp span.otp-separator");
-		Assert.Single(separators);
-		Assert.Equal("–", separators[0].TextContent);
-		Assert.Equal(6, cut.FindAll("div.otp input").Count);
+		Assert.Single(cut.FindAll("div.otp input")); // the separators are rendered by the Bootstrap plugin
+
+		var options = GetJsInitializeOptions();
+		Assert.Equal(3, Assert.Single(options.GetProperty("groups").EnumerateArray()).GetInt32());
+		Assert.Equal("-", options.GetProperty("separator").GetString());
 	}
 
 	[Fact]
-	public void HxOtpInput_Render_GroupSizeWithConnected_RendersNestedInputGroups()
+	public void HxOtpInput_Render_NoGroupSize_PassesNullGroupsToJs()
 	{
 		// Arrange
 		var model = new TestModel();
 
 		// Act
-		var cut = Render(CreateOtpInputRenderer(model, (builder) =>
-		{
-			builder.AddAttribute(10, nameof(HxOtpInput.Connected), (bool?)true);
-			builder.AddAttribute(11, nameof(HxOtpInput.GroupSize), (int?)3);
-			builder.AddAttribute(12, nameof(HxOtpInput.Separator), "-");
-		}));
+		Render(CreateOtpInputRenderer(model));
 
 		// Assert
-		var container = cut.Find("div.otp");
-		Assert.DoesNotContain("input-group", container.ClassList); // input-group goes to the nested group wrappers
-		Assert.Equal(2, cut.FindAll("div.otp div.input-group").Count);
-		Assert.Equal(3, cut.FindAll("div.otp div.input-group:first-of-type input").Count);
-		Assert.Equal("-", cut.Find("div.otp span.otp-separator").TextContent);
+		Assert.Equal(JsonValueKind.Null, GetJsInitializeOptions().GetProperty("groups").ValueKind);
 	}
 
 	[Fact]
-	public void HxOtpInput_Render_Mask_RendersPasswordInputs()
+	public void HxOtpInput_Render_Mask_PassesMaskToJsAndKeepsTextInput()
 	{
 		// Arrange
 		var model = new TestModel();
@@ -143,11 +128,12 @@ public class HxOtpInputTests : BunitTestBase
 		}));
 
 		// Assert
-		Assert.All(cut.FindAll("div.otp input"), input => Assert.Equal("password", input.GetAttribute("type")));
+		Assert.Equal("text", cut.Find("div.otp input").GetAttribute("type")); // the Bootstrap plugin masks the slots, not the input
+		Assert.True(GetJsInitializeOptions().GetProperty("mask").GetBoolean());
 	}
 
 	[Fact]
-	public void HxOtpInput_Render_EnabledFalse_RendersDisabledInputs()
+	public void HxOtpInput_Render_EnabledFalse_RendersDisabledInput()
 	{
 		// Arrange
 		var model = new TestModel();
@@ -159,13 +145,11 @@ public class HxOtpInputTests : BunitTestBase
 		}));
 
 		// Assert
-		var inputs = cut.FindAll("div.otp input");
-		Assert.Equal(6, inputs.Count);
-		Assert.All(inputs, input => Assert.True(input.HasAttribute("disabled")));
+		Assert.True(cut.Find("div.otp input").HasAttribute("disabled"));
 	}
 
 	[Fact]
-	public void HxOtpInput_Render_Value_RendersDigitsToInputs()
+	public void HxOtpInput_Render_Value_RendersValueToInput()
 	{
 		// Arrange
 		var model = new TestModel { Value = "123" };
@@ -174,15 +158,11 @@ public class HxOtpInputTests : BunitTestBase
 		var cut = Render(CreateOtpInputRenderer(model));
 
 		// Assert
-		var inputs = cut.FindAll("div.otp input");
-		Assert.Equal("1", inputs[0].GetAttribute("value"));
-		Assert.Equal("2", inputs[1].GetAttribute("value"));
-		Assert.Equal("3", inputs[2].GetAttribute("value"));
-		Assert.False(inputs[3].HasAttribute("value"));
+		Assert.Equal("123", cut.Find("div.otp input").GetAttribute("value"));
 	}
 
 	[Fact]
-	public void HxOtpInput_Render_Label_PointsToFirstInput()
+	public void HxOtpInput_Render_Label_PointsToInput()
 	{
 		// Arrange
 		var model = new TestModel();
@@ -196,7 +176,24 @@ public class HxOtpInputTests : BunitTestBase
 		// Assert
 		var label = cut.Find("label");
 		Assert.Equal("Verification code", label.TextContent);
-		Assert.Equal(label.GetAttribute("for"), cut.FindAll("div.otp input")[0].GetAttribute("id"));
+		Assert.Equal(label.GetAttribute("for"), cut.Find("div.otp input").GetAttribute("id"));
+	}
+
+	[Fact]
+	public void HxOtpInput_Render_Hint_DescribesInput()
+	{
+		// Arrange
+		var model = new TestModel();
+
+		// Act
+		var cut = Render(CreateOtpInputRenderer(model, (builder) =>
+		{
+			builder.AddAttribute(10, nameof(HxOtpInput.Hint), "Enter the code.");
+		}));
+
+		// Assert
+		var hint = cut.Find(".form-text");
+		Assert.Contains(hint.GetAttribute("id"), cut.Find("div.otp input").GetAttribute("aria-describedby"));
 	}
 
 	[Fact]
@@ -271,6 +268,12 @@ public class HxOtpInputTests : BunitTestBase
 		Assert.Contains("is-invalid", cut.Find("div.otp").ClassList);
 		Assert.Contains("invalid-feedback", cut.Markup);
 		Assert.Contains("Code is required.", cut.Markup);
+	}
+
+	private JsonElement GetJsInitializeOptions()
+	{
+		var initializeInvocation = Assert.Single(JSInterop.Invocations, invocation => invocation.Identifier == "initialize");
+		return JsonSerializer.SerializeToElement(initializeInvocation.Arguments[2]);
 	}
 
 	private class TestModel

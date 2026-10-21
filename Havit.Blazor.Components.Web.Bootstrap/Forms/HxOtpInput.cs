@@ -4,9 +4,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/otp-input/">Bootstrap OTP input</see> component (new in Bootstrap 6).<br />
-/// Connected input fields for one-time passwords, PIN codes, and verification codes
-/// with automatic focus advancement, backspace navigation, paste support, and browser autofill (<c>autocomplete="one-time-code"</c>).
-/// The <c>Value</c> is bound as a <see cref="string"/> (the concatenated code).<br />
+/// A single accessible input rendered as separate digit slots for one-time passwords, PIN codes, and verification codes,
+/// with in-place digit editing, paste support, and browser autofill (<c>autocomplete="one-time-code"</c>).
+/// The <c>Value</c> is bound as a <see cref="string"/> (the complete code).<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxOtpInput">https://havit.blazor.eu/components/HxOtpInput</see>
 /// </summary>
 public class HxOtpInput : HxInputBase<string>, IAsyncDisposable
@@ -46,40 +46,40 @@ public class HxOtpInput : HxInputBase<string>, IAsyncDisposable
 	protected override OtpInputSettings GetSettings() => Settings;
 
 	/// <summary>
-	/// The number of inputs (digits) to render. The default is <c>6</c>.
+	/// The number of digit slots to render (the maximum length of the code). The default is <c>6</c>.
 	/// </summary>
 	[Parameter] public int? Length { get; set; }
 	protected int LengthEffective => Length ?? GetSettings()?.Length ?? GetDefaults().Length ?? throw new InvalidOperationException(nameof(Length) + " default for " + nameof(HxOtpInput) + " has to be set.");
 
 	/// <summary>
-	/// When <c>true</c>, the inputs render as <c>type="password"</c> fields to hide the entered values.
+	/// When <c>true</c>, the slots display a dot (<c>•</c>) instead of the entered characters.
+	/// The input stays a regular text field, so the numeric keyboard and autofill keep working.
 	/// The default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool? Mask { get; set; }
 	protected bool MaskEffective => Mask ?? GetSettings()?.Mask ?? GetDefaults().Mask ?? throw new InvalidOperationException(nameof(Mask) + " default for " + nameof(HxOtpInput) + " has to be set.");
 
 	/// <summary>
-	/// When <c>true</c>, the inputs are visually connected into a single cohesive field (Bootstrap <c>input-group</c> styles).
-	/// When used together with <see cref="GroupSize"/>, each group of inputs is wrapped in a nested <c>input-group</c>.
+	/// When <c>true</c>, the slots are visually connected into a single cohesive field with shared borders (Bootstrap <c>otp-connected</c> class).
 	/// The default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool? Connected { get; set; }
 	protected bool ConnectedEffective => Connected ?? GetSettings()?.Connected ?? GetDefaults().Connected ?? throw new InvalidOperationException(nameof(Connected) + " default for " + nameof(HxOtpInput) + " has to be set.");
 
 	/// <summary>
-	/// When set, the inputs are split into groups of this size with a visual <see cref="Separator"/> between the groups (e.g. <c>123-456</c>).
+	/// When set, the slots are split into groups of this size with a visual <see cref="Separator"/> between the groups (e.g. <c>123-456</c>).
 	/// The separator is purely visual, it does not affect the <c>Value</c>.
 	/// The default is <c>null</c> (no groups).
 	/// </summary>
 	[Parameter] public int? GroupSize { get; set; }
 
 	/// <summary>
-	/// The separator text rendered between the groups of inputs (<see cref="GroupSize"/>). The default is <c>–</c> (en dash).
+	/// The separator text rendered between the groups of slots (<see cref="GroupSize"/>). The default is <c>–</c> (en dash).
 	/// </summary>
 	[Parameter] public string Separator { get; set; } = "–";
 
 	/// <summary>
-	/// Raised when all inputs are filled (Bootstrap <c>complete.bs.otp-input</c> event).
+	/// Raised when all slots are filled (Bootstrap <c>complete.bs.otpInput</c> event).
 	/// Receives the complete code as a parameter.
 	/// </summary>
 	[Parameter] public EventCallback<string> OnCompleted { get; set; }
@@ -92,7 +92,11 @@ public class HxOtpInput : HxInputBase<string>, IAsyncDisposable
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	/// <inheritdoc cref="HxInputBase{TValue}.CoreInputCssClass" />
-	private protected override string CoreInputCssClass => CssClassHelper.Combine("otp", (ConnectedEffective && (GroupSize is null)) ? "input-group" : null);
+	/// <remarks>
+	/// The <c>otp-rendered</c> class is added by the JavaScript plugin. Once the plugin is initialized, we render it as well,
+	/// otherwise any change of the class attribute (e.g. validation state) would remove it from the DOM.
+	/// </remarks>
+	private protected override string CoreInputCssClass => CssClassHelper.Combine("otp", ConnectedEffective ? "otp-connected" : null, _jsInitialized ? "otp-rendered" : null);
 
 	private ElementReference _otpInputElement;
 	private DotNetObjectReference<HxOtpInput> _dotnetObjectReference;
@@ -100,8 +104,10 @@ public class HxOtpInput : HxInputBase<string>, IAsyncDisposable
 	private bool _jsInitialized;
 	private int _jsInitializedLength;
 	private bool _jsInitializedMask;
+	private int? _jsInitializedGroupSize;
+	private string _jsInitializedSeparator;
 	private string _jsValue; // value as known by the JavaScript plugin (kept in sync via JS interop)
-	private string _renderedValue; // value whose characters are rendered to the value attributes (kept stable while JS owns the input values)
+	private string _renderedValue; // value rendered to the value attribute (kept stable while JS owns the input value)
 	private bool _disposed;
 
 	public HxOtpInput()
@@ -128,93 +134,33 @@ public class HxOtpInput : HxInputBase<string>, IAsyncDisposable
 			_renderedValue = CurrentValueAsString ?? String.Empty;
 		}
 
-		int lengthEffective = LengthEffective;
-
 		builder.OpenElement(100, "div");
 		builder.AddMultipleAttributes(101, AdditionalAttributes);
 		builder.AddAttribute(102, "class", GetInputCssClassToRender());
+		builder.AddElementReferenceCapture(103, elementReference => _otpInputElement = elementReference);
+
+		// A single input backs the whole control, the Bootstrap plugin renders the visual slots (div.otp-slots) next to it.
+		// The attributes are the same the Bootstrap plugin sets on the input (rendered by Blazor to keep the render tree consistent with the DOM).
+		builder.OpenElement(200, "input");
+		builder.AddAttribute(201, "type", "text");
+		builder.AddAttribute(202, "class", "otp-input");
+		builder.AddAttribute(203, "maxlength", LengthEffective);
+		builder.AddAttribute(204, "inputmode", "numeric");
+		builder.AddAttribute(205, "pattern", "[0-9]*");
+		builder.AddAttribute(206, "autocomplete", "one-time-code");
+		builder.AddAttribute(207, "id", InputId);
 
 		string ariaDescribedBy = String.Join(" ", HintId, ValidationMessageId).Trim();
 		if (!String.IsNullOrEmpty(ariaDescribedBy))
 		{
-			builder.AddAttribute(103, "aria-describedby", ariaDescribedBy);
+			builder.AddAttribute(208, "aria-describedby", ariaDescribedBy);
 		}
-		builder.AddElementReferenceCapture(104, elementReference => _otpInputElement = elementReference);
 
-		if (GroupSize is null)
-		{
-			for (int index = 0; index < lengthEffective; index++)
-			{
-				builder.OpenRegion(200);
-				BuildRenderInput_RenderDigitInput(builder, index);
-				builder.CloseRegion();
-			}
-		}
-		else
-		{
-			int groupSize = GroupSize.Value;
-			for (int groupStartIndex = 0; groupStartIndex < lengthEffective; groupStartIndex += groupSize)
-			{
-				builder.OpenRegion(300);
-
-				if (groupStartIndex > 0)
-				{
-					builder.OpenElement(301, "span");
-					builder.AddAttribute(302, "class", "otp-separator");
-					builder.AddContent(303, Separator);
-					builder.CloseElement(); // span.otp-separator
-				}
-
-				if (ConnectedEffective)
-				{
-					builder.OpenElement(304, "div");
-					builder.AddAttribute(305, "class", "input-group");
-				}
-
-				for (int index = groupStartIndex; index < Math.Min(groupStartIndex + groupSize, lengthEffective); index++)
-				{
-					builder.OpenRegion(306);
-					BuildRenderInput_RenderDigitInput(builder, index);
-					builder.CloseRegion();
-				}
-
-				if (ConnectedEffective)
-				{
-					builder.CloseElement(); // div.input-group
-				}
-
-				builder.CloseRegion();
-			}
-		}
+		builder.AddAttribute(209, "disabled", !EnabledEffective);
+		builder.AddAttribute(210, "value", _renderedValue);
+		builder.CloseElement(); // input
 
 		builder.CloseElement(); // div.otp
-	}
-
-	/// <summary>
-	/// Renders a single digit input.
-	/// The attributes follow the Bootstrap OTP input accessibility guidance
-	/// (the same attributes the Bootstrap plugin sets on the inputs, rendered by Blazor to keep the render tree consistent with the DOM).
-	/// </summary>
-	private void BuildRenderInput_RenderDigitInput(RenderTreeBuilder builder, int index)
-	{
-		builder.OpenElement(1, "input");
-		builder.AddAttribute(2, "type", MaskEffective ? "password" : "text");
-		builder.AddAttribute(3, "class", "form-control");
-		builder.AddAttribute(4, "maxlength", "1");
-		builder.AddAttribute(5, "inputmode", "numeric");
-		builder.AddAttribute(6, "pattern", "\\d*");
-		builder.AddAttribute(7, "autocomplete", (index == 0) ? "one-time-code" : "off"); // first input gets autocomplete for browser OTP autofill
-		builder.AddAttribute(8, "aria-label", $"Digit {index + 1}");
-		if ((index == 0) && !String.IsNullOrEmpty(InputId))
-		{
-			builder.AddAttribute(9, "id", InputId);
-		}
-		builder.AddAttribute(10, "disabled", !EnabledEffective);
-		if (index < _renderedValue?.Length)
-		{
-			builder.AddAttribute(11, "value", _renderedValue[index].ToString());
-		}
-		builder.CloseElement(); // input
 	}
 
 	/// <inheritdoc />
@@ -227,7 +173,11 @@ public class HxOtpInput : HxInputBase<string>, IAsyncDisposable
 			return;
 		}
 
-		if (!_jsInitialized || (_jsInitializedLength != LengthEffective) || (_jsInitializedMask != MaskEffective))
+		if (!_jsInitialized
+			|| (_jsInitializedLength != LengthEffective)
+			|| (_jsInitializedMask != MaskEffective)
+			|| (_jsInitializedGroupSize != GroupSize)
+			|| (_jsInitializedSeparator != Separator))
 		{
 			await EnsureJsModuleAsync();
 			if (_disposed)
@@ -238,9 +188,18 @@ public class HxOtpInput : HxInputBase<string>, IAsyncDisposable
 			_jsInitialized = true;
 			_jsInitializedLength = LengthEffective;
 			_jsInitializedMask = MaskEffective;
+			_jsInitializedGroupSize = GroupSize;
+			_jsInitializedSeparator = Separator;
 			_jsValue = CurrentValueAsString ?? String.Empty;
 
-			await _jsModule.InvokeVoidAsync("initialize", _otpInputElement, _dotnetObjectReference, MaskEffective, _jsValue);
+			var options = new
+			{
+				length = LengthEffective,
+				mask = MaskEffective,
+				groups = (GroupSize is null) ? null : new[] { GroupSize.Value }, // Bootstrap repeats the last group size
+				separator = Separator
+			};
+			await _jsModule.InvokeVoidAsync("initialize", _otpInputElement, _dotnetObjectReference, options, _jsValue);
 		}
 		else if ((CurrentValueAsString ?? String.Empty) != (_jsValue ?? String.Empty))
 		{
@@ -256,7 +215,7 @@ public class HxOtpInput : HxInputBase<string>, IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Receives notification from JavaScript when the value of any of the inputs changes (Bootstrap <c>input.bs.otp-input</c> event).
+	/// Receives notification from JavaScript when the value changes (Bootstrap <c>input.bs.otpInput</c> event).
 	/// </summary>
 	/// <remarks>
 	/// The method is intended for JS interop, do not call it directly.
@@ -271,7 +230,7 @@ public class HxOtpInput : HxInputBase<string>, IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Receives notification from JavaScript when all inputs are filled (Bootstrap <c>complete.bs.otp-input</c> event).
+	/// Receives notification from JavaScript when all slots are filled (Bootstrap <c>complete.bs.otpInput</c> event).
 	/// </summary>
 	/// <remarks>
 	/// The method is intended for JS interop, do not call it directly.
@@ -294,7 +253,7 @@ public class HxOtpInput : HxInputBase<string>, IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Focuses the component (the first empty input, or the last input when all inputs are filled).
+	/// Focuses the component (the first empty slot, or the last slot when all slots are filled).
 	/// </summary>
 	public async ValueTask FocusAsync()
 	{

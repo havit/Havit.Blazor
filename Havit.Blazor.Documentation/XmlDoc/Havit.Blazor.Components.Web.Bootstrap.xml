@@ -6507,9 +6507,9 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput">
             <summary>
             <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/otp-input/">Bootstrap OTP input</see> component (new in Bootstrap 6).<br />
-            Connected input fields for one-time passwords, PIN codes, and verification codes
-            with automatic focus advancement, backspace navigation, paste support, and browser autofill (<c>autocomplete="one-time-code"</c>).
-            The <c>Value</c> is bound as a <see cref="T:System.String"/> (the concatenated code).<br />
+            A single accessible input rendered as separate digit slots for one-time passwords, PIN codes, and verification codes,
+            with in-place digit editing, paste support, and browser autofill (<c>autocomplete="one-time-code"</c>).
+            The <c>Value</c> is bound as a <see cref="T:System.String"/> (the complete code).<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxOtpInput">https://havit.blazor.eu/components/HxOtpInput</see>
             </summary>
         </member>
@@ -6539,37 +6539,37 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Length">
             <summary>
-            The number of inputs (digits) to render. The default is <c>6</c>.
+            The number of digit slots to render (the maximum length of the code). The default is <c>6</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Mask">
             <summary>
-            When <c>true</c>, the inputs render as <c>type="password"</c> fields to hide the entered values.
+            When <c>true</c>, the slots display a dot (<c>•</c>) instead of the entered characters.
+            The input stays a regular text field, so the numeric keyboard and autofill keep working.
             The default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Connected">
             <summary>
-            When <c>true</c>, the inputs are visually connected into a single cohesive field (Bootstrap <c>input-group</c> styles).
-            When used together with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.GroupSize"/>, each group of inputs is wrapped in a nested <c>input-group</c>.
+            When <c>true</c>, the slots are visually connected into a single cohesive field with shared borders (Bootstrap <c>otp-connected</c> class).
             The default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.GroupSize">
             <summary>
-            When set, the inputs are split into groups of this size with a visual <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Separator"/> between the groups (e.g. <c>123-456</c>).
+            When set, the slots are split into groups of this size with a visual <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Separator"/> between the groups (e.g. <c>123-456</c>).
             The separator is purely visual, it does not affect the <c>Value</c>.
             The default is <c>null</c> (no groups).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.Separator">
             <summary>
-            The separator text rendered between the groups of inputs (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.GroupSize"/>). The default is <c>–</c> (en dash).
+            The separator text rendered between the groups of slots (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.GroupSize"/>). The default is <c>–</c> (en dash).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.OnCompleted">
             <summary>
-            Raised when all inputs are filled (Bootstrap <c>complete.bs.otp-input</c> event).
+            Raised when all slots are filled (Bootstrap <c>complete.bs.otpInput</c> event).
             Receives the complete code as a parameter.
             </summary>
         </member>
@@ -6580,6 +6580,10 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.CoreInputCssClass">
             <inheritdoc cref="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.CoreInputCssClass" />
+            <remarks>
+            The <c>otp-rendered</c> class is added by the JavaScript plugin. Once the plugin is initialized, we render it as well,
+            otherwise any change of the class attribute (e.g. validation state) would remove it from the DOM.
+            </remarks>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.OnParametersSet">
             <inheritdoc />
@@ -6587,19 +6591,12 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
             <inheritdoc />
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.BuildRenderInput_RenderDigitInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,System.Int32)">
-            <summary>
-            Renders a single digit input.
-            The attributes follow the Bootstrap OTP input accessibility guidance
-            (the same attributes the Bootstrap plugin sets on the inputs, rendered by Blazor to keep the render tree consistent with the DOM).
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.HandleJsInput(System.String)">
             <summary>
-            Receives notification from JavaScript when the value of any of the inputs changes (Bootstrap <c>input.bs.otp-input</c> event).
+            Receives notification from JavaScript when the value changes (Bootstrap <c>input.bs.otpInput</c> event).
             </summary>
             <remarks>
             The method is intended for JS interop, do not call it directly.
@@ -6607,7 +6604,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.HandleJsComplete(System.String)">
             <summary>
-            Receives notification from JavaScript when all inputs are filled (Bootstrap <c>complete.bs.otp-input</c> event).
+            Receives notification from JavaScript when all slots are filled (Bootstrap <c>complete.bs.otpInput</c> event).
             </summary>
             <remarks>
             The method is intended for JS interop, do not call it directly.
@@ -6618,7 +6615,7 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxOtpInput.FocusAsync">
             <summary>
-            Focuses the component (the first empty input, or the last input when all inputs are filled).
+            Focuses the component (the first empty slot, or the last slot when all slots are filled).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonList`2">
@@ -7921,17 +7918,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.OtpInputSettings.Length">
             <summary>
-            The number of inputs (digits) to render.
+            The number of digit slots to render (the maximum length of the code).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.OtpInputSettings.Mask">
             <summary>
-            When <c>true</c>, the inputs render as <c>type="password"</c> fields to hide the entered values.
+            When <c>true</c>, the slots display a dot (<c>•</c>) instead of the entered characters.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.OtpInputSettings.Connected">
             <summary>
-            When <c>true</c>, the inputs are visually connected into a single cohesive field (Bootstrap <c>input-group</c> styles).
+            When <c>true</c>, the slots are visually connected into a single cohesive field with shared borders (Bootstrap <c>otp-connected</c> class).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength">

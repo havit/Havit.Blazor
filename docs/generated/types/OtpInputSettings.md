@@ -6,8 +6,8 @@ Settings for the `HxOtpInput` component.
 
 | Name | Type | Description |
 |------|------|-------------|
-| Connected | `bool?` | When `true`, the inputs are visually connected into a single cohesive field (Bootstrap `input-group` styles). |
-| Length | `int?` | The number of inputs (digits) to render. |
-| Mask | `bool?` | When `true`, the inputs render as `type="password"` fields to hide the entered values. |
+| Connected | `bool?` | When `true`, the slots are visually connected into a single cohesive field with shared borders (Bootstrap `otp-connected` class). |
+| Length | `int?` | The number of digit slots to render (the maximum length of the code). |
+| Mask | `bool?` | When `true`, the slots display a dot (`•`) instead of the entered characters. |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. |
 
