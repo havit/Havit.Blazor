@@ -112,7 +112,7 @@ public class HxMenuToggleElement : ComponentBase, IHxMenuToggle, IAsyncDisposabl
 	private ElementReference _elementReference;
 	private DotNetObjectReference<HxMenuToggleElement> _dotnetObjectReference;
 	private IJSObjectReference _jsModule;
-	private string _currentMenuJsOptionsReference;
+	private string _currentMenuReference;
 	private Queue<Func<Task>> _onAfterRenderTasksQueue = new();
 	private bool _disposed;
 
@@ -188,14 +188,15 @@ public class HxMenuToggleElement : ComponentBase, IHxMenuToggle, IAsyncDisposabl
 			{
 				return;
 			}
-			_currentMenuJsOptionsReference = menuJsOptionsReference;
-			await _jsModule.InvokeVoidAsync("create", _elementReference, _dotnetObjectReference, GetMenuJsOptions(_currentMenuJsOptionsReference), OnHiding.HasDelegate);
+			_currentMenuReference = MenuReference;
+			await _jsModule.InvokeVoidAsync("create", _elementReference, _dotnetObjectReference, GetMenuJsOptions(menuJsOptionsReference), OnHiding.HasDelegate);
 		}
 		else
 		{
-			if (menuJsOptionsReference != _currentMenuJsOptionsReference)
+			// Bootstrap reads the data-bs-reference attribute only when the instance is created => re-create it on any reference change.
+			if (MenuReference != _currentMenuReference)
 			{
-				_currentMenuJsOptionsReference = menuJsOptionsReference;
+				_currentMenuReference = MenuReference;
 				if (_jsModule is not null)
 				{
 					await _jsModule.InvokeVoidAsync("update", _elementReference, GetMenuJsOptions(menuJsOptionsReference));

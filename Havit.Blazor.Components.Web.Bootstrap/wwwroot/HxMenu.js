@@ -19,13 +19,13 @@
 }
 
 function prepareOptions(options) {
-	if (options.reference !== undefined) {
-		if (options.reference === null) {
-			options.reference = "toggle"; // default Bootstrap value
-		}
-		else if (options.reference.startsWith("#")) {
-			options.reference = document.querySelector(options.reference);
-		}
+	if (options.reference === null || options.reference === undefined) {
+		// Let Bootstrap use the data-bs-reference attribute ("toggle"/"parent") or its default.
+		// The JS config is merged after the data attributes, so any value here would override the attribute.
+		delete options.reference;
+	}
+	else if (options.reference.startsWith("#")) {
+		options.reference = document.querySelector(options.reference);
 	}
 }
 
