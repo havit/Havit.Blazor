@@ -78,7 +78,7 @@ public partial class HxCollapse : IAsyncDisposable
 	private bool _initialized;
 
 	/// <summary>
-	/// Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefore, we will remember the request for Show and initialize the collapse with toggle=true.
+	/// Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefore, we will remember the request for Show and show the collapse right after its initialization.
 	/// </summary>
 	private bool _shouldToggle;
 
