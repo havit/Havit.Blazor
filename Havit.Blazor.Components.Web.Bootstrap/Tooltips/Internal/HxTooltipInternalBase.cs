@@ -45,7 +45,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 	protected string ContainerEffective => Container ?? GetSettings()?.Container ?? GetDefaults().Container;
 
 	/// <summary>
-	/// Enable or disable the sanitization. If activated, HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.3/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
+	/// Enable or disable the sanitization. If activated, HTML content will be sanitized. <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
 	/// Default is <c>true</c>.
 	/// </summary>
 	[Parameter] public bool Sanitize { get; set; } = true;

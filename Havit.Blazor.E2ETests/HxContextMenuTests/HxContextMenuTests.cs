@@ -81,4 +81,30 @@ public class HxContextMenuTests : TestAppTestBase
 		// Assert - callback was NOT invoked for the disabled item
 		await Expect(disabledClickCount).ToHaveTextAsync("0");
 	}
+
+	[Fact]
+	public async Task HxContextMenu_Keyboard_OpensMenuAndActivatesItem()
+	{
+		// Arrange
+		await NavigateToTestAppAsync("/HxContextMenuTests");
+
+		var trigger = Page.Locator(".hx-context-menu-btn");
+		var menu = Page.Locator(".menu");
+		var firstItem = Page.Locator(".menu-item:has-text('Action 1')");
+		var clickCount = Page.Locator("[data-testid='click-count']");
+
+		// Act - open the menu from the keyboard
+		await trigger.FocusAsync();
+		await Page.Keyboard.PressAsync("ArrowDown");
+
+		// Assert - the menu is open and the first item is focused
+		await Expect(menu).ToBeVisibleAsync(new() { Timeout = 5_000 });
+		await Expect(firstItem).ToBeFocusedAsync();
+
+		// Act - activate the item
+		await Page.Keyboard.PressAsync("Enter");
+
+		// Assert
+		await Expect(clickCount).ToHaveTextAsync("1");
+	}
 }

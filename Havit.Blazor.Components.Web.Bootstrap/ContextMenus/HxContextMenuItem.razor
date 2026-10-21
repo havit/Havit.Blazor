@@ -5,12 +5,35 @@
 	bool enabledEffective = CascadeEnabledComponent.EnabledEffective(this);
 }
 
-<a class="@CssClassHelper.Combine("menu-item", "hx-context-menu-item", enabledEffective ? "" : "disabled", CssClass)" role="@(enabledEffective ? "button" : "")" href="@Href" @onclick="HandleClick" @onclick:stopPropagation="@OnClickStopPropagation">
-	@if (Icon is not null)
-	{
-		<HxIcon Icon="Icon" CssClass="@CssClassHelper.Combine("hx-context-menu-item-icon", IconCssClass)" />
-	}
+@if (!String.IsNullOrEmpty(Href))
+{
+	<a class="@CssClassHelper.Combine("menu-item", "hx-context-menu-item", enabledEffective ? null : "disabled", CssClass)"
+	   href="@Href"
+	   aria-disabled="@(enabledEffective ? null : "true")"
+	   tabindex="@(enabledEffective ? null : "-1")"
+	   @onclick="HandleClick"
+	   @onclick:stopPropagation="@OnClickStopPropagation">
+		@RenderContent()
+	</a>
+}
+else
+{
+	<button type="button"
+			class="@CssClassHelper.Combine("menu-item", "hx-context-menu-item", enabledEffective ? null : "disabled", CssClass)"
+			disabled="@(!enabledEffective)"
+			@onclick="HandleClick"
+			@onclick:stopPropagation="@OnClickStopPropagation">
+		@RenderContent()
+	</button>
+}
 
-	@Text
-	@ChildContent
-</a>
+@code {
+	private RenderFragment RenderContent() => @<text>
+		@if (Icon is not null)
+		{
+			<HxIcon Icon="Icon" CssClass="@CssClassHelper.Combine("menu-item-icon", IconCssClass)" />
+		}
+		@Text
+		@ChildContent
+	</text>;
+}

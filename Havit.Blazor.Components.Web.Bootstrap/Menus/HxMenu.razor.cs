@@ -33,7 +33,7 @@ public partial class HxMenu : ComponentBase, IMenuContainer
 
 	/// <summary>
 	/// By default, the menu is closed when clicking inside or outside the menu (<see cref="MenuAutoClose.True"/>).
-	/// You can use the AutoClose parameter to change this behavior of the menu.
+	/// You can use the AutoClose parameter to change this behavior of the menu (the <c>Esc</c> key always closes the menu).
 	/// See <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior</see> for more information.
 	/// </summary>
 	[Parameter] public MenuAutoClose AutoClose { get; set; } = MenuAutoClose.True;

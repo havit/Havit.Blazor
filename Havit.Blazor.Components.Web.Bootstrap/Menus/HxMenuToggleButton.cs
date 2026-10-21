@@ -38,6 +38,12 @@ public class HxMenuToggleButton : HxButton, IAsyncDisposable, IHxMenuToggle
 	[Parameter] public string MenuReference { get; set; }
 
 	/// <summary>
+	/// Floating UI positioning strategy of the menu. Default is <see cref="FloatingStrategy.Absolute"/>.
+	/// Use <see cref="FloatingStrategy.Fixed"/> when the menu gets clipped by an ancestor with <c>overflow: hidden</c> (e.g. a scrollable container or a table).
+	/// </summary>
+	[Parameter] public FloatingStrategy MenuStrategy { get; set; } = FloatingStrategy.Absolute;
+
+	/// <summary>
 	/// Fired when the menu has been made visible to the user and CSS transitions have completed.
 	/// </summary>
 	[Parameter] public EventCallback OnShown { get; set; }
@@ -66,8 +72,8 @@ public class HxMenuToggleButton : HxButton, IAsyncDisposable, IHxMenuToggle
 	protected virtual Task InvokeOnHiddenAsync() => OnHidden.InvokeAsync();
 
 	/// <summary>
-	/// By default, the menu menu is closed when clicking inside or outside the menu menu (<see cref="MenuAutoClose.True"/>).
-	/// You can use the AutoClose parameter to change this behavior of the menu.
+	/// By default, the menu is closed when clicking inside or outside the menu (<see cref="MenuAutoClose.True"/>).
+	/// You can use the AutoClose parameter to change this behavior of the menu (the <c>Esc</c> key always closes the menu).
 	/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior</see>.
 	/// The parameter can be used to override the settings of the <see cref="MenuContainer"/> component or to specify the auto-close behavior when the component is not used.
 	/// </summary>
@@ -95,7 +101,8 @@ public class HxMenuToggleButton : HxButton, IAsyncDisposable, IHxMenuToggle
 
 	private DotNetObjectReference<HxMenuToggleButton> _dotnetObjectReference;
 	private IJSObjectReference _jsModule;
-	private string _currentMenuJsOptionsReference;
+	private string _currentMenuReference;
+	private FloatingStrategy _currentMenuStrategy;
 	private Queue<Func<Task>> _onAfterRenderTasksQueue = new();
 	private bool _disposed;
 
@@ -137,6 +144,7 @@ public class HxMenuToggleButton : HxButton, IAsyncDisposable, IHxMenuToggle
 		}
 
 		AdditionalAttributes["data-bs-reference"] = MenuToggleExtensions.GetMenuDataBsReference(this);
+		AdditionalAttributes["data-bs-strategy"] = MenuToggleExtensions.GetMenuDataBsStrategy(this);
 
 		string dataBsPlacement = ResponsivePlacementEffective ?? ((PlacementEffective != MenuPlacement.BottomStart) ? PlacementEffective.ToDataBsPlacement() : null);
 		if (dataBsPlacement is not null)
@@ -165,14 +173,17 @@ public class HxMenuToggleButton : HxButton, IAsyncDisposable, IHxMenuToggle
 			{
 				return;
 			}
-			_currentMenuJsOptionsReference = menuJsOptionsReference;
-			await _jsModule.InvokeVoidAsync("create", buttonElementReference, _dotnetObjectReference, GetMenuJsOptions(_currentMenuJsOptionsReference), OnHiding.HasDelegate);
+			_currentMenuReference = MenuReference;
+			_currentMenuStrategy = MenuStrategy;
+			await _jsModule.InvokeVoidAsync("create", buttonElementReference, _dotnetObjectReference, GetMenuJsOptions(menuJsOptionsReference), OnHiding.HasDelegate);
 		}
 		else
 		{
-			if (menuJsOptionsReference != _currentMenuJsOptionsReference)
+			// Bootstrap reads the data-bs-reference/data-bs-strategy attributes only when the instance is created => re-create it on any change.
+			if ((MenuReference != _currentMenuReference) || (MenuStrategy != _currentMenuStrategy))
 			{
-				_currentMenuJsOptionsReference = menuJsOptionsReference;
+				_currentMenuReference = MenuReference;
+				_currentMenuStrategy = MenuStrategy;
 				if (_jsModule is not null)
 				{
 					await _jsModule.InvokeVoidAsync("update", buttonElementReference, GetMenuJsOptions(menuJsOptionsReference));

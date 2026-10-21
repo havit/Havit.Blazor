@@ -1,0 +1,48 @@
+@page "/HxMenu_Reference"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<div data-testid="parent-wrapper" class="d-flex" style="position: relative; padding-inline-start: 100px;">
+	<HxMenu>
+		<Toggle>
+			<HxMenuToggleButton data-testid="parent-toggle" MenuReference="parent" Color="ThemeColor.Primary">Parent reference</HxMenuToggleButton>
+		</Toggle>
+		<Content>
+			<HxMenuItem>Item</HxMenuItem>
+		</Content>
+	</HxMenu>
+</div>
+
+<div class="d-flex" style="padding-inline-start: 100px;">
+	<HxMenu>
+		<Toggle>
+			<HxMenuToggleButton data-testid="default-toggle" Color="ThemeColor.Primary">Default reference</HxMenuToggleButton>
+		</Toggle>
+		<Content>
+			<HxMenuItem>Item</HxMenuItem>
+		</Content>
+	</HxMenu>
+</div>
+
+<div data-testid="switch-wrapper" class="d-flex" style="position: relative; padding-inline-start: 100px;">
+	<HxMenu AutoClose="MenuAutoClose.Outside">
+		<Toggle>
+			<HxMenuToggleButton data-testid="switch-toggle" MenuReference="@_switchReference" MenuStrategy="@_switchStrategy" Color="ThemeColor.Primary">Switchable reference</HxMenuToggleButton>
+		</Toggle>
+		<Content>
+			<HxButton data-testid="switch-button" Text="Switch" Color="ThemeColor.Secondary" OnClick="HandleSwitchClick" />
+		</Content>
+	</HxMenu>
+</div>
+
+<p data-testid="outside-click-area" style="padding: 100px 0;">Outside click area</p>
+
+@code {
+	private string _switchReference = null;
+	private FloatingStrategy _switchStrategy = FloatingStrategy.Absolute;
+
+	private void HandleSwitchClick()
+	{
+		_switchReference = "parent";
+		_switchStrategy = FloatingStrategy.Fixed;
+	}
+}

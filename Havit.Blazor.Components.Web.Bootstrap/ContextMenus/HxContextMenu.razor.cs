@@ -83,15 +83,4 @@ public partial class HxContextMenu
 
 
 	private string _id = "hx" + Guid.NewGuid().ToString("N");
-
-	private string GetFloatingConfig()
-	{
-		if (FloatingStrategy == FloatingStrategy.Absolute)
-		{
-			return null; // data-bs-floating-config is not needed for the default strategy
-		}
-		return $$"""
-			{"strategy": "{{FloatingStrategy.ToString().ToLowerInvariant()}}"}
-			""";
-	}
 }

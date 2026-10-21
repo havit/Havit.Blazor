@@ -8,7 +8,9 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 public class HxMenuToggleElement : ComponentBase, IHxMenuToggle, IAsyncDisposable
 {
 	/// <summary>
-	/// Gets or sets the name of the element to render. Default is <c>span</c>.
+	/// Gets or sets the name of the element to render. Default is <c>span</c>.<br />
+	/// Prefer a focusable element (e.g. <c>button</c> with <c>type="button"</c>) to make the menu accessible from the keyboard,
+	/// or add <c>tabindex="0"</c> (and <c>role="button"</c>) to a non-focusable element.
 	/// </summary>
 	[Parameter] public string ElementName { get; set; } = "span";
 
@@ -19,6 +21,12 @@ public class HxMenuToggleElement : ComponentBase, IHxMenuToggle, IAsyncDisposabl
 	/// For more information, refer to the <see href="https://floating-ui.com/docs/computePosition">Floating UI documentation</see>.
 	/// </summary>
 	[Parameter] public string MenuReference { get; set; }
+
+	/// <summary>
+	/// Floating UI positioning strategy of the menu. Default is <see cref="FloatingStrategy.Absolute"/>.
+	/// Use <see cref="FloatingStrategy.Fixed"/> when the menu gets clipped by an ancestor with <c>overflow: hidden</c> (e.g. a scrollable container or a table).
+	/// </summary>
+	[Parameter] public FloatingStrategy MenuStrategy { get; set; } = FloatingStrategy.Absolute;
 
 	/// <summary>
 	/// Offset <c>(<see href="https://floating-ui.com/docs/offset#options">skidding</see>, <see href="https://floating-ui.com/docs/offset#options">distance</see>)</c>
@@ -32,8 +40,8 @@ public class HxMenuToggleElement : ComponentBase, IHxMenuToggle, IAsyncDisposabl
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
-	/// By default, the menu menu is closed when clicking inside or outside the menu menu (<see cref="MenuAutoClose.True"/>).
-	/// You can use the AutoClose parameter to change this behavior of the menu.
+	/// By default, the menu is closed when clicking inside or outside the menu (<see cref="MenuAutoClose.True"/>).
+	/// You can use the AutoClose parameter to change this behavior of the menu (the <c>Esc</c> key always closes the menu).
 	/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior</see>.
 	/// The parameter can be used to override the settings of the <see cref="MenuContainer"/> component or to specify the auto-close behavior when the component is not used.
 	/// </summary>
@@ -112,7 +120,8 @@ public class HxMenuToggleElement : ComponentBase, IHxMenuToggle, IAsyncDisposabl
 	private ElementReference _elementReference;
 	private DotNetObjectReference<HxMenuToggleElement> _dotnetObjectReference;
 	private IJSObjectReference _jsModule;
-	private string _currentMenuJsOptionsReference;
+	private string _currentMenuReference;
+	private FloatingStrategy _currentMenuStrategy;
 	private Queue<Func<Task>> _onAfterRenderTasksQueue = new();
 	private bool _disposed;
 
@@ -151,6 +160,7 @@ public class HxMenuToggleElement : ComponentBase, IHxMenuToggle, IAsyncDisposabl
 			builder.AddAttribute(6, "data-bs-placement", dataBsPlacement);
 		}
 		builder.AddAttribute(7, "class", GetCssClass());
+		builder.AddAttribute(8, "data-bs-strategy", MenuToggleExtensions.GetMenuDataBsStrategy(this));
 
 		if (String.Equals(ElementName, "input", StringComparison.OrdinalIgnoreCase))
 		{
@@ -188,14 +198,17 @@ public class HxMenuToggleElement : ComponentBase, IHxMenuToggle, IAsyncDisposabl
 			{
 				return;
 			}
-			_currentMenuJsOptionsReference = menuJsOptionsReference;
-			await _jsModule.InvokeVoidAsync("create", _elementReference, _dotnetObjectReference, GetMenuJsOptions(_currentMenuJsOptionsReference), OnHiding.HasDelegate);
+			_currentMenuReference = MenuReference;
+			_currentMenuStrategy = MenuStrategy;
+			await _jsModule.InvokeVoidAsync("create", _elementReference, _dotnetObjectReference, GetMenuJsOptions(menuJsOptionsReference), OnHiding.HasDelegate);
 		}
 		else
 		{
-			if (menuJsOptionsReference != _currentMenuJsOptionsReference)
+			// Bootstrap reads the data-bs-reference/data-bs-strategy attributes only when the instance is created => re-create it on any change.
+			if ((MenuReference != _currentMenuReference) || (MenuStrategy != _currentMenuStrategy))
 			{
-				_currentMenuJsOptionsReference = menuJsOptionsReference;
+				_currentMenuReference = MenuReference;
+				_currentMenuStrategy = MenuStrategy;
 				if (_jsModule is not null)
 				{
 					await _jsModule.InvokeVoidAsync("update", _elementReference, GetMenuJsOptions(menuJsOptionsReference));

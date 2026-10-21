@@ -7,6 +7,7 @@ internal interface IHxMenuToggle
 {
 	(int Skidding, int Distance)? MenuOffset { get; set; }
 	string MenuReference { get; set; }
+	FloatingStrategy MenuStrategy { get; set; }
 	EventCallback OnHidden { get; set; }
 	EventCallback OnShown { get; set; }
 	MenuAutoClose? AutoClose { get; set; }
