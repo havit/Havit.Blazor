@@ -25,13 +25,14 @@ public interface IHxGoogleTagManager
 	Task PushEventAsync(string eventName, object eventData = null);
 
 	/// <summary>
-	/// Push page-view to GTM data-layer.
+	/// Push page-view to GTM data-layer. Always pushes, even for the page-view tracked last.
 	/// Consider using <see cref="HxGoogleTagManagerPageViewTracker"/> instead of manual handling.
 	/// </summary>
 	Task PushPageViewAsync(object additionalData = null);
 
 	/// <summary>
 	/// Used by <see cref="HxGoogleTagManagerPageViewTracker"/> to track location changes.
+	/// Deduplicated, as the same navigation can also be seen by the package's JS initializer.
 	/// </summary>
 	Task PushPageViewAsync(LocationChangedEventArgs args);
 }

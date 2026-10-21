@@ -1,4 +1,4 @@
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Components;
@@ -23,11 +23,11 @@ public class HxInputDateRangeTests : BunitTestBase
 
 			builder.AddAttribute(1, nameof(HxFormState.ChildContent), (RenderFragment)((builder2) =>
 			{
-				builder2.OpenComponent<HxInputDateRange>(0);
+				builder2.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 				builder2.AddAttribute(1, "Value", myValue);
 				builder2.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder2.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder2.AddAttribute(4, nameof(HxInputDateRange.Enabled), true);
+				builder2.AddAttribute(4, nameof(HxInputDateRange<DateTimeRange>.Enabled), true);
 				builder2.CloseComponent();
 			}));
 
@@ -60,7 +60,7 @@ public class HxInputDateRangeTests : BunitTestBase
 
 			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 			{
-				builder.OpenComponent<HxInputDateRange>(0);
+				builder.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
@@ -96,12 +96,12 @@ public class HxInputDateRangeTests : BunitTestBase
 
 			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 			{
-				builder.OpenComponent<HxInputDateRange>(0);
+				builder.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
-				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
+				builder.AddAttribute(4, nameof(HxInputDateRange<DateTimeRange>.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -135,12 +135,12 @@ public class HxInputDateRangeTests : BunitTestBase
 
 			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 			{
-				builder.OpenComponent<HxInputDateRange>(0);
+				builder.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
-				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
+				builder.AddAttribute(4, nameof(HxInputDateRange<DateTimeRange>.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -174,12 +174,12 @@ public class HxInputDateRangeTests : BunitTestBase
 
 			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 			{
-				builder.OpenComponent<HxInputDateRange>(0);
+				builder.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
-				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
+				builder.AddAttribute(4, nameof(HxInputDateRange<DateTimeRange>.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -212,12 +212,12 @@ public class HxInputDateRangeTests : BunitTestBase
 
 			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 			{
-				builder.OpenComponent<HxInputDateRange>(0);
+				builder.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
-				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
+				builder.AddAttribute(4, nameof(HxInputDateRange<DateTimeRange>.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -250,12 +250,12 @@ public class HxInputDateRangeTests : BunitTestBase
 
 			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 			{
-				builder.OpenComponent<HxInputDateRange>(0);
+				builder.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
-				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
+				builder.AddAttribute(4, nameof(HxInputDateRange<DateTimeRange>.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -288,12 +288,12 @@ public class HxInputDateRangeTests : BunitTestBase
 
 			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 			{
-				builder.OpenComponent<HxInputDateRange>(0);
+				builder.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
-				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
+				builder.AddAttribute(4, nameof(HxInputDateRange<DateTimeRange>.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -326,12 +326,12 @@ public class HxInputDateRangeTests : BunitTestBase
 
 			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 			{
-				builder.OpenComponent<HxInputDateRange>(0);
+				builder.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
-				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
+				builder.AddAttribute(4, nameof(HxInputDateRange<DateTimeRange>.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -364,12 +364,12 @@ public class HxInputDateRangeTests : BunitTestBase
 
 			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 			{
-				builder.OpenComponent<HxInputDateRange>(0);
+				builder.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
-				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
+				builder.AddAttribute(4, nameof(HxInputDateRange<DateTimeRange>.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -400,12 +400,12 @@ public class HxInputDateRangeTests : BunitTestBase
 
 		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 		{
-			builder.OpenComponent<HxInputDateRange>(0);
+			builder.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 			builder.AddAttribute(1, "Value", myValue);
 			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 			builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-			builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
-			builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
+			builder.AddAttribute(4, nameof(HxInputDateRange<DateTimeRange>.RequireDateOrder), true);
+			builder.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 			builder.CloseComponent();
 		};
 
@@ -441,12 +441,12 @@ public class HxInputDateRangeTests : BunitTestBase
 
 			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 			{
-				builder.OpenComponent<HxInputDateRange>(0);
+				builder.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
-				builder.AddAttribute(4, nameof(HxInputDateRange.RequireDateOrder), true);
-				builder.AddAttribute(5, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
+				builder.AddAttribute(4, nameof(HxInputDateRange<DateTimeRange>.RequireDateOrder), true);
+				builder.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 				builder.CloseComponent();
 			};
 
@@ -487,21 +487,21 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(2, "ChildContent", (RenderFragment<EditContext>)((context) => (builder2) =>
 				{
 					// First HxInputDateRange instance
-					builder2.OpenComponent<HxInputDateRange>(0);
+					builder2.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 					builder2.AddAttribute(1, "Value", formModel.A.Range);
 					builder2.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { formModel.A.Range = value; }));
 					builder2.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => formModel.A.Range));
-					builder2.AddAttribute(4, nameof(HxInputDateRange.Label), "Range A");
-					builder2.AddAttribute(5, nameof(HxInputDateRange.FromParsingErrorMessage), "TestFromParsingErrorMessage");
+					builder2.AddAttribute(4, nameof(HxInputDateRange<DateTimeRange>.Label), "Range A");
+					builder2.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.FromParsingErrorMessage), "TestFromParsingErrorMessage");
 					builder2.CloseComponent();
 
 					// Second HxInputDateRange instance
-					builder2.OpenComponent<HxInputDateRange>(10);
+					builder2.OpenComponent<HxInputDateRange<DateTimeRange>>(10);
 					builder2.AddAttribute(11, "Value", formModel.B.Range);
 					builder2.AddAttribute(12, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { formModel.B.Range = value; }));
 					builder2.AddAttribute(13, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => formModel.B.Range));
-					builder2.AddAttribute(14, nameof(HxInputDateRange.Label), "Range B");
-					builder2.AddAttribute(5, nameof(HxInputDateRange.FromParsingErrorMessage), "TestFromParsingErrorMessage");
+					builder2.AddAttribute(14, nameof(HxInputDateRange<DateTimeRange>.Label), "Range B");
+					builder2.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.FromParsingErrorMessage), "TestFromParsingErrorMessage");
 					builder2.CloseComponent();
 				}));
 				builder.CloseComponent();
@@ -543,21 +543,21 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(2, "ChildContent", (RenderFragment<EditContext>)((context) => (builder2) =>
 				{
 					// First HxInputDateRange instance
-					builder2.OpenComponent<HxInputDateRange>(0);
+					builder2.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 					builder2.AddAttribute(1, "Value", formModel.A.Range);
 					builder2.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { formModel.A.Range = value; }));
 					builder2.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => formModel.A.Range));
-					builder2.AddAttribute(4, nameof(HxInputDateRange.Label), "Range A");
-					builder2.AddAttribute(5, nameof(HxInputDateRange.ToParsingErrorMessage), "TestToParsingErrorMessage");
+					builder2.AddAttribute(4, nameof(HxInputDateRange<DateTimeRange>.Label), "Range A");
+					builder2.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.ToParsingErrorMessage), "TestToParsingErrorMessage");
 					builder2.CloseComponent();
 
 					// Second HxInputDateRange instance
-					builder2.OpenComponent<HxInputDateRange>(10);
+					builder2.OpenComponent<HxInputDateRange<DateTimeRange>>(10);
 					builder2.AddAttribute(11, "Value", formModel.B.Range);
 					builder2.AddAttribute(12, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { formModel.B.Range = value; }));
 					builder2.AddAttribute(13, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => formModel.B.Range));
-					builder2.AddAttribute(14, nameof(HxInputDateRange.Label), "Range B");
-					builder2.AddAttribute(5, nameof(HxInputDateRange.ToParsingErrorMessage), "TestToParsingErrorMessage");
+					builder2.AddAttribute(14, nameof(HxInputDateRange<DateTimeRange>.Label), "Range B");
+					builder2.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.ToParsingErrorMessage), "TestToParsingErrorMessage");
 					builder2.CloseComponent();
 				}));
 				builder.CloseComponent();
@@ -603,23 +603,23 @@ public class HxInputDateRangeTests : BunitTestBase
 				builder.AddAttribute(2, "ChildContent", (RenderFragment<EditContext>)((context) => (builder2) =>
 				{
 					// First HxInputDateRange instance
-					builder2.OpenComponent<HxInputDateRange>(0);
+					builder2.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 					builder2.AddAttribute(1, "Value", formModel.A.Range);
 					builder2.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { formModel.A.Range = value; }));
 					builder2.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => formModel.A.Range));
-					builder2.AddAttribute(4, nameof(HxInputDateRange.Label), "Range A");
-					builder2.AddAttribute(5, nameof(HxInputDateRange.RequireDateOrder), true);
-					builder2.AddAttribute(6, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
+					builder2.AddAttribute(4, nameof(HxInputDateRange<DateTimeRange>.Label), "Range A");
+					builder2.AddAttribute(5, nameof(HxInputDateRange<DateTimeRange>.RequireDateOrder), true);
+					builder2.AddAttribute(6, nameof(HxInputDateRange<DateTimeRange>.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 					builder2.CloseComponent();
 
 					// Second HxInputDateRange instance
-					builder2.OpenComponent<HxInputDateRange>(10);
+					builder2.OpenComponent<HxInputDateRange<DateTimeRange>>(10);
 					builder2.AddAttribute(11, "Value", formModel.B.Range);
 					builder2.AddAttribute(12, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { formModel.B.Range = value; }));
 					builder2.AddAttribute(13, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => formModel.B.Range));
-					builder2.AddAttribute(14, nameof(HxInputDateRange.Label), "Range B");
-					builder2.AddAttribute(15, nameof(HxInputDateRange.RequireDateOrder), true);
-					builder2.AddAttribute(16, nameof(HxInputDateRange.DateOrderErrorMessage), "TestDateOrderErrorMessage");
+					builder2.AddAttribute(14, nameof(HxInputDateRange<DateTimeRange>.Label), "Range B");
+					builder2.AddAttribute(15, nameof(HxInputDateRange<DateTimeRange>.RequireDateOrder), true);
+					builder2.AddAttribute(16, nameof(HxInputDateRange<DateTimeRange>.DateOrderErrorMessage), "TestDateOrderErrorMessage");
 					builder2.CloseComponent();
 				}));
 				builder.CloseComponent();
@@ -656,7 +656,7 @@ public class HxInputDateRangeTests : BunitTestBase
 
 			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 			{
-				builder.OpenComponent<HxInputDateRange>(0);
+				builder.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));
@@ -684,7 +684,7 @@ public class HxInputDateRangeTests : BunitTestBase
 
 			RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
 			{
-				builder.OpenComponent<HxInputDateRange>(0);
+				builder.OpenComponent<HxInputDateRange<DateTimeRange>>(0);
 				builder.AddAttribute(1, "Value", myValue);
 				builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<DateTimeRange>(this, (value) => { myValue = value; }));
 				builder.AddAttribute(3, "ValueExpression", (Expression<Func<DateTimeRange>>)(() => myValue));

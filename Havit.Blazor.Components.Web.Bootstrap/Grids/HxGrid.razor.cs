@@ -663,6 +663,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// Requests a data refresh from the <see cref="DataProvider"/>.
 	/// Useful for updating the grid when external data may have changed.
 	/// To reset grid state (e.g., position), use <see cref="RefreshDataAsync(GridStateResetOptions)"/> instead.
+	/// Does nothing (no-op) when the component is already disposed (e.g. when the user navigated away in the meantime).
 	/// </summary>
 	public async Task RefreshDataAsync()
 	{
@@ -672,11 +673,17 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// <summary>
 	/// Requests a data refresh from the <see cref="DataProvider"/>.
 	/// Useful for updating the grid when external data may have changed.
+	/// Does nothing (no-op) when the component is already disposed (e.g. when the user navigated away in the meantime).
 	/// </summary>
 	/// <param name="resetOptions">Specifies which aspects of the grid state should be reset before refreshing data (e.g., position).</param>
 	public async Task RefreshDataAsync(GridStateResetOptions resetOptions)
 	{
-		Contract.Requires<InvalidOperationException>(!_isDisposed, "Cannot call RefreshDataAsync method on disposed component.");
+		if (_isDisposed)
+		{
+			// Disposal during an in-flight async operation is a routine scenario (e.g. the user navigates away
+			// while the parent component awaits data and then calls RefreshDataAsync). There is no UI to refresh anymore.
+			return;
+		}
 
 		await ResetGridStateAsync(resetOptions);
 
@@ -695,7 +702,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	{
 		if (_isDisposed)
 		{
-			return; // NOOP (explicit check in RefreshDataAsync)
+			return; // NOOP (same guard as in RefreshDataAsync, protects internal code paths)
 		}
 
 		switch (ContentNavigationModeEffective)
@@ -995,27 +1002,46 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 			}
 			else
 			{
-				_dataProviderInProgressDelayTimer = new System.Timers.Timer(ProgressIndicatorDelayEffective);
-				_dataProviderInProgressDelayTimer.AutoReset = false; // run once
-#pragma warning disable VSTHRD101 // Avoid unsupported async delegates
-				_dataProviderInProgressDelayTimer.Elapsed += async (sender, e) => await HandleTimerElapsedAsync();
-#pragma warning restore VSTHRD101 // Avoid unsupported async delegates
-				_dataProviderInProgressDelayTimer.Start();
-			}
+				DisposeDataProviderInProgressDelayTimer();
 
-			async Task HandleTimerElapsedAsync()
-			{
-				if (_dataProviderInProgress)
+				var timer = new System.Timers.Timer(ProgressIndicatorDelayEffective);
+				timer.AutoReset = false; // run once
+#pragma warning disable VSTHRD101 // Avoid unsupported async delegates
+				timer.Elapsed += async (sender, e) =>
 				{
-					_dataProviderInProgressAfterDelay = true;
-					await InvokeAsync(StateHasChanged);
-				}
-				if (_dataProviderInProgressDelayTimer != null)
-				{
-					_dataProviderInProgressDelayTimer.Dispose();
-					_dataProviderInProgressDelayTimer = null;
-				}
+					// Elapsed runs on a thread-pool thread and this is an async void handler - any exception escaping it would terminate the process (#1817).
+					// All the state is therefore accessed only on the renderer's dispatcher (see HandleDataProviderInProgressDelayTimerElapsed).
+					try
+					{
+						await InvokeAsync(() => HandleDataProviderInProgressDelayTimerElapsed(timer));
+					}
+					catch (ObjectDisposedException)
+					{
+						// the renderer (circuit) has been disposed meanwhile, nothing to do
+					}
+				};
+#pragma warning restore VSTHRD101 // Avoid unsupported async delegates
+				_dataProviderInProgressDelayTimer = timer;
+				timer.Start();
 			}
+		}
+	}
+
+	private void HandleDataProviderInProgressDelayTimerElapsed(System.Timers.Timer timer)
+	{
+		// Runs on the renderer's dispatcher.
+		// The timer might have been stopped, replaced by another one or the grid disposed before we got here (the handler could have already been queued).
+		if (_isDisposed || (_dataProviderInProgressDelayTimer != timer))
+		{
+			return;
+		}
+
+		DisposeDataProviderInProgressDelayTimer();
+
+		if (_dataProviderInProgress)
+		{
+			_dataProviderInProgressAfterDelay = true;
+			StateHasChanged();
 		}
 	}
 
@@ -1023,7 +1049,14 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	{
 		_dataProviderInProgress = false; // Multithreading: we can safely clean dataProviderInProgress only when received data from non-cancelled task
 		_dataProviderInProgressAfterDelay = false;
+		DisposeDataProviderInProgressDelayTimer();
 		// no need to call StateHasChanged, this method is called from InvokeDataProviderInternal where the rendering is expected to happen
+	}
+
+	private void DisposeDataProviderInProgressDelayTimer()
+	{
+		_dataProviderInProgressDelayTimer?.Dispose();
+		_dataProviderInProgressDelayTimer = null;
 	}
 
 	#region MultiSelect events
@@ -1179,8 +1212,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 			_paginationRefreshDataCancellationTokenSource = null;
 		}
 
-		_dataProviderInProgressDelayTimer?.Dispose();
-		_dataProviderInProgressDelayTimer = null;
+		DisposeDataProviderInProgressDelayTimer();
 
 		if (_jsModule != null)
 		{

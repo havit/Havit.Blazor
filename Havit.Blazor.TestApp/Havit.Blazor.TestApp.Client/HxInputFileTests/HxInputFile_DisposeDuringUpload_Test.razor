@@ -1,0 +1,38 @@
+@page "/HxInputFile_DisposeDuringUpload"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<h3>HxInputFile disposed during upload (#1578)</h3>
+@if (_showInputFile)
+{
+	<div data-testid="input-file-container">
+		<HxInputFile @ref="_hxInputFile" UploadUrl="/hx-input-file-dispose-during-upload" />
+	</div>
+}
+<button type="button" data-testid="upload-button" @onclick="HandleUploadClickAsync">Upload</button>
+<button type="button" data-testid="remove-button" @onclick="HandleRemoveClick">Remove</button>
+<div data-testid="upload-result">@_uploadResult</div>
+
+@code {
+	private HxInputFile _hxInputFile;
+	private bool _showInputFile = true;
+	private string _uploadResult = string.Empty;
+
+	private async Task HandleUploadClickAsync()
+	{
+		_uploadResult = "Uploading";
+		try
+		{
+			await _hxInputFile.UploadAsync();
+			_uploadResult = "Completed";
+		}
+		catch (OperationCanceledException)
+		{
+			_uploadResult = "Canceled";
+		}
+	}
+
+	private void HandleRemoveClick()
+	{
+		_showInputFile = false;
+	}
+}

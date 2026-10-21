@@ -14,7 +14,7 @@ Raw component extending `InputFile` with direct upload.
 | MaxParallelUploads | `int?` | The maximum number of concurrent uploads. The default is `6`. |
 | Multiple | `bool` | Single `false` or multiple `true` files upload. |
 | Settings | `InputFileCoreSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
-| UploadHttpMethod | `string` | HTTP Method (verb) used for file upload. The default is `POST`. |
+| UploadHttpMethod | `string` | HTTP Method (verb) used for file upload. The default is `POST` (taken from `Defaults`). |
 | UploadUrl | `string` | URL of the server endpoint receiving the files. |
 
 ## Properties
@@ -22,7 +22,6 @@ Raw component extending `InputFile` with direct upload.
 | Name | Type | Description |
 |------|------|-------------|
 | Element | `ElementReference?` |  |
-| FileCount | `int` | The last known count of associated files. |
 
 ## Event callbacks
 

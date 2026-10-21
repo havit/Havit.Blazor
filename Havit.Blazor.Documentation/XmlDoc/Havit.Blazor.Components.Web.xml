@@ -142,7 +142,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.UploadHttpMethod">
             <summary>
-            HTTP Method (verb) used for file upload. The default is <c>POST</c>.
+            HTTP Method (verb) used for file upload. The default is <c>POST</c> (taken from <see cref="P:Havit.Blazor.Components.Web.HxInputFileCore.Defaults"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.OnProgress">
@@ -209,11 +209,6 @@
             The input element id.
             </summary>
         </member>
-        <member name="P:Havit.Blazor.Components.Web.HxInputFileCore.FileCount">
-            <summary>
-            The last known count of associated files.
-            </summary>
-        </member>
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.StartUploadAsync(System.String,System.String,System.String)">
             <summary>
             Initiates the upload (does not wait for upload completion). Use OnUploadCompleted event.
@@ -232,6 +227,8 @@
             <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
             <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
             <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
+            <exception cref="T:System.InvalidOperationException">Another <see cref="M:Havit.Blazor.Components.Web.HxInputFileCore.UploadAsync(System.String,System.String,System.String)"/> call is still in progress.</exception>
+            <exception cref="T:System.Threading.Tasks.TaskCanceledException">The component was disposed before the upload completed.</exception>
         </member>
         <member name="M:Havit.Blazor.Components.Web.HxInputFileCore.GetFilesAsync">
             <summary>
@@ -901,7 +898,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.IsLoaded">
             <summary>
-            Indicates whether the store has valid data.
+            Indicates whether the store has data, i.e. whether the synchronous data-retrieval methods can be used.
+            The data might be stale (when <c>ShouldRefresh</c> returns <c>true</c>); it gets refreshed within the next asynchronous data-retrieval call (or <c>EnsureDataAsync</c>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.DictionaryStaticDataStore`2.ShouldRefresh">
@@ -974,7 +972,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.IsLoaded">
             <summary>
-            Indicates whether the store has valid data.
+            Indicates whether the store has data, i.e. whether the synchronous data-retrieval methods can be used.
+            The data might be stale (when <c>ShouldRefresh</c> returns <c>true</c>); it gets refreshed within the next asynchronous data-retrieval call (or <c>EnsureDataAsync</c>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IDictionaryStaticDataStore`2.GetAllAsync">
@@ -1026,7 +1025,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.IsLoaded">
             <summary>
-            Indicates whether the store has valid data.
+            Indicates whether the store has data, i.e. whether the synchronous data-retrieval methods can be used.
+            The data might be stale (when <c>ShouldRefresh</c> returns <c>true</c>); it gets refreshed within the next asynchronous data-retrieval call (or <c>EnsureDataAsync</c>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.IStaticDataStore`1.Clear">
@@ -1069,7 +1069,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.IsLoaded">
             <summary>
-            Indicates whether the store has valid data.
+            Indicates whether the store has data, i.e. whether the synchronous data-retrieval methods can be used.
+            The data might be stale (when <c>ShouldRefresh</c> returns <c>true</c>); it gets refreshed within the next asynchronous data-retrieval call (or <c>EnsureDataAsync</c>).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Services.DataStores.StaticDataStore`1.ShouldRefresh">

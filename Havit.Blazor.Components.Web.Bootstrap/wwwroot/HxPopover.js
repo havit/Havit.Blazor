@@ -27,7 +27,6 @@ export function enable(element) {
 	const i = bootstrap.Popover.getInstance(element);
 	if (i) {
 		i.enable();
-		console.warn("enabled");
 	}
 }
 
@@ -35,13 +34,16 @@ export function disable(element) {
 	const i = bootstrap.Popover.getInstance(element);
 	if (i) {
 		i.disable();
-		console.warn("disabled");
 	}
 }
 
 export function setContent(element, newContent) {
 	const i = bootstrap.Popover.getInstance(element);
 	if (i) {
+		// #1541 Bootstrap's setContent() does not update the title/content config which drives _isWithContent(),
+		// a popover initialized with an empty title+content would never show (and vice versa).
+		i._config.title = newContent['.popover-header'] ?? '';
+		i._config.content = newContent['.popover-body'] ?? '';
 		i.setContent(newContent);
 	}
 }

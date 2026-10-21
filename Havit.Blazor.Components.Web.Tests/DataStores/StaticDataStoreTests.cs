@@ -79,7 +79,7 @@ public class StaticDataStoreTests
 		var result = await sut.Object.GetValueAsync();
 
 		// assert
-		Assert.False(isLoaded);
+		Assert.True(isLoaded); // stale data is still available for the synchronous API
 		sut.Verify(s => s.LoadDataAsync(), Times.Exactly(2));
 		Assert.Equal("Adam", result);
 	}
