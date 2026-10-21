@@ -305,6 +305,19 @@ public class HxTreeViewTests : BunitTestBase
 		Assert.All(treeItems, treeItem => Assert.Contains(treeItem.ParentElement.GetAttribute("role"), new[] { "tree", "group" }));
 		Assert.All(cut.FindAll(".collapse"), collapse => Assert.Equal("group", collapse.GetAttribute("role")));
 
+		// Assert - the group (a DOM sibling of its parent treeitem) is owned by the parent treeitem, which exposes the expanded state
+		var parentItems = treeItems.Where(treeItem => treeItem.HasAttribute("aria-owns")).ToList();
+		Assert.Equal(2, parentItems.Count); // Root1, Child1B
+		Assert.All(parentItems, parentItem =>
+		{
+			var group = cut.Find("#" + parentItem.GetAttribute("aria-owns"));
+			Assert.Equal("group", group.GetAttribute("role"));
+			Assert.Equal(group.Id, parentItem.NextElementSibling.Id);
+		});
+		Assert.Equal("true", parentItems[0].GetAttribute("aria-expanded"));
+		Assert.Equal("false", parentItems[1].GetAttribute("aria-expanded"));
+		Assert.All(treeItems.Except(parentItems), leafItem => Assert.False(leafItem.HasAttribute("aria-expanded")));
+
 		// Assert - expander state is driven by aria-expanded (the chevron CSS keys on it), no collapsed class
 		var expanders = cut.FindAll(".hx-tree-view-item-expander");
 		Assert.Equal(2, expanders.Count); // Root1, Child1B
@@ -313,5 +326,21 @@ public class HxTreeViewTests : BunitTestBase
 		Assert.Equal("false", expanders[1].GetAttribute("aria-expanded"));
 		Assert.Equal("Expand", expanders[1].GetAttribute("aria-label"));
 		Assert.All(expanders, expander => Assert.False(expander.ClassList.Contains("collapsed")));
+	}
+
+	[Fact]
+	public void HxTreeView_AdditionalAttributes_AreRenderedOnTreeRoot()
+	{
+		// Act
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
+			.Add(p => p.Items, CreateTestData())
+			.Add(p => p.ItemTitleSelector, item => item.Title)
+			.Add(p => p.ItemChildrenSelector, item => item.Children)
+			.AddUnmatched("aria-label", "File system")
+		);
+
+		// Assert
+		var tree = cut.Find("[role=tree]");
+		Assert.Equal("File system", tree.GetAttribute("aria-label"));
 	}
 }
