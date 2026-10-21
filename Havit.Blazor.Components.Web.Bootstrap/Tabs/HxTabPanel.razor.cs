@@ -1,5 +1,6 @@
 ﻿using Havit.Blazor.Components.Web.Infrastructure;
 using Havit.Collections;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -8,7 +9,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Encapsulates <see cref="HxNav"/> (<see cref="NavVariant.Tabs"/> variant as default) and <see cref="HxNavLink"/>s so you don't have to bother with them explicitly.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTabPanel">https://havit.blazor.eu/components/HxTabPanel</see>
 /// </summary>
-public partial class HxTabPanel : ComponentBase
+public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 {
 	/// <summary>
 	/// TabsRegistration cascading value name.
@@ -76,10 +77,13 @@ public partial class HxTabPanel : ComponentBase
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
+
 	private HxTab _previousActiveTab;
 	private List<HxTab> _tabsList = new();
 	private List<HxTab> _tabsListOrdered; // cached
 	private bool _collectingTabs;
+	private IJSObjectReference _jsModule;
 
 	// Caches of method->delegate conversions
 	private readonly RenderFragment _renderTabsNavigation;
@@ -185,6 +189,9 @@ public partial class HxTabPanel : ComponentBase
 			{
 				_previousActiveTab = _tabsList.FirstOrDefault(tab => IsActive(tab));
 			}
+
+			// The module handles the keyboard navigation in the tab list (Arrow keys, Home, End) for all the tab panels.
+			_jsModule = await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxTabPanel));
 		}
 	}
 
@@ -242,4 +249,25 @@ public partial class HxTabPanel : ComponentBase
 	private string GetNavAriaOrientation() => IsVerticalLayout ? "vertical" : null;
 
 	private string GetNavCssClassForOrientation() => IsVerticalLayout ? "me-3" : null;
+
+	/// <inheritdoc />
+	public async ValueTask DisposeAsync()
+	{
+		await DisposeAsyncCore();
+	}
+
+	protected virtual async ValueTask DisposeAsyncCore()
+	{
+		if (_jsModule is not null)
+		{
+			try
+			{
+				await _jsModule.DisposeAsync();
+			}
+			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+		}
+	}
 }

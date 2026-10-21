@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxTabPanel))]
+﻿@attribute [Route("/components/" + nameof(HxTabPanel))]
 @attribute [Route("/components/" + nameof(HxTab))]
 
 <ApiDoc Type="typeof(HxTabPanel)">
@@ -49,8 +49,12 @@
 	<ul>
 		<li>the navigation is a <code>role="tablist"</code> (with <code>aria-orientation="vertical"</code> when <code>Orientation</code> is vertical),</li>
 		<li>the tab headers are focusable <code>&lt;button&gt;</code> elements with <code>role="tab"</code>, <code>aria-selected</code>, <code>aria-controls</code> and a roving <code>tabindex</code> (<code>0</code> for the active tab, <code>-1</code> for the others); disabled tabs are marked with <code>aria-disabled</code>,</li>
-		<li>each tab pane is a <code>role="tabpanel"</code> linked back to its header via <code>aria-labelledby</code>.</li>
+		<li>each tab pane is a <code>role="tabpanel"</code> linked back to its header via <code>aria-labelledby</code>,</li>
+		<li>the keyboard works as in the Bootstrap Tab plugin: when a tab has focus, <kbd>←</kbd>/<kbd>↑</kbd> and <kbd>→</kbd>/<kbd>↓</kbd> activate the previous and next tab (wrapping around), <kbd>Home</kbd> and <kbd>End</kbd> the first and last tab; disabled tabs are skipped.</li>
 	</ul>
+	<p>
+		The tab list is rendered as a <code>&lt;div&gt;</code> (not <code>&lt;nav&gt;</code>), so the <code>tablist</code> role does not override a navigation landmark.
+	</p>
 </ApiDoc>
 
 <ApiDoc Type="typeof(HxTab)" />
