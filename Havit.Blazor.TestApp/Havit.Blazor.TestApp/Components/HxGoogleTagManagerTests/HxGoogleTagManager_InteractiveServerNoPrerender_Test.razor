@@ -1,0 +1,23 @@
+﻿@page "/HxGoogleTagManagerTests/ServerNoPrerender"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+@layout HxGoogleTagManager_NoTrackerLayout
+
+@* The tracker is rendered only by this page and prerendering is turned off, so no inline GTM snippet ever runs and GTM gets initialized from JS interop only. *@
+<HxGoogleTagManagerPageViewTracker />
+
+<h1>GTM - Interactive Server (prerender: false, no inline snippet)</h1>
+<p>Path: <strong>@NavigationManager.ToBaseRelativePath(NavigationManager.Uri)</strong>, interactive: @RendererInfo.IsInteractive</p>
+
+<ul>
+	<li><a href="/HxGoogleTagManagerTests/StaticSsr">Static SSR (1)</a></li>
+	<li><a href="/HxGoogleTagManagerTests/StaticSsr2">Static SSR (2)</a></li>
+	<li><a href="/HxGoogleTagManagerTests/Server">Interactive Server (1)</a></li>
+	<li><a href="/HxGoogleTagManagerTests/Server2">Interactive Server (2)</a></li>
+	<li><a href="/HxGoogleTagManagerTests/ServerNoPrerender">Interactive Server (prerender: false)</a></li>
+	<li><a href="/HxGoogleTagManagerTests/Wasm">Interactive WebAssembly</a></li>
+	<li><a href="/HxGoogleTagManagerTests/WasmNoPrerender">Interactive WebAssembly (prerender: false)</a></li>
+</ul>
+
+@code {
+	[Inject] protected NavigationManager NavigationManager { get; set; }
+}

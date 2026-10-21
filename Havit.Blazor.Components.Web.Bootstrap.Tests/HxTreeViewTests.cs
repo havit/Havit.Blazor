@@ -156,4 +156,104 @@ public class HxTreeViewTests : BunitTestBase
 		Assert.Contains("Child1B", allTitleTexts);
 		Assert.Contains("GrandChild1B1", allTitleTexts);
 	}
+
+	[Fact]
+	public void HxTreeView_ExpandOnSelection_ExpandsNestedItem()
+	{
+		// Arrange
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
+			.Add(p => p.Items, CreateTestData())
+			.Add(p => p.ItemTitleSelector, item => item.Title)
+			.Add(p => p.ItemChildrenSelector, item => item.Children)
+			.Add(p => p.ItemInitialExpandedSelector, _ => false)
+			.Add(p => p.ExpandOnSelection, true)
+		);
+
+		// Act - select the nested Child1B item.
+		var child1BTitle = cut.FindAll(".hx-tree-view-item-title")
+			.Single(e => e.TextContent == "Child1B");
+
+		child1BTitle.ParentElement!.Click();
+
+		// Assert - its child is expanded.
+		var collapseElement = cut.FindAll(".collapse")
+			.Single(e => e.TextContent == "GrandChild1B1");
+
+		var invocation = JSInterop.Invocations.Single(i => i.Identifier.EndsWith("show"));
+		invocation.Arguments[0].ShouldBeElementReferenceTo(collapseElement);
+	}
+
+	[Fact]
+	public void HxTreeView_ExpandOnSelection_InitialSelection_ExpandsSelectedItem()
+	{
+		// Arrange
+		var testData = CreateTestData();
+		var child1B = testData[0].Children[1];
+
+		// Act - render with the nested Child1B item initially selected.
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
+			.Add(p => p.Items, testData)
+			.Add(p => p.ItemTitleSelector, item => item.Title)
+			.Add(p => p.ItemChildrenSelector, item => item.Children)
+			.Add(p => p.ExpandOnSelection, true)
+			.Add(p => p.SelectedItem, child1B)
+		);
+
+		// Assert - Child1B renders expanded.
+		var expandedCollapse = Assert.Single(cut.FindAll(".collapse.show"));
+		Assert.Contains("GrandChild1B1", expandedCollapse.TextContent);
+	}
+
+	[Fact]
+	public void HxTreeView_ExpandOnSelection_ProgrammaticSelection_ExpandsSelectedItem()
+	{
+		// Arrange
+		var testData = CreateTestData();
+		var child1B = testData[0].Children[1];
+
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
+			.Add(p => p.Items, testData)
+			.Add(p => p.ItemTitleSelector, item => item.Title)
+			.Add(p => p.ItemChildrenSelector, item => item.Children)
+			.Add(p => p.ExpandOnSelection, true)
+		);
+
+		// Act - select the nested Child1B item through a parameter update.
+		cut.Render(parameters => parameters.Add(p => p.SelectedItem, child1B));
+
+		// Assert - its child is expanded.
+		var collapseElement = cut.FindAll(".collapse")
+			.Single(e => e.TextContent == "GrandChild1B1");
+
+		var invocation = JSInterop.Invocations.Single(i => i.Identifier.EndsWith("show"));
+		invocation.Arguments[0].ShouldBeElementReferenceTo(collapseElement);
+	}
+
+	[Fact]
+	public void HxTreeView_ExpandOnSelection_ChildrenRemoved_SelectionDoesNotExpand()
+	{
+		// Arrange
+		var testData = CreateTestData();
+		var root1 = testData[0];
+
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
+			.Add(p => p.Items, testData)
+			.Add(p => p.ItemTitleSelector, item => item.Title)
+			.Add(p => p.ItemChildrenSelector, item => item.Children)
+			.Add(p => p.ExpandOnSelection, true)
+		);
+
+		// Act - Root1 becomes a leaf (its HxCollapse gets removed), then it is selected by click.
+		root1.Children.Clear();
+		cut.Render(parameters => parameters.Add(p => p.Items, testData));
+
+		var root1Item = cut.FindAll(".hx-tree-view-item")
+			.First(e => e.QuerySelector(".hx-tree-view-item-title")?.TextContent == "Root1");
+		root1Item.Click();
+
+		// Assert - selection works, no expansion is attempted on the removed collapse.
+		var selectedTitle = Assert.Single(cut.FindAll(".hx-tree-view-item.selected")).QuerySelector(".hx-tree-view-item-title");
+		Assert.Equal("Root1", selectedTitle.TextContent);
+		Assert.DoesNotContain(JSInterop.Invocations, i => i.Identifier.EndsWith("show"));
+	}
 }

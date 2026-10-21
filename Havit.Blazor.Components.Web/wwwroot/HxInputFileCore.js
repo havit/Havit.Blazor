@@ -1,11 +1,44 @@
-﻿export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads, uploadHttpMethod, antiforgeryHeaderName, antiforgeryToken) {
+﻿// Input elements with running upload requests, by component instance key (Set of elements per component).
+// Used by dispose() as the element may already be removed from the DOM when the component is being disposed
+// and the element id may have changed since the upload started.
+const uploadingInputElements = new Map();
+
+function registerUploadingInputElement(componentKey, inputElement) {
+	if (!uploadingInputElements.has(componentKey)) {
+		uploadingInputElements.set(componentKey, new Set());
+	}
+	uploadingInputElements.get(componentKey).add(inputElement);
+}
+
+function unregisterUploadingInputElement(componentKey, inputElement) {
+	const inputElements = uploadingInputElements.get(componentKey);
+	if (inputElements) {
+		inputElements.delete(inputElement);
+		if (inputElements.size === 0) {
+			uploadingInputElements.delete(componentKey);
+		}
+	}
+}
+
+export function upload(inputElementId, hxInputFileDotnetObjectReference, uploadEndpointUrl, accessToken, maxFileSize, maxParallelUploads, uploadHttpMethod, antiforgeryHeaderName, antiforgeryToken, componentKey) {
 	const inputElement = document.getElementById(inputElementId);
-	const dotnetReference = hxInputFileDotnetObjectReference;
 	const files = inputElement.files;
 	let totalSize = 0;
 
-	inputElement.requests = new Array();
+	// Keep requests of previous (possibly still running) uploads reachable for reset() and dispose().
+	inputElement.requests ??= new Array();
 	inputElement.cancelled = false;
+	inputElement.disposed = false;
+
+	// Once disposed, the DotNetObjectReference is (being) disposed and must not be used anymore.
+	const dotnetReference = {
+		invokeMethodAsync: function (methodName, ...args) {
+			if (inputElement.disposed) {
+				return Promise.resolve();
+			}
+			return hxInputFileDotnetObjectReference.invokeMethodAsync(methodName, ...args);
+		}
+	};
 
 	let nextFile = maxParallelUploads;
 
@@ -18,14 +51,23 @@
 
 	for (let i = 0; i < Math.min(files.length, maxParallelUploads); i++) {
 		(function (curr) {
-			uploadFile(curr);
+			startUpload(curr);
 		}(i));
 	}
 
+	// Starts the upload of the file and continues with the next files in the queue as long as they complete synchronously
+	// (rejected by the client pre-check). A loop is used instead of recursion so a long run of rejected files cannot overflow the call stack.
+	function startUpload(index) {
+		while ((index !== null) && uploadFile(index)) {
+			index = handleFileCompleted();
+		}
+	}
+
+	// Returns true when the file completed synchronously (rejected by the client pre-check), false otherwise.
 	function uploadFile(index) {
 
 		if (inputElement && inputElement.cancelled && inputElement.cancelled === true) {
-			return;
+			return false;
 		}
 
 		const file = files[index];
@@ -36,12 +78,7 @@
 
 			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, 413, msg);
 
-			if (nextFile < files.length) {
-				uploadFile(nextFile);
-				nextFile++;
-			}
-
-			return;
+			return true;
 		}
 
 		if (file && file.size) {
@@ -53,6 +90,7 @@
 
 		const request = new XMLHttpRequest();
 		inputElement.requests.push(request);
+		registerUploadingInputElement(componentKey, inputElement);
 
 		request.open(uploadHttpMethod, uploadEndpointUrl, true);
 
@@ -69,21 +107,39 @@
 		};
 		request.onreadystatechange = function () {
 			if (request.readyState === 4) {
-				completedUploads++;
-				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
-
-				if (nextFile < files.length) {
-					uploadFile(nextFile);
-					nextFile++;
+				const requestIndex = inputElement.requests.indexOf(request);
+				if (requestIndex >= 0) {
+					inputElement.requests.splice(requestIndex, 1);
 				}
-			};
-			if (completedUploads === files.length) {
-				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
+
+				dotnetReference.invokeMethodAsync('HxInputFileCore_HandleFileUploaded', index, file.name, file.size, file.type, file.lastModified, request.status, request.responseText);
+				startUpload(handleFileCompleted());
+
+				// Do not retain the element (and its files) once all of its requests (of all uploads) are finished.
+				if (inputElement.requests.length === 0) {
+					unregisterUploadingInputElement(componentKey, inputElement);
+				}
 			}
 		}
 
 		request.send(data);
-    }
+
+		return false;
+	}
+
+	// Called once for each file when its processing finishes (uploaded, failed or rejected by the client pre-check).
+	// Reports the completion of the whole upload after the last file.
+	// Returns the index of the next file to upload (reserved for the caller), or null if there is none.
+	function handleFileCompleted() {
+		completedUploads++;
+
+		if (completedUploads === files.length) {
+			dotnetReference.invokeMethodAsync('HxInputFileCore_HandleUploadCompleted', files.length, totalSize);
+			return null;
+		}
+
+		return (nextFile < files.length) ? nextFile++ : null;
+	}
 }
 
 export function getFiles(inputElementId) {
@@ -101,7 +157,7 @@ export function reset(inputElementId) {
 	inputElement.cancelled = true;
 
 	if (inputElement.requests) {
-		for (const request of inputElement.requests) {
+		for (const request of [...inputElement.requests]) {
 			request.abort();
 		}
 	}
@@ -110,10 +166,22 @@ export function reset(inputElementId) {
 	inputElement.dispatchEvent(new Event('change'));
 }
 
-export function dispose(inputElementId) {
-	const inputElement = document.getElementById(inputElementId);
-	if (!inputElement) {
+export function dispose(componentKey) {
+	const inputElements = uploadingInputElements.get(componentKey);
+	uploadingInputElements.delete(componentKey);
+	if (!inputElements) {
 		return;
 	}
-	inputElement.hxInputFileDotnetObjectReference = null;
+
+	for (const inputElement of inputElements) {
+		// Set the flags before aborting the requests - abort() fires onreadystatechange synchronously.
+		inputElement.disposed = true;
+		inputElement.cancelled = true;
+
+		if (inputElement.requests) {
+			for (const request of [...inputElement.requests]) {
+				request.abort();
+			}
+		}
+	}
 }

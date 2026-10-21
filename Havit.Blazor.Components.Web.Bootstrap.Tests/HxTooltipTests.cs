@@ -29,6 +29,22 @@ public class HxTooltipTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxTooltip_EmptyText_DoesNotRenderDataBsTitle()
+	{
+		// #1541 Bootstrap normalizes an empty data-bs-title ("") to null and fails the config type-check.
+
+		// Act - WrapperCssClass forces the span wrapper to render even with empty Text
+		var cut = Render<HxTooltip>(p => p
+			.Add(t => t.Text, "")
+			.Add(t => t.WrapperCssClass, "my-wrapper")
+			.AddChildContent("Hover me"));
+
+		// Assert
+		var span = cut.Find("span");
+		Assert.False(span.HasAttribute("data-bs-title"));
+	}
+
+	[Fact]
 	public void HxTooltip_Placement_RendersDataBsPlacement()
 	{
 		// Act

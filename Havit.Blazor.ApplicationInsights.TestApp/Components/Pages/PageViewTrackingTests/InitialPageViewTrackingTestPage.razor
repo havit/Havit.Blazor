@@ -4,22 +4,15 @@
 
 <HxApplicationInsights />
 
-@if (_done)
-{
-	<span id="done">done</span>
-}
-
 @code
 {
-	private bool _done;
-
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
+			// sentinel for the tests asserting that NO page view was sent - see TestDefaults.SentinelEvents
+			await AppInsights.TrackEventAsync(new EventTelemetry { Name = TestDefaults.SentinelEvents.InitialPageViewTrackingPageDone });
 			await AppInsights.FlushAsync();
-			_done = true;
-			StateHasChanged();
 		}
 	}
 }

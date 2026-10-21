@@ -19,9 +19,9 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	[Parameter] public string UploadUrl { get; set; }
 
 	/// <summary>
-	/// HTTP Method (verb) used for file upload. The default is <c>POST</c>.
+	/// HTTP Method (verb) used for file upload. The default is <c>POST</c> (taken from <see cref="HxInputFileCore.Defaults"/>).
 	/// </summary>
-	[Parameter] public string UploadHttpMethod { get; set; } = "POST";
+	[Parameter] public string UploadHttpMethod { get; set; }
 
 	/// <summary>
 	/// Gets or sets the event callback that will be invoked when the collection of selected files changes.
@@ -133,6 +133,8 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	/// <param name="accessToken">Authorization Bearer Token to be used for upload (i.e. use IAccessTokenProvider).</param>
 	/// <param name="antiforgeryToken">Antiforgery Token to be used for upload</param>
 	/// <param name="antiforgeryHeaderName">The name of the antiforgery header to be used for upload. Default is "RequestVerificationToken".</param>
+	/// <exception cref="InvalidOperationException">Another <see cref="UploadAsync(string, string, string)"/> call is still in progress.</exception>
+	/// <exception cref="TaskCanceledException">The component was disposed before the upload completed.</exception>
 	public Task<UploadCompletedEventArgs> UploadAsync(string accessToken = null, string antiforgeryToken = null, string antiforgeryHeaderName = "RequestVerificationToken")
 		=> _hxInputFileCoreComponentReference?.UploadAsync(accessToken, antiforgeryToken, antiforgeryHeaderName);
 

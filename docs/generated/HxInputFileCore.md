@@ -22,7 +22,6 @@ Raw component extending `InputFile` with direct upload.
 | Name | Type | Description |
 |------|------|-------------|
 | Element | `ElementReference?` |  |
-| FileCount | `int` | The last known count of associated files. |
 
 ## Event callbacks
 
