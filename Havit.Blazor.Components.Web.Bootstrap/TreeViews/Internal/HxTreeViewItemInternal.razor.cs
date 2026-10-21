@@ -66,7 +66,8 @@ public partial class HxTreeViewItemInternal<TItem> : ComponentBase
 	{
 		if (args.Key is "Enter" or " ")
 		{
-			await OnItemSelected.InvokeAsync(Item);
+			// same path as a mouse click, so ExpandOnSelection also expands an already selected item
+			await HandleItemClicked();
 		}
 	}
 

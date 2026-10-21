@@ -184,6 +184,35 @@ public class HxTreeViewTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxTreeView_ExpandOnSelection_KeyboardOnSelectedItem_ExpandsItem()
+	{
+		// Arrange - Child1B is selected (and expanded) by a click.
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
+			.Add(p => p.Items, CreateTestData())
+			.Add(p => p.ItemTitleSelector, item => item.Title)
+			.Add(p => p.ItemChildrenSelector, item => item.Children)
+			.Add(p => p.ExpandOnSelection, true)
+		);
+
+		cut.FindAll(".hx-tree-view-item-title")
+			.Single(e => e.TextContent == "Child1B")
+			.ParentElement!.Click();
+
+		// Act - activate the already selected item with the keyboard (e.g. after the user collapsed it).
+		cut.FindAll(".hx-tree-view-item-title")
+			.Single(e => e.TextContent == "Child1B")
+			.ParentElement!.KeyDown(Key.Enter);
+
+		// Assert - the keyboard activation expands it again, the same as a click does.
+		var collapseElement = cut.FindAll(".collapse")
+			.Single(e => e.TextContent == "GrandChild1B1");
+
+		var invocations = JSInterop.Invocations.Where(i => i.Identifier.EndsWith("show")).ToList();
+		Assert.Equal(2, invocations.Count);
+		invocations[1].Arguments[0].ShouldBeElementReferenceTo(collapseElement);
+	}
+
+	[Fact]
 	public void HxTreeView_ExpandOnSelection_InitialSelection_ExpandsSelectedItem()
 	{
 		// Arrange
