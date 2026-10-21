@@ -96,9 +96,10 @@ public class HxCardTests : BunitTestBase
 		);
 
 		// Assert
-		var text = cut.Find("p.card-text");
+		var text = cut.Find("p");
 		Assert.NotNull(text);
 		Assert.Equal("Card text content", text.TextContent);
+		Assert.False(text.ClassList.Contains("card-text"), "Bootstrap 6 has no card-text styling.");
 	}
 
 	[Theory]
