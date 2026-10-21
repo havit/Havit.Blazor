@@ -226,6 +226,26 @@ public class HxPasswordStrengthTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxPasswordStrength_ThresholdsChangedInPlace_RecreatesJsPlugin()
+	{
+		// Arrange
+		var thresholds = new PasswordStrengthThresholds();
+		var cut = Render<HxPasswordStrength>(parameters => parameters
+			.Add(p => p.Thresholds, thresholds));
+
+		// Act - the same (mutable) instance changed
+		thresholds.Weak = 1;
+		cut.Render(parameters => parameters
+			.Add(p => p.Thresholds, thresholds));
+
+		// Assert
+		Assert.Single(JSInterop.Invocations, i => i.Identifier == "dispose");
+		Assert.Equal(2, JSInterop.Invocations.Count(i => i.Identifier == "initialize"));
+		var options = (Dictionary<string, object>)JSInterop.Invocations.Last(i => i.Identifier == "initialize").Arguments[2];
+		Assert.Equal(new int[] { 1, 4, 6 }, options["thresholds"]);
+	}
+
+	[Fact]
 	public void HxPasswordStrength_ShowTextChanged_RecreatesJsPlugin()
 	{
 		// Arrange

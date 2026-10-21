@@ -198,10 +198,11 @@ public partial class HxPasswordStrength : IAsyncDisposable
 
 	/// <summary>
 	/// Captures everything the plugin instance depends on (to detect the need to re-create it).
+	/// <see cref="PasswordStrengthWeights"/> and <see cref="PasswordStrengthThresholds"/> are mutable, they are cloned to detect in-place changes.
 	/// </summary>
 	private JsPluginState GetJsPluginState()
 	{
-		return new JsPluginState(InputSelector, MinLengthEffective, WeightsEffective, ThresholdsEffective, WeakTextEffective, FairTextEffective, GoodTextEffective, StrongTextEffective, VariantEffective, ShowTextEffective);
+		return new JsPluginState(InputSelector, MinLengthEffective, (WeightsEffective is null) ? null : (WeightsEffective with { }), (ThresholdsEffective is null) ? null : (ThresholdsEffective with { }), WeakTextEffective, FairTextEffective, GoodTextEffective, StrongTextEffective, VariantEffective, ShowTextEffective);
 	}
 
 	/// <summary>
