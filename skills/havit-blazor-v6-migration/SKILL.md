@@ -155,7 +155,7 @@ Component map: `HxDropdown`/`HxDropdownButtonGroup`→`HxMenu`, `HxDropdownToggl
 
 ### 4.5 ThemeColor / ThemeColorExtensions in C# code
 
-Any C# `switch` over `ThemeColor` or use of `ThemeColor.Light`/`Dark` fails to compile — map to `Secondary`/`Inverse`. `ToTextColorCss()` now emits `fg-*`, `ToTextBackgroundColorCss()` emits `theme-*`; review call sites that string-match the results.
+Any C# `switch` over `ThemeColor` or use of `ThemeColor.Light`/`Dark` fails to compile — map to `Secondary`/`Inverse`. `ToTextColorCss()` now emits `fg-*`, `ToTextBackgroundColorCss()` emits `theme-* theme-contrast`; review call sites that string-match the results.
 
 ### 4.6 HxNavbarCollapse → HxNavbarDrawer (+ HxNavbarToggler)
 

@@ -1,4 +1,42 @@
 ﻿.hx-toast-container {
-	z-index: 1080;
 	padding: var(--hx-toast-container-padding);
+}
+
+/* Positioned container (fixed to the viewport). Resets the UA [popover] styles - the container is moved to the top layer
+   (popover="manual") when a modal dialog or drawer opens, see HxToast.js. */
+.hx-toast-container-fixed {
+	position: fixed;
+	inset: auto;
+	margin: 0;
+	border: 0;
+	overflow: visible;
+	color: inherit;
+	background-color: transparent;
+}
+
+.hx-toast-container-top {
+	top: 0;
+}
+
+.hx-toast-container-middle {
+	inset-block: 0;
+	height: fit-content;
+	margin-block: auto;
+}
+
+.hx-toast-container-bottom {
+	bottom: 0;
+}
+
+.hx-toast-container-start {
+	inset-inline-start: 0;
+}
+
+.hx-toast-container-center {
+	inset-inline: 0;
+	margin-inline: auto;
+}
+
+.hx-toast-container-end {
+	inset-inline-end: 0;
 }

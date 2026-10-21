@@ -6,8 +6,13 @@
 public partial class HxToastContainer : ComponentBase
 {
 	/// <summary>
-	/// Positioning of the toasts on the screen.
+	/// Positioning of the toasts on the screen (fixed to the viewport).
+	/// With <see cref="ToastContainerPosition.None"/>, the container is rendered in the normal document flow.
 	/// </summary>
+	/// <remarks>
+	/// A positioned container is moved to the browser top layer when a modal <see cref="HxDialog"/> or <see cref="HxDrawer"/> opens,
+	/// so the toasts stay visible above it.
+	/// </remarks>
 	[Parameter] public ToastContainerPosition Position { get; set; }
 
 	/// <summary>
@@ -22,19 +27,20 @@ public partial class HxToastContainer : ComponentBase
 
 	private string GetPositionCss()
 	{
-		// https://getbootstrap.com/docs/5.3/utilities/position/#center-elements
+		// Own positioning classes (see HxToastContainer.razor.css) instead of the position utilities - they have to fully control the inset
+		// (incl. resetting the UA [popover] styles) when the container is moved to the top layer (see HxToast.js).
 		return Position switch
 		{
-			ToastContainerPosition.TopStart => "position-fixed top-0 start-0",
-			ToastContainerPosition.TopCenter => "position-fixed start-50 translate-middle-x",
-			ToastContainerPosition.TopEnd => "position-fixed top-0 end-0",
-			ToastContainerPosition.MiddleStart => "position-fixed top-50 start-0 translate-middle-y",
-			ToastContainerPosition.MiddleCenter => "position-fixed top-50 start-50 translate-middle",
-			ToastContainerPosition.MiddleEnd => "position-fixed top-50 end-0 translate-middle-y",
-			ToastContainerPosition.BottomStart => "position-fixed bottom-0 start-0",
-			ToastContainerPosition.BottomCenter => "position-fixed bottom-0 start-50 translate-middle-x",
-			ToastContainerPosition.BottomEnd => "position-fixed bottom-0 end-0",
-			ToastContainerPosition.None => null,
+			ToastContainerPosition.TopStart => "hx-toast-container-fixed hx-toast-container-top hx-toast-container-start",
+			ToastContainerPosition.TopCenter => "hx-toast-container-fixed hx-toast-container-top hx-toast-container-center",
+			ToastContainerPosition.TopEnd => "hx-toast-container-fixed hx-toast-container-top hx-toast-container-end",
+			ToastContainerPosition.MiddleStart => "hx-toast-container-fixed hx-toast-container-middle hx-toast-container-start",
+			ToastContainerPosition.MiddleCenter => "hx-toast-container-fixed hx-toast-container-middle hx-toast-container-center",
+			ToastContainerPosition.MiddleEnd => "hx-toast-container-fixed hx-toast-container-middle hx-toast-container-end",
+			ToastContainerPosition.BottomStart => "hx-toast-container-fixed hx-toast-container-bottom hx-toast-container-start",
+			ToastContainerPosition.BottomCenter => "hx-toast-container-fixed hx-toast-container-bottom hx-toast-container-center",
+			ToastContainerPosition.BottomEnd => "hx-toast-container-fixed hx-toast-container-bottom hx-toast-container-end",
+			ToastContainerPosition.None => "position-static",
 			_ => throw new InvalidOperationException($"Unknown {nameof(Position)} value.")
 		};
 	}
