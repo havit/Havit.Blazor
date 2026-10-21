@@ -1,6 +1,0 @@
-﻿.btn:not(.navbar-toggler):not(.placeholder) {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: var(--hx-button-gap);
-}
