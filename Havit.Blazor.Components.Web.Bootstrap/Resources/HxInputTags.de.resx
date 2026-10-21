@@ -14,4 +14,7 @@
 	<data name="Remove" xml:space="preserve">
 		<value>Entfernen</value>
 	</data>
+	<data name="TagSelected" xml:space="preserve">
+		<value>{0} ausgewählt. Drücken Sie erneut die Rücktaste, um es zu entfernen.</value>
+	</data>
 </root>

@@ -187,6 +187,7 @@ public class HxInputTagsTests : BunitTestBase
 		Assert.Equal(["red", "blue"], tags);
 		var selectedTag = cut.Find(".chip.hx-tag.active");
 		Assert.Contains("blue", selectedTag.TextContent);
+		Assert.Contains("blue", cut.Find("[role=status]").TextContent); // announced to screen readers (the focus stays in the input)
 
 		// Act - second Backspace
 		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("Backspace"));
@@ -194,6 +195,7 @@ public class HxInputTagsTests : BunitTestBase
 		// Assert - the selected tag is removed, no tag selected
 		Assert.Equal(["red"], tags);
 		Assert.Empty(cut.FindAll(".chip.hx-tag.active"));
+		Assert.Equal(string.Empty, cut.Find("[role=status]").TextContent);
 	}
 
 	[Fact]

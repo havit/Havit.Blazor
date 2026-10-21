@@ -121,4 +121,7 @@
     <value>Remove</value>
     <comment/>
   </data>
+  <data name="TagSelected" xml:space="preserve">
+    <value>{0} selected. Press Backspace again to remove it.</value>
+  </data>
 </root>
