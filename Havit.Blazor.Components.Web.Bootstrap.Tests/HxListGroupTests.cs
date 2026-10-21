@@ -104,4 +104,47 @@ public class HxListGroupTests : BunitTestBase
 		Assert.Equal("true", items[1].GetAttribute("aria-current"));
 		Assert.Equal("true", items[1].GetAttribute("aria-disabled"));
 	}
+
+	[Theory]
+	[InlineData(ListGroupHorizontal.Never, null)]
+	[InlineData(ListGroupHorizontal.Always, "list-group-horizontal")]
+	public void HxListGroup_NonResponsiveHorizontal_HasNoWrapper(ListGroupHorizontal horizontal, string expectedCssClass)
+	{
+		// Act
+		var cut = Render<HxListGroup>(parameters => parameters
+			.Add(p => p.Horizontal, horizontal)
+			.AddChildContent<HxListGroupItem>(item => item
+				.AddChildContent("Item"))
+		);
+
+		// Assert
+		Assert.Empty(cut.FindAll(".contains-inline"));
+		var listGroup = cut.Find(".list-group");
+		if (expectedCssClass is not null)
+		{
+			Assert.True(listGroup.ClassList.Contains(expectedCssClass), $"List group should have the '{expectedCssClass}' class.");
+		}
+	}
+
+	[Theory]
+	[InlineData(ListGroupHorizontal.SmallUp, "sm:list-group-horizontal")]
+	[InlineData(ListGroupHorizontal.MediumUp, "md:list-group-horizontal")]
+	[InlineData(ListGroupHorizontal.LargeUp, "lg:list-group-horizontal")]
+	[InlineData(ListGroupHorizontal.ExtraLargeUp, "xl:list-group-horizontal")]
+	[InlineData(ListGroupHorizontal.XxlUp, "2xl:list-group-horizontal")]
+	public void HxListGroup_ResponsiveHorizontal_HasResponsiveClassAndContainsInlineWrapper(ListGroupHorizontal horizontal, string expectedCssClass)
+	{
+		// Act
+		var cut = Render<HxListGroup>(parameters => parameters
+			.Add(p => p.Horizontal, horizontal)
+			.AddChildContent<HxListGroupItem>(item => item
+				.AddChildContent("Item"))
+		);
+
+		// Assert
+		var wrapper = cut.Find("div.contains-inline");
+		var listGroup = cut.Find(".list-group");
+		Assert.Equal(wrapper, listGroup.ParentElement);
+		Assert.True(listGroup.ClassList.Contains(expectedCssClass), $"List group should have the '{expectedCssClass}' class.");
+	}
 }
