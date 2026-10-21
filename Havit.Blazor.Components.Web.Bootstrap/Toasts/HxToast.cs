@@ -3,14 +3,16 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/toasts/">Bootstrap Toast</see> component. Not intended to be used in user code, use <see cref="HxMessenger"/>.
+/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/toasts/">Bootstrap Toast</see> component. Not intended to be used in user code, use <see cref="HxMessenger"/>.
 /// After the first render, the component never updates.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxToast">https://havit.blazor.eu/components/HxToast</see>
 /// </summary>
 public partial class HxToast : ComponentBase, IAsyncDisposable
 {
 	/// <summary>
-	/// Color scheme.
+	/// Color scheme (Bootstrap 6 <c>theme-*</c> variant: colored border and subtle header).
+	/// <see cref="ThemeColor.Danger"/> and <see cref="ThemeColor.Warning"/> toasts are announced to assistive technologies immediately
+	/// (<c>role="alert"</c>, <c>aria-live="assertive"</c>), other toasts politely (<c>role="status"</c>, <c>aria-live="polite"</c>).
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
 
@@ -29,6 +31,12 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 	/// Default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool Translucent { get; set; }
+
+	/// <summary>
+	/// When <c>true</c>, the toast shows and hides without the fade animation (<c>toast-instant</c>).
+	/// Default is <c>false</c>.
+	/// </summary>
+	[Parameter] public bool Instant { get; set; }
 
 	/// <summary>
 	/// Header icon.
@@ -91,9 +99,10 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 		bool renderHeader = !String.IsNullOrEmpty(HeaderText) || (HeaderTemplate != null) || (HeaderIcon != null);
 		bool renderContent = !String.IsNullOrEmpty(ContentText) || (ContentTemplate != null) || (ShowCloseButton && !renderHeader);
 
+		bool assertive = Color is ThemeColor.Danger or ThemeColor.Warning;
 		builder.OpenElement(100, "div");
-		builder.AddAttribute(101, "role", "alert");
-		builder.AddAttribute(102, "aria-live", "assertive");
+		builder.AddAttribute(101, "role", assertive ? "alert" : "status");
+		builder.AddAttribute(102, "aria-live", assertive ? "assertive" : "polite");
 		builder.AddAttribute(103, "aria-atomic", "true");
 
 		// Known-issue: Pre-rendering flickering, see https://github.com/dotnet/aspnetcore/issues/42561
@@ -102,8 +111,9 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 		builder.AddAttribute(104, "class", CssClassHelper.Combine(
 			"hx-toast toast",
 			Translucent ? "toast-translucent" : null,
+			Instant ? "toast-instant" : null,
 			ssrInit ? "hx-toast-init" : null,
-			Color?.ToTextBackgroundColorCss(),
+			Color?.ToThemeCss(),
 			CssClass));
 
 		if (AutohideDelay != null)
@@ -119,7 +129,7 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 		if (renderHeader)
 		{
 			builder.OpenElement(200, "div");
-			builder.AddAttribute(201, "class", CssClassHelper.Combine("toast-header", Color?.ToTextBackgroundColorCss()));
+			builder.AddAttribute(201, "class", "toast-header");
 
 			if (HeaderIcon != null)
 			{
@@ -141,13 +151,7 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 			if (ShowCloseButton)
 			{
 				builder.OpenRegion(209);
-				builder.OpenElement(210, "div");
-				if (HasContrastColor())
-				{
-					builder.AddAttribute(211, "data-bs-theme", "dark");
-				}
 				BuildRenderTree_CloseButton(builder, "ms-auto");
-				builder.CloseElement();
 				builder.CloseRegion();
 			}
 			builder.CloseElement(); // toast-header				
@@ -172,10 +176,6 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 				builder.OpenRegion(306);
 				builder.OpenElement(307, "div");
 				builder.AddAttribute(308, "class", "me-3 m-auto");
-				if (HasContrastColor())
-				{
-					builder.AddAttribute(309, "data-bs-theme", "dark");
-				}
 				BuildRenderTree_CloseButton(builder, null);
 				builder.CloseElement();
 				builder.CloseRegion();
@@ -193,24 +193,8 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 		builder.AddAttribute(101, "type", "button");
 		builder.AddAttribute(102, "class", CssClassHelper.Combine("btn-close", cssClass));
 		builder.AddAttribute(103, "data-bs-dismiss", "toast");
+		builder.AddAttribute(104, "aria-label", "Close");
 		builder.CloseElement(); // button
-	}
-
-	private bool HasContrastColor()
-	{
-		return Color switch
-		{
-			null => false,
-			ThemeColor.Primary => true,
-			ThemeColor.Secondary => true,
-			ThemeColor.Success => true,
-			ThemeColor.Danger => true,
-			ThemeColor.Warning => false,
-			ThemeColor.Info => false,
-			ThemeColor.Accent => true,
-			ThemeColor.Inverse => true,
-			_ => throw new InvalidOperationException($"Unknown {nameof(Color)}: {Color}")
-		};
 	}
 
 	/// <inheritdoc />

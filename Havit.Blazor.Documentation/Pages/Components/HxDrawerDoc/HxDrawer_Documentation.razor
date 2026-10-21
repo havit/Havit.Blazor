@@ -14,11 +14,15 @@
         <Demo Type="typeof(HxDrawer_Demo_CustomCloseButtonIcon)" />
 
         <DocHeading Title="Placement" />
-        <p>Choose the placement of the Drawer by setting the <code>Placement</code> parameter.</p>
+        <p>Choose the placement of the Drawer by setting the <code>Placement</code> parameter. <code>DrawerPlacement.Fullscreen</code> makes the drawer cover the whole viewport.</p>
         <Demo Type="typeof(HxDrawer_Demo_Placement)" />
 
         <DocHeading Title="Backdrop" />
-        <p>By default, the backdrop is enabled (<code>DrawerBackdrop.True</code>). You can disable it with <code>Backdrop="DrawerBackdrop.False"</code>.</p>
+        <p>
+            By default, the backdrop is enabled (<code>DrawerBackdrop.True</code>). You can disable it with <code>Backdrop="DrawerBackdrop.False"</code>.
+            The drawer is then still modal (the rest of the page is inert) unless you also set <code>ScrollingEnabled="true"</code> &ndash; with both,
+            the drawer opens as non-modal and users can scroll and interact with the page while the drawer is open.
+        </p>
         <Demo Type="typeof(HxDrawer_Demo_Backdrop)" />
 
         <DocHeading Title="Static backdrop" />
@@ -43,11 +47,15 @@
         <DocHeading Title="Sheet" />
         <p>Set <code>Sheet="true"</code> to render the drawer as a flush-to-edge sheet (no inset, border radius, or shadow) using the <code>drawer-sheet</code> variant.</p>
         <Demo Type="typeof(HxDrawer_Demo_Sheet)" />
+
+        <DocHeading Title="Translucent and instant" />
+        <p>
+            Set <code>Translucent="true"</code> for a translucent, blurred drawer background (<code>drawer-translucent</code>).
+            Set <code>Instant="true"</code> to open and close the drawer without the slide animation (<code>drawer-instant</code>).
+        </p>
+        <Demo Type="typeof(HxDrawer_Demo_Variants)" />
     </MainContent>
     <CssVariables>
-        <ApiDocCssVariable Name="--hx-drawer-close-icon-font-size" Default="2rem">
-            Drawer close icon font size.
-        </ApiDocCssVariable>
         <ApiDocCssVariable Name="--hx-drawer-horizontal-width-sm" Default="400px">
             Horizontal width on a small screen size.
         </ApiDocCssVariable>

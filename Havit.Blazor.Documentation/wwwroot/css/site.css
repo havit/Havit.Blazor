@@ -8,7 +8,7 @@
 	--hx-sidebar-body-padding: 				0 1rem 0 0;
 }
 
-:where(.demo-content) > * + :not(.btn, .btn-group, .badge, .avatar, .avatar-stack, .hx-context-menu) {
+:where(.demo-content) > * + :not(.btn, .btn-group, .badge, .avatar, .avatar-stack, .hx-context-menu, dialog) {
 	margin-top: 1rem;
 }
 

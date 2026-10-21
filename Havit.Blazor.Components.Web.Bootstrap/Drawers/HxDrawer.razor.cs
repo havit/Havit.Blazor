@@ -30,6 +30,8 @@ public partial class HxDrawer : IAsyncDisposable
 			CloseOnEscape = true,
 			ScrollingEnabled = false,
 			Sheet = false,
+			Instant = false,
+			Translucent = false,
 		};
 	}
 
@@ -131,6 +133,7 @@ public partial class HxDrawer : IAsyncDisposable
 
 	/// <summary>
 	/// Indicates whether body (page) scrolling is allowed while the drawer is open.
+	/// In combination with <see cref="DrawerBackdrop.False"/>, the drawer opens as non-modal, i.e. users can interact with the rest of the page.
 	/// The default value (from <see cref="Defaults"/>) is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool? ScrollingEnabled { get; set; }
@@ -144,10 +147,29 @@ public partial class HxDrawer : IAsyncDisposable
 	protected bool SheetEffective => Sheet ?? GetSettings()?.Sheet ?? GetDefaults().Sheet ?? throw new InvalidOperationException(nameof(Sheet) + " default for " + nameof(HxDrawer) + " has to be set.");
 
 	/// <summary>
-	/// Drawer additional CSS class. Added to root <c>div</c> (<c>.drawer</c>).
+	/// When <c>true</c>, the drawer opens and closes without the slide animation (<c>drawer-instant</c>).
+	/// Default is <c>false</c>.
+	/// </summary>
+	[Parameter] public bool? Instant { get; set; }
+	protected bool InstantEffective => Instant ?? GetSettings()?.Instant ?? GetDefaults().Instant ?? throw new InvalidOperationException(nameof(Instant) + " default for " + nameof(HxDrawer) + " has to be set.");
+
+	/// <summary>
+	/// When <c>true</c>, renders the drawer with a translucent, blurred background (<c>drawer-translucent</c>, new in Bootstrap 6).
+	/// Default is <c>false</c>.
+	/// </summary>
+	[Parameter] public bool? Translucent { get; set; }
+	protected bool TranslucentEffective => Translucent ?? GetSettings()?.Translucent ?? GetDefaults().Translucent ?? throw new InvalidOperationException(nameof(Translucent) + " default for " + nameof(HxDrawer) + " has to be set.");
+
+	/// <summary>
+	/// Drawer additional CSS class. Added to the root <c>&lt;dialog&gt;</c> element (<c>.drawer</c>).
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
+
+	/// <summary>
+	/// Additional attributes to be splatted onto the underlying <c>&lt;dialog&gt;</c> element (e.g. <c>data-bs-theme</c>).
+	/// </summary>
+	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
 	/// <summary>
 	/// Additional header CSS class.
@@ -197,17 +219,35 @@ public partial class HxDrawer : IAsyncDisposable
 	/// </remarks>
 	[Parameter] public EventCallback<DrawerHidingEventArgs> OnHiding { get; set; }
 
+	/// <summary>
+	/// Fired when the drawer refuses to close, i.e. on a click on the <see cref="DrawerBackdrop.Static"/> backdrop
+	/// or on <kbd>Esc</kbd> with <see cref="CloseOnEscape"/> set to <c>false</c> (Bootstrap <c>hidePrevented.bs.drawer</c> event).
+	/// </summary>
+	/// <remarks>
+	/// The <code>hidePrevented.bs.drawer</code> event is only subscribed to when the <see cref="OnHidePrevented"/> callback is set.
+	/// </remarks>
+	[Parameter] public EventCallback OnHidePrevented { get; set; }
+
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 
 	private bool _opened = false; // indicates whether the drawer is open
-	private string _drawerId = "hx" + Guid.NewGuid().ToString("N");
+
+	// Bootstrap Drawer (DialogBase) internally tracks _isTransitioning and silently drops show()/hide() calls while a CSS transition
+	// is in progress. We compensate by tracking the transition state on the C# side and deferring the next operation until the current
+	// transition completes (via shown.bs.drawer / hidden.bs.drawer callbacks). Same as in HxDialog.
+	private bool _transitionInProgress;
+	private PendingOperation _pendingOperation = PendingOperation.None;
+
+	private string _titleId = "hx" + Guid.NewGuid().ToString("N");
 	private DotNetObjectReference<HxDrawer> _dotnetObjectReference;
 	private ElementReference _drawerElement;
 	private IJSObjectReference _jsModule;
 	private Queue<Func<Task>> _onAfterRenderTasksQueue = new();
 	private bool _disposed;
+
+	private enum PendingOperation { None, Show, Hide }
 
 	/// <summary>
 	/// Constructor.
@@ -222,20 +262,33 @@ public partial class HxDrawer : IAsyncDisposable
 	/// </summary>
 	public Task ShowAsync()
 	{
-		if (!_opened)
+		if (_transitionInProgress)
 		{
-			_onAfterRenderTasksQueue.Enqueue(async () =>
-			{
-				// Running JS interop is postponed to OnAfterRenderAsync to ensure drawerElement is set
-				// and correct order of commands (Show/Hide) is preserved
-				_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxDrawer));
-				if (_disposed)
-				{
-					return;
-				}
-				await _jsModule.InvokeVoidAsync("show", _drawerElement, _dotnetObjectReference, CloseOnEscapeEffective, ScrollingEnabledEffective, OnHiding.HasDelegate);
-			});
+			_pendingOperation = PendingOperation.Show;
+			_opened = true; // ensure HTML content is rendered while waiting
+			StateHasChanged();
+			return Task.CompletedTask;
 		}
+
+		if (_opened)
+		{
+			return Task.CompletedTask;
+		}
+
+		_pendingOperation = PendingOperation.None;
+		_transitionInProgress = true;
+
+		_onAfterRenderTasksQueue.Enqueue(async () =>
+		{
+			// Running JS interop is postponed to OnAfterRenderAsync to ensure drawerElement is set
+			// and correct order of commands (Show/Hide) is preserved
+			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxDrawer));
+			if (_disposed)
+			{
+				return;
+			}
+			await _jsModule.InvokeVoidAsync("show", _drawerElement, _dotnetObjectReference, CloseOnEscapeEffective, ScrollingEnabledEffective, OnHiding.HasDelegate, OnHidePrevented.HasDelegate);
+		});
 		_opened = true; // mark drawer as opened
 
 		StateHasChanged(); // ensures rendering drawer HTML
@@ -244,15 +297,30 @@ public partial class HxDrawer : IAsyncDisposable
 	}
 
 	/// <summary>
+	/// Closes the drawer from the header close button.
+	/// Not using <c>data-bs-dismiss</c> - the C# side has to know about the hide to track the transition (see <see cref="_transitionInProgress"/>).
+	/// </summary>
+	private Task HandleCloseButtonClick() => HideAsync();
+
+	/// <summary>
 	/// Hides the drawer (if opened).
 	/// </summary>
 	public Task HideAsync()
 	{
+		if (_transitionInProgress)
+		{
+			_pendingOperation = PendingOperation.Hide;
+			return Task.CompletedTask;
+		}
+
 		if (!_opened)
 		{
 			// this might be a minor PERF benefit, if it turns out to be causing troubles, we can remove this or make it configurable through optional method parameter
 			return Task.CompletedTask;
 		}
+
+		_pendingOperation = PendingOperation.None;
+		_transitionInProgress = true;
 
 		_onAfterRenderTasksQueue.Enqueue(async () =>
 		{
@@ -278,13 +346,51 @@ public partial class HxDrawer : IAsyncDisposable
 	{
 		var eventArgs = new DrawerHidingEventArgs();
 		await OnHiding.InvokeAsync(eventArgs);
+
+		if (eventArgs.Cancel)
+		{
+			// The hide was canceled — hidden.bs.drawer will not fire,
+			// so we must reset _transitionInProgress here to avoid blocking future operations.
+			_transitionInProgress = false;
+
+			if (_pendingOperation == PendingOperation.Hide)
+			{
+				_pendingOperation = PendingOperation.None;
+				await HideAsync();
+			}
+			else if (_pendingOperation == PendingOperation.Show)
+			{
+				// Drawer is already shown, just clear the pending operation.
+				_pendingOperation = PendingOperation.None;
+			}
+		}
+
 		return eventArgs.Cancel;
 	}
 
+	/// <summary>
+	/// Receives notification from JS for <c>hidePrevented.bs.drawer</c> event.
+	/// </summary>
+	[JSInvokable("HxDrawer_HandleDrawerHidePrevented")]
+	public Task HandleDrawerHidePrevented() => OnHidePrevented.InvokeAsync();
+
+	/// <summary>
+	/// Receives notification from JS for <c>hidden.bs.drawer</c> event.
+	/// </summary>
 	[JSInvokable("HxDrawer_HandleDrawerHidden")]
 	public async Task HandleDrawerHidden()
 	{
 		_opened = false;
+		_transitionInProgress = false;
+
+		if (_pendingOperation == PendingOperation.Show)
+		{
+			_pendingOperation = PendingOperation.None;
+			await ShowAsync();
+			return;
+		}
+
+		_pendingOperation = PendingOperation.None;
 		await InvokeOnClosedAsync();
 		StateHasChanged(); // ensures re-render to remove the control from HTML
 	}
@@ -296,6 +402,16 @@ public partial class HxDrawer : IAsyncDisposable
 	public async Task HandleDrawerShown()
 	{
 		_opened = true;
+		_transitionInProgress = false;
+
+		if (_pendingOperation == PendingOperation.Hide)
+		{
+			_pendingOperation = PendingOperation.None;
+			await HideAsync();
+			return;
+		}
+
+		_pendingOperation = PendingOperation.None;
 		await InvokeOnShownAsync();
 	}
 
@@ -341,6 +457,8 @@ public partial class HxDrawer : IAsyncDisposable
 	protected virtual async ValueTask DisposeAsyncCore()
 	{
 		_disposed = true;
+		_transitionInProgress = false;
+		_pendingOperation = PendingOperation.None;
 
 		if (_jsModule != null)
 		{
@@ -384,6 +502,7 @@ public partial class HxDrawer : IAsyncDisposable
 			DrawerPlacement.End => "drawer-end",
 			DrawerPlacement.Bottom => "drawer-bottom",
 			DrawerPlacement.Top => "drawer-top",
+			DrawerPlacement.Fullscreen => "drawer-fullscreen",
 			_ => throw new InvalidOperationException($"Unknown {nameof(HxDrawer)}.{nameof(Placement)} value {PlacementEffective:g}.")
 		};
 	}

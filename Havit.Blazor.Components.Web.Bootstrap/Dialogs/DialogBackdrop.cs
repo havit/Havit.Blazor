@@ -11,7 +11,8 @@ public enum DialogBackdrop
 	True = 0,
 
 	/// <summary>
-	/// No backdrop will be rendered.
+	/// No (visible) backdrop will be rendered and clicking outside the dialog does not close it.
+	/// The dialog is still modal, the rest of the page stays inert. Use <see cref="HxDialog.NonModal"/> to let users interact with the page.
 	/// </summary>
 	False = 1,
 

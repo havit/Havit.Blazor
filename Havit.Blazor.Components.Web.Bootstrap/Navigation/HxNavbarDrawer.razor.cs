@@ -117,6 +117,7 @@ public partial class HxNavbarDrawer : ComponentBase, IAsyncDisposable
 			DrawerPlacement.End => "drawer-end",
 			DrawerPlacement.Top => "drawer-top",
 			DrawerPlacement.Bottom => "drawer-bottom",
+			DrawerPlacement.Fullscreen => "drawer-fullscreen",
 			_ => throw new InvalidOperationException($"Unknown {nameof(DrawerPlacement)} value {Placement}.")
 		};
 	}

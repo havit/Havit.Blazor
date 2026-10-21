@@ -1,5 +1,7 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<div class="@CssClassHelper.Combine("hx-toast-container", GetPositionCss(), CssClass)">
+@* The key recreates the element when switching between a positioned container and Position.None,
+   so a container moved to the top layer by HxToast.js (popover="manual") does not stay there. *@
+<div @key="(Position != ToastContainerPosition.None)" class="@CssClassHelper.Combine("hx-toast-container toast-container", GetPositionCss(), CssClass)">
 	@ChildContent
 </div>

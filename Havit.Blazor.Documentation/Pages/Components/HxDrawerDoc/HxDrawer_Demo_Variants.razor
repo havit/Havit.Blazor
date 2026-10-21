@@ -1,0 +1,20 @@
+﻿<HxDrawer @ref="translucentDrawer" Title="Translucent" Translucent="true">
+	<BodyTemplate>
+		<p>This drawer has a translucent, blurred background.</p>
+	</BodyTemplate>
+</HxDrawer>
+
+<HxDrawer @ref="instantDrawer" Title="Instant" Instant="true">
+	<BodyTemplate>
+		<p>This drawer opens and closes without the slide animation.</p>
+	</BodyTemplate>
+</HxDrawer>
+
+<HxButton OnClick="() => translucentDrawer.ShowAsync()" Text="Show translucent drawer" Color="ThemeColor.Primary" />
+<HxButton OnClick="() => instantDrawer.ShowAsync()" Text="Show instant drawer" Color="ThemeColor.Primary" />
+
+@code
+{
+	private HxDrawer translucentDrawer;
+	private HxDrawer instantDrawer;
+}
