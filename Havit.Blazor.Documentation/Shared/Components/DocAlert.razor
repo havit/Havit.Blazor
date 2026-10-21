@@ -1,10 +1,7 @@
 ﻿<HxAlert Color="GetColor()" @attributes="AdditionalAttributes">
-	<div class="row">
-		<div class="col-auto align-top">
-			<HxIcon Icon="GetBootstrapIcon()" CssClass="fs-lg lh-sm" />
-		</div>
-		<div class="col">
-			@ChildContent
-		</div>
+	<HxIcon Icon="GetBootstrapIcon()" CssClass="fs-lg lh-sm" />
+	@* The Bootstrap 6 .alert is a flex container (icon + content): min-w-0 lets long content (e.g. code) wrap instead of overflowing the alert. *@
+	<div class="min-w-0">
+		@ChildContent
 	</div>
 </HxAlert>
