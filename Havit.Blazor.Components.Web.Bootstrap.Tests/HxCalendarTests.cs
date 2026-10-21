@@ -91,6 +91,24 @@ public class HxCalendarTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxCalendar_ClearValueWithoutDisplayMonth_DisplaysToday()
+	{
+		// Arrange
+		var cut = Render<HxCalendar>(parameters => parameters
+			.Add(p => p.Value, new DateTime(2020, 2, 10))
+			.Add(p => p.ValueChanged, (DateTime? _) => { })
+		);
+
+		// Act
+		cut.Render(parameters => parameters.Add(p => p.Value, null));
+
+		// Assert
+		var today = DateTime.Today;
+		Assert.Equal((today.Month - 1).ToString(), cut.Find("select[aria-label='Month']").GetAttribute("value"));
+		Assert.Equal(today.Year.ToString(), cut.Find("select[aria-label='Year']").GetAttribute("value"));
+	}
+
+	[Fact]
 	public async Task HxCalendar_SelectDate_UpdatesBoundValue()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))

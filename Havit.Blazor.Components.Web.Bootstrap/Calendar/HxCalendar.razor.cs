@@ -145,7 +145,21 @@ public partial class HxCalendar
 	private RenderData _renderData;
 	private DateTime? _lastKnownValue;
 	private DateTime _lastKnownDisplayMonth;
+	private bool _lastKnownDisplayMonthChanged;
 	private DateTime? _navigatedDisplayMonth;
+
+	public override Task SetParametersAsync(ParameterView parameters)
+	{
+		// DisplayMonth is also changed by the component itself, therefore we track the changes of the incoming parameter value
+		_lastKnownDisplayMonthChanged = false;
+		if (parameters.TryGetValue(nameof(DisplayMonth), out DateTime displayMonth))
+		{
+			_lastKnownDisplayMonthChanged = _lastKnownDisplayMonth != displayMonth;
+			_lastKnownDisplayMonth = displayMonth;
+		}
+
+		return base.SetParametersAsync(parameters);
+	}
 
 	protected override async Task OnParametersSetAsync()
 	{
@@ -154,12 +168,9 @@ public partial class HxCalendar
 		bool lastKnownValueChanged = _lastKnownValue != Value;
 		_lastKnownValue = Value;
 
-		bool lastKnownDisplayMonthChanged = _lastKnownDisplayMonth != DisplayMonth;
-		_lastKnownDisplayMonth = DisplayMonth;
-
 		// the month the user navigated to is kept until the value or the display month is changed from outside
 		// (a re-render of the parent would otherwise overwrite it with the original display month)
-		if (lastKnownValueChanged || lastKnownDisplayMonthChanged)
+		if (lastKnownValueChanged || _lastKnownDisplayMonthChanged)
 		{
 			_navigatedDisplayMonth = null;
 		}
@@ -167,6 +178,9 @@ public partial class HxCalendar
 		if (_navigatedDisplayMonth != null)
 		{
 			DisplayMonth = _navigatedDisplayMonth.Value;
+			// keep the navigated month within the (possibly changed) MinDate/MaxDate
+			await SetDisplayMonthAsync(_navigatedDisplayMonth.Value, limitDisplayMonthByMinMaxDateEffective: true);
+			_navigatedDisplayMonth = DisplayMonth;
 		}
 		// whenever the value is changed from outside, we set the display month to the value month
 		else if (Value != null)
@@ -177,7 +191,7 @@ public partial class HxCalendar
 			}
 		}
 		// when the value is cleared, we display today unless the display month is changed from outside at the same time
-		else if ((DisplayMonth == default) || (lastKnownValueChanged && !lastKnownDisplayMonthChanged))
+		else if ((DisplayMonth == default) || (lastKnownValueChanged && !_lastKnownDisplayMonthChanged))
 		{
 			await SetDisplayMonthAsync(TimeProviderEffective.GetLocalNow().Date, limitDisplayMonthByMinMaxDateEffective: true);
 		}

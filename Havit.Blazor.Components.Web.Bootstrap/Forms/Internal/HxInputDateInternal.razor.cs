@@ -87,6 +87,13 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 	private ElementReference _iconWrapperElement;
 	private IJSObjectReference _jsModule;
 	private bool _firstRenderCompleted;
+	private int _calendarKey; // changed to recreate the calendar (resets the month the user navigated to)
+
+	private void HandleDropdownHidden()
+	{
+		// next opening of the dropdown displays the month of the value (or the default month) again
+		_calendarKey++;
+	}
 
 	private async Task HandleCurrentValueAsStringChanged(string newInputValue)
 	{

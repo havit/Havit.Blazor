@@ -193,7 +193,7 @@ public class HxInputDateTests : BunitTestBase
 	}
 
 	[Fact]
-	public void HxInputDate_MinDateChanged_CalendarShowsMinDateMonth()
+	public async Task HxInputDate_MinDateChangedAfterNavigation_CalendarShowsMinDateMonth()
 	{
 		// Arrange
 		DateTime? myValue = null;
@@ -204,11 +204,57 @@ public class HxInputDateTests : BunitTestBase
 			.Add(p => p.ValueChanged, (DateTime? value) => { myValue = value; })
 			.Add(p => p.ValueExpression, () => myValue));
 
+		await cut.InvokeAsync(() => cut.FindAll("button.hx-calendar-navigation-button")[1].Click()); // next month
+
 		// Act
 		cut.Render(parameters => parameters.Add(p => p.MinDate, minDate));
 
 		// Assert
 		Assert.Equal((minDate.Month - 1).ToString(), cut.Find("select[aria-label='Month']").GetAttribute("value"));
 		Assert.Equal(minDate.Year.ToString(), cut.Find("select[aria-label='Year']").GetAttribute("value"));
+	}
+
+	[Fact]
+	public async Task HxInputDate_MaxDateChangedAfterNavigation_CalendarShowsMaxDateMonth()
+	{
+		// Arrange
+		DateTime? myValue = null;
+		var maxDate = DateTime.Today.AddYears(-2);
+
+		var cut = Render<HxInputDate<DateTime?>>(parameters => parameters
+			.Add(p => p.Value, myValue)
+			.Add(p => p.ValueChanged, (DateTime? value) => { myValue = value; })
+			.Add(p => p.ValueExpression, () => myValue));
+
+		await cut.InvokeAsync(() => cut.FindAll("button.hx-calendar-navigation-button")[0].Click()); // previous month
+
+		// Act
+		cut.Render(parameters => parameters.Add(p => p.MaxDate, maxDate));
+
+		// Assert
+		Assert.Equal((maxDate.Month - 1).ToString(), cut.Find("select[aria-label='Month']").GetAttribute("value"));
+		Assert.Equal(maxDate.Year.ToString(), cut.Find("select[aria-label='Year']").GetAttribute("value"));
+	}
+
+	[Fact]
+	public async Task HxInputDate_CalendarNavigation_IsResetWhenDropdownHidden()
+	{
+		// Arrange
+		DateTime? myValue = new DateTime(2020, 2, 10);
+
+		var cut = Render<HxInputDate<DateTime?>>(parameters => parameters
+			.Add(p => p.Value, myValue)
+			.Add(p => p.ValueChanged, (DateTime? value) => { myValue = value; })
+			.Add(p => p.ValueExpression, () => myValue));
+
+		await cut.InvokeAsync(() => cut.FindAll("button.hx-calendar-navigation-button")[1].Click()); // next month
+		Assert.Equal("2", cut.Find("select[aria-label='Month']").GetAttribute("value")); // March
+
+		// Act
+		var dropdownToggleElement = cut.FindComponent<HxDropdownToggleElement>().Instance;
+		await cut.InvokeAsync(dropdownToggleElement.HandleJsHidden);
+
+		// Assert
+		Assert.Equal("1", cut.Find("select[aria-label='Month']").GetAttribute("value")); // February
 	}
 }
