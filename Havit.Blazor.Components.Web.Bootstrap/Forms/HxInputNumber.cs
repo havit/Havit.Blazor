@@ -82,6 +82,9 @@ public class HxInputNumber<TValue> : HxInputBaseWithAdorns<TValue>, IInputWithSi
 	/// </summary>
 	[Parameter] public string Placeholder { get; set; }
 
+	/// <inheritdoc />
+	private protected override bool SupportsPlaceholderWithFloatingLabel => true;
+
 	/// <summary>
 	/// Size of the input.
 	/// </summary>

@@ -294,6 +294,32 @@ public class HxInputTextTests : BunitTestBase
 		Assert.True(String.IsNullOrWhiteSpace(placeholder));
 	}
 
+	[Fact]
+	public void HxInputText_FloatingLabel_RendersPlaceholderWhenSet()
+	{
+		// Arrange — Bootstrap 6 keeps the placeholder of a floating input transparent until the input is focused,
+		// so the Placeholder can be combined with a floating label.
+		string currentValue = "";
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputText>(0);
+			builder.AddAttribute(1, "Value", currentValue);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<string>(this, (value) => { currentValue = value; }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<string>>)(() => currentValue));
+			builder.AddAttribute(4, "LabelType", (LabelType?)LabelType.Floating);
+			builder.AddAttribute(5, "Label", "Your name");
+			builder.AddAttribute(6, "Placeholder", "John Doe");
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+
+		// Assert
+		Assert.Equal("John Doe", cut.Find(".form-floating > input").GetAttribute("placeholder"));
+	}
+
 	private record FormData
 	{
 		[MaxLength(100)]
