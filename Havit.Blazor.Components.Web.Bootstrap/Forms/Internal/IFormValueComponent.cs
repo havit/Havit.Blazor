@@ -26,6 +26,11 @@ public interface IFormValueComponent
 	string LabelFor => null;
 
 	/// <summary>
+	/// Element id to render on the label (when set), e.g. to be referenced by <c>aria-labelledby</c>.
+	/// </summary>
+	string LabelId => null;
+
+	/// <summary>
 	/// Custom CSS class to render with the label.
 	/// </summary>
 	string LabelCssClass => null;

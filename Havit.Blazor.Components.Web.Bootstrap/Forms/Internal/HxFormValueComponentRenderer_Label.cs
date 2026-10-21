@@ -9,14 +9,15 @@ public class HxFormValueComponentRenderer_Label : ComponentBase
 		if (!String.IsNullOrEmpty(FormValueComponent.Label) || (FormValueComponent.LabelTemplate != null))
 		{
 			builder.OpenElement(1, "label");
-			builder.AddAttribute(2, "for", FormValueComponent.LabelFor);
-			builder.AddAttribute(3, "class", CssClassHelper.Combine(FormValueComponent.CoreLabelCssClass, FormValueComponent.LabelCssClass));
-			builder.AddEventStopPropagationAttribute(4, "onclick", true);
+			builder.AddAttribute(2, "id", FormValueComponent.LabelId);
+			builder.AddAttribute(3, "for", FormValueComponent.LabelFor);
+			builder.AddAttribute(4, "class", CssClassHelper.Combine(FormValueComponent.CoreLabelCssClass, FormValueComponent.LabelCssClass));
+			builder.AddEventStopPropagationAttribute(5, "onclick", true);
 			if (FormValueComponent.LabelTemplate == null)
 			{
-				builder.AddContent(5, FormValueComponent.Label);
+				builder.AddContent(6, FormValueComponent.Label);
 			}
-			builder.AddContent(6, FormValueComponent.LabelTemplate);
+			builder.AddContent(7, FormValueComponent.LabelTemplate);
 			builder.CloseElement();
 		}
 	}

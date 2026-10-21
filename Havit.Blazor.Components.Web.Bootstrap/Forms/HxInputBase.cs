@@ -140,6 +140,16 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 	protected string InputId { get; private set; }
 
 	/// <summary>
+	/// The ID of the element the label is rendered for (<c>for</c> attribute of the label).
+	/// </summary>
+	private protected virtual string LabelFor => InputId;
+
+	/// <summary>
+	/// The ID of the label element (rendered only when not <c>null</c>).
+	/// </summary>
+	private protected virtual string LabelId => null;
+
+	/// <summary>
 	/// The ID of the hint element (container).
 	/// </summary>
 	protected string HintId { get; private set; }
@@ -190,7 +200,8 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		}
 	}
 
-	string IFormValueComponent.LabelFor => InputId;
+	string IFormValueComponent.LabelFor => LabelFor;
+	string IFormValueComponent.LabelId => LabelId;
 	string IFormValueComponent.CoreCssClass => CoreCssClass;
 	string IFormValueComponent.CoreLabelCssClass => CoreLabelCssClass;
 	string IFormValueComponent.CoreHintCssClass => CoreHintCssClass;
