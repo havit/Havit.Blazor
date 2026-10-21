@@ -207,7 +207,6 @@ public partial class HxNavOverflow : IAsyncDisposable
 	{
 		return CssClassHelper.Combine(
 			GetCoreCssClass(),
-			"nav-overflow",
 			GetVariantCssClass(),
 			CssClassEffective);
 	}
@@ -216,7 +215,8 @@ public partial class HxNavOverflow : IAsyncDisposable
 	{
 		if (NavbarContainer is not null)
 		{
-			return "navbar-nav";
+			// Bootstrap 6 nav overflow styles target ".nav-overflow > .nav" (navbar usage: "nav navbar-nav")
+			return "nav navbar-nav";
 		}
 		return "nav";
 	}

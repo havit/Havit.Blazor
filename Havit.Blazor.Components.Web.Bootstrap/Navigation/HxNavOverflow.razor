@@ -1,6 +1,8 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 @using Havit.Blazor.Components.Web.Bootstrap.Internal
 
+@* Bootstrap 6 measures the .nav-overflow wrapper (measuring the nav itself would feed the result back in as the input). *@
+<div class="nav-overflow">
 <nav id="@Id" class="@GetClasses()" @ref="_navOverflowElement" @attributes="AdditionalAttributes">
 	@ChildContent
 	<div class="nav-item nav-overflow-item" data-bs-nav-overflow="true">
@@ -23,6 +25,7 @@
 		</div>
 	</div>
 </nav>
+</div>
 
 @code
 {

@@ -1804,7 +1804,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxCollapse._shouldToggle">
             <summary>
-            Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefore, we will remember the request for Show and initialize the collapse with toggle=true.
+            Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefore, we will remember the request for Show and show the collapse right after its initialization.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCollapse.OnAfterRenderAsync(System.Boolean)">

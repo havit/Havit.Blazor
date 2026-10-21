@@ -24,15 +24,20 @@ public class HxSpinnerTests : BunitTestBase
 		Assert.True(cut.Find("div").ClassList.Contains("spinner-grow"));
 	}
 
-	[Fact]
-	public void HxSpinner_SizeSmall_RendersSizeClass()
+	[Theory]
+	[InlineData(SpinnerType.Border, "spinner-border")]
+	[InlineData(SpinnerType.Grow, "spinner-grow")]
+	public void HxSpinner_SizeSmall_RendersSizeClass(SpinnerType type, string typeCssClass)
 	{
 		// Act
 		var cut = Render<HxSpinner>(parameters => parameters
+			.Add(p => p.Type, type)
 			.Add(p => p.Size, SpinnerSize.Small)
 		);
 
-		// Assert
-		Assert.True(cut.Find("div").ClassList.Contains("spinner-border-sm"));
+		// Assert - Bootstrap 6 uses a single .spinner-sm class (.spinner-border-sm/.spinner-grow-sm were removed)
+		var spinner = cut.Find("div");
+		Assert.True(spinner.ClassList.Contains("spinner-sm"));
+		Assert.False(spinner.ClassList.Contains(typeCssClass + "-sm"));
 	}
 }

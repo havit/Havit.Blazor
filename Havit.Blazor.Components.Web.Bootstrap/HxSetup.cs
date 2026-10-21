@@ -51,8 +51,8 @@ public static class HxSetup
 		return bootstrapFlavor switch
 		{
 			BootstrapFlavor.HavitDefault => "<link href=\"_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.min.css?v=" + VersionIdentifierHavitBlazorBootstrap + "\" rel=\"stylesheet\" />",
-			// Bootstrap 6 alpha is not published to npm/CDN yet; jsDelivr serves the pinned commit of the twbs/bootstrap GitHub repository (dist files are committed upstream).
-			BootstrapFlavor.PlainBootstrap => "<link href=\"https://cdn.jsdelivr.net/gh/twbs/bootstrap@82b040e9f74c79430093a3cf46bd691825e7c10d/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-GUynUYOBgl+38vArVElig7kL4gR98li4lUFBUOjGxyBEPFIRjwr4Jhof/q9Pnkp5\" crossorigin=\"anonymous\">",
+			// Official Bootstrap 6.0.0-alpha.1 CDN reference (URL and SRI hash from the Bootstrap docs), same version as Havit.Bootstrap is built from.
+			BootstrapFlavor.PlainBootstrap => "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe\" crossorigin=\"anonymous\">",
 			_ => throw new ArgumentOutOfRangeException($"Unknown {nameof(BootstrapFlavor)} value {bootstrapFlavor}.")
 		};
 	}

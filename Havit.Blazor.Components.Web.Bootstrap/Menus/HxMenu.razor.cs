@@ -48,5 +48,21 @@ public partial class HxMenu : ComponentBase, IMenuContainer
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
-	bool IMenuContainer.IsOpen { get; set; }
+	private bool _isOpen;
+
+	bool IMenuContainer.IsOpen
+	{
+		get => _isOpen;
+		set
+		{
+			if (_isOpen != value)
+			{
+				_isOpen = value;
+				// Bootstrap toggles the "show" class itself. Re-render right away so the class Blazor rendered last matches the DOM,
+				// otherwise the next unrelated re-render writes the changed class (e.g. re-adds "show" during the exit transition,
+				// which aborts the hide and keeps the menu open).
+				StateHasChanged();
+			}
+		}
+	}
 }

@@ -317,7 +317,9 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 		builder.AddAttribute(6, "disabled", !EnabledEffective);
 		if ((this is IInputWithLabelType inputWithLabelType) && (inputWithLabelType.LabelTypeEffective == LabelType.Floating))
 		{
-			builder.AddAttribute(7, "placeholder", "placeholder"); // there must be a nonempty value (which is not visible)
+			// There must be a nonempty value (floating labels rely on :placeholder-shown).
+			// Whitespace only - Bootstrap 6 shows the placeholder when the floating input is focused.
+			builder.AddAttribute(7, "placeholder", " ");
 		}
 		else if (this is IInputWithPlaceholder inputWithPlaceholder)
 		{
