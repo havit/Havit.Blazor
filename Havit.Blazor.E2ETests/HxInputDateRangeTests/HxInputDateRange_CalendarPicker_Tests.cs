@@ -14,11 +14,15 @@ public class HxInputDateRange_CalendarPicker_Tests : TestAppTestBase
 		var fromInput = inputs[0];
 		var toInput = inputs[1];
 
+		// The menu becomes visible when its entry transition starts, but it re-renders its content once shown,
+		// which would reset calendar navigation done before that. Wait for the shown event (subscribed before the click so it cannot be missed).
+		await fromInput.EvaluateAsync("element => element.addEventListener('shown.bs.menu', () => element.dataset.e2eShown = 'true', { once: true })");
+
 		// Act - Select "From" date using calendar picker
 		await fromInput.ClickAsync(); // Open "From" dropdown
 
-		// Wait for calendar to be visible
-		await Page.WaitForSelectorAsync(".hx-calendar", new() { State = WaitForSelectorState.Visible });
+		// Wait for the calendar menu to be shown
+		await Expect(fromInput).ToHaveAttributeAsync("data-e2e-shown", "true", new() { Timeout = 5_000 });
 
 		var fromCalendar = Page.Locator(".hx-calendar").First;
 
