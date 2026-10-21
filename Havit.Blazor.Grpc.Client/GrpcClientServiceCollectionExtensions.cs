@@ -47,7 +47,7 @@ public static class GrpcClientServiceCollectionExtensions
 		services.AddScoped<ClientUriGrpcClientInterceptor>();
 
 		// we want to allow the application to provide its own GrpcWebHandler
-		services.TryAddTransient<GrpcWebHandler>((provider => new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler())));
+		services.TryAddTransient<GrpcWebHandler>(provider => new GrpcWebHandler(GrpcWebMode.GrpcWeb, CreateInnerHttpHandler()));
 
 		services.AddSingleton<ClientFactory>(ClientFactory.Create(BinderConfiguration.Create(
 			marshallerFactories: CreateMarshallerFactories(assembliesToScanForDataContracts),
@@ -116,6 +116,21 @@ public static class GrpcClientServiceCollectionExtensions
 						configureGrpcClientFactory
 				});
 		}
+	}
+
+	private static HttpMessageHandler CreateInnerHttpHandler()
+	{
+		// SocketsHttpHandler is not supported in the browser (WebAssembly), where HttpClientHandler uses the fetch API.
+		// Server-side (prerendering, server-to-server calls) we need EnableMultipleHttp2Connections,
+		// otherwise calls queue once a single HTTP/2 connection reaches the server's MAX_CONCURRENT_STREAMS limit.
+		if (SocketsHttpHandler.IsSupported)
+		{
+			return new SocketsHttpHandler
+			{
+				EnableMultipleHttp2Connections = true
+			};
+		}
+		return new HttpClientHandler();
 	}
 
 	private static List<MarshallerFactory> CreateMarshallerFactories(Assembly[] assembliesToScanForDataContracts) =>

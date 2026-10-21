@@ -1,7 +1,7 @@
 ﻿# HxCarousel_Demo_Intervals.razor
 
 ```razor
-<HxCarousel Controls="true" Interval="2500">
+<HxCarousel Autoplay="true" PlayPauseControl="true" Indicators="true" Interval="2500">
     <HxCarouselItem Active="true" Interval="2000">
         <DemoImage Text="First Slide" Color="#666" />
     </HxCarouselItem>

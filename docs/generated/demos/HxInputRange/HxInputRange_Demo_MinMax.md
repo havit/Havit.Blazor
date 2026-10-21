@@ -1,0 +1,12 @@
+﻿# HxInputRange_Demo_MinMax.razor
+
+```razor
+<HxInputRange @bind-Value="value" Label="Example range" Min="0" Max="5" />
+
+@value
+
+@code {
+    private float value = 2;
+}
+
+```

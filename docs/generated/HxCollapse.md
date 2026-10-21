@@ -1,6 +1,6 @@
 ﻿# HxCollapse
 
-Bootstrap 5 Collapse component.
+Bootstrap 5 Collapse for toggling the visibility of content — accordions, expandable panels, collapsible sidebars — with a smooth height animation.
 
 ## Parameters
 

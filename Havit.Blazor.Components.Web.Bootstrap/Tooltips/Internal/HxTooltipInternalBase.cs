@@ -141,7 +141,8 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 			{
 				builder.AddAttribute(7, "data-bs-animation", AnimationEffective.ToString().ToLower());
 			}
-			builder.AddAttribute(8, "data-bs-title", TitleInternal);
+			// #1541 An empty data-bs-title ("") gets normalized to null by Bootstrap and fails the config type-check, the attribute must be omitted entirely.
+			builder.AddAttribute(8, "data-bs-title", String.IsNullOrEmpty(TitleInternal) ? null : TitleInternal);
 			if (!String.IsNullOrWhiteSpace(ContentInternal))
 			{
 				// used only by HxPopover

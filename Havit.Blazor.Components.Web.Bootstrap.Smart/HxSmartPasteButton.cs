@@ -194,7 +194,7 @@ public class HxSmartPasteButton : SmartPasteButton
 			builder.CloseElement();
 
 
-			if (!String.IsNullOrEmpty(Text) || (ChildContent != null))
+			if (!String.IsNullOrEmpty(Text) || (childContent != null))
 			{
 				builder.OpenElement(10, "span");
 				//builder.AddAttribute(11, "class", "hx-button-icon-text-spacer");
@@ -215,7 +215,7 @@ public class HxSmartPasteButton : SmartPasteButton
 		if ((IconPlacementEffective == ButtonIconPlacement.End)
 			&& ((IconEffective is not null) || (Spinner ?? true)))
 		{
-			if (!String.IsNullOrEmpty(Text) || (ChildContent != null))
+			if (!String.IsNullOrEmpty(Text) || (childContent != null))
 			{
 				builder.OpenElement(110, "span");
 				//builder.AddAttribute(111, "class", "hx-button-icon-text-spacer");

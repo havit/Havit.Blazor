@@ -1,7 +1,7 @@
 ﻿# HxCarousel_Demo_Pause.razor
 
 ```razor
-<HxCarousel Controls="true" Pause="CarouselPause.False">
+<HxCarousel Autoplay="true" PlayPauseControl="true" Pause="CarouselPause.False">
 	<HxCarouselItem Active="true">
 		<DemoImage Text="First Slide" Color="#666" />
 	</HxCarouselItem>

@@ -12,4 +12,5 @@ Settings for the `HxPager`.
 | NextPageIcon | `IconBase` | Icon for the "Next page" button. |
 | NumericButtonsCount | `int?` | Number of buttons with numbers to display. |
 | PreviousPageIcon | `IconBase` | Icon for the "Previous page" button. |
+| Size | `PagerSize?` | Size of the pager. |
 

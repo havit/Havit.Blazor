@@ -37,7 +37,7 @@ public abstract class HxInputBase<TValue> : InputBase<TValue>, ICascadeEnabledCo
 
 	/// <summary>
 	/// Specifies how the validation message should be displayed.<br/>
-	/// The default is <see cref="ValidationMessageMode.Regular"/>, you can override the application-wide default for all inputs in <see cref="HxInputBase.Defaults"/>.
+	/// The default is <see cref="ValidationMessageMode.Floating"/>, you can override the application-wide default for all inputs in <see cref="HxInputBase.Defaults"/>.
 	/// </summary>
 	[Parameter] public ValidationMessageMode? ValidationMessageMode { get; set; }
 	protected ValidationMessageMode ValidationMessageModeEffective => ValidationMessageMode ?? GetSettings()?.ValidationMessageMode ?? GetDefaults().ValidationMessageMode ?? HxInputBase.Defaults?.ValidationMessageMode ?? throw new InvalidOperationException(nameof(ValidationMessageMode) + " default for " + nameof(HxInputBase<TValue>) + " has to be set.");

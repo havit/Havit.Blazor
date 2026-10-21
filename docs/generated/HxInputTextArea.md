@@ -7,6 +7,11 @@ Textarea. To set a custom height, do not use the rows attribute. Instead, set an
 | Name | Type | Description |
 |------|------|-------------|
 | AdditionalAttributes | `IReadOnlyDictionary<string, object>` | A collection of additional attributes that will be applied to the created element. |
+| AdornCssClass | `string` | Custom CSS class to be rendered with the `form-adorn` wrapper. |
+| AdornEndTemplate | `RenderFragment` | Adornment (typically an icon) at the end of the input. |
+| AdornEndText | `string` | Text adornment at the end of the input. |
+| AdornStartTemplate | `RenderFragment` | Adornment (typically an icon) at the beginning of the input. |
+| AdornStartText | `string` | Text adornment at the beginning of the input. |
 | BindEvent | `BindEvent` | Gets or sets the behavior when the model is updated from the input. |
 | ChipTemplate | `RenderFragment` | The chip template. |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
@@ -32,7 +37,7 @@ Textarea. To set a custom height, do not use the rows attribute. Instead, set an
 | Settings | `InputTextSettings` | Set of settings to be applied to the component instance (overrides `HxInputText.Defaults`, overridden by individual parameters). |
 | Spellcheck | `bool?` | Defines whether the input may be checked for spelling errors. |
 | Type | `InputType` | Input type. |
-| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Regular`, you can override the application-wide default for all inputs in `Defaults`. |
+| ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. The default is `ValidationMessageMode.Floating`, you can override the application-wide default for all inputs in `Defaults`. |
 | Value | `string` | Value of the input. This should be used with two-way binding. |
 | ValueChanged | `EventCallback<string>` | A callback that updates the bound value. |
 | ValueExpression | `Expression<Func<string>>` | An expression that identifies the bound value. |

@@ -20,5 +20,6 @@ Bootstrap 5 Navbar component - a responsive navigation header. Provides support 
 - HxNavbar_Demo_BrandImage.razor
 - HxNavbar_Demo_BrandText.razor
 - HxNavbar_Demo_ColorSchemes.razor
+- HxNavbar_Demo_Responsive.razor
 - HxNavbar_Demo_Text.razor
 

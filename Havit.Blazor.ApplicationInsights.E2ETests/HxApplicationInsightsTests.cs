@@ -23,14 +23,12 @@ public class HxApplicationInsightsTests : BlazorApplicationInsightsPageTestBase
 	private async Task TestApplicationInsightsLoadedAndConfigured(string url, string expectedConnectionString)
 	{
 		// Arrange
-		await Page.RouteApplicationInsightsTrackAsync(null);
+		await Page.RouteApplicationInsightsTrackAsync(); // keeps the telemetry from leaving the machine
 
 		// Act
 		await Page.GotoAsync(url);
-		await Page.WaitForLoadStateAsync(Microsoft.Playwright.LoadState.NetworkIdle);
-		await Page.WaitForFunctionAsync("window.appInsights && window.appInsights.core"); // Wait for the JS SDK full initialization.
-		string currentConnectionString = await Page.EvaluateAsync<string>($"window.appInsights.config.connectionString");
-		await Page.CloseAsync();
+		await Page.WaitForApplicationInsightsReadyAsync();
+		string currentConnectionString = await Page.EvaluateAsync<string>("() => window.appInsights.config.connectionString");
 
 		// Assert
 		Assert.Equal(expectedConnectionString, currentConnectionString);

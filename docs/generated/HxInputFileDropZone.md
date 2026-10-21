@@ -13,7 +13,7 @@ Ready-made UX for drag&drop file upload. For custom drag&drop UX, use `HxInputFi
 | MaxFileSize | `long?` | The maximum file size in bytes. When exceeded, the `OnFileUploaded` returns `413-RequestEntityTooLarge` as `FileUploadedEventArgs.ResponseStatus`. Default is `null` (unlimited). |
 | Multiple | `bool` | Single `false` or multiple `true` files upload. |
 | NoFilesTemplate | `RenderFragment` | Content to render when no files are picked. Default content is displayed when not set. |
-| UploadHttpMethod | `string` | HTTP Method (verb) used for file upload. The default is `POST`. |
+| UploadHttpMethod | `string` | HTTP Method (verb) used for file upload. The default is `POST` (taken from `HxInputFileCore.Defaults`). |
 | UploadUrl | `string` | URL of the server endpoint receiving the files. |
 
 ## Event callbacks

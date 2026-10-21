@@ -190,7 +190,7 @@ public abstract class MemberModel
 			seeName = splitLink[^1];
 		}
 
-		if ((_enclosingType is null || _enclosingType.FullName.Contains("Hx") || !isProperty) && isComponent)
+		if ((_enclosingType is null || (_enclosingType.FullName ?? _enclosingType.Name).Contains("Hx") || !isProperty) && isComponent)
 		{
 			fullLink = $"href=\"/components/{fullLink}";
 		}

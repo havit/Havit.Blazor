@@ -1,6 +1,6 @@
 ﻿# HxDrawer
 
-Bootstrap Drawer component (aka Drawer).
+Off-canvas Bootstrap Drawer panel that slides in from any edge of the screen — ideal for navigation, filters, or supplementary content.
 
 ## Parameters
 

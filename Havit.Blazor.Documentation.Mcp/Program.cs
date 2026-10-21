@@ -24,10 +24,7 @@ builder.Services.AddSingleton<IDocumentationCatalogService, DocumentationCatalog
 
 builder.Services
 	.AddMcpServer()
-	.WithHttpTransport(options =>
-	{
-		options.Stateless = true;
-	})
+	.WithHttpTransport() // Stateless = true is the default since 2.0.0
 	.WithTools<GetComponentDocsTool>()
 	.WithTools<GetComponentCatalogTool>()
 	.WithTools<GetComponentSamplesTool>()

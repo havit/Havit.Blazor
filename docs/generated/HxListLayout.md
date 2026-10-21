@@ -11,6 +11,7 @@ Provides a unified layout for data presentation components and associated filter
 | CssClass | `string` | Additional CSS classes for the wrapping `div`. |
 | DataTemplate | `RenderFragment` |  |
 | DetailTemplate | `RenderFragment` |  |
+| FilterButtonText | `string` | Text for the button opening the filter drawer. When not set, the button renders as an icon-only button (`btn-icon`). |
 | FilterDrawerSettings | `DrawerSettings` | Settings for the `HxDrawer` with the filter. |
 | FilterModel | `TFilterModel` |  |
 | FilterModelChanged | `EventCallback<TFilterModel>` |  |
@@ -42,6 +43,7 @@ Provides a unified layout for data presentation components and associated filter
 ## Available demo samples
 
 - HxListLayout_Demo_Basic.razor
+- HxListLayout_Demo_Flush.razor
 - HxListLayout_Demo_InfiniteScrollSticky.razor
 - HxListLayout_Demo_NamedViews.razor
 - HxListLayout_Demo_SearchTemplate.razor

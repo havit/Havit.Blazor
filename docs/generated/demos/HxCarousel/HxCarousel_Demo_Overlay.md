@@ -1,7 +1,7 @@
-﻿# HxCarousel_Demo_NoAutoSliding.razor
+﻿# HxCarousel_Demo_Overlay.razor
 
 ```razor
-<HxCarousel Controls="true" Ride="CarouselRide.False">
+<HxCarousel Overlay="true" Controls="true" Indicators="true">
 	<HxCarouselItem Active="true">
 		<DemoImage Text="First Slide" Color="#666" />
 	</HxCarouselItem>

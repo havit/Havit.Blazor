@@ -22,9 +22,10 @@ public abstract class StaticDataStore<TValue> : IStaticDataStore<TValue>
 	protected internal abstract Task<TValue> LoadDataAsync();
 
 	/// <summary>
-	/// Indicates whether the store has valid data.
+	/// Indicates whether the store has data, i.e. whether the synchronous data-retrieval methods can be used.
+	/// The data might be stale (when <c>ShouldRefresh</c> returns <c>true</c>); it gets refreshed within the next asynchronous data-retrieval call (or <c>EnsureDataAsync</c>).
 	/// </summary>
-	public bool IsLoaded => HasData && !ShouldRefresh();
+	public bool IsLoaded => HasData;
 
 	/// <summary>
 	/// Template method to implement your own logic of data expiration/refresh.

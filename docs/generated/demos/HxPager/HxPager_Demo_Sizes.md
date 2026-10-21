@@ -1,0 +1,10 @@
+﻿# HxPager_Demo_Sizes.razor
+
+```razor
+<HxPager CurrentPageIndex="0" TotalPages="10" Size="PagerSize.Large" />
+<br />
+<HxPager CurrentPageIndex="0" TotalPages="10" Size="PagerSize.Regular" />
+<br />
+<HxPager CurrentPageIndex="0" TotalPages="10" Size="PagerSize.Small" />
+
+```

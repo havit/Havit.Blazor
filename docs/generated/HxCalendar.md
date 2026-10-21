@@ -1,6 +1,6 @@
 ﻿# HxCalendar
 
-Basic calendar building block. Used for `HxInputDate` and `HxInputDateRange` implementation.
+Standalone month calendar for picking a single date or a date range — the same calendar used inside `HxInputDate` and `HxInputDateRange`, available on its own for building custom date pickers.
 
 ## Parameters
 

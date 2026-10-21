@@ -28,7 +28,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Watch Remove="xmldoc\*.xml" />
+		<Watch Remove="XmlDoc\*.xml" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -116,7 +116,7 @@ public class DictionaryStaticDataStoreTests
 		var result = await sut.Object.GetAllAsync();
 
 		// assert
-		Assert.False(isLoaded);
+		Assert.True(isLoaded); // stale data is still available for the synchronous API
 		sut.Verify(s => s.LoadDataAsync(), Times.Exactly(2));
 		Assert.Equal(new[] { "Adam", "Barbora", "Cyril" }, result.ToList());
 	}
