@@ -90,6 +90,11 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 
 	private List<TItem> _itemsToRender;
 
+	// The label of a group input does not label a single element (no "for"), it names the group (via aria-labelledby).
+	// InputId is generated when a Label/LabelTemplate is set, the label id derives from it.
+	private protected override string LabelFor => null;
+	private protected override string LabelId => (InputId is not null) ? InputId + "-label" : null;
+
 	private void RefreshState()
 	{
 		_itemsToRender = Data?.ToList() ?? new List<TItem>();
@@ -137,6 +142,14 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	[Parameter] public ButtonSize? ButtonSize { get; set; }
 	protected ButtonSize? ButtonSizeEffective => ButtonSize ?? GetSettings()?.ButtonSize ?? GetDefaults().ButtonSize; // can be null, HxCheckbox.ButtonSize remains unset
 
+	/// <summary>
+	/// Size of the checkboxes/switches (<c>check-sm</c>/<c>check-lg</c>, <c>switch-sm</c>/<c>switch-lg</c>).
+	/// Not used for <see cref="CheckboxListRenderMode.ToggleButtons"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>, use <see cref="ButtonSize"/> instead.<br />
+	/// The default is taken from <see cref="HxSetup.Defaults"/> (<see cref="InputSize.Regular"/> if not customized).
+	/// </summary>
+	[Parameter] public InputSize? InputSize { get; set; }
+	protected InputSize? InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults().InputSize; // can be null, HxCheckbox.InputSize remains unset (HxSetup.Defaults apply)
+
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
@@ -145,9 +158,13 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 		if (_itemsToRender.Count > 0)
 		{
 			builder.OpenElement(0, "div");
-			builder.AddAttribute(1, "aria-labelledby", InputId);
-			builder.AddAttribute(2, "class", InputCssClass);
-			builder.OpenRegion(3);
+			builder.AddAttribute(1, "aria-labelledby", LabelId);
+			builder.AddAttribute(2, "role", "group");
+			builder.AddAttribute(3, "class", CssClassHelper.Combine(
+				// checkboxes/switches stacked vertically - Bootstrap 6 has no spacing between the .form-field items
+				((GetCheckboxRenderMode() != CheckboxRenderMode.ToggleButton) && !Inline) ? "form-group" : null,
+				InputCssClass));
+			builder.OpenRegion(4);
 
 			if (RenderMode == CheckboxListRenderMode.ButtonGroup)
 			{
@@ -179,6 +196,12 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 
 		CheckboxRenderMode checkboxRenderMode = GetCheckboxRenderMode();
 
+		// The items have no validation of their own (see ValidationMessageMode.None below),
+		// the validation state is the state of the whole list, rendered on every item.
+		// (aria-invalid cannot be passed this way - InputBase of the item removes it from AdditionalAttributes as the item itself is valid.)
+		bool isInvalid = IsValueInvalid();
+		string ariaDescribedBy = String.Join(" ", HintId, ValidationMessageId).Trim();
+
 		foreach (var item in _itemsToRender)
 		{
 			TValue value = SelectorHelpers.GetValue<TItem, TValue>(ItemValueSelector, item);
@@ -191,15 +214,18 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 			builder.AddAttribute(5, nameof(HxCheckbox.Enabled), EnabledEffective);
 
 			builder.AddAttribute(6, nameof(HxCheckbox.CssClass), CssClassHelper.Combine(ItemCssClass, ItemCssClassSelector?.Invoke(item)));
-			builder.AddAttribute(7, nameof(HxCheckbox.InputCssClass), (RenderMode == CheckboxListRenderMode.ButtonGroup)
-				? ItemInputCssClassSelector?.Invoke(item)
-				: CssClassHelper.Combine(ItemInputCssClass, ItemInputCssClassSelector?.Invoke(item)));
+			builder.AddAttribute(7, nameof(HxCheckbox.InputCssClass), CssClassHelper.Combine(
+				(RenderMode == CheckboxListRenderMode.ButtonGroup)
+					? ItemInputCssClassSelector?.Invoke(item)
+					: CssClassHelper.Combine(ItemInputCssClass, ItemInputCssClassSelector?.Invoke(item)),
+				isInvalid ? InvalidCssClass : null));
 			builder.AddAttribute(8, nameof(HxCheckbox.TextCssClass), CssClassHelper.Combine(ItemTextCssClass, ItemTextCssClassSelector?.Invoke(item)));
 
 			builder.AddAttribute(9, nameof(HxCheckbox.RenderMode), checkboxRenderMode);
 			builder.AddAttribute(10, nameof(HxCheckbox.Color), ColorEffective);
 			builder.AddAttribute(11, nameof(HxCheckbox.Variant), VariantEffective);
 			builder.AddAttribute(12, nameof(HxCheckbox.ButtonSize), ButtonSizeEffective);
+			builder.AddAttribute(13, nameof(HxCheckbox.InputSize), InputSizeEffective);
 
 			// We need ValueExpression. Ehm, HxCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 			// We have nothing to give the HxCheckbox. So we make own class with property which we assign to the ValueExpression.
@@ -211,6 +237,10 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 			builder.AddAttribute(53, nameof(HxCheckbox.GenerateChip), false);
 
 			builder.AddMultipleAttributes(100, AdditionalAttributes);
+			if (!String.IsNullOrEmpty(ariaDescribedBy))
+			{
+				builder.AddAttribute(101, "aria-describedby", ariaDescribedBy);
+			}
 
 			builder.CloseComponent();
 		}
@@ -222,7 +252,9 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 		{
 			CheckboxListRenderMode.Checkboxes => CheckboxRenderMode.Checkbox,
 			CheckboxListRenderMode.Switches => CheckboxRenderMode.Switch,
-			CheckboxListRenderMode.NativeSwitches => CheckboxRenderMode.NativeSwitch,
+#pragma warning disable CS0618 // Type or member is obsolete
+			CheckboxListRenderMode.NativeSwitches => CheckboxRenderMode.Switch,
+#pragma warning restore CS0618 // Type or member is obsolete
 			CheckboxListRenderMode.ToggleButtons => CheckboxRenderMode.ToggleButton,
 			CheckboxListRenderMode.ButtonGroup => CheckboxRenderMode.ToggleButton, // return (checkbox render mode) ToggleButton for (a checkboxlist render mode) ButtonGroup
 			_ => throw new InvalidOperationException(RenderMode.ToString())

@@ -1,7 +1,7 @@
 ﻿@inject IDemoDataService DemoDataService
 
 <HxInputText LabelType="LabelType.Floating" Label="Your name" @bind-Value="@name" CssClass="my-3" />
-<HxInputTextArea LabelType="LabelType.Floating" Label="Comments" @bind-Value="@comments" style="height:80px" CssClass="my-3" />
+<HxInputTextArea LabelType="LabelType.Floating" Label="Comments" @bind-Value="@comments" style="--bs-form-floating-height: 80px" CssClass="my-3" />
 <HxInputNumber LabelType="LabelType.Floating" Label="Age" @bind-Value="@age" CssClass="my-3" />
 
 <HxSelect TItem="EmployeeDto"

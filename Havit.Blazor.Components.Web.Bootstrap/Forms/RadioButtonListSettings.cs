@@ -20,4 +20,9 @@ public record RadioButtonListSettings : InputSettings
 	/// Size of buttons for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>.
 	/// </summary>
 	public ButtonSize? ButtonSize { get; set; }
+
+	/// <summary>
+	/// Size of the radio buttons (not used for the toggle button render modes, use <see cref="ButtonSize"/>) (<c>radio-sm</c>/<c>radio-lg</c>).
+	/// </summary>
+	public InputSize? InputSize { get; set; }
 }

@@ -105,7 +105,8 @@ public class HxFormValue : ComponentBase, IFormValueComponent, IFormValueCompone
 	public void RenderValue(RenderTreeBuilder builder)
 	{
 		builder.OpenElement(0, "div");
-		builder.AddAttribute(1, "class", CssClassHelper.Combine("form-control", ((IInputWithSize)this).GetInputSizeCssClass(), ValueCssClass));
+		// Bootstrap 6 .form-control is display: flex, which would collapse the whitespace between inline children of the ValueTemplate.
+		builder.AddAttribute(1, "class", CssClassHelper.Combine("form-control", "d-block", ((IInputWithSize)this).GetInputSizeCssClass(), ValueCssClass));
 		builder.AddAttribute(2, "aria-readonly", "true");
 		builder.AddAttribute(3, "tabindex", 0);
 		if (ValueTemplate != null)

@@ -1,4 +1,4 @@
-namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 /// <summary>
 /// Extends <see cref="IFormValueComponent"/> with properties for rendering the <c>form-adorn</c> wrapper
@@ -17,6 +17,11 @@ public interface IFormValueComponentWithAdorns : IFormValueComponent
 	string AdornStartText => null;
 
 	/// <summary>
+	/// Element id to render with the <see cref="AdornStartText"/> (referenced by the input <c>aria-describedby</c>).
+	/// </summary>
+	string AdornStartTextId => null;
+
+	/// <summary>
 	/// Adornment (typically an icon) at the beginning of the input, rendered as <c>.form-adorn-icon</c>.
 	/// </summary>
 	RenderFragment AdornStartTemplate => null;
@@ -25,6 +30,11 @@ public interface IFormValueComponentWithAdorns : IFormValueComponent
 	/// Text adornment at the end of the input, rendered as <c>.form-adorn-text</c>.
 	/// </summary>
 	string AdornEndText => null;
+
+	/// <summary>
+	/// Element id to render with the <see cref="AdornEndText"/> (referenced by the input <c>aria-describedby</c>).
+	/// </summary>
+	string AdornEndTextId => null;
 
 	/// <summary>
 	/// Adornment (typically an icon) at the end of the input, rendered as <c>.form-adorn-icon</c>.

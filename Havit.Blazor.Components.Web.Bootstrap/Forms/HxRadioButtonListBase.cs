@@ -40,6 +40,14 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	protected ButtonSize ButtonSizeEffective => ButtonSize ?? GetSettings()?.ButtonSize ?? GetDefaults()?.ButtonSize ?? throw new InvalidOperationException(nameof(ButtonSize) + " default for " + nameof(HxRadioButtonListBase<,>) + " has to be set.");
 
 	/// <summary>
+	/// Size of the radio buttons (<c>radio-sm</c>/<c>radio-lg</c>).
+	/// Not used for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>, use <see cref="ButtonSize"/> instead.<br />
+	/// The default is taken from <see cref="HxSetup.Defaults"/> (<see cref="InputSize.Regular"/> if not customized).
+	/// </summary>
+	[Parameter] public InputSize? InputSize { get; set; }
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
+
+	/// <summary>
 	/// Selects a value from an item.
 	/// Not required when <c>TValueType</c> is the same as <c>TItemTime</c>.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
@@ -130,6 +138,11 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 	private protected override string CoreInputCssClass => throw new NotSupportedException();
 
+	// The label of a group input does not label a single element (no "for"), it names the group (via aria-labelledby).
+	// InputId is generated when a Label/LabelTemplate is set, the label id derives from it.
+	private protected override string LabelFor => null;
+	private protected override string LabelId => (InputId is not null) ? InputId + "-label" : null;
+
 	private IEqualityComparer<TValue> _comparer = EqualityComparer<TValue>.Default;
 	private List<TItem> _itemsToRender;
 	private int _selectedItemIndex;
@@ -152,9 +165,12 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 		if (_itemsToRender != null)
 		{
 			builder.OpenElement(0, "div");
-			builder.AddAttribute(1, "aria-labelledby", InputId);
+			builder.AddAttribute(1, "aria-labelledby", LabelId);
 			builder.AddAttribute(2, "role", "radiogroup");
-			builder.AddAttribute(3, "class", InputCssClass);
+			builder.AddAttribute(3, "class", CssClassHelper.Combine(
+				// radio buttons stacked vertically - Bootstrap 6 has no spacing between the .form-field items
+				((RenderMode == RadioButtonListRenderMode.RadioButtons) && !Inline) ? "form-group" : null,
+				InputCssClass));
 			builder.OpenRegion(4);
 
 			if (RenderMode == RadioButtonListRenderMode.ButtonGroup)
@@ -204,6 +220,11 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 
 			string inputId = GroupName + "_" + index.ToString();
 
+			// The validation state is the state of the whole group, rendered on every item
+			// (aria-invalid comes with the AdditionalAttributes, InputBase adds it for an invalid value).
+			bool isInvalid = IsValueInvalid();
+			string ariaDescribedBy = String.Join(" ", HintId, ValidationMessageId).Trim();
+
 			bool isToggleButton = (RenderMode == RadioButtonListRenderMode.ToggleButtons) || (RenderMode == RadioButtonListRenderMode.ButtonGroup);
 
 			if (isToggleButton)
@@ -218,7 +239,9 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 					ItemTextCssClassSelectorImpl?.Invoke(item)));
 
 				builder.OpenElement(200, "input");
-				builder.AddAttribute(201, "class", (RenderMode == RadioButtonListRenderMode.ButtonGroup) ? ItemInputCssClassSelectorImpl?.Invoke(item) : CssClassHelper.Combine(ItemInputCssClassImpl, ItemInputCssClassSelectorImpl?.Invoke(item)));
+				builder.AddAttribute(201, "class", CssClassHelper.Combine(
+					(RenderMode == RadioButtonListRenderMode.ButtonGroup) ? ItemInputCssClassSelectorImpl?.Invoke(item) : CssClassHelper.Combine(ItemInputCssClassImpl, ItemInputCssClassSelectorImpl?.Invoke(item)),
+					isInvalid ? InvalidCssClass : null));
 				builder.AddAttribute(202, "type", "radio");
 				builder.AddAttribute(203, "name", GroupName);
 				builder.AddAttribute(204, "id", inputId);
@@ -230,6 +253,10 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 				builder.SetUpdatesAttributeName("checked");
 				builder.AddEventStopPropagationAttribute(209, "onclick", true);
 				builder.AddAttribute(210, "autocomplete", "off");
+				if (!String.IsNullOrEmpty(ariaDescribedBy))
+				{
+					builder.AddAttribute(220, "aria-describedby", ariaDescribedBy);
+				}
 				builder.AddMultipleAttributes(250, AdditionalAttributes);
 				builder.CloseElement(); // input
 
@@ -251,9 +278,11 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 				builder.OpenElement(200, "input");
 				builder.AddAttribute(201, "class", CssClassHelper.Combine(
 					"radio",
+					InputSizeEffective.AsCheckRadioSwitchCssClass("radio"),
 					(ColorEffective != ThemeColor.None) ? ColorEffective.ToThemeCss() : null,
 					ItemInputCssClassImpl,
-					ItemInputCssClassSelectorImpl?.Invoke(item)));
+					ItemInputCssClassSelectorImpl?.Invoke(item),
+					isInvalid ? InvalidCssClass : null));
 				builder.AddAttribute(202, "type", "radio");
 				builder.AddAttribute(203, "name", GroupName);
 				builder.AddAttribute(204, "id", inputId);
@@ -264,6 +293,10 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 				builder.AddAttribute(208, "onclick", EventCallback.Factory.Create(this, () => HandleInputClick(j)));
 				builder.SetUpdatesAttributeName("checked");
 				builder.AddEventStopPropagationAttribute(209, "onclick", true);
+				if (!String.IsNullOrEmpty(ariaDescribedBy))
+				{
+					builder.AddAttribute(220, "aria-describedby", ariaDescribedBy);
+				}
 				builder.AddMultipleAttributes(250, AdditionalAttributes);
 				builder.CloseElement(); // input
 

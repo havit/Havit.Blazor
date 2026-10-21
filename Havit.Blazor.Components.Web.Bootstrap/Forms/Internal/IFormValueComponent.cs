@@ -26,6 +26,11 @@ public interface IFormValueComponent
 	string LabelFor => null;
 
 	/// <summary>
+	/// Element id to render on the label (when set), e.g. to be referenced by <c>aria-labelledby</c>.
+	/// </summary>
+	string LabelId => null;
+
+	/// <summary>
 	/// Custom CSS class to render with the label.
 	/// </summary>
 	string LabelCssClass => null;
@@ -59,7 +64,7 @@ public interface IFormValueComponent
 	/// <summary>
 	/// CSS class to be rendered with the wrapping div.
 	/// </summary>
-	string CoreCssClass => "hx-form-group position-relative";
+	string CoreCssClass => "hx-form-group form-field position-relative";
 
 	/// <summary>
 	/// CSS class to be rendered with the label.

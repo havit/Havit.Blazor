@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// HxCheckBox and HxSwitch base class.
 /// </summary>
-public abstract class HxCheckboxBase : HxInputBase<bool>
+public abstract class HxCheckboxBase : HxInputBase<bool>, IInputWithSize
 {
 	/// <summary>
 	/// Text to display next to the checkbox.
@@ -42,6 +42,16 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 	protected virtual ButtonSize ButtonSizeEffective => ButtonSize.Regular;
 
 	/// <summary>
+	/// Size of the checkbox/switch (not used for <see cref="CheckboxRenderMode.ToggleButton"/>).
+	/// </summary>
+	protected abstract InputSize InputSizeEffective { get; }
+	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
+
+	// Applied to the input by HxInputBase.GetInputCssClassToRender(): check-sm/-lg for a checkbox,
+	// nothing for a switch (switch-sm/-lg goes to the .switch wrapper) and a toggle button (uses ButtonSize).
+	string IInputWithSize.GetInputSizeCssClass() => (RenderModeEffective == CheckboxRenderMode.Checkbox) ? InputSizeEffective.AsCheckRadioSwitchCssClass("check") : null;
+
+	/// <summary>
 	/// Returns checkbox render mode.
 	/// </summary>
 	protected abstract CheckboxRenderMode RenderModeEffective { get; }
@@ -64,7 +74,9 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 		// switch inputs are unstyled (the .switch wrapper carries the styling); toggle-button inputs are nested in label.btn-check.
 		CheckboxRenderMode.Checkbox => CssClassHelper.Combine("check", (ColorEffective != ThemeColor.None) ? ColorEffective.ToThemeCss() : null),
 		CheckboxRenderMode.Switch => null,
+#pragma warning disable CS0618 // Type or member is obsolete
 		CheckboxRenderMode.NativeSwitch => null,
+#pragma warning restore CS0618 // Type or member is obsolete
 		CheckboxRenderMode.ToggleButton => null,
 		_ => throw new InvalidOperationException($"Unknown {nameof(CheckboxRenderMode)}: {RenderModeEffective}.")
 	};
@@ -82,17 +94,20 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 
 			return CssClassHelper.Combine(
 				base.CoreCssClass,
-				NeedsFormFieldOuter ? GetFormFieldCssClass() : null);
+				NeedsFormFieldOuter ? GetFormFieldCssClass(includeReverse: false) : null);
 		}
 	}
 
 	// Bootstrap 6 has no form-check-inline/form-check-reverse equivalents; both are expressed with plain utilities:
 	// Inline keeps the form-field grid, just displayed inline (d-inline-grid) with the v5-like spacing (me-3);
-	// Reverse switches the form-field to a reversed flex row (control packs to the end, label adjacent), matching the v5 visual.
-	private string GetFormFieldCssClass() => CssClassHelper.Combine(
+	// Reverse switches the control and its text to a reversed flex row (control packs to the end, label adjacent), matching the v5 visual.
+	// The reversed row must hold only the control and its text - the outer form-field also holds the hint and the validation message.
+	private string GetFormFieldCssClass(bool includeReverse) => CssClassHelper.Combine(
 		"form-field",
 		Inline ? "d-inline-grid me-3" : null,
-		Reverse ? "d-flex flex-row-reverse gap-2" : null);
+		includeReverse ? GetReverseCssClass() : null);
+
+	private string GetReverseCssClass() => Reverse ? "d-flex flex-row-reverse gap-2" : null;
 
 	/// <summary>
 	/// For a checkbox without Label/LabelTemplate, the form-field layout class goes to the parent div (allows combining with CssClass etc.).
@@ -126,20 +141,28 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 			return;
 		}
 
-		if (NeedsInnerDiv)
+		// With Label: the input and the text are wrapped in an inner div.form-field (see NeedsInnerDiv).
+		// Without Label: the outer div is the form-field, only the Reverse layout needs a wrapper.
+		string innerDivCssClass = NeedsInnerDiv
+			? GetFormFieldCssClass(includeReverse: true)
+			: (NeedsFormField ? GetReverseCssClass() : null);
+
+		if (innerDivCssClass is not null)
 		{
 			builder.OpenElement(-2, "div");
-			builder.AddAttribute(-1, "class", GetFormFieldCssClass());
+			builder.AddAttribute(-1, "class", innerDivCssClass);
 		}
 
 		EnsureInputId(); // must be called before the input is rendered
 
+#pragma warning disable CS0618 // Type or member is obsolete
 		bool isSwitch = (RenderModeEffective == CheckboxRenderMode.Switch) || (RenderModeEffective == CheckboxRenderMode.NativeSwitch);
+#pragma warning restore CS0618 // Type or member is obsolete
 		if (isSwitch)
 		{
 			// Bootstrap 6 switch: an unstyled checkbox layered over the styled .switch wrapper element
 			builder.OpenElement(-100, "div");
-			builder.AddAttribute(-99, "class", CssClassHelper.Combine("switch", (ColorEffective != ThemeColor.None) ? ColorEffective.ToThemeCss() : null));
+			builder.AddAttribute(-99, "class", CssClassHelper.Combine("switch", InputSizeEffective.AsCheckRadioSwitchCssClass("switch"), (ColorEffective != ThemeColor.None) ? ColorEffective.ToThemeCss() : null));
 		}
 
 		builder.OpenElement(0, "input");
@@ -157,10 +180,7 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 		if (isSwitch)
 		{
 			builder.AddAttribute(1003, "role", "switch");
-		}
-		if (RenderModeEffective == CheckboxRenderMode.NativeSwitch)
-		{
-			builder.AddAttribute(1004, "switch", true); // does not render ="true", we need only "switch" attribute to be present
+			builder.AddAttribute(1004, "switch", true); // does not render ="true", we need only "switch" attribute to be present (native haptic feedback in mobile Safari)
 		}
 
 		builder.AddEventStopPropagationAttribute(1006, "onclick", true);
@@ -188,7 +208,7 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 			builder.CloseElement(); // label
 		}
 
-		if (NeedsInnerDiv)
+		if (innerDivCssClass is not null)
 		{
 			builder.CloseElement(); // div
 		}

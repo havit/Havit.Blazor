@@ -1,3 +1,22 @@
+/* The container is rendered even when there is no message (keeps the aria-describedby reference valid).
+   Without a box of its own it does not occupy a row of the .form-field grid (no trailing gap under valid fields,
+   no layout shift for the absolutely positioned Floating/Tooltip messages); a Regular message becomes the grid item itself. */
+.hx-validation-message {
+	display: contents;
+}
+
+/* Empty marker only enabling the ".is-invalid ~ .invalid-feedback/.invalid-tooltip" sibling selectors. */
+.hx-validation-message > .is-invalid {
+	display: none;
+}
+
+/* Bootstrap 6 places the non-control children of a checkbox/radio/switch .form-field into the text column. */
+.form-field:has(> .check) > .hx-validation-message > *,
+.form-field:has(> .radio) > .hx-validation-message > *,
+.form-field:has(> .switch) > .hx-validation-message > * {
+	grid-column: 2;
+}
+
 ::deep .feedback-floating {
     position: absolute;
     top: 100%;

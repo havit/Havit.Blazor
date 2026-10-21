@@ -1,4 +1,4 @@
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -42,6 +42,37 @@ public class HxSwitchTests : BunitTestBase
 		// Assert
 		Assert.False(valueHolder[0]);
 		Assert.False(cut.Find("input").HasAttribute("checked"));
+	}
+
+	[Fact]
+	public void HxSwitch_Render_HasSwitchAttribute()
+	{
+		// Act — Bootstrap 6 renders the switch attribute on every switch (native haptic feedback in mobile Safari)
+		var (cut, _) = RenderSwitch();
+
+		// Assert
+		var input = cut.Find(".switch > input");
+		Assert.True(input.HasAttribute("switch"));
+		Assert.Equal("switch", input.GetAttribute("role"));
+	}
+
+	[Theory]
+	[InlineData(InputSize.Small, "switch-sm")]
+	[InlineData(InputSize.Large, "switch-lg")]
+	public void HxSwitch_InputSize_RendersSwitchSizeClassOnWrapper(InputSize inputSize, string expectedCssClass)
+	{
+		// Arrange
+		bool value = false;
+
+		// Act
+		var cut = Render<HxSwitch>(parameters => parameters
+			.Bind(p => p.Value, value, v => value = v)
+			.Add(p => p.Text, "Text")
+			.Add(p => p.InputSize, inputSize));
+
+		// Assert — Bootstrap 6 sizes the .switch wrapper (the input inside is unstyled)
+		Assert.True(cut.Find("div.switch").ClassList.Contains(expectedCssClass));
+		Assert.False(cut.Find("div.switch > input").ClassList.Contains(expectedCssClass));
 	}
 
 	private (IRenderedComponent<HxSwitch> cut, bool[] valueHolder) RenderSwitch(bool initialValue = false)

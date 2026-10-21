@@ -179,14 +179,24 @@ public class HxFormValueComponentRenderer : ComponentBase
 
 		bool shouldRenderAdorn = FormValueComponent.ShouldRenderAdorn();
 
+		// The wrapper looks like the input, so a click on the adornments or the padding is expected to focus the input
+		// (the adornments have pointer-events: none). Bootstrap 6 uses a wrapping <label> for that.
+		// A label must not contain interactive content, which the adorn templates can, so with a template,
+		// the wrapper is a div focusing the input when clicked directly.
+		bool renderAdornAsLabel = (formValueComponentWithAdorns?.AdornStartTemplate is null) && (formValueComponentWithAdorns?.AdornEndTemplate is null);
+
 		if (shouldRenderAdorn)
 		{
-			builder.OpenElement(800, "div");
+			builder.OpenElement(800, renderAdornAsLabel ? "label" : "div");
 			builder.AddAttribute(801, "class", CssClassHelper.Combine(
 				"form-control",
 				"form-adorn",
 				formValueComponentWithSize is not null ? formValueComponentWithSize.GetInputSizeCssClass() : null,
 				formValueComponentWithAdorns.AdornCssClass));
+			if (!renderAdornAsLabel)
+			{
+				builder.AddAttribute(802, "onclick", "if (event.target === this) { this.querySelector(':scope > .form-ghost')?.focus(); }");
+			}
 
 			if (formValueComponentWithAdorns.AdornStartTemplate is not null)
 			{
@@ -200,7 +210,9 @@ public class HxFormValueComponentRenderer : ComponentBase
 			{
 				builder.OpenElement(820, "span");
 				builder.AddAttribute(821, "class", "form-adorn-text");
-				builder.AddContent(822, formValueComponentWithAdorns.AdornStartText);
+				builder.AddAttribute(822, "id", formValueComponentWithAdorns.AdornStartTextId); // referenced by the input aria-describedby
+				builder.AddAttribute(823, "aria-hidden", "true"); // must not join the accessible name of the input (wrapping label)
+				builder.AddContent(824, formValueComponentWithAdorns.AdornStartText);
 				builder.CloseElement(); // span.form-adorn-text
 			}
 		}
@@ -215,7 +227,9 @@ public class HxFormValueComponentRenderer : ComponentBase
 			{
 				builder.OpenElement(840, "span");
 				builder.AddAttribute(841, "class", "form-adorn-text");
-				builder.AddContent(842, formValueComponentWithAdorns.AdornEndText);
+				builder.AddAttribute(842, "id", formValueComponentWithAdorns.AdornEndTextId); // referenced by the input aria-describedby
+				builder.AddAttribute(843, "aria-hidden", "true"); // must not join the accessible name of the input (wrapping label)
+				builder.AddContent(844, formValueComponentWithAdorns.AdornEndText);
 				builder.CloseElement(); // span.form-adorn-text
 			}
 
@@ -227,7 +241,7 @@ public class HxFormValueComponentRenderer : ComponentBase
 				builder.CloseElement(); // div.form-adorn-icon
 			}
 
-			builder.CloseElement(); // div.form-adorn
+			builder.CloseElement(); // label.form-adorn or div.form-adorn
 		}
 	}
 

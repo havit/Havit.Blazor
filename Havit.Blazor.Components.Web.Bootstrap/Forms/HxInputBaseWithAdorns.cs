@@ -1,4 +1,4 @@
-using Havit.Blazor.Components.Web.Bootstrap.Internal;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -36,6 +36,21 @@ public abstract class HxInputBaseWithAdorns<TValue> : HxInputBaseWithInputGroups
 	/// Adornment (typically an icon) at the end of the input.
 	/// </summary>
 	[Parameter] public RenderFragment AdornEndTemplate { get; set; }
+
+	private string _adornStartTextId;
+	private string _adornEndTextId;
+
+	// The text adornments are aria-hidden (must not join the accessible name of the input via the wrapping label),
+	// but they can be meaningful (currency, unit, domain suffix), so the input references them in aria-describedby.
+	string IFormValueComponentWithAdorns.AdornStartTextId => String.IsNullOrEmpty(AdornStartText) ? null : (_adornStartTextId ??= "el" + Guid.NewGuid().ToString("N"));
+	string IFormValueComponentWithAdorns.AdornEndTextId => String.IsNullOrEmpty(AdornEndText) ? null : (_adornEndTextId ??= "el" + Guid.NewGuid().ToString("N"));
+
+	/// <inheritdoc />
+	private protected override IEnumerable<string> GetAriaDescribedByIds()
+	{
+		IFormValueComponentWithAdorns adorns = this;
+		return new[] { adorns.AdornStartTextId, adorns.AdornEndTextId }.Concat(base.GetAriaDescribedByIds());
+	}
 
 	/// <inheritdoc />
 	protected override void OnParametersSet()

@@ -1,0 +1,9 @@
+/* Form inputs - rules shared by the Hx* form input components (attached to the scoped CSS bundle, see the csproj). */
+
+/* Bootstrap styles the disabled state with .form-control:disabled, which cannot match the form-adorn wrapper (label/div.form-control),
+   the wrapper has to reflect the disabled state of the inner form-ghost input. */
+.form-adorn:has(> .form-ghost:disabled) {
+	color: var(--bs-control-disabled-color);
+	background-color: var(--bs-control-disabled-bg);
+	border-color: var(--bs-control-disabled-border-color);
+}
