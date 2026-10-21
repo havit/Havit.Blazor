@@ -131,4 +131,38 @@ public class HxCheckboxTests : BunitTestBase
 		Assert.False(reversedRow.ParentElement.ClassList.Contains("flex-row-reverse"));
 		Assert.Equal(reversedRow.ParentElement, cut.Find(".form-text").ParentElement);
 	}
+
+	[Theory]
+	[InlineData(InputSize.Small, "check-sm")]
+	[InlineData(InputSize.Large, "check-lg")]
+	public void HxCheckbox_InputSize_RendersCheckSizeClass(InputSize inputSize, string expectedCssClass)
+	{
+		// Arrange
+		bool value = false;
+
+		// Act
+		var cut = Render<HxCheckbox>(parameters => parameters
+			.Bind(p => p.Value, value, v => value = v)
+			.Add(p => p.Text, "Text")
+			.Add(p => p.InputSize, inputSize));
+
+		// Assert
+		Assert.True(cut.Find("input.check").ClassList.Contains(expectedCssClass));
+	}
+
+	[Fact]
+	public void HxCheckbox_InputSizeRegular_RendersNoSizeClass()
+	{
+		// Arrange
+		bool value = false;
+
+		// Act
+		var cut = Render<HxCheckbox>(parameters => parameters
+			.Bind(p => p.Value, value, v => value = v)
+			.Add(p => p.Text, "Text"));
+
+		// Assert
+		Assert.DoesNotContain("check-sm", cut.Markup);
+		Assert.DoesNotContain("check-lg", cut.Markup);
+	}
 }

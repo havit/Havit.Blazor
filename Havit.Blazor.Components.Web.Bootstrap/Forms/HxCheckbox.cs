@@ -67,4 +67,10 @@ public class HxCheckbox : HxCheckboxBase
 	[Parameter] public ButtonSize? ButtonSize { get; set; }
 	protected override ButtonSize ButtonSizeEffective => ButtonSize ?? GetSettings()?.ButtonSize ?? GetDefaults().ButtonSize ?? throw new InvalidOperationException(nameof(ButtonSize) + " default for " + nameof(HxCheckbox) + " has to be set.");
 
+	/// <summary>
+	/// Size of the checkbox (<c>check-sm</c>/<c>check-lg</c>). Not used for <see cref="CheckboxRenderMode.ToggleButton"/>, use <see cref="ButtonSize"/> instead.<br />
+	/// The default is taken from <see cref="HxSetup.Defaults"/> (<see cref="InputSize.Regular"/> if not customized).
+	/// </summary>
+	[Parameter] public InputSize? InputSize { get; set; }
+	protected override InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 }

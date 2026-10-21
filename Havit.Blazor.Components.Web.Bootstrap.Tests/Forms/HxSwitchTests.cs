@@ -56,6 +56,25 @@ public class HxSwitchTests : BunitTestBase
 		Assert.Equal("switch", input.GetAttribute("role"));
 	}
 
+	[Theory]
+	[InlineData(InputSize.Small, "switch-sm")]
+	[InlineData(InputSize.Large, "switch-lg")]
+	public void HxSwitch_InputSize_RendersSwitchSizeClassOnWrapper(InputSize inputSize, string expectedCssClass)
+	{
+		// Arrange
+		bool value = false;
+
+		// Act
+		var cut = Render<HxSwitch>(parameters => parameters
+			.Bind(p => p.Value, value, v => value = v)
+			.Add(p => p.Text, "Text")
+			.Add(p => p.InputSize, inputSize));
+
+		// Assert — Bootstrap 6 sizes the .switch wrapper (the input inside is unstyled)
+		Assert.True(cut.Find("div.switch").ClassList.Contains(expectedCssClass));
+		Assert.False(cut.Find("div.switch > input").ClassList.Contains(expectedCssClass));
+	}
+
 	private (IRenderedComponent<HxSwitch> cut, bool[] valueHolder) RenderSwitch(bool initialValue = false)
 	{
 		var valueHolder = new bool[] { initialValue };

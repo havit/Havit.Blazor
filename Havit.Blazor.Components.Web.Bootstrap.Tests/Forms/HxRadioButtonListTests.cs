@@ -121,4 +121,23 @@ public class HxRadioButtonListTests : BunitTestBase
 			Assert.NotNull(label.QuerySelector("input[type='radio']"));
 		}
 	}
+
+	[Fact]
+	public void HxRadioButtonList_InputSize_RendersRadioSizeClass()
+	{
+		// Arrange
+		var items = new List<string> { "Apple", "Banana" };
+		string selectedValue = null;
+
+		// Act
+		var cut = Render<HxRadioButtonList<string, string>>(parameters => parameters
+			.Add(p => p.Data, items)
+			.Bind(p => p.Value, selectedValue, v => selectedValue = v)
+			.Add(p => p.InputSize, InputSize.Large));
+
+		// Assert
+		var inputs = cut.FindAll("input[type='radio']");
+		Assert.Equal(2, inputs.Count);
+		Assert.All(inputs, input => Assert.True(input.ClassList.Contains("radio-lg")));
+	}
 }

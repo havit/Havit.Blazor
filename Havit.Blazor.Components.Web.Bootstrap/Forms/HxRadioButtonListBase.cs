@@ -40,6 +40,14 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 	protected ButtonSize ButtonSizeEffective => ButtonSize ?? GetSettings()?.ButtonSize ?? GetDefaults()?.ButtonSize ?? throw new InvalidOperationException(nameof(ButtonSize) + " default for " + nameof(HxRadioButtonListBase<,>) + " has to be set.");
 
 	/// <summary>
+	/// Size of the radio buttons (<c>radio-sm</c>/<c>radio-lg</c>).
+	/// Not used for <see cref="RadioButtonListRenderMode.ToggleButtons"/> and <see cref="RadioButtonListRenderMode.ButtonGroup"/>, use <see cref="ButtonSize"/> instead.<br />
+	/// The default is taken from <see cref="HxSetup.Defaults"/> (<see cref="InputSize.Regular"/> if not customized).
+	/// </summary>
+	[Parameter] public InputSize? InputSize { get; set; }
+	protected InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
+
+	/// <summary>
 	/// Selects a value from an item.
 	/// Not required when <c>TValueType</c> is the same as <c>TItemTime</c>.
 	/// Base property for direct setup or to be re-published as <c>[Parameter] public</c>.
@@ -251,6 +259,7 @@ public abstract class HxRadioButtonListBase<TValue, TItem> : HxInputBase<TValue>
 				builder.OpenElement(200, "input");
 				builder.AddAttribute(201, "class", CssClassHelper.Combine(
 					"radio",
+					InputSizeEffective.AsCheckRadioSwitchCssClass("radio"),
 					(ColorEffective != ThemeColor.None) ? ColorEffective.ToThemeCss() : null,
 					ItemInputCssClassImpl,
 					ItemInputCssClassSelectorImpl?.Invoke(item)));

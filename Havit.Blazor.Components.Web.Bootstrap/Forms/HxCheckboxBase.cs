@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// HxCheckBox and HxSwitch base class.
 /// </summary>
-public abstract class HxCheckboxBase : HxInputBase<bool>
+public abstract class HxCheckboxBase : HxInputBase<bool>, IInputWithSize
 {
 	/// <summary>
 	/// Text to display next to the checkbox.
@@ -40,6 +40,16 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 	protected abstract ButtonVariant VariantEffective { get; }
 
 	protected virtual ButtonSize ButtonSizeEffective => ButtonSize.Regular;
+
+	/// <summary>
+	/// Size of the checkbox/switch (not used for <see cref="CheckboxRenderMode.ToggleButton"/>).
+	/// </summary>
+	protected abstract InputSize InputSizeEffective { get; }
+	InputSize IInputWithSize.InputSizeEffective => InputSizeEffective;
+
+	// Applied to the input by HxInputBase.GetInputCssClassToRender(): check-sm/-lg for a checkbox,
+	// nothing for a switch (switch-sm/-lg goes to the .switch wrapper) and a toggle button (uses ButtonSize).
+	string IInputWithSize.GetInputSizeCssClass() => (RenderModeEffective == CheckboxRenderMode.Checkbox) ? InputSizeEffective.AsCheckRadioSwitchCssClass("check") : null;
 
 	/// <summary>
 	/// Returns checkbox render mode.
@@ -152,7 +162,7 @@ public abstract class HxCheckboxBase : HxInputBase<bool>
 		{
 			// Bootstrap 6 switch: an unstyled checkbox layered over the styled .switch wrapper element
 			builder.OpenElement(-100, "div");
-			builder.AddAttribute(-99, "class", CssClassHelper.Combine("switch", (ColorEffective != ThemeColor.None) ? ColorEffective.ToThemeCss() : null));
+			builder.AddAttribute(-99, "class", CssClassHelper.Combine("switch", InputSizeEffective.AsCheckRadioSwitchCssClass("switch"), (ColorEffective != ThemeColor.None) ? ColorEffective.ToThemeCss() : null));
 		}
 
 		builder.OpenElement(0, "input");

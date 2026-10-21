@@ -50,4 +50,11 @@ public class HxSwitch : HxCheckboxBase
 	protected override ButtonVariant VariantEffective => throw new NotSupportedException();
 
 	protected override ButtonSize ButtonSizeEffective => throw new NotSupportedException();
+
+	/// <summary>
+	/// Size of the switch (<c>switch-sm</c>/<c>switch-lg</c>).<br />
+	/// The default is taken from <see cref="HxSetup.Defaults"/> (<see cref="InputSize.Regular"/> if not customized).
+	/// </summary>
+	[Parameter] public InputSize? InputSize { get; set; }
+	protected override InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 }

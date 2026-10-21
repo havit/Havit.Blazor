@@ -137,6 +137,14 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 	[Parameter] public ButtonSize? ButtonSize { get; set; }
 	protected ButtonSize? ButtonSizeEffective => ButtonSize ?? GetSettings()?.ButtonSize ?? GetDefaults().ButtonSize; // can be null, HxCheckbox.ButtonSize remains unset
 
+	/// <summary>
+	/// Size of the checkboxes/switches (<c>check-sm</c>/<c>check-lg</c>, <c>switch-sm</c>/<c>switch-lg</c>).
+	/// Not used for <see cref="CheckboxListRenderMode.ToggleButtons"/> and <see cref="CheckboxListRenderMode.ButtonGroup"/>, use <see cref="ButtonSize"/> instead.<br />
+	/// The default is taken from <see cref="HxSetup.Defaults"/> (<see cref="InputSize.Regular"/> if not customized).
+	/// </summary>
+	[Parameter] public InputSize? InputSize { get; set; }
+	protected InputSize? InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults().InputSize; // can be null, HxCheckbox.InputSize remains unset (HxSetup.Defaults apply)
+
 	/// <inheritdoc/>
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
@@ -200,6 +208,7 @@ public class HxCheckboxList<TValue, TItem> : HxInputBase<List<TValue>> // cannot
 			builder.AddAttribute(10, nameof(HxCheckbox.Color), ColorEffective);
 			builder.AddAttribute(11, nameof(HxCheckbox.Variant), VariantEffective);
 			builder.AddAttribute(12, nameof(HxCheckbox.ButtonSize), ButtonSizeEffective);
+			builder.AddAttribute(13, nameof(HxCheckbox.InputSize), InputSizeEffective);
 
 			// We need ValueExpression. Ehm, HxCheckbox needs ValueExpression. Because it is InputBase<T> which needs ValueExpression.
 			// We have nothing to give the HxCheckbox. So we make own class with property which we assign to the ValueExpression.

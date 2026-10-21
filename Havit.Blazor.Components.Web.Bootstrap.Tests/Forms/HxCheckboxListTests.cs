@@ -1,4 +1,4 @@
-namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
 public class HxCheckboxListTests : BunitTestBase
 {
@@ -112,5 +112,24 @@ public class HxCheckboxListTests : BunitTestBase
 		Assert.Equal(2, cut.Instance.Value.Count());
 		Assert.Contains("Alpha", cut.Instance.Value);
 		Assert.Contains("Gamma", cut.Instance.Value);
+	}
+
+	[Fact]
+	public void HxCheckboxList_InputSize_RendersCheckSizeClass()
+	{
+		// Arrange
+		var data = new List<string> { "Alpha", "Beta" };
+		List<string> selectedValues = new();
+
+		// Act
+		var cut = Render<HxCheckboxList<string, string>>(parameters => parameters
+			.Add(p => p.Data, data)
+			.Add(p => p.InputSize, InputSize.Small)
+			.Bind(p => p.Value, selectedValues, newValue => selectedValues = newValue));
+
+		// Assert
+		var inputs = cut.FindAll("input[type='checkbox']");
+		Assert.Equal(2, inputs.Count);
+		Assert.All(inputs, input => Assert.True(input.ClassList.Contains("check-sm")));
 	}
 }
