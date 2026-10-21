@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components.Routing;
+﻿using System.Globalization;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
@@ -73,11 +74,14 @@ public class HxNavOverflowTests : BunitTestBase
 		var toggle = cut.Find(".nav-overflow-toggle");
 		Assert.Equal("See all", toggle.QuerySelector(".nav-overflow-text").TextContent.Trim());
 		Assert.NotNull(toggle.QuerySelector(".nav-overflow-icon .bi-three-dots-vertical"));
+		Assert.Null(toggle.GetAttribute("aria-label")); // the visible text is the accessible name
 	}
 
 	[Fact]
-	public void HxNavOverflow_MoreTextEmpty_RendersIconOnlyToggle()
+	public void HxNavOverflow_MoreTextEmpty_RendersIconOnlyToggleWithAriaLabel()
 	{
+		using var culture = CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US"));
+
 		// Act
 		var cut = Render<HxNavOverflow>(parameters => parameters
 			.Add(c => c.MoreText, "")
@@ -88,6 +92,22 @@ public class HxNavOverflowTests : BunitTestBase
 		var toggle = cut.Find(".nav-overflow-toggle");
 		Assert.Null(toggle.QuerySelector(".nav-overflow-text"));
 		Assert.NotNull(toggle.QuerySelector(".nav-overflow-icon"));
+		Assert.Equal("More", toggle.GetAttribute("aria-label"));
+	}
+
+	[Fact]
+	public void HxNavOverflow_MoreTextEmpty_AriaLabelIsLocalized()
+	{
+		using var culture = CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("cs-CZ"));
+
+		// Act
+		var cut = Render<HxNavOverflow>(parameters => parameters
+			.Add(c => c.MoreText, "")
+			.AddChildContent<HxNavLink>(link => link.Add(l => l.Text, "Home").Add(l => l.Href, "/"))
+		);
+
+		// Assert
+		Assert.Equal("Více", cut.Find(".nav-overflow-toggle").GetAttribute("aria-label"));
 	}
 
 	[Fact]

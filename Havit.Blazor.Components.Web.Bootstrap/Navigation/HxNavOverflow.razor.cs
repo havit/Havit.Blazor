@@ -1,4 +1,5 @@
-﻿using Microsoft.JSInterop;
+﻿using Microsoft.Extensions.Localization;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
@@ -69,7 +70,7 @@ public partial class HxNavOverflow : IAsyncDisposable
 
 	/// <summary>
 	/// Text of the "More" toggle button. The default is <c>More</c>.
-	/// Set to <c>null</c> or an empty string to render an icon-only toggle.
+	/// Set to <c>null</c> or an empty string to render an icon-only toggle (it gets a localized <c>aria-label</c>).
 	/// </summary>
 	[Parameter] public string MoreText { get; set; }
 	protected string MoreTextEffective => MoreText ?? GetSettings()?.MoreText ?? GetDefaults().MoreText;
@@ -141,6 +142,7 @@ public partial class HxNavOverflow : IAsyncDisposable
 	[CascadingParameter] protected HxNavbar NavbarContainer { get; set; }
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
+	[Inject] protected IStringLocalizer<HxNavOverflow> Localizer { get; set; }
 
 	private ElementReference _navOverflowElement;
 	private DotNetObjectReference<HxNavOverflow> _dotnetObjectReference;
