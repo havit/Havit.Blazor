@@ -92,4 +92,36 @@ public class HxInputTags_Tests : TestAppTestBase
 		// Assert — use a single atomic assertion for all tag texts
 		await Expect(tagItems).ToHaveTextAsync(new[] { "One", "Two", "Three" });
 	}
+
+	[Fact]
+	public async Task HxInputTags_BackspaceInEmptyInput_FirstSelectsLastTagSecondRemovesIt()
+	{
+		// Arrange
+		await NavigateToTestAppAsync("/HxInputTags");
+
+		var input = Page.Locator("input[type='text']");
+		var tagItems = Page.Locator("[data-testid='tags-output'] [data-testid='tag-item']");
+
+		await input.ClickAsync();
+		await input.FillAsync("Alpha");
+		await input.PressAsync("Enter");
+		await input.FillAsync("Beta");
+		await input.PressAsync("Enter");
+		await Expect(tagItems).ToHaveCountAsync(2);
+
+		// Act - first Backspace selects the last tag
+		await input.PressAsync("Backspace");
+
+		// Assert
+		await Expect(Page.Locator(".chip.hx-tag.active")).ToContainTextAsync("Beta");
+		await Expect(tagItems).ToHaveCountAsync(2);
+
+		// Act - second Backspace removes it
+		await input.PressAsync("Backspace");
+
+		// Assert
+		await Expect(tagItems).ToHaveCountAsync(1);
+		await Expect(tagItems.First).ToHaveTextAsync("Alpha");
+		await Expect(Page.Locator(".chip.hx-tag.active")).ToHaveCountAsync(0);
+	}
 }

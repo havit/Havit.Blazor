@@ -12,7 +12,8 @@ public sealed class HxInputRange
 		Defaults = new InputRangeSettings()
 		{
 			BindEvent = BindEvent.OnChange,
-			Bubble = false
+			Bubble = false,
+			Color = ThemeColor.None
 		};
 	}
 }

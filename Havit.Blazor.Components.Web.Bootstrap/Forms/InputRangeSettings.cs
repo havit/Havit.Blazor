@@ -14,4 +14,9 @@ public record InputRangeSettings : InputSettings
 	/// Determines whether a value bubble following the thumb is shown.
 	/// </summary>
 	public bool? Bubble { get; set; }
+
+	/// <summary>
+	/// Theme color of the filled track and the thumb.
+	/// </summary>
+	public ThemeColor? Color { get; set; }
 }

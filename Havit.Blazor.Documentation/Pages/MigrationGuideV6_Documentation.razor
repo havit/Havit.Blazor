@@ -388,7 +388,7 @@
 			<tr><td><code>HxCloseButton</code></td><td><code>White</code> parameter and <code>CloseButtonSettings</code> removed &ndash; the v6 <code>btn-close</code> is tinted with <code>currentcolor</code>; use <code>data-bs-theme="dark"</code> for dark surfaces. The <code>HxDialog.CloseButtonSettings</code> parameter was removed as well.</td></tr>
 			<tr><td><code>HxTabPanel</code></td><td><code>card-header-pills</code> no longer exists in Bootstrap 6 (only <code>card-header-tabs</code> remains).</td></tr>
 			<tr><td><code>HxProgress</code></td><td>Adopts the v6 progress structure (the v5.3-deprecated markup was removed upstream): each bar's <code>.progress</code> wrapper carries the role/aria/sizing; stacked bars use <code>.progress-stacked</code>. Public API unchanged; update custom CSS selectors.</td></tr>
-			<tr><td><code>HxCalendar</code> (+ date pickers)</td><td>Visuals aligned with the Bootstrap 6 Datepicker and driven by its <code>--bs-datepicker-*</code> tokens; the calendar stays Blazor-rendered (no JS dependency, <code>CultureInfo</code> localization).</td></tr>
+			<tr><td><code>HxCalendar</code> (+ date pickers)</td><td>Visuals aligned with the Bootstrap 6 Datepicker; the calendar stays Blazor-rendered (no JS dependency, <code>CultureInfo</code> localization). Its <code>--hx-calendar-*</code> defaults mirror the Datepicker values &ndash; they read the <code>--bs-datepicker-*</code> tokens at <code>:root</code> with fallbacks, while Bootstrap scopes those tokens to the Datepicker itself. Customize the calendar via <code>--hx-calendar-*</code> (or set <code>--bs-datepicker-*</code> on <code>:root</code>); overriding <code>--bs-datepicker-*</code> on a nested element has no effect.</td></tr>
 		</tbody>
 	</table>
 </div>

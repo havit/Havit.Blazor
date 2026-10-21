@@ -121,4 +121,7 @@
     <value>Odstranit</value>
     <comment/>
   </data>
+  <data name="TagSelected" xml:space="preserve">
+    <value>Vybrán štítek {0}. Dalším stisknutím klávesy Backspace jej odstraníte.</value>
+  </data>
 </root>

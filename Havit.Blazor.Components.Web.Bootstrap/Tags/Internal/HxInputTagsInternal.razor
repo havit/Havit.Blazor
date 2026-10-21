@@ -18,7 +18,7 @@
 
 		@foreach (string tag in ValueEffective)
 		{
-			<span @key="@tag" class="@CssClassHelper.Combine("chip", "hx-tag", TagCssClass)">
+			<span @key="@tag" class="@CssClassHelper.Combine("chip", "hx-tag", (tag == _selectedTag) ? "active" : null, TagCssClass)">
 				@tag
 				@if (EnabledEffective)
 				{
@@ -47,6 +47,9 @@
 				}
 			</span>
 		}
+
+		@* Announces the tag selected by the first Backspace (the focus stays in the input). *@
+		<span class="visually-hidden" role="status">@((_selectedTag is not null) ? HxInputTagsLocalizer["TagSelected", _selectedTag] : null)</span>
 
 		<HxInputTagsInputInternal @ref="_inputComponent"
 								  InputId="@InputId"

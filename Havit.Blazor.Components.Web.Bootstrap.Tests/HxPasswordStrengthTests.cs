@@ -109,6 +109,24 @@ public class HxPasswordStrengthTests : BunitTestBase
 		Assert.Equal("good", text.GetAttribute("data-bs-strength"));
 	}
 
+	[Theory]
+	[InlineData(PasswordStrengthLevel.Weak, "danger")]
+	[InlineData(PasswordStrengthLevel.Fair, "warning")]
+	[InlineData(PasswordStrengthLevel.Good, "info")]
+	[InlineData(PasswordStrengthLevel.Strong, "success")]
+	public void HxPasswordStrength_StaticStrengthWithShowText_SetsTextColor(PasswordStrengthLevel level, string expectedColor)
+	{
+		// Act
+		var cut = Render<HxPasswordStrength>(parameters => parameters
+			.Add(p => p.Strength, level)
+			.Add(p => p.ShowText, true));
+
+		// Assert
+		// the text is not a descendant of the meter, the color must be set on the text element directly (the property the Bootstrap CSS reads)
+		var text = cut.Find("span.strength-text");
+		Assert.Equal($"--bs-strength-color: var(--bs-{expectedColor}-fg)", text.GetAttribute("style"));
+	}
+
 	[Fact]
 	public void HxPasswordStrength_StaticStrengthProgressBar_RendersDataAttribute()
 	{
@@ -169,6 +187,114 @@ public class HxPasswordStrengthTests : BunitTestBase
 
 		// Assert
 		Assert.Empty(JSInterop.Invocations);
+	}
+
+	[Fact]
+	public void HxPasswordStrength_Rerender_SameOptions_DoesNotRecreateJsPlugin()
+	{
+		// Arrange
+		var cut = Render<HxPasswordStrength>(parameters => parameters
+			.Add(p => p.MinLength, 10));
+
+		// Act
+		cut.Render(parameters => parameters
+			.Add(p => p.MinLength, 10));
+
+		// Assert
+		Assert.Single(JSInterop.Invocations, i => i.Identifier == "initialize");
+		Assert.DoesNotContain(JSInterop.Invocations, i => i.Identifier == "dispose");
+	}
+
+	[Fact]
+	public void HxPasswordStrength_OptionsChanged_RecreatesJsPluginWithNewOptions()
+	{
+		// Arrange
+		var cut = Render<HxPasswordStrength>(parameters => parameters
+			.Add(p => p.MinLength, 10));
+
+		// Act
+		cut.Render(parameters => parameters
+			.Add(p => p.MinLength, 12)
+			.Add(p => p.Thresholds, new PasswordStrengthThresholds { Weak = 1, Fair = 2, Good = 3 }));
+
+		// Assert
+		Assert.Single(JSInterop.Invocations, i => i.Identifier == "dispose");
+		Assert.Equal(2, JSInterop.Invocations.Count(i => i.Identifier == "initialize"));
+		var options = (Dictionary<string, object>)JSInterop.Invocations.Last(i => i.Identifier == "initialize").Arguments[2];
+		Assert.Equal(12, options["minLength"]);
+		Assert.Equal(new int[] { 1, 2, 3 }, options["thresholds"]);
+	}
+
+	[Fact]
+	public void HxPasswordStrength_ThresholdsChangedInPlace_RecreatesJsPlugin()
+	{
+		// Arrange
+		var thresholds = new PasswordStrengthThresholds();
+		var cut = Render<HxPasswordStrength>(parameters => parameters
+			.Add(p => p.Thresholds, thresholds));
+
+		// Act - the same (mutable) instance changed
+		thresholds.Weak = 1;
+		cut.Render(parameters => parameters
+			.Add(p => p.Thresholds, thresholds));
+
+		// Assert
+		Assert.Single(JSInterop.Invocations, i => i.Identifier == "dispose");
+		Assert.Equal(2, JSInterop.Invocations.Count(i => i.Identifier == "initialize"));
+		var options = (Dictionary<string, object>)JSInterop.Invocations.Last(i => i.Identifier == "initialize").Arguments[2];
+		Assert.Equal(new int[] { 1, 4, 6 }, options["thresholds"]);
+	}
+
+	[Fact]
+	public void HxPasswordStrength_ShowTextChanged_RecreatesJsPlugin()
+	{
+		// Arrange
+		var cut = Render<HxPasswordStrength>();
+
+		// Act
+		cut.Render(parameters => parameters
+			.Add(p => p.ShowText, true));
+
+		// Assert
+		Assert.Single(JSInterop.Invocations, i => i.Identifier == "dispose");
+		Assert.Equal(2, JSInterop.Invocations.Count(i => i.Identifier == "initialize"));
+	}
+
+	[Fact]
+	public void HxPasswordStrength_StrengthSet_DisposesJsPlugin()
+	{
+		// Arrange
+		var cut = Render<HxPasswordStrength>();
+
+		// Act
+		cut.Render(parameters => parameters
+			.Add(p => p.Strength, PasswordStrengthLevel.Good));
+
+		// Assert
+		Assert.Single(JSInterop.Invocations, i => i.Identifier == "dispose");
+		Assert.Single(JSInterop.Invocations, i => i.Identifier == "initialize");
+		Assert.Equal("good", cut.Find(".strength").GetAttribute("data-bs-strength"));
+	}
+
+	[Fact]
+	public void HxPasswordStrength_StrengthCleared_InitializesJsPlugin()
+	{
+		// Arrange
+		var cut = Render<HxPasswordStrength>(parameters => parameters
+			.Add(p => p.Strength, PasswordStrengthLevel.Good)
+			.Add(p => p.ShowText, true));
+
+		// Act
+		cut.Render(parameters => parameters
+			.Add(p => p.Strength, (PasswordStrengthLevel?)null));
+
+		// Assert
+		Assert.Single(JSInterop.Invocations, i => i.Identifier == "initialize");
+		Assert.False(cut.Find(".strength").HasAttribute("data-bs-strength"));
+		Assert.Empty(cut.FindAll(".strength-segment.active"));
+		var text = cut.Find("span.strength-text");
+		Assert.Equal(string.Empty, text.TextContent);
+		Assert.False(text.HasAttribute("style"));
 	}
 
 	[Fact]

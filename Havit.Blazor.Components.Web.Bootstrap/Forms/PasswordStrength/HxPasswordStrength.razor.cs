@@ -153,6 +153,7 @@ public partial class HxPasswordStrength : IAsyncDisposable
 	private DotNetObjectReference<HxPasswordStrength> _dotnetObjectReference;
 	private IJSObjectReference _jsModule;
 	private bool _initialized;
+	private JsPluginState _initializedJsPluginState;
 	private bool _disposed;
 
 	public HxPasswordStrength()
@@ -160,21 +161,48 @@ public partial class HxPasswordStrength : IAsyncDisposable
 		_dotnetObjectReference = DotNetObjectReference.Create(this);
 	}
 
+	/// <inheritdoc cref="ComponentBase.SetParametersAsync(ParameterView)" />
+	public override async Task SetParametersAsync(ParameterView parameters)
+	{
+		parameters.SetParameterProperties(this);
+
+		// The plugin reads its options (and finds the segments and the text element) only when created.
+		// When any of them changes or the static display is requested, the plugin is disposed before rendering
+		// (the dispose resets the UI to the state rendered by Blazor) and re-created in OnAfterRenderAsync (dynamic mode only).
+		if (_initialized && ((Strength is not null) || (GetJsPluginState() != _initializedJsPluginState)))
+		{
+			_initialized = false;
+			await _jsModule.InvokeVoidAsync("dispose", _elementReference);
+		}
+
+		await base.SetParametersAsync(ParameterView.Empty);
+	}
+
 	/// <inheritdoc cref="ComponentBase.OnAfterRenderAsync(bool)" />
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		await base.OnAfterRenderAsync(firstRender);
 
-		if (firstRender && (Strength is null))
+		if ((Strength is null) && !_initialized)
 		{
 			await EnsureJsModuleAsync();
-			if (_disposed)
+			if (_disposed || _initialized || (Strength is not null))
 			{
 				return;
 			}
-			await _jsModule.InvokeVoidAsync("initialize", _elementReference, _dotnetObjectReference, GetJsOptions());
 			_initialized = true;
+			_initializedJsPluginState = GetJsPluginState();
+			await _jsModule.InvokeVoidAsync("initialize", _elementReference, _dotnetObjectReference, GetJsOptions());
 		}
+	}
+
+	/// <summary>
+	/// Captures everything the plugin instance depends on (to detect the need to re-create it).
+	/// <see cref="PasswordStrengthWeights"/> and <see cref="PasswordStrengthThresholds"/> are mutable, they are cloned to detect in-place changes.
+	/// </summary>
+	private JsPluginState GetJsPluginState()
+	{
+		return new JsPluginState(InputSelector, MinLengthEffective, (WeightsEffective is null) ? null : (WeightsEffective with { }), (ThresholdsEffective is null) ? null : (ThresholdsEffective with { }), WeakTextEffective, FairTextEffective, GoodTextEffective, StrongTextEffective, VariantEffective, ShowTextEffective);
 	}
 
 	/// <summary>
@@ -342,20 +370,33 @@ public partial class HxPasswordStrength : IAsyncDisposable
 	}
 
 	/// <summary>
-	/// Returns the text feedback color for the static display (the plugin sets the <c>--strength-color</c> custom property the same way in the dynamic mode).
+	/// Returns the text feedback color for the static display (<c>HxPasswordStrength.js</c> sets the <c>--bs-strength-color</c> custom property the same way in the dynamic mode).<br />
+	/// The text element is not a descendant of the meter, so it does not inherit the <c>--bs-strength-color</c> set by the <c>data-bs-strength</c> attribute of the meter.
 	/// </summary>
 	private string GetStaticTextStyle()
 	{
 		return Strength switch
 		{
 			null => null,
-			PasswordStrengthLevel.Weak => "--strength-color: var(--danger-text)",
-			PasswordStrengthLevel.Fair => "--strength-color: var(--warning-text)",
-			PasswordStrengthLevel.Good => "--strength-color: var(--info-text)",
-			PasswordStrengthLevel.Strong => "--strength-color: var(--success-text)",
+			PasswordStrengthLevel.Weak => "--bs-strength-color: var(--bs-danger-fg)",
+			PasswordStrengthLevel.Fair => "--bs-strength-color: var(--bs-warning-fg)",
+			PasswordStrengthLevel.Good => "--bs-strength-color: var(--bs-info-fg)",
+			PasswordStrengthLevel.Strong => "--bs-strength-color: var(--bs-success-fg)",
 			_ => throw new InvalidOperationException($"Unknown {nameof(PasswordStrengthLevel)} value {Strength}.")
 		};
 	}
+
+	private record JsPluginState(
+		string InputSelector,
+		int? MinLength,
+		PasswordStrengthWeights Weights,
+		PasswordStrengthThresholds Thresholds,
+		string WeakText,
+		string FairText,
+		string GoodText,
+		string StrongText,
+		PasswordStrengthVariant Variant,
+		bool ShowText);
 
 	/// <inheritdoc />
 	public async ValueTask DisposeAsync()
