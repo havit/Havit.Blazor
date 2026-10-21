@@ -144,6 +144,8 @@ public partial class HxCalendar
 
 	private RenderData _renderData;
 	private DateTime? _lastKnownValue;
+	private DateTime _lastKnownDisplayMonth;
+	private DateTime? _navigatedDisplayMonth;
 
 	protected override async Task OnParametersSetAsync()
 	{
@@ -152,17 +154,32 @@ public partial class HxCalendar
 		bool lastKnownValueChanged = _lastKnownValue != Value;
 		_lastKnownValue = Value;
 
-		// whenever the value is changed from outside, we set the display month to the value month
-		if (DisplayMonth == default || lastKnownValueChanged)
+		bool lastKnownDisplayMonthChanged = _lastKnownDisplayMonth != DisplayMonth;
+		_lastKnownDisplayMonth = DisplayMonth;
+
+		// the month the user navigated to is kept until the value or the display month is changed from outside
+		// (a re-render of the parent would otherwise overwrite it with the original display month)
+		if (lastKnownValueChanged || lastKnownDisplayMonthChanged)
 		{
-			if (Value != null)
+			_navigatedDisplayMonth = null;
+		}
+
+		if (_navigatedDisplayMonth != null)
+		{
+			DisplayMonth = _navigatedDisplayMonth.Value;
+		}
+		// whenever the value is changed from outside, we set the display month to the value month
+		else if (Value != null)
+		{
+			if ((DisplayMonth == default) || lastKnownValueChanged)
 			{
 				await SetDisplayMonthAsync(Value.Value);
 			}
-			else
-			{
-				await SetDisplayMonthAsync(TimeProviderEffective.GetLocalNow().Date, limitDisplayMonthByMinMaxDateEffective: true);
-			}
+		}
+		// when the value is cleared, we display today unless the display month is changed from outside at the same time
+		else if ((DisplayMonth == default) || (lastKnownValueChanged && !lastKnownDisplayMonthChanged))
+		{
+			await SetDisplayMonthAsync(TimeProviderEffective.GetLocalNow().Date, limitDisplayMonthByMinMaxDateEffective: true);
 		}
 
 		UpdateRenderData();
@@ -283,32 +300,33 @@ public partial class HxCalendar
 		}
 	}
 
+	private async Task NavigateToDisplayMonthAsync(DateTime newDisplayMonth)
+	{
+		_navigatedDisplayMonth = newDisplayMonth;
+		await SetDisplayMonthAsync(newDisplayMonth);
+		UpdateRenderData();
+	}
+
 	private async Task HandlePreviousMonthClickAsync()
 	{
-		var previousMonth = DisplayMonth.AddMonths(-1);
-		await SetDisplayMonthAsync(previousMonth);
-		UpdateRenderData();
+		await NavigateToDisplayMonthAsync(DisplayMonth.AddMonths(-1));
 	}
 
 	private async Task HandleNextMonthClickAsync()
 	{
-		var nextMonth = DisplayMonth.AddMonths(1);
-		await SetDisplayMonthAsync(nextMonth);
-		UpdateRenderData();
+		await NavigateToDisplayMonthAsync(DisplayMonth.AddMonths(1));
 	}
 
 	private async Task HandleYearChangeAsync(ChangeEventArgs changeEventArgs)
 	{
 		int year = int.Parse((string)changeEventArgs.Value);
-		await SetDisplayMonthAsync(new DateTime(year, DisplayMonth.Month, 1));
-		UpdateRenderData();
+		await NavigateToDisplayMonthAsync(new DateTime(year, DisplayMonth.Month, 1));
 	}
 
 	private async Task HandleMonthChangeAsync(ChangeEventArgs changeEventArgs)
 	{
 		int monthIndex = int.Parse((string)changeEventArgs.Value);
-		await SetDisplayMonthAsync(new DateTime(DisplayMonth.Year, monthIndex + 1, 1));
-		UpdateRenderData();
+		await NavigateToDisplayMonthAsync(new DateTime(DisplayMonth.Year, monthIndex + 1, 1));
 	}
 
 	private async Task HandleDayClickAsync(DayData day)

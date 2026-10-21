@@ -173,7 +173,7 @@ public class HxInputDateTests : BunitTestBase
 	}
 
 	[Fact]
-	public async Task HxInputDate_CalendarNavigation_IsResetWhenDropdownHidden()
+	public void HxInputDate_ClearValue_CalendarShowsCalendarDisplayMonth()
 	{
 		// Arrange
 		DateTime? myValue = new DateTime(2020, 2, 10);
@@ -181,16 +181,34 @@ public class HxInputDateTests : BunitTestBase
 		var cut = Render<HxInputDate<DateTime?>>(parameters => parameters
 			.Add(p => p.Value, myValue)
 			.Add(p => p.ValueChanged, (DateTime? value) => { myValue = value; })
-			.Add(p => p.ValueExpression, () => myValue));
-
-		await cut.InvokeAsync(() => cut.FindAll("button.hx-calendar-navigation-button")[1].Click()); // next month
-		Assert.Equal("2", cut.Find("select[aria-label='Month']").GetAttribute("value")); // March
+			.Add(p => p.ValueExpression, () => myValue)
+			.Add(p => p.CalendarDisplayMonth, new DateTime(2019, 6, 1)));
 
 		// Act
-		var dropdownToggleElement = cut.FindComponent<HxDropdownToggleElement>().Instance;
-		await cut.InvokeAsync(dropdownToggleElement.HandleJsHidden);
+		cut.Render(parameters => parameters.Add(p => p.Value, null));
 
 		// Assert
-		Assert.Equal("1", cut.Find("select[aria-label='Month']").GetAttribute("value")); // February
+		Assert.Equal("5", cut.Find("select[aria-label='Month']").GetAttribute("value")); // June
+		Assert.Equal("2019", cut.Find("select[aria-label='Year']").GetAttribute("value"));
+	}
+
+	[Fact]
+	public void HxInputDate_MinDateChanged_CalendarShowsMinDateMonth()
+	{
+		// Arrange
+		DateTime? myValue = null;
+		var minDate = DateTime.Today.AddYears(2);
+
+		var cut = Render<HxInputDate<DateTime?>>(parameters => parameters
+			.Add(p => p.Value, myValue)
+			.Add(p => p.ValueChanged, (DateTime? value) => { myValue = value; })
+			.Add(p => p.ValueExpression, () => myValue));
+
+		// Act
+		cut.Render(parameters => parameters.Add(p => p.MinDate, minDate));
+
+		// Assert
+		Assert.Equal((minDate.Month - 1).ToString(), cut.Find("select[aria-label='Month']").GetAttribute("value"));
+		Assert.Equal(minDate.Year.ToString(), cut.Find("select[aria-label='Year']").GetAttribute("value"));
 	}
 }

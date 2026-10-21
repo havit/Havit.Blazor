@@ -757,6 +757,46 @@ public class HxInputDateRangeTests : BunitTestBase
 		}
 	}
 
+	[Fact]
+	public async Task HxInputDateRange_ToCalendar_FollowsFromDateChangedAfterNavigation()
+	{
+		// Arrange
+		var myValue = new DateTimeRange { StartDate = new DateTime(2024, 1, 15) };
+
+		var cut = Render<HxInputDateRange<DateTimeRange>>(parameters => parameters
+			.Add(p => p.Value, myValue)
+			.Add(p => p.ValueChanged, (DateTimeRange value) => { myValue = value; })
+			.Add(p => p.ValueExpression, () => myValue));
+
+		await cut.InvokeAsync(() => cut.FindAll("button.hx-calendar-navigation-button")[3].Click()); // "To" calendar, next month
+
+		// Act + Assert
+		cut.Render(parameters => parameters.Add(p => p.Value, new DateTimeRange { StartDate = new DateTime(2024, 6, 15) }));
+		Assert.Equal("5", cut.FindAll("select[aria-label='Month']")[1].GetAttribute("value")); // June
+
+		cut.Render(parameters => parameters.Add(p => p.Value, new DateTimeRange { StartDate = new DateTime(2024, 1, 15) }));
+		Assert.Equal("0", cut.FindAll("select[aria-label='Month']")[1].GetAttribute("value")); // January
+	}
+
+	[Fact]
+	public void HxInputDateRange_ClearEndDate_ToCalendarFollowsFromDate()
+	{
+		// Arrange
+		var myValue = new DateTimeRange { StartDate = new DateTime(2024, 1, 15), EndDate = new DateTime(2024, 3, 10) };
+
+		var cut = Render<HxInputDateRange<DateTimeRange>>(parameters => parameters
+			.Add(p => p.Value, myValue)
+			.Add(p => p.ValueChanged, (DateTimeRange value) => { myValue = value; })
+			.Add(p => p.ValueExpression, () => myValue));
+
+		// Act
+		cut.Render(parameters => parameters.Add(p => p.Value, new DateTimeRange { StartDate = new DateTime(2024, 1, 15) }));
+
+		// Assert
+		Assert.Equal("0", cut.FindAll("select[aria-label='Month']")[1].GetAttribute("value")); // January
+		Assert.Equal("2024", cut.FindAll("select[aria-label='Year']")[1].GetAttribute("value"));
+	}
+
 	public record class FormModel
 	{
 		public MyRange A { get; set; } = new MyRange();

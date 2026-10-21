@@ -32,7 +32,6 @@
 									name="@GetNameAttributeValue()"
 									Value="@CurrentValueAsString"
 									ValueChanged="HandleCurrentValueAsStringChanged"
-									OnHidden="HandleDropdownHidden"
 									placeholder="@Placeholder"
 									disabled="@(!EnabledEffective)"
 									onfocus="this.select();"
@@ -48,7 +47,7 @@
 			@if (EnabledEffective)
 			{
 				<div class="hx-input-date-calendar">
-					<HxCalendar Value="@DateHelper.GetDateTimeFromValue(CurrentValue)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" KeyboardNavigation="false" DisplayMonth="@GetCalendarDisplayMonth()" DisplayMonthChanged="HandleCalendarDisplayMonthChanged" TimeProvider="TimeProviderEffective" />
+					<HxCalendar Value="@DateHelper.GetDateTimeFromValue(CurrentValue)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" KeyboardNavigation="false" DisplayMonth="@GetCalendarDisplayMonthEffective" TimeProvider="TimeProviderEffective" />
 				</div>
 				<div class="hx-input-date-dropdown-buttons">
 					@if (ShowClearButtonEffective)

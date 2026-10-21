@@ -71,6 +71,26 @@ public class HxCalendarTests : BunitTestBase
 	}
 
 	[Fact]
+	public async Task HxCalendar_Navigate_IsKeptUntilDisplayMonthIsChangedFromOutside()
+	{
+		// Arrange
+		var cut = Render<HxCalendar>(parameters => parameters
+			.Add(p => p.DisplayMonth, new DateTime(2025, 3, 1))
+			.Add(p => p.ValueChanged, (DateTime? _) => { })
+		);
+
+		await cut.InvokeAsync(() => cut.FindAll("button.hx-calendar-navigation-button")[1].Click()); // next month
+
+		// Act + Assert — parent re-render with the same display month keeps the navigation
+		cut.Render(parameters => parameters.Add(p => p.DisplayMonth, new DateTime(2025, 3, 1)));
+		Assert.Equal("3", cut.Find("select[aria-label='Month']").GetAttribute("value")); // April
+
+		// Act + Assert — a new display month from the parent wins
+		cut.Render(parameters => parameters.Add(p => p.DisplayMonth, new DateTime(2025, 8, 1)));
+		Assert.Equal("7", cut.Find("select[aria-label='Month']").GetAttribute("value")); // August
+	}
+
+	[Fact]
 	public async Task HxCalendar_SelectDate_UpdatesBoundValue()
 	{
 		using (CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US")))
