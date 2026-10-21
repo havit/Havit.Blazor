@@ -63,10 +63,6 @@
 	--hx-sidebar-footer-item-hover-background-opacity: 				unset;
 	--hx-sidebar-footer-item-hover-color: 							var(--bs-fg-body);
 
-	/* HxProgressOverlay */
-	--hx-progress-overlay-color: 									var(--bs-white);
-	--hx-progress-overlay-opacity: 									.65;
-
 	/* HxEditForm */
 	--hx-form-spacing: 1.25rem;
 
