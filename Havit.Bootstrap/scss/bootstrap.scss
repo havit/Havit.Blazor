@@ -13,17 +13,25 @@
 @use "../node_modules/bootstrap/scss/mixins/tokens" as bs-tokens;
 
 // HAVIT fix: scoped dark/light theming (e.g. dark menus via a `data-bs-theme="dark"` wrapper).
-// Bootstrap 6 emits its theme tokens (--bg-body, --fg-body, ...) on `:root` only, using
-// `light-dark()`, and `[data-bs-theme=dark|light]` only flip `color-scheme`. Browsers resolve
-// `light-dark()` inside a `:root`-declared custom property against `:root`'s color-scheme, so a
-// nested `[data-bs-theme]` scope never re-tints those tokens — only a global `<html>` theme works.
-// Re-emit the full token set on every `[data-bs-theme]` scope so `light-dark()` recomputes against
-// that scope's color-scheme. This mirrors the per-scope token redeclaration Bootstrap's own docs
-// use for their custom themes (e.g. `[data-bs-theme=blue]`).
+// Bootstrap 6 emits its theme tokens (--bg-body, --fg-body, ...) on `:root` only and
+// `[data-bs-theme=dark|light]` only flips `color-scheme` (and `--shadow-strength`).
+// - bootstrap.min.css: lightningcss lowers `light-dark()` for the .browserslistrc targets (Safari/iOS 15.6
+//   lack it) to `var(--lightningcss-light, <light>) var(--lightningcss-dark, <dark>)` space toggles.
+//   `var()` in a custom property is substituted on the element declaring it, so the tokens are resolved
+//   once on `:root` and a nested `[data-bs-theme]` scope inherits the `:root` mode. This applies in every browser.
+// - bootstrap.css (unlowered `light-dark()`): the colors re-tint in nested scopes on their own (verified in
+//   Chromium 152 and WebKit/Safari 27), but the `--box-shadow*` tokens bake in the `:root` `--shadow-strength`.
+// Re-emitting the token set on every `[data-bs-theme]` scope recomputes the tokens against the scope.
+// It lives in the (otherwise empty) `root` layer with zero specificity so Bootstrap's layered component
+// token overrides still win on elements that carry `data-bs-theme` themselves.
+// Known limitation: inside a nested scope it resets consumer `:root` token overrides to the defaults
+// (redeclare such overrides on `:root, [data-bs-theme]`).
 // `--shadow-strength` is left out: it is a plain number Bootstrap itself sets per `[data-bs-theme]`
-// (2.4 for dark), and re-emitting the :root default (1) after it would weaken the dark mode shadows.
-[data-bs-theme] {
-  @include bs-tokens.tokens(map.remove(bootstrap.$root-tokens, "--shadow-strength"));
+// (2.4 for dark), and re-emitting the :root default (1) would weaken the dark mode shadows.
+@layer root {
+  :where([data-bs-theme]) {
+    @include bs-tokens.tokens(map.remove(bootstrap.$root-tokens, "--shadow-strength"));
+  }
 }
 
 // HAVIT fix: small grow spinner (HxSpinner Type=Grow, Size=Small).
