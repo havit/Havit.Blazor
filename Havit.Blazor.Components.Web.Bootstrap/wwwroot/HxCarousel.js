@@ -16,14 +16,21 @@ export function reinitialize(element, options) {
 		return;
 	}
 
+	let paused = false;
 	const c = bootstrap.Carousel.getInstance(element);
 	if (c) {
-		// keep the runtime autoplay state (autoplay stops for good once the user takes control)
+		// keep the runtime autoplay intent (autoplay stops for good once the user takes control)
 		options = { ...options, autoplay: c._playing ?? options.autoplay };
+		// ...and whether it is cycling right now (pause() via PauseAsync() or hover keeps the intent, only stops the timer)
+		paused = options.autoplay && !element.classList.contains('carousel-playing');
 		c.dispose();
 	}
 	// the active item is preserved, the new instance reads it from the .carousel-item.active element
-	new bootstrap.Carousel(element, options);
+	const carousel = new bootstrap.Carousel(element, options);
+	if (paused) {
+		// mouseleave or CycleAsync() resumes cycling as before
+		carousel.pause();
+	}
 }
 
 export function slideTo(element, index) {
