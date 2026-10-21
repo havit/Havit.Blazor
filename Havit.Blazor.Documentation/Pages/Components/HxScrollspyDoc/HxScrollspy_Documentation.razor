@@ -26,11 +26,18 @@
     <DocHeading Title="Static content with list-group navigation" />
     <Demo Type="typeof(HxScrollspy_Demo_ListGroup)" />
 
+    <DocHeading Title="Nested navigation" />
+    <p>
+        Scrollspy also works with nested <a href="/components/@nameof(HxNav)"><code>@nameof(HxNav)</code></a>s.
+        When a nested link becomes active, the link right before the nested <code>HxNav</code> (its parent) gets the <code>.active</code> class too.
+    </p>
+    <Demo Type="typeof(HxScrollspy_Demo_Nested)" />
+
     <DocHeading Title="Dynamic content (async loaded data)" />
     <DocAlert Type="DocAlertType.Warning">
         <p>
-            Bootstrap scrollspy calculates offsets of individual sections when activated (i.e. <code>OnAfterRenderAsync</code> within first render). If the content changes dynamically,
-            you have to refresh the offsets manually by calling <code>HxScrollspy.RefreshAsync()</code>.
+            Bootstrap scrollspy collects the sections to observe (the elements targeted by the navigation links) when activated (i.e. <code>OnAfterRenderAsync</code> within first render).
+            If the content changes dynamically, you have to refresh the scrollspy manually by calling <code>HxScrollspy.RefreshAsync()</code>.
         </p>
         <p>
             A similar issue applies for fragment-navigation. You have to postpone the initial fragment navigation to happen after the data gets loaded and the UI renders the final version

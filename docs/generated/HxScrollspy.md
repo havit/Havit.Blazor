@@ -22,4 +22,5 @@ Bootstrap Scrollspy that automatically highlights the navigation link matching t
 - HxScrollspy_Demo_DynamicContent.razor
 - HxScrollspy_Demo_HxNav.razor
 - HxScrollspy_Demo_ListGroup.razor
+- HxScrollspy_Demo_Nested.razor
 

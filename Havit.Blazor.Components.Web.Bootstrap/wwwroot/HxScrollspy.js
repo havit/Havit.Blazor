@@ -10,10 +10,6 @@ export function refresh(element) {
 		return;
 	}
 
-	if (element.scrollTop > 0) {
-		// scrollspy calculates the offsets properly only if the container is scrolled to
-		element.scrollTo(0, 0);
-	}
 	scrollspy.refresh();
 }
 
