@@ -103,4 +103,32 @@ public class HxCheckboxTests : BunitTestBase
 		var label = cut.Find("div.form-field > label");
 		Assert.Equal(labelText, label.TextContent);
 	}
+
+	[Fact]
+	public void HxCheckbox_Reverse_HintIsNotInTheReversedRow()
+	{
+		// Arrange
+		bool value = false;
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxCheckbox>(0);
+			builder.AddAttribute(1, "Value", value);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<bool>(this, (v) => { value = v; }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<bool>>)(() => value));
+			builder.AddAttribute(4, "Text", "Text");
+			builder.AddAttribute(5, "Hint", "Hint");
+			builder.AddAttribute(6, "Reverse", true);
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+
+		// Assert — only the control and its text are in the reversed flex row, the hint stays in the outer form-field
+		var reversedRow = cut.Find(".flex-row-reverse");
+		Assert.Equal(["INPUT", "LABEL"], reversedRow.Children.Select(e => e.TagName));
+		Assert.False(reversedRow.ParentElement.ClassList.Contains("flex-row-reverse"));
+		Assert.Equal(reversedRow.ParentElement, cut.Find(".form-text").ParentElement);
+	}
 }
