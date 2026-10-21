@@ -3,29 +3,29 @@
 <ApiDoc Type="typeof(HxOtpInput)">
 	<DocHeading Title="Basic usage" />
 	<p>
-		The component renders a series of single-character inputs and binds the concatenated code as a <code>string</code> <code>Value</code>.
-		Focus advances automatically after entering a digit, <kbd>Backspace</kbd> in an empty field moves to the previous field,
-		arrow keys navigate between the inputs, and pasting a full code distributes it across all inputs.
-		The first input renders <code>autocomplete="one-time-code"</code> to support SMS/email code autofill.
+		The component renders a single text input displayed as separate digit slots and binds the code as a <code>string</code> <code>Value</code>.
+		Assistive technology, password managers and SMS autofill treat it as one ordinary field.
+		Typing overwrites the digit in place and moves to the next slot, clicking a slot jumps to it, and pasting a full code
+		(even a formatted one like <code>123-456</code>) fills all the slots.
+		The input renders <code>autocomplete="one-time-code"</code> to support SMS/email code autofill.
 	</p>
 	<Demo Type="typeof(HxOtpInput_Demo)" Tabs="false" />
 
 	<DocHeading Title="Connected inputs" />
-	<p>Set <code>Connected="true"</code> to visually connect the inputs into a single cohesive field (Bootstrap input group styles).</p>
+	<p>Set <code>Connected="true"</code> to visually connect the slots into a single cohesive field with shared borders.</p>
 	<Demo Type="typeof(HxOtpInput_Demo_Connected)" />
 
 	<DocHeading Title="Four-digit PIN" />
 	<p>
-		Use the <code>Length</code> parameter to change the number of inputs, e.g. for shorter codes like 4-digit PINs.
-		Set <code>Mask="true"</code> to use password fields hiding the entered digits.
+		Use the <code>Length</code> parameter to change the number of slots, e.g. for shorter codes like 4-digit PINs.
+		Set <code>Mask="true"</code> to display a dot instead of each entered digit.
 	</p>
 	<Demo Type="typeof(HxOtpInput_Demo_Pin)" />
 
 	<DocHeading Title="With separator" />
 	<p>
-		Use the <code>GroupSize</code> parameter to split the inputs into groups with a visual separator between them, creating grouped codes like <code>123–456</code>.
+		Use the <code>GroupSize</code> parameter to split the slots into groups with a visual separator between them, creating grouped codes like <code>123–456</code>.
 		The separator is purely visual&mdash;it does not affect the <code>Value</code>. Customize the separator text with the <code>Separator</code> parameter.
-		Combined with <code>Connected="true"</code>, each group of inputs gets connected.
 	</p>
 	<Demo Type="typeof(HxOtpInput_Demo_Separator)" />
 
@@ -37,13 +37,13 @@
 	<Demo Type="typeof(HxOtpInput_Demo_Disabled)" />
 
 	<DocHeading Title="Completion event" />
-	<p>The <code>OnCompleted</code> event is raised when all inputs are filled and receives the complete code (you can submit the form or start verifying the code right away).</p>
+	<p>The <code>OnCompleted</code> event is raised when all slots are filled and receives the complete code (you can submit the form or start verifying the code right away).</p>
 	<Demo Type="typeof(HxOtpInput_Demo_OnCompleted)" />
 
 	<DocHeading Title="Validation" />
 	<p>
 		The component integrates with <code>EditForm</code> validation the same way as other form components.
-		The validation state renders on the wrapping element (<code>is-invalid</code> class styles all the inputs).
+		The validation state renders on the wrapping element (<code>is-invalid</code> class styles all the slots).
 	</p>
 	<Demo Type="typeof(HxOtpInput_Demo_Validation)" />
 </ApiDoc>

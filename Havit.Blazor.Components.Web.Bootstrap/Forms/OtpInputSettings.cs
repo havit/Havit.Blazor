@@ -6,17 +6,17 @@
 public record OtpInputSettings : InputSettings
 {
 	/// <summary>
-	/// The number of inputs (digits) to render.
+	/// The number of digit slots to render (the maximum length of the code).
 	/// </summary>
 	public int? Length { get; set; }
 
 	/// <summary>
-	/// When <c>true</c>, the inputs render as <c>type="password"</c> fields to hide the entered values.
+	/// When <c>true</c>, the slots display a dot (<c>•</c>) instead of the entered characters.
 	/// </summary>
 	public bool? Mask { get; set; }
 
 	/// <summary>
-	/// When <c>true</c>, the inputs are visually connected into a single cohesive field (Bootstrap <c>input-group</c> styles).
+	/// When <c>true</c>, the slots are visually connected into a single cohesive field with shared borders (Bootstrap <c>otp-connected</c> class).
 	/// </summary>
 	public bool? Connected { get; set; }
 }
