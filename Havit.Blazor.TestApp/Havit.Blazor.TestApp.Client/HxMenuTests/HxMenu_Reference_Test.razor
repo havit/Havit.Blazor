@@ -1,0 +1,24 @@
+@page "/HxMenu_Reference"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<div data-testid="parent-wrapper" class="d-flex" style="position: relative; padding-inline-start: 100px;">
+	<HxMenu>
+		<Toggle>
+			<HxMenuToggleButton data-testid="parent-toggle" MenuReference="parent" Color="ThemeColor.Primary">Parent reference</HxMenuToggleButton>
+		</Toggle>
+		<Content>
+			<HxMenuItem>Item</HxMenuItem>
+		</Content>
+	</HxMenu>
+</div>
+
+<div class="d-flex" style="padding-inline-start: 100px;">
+	<HxMenu>
+		<Toggle>
+			<HxMenuToggleButton data-testid="default-toggle" Color="ThemeColor.Primary">Default reference</HxMenuToggleButton>
+		</Toggle>
+		<Content>
+			<HxMenuItem>Item</HxMenuItem>
+		</Content>
+	</HxMenu>
+</div>
