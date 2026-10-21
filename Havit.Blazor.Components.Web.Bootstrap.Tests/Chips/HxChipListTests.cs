@@ -91,4 +91,33 @@ public class HxChipListTests : BunitTestBase
 		Assert.Contains(chipTexts, t => t.Contains("Company: HAVIT"));
 		Assert.DoesNotContain(chipTexts, t => t.Contains("Name: Peter"));
 	}
+
+	[Fact]
+	public async Task HxChipList_ShowResetButton_RendersResetButtonElementWhichRaisesOnResetClick()
+	{
+		// Arrange
+		var chips = new[]
+		{
+			new ChipItem { ChipTemplate = b => b.AddMarkupContent(0, "State: Active"), Removable = true },
+		};
+		bool resetClicked = false;
+
+		var cut = Render<HxChipList>(parameters => parameters
+			.Add(p => p.Chips, chips)
+			.Add(p => p.ShowResetButton, true)
+			.Add(p => p.ResetButtonText, "Reset")
+			.Add(p => p.OnResetClick, (ChipItem _) => { resetClicked = true; }));
+
+		// Assert - a native button (focusable, keyboard-operable)
+		var resetButton = cut.Find(".hx-chip-list-reset-btn");
+		Assert.Equal("BUTTON", resetButton.TagName);
+		Assert.Equal("button", resetButton.GetAttribute("type"));
+		Assert.Contains("Reset", resetButton.TextContent);
+
+		// Act
+		await cut.InvokeAsync(() => resetButton.Click());
+
+		// Assert
+		Assert.True(resetClicked);
+	}
 }

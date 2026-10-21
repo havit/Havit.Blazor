@@ -22,10 +22,10 @@
 			}
 			else
 			{
-				<span role="button" class="hx-chip-list-reset-btn" @onclick="() => InvokeOnResetClickAsync()" @onclick:stopPropagation>
+				<button type="button" class="hx-chip-list-reset-btn" @onclick="() => InvokeOnResetClickAsync()" @onclick:stopPropagation>
 					@ResetButtonText
 					<HxIcon Icon="BootstrapIcon.X" />
-				</span>
+				</button>
 			}
 		}
 	}

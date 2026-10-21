@@ -17,4 +17,6 @@
     line-height: 1;
     color: var(--bs-fg-2);
     padding: var(--hx-chip-list-chip-reset-btn-padding);
+    background-color: transparent;
+    border: 0;
 }
