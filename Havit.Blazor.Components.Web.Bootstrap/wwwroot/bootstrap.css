@@ -18718,5 +18718,16 @@
     --bs-spinner-height: .75em;
   }
 }
+@layer components {
+  .otp-connected .otp-separator + .otp-slot {
+    margin-inline-start: 0;
+    border-start-start-radius: var(--bs-otp-slot-border-radius);
+    border-end-start-radius: var(--bs-otp-slot-border-radius);
+  }
+  .otp-connected .otp-slot:has(+ .otp-separator) {
+    border-start-end-radius: var(--bs-otp-slot-border-radius);
+    border-end-end-radius: var(--bs-otp-slot-border-radius);
+  }
+}
 
 /*# sourceMappingURL=bootstrap.css.map */

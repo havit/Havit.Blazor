@@ -36,3 +36,20 @@
     --spinner-height: .75em;
   }
 }
+
+// HAVIT fix: connected OTP input with group separators (HxOtpInput Connected + GroupSize).
+// Bootstrap 6 rounds connected slots only via `.otp-slot:first-child` / `:last-child` and pulls every
+// non-first slot back by the border width, ignoring `.otp-separator` siblings, so the slots next to
+// a separator get square corners (and a -1px start margin). Treat each group as its own connected field.
+@layer components {
+  .otp-connected .otp-separator + .otp-slot {
+    margin-inline-start: 0;
+    border-start-start-radius: var(--otp-slot-border-radius);
+    border-end-start-radius: var(--otp-slot-border-radius);
+  }
+
+  .otp-connected .otp-slot:has(+ .otp-separator) {
+    border-start-end-radius: var(--otp-slot-border-radius);
+    border-end-end-radius: var(--otp-slot-border-radius);
+  }
+}
