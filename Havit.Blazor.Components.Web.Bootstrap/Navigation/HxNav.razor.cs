@@ -49,25 +49,37 @@ public partial class HxNav
 		return "nav";
 	}
 
-	protected virtual string GetOrientationCssClass()
+	protected virtual string GetOrientationCssClass() => GetOrientationCssClass(Orientation, Variant);
+
+	protected virtual string GetVariantCssClass() => GetVariantCssClass(Variant);
+
+	/// <summary>
+	/// Shared with <see cref="HxTabPanel"/> (renders the nav markup itself).
+	/// </summary>
+	internal static string GetOrientationCssClass(NavOrientation orientation, NavVariant variant)
 	{
-		return Orientation switch
+		return orientation switch
 		{
 			NavOrientation.Horizontal => null,
+			// Bootstrap 6 vertical pills (stretches the pills to the full width of the nav)
+			NavOrientation.Vertical when variant == NavVariant.Pills => "nav-pills-vertical",
 			NavOrientation.Vertical => "flex-column",
-			_ => throw new InvalidOperationException($"Unknown {nameof(NavOrientation)} value {Orientation}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(NavOrientation)} value {orientation}.")
 		};
 	}
 
-	protected virtual string GetVariantCssClass()
+	/// <summary>
+	/// Shared with <see cref="HxTabPanel"/> (renders the nav markup itself).
+	/// </summary>
+	internal static string GetVariantCssClass(NavVariant variant)
 	{
-		return Variant switch
+		return variant switch
 		{
 			NavVariant.Standard => null,
 			NavVariant.Pills => "nav-pills",
 			NavVariant.Tabs => "nav-tabs",
 			NavVariant.Underline => "nav-underline",
-			_ => throw new InvalidOperationException($"Unknown {nameof(NavVariant)} value {Variant}.")
+			_ => throw new InvalidOperationException($"Unknown {nameof(NavVariant)} value {variant}.")
 		};
 	}
 }

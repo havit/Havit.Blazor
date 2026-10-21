@@ -101,4 +101,22 @@ public class HxNavTests : BunitTestBase
 		// Assert
 		Assert.Empty(cut.FindAll("a[aria-current]"));
 	}
+
+	[Theory]
+	[InlineData(NavVariant.Pills, "nav-pills-vertical", "flex-column")]
+	[InlineData(NavVariant.Tabs, "flex-column", "nav-pills-vertical")]
+	[InlineData(NavVariant.Standard, "flex-column", "nav-pills-vertical")]
+	public void HxNav_VerticalOrientation_RendersOrientationCssClass(NavVariant variant, string expectedCssClass, string unexpectedCssClass)
+	{
+		// Act
+		var cut = Render<HxNav>(parameters => parameters
+			.Add(p => p.Variant, variant)
+			.Add(p => p.Orientation, NavOrientation.Vertical)
+		);
+
+		// Assert
+		var nav = cut.Find("nav");
+		Assert.Contains(expectedCssClass, nav.ClassList);
+		Assert.DoesNotContain(unexpectedCssClass, nav.ClassList);
+	}
 }
