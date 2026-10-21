@@ -29,6 +29,6 @@ public partial class MainLayout
 			return;
 		}
 
-		_title = "HAVIT Blazor | Free Bootstrap 5 components for Blazor";
+		_title = "HAVIT Blazor | Free Bootstrap 6 components for Blazor";
 	}
 }
