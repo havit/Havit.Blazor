@@ -4,7 +4,7 @@
 <div class="container-fliud">
 	<div class="row">
 		<div class="col col-auto">
-			<HxNav Id="content-example" Variant="NavVariant.Pills" Orientation="NavOrientation.Vertical">
+			<HxNav Id="content-example" Variant="NavVariant.Pills" CssClass="bg-transparent" Orientation="NavOrientation.Vertical">
 				<HxScrollspyNavLink Href="#contentdemo1">Par 1</HxScrollspyNavLink>
 				<HxScrollspyNavLink Href="#contentdemo2">
 					Par 2

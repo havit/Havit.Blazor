@@ -1,7 +1,7 @@
 ﻿# HxScrollspy_Demo_DynamicContent.razor
 
 ```razor
-<HxNav Id="dynamic-example" Variant="NavVariant.Pills">
+<HxNav Id="dynamic-example" Variant="NavVariant.Pills" CssClass="bg-transparent">
 	<HxScrollspyNavLink Href="#dynamicdemo1">Par 1</HxScrollspyNavLink>
 	<HxScrollspyNavLink Href="#dynamicdemo2">Par 2</HxScrollspyNavLink>
 	<HxScrollspyNavLink Href="#dynamicdemo3">Par 3</HxScrollspyNavLink>
