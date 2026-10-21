@@ -226,11 +226,18 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 	/// </summary>
 	protected virtual string CoreCssClass => "hx-button btn";
 
+	/// <summary>
+	/// Marker class for buttons without any variant class (no <see cref="Color"/>).
+	/// Bootstrap 6 targets button group members (margins, corners, <c>.btn-group-sm/-lg/-xs</c> sizing, dividers) with <c>[class*=btn-]</c>,
+	/// which a plain <c>btn</c> does not match.
+	/// </summary>
+	internal const string NeutralButtonMarkerCssClass = "hx-btn-neutral";
+
 	protected virtual string GetButtonCssClass()
 	{
 		return CssClassHelper.Combine(
 			CoreCssClass,
-			VariantEffective.ToButtonVariantAndColorCssClass(ColorEffective),
+			VariantEffective.ToButtonVariantAndColorCssClass(ColorEffective) ?? NeutralButtonMarkerCssClass,
 			SizeEffective.ToButtonSizeCssClass(),
 			CssClassEffective);
 	}
