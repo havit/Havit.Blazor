@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/navbar/">Bootstrap 5 Navbar</see> component - a responsive navigation header.<br/>
+/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/navbar/">Bootstrap Navbar</see> component - a responsive navigation header.<br/>
 /// Provides support for branding, navigation, and more, including support for the responsive drawer.<br />
 /// For full documentation and demos, visit: <see href="https://havit.blazor.eu/components/HxNavbar">https://havit.blazor.eu/components/HxNavbar</see>
 /// </summary>
