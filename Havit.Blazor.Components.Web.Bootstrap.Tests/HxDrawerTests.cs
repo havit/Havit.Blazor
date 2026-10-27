@@ -74,7 +74,194 @@ public class HxDrawerTests : BunitTestBase
 		// Assert
 		var closeBtn = cut.Find("button.btn-close");
 		Assert.NotNull(closeBtn);
-		Assert.Equal("drawer", closeBtn.GetAttribute("data-bs-dismiss"));
+		// The close button is wired via @onclick (single close owner, transition tracking); it intentionally carries no data-bs-dismiss.
+		Assert.Null(closeBtn.GetAttribute("data-bs-dismiss"));
+		Assert.Null(closeBtn.GetAttribute("data-bs-target"));
+	}
+
+	[Fact]
+	public void HxDrawer_CloseButtonIcon_RendersKeyboardAccessibleButton()
+	{
+		// Act
+		var cut = Render<HxDrawer>(p => p
+			.Add(o => o.RenderMode, DrawerRenderMode.Always)
+			.Add(o => o.CloseButtonIcon, BootstrapIcon.XLg)
+			.Add(o => o.BodyTemplate, (RenderFragment)(b => b.AddContent(0, "Body"))));
+
+		// Assert
+		var closeBtn = cut.Find("div.drawer-header > button.btn-close");
+		Assert.Equal("button", closeBtn.GetAttribute("type"));
+		Assert.Equal("Close", closeBtn.GetAttribute("aria-label"));
+		Assert.NotNull(closeBtn.QuerySelector("i, svg"));
+		Assert.Empty(cut.FindAll("div[role=button]"));
+	}
+
+	[Fact]
+	public void HxDrawer_Title_LabelsTheDrawer()
+	{
+		// Act
+		var cut = Render<HxDrawer>(p => p
+			.Add(o => o.RenderMode, DrawerRenderMode.Always)
+			.Add(o => o.Title, "Filters"));
+
+		// Assert
+		var drawer = cut.Find("dialog.drawer");
+		var title = cut.Find("h5.drawer-title");
+		Assert.False(String.IsNullOrEmpty(title.Id));
+		Assert.Equal(title.Id, drawer.GetAttribute("aria-labelledby"));
+	}
+
+	[Fact]
+	public void HxDrawer_NoTitle_NoAriaLabelledBy()
+	{
+		// Act
+		var cut = Render<HxDrawer>(p => p
+			.Add(o => o.RenderMode, DrawerRenderMode.Always));
+
+		// Assert
+		Assert.Null(cut.Find("dialog.drawer").GetAttribute("aria-labelledby"));
+	}
+
+	[Fact]
+	public void HxDrawer_AriaLabelledByFromAdditionalAttributes_PreservedWithoutTitle()
+	{
+		// Act - heading supplied via HeaderTemplate, labelled by the caller
+		var cut = Render<HxDrawer>(p => p
+			.Add(o => o.RenderMode, DrawerRenderMode.Always)
+			.Add(o => o.HeaderTemplate, (RenderFragment)(b => b.AddMarkupContent(0, "<h2 id=\"custom-heading\">Custom</h2>")))
+			.AddUnmatched("aria-labelledby", "custom-heading"));
+
+		// Assert
+		Assert.Equal("custom-heading", cut.Find("dialog.drawer").GetAttribute("aria-labelledby"));
+	}
+
+	[Fact]
+	public void HxNavbarDrawer_PlacementFullscreen_RendersDrawerFullscreen()
+	{
+		// Act
+		var cut = Render<HxNavbar>(p => p
+			.Add(o => o.ChildContent, (RenderFragment)(b =>
+			{
+				b.OpenComponent<HxNavbarDrawer>(0);
+				b.AddAttribute(1, nameof(HxNavbarDrawer.Placement), DrawerPlacement.Fullscreen);
+				b.CloseComponent();
+			})));
+
+		// Assert
+		Assert.Contains("drawer-fullscreen", cut.Find("dialog.drawer").ClassList);
+	}
+
+	[Fact]
+	public void HxDrawer_Variants_RenderCssClasses()
+	{
+		// Act
+		var cut = Render<HxDrawer>(p => p
+			.Add(o => o.Placement, DrawerPlacement.Fullscreen)
+			.Add(o => o.Instant, true)
+			.Add(o => o.Translucent, true));
+
+		// Assert
+		var drawer = cut.Find("dialog.drawer");
+		Assert.Contains("drawer-fullscreen", drawer.ClassList);
+		Assert.Contains("drawer-instant", drawer.ClassList);
+		Assert.Contains("drawer-translucent", drawer.ClassList);
+	}
+
+	[Fact]
+	public void HxDrawer_AdditionalAttributes_SplattedOnDialog()
+	{
+		// Act
+		var cut = Render<HxDrawer>(p => p
+			.AddUnmatched("data-bs-theme", "dark")
+			.AddUnmatched("id", "my-drawer"));
+
+		// Assert
+		var drawer = cut.Find("dialog.drawer");
+		Assert.Equal("dark", drawer.GetAttribute("data-bs-theme"));
+		Assert.Equal("my-drawer", drawer.Id);
+	}
+
+	[Fact]
+	public async Task HxDrawer_ShowAsync_DoesNotRenderShowClass()
+	{
+		// Arrange
+		var cut = Render<HxDrawer>(p => p
+			.Add(o => o.Title, "Title"));
+
+		// Act
+		await cut.InvokeAsync(() => cut.Instance.ShowAsync());
+
+		// Assert - Bootstrap 6 drawer state is the [open] attribute, there is no .show class
+		Assert.DoesNotContain("show", cut.Find("dialog.drawer").ClassList);
+	}
+
+	[Fact]
+	public async Task HxDrawer_HideAsyncDuringShowTransition_IsDeferredUntilShown()
+	{
+		// Arrange
+		var module = SetupHxDrawerModule();
+		module.Mode = JSRuntimeMode.Loose;
+		var cut = Render<HxDrawer>(p => p
+			.Add(o => o.Title, "Title"));
+
+		// Act
+		await cut.InvokeAsync(() => cut.Instance.ShowAsync());
+		await cut.InvokeAsync(() => cut.Instance.HideAsync()); // the show transition is still in progress
+
+		// Assert - Bootstrap would silently drop hide() during the transition, so it must not be sent yet
+		module.VerifyInvoke("show", 1);
+		module.VerifyNotInvoke("hide");
+
+		// Act - the show transition completes
+		await cut.InvokeAsync(() => cut.Instance.HandleDrawerShown());
+
+		// Assert
+		module.VerifyInvoke("hide", 1);
+	}
+
+	[Fact]
+	public async Task HxDrawer_CloseButtonClickDuringShowTransition_IsDeferredUntilShown()
+	{
+		// Arrange
+		var module = SetupHxDrawerModule();
+		module.Mode = JSRuntimeMode.Loose;
+		var cut = Render<HxDrawer>(p => p
+			.Add(o => o.Title, "Title"));
+		await cut.InvokeAsync(() => cut.Instance.ShowAsync());
+
+		// Act
+		await cut.Find("button.btn-close").ClickAsync(new());
+
+		// Assert
+		module.VerifyNotInvoke("hide");
+		await cut.InvokeAsync(() => cut.Instance.HandleDrawerShown());
+		module.VerifyInvoke("hide", 1);
+	}
+
+	[Fact]
+	public async Task HxDrawer_ShowAsyncDuringHideTransition_IsDeferredUntilHidden()
+	{
+		// Arrange
+		var module = SetupHxDrawerModule();
+		module.Mode = JSRuntimeMode.Loose;
+		var cut = Render<HxDrawer>(p => p
+			.Add(o => o.Title, "Title"));
+		await cut.InvokeAsync(() => cut.Instance.ShowAsync());
+		await cut.InvokeAsync(() => cut.Instance.HandleDrawerShown());
+
+		// Act
+		await cut.InvokeAsync(() => cut.Instance.HideAsync());
+		await cut.InvokeAsync(() => cut.Instance.ShowAsync()); // the hide transition is still in progress
+
+		// Assert
+		module.VerifyInvoke("hide", 1);
+		module.VerifyInvoke("show", 1);
+
+		// Act - the hide transition completes
+		await cut.InvokeAsync(() => cut.Instance.HandleDrawerHidden());
+
+		// Assert - the deferred show is sent
+		module.VerifyInvoke("show", 2);
 	}
 
 	[Fact]
@@ -132,5 +319,13 @@ public class HxDrawerTests : BunitTestBase
 		var drawer = cut.Find("dialog.drawer");
 		Assert.NotNull(drawer);
 		Assert.Empty(cut.FindAll("div.drawer-header"));
+	}
+
+	private BunitJSModuleInterop SetupHxDrawerModule()
+	{
+		// pre-NET9 the module path is suffixed with ?v=... (see JSRuntimeExtensions.ImportHavitBlazorBootstrapModuleAsync)
+		return JSInterop.SetupModule(invocation => (invocation.Identifier == "import")
+			&& (invocation.Arguments.FirstOrDefault() is string path)
+			&& path.StartsWith("./_content/Havit.Blazor.Components.Web.Bootstrap/HxDrawer.js", StringComparison.Ordinal));
 	}
 }

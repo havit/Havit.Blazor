@@ -2,10 +2,6 @@
 
 <ApiDoc Type="typeof(HxDialog)">
 
-	<DocAlert Type="DocAlertType.Warning">
-		Bootstrap only supports one dialog window at a time. Nested dialogs aren't supported as they are believed to provide a poor user experience.
-	</DocAlert>
-
     <DocHeading Title="Basic usage" />
 	<Demo Type="typeof(HxDialog_Demo)" Tabs="false" />
 
@@ -21,10 +17,17 @@
 	<Demo Type="typeof(HxDialog_Demo_Backdrop)" />
 
     <DocHeading Title="Scrolling long content" />
-	<p>When dialogs become too long for the user's viewport or device, they scroll independently of the page itself. Try the demo below to see what we mean.</p>
+	<p>
+		The page behind a modal dialog does not scroll. When a dialog becomes too long for the user's viewport or device, the whole dialog scrolls
+		(the header and footer scroll with the content). Shorter dialogs do not clip their content, so dropdowns, autosuggests or date pickers can overflow the dialog.
+		Try the demo below to see what we mean.
+	</p>
 	<Demo Type="typeof(HxDialog_Demo_Scrolling)" />
 
-	<p>You can also create a scrollable dialog that allows scrolling the dialog body by setting the <code>Scrollable</code> parameter.</p>
+	<p>
+		You can also create a scrollable dialog by setting the <code>Scrollable</code> parameter: the dialog always fits the viewport,
+		only the dialog body scrolls and the header and footer stay visible. Note that the body clips its content, which affects inline dropdowns near its edges.
+	</p>
 	<Demo Type="typeof(HxDialog_Demo_Scrollable)" />
 
     <DocHeading Title="Vertical centering" />
@@ -34,8 +37,15 @@
 	<p>Use the <code>Animation</code> parameter to choose the open/close animation of the dialog. The default is <code>DialogAnimation.Fade</code>, use <code>DialogAnimation.None</code> to disable the animation.</p>
 	<Demo Type="typeof(HxDialog_Demo_Animation)" />
 
+    <DocHeading Title="Stacked dialogs" />
+	<p>
+		Dialogs stack on top of each other (the browser keeps open modal dialogs in the top layer). When you call <code>ShowAsync()</code> on a dialog while another one is open,
+		the new dialog opens above it and the dialog below stays open (and inert) until the top one closes. This is how a confirmation from <code>IHxMessageBoxService</code> works inside a dialog.
+	</p>
+	<Demo Type="typeof(HxDialog_Demo_Stacking)" />
+
     <DocHeading Title="Swapping dialogs" />
-	<p>When a button inside an open dialog opens another dialog, the dialogs <strong>swap</strong> &ndash; the first one closes as the second one opens, and the backdrop stays visible the whole time without flickering. Just call <code>ShowAsync()</code> on the other dialog; you don't need to close the current one first.</p>
+	<p>To <strong>swap</strong> dialogs instead, close the current dialog before opening the next one (<code>HideAsync()</code> followed by <code>ShowAsync()</code>) &ndash; the first one fades out as the second one opens, and the backdrop stays visible the whole time without flickering.</p>
 	<Demo Type="typeof(HxDialog_Demo_Swapping)" />
 
     <DocHeading Title="Non-modal dialogs" />

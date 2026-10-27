@@ -3,3 +3,17 @@
 	--bs-btn-close-icon: none;
 	background-color: transparent;
 }
+
+/* Bootstrap 6 renders the ::backdrop unconditionally (backdrop: false only ignores backdrop clicks). */
+.hx-dialog[data-bs-backdrop="false"]::backdrop,
+.hx-dialog.hx-dialog-swap-out::backdrop {
+	background-color: transparent;
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+	transition: none;
+}
+
+/* Non-scrollable dialog with content taller than the viewport - scroll the whole dialog (see HxDialog.js). */
+.hx-dialog.hx-dialog-overflow[open] {
+	overflow-y: auto;
+}

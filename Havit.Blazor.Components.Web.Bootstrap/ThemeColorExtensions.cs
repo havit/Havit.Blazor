@@ -29,12 +29,13 @@ public static class ThemeColorExtensions
 
 	public static string ToTextBackgroundColorCss(this ThemeColor themeColor)
 	{
-		// Bootstrap 6 removed the text-bg-* utilities; the theme-* class sets both background and contrast foreground.
+		// Bootstrap 6 removed the text-bg-* utilities; theme-* only sets the semantic tokens,
+		// theme-contrast applies them (solid background and the contrast foreground).
 		return themeColor switch
 		{
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as text-bg color."),
-			_ => themeColor.ToThemeCss()
+			_ => themeColor.ToThemeCss() + " theme-contrast"
 		};
 	}
 

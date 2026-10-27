@@ -29,6 +29,12 @@ export function init(element, hxToastDotnetObjectReference) {
 	}
 
 	element.classList.remove('hx-toast-init');
+
+	// The container might have been rendered after the modal dialog opened (no show.bs.* event since then).
+	const container = element.closest('.hx-toast-container-fixed');
+	if (container && document.querySelector('dialog:modal')) {
+		raiseToastContainer(container, true);
+	}
 }
 
 function handleToastHidden(event) {
@@ -47,6 +53,44 @@ export function dispose(element) {
 	if (t) {
 		t.dispose();
 	}
+}
+
+// Modal dialogs and drawers (native <dialog> opened with showModal()) are rendered in the browser top layer, above any z-index.
+// To keep the toasts visible, the positioned toast containers are (re)moved to the top layer (popover="manual") whenever a dialog
+// or a drawer opens - the element shown last is the topmost one.
+// The container stays in the normal document (position: fixed) until then, so the toasts work without JavaScript as well (static SSR).
+function raiseToastContainers() {
+	for (const container of document.querySelectorAll('.hx-toast-container-fixed')) {
+		raiseToastContainer(container, false);
+	}
+}
+
+function raiseToastContainer(container, skipWhenRaised) {
+	if (typeof container.showPopover !== 'function') {
+		return; // popover API not supported
+	}
+	if (!container.hasAttribute('popover')) {
+		container.setAttribute('popover', 'manual');
+	}
+	if (container.matches(':popover-open')) {
+		if (skipWhenRaised) {
+			return;
+		}
+		container.hidePopover();
+	}
+	container.showPopover();
+}
+
+function handleDialogShow() {
+	// show.bs.* is triggered just before the dialog is opened (showModal() runs synchronously right after the event)
+	setTimeout(raiseToastContainers);
+}
+
+// the module can be loaded more than once (lib.module.js + component import), register the listeners only once
+if (!window.hxToastTopLayerListenersRegistered) {
+	window.hxToastTopLayerListenersRegistered = true;
+	document.addEventListener('show.bs.dialog', handleDialogShow);
+	document.addEventListener('show.bs.drawer', handleDialogShow);
 }
 
 const HxToast = {

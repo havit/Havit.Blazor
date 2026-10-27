@@ -1,7 +1,7 @@
 ﻿<HxToastContainer>
-	<HxToast HeaderText="F20/00578" HeaderIcon="BootstrapIcon.InfoCircleFill" ContentText="Invoice has been created." CssClass="mb-2" />
+	<HxToast HeaderText="F20/00578" HeaderIcon="BootstrapIcon.InfoCircleFill" ContentText="Invoice has been created." />
 
-	<HxToast HeaderText="Confirmation" Color="ThemeColor.Warning" CssClass="mb-2">
+	<HxToast HeaderText="Confirmation" Color="ThemeColor.Warning">
 		<ContentTemplate>
 			<HxIcon Icon="BootstrapIcon.InfoCircleFill" CssClass="me-2" />
 			Hi! All messages have been deleted and cannot be restored.
@@ -10,16 +10,16 @@
 
 	@if (isVisible)
 	{
-		<HxToast AutohideDelay="5000" CssClass="mb-2" OnToastHidden="() => isVisible = false">
+		<HxToast AutohideDelay="5000" OnToastHidden="() => isVisible = false">
 			<ContentTemplate>
 				This message should disappear after 5 sec.
 			</ContentTemplate>
 		</HxToast>
 	}
 
-	<HxToast ShowCloseButton="false" CssClass="mb-2" ContentText="Always visible. No close button here." />
+	<HxToast ShowCloseButton="false" ContentText="Always visible. No close button here." />
 
-	<HxToast Translucent="true" HeaderText="Translucent" ContentText="Translucent toast with backdrop blur (new in Bootstrap 6)." CssClass="mb-2" />
+	<HxToast Translucent="true" HeaderText="Translucent" ContentText="Translucent toast with backdrop blur (new in Bootstrap 6)." />
 
 </HxToastContainer>
 
