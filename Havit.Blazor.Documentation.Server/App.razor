@@ -2,19 +2,13 @@
 @using Havit.Blazor.Documentation.Shared.Components.DocColorMode
 @inject IDocColorModeProvider DocColorModeProvider
 <!doctype html>
-<html lang="en" data-bs-theme="@DocColorModeProvider.GetColorMode().ToString("g").ToLowerInvariant()">
+<html lang="en" data-bs-theme="@GetDataBsTheme()">
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<base href="/" />
 
 	<ResourcePreloader />
-
-	<script>
-		if ((document.documentElement.getAttribute('data-bs-theme') === 'auto') && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-			document.documentElement.setAttribute('data-bs-theme', 'dark');
-		}
-	</script>
 
 	<link rel="stylesheet" href="@Assets["_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.min.css"]" />
 	<link rel="stylesheet" href="@Assets["Havit.Blazor.Documentation.Server.styles.css"]" /> @* CSS Isolation (includes *.lib.css) *@
@@ -77,3 +71,12 @@
 	</script>
 </body>
 </html>
+
+@code {
+	private string GetDataBsTheme()
+	{
+		// Auto = no data-bs-theme, Bootstrap follows the system preference (color-scheme: light dark).
+		var colorMode = DocColorModeProvider.GetColorMode();
+		return (colorMode == ColorMode.Auto) ? null : colorMode.ToString("g").ToLowerInvariant();
+	}
+}

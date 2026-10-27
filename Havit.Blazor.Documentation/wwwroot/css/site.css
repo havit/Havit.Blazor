@@ -130,8 +130,9 @@ pre[class*="language-"] {
 	}
 }
 
-/* Syntax highlighting override */
-
+/* Syntax highlighting override for dark mode (the Prism theme, prism-vs, is light only).
+   Dark mode = data-bs-theme="dark", or auto mode (no data-bs-theme) with a dark system preference.
+   No CSS nesting: site.css is not transpiled and nesting is not supported by all the targeted browsers. */
 [data-bs-theme=dark] .language-none {
 	color: var(--bs-secondary-fg-emphasis);
 }
@@ -166,6 +167,44 @@ pre[class*="language-"] {
 [data-bs-theme=dark] .token.operator {
 	color: var(--bs-secondary-fg);
 	background-color: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root:not([data-bs-theme]) .language-none {
+		color: var(--bs-secondary-fg-emphasis);
+	}
+
+	:root:not([data-bs-theme]) .token.namespace,
+	:root:not([data-bs-theme]) .token.attr-name,
+	:root:not([data-bs-theme]) .token.csharp.language-csharp,
+	:root:not([data-bs-theme]) .language-csharp {
+		color: var(--bs-primary-fg-emphasis);
+	}
+
+	:root:not([data-bs-theme]) .token.punctuation {
+		color: var(--bs-secondary-fg-emphasis);
+	}
+
+	:root:not([data-bs-theme]) .token.keyword,
+	:root:not([data-bs-theme]) .token.string,
+	:root:not([data-bs-theme]) .token.attr-value {
+		color: var(--bs-danger-fg-emphasis);
+	}
+
+	:root:not([data-bs-theme]) .token.tag,
+	:root:not([data-bs-theme]) .token.selector,
+	:root:not([data-bs-theme]) .token.class-name {
+		color: var(--bs-success-fg-emphasis);
+	}
+
+	:root:not([data-bs-theme]) .token.function {
+		color: var(--bs-warning-fg-emphasis);
+	}
+
+	:root:not([data-bs-theme]) .token.operator {
+		color: var(--bs-secondary-fg);
+		background-color: transparent;
+	}
 }
 
 .hero {

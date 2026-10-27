@@ -15,5 +15,5 @@
 ::deep .hx-sidebar-footer-item-navlink-content {
 	display: flex;
 	align-items: center;
-	gap: .75rem;
+	gap: var(--hx-sidebar-footer-item-content-gap);
 }
