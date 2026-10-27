@@ -35,19 +35,28 @@ public class HxAlertTests : TestAppTestBase
 	}
 
 	[Fact]
-	public async Task HxAlert_AfterDismiss_RemovedFromDOM()
+	public async Task HxAlert_DismissWithOnClosed_RemovedFromDomByBlazor()
 	{
 		// Arrange
-		await NavigateToTestAppAsync("/HxAlert_Dismiss");
+		await NavigateToTestAppAsync("/HxAlert_OnClosed");
 
-		var alert = Page.Locator("[data-testid='alert-dismissible-container'] .alert");
+		var alert = Page.Locator("[data-testid='alert-onclosed-container'] .alert");
+		var closedCount = Page.GetByTestId("closed-count");
 		await Expect(alert).ToBeVisibleAsync();
 
-		// Act - click the close button
-		var closeButton = alert.Locator(".btn-close");
-		await closeButton.ClickAsync();
+		// Act - dismiss the alert, OnClosed stops rendering it
+		await alert.Locator(".btn-close").ClickAsync();
 
-		// Assert - alert element is removed from the DOM by Bootstrap JS
+		// Assert - OnClosed was raised and Blazor removed the alert
+		// (Bootstrap removes the element itself, HxAlert returns it hidden so that Blazor can remove it without failing)
+		await Expect(closedCount).ToHaveTextAsync("1");
+		await Expect(alert).ToHaveCountAsync(0);
+
+		// Act & Assert - the renderer still works, the alert can be shown and dismissed again
+		await Page.GetByTestId("show-alert").ClickAsync();
+		await Expect(alert).ToBeVisibleAsync();
+		await alert.Locator(".btn-close").ClickAsync();
+		await Expect(closedCount).ToHaveTextAsync("2");
 		await Expect(alert).ToHaveCountAsync(0);
 	}
 }

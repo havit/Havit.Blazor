@@ -14,22 +14,22 @@
 
     @if (Controls || Indicators || PlayPauseControl)
     {
-        <div class="@(Overlay ? "carousel-overlay-controls" : "d-flex justify-content-between align-items-center mt-3")">
+        <div class="@(Overlay ? "carousel-overlay-controls" : "d-flex justify-content-between align-items-center")">
             <div>
                 @if (Controls)
                 {
                     <button class="btn-icon btn-sm" type="button" data-bs-target="#@_id" data-bs-slide="prev">
                         <span class="carousel-icon-prev" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
+                        <span class="visually-hidden">@Localizer["Previous"]</span>
                     </button>
                     <button class="btn-icon btn-sm" type="button" data-bs-target="#@_id" data-bs-slide="next">
                         <span class="carousel-icon-next" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
+                        <span class="visually-hidden">@Localizer["Next"]</span>
                     </button>
                 }
                 @if (PlayPauseControl)
                 {
-                    <button class="btn-icon btn-sm carousel-control-play-pause" type="button" data-bs-target="#@_id" aria-label="@(Autoplay ? "Pause" : "Play")" data-bs-pause-label="Pause" data-bs-play-label="Play">
+                    <button class="btn-icon btn-sm carousel-control-play-pause" type="button" data-bs-target="#@_id" aria-label="@(Autoplay ? Localizer["Pause"] : Localizer["Play"])" data-bs-pause-label="@Localizer["Pause"]" data-bs-play-label="@Localizer["Play"]">
                         <span class="carousel-icon-pause" aria-hidden="true"></span>
                         <span class="carousel-icon-play" aria-hidden="true"></span>
                     </button>
@@ -46,7 +46,7 @@
                                 data-bs-slide-to="@i"
                                 class="@(_items[i].Active ? "active" : null)"
                                 aria-current="@(_items[i].Active ? "true" : null)"
-                                aria-label="Slide @(i + 1)"
+                                aria-label="@Localizer["Slide", i + 1]"
                                 @key="i"></button>
                     }
                 </div>

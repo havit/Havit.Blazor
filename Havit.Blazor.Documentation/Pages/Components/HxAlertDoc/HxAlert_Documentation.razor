@@ -1,8 +1,17 @@
-@attribute [Route("/components/" + nameof(HxAlert))]
+﻿@attribute [Route("/components/" + nameof(HxAlert))]
 
 <ApiDoc Type="typeof(HxAlert)">
     <DocHeading Title="Basic usage" />
+    <p>
+        The alert is a flex container, each child element becomes a flex item (separated by a gap).
+        Wrap the text, including any inline elements such as links or <code>&lt;strong&gt;</code>, in a <code>&lt;p&gt;</code> element,
+        otherwise the text and the inline elements are laid out as separate flex items.
+    </p>
     <Demo Type="typeof(HxAlert_Demo_Basic)" Tabs="false" />
+
+    <DocHeading Title="Default alert" Level="3" />
+    <p>Without the <code>Color</code> parameter, the alert renders with the neutral (default) colors.</p>
+    <Demo Type="typeof(HxAlert_Demo_Default)" Tabs="false" />
 
     <DocHeading Title="Link color" />
     <p>Use the <code>.alert-link</code> class on links inside an alert to quickly provide matching colored links.</p>
@@ -16,4 +25,9 @@
 
 	<DocHeading Title="Dismissible" />
     <Demo Type="typeof(HxAlert_Demo_Dismissible)" Tabs="false" />
+    <p>
+        When dismissed, the alert is removed from the page. If a keyboard user dismisses the alert using the close button, their focus is lost.
+        Use the <code>OnClosed</code> callback to stop rendering the alert and to move focus to the most appropriate location in the page.
+    </p>
+    <Demo Type="typeof(HxAlert_Demo_OnClosed)" />
 </ApiDoc>

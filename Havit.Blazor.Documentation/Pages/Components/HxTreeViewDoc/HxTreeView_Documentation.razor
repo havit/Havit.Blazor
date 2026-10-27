@@ -7,6 +7,12 @@
 
         <DocHeading Title="Custom content" />
         <Demo Type="typeof(HxTreeView_Demo_CustomContent)" />
+
+        <DocHeading Title="Accessibility" />
+        <p>
+            The tree view renders the ARIA <code>tree</code> pattern (<code>tree</code>, <code>treeitem</code> and <code>group</code> roles).
+            Give the tree an accessible name with an <code>aria-label</code> or <code>aria-labelledby</code> attribute, it is passed to the root element.
+        </p>
     </MainContent>
     <CssVariables>
         <ApiDocCssVariable Name="--hx-tree-view-item-border-radius" Default="calc(var(--bs-radius-5) + .25rem)">

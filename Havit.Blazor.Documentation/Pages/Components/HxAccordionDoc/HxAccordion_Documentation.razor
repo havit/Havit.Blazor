@@ -12,13 +12,26 @@
 	<DocHeading Title="Basic usage" />
 	<Demo Type="typeof(HxAccordion_PlainDemo)" />
 
+	<DocHeading Title="Small" />
+	<p>
+		Set <code>Size="AccordionSize.Small"</code> (<code>.accordion-sm</code>) for a more compact accordion
+		with tighter padding, a smaller border radius, and a smaller font size.
+	</p>
+	<Demo Type="typeof(HxAccordion_Demo_Small)" />
+
 	<DocHeading Title="Flush" />
 	<p>
-		Apply the <code>.accordion-flush</code> class to eliminate
-		the default <code>background-color</code>, certain borders, and rounded corners,
+		Set <code>Flush="true"</code> (<code>.accordion-flush</code>) to remove the outer borders and rounded corners,
 		allowing accordions to extend edge-to-edge alongside their parent container.
 	</p>
 	<Demo Type="typeof(HxAccordion_Demo_Flush)" />
+
+	<DocHeading Title="Gap" />
+	<p>
+		Set <code>Gap="true"</code> (<code>.accordion-gap</code>) to put space between the accordion items.
+		Each item is rendered as a separate rounded card.
+	</p>
+	<Demo Type="typeof(HxAccordion_Demo_Gap)" />
 
 	<DocHeading Title="Stay open" />
 	<p>
@@ -35,7 +48,8 @@
 	<p>
 		<code>HxAccordion</code> is built on the native <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> elements,
 		so the browser provides the disclosure semantics and keyboard support (<kbd>Enter</kbd>/<kbd>Space</kbd> toggles a section) out of the box.
-		When only one item may be open at a time (the default), the items share an HTML <code>name</code> attribute so the browser enforces the single-open behavior natively.
+		When only one item may be open at a time (the default), <code>HxAccordion</code> manages the open state and collapses the other items itself
+		(the items also share an HTML <code>name</code> attribute, the native exclusive accordion semantics).
 	</p>
 </ApiDoc>
 

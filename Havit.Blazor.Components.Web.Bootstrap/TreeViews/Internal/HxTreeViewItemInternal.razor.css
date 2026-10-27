@@ -51,7 +51,8 @@
 	transform: rotate(0deg);
 }
 
-::deep .hx-tree-view-item-expander.collapsed i {
+/* aria-expanded is updated by the Bootstrap collapse immediately (Blazor re-renders only after the transition) */
+::deep .hx-tree-view-item-expander[aria-expanded="false"] i {
 	transform: rotate(-90deg);
 }
 

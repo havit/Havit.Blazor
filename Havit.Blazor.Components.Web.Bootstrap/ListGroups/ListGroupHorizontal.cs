@@ -2,6 +2,7 @@
 
 /// <summary>
 /// Responsive horizontal setting (breakpoint) for <see cref="HxListGroup"/>.
+/// The responsive breakpoints are container query based (they react to the width of the containing element, not the viewport).
 /// Default is <see cref="ListGroupHorizontal.Never"/>.
 /// </summary>
 public enum ListGroupHorizontal
@@ -12,27 +13,27 @@ public enum ListGroupHorizontal
 	Never = 0,
 
 	/// <summary>
-	/// Horizontal for viewports above the "small" breakpoint (<c>576px</c>).
+	/// Horizontal for containers above the "small" breakpoint (<c>576px</c>).
 	/// </summary>
 	SmallUp,
 
 	/// <summary>
-	/// Horizontal for viewports above the "medium" breakpoint (<c>768px</c>).
+	/// Horizontal for containers above the "medium" breakpoint (<c>768px</c>).
 	/// </summary>
 	MediumUp,
 
 	/// <summary>
-	/// Horizontal for viewports above the "large" breakpoint (<c>1024px</c>).
+	/// Horizontal for containers above the "large" breakpoint (<c>1024px</c>).
 	/// </summary>
 	LargeUp,
 
 	/// <summary>
-	/// Horizontal for viewports above the "extra-large" breakpoint (<c>1280px</c>).
+	/// Horizontal for containers above the "extra-large" breakpoint (<c>1280px</c>).
 	/// </summary>
 	ExtraLargeUp,
 
 	/// <summary>
-	/// Horizontal for viewports above the "2xl" breakpoint (<c>1536px</c>).
+	/// Horizontal for containers above the "2xl" breakpoint (<c>1536px</c>).
 	/// </summary>
 	XxlUp,
 

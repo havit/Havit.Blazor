@@ -1,7 +1,20 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<div class="@GetClasses()" @attributes="this.AdditionalAttributes">
-    <CascadingValue Value="this" TValue="HxListGroup" IsFixed="true">
-        @ChildContent
-    </CascadingValue>
-</div>
+@{
+	RenderFragment listGroupTemplate = @<div class="@GetClasses()" @attributes="this.AdditionalAttributes">
+		<CascadingValue Value="this" TValue="HxListGroup" IsFixed="true">
+			@ChildContent
+		</CascadingValue>
+	</div>;
+}
+
+@if (RenderContainsInlineWrapper)
+{
+	<div class="contains-inline">
+		@listGroupTemplate
+	</div>
+}
+else
+{
+	@listGroupTemplate
+}

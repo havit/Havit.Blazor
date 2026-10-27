@@ -14,6 +14,8 @@
      tabindex="0"
      role="treeitem"
      aria-selected="@(isSelected ? "true" : "false")"
+     aria-expanded="@(hasChildren ? ((IsExpanded == true) ? "true" : "false") : null)"
+     aria-owns="@(hasChildren ? _collapseId : null)"
      @onclick="@HandleItemClicked" @onclick:stopPropagation="true"
      @onkeydown="@HandleItemKeyDownAsync" @onkeydown:stopPropagation="true">
     @for (int i = 0; i < Level; i++)
@@ -23,7 +25,7 @@
 	<div class="hx-tree-view-item-expander-container">
 		@if (hasChildren)
 		{
-			<HxCollapseToggleElement ElementName="button" type="button" @onclick:stopPropagation @onkeydown:stopPropagation CollapseTarget="@($"#{_collapseId}")" CssClass="@CssClassHelper.Combine("hx-tree-view-item-expander btn btn-text theme-primary btn-xs btn-icon", (IsExpanded != true) ? "collapsed" : null)" aria-label="@(IsExpanded == true ? "Collapse" : "Expand")" aria-expanded="@((IsExpanded == true) ? "true" : "false")">
+			<HxCollapseToggleElement ElementName="button" type="button" @onclick:stopPropagation @onkeydown:stopPropagation CollapseTarget="@($"#{_collapseId}")" CssClass="hx-tree-view-item-expander btn btn-text theme-primary btn-xs btn-icon" aria-label="@(IsExpanded == true ? Localizer["Collapse"] : Localizer["Expand"])" aria-expanded="@((IsExpanded == true) ? "true" : "false")">
 				<HxIcon Icon="@BootstrapIcon.ChevronDown" CssClass="d-block" />
 			</HxCollapseToggleElement>
 		}
@@ -49,6 +51,7 @@
     <HxCollapse Id="@_collapseId"
                 CollapseDirection="CollapseDirection.Vertical"
                 InitiallyExpanded="IsExpanded ?? false"
+                role="group"
                 OnHidden="HandleCollapseHiddenAsync"
                 OnShown="HandleCollapseShownAsync"
                 @ref="_collapseReference">

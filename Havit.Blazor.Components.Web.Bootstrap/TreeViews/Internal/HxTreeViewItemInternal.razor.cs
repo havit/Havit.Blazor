@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Localization;
+
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 public partial class HxTreeViewItemInternal<TItem> : ComponentBase
@@ -20,6 +22,8 @@ public partial class HxTreeViewItemInternal<TItem> : ComponentBase
 	[Parameter] public bool ExpandOnSelection { get; set; }
 
 	[CascadingParameter] protected HxTreeView<TItem> TreeViewContainer { get; set; }
+
+	[Inject] private IStringLocalizer<HxTreeView> Localizer { get; set; }
 
 	private string _collapseId = "hx" + Guid.NewGuid().ToString("N");
 	private bool _initiallyExpanded;

@@ -1,8 +1,8 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
 <div class="@GetClasses()"
-	 aria-current="@Active"
-	 aria-disabled="@(!Enabled)"
+	 aria-current="@(Active ? "true" : null)"
+	 aria-disabled="@(Enabled ? null : "true")"
 	 role="@(OnClick.HasDelegate ? "button" : null)"
 	 @onclick="@(OnClick.HasDelegate ? EventCallback.Factory.Create<MouseEventArgs>(this, InvokeOnClickAsync) : (EventCallback<MouseEventArgs>)default)"
 	 @onclick:stopPropagation="OnClick.HasDelegate">
