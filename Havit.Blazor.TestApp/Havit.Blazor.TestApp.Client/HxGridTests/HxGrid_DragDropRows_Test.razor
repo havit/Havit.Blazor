@@ -43,7 +43,7 @@
 
 	Person clickedEmployee;
 	Dictionary<string, object> HeaderRowAdditionalAttributes = new() { { "data-row-type", "header" } };
-	Dictionary<string, object> ItemRowAdditionalAttributes = new() { { "draggable", "true" }, { "__internal_preventDefault_ondragover", true } }; // equivalent of @ondragover:preventDefault (inline event handlers are not allowed by a strict CSP)
+	readonly Dictionary<string, object> ItemRowAdditionalAttributes = new() { { "draggable", "true" }, { "__internal_preventDefault_ondragover", true } }; // equivalent of @ondragover:preventDefault (inline event handlers are not allowed by a strict CSP)
 
 	Dictionary<string, object> EmployeeRowAttributes(Person item)
 	{
