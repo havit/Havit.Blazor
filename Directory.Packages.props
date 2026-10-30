@@ -2,20 +2,22 @@
 	<PropertyGroup>
 <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-<AspNetCoreVersion8>8.0.32</AspNetCoreVersion8>
-<AspNetCoreVersion9>9.0.21</AspNetCoreVersion9>
-<AspNetCoreVersion10>10.0.13</AspNetCoreVersion10>
+<AspNetCoreVersion8>8.0.33</AspNetCoreVersion8>
+<AspNetCoreVersion9>9.0.22</AspNetCoreVersion9>
+<AspNetCoreVersion10>10.0.14</AspNetCoreVersion10>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageVersion Include="Azure.Monitor.OpenTelemetry.AspNetCore" Version="1.6.0" />
 		<PackageVersion Include="Blazored.FluentValidation" Version="2.2.0" />
-		<PackageVersion Include="bunit" Version="2.11.3" />
-		<PackageVersion Include="Grpc.AspNetCore.Server" Version="2.84.0" />
-		<PackageVersion Include="Grpc.AspNetCore.Web" Version="2.84.0" />
-		<PackageVersion Include="Grpc.Net.Client" Version="2.84.0" />
-		<PackageVersion Include="Grpc.Net.Client.Web" Version="2.84.0" />
-		<PackageVersion Include="Havit.Core" Version="2.0.42" />
-		<PackageVersion Include="Havit.AspNetCore" Version="2.0.32" />
+		<PackageVersion Include="bunit" Version="2.13.3" />
+		<PackageVersion Include="Grpc.AspNetCore.Server" Version="2.85.0" />
+		<PackageVersion Include="Grpc.AspNetCore.Web" Version="2.85.0" />
+		<PackageVersion Include="Grpc.Net.Client" Version="2.85.0" />
+		<PackageVersion Include="Grpc.Net.Client.Web" Version="2.85.0" />
+		<PackageVersion Include="Havit.Core" Version="2.0.43" />
+		<!-- Havit.AspNetCore 2.0.33+ targets net10.0 only; net8.0/net9.0 stay on the last version that supports them. -->
+		<PackageVersion Include="Havit.AspNetCore" Version="2.0.33" Condition="'$(TargetFramework)' == 'net10.0'" />
+		<PackageVersion Include="Havit.AspNetCore" Version="2.0.32" Condition="'$(TargetFramework)' != 'net10.0'" />
 		<PackageVersion Include="LoxSmoke.DocXml" Version="3.9.0" />
 		<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' == 'net10.0'" />
 		<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
@@ -48,12 +50,12 @@
 		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net9.0' AND '$(TargetFramework)' != 'net8.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="8.0.1" Condition="'$(TargetFramework)' == 'net8.0'" />
-		<PackageVersion Include="Microsoft.Playwright.Xunit.v3" Version="1.63.0" />
-		<PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.5.1" />
-		<PackageVersion Include="ModelContextProtocol.AspNetCore" Version="2.2.0" />
+		<PackageVersion Include="Microsoft.Playwright.Xunit.v3" Version="1.64.1" />
+		<PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.5.2" />
+		<PackageVersion Include="ModelContextProtocol.AspNetCore" Version="2.3.0" />
 		<PackageVersion Include="Moq" Version="4.21.0" />
 		<PackageVersion Include="xunit.v3.mtp-v2" Version="4.0.2" />
-		<PackageVersion Include="protobuf-net" Version="3.4.30" />
+		<PackageVersion Include="protobuf-net" Version="3.4.40" />
 		<PackageVersion Include="protobuf-net.Grpc" Version="1.3.14" />
 		<PackageVersion Include="protobuf-net.Grpc.AspNetCore" Version="1.3.14" />
 		<PackageVersion Include="protobuf-net.Grpc.ClientFactory" Version="1.3.14" />
