@@ -221,37 +221,24 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 
 		if (SelectOnFocusEffective)
 		{
-			builder.AddAttribute(1002, "onfocus", "this.select();");
+			builder.AddAttribute(1002, "data-hx-select-on-focus");
 		}
 		builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
 		builder.SetUpdatesAttributeName("value");
 
+		// The behavior is implemented in HxInputNumber.js (delegated event listeners, inline event handlers are not allowed by a strict Content Security Policy, #1730).
 		if (SmartPasteEffective)
 		{
 			// Normalization of pasted value (applied only if the pasted value differs from the normalized value)
-			// - If we cancel the original paste event, Blazor does not recognize the change, so we fire change event manually.
 			// - This is kind of hack and causes the input to behave slightly differently when normalizing the value (the value is accepted immediately, not after the user leaves the input)
 			// - If this turns out to be a problem, we will have to implement the normalization in the Blazor-handled @onpaste event
-			builder.AddAttribute(1005, "onpaste", @"var clipboardValue = event.clipboardData.getData('text/plain'); var normalizedValue = clipboardValue.replace(/[^\d.,\-eE]/g, ''); if (+clipboardValue != +normalizedValue) { this.value = normalizedValue; this.dispatchEvent(new Event('input', { bubbles: true })); this.modifiedByCode = true; return false; }");
-			builder.SetUpdatesAttributeName("value");
+			builder.AddAttribute(1005, "data-hx-input-number-smart-paste");
 		}
 
 		if (SmartKeyboardEffective)
 		{
 			// When the user presses '-' key, we toggle the sign of the value.
-			// We also set the modifiedByCode flag to allow fire change event in onblur event later.
-			// Selection handling:
-			// - When everything (but non-empty) is selected before adding -, the digit portion (without the leading -) remains selected after adding -.
-			//   This way the user can type a digit to replace the digits and end up with a negative number (issue #1142).
-			// - When selected -12 in the value -1234, 12 must remain selected after - removal.
-			builder.AddAttribute(1006, "onkeydown", "if (event.key === '-') { let newValue = this.value; let newSelectionStart = -1; let newSelectionEnd = -1; if (this.value.startsWith('-')) { newValue = this.value.substring(1); newSelectionStart = Math.max(0, this.selectionStart - 1); newSelectionEnd = Math.max(0, this.selectionEnd - 1);  } else { newValue = '-' + this.value; newSelectionStart = (this.selectionStart == 0 && this.selectionEnd > 0 && this.selectionEnd == this.value.length) ? 1 : this.selectionStart + 1; newSelectionEnd = (this.selectionStart == 0 && this.selectionEnd > 0 && this.selectionEnd == this.value.length) ? newValue.length : this.selectionEnd + 1;}  if (this.value !== newValue) { this.value = newValue; this.setSelectionRange(newSelectionStart, newSelectionEnd); this.dispatchEvent(new Event('input', { bubbles: true })); this.modifiedByCode = true; return false; } }");
-			builder.SetUpdatesAttributeName("value");
-		}
-
-		if (SmartPasteEffective || SmartKeyboardEffective)
-		{
-			// When the value is modified by code, we fire the change event.
-			builder.AddAttribute(1007, "onblur", "if (this.modifiedByCode) { this.modifiedByCode = false; this.dispatchEvent(new Event('change', { bubbles: true })); }");
+			builder.AddAttribute(1006, "data-hx-input-number-smart-keyboard");
 		}
 
 		builder.AddEventStopPropagationAttribute(1008, "onclick", true);

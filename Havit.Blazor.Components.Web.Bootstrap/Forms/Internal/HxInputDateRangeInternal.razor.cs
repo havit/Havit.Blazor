@@ -72,15 +72,11 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 	private FieldIdentifier _fromFieldIdentifier;
 	private FieldIdentifier _toFieldIdentifier;
 	private FieldIdentifier[] _validationFieldIdentifiers;
-	private ElementReference _fromIconWrapperElement;
-	private ElementReference _toIconWrapperElement;
 
 	private HxDropdownToggleElement _fromDropdownToggleElement;
 	private HxDropdownToggleElement _toDropdownToggleElement;
 
 	private DateTime GetFromCalendarDisplayMonthEffective => CurrentValue.StartDate ?? FromCalendarDisplayMonth;
-
-	private IJSObjectReference _jsModule;
 
 	private DateTime GetToCalendarDisplayMonthEffective
 	{
@@ -131,13 +127,6 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		_firstRenderCompleted = true;
 
 		await base.OnAfterRenderAsync(firstRender);
-
-		if (firstRender && (CalendarIconEffective is not null))
-		{
-			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDateRange));
-			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _fromDropdownToggleElement.ElementReference, (CalendarIconEffective is not null) ? _fromIconWrapperElement : null);
-			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _toDropdownToggleElement.ElementReference, (CalendarIconEffective is not null) ? _toIconWrapperElement : null);
-		}
 	}
 
 	public async ValueTask FocusAsync()

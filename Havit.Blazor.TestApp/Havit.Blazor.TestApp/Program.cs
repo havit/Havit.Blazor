@@ -6,6 +6,8 @@ namespace Havit.Blazor.TestApp;
 
 public class Program
 {
+	public const string CspNonceHttpContextItemKey = "CspNonce";
+
 	public static void Main(string[] args)
 	{
 		var builder = WebApplication.CreateBuilder(args);
@@ -40,6 +42,18 @@ public class Program
 		app.UseHttpsRedirection();
 
 		app.UseFileUploadEndpoint();
+
+		// Strict (nonce-based) Content Security Policy for /CspTest pages (or any page with ?csp query string), see #1730.
+		app.Use(async (context, next) =>
+		{
+			if (context.Request.Path.StartsWithSegments("/CspTest") || context.Request.Query.ContainsKey("csp"))
+			{
+				var nonce = Convert.ToBase64String(System.Security.Cryptography.RandomNumberGenerator.GetBytes(16));
+				context.Items[CspNonceHttpContextItemKey] = nonce;
+				context.Response.Headers.ContentSecurityPolicy = $"script-src 'self' 'wasm-unsafe-eval' 'nonce-{nonce}' https://cdn.jsdelivr.net";
+			}
+			await next();
+		});
 
 		app.MapStaticAssets();
 		app.UseAntiforgery();

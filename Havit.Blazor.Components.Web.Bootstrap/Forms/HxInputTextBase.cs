@@ -96,7 +96,7 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 
 		if (SelectOnFocusEffective)
 		{
-			builder.AddAttribute(1001, "onfocus", "this.select();");
+			builder.AddAttribute(1001, "data-hx-select-on-focus");
 		}
 		builder.AddAttribute(1002, "value", CurrentValueAsString);
 		builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
