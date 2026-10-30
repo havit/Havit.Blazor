@@ -171,4 +171,33 @@ public class HxMultiSelectTests : BunitTestBase
 		Assert.Empty(cut.FindAll("[role='listbox']"));
 		Assert.Empty(cut.FindAll("[role='option']"));
 	}
+
+	[Fact]
+	public void HxMultiSelect_AllowFiltering_WithoutTextSelector_FiltersItemsUsingToString()
+	{
+		// Arrange
+		var items = new List<string> { "Apple", "Banana", "Cherry" };
+		var selectedValues = new List<string>();
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxMultiSelect<string, string>>(0);
+			builder.AddAttribute(1, "Data", (IEnumerable<string>)items);
+			builder.AddAttribute(2, "Value", selectedValues);
+			builder.AddAttribute(3, "ValueChanged", EventCallback.Factory.Create<List<string>>(this, v => { }));
+			builder.AddAttribute(4, "ValueExpression", (Expression<Func<List<string>>>)(() => selectedValues));
+			builder.AddAttribute(5, "AllowFiltering", true);
+			builder.CloseComponent();
+		};
+
+		var cut = Render(componentRenderer);
+
+		// Act
+		cut.Find("input[id$='_filter']").Input("an");
+
+		// Assert — only "Banana" matches
+		var checkboxes = cut.FindAll("input[type='checkbox']");
+		var checkbox = Assert.Single(checkboxes);
+		Assert.Contains("Banana", checkbox.ParentElement.TextContent);
+	}
 }
