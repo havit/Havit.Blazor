@@ -1,4 +1,4 @@
-﻿import HxToast from './HxToast.js';
+﻿import * as HxToast from './HxToast.js';
 import * as HxInputDate from './HxInputDate.js';
 import * as HxInputNumber from './HxInputNumber.js';
 import * as HxSidebar from './HxSidebar.js';

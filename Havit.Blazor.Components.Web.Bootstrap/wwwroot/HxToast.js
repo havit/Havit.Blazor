@@ -48,10 +48,3 @@ export function dispose(element) {
 		t.dispose();
 	}
 }
-
-const HxToast = {
-	init,
-	dispose
-};
-
-export default HxToast;
