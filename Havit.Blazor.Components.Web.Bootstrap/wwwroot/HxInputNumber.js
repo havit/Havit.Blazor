@@ -19,9 +19,9 @@ function handleKeyDown(event) {
 		return;
 	}
 
-	let newValue = input.value;
-	let newSelectionStart = -1;
-	let newSelectionEnd = -1;
+	let newValue;
+	let newSelectionStart;
+	let newSelectionEnd;
 	if (input.value.startsWith('-')) {
 		newValue = input.value.substring(1);
 		newSelectionStart = Math.max(0, input.selectionStart - 1);
