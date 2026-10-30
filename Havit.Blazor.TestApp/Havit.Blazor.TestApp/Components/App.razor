@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="@Assets["_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.min.css"]" />
     <link rel="stylesheet" href="@Assets["Havit.Blazor.TestApp.styles.css"]" />
 	<link rel="stylesheet" href="@Assets["app.css"]" />
-	<ImportMap />
+	<ImportMap nonce="@HttpContext?.Items[Program.CspNonceHttpContextItemKey]" />
     <HeadOutlet />
 </head>
 
@@ -23,3 +23,7 @@
 </body>
 
 </html>
+
+@code {
+	[CascadingParameter] private HttpContext HttpContext { get; set; }
+}

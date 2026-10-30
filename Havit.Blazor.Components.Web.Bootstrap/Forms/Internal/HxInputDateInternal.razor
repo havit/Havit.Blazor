@@ -34,7 +34,7 @@
 									ValueChanged="HandleCurrentValueAsStringChanged"
 									placeholder="@Placeholder"
 									disabled="@(!EnabledEffective)"
-									onfocus="this.select();"
+									data-hx-select-on-focus
 									inputmode="none"
 									@attributes="AdditionalAttributes" />
 
@@ -66,7 +66,7 @@
 		</HxDropdownContent>
 		@if (HasCalendarIcon)
 		{
-			<div @ref="_iconWrapperElement" class="hx-input-date-icon">
+			<div class="hx-input-date-icon" data-hx-input-date-icon>
 				<HxIcon Icon="CalendarIconEffective" />
 			</div>
 		}

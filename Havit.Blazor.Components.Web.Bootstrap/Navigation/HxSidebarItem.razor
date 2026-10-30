@@ -40,8 +40,7 @@
 						   CssClass="@CssClass"
 						   Enabled="Enabled"
 						   role="button"
-						   onmouseenter="bootstrap.Dropdown.getOrCreateInstance(event.target).show()"
-						   onmouseleave="bootstrap.Dropdown.getInstance(event.target)?.hide()"
+						   data-hx-sidebar-item-hover-dropdown
 						   data-bs-toggle="@(!String.IsNullOrEmpty(Href) ? null : "collapse")"
 						   data-bs-target="@(!ParentSidebar.Collapsed ? "#" + _id : null)"
 						   data-bs-popper-config='{"strategy": "fixed"}'

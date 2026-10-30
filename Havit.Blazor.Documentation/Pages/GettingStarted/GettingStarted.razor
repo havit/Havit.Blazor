@@ -365,6 +365,12 @@ else
 		so you won’t need to maintain the link manually in the future.
 	</p>
 }
+<DocAlert Type="DocAlertType.Info">
+	<strong>Content Security Policy:</strong> The components do not render any inline scripts or inline event handlers (<code>onclick="..."</code>, etc.),
+	so they work with a strict, nonce-based Content Security Policy (without <code>'unsafe-inline'</code> or <code>'unsafe-hashes'</code>).
+	The <code>script-src</code> directive must allow <code>'self'</code> (JS modules of the library, including the <code>Havit.Blazor.Components.Web.Bootstrap.lib.module.js</code> JavaScript initializer loaded automatically by Blazor)
+	and the source of the Bootstrap JavaScript bundle (<code>https://cdn.jsdelivr.net</code> when using the snippet above).
+</DocAlert>
 
 
 

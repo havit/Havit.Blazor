@@ -53,7 +53,7 @@
 								   value="@_filterText"
 								   @oninput="HandleFilterInputChanged"
 								   @onclick:stopPropagation
-								   onfocusin="this.select()" />
+								   data-hx-select-on-focus />
 
 							<div class="hx-multi-select-filter-input-icon">
 								@if (string.IsNullOrEmpty(_filterText))

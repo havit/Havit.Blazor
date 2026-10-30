@@ -21,7 +21,7 @@
 									 ValueChanged="HandleFromChangedAsync"
 									 placeholder="@(FromPlaceholderEffective ?? StringLocalizerFactory.GetLocalizedValue("From", typeof(HxInputDateRange)))"
 									 disabled="@(!EnabledEffective)"
-									 onfocus="this.select();"
+									 data-hx-select-on-focus
 									 inputmode="none"
 									 @attributes="this.AdditionalAttributes" />
 
@@ -59,7 +59,7 @@
 				</HxDropdownContent>
 				@if (CalendarIconEffective is not null)
 				{
-					<div @ref="_fromIconWrapperElement" class="hx-input-date-icon">
+					<div class="hx-input-date-icon" data-hx-input-date-icon>
 						<HxIcon Icon="CalendarIconEffective" />
 					</div>
 				}
@@ -78,7 +78,7 @@
 									 ValueChanged="HandleToChangedAsync"
 									 placeholder="@(ToPlaceholderEffective ?? StringLocalizerFactory.GetLocalizedValue("To", typeof(HxInputDateRange)))"
 									 disabled="@(!EnabledEffective)"
-									 onfocus="this.select()"
+									 data-hx-select-on-focus
 									 inputmode="none"
 									 @attributes="this.AdditionalAttributes" />
 
@@ -116,7 +116,7 @@
 				</HxDropdownContent>
 				@if (CalendarIconEffective is not null)
 				{
-					<div @ref="_toIconWrapperElement" class="hx-input-date-icon">
+					<div class="hx-input-date-icon" data-hx-input-date-icon>
 						<HxIcon Icon="CalendarIconEffective" />
 					</div>
 				}

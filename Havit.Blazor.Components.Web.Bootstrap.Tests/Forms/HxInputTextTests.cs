@@ -208,6 +208,25 @@ public class HxInputTextTests : BunitTestBase
 		public string StringValue { get; set; }
 	}
 
+	[Theory]
+	[InlineData(true)]
+	[InlineData(false)]
+	public void HxInputText_SelectOnFocus_RendersMarkerAttributeWithoutInlineEventHandler_Issue1730(bool selectOnFocus)
+	{
+		// Arrange
+		string currentValue = "test";
+
+		// Act
+		var cut = Render<HxInputText>(parameters => parameters
+			.Bind(p => p.Value, currentValue, newValue => currentValue = newValue)
+			.Add(p => p.SelectOnFocus, selectOnFocus));
+
+		// Assert
+		var input = cut.Find("input");
+		Assert.Equal(selectOnFocus, input.HasAttribute("data-hx-select-on-focus"));
+		Assert.False(input.HasAttribute("onfocus"));
+	}
+
 	private class RequiredFormData
 	{
 		[Required(ErrorMessage = "Name is required.")]
