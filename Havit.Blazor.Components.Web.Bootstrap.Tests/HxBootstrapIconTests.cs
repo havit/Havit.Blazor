@@ -16,6 +16,16 @@ public class HxBootstrapIconTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxIcon_IconNotSet_ThrowsInvalidOperationException()
+	{
+		// Arrange & Act
+		var ex = Assert.Throws<InvalidOperationException>(() => Render<HxIcon>());
+
+		// Assert
+		Assert.Contains(nameof(HxIcon.Icon), ex.Message);
+	}
+
+	[Fact]
 	public void HxBootstrapIcon_Icon_AppliesCorrectCssClass()
 	{
 		// Arrange & Act
