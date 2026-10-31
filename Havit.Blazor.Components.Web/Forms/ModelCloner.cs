@@ -11,6 +11,11 @@ internal static class ModelCloner
 	/// </summary>
 	public static TModel Clone<TModel>(TModel model)
 	{
+		if (model is null)
+		{
+			return default;
+		}
+
 		TModel modelClone;
 
 		if (TryCloneCloneable(model, out modelClone))

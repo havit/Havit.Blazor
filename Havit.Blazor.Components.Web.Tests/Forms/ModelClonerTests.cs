@@ -80,6 +80,19 @@ public class ModelClonerTests
 		Assert.Equal(model.Name, modelClone.Name);
 	}
 
+	[Fact]
+	public void ModelCloner_Clone_Null_ReturnsNull()
+	{
+		// Arrange
+		ModelClass model = null;
+
+		// Act
+		ModelClass modelClone = ModelCloner.Clone(model);
+
+		// Assert
+		Assert.Null(modelClone);
+	}
+
 	public record ModelRecord
 	{
 		public string Name { get; set; }
