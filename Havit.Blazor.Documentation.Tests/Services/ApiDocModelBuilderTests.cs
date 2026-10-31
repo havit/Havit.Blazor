@@ -16,6 +16,15 @@ public class ApiDocModelBuilderTests
 	}
 
 	[Fact]
+	public void Enum_WithNonIntUnderlyingType_MapsMemberValues()
+	{
+		var builder = new ApiDocModelBuilder(new DocXmlProvider());
+		var model = builder.BuildModel(typeof(ByteEnum));
+
+		Assert.Equal(2, model.EnumMembers.Single(member => member.Name == nameof(ByteEnum.Second)).Value);
+	}
+
+	[Fact]
 	public void GenericRangeComponent_MarkdownPreservesInheritedCommentReferences()
 	{
 		var builder = new ApiDocModelBuilder(new DocXmlProvider());
@@ -25,5 +34,11 @@ public class ApiDocModelBuilderTests
 		Assert.Contains("the cascading `FormState`", markdown);
 		Assert.Contains("use HxFormState", markdown);
 		Assert.Contains("When `true`, `HxChipGenerator` is used to generate chip item(s). The default is `true`.", markdown);
+	}
+
+	public enum ByteEnum : byte
+	{
+		First = 1,
+		Second = 2
 	}
 }

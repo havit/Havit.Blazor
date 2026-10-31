@@ -148,7 +148,7 @@ public class ApiDocModelBuilder : IApiDocModelBuilder
 		{
 			var enumMember = new EnumModel();
 			enumMember.Name = names[i];
-			enumMember.Value = (int)values.GetValue(i);
+			enumMember.Value = Convert.ToInt32(values.GetValue(i));
 			try
 			{
 				var enumValueComment = enumComments.ValueComments
