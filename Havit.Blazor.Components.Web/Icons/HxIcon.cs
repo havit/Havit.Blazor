@@ -28,6 +28,13 @@ public class HxIcon : ComponentBase
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+
+		Contract.Requires<InvalidOperationException>(Icon is not null, $"[{GetType().Name}] Missing required parameter '{nameof(Icon)}'.");
+	}
+
 	/// <inheritdoc cref="ComponentBase.BuildRenderTree(RenderTreeBuilder)" />
 	protected override void BuildRenderTree(RenderTreeBuilder builder)
 	{
@@ -42,7 +49,7 @@ public class HxIcon : ComponentBase
 		{
 			builder.AddAttribute(5, "aria-hidden", "true");
 		}
-		builder.AddMultipleAttributes(3, AdditionalAttributes);
+		builder.AddMultipleAttributes(6, AdditionalAttributes);
 		builder.CloseComponent();
 	}
 }
