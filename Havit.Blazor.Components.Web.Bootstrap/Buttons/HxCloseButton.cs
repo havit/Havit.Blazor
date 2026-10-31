@@ -27,10 +27,12 @@ public class HxCloseButton : HxButton
 	/// </summary>
 	protected new virtual CloseButtonSettings GetDefaults() => Defaults;
 
-	public HxCloseButton()
+	protected override void OnParametersSet()
 	{
+		base.OnParametersSet();
+
 		AdditionalAttributes ??= new();
-		AdditionalAttributes.Add("aria-label", "Close"); // Adding the aria-label for accessibility.
+		AdditionalAttributes.TryAdd("aria-label", "Close");
 	}
 
 	static HxCloseButton()
