@@ -16,6 +16,15 @@ public class ApiDocModelBuilderTests
 	}
 
 	[Fact]
+	public void Delegate_WithMultipleParameters_SeparatesParametersInSignature()
+	{
+		var builder = new ApiDocModelBuilder(new DocXmlProvider());
+		var model = builder.BuildModel(typeof(TwoParametersDelegate));
+
+		Assert.EndsWith("(int first, string second)", model.DelegateSignature);
+	}
+
+	[Fact]
 	public void GenericRangeComponent_MarkdownPreservesInheritedCommentReferences()
 	{
 		var builder = new ApiDocModelBuilder(new DocXmlProvider());
@@ -26,4 +35,6 @@ public class ApiDocModelBuilderTests
 		Assert.Contains("use HxFormState", markdown);
 		Assert.Contains("When `true`, `HxChipGenerator` is used to generate chip item(s). The default is `true`.", markdown);
 	}
+
+	public delegate void TwoParametersDelegate(int first, string second);
 }
