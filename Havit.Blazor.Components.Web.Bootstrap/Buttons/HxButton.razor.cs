@@ -251,8 +251,14 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 		if (!clickInProgress || !SingleClickProtection)
 		{
 			clickInProgress = true;
-			await HandleClickCore(mouseEventArgs);
-			clickInProgress = false;
+			try
+			{
+				await HandleClickCore(mouseEventArgs);
+			}
+			finally
+			{
+				clickInProgress = false;
+			}
 		}
 	}
 
