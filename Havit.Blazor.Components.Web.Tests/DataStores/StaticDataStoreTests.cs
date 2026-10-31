@@ -157,6 +157,22 @@ public class StaticDataStoreTests
 	}
 
 	[Fact]
+	public void StaticDataStore_ValueType_SyncThrowIfNotLoaded_ShouldRaiseException()
+	{
+		// arrange
+		var sut = new Mock<StaticDataStore<int>>();
+		sut.CallBase = true;
+		sut.Setup(s => s.LoadDataAsync()).ReturnsAsync(42);
+		sut.Setup(s => s.ShouldRefresh()).Returns(false);
+
+		// act
+		Assert.Throws<InvalidOperationException>(() => sut.Object.GetValue(throwIfNotLoaded: true));
+
+		// assert
+		// expected exception
+	}
+
+	[Fact]
 	public void StaticDataStore_IsLoadedBeforeLoad_ShouldReturnFalse()
 	{
 		// arrange
