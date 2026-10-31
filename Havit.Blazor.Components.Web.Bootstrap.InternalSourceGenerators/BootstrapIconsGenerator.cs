@@ -76,7 +76,7 @@ public class BootstrapIconsGenerator : IIncrementalGenerator
 	private static string GetPropertyNameFromIconName(string iconName)
 	{
 		string[] segments = iconName.Split('-');
-		var propertyName = String.Join("", segments.Select(segment => segment.Substring(0, 1).ToUpper() + segment.Substring(1)));
+		var propertyName = String.Join("", segments.Select(segment => segment.Substring(0, 1).ToUpperInvariant() + segment.Substring(1)));
 		if (!SyntaxFacts.IsValidIdentifier(propertyName))
 		{
 			// e.g. "123" => "_123"
@@ -88,6 +88,6 @@ public class BootstrapIconsGenerator : IIncrementalGenerator
 	private static string GetFieldNameFromPropertyName(string propertyName)
 	{
 		// One of the icons is "new" which is a C# keyword. We are adding "_" to not conflict the field name with a keyword.
-		return "_" + propertyName.Substring(0, 1).ToLower() + propertyName.Substring(1);
+		return "_" + propertyName.Substring(0, 1).ToLowerInvariant() + propertyName.Substring(1);
 	}
 }

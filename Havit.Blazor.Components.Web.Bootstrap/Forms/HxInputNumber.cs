@@ -216,7 +216,7 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 		}
 		if (inputMode is not null)
 		{
-			builder.AddAttribute(1001, "inputmode", inputMode.Value.ToString("f").ToLower());
+			builder.AddAttribute(1001, "inputmode", inputMode.Value.ToString("f").ToLowerInvariant());
 		}
 
 		if (SelectOnFocusEffective)

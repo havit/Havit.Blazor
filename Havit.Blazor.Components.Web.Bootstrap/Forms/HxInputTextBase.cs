@@ -108,12 +108,12 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 
 		if (InputModeEffective is not null)
 		{
-			builder.AddAttribute(1005, "inputmode", InputModeEffective.Value.ToString("f").ToLower());
+			builder.AddAttribute(1005, "inputmode", InputModeEffective.Value.ToString("f").ToLowerInvariant());
 		}
 
 		if (SpellcheckEffective.HasValue)
 		{
-			builder.AddAttribute(1006, "spellcheck", SpellcheckEffective.Value.ToString().ToLower());
+			builder.AddAttribute(1006, "spellcheck", SpellcheckEffective.Value.ToString().ToLowerInvariant());
 		}
 
 		builder.AddEventStopPropagationAttribute(1007, "onclick", true);
