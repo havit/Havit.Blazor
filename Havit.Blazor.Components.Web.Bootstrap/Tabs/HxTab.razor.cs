@@ -87,6 +87,13 @@ public partial class HxTab : ComponentBase, ICascadeEnabledComponent
 	/// </summary>
 	[CascadingParameter] protected HxTabPanel ParentTabPanel { get; set; }
 
+	protected override void OnParametersSet()
+	{
+		base.OnParametersSet();
+
+		Contract.Requires<InvalidOperationException>(ParentTabPanel is not null, "<HxTab /> has to be placed inside <HxTabPanel />.");
+	}
+
 	internal async Task NotifyActivatedAsync()
 	{
 		await InvokeOnTabActivatedAsync();
