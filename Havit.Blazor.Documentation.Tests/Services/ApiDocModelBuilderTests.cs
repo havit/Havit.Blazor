@@ -25,6 +25,15 @@ public class ApiDocModelBuilderTests
 	}
 
 	[Fact]
+	public void Delegate_WithMultipleParameters_SeparatesParametersInSignature()
+	{
+		var builder = new ApiDocModelBuilder(new DocXmlProvider());
+		var model = builder.BuildModel(typeof(TwoParametersDelegate));
+
+		Assert.EndsWith("(int first, string second)", model.DelegateSignature);
+	}
+
+	[Fact]
 	public void GenericRangeComponent_MarkdownPreservesInheritedCommentReferences()
 	{
 		var builder = new ApiDocModelBuilder(new DocXmlProvider());
@@ -41,4 +50,6 @@ public class ApiDocModelBuilderTests
 		First = 1,
 		Second = 2
 	}
+
+	public delegate void TwoParametersDelegate(int first, string second);
 }

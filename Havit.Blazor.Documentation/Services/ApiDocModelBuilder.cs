@@ -125,12 +125,8 @@ public class ApiDocModelBuilder : IApiDocModelBuilder
 			returnType = ApiRenderer.FormatType(invokeMethodInfo.ReturnType, true);
 		}
 
-		model.DelegateSignature = $"{returnType} {ApiRenderer.FormatType(model.Type, false)} (";
-		foreach (ParameterInfo param in invokeMethodInfo.GetParameters())
-		{
-			model.DelegateSignature += $"{ApiRenderer.FormatType(param.ParameterType)} {param.Name}";
-		}
-		model.DelegateSignature += ")";
+		var parameters = invokeMethodInfo.GetParameters().Select(param => $"{ApiRenderer.FormatType(param.ParameterType)} {param.Name}");
+		model.DelegateSignature = $"{returnType} {ApiRenderer.FormatType(model.Type, false)} ({string.Join(", ", parameters)})";
 	}
 
 	private void MapEnum(DocXmlReader reader, ApiDocModel model)

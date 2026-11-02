@@ -293,4 +293,16 @@ public class HxTabPanelTests : BunitTestBase
 		// Inactive tab should NOT have aria-controls (its panel is not in the DOM)
 		Assert.Null(navLinks[1].GetAttribute("aria-controls"));
 	}
+
+	[Fact]
+	public void HxTab_OutsideHxTabPanel_ThrowsInvalidOperationException()
+	{
+		// Arrange & Act
+		var ex = Assert.Throws<InvalidOperationException>(() => Render<HxTab>(parameters => parameters
+			.Add(t => t.Title, "First")
+		));
+
+		// Assert
+		Assert.Contains(nameof(HxTabPanel), ex.Message);
+	}
 }

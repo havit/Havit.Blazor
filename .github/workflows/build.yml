@@ -104,21 +104,21 @@ jobs:
         file-name-only: true # not a property of dorny/test-reporter, but of jirikanda/test-reporter
 
     - name: Upload artifacts - PublicNuGets
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
       with:
         name: PublicNuGets
         path: a/PublicNuGets
         compression-level: 0
 
     - name: Upload artifact - DocumentationWeb
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
       with:
         name: DocumentationWeb
         path: a/DocumentationWeb
         compression-level: 0
 
     - name: Upload artifact - DocumentationMcp
-      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+      uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
       with:
         name: DocumentationMcp
         path: a/DocumentationMcp

@@ -12,7 +12,7 @@ public class HxNavbarCollapse : HxCollapse
 	{
 		parameters.SetParameterProperties(this);
 
-		Contract.Requires<InvalidOperationException>(NavbarContainer is not null, $"{nameof(HxNavbarToggler)} requires parent {nameof(HxNavbar)}.");
+		Contract.Requires<InvalidOperationException>(NavbarContainer is not null, $"{nameof(HxNavbarCollapse)} requires parent {nameof(HxNavbar)}.");
 
 		Id = parameters.GetValueOrDefault(nameof(Id), NavbarContainer.GetDefaultCollapseId());
 
