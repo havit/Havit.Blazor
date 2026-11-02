@@ -74,3 +74,26 @@
     border-end-end-radius: var(--otp-slot-border-radius);
   }
 }
+
+// HAVIT fix: equal height of the pagination items (HxPager).
+// Bootstrap 6 sizes `.page-link` by `min-height` + padding but does not set its `line-height`, so the text items
+// (page numbers) inherit the surrounding line-height (e.g. 1.625 in `.prose` content) and grow taller than
+// the icon-only items (first/previous/next/last), which stay at the `min-height`.
+// Uses the line-height tokens of the button/input sizes the pagination sizes are aligned with.
+@layer components {
+  .pagination {
+    --pagination-line-height: var(--btn-input-line-height);
+  }
+
+  .pagination-sm {
+    --pagination-line-height: var(--btn-input-sm-line-height);
+  }
+
+  .pagination-lg {
+    --pagination-line-height: var(--btn-input-lg-line-height);
+  }
+
+  .page-link {
+    line-height: var(--pagination-line-height);
+  }
+}
