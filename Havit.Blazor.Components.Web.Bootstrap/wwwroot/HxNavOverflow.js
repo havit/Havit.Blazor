@@ -134,7 +134,11 @@ function recalculate(element) {
 	const minimumVisibleItems = state.options?.minimumVisibleItems ?? 0;
 
 	let overflowingItems;
-	if ((collapseBelow > 0) && (navWidth < collapseBelow)) {
+	if (getComputedStyle(element).flexDirection.startsWith('column')) {
+		// vertical nav (e.g. .navbar-nav in a collapsed navbar drawer) - items stack, nothing overflows horizontally
+		overflowingItems = [];
+	}
+	else if ((collapseBelow > 0) && (navWidth < collapseBelow)) {
 		// below the collapse threshold all items overflow (except keep items)
 		overflowingItems = items.filter(item => !item.classList.contains(keepCssClass));
 	}
