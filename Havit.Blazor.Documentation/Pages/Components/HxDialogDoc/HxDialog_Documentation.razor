@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxDialog))]
+﻿@attribute [Route("/components/" + nameof(HxDialog))]
 
 <ApiDoc Type="typeof(HxDialog)">
 
@@ -11,6 +11,13 @@
 		The footer renders as a Bootstrap <code>dialog-footer</code>, so multiple actions are spaced and aligned to the end automatically.
 	</p>
 	<Demo Type="typeof(HxDialog_Demo_Footer)" />
+
+    <DocHeading Title="Dark dialog" />
+	<p>
+		To make a dialog dark, add <code>data-bs-theme="dark"</code> to the <code>HxDialog</code>.
+		Unmatched attributes are rendered on the underlying <code>&lt;dialog&gt;</code> element, so all nested content uses the dark color mode.
+	</p>
+	<Demo Type="typeof(HxDialog_Demo_Dark)" />
 
     <DocHeading Title="Static backdrop" />
 	<p>When the backdrop is set to <code>DialogBackdrop.Static</code>, the dialog will not close when clicking outside of it.</p>

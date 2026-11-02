@@ -44,4 +44,9 @@ public class MessengerMessage
 	/// Custom message body (content).
 	/// </summary>
 	public RenderFragment ContentTemplate { get; set; }
+
+	/// <summary>
+	/// Additional attributes to be rendered on the message element (e.g. <c>data-bs-theme="dark"</c> for a dark toast in <c>HxMessenger</c>).
+	/// </summary>
+	public Dictionary<string, object> AdditionalAttributes { get; set; }
 }

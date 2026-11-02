@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxMessenger))]
+﻿@attribute [Route("/components/" + nameof(HxMessenger))]
 
 <ApiDoc Type="typeof(HxMessenger)">
 
@@ -13,6 +13,15 @@
 
 	<p>Call <code>services.AddHxMessenger()</code> in <code>Startup.cs</code> to set up related services.</p>
 	<CodeSnippet File="~\Pages\Components\HxMessengerDoc\HxMessenger_RegisterService.CodeSnippet.cs" />
+
+	<DocHeading Title="Dark messages" Id="dark-messages" />
+	<p>
+		To render a single message in dark mode, add the <code>data-bs-theme="dark"</code> attribute to the message using <code>MessengerMessage.AdditionalAttributes</code>
+		and pass the message to <code>messenger.AddMessage(...)</code>.
+	</p>
+	<Demo Type="typeof(HxMessenger_Demo_Dark)" Tabs="false" />
+	<p>To render all the messages in dark mode, add the attribute to the <code>@nameof(HxMessenger)</code> component itself (it is rendered on the toast container):</p>
+	<CodeSnippet File="~\Pages\Components\HxMessengerDoc\HxMessenger_HostDeployment_Dark.CodeSnippet.razor" />
 
     <DocHeading Title="Clearing messages" />
 	<p>Use the <code>messenger.Clear()</code> method (<code>IHxMessengerService</code>) if you want all messages to disappear immediately.</p>

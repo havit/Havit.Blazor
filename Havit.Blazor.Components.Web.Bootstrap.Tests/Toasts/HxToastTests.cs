@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Toasts;
+﻿using Microsoft.Extensions.DependencyInjection;
+
+namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Toasts;
 
 public class HxToastTests : BunitTestBase
 {
@@ -121,6 +123,88 @@ public class HxToastTests : BunitTestBase
 
 		// Assert
 		Assert.Equal("polite", cut.Find("div.hx-messenger").GetAttribute("aria-live"));
+	}
+
+	[Fact]
+	public void HxToast_AdditionalAttributes_RenderedOnToast()
+	{
+		// Act
+		var cut = Render<HxToast>(parameters => parameters
+			.Add(p => p.Color, ThemeColor.Success)
+			.Add(p => p.ContentText, "Content")
+			.AddUnmatched("data-bs-theme", "dark")
+			.AddUnmatched("data-test", "toast"));
+
+		// Assert - Bootstrap 6 dark toast: data-bs-theme="dark" on the .toast element
+		var toast = cut.Find("div.toast");
+		Assert.Equal("dark", toast.GetAttribute("data-bs-theme"));
+		Assert.Equal("toast", toast.GetAttribute("data-test"));
+		Assert.Contains("theme-success", toast.ClassList);
+	}
+
+	[Fact]
+	public void HxToast_AdditionalAttributes_ClassDoesNotOverrideComponentCss()
+	{
+		// Act
+		var cut = Render<HxToast>(parameters => parameters
+			.Add(p => p.ContentText, "Content")
+			.AddUnmatched("class", "foo"));
+
+		// Assert
+		Assert.Contains("toast", cut.Find("div.toast").ClassList);
+	}
+
+	[Fact]
+	public void HxToastContainer_AdditionalAttributes_RenderedOnContainer()
+	{
+		// Act
+		var cut = Render<HxToastContainer>(parameters => parameters
+			.Add(p => p.Position, ToastContainerPosition.BottomEnd)
+			.AddUnmatched("data-bs-theme", "dark"));
+
+		// Assert
+		var container = cut.Find("div.toast-container");
+		Assert.Equal("dark", container.GetAttribute("data-bs-theme"));
+		Assert.Contains("hx-toast-container-fixed", container.ClassList);
+	}
+
+	[Fact]
+	public void HxMessenger_AdditionalAttributes_RenderedOnToastContainer()
+	{
+		// Act
+		var cut = Render<HxMessenger>(parameters => parameters
+			.AddUnmatched("data-bs-theme", "dark"));
+
+		// Assert
+		Assert.Equal("dark", cut.Find("div.toast-container").GetAttribute("data-bs-theme"));
+		Assert.Null(cut.Find("div.hx-messenger").GetAttribute("data-bs-theme"));
+	}
+
+	[Fact]
+	public void HxMessenger_MessageAdditionalAttributes_RenderedOnToast()
+	{
+		// Arrange
+		var cut = Render<HxMessenger>();
+		var messenger = Services.GetRequiredService<IHxMessengerService>();
+
+		// Act
+		messenger.AddMessage(new BootstrapMessengerMessage
+		{
+			Color = ThemeColor.Primary,
+			Text = "Dark message",
+			AdditionalAttributes = new Dictionary<string, object> { ["data-bs-theme"] = "dark" }
+		});
+		messenger.AddMessage(new BootstrapMessengerMessage
+		{
+			Color = ThemeColor.Primary,
+			Text = "Regular message"
+		});
+
+		// Assert
+		cut.WaitForAssertion(() => Assert.Equal(2, cut.FindAll("div.toast").Count));
+		var toasts = cut.FindAll("div.toast");
+		Assert.Equal("dark", toasts[0].GetAttribute("data-bs-theme"));
+		Assert.Null(toasts[1].GetAttribute("data-bs-theme"));
 	}
 
 	[Theory]

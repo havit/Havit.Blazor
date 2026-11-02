@@ -2,7 +2,7 @@
 
 @* The live region has to exist before the toasts are added to be announced reliably by assistive technologies. *@
 <div class="hx-messenger" aria-live="polite">
-    <HxToastContainer Position="Position" CssClass="@CssClass">
+    <HxToastContainer Position="Position" CssClass="@CssClass" @attributes="AdditionalAttributes">
         @foreach (MessengerMessage message in _messages)
         {
             // @key is used to pair messages to HxToasts when some message disappers.
@@ -15,7 +15,8 @@
                  ContentText="@message.Text"
                  ContentTemplate="@message.ContentTemplate"
                  AutohideDelay="@message.AutohideDelay"
-                 OnToastHidden="() => HandleToastHidden(message)" />
+                 OnToastHidden="() => HandleToastHidden(message)"
+                 @attributes="message.AdditionalAttributes" />
         }
     </HxToastContainer>
 </div>
