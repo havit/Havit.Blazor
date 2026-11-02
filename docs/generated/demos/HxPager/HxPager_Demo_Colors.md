@@ -1,0 +1,12 @@
+﻿# HxPager_Demo_Colors.razor
+
+```razor
+<HxPager CurrentPageIndex="1" TotalPages="10" Color="ThemeColor.Primary" />
+<br />
+<HxPager CurrentPageIndex="1" TotalPages="10" Color="ThemeColor.Success" />
+<br />
+<HxPager CurrentPageIndex="1" TotalPages="10" Color="ThemeColor.Danger" />
+<br />
+<HxPager CurrentPageIndex="1" TotalPages="10" Color="ThemeColor.Accent" />
+
+```

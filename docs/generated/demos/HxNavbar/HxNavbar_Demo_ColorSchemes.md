@@ -10,7 +10,7 @@
 			<HxNavLink Href="#">Link</HxNavLink>
 			<HxMenu>
 				<Toggle>
-					<HxMenuToggleElement ElementName="a" role="button">Menu</HxMenuToggleElement>
+					<HxMenuToggleElement ElementName="button" type="button">Menu</HxMenuToggleElement>
 				</Toggle>
 				<Content>
 					<HxMenuItemNavLink Href="#">Action</HxMenuItemNavLink>
@@ -37,7 +37,7 @@
 			<HxNavLink Href="#">Link</HxNavLink>
 			<HxMenu>
 				<Toggle>
-					<HxMenuToggleElement ElementName="a" role="button">Menu</HxMenuToggleElement>
+					<HxMenuToggleElement ElementName="button" type="button">Menu</HxMenuToggleElement>
 				</Toggle>
 				<Content>
 					<HxMenuItemNavLink Href="#">Action</HxMenuItemNavLink>
@@ -64,7 +64,7 @@
 			<HxNavLink Href="#">Link</HxNavLink>
 			<HxMenu>
 				<Toggle>
-					<HxMenuToggleElement ElementName="a" role="button">Menu</HxMenuToggleElement>
+					<HxMenuToggleElement ElementName="button" type="button">Menu</HxMenuToggleElement>
 				</Toggle>
 				<Content>
 					<HxMenuItemNavLink Href="#">Action</HxMenuItemNavLink>

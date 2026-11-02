@@ -17,10 +17,11 @@ Switch input. (Replaces the former `HxInputSwitch` component which was dropped i
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
 | Inline | `bool` | Allows grouping checkboxes on the same horizontal row by rendering them inline. The default value is `false`. This only works when there is no label, no hint, and no validation message. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
+| InputSize | `InputSize?` | Size of the switch (`switch-sm`/`switch-lg`). The default is taken from `HxSetup.Defaults` (`InputSize.Regular` if not customized). |
 | Label | `string` | The label text. |
 | LabelCssClass | `string` | The custom CSS class to render with the label. |
 | LabelTemplate | `RenderFragment` | The label content. |
-| Native | `bool?` | To render switch as a native switch. |
+| Native | `bool?` | [Obsolete] No effect. Since Bootstrap 6, every switch renders the `switch` attribute (native haptic feedback in mobile Safari, iOS 17.4+). |
 | Reverse | `bool` | Put the checkbox on the opposite side - first text, then checkbox. |
 | Settings | `SwitchSettings` | Set of settings to be applied to the component instance. |
 | Text | `string` | Text to display next to the checkbox. |
@@ -47,4 +48,5 @@ Switch input. (Replaces the former `HxInputSwitch` component which was dropped i
 
 - HxSwitch_Demo.razor
 - HxSwitch_Demo_Reverse.razor
+- HxSwitch_Demo_Sizes.razor
 

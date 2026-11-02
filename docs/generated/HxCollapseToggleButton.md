@@ -6,6 +6,7 @@ Bootstrap Collapse toggle (in the form of a button) which triggers the `HxCollap
 
 | Name | Type | Description |
 |------|------|-------------|
+| Active | `bool?` | Renders the button as a toggle button in the given state: `true` renders the `active` class and `aria-pressed="true"`, `false` renders `aria-pressed="false"`. The default is `null` (a regular, non-toggle button). Toggle the value yourself, e.g. in `OnClick`. |
 | AdditionalAttributes | `Dictionary<string, object>` | Additional attributes to be splatted onto an underlying `<button>` element. |
 | AriaLabel | `string` | Defines the `aria-label` of the button. Should be used to provide an accessible name for icon-only buttons. |
 | ChildContent | `RenderFragment` | Button content. |
@@ -23,7 +24,7 @@ Bootstrap Collapse toggle (in the form of a button) which triggers the `HxCollap
 | Settings | `ButtonSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | SingleClickProtection | `bool` | Sets `false` if you want to allow multiple `OnClick` handlers in parallel. Default is `true`. |
 | Size | `ButtonSize?` | Button size. The default is `ButtonSize.Regular`. |
-| Spinner | `bool?` | Sets the state of the embedded `HxSpinner`. Leave `null` if you want automated spinner when any of the `OnClick` handlers is running. You can set an explicit `false` constant to disable (override) the spinner automation. |
+| Spinner | `bool?` | Sets the state of the embedded spinner (rendered with `aria-hidden="true"`, it does not become part of the button's accessible name). Leave `null` if you want automated spinner when any of the `OnClick` handlers is running. You can set an explicit `false` constant to disable (override) the spinner automation. |
 | Text | `string` | Text of the button. |
 | Tooltip | `string` | Tooltip text. If set, a `span` wrapper will be rendered around the `<button />`. For most scenarios, you will then use `TooltipWrapperCssClass` instead of `CssClass`. |
 | TooltipContainer | `string` | Appends the tooltip to a specific element. Default is `body`. |

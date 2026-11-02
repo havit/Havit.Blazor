@@ -7,7 +7,7 @@ Bootstrap 6 Menu component (replaces the Bootstrap 5 Dropdown). Renders the `HxM
 | Name | Type | Description |
 |------|------|-------------|
 | AdditionalAttributes | `Dictionary<string, object>` | Additional attributes to be splatted onto the underlying `.menu` element. |
-| AutoClose | `MenuAutoClose` | By default, the menu is closed when clicking inside or outside the menu (`MenuAutoClose.True`). You can use the AutoClose parameter to change this behavior of the menu. See https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior for more information. |
+| AutoClose | `MenuAutoClose` | By default, the menu is closed when clicking inside or outside the menu (`MenuAutoClose.True`). You can use the AutoClose parameter to change this behavior of the menu (the `Esc` key always closes the menu). See https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior for more information. |
 | Content | `RenderFragment` | The menu content (typically `HxMenuItem`, `HxMenuItemNavLink`, `HxMenuDivider`, `HxMenuHeader`, `HxMenuText`, or any custom content). |
 | CssClass | `string` | Any additional CSS class to apply to the `.menu` element. |
 | Placement | `MenuPlacement` | Placement of the menu relative to the toggle. The default is `MenuPlacement.BottomStart` (Bootstrap default). |

@@ -1,6 +1,6 @@
 ﻿# HxPlaceholder
 
-Bootstrap 5 Placeholder component, also known as Skeleton. Use loading placeholders for your components or pages to indicate that something may still be loading.
+Bootstrap Placeholder component, also known as Skeleton. Use loading placeholders for your components or pages to indicate that something may still be loading.
 
 ## Parameters
 

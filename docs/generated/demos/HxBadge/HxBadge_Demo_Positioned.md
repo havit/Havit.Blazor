@@ -2,7 +2,11 @@
 
 ```razor
 <HxButton Color="ThemeColor.Primary" CssClass="position-relative">
-    Inbox<HxBadge Color="ThemeColor.Danger" CssClass="position-absolute top-0 start-100 translate-middle" >99+</HxBadge>
+    Inbox
+    <HxBadge Color="ThemeColor.Danger" Type="BadgeType.RoundedPill" CssClass="position-absolute top-0 start-100 translate-middle border border-bg">
+        99+
+        <span class="visually-hidden">unread messages</span>
+    </HxBadge>
 </HxButton>
 
 ```

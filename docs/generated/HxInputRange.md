@@ -12,6 +12,7 @@ Allows the user to select a number in a specified range using a slider. Mirrors 
 | BindEvent | `BindEvent?` | Instructs whether the `Value` is going to be updated `oninput` (immediately), or `onchange` (usually `onmouseup`). Default is `BindEvent.OnChange`. |
 | Bubble | `bool?` | When `true`, a value bubble following the thumb is shown. The default is `false`. |
 | ChipTemplate | `RenderFragment` | The chip template. |
+| Color | `ThemeColor?` | Theme color of the filled track and the thumb (renders the `theme-*` class on the `.form-range` wrapper). The default is `ThemeColor.None` (the Bootstrap default, primary). |
 | CssClass | `string` | The custom CSS class to render with the wrapping div. |
 | DisplayName | `string` | Gets or sets the display name for this field. This value is used when generating error messages when the input value fails to parse correctly. |
 | Enabled | `bool?` | When `null` (default), the `Enabled` value is received from the cascading `FormState`. When the value is `false`, the input is rendered as disabled. To set multiple controls as disabled, use HxFormState. |
@@ -47,6 +48,7 @@ Allows the user to select a number in a specified range using a slider. Mirrors 
 - HxInputRange_Demo.razor
 - HxInputRange_Demo_BindEvent.razor
 - HxInputRange_Demo_Bubble.razor
+- HxInputRange_Demo_Color.razor
 - HxInputRange_Demo_Disabled.razor
 - HxInputRange_Demo_MinMax.razor
 - HxInputRange_Demo_Steps.razor

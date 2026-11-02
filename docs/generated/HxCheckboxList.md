@@ -20,6 +20,7 @@ Renders a multi-selection list of `HxCheckbox` controls.
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
 | Inline | `bool` | Allows grouping checkboxes on the same horizontal row by rendering them inline. The default is `false`. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
+| InputSize | `InputSize?` | Size of the checkboxes/switches (`check-sm`/`check-lg`, `switch-sm`/`switch-lg`). Not used for `CheckboxListRenderMode.ToggleButtons` and `CheckboxListRenderMode.ButtonGroup`, use `ButtonSize` instead. The default is taken from `HxSetup.Defaults` (`InputSize.Regular` if not customized). |
 | ItemCssClass | `string` | Additional CSS class(es) for the underlying `HxCheckbox`. |
 | ItemCssClassSelector | `Func<TItem, string>` | Additional CSS class(es) for the `HxCheckbox`. |
 | ItemInputCssClass | `string` | Additional CSS class(es) for the input element of the `HxCheckbox`. |

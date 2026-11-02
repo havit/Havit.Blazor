@@ -5,11 +5,11 @@
 
 <HxDialog @ref="firstDialog" Title="First dialog">
 	<BodyTemplate>
-		Opening the second dialog automatically swaps it in place of this one &ndash; the backdrop stays visible the whole time, with no flicker.
+		Opening the second dialog swaps it in place of this one &ndash; the backdrop stays visible the whole time, with no flicker.
 	</BodyTemplate>
 	<FooterTemplate>
 		<HxButton OnClick="() => firstDialog.HideAsync()" Color="ThemeColor.Secondary">Close</HxButton>
-		<HxButton OnClick="() => secondDialog.ShowAsync()" Color="ThemeColor.Primary">Open second dialog</HxButton>
+		<HxButton OnClick="() => SwapAsync(firstDialog, secondDialog)" Color="ThemeColor.Primary">Open second dialog</HxButton>
 	</FooterTemplate>
 </HxDialog>
 
@@ -19,7 +19,7 @@
 	</BodyTemplate>
 	<FooterTemplate>
 		<HxButton OnClick="() => secondDialog.HideAsync()" Color="ThemeColor.Secondary">Close</HxButton>
-		<HxButton OnClick="() => firstDialog.ShowAsync()" Color="ThemeColor.Primary">Back to first dialog</HxButton>
+		<HxButton OnClick="() => SwapAsync(secondDialog, firstDialog)" Color="ThemeColor.Primary">Back to first dialog</HxButton>
 	</FooterTemplate>
 </HxDialog>
 
@@ -27,6 +27,12 @@
 {
 	private HxDialog firstDialog;
 	private HxDialog secondDialog;
+
+	private async Task SwapAsync(HxDialog current, HxDialog next)
+	{
+		await current.HideAsync();
+		await next.ShowAsync();
+	}
 }
 
 ```

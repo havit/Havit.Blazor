@@ -6,6 +6,7 @@ Settings for the `HxPager`.
 
 | Name | Type | Description |
 |------|------|-------------|
+| Color | `ThemeColor?` | Theme color of the pager. |
 | CssClass | `string` | Any additional CSS class to apply. |
 | FirstPageIcon | `IconBase` | Icon for the "First page" button. |
 | LastPageIcon | `IconBase` | Icon for the "Last page" button. |

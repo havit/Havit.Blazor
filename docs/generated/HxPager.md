@@ -8,6 +8,7 @@ Pagination control for navigating pages of data, typically used alongside `HxGri
 |------|------|-------------|
 | CurrentPageIndex **[REQUIRED]** | `int` | Current page index. Zero-based. Displayed numbers start with 1, which is page index 0. |
 | TotalPages **[REQUIRED]** | `int` | Total number of pages of data items. Has to be equal to or greater than `1`. |
+| Color | `ThemeColor?` | Theme color of the pager (hover, focus, and the active page item), renders the Bootstrap `theme-*` class. The default is `null` (no theme color). |
 | CssClass | `string` | Any additional CSS class to apply. |
 | CurrentPageIndexChanged | `EventCallback<int>` | Event raised when the page index is changed. |
 | FirstPageContentTemplate | `RenderFragment` | Content for the "First page" button. If not set, the `FirstPageIcon` is used. |
@@ -31,6 +32,7 @@ Pagination control for navigating pages of data, typically used alongside `HxGri
 ## Available demo samples
 
 - HxPager_Demo.razor
+- HxPager_Demo_Colors.razor
 - HxPager_Demo_Customization.razor
 - HxPager_Demo_Sizes.razor
 

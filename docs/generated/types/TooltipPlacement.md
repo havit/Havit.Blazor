@@ -10,5 +10,5 @@ Placement of the tooltip for `HxTooltip`.
 | Bottom | 1 |  |
 | Left | 2 |  |
 | Right | 3 |  |
-| Auto | 4 | When specified, it will dynamically reorient the tooltip. |
+| Auto | 4 | When specified, it will dynamically reorient the tooltip towards the side with the most available space. (Emulated by Havit.Blazor, Bootstrap 6 has no `auto` placement.) |
 

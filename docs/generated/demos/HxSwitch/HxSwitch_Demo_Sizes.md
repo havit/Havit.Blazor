@@ -1,0 +1,12 @@
+﻿# HxSwitch_Demo_Sizes.razor
+
+```razor
+<HxSwitch Text="Small switch" InputSize="InputSize.Small" @bind-Value="isChecked" />
+<HxSwitch Text="Regular switch (default)" @bind-Value="isChecked" />
+<HxSwitch Text="Large switch" InputSize="InputSize.Large" @bind-Value="isChecked" />
+
+@code {
+	private bool isChecked = true;
+}
+
+```
