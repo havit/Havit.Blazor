@@ -149,6 +149,7 @@ public partial class HxCarousel : IAsyncDisposable
 	private List<HxCarouselItem> _items;
 	private CollectionRegistration<HxCarouselItem> _itemsRegistration;
 	private int _jsItemsCount;
+	private (bool Controls, bool Indicators, bool PlayPauseControl, bool OnTop) _jsControlsLayout;
 	private bool _disposed = false;
 
 	public HxCarousel()
@@ -167,6 +168,7 @@ public partial class HxCarousel : IAsyncDisposable
 		if (firstRender)
 		{
 			_jsItemsCount = _items.Count;
+			_jsControlsLayout = GetControlsLayout();
 			await EnsureJsModule();
 			if (_disposed)
 			{
@@ -174,14 +176,20 @@ public partial class HxCarousel : IAsyncDisposable
 			}
 			await _jsModule.InvokeVoidAsync("initialize", _elementReference, _dotnetObjectReference, GetJsOptions());
 		}
-		else if ((_jsModule is not null) && (_items.Count != _jsItemsCount))
+		else if ((_jsModule is not null) && ((_items.Count != _jsItemsCount) || (GetControlsLayout() != _jsControlsLayout)))
 		{
 			// The Bootstrap carousel tracks the items present at construction only (IntersectionObserver, active item, indicators, end controls),
 			// so it has to be re-created when items are added or removed.
+			// It also caches the control, play/pause and indicator elements, so it has to be re-created
+			// when those are (re)rendered as new elements (shown/hidden or moved by ControlsPlacement).
 			_jsItemsCount = _items.Count;
+			_jsControlsLayout = GetControlsLayout();
 			await _jsModule.InvokeVoidAsync("reinitialize", _elementReference, GetJsOptions());
 		}
 	}
+
+	private (bool Controls, bool Indicators, bool PlayPauseControl, bool OnTop) GetControlsLayout()
+		=> (Controls, Indicators, PlayPauseControl, RenderControlsOnTop);
 
 	private Dictionary<string, object> GetJsOptions()
 	{

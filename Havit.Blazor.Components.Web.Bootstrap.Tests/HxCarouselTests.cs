@@ -64,4 +64,41 @@ public class HxCarouselTests : BunitTestBase
 		Assert.Single(children);
 		Assert.True(children[0].ClassList.Contains("carousel-inner"));
 	}
+
+	[Fact]
+	public void HxCarousel_ControlsPlacementChangedAfterInitialization_ReinitializesJavaScript()
+	{
+		// Arrange
+		var cut = Render<HxCarousel>(parameters => parameters
+			.Add(p => p.Controls, true)
+		);
+		Assert.Single(JSInterop.Invocations, i => i.Identifier == "initialize");
+
+		// Act
+		cut.Render(parameters => parameters
+			.Add(p => p.ControlsPlacement, CarouselControlsPlacement.Top)
+		);
+
+		// Assert
+		Assert.Single(JSInterop.Invocations, i => i.Identifier == "reinitialize");
+		Assert.NotNull(cut.Find("div.carousel").Children[0].QuerySelector("button[data-bs-slide=prev]"));
+	}
+
+	[Fact]
+	public void HxCarousel_RerenderWithUnchangedControlsLayout_DoesNotReinitializeJavaScript()
+	{
+		// Arrange
+		var cut = Render<HxCarousel>(parameters => parameters
+			.Add(p => p.Controls, true)
+			.Add(p => p.ControlsPlacement, CarouselControlsPlacement.Top)
+		);
+
+		// Act
+		cut.Render(parameters => parameters
+			.Add(p => p.CssClass, "custom-class")
+		);
+
+		// Assert
+		Assert.DoesNotContain(JSInterop.Invocations, i => i.Identifier == "reinitialize");
+	}
 }
