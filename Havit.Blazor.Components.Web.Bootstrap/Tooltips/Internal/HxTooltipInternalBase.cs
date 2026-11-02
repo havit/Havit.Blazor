@@ -135,11 +135,11 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 			builder.AddAttribute(2, "class", CssClassHelper.Combine("d-inline-block", WrapperCssClassEffective));
 			builder.AddAttribute(3, "data-bs-container", ContainerEffective);
 			builder.AddAttribute(4, "data-bs-trigger", GetTriggers());
-			builder.AddAttribute(5, "data-bs-placement", PlacementEffective?.ToString().ToLower());
+			builder.AddAttribute(5, "data-bs-placement", PlacementEffective?.ToString().ToLowerInvariant());
 			builder.AddAttribute(6, "data-bs-custom-class", CssClassEffective);
 			if (AnimationEffective is not null)
 			{
-				builder.AddAttribute(7, "data-bs-animation", AnimationEffective.ToString().ToLower());
+				builder.AddAttribute(7, "data-bs-animation", AnimationEffective.ToString().ToLowerInvariant());
 			}
 			// #1541 An empty data-bs-title ("") gets normalized to null by Bootstrap and fails the config type-check, the attribute must be omitted entirely.
 			builder.AddAttribute(8, "data-bs-title", String.IsNullOrEmpty(TitleInternal) ? null : TitleInternal);
@@ -180,7 +180,7 @@ public abstract class HxTooltipInternalBase : ComponentBase, IAsyncDisposable
 		{
 			if (triggerEffective.Value.HasFlag(flag))
 			{
-				result = result + " " + flag.ToString().ToLower();
+				result = result + " " + flag.ToString().ToLowerInvariant();
 			}
 		}
 		return result?.Trim();

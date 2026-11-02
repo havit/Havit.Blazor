@@ -8,7 +8,7 @@ public static class ThemeColorExtensions
 		{
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as background color."),
-			_ => "bg-" + themeColor.ToString("f").ToLower() + (subtle ? "-subtle" : null)
+			_ => "bg-" + themeColor.ToString("f").ToLowerInvariant() + (subtle ? "-subtle" : null)
 		};
 	}
 
@@ -18,7 +18,7 @@ public static class ThemeColorExtensions
 		{
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as text-bg color."),
-			_ => "text-bg-" + themeColor.ToString("f").ToLower()
+			_ => "text-bg-" + themeColor.ToString("f").ToLowerInvariant()
 		};
 	}
 
@@ -28,7 +28,7 @@ public static class ThemeColorExtensions
 		{
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as text color."),
-			_ => "text-" + themeColor.ToString("f").ToLower() + (emphasis ? "-emphasis" : null)
+			_ => "text-" + themeColor.ToString("f").ToLowerInvariant() + (emphasis ? "-emphasis" : null)
 		};
 	}
 	public static string ToBorderColorCss(this ThemeColor themeColor, bool subtle = false)
@@ -37,7 +37,7 @@ public static class ThemeColorExtensions
 		{
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as border color."),
-			_ => "border-" + themeColor.ToString("f").ToLower() + (subtle ? "-subtle" : null)
+			_ => "border-" + themeColor.ToString("f").ToLowerInvariant() + (subtle ? "-subtle" : null)
 		};
 	}
 

@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
+﻿using System.Globalization;
+
+namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
 public class HxAlertTests : BunitTestBase
 {
@@ -34,6 +36,22 @@ public class HxAlertTests : BunitTestBase
 		// Assert
 		var div = cut.Find("div.alert");
 		Assert.True(div.ClassList.Contains(expectedCss), $"Expected CSS class '{expectedCss}' for color {color}.");
+	}
+
+	[Fact]
+	public void HxAlert_Color_TurkishCulture_RendersInvariantCssClass()
+	{
+		// Arrange
+		using var culture = CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("tr-TR"));
+
+		// Act
+		var cut = Render<HxAlert>(p => p
+			.Add(a => a.Color, ThemeColor.Info)
+			.AddChildContent("Content"));
+
+		// Assert
+		var div = cut.Find("div.alert");
+		Assert.True(div.ClassList.Contains("alert-info"));
 	}
 
 	[Fact]

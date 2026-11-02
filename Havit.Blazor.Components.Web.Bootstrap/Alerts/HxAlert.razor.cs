@@ -41,7 +41,7 @@ public partial class HxAlert
 		{
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as {nameof(HxAlert)} color."),
-			_ => "alert-" + Color.ToString("f").ToLower()
+			_ => "alert-" + Color.ToString("f").ToLowerInvariant()
 		};
 	}
 
