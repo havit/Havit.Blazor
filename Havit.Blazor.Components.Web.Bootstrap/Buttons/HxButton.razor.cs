@@ -258,6 +258,7 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 			finally
 			{
 				clickInProgress = false;
+				StateHasChanged();
 			}
 		}
 	}
