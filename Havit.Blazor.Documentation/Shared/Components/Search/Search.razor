@@ -1,7 +1,10 @@
 @namespace Havit.Blazor.Documentation.Shared.Components
 @using System.Globalization
 
-<div class="position-relative search-wrapper">
+@* Own <form role="search">: Safari's streamlined login auto-focuses the first field of what it takes for a login form
+   on pages with an autocomplete="one-time-code" input (HxOtpInput docs); formless fields are grouped into a single form,
+   so the navbar search was the first one. Submitting is prevented (HxAutosuggest handles Enter itself). *@
+<form class="position-relative search-wrapper" role="search" @onsubmit:preventDefault>
 	<HxAutosuggest @ref="_autosuggest"
 				   Placeholder="Search"
 				   TItem="SearchItem"
@@ -28,4 +31,4 @@
 		</EmptyTemplate>
 	</HxAutosuggest>
 	<kbd class="search-shortcut-hint position-absolute top-50 translate-middle-y border rounded-4 bg-body fg-secondary fw-normal user-select-none py-0" style="right: 2.75rem; pointer-events: none;">@(_isMac ? "⌘K" : "Ctrl+K")</kbd>
-</div>
+</form>
