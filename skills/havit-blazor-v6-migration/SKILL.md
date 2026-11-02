@@ -77,7 +77,13 @@ Run the searches in `references/class-renames.md` and apply the mappings: `form-
 
 ### 3c. Theme color utilities (Bootstrap 6 token system)
 
-Apply per `references/class-renames.md`: `text-{color}` → `fg-{color}`, `text-{color}-emphasis` → `fg-emphasis-{color}`, `bg-{color}-subtle` → `bg-subtle-{color}`, `border-{color}-subtle` → `border-subtle-{color}`, `text-bg-{color}` → `theme-{color}` on a `badge`, but `bg-{color} fg-contrast-{color}` (upstream's form) everywhere else, including regular `card`s — `theme-{color}` alone paints nothing on a plain element and only tints a regular card's border. The `light`/`dark` theme colors are **removed** — for component colors map `light` → `secondary` and `dark` → `inverse` (new `accent` and `inverse` colors exist). `bg-light`/`bg-dark` and `text-light`/`text-dark` have no drop-in; choose by intent (adaptive `bg-1`/`bg-2`, or fixed `bg-white`/`bg-black` and `fg-white`/`fg-black`). Also apply the body-surface renames: `bg-body-tertiary`/`bg-body-secondary` → `bg-1`/`bg-2`, `text-body-secondary` → `fg-secondary`, `text-muted` → `fg-secondary`. Verify each result against the bundle as in 3a.
+Apply per `references/class-renames.md`: `text-{color}` → `fg-{color}`, `text-{color}-emphasis` → `fg-emphasis-{color}`, `bg-{color}-subtle` → `bg-subtle-{color}`, `border-{color}-subtle` → `border-subtle-{color}`, `text-bg-{color}` → `theme-{color}` on a `badge`, but `bg-{color} fg-contrast-{color}` (upstream's form) everywhere else, including regular `card`s — `theme-{color}` alone paints nothing on a plain element and only tints a regular card's border. The `light`/`dark` theme colors are **removed** — for component colors map `light` → `secondary` and `dark` → `inverse` (new `accent` and `inverse` colors exist). `bg-light`/`bg-dark` and `text-light`/`text-dark` have no drop-in; choose by intent (adaptive `bg-1`/`bg-2`, or fixed `bg-white`/`bg-black` and `fg-white`/`fg-black`). Also apply the body-surface renames: `bg-body-tertiary`/`bg-body-secondary` → `bg-1`/`bg-2`, `text-body-secondary` → `fg-secondary`, `text-muted` → `fg-secondary`. Table variants: `table-{color}` → `theme-{color}` on the same `<table>`/`<tr>`/`<td>` (`table-light` → `theme-secondary`, `table-dark` → `theme-inverse`, which is a light-gray tint in light mode — flag it if the original meant a dark table); `table-active` is unchanged. Verify each result against the bundle as in 3a.
+
+**Table variants are the most common silent miss in Havit.Blazor apps**: they are typically returned from `HxGrid` `ItemRowCssClassSelector` lambdas or set via `ItemRowCssClass`/`TableCssClass`/column `ItemCssClass` (incl. `GridSettings`/`HxGrid.Defaults`) — C# strings, so nothing fails at build time and the rows just lose their color. Search all files, not only markup:
+
+```
+rg -n 'table-(primary|secondary|success|danger|warning|info|light|dark)\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
+```
 
 **Don't stop at `class="..."` markup searches.** Classes are frequently built as C# string literals — a hardcoded `CssClass = "text-danger"` in a demo's `@code` block, a `RenderTreeBuilder.AddAttribute(..., "text-secondary mb-1 ...")` in a `.razor.cs` file, an `ItemCssClassSelector` lambda returning a literal string, or a class embedded inside an HTML string passed to a `Content`/`Html` parameter. A plain `rg 'class="..."' -g '*.razor'` search misses all of these. Grep `.cs`/`.razor.cs` files for the same old class names as plain quoted substrings, not just attribute syntax.
 
@@ -234,7 +240,7 @@ The CSS variables ARE renamed, though: `--bs-border-radius` and its `-sm`/`-lg`/
 2. Leftover scan — all of these should return nothing (or only deliberate, flagged exceptions):
    ```
    rg -n 'HxModal|HxOffcanvas|HxDropdown|HxNavbarCollapse' -g '*.razor' -g '*.cs' -g '!{bin,obj}'
-   rg -n 'form-select|text-bg-|btn-outline-[a-z]+|\bbtn-(primary|secondary|success|danger|warning|info|light|dark)\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
+   rg -n 'form-select|text-bg-|btn-outline-[a-z]+|\b(btn|table)-(primary|secondary|success|danger|warning|info|light|dark)\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
    rg -on '\b[a-z][a-z0-9-]*-(sm|md|lg|xl|xxl)-[a-z0-9-]+\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
    rg -n '\btext-(primary|secondary|success|danger|warning|info|light|dark|muted|white|black|body-secondary|body-tertiary)\b|\bbg-body-(secondary|tertiary)\b' -g '*.razor' -g '*.cs' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
    rg -n -- '--bs-(secondary-color|emphasis-color|[a-z]+-text-emphasis|[a-z-]*-rgb\b)' -g '*.css' -g '*.razor' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
@@ -247,5 +253,5 @@ The CSS variables ARE renamed, though: `--bs-border-radius` and its `-sm`/`-lg`/
    - **Drawers/offcanvas replacements**: open from the correct edge, backdrop dismiss.
    - **Navbar mobile**: narrow the viewport below the expand breakpoint — toggler opens the drawer, links navigate and close it; widen — content flattens inline.
    - **Sidebar**: desktop icon-rail collapse works; below the breakpoint the sidebar hides and the navbar drawer serves navigation.
-   - **Theme colors**: badges/alerts/buttons show colors (a colorless gray component usually means a stale `btn-{color}`/`text-bg-*` class); check dark color mode if used.
+   - **Theme colors**: badges/alerts/buttons show colors (a colorless gray component usually means a stale `btn-{color}`/`text-bg-*` class); grid/table rows that were highlighted (overdue, error, ...) are still tinted (an uncolored row means a stale `table-{color}`); check dark color mode if used.
 4. Report every spot you flagged-but-did-not-change (media queries, ambiguous classes) for human review, with file:line.
