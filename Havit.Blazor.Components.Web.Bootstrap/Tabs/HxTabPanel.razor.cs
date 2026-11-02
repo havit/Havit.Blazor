@@ -19,19 +19,22 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 	/// <summary>
 	/// The visual variant of the nav items.
 	/// Default is <see cref="NavVariant.Tabs"/>.
+	/// Does not apply to the <see cref="TabPanelVariant.ListGroup"/> variant (the tab navigation is rendered as a list group).
 	/// </summary>
 	[Parameter] public NavVariant NavVariant { get; set; } = NavVariant.Tabs;
 
 	/// <summary>
 	/// Orientation of the tab navigation.
 	/// Use <see cref="NavOrientation.Vertical"/> to place the tab navigation alongside the tab content (e.g. vertical pills).
-	/// Applies only to the <see cref="TabPanelVariant.Standard"/> variant.
+	/// Applies to the <see cref="TabPanelVariant.Standard"/> and <see cref="TabPanelVariant.ListGroup"/> variants
+	/// (for <see cref="TabPanelVariant.ListGroup"/>, <see cref="NavOrientation.Horizontal"/> renders a horizontal list group above the tab content).
 	/// The default value is <see cref="NavOrientation.Horizontal"/>.
 	/// </summary>
 	[Parameter] public NavOrientation Orientation { get; set; } = NavOrientation.Horizontal;
 
 	/// <summary>
 	/// Set to <see cref="TabPanelVariant.Card"/> if you want to wrap the tab panel in a card with the tab navigation in the header.
+	/// Set to <see cref="TabPanelVariant.ListGroup"/> if you want to render the tab navigation as a list group.
 	/// </summary>
 	[Parameter] public TabPanelVariant Variant { get; set; } = TabPanelVariant.Standard;
 
@@ -242,7 +245,34 @@ public partial class HxTabPanel : ComponentBase, IAsyncDisposable
 		return null;
 	}
 
-	private bool IsVerticalLayout => (Variant == TabPanelVariant.Standard) && (Orientation == NavOrientation.Vertical);
+	private bool IsListGroup => Variant == TabPanelVariant.ListGroup;
+
+	private bool IsVerticalLayout => (Variant is TabPanelVariant.Standard or TabPanelVariant.ListGroup) && (Orientation == NavOrientation.Vertical);
+
+	private string GetNavCssClass()
+	{
+		if (IsListGroup)
+		{
+			// Bootstrap 6 tab plugin with list group: https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/tab/#list-groups
+			return CssClassHelper.Combine(
+				"list-group",
+				IsVerticalLayout ? null : "list-group-horizontal",
+				"hx-tab-panel",
+				IsVerticalLayout ? "me-3" : "mb-3",
+				CssClass);
+		}
+
+		return CssClassHelper.Combine(
+			"nav",
+			HxNav.GetOrientationCssClass(GetNavOrientation(), NavVariant),
+			HxNav.GetVariantCssClass(NavVariant),
+			"hx-tab-panel",
+			GetNavCssClassInCardMode(),
+			GetNavCssClassForOrientation(),
+			CssClass);
+	}
+
+	private string GetTabCssClass() => IsListGroup ? "list-group-item list-group-item-action" : "nav-link";
 
 	private NavOrientation GetNavOrientation() => IsVerticalLayout ? NavOrientation.Vertical : NavOrientation.Horizontal;
 

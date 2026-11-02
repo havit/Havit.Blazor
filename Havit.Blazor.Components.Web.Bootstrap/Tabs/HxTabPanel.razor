@@ -10,7 +10,7 @@
 			FinishCollectingTabs();
 		}
 
-		@if (Variant == TabPanelVariant.Standard)
+		@if (Variant is TabPanelVariant.Standard or TabPanelVariant.ListGroup)
 		{
 			@if (Orientation == NavOrientation.Vertical)
 			{
@@ -44,7 +44,7 @@
 	private void RenderTabsNavigation(RenderTreeBuilder __builder)
 	{
 		@* Not HxNav - role="tablist" must not override the navigation landmark role of <nav>. *@
-		<div class="@CssClassHelper.Combine("nav", HxNav.GetOrientationCssClass(GetNavOrientation(), NavVariant), HxNav.GetVariantCssClass(NavVariant), "hx-tab-panel", GetNavCssClassInCardMode(), GetNavCssClassForOrientation(), CssClass)"
+		<div class="@GetNavCssClass()"
 		     role="tablist"
 		     aria-orientation="@GetNavAriaOrientation()">
 			@foreach (HxTab tab in _tabsListOrdered)
@@ -53,7 +53,7 @@
 				{
 					<button type="button"
 					        @key="@tab.Id"
-					        class="@CssClassHelper.Combine("nav-link", (IsActive(tab) ? "active" : null), (CascadeEnabledComponent.EnabledEffective(tab) ? null : "disabled"), tab.TitleCssClass)"
+					        class="@CssClassHelper.Combine(GetTabCssClass(), (IsActive(tab) ? "active" : null), (CascadeEnabledComponent.EnabledEffective(tab) ? null : "disabled"), tab.TitleCssClass)"
 					        @onclick="async () => await HandleTabClick(tab)"
 					        aria-disabled="@(CascadeEnabledComponent.EnabledEffective(tab) ? null : "true")"
 					        role="tab"
