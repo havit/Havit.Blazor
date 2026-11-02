@@ -37,7 +37,8 @@
         <DocHeading Title="Customizing with CSS variables" />
         <p>
             The look of the avatar can be adjusted by overriding the CSS variables (see the <a href="#HxAvatar-css-variables">table below</a>)
-            on the individual avatar (e.g. using the <code>style</code> attribute) or on any parent element.
+            directly on the avatar element, either using the <code>style</code> attribute or with a CSS selector targeting the avatar (e.g. <code>.my-team .avatar { ... }</code>).
+            The variables are declared on the <code>.avatar</code> class itself, so values set on a parent element are not inherited.
         </p>
         <Demo Type="typeof(HxAvatar_Demo_CssVariables)" Tabs="false" />
     </MainContent>
