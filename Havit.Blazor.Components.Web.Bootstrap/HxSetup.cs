@@ -22,7 +22,7 @@ public static class HxSetup
 	/// Bootstrap 6 ships ES modules only — there is no UMD bundle and no implicit <c>window.bootstrap</c> global anymore.
 	/// The bundle is shipped with this library (static web asset) to stay in lock-step with the compiled CSS
 	/// (Bootstrap 6 alpha is not available on public CDNs yet).
-	/// The rendered module script re-exposes <c>window.bootstrap</c> as a compatibility bridge for the Hx* JS modules
+	/// The rendered (external) module script re-exposes <c>window.bootstrap</c> as a compatibility bridge for the Hx* JS modules
 	/// (to be replaced by explicit imports as components are migrated to v6).
 	/// Note: the library's JS initializer (<c>Havit.Blazor.Components.Web.Bootstrap.lib.module.js</c>, <c>beforeWebStart</c>/<c>beforeStart</c>)
 	/// also establishes this bridge before the Blazor runtime starts, which guarantees availability for component JS interop regardless of
@@ -31,12 +31,9 @@ public static class HxSetup
 	/// </remarks>
 	public static string RenderBootstrapJavaScriptReference()
 	{
-		// The shared window.havitBlazorBootstrapReady promise slot is claimed SYNCHRONOUSLY (??= with no
-		// preceding await) so this script and the library's JS initializer (beforeWebStart/beforeStart)
-		// can never both import the bundle - a non-atomic guard (await before assignment) would let the
-		// other party start a second import of a differently-URLed copy, duplicating the Bootstrap
-		// data-API listeners (every delegated toggle would fire twice).
-		return "<script type=\"module\">window.havitBlazorBootstrapReady ??= import(\"./_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.bundle.min.js?v=" + VersionIdentifierHavitBlazorBootstrap + "\").then(m => { window.bootstrap = m; }); await window.havitBlazorBootstrapReady;</script>";
+		// External module script (HxSetup.js, not an inline script) so a strict Content Security Policy does not need a nonce for it.
+		// HxSetup.js claims the shared window.havitBlazorBootstrapReady promise slot together with the library's JS initializer, see the comments there.
+		return "<script type=\"module\" src=\"_content/Havit.Blazor.Components.Web.Bootstrap/HxSetup.js?v=" + VersionIdentifierHavitBlazorBootstrap + "\"></script>";
 	}
 
 	/// <summary>

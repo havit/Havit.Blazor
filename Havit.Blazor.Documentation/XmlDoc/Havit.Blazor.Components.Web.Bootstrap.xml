@@ -10640,7 +10640,7 @@
             Bootstrap 6 ships ES modules only — there is no UMD bundle and no implicit <c>window.bootstrap</c> global anymore.
             The bundle is shipped with this library (static web asset) to stay in lock-step with the compiled CSS
             (Bootstrap 6 alpha is not available on public CDNs yet).
-            The rendered module script re-exposes <c>window.bootstrap</c> as a compatibility bridge for the Hx* JS modules
+            The rendered (external) module script re-exposes <c>window.bootstrap</c> as a compatibility bridge for the Hx* JS modules
             (to be replaced by explicit imports as components are migrated to v6).
             Note: the library's JS initializer (<c>Havit.Blazor.Components.Web.Bootstrap.lib.module.js</c>, <c>beforeWebStart</c>/<c>beforeStart</c>)
             also establishes this bridge before the Blazor runtime starts, which guarantees availability for component JS interop regardless of
