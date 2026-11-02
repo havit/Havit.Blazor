@@ -69,17 +69,28 @@ function findElementByFragment(fragment) {
 }
 
 function getScrollContainer(element) {
+	// Prefer the HxScrollspy container (even when its content currently fits and there is nothing to scroll).
+	const scrollspyElement = element.closest('.hx-scrollspy');
+	if (scrollspyElement && isScrollableByOverflow(scrollspyElement)) {
+		return scrollspyElement;
+	}
+
 	for (let parent = element.parentElement; parent && (parent !== document.body) && (parent !== document.documentElement); parent = parent.parentElement) {
-		const overflowY = getComputedStyle(parent).overflowY;
-		if (((overflowY === 'auto') || (overflowY === 'scroll')) && (parent.scrollHeight > parent.clientHeight)) {
+		if (isScrollableByOverflow(parent) && (parent.scrollHeight > parent.clientHeight)) {
 			return parent;
 		}
 	}
 	return null;
 }
 
+function isScrollableByOverflow(element) {
+	const overflowY = getComputedStyle(element).overflowY;
+	return (overflowY === 'auto') || (overflowY === 'scroll');
+}
+
 function fixSmoothScrollNavigationUrl(scrollspy) {
 	// With smoothScroll enabled, Bootstrap updates the URL by history.replaceState(null, '', '#fragment') once the scroll settles.
+	// It also replaces the history state (null), so the original state is restored afterwards.
 	// The relative '#fragment' URL is resolved against <base href> (required by Blazor), which would replace the current page path
 	// (e.g. /components/HxScrollspy#section becomes /#section). Resolve the fragment against the current URL instead.
 	const settleNavigation = scrollspy._settleNavigation;
@@ -90,6 +101,10 @@ function fixSmoothScrollNavigationUrl(scrollspy) {
 	scrollspy._settleNavigation = function (hash, section) {
 		const url = new URL(window.location.href);
 		url.hash = hash;
-		return settleNavigation.call(this, url.href, section);
+		// Bootstrap replaces the history state with null, which would drop the state Blazor keeps there.
+		const state = window.history.state;
+		const result = settleNavigation.call(this, url.href, section);
+		window.history.replaceState(state, '', url.href);
+		return result;
 	};
 }
