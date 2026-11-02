@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Localization;
+﻿using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
@@ -41,6 +41,13 @@ public partial class HxCarousel : IAsyncDisposable
 	/// rendering them below. Default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool Overlay { get; set; }
+
+	/// <summary>
+	/// Where the controls, play/pause button and indicators are placed relative to the slides.
+	/// Default is <see cref="CarouselControlsPlacement.Bottom"/>.
+	/// Ignored when <see cref="Overlay"/> is <c>true</c> (the overlay controls are always positioned over the bottom of the slides).
+	/// </summary>
+	[Parameter] public CarouselControlsPlacement ControlsPlacement { get; set; } = CarouselControlsPlacement.Bottom;
 
 	/// <summary>
 	/// Animate slides with a fade transition instead of sliding.
@@ -125,6 +132,10 @@ public partial class HxCarousel : IAsyncDisposable
 	/// Triggers the <see cref="OnSlid"/> event. Allows interception of the event in derived components.
 	/// </summary>
 	protected virtual Task InvokeOnSlidAsync(CarouselSlideEventArgs eventArgs) => OnSlid.InvokeAsync(eventArgs);
+
+	private bool HasControls => Controls || Indicators || PlayPauseControl;
+	private bool RenderControlsOnTop => HasControls && !Overlay && (ControlsPlacement == CarouselControlsPlacement.Top);
+	private bool RenderControlsOnBottom => HasControls && !RenderControlsOnTop;
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
