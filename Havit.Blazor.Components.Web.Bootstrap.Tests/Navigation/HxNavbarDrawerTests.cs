@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Navigation;
 public class HxNavbarDrawerTests : BunitTestBase
 {
 	[Fact]
-	public void HxNavbarDrawer_WithoutTitle_HasLocalizedAriaLabel()
+	public void HxNavbarDrawer_WithoutTitle_HasLocalizedDefaultTitle()
 	{
 		using var culture = CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US"));
 
@@ -16,9 +16,29 @@ public class HxNavbarDrawerTests : BunitTestBase
 
 		// Assert
 		var dialog = cut.Find("dialog.drawer");
+		var title = cut.Find(".drawer-title");
+		Assert.Equal("Menu", title.TextContent);
+		Assert.Equal(title.Id, dialog.GetAttribute("aria-labelledby"));
+		Assert.Null(dialog.GetAttribute("aria-label"));
+		Assert.Equal("Close", cut.Find(".drawer-header .btn-close").GetAttribute("aria-label"));
+	}
+
+	[Fact]
+	public void HxNavbarDrawer_EmptyTitle_RendersNoTitleAndHasLocalizedAriaLabel()
+	{
+		using var culture = CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("en-US"));
+
+		// Act
+		var cut = Render<HxNavbar>(parameters => parameters
+			.AddChildContent<HxNavbarDrawer>(drawer => drawer
+				.Add(d => d.Title, "")
+				.AddChildContent("Content")));
+
+		// Assert
+		var dialog = cut.Find("dialog.drawer");
+		Assert.Empty(cut.FindAll(".drawer-title"));
 		Assert.Equal("Navigation", dialog.GetAttribute("aria-label"));
 		Assert.Null(dialog.GetAttribute("aria-labelledby"));
-		Assert.Equal("Close", cut.Find(".drawer-header .btn-close").GetAttribute("aria-label"));
 	}
 
 	[Fact]
@@ -27,7 +47,7 @@ public class HxNavbarDrawerTests : BunitTestBase
 		// Act
 		var cut = Render<HxNavbar>(parameters => parameters
 			.AddChildContent<HxNavbarDrawer>(drawer => drawer
-				.Add(d => d.Title, "Menu")
+				.Add(d => d.Title, "Main menu")
 				.AddChildContent("Content")));
 
 		// Assert
@@ -35,11 +55,11 @@ public class HxNavbarDrawerTests : BunitTestBase
 		Assert.Null(dialog.GetAttribute("aria-label"));
 		var title = cut.Find(".drawer-title");
 		Assert.Equal(title.Id, dialog.GetAttribute("aria-labelledby"));
-		Assert.Equal("Menu", title.TextContent);
+		Assert.Equal("Main menu", title.TextContent);
 	}
 
 	[Fact]
-	public void HxNavbarDrawer_CloseButtonLabel_IsLocalized()
+	public void HxNavbarDrawer_TitleAndCloseButtonLabel_AreLocalized()
 	{
 		using var culture = CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo("cs-CZ"));
 
@@ -50,6 +70,6 @@ public class HxNavbarDrawerTests : BunitTestBase
 
 		// Assert
 		Assert.Equal("Zavřít", cut.Find(".drawer-header .btn-close").GetAttribute("aria-label"));
-		Assert.Equal("Navigace", cut.Find("dialog.drawer").GetAttribute("aria-label"));
+		Assert.Equal("Menu", cut.Find(".drawer-title").TextContent);
 	}
 }
