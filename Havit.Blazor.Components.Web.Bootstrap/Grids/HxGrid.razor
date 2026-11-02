@@ -23,6 +23,7 @@
 	<HxDeferInternal>
 		@{
 			List<IHxGridColumn<TItem>> columnsToRender = GetColumnsToRender();
+			Dictionary<IHxGridColumn<TItem>, string> stackedLabels = GetStackedLabels(columnsToRender); // null when the grid is not stacked
 
 			bool shouldRenderLoadingData = (_totalCount == null);
 			bool shouldRenderLoadingDataWithLoadingTemplate = shouldRenderLoadingData && (LoadingDataTemplate != null);
@@ -31,8 +32,11 @@
 			bool shouldRenderEmptyData = (_totalCount == 0);
 			bool shouldRenderData;
 			bool shouldRenderFooter = (_totalCount > 0) || ((_totalCount == 0) && ShowFooterWhenEmptyDataEffective);
-			var rowHeightValue = ItemRowHeightEffective;
-			string rowHeight = rowHeightValue.ToString() + "px";
+			// Infinite scroll: fixed row height for the Virtualize calculations.
+			// Not used for a stacked grid - the stacked rows are taller and their height varies (Virtualize measures the rendered rows), a fixed height would clip them.
+			string itemRowHeight = ((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) && (StackedEffective == GridStacked.Never))
+				? ItemRowHeightEffective.ToString(System.Globalization.CultureInfo.InvariantCulture) + "px"
+				: null;
 
 			switch (ContentNavigationModeEffective)
 			{
@@ -64,7 +68,7 @@
 								&& !shouldRenderLoadingDataWithPlaceholders;
 
 			<div @ref="_hxGridContainer" class="@CssClassHelper.Combine("hx-grid-container",
-												ResponsiveEffective ? "table-responsive" : null,
+												(ResponsiveEffective || (StackedEffective != GridStacked.Never)) ? "table-responsive" : null,
 												progressIndicatorInProgress ? "hx-grid-progress-indicator" : null,
 												TableContainerCssClassEffective)">
 
@@ -128,7 +132,7 @@
 						@{
 							RenderFragment<GridPlaceholderCellContext> placeholderRowTemplate = (GridPlaceholderCellContext placeholderCellContext) =>
 							@<tr @key="@placeholderCellContext.Index"
-								height="@((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
+								height="@itemRowHeight"
 								class="@ItemRowCssClassEffective"
 								@onclick:stopPropagation>
 
@@ -136,7 +140,7 @@
 								{
 									// same as above this else section
 									GridCellTemplate cellTemplate = column.GetItemPlaceholderCellTemplate(placeholderCellContext);
-									<td @key="@column" class="@cellTemplate.CssClass">
+									<td @key="@column" class="@cellTemplate.CssClass" data-cell="@(stackedLabels?[column])">
 										@cellTemplate.Template
 									</td>
 								}
@@ -152,7 +156,7 @@
 								{
 								<tr @key="@(ItemKeySelector(item))"
 									role="button"
-									height="@((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
+									height="@itemRowHeight"
 									class="@CssClassHelper.Combine(
 																ItemRowCssClassEffective,
 																ItemRowCssClassSelector?.Invoke(item),
@@ -165,7 +169,7 @@
 										{
 											// same as below in the else section
 											GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
-										<td @key="@column" class="@cellTemplate.CssClass">
+										<td @key="@column" class="@cellTemplate.CssClass" data-cell="@(stackedLabels?[column])">
 												@cellTemplate.Template
 										</td>
 										}
@@ -175,7 +179,7 @@
 								{
 									// !SelectionEnabled && !MultiSelectionEnabled - no table-active, no event handlers
 								<tr @key="@(ItemKeySelector(item))"
-									height="@((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) ? rowHeight : null)"
+									height="@itemRowHeight"
 									class="@CssClassHelper.Combine(ItemRowCssClassEffective, ItemRowCssClassSelector?.Invoke(item))"
 									@attributes="ItemRowAdditionalAttributesSelectorEffective(item)"
 									@onclick:stopPropagation>
@@ -184,7 +188,7 @@
 										{
 											// same as above this else section
 											GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
-										<td @key="@column" class="@cellTemplate.CssClass">
+										<td @key="@column" class="@cellTemplate.CssClass" data-cell="@(stackedLabels?[column])">
 												@cellTemplate.Template
 										</td>
 										}
@@ -227,7 +231,7 @@
 							}
 							else
 							{
-								<tr>
+								<tr class="hx-grid-loading-data-row">
 									<td colspan="@columnsToRender.Count">
 										@if (shouldRenderLoadingDataWithLoadingTemplate)
 										{
@@ -273,7 +277,7 @@
 									@attributes="FooterRowAdditionalAttributes">
 									@for (int i = 0; i < footerTemplates.Length; i++) // do not use foreach, we need to use i as a key as footerTemplates can contain duplicates
 									{
-										<td @key="@i" class="@footerTemplates[i].CssClass">@footerTemplates[i].Template</td>
+										<td @key="@i" class="@footerTemplates[i].CssClass" data-cell="@(stackedLabels?[columnsToRender[i]])">@footerTemplates[i].Template</td>
 									}
 								</tr>
 							</tfoot>

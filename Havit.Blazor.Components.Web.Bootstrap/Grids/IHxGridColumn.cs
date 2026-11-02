@@ -68,4 +68,13 @@ public interface IHxGridColumn<TItem>
 	/// Default interface implementation returns <c>null</c> so that existing implementers do not break.
 	/// </remarks>
 	int? GetTabIndexEffective() => null;
+
+	/// <summary>
+	/// Returns the plain-text label of the column's cells for the stacked layout of the grid (see <see cref="HxGrid{TItem}.Stacked"/>),
+	/// rendered as the <c>data-cell</c> attribute of the cells. Returns <c>null</c> (or an empty string) for no label.
+	/// </summary>
+	/// <remarks>
+	/// Default interface implementation returns <c>null</c> so that existing implementers do not break.
+	/// </remarks>
+	string GetStackedLabel() => null;
 }

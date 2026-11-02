@@ -6,7 +6,8 @@
     visibility: hidden;
 }
 
-::deep .hx-grid-infinite-scroll {
+/* Stacked grids are excluded: their rows have no fixed height and the cell values wrap (see the stacked layout section below). */
+::deep .hx-grid-infinite-scroll:not([class*="table-stacked"]) {
 	white-space: nowrap;
 }
 
@@ -94,6 +95,441 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
     background-color: var(--hx-grid-progress-indicator-color);
     animation: 1.5s ease-in-out 0s 1 slideRight;
     animation-iteration-count: infinite;
+}
+
+/* ===== Stacked layout (HxGrid.Stacked => Bootstrap .table-stacked / .{bp}:table-stacked) =====
+   Bootstrap stacks the thead (visually hidden) and the tbody rows only. The rules below complete
+   the stacked layout for the grid-specific parts:
+   - the multi-select checkbox is placed in front of the row title (the next cell),
+   - the context menu is placed to the top-end corner of the row,
+   - the footer row is stacked the same way as the data rows (empty footer cells are hidden).
+   Bootstrap applies .{bp}:table-stacked below the container breakpoint (the .table-responsive wrapper
+   is the query container), so the rules are repeated for each breakpoint. The blocks are identical
+   except for the selector and the container condition (keep them in sync, the breakpoints must match
+   the Bootstrap $breakpoints). */
+
+/* These rules have an effect only in the stacked layout (no ::before content and an inherited
+   font-weight are the defaults of the regular table layout), so they are not repeated per breakpoint. */
+.hx-grid > tbody > tr > td.hx-grid-multiselect-cell + td::before {
+	content: none; /* the cell next to the multi-select checkbox is the row title, no label */
+}
+
+.hx-grid > tbody > tr.hx-grid-empty-data-row > td,
+.hx-grid > tbody > tr.hx-grid-loading-data-row > td {
+	font-weight: inherit; /* not a row title */
+}
+
+/* .table-stacked (always) */
+[class~="table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
+	float: inline-start;
+	height: auto;
+}
+
+[class~="table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell ::deep .hx-grid-multiselect-checkbox {
+	padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+}
+
+[class~="table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell + td,
+[class~="table-stacked"] > tfoot > tr > td:first-child,
+[class~="table-stacked"] > tfoot > tr > td.hx-grid-multiselect-cell + td {
+	font-weight: var(--bs-font-weight-bold);
+}
+
+[class~="table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) {
+	position: relative;
+}
+
+[class~="table-stacked"] > tbody > tr > td.hx-context-menu-grid-column {
+	position: absolute;
+	inset-block-start: calc(var(--bs-table-cell-padding-y) * 1.25);
+	inset-inline-end: var(--bs-table-cell-padding-x);
+	padding: 0;
+}
+
+[class~="table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td:first-child:not(.hx-grid-multiselect-cell),
+[class~="table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-multiselect-cell + td {
+	padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
+}
+
+/* infinite scroll: the (empty) Virtualize spacer rows */
+[class~="table-stacked"] > tbody ::deep > tr:empty {
+	padding-block: 0;
+	border-block-start: 0;
+}
+
+[class~="table-stacked"] > tbody ::deep > tr:empty + tr {
+	border-block-start: 0;
+}
+
+[class~="table-stacked"] > tfoot > tr {
+	display: block;
+	padding-block: var(--bs-table-cell-padding-y);
+	border-block-start: var(--bs-table-border-width) solid var(--bs-table-border-color);
+}
+
+[class~="table-stacked"] > tfoot > tr > td {
+	display: block;
+	padding: calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+	border: 0;
+}
+
+[class~="table-stacked"] > tfoot > tr > td:empty {
+	display: none;
+}
+
+[class~="table-stacked"] > tfoot > tr > td[data-cell]:not(:first-child, .hx-grid-multiselect-cell + td)::before {
+	display: block;
+	font-weight: var(--bs-font-weight-semibold);
+	content: attr(data-cell);
+}
+
+[class~="table-stacked"] > tfoot > tr > td:not(:first-child) + td::before {
+	margin-block-start: .25rem;
+}
+
+@container (width < 576px) {
+	[class~="sm:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
+		float: inline-start;
+		height: auto;
+	}
+
+	[class~="sm:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell ::deep .hx-grid-multiselect-checkbox {
+		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+	}
+
+	[class~="sm:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell + td,
+	[class~="sm:table-stacked"] > tfoot > tr > td:first-child,
+	[class~="sm:table-stacked"] > tfoot > tr > td.hx-grid-multiselect-cell + td {
+		font-weight: var(--bs-font-weight-bold);
+	}
+
+	[class~="sm:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) {
+		position: relative;
+	}
+
+	[class~="sm:table-stacked"] > tbody > tr > td.hx-context-menu-grid-column {
+		position: absolute;
+		inset-block-start: calc(var(--bs-table-cell-padding-y) * 1.25);
+		inset-inline-end: var(--bs-table-cell-padding-x);
+		padding: 0;
+	}
+
+	[class~="sm:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td:first-child:not(.hx-grid-multiselect-cell),
+	[class~="sm:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-multiselect-cell + td {
+		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
+	}
+
+	/* infinite scroll: the (empty) Virtualize spacer rows */
+	[class~="sm:table-stacked"] > tbody ::deep > tr:empty {
+		padding-block: 0;
+		border-block-start: 0;
+	}
+
+	[class~="sm:table-stacked"] > tbody ::deep > tr:empty + tr {
+		border-block-start: 0;
+	}
+
+	[class~="sm:table-stacked"] > tfoot > tr {
+		display: block;
+		padding-block: var(--bs-table-cell-padding-y);
+		border-block-start: var(--bs-table-border-width) solid var(--bs-table-border-color);
+	}
+
+	[class~="sm:table-stacked"] > tfoot > tr > td {
+		display: block;
+		padding: calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+		border: 0;
+	}
+
+	[class~="sm:table-stacked"] > tfoot > tr > td:empty {
+		display: none;
+	}
+
+	[class~="sm:table-stacked"] > tfoot > tr > td[data-cell]:not(:first-child, .hx-grid-multiselect-cell + td)::before {
+		display: block;
+		font-weight: var(--bs-font-weight-semibold);
+		content: attr(data-cell);
+	}
+
+	[class~="sm:table-stacked"] > tfoot > tr > td:not(:first-child) + td::before {
+		margin-block-start: .25rem;
+	}
+}
+
+@container (width < 768px) {
+	[class~="md:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
+		float: inline-start;
+		height: auto;
+	}
+
+	[class~="md:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell ::deep .hx-grid-multiselect-checkbox {
+		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+	}
+
+	[class~="md:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell + td,
+	[class~="md:table-stacked"] > tfoot > tr > td:first-child,
+	[class~="md:table-stacked"] > tfoot > tr > td.hx-grid-multiselect-cell + td {
+		font-weight: var(--bs-font-weight-bold);
+	}
+
+	[class~="md:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) {
+		position: relative;
+	}
+
+	[class~="md:table-stacked"] > tbody > tr > td.hx-context-menu-grid-column {
+		position: absolute;
+		inset-block-start: calc(var(--bs-table-cell-padding-y) * 1.25);
+		inset-inline-end: var(--bs-table-cell-padding-x);
+		padding: 0;
+	}
+
+	[class~="md:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td:first-child:not(.hx-grid-multiselect-cell),
+	[class~="md:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-multiselect-cell + td {
+		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
+	}
+
+	/* infinite scroll: the (empty) Virtualize spacer rows */
+	[class~="md:table-stacked"] > tbody ::deep > tr:empty {
+		padding-block: 0;
+		border-block-start: 0;
+	}
+
+	[class~="md:table-stacked"] > tbody ::deep > tr:empty + tr {
+		border-block-start: 0;
+	}
+
+	[class~="md:table-stacked"] > tfoot > tr {
+		display: block;
+		padding-block: var(--bs-table-cell-padding-y);
+		border-block-start: var(--bs-table-border-width) solid var(--bs-table-border-color);
+	}
+
+	[class~="md:table-stacked"] > tfoot > tr > td {
+		display: block;
+		padding: calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+		border: 0;
+	}
+
+	[class~="md:table-stacked"] > tfoot > tr > td:empty {
+		display: none;
+	}
+
+	[class~="md:table-stacked"] > tfoot > tr > td[data-cell]:not(:first-child, .hx-grid-multiselect-cell + td)::before {
+		display: block;
+		font-weight: var(--bs-font-weight-semibold);
+		content: attr(data-cell);
+	}
+
+	[class~="md:table-stacked"] > tfoot > tr > td:not(:first-child) + td::before {
+		margin-block-start: .25rem;
+	}
+}
+
+@container (width < 1024px) {
+	[class~="lg:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
+		float: inline-start;
+		height: auto;
+	}
+
+	[class~="lg:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell ::deep .hx-grid-multiselect-checkbox {
+		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+	}
+
+	[class~="lg:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell + td,
+	[class~="lg:table-stacked"] > tfoot > tr > td:first-child,
+	[class~="lg:table-stacked"] > tfoot > tr > td.hx-grid-multiselect-cell + td {
+		font-weight: var(--bs-font-weight-bold);
+	}
+
+	[class~="lg:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) {
+		position: relative;
+	}
+
+	[class~="lg:table-stacked"] > tbody > tr > td.hx-context-menu-grid-column {
+		position: absolute;
+		inset-block-start: calc(var(--bs-table-cell-padding-y) * 1.25);
+		inset-inline-end: var(--bs-table-cell-padding-x);
+		padding: 0;
+	}
+
+	[class~="lg:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td:first-child:not(.hx-grid-multiselect-cell),
+	[class~="lg:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-multiselect-cell + td {
+		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
+	}
+
+	/* infinite scroll: the (empty) Virtualize spacer rows */
+	[class~="lg:table-stacked"] > tbody ::deep > tr:empty {
+		padding-block: 0;
+		border-block-start: 0;
+	}
+
+	[class~="lg:table-stacked"] > tbody ::deep > tr:empty + tr {
+		border-block-start: 0;
+	}
+
+	[class~="lg:table-stacked"] > tfoot > tr {
+		display: block;
+		padding-block: var(--bs-table-cell-padding-y);
+		border-block-start: var(--bs-table-border-width) solid var(--bs-table-border-color);
+	}
+
+	[class~="lg:table-stacked"] > tfoot > tr > td {
+		display: block;
+		padding: calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+		border: 0;
+	}
+
+	[class~="lg:table-stacked"] > tfoot > tr > td:empty {
+		display: none;
+	}
+
+	[class~="lg:table-stacked"] > tfoot > tr > td[data-cell]:not(:first-child, .hx-grid-multiselect-cell + td)::before {
+		display: block;
+		font-weight: var(--bs-font-weight-semibold);
+		content: attr(data-cell);
+	}
+
+	[class~="lg:table-stacked"] > tfoot > tr > td:not(:first-child) + td::before {
+		margin-block-start: .25rem;
+	}
+}
+
+@container (width < 1280px) {
+	[class~="xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
+		float: inline-start;
+		height: auto;
+	}
+
+	[class~="xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell ::deep .hx-grid-multiselect-checkbox {
+		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+	}
+
+	[class~="xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell + td,
+	[class~="xl:table-stacked"] > tfoot > tr > td:first-child,
+	[class~="xl:table-stacked"] > tfoot > tr > td.hx-grid-multiselect-cell + td {
+		font-weight: var(--bs-font-weight-bold);
+	}
+
+	[class~="xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) {
+		position: relative;
+	}
+
+	[class~="xl:table-stacked"] > tbody > tr > td.hx-context-menu-grid-column {
+		position: absolute;
+		inset-block-start: calc(var(--bs-table-cell-padding-y) * 1.25);
+		inset-inline-end: var(--bs-table-cell-padding-x);
+		padding: 0;
+	}
+
+	[class~="xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td:first-child:not(.hx-grid-multiselect-cell),
+	[class~="xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-multiselect-cell + td {
+		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
+	}
+
+	/* infinite scroll: the (empty) Virtualize spacer rows */
+	[class~="xl:table-stacked"] > tbody ::deep > tr:empty {
+		padding-block: 0;
+		border-block-start: 0;
+	}
+
+	[class~="xl:table-stacked"] > tbody ::deep > tr:empty + tr {
+		border-block-start: 0;
+	}
+
+	[class~="xl:table-stacked"] > tfoot > tr {
+		display: block;
+		padding-block: var(--bs-table-cell-padding-y);
+		border-block-start: var(--bs-table-border-width) solid var(--bs-table-border-color);
+	}
+
+	[class~="xl:table-stacked"] > tfoot > tr > td {
+		display: block;
+		padding: calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+		border: 0;
+	}
+
+	[class~="xl:table-stacked"] > tfoot > tr > td:empty {
+		display: none;
+	}
+
+	[class~="xl:table-stacked"] > tfoot > tr > td[data-cell]:not(:first-child, .hx-grid-multiselect-cell + td)::before {
+		display: block;
+		font-weight: var(--bs-font-weight-semibold);
+		content: attr(data-cell);
+	}
+
+	[class~="xl:table-stacked"] > tfoot > tr > td:not(:first-child) + td::before {
+		margin-block-start: .25rem;
+	}
+}
+
+@container (width < 1536px) {
+	[class~="2xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
+		float: inline-start;
+		height: auto;
+	}
+
+	[class~="2xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell ::deep .hx-grid-multiselect-checkbox {
+		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+	}
+
+	[class~="2xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell + td,
+	[class~="2xl:table-stacked"] > tfoot > tr > td:first-child,
+	[class~="2xl:table-stacked"] > tfoot > tr > td.hx-grid-multiselect-cell + td {
+		font-weight: var(--bs-font-weight-bold);
+	}
+
+	[class~="2xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) {
+		position: relative;
+	}
+
+	[class~="2xl:table-stacked"] > tbody > tr > td.hx-context-menu-grid-column {
+		position: absolute;
+		inset-block-start: calc(var(--bs-table-cell-padding-y) * 1.25);
+		inset-inline-end: var(--bs-table-cell-padding-x);
+		padding: 0;
+	}
+
+	[class~="2xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td:first-child:not(.hx-grid-multiselect-cell),
+	[class~="2xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-multiselect-cell + td {
+		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
+	}
+
+	/* infinite scroll: the (empty) Virtualize spacer rows */
+	[class~="2xl:table-stacked"] > tbody ::deep > tr:empty {
+		padding-block: 0;
+		border-block-start: 0;
+	}
+
+	[class~="2xl:table-stacked"] > tbody ::deep > tr:empty + tr {
+		border-block-start: 0;
+	}
+
+	[class~="2xl:table-stacked"] > tfoot > tr {
+		display: block;
+		padding-block: var(--bs-table-cell-padding-y);
+		border-block-start: var(--bs-table-border-width) solid var(--bs-table-border-color);
+	}
+
+	[class~="2xl:table-stacked"] > tfoot > tr > td {
+		display: block;
+		padding: calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+		border: 0;
+	}
+
+	[class~="2xl:table-stacked"] > tfoot > tr > td:empty {
+		display: none;
+	}
+
+	[class~="2xl:table-stacked"] > tfoot > tr > td[data-cell]:not(:first-child, .hx-grid-multiselect-cell + td)::before {
+		display: block;
+		font-weight: var(--bs-font-weight-semibold);
+		content: attr(data-cell);
+	}
+
+	[class~="2xl:table-stacked"] > tfoot > tr > td:not(:first-child) + td::before {
+		margin-block-start: .25rem;
+	}
 }
 
 @keyframes slideRight {
