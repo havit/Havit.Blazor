@@ -6,8 +6,7 @@
     visibility: hidden;
 }
 
-/* Stacked grids are excluded: their rows have no fixed height and the cell values wrap (see the stacked layout section below). */
-::deep .hx-grid-infinite-scroll:not([class*="table-stacked"]) {
+::deep .hx-grid-infinite-scroll {
 	white-space: nowrap;
 }
 
@@ -102,11 +101,20 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
    the stacked layout for the grid-specific parts:
    - the multi-select checkbox is placed in front of the row title (the next cell),
    - the context menu is placed to the top-end corner of the row,
-   - the footer row is stacked the same way as the data rows (empty footer cells are hidden).
-   Bootstrap applies .{bp}:table-stacked below the container breakpoint (the .table-responsive wrapper
-   is the query container), so the rules are repeated for each breakpoint. The blocks are identical
+   - the footer row is stacked the same way as the data rows (empty footer cells are hidden),
+   - the visually hidden header row is revealed while it contains the keyboard focus (sortable headers, filters, "select all"),
+   - infinite scroll: the rows keep a uniform height for the virtualization (the row height attribute is overridden,
+     the values do not wrap and are truncated), the Virtualize spacer rows get no padding and separators.
+   Bootstrap applies .{bp}:table-stacked below the container breakpoint (the .hx-grid-container-stacked
+   wrapper is the query container), so the rules are repeated for each breakpoint. The blocks are identical
    except for the selector and the container condition (keep them in sync, the breakpoints must match
    the Bootstrap $breakpoints). */
+
+/* The query container of the .{bp}:table-stacked container queries (instead of .table-responsive, whose overflow
+   would make the container the scroll root of the infinite scroll virtualization). */
+.hx-grid-container-stacked {
+	container-type: inline-size;
+}
 
 /* These rules have an effect only in the stacked layout (no ::before content and an inherited
    font-weight are the defaults of the regular table layout), so they are not repeated per breakpoint. */
@@ -120,6 +128,36 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 }
 
 /* .table-stacked (always) */
+[class~="table-stacked"] > thead:focus-within {
+	position: static;
+	display: block;
+	width: auto;
+	height: auto;
+	margin: 0;
+	overflow: visible;
+	clip: auto;
+	white-space: inherit;
+}
+
+[class~="table-stacked"] > thead:focus-within > tr {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+[class~="table-stacked"] > tbody > tr {
+	height: auto; /* infinite scroll: overrides the row height attribute */
+}
+
+[class~="table-stacked"].hx-grid-infinite-scroll {
+	table-layout: fixed; /* the nowrap values must not widen the table */
+}
+
+[class~="table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
+[class~="table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 [class~="table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
 	float: inline-start;
 	height: auto;
@@ -188,6 +226,36 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 }
 
 @container (width < 576px) {
+	[class~="sm:table-stacked"] > thead:focus-within {
+		position: static;
+		display: block;
+		width: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		clip: auto;
+		white-space: inherit;
+	}
+
+	[class~="sm:table-stacked"] > thead:focus-within > tr {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	[class~="sm:table-stacked"] > tbody > tr {
+		height: auto; /* infinite scroll: overrides the row height attribute */
+	}
+
+	[class~="sm:table-stacked"].hx-grid-infinite-scroll {
+		table-layout: fixed; /* the nowrap values must not widen the table */
+	}
+
+	[class~="sm:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
+	[class~="sm:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
 	[class~="sm:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
 		float: inline-start;
 		height: auto;
@@ -257,6 +325,36 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 }
 
 @container (width < 768px) {
+	[class~="md:table-stacked"] > thead:focus-within {
+		position: static;
+		display: block;
+		width: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		clip: auto;
+		white-space: inherit;
+	}
+
+	[class~="md:table-stacked"] > thead:focus-within > tr {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	[class~="md:table-stacked"] > tbody > tr {
+		height: auto; /* infinite scroll: overrides the row height attribute */
+	}
+
+	[class~="md:table-stacked"].hx-grid-infinite-scroll {
+		table-layout: fixed; /* the nowrap values must not widen the table */
+	}
+
+	[class~="md:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
+	[class~="md:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
 	[class~="md:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
 		float: inline-start;
 		height: auto;
@@ -326,6 +424,36 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 }
 
 @container (width < 1024px) {
+	[class~="lg:table-stacked"] > thead:focus-within {
+		position: static;
+		display: block;
+		width: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		clip: auto;
+		white-space: inherit;
+	}
+
+	[class~="lg:table-stacked"] > thead:focus-within > tr {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	[class~="lg:table-stacked"] > tbody > tr {
+		height: auto; /* infinite scroll: overrides the row height attribute */
+	}
+
+	[class~="lg:table-stacked"].hx-grid-infinite-scroll {
+		table-layout: fixed; /* the nowrap values must not widen the table */
+	}
+
+	[class~="lg:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
+	[class~="lg:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
 	[class~="lg:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
 		float: inline-start;
 		height: auto;
@@ -395,6 +523,36 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 }
 
 @container (width < 1280px) {
+	[class~="xl:table-stacked"] > thead:focus-within {
+		position: static;
+		display: block;
+		width: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		clip: auto;
+		white-space: inherit;
+	}
+
+	[class~="xl:table-stacked"] > thead:focus-within > tr {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	[class~="xl:table-stacked"] > tbody > tr {
+		height: auto; /* infinite scroll: overrides the row height attribute */
+	}
+
+	[class~="xl:table-stacked"].hx-grid-infinite-scroll {
+		table-layout: fixed; /* the nowrap values must not widen the table */
+	}
+
+	[class~="xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
+	[class~="xl:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
 	[class~="xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
 		float: inline-start;
 		height: auto;
@@ -464,6 +622,36 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 }
 
 @container (width < 1536px) {
+	[class~="2xl:table-stacked"] > thead:focus-within {
+		position: static;
+		display: block;
+		width: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		clip: auto;
+		white-space: inherit;
+	}
+
+	[class~="2xl:table-stacked"] > thead:focus-within > tr {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	[class~="2xl:table-stacked"] > tbody > tr {
+		height: auto; /* infinite scroll: overrides the row height attribute */
+	}
+
+	[class~="2xl:table-stacked"].hx-grid-infinite-scroll {
+		table-layout: fixed; /* the nowrap values must not widen the table */
+	}
+
+	[class~="2xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
+	[class~="2xl:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
 	[class~="2xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
 		float: inline-start;
 		height: auto;

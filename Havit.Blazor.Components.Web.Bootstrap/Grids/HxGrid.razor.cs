@@ -263,9 +263,6 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// When set to true, the <c>table-responsive</c> class is added to the table.
 	/// Default is false.
 	/// </summary>
-	/// <remarks>
-	/// A stacked grid (see <see cref="Stacked"/>) always uses the <c>table-responsive</c> wrapper, as it is the container for the container queries.
-	/// </remarks>
 	[Parameter] public bool? Responsive { get; set; }
 	protected bool ResponsiveEffective => Responsive ?? GetSettings()?.Responsive ?? GetDefaults().Responsive ?? throw new InvalidOperationException(nameof(Responsive) + " default for " + nameof(HxGrid) + " has to be set.");
 
@@ -277,9 +274,11 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// Default is <see cref="GridStacked.Never"/>.
 	/// </summary>
 	/// <remarks>
-	/// The breakpoints are evaluated with CSS container queries against the grid container (the <c>table-responsive</c> wrapper is always rendered for a stacked grid, regardless of <see cref="Responsive"/>).
-	/// The header row is visually hidden in the stacked layout (it remains available to assistive technologies),
+	/// The breakpoints are evaluated with CSS container queries against the width of the grid container (the <c>div</c> wrapping the <c>table</c> element,
+	/// the grid sets <c>container-type: inline-size</c> on it; unlike <see cref="Responsive"/>, it does not make the container scrollable).
+	/// The header row is visually hidden in the stacked layout (it remains available to assistive technologies and it is revealed while it contains the keyboard focus),
 	/// so sorting by clicking the column headers, <see cref="HxGridColumn{TItem}.HeaderFilterTemplate"/> filters, and the "select all" checkbox of <see cref="MultiSelectionEnabled"/> are not visible there.
+	/// With <see cref="GridContentNavigationMode.InfiniteScroll"/>, the stacked rows keep a uniform height for the virtualization: the cell values are not wrapped (they are truncated with an ellipsis).
 	/// </remarks>
 	[Parameter] public GridStacked? Stacked { get; set; }
 	protected GridStacked StackedEffective => Stacked ?? GetSettings()?.Stacked ?? GetDefaults().Stacked ?? throw new InvalidOperationException(nameof(Stacked) + " default for " + nameof(HxGrid) + " has to be set.");
@@ -534,6 +533,19 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 			GridStacked.BelowXxl => "2xl:table-stacked",
 			_ => throw new InvalidOperationException($"Unknown {nameof(HxGrid)}.{nameof(Stacked)} value {StackedEffective:g}.")
 		};
+	}
+
+	/// <summary>
+	/// Returns the CSS class making the table container (the <c>div</c> element wrapping the <c>table</c>) a query container for the stacked table container queries
+	/// (or <c>null</c> when the grid is not stacked or is stacked regardless of the width).
+	/// </summary>
+	/// <remarks>
+	/// Bootstrap uses <c>.table-responsive</c> as the query container, but its <c>overflow-x: auto</c> also makes the container a vertical scroll container,
+	/// which would become the scroll root of <see cref="GridContentNavigationMode.InfiniteScroll"/> (and break the virtualization of page-scrolling grids).
+	/// </remarks>
+	private string GetTableContainerStackedCssClass()
+	{
+		return (StackedEffective is GridStacked.Never or GridStacked.Always) ? null : "hx-grid-container-stacked";
 	}
 
 	/// <summary>

@@ -216,16 +216,18 @@
 			The multi-select checkbox (<code>@nameof(HxGrid<TItem>.MultiSelectionEnabled)</code>) is placed in front of the row title,
 			the context menu (<code>@nameof(HxContextMenuGridColumn<TItem>)</code>) in the top-end corner of the row,
 			and the footer is stacked the same way as the data rows (empty footer cells are hidden).
-			A stacked grid always renders the <code>table-responsive</code> wrapper, which is the container of the container queries.
+			The grid container (the element wrapping the table) is the query container of the container queries;
+			unlike <code>@nameof(HxGrid<TItem>.Responsive)</code>, it does not make the container scrollable.
 		</p>
 		<DocAlert Type="DocAlertType.Info">
-			The header row is visually hidden in the stacked layout (it remains available to assistive technologies).
+			The header row is visually hidden in the stacked layout (it remains available to assistive technologies and it is revealed while it contains the keyboard focus).
 			Sorting by clicking the column headers, the <code>@nameof(HxGridColumn<TItem>.HeaderFilterTemplate)</code> filters,
 			and the "select all" checkbox are therefore not visible there; provide an alternative UI (e.g. a filter form) if needed.
 		</DocAlert>
 		<p>
-			With <code>@nameof(GridContentNavigationMode.InfiniteScroll)</code>, the rows of a stacked grid have no fixed height
-			(they are taller and their height varies); the <code>@nameof(HxGrid<TItem>.ItemRowHeight)</code> serves only as the initial estimate for the virtualization.
+			With <code>@nameof(GridContentNavigationMode.InfiniteScroll)</code>, the virtualization requires a uniform row height.
+			The stacked rows are taller than the <code>@nameof(HxGrid<TItem>.ItemRowHeight)</code> (it serves as the initial estimate),
+			so the cell values are not wrapped in the stacked layout (they are truncated with an ellipsis) to keep the height of the rows uniform.
 		</p>
 
 

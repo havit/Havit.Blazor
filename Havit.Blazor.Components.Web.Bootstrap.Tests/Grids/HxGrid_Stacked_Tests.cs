@@ -22,6 +22,7 @@ public class HxGrid_Stacked_Tests : BunitTestBase
 		Assert.DoesNotContain(table.ClassList, cssClass => cssClass.Contains("table-stacked"));
 		Assert.Empty(cut.FindAll("td[data-cell]"));
 		Assert.False(cut.Find(".hx-grid-container").ClassList.Contains("table-responsive"));
+		Assert.False(cut.Find(".hx-grid-container").ClassList.Contains("hx-grid-container-stacked"));
 	}
 
 	[Theory]
@@ -74,19 +75,55 @@ public class HxGrid_Stacked_Tests : BunitTestBase
 		Assert.Empty(cut.FindAll("td[data-cell]"));
 	}
 
-	[Fact]
-	public async Task HxGrid_Stacked_RendersResponsiveContainerEvenWhenResponsiveIsFalse()
+	[Theory]
+	[InlineData(GridStacked.BelowSmall)]
+	[InlineData(GridStacked.BelowMedium)]
+	[InlineData(GridStacked.BelowXxl)]
+	public async Task HxGrid_StackedBelowBreakpoint_RendersQueryContainerWithoutResponsiveOverflow(GridStacked stacked)
 	{
-		// Arrange — the table-responsive wrapper is the query container of the stacked table container queries
+		// Arrange — the container is the query container of the stacked table container queries,
+		// but it must not get the table-responsive overflow (it would become the scroll root of the infinite scroll virtualization)
 		var cut = RenderGrid(parameters => parameters
-			.Add(p => p.Stacked, GridStacked.BelowMedium)
+			.Add(p => p.Stacked, stacked)
 			.Add(p => p.Responsive, false));
 
 		// Act
 		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
 
 		// Assert
-		Assert.Contains("table-responsive", cut.Find(".hx-grid-container").ClassList);
+		var container = cut.Find(".hx-grid-container");
+		Assert.Contains("hx-grid-container-stacked", container.ClassList);
+		Assert.DoesNotContain("table-responsive", container.ClassList);
+	}
+
+	[Fact]
+	public async Task HxGrid_StackedAlways_DoesNotRenderQueryContainer()
+	{
+		// Arrange — .table-stacked does not use container queries
+		var cut = RenderGrid(parameters => parameters.Add(p => p.Stacked, GridStacked.Always));
+
+		// Act
+		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
+
+		// Assert
+		Assert.DoesNotContain("hx-grid-container-stacked", cut.Find(".hx-grid-container").ClassList);
+	}
+
+	[Fact]
+	public async Task HxGrid_StackedAndResponsive_RendersBothContainerCssClasses()
+	{
+		// Arrange
+		var cut = RenderGrid(parameters => parameters
+			.Add(p => p.Stacked, GridStacked.BelowMedium)
+			.Add(p => p.Responsive, true));
+
+		// Act
+		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
+
+		// Assert
+		var container = cut.Find(".hx-grid-container");
+		Assert.Contains("hx-grid-container-stacked", container.ClassList);
+		Assert.Contains("table-responsive", container.ClassList);
 	}
 
 	[Fact]
@@ -311,12 +348,14 @@ public class HxGrid_Stacked_Tests : BunitTestBase
 	}
 
 	[Fact]
-	public async Task HxGrid_Stacked_InfiniteScroll_RowsDoNotHaveFixedHeight()
+	public async Task HxGrid_StackedBelowBreakpoint_InfiniteScroll_RowsHaveFixedHeight()
 	{
-		// Arrange — a fixed row height would clip the (taller, variable-height) stacked rows
+		// Arrange — above the breakpoint, the rows are rendered as a regular table with the fixed row height for the virtualization
+		// (in the stacked layout, the CSS overrides the height)
 		var cut = RenderGrid(parameters => parameters
 			.Add(p => p.Stacked, GridStacked.BelowMedium)
-			.Add(p => p.ContentNavigationMode, GridContentNavigationMode.InfiniteScroll));
+			.Add(p => p.ContentNavigationMode, GridContentNavigationMode.InfiniteScroll)
+			.Add(p => p.ItemRowHeight, 41f));
 
 		// Act
 		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
@@ -324,8 +363,9 @@ public class HxGrid_Stacked_Tests : BunitTestBase
 		// Assert
 		var rows = cut.FindAll("tbody tr[role=button]");
 		Assert.Equal(s_items.Count, rows.Count);
-		Assert.All(rows, row => Assert.False(row.HasAttribute("height")));
+		Assert.All(rows, row => Assert.Equal("41px", row.GetAttribute("height")));
 		Assert.Equal(s_items.Count, cut.FindAll("tbody td[data-cell=Name]").Count);
+		Assert.Contains("hx-grid-infinite-scroll", cut.Find("table").ClassList);
 	}
 
 	[Fact]

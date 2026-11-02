@@ -32,9 +32,8 @@
 			bool shouldRenderEmptyData = (_totalCount == 0);
 			bool shouldRenderData;
 			bool shouldRenderFooter = (_totalCount > 0) || ((_totalCount == 0) && ShowFooterWhenEmptyDataEffective);
-			// Infinite scroll: fixed row height for the Virtualize calculations.
-			// Not used for a stacked grid - the stacked rows are taller and their height varies (Virtualize measures the rendered rows), a fixed height would clip them.
-			string itemRowHeight = ((ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll) && (StackedEffective == GridStacked.Never))
+			// Infinite scroll: fixed row height for the Virtualize calculations (in the stacked layout, the CSS sets the rows to auto height).
+			string itemRowHeight = (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
 				? ItemRowHeightEffective.ToString(System.Globalization.CultureInfo.InvariantCulture) + "px"
 				: null;
 
@@ -68,7 +67,8 @@
 								&& !shouldRenderLoadingDataWithPlaceholders;
 
 			<div @ref="_hxGridContainer" class="@CssClassHelper.Combine("hx-grid-container",
-												(ResponsiveEffective || (StackedEffective != GridStacked.Never)) ? "table-responsive" : null,
+												ResponsiveEffective ? "table-responsive" : null,
+												GetTableContainerStackedCssClass(),
 												progressIndicatorInProgress ? "hx-grid-progress-indicator" : null,
 												TableContainerCssClassEffective)">
 
