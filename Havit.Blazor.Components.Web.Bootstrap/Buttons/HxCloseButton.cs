@@ -29,8 +29,7 @@ public class HxCloseButton : HxButton
 
 	public HxCloseButton()
 	{
-		AdditionalAttributes ??= new();
-		AdditionalAttributes.Add("aria-label", "Close"); // Adding the aria-label for accessibility.
+		AriaLabel = "Close"; // Default aria-label for accessibility.
 	}
 
 	static HxCloseButton()
