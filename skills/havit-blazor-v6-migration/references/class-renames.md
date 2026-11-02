@@ -53,12 +53,20 @@ Rule: `{utility}-{bp}-{value}` → `{bp}:{utility}-{value}`; breakpoint name `xx
 | `bg-dark` | `bg-black` (pure black, darker than v5's gray), or `data-bs-theme="dark"` + `bg-body` (no exact shade match) |
 | `text-light` / `text-dark` | fixed `fg-white` / `fg-black`, or adaptive `fg-body` inside a `data-bs-theme` scope (upstream has no row for these — by analogy with `bg-light`/`bg-dark`; choose by intent) |
 | `alert-{color}`, `badge` color via `text-bg-*`, `list-group-item-{color}` | component class + `theme-{color}` |
+| `table-{color}` on `<table>`, `<tr>`, `<td>`/`<th>` (e.g. `<tr class="table-danger">`, `<table class="table table-primary">`) | `theme-{color}` on the same element (`<tr class="theme-danger">`, `<table class="table theme-primary">`) — the cells paint `--bs-theme-bg-subtle` + `--bs-theme-fg` |
+| `table-light` / `table-dark` | `theme-secondary` / `theme-inverse` — `theme-secondary` is close to v5's light gray, but `theme-inverse` is a **light**-gray tint in light color mode (dark gray in dark mode), not v5's dark fill. For a genuinely dark table use `data-bs-theme="dark"` on the `<table>` or a wrapping element (the only option for `HxGrid`); it has no effect on a single `<tr>`. Flag for human review |
 | `bg-body-secondary` / `bg-body-tertiary` | `bg-2` / `bg-1` (numbered surfaces — see below) |
 | `text-body-secondary` | `fg-secondary` |
 | `text-muted` | `fg-secondary` (v6 has no muted-specific fg token; nearest match) |
 | `text-white` / `text-black` | `fg-white` / `fg-black` |
 
 `bg-{color}` and `border-{color}` keep their names — **including `bg-white`/`bg-black`/`bg-body`**, which are unaffected. Only the `text-*` family is renamed to `fg-*`; don't assume `text-white`/`text-black` survive just because their `bg-*` counterparts do (verify each one against the bundle, same as any other `text-*` class — this exact assumption caused a real miss in an earlier pass of this sweep).
+
+**Table variants fail silently**: the removed `table-{color}` classes produce no build error — rows and cells just lose their color. `table-active` is unchanged (HxGrid still uses it for the selected row). In Havit.Blazor apps these classes usually live in **C# string literals**, not `class="..."` markup: `HxGrid` `ItemRowCssClass`, `ItemRowCssClassSelector` lambdas (`item => item.IsOverdue ? "table-danger" : null`), `TableCssClass`, column `ItemCssClass`/`ItemCssClassSelector`, and the same properties in `GridSettings`/`HxGrid.Defaults`. Search without a file-type filter so `.cs`/`.razor.cs` hits are included:
+
+```
+rg -n 'table-(primary|secondary|success|danger|warning|info|light|dark)\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
+```
 
 **Numbered surfaces**: v6 replaces the body-surface ladder (`bg-body`, `bg-body-secondary`, `bg-body-tertiary`) with `bg-body`, `bg-1`, `bg-2`, `bg-3`, `bg-4` (increasingly distinct from the page background — `bg-1` subtlest, `bg-4` most). Per the upstream v6.0.0-alpha.1 migration guide, `bg-body-tertiary` maps to `bg-1` and `bg-body-secondary` maps to `bg-2` — in v5 *tertiary* was the lighter of the two, so the order flips. `bg-3`/`bg-4` have no v5 counterpart. Re-check against a real card/surface in the browser, since the numbered scale isn't a strict 1:1 shade match.
 

@@ -151,12 +151,35 @@
 			<tr><td><code>alert alert-danger</code></td><td><code>alert theme-danger</code></td></tr>
 			<tr><td><code>badge text-bg-success</code></td><td><code>badge theme-success</code></td></tr>
 			<tr><td><code>list-group-item-success</code></td><td><code>theme-success</code></td></tr>
+			<tr><td><code>table-primary</code>, <code>table-danger</code>, &hellip; (on <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;td&gt;</code>/<code>&lt;th&gt;</code>)</td><td><code>theme-primary</code>, <code>theme-danger</code>, &hellip; (e.g. <code>&lt;tr class="theme-danger"&gt;</code>, <code>&lt;table class="table theme-primary"&gt;</code>)</td></tr>
+			<tr><td><code>table-light</code> / <code>table-dark</code></td><td><code>theme-secondary</code> / <code>theme-inverse</code> (see the note below)</td></tr>
+			<tr><td><code>table-active</code></td><td><code>table-active</code> (unchanged)</td></tr>
 		</tbody>
 	</table>
 </div>
 <p>
 	<strong>Migration step:</strong> replace removed <code>ThemeColor.Light</code>/<code>Dark</code> usages, then convert hand-written
 	color utility classes per the table above.
+</p>
+<DocAlert Type="DocAlertType.Warning">
+	The removed <code>table-{color}</code> classes fail silently &ndash; there is no build error, the rows just lose their color.
+	Besides the markup, migrate the class values you pass to <code>HxGrid</code> as strings: <code>TableCssClass</code>, <code>ItemRowCssClass</code>,
+	<code>ItemRowCssClassSelector</code>, the column <code>ItemCssClass</code>/<code>ItemCssClassSelector</code>, and the same properties
+	in <code>GridSettings</code>/<code>HxGrid.Defaults</code>. Search <code>.razor</code> <em>and</em> <code>.cs</code> files, e.g.
+	<code>rg -n 'table-(primary|secondary|success|danger|warning|info|light|dark)\b'</code>.
+</DocAlert>
+<CodeSnippet Language="razor">@("""
+<!-- v4.x -->
+<HxGrid TItem="InvoiceDto" ItemRowCssClassSelector="@(invoice => invoice.IsOverdue ? "table-danger" : null)" ...>
+
+<!-- v6 -->
+<HxGrid TItem="InvoiceDto" ItemRowCssClassSelector="@(invoice => invoice.IsOverdue ? "theme-danger" : null)" ...>
+""")</CodeSnippet>
+<p>
+	<code>theme-secondary</code> is a close match for the light gray of <code>table-light</code>. <code>theme-inverse</code>, however,
+	tints the cells with a <em>light</em> gray in light color mode (and a dark gray in dark color mode) &ndash; it does not reproduce the dark fill
+	of <code>table-dark</code>. For a dark table, put <code>data-bs-theme="dark"</code> on the <code>&lt;table&gt;</code> element
+	(or on an element wrapping the <code>HxGrid</code>) instead &ndash; it does not work on a single row.
 </p>
 
 <DocHeading Title="Button variants" Id="button-variants" Level="3" />
