@@ -1,6 +1,6 @@
 ﻿# HxListGroup
 
-Bootstrap 5 List group component. List groups are a flexible and powerful component for displaying a series of content.
+Bootstrap 6 List group component. List groups are a flexible and powerful component for displaying a series of content.
 
 ## Parameters
 
