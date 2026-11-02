@@ -91,7 +91,7 @@ public partial class HxTab : ComponentBase, ICascadeEnabledComponent
 	{
 		base.OnParametersSet();
 
-		Contract.Requires<InvalidOperationException>(ParentTabPanel is not null, "<HxTab /> has to be placed inside <HxTabPanel />.");
+		Contract.Requires<InvalidOperationException>(ParentTabPanel is not null, $"{nameof(HxTab)} has to be placed inside {nameof(HxTabPanel)}.");
 	}
 
 	internal async Task NotifyActivatedAsync()
