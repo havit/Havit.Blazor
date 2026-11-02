@@ -1862,7 +1862,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCollapse">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/collapse/">Bootstrap 5 Collapse</see> for toggling the visibility of content — accordions, expandable panels, collapsible sidebars — with a smooth height animation.<br />
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/collapse/">Bootstrap 6 Collapse</see> for toggling the visibility of content — accordions, expandable panels, collapsible sidebars — with a smooth height animation.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCollapse">https://havit.blazor.eu/components/HxCollapse</see>
             </summary>
         </member>
@@ -10943,7 +10943,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListGroup">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/list-group/">Bootstrap 5 List group</see> component.<br/>
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/list-group/">Bootstrap 6 List group</see> component.<br/>
             List groups are a flexible and powerful component for displaying a series of content.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListGroup">https://havit.blazor.eu/components/HxListGroup</see>
             </summary>
@@ -12034,8 +12034,9 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer.Title">
             <summary>
-            Title rendered in the drawer header (visible only below the navbar's expand breakpoint).
-            Also the accessible name of the drawer; without a title, the drawer gets a localized <c>aria-label</c> ("Navigation").
+            Title rendered in the drawer header (visible only below the navbar's expand breakpoint), also the accessible name of the drawer.
+            The default is a localized "Menu".
+            Set to an empty string to render no title; the drawer then gets a localized <c>aria-label</c> ("Navigation").
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer.Placement">
