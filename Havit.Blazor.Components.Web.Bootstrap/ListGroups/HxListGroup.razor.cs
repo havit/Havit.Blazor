@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/list-group/">Bootstrap 5 List group</see> component.<br/>
+/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/list-group/">Bootstrap 6 List group</see> component.<br/>
 /// List groups are a flexible and powerful component for displaying a series of content.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListGroup">https://havit.blazor.eu/components/HxListGroup</see>
 /// </summary>

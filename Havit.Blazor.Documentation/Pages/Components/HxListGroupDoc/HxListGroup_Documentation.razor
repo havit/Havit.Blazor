@@ -1,6 +1,6 @@
 ﻿@attribute [Route("/components/" + nameof(HxListGroup))]
 
-<div>@* CSS isolation support *@
+<div class="d-contents">@* CSS isolation support (display: contents keeps the children in the .prose flex layout of the page) *@
 	<ApiDoc Type="typeof(HxListGroup)">
 		<DocHeading Title="Basic usage" />
 		<Demo Type="typeof(HxListGroup_Demo)" Tabs="false" />
