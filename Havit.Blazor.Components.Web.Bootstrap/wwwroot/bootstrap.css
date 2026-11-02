@@ -18737,5 +18737,19 @@
     border-end-end-radius: var(--bs-otp-slot-border-radius);
   }
 }
+@layer components {
+  .pagination {
+    --bs-pagination-line-height: var(--bs-btn-input-line-height);
+  }
+  .pagination-sm {
+    --bs-pagination-line-height: var(--bs-btn-input-sm-line-height);
+  }
+  .pagination-lg {
+    --bs-pagination-line-height: var(--bs-btn-input-lg-line-height);
+  }
+  .page-link {
+    line-height: var(--bs-pagination-line-height);
+  }
+}
 
 /*# sourceMappingURL=bootstrap.css.map */

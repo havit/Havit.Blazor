@@ -4,13 +4,13 @@
 		class="@CssClassHelper.Combine("drawer", GetPlacementCssClass(), CssClass)"
 		id="@IdEffective"
 		tabindex="-1"
-		aria-labelledby="@(Title is not null ? IdEffective + "-label" : null)"
-		aria-label="@(Title is null ? Localizer["DrawerLabel"] : null)"
+		aria-labelledby="@(!String.IsNullOrEmpty(TitleEffective) ? IdEffective + "-label" : null)"
+		aria-label="@(String.IsNullOrEmpty(TitleEffective) ? Localizer["DrawerLabel"] : null)"
 		@attributes="AdditionalAttributes">
 	<div class="drawer-header">
-		@if (Title is not null)
+		@if (!String.IsNullOrEmpty(TitleEffective))
 		{
-			<h5 class="drawer-title" id="@(IdEffective + "-label")">@Title</h5>
+			<h5 class="drawer-title" id="@(IdEffective + "-label")">@TitleEffective</h5>
 		}
 		<button type="button" class="btn-close" data-bs-dismiss="drawer" aria-label="@Localizer["Close"]"></button>
 	</div>

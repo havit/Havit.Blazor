@@ -123,4 +123,7 @@
   <data name="DrawerLabel" xml:space="preserve">
     <value>Navigace</value>
   </data>
+  <data name="Title" xml:space="preserve">
+    <value>Menu</value>
+  </data>
 </root>

@@ -23,10 +23,12 @@ public partial class HxNavbarDrawer : ComponentBase, IAsyncDisposable
 	[Parameter] public string Id { get; set; }
 
 	/// <summary>
-	/// Title rendered in the drawer header (visible only below the navbar's expand breakpoint).
-	/// Also the accessible name of the drawer; without a title, the drawer gets a localized <c>aria-label</c> ("Navigation").
+	/// Title rendered in the drawer header (visible only below the navbar's expand breakpoint), also the accessible name of the drawer.
+	/// The default is a localized "Menu".
+	/// Set to an empty string to render no title; the drawer then gets a localized <c>aria-label</c> ("Navigation").
 	/// </summary>
 	[Parameter] public string Title { get; set; }
+	protected string TitleEffective => Title ?? Localizer["Title"];
 
 	/// <summary>
 	/// Placement of the drawer when opened below the expand breakpoint. The default is <see cref="DrawerPlacement.End"/>.

@@ -10,10 +10,11 @@
 			</HxNavbarBrand>
 
 			@* Separator between the brand and the mobile section dropdown (Bootstrap docs style: "Brand / Docs"). *@
-			<span class="xl:d-none fg-secondary mx-2" aria-hidden="true">/</span>
+			<span class="xl:d-none fg-secondary ms-2" aria-hidden="true">/</span>
 
 			@* Main navigation as a dropdown below xl; the inline nav in the drawer takes over at xl+.
-			   Wrap in an xl:d-none element because HxMenu's own CssClass applies to the menu panel, not the toggle. *@
+			   Wrap in an xl:d-none element because HxMenu's own CssClass applies to the menu panel, not the toggle.
+			   No .nav-link on the toggle: Bootstrap 6 defines the --nav-link-* tokens on .nav, so outside a .nav it loses its padding and vertical centering. *@
 			<div class="xl:d-none">
 				<HxMenu>
 					<Toggle>
@@ -21,7 +22,7 @@
 											Variant="ButtonVariant.Text"
 											Icon="BootstrapIcon.ChevronExpand"
 											IconPlacement="ButtonIconPlacement.End"
-											CssClass="nav-link fw-medium fg-body">
+											CssClass="px-2 fw-medium fg-body">
 							@GetCurrentSectionLabel()
 						</HxMenuToggleButton>
 					</Toggle>

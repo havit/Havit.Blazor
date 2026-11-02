@@ -213,6 +213,12 @@ pre[class*="language-"] {
 		radial-gradient(56% 56% at 70% var(--hero-position-y, 39%), color-mix(in srgb, var(--bs-green-500) calc(var(--hero-opacity, .15) * 100%), transparent), transparent 100%);
 }
 
+/* Full-width heroes (HomeLayout) bleed into the container-fluid padding - the gradients are still visible at the hero edges,
+   so the padding would show as white stripes on both sides. */
+.container-fluid > .hero:not(.container) {
+	margin-inline: calc(var(--bs-gutter-x) * -.5);
+}
+
 /* Sidebar embedded in the navbar drawer: the horizontal (icon rail) collapse makes no sense there. */
 .doc-sidebar-embedded .hx-sidebar-toggler {
 	display: none;
