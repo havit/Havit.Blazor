@@ -18,7 +18,5 @@
 	   @onclick="OnClick"
        @onclick:stopPropagation
        placeholder="@Placeholder"
-       onfocusin="this.select()"
+       data-hx-select-on-focus
        @attributes="this.AdditionalAttributes" />
-
-@*onfocusin: cannot use onfocus twice (@onfocus and onfocus) *@

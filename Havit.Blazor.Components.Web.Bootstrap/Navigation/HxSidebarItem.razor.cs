@@ -149,7 +149,7 @@ public partial class HxSidebarItem : IAsyncDisposable
 	// This is a workaround to handle navigation manually
 	private async Task HandleExpandableItemClick(MouseEventArgs args)
 	{
-		await OnClick.InvokeAsync(args);
+		await InvokeOnClickAsync(args);
 		if (!String.IsNullOrWhiteSpace(Href) && !OnClickPreventDefault)
 		{
 			NavigationManager.NavigateTo(Href);

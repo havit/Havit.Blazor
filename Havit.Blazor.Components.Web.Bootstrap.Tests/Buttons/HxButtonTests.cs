@@ -23,6 +23,28 @@ public partial class HxButtonTests
 	}
 
 	[Fact]
+	public void HxButton_OnClickThrows_ShouldAllowNextClick()
+	{
+		// Arrange
+		var clickCounter = 0;
+		var cut = Render<HxButton>(parameters => parameters
+			.Add(p => p.Text, "Click me")
+			.Add(p => p.OnClick, EventCallback.Factory.Create<MouseEventArgs>(this, () =>
+			{
+				clickCounter++;
+				throw new InvalidOperationException();
+			}))
+		);
+
+		// Act
+		Assert.Throws<InvalidOperationException>(() => cut.Find("button").Click());
+		Assert.Throws<InvalidOperationException>(() => cut.Find("button").Click());
+
+		// Assert
+		Assert.Equal(2, clickCounter);
+	}
+
+	[Fact]
 	public void HxButton_Disabled_RendersDisabledAttribute()
 	{
 		// Arrange & Act

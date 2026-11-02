@@ -63,10 +63,10 @@ public class HxChangeTracker : ComponentBase, IDisposable
 
 	protected virtual void Dispose(bool disposing)
 	{
-		if (disposing)
+		if (disposing && (_previousValueSet is not null))
 		{
-			Logger.LogDebug("Dispose: Value.PropertyChanged -= Value_PropertyChanged;");
-			Value.PropertyChanged -= Value_PropertyChanged;
+			Logger.LogDebug("Dispose: previousValueSet.PropertyChanged -= Value_PropertyChanged;");
+			_previousValueSet.PropertyChanged -= Value_PropertyChanged;
 		}
 	}
 }

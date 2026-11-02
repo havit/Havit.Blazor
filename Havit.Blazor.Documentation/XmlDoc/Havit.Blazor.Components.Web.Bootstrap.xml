@@ -4,6 +4,21 @@
         <name>Havit.Blazor.Components.Web.Bootstrap</name>
     </assembly>
     <members>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.AccordionSize">
+            <summary>
+            Represents the size of an <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxAccordion"/>.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AccordionSize.Regular">
+            <summary>
+            Regular size.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.AccordionSize.Small">
+            <summary>
+            Small size (<c>accordion-sm</c>) - tighter padding, a smaller border radius and a smaller font size.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxAccordion">
             <summary>
             <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/accordion/">Bootstrap accordion</see> component (built on the native <c>&lt;details&gt;</c>/<c>&lt;summary&gt;</c> disclosure elements, no JavaScript needed).<br />
@@ -18,6 +33,22 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.Color">
             <summary>
             Theme color of the accordion (renders the <c>theme-*</c> class applied to open items).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.Size">
+            <summary>
+            Size of the accordion. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.AccordionSize.Regular"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.Flush">
+            <summary>
+            When <c>true</c>, removes the outer borders and the rounded corners (<c>accordion-flush</c>)
+            to render the accordion edge-to-edge with its parent container.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.Gap">
+            <summary>
+            When <c>true</c>, puts space between the accordion items (<c>accordion-gap</c>), each item is rendered as a separate rounded card.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAccordion.ExpandedItemIds">
@@ -135,14 +166,32 @@
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAlert">https://havit.blazor.eu/components/HxAlert</see>
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAlert.ChildContent">
+            <summary>
+            Content of the alert.
+            The alert is a flex container - wrap mixed inline content (text with links etc.) in a <c>p</c> element.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAlert.Color">
             <summary>
-            Alert color (background). Required.
+            Alert color.
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/>, which renders the neutral (default) Bootstrap alert.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAlert.Dismissible">
             <summary>
             Shows the Close button and allows dismissing the alert.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAlert.OnClosed">
+            <summary>
+            Fired when the alert has been dismissed by the Close button (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAlert.Dismissible"/>) and removed from the page (Bootstrap <c>closed.bs.alert</c> event).
+            Use the callback to stop rendering the alert and to move focus to an appropriate element (the focused Close button is gone).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAlert.InvokeOnClosedAsync">
+            <summary>
+            Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAlert.OnClosed"/> event. Allows interception of the event in derived components.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAlert.CssClass">
@@ -154,6 +203,17 @@
             <summary>
             Additional attributes to be splatted onto an underlying HTML element.
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAlert.OnAfterRenderAsync(System.Boolean)">
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAlert.HandleJsClosed">
+            <summary>
+            Receives notification from JavaScript when the alert has been closed.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxAlert.DisposeAsync">
+            <inheritdoc/>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.AvatarSettings">
             <summary>
@@ -294,6 +354,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.ImageAlt">
             <summary>
             Alternate text for the avatar image (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.ImageSrc"/>).
+            When not set, an empty <c>alt=""</c> is rendered (a decorative image, typically next to the person's name).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxAvatar.ChildContent">
@@ -426,7 +487,7 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.BadgeType.RoundedPill">
             <summary>
             Represents a rounded pill badge.
-            For more information, see <see href="https://getbootstrap.com/docs/5.3/components/badge/#pill-badges">https://getbootstrap.com/docs/5.3/components/badge/#pill-badges</see>.
+            For more information, see <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/utilities/border-radius/">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/utilities/border-radius/</see>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.BadgeVariant">
@@ -515,7 +576,7 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ButtonGroupOrientation.Vertical">
             <summary>
             Specifies the vertical orientation of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup"/>.
-            <see href="https://getbootstrap.com/docs/5.3/components/button-group/#vertical-variation">https://getbootstrap.com/docs/5.3/components/button-group/#vertical-variation</see>
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button-group/#vertical-variation">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button-group/#vertical-variation</see>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ButtonGroupSize">
@@ -535,7 +596,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.Size">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/buttons/#sizes">Bootstrap button size</see>.
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button/#sizes">Bootstrap button size</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.ButtonSettings.CssClass">
@@ -619,11 +680,12 @@
             Bootstrap 6 buttons compose a variant class (<c>btn-solid</c>, <c>btn-outline</c>, ...) with a theme color class (<c>theme-*</c>).
             Without a color, the variant classes have no theme tokens to consume, so no variant class is emitted (a plain neutral <c>btn</c> look),
             with the exception of the standalone <c>btn-link</c> variant.
+            <c>btn-link</c> combined with a theme color (<c>btn-link theme-danger</c>) renders the link in that color; <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Link"/> renders a plain <c>btn-link</c>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButton">
             <summary>
-            Button (<c>&lt;button type="button"&gt;</c>). See also <see href="https://getbootstrap.com/docs/5.3/components/buttons/">Bootstrap Buttons</see>.<br />
+            Button (<c>&lt;button type="button"&gt;</c>). See also <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button/">Bootstrap Buttons</see>.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxButton">https://havit.blazor.eu/components/HxButton</see>
             </summary>
         </member>
@@ -702,6 +764,13 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.AriaLabel">
             <summary>
             Defines the <c>aria-label</c> of the button. Should be used to provide an accessible name for icon-only buttons.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Active">
+            <summary>
+            Renders the button as a <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button/#toggle-states">toggle button</see>
+            in the given state: <c>true</c> renders the <c>active</c> class and <c>aria-pressed="true"</c>, <c>false</c> renders <c>aria-pressed="false"</c>.
+            The default is <c>null</c> (a regular, non-toggle button). Toggle the value yourself, e.g. in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnClick"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Enabled">
@@ -791,7 +860,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Spinner">
             <summary>
-            Sets the state of the embedded <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSpinner"/>.
+            Sets the state of the embedded spinner (rendered with <c>aria-hidden="true"</c>, it does not become part of the button's accessible name).
             Leave <c>null</c> if you want automated spinner when any of the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.OnClick"/> handlers is running.
             You can set an explicit <c>false</c> constant to disable (override) the spinner automation.
             </summary>
@@ -812,9 +881,21 @@
             The default implementation is <c>"hx-button btn"</c>.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.HxButton.NeutralButtonMarkerCssClass">
+            <summary>
+            Marker class for buttons without any variant class (no <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.Color"/>).
+            Bootstrap 6 targets button group members (margins, corners, <c>.btn-group-sm/-lg/-xs</c> sizing, dividers) with <c>[class*=btn-]</c>,
+            which a plain <c>btn</c> does not match.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxButton.GetAriaLabel">
+            <summary>
+            Gets the <c>aria-label</c> to render. The default implementation returns <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.AriaLabel"/>.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup">
             <summary>
-            Groups related <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> controls into a single visual block, with support for sizing, nesting, and vertical stacking (<see href="https://getbootstrap.com/docs/5.3/components/button-group/">Bootstrap Button groups</see>).<br />
+            Groups related <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> controls into a single visual block, with support for sizing, nesting, and vertical stacking (<see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button-group/">Bootstrap Button groups</see>).<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxButtonGroup">https://havit.blazor.eu/components/HxButtonGroup</see>
             </summary>
         </member>
@@ -826,6 +907,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup.Orientation">
             <summary>
             Orientation. The default value is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonGroupOrientation.Horizontal"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup.Divider">
+            <summary>
+            When <c>true</c>, renders a thin divider between the buttons (<c>.btn-group-divider</c>), typically used with solid buttons of the same color.
+            The default value is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxButtonGroup.AriaLabel">
@@ -840,7 +927,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxButtonToolbar">
             <summary>
-            Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/button-group/#button-toolbar">Button toolbar</see> component.<br />
+            Bootstrap <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/button-group/#button-toolbar">Button toolbar</see> component.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxButtonToolbar">https://havit.blazor.eu/components/HxButtonToolbar</see>
             </summary>
         </member>
@@ -867,6 +954,21 @@
             text color and color mode automatically (the former <c>White</c> parameter/<c>btn-close-white</c> class no longer exist;
             use <c>data-bs-theme="dark"</c> on the button or a parent element to invert it explicitly).<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCloseButton">https://havit.blazor.eu/components/HxCloseButton</see>
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton.CoreCssClass">
+            <summary>
+            The close button is a standalone <c>.btn-close</c> element (no <c>.btn</c>): the <c>.btn</c> hover/disabled backgrounds would paint over the masked icon.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton.GetButtonCssClass">
+            <summary>
+            Renders only <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton.CoreCssClass"/> and <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.CssClass"/>; the button variant, color and size classes do not apply to the close button.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCloseButton.GetAriaLabel">
+            <summary>
+            Returns <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxButton.AriaLabel"/> or a localized "Close" text when not set.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSubmit">
@@ -1077,6 +1179,23 @@
             Specifies the placement of the image in the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/> component.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CardImagePlacement.Top">
+            <summary>
+            Image before the body (<c>card-img-top</c>).
+            In a horizontal card (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Horizontal"/>), the image is placed at the (inline) start of the card (<c>card-img-start</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CardImagePlacement.Bottom">
+            <summary>
+            Image after the body (<c>card-img-bottom</c>).
+            In a horizontal card (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Horizontal"/>), the image is placed at the (inline) end of the card (<c>card-img-end</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CardImagePlacement.Overlay">
+            <summary>
+            Image as a card background, the body is rendered as an overlay (<c>card-img-overlay</c>).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CardSettings">
             <summary>
             Settings for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/>.
@@ -1176,6 +1295,8 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.ImagePlacement">
             <summary>
             Placement of the image. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CardImagePlacement.Top"/>.
+            In a horizontal card (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.Horizontal"/>), <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CardImagePlacement.Top"/> places the image at the start
+            and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CardImagePlacement.Bottom"/> at the end of the card.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCard.ImageAlt">
@@ -1286,7 +1407,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCardText">
             <summary>
-            Paragraph of body text for a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/>, rendered as Bootstrap's <see href="https://getbootstrap.com/docs/5.3/components/card/#titles-text-and-links">card-text</see>.
+            Paragraph of body text for a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCard"/>, rendered as a plain <c>p</c> element
+            (Bootstrap 6 has no styling for the former <c>card-text</c> class, the card body spaces its children itself).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardText.ChildContent">
@@ -1296,7 +1418,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCardText.CssClass">
             <summary>
-            Additional CSS class(es) for the card-text element.
+            Additional CSS class(es) for the paragraph element.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCardTitle">
@@ -2092,7 +2214,8 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogBackdrop.False">
             <summary>
-            No backdrop will be rendered.
+            No (visible) backdrop will be rendered and clicking outside the dialog does not close it.
+            The dialog is still modal, the rest of the page stays inert. Use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.NonModal"/> to let users interact with the page.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.DialogBackdrop.Static">
@@ -2394,7 +2517,10 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.Scrollable">
             <summary>
-            Allows scrolling the dialog body. Default is <c>false</c>.
+            When <c>true</c>, only the dialog body scrolls (the header and footer stay visible) and the dialog always fits the viewport.
+            When <c>false</c>, the dialog content is not clipped (e.g. dropdowns can overflow the dialog); if the content does not fit the viewport,
+            the whole dialog scrolls.
+            Default is <c>false</c>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.NonModal">
@@ -2406,6 +2532,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.CssClass">
             <summary>
             Additional CSS class for the main element (<c>div.dialog</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the underlying <c>&lt;dialog&gt;</c> element (e.g. <c>data-bs-theme</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HeaderCssClass">
@@ -2432,6 +2563,15 @@
             <remarks>
             There is intentionally no <c>virtual InvokeOnHidingAsync()</c> method to override to avoid confusion.
             The <code>hide.bs.dialog</code> event is only subscribed to when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.OnHiding"/> callback is set.
+            </remarks>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.OnHidePrevented">
+            <summary>
+            Fired when the dialog refuses to close, i.e. on a click on the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DialogBackdrop.Static"/> backdrop
+            or on <kbd>Esc</kbd> with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.CloseOnEscape"/> set to <c>false</c> (Bootstrap <c>hidePrevented.bs.dialog</c> event).
+            </summary>
+            <remarks>
+            The <code>hidePrevented.bs.dialog</code> event is only subscribed to when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.OnHidePrevented"/> callback is set.
             </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDialog.OnClosed">
@@ -2473,6 +2613,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HandleDialogHide">
             <summary>
             Receives notification from JS for <c>hide.bs.dialog</c> event.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HandleDialogHidePrevented">
+            <summary>
+            Receives notification from JS for <c>hidePrevented.bs.dialog</c> event.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDialog.HandleDialogHidden">
@@ -2762,7 +2907,9 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerBackdrop.False">
             <summary>
-            No backdrop will be rendered. Users can interact with other parts of the app while the drawer is open.
+            No (visible) backdrop will be rendered and clicking outside the drawer does not close it.
+            To let users interact with other parts of the app while the drawer is open, set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.ScrollingEnabled"/> to <c>true</c>
+            (the drawer opens as non-modal); otherwise the drawer is modal and the rest of the page stays inert.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerBackdrop.Static">
@@ -2798,6 +2945,11 @@
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerPlacement.Bottom">
             <summary>
             Drawer is placed at the bottom.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.DrawerPlacement.Fullscreen">
+            <summary>
+            Drawer covers the whole viewport (<c>drawer-fullscreen</c>, new in Bootstrap 6).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.DrawerRenderMode">
@@ -2906,6 +3058,16 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.Sheet">
             <summary>
             When <c>true</c>, renders the drawer as a flush-to-edge sheet (no inset, border radius, or shadow) using the <c>drawer-sheet</c> variant (new in Bootstrap 6).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.Instant">
+            <summary>
+            When <c>true</c>, the drawer opens and closes without the slide animation (<c>drawer-instant</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.Translucent">
+            <summary>
+            When <c>true</c>, renders the drawer with a translucent, blurred background (<c>drawer-translucent</c>, new in Bootstrap 6).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.DrawerSettings.CssClass">
@@ -3056,6 +3218,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.ScrollingEnabled">
             <summary>
             Indicates whether body (page) scrolling is allowed while the drawer is open.
+            In combination with <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DrawerBackdrop.False"/>, the drawer opens as non-modal, i.e. users can interact with the rest of the page.
             The default value (from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Defaults"/>) is <c>false</c>.
             </summary>
         </member>
@@ -3065,9 +3228,26 @@
             Default is <c>false</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Instant">
+            <summary>
+            When <c>true</c>, the drawer opens and closes without the slide animation (<c>drawer-instant</c>).
+            Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.Translucent">
+            <summary>
+            When <c>true</c>, renders the drawer with a translucent, blurred background (<c>drawer-translucent</c>, new in Bootstrap 6).
+            Default is <c>false</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.CssClass">
             <summary>
-            Drawer additional CSS class. Added to root <c>div</c> (<c>.drawer</c>).
+            Drawer additional CSS class. Added to the root <c>&lt;dialog&gt;</c> element (<c>.drawer</c>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the underlying <c>&lt;dialog&gt;</c> element (e.g. <c>data-bs-theme</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.HeaderCssClass">
@@ -3117,6 +3297,15 @@
             The <code>hide.bs.drawer</code> event is only subscribed to when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.OnHiding"/> callback is set.
             </remarks>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.OnHidePrevented">
+            <summary>
+            Fired when the drawer refuses to close, i.e. on a click on the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.DrawerBackdrop.Static"/> backdrop
+            or on <kbd>Esc</kbd> with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.CloseOnEscape"/> set to <c>false</c> (Bootstrap <c>hidePrevented.bs.drawer</c> event).
+            </summary>
+            <remarks>
+            The <code>hidePrevented.bs.drawer</code> event is only subscribed to when the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.OnHidePrevented"/> callback is set.
+            </remarks>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.#ctor">
             <summary>
             Constructor.
@@ -3127,6 +3316,12 @@
             Shows the drawer.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.HandleCloseButtonClick">
+            <summary>
+            Closes the drawer from the header close button.
+            Not using <c>data-bs-dismiss</c> - the C# side has to know about the hide to track the transition (see <see cref="F:Havit.Blazor.Components.Web.Bootstrap.HxDrawer._transitionInProgress"/>).
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.HideAsync">
             <summary>
             Hides the drawer (if opened).
@@ -3135,6 +3330,16 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.HandleDrawerHide">
             <summary>
             Receives notification from JS for <c>hide.bs.drawer</c> event.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.HandleDrawerHidePrevented">
+            <summary>
+            Receives notification from JS for <c>hidePrevented.bs.drawer</c> event.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.HandleDrawerHidden">
+            <summary>
+            Receives notification from JS for <c>hidden.bs.drawer</c> event.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxDrawer.HandleDrawerShown">
@@ -4022,6 +4227,11 @@
             Element id to render as the label for attribute.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.LabelId">
+            <summary>
+            Element id to render on the label (when set), e.g. to be referenced by <c>aria-labelledby</c>.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponent.LabelCssClass">
             <summary>
             Custom CSS class to render with the label.
@@ -4089,6 +4299,11 @@
             Text adornment at the beginning of the input, rendered as <c>.form-adorn-text</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithAdorns.AdornStartTextId">
+            <summary>
+            Element id to render with the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithAdorns.AdornStartText"/> (referenced by the input <c>aria-describedby</c>).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithAdorns.AdornStartTemplate">
             <summary>
             Adornment (typically an icon) at the beginning of the input, rendered as <c>.form-adorn-icon</c>.
@@ -4097,6 +4312,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithAdorns.AdornEndText">
             <summary>
             Text adornment at the end of the input, rendered as <c>.form-adorn-text</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithAdorns.AdornEndTextId">
+            <summary>
+            Element id to render with the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithAdorns.AdornEndText"/> (referenced by the input <c>aria-describedby</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IFormValueComponentWithAdorns.AdornEndTemplate">
@@ -4519,6 +4739,12 @@
             Prevents the default action for the onclick event. Default is <c>null</c>, which means <c>true</c> when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.OnClick"/> is set.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.HxNavLinkInternal.IsActive">
+            <summary>
+            The active state of the base <see cref="T:Microsoft.AspNetCore.Components.Routing.NavLink"/> is private, it is reflected only by the active class in <see cref="P:Microsoft.AspNetCore.Components.Routing.NavLink.CssClass"/>.
+            An empty <see cref="P:Microsoft.AspNetCore.Components.Routing.NavLink.ActiveClass"/> means the active state is not rendered at all.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSidebarItemNavLinkContentInternal">
             <summary>
             Inner content of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebarItem"/>.
@@ -4669,7 +4895,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxTooltipInternalBase.Sanitize">
             <summary>
-            Enable or disable the sanitization. If activated, HTML content will be sanitized. <see href="https://getbootstrap.com/docs/5.3/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
+            Enable or disable the sanitization. If activated, HTML content will be sanitized. <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/getting-started/javascript/#sanitizer">See the sanitizer section in Bootstrap JavaScript documentation</see>.
             Default is <c>true</c>.
             </summary>
         </member>
@@ -4851,7 +5077,8 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.NativeSwitches">
             <summary>
-            Renders switches with native haptic feedback (mobile Safari, iOS 17.4+).
+            [Obsolete] Renders the same as <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.Switches"/>.
+            Since Bootstrap 6, every switch renders the <c>switch</c> attribute (native haptic feedback in mobile Safari, iOS 17.4+).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons">
@@ -4885,6 +5112,11 @@
             Size of buttons for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings.InputSize">
+            <summary>
+            Size of the checkboxes/switches (not used for the toggle button render modes, use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxListSettings.ButtonSize"/>) (<c>check-sm</c>/<c>check-lg</c>).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode">
             <summary>
             Render mode for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox"/>.
@@ -4902,7 +5134,8 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.NativeSwitch">
             <summary>
-            Renders switch with native haptic feedback (mobile Safari, iOS 17.4+).
+            [Obsolete] Renders the same as <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.Switch"/>.
+            Since Bootstrap 6, every switch renders the <c>switch</c> attribute (native haptic feedback in mobile Safari, iOS 17.4+).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton">
@@ -4934,6 +5167,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings.RenderMode">
             <summary>
             Checkbox render mode.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings.InputSize">
+            <summary>
+            Size of the checkbox (not used for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>, use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.CheckboxSettings.ButtonSize"/>) (<c>check-sm</c>/<c>check-lg</c>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.FormValueSettings">
@@ -4998,6 +5236,12 @@
             The default value is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonSize.Regular"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.InputSize">
+            <summary>
+            Size of the checkbox (<c>check-sm</c>/<c>check-lg</c>). Not used for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>, use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckbox.ButtonSize"/> instead.<br />
+            The default is taken from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSetup.Defaults"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.InputSize.Regular"/> if not customized).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase">
             <summary>
             HxCheckBox and HxSwitch base class.
@@ -5027,6 +5271,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.Reverse">
             <summary>
             Put the checkbox on the opposite side - first text, then checkbox.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.InputSizeEffective">
+            <summary>
+            Size of the checkbox/switch (not used for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxRenderMode.ToggleButton"/>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxBase.RenderModeEffective">
@@ -5195,6 +5444,13 @@
             <summary>
             Size of buttons for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>.
             The default value is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonSize.Regular"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.InputSize">
+            <summary>
+            Size of the checkboxes/switches (<c>check-sm</c>/<c>check-lg</c>, <c>switch-sm</c>/<c>switch-lg</c>).
+            Not used for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CheckboxListRenderMode.ButtonGroup"/>, use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.ButtonSize"/> instead.<br />
+            The default is taken from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSetup.Defaults"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.InputSize.Regular"/> if not customized).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxCheckboxList`2.BuildRenderInput(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
@@ -5421,9 +5677,25 @@
             The CSS class to be rendered with the hint.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.SupportsPlaceholderWithFloatingLabel">
+            <summary>
+            Indicates whether the component can render the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.IInputWithPlaceholder.Placeholder"/> together with a floating label
+            (Bootstrap 6 keeps the placeholder of a floating input transparent until the input is focused).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.InputId">
             <summary>
             The ID of the input element. Autogenerated when used with a label.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.LabelFor">
+            <summary>
+            The ID of the element the label is rendered for (<c>for</c> attribute of the label).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.LabelId">
+            <summary>
+            The ID of the label element (rendered only when not <c>null</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.HintId">
@@ -5486,6 +5758,11 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.BuildRenderInput_AddCommonAttributes(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder,System.String)">
             <summary>
             Adds common attributes to the input.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.GetAriaDescribedByIds">
+            <summary>
+            Returns the IDs of the elements describing the input (rendered as <c>aria-describedby</c>, empty values are skipped).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBase`1.BuildRenderValidationMessage(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
@@ -5592,6 +5869,9 @@
             <summary>
             Adornment (typically an icon) at the end of the input.
             </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithAdorns`1.GetAriaDescribedByIds">
+            <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxInputBaseWithAdorns`1.OnParametersSet">
             <inheritdoc />
@@ -5990,6 +6270,9 @@
             Placeholder for the input.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.SupportsPlaceholderWithFloatingLabel">
+            <inheritdoc />
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputNumber`1.InputSize">
             <summary>
             Size of the input.
@@ -6155,6 +6438,12 @@
             The default is <c>false</c>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Color">
+            <summary>
+            Theme color of the filled track and the thumb (renders the <c>theme-*</c> class on the <c>.form-range</c> wrapper).<br />
+            The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.None"/> (the Bootstrap default, primary).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1.Ticks">
             <summary>
             Tick marks rendered along the track from a linked <c>&lt;datalist&gt;</c>. Each tick is positioned at its
@@ -6269,6 +6558,9 @@
             <summary>
             Placeholder for the input.
             </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.SupportsPlaceholderWithFloatingLabel">
+            <inheritdoc />
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxInputTextBase.InputSize">
             <summary>
@@ -6741,6 +7033,13 @@
             The default value is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ButtonSize.Regular"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.InputSize">
+            <summary>
+            Size of the radio buttons (<c>radio-sm</c>/<c>radio-lg</c>).
+            Not used for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>, use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ButtonSize"/> instead.<br />
+            The default is taken from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSetup.Defaults"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.InputSize.Regular"/> if not customized).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxRadioButtonListBase`2.ItemValueSelectorImpl">
             <summary>
             Selects a value from an item.
@@ -7170,12 +7469,18 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.Native">
             <summary>
-            To render switch as a native switch.
+            [Obsolete] No effect. Since Bootstrap 6, every switch renders the <c>switch</c> attribute (native haptic feedback in mobile Safari, iOS 17.4+).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.Color">
             <summary>
             Theme color of the switch (renders the <c>theme-*</c> class on the <c>.switch</c> wrapper, new in Bootstrap 6).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxSwitch.InputSize">
+            <summary>
+            Size of the switch (<c>switch-sm</c>/<c>switch-lg</c>).<br />
+            The default is taken from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxSetup.Defaults"/> (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.InputSize.Regular"/> if not customized).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxValidationMessage`1">
@@ -7477,6 +7782,11 @@
             Determines whether a value bubble following the thumb is shown.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.InputRangeSettings.Color">
+            <summary>
+            Theme color of the filled track and the thumb.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.InputRangeTick">
             <summary>
             A tick mark for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxInputRange`1"/>. The ticks are rendered from a linked <c>&lt;datalist&gt;</c>
@@ -7531,6 +7841,12 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.InputSizeExtensions.AsInputGroupCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
             <summary>
             Returns CSS class to render input-group with the desired size.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.InputSizeExtensions.AsCheckRadioSwitchCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize,System.String)">
+            <summary>
+            Returns CSS class to render a checkbox (<c>check</c>), radio (<c>radio</c>) or switch (<c>switch</c>) with the desired size
+            (<c>check-sm</c>, <c>radio-lg</c>, ...).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.InputSizeExtensions.AsFormSelectCssClass(Havit.Blazor.Components.Web.Bootstrap.InputSize)">
@@ -8060,8 +8376,17 @@
             Additional attributes to be splatted onto the strength meter element.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView)">
+            <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView)" />
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc cref="M:Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(System.Boolean)" />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.GetJsPluginState">
+            <summary>
+            Captures everything the plugin instance depends on (to detect the need to re-create it).
+            <see cref="T:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthWeights"/> and <see cref="T:Havit.Blazor.Components.Web.Bootstrap.PasswordStrengthThresholds"/> are mutable, they are cloned to detect in-place changes.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.GetJsOptions">
             <summary>
@@ -8094,7 +8419,8 @@
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.GetStaticTextStyle">
             <summary>
-            Returns the text feedback color for the static display (the plugin sets the <c>--strength-color</c> custom property the same way in the dynamic mode).
+            Returns the text feedback color for the static display (<c>HxPasswordStrength.js</c> sets the <c>--bs-strength-color</c> custom property the same way in the dynamic mode).<br />
+            The text element is not a descendant of the meter, so it does not inherit the <c>--bs-strength-color</c> set by the <c>data-bs-strength</c> attribute of the meter.
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxPasswordStrength.DisposeAsync">
@@ -8329,6 +8655,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings.ButtonSize">
             <summary>
             Size of buttons for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ToggleButtons"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListRenderMode.ButtonGroup"/>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings.InputSize">
+            <summary>
+            Size of the radio buttons (not used for the toggle button render modes, use <see cref="P:Havit.Blazor.Components.Web.Bootstrap.RadioButtonListSettings.ButtonSize"/>) (<c>radio-sm</c>/<c>radio-lg</c>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSearchBox">
@@ -8749,12 +9080,17 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SwitchSettings.Native">
             <summary>
-            To render switch as a native switch.
+            [Obsolete] No effect. Since Bootstrap 6, every switch renders the <c>switch</c> attribute (native haptic feedback in mobile Safari, iOS 17.4+).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.SwitchSettings.Color">
             <summary>
             Theme color of the switch (renders the <c>theme-*</c> class on the <c>.switch</c> wrapper).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.SwitchSettings.InputSize">
+            <summary>
+            Size of the switch (<c>switch-sm</c>/<c>switch-lg</c>).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ValidationMessageMode">
@@ -10082,6 +10418,12 @@
             Size of the pager. The default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.PagerSize.Regular"/>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.Color">
+            <summary>
+            Theme color of the pager (hover, focus, and the active page item), renders the Bootstrap <c>theme-*</c> class.
+            The default is <c>null</c> (no theme color).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPager.CssClass">
             <summary>
             Any additional CSS class to apply.
@@ -10194,6 +10536,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.Size">
             <summary>
             Size of the pager.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.Color">
+            <summary>
+            Theme color of the pager.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PagerSettings.CssClass">
@@ -10618,7 +10965,10 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroup.Horizontal">
             <summary>
-            Changes the layout of the list group items from vertical to horizontal. Cannot be combined with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroup.Flush"/>.
+            Changes the layout of the list group items from vertical to horizontal, including the responsive breakpoint
+            (Bootstrap 6 responsive <c>{breakpoint}:list-group-horizontal</c> classes are container query based,
+            the component renders the required <c>contains-inline</c> wrapper automatically).
+            Cannot be combined with <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroup.Flush"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroup.CssClass">
@@ -10629,6 +10979,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroup.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListGroup"/> component.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxListGroup.RenderContainsInlineWrapper">
+            <summary>
+            Responsive horizontal list groups use container queries, which require a <c>contains-inline</c> parent element.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxListGroupItem">
@@ -10730,6 +11085,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal">
             <summary>
             Responsive horizontal setting (breakpoint) for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxListGroup"/>.
+            The responsive breakpoints are container query based (they react to the width of the containing element, not the viewport).
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.Never"/>.
             </summary>
         </member>
@@ -10740,27 +11096,27 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.SmallUp">
             <summary>
-            Horizontal for viewports above the "small" breakpoint (<c>576px</c>).
+            Horizontal for containers above the "small" breakpoint (<c>576px</c>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.MediumUp">
             <summary>
-            Horizontal for viewports above the "medium" breakpoint (<c>768px</c>).
+            Horizontal for containers above the "medium" breakpoint (<c>768px</c>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.LargeUp">
             <summary>
-            Horizontal for viewports above the "large" breakpoint (<c>1024px</c>).
+            Horizontal for containers above the "large" breakpoint (<c>1024px</c>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.ExtraLargeUp">
             <summary>
-            Horizontal for viewports above the "extra-large" breakpoint (<c>1280px</c>).
+            Horizontal for containers above the "extra-large" breakpoint (<c>1280px</c>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.XxlUp">
             <summary>
-            Horizontal for viewports above the "2xl" breakpoint (<c>1536px</c>).
+            Horizontal for containers above the "2xl" breakpoint (<c>1536px</c>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.ListGroupHorizontal.Always">
@@ -10907,7 +11263,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMenu.AutoClose">
             <summary>
             By default, the menu is closed when clicking inside or outside the menu (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.MenuAutoClose.True"/>).
-            You can use the AutoClose parameter to change this behavior of the menu.
+            You can use the AutoClose parameter to change this behavior of the menu (the <c>Esc</c> key always closes the menu).
             See <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior</see> for more information.
             </summary>
         </member>
@@ -11105,6 +11461,12 @@
             For more information, refer to the <see href="https://floating-ui.com/docs/computePosition">Floating UI documentation</see>.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleButton.MenuStrategy">
+            <summary>
+            Floating UI positioning strategy of the menu. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.FloatingStrategy.Absolute"/>.
+            Use <see cref="F:Havit.Blazor.Components.Web.Bootstrap.FloatingStrategy.Fixed"/> when the menu gets clipped by an ancestor with <c>overflow: hidden</c> (e.g. a scrollable container or a table).
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleButton.OnShown">
             <summary>
             Fired when the menu has been made visible to the user and CSS transitions have completed.
@@ -11137,8 +11499,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleButton.AutoClose">
             <summary>
-            By default, the menu menu is closed when clicking inside or outside the menu menu (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.MenuAutoClose.True"/>).
-            You can use the AutoClose parameter to change this behavior of the menu.
+            By default, the menu is closed when clicking inside or outside the menu (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.MenuAutoClose.True"/>).
+            You can use the AutoClose parameter to change this behavior of the menu (the <c>Esc</c> key always closes the menu).
             <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior</see>.
             The parameter can be used to override the settings of the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleButton.MenuContainer"/> component or to specify the auto-close behavior when the component is not used.
             </summary>
@@ -11202,7 +11564,9 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleElement.ElementName">
             <summary>
-            Gets or sets the name of the element to render. Default is <c>span</c>.
+            Gets or sets the name of the element to render. Default is <c>span</c>.<br />
+            Prefer a focusable element (e.g. <c>button</c> with <c>type="button"</c>) to make the menu accessible from the keyboard,
+            or add <c>tabindex="0"</c> (and <c>role="button"</c>) to a non-focusable element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleElement.MenuReference">
@@ -11210,6 +11574,12 @@
             Reference element of the menu menu. Accepts the values of <c>toggle</c> (default), <c>parent</c>,
             an HTMLElement reference (e.g. <c>#id</c>) or an object providing <c>getBoundingClientRect</c>.
             For more information, refer to the <see href="https://floating-ui.com/docs/computePosition">Floating UI documentation</see>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleElement.MenuStrategy">
+            <summary>
+            Floating UI positioning strategy of the menu. Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.FloatingStrategy.Absolute"/>.
+            Use <see cref="F:Havit.Blazor.Components.Web.Bootstrap.FloatingStrategy.Fixed"/> when the menu gets clipped by an ancestor with <c>overflow: hidden</c> (e.g. a scrollable container or a table).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleElement.MenuOffset">
@@ -11225,8 +11595,8 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleElement.AutoClose">
             <summary>
-            By default, the menu menu is closed when clicking inside or outside the menu menu (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.MenuAutoClose.True"/>).
-            You can use the AutoClose parameter to change this behavior of the menu.
+            By default, the menu is closed when clicking inside or outside the menu (<see cref="F:Havit.Blazor.Components.Web.Bootstrap.MenuAutoClose.True"/>).
+            You can use the AutoClose parameter to change this behavior of the menu (the <c>Esc</c> key always closes the menu).
             <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior</see>.
             The parameter can be used to override the settings of the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleElement.MenuContainer"/> component or to specify the auto-close behavior when the component is not used.
             </summary>
@@ -11397,6 +11767,7 @@
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.MenuAutoClose">
             <summary>
             Auto-close behavior of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMenu"/> (<see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleButton"/> respectively).
+            The <c>Esc</c> key always closes the menu, regardless of the auto-close behavior.
             <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/menu/#auto-close-behavior"/>.
             </summary>
         </member>
@@ -11407,7 +11778,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.MenuAutoClose.False">
             <summary>
-            The menu will be closed by clicking the toggle button. (It will also not be closed by pressing the esc key).
+            The menu will be closed (only) by clicking the toggle button (or by pressing the <c>Esc</c> key).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.MenuAutoClose.Inside">
@@ -11509,11 +11880,6 @@
             (customizable globally via the <c>--bs-breadcrumb-divider-icon</c> CSS variable).
             </summary>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb.RegisterItem">
-            <summary>
-            Called by <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem"/> on initialization to determine the item position (dividers are rendered between items).
-            </summary>
-        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumbItem">
             <summary>
             Item for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxBreadcrumb"/>.
@@ -11541,7 +11907,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNav">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/">Bootstrap Nav</see> component for building tabs, pills, and vertical or underline navigation from a list of links.<br />
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/nav/">Bootstrap Nav</see> component for building tabs, pills, and vertical or underline navigation from a list of links.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNav">https://havit.blazor.eu/components/HxNav</see>
             </summary>
         </member>
@@ -11577,9 +11943,19 @@
             Additional attributes to be splatted onto the underlying <c>&lt;nav&gt;</c> element.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNav.GetOrientationCssClass(Havit.Blazor.Components.Web.Bootstrap.NavOrientation,Havit.Blazor.Components.Web.Bootstrap.NavVariant)">
+            <summary>
+            Shared with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/> (renders the nav markup itself).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxNav.GetVariantCssClass(Havit.Blazor.Components.Web.Bootstrap.NavVariant)">
+            <summary>
+            Shared with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/> (renders the nav markup itself).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/navbar/">Bootstrap 5 Navbar</see> component - a responsive navigation header.<br/>
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/navbar/">Bootstrap Navbar</see> component - a responsive navigation header.<br/>
             Provides support for branding, navigation, and more, including support for the responsive drawer.<br />
             For full documentation and demos, visit: <see href="https://havit.blazor.eu/components/HxNavbar">https://havit.blazor.eu/components/HxNavbar</see>
             </summary>
@@ -11625,7 +12001,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbarBrand">
             <summary>
-            Brand/logo slot for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar"/>, rendered as Bootstrap's <see href="https://getbootstrap.com/docs/5.3/components/navbar/#brand">navbar-brand</see>.
+            Brand/logo slot for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxNavbar"/>, rendered as Bootstrap's <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/navbar/#brand">navbar-brand</see>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarBrand.Href">
@@ -11659,6 +12035,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer.Title">
             <summary>
             Title rendered in the drawer header (visible only below the navbar's expand breakpoint).
+            Also the accessible name of the drawer; without a title, the drawer gets a localized <c>aria-label</c> ("Navigation").
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavbarDrawer.Placement">
@@ -11716,7 +12093,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxNavLink">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/">Bootstrap nav-link</see> component.<br />
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/nav/">Bootstrap nav-link</see> component.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNavLink#HxNavLink">https://havit.blazor.eu/components/HxNavLink#HxNavLink</see>
             </summary>
         </member>
@@ -11840,7 +12217,7 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.MoreText">
             <summary>
             Text of the "More" toggle button. The default is <c>More</c>.
-            Set to <c>null</c> or an empty string to render an icon-only toggle.
+            Set to <c>null</c> or an empty string to render an icon-only toggle (it gets a localized <c>aria-label</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxNavOverflow.MoreIcon">
@@ -12251,7 +12628,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Vertical">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#vertical">https://getbootstrap.com/docs/5.3/components/navs-tabs/#vertical</see>.
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/nav/#vertical">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/nav/#vertical</see>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.NavOverflowChangedEventArgs">
@@ -12337,18 +12714,18 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs">
             <summary>
-            Tabs. <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#tabs">https://getbootstrap.com/docs/5.3/components/navs-tabs/#tabs</see>
+            Tabs. <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/nav/#tabs">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/nav/#tabs</see>
             Remember to set the <c>active</c> tab (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.CssClass"/>).
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Pills">
             <summary>
-            Pills <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#pills">https://getbootstrap.com/docs/5.3/components/navs-tabs/#pills</see>.
+            Pills <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/nav/#pills">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/nav/#pills</see>.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Underline">
             <summary>
-            Underline <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/#underline">https://getbootstrap.com/docs/5.3/components/navs-tabs/#underline</see>.
+            Underline <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/nav/#underline">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/nav/#underline</see>.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.SidebarBrandLogoTemplateContext">
@@ -12393,7 +12770,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholder">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/placeholders/">Bootstrap 5 Placeholder</see> component, also known as Skeleton.<br/>
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/placeholder/">Bootstrap Placeholder</see> component, also known as Skeleton.<br/>
             Use loading placeholders for your components or pages to indicate that something may still be loading.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPlaceholder">https://havit.blazor.eu/components/HxPlaceholder</see>
             </summary>
@@ -12467,7 +12844,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/placeholders/">Bootstrap 5 placeholder</see> in the form of a button.<br/>
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/placeholder/">Bootstrap placeholder</see> in the form of a button.<br/>
             Derives from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxButton"/> (adds the <c>placeholder</c> class and changes the default value of <c>Enabled</c> to <c>false</c>).<br/>
             Set the size of the button by using the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderButton.Columns"/> parameter.
             </summary>
@@ -12553,6 +12930,8 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxPlaceholderContainer.Active">
             <summary>
             Indicates whether the placeholder is active (if <c>false</c>, the component acts as regular HTML element).
+            While active, the container renders <c>aria-hidden="true"</c> (the placeholders are not meant for assistive technologies;
+            override it through an explicit <c>aria-hidden</c> attribute).
             Default is <c>true</c>.
             </summary>
         </member>
@@ -12571,14 +12950,19 @@
             No animation.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation.Pulse">
+            <summary>
+            Opacity pulse animation (<c>.placeholder-pulse</c>).
+            </summary>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation.Glow">
             <summary>
-            Animation with a glowing effect.
+            Animation with a glowing effect. Bootstrap 6 keeps <c>.placeholder-glow</c> only as a compatibility alias of <c>.placeholder-pulse</c>.
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.PlaceholderAnimation.Wave">
             <summary>
-            Animation with a waving effect.
+            Animation with a waving effect (<c>.placeholder-wave</c>). The Bootstrap 6 default loading animation.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.PlaceholderContainerSettings">
@@ -12707,7 +13091,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.Color">
             <summary>
-            Fill (background) color of the progress bar.
+            Color of the progress bar (renders the <c>theme-*</c> class: the fill color with a contrasting label color).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.Striped">
@@ -12718,6 +13102,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.Animated">
             <summary>
             If <c>true</c>, stripes are animated right to left via CSS3 animations, stripes are automatically switched on.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxProgressBar.FormatAriaValue(System.Single)">
+            <summary>
+            ARIA values are numbers and must not depend on the current culture (<c>0,75</c> under cs-CZ).
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxProgressIndicator">
@@ -12772,7 +13161,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSpinner">
             <summary>
-            Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/spinners/">Spinner</see> (usually indicates an operation in progress).<br />
+            Bootstrap <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/spinner/">Spinner</see> (usually indicates an operation in progress).<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSpinner">https://havit.blazor.eu/components/HxSpinner</see>
             </summary>
         </member>
@@ -12818,12 +13207,12 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.SpinnerType.Border">
             <summary>
-            Represents a border spinner. For more information, see: <see href="https://getbootstrap.com/docs/5.3/components/spinners/#border-spinner">https://getbootstrap.com/docs/5.3/components/spinners/#border-spinner</see>
+            Represents a border spinner. For more information, see: <see href="https://getbootstrap.com/docs/6.0/components/spinner/#border-spinner">https://getbootstrap.com/docs/6.0/components/spinner/#border-spinner</see>
             </summary>
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.SpinnerType.Grow">
             <summary>
-            Represents a growing spinner. For more information, see: <see href="https://getbootstrap.com/docs/5.3/components/spinners/#growing-spinner">https://getbootstrap.com/docs/5.3/components/spinners/#growing-spinner</see>
+            Represents a growing spinner. For more information, see: <see href="https://getbootstrap.com/docs/6.0/components/spinner/#growing-spinner">https://getbootstrap.com/docs/6.0/components/spinner/#growing-spinner</see>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxStepper">
@@ -13187,6 +13576,9 @@
             Handle click on the tab title to activate the tab.
             </summary>
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.DisposeAsync">
+            <inheritdoc />
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.TabPanelRenderMode">
             <summary>
             <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/> render mode.
@@ -13209,7 +13601,7 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Card">
             <summary>
-            Renders the navigation to a card's header <a href="https://getbootstrap.com/docs/5.3/components/card/#navigation">https://getbootstrap.com/docs/5.3/components/card/#navigation</a>
+            Renders the navigation to a card's header <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/card/#navigation">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/card/#navigation</a>
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags">
@@ -13552,14 +13944,16 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxToast">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/toasts/">Bootstrap Toast</see> component. Not intended to be used in user code, use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessenger"/>.
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/toasts/">Bootstrap Toast</see> component. Not intended to be used in user code, use <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxMessenger"/>.
             After the first render, the component never updates.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxToast">https://havit.blazor.eu/components/HxToast</see>
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToast.Color">
             <summary>
-            Color scheme.
+            Color scheme (Bootstrap 6 <c>theme-*</c> variant: colored border and subtle header).
+            <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Danger"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ThemeColor.Warning"/> toasts are announced to assistive technologies immediately
+            (<c>role="alert"</c>, <c>aria-live="assertive"</c>), other toasts politely (<c>role="status"</c>, <c>aria-live="polite"</c>).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToast.AutohideDelay">
@@ -13575,6 +13969,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToast.Translucent">
             <summary>
             When <c>true</c>, enhances the toast translucency with a backdrop blur and saturation filter (<c>toast-translucent</c>, new in Bootstrap 6).
+            Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToast.Instant">
+            <summary>
+            When <c>true</c>, the toast shows and hides without the fade animation (<c>toast-instant</c>).
             Default is <c>false</c>.
             </summary>
         </member>
@@ -13639,8 +14039,13 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer.Position">
             <summary>
-            Positioning of the toasts on the screen.
+            Positioning of the toasts on the screen (fixed to the viewport).
+            With <see cref="F:Havit.Blazor.Components.Web.Bootstrap.ToastContainerPosition.None"/>, the container is rendered in the normal document flow.
             </summary>
+            <remarks>
+            A positioned container is moved to the browser top layer when a modal <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDialog"/> or <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxDrawer"/> opens,
+            so the toasts stay visible above it.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer.CssClass">
             <summary>
@@ -13704,8 +14109,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxPopover">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/popovers/">Bootstrap Popover</see> component.<br />
-            Rendered as a <c>span</c> wrapper to fully support popovers on disabled elements (see example in <see href="https://getbootstrap.com/docs/5.3/components/popovers/#disabled-elements">Disabled elements</see> in the Bootstrap popover documentation).<br />
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/popover/">Bootstrap Popover</see> component.<br />
+            Rendered as a <c>span</c> wrapper to fully support popovers on disabled elements (see example in <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/popover/#disabled-elements">Disabled elements</see> in the Bootstrap popover documentation).<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPopover">https://havit.blazor.eu/components/HxPopover</see>
             </summary>
         </member>
@@ -13755,8 +14160,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTooltip">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/tooltips/">Bootstrap Tooltip</see> component, activates on hover.<br />
-            Rendered as a <c>span</c> wrapper to fully support tooltips on disabled elements (see example in <see href="https://getbootstrap.com/docs/5.3/components/tooltips/#disabled-elements">Disabled elements</see> in the Bootstrap tooltip documentation).<br />
+            <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/tooltip/">Bootstrap Tooltip</see> component, activates on hover.<br />
+            Rendered as a <c>span</c> wrapper to fully support tooltips on disabled elements (see example in <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/tooltip/#disabled-elements">Disabled elements</see> in the Bootstrap tooltip documentation).<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTooltip">https://havit.blazor.eu/components/HxTooltip</see>
             </summary>
         </member>
@@ -13806,7 +14211,8 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.PopoverPlacement.Auto">
             <summary>
-            When specified, it will dynamically reorient the popover.
+            When specified, it will dynamically reorient the popover towards the side with the most available space.
+            (Emulated by Havit.Blazor, Bootstrap 6 has no <c>auto</c> placement.)
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.PopoverSettings.Animation">
@@ -13876,7 +14282,8 @@
         </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.TooltipPlacement.Auto">
             <summary>
-            When specified, it will dynamically reorient the tooltip.
+            When specified, it will dynamically reorient the tooltip towards the side with the most available space.
+            (Emulated by Havit.Blazor, Bootstrap 6 has no <c>auto</c> placement.)
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.TooltipSettings.Animation">
@@ -14001,6 +14408,18 @@
             <summary>
             When enabled, selecting an item (by clicking it or by setting <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.SelectedItem"/>) expands its children.
             Selection only expands the item, it never collapses it. Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the root element (<c>role="tree"</c>),
+            e.g. <c>aria-label</c> or <c>aria-labelledby</c> to give the tree an accessible name.
+            </summary>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxTreeView">
+            <summary>
+            Marker for resources for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTreeView`1"/>.
+            It is unfriendly to create resources for generic classes.
             </summary>
         </member>
         <member name="T:System.Text.RegularExpressions.Generated.GetRegex_QuotedLiteral_0">

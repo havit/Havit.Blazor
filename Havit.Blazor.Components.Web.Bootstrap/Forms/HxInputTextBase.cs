@@ -99,7 +99,7 @@ public abstract class HxInputTextBase : HxInputBaseWithAdorns<string>, IInputWit
 
 		if (SelectOnFocusEffective)
 		{
-			builder.AddAttribute(1001, "onfocus", "this.select();");
+			builder.AddAttribute(1001, "data-hx-select-on-focus");
 		}
 		builder.AddAttribute(1002, "value", CurrentValueAsString);
 		builder.AddAttribute(1003, BindEvent.ToEventName(), EventCallback.Factory.CreateBinder<string>(this, value => CurrentValueAsString = value, CurrentValueAsString));
@@ -111,12 +111,12 @@ public abstract class HxInputTextBase : HxInputBaseWithAdorns<string>, IInputWit
 
 		if (InputModeEffective is not null)
 		{
-			builder.AddAttribute(1005, "inputmode", InputModeEffective.Value.ToString("f").ToLower());
+			builder.AddAttribute(1005, "inputmode", InputModeEffective.Value.ToString("f").ToLowerInvariant());
 		}
 
 		if (SpellcheckEffective.HasValue)
 		{
-			builder.AddAttribute(1006, "spellcheck", SpellcheckEffective.Value.ToString().ToLower());
+			builder.AddAttribute(1006, "spellcheck", SpellcheckEffective.Value.ToString().ToLowerInvariant());
 		}
 
 		builder.AddEventStopPropagationAttribute(1007, "onclick", true);

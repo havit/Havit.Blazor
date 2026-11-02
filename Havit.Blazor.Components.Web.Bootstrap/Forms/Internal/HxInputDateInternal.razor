@@ -32,9 +32,10 @@
 									name="@GetNameAttributeValue()"
 									Value="@CurrentValueAsString"
 									ValueChanged="HandleCurrentValueAsStringChanged"
+									OnHidden="HandleDropdownHidden"
 									placeholder="@Placeholder"
 									disabled="@(!EnabledEffective)"
-									onfocus="this.select();"
+									data-hx-select-on-focus
 									inputmode="none"
 									@attributes="AdditionalAttributes" />
 
@@ -43,7 +44,7 @@
 			@if (EnabledEffective)
 			{
 				<div class="hx-input-date-calendar">
-					<HxCalendar Value="@DateHelper.GetDateTimeFromValue(CurrentValue)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" KeyboardNavigation="false" DisplayMonth="@GetCalendarDisplayMonthEffective" TimeProvider="TimeProviderEffective" />
+					<HxCalendar @key="_calendarKey" Value="@DateHelper.GetDateTimeFromValue(CurrentValue)" ValueChanged="HandleCalendarValueChangedAsync" MinDate="@MinDateEffective" MaxDate="@MaxDateEffective" DateCustomizationProvider="GetCalendarDateCustomization" KeyboardNavigation="false" DisplayMonth="@GetCalendarDisplayMonthEffective" TimeProvider="TimeProviderEffective" />
 				</div>
 				<div class="hx-input-date-menu-buttons">
 					@if (ShowClearButtonEffective)
@@ -63,7 +64,7 @@
 	</HxMenu>
 		@if (HasCalendarIcon)
 		{
-			<div @ref="_iconWrapperElement" class="form-adorn-icon hx-input-date-icon">
+			<div class="form-adorn-icon hx-input-date-icon" data-hx-input-date-icon>
 				<HxIcon Icon="CalendarIconEffective" />
 			</div>
 		}
