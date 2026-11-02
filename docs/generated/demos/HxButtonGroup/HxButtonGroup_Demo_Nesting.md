@@ -1,7 +1,7 @@
 ﻿# HxButtonGroup_Demo_Nesting.razor
 
 ```razor
-<HxButtonGroup>
+<HxButtonGroup AriaLabel="Button group with nested menu">
     <HxButton Text="1" Color="ThemeColor.Primary" />
     <HxButton Text="2" Color="ThemeColor.Primary" />
     <HxMenu>

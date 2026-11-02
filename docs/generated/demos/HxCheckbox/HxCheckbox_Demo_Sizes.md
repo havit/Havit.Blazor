@@ -1,0 +1,12 @@
+﻿# HxCheckbox_Demo_Sizes.razor
+
+```razor
+<HxCheckbox Text="Small checkbox" InputSize="InputSize.Small" @bind-Value="isChecked" />
+<HxCheckbox Text="Regular checkbox (default)" @bind-Value="isChecked" />
+<HxCheckbox Text="Large checkbox" InputSize="InputSize.Large" @bind-Value="isChecked" />
+
+@code {
+	private bool isChecked = true;
+}
+
+```

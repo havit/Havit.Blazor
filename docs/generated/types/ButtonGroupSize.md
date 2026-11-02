@@ -9,4 +9,5 @@ Represents the size for `HxButtonGroup`.
 | Regular | 0 |  |
 | Small | 1 |  |
 | Large | 2 |  |
+| ExtraSmall | 3 |  |
 

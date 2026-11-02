@@ -1,7 +1,7 @@
 ﻿# HxButtonGroup_Demo.razor
 
 ```razor
-<HxButtonGroup>
+<HxButtonGroup AriaLabel="Basic example">
     <HxButton Text="Left" Color="ThemeColor.Primary" />
     <HxButton Text="Middle" Color="ThemeColor.Primary" />
     <HxButton Text="Right" Color="ThemeColor.Primary" />

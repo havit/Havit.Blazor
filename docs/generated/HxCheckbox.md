@@ -18,6 +18,7 @@ Checkbox input. (Replaces the former `HxInputCheckbox` component which was dropp
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
 | Inline | `bool` | Allows grouping checkboxes on the same horizontal row by rendering them inline. The default value is `false`. This only works when there is no label, no hint, and no validation message. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
+| InputSize | `InputSize?` | Size of the checkbox (`check-sm`/`check-lg`). Not used for `CheckboxRenderMode.ToggleButton`, use `ButtonSize` instead. The default is taken from `HxSetup.Defaults` (`InputSize.Regular` if not customized). |
 | Label | `string` | The label text. |
 | LabelCssClass | `string` | The custom CSS class to render with the label. |
 | LabelTemplate | `RenderFragment` | The label content. |
@@ -51,4 +52,5 @@ Checkbox input. (Replaces the former `HxInputCheckbox` component which was dropp
 - HxCheckbox_Demo_Inline.razor
 - HxCheckbox_Demo_RenderModes.razor
 - HxCheckbox_Demo_Reverse.razor
+- HxCheckbox_Demo_Sizes.razor
 

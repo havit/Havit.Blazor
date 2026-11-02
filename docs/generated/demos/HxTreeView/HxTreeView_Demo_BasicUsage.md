@@ -7,6 +7,7 @@
                     @bind-SelectedItem="selectedDirectory"
                     Items="@fileSystem"
                     CssClass="border rounded p-2"
+                    aria-label="File system"
                     ItemTitleSelector="@(p => p.Name)"
                     ItemIconSelector="@(p => p.Icon)"
                     ItemChildrenSelector="@(p => p.Subdirectories)" />

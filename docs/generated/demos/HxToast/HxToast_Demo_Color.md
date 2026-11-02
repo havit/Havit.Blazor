@@ -1,0 +1,10 @@
+﻿# HxToast_Demo_Color.razor
+
+```razor
+<HxToastContainer>
+	<HxToast HeaderText="Success" Color="ThemeColor.Success" ContentText="The invoice has been sent." />
+	<HxToast HeaderText="Warning" Color="ThemeColor.Warning" ContentText="The invoice is overdue." />
+	<HxToast HeaderText="Error" Color="ThemeColor.Danger" ContentText="The invoice could not be sent." />
+</HxToastContainer>
+
+```

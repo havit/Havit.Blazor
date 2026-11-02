@@ -20,7 +20,7 @@ Flexible content container — a Bootstrap card — for grouping a title, text, 
 | ImageAlt | `string` | The value of the image's `alt` attribute. |
 | ImageCssClass | `string` | Additional CSS class for the image. |
 | ImageHeight | `int?` | The value of the image's `height` attribute. |
-| ImagePlacement | `CardImagePlacement` | Placement of the image. The default is `CardImagePlacement.Top`. |
+| ImagePlacement | `CardImagePlacement` | Placement of the image. The default is `CardImagePlacement.Top`. In a horizontal card (`Horizontal`), `CardImagePlacement.Top` places the image at the start and `CardImagePlacement.Bottom` at the end of the card. |
 | ImageSrc | `string` | Image to be placed in the card. For the image position, see `ImagePlacement`. |
 | ImageWidth | `int?` | The value of the image's `width` attribute. |
 | Settings | `CardSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
@@ -38,6 +38,7 @@ Flexible content container — a Bootstrap card — for grouping a title, text, 
 - HxCard_Demo_Body.razor
 - HxCard_Demo_Header.razor
 - HxCard_Demo_HeaderFooter.razor
+- HxCard_Demo_Horizontal.razor
 - HxCard_Demo_ImageBottom.razor
 - HxCard_Demo_ImageOverlay.razor
 - HxCard_Demo_ImageTop.razor

@@ -7,6 +7,7 @@
                     @bind-SelectedItem="selectedDirectory"
                     Items="@fileSystem"
                     CssClass="border rounded p-2"
+                    aria-label="File system"
                     ItemCssClass="fst-italic"
                     ItemCssClassSelector="@(p => p.Name.Equals("Users") ? "fg-primary" : String.Empty)"
                     ItemInitialExpandedSelector="@(p => p.Name == "C:\\")"

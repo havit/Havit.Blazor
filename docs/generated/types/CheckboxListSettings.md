@@ -8,6 +8,7 @@ Settings for `HxCheckboxList`.
 |------|------|-------------|
 | ButtonSize | `ButtonSize?` | Size of buttons for `CheckboxListRenderMode.ToggleButtons` and `CheckboxListRenderMode.ButtonGroup`. |
 | Color | `ThemeColor?` | Color for `CheckboxListRenderMode.ToggleButtons`. |
+| InputSize | `InputSize?` | Size of the checkboxes/switches (not used for the toggle button render modes, use `ButtonSize`) (`check-sm`/`check-lg`). |
 | ValidationMessageMode | `ValidationMessageMode?` | Specifies how the validation message should be displayed. |
 | Variant | `ButtonVariant?` | Indicates whether to use Bootstrap "outline" buttons. for `CheckboxListRenderMode.ToggleButtons` and `CheckboxListRenderMode.ButtonGroup`. |
 

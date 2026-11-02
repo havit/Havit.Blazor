@@ -3,7 +3,7 @@
 ```razor
 <HxMenu AutoClose="MenuAutoClose.True" CssClass="p-2">
 	<Toggle>
-		<HxMenuToggleButton Color="ThemeColor.Secondary">Default menu</HxMenuToggleButton>
+		<HxMenuToggleButton Color="ThemeColor.Secondary">Close on any click (default)</HxMenuToggleButton>
 	</Toggle>
 	<Content>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum bibendum arcu elementum molestie.
@@ -12,7 +12,7 @@
 
 <HxMenu AutoClose="MenuAutoClose.Outside" CssClass="p-2">
 	<Toggle>
-		<HxMenuToggleButton Color="ThemeColor.Secondary">Clickable inside</HxMenuToggleButton>
+		<HxMenuToggleButton Color="ThemeColor.Secondary">Close on click outside</HxMenuToggleButton>
 	</Toggle>
 	<Content>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum bibendum arcu elementum molestie.
@@ -21,7 +21,7 @@
 
 <HxMenu AutoClose="MenuAutoClose.Inside" CssClass="p-2">
 	<Toggle>
-		<HxMenuToggleButton Color="ThemeColor.Secondary">Clickable outside</HxMenuToggleButton>
+		<HxMenuToggleButton Color="ThemeColor.Secondary">Close on click inside</HxMenuToggleButton>
 	</Toggle>
 	<Content>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum bibendum arcu elementum molestie.
@@ -30,7 +30,7 @@
 
 <HxMenu AutoClose="MenuAutoClose.False" CssClass="p-2">
 	<Toggle>
-		<HxMenuToggleButton Color="ThemeColor.Secondary">Manual close</HxMenuToggleButton>
+		<HxMenuToggleButton Color="ThemeColor.Secondary">Close on toggle click only</HxMenuToggleButton>
 	</Toggle>
 	<Content>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus elementum bibendum arcu elementum molestie.

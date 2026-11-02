@@ -2,7 +2,7 @@
 
 ```razor
 <HxButtonToolbar CssClass="mb-2">
-    <HxButtonGroup CssClass="me-2">
+    <HxButtonGroup CssClass="me-2" AriaLabel="First group">
         <HxButton Text="1" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
         <HxButton Text="2" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
         <HxButton Text="3" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
@@ -12,7 +12,7 @@
 </HxButtonToolbar>
 
 <HxButtonToolbar CssClass="justify-content-between">
-    <HxButtonGroup>
+    <HxButtonGroup AriaLabel="Second toolbar group">
         <HxButton Text="1" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
         <HxButton Text="2" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
         <HxButton Text="3" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />

@@ -20,6 +20,7 @@ Data-based list of radio buttons. Consider creating a custom picker derived from
 | HintTemplate | `RenderFragment` | The hint to render after the input as form-text. |
 | Inline | `bool` | Allows grouping radios on the same horizontal row by rendering them inline. Default is `false`. |
 | InputCssClass | `string` | The custom CSS class to render with the input element. |
+| InputSize | `InputSize?` | Size of the radio buttons (`radio-sm`/`radio-lg`). Not used for `RadioButtonListRenderMode.ToggleButtons` and `RadioButtonListRenderMode.ButtonGroup`, use `ButtonSize` instead. The default is taken from `HxSetup.Defaults` (`InputSize.Regular` if not customized). |
 | ItemCssClass | `string` | Additional CSS class(es) for underlying radio-buttons (wrapping `div` element). |
 | ItemCssClassSelector | `Func<TItem, string>` | Additional CSS class(es) for underlying radio-buttons (wrapping `div` element). |
 | ItemInputCssClass | `string` | Additional CSS class(es) for the `input` element of underlying radio-buttons. |
@@ -52,4 +53,5 @@ Data-based list of radio buttons. Consider creating a custom picker derived from
 - HxRadioButtonList_Demo.razor
 - HxRadioButtonList_Demo_Inline.razor
 - HxRadioButtonList_Demo_RenderModes.razor
+- HxRadioButtonList_Demo_Sizes.razor
 

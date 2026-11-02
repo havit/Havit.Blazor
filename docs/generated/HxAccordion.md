@@ -13,14 +13,19 @@ Bootstrap accordion component (built on the native `<details>`/`<summary>` discl
 | ExpandedItemIdChanged | `EventCallback<string>` |  |
 | ExpandedItemIds | `List<string>` | IDs of the expanded items (if `StayOpen` is `true`, several items can be expanded). Do not use a constant value as it resets the accordion on every roundtrip. Use `InitialExpandedItemIds` to set the initial state. When `StayOpen` is `true`, this parameter must be used to manage expanded items, and the `ExpandedItemIdsChanged` event callback will be invoked for changes. |
 | ExpandedItemIdsChanged | `EventCallback<List<string>>` |  |
+| Flush | `bool` | When `true`, removes the outer borders and the rounded corners (`accordion-flush`) to render the accordion edge-to-edge with its parent container. |
+| Gap | `bool` | When `true`, puts space between the accordion items (`accordion-gap`), each item is rendered as a separate rounded card. |
 | InitialExpandedItemId | `string` | ID of the item you want to expand at the very beginning (overwrites `ExpandedItemId` if set). |
 | InitialExpandedItemIds | `List<string>` | IDs of the items you want to expand at the very beginning (overwrites `ExpandedItemIds` if set). |
+| Size | `AccordionSize` | Size of the accordion. The default is `AccordionSize.Regular`. |
 | StayOpen | `bool` | Set to `true` to make accordion items stay open when another item is opened. The default is `false`, opening another item collapses the current item. When `true`, `ExpandedItemIds` must be used to manage expanded items. |
 
 ## Available demo samples
 
 - HxAccordion_ComplexDemo.razor
 - HxAccordion_Demo_Flush.razor
+- HxAccordion_Demo_Gap.razor
+- HxAccordion_Demo_Small.razor
 - HxAccordion_Demo_StayOpen.razor
 - HxAccordion_PlainDemo.razor
 

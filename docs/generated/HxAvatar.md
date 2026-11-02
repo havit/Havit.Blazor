@@ -10,7 +10,7 @@ Bootstrap Avatar component. Represents a user or entity with an image or initial
 | ChildContent | `RenderFragment` | Content of the avatar, usually initials (e.g. `AB`). Can also be used for fully custom content. |
 | Color | `ThemeColor?` | Theme color of the avatar (background and contrasting content color), usually combined with initials. The default is `ThemeColor.None` (the default avatar background). |
 | CssClass | `string` | Any additional CSS class to apply. |
-| ImageAlt | `string` | Alternate text for the avatar image (`ImageSrc`). |
+| ImageAlt | `string` | Alternate text for the avatar image (`ImageSrc`). When not set, an empty `alt=""` is rendered (a decorative image, typically next to the person's name). |
 | ImageSrc | `string` | URL of the avatar image. Renders an `img.avatar-img` element inside the avatar. |
 | Settings | `AvatarSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | Size | `AvatarSize?` | Size of the avatar. The default is `AvatarSize.Regular`. |

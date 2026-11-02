@@ -9,6 +9,7 @@ Groups related `HxButton` controls into a single visual block, with support for 
 | AriaLabel | `string` | Groups should be given an explicit label, as most assistive technologies will otherwise not announce them, despite the presence of the correct role attribute. |
 | ChildContent | `RenderFragment` | Content of the component. |
 | CssClass | `string` | Additional CSS class(es) to be added. |
+| Divider | `bool` | When `true`, renders a thin divider between the buttons (`.btn-group-divider`), typically used with solid buttons of the same color. The default value is `false`. |
 | Orientation | `ButtonGroupOrientation` | Orientation. The default value is `ButtonGroupOrientation.Horizontal`. |
 | Size | `ButtonGroupSize` | Size. The default value is `ButtonGroupSize.Regular`. |
 
@@ -16,6 +17,7 @@ Groups related `HxButton` controls into a single visual block, with support for 
 
 - HxButtonGroup_Demo.razor
 - HxButtonGroup_Demo_Checkboxes.razor
+- HxButtonGroup_Demo_Dividers.razor
 - HxButtonGroup_Demo_Nesting.razor
 - HxButtonGroup_Demo_Outlined.razor
 - HxButtonGroup_Demo_Sizes.razor

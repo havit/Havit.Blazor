@@ -10,7 +10,7 @@ Bootstrap 5 List group component. List groups are a flexible and powerful compon
 | ChildContent | `RenderFragment` | Content of the list group component. |
 | CssClass | `string` | Additional CSS class. |
 | Flush | `bool` | If set to `true`, removes borders and rounded corners to render list group items edge-to-edge. |
-| Horizontal | `ListGroupHorizontal` | Changes the layout of the list group items from vertical to horizontal. Cannot be combined with `Flush`. |
+| Horizontal | `ListGroupHorizontal` | Changes the layout of the list group items from vertical to horizontal, including the responsive breakpoint (Bootstrap 6 responsive `{breakpoint}:list-group-horizontal` classes are container query based, the component renders the required `contains-inline` wrapper automatically). Cannot be combined with `Flush`. |
 | Numbered | `bool` | Set to `true` to opt into numbered list group items. The list group changes from an unordered list to an ordered list. |
 
 ## Available demo samples

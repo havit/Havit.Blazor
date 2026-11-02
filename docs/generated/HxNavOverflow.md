@@ -15,7 +15,7 @@ Bootstrap Nav overflow component (new in Bootstrap 6, "Priority+" pattern). Auto
 | MenuPlacement | `MenuPlacement?` | Placement of the overflow menu relative to the "More" toggle button. The default is `MenuPlacement.BottomEnd`. |
 | MinimumVisibleItems | `int?` | Minimum number of items to keep visible before the remaining items overflow into the menu (mirrors the Bootstrap `threshold` option). The default is `0`. |
 | MoreIcon | `IconBase` | Icon of the "More" toggle button. The default is `BootstrapIcon.ThreeDots`. |
-| MoreText | `string` | Text of the "More" toggle button. The default is `More`. Set to `null` or an empty string to render an icon-only toggle. |
+| MoreText | `string` | Text of the "More" toggle button. The default is `More`. Set to `null` or an empty string to render an icon-only toggle (it gets a localized `aria-label`). |
 | Settings | `NavOverflowSettings` | Set of settings to be applied to the component instance (overrides `Defaults`, overridden by individual parameters). |
 | Variant | `NavVariant` | The visual variant of the nav items. The default value is `NavVariant.Standard`. |
 

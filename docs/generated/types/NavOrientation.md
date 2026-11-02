@@ -7,5 +7,5 @@ Orientation for `HxNav`.
 | Name | Value | Description |
 |------|-------|-------------|
 | Horizontal | 0 |  |
-| Vertical | 1 | https://getbootstrap.com/docs/5.3/components/navs-tabs/#vertical. |
+| Vertical | 1 | https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/nav/#vertical. |
 

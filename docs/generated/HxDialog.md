@@ -6,6 +6,7 @@ Component for rendering a dialog as a Bootstrap 6 Dialog (built on the native `<
 
 | Name | Type | Description |
 |------|------|-------------|
+| AdditionalAttributes | `Dictionary<string, object>` | Additional attributes to be splatted onto the underlying `<dialog>` element (e.g. `data-bs-theme`). |
 | Animation | `DialogAnimation?` | Open/close animation of the dialog. Default is `DialogAnimation.Fade` (Bootstrap default). |
 | Backdrop | `DialogBackdrop?` | Indicates whether to apply a backdrop on body while the dialog is open. If set to `DialogBackdrop.Static`, the dialog cannot be closed by clicking on the backdrop. Default value (from `Defaults`) is `DialogBackdrop.True`. |
 | BodyCssClass | `string` | Additional body CSS class (`div.dialog-body`). |
@@ -20,7 +21,7 @@ Component for rendering a dialog as a Bootstrap 6 Dialog (built on the native `<
 | HeaderTemplate | `RenderFragment` | Header template. |
 | NonModal | `bool?` | When `true`, the dialog opens as non-modal (browser-native `show()` instead of `showModal()`): no backdrop, no focus trap, no blocking of the rest of the page. Default is `false`. |
 | RenderMode | `DialogRenderMode` | Determines whether the content is always rendered or only if the dialog is open. |
-| Scrollable | `bool?` | Allows scrolling the dialog body. Default is `false`. |
+| Scrollable | `bool?` | When `true`, only the dialog body scrolls (the header and footer stay visible) and the dialog always fits the viewport. When `false`, the dialog content is not clipped (e.g. dropdowns can overflow the dialog); if the content does not fit the viewport, the whole dialog scrolls. Default is `false`. |
 | Settings | `DialogSettings` | A set of settings applied to this component instance. Overrides `Defaults` and is itself overridden by individual parameters. |
 | ShowCloseButton | `bool?` | Indicates whether the dialog shows close button in header. Default value is `true`. |
 | Size | `DialogSize?` | Size of the dialog. Default is `DialogSize.Regular`. |
@@ -31,6 +32,7 @@ Component for rendering a dialog as a Bootstrap 6 Dialog (built on the native `<
 | Name | Type | Description |
 |------|------|-------------|
 | OnClosed | `EventCallback` | Fired when the dialog has finished hiding from the user, after CSS transitions complete. Triggered by `HxDialog.HideAsync`, the close button, the Esc key, or other interactions. |
+| OnHidePrevented | `EventCallback` | Fired when the dialog refuses to close, i.e. on a click on the `DialogBackdrop.Static` backdrop or on Esc with `CloseOnEscape` set to `false` (Bootstrap `hidePrevented.bs.dialog` event). |
 | OnHiding | `EventCallbackDialogHidingEventArgs>` | Fired immediately when the 'hide' instance method is called. This can be triggered by `HxDialog.HideAsync`, the close button, the Esc key, or other interactions. To cancel hiding, set `DialogHidingEventArgs.Cancel` to `true`. |
 | OnShown | `EventCallback` | Fired when a dialog element becomes visible to the user, after CSS transitions complete. |
 
@@ -58,5 +60,6 @@ Component for rendering a dialog as a Bootstrap 6 Dialog (built on the native `<
 - HxDialog_Demo_Scrollable.razor
 - HxDialog_Demo_Scrolling.razor
 - HxDialog_Demo_Size.razor
+- HxDialog_Demo_Stacking.razor
 - HxDialog_Demo_Swapping.razor
 

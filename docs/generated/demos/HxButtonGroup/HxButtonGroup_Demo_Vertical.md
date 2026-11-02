@@ -1,7 +1,7 @@
 ﻿# HxButtonGroup_Demo_Vertical.razor
 
 ```razor
-<HxButtonGroup Orientation="ButtonGroupOrientation.Vertical">
+<HxButtonGroup Orientation="ButtonGroupOrientation.Vertical" AriaLabel="Vertical button group">
     <HxButton Text="Button" Color="ThemeColor.Inverse" />
     <HxButton Text="Button" Color="ThemeColor.Inverse" />
     <HxButton Text="Button" Color="ThemeColor.Inverse" />

@@ -5,5 +5,5 @@
 | Name | Value | Description |
 |------|-------|-------------|
 | Regular | 0 |  |
-| RoundedPill | 1 | Represents a rounded pill badge. For more information, see https://getbootstrap.com/docs/5.3/components/badge/#pill-badges. |
+| RoundedPill | 1 | Represents a rounded pill badge. For more information, see https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/utilities/border-radius/. |
 
