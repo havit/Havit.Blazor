@@ -431,4 +431,16 @@ public class HxTabPanelTests : BunitTestBase
 		// Assert - The active tab does not change
 		Assert.Equal("tab1", activeTabId);
 	}
+
+	[Fact]
+	public void HxTab_OutsideHxTabPanel_ThrowsInvalidOperationException()
+	{
+		// Arrange & Act
+		var ex = Assert.Throws<InvalidOperationException>(() => Render<HxTab>(parameters => parameters
+			.Add(t => t.Title, "First")
+		));
+
+		// Assert
+		Assert.Contains(nameof(HxTabPanel), ex.Message);
+	}
 }

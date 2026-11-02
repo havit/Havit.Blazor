@@ -80,9 +80,14 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 	protected DateTime GetCalendarDisplayMonthEffective => DateHelper.GetDateTimeFromValue(CurrentValue) ?? CalendarDisplayMonth;
 
 	private HxMenuToggleElement _hxMenuToggleElement;
-	private ElementReference _iconWrapperElement;
-	private IJSObjectReference _jsModule;
 	private bool _firstRenderCompleted;
+	private int _calendarKey; // changed to recreate the calendar (resets the month the user navigated to)
+
+	private void HandleDropdownHidden()
+	{
+		// next opening of the dropdown displays the month of the value (or the default month) again
+		_calendarKey++;
+	}
 
 	private async Task HandleCurrentValueAsStringChanged(string newInputValue)
 	{
@@ -94,12 +99,6 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 		_firstRenderCompleted = true;
 
 		await base.OnAfterRenderAsync(firstRender);
-
-		if (firstRender && HasCalendarIcon)
-		{
-			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDate));
-			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _hxMenuToggleElement.ElementReference, (CalendarIconEffective is not null) ? _iconWrapperElement : null);
-		}
 	}
 
 	public async ValueTask FocusAsync()
@@ -165,11 +164,6 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 				if (_hxMenuToggleElement is not null)
 				{
 					await CloseMenuAsync();
-				}
-
-				if (_jsModule is not null)
-				{
-					await _jsModule.DisposeAsync();
 				}
 			}
 		}

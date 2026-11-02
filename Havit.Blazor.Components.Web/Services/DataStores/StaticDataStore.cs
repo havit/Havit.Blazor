@@ -94,7 +94,7 @@ public abstract class StaticDataStore<TValue> : IStaticDataStore<TValue>
 
 	private bool VerifyIsLoaded(bool throwIfNotLoaded)
 	{
-		if (Data is not null)
+		if (HasData)
 		{
 			return true;
 		}

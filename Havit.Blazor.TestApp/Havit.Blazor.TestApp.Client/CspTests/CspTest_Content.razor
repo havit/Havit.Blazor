@@ -1,0 +1,47 @@
+﻿<p>
+	The page is served with a strict, nonce-based Content Security Policy (without <code>'unsafe-inline'</code> / <code>'unsafe-hashes'</code>), see <code>Program.cs</code>.
+	There must be no CSP violation in the browser console when using the components below.
+</p>
+
+<div class="row">
+	<div class="col-md-6">
+		<HxInputText Label="HxInputText (SelectOnFocus)" @bind-Value="_text" SelectOnFocus="true" />
+		<HxInputNumber Label="HxInputNumber (SelectOnFocus, SmartKeyboard, SmartPaste)" @bind-Value="_number" SelectOnFocus="true" SmartKeyboard="true" SmartPaste="true" Decimals="2" />
+		<p>Number value: @_number</p>
+		<HxInputDate Label="HxInputDate (CalendarIcon)" @bind-Value="_date" CalendarIcon="BootstrapIcon.Calendar" />
+		<HxInputDateRange Label="HxInputDateRange (CalendarIcon)" @bind-Value="_dateRange" CalendarIcon="BootstrapIcon.Calendar" />
+		<HxAutosuggest Label="HxAutosuggest" @bind-Value="_autosuggestValue" DataProvider="ProvideAutosuggestSuggestions" TItem="string" TValue="string" MinimumLength="0" />
+		<HxMultiSelect Label="HxMultiSelect (AllowFiltering)" @bind-Value="_multiSelectValue" Data="_data" AllowFiltering="true" TextSelector="item => item" TItem="string" TValue="string" />
+	</div>
+	<div class="col-md-6">
+		<p>HxSidebar (collapsed) - hover over the Reports item to open the subitems dropdown.</p>
+		<HxSidebar Collapsed="true" CollapsedChanged="(bool _) => { }">
+			<ItemsTemplate>
+				<HxSidebarItem Text="Dashboard" Icon="BootstrapIcon.House" Href="/CspTest" Match="NavLinkMatch.All" />
+				<HxSidebarItem Text="Reports" Icon="BootstrapIcon.BarChart">
+					<HxSidebarItem Text="Monthly Report" Href="/CspTest" />
+					<HxSidebarItem Text="Yearly Report" Href="/CspTest" />
+				</HxSidebarItem>
+			</ItemsTemplate>
+		</HxSidebar>
+	</div>
+</div>
+
+@code {
+	private readonly List<string> _data = ["Apple", "Banana", "Cherry", "Date", "Elderberry"];
+
+	private string _text = "Select on focus";
+	private decimal? _number = 123.45m;
+	private DateTime? _date = DateTime.Today;
+	private DateTimeRange _dateRange = new DateTimeRange(DateTime.Today, DateTime.Today.AddDays(7));
+	private string _autosuggestValue;
+	private List<string> _multiSelectValue = [];
+
+	private Task<AutosuggestDataProviderResult<string>> ProvideAutosuggestSuggestions(AutosuggestDataProviderRequest request)
+	{
+		return Task.FromResult(new AutosuggestDataProviderResult<string>
+		{
+			Data = _data.Where(item => item.Contains(request.UserInput ?? String.Empty, StringComparison.OrdinalIgnoreCase)).ToList()
+		});
+	}
+}

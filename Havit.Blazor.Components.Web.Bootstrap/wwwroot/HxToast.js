@@ -92,10 +92,3 @@ if (!window.hxToastTopLayerListenersRegistered) {
 	document.addEventListener('show.bs.dialog', handleDialogShow);
 	document.addEventListener('show.bs.drawer', handleDialogShow);
 }
-
-const HxToast = {
-	init,
-	dispose
-};
-
-export default HxToast;

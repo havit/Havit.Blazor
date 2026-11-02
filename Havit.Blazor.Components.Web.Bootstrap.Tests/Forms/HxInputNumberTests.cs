@@ -149,6 +149,32 @@ public class HxInputNumberTests : BunitTestBase
 		Assert.Equal("TestParsingErrorMessage", cut.Find("div.invalid-feedback").TextContent);
 	}
 
+	[Theory]
+	[InlineData(true, true, true)]
+	[InlineData(false, false, false)]
+	public void HxInputNumber_SelectOnFocusSmartKeyboardSmartPaste_RendersMarkerAttributesWithoutInlineEventHandlers_Issue1730(bool selectOnFocus, bool smartKeyboard, bool smartPaste)
+	{
+		// Arrange
+		int currentValue = 0;
+
+		// Act
+		var cut = Render<HxInputNumber<int>>(parameters => parameters
+			.Bind(p => p.Value, currentValue, newValue => currentValue = newValue)
+			.Add(p => p.SelectOnFocus, selectOnFocus)
+			.Add(p => p.SmartKeyboard, smartKeyboard)
+			.Add(p => p.SmartPaste, smartPaste));
+
+		// Assert
+		var input = cut.Find("input");
+		Assert.Equal(selectOnFocus, input.HasAttribute("data-hx-select-on-focus"));
+		Assert.Equal(smartKeyboard, input.HasAttribute("data-hx-input-number-smart-keyboard"));
+		Assert.Equal(smartPaste, input.HasAttribute("data-hx-input-number-smart-paste"));
+		Assert.False(input.HasAttribute("onfocus"));
+		Assert.False(input.HasAttribute("onkeydown"));
+		Assert.False(input.HasAttribute("onpaste"));
+		Assert.False(input.HasAttribute("onblur"));
+	}
+
 	private class RangeModel
 	{
 		[Range(1, 100)]

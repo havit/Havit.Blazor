@@ -10,6 +10,6 @@ public static class BindEventExtensions
 	/// </summary>
 	public static string ToEventName(this BindEvent value)
 	{
-		return value.ToString().ToLower();
+		return value.ToString().ToLowerInvariant();
 	}
 }

@@ -72,15 +72,11 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 	private FieldIdentifier _fromFieldIdentifier;
 	private FieldIdentifier _toFieldIdentifier;
 	private FieldIdentifier[] _validationFieldIdentifiers;
-	private ElementReference _fromIconWrapperElement;
-	private ElementReference _toIconWrapperElement;
 
 	private HxMenuToggleElement _fromMenuToggleElement;
 	private HxMenuToggleElement _toMenuToggleElement;
 
 	private DateTime GetFromCalendarDisplayMonthEffective => CurrentValue.StartDate ?? FromCalendarDisplayMonth;
-
-	private IJSObjectReference _jsModule;
 
 	private DateTime GetToCalendarDisplayMonthEffective
 	{
@@ -107,6 +103,8 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 	}
 
 	private bool _firstRenderCompleted;
+	private int _fromCalendarKey; // changed to recreate the calendar (resets the month the user navigated to)
+	private int _toCalendarKey; // changed to recreate the calendar (resets the month the user navigated to)
 
 	protected override void OnParametersSet()
 	{
@@ -131,13 +129,18 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		_firstRenderCompleted = true;
 
 		await base.OnAfterRenderAsync(firstRender);
+	}
 
-		if (firstRender && (CalendarIconEffective is not null))
-		{
-			_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputDateRange));
-			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _fromMenuToggleElement.ElementReference, (CalendarIconEffective is not null) ? _fromIconWrapperElement : null);
-			await _jsModule.InvokeVoidAsync("addOpenAndCloseEventListeners", _toMenuToggleElement.ElementReference, (CalendarIconEffective is not null) ? _toIconWrapperElement : null);
-		}
+	private void HandleFromDropdownHidden()
+	{
+		// next opening of the dropdown displays the month of the value (or the default month) again
+		_fromCalendarKey++;
+	}
+
+	private void HandleToDropdownHidden()
+	{
+		// next opening of the dropdown displays the month of the value (or the default month) again
+		_toCalendarKey++;
 	}
 
 	public async ValueTask FocusAsync()

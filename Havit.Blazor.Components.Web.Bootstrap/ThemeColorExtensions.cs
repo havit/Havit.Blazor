@@ -12,7 +12,7 @@ public static class ThemeColorExtensions
 		{
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as a theme class."),
-			_ => "theme-" + themeColor.ToString("f").ToLower()
+			_ => "theme-" + themeColor.ToString("f").ToLowerInvariant()
 		};
 	}
 
@@ -23,7 +23,7 @@ public static class ThemeColorExtensions
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as background color."),
 			// Bootstrap 6: the subtle variant moved from suffix (bg-primary-subtle) to infix (bg-subtle-primary).
-			_ => (subtle ? "bg-subtle-" : "bg-") + themeColor.ToString("f").ToLower()
+			_ => (subtle ? "bg-subtle-" : "bg-") + themeColor.ToString("f").ToLowerInvariant()
 		};
 	}
 
@@ -46,7 +46,7 @@ public static class ThemeColorExtensions
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as text color."),
 			// Bootstrap 6: text color utilities were renamed from text-* to fg-* (emphasis: fg-emphasis-*).
-			_ => (emphasis ? "fg-emphasis-" : "fg-") + themeColor.ToString("f").ToLower()
+			_ => (emphasis ? "fg-emphasis-" : "fg-") + themeColor.ToString("f").ToLowerInvariant()
 		};
 	}
 
@@ -57,7 +57,7 @@ public static class ThemeColorExtensions
 			ThemeColor.None => null,
 			ThemeColor.Link => throw new NotSupportedException($"{nameof(ThemeColor)}.{nameof(ThemeColor.Link)} cannot be used as border color."),
 			// Bootstrap 6: the subtle variant moved from suffix (border-primary-subtle) to infix (border-subtle-primary).
-			_ => (subtle ? "border-subtle-" : "border-") + themeColor.ToString("f").ToLower()
+			_ => (subtle ? "border-subtle-" : "border-") + themeColor.ToString("f").ToLowerInvariant()
 		};
 	}
 

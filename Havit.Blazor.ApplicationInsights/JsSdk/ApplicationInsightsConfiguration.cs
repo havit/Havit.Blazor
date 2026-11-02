@@ -18,7 +18,6 @@ namespace Havit.Blazor.ApplicationInsights.JsSdk;
 ///   <item><c>extensions</c> – <c>ITelemetryPlugin[]</c> (runtime plugin instances)</item>
 ///   <item><c>channels</c> – <c>IChannelControls[][]</c> (runtime channel instances)</item>
 ///   <item><c>cookieCfg</c> – <c>ICookieMgrConfig</c> (interface type)</item>
-///   <item><c>featureOptIn</c> – <c>IFeatureOptIn</c> (interface type)</item>
 ///   <item><c>expCfg</c> – <c>IExceptionConfig</c> (interface type)</item>
 ///   <item><c>createPerfMgr</c> – callback function</item>
 /// </list>
@@ -199,4 +198,11 @@ public class ApplicationInsightsConfiguration
 	/// </summary>
 	[JsonPropertyName("traceHdrMode")]
 	public TraceHeadersMode? TraceHdrMode { get; set; }
+
+	/// <summary>
+	/// Custom optional value to opt in or out of features steered by the SDK remote (CDN) configuration,
+	/// keyed by the feature name (e.g. <c>zipPayload</c>).
+	/// </summary>
+	[JsonPropertyName("featureOptIn")]
+	public IDictionary<string, FeatureOptInDetails> FeatureOptIn { get; set; }
 }
