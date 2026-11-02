@@ -7,7 +7,7 @@
         Scrollspy needs two components to work together. The <code>HxScrollspy</code> component wraps
         the area to spy on, and the <a href="/components/@nameof(HxNav)"><code>@nameof(HxNav)</code></a> or a list-group (with <code><a href="/components/@nameof(HxScrollspyNavLink)">@nameof(HxScrollspyNavLink)</a>s</code>) represent the navigation.
         These components need to be associated using the <code>HxScrollspy.TargetId</code> parameter.
-        For more details, see the <a href="https://getbootstrap.com/docs/5.3/components/scrollspy/">Bootstrap documentation</a>.
+        For more details, see the <a href="https://getbootstrap.com/docs/6.0/components/scrollspy/">Bootstrap documentation</a>.
     </p>
 
     <p>The scrollspy navigation has to use a custom <code>HxScrollspyNavLink</code> to work around the <code>&lt;base&gt;</code> Blazor requirement and the inability of Bootstrap to interpret the <code>page#fragment</code> form of link.</p>
@@ -19,6 +19,21 @@
         (such as <code>&lt;div&gt;</code> or <a href="/components/HxDrawer">HxDrawer</a>).<br />
         For full-page scrollspy, the spying has to be attached directly to <code>&lt;body&gt;</code> (will be implemented later as needed?).
     </DocAlert>
+
+    <p>
+        The active section is the deepest one whose top has scrolled past the <i>activation line</i> near the top of the container (<code>12%</code> by default).
+        At the very bottom of the container, the last section gets activated even if its top never reaches the line.
+        Use the <code>TopMargin</code> parameter to move the activation line (e.g. <code>96px</code> to sit below a sticky header),
+        or take full control with the raw <code>IntersectionObserver</code> <code>RootMargin</code> (and <code>Threshold</code>) parameters.
+    </p>
+
+    <DocHeading Title="Navbar" />
+    <p>
+        Scroll the area below the <a href="/components/@nameof(HxNavbar)"><code>@nameof(HxNavbar)</code></a> and watch the active class change.
+        Open the menu and watch the menu items being highlighted as well (the menu toggle gets the <code>.active</code> class too).
+        The demo also sets <code>RootMargin="0px 0px -40%"</code> and enables <code>SmoothScroll</code>.
+    </p>
+    <Demo Type="typeof(HxScrollspy_Demo_Navbar)" />
 
     <DocHeading Title="Static content with HxNav navigation" />
     <Demo Type="typeof(HxScrollspy_Demo_HxNav)" />
@@ -32,6 +47,27 @@
         When a nested link becomes active, the link right before the nested <code>HxNav</code> (its parent) gets the <code>.active</code> class too.
     </p>
     <Demo Type="typeof(HxScrollspy_Demo_Nested)" />
+
+    <DocHeading Title="Simple anchors" />
+    <p>
+        Scrollspy is not limited to navs and list groups, it works with any <code>&lt;a&gt;</code> elements inside the target element.
+        Plain anchors do not have any <code>.active</code> styling, so you have to provide your own CSS.
+    </p>
+    <DocAlert Type="DocAlertType.Warning">
+        Blazor resolves plain <code>&lt;a href="#id"&gt;</code> links against <code>&lt;base href&gt;</code>, so a click would navigate away from the current page.
+        Either enable <code>SmoothScroll</code> (Bootstrap then handles the click and scrolls to the section itself), as in the demo below,
+        or use <code>@nameof(HxScrollspyNavLink)</code>.
+    </DocAlert>
+    <Demo Type="typeof(HxScrollspy_Demo_SimpleAnchors)" />
+
+    <DocHeading Title="Non-visible elements" />
+    <p>
+        Target elements that are not visible are ignored and their navigation links won't receive the <code>.active</code> class.
+        A scrollspy initialized in a non-visible wrapper (e.g. an inactive tab of <a href="/components/@nameof(HxTabPanel)"><code>@nameof(HxTabPanel)</code></a>
+        or a collapsed <a href="/components/@nameof(HxCollapse)"><code>@nameof(HxCollapse)</code></a>) ignores all its target elements.
+        Call <code>HxScrollspy.RefreshAsync()</code> once the wrapper has been rendered visible to pick up the targets
+        (e.g. from <code>HxCollapse.OnShown</code>).
+    </p>
 
     <DocHeading Title="Dynamic content (async loaded data)" />
     <DocAlert Type="DocAlertType.Warning">

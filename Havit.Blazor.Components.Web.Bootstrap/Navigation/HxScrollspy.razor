@@ -1,5 +1,5 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<div @ref="_scrollspyElement" tabindex="0" class="@CssClassHelper.Combine("hx-scrollspy", CssClass)">
+<div @ref="_scrollspyElement" tabindex="0" class="@CssClassHelper.Combine("hx-scrollspy", SmoothScroll ? "hx-scrollspy-smooth-scroll" : null, CssClass)">
 	@ChildContent
 </div>

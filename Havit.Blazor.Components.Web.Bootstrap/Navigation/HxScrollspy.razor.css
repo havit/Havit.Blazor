@@ -8,3 +8,10 @@
 .hx-scrollspy:focus {
 	outline: none;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+	/* HxScrollspyNavLink navigates by NavigationManager, which scrolls the target into view by scrollIntoView() and would interrupt the smooth scroll started by Bootstrap. */
+	.hx-scrollspy-smooth-scroll {
+		scroll-behavior: smooth;
+	}
+}

@@ -34,6 +34,108 @@ public class HxScrollspyTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxScrollspy_FirstRender_DefaultOptions_PassesOnlySmoothScroll()
+	{
+		// Act
+		Render<HxScrollspy>(parameters => parameters
+			.Add(p => p.TargetId, "scrollspy-nav")
+		);
+
+		// Assert
+		var options = GetJsOptions(JSInterop.Invocations.Single(i => i.Identifier == "initialize"));
+		Assert.False((bool)options["smoothScroll"]);
+		Assert.Single(options); // topMargin, rootMargin and threshold not set => Bootstrap defaults apply
+	}
+
+	[Fact]
+	public void HxScrollspy_SmoothScroll_RendersSmoothScrollCssClass()
+	{
+		// HxScrollspyNavLink navigates by NavigationManager (which calls scrollIntoView), the CSS scroll-behavior keeps that scrolling smooth.
+
+		// Act
+		var cut = Render<HxScrollspy>(parameters => parameters
+			.Add(p => p.TargetId, "scrollspy-nav")
+			.Add(p => p.SmoothScroll, true)
+		);
+
+		// Assert
+		Assert.NotNull(cut.Find("div.hx-scrollspy.hx-scrollspy-smooth-scroll"));
+	}
+
+	[Fact]
+	public void HxScrollspy_SmoothScrollNotSet_DoesNotRenderSmoothScrollCssClass()
+	{
+		// Act
+		var cut = Render<HxScrollspy>(parameters => parameters
+			.Add(p => p.TargetId, "scrollspy-nav")
+		);
+
+		// Assert
+		Assert.Empty(cut.FindAll("div.hx-scrollspy-smooth-scroll"));
+	}
+
+	[Fact]
+	public void HxScrollspy_FirstRender_PassesOptionsToJavaScript()
+	{
+		// Act
+		Render<HxScrollspy>(parameters => parameters
+			.Add(p => p.TargetId, "scrollspy-nav")
+			.Add(p => p.TopMargin, "96px")
+			.Add(p => p.RootMargin, "0px 0px -40%")
+			.Add(p => p.Threshold, new[] { 0, 0.5, 1 })
+			.Add(p => p.SmoothScroll, true)
+		);
+
+		// Assert
+		var options = GetJsOptions(JSInterop.Invocations.Single(i => i.Identifier == "initialize"));
+		Assert.True((bool)options["smoothScroll"]);
+		Assert.Equal("96px", options["topMargin"]);
+		Assert.Equal("0px 0px -40%", options["rootMargin"]);
+		Assert.Equal(new[] { 0, 0.5, 1 }, (double[])options["threshold"]);
+	}
+
+	[Fact]
+	public void HxScrollspy_OptionsChanged_ReinitializesJavaScript()
+	{
+		// Arrange
+		var cut = Render<HxScrollspy>(parameters => parameters
+			.Add(p => p.TargetId, "scrollspy-nav")
+			.Add(p => p.Threshold, new[] { 0.0 })
+		);
+
+		// Act
+		cut.Render(parameters => parameters
+			.Add(p => p.RootMargin, "0px 0px -40%")
+			.Add(p => p.Threshold, new[] { 0.0 }));
+
+		// Assert
+		var reinitializeInvocation = JSInterop.Invocations.Single(i => i.Identifier == "reinitialize");
+		Assert.Equal("scrollspy-nav", reinitializeInvocation.Arguments[1]);
+		Assert.Equal("0px 0px -40%", GetJsOptions(reinitializeInvocation)["rootMargin"]);
+	}
+
+	[Fact]
+	public void HxScrollspy_OptionsNotChanged_DoesNotReinitializeJavaScript()
+	{
+		// Arrange
+		var cut = Render<HxScrollspy>(parameters => parameters
+			.Add(p => p.TargetId, "scrollspy-nav")
+			.Add(p => p.TopMargin, "96px")
+			.Add(p => p.Threshold, new[] { 0, 1.0 })
+		);
+
+		// Act
+		cut.Render(parameters => parameters
+			.Add(p => p.TopMargin, "96px")
+			.Add(p => p.Threshold, new[] { 0, 1.0 }) // new instance with the same values
+			.Add(p => p.CssClass, "changed"));
+
+		// Assert
+		Assert.Single(JSInterop.Invocations, i => i.Identifier == "initialize");
+		Assert.DoesNotContain(JSInterop.Invocations, i => i.Identifier == "reinitialize");
+	}
+
+	[Fact]
 	public async Task HxScrollspy_RefreshAsync_InvokesJavaScriptRefresh()
 	{
 		// Arrange
@@ -95,5 +197,10 @@ public class HxScrollspyTests : BunitTestBase
 		Assert.Throws<InvalidOperationException>(() => Render<HxScrollspyNavLink>(parameters => parameters
 			.Add(l => l.Href, "/page")
 		));
+	}
+
+	private static Dictionary<string, object> GetJsOptions(JSRuntimeInvocation invocation)
+	{
+		return Assert.IsType<Dictionary<string, object>>(invocation.Arguments[2]);
 	}
 }
