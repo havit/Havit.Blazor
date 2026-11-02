@@ -43,6 +43,24 @@ public class HxChangeTrackerTests : BunitTestBase
 		Assert.False(value.HasSubscribers);
 	}
 
+	[Fact]
+	public async Task HxChangeTracker_ValueClearedBeforeDispose_ShouldUnsubscribeFromPreviousValue()
+	{
+		// Arrange
+		var value = new TrackedModel();
+		var component = Render<HxChangeTracker>(parameters => parameters
+			.Add(p => p.Value, value));
+		Assert.True(value.HasSubscribers);
+
+		// Act
+		Assert.Throws<ArgumentException>(() => component.Render(parameters => parameters
+			.Add(p => p.Value, (INotifyPropertyChanged)null)));
+		await DisposeComponentsAsync();
+
+		// Assert
+		Assert.False(value.HasSubscribers);
+	}
+
 	private class TrackedModel : INotifyPropertyChanged
 	{
 		public event PropertyChangedEventHandler PropertyChanged;
