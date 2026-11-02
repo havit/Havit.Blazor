@@ -10,7 +10,9 @@
         For more details, see the <a href="https://getbootstrap.com/docs/6.0/components/scrollspy/">Bootstrap documentation</a>.
     </p>
 
-    <p>The scrollspy navigation has to use a custom <code>HxScrollspyNavLink</code> to work around the <code>&lt;base&gt;</code> Blazor requirement and the inability of Bootstrap to interpret the <code>page#fragment</code> form of link.</p>
+    <p>The scrollspy navigation has to use a custom <code>HxScrollspyNavLink</code> to work around the <code>&lt;base&gt;</code> Blazor requirement and the inability of Bootstrap to interpret the <code>page#fragment</code> form of link.
+        When clicked, <code>HxScrollspyNavLink</code> scrolls only the scrollable container of the target section (the rest of the page stays where it is)
+        and updates the URL fragment without adding a browser history entry.</p>
 
     <p>For anchor-fragment navigation (<code>&lt;a href="#id"&gt;</code>) to work in <code>net7.0</code> and earlier, the page has to host the <a href="/components/HxAnchorFragmentNavigation">HxAnchorFragmentNavigation</a> component.</p>
 
@@ -86,8 +88,8 @@
 
     <DocHeading Title="Custom navigation content" />
     <DocAlert>
-        When using <code>HxButton</code> inside <code>HxScrollspyNavLink</code>, be sure to set <code>OnClickStopPropagation = "true"</code>.
-        If you don't, the application will navigate to <code>/#anchor</code> of the <code>HxScrollspyNavLink</code> after the <code>OnClick</code> handler completes.
+        When using <code>HxButton</code> inside <code>HxScrollspyNavLink</code>, keep <code>OnClickStopPropagation = "true"</code> (the default).
+        If you don't, the <code>HxScrollspyNavLink</code> handles the click as well and scrolls to its anchor after the <code>OnClick</code> handler completes.
     </DocAlert>
     <Demo Type="typeof(HxScrollspy_Demo_CustomNavigationContent)" />
 </ApiDoc>

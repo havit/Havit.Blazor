@@ -1,9 +1,12 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿using Microsoft.JSInterop;
+
+namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Temporary (?) NavLink component to be used with <see cref="HxScrollspy"/> where <c>#id</c> anchors are required and <c>page-route#id</c> cannot be used.
+/// Temporary (?) NavLink component to be used with <see cref="HxScrollspy"/> where <c>#id</c> anchors are required and <c>page-route#id</c> cannot be used.<br />
+/// When clicked, it scrolls only the scrollable container of the target element (not the whole page) and updates the URL fragment (without adding a browser history entry).
 /// </summary>
-public partial class HxScrollspyNavLink
+public partial class HxScrollspyNavLink : IAsyncDisposable
 {
 	/// <summary>
 	/// The navigation target in <c>#id</c> form.
@@ -31,7 +34,10 @@ public partial class HxScrollspyNavLink
 
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
-	[Inject] protected NavigationManager NavigationManager { get; set; }
+	[Inject] protected IJSRuntime JSRuntime { get; set; }
+
+	private IJSObjectReference _jsModule;
+	private bool _disposed;
 
 	protected override void OnParametersSet()
 	{
@@ -41,7 +47,40 @@ public partial class HxScrollspyNavLink
 	private async Task HandleClick(MouseEventArgs args)
 	{
 		await InvokeOnClickAsync(args);
-		var targetUri = NavigationManager.ToAbsoluteUri(NavigationManager.Uri).GetLeftPart(UriPartial.Path) + Href;
-		NavigationManager.NavigateTo(targetUri);
+
+		// NavigationManager.NavigateTo() is not used: for the same page, Blazor scrolls the target element into view by scrollIntoView(),
+		// which scrolls all the scrollable ancestors, including the whole page.
+		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollspy));
+		if (_disposed)
+		{
+			return;
+		}
+		await _jsModule.InvokeVoidAsync("navigateToFragment", Href);
+	}
+
+	public async ValueTask DisposeAsync()
+	{
+		await DisposeAsyncCore();
+	}
+
+	protected virtual async ValueTask DisposeAsyncCore()
+	{
+		_disposed = true;
+
+		if (_jsModule != null)
+		{
+			try
+			{
+				await _jsModule.DisposeAsync();
+			}
+			catch (JSDisconnectedException)
+			{
+				// NOOP
+			}
+			catch (TaskCanceledException)
+			{
+				// NOOP
+			}
+		}
 	}
 }

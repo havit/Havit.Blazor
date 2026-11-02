@@ -1,4 +1,7 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
 public class HxScrollspyTests : BunitTestBase
 {
@@ -50,7 +53,7 @@ public class HxScrollspyTests : BunitTestBase
 	[Fact]
 	public void HxScrollspy_SmoothScroll_RendersSmoothScrollCssClass()
 	{
-		// HxScrollspyNavLink navigates by NavigationManager (which calls scrollIntoView), the CSS scroll-behavior keeps that scrolling smooth.
+		// HxScrollspyNavLink scrolls the container by JavaScript (scrollTo), the CSS scroll-behavior keeps that scrolling smooth.
 
 		// Act
 		var cut = Render<HxScrollspy>(parameters => parameters
@@ -188,6 +191,47 @@ public class HxScrollspyTests : BunitTestBase
 		var parentLink = nestedLink.ParentElement.PreviousElementSibling;
 		Assert.True(parentLink.ClassList.Contains("nav-link"));
 		Assert.Equal("#item-1", parentLink.GetAttribute("href"));
+	}
+
+	[Fact]
+	public void HxScrollspyNavLink_Click_NavigatesToFragmentByJavaScriptWithoutNavigationManager()
+	{
+		// NavigationManager.NavigateTo() would scroll the target element into view by scrollIntoView(), which scrolls the whole page as well.
+
+		// Arrange
+		var navigationManager = Services.GetRequiredService<NavigationManager>();
+		var uriBeforeClick = navigationManager.Uri;
+		var cut = Render<HxScrollspyNavLink>(parameters => parameters
+			.Add(l => l.Href, "#section1")
+			.AddChildContent("Section 1"));
+
+		// Act
+		cut.Find("a").Click();
+
+		// Assert
+		var importInvocation = JSInterop.Invocations.Single(i => i.Identifier == "import");
+		Assert.Contains("HxScrollspy.js", (string)importInvocation.Arguments[0]);
+		var navigateInvocation = JSInterop.Invocations.Single(i => i.Identifier == "navigateToFragment");
+		Assert.Equal("#section1", navigateInvocation.Arguments[0]);
+		Assert.Equal(uriBeforeClick, navigationManager.Uri);
+	}
+
+	[Fact]
+	public void HxScrollspyNavLink_Click_InvokesOnClickBeforeNavigation()
+	{
+		// Arrange
+		var log = new List<string>();
+		JSInterop.SetupVoid("navigateToFragment", _ => true).SetVoidResult();
+		var cut = Render<HxScrollspyNavLink>(parameters => parameters
+			.Add(l => l.Href, "#section1")
+			.Add(l => l.OnClick, () => log.Add("OnClick")));
+
+		// Act
+		cut.Find("a").Click();
+
+		// Assert
+		Assert.Equal(["OnClick"], log);
+		Assert.Single(JSInterop.Invocations, i => i.Identifier == "navigateToFragment");
 	}
 
 	[Fact]
