@@ -103,6 +103,8 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 	}
 
 	private bool _firstRenderCompleted;
+	private int _fromCalendarKey; // changed to recreate the calendar (resets the month the user navigated to)
+	private int _toCalendarKey; // changed to recreate the calendar (resets the month the user navigated to)
 
 	protected override void OnParametersSet()
 	{
@@ -127,6 +129,18 @@ public partial class HxInputDateRangeInternal : ComponentBase, IAsyncDisposable,
 		_firstRenderCompleted = true;
 
 		await base.OnAfterRenderAsync(firstRender);
+	}
+
+	private void HandleFromDropdownHidden()
+	{
+		// next opening of the dropdown displays the month of the value (or the default month) again
+		_fromCalendarKey++;
+	}
+
+	private void HandleToDropdownHidden()
+	{
+		// next opening of the dropdown displays the month of the value (or the default month) again
+		_toCalendarKey++;
 	}
 
 	public async ValueTask FocusAsync()
