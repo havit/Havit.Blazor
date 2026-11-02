@@ -1,0 +1,18 @@
+﻿<HxButton OnClick="() => darkDialog.ShowAsync()" Color="ThemeColor.Primary">Show dark dialog</HxButton>
+
+<HxDialog @ref="darkDialog" Title="Dark dialog title" data-bs-theme="dark">
+	<BodyTemplate>
+		<p>This dialog is set to dark mode. All nested content (including form inputs and buttons) uses the dark color mode.</p>
+		<HxInputText Label="Name" @bind-Value="name" />
+	</BodyTemplate>
+	<FooterTemplate>
+		<HxButton Text="Close" OnClick="() => darkDialog.HideAsync()" Color="ThemeColor.Secondary" />
+		<HxButton Text="Save changes" OnClick="() => darkDialog.HideAsync()" Color="ThemeColor.Primary" />
+	</FooterTemplate>
+</HxDialog>
+
+@code
+{
+	private HxDialog darkDialog;
+	private string name;
+}

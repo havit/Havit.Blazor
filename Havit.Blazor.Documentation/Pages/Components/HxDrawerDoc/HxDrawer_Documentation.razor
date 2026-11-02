@@ -48,6 +48,13 @@
         <p>Set <code>Sheet="true"</code> to render the drawer as a flush-to-edge sheet (no inset, border radius, or shadow) using the <code>drawer-sheet</code> variant.</p>
         <Demo Type="typeof(HxDrawer_Demo_Sheet)" />
 
+        <DocHeading Title="Dark drawer" />
+        <p>
+            Add <code>data-bs-theme="dark"</code> to the <code>HxDrawer</code> to better match it to different contexts like dark navbars.
+            Unmatched attributes are rendered on the underlying <code>&lt;dialog class="drawer"&gt;</code> element, so all nested elements use the dark color mode.
+        </p>
+        <Demo Type="typeof(HxDrawer_Demo_Dark)" />
+
         <DocHeading Title="Translucent and instant" />
         <p>
             Set <code>Translucent="true"</code> for a translucent, blurred drawer background (<code>drawer-translucent</code>).

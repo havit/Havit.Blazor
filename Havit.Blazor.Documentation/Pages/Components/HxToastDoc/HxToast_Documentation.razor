@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxToast))]
+﻿@attribute [Route("/components/" + nameof(HxToast))]
 @attribute [Route("/components/" + nameof(HxToastContainer))]
 
 <ApiDoc Type="typeof(HxToast)">
@@ -33,6 +33,14 @@
 			other toasts politely (<code>role="status"</code>).
 		</p>
 		<Demo Type="typeof(HxToast_Demo_Color)" />
+
+		<DocHeading Title="Dark toasts" />
+		<p>
+			Set a toast to dark mode by adding <code>data-bs-theme="dark"</code> to the <code>HxToast</code> (unmatched attributes are rendered on the <code>.toast</code> element).
+			To render all the toasts in a container in dark mode, add the attribute to the <code>HxToastContainer</code> instead.
+			For <code>HxMessenger</code>, see the <a href="/components/@nameof(HxMessenger)#dark-messages">dark messages</a> section.
+		</p>
+		<Demo Type="typeof(HxToast_Demo_Dark)" />
 
 		<DocAlert Type="DocAlertType.Info">
 			<code>HxToast</code> supports static server rendering.

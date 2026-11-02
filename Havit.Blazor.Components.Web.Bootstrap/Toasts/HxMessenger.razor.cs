@@ -16,6 +16,13 @@ public partial class HxMessenger : ComponentBase, IDisposable
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
 
+	/// <summary>
+	/// Additional attributes to be splatted onto the underlying <c>div.toast-container</c> element
+	/// (e.g. <c>data-bs-theme="dark"</c> to render all the messages in dark mode).
+	/// To render a single message in dark mode, use <see cref="MessengerMessage.AdditionalAttributes"/>.
+	/// </summary>
+	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
 	[Inject] protected IHxMessengerService Messenger { get; set; }
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 

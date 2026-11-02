@@ -21,6 +21,12 @@ public partial class HxToastContainer : ComponentBase
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
+	/// Additional attributes to be splatted onto the underlying <c>div.toast-container</c> element
+	/// (e.g. <c>data-bs-theme="dark"</c> to render all the toasts in the container in dark mode).
+	/// </summary>
+	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+	/// <summary>
 	/// Toasts to display.
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }

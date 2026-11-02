@@ -72,6 +72,11 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 	/// Fires when the toast is hidden (button or autohide).
 	/// </summary>
 	[Parameter] public EventCallback OnToastHidden { get; set; }
+
+	/// <summary>
+	/// Additional attributes to be splatted onto the underlying <c>div.toast</c> element (e.g. <c>data-bs-theme="dark"</c> for a dark toast).
+	/// </summary>
+	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 	/// <summary>
 	/// Triggers the <see cref="OnToastHidden"/> event. Allows interception of the event in derived components.
 	/// </summary>
@@ -104,11 +109,13 @@ public partial class HxToast : ComponentBase, IAsyncDisposable
 		builder.AddAttribute(101, "role", assertive ? "alert" : "status");
 		builder.AddAttribute(102, "aria-live", assertive ? "assertive" : "polite");
 		builder.AddAttribute(103, "aria-atomic", "true");
+		// role and aria-* precede the additional attributes (the caller wins), class and data-bs-* follow (the component wins)
+		builder.AddMultipleAttributes(104, AdditionalAttributes);
 
 		// Known-issue: Pre-rendering flickering, see https://github.com/dotnet/aspnetcore/issues/42561
 		// Initialization during first (static) rendering and detecting the second rendering by using PersistentComponentState won't help, because the HTMLElement is replaced in DOM and diasappears.
 		var ssrInit = true; // TODO .NET9 - disable ssrInit for pre-rendering (keep for pure static SSR)
-		builder.AddAttribute(104, "class", CssClassHelper.Combine(
+		builder.AddAttribute(105, "class", CssClassHelper.Combine(
 			"hx-toast toast",
 			Translucent ? "toast-translucent" : null,
 			Instant ? "toast-instant" : null,
