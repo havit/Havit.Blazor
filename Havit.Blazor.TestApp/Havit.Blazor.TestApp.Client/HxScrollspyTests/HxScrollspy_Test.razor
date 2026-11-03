@@ -16,6 +16,10 @@
 		scroll-padding-top: 20%;
 	}
 
+	.scrollspy-test-padding-calc {
+		scroll-padding-top: calc(20% + 10px);
+	}
+
 	.scrollspy-test-sticky-header {
 		position: sticky;
 		top: 0;
@@ -66,6 +70,23 @@
 		<h4 id="percent-section3" style="scroll-margin-top: 10px;">Section 3</h4>
 		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
 		<h4 id="percent-section4">Section 4</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+	</HxScrollspy>
+</div>
+
+<h2>Mixed-unit calc() scroll-padding-top</h2>
+<HxNav Id="scrollspy-calc-nav">
+	<HxScrollspyNavLink data-testid="calc-link-3" Href="#calc-section3">Section 3</HxScrollspyNavLink>
+</HxNav>
+<div class="scrollspy-test-container">
+	<HxScrollspy TargetId="scrollspy-calc-nav" CssClass="scrollspy-test-padding-calc">
+		<h4 id="calc-section1">Section 1</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		<h4 id="calc-section2">Section 2</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		<h4 id="calc-section3">Section 3</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		<h4 id="calc-section4">Section 4</h4>
 		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
 	</HxScrollspy>
 </div>

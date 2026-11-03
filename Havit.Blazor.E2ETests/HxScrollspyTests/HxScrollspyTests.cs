@@ -53,6 +53,23 @@ public class HxScrollspyTests : TestAppTestBase
 	}
 
 	[Fact]
+	public async Task HxScrollspyNavLink_MixedUnitCalcScrollPadding_Applied()
+	{
+		// getComputedStyle keeps calc(20% + 10px) as an expression (the percentage refers to the scrollport height)
+
+		// Arrange
+		await Page.SetViewportSizeAsync(1200, 800);
+		await NavigateToTestAppAsync("/HxScrollspyTests");
+
+		// Act
+		await Page.Locator("[data-testid='calc-link-3']").ClickAsync();
+
+		// Assert - 20% of the 300px scrollport (60px) + 10px
+		await Expect(Page).ToHaveURLAsync(new Regex("#calc-section3$"));
+		await AssertTopEventuallyAsync(Page.Locator("#calc-section3"), "calc-section3", expectedOffset: 70);
+	}
+
+	[Fact]
 	public async Task HxScrollspyNavLink_NestedScrollContainers_ScrollPaddingOfEachContainerApplied()
 	{
 		// Arrange

@@ -118,13 +118,41 @@ function scrollToElement(element) {
 }
 
 function getScrollPaddingTop(container) {
-	// scroll-padding-top: auto (treated as 0), a length (resolved to px) or a percentage of the scrollport height (kept as a percentage by getComputedStyle)
+	// scroll-padding-top: auto (treated as 0) or a length-percentage, where a percentage refers to the scrollport height.
+	// getComputedStyle resolves the lengths (px), but keeps a percentage and an expression containing one
+	// (e.g. "20%", "calc(20% + 10px)", "max(10%, 40px)").
 	const scrollPaddingTop = getComputedStyle(container).scrollPaddingTop;
-	const value = Number.parseFloat(scrollPaddingTop);
-	if (!Number.isFinite(value)) {
+	if (scrollPaddingTop === 'auto') {
 		return 0;
 	}
-	return scrollPaddingTop.endsWith('%') ? (value * container.clientHeight / 100) : value;
+	if (/^-?[\d.]+(e-?\d+)?px$/i.test(scrollPaddingTop)) {
+		return Number.parseFloat(scrollPaddingTop);
+	}
+	if (/^-?[\d.]+(e-?\d+)?%$/i.test(scrollPaddingTop)) {
+		return Number.parseFloat(scrollPaddingTop) * container.clientHeight / 100;
+	}
+	return resolveLengthPercentage(scrollPaddingTop, container.clientHeight);
+}
+
+function resolveLengthPercentage(value, percentageBasis) {
+	// Lets the browser evaluate the expression as the width of an element in a containing block of percentageBasis width
+	// (the computed value contains px and % only, i.e. it does not depend on the font of the element).
+	const wrapper = document.createElement('div');
+	wrapper.style.cssText = `position: absolute; top: 0; left: 0; width: ${percentageBasis}px; height: 0; overflow: hidden; visibility: hidden;`;
+	const probe = document.createElement('div');
+	probe.style.height = '0';
+	probe.style.width = value;
+	if (!probe.style.width) {
+		return 0; // not a valid width (should not happen for a computed scroll-padding-top)
+	}
+	wrapper.appendChild(probe);
+	document.body.appendChild(wrapper);
+	try {
+		return probe.getBoundingClientRect().width;
+	}
+	finally {
+		wrapper.remove();
+	}
 }
 
 function findElementByFragment(fragment) {
