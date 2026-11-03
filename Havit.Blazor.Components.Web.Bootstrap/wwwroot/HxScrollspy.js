@@ -98,18 +98,23 @@ function scrollToElement(element) {
 	// Scroll the containers from the nearest one up to the HxScrollspy container (not the page):
 	// the section in a nested scrollable panel is scrolled to the top of the panel, the panel to the top of the outer container, etc.
 	// The destination does not depend on the current scroll position of the container (works even during a smooth scroll).
+	// offset: the position of the point to show (the section top minus its scroll-margin-top) below the top of the current target,
+	// including the distance a nested container could not scroll (clamped at the end of its content).
 	let target = element;
-	let scrollMarginTop = Number.parseFloat(getComputedStyle(element).scrollMarginTop) || 0;
+	let offset = -(Number.parseFloat(getComputedStyle(element).scrollMarginTop) || 0);
 	while (container) {
-		// clientTop: the container border (scrollTop is measured inside the border)
-		const top = target.getBoundingClientRect().top - container.getBoundingClientRect().top - container.clientTop + container.scrollTop - scrollMarginTop;
+		// the position in the scroll coordinates of the container (clientTop: the container border, scrollTop is measured inside the border)
+		const desiredTop = target.getBoundingClientRect().top - container.getBoundingClientRect().top - container.clientTop + container.scrollTop + offset;
+		const maxTop = Math.max(container.scrollHeight - container.clientHeight, 0);
+		const top = Math.min(Math.max(desiredTop, 0), maxTop);
 		container.scrollTo({ top: top }); // scroll-behavior of the container applies, see .hx-scrollspy-smooth-scroll
 
 		if (container.classList.contains('hx-scrollspy') || !container.parentElement?.closest('.hx-scrollspy')) {
 			break;
 		}
+		// after the scroll, the point is (desiredTop - top) below the top of the container content (inside its border)
+		offset = container.clientTop + (desiredTop - top);
 		target = container;
-		scrollMarginTop = 0;
 		container = getScrollContainer(container);
 	}
 }

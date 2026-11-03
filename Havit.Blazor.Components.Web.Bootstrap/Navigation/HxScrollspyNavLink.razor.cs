@@ -96,7 +96,8 @@ public partial class HxScrollspyNavLink : IAsyncDisposable
 
 	private static bool HasCssClass(string cssClass, string className)
 	{
-		return (cssClass is not null) && cssClass.Split(' ', StringSplitOptions.RemoveEmptyEntries).Contains(className);
+		// any whitespace separates the CSS classes (spaces, tabs, new lines)
+		return (cssClass is not null) && cssClass.Split((char[])null, StringSplitOptions.RemoveEmptyEntries).Contains(className);
 	}
 
 	private static bool IsTrueAttributeValue(object value)

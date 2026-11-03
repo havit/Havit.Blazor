@@ -330,7 +330,9 @@ public class HxScrollspyTests : BunitTestBase
 
 	[Theory]
 	[InlineData("CssClass")]
+	[InlineData("CssClassWithTab")]
 	[InlineData("class")]
+	[InlineData("classWithNewLine")]
 	[InlineData("disabled")]
 	[InlineData("aria-disabled")]
 	public void HxScrollspyNavLink_DisabledClick_DoesNotNavigateNorInvokeOnClick(string disabledBy)
@@ -347,7 +349,9 @@ public class HxScrollspyTests : BunitTestBase
 			_ = disabledBy switch
 			{
 				"CssClass" => parameters.Add(l => l.CssClass, "ms-3 disabled"),
+				"CssClassWithTab" => parameters.Add(l => l.CssClass, "ms-3\tdisabled"),
 				"class" => parameters.AddUnmatched("class", "list-group-item disabled"),
+				"classWithNewLine" => parameters.AddUnmatched("class", "list-group-item\ndisabled"),
 				"disabled" => parameters.AddUnmatched("disabled", true),
 				"aria-disabled" => parameters.AddUnmatched("aria-disabled", "true"),
 				_ => throw new ArgumentOutOfRangeException(nameof(disabledBy))
