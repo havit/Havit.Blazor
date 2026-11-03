@@ -227,7 +227,10 @@
 		<p>
 			With <code>@nameof(GridContentNavigationMode.InfiniteScroll)</code>, the virtualization requires a uniform row height.
 			The stacked rows are taller than the <code>@nameof(HxGrid<TItem>.ItemRowHeight)</code> (it serves as the initial estimate),
-			so the cell values are not wrapped in the stacked layout (they are truncated with an ellipsis) to keep the height of the rows uniform.
+			so the cell values are not wrapped in the stacked layout to keep the height of the rows uniform:
+			plain text values (<code>@nameof(HxGridColumn<TItem>.ItemTextSelector)</code>) are truncated with an ellipsis and keep their line when empty.
+			Cells with markup (<code>@nameof(HxGridColumn<TItem>.ItemTemplate)</code>) are not clipped, so that their popups (menus, tooltips) are not cut off;
+			keep such content on a single line in all the rows (e.g. render a placeholder for an empty value).
 		</p>
 
 

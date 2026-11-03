@@ -397,6 +397,37 @@ public class HxGrid_Stacked_Tests : BunitTestBase
 	}
 
 	[Fact]
+	public async Task HxGrid_Stacked_ItemTemplateRenderingNothing_CellHasNoContent()
+	{
+		// Arrange — the stacked infinite scroll CSS keeps the value line of the plain text cells (td without elements),
+		// an ItemTemplate rendering nothing must produce an empty cell as well
+		var cut = RenderGrid(
+			parameters => parameters
+				.Add(p => p.Stacked, GridStacked.BelowMedium)
+				.Add(p => p.ContentNavigationMode, GridContentNavigationMode.InfiniteScroll),
+			ageColumn: column => column
+				.Add(c => c.HeaderText, "Age")
+				.Add(c => c.ItemTemplate, item => builder =>
+				{
+					if (item.Id != 1)
+					{
+						builder.OpenElement(0, "strong");
+						builder.AddContent(1, item.Age);
+						builder.CloseElement();
+					}
+				}));
+
+		// Act
+		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
+
+		// Assert
+		var ageCells = cut.FindAll("tbody td[data-cell=Age]");
+		Assert.Equal(s_items.Count, ageCells.Count);
+		Assert.Empty(ageCells[0].ChildNodes);
+		Assert.Single(ageCells[1].Children);
+	}
+
+	[Fact]
 	public async Task HxGrid_Stacked_FooterCellsHaveDataCell()
 	{
 		// Arrange

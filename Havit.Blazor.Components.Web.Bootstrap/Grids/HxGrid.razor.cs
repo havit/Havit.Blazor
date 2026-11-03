@@ -279,7 +279,10 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// the grid sets <c>container-type: inline-size</c> on it; unlike <see cref="Responsive"/>, it does not make the container scrollable).
 	/// The header row is visually hidden in the stacked layout (it remains available to assistive technologies and it is revealed while it contains the keyboard focus),
 	/// so sorting by clicking the column headers, <see cref="HxGridColumn{TItem}.HeaderFilterTemplate"/> filters, and the "select all" checkbox of <see cref="MultiSelectionEnabled"/> are not visible there.
-	/// With <see cref="GridContentNavigationMode.InfiniteScroll"/>, the stacked rows keep a uniform height for the virtualization: the cell values are not wrapped (they are truncated with an ellipsis).
+	/// With <see cref="GridContentNavigationMode.InfiniteScroll"/>, the stacked rows keep a uniform height for the virtualization: the cell values are not wrapped,
+	/// plain text values (e.g. <see cref="HxGridColumn{TItem}.ItemTextSelector"/>) are truncated with an ellipsis and keep their line when empty.
+	/// Cells with markup (e.g. <see cref="HxGridColumn{TItem}.ItemTemplate"/>) are not clipped, so that their popups (menus, tooltips) are not cut off;
+	/// keep such content on a single line in all the rows (e.g. render a placeholder for an empty value).
 	/// </remarks>
 	[Parameter] public GridStacked? Stacked { get; set; }
 	protected GridStacked StackedEffective => Stacked ?? GetSettings()?.Stacked ?? GetDefaults().Stacked ?? throw new InvalidOperationException(nameof(Stacked) + " default for " + nameof(HxGrid) + " has to be set.");

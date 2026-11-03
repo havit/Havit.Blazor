@@ -108,7 +108,8 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
      otherwise it stays hidden also with .sticky-top and while the progress indicator is shown (the indicator is then
      shown at the top of the rows),
    - infinite scroll: the rows keep a uniform height for the virtualization (the row height attribute is overridden,
-     the values do not wrap and are truncated, empty values keep their line), the Virtualize spacer rows get no padding and separators.
+     the values do not wrap; plain text values are truncated and keep their line when empty, cells with markup are
+     rendered as they are), the Virtualize spacer rows get no padding and separators.
    Bootstrap applies .{bp}:table-stacked below the container breakpoint (the .hx-grid-container-stacked
    wrapper is the query container), so the rules are repeated for each breakpoint. The blocks are identical
    except for the selector and the container condition (keep them in sync, the breakpoints must match
@@ -176,15 +177,16 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 	table-layout: fixed; /* the nowrap values must not widen the table */
 }
 
-[class~="table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
-[class~="table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
+[class~="table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*)),
+[class~="table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td:not(:has(*)) {
+	/* plain text cells only: the cells with markup (templates) are not clipped, so that their popups (menus, tooltips) are not cut off */
 	overflow: hidden;
 	overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
 	text-overflow: ellipsis;
 }
 
-[class~="table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:empty:not(.hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
-	content: "\a0"; /* an empty value keeps its line, the rows have a uniform height */
+[class~="table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*), .hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+	content: "\a0"; /* a plain text cell always has its value line, also for an empty or white-space value (uniform row height) */
 }
 
 [class~="table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
@@ -297,15 +299,16 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		table-layout: fixed; /* the nowrap values must not widen the table */
 	}
 
-	[class~="sm:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
-	[class~="sm:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
+	[class~="sm:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*)),
+	[class~="sm:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td:not(:has(*)) {
+		/* plain text cells only: the cells with markup (templates) are not clipped, so that their popups (menus, tooltips) are not cut off */
 		overflow: hidden;
 		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
 		text-overflow: ellipsis;
 	}
 
-	[class~="sm:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:empty:not(.hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
-		content: "\a0"; /* an empty value keeps its line, the rows have a uniform height */
+	[class~="sm:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*), .hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* a plain text cell always has its value line, also for an empty or white-space value (uniform row height) */
 	}
 
 	[class~="sm:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
@@ -419,15 +422,16 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		table-layout: fixed; /* the nowrap values must not widen the table */
 	}
 
-	[class~="md:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
-	[class~="md:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
+	[class~="md:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*)),
+	[class~="md:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td:not(:has(*)) {
+		/* plain text cells only: the cells with markup (templates) are not clipped, so that their popups (menus, tooltips) are not cut off */
 		overflow: hidden;
 		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
 		text-overflow: ellipsis;
 	}
 
-	[class~="md:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:empty:not(.hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
-		content: "\a0"; /* an empty value keeps its line, the rows have a uniform height */
+	[class~="md:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*), .hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* a plain text cell always has its value line, also for an empty or white-space value (uniform row height) */
 	}
 
 	[class~="md:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
@@ -541,15 +545,16 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		table-layout: fixed; /* the nowrap values must not widen the table */
 	}
 
-	[class~="lg:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
-	[class~="lg:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
+	[class~="lg:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*)),
+	[class~="lg:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td:not(:has(*)) {
+		/* plain text cells only: the cells with markup (templates) are not clipped, so that their popups (menus, tooltips) are not cut off */
 		overflow: hidden;
 		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
 		text-overflow: ellipsis;
 	}
 
-	[class~="lg:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:empty:not(.hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
-		content: "\a0"; /* an empty value keeps its line, the rows have a uniform height */
+	[class~="lg:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*), .hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* a plain text cell always has its value line, also for an empty or white-space value (uniform row height) */
 	}
 
 	[class~="lg:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
@@ -663,15 +668,16 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		table-layout: fixed; /* the nowrap values must not widen the table */
 	}
 
-	[class~="xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
-	[class~="xl:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
+	[class~="xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*)),
+	[class~="xl:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td:not(:has(*)) {
+		/* plain text cells only: the cells with markup (templates) are not clipped, so that their popups (menus, tooltips) are not cut off */
 		overflow: hidden;
 		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
 		text-overflow: ellipsis;
 	}
 
-	[class~="xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:empty:not(.hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
-		content: "\a0"; /* an empty value keeps its line, the rows have a uniform height */
+	[class~="xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*), .hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* a plain text cell always has its value line, also for an empty or white-space value (uniform row height) */
 	}
 
 	[class~="xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
@@ -785,15 +791,16 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		table-layout: fixed; /* the nowrap values must not widen the table */
 	}
 
-	[class~="2xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
-	[class~="2xl:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
+	[class~="2xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*)),
+	[class~="2xl:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td:not(:has(*)) {
+		/* plain text cells only: the cells with markup (templates) are not clipped, so that their popups (menus, tooltips) are not cut off */
 		overflow: hidden;
 		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
 		text-overflow: ellipsis;
 	}
 
-	[class~="2xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:empty:not(.hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
-		content: "\a0"; /* an empty value keeps its line, the rows have a uniform height */
+	[class~="2xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*), .hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* a plain text cell always has its value line, also for an empty or white-space value (uniform row height) */
 	}
 
 	[class~="2xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
