@@ -281,7 +281,7 @@ public partial class HxCalendar
 			_renderData.Weeks.Add(weekData);
 		}
 
-		_renderData.PreviousMonthEnabled = minDateEffective < DisplayMonth; // DisplayMonth is always the first fay of month
+		_renderData.PreviousMonthEnabled = minDateEffective < new DateTime(DisplayMonth.Year, DisplayMonth.Month, 1);
 		_renderData.NextMonthEnabled = maxDateEffective > new DateTime(DisplayMonth.Year, DisplayMonth.Month, DateTime.DaysInMonth(DisplayMonth.Year, DisplayMonth.Month));
 	}
 
@@ -301,6 +301,8 @@ public partial class HxCalendar
 
 	private async Task SetDisplayMonthAsync(DateTime newDisplayMonth, bool limitDisplayMonthByMinMaxDateEffective = false)
 	{
+		newDisplayMonth = new DateTime(newDisplayMonth.Year, newDisplayMonth.Month, 1);
+
 		if (limitDisplayMonthByMinMaxDateEffective)
 		{
 			newDisplayMonth = new[] { newDisplayMonth, new DateTime(MinDateEffective.Year, MinDateEffective.Month, 1) }.Max();
