@@ -232,6 +232,11 @@
 			Cells with markup (<code>@nameof(HxGridColumn<TItem>.ItemTemplate)</code>) are not clipped, so that their popups (menus, tooltips) are not cut off;
 			keep such content on a single line in all the rows (e.g. render a placeholder for an empty value).
 		</p>
+		<p>
+			The virtualization uses the <code>@nameof(HxGrid<TItem>.ItemRowHeight)</code> as the initial estimate of the row height and measures the rendered rows while scrolling.
+			With <code>@nameof(GridStacked).@nameof(GridStacked.Always)</code>, set the <code>@nameof(HxGrid<TItem>.ItemRowHeight)</code> to the height of the stacked rows.
+			With the breakpoint values, it should match the table rows; when the grid crosses the breakpoint, the visible rows can shift once until the new row height is measured.
+		</p>
 
 
 		<DocHeading Title="Persisting the state" Id="persisting-state" />

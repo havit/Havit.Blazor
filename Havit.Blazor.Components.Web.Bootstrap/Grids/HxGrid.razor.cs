@@ -283,6 +283,9 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// plain text values (e.g. <see cref="HxGridColumn{TItem}.ItemTextSelector"/>) are truncated with an ellipsis and keep their line when empty.
 	/// Cells with markup (e.g. <see cref="HxGridColumn{TItem}.ItemTemplate"/>) are not clipped, so that their popups (menus, tooltips) are not cut off;
 	/// keep such content on a single line in all the rows (e.g. render a placeholder for an empty value).
+	/// The virtualization uses <see cref="ItemRowHeight"/> as the initial estimate of the row height and measures the rendered rows while scrolling:
+	/// with <see cref="GridStacked.Always"/>, set <see cref="ItemRowHeight"/> to the height of the stacked rows;
+	/// with the <c>Below*</c> values, it should match the table rows, and when the grid crosses the breakpoint, the visible rows can shift once until the new row height is measured.
 	/// </remarks>
 	[Parameter] public GridStacked? Stacked { get; set; }
 	protected GridStacked StackedEffective => Stacked ?? GetSettings()?.Stacked ?? GetDefaults().Stacked ?? throw new InvalidOperationException(nameof(Stacked) + " default for " + nameof(HxGrid) + " has to be set.");

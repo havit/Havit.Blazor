@@ -1,0 +1,25 @@
+﻿@page "/HxGrid_Stacked_InfiniteScroll_PageScroll"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<h4>HxGrid stacked layout + infinite scroll (page scrolling) E2E tests</h4>
+
+@* No scrollable container: the virtualization uses the page viewport as the scroll root. *@
+<div data-testid="grid-wrapper" style="width: 400px;">
+	<HxGrid TItem="HxGrid_Stacked_InfiniteScroll_Item"
+			DataProvider="GetDataAsync"
+			Stacked="GridStacked.BelowMedium"
+			ContentNavigationMode="GridContentNavigationMode.InfiniteScroll">
+		<Columns>
+			<HxGridColumn HeaderText="Name" ItemTextSelector="item => item.Name" />
+			<HxGridColumn HeaderText="Email" ItemTextSelector="item => item.Email" />
+			<HxGridColumn HeaderText="City" ItemTextSelector="item => item.City" />
+		</Columns>
+	</HxGrid>
+</div>
+
+@code {
+	private Task<GridDataProviderResult<HxGrid_Stacked_InfiniteScroll_Item>> GetDataAsync(GridDataProviderRequest<HxGrid_Stacked_InfiniteScroll_Item> request)
+	{
+		return Task.FromResult(request.ApplyTo(HxGrid_Stacked_InfiniteScroll_Item.Items));
+	}
+}
