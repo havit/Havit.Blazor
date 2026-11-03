@@ -45,9 +45,11 @@ Bootstrap Tooltip component, activates on hover. Rendered as a `span` wrapper to
 
 - HxTooltip_Demo_BasicUsage.razor
 - HxTooltip_Demo_Button.razor
+- HxTooltip_Demo_Custom.razor
 - HxTooltip_Demo_DisabledElements.razor
 - HxTooltip_Demo_EnableDisable.razor
 - HxTooltip_Demo_HtmlContent.razor
+- HxTooltip_Demo_Links.razor
 - HxTooltip_Demo_MethodsEvents.razor
 - HxTooltip_Demo_Placement.razor
 

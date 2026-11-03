@@ -1,0 +1,17 @@
+﻿# HxDrawer_Demo_Dark.razor
+
+```razor
+<HxButton OnClick="() => darkDrawer.ShowAsync()" Text="Show dark drawer" Color="ThemeColor.Primary" />
+
+<HxDrawer @ref="darkDrawer" Title="Drawer" data-bs-theme="dark">
+	<BodyTemplate>
+		<p>This drawer is set to dark mode. All nested elements use the dark color mode.</p>
+	</BodyTemplate>
+</HxDrawer>
+
+@code
+{
+	private HxDrawer darkDrawer;
+}
+
+```

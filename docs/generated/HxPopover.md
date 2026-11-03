@@ -45,6 +45,7 @@ Bootstrap Popover component. Rendered as a `span` wrapper to fully support popov
 ## Available demo samples
 
 - HxPopover_Demo_BasicUsage.razor
+- HxPopover_Demo_Custom.razor
 - HxPopover_Demo_DisabledElements.razor
 - HxPopover_Demo_Dismissible.razor
 - HxPopover_Demo_EnableDisable.razor

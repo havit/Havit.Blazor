@@ -810,6 +810,11 @@
             Custom message body (content).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.MessengerMessage.AdditionalAttributes">
+            <summary>
+            Additional attributes to be rendered on the message element (e.g. <c>data-bs-theme="dark"</c> for a dark toast in <c>HxMessenger</c>).
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.MessengerServiceCollectionExtensions">
             <summary>
             Extension methods for installation of HxMessenger support.

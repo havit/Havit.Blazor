@@ -46,6 +46,7 @@ Grid to display tabular data from data source. Includes support for client-side 
 | ShowFooterWhenEmptyData | `bool?` | Determines whether the grid footer is rendered when the grid's data source is empty. The default value is `false`. |
 | SortAscendingIcon | `IconBase` | Icon to indicate the ascending sort direction in the column header. This icon is displayed when a column is sorted in ascending order. |
 | SortDescendingIcon | `IconBase` | Icon to indicate the descending sort direction in the column header. This icon is shown when a column is sorted in descending order. |
+| Stacked | `GridStacked?` | Stacked layout of the grid (Bootstrap stacked tables). When stacked, each row is rendered as a vertical block: the first cell acts as a bold title, the remaining cells are displayed as label–value pairs (the labels come from `HxGridColumn.StackedLabel`, which defaults to `HxGridColumn.HeaderText`). Use `GridStacked.Always` to always stack the rows, or one of the `Below*` values to stack the rows only when the grid container is narrower than the breakpoint. Default is `GridStacked.Never`. |
 | Striped | `bool?` | Adds zebra-striping to any table row within the `<tbody>` for better readability. Rows will have alternating background colors. Default is false. |
 | TableContainerCssClass | `string` | Custom CSS class for the `div` element that wraps the main `table` element. Excludes the `HxPager` which is not wrapped in this `div` element. |
 | TableCssClass | `string` | Custom CSS class for the main `table` element of the grid. This class allows for styling and customization of the grid's appearance. |
@@ -81,6 +82,7 @@ Grid to display tabular data from data source. Includes support for client-side 
 - HxGrid_Demo_Multiselect.razor
 - HxGrid_Demo_Queryable.razor
 - HxGrid_Demo_RefreshData.razor
+- HxGrid_Demo_Stacked.razor
 - HxGrid_Demo_StatePersisting.razor
 - HxGrid_Demo_Striped.razor
 

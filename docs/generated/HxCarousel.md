@@ -11,6 +11,7 @@ A slideshow component for cycling through elements—images or slides of text—
 | Center | `bool` | Snap the active slide to the center of the viewport instead of its start (`.carousel-center`). Pairs nicely with `ItemsPeek`. |
 | ChildContent | `RenderFragment` | Content of the carousel. |
 | Controls | `bool` | Display previous/next controls to switch between slides. |
+| ControlsPlacement | `CarouselControlsPlacement` | Where the controls, play/pause button and indicators are placed relative to the slides. Default is `CarouselControlsPlacement.Bottom`. Ignored when `Overlay` is `true` (the overlay controls are always positioned over the bottom of the slides). |
 | Crossfade | `bool` | Animate slides with a fade transition instead of sliding. |
 | CssClass | `string` | Carousel CSS class. Added to root div `.carousel`. |
 | Ends | `CarouselEnds` | What happens at the first and last slide. Default is `CarouselEnds.Loop`. |
@@ -46,6 +47,7 @@ A slideshow component for cycling through elements—images or slides of text—
 
 - HxCarousel_Demo_Autoplay.razor
 - HxCarousel_Demo_Controls.razor
+- HxCarousel_Demo_ControlsTop.razor
 - HxCarousel_Demo_Crossfade.razor
 - HxCarousel_Demo_CustomContent.razor
 - HxCarousel_Demo_Dark.razor
