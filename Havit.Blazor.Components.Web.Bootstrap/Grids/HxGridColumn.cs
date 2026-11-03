@@ -63,6 +63,17 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 	/// Header cell CSS class.
 	/// </summary>
 	[Parameter] public string HeaderCssClass { get; set; }
+
+	/// <summary>
+	/// Plain-text label of the column's cells in the stacked layout of the grid (see <see cref="HxGrid{TItem}.Stacked"/>), rendered as the <c>data-cell</c> attribute of the cells.
+	/// Defaults to <see cref="HeaderText"/>.
+	/// Set the label when the header is defined by <see cref="HeaderTemplate"/> (the template cannot be used as a label), or to use a different label than the header text.
+	/// Set to an empty string to render the cells without a label.
+	/// </summary>
+	/// <remarks>
+	/// The first cell of each row (usually the first column) is rendered as the title of the stacked row, its label is not displayed.
+	/// </remarks>
+	[Parameter] public string StackedLabel { get; set; }
 	#endregion
 
 	#region Item properties
@@ -233,6 +244,9 @@ public class HxGridColumn<TItem> : HxGridColumnBase<TItem>
 
 	/// <inheritdoc />
 	protected override int? GetDefaultSortingOrder() => IsDefaultSortColumn ? 0 : null;
+
+	/// <inheritdoc />
+	protected override string GetStackedLabel() => StackedLabel ?? HeaderText;
 
 	/// <summary>
 	/// Returns the effective <c>tabindex</c> for the column's sortable header cell, resolved from

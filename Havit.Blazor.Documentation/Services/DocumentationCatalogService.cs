@@ -188,6 +188,7 @@ public class DocumentationCatalogService : IDocumentationCatalogService
 		new("/types/LabelValueRenderOrder", "LabelValueRenderOrder", "enum", EnumsLevel),
 		new("/types/LabelType", "LabelType", "enum", EnumsLevel),
 		new("/types/GridContentNavigationMode", "GridContentNavigationMode", "enum", EnumsLevel),
+		new("/types/GridStacked", "GridStacked", "enum responsive stacked table breakpoint", EnumsLevel),
 		new("/types/ListGroupHorizontal", "ListGroupHorizontal", "enum", EnumsLevel),
 		new("/types/MenuAutoClose", "MenuAutoClose", "enum dropdown", EnumsLevel),
 		new("/types/MenuPlacement", "MenuPlacement", "enum dropdown", EnumsLevel),
