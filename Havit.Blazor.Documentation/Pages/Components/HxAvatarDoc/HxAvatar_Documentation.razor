@@ -2,36 +2,85 @@
 @attribute [Route("/components/" + nameof(HxAvatarStack))]
 
 <ApiDoc Type="typeof(HxAvatar)">
-    <p>Avatars are used to represent users or entities. They can display an image or initials as a fallback.</p>
+    <MainContent>
+        <p>Avatars are used to represent users or entities. They can display an image or initials as a fallback.</p>
 
-    <DocHeading Title="Image" />
-    <p>Use the <code>ImageSrc</code> parameter (with an optional <code>ImageAlt</code>) for image-based avatars.</p>
-    <Demo Type="typeof(HxAvatar_Demo_Image)" Tabs="false" />
+        <DocHeading Title="Image" />
+        <p>Use the <code>ImageSrc</code> parameter (with an optional <code>ImageAlt</code>) for image-based avatars.</p>
+        <Demo Type="typeof(HxAvatar_Demo_Image)" Tabs="false" />
 
-    <DocHeading Title="Initials" />
-    <p>Use the child content for initials-based avatars. Combine with the <code>Color</code> parameter to apply a theme color.</p>
-    <Demo Type="typeof(HxAvatar_Demo_Initials)" Tabs="false" />
+        <DocHeading Title="Initials" />
+        <p>Use the child content for initials-based avatars. Combine with the <code>Color</code> parameter to apply a theme color.</p>
+        <Demo Type="typeof(HxAvatar_Demo_Initials)" Tabs="false" />
 
-    <DocHeading Title="Subtle" Level="4" />
-    <p>Use <code>Subtle="true"</code> to create a subtle avatar.</p>
-    <Demo Type="typeof(HxAvatar_Demo_Subtle)" Tabs="false" />
+        <DocHeading Title="Subtle" Level="4" />
+        <p>Use <code>Subtle="true"</code> to create a subtle avatar.</p>
+        <Demo Type="typeof(HxAvatar_Demo_Subtle)" Tabs="false" />
 
-    <DocHeading Title="Sizes" />
-    <p>Avatars come in multiple sizes: extra small, small, default, large, and extra large.</p>
-    <Demo Type="typeof(HxAvatar_Demo_Sizes)" Tabs="false" />
-    <p>Use a custom size by modifying the <code>--bs-avatar-size</code> CSS variable (e.g. <code>style="--bs-avatar-size: 8rem;"</code>).</p>
+        <DocHeading Title="Sizes" />
+        <p>Avatars come in multiple sizes: extra small, small, default, large, and extra large.</p>
+        <Demo Type="typeof(HxAvatar_Demo_Sizes)" Tabs="false" />
+        <p>Use a custom size by modifying the <code>--bs-avatar-size</code> CSS variable (e.g. <code>style="--bs-avatar-size: 8rem;"</code>), see <a href="#HxAvatar-css-variables">CSS variables</a>.</p>
 
-    <DocHeading Title="Status indicator" />
-    <p>
-        Use the <code>Status</code> parameter to show a status indicator. Each status has a distinct shape and color.
-        Because the status is conveyed purely through color and shape, the indicator renders with <code>role="img"</code>
-        and an <code>aria-label</code> (customizable with the <code>StatusLabel</code> parameter) so assistive technologies can announce it.
-    </p>
-    <Demo Type="typeof(HxAvatar_Demo_Status)" Tabs="false" />
+        <DocHeading Title="Status indicator" />
+        <p>
+            Use the <code>Status</code> parameter to show a status indicator. Each status has a distinct shape and color.
+            Because the status is conveyed purely through color and shape, the indicator renders with <code>role="img"</code>
+            and an <code>aria-label</code> (customizable with the <code>StatusLabel</code> parameter) so assistive technologies can announce it.
+        </p>
+        <Demo Type="typeof(HxAvatar_Demo_Status)" Tabs="false" />
 
-    <DocHeading Title="Status with sizes" Level="4" />
-    <p>The status indicator scales with the avatar size.</p>
-    <Demo Type="typeof(HxAvatar_Demo_StatusSizes)" Tabs="false" />
+        <DocHeading Title="Status with sizes" Level="4" />
+        <p>The status indicator scales with the avatar size.</p>
+        <Demo Type="typeof(HxAvatar_Demo_StatusSizes)" Tabs="false" />
+
+        <DocHeading Title="Customizing with CSS variables" />
+        <p>
+            The look of the avatar can be adjusted by overriding the CSS variables (see the <a href="#HxAvatar-css-variables">table below</a>)
+            directly on the avatar element, either using the <code>style</code> attribute or with a CSS selector targeting the avatar (e.g. <code>.my-team .avatar { ... }</code>).
+            The variables are declared on the <code>.avatar</code> class itself, so values set on a parent element are not inherited.
+        </p>
+        <Demo Type="typeof(HxAvatar_Demo_CssVariables)" Tabs="false" />
+    </MainContent>
+
+    <CssVariables>
+        <ApiDocCssVariable Name="--bs-avatar-size" Default="2.5rem">
+            Width and height of the avatar (the font size of initials is derived from it). Overridden by the <code>Size</code> parameter classes.
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--bs-avatar-border-radius" Default="50%">
+            Border radius of the avatar.
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--bs-avatar-border-width" Default="2px">
+            Width of the border separating avatars in an <code>HxAvatarStack</code>.
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--bs-avatar-border-color" Default="var(--bs-bg-body)">
+            Color of the border separating avatars in an <code>HxAvatarStack</code>.
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--bs-avatar-bg" Default="var(--bs-bg-2)">
+            Background color of the avatar (when no <code>Color</code> is set).
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--bs-avatar-color" Default="var(--bs-fg-body)">
+            Text color of the initials (when no <code>Color</code> is set).
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--bs-avatar-font-weight" Default="var(--bs-font-weight-medium)">
+            Font weight of the initials (not set by default, the fallback applies).
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--bs-avatar-status-size" Default="0.75rem">
+            Size of the status indicator. Overridden by the <code>Size</code> parameter classes.
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--bs-avatar-status-border-width" Default="2px">
+            Border width of the status indicator.
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--bs-avatar-status-border-color" Default="var(--bs-bg-body)">
+            Border color of the status indicator.
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--bs-avatar-stack-spacing" Default="-0.3">
+            Overlap of the avatars in an <code>HxAvatarStack</code> (multiplier of the avatar size).
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--bs-avatar-stack-transition" Default="transform .2s ease-in-out">
+            Transition of the avatars in an <code>HxAvatarStack</code> (on hover).
+        </ApiDocCssVariable>
+    </CssVariables>
 </ApiDoc>
 
 <ApiDoc Type="typeof(HxAvatarStack)">

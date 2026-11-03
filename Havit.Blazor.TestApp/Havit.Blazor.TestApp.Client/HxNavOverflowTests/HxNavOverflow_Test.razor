@@ -11,3 +11,20 @@
 		}
 	</HxNavOverflow>
 </div>
+
+<h5 class="mt-4">In a navbar drawer</h5>
+
+<div style="max-width: 1100px;">
+	<HxNavbar Id="nav-overflow-navbar">
+		<HxNavbarBrand>Brand</HxNavbarBrand>
+		<HxNavbarToggler data-testid="nav-overflow-navbar-toggler" />
+		<HxNavbarDrawer>
+			<HxNavOverflow data-testid="nav-overflow-navbar-nav">
+				@for (int i = 1; i <= 12; i++)
+				{
+					<HxNavLink Href="@($"#navbar-item{i}")" Text="@($"Item number {i}")" />
+				}
+			</HxNavOverflow>
+		</HxNavbarDrawer>
+	</HxNavbar>
+</div>
