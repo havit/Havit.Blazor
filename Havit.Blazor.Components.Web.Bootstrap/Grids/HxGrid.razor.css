@@ -105,6 +105,8 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
    - the context menu is placed to the top-end corner of the row,
    - the footer row is stacked the same way as the data rows (empty footer cells are hidden),
    - the visually hidden header row is revealed while it contains the keyboard focus (sortable headers, filters, "select all"),
+     otherwise it stays hidden also with .sticky-top and while the progress indicator is shown (the indicator is then
+     shown at the top of the rows),
    - infinite scroll: the rows keep a uniform height for the virtualization (the row height attribute is overridden,
      the values do not wrap and are truncated, empty values keep their line), the Virtualize spacer rows get no padding and separators.
    Bootstrap applies .{bp}:table-stacked below the container breakpoint (the .hx-grid-container-stacked
@@ -130,6 +132,26 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 }
 
 /* .table-stacked (always) */
+.hx-grid[class~="table-stacked"] > thead:not(:focus-within) {
+	position: absolute; /* keeps the header visually hidden (Bootstrap) also with .sticky-top and while the progress indicator is shown */
+}
+
+.hx-grid-progress-indicator .hx-grid[class~="table-stacked"] > tbody {
+	position: relative;
+}
+
+.hx-grid-progress-indicator .hx-grid[class~="table-stacked"] > thead:not(:focus-within) + tbody::before {
+	content: ""; /* the progress indicator of the hidden header is shown at the top of the rows */
+	position: absolute;
+	z-index: 1000;
+	display: block;
+	top: 0;
+	height: 1px;
+	background-color: var(--hx-grid-progress-indicator-color);
+	animation: 1.5s ease-in-out 0s 1 slideRight;
+	animation-iteration-count: infinite;
+}
+
 [class~="table-stacked"] > thead:focus-within {
 	position: static;
 	display: block;
@@ -231,6 +253,26 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 }
 
 @container (width < 576px) {
+	.hx-grid[class~="sm:table-stacked"] > thead:not(:focus-within) {
+		position: absolute; /* keeps the header visually hidden (Bootstrap) also with .sticky-top and while the progress indicator is shown */
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="sm:table-stacked"] > tbody {
+		position: relative;
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="sm:table-stacked"] > thead:not(:focus-within) + tbody::before {
+		content: ""; /* the progress indicator of the hidden header is shown at the top of the rows */
+		position: absolute;
+		z-index: 1000;
+		display: block;
+		top: 0;
+		height: 1px;
+		background-color: var(--hx-grid-progress-indicator-color);
+		animation: 1.5s ease-in-out 0s 1 slideRight;
+		animation-iteration-count: infinite;
+	}
+
 	[class~="sm:table-stacked"] > thead:focus-within {
 		position: static;
 		display: block;
@@ -333,6 +375,26 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 }
 
 @container (width < 768px) {
+	.hx-grid[class~="md:table-stacked"] > thead:not(:focus-within) {
+		position: absolute; /* keeps the header visually hidden (Bootstrap) also with .sticky-top and while the progress indicator is shown */
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="md:table-stacked"] > tbody {
+		position: relative;
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="md:table-stacked"] > thead:not(:focus-within) + tbody::before {
+		content: ""; /* the progress indicator of the hidden header is shown at the top of the rows */
+		position: absolute;
+		z-index: 1000;
+		display: block;
+		top: 0;
+		height: 1px;
+		background-color: var(--hx-grid-progress-indicator-color);
+		animation: 1.5s ease-in-out 0s 1 slideRight;
+		animation-iteration-count: infinite;
+	}
+
 	[class~="md:table-stacked"] > thead:focus-within {
 		position: static;
 		display: block;
@@ -435,6 +497,26 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 }
 
 @container (width < 1024px) {
+	.hx-grid[class~="lg:table-stacked"] > thead:not(:focus-within) {
+		position: absolute; /* keeps the header visually hidden (Bootstrap) also with .sticky-top and while the progress indicator is shown */
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="lg:table-stacked"] > tbody {
+		position: relative;
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="lg:table-stacked"] > thead:not(:focus-within) + tbody::before {
+		content: ""; /* the progress indicator of the hidden header is shown at the top of the rows */
+		position: absolute;
+		z-index: 1000;
+		display: block;
+		top: 0;
+		height: 1px;
+		background-color: var(--hx-grid-progress-indicator-color);
+		animation: 1.5s ease-in-out 0s 1 slideRight;
+		animation-iteration-count: infinite;
+	}
+
 	[class~="lg:table-stacked"] > thead:focus-within {
 		position: static;
 		display: block;
@@ -537,6 +619,26 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 }
 
 @container (width < 1280px) {
+	.hx-grid[class~="xl:table-stacked"] > thead:not(:focus-within) {
+		position: absolute; /* keeps the header visually hidden (Bootstrap) also with .sticky-top and while the progress indicator is shown */
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="xl:table-stacked"] > tbody {
+		position: relative;
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="xl:table-stacked"] > thead:not(:focus-within) + tbody::before {
+		content: ""; /* the progress indicator of the hidden header is shown at the top of the rows */
+		position: absolute;
+		z-index: 1000;
+		display: block;
+		top: 0;
+		height: 1px;
+		background-color: var(--hx-grid-progress-indicator-color);
+		animation: 1.5s ease-in-out 0s 1 slideRight;
+		animation-iteration-count: infinite;
+	}
+
 	[class~="xl:table-stacked"] > thead:focus-within {
 		position: static;
 		display: block;
@@ -639,6 +741,26 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 }
 
 @container (width < 1536px) {
+	.hx-grid[class~="2xl:table-stacked"] > thead:not(:focus-within) {
+		position: absolute; /* keeps the header visually hidden (Bootstrap) also with .sticky-top and while the progress indicator is shown */
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="2xl:table-stacked"] > tbody {
+		position: relative;
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="2xl:table-stacked"] > thead:not(:focus-within) + tbody::before {
+		content: ""; /* the progress indicator of the hidden header is shown at the top of the rows */
+		position: absolute;
+		z-index: 1000;
+		display: block;
+		top: 0;
+		height: 1px;
+		background-color: var(--hx-grid-progress-indicator-color);
+		animation: 1.5s ease-in-out 0s 1 slideRight;
+		animation-iteration-count: infinite;
+	}
+
 	[class~="2xl:table-stacked"] > thead:focus-within {
 		position: static;
 		display: block;
