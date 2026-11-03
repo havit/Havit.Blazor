@@ -1,0 +1,19 @@
+﻿# HxTabPanel_Demo_ListGroup.razor
+
+```razor
+<HxTabPanel Variant="TabPanelVariant.ListGroup" Orientation="NavOrientation.Vertical">
+	<HxTab Title="Home">
+		<Content>Some placeholder content relating to "Home".</Content>
+	</HxTab>
+	<HxTab Title="Profile">
+		<Content>Some placeholder content relating to "Profile".</Content>
+	</HxTab>
+	<HxTab Title="Messages">
+		<Content>Some placeholder content relating to "Messages".</Content>
+	</HxTab>
+	<HxTab Enabled="false" Title="Settings">
+		<Content>Some placeholder content relating to "Settings".</Content>
+	</HxTab>
+</HxTabPanel>
+
+```

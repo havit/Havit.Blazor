@@ -44,6 +44,8 @@ Bootstrap Nav overflow component (new in Bootstrap 6, "Priority+" pattern). Auto
 - HxNavOverflow_Demo_DisabledItems.razor
 - HxNavOverflow_Demo_KeepVisible.razor
 - HxNavOverflow_Demo_MinimumVisibleItems.razor
+- HxNavOverflow_Demo_Navbar.razor
+- HxNavOverflow_Demo_NavbarDrawer.razor
 - HxNavOverflow_Demo_OnOverflowChanged.razor
 - HxNavOverflow_Demo_Toggle.razor
 - HxNavOverflow_Demo_Variants.razor

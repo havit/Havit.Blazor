@@ -22,8 +22,10 @@ Bootstrap 6 Progress component. A wrapping component (`.progress-stacked`) for o
 - HxProgress_Demo_Height.razor
 - HxProgress_Demo_Interactive.razor
 - HxProgress_Demo_Labels.razor
+- HxProgress_Demo_LongLabels.razor
 - HxProgress_Demo_MultipleBars.razor
 - HxProgress_Demo_Scales.razor
 - HxProgress_Demo_SettingParameters.razor
 - HxProgress_Demo_Striped.razor
+- HxProgress_Demo_Width.razor
 

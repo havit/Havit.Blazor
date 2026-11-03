@@ -23,6 +23,7 @@ Bootstrap accordion component (built on the native `<details>`/`<summary>` discl
 ## Available demo samples
 
 - HxAccordion_ComplexDemo.razor
+- HxAccordion_Demo_Color.razor
 - HxAccordion_Demo_Flush.razor
 - HxAccordion_Demo_Gap.razor
 - HxAccordion_Demo_Small.razor

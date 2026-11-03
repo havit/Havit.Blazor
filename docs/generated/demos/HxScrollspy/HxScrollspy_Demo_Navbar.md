@@ -1,0 +1,45 @@
+﻿# HxScrollspy_Demo_Navbar.razor
+
+```razor
+<HxNavbar Id="navbar-example" CssClass="bg-1 px-3 mb-3 rounded-2" Expand="NavbarExpand.Always">
+	<HxNavbarBrand>Navbar</HxNavbarBrand>
+	<HxNav Variant="NavVariant.Pills" CssClass="bg-transparent">
+		<HxScrollspyNavLink Href="#navbardemo1">First</HxScrollspyNavLink>
+		<HxScrollspyNavLink Href="#navbardemo2">Second</HxScrollspyNavLink>
+		<HxMenu>
+			<Toggle>
+				<HxMenuToggleElement ElementName="button" type="button">Menu</HxMenuToggleElement>
+			</Toggle>
+			<Content>
+				@* HxScrollspyNavLink renders the nav-link class - the wrapper prevents the active pill styling of .nav-pills .show > .nav-link *@
+				<div>
+					<HxScrollspyNavLink Href="#navbardemo3" CssClass="menu-item">Third</HxScrollspyNavLink>
+					<HxScrollspyNavLink Href="#navbardemo4" CssClass="menu-item">Fourth</HxScrollspyNavLink>
+					<HxMenuDivider />
+					<HxScrollspyNavLink Href="#navbardemo5" CssClass="menu-item">Fifth</HxScrollspyNavLink>
+				</div>
+			</Content>
+		</HxMenu>
+	</HxNav>
+</HxNavbar>
+
+<div style="height:250px;position:relative;">
+	<HxScrollspy TargetId="navbar-example" RootMargin="0px 0px -40%" SmoothScroll="true">
+		<h4 id="navbardemo1">First heading</h4>
+		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas. Praesent efficitur odio sed orci iaculis accumsan. Sed quis quam suscipit, scelerisque velit porttitor, tristique enim. Pellentesque ac magna et metus venenatis pellentesque ullamcorper vitae felis. Vestibulum ut est mi. Ut at dignissim turpis. Pellentesque et magna non massa malesuada consectetur. Morbi in lorem nunc. Integer congue mi non sem consectetur suscipit. Interdum et malesuada fames ac ante ipsum primis in faucibus.</p>
+
+		<h4 id="navbardemo2">Second heading</h4>
+		<p>Nam id consequat augue. Nunc sit amet nunc id ligula ornare porta quis id nisl. Vestibulum ultricies ex mauris, id viverra nibh congue vitae. Proin varius eget urna ut iaculis. Quisque molestie libero et nisi venenatis tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec dapibus risus eu ipsum pharetra, vitae viverra nibh dictum. Nulla nec faucibus mauris, ac iaculis lacus. Integer eu sem odio. Quisque luctus nulla elementum, sollicitudin justo eget, ultricies odio. Aliquam viverra non sapien a tincidunt.</p>
+
+		<h4 id="navbardemo3">Third heading</h4>
+		<p>Sed a aliquet nisi. Pellentesque placerat, turpis sit amet placerat eleifend, tellus turpis consectetur risus, ac scelerisque lectus purus eget turpis. Duis non nunc a lacus sagittis fringilla a quis purus. Ut scelerisque, dolor in pretium mollis, tellus sapien commodo turpis, sed faucibus ante magna et ex. Nunc nec lectus arcu. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce egestas finibus erat a vehicula. Suspendisse sit amet sagittis sem. Etiam porttitor lobortis neque, non gravida nisi egestas sed. Vivamus dignissim lectus ut turpis ultricies, ac aliquam justo convallis.</p>
+
+		<h4 id="navbardemo4">Fourth heading</h4>
+		<p>Nulla eu tempor diam, a ultrices orci. Aenean massa lectus, euismod non fringilla nec, sagittis ut nisl. Aliquam eleifend nulla blandit urna eleifend, a viverra orci sodales. In suscipit scelerisque lectus, a sagittis ex volutpat at. Maecenas quis tortor elementum ex vulputate bibendum. Sed rutrum sapien leo, a euismod lacus vehicula eget. Suspendisse sed metus eu arcu gravida vulputate sit amet iaculis lacus. Pellentesque bibendum neque quam, fringilla posuere ex efficitur eu. Pellentesque pellentesque tincidunt est eu molestie. Ut finibus sit amet nisi in finibus. Nulla et elit ipsum. Ut eros urna, vehicula vitae neque sed, hendrerit tempus nunc.</p>
+
+		<h4 id="navbardemo5">Fifth heading</h4>
+		<p>Proin vitae faucibus ligula, vel blandit erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla viverra nulla a tristique egestas. Pellentesque vel tristique arcu, a consequat nunc. Etiam massa sem, lacinia id lacinia id, laoreet nec turpis. Fusce et ex bibendum, commodo ligula at, volutpat elit. Sed ac est dapibus, molestie odio sed, condimentum ante. Quisque pretium nulla nisi, nec sagittis est vehicula in. Proin malesuada ultrices quam, vel venenatis magna consectetur eu. Praesent consectetur orci ut ligula lacinia finibus.</p>
+	</HxScrollspy>
+</div>
+
+```

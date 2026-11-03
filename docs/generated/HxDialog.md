@@ -54,6 +54,7 @@ Component for rendering a dialog as a Bootstrap 6 Dialog (built on the native `<
 - HxDialog_Demo.razor
 - HxDialog_Demo_Animation.razor
 - HxDialog_Demo_Backdrop.razor
+- HxDialog_Demo_Dark.razor
 - HxDialog_Demo_Footer.razor
 - HxDialog_Demo_Fullscreen.razor
 - HxDialog_Demo_NonModal.razor

@@ -56,6 +56,7 @@ Off-canvas Bootstrap Drawer panel that slides in from any edge of the screen —
 - HxDrawer_Demo.razor
 - HxDrawer_Demo_Backdrop.razor
 - HxDrawer_Demo_CustomCloseButtonIcon.razor
+- HxDrawer_Demo_Dark.razor
 - HxDrawer_Demo_Footer.razor
 - HxDrawer_Demo_Placement.razor
 - HxDrawer_Demo_Responsive.razor

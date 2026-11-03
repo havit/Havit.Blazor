@@ -1,0 +1,8 @@
+﻿# HxProgress_Demo_LongLabels.razor
+
+```razor
+<HxProgress Height="20">
+    <HxProgressBar Value="10" Label="Long label text for the progress bar, set to a body color" CssClass="overflow-visible fg-body" />
+</HxProgress>
+
+```

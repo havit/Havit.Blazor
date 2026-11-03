@@ -1446,6 +1446,22 @@
             Additional attributes to be applied to the underlying HTML element.
             </summary>
         </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.CarouselControlsPlacement">
+            <summary>
+            Placement of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel"/> controls (previous/next, play/pause) and indicators
+            relative to the slides. Does not apply to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Overlay"/> carousels.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselControlsPlacement.Bottom">
+            <summary>
+            Controls are rendered below the slides (default).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.CarouselControlsPlacement.Top">
+            <summary>
+            Controls are rendered above the slides.
+            </summary>
+        </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.CarouselEnds">
             <summary>
             Defines what happens at the first and last slide of a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxCarousel"/>.
@@ -1534,6 +1550,13 @@
             <summary>
             Overlay the controls and indicators on top of the slides (<c>.carousel-overlay</c>) instead of
             rendering them below. Default is <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.ControlsPlacement">
+            <summary>
+            Where the controls, play/pause button and indicators are placed relative to the slides.
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.CarouselControlsPlacement.Bottom"/>.
+            Ignored when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Overlay"/> is <c>true</c> (the overlay controls are always positioned over the bottom of the slides).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxCarousel.Crossfade">
@@ -9458,6 +9481,11 @@
             Allows the table to be scrolled horizontally with ease across any breakpoint (adds the <c>table-responsive</c> class to the table).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.Stacked">
+            <summary>
+            Stacked layout of the grid (Bootstrap stacked tables) – each row is rendered as a vertical block with label–value pairs.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.GridSettings.Hover">
             <summary>
             Enables the hover state on table rows within a <c>&lt;tbody&gt;</c> (sets the <c>table-hover</c> class on the table).
@@ -9488,6 +9516,51 @@
             This setting ensures that the selection remains intact during operations that refresh or modify the displayed data in the grid.
             Note that preserving the selection requires that the underlying data items can still be matched in the updated dataset (e.g., by <c>item1.Equals(item2)</c>).
             </remarks>
+        </member>
+        <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridStacked">
+            <summary>
+            Stacked layout of the <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1"/> (Bootstrap stacked tables).
+            In the stacked layout, each row is rendered as a vertical block: the first cell acts as a bold title,
+            the remaining cells are displayed as label–value pairs (labels are taken from the column headers, see <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.StackedLabel"/>).
+            </summary>
+            <remarks>
+            The breakpoints are evaluated against the width of the grid container (CSS container queries), not the viewport.
+            </remarks>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStacked.Never">
+            <summary>
+            Never stacked, the grid is always rendered as a regular table.
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStacked.Always">
+            <summary>
+            Always stacked (<c>table-stacked</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStacked.BelowSmall">
+            <summary>
+            Stacked when the grid container is narrower than the "small" breakpoint (<c>576px</c>, exclusive; <c>sm:table-stacked</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStacked.BelowMedium">
+            <summary>
+            Stacked when the grid container is narrower than the "medium" breakpoint (<c>768px</c>, exclusive; <c>md:table-stacked</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStacked.BelowLarge">
+            <summary>
+            Stacked when the grid container is narrower than the "large" breakpoint (<c>1024px</c>, exclusive; <c>lg:table-stacked</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStacked.BelowExtraLarge">
+            <summary>
+            Stacked when the grid container is narrower than the "extra-large" breakpoint (<c>1280px</c>, exclusive; <c>xl:table-stacked</c>).
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.GridStacked.BelowXxl">
+            <summary>
+            Stacked when the grid container is narrower than the "2xl" breakpoint (<c>1536px</c>, exclusive; <c>2xl:table-stacked</c>).
+            </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.GridStateResetOptions">
             <summary>
@@ -9861,6 +9934,28 @@
             Default is false.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Stacked">
+            <summary>
+            Stacked layout of the grid (Bootstrap stacked tables).
+            When stacked, each row is rendered as a vertical block: the first cell acts as a bold title,
+            the remaining cells are displayed as label–value pairs (the labels come from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.StackedLabel"/>, which defaults to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.HeaderText"/>).
+            Use <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridStacked.Always"/> to always stack the rows, or one of the <c>Below*</c> values to stack the rows only when the grid container is narrower than the breakpoint.
+            Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridStacked.Never"/>.
+            </summary>
+            <remarks>
+            The breakpoints are evaluated with CSS container queries against the width of the grid container (the <c>div</c> wrapping the <c>table</c> element,
+            the grid sets <c>container-type: inline-size</c> on it; unlike <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Responsive"/>, it does not make the container scrollable).
+            The header row is visually hidden in the stacked layout (it remains available to assistive technologies and it is revealed while it contains the keyboard focus),
+            so sorting by clicking the column headers, <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.HeaderFilterTemplate"/> filters, and the "select all" checkbox of <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.MultiSelectionEnabled"/> are not visible there.
+            With <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll"/>, the stacked rows keep a uniform height for the virtualization: the cell values are not wrapped,
+            plain text values (e.g. <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.ItemTextSelector"/>) are truncated with an ellipsis and keep their line when empty.
+            Cells with markup (e.g. <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.ItemTemplate"/>) are not clipped, so that their popups (menus, tooltips) are not cut off;
+            keep such content on a single line in all the rows (e.g. render a placeholder for an empty value).
+            The virtualization uses <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowHeight"/> as the initial estimate of the row height and measures the rendered rows while scrolling:
+            with <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridStacked.Always"/>, set <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.ItemRowHeight"/> to the height of the stacked rows;
+            with the <c>Below*</c> values, it should match the table rows, and when the grid crosses the breakpoint, the visible rows can shift once until the new row height is measured.
+            </remarks>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Hover">
             <summary>
             Enables or disables the hover state on table rows within a <c>&lt;tbody&gt;</c>.
@@ -9956,6 +10051,39 @@
             overridden in 176.BT2 project to allow setting background-color for grids with selected items.
             </remarks>
             <param name="rendersData">Indicates whether the grid renders data (<c>false</c> when the grid has no items to render or the data have not been loaded yet).</param>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetStackedCssClass">
+            <summary>
+            Returns the Bootstrap stacked table CSS class for the <c>&lt;table&gt;</c> element (or <c>null</c> when the grid is not stacked).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetTableContainerStackedCssClass">
+            <summary>
+            Returns the CSS class making the table container (the <c>div</c> element wrapping the <c>table</c>) a query container for the stacked table container queries
+            (or <c>null</c> when the grid is not stacked or is stacked regardless of the width).
+            </summary>
+            <remarks>
+            Bootstrap uses <c>.table-responsive</c> as the query container, but its <c>overflow-x: auto</c> also makes the container a vertical scroll container,
+            which would become the scroll root of <see cref="F:Havit.Blazor.Components.Web.Bootstrap.GridContentNavigationMode.InfiniteScroll"/> (and break the virtualization of page-scrolling grids).
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetStackedLabels(System.Collections.Generic.List{Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn{`0}})">
+            <summary>
+            Returns the labels of the cells for the stacked layout (rendered as the <c>data-cell</c> attribute of the cells),
+            or <c>null</c> when the grid is not stacked (no <c>data-cell</c> attributes are rendered).
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetStackedTitleColumn(System.Collections.Generic.List{Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn{`0}})">
+            <summary>
+            Returns the column whose cells are the titles of the stacked rows (rendered with the <c>hx-grid-stacked-title</c> CSS class):
+            the first column that is neither the multi-select column nor a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxContextMenuGridColumn`1"/>,
+            regardless of the order of the columns. Returns <c>null</c> when the grid is not stacked.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetCellCssClass(Havit.Blazor.Components.Web.Bootstrap.GridCellTemplate,Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn{`0},Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn{`0})">
+            <summary>
+            Returns the CSS class of a cell: the CSS class of the cell template, plus <c>hx-grid-stacked-title</c> for the cells of the stacked title column.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.GetDefaultSorting">
             <summary>
@@ -10054,6 +10182,17 @@
             <summary>
             Header cell CSS class.
             </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.StackedLabel">
+            <summary>
+            Plain-text label of the column's cells in the stacked layout of the grid (see <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Stacked"/>), rendered as the <c>data-cell</c> attribute of the cells.
+            Defaults to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.HeaderText"/>.
+            Set the label when the header is defined by <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.HeaderTemplate"/> (the template cannot be used as a label), or to use a different label than the header text.
+            Set to an empty string to render the cells without a label.
+            </summary>
+            <remarks>
+            The first cell of each row (usually the first column) is rendered as the title of the stacked row, its label is not displayed.
+            </remarks>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.ItemTextSelector">
             <summary>
@@ -10179,6 +10318,9 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetDefaultSortingOrder">
             <inheritdoc />
         </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetStackedLabel">
+            <inheritdoc />
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumn`1.GetTabIndexEffective">
             <summary>
             Returns the effective <c>tabindex</c> for the column's sortable header cell, resolved from
@@ -10237,6 +10379,9 @@
             <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Havit#Blazor#Components#Web#Bootstrap#IHxGridColumn{TItem}#GetDefaultSortingOrder">
+            <inheritdoc />
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.Havit#Blazor#Components#Web#Bootstrap#IHxGridColumn{TItem}#GetStackedLabel">
             <inheritdoc />
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetId">
@@ -10301,6 +10446,13 @@
             <example>
             To set default sorting by LastName, then FirstName, use value 1 for LastName and value 2 for FirstName).
             </example>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.GetStackedLabel">
+            <summary>
+            Returns the plain-text label of the column's cells for the stacked layout of the grid (see <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Stacked"/>),
+            rendered as the <c>data-cell</c> attribute of the cells. Returns <c>null</c> (or an empty string) for no label.
+            Defaults to <c>null</c>; override to provide a label.
+            </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxGridColumnBase`1.DisposeAsync">
             <inheritdoc />
@@ -10498,6 +10650,15 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetTabIndexEffective">
             <summary>
             Returns the <c>tabindex</c> applied to the column's sortable header cell, or <c>null</c> when not set.
+            </summary>
+            <remarks>
+            Default interface implementation returns <c>null</c> so that existing implementers do not break.
+            </remarks>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.IHxGridColumn`1.GetStackedLabel">
+            <summary>
+            Returns the plain-text label of the column's cells for the stacked layout of the grid (see <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxGrid`1.Stacked"/>),
+            rendered as the <c>data-cell</c> attribute of the cells. Returns <c>null</c> (or an empty string) for no label.
             </summary>
             <remarks>
             Default interface implementation returns <c>null</c> so that existing implementers do not break.
@@ -12299,7 +12460,7 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy">
             <summary>
-            <see href="https://getbootstrap.com/docs/5.3/components/scrollspy/">Bootstrap Scrollspy</see> that automatically highlights the navigation link matching the section currently scrolled into view.<br />
+            <see href="https://getbootstrap.com/docs/6.0/components/scrollspy/">Bootstrap Scrollspy</see> that automatically highlights the navigation link matching the section currently scrolled into view.<br />
             Full documentation and demos: <see href="https://havit.blazor.eu/components/HxScrollspy">https://havit.blazor.eu/components/HxScrollspy</see>
             </summary>
         </member>
@@ -12318,6 +12479,35 @@
             Content to be spied on. Elements with IDs are required (corresponding IDs to be used in <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxNavLink.Href"/>).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.TopMargin">
+            <summary>
+            Position of the activation line, measured from the top of the scroll container.
+            A section becomes active once its top scrolls above this line.
+            Accepts a percentage (e.g. <c>12%</c>) or pixels (e.g. <c>96px</c>, to sit below a sticky header).<br />
+            Ignored when <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.RootMargin"/> is set.<br />
+            Default is <c>null</c> (Bootstrap default <c>12%</c> is used).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.RootMargin">
+            <summary>
+            Advanced override for the <c>IntersectionObserver</c> <see href="https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/rootMargin">rootMargin</see> (e.g. <c>0px 0px -40%</c>).
+            When set, it takes precedence over <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.TopMargin"/> and is passed straight to the observer.<br />
+            Default is <c>null</c> (the activation line is derived from <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.TopMargin"/>).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.Threshold">
+            <summary>
+            <c>IntersectionObserver</c> <see href="https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver#threshold">threshold</see> values (between <c>0</c> and <c>1</c>) used when calculating the scroll position.<br />
+            Default is <c>null</c> (Bootstrap default <c>[0]</c> is used).
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.SmoothScroll">
+            <summary>
+            Enables smooth scrolling of the container (CSS <c>scroll-behavior: smooth</c>) when the user clicks a <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink"/>.<br />
+            Respects the <c>prefers-reduced-motion</c> user preference.<br />
+            Default is <c>false</c>.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy.OnAfterRenderAsync(System.Boolean)">
             <inheritdoc />
         </member>
@@ -12329,7 +12519,8 @@
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink">
             <summary>
-            Temporary (?) NavLink component to be used with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> where <c>#id</c> anchors are required and <c>page-route#id</c> cannot be used.
+            Temporary (?) NavLink component to be used with <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxScrollspy"/> where <c>#id</c> anchors are required and <c>page-route#id</c> cannot be used.<br />
+            When clicked, it scrolls only the scrollable container of the target element (not the whole page), updates the URL fragment (without adding a browser history entry) and moves the focus to the target element.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.Href">
@@ -12344,7 +12535,7 @@
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.OnClick">
             <summary>
-            Raised when the item is clicked (before the navigation location is changed to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.Href"/>).
+            Raised when the item is clicked (before the link scrolls to <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.Href"/> and the URL fragment is changed).
             </summary>
         </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.InvokeOnClickAsync(Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
@@ -12355,6 +12546,11 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.AdditionalAttributes">
             <summary>
             Additional attributes to be splatted onto an underlying <c>&lt;a&gt;</c> element.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxScrollspyNavLink.IsDisabled">
+            <summary>
+            The link is disabled (the same rules as Bootstrap ScrollSpy uses to ignore the link) - <c>disabled</c> CSS class, <c>disabled</c> or <c>aria-disabled="true"</c> attribute.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxSidebar">
@@ -13511,19 +13707,22 @@
             <summary>
             The visual variant of the nav items.
             Default is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavVariant.Tabs"/>.
+            Does not apply to the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.ListGroup"/> variant (the tab navigation is rendered as a list group).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.Orientation">
             <summary>
             Orientation of the tab navigation.
             Use <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Vertical"/> to place the tab navigation alongside the tab content (e.g. vertical pills).
-            Applies only to the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Standard"/> variant.
+            Applies to the <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Standard"/> and <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.ListGroup"/> variants
+            (for <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.ListGroup"/>, <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Horizontal"/> renders a horizontal list group above the tab content).
             The default value is <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Horizontal"/>.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.Variant">
             <summary>
             Set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Card"/> if you want to wrap the tab panel in a card with the tab navigation in the header.
+            Set to <see cref="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.ListGroup"/> if you want to render the tab navigation as a list group.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.RenderMode">
@@ -13600,9 +13799,21 @@
             Render variations for <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel"/>.
             </summary>
         </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Standard">
+            <summary>
+            Renders the tab navigation as a nav (see <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.NavVariant"/>) above (or alongside) the tab content.
+            </summary>
+        </member>
         <member name="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.Card">
             <summary>
             Renders the navigation to a card's header <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/card/#navigation">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/card/#navigation</a>
+            </summary>
+        </member>
+        <member name="F:Havit.Blazor.Components.Web.Bootstrap.TabPanelVariant.ListGroup">
+            <summary>
+            Renders the tab navigation as a list group <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/tab/#list-groups">https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/tab/#list-groups</a>.
+            Combine with <see cref="F:Havit.Blazor.Components.Web.Bootstrap.NavOrientation.Vertical"/> (<see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.Orientation"/>) to place the list group alongside the tab content.
+            <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxTabPanel.NavVariant"/> does not apply.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Components.Web.Bootstrap.HxInputTags">
@@ -13898,6 +14109,13 @@
             Additional CSS class.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMessenger.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the underlying <c>div.toast-container</c> element
+            (e.g. <c>data-bs-theme="dark"</c> to render all the messages in dark mode).
+            To render a single message in dark mode, use <see cref="P:Havit.Blazor.Components.Web.MessengerMessage.AdditionalAttributes"/>.
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxMessenger.HandleToastHidden(Havit.Blazor.Components.Web.MessengerMessage)">
             <summary>
             Receive notification from <see cref="T:Havit.Blazor.Components.Web.Bootstrap.HxToast"/> when the message is hidden.
@@ -14014,6 +14232,11 @@
             Fires when the toast is hidden (button or autohide).
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToast.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the underlying <c>div.toast</c> element (e.g. <c>data-bs-theme="dark"</c> for a dark toast).
+            </summary>
+        </member>
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.HxToast.InvokeOnToastHiddenAsync">
             <summary>
             Triggers the <see cref="P:Havit.Blazor.Components.Web.Bootstrap.HxToast.OnToastHidden"/> event. Allows interception of the event in derived components.
@@ -14051,6 +14274,12 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer.CssClass">
             <summary>
             Additional CSS class.
+            </summary>
+        </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer.AdditionalAttributes">
+            <summary>
+            Additional attributes to be splatted onto the underlying <c>div.toast-container</c> element
+            (e.g. <c>data-bs-theme="dark"</c> to render all the toasts in the container in dark mode).
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxToastContainer.ChildContent">

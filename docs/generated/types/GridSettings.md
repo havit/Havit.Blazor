@@ -23,6 +23,7 @@ Settings for the `HxGrid` and derived components.
 | ShowFooterWhenEmptyData | `bool?` | Indicates whether to render the footer when data is empty. |
 | SortAscendingIcon | `IconBase` | Icon to indicate ascending sort direction in column header. |
 | SortDescendingIcon | `IconBase` | Icon to indicate descending sort direction in column header. |
+| Stacked | `GridStacked?` | Stacked layout of the grid (Bootstrap stacked tables) – each row is rendered as a vertical block with label–value pairs. |
 | Striped | `bool?` | Adds zebra-striping to any table row within the `<tbody>` (alternating rows). |
 | TableContainerCssClass | `string` | Custom CSS class to render with the `div` element wrapping the main `table` (`HxPager` is not wrapped in this `div` element). |
 | TableCssClass | `string` | Custom CSS class to render with the main `table` element. |

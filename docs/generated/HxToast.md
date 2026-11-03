@@ -6,6 +6,7 @@ Bootstrap Toast component. Not intended to be used in user code, use `HxMessenge
 
 | Name | Type | Description |
 |------|------|-------------|
+| AdditionalAttributes | `Dictionary<string, object>` | Additional attributes to be splatted onto the underlying `div.toast` element (e.g. `data-bs-theme="dark"` for a dark toast). |
 | AutohideDelay | `int?` | Delay in milliseconds to automatically hide the toast. |
 | Color | `ThemeColor?` | Color scheme (Bootstrap 6 `theme-*` variant: colored border and subtle header). `ThemeColor.Danger` and `ThemeColor.Warning` toasts are announced to assistive technologies immediately (`role="alert"`, `aria-live="assertive"`), other toasts politely (`role="status"`, `aria-live="polite"`). |
 | ContentTemplate | `RenderFragment` | Content (body) template. |
@@ -28,5 +29,6 @@ Bootstrap Toast component. Not intended to be used in user code, use `HxMessenge
 
 - HxToast_Demo.razor
 - HxToast_Demo_Color.razor
+- HxToast_Demo_Dark.razor
 - HxToast_Demo_Placement.razor
 

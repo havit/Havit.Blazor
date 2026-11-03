@@ -26,6 +26,7 @@ Bootstrap Avatar component. Represents a user or entity with an image or initial
 
 ## Available demo samples
 
+- HxAvatar_Demo_CssVariables.razor
 - HxAvatar_Demo_Image.razor
 - HxAvatar_Demo_Initials.razor
 - HxAvatar_Demo_Sizes.razor
