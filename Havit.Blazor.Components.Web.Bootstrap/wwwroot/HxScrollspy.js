@@ -78,10 +78,18 @@ export function navigateToFragment(fragment) {
 	window.history.replaceState(window.history.state, '', url.href);
 
 	if (element) {
-		// move the focus to the section (keyboard and assistive technology users), the same way Bootstrap smoothScroll does
-		if (!element.hasAttribute('tabindex')) {
-			element.setAttribute('tabindex', '-1');
-		}
+		focusSection(element);
+	}
+}
+
+function focusSection(element) {
+	// Move the focus to the section (keyboard and assistive technology users).
+	element.focus({ preventScroll: true });
+	if ((document.activeElement !== element) && !element.hasAttribute('tabindex')) {
+		// Not focusable on its own (e.g. a heading): make it focusable temporarily,
+		// an element focusable by itself (e.g. a button) keeps its place in the Tab sequence.
+		element.setAttribute('tabindex', '-1');
+		element.addEventListener('blur', () => element.removeAttribute('tabindex'), { once: true });
 		element.focus({ preventScroll: true });
 	}
 }
