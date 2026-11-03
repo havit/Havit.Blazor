@@ -39,6 +39,11 @@ export function refresh(element) {
 }
 
 export function dispose(element) {
+	if (!element) {
+		// the element has already been removed from the DOM (e.g. enhanced navigation replaced the page)
+		return;
+	}
+
 	element.removeEventListener('activate.bs.scrollspy', handleActivate);
 
 	const scrollspy = bootstrap.ScrollSpy.getInstance(element);
@@ -88,13 +93,16 @@ function scrollToElement(element) {
 	// Scroll the containers from the nearest one up to the HxScrollspy container (not the page):
 	// the section in a nested scrollable panel is scrolled to the top of the panel, the panel to the top of the outer container, etc.
 	// The destination does not depend on the current scroll position of the container (works even during a smooth scroll).
+	// As element.scrollIntoView() does, the point to show (the section top minus its scroll-margin-top) is aligned
+	// with the top of the scrollport of each container reduced by its scroll-padding-top (e.g. the space of a sticky header).
 	// offset: the position of the point to show (the section top minus its scroll-margin-top) below the top of the current target,
 	// including the distance a nested container could not scroll (clamped at the end of its content).
 	let target = element;
 	let offset = -(Number.parseFloat(getComputedStyle(element).scrollMarginTop) || 0);
 	while (container) {
+		const scrollPaddingTop = getScrollPaddingTop(container);
 		// the position in the scroll coordinates of the container (clientTop: the container border, scrollTop is measured inside the border)
-		const desiredTop = target.getBoundingClientRect().top - container.getBoundingClientRect().top - container.clientTop + container.scrollTop + offset;
+		const desiredTop = target.getBoundingClientRect().top - container.getBoundingClientRect().top - container.clientTop + container.scrollTop + offset - scrollPaddingTop;
 		const maxTop = Math.max(container.scrollHeight - container.clientHeight, 0);
 		const top = Math.min(Math.max(desiredTop, 0), maxTop);
 		container.scrollTo({ top: top }); // scroll-behavior of the container applies, see .hx-scrollspy-smooth-scroll
@@ -102,10 +110,48 @@ function scrollToElement(element) {
 		if (container.classList.contains('hx-scrollspy') || !container.parentElement?.closest('.hx-scrollspy')) {
 			break;
 		}
-		// after the scroll, the point is (desiredTop - top) below the top of the container content (inside its border)
-		offset = container.clientTop + (desiredTop - top);
+		// after the scroll, the point is (scrollPaddingTop + desiredTop - top) below the top of the container content (inside its border)
+		offset = container.clientTop + scrollPaddingTop + (desiredTop - top);
 		target = container;
 		container = getScrollContainer(container);
+	}
+}
+
+function getScrollPaddingTop(container) {
+	// scroll-padding-top: auto (treated as 0) or a length-percentage, where a percentage refers to the scrollport height.
+	// getComputedStyle resolves the lengths (px), but keeps a percentage and an expression containing one
+	// (e.g. "20%", "calc(20% + 10px)", "max(10%, 40px)").
+	const scrollPaddingTop = getComputedStyle(container).scrollPaddingTop;
+	if (scrollPaddingTop === 'auto') {
+		return 0;
+	}
+	if (/^-?[\d.]+(e-?\d+)?px$/i.test(scrollPaddingTop)) {
+		return Number.parseFloat(scrollPaddingTop);
+	}
+	if (/^-?[\d.]+(e-?\d+)?%$/i.test(scrollPaddingTop)) {
+		return Number.parseFloat(scrollPaddingTop) * container.clientHeight / 100;
+	}
+	return resolveLengthPercentage(scrollPaddingTop, container.clientHeight);
+}
+
+function resolveLengthPercentage(value, percentageBasis) {
+	// Lets the browser evaluate the expression as the width of an element in a containing block of percentageBasis width
+	// (the computed value contains px and % only, i.e. it does not depend on the font of the element).
+	const wrapper = document.createElement('div');
+	wrapper.style.cssText = `position: absolute; top: 0; left: 0; width: ${percentageBasis}px; height: 0; overflow: hidden; visibility: hidden;`;
+	const probe = document.createElement('div');
+	probe.style.height = '0';
+	probe.style.width = value;
+	if (!probe.style.width) {
+		return 0; // not a valid width (should not happen for a computed scroll-padding-top)
+	}
+	wrapper.appendChild(probe);
+	document.body.appendChild(wrapper);
+	try {
+		return probe.getBoundingClientRect().width;
+	}
+	finally {
+		wrapper.remove();
 	}
 }
 
