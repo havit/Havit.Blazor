@@ -24,6 +24,7 @@
 		@{
 			List<IHxGridColumn<TItem>> columnsToRender = GetColumnsToRender();
 			Dictionary<IHxGridColumn<TItem>, string> stackedLabels = GetStackedLabels(columnsToRender); // null when the grid is not stacked
+			IHxGridColumn<TItem> stackedTitleColumn = GetStackedTitleColumn(columnsToRender); // null when the grid is not stacked
 
 			bool shouldRenderLoadingData = (_totalCount == null);
 			bool shouldRenderLoadingDataWithLoadingTemplate = shouldRenderLoadingData && (LoadingDataTemplate != null);
@@ -140,7 +141,7 @@
 								{
 									// same as above this else section
 									GridCellTemplate cellTemplate = column.GetItemPlaceholderCellTemplate(placeholderCellContext);
-									<td @key="@column" class="@cellTemplate.CssClass" data-cell="@(stackedLabels?[column])">
+									<td @key="@column" class="@GetCellCssClass(cellTemplate, column, stackedTitleColumn)" data-cell="@(stackedLabels?[column])">
 										@cellTemplate.Template
 									</td>
 								}
@@ -169,7 +170,7 @@
 										{
 											// same as below in the else section
 											GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
-										<td @key="@column" class="@cellTemplate.CssClass" data-cell="@(stackedLabels?[column])">
+										<td @key="@column" class="@GetCellCssClass(cellTemplate, column, stackedTitleColumn)" data-cell="@(stackedLabels?[column])">
 												@cellTemplate.Template
 										</td>
 										}
@@ -188,7 +189,7 @@
 										{
 											// same as above this else section
 											GridCellTemplate cellTemplate = column.GetItemCellTemplate(item);
-										<td @key="@column" class="@cellTemplate.CssClass" data-cell="@(stackedLabels?[column])">
+										<td @key="@column" class="@GetCellCssClass(cellTemplate, column, stackedTitleColumn)" data-cell="@(stackedLabels?[column])">
 												@cellTemplate.Template
 										</td>
 										}
@@ -277,7 +278,7 @@
 									@attributes="FooterRowAdditionalAttributes">
 									@for (int i = 0; i < footerTemplates.Length; i++) // do not use foreach, we need to use i as a key as footerTemplates can contain duplicates
 									{
-										<td @key="@i" class="@footerTemplates[i].CssClass" data-cell="@(stackedLabels?[columnsToRender[i]])">@footerTemplates[i].Template</td>
+										<td @key="@i" class="@GetCellCssClass(footerTemplates[i], columnsToRender[i], stackedTitleColumn)" data-cell="@(stackedLabels?[columnsToRender[i]])">@footerTemplates[i].Template</td>
 									}
 								</tr>
 							</tfoot>

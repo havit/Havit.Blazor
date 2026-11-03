@@ -1,4 +1,5 @@
-﻿using Havit.Collections;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
+using Havit.Collections;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
@@ -564,6 +565,31 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 			string label = column.GetStackedLabel();
 			return String.IsNullOrEmpty(label) ? null : label;
 		});
+	}
+
+	/// <summary>
+	/// Returns the column whose cells are the titles of the stacked rows (rendered with the <c>hx-grid-stacked-title</c> CSS class):
+	/// the first column that is neither the multi-select column nor a <see cref="HxContextMenuGridColumn{TItem}"/>,
+	/// regardless of the order of the columns. Returns <c>null</c> when the grid is not stacked.
+	/// </summary>
+	private IHxGridColumn<TItem> GetStackedTitleColumn(List<IHxGridColumn<TItem>> columnsToRender)
+	{
+		if (StackedEffective == GridStacked.Never)
+		{
+			return null;
+		}
+
+		return columnsToRender.FirstOrDefault(column => !((column is HxMultiSelectGridColumnInternal<TItem>) || (column is HxContextMenuGridColumn<TItem>)));
+	}
+
+	/// <summary>
+	/// Returns the CSS class of a cell: the CSS class of the cell template, plus <c>hx-grid-stacked-title</c> for the cells of the stacked title column.
+	/// </summary>
+	private static string GetCellCssClass(GridCellTemplate cellTemplate, IHxGridColumn<TItem> column, IHxGridColumn<TItem> stackedTitleColumn)
+	{
+		return ((stackedTitleColumn != null) && (column == stackedTitleColumn))
+			? CssClassHelper.Combine(cellTemplate.CssClass, "hx-grid-stacked-title")
+			: cellTemplate.CssClass;
 	}
 
 	/// <summary>

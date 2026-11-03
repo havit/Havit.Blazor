@@ -99,12 +99,14 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 /* ===== Stacked layout (HxGrid.Stacked => Bootstrap .table-stacked / .{bp}:table-stacked) =====
    Bootstrap stacks the thead (visually hidden) and the tbody rows only. The rules below complete
    the stacked layout for the grid-specific parts:
-   - the multi-select checkbox is placed in front of the row title (the next cell),
+   - the row title is the cell of the first data column (hx-grid-stacked-title, rendered by the grid; the multi-select
+     and context menu columns are skipped regardless of their order),
+   - the multi-select checkbox is placed in front of the row title,
    - the context menu is placed to the top-end corner of the row,
    - the footer row is stacked the same way as the data rows (empty footer cells are hidden),
    - the visually hidden header row is revealed while it contains the keyboard focus (sortable headers, filters, "select all"),
    - infinite scroll: the rows keep a uniform height for the virtualization (the row height attribute is overridden,
-     the values do not wrap and are truncated), the Virtualize spacer rows get no padding and separators.
+     the values do not wrap and are truncated, empty values keep their line), the Virtualize spacer rows get no padding and separators.
    Bootstrap applies .{bp}:table-stacked below the container breakpoint (the .hx-grid-container-stacked
    wrapper is the query container), so the rules are repeated for each breakpoint. The blocks are identical
    except for the selector and the container condition (keep them in sync, the breakpoints must match
@@ -118,8 +120,8 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 
 /* These rules have an effect only in the stacked layout (no ::before content and an inherited
    font-weight are the defaults of the regular table layout), so they are not repeated per breakpoint. */
-.hx-grid > tbody > tr > td.hx-grid-multiselect-cell + td::before {
-	content: none; /* the cell next to the multi-select checkbox is the row title, no label */
+.hx-grid > tbody > tr > td.hx-grid-stacked-title::before {
+	content: none; /* the row title has no label (even when it is not the first cell, e.g. after the multi-select checkbox) */
 }
 
 .hx-grid > tbody > tr.hx-grid-empty-data-row > td,
@@ -155,7 +157,12 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 [class~="table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
 [class~="table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
 	overflow: hidden;
+	overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
 	text-overflow: ellipsis;
+}
+
+[class~="table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:empty:not(.hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+	content: "\a0"; /* an empty value keeps its line, the rows have a uniform height */
 }
 
 [class~="table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
@@ -167,9 +174,8 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 	padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
 }
 
-[class~="table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell + td,
-[class~="table-stacked"] > tfoot > tr > td:first-child,
-[class~="table-stacked"] > tfoot > tr > td.hx-grid-multiselect-cell + td {
+[class~="table-stacked"] > tbody > tr > td.hx-grid-stacked-title,
+[class~="table-stacked"] > tfoot > tr > td.hx-grid-stacked-title {
 	font-weight: var(--bs-font-weight-bold);
 }
 
@@ -184,8 +190,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 	padding: 0;
 }
 
-[class~="table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td:first-child:not(.hx-grid-multiselect-cell),
-[class~="table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-multiselect-cell + td {
+[class~="table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-stacked-title {
 	padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
 }
 
@@ -215,7 +220,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 	display: none;
 }
 
-[class~="table-stacked"] > tfoot > tr > td[data-cell]:not(:first-child, .hx-grid-multiselect-cell + td)::before {
+[class~="table-stacked"] > tfoot > tr > td[data-cell]:not(.hx-grid-stacked-title)::before {
 	display: block;
 	font-weight: var(--bs-font-weight-semibold);
 	content: attr(data-cell);
@@ -253,7 +258,12 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 	[class~="sm:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
 	[class~="sm:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
 		overflow: hidden;
+		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
 		text-overflow: ellipsis;
+	}
+
+	[class~="sm:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:empty:not(.hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* an empty value keeps its line, the rows have a uniform height */
 	}
 
 	[class~="sm:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
@@ -265,9 +275,8 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
 	}
 
-	[class~="sm:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell + td,
-	[class~="sm:table-stacked"] > tfoot > tr > td:first-child,
-	[class~="sm:table-stacked"] > tfoot > tr > td.hx-grid-multiselect-cell + td {
+	[class~="sm:table-stacked"] > tbody > tr > td.hx-grid-stacked-title,
+	[class~="sm:table-stacked"] > tfoot > tr > td.hx-grid-stacked-title {
 		font-weight: var(--bs-font-weight-bold);
 	}
 
@@ -282,8 +291,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		padding: 0;
 	}
 
-	[class~="sm:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td:first-child:not(.hx-grid-multiselect-cell),
-	[class~="sm:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-multiselect-cell + td {
+	[class~="sm:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-stacked-title {
 		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
 	}
 
@@ -313,7 +321,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		display: none;
 	}
 
-	[class~="sm:table-stacked"] > tfoot > tr > td[data-cell]:not(:first-child, .hx-grid-multiselect-cell + td)::before {
+	[class~="sm:table-stacked"] > tfoot > tr > td[data-cell]:not(.hx-grid-stacked-title)::before {
 		display: block;
 		font-weight: var(--bs-font-weight-semibold);
 		content: attr(data-cell);
@@ -352,7 +360,12 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 	[class~="md:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
 	[class~="md:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
 		overflow: hidden;
+		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
 		text-overflow: ellipsis;
+	}
+
+	[class~="md:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:empty:not(.hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* an empty value keeps its line, the rows have a uniform height */
 	}
 
 	[class~="md:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
@@ -364,9 +377,8 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
 	}
 
-	[class~="md:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell + td,
-	[class~="md:table-stacked"] > tfoot > tr > td:first-child,
-	[class~="md:table-stacked"] > tfoot > tr > td.hx-grid-multiselect-cell + td {
+	[class~="md:table-stacked"] > tbody > tr > td.hx-grid-stacked-title,
+	[class~="md:table-stacked"] > tfoot > tr > td.hx-grid-stacked-title {
 		font-weight: var(--bs-font-weight-bold);
 	}
 
@@ -381,8 +393,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		padding: 0;
 	}
 
-	[class~="md:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td:first-child:not(.hx-grid-multiselect-cell),
-	[class~="md:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-multiselect-cell + td {
+	[class~="md:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-stacked-title {
 		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
 	}
 
@@ -412,7 +423,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		display: none;
 	}
 
-	[class~="md:table-stacked"] > tfoot > tr > td[data-cell]:not(:first-child, .hx-grid-multiselect-cell + td)::before {
+	[class~="md:table-stacked"] > tfoot > tr > td[data-cell]:not(.hx-grid-stacked-title)::before {
 		display: block;
 		font-weight: var(--bs-font-weight-semibold);
 		content: attr(data-cell);
@@ -451,7 +462,12 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 	[class~="lg:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
 	[class~="lg:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
 		overflow: hidden;
+		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
 		text-overflow: ellipsis;
+	}
+
+	[class~="lg:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:empty:not(.hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* an empty value keeps its line, the rows have a uniform height */
 	}
 
 	[class~="lg:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
@@ -463,9 +479,8 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
 	}
 
-	[class~="lg:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell + td,
-	[class~="lg:table-stacked"] > tfoot > tr > td:first-child,
-	[class~="lg:table-stacked"] > tfoot > tr > td.hx-grid-multiselect-cell + td {
+	[class~="lg:table-stacked"] > tbody > tr > td.hx-grid-stacked-title,
+	[class~="lg:table-stacked"] > tfoot > tr > td.hx-grid-stacked-title {
 		font-weight: var(--bs-font-weight-bold);
 	}
 
@@ -480,8 +495,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		padding: 0;
 	}
 
-	[class~="lg:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td:first-child:not(.hx-grid-multiselect-cell),
-	[class~="lg:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-multiselect-cell + td {
+	[class~="lg:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-stacked-title {
 		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
 	}
 
@@ -511,7 +525,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		display: none;
 	}
 
-	[class~="lg:table-stacked"] > tfoot > tr > td[data-cell]:not(:first-child, .hx-grid-multiselect-cell + td)::before {
+	[class~="lg:table-stacked"] > tfoot > tr > td[data-cell]:not(.hx-grid-stacked-title)::before {
 		display: block;
 		font-weight: var(--bs-font-weight-semibold);
 		content: attr(data-cell);
@@ -550,7 +564,12 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 	[class~="xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
 	[class~="xl:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
 		overflow: hidden;
+		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
 		text-overflow: ellipsis;
+	}
+
+	[class~="xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:empty:not(.hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* an empty value keeps its line, the rows have a uniform height */
 	}
 
 	[class~="xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
@@ -562,9 +581,8 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
 	}
 
-	[class~="xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell + td,
-	[class~="xl:table-stacked"] > tfoot > tr > td:first-child,
-	[class~="xl:table-stacked"] > tfoot > tr > td.hx-grid-multiselect-cell + td {
+	[class~="xl:table-stacked"] > tbody > tr > td.hx-grid-stacked-title,
+	[class~="xl:table-stacked"] > tfoot > tr > td.hx-grid-stacked-title {
 		font-weight: var(--bs-font-weight-bold);
 	}
 
@@ -579,8 +597,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		padding: 0;
 	}
 
-	[class~="xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td:first-child:not(.hx-grid-multiselect-cell),
-	[class~="xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-multiselect-cell + td {
+	[class~="xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-stacked-title {
 		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
 	}
 
@@ -610,7 +627,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		display: none;
 	}
 
-	[class~="xl:table-stacked"] > tfoot > tr > td[data-cell]:not(:first-child, .hx-grid-multiselect-cell + td)::before {
+	[class~="xl:table-stacked"] > tfoot > tr > td[data-cell]:not(.hx-grid-stacked-title)::before {
 		display: block;
 		font-weight: var(--bs-font-weight-semibold);
 		content: attr(data-cell);
@@ -649,7 +666,12 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 	[class~="2xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(.hx-context-menu-grid-column),
 	[class~="2xl:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td {
 		overflow: hidden;
+		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
 		text-overflow: ellipsis;
+	}
+
+	[class~="2xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:empty:not(.hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* an empty value keeps its line, the rows have a uniform height */
 	}
 
 	[class~="2xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
@@ -661,9 +683,8 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
 	}
 
-	[class~="2xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell + td,
-	[class~="2xl:table-stacked"] > tfoot > tr > td:first-child,
-	[class~="2xl:table-stacked"] > tfoot > tr > td.hx-grid-multiselect-cell + td {
+	[class~="2xl:table-stacked"] > tbody > tr > td.hx-grid-stacked-title,
+	[class~="2xl:table-stacked"] > tfoot > tr > td.hx-grid-stacked-title {
 		font-weight: var(--bs-font-weight-bold);
 	}
 
@@ -678,8 +699,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		padding: 0;
 	}
 
-	[class~="2xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td:first-child:not(.hx-grid-multiselect-cell),
-	[class~="2xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-multiselect-cell + td {
+	[class~="2xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-stacked-title {
 		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
 	}
 
@@ -709,7 +729,7 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
 		display: none;
 	}
 
-	[class~="2xl:table-stacked"] > tfoot > tr > td[data-cell]:not(:first-child, .hx-grid-multiselect-cell + td)::before {
+	[class~="2xl:table-stacked"] > tfoot > tr > td[data-cell]:not(.hx-grid-stacked-title)::before {
 		display: block;
 		font-weight: var(--bs-font-weight-semibold);
 		content: attr(data-cell);

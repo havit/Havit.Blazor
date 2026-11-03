@@ -23,6 +23,7 @@ public class HxGrid_Stacked_Tests : BunitTestBase
 		Assert.Empty(cut.FindAll("td[data-cell]"));
 		Assert.False(cut.Find(".hx-grid-container").ClassList.Contains("table-responsive"));
 		Assert.False(cut.Find(".hx-grid-container").ClassList.Contains("hx-grid-container-stacked"));
+		Assert.Empty(cut.FindAll(".hx-grid-stacked-title"));
 	}
 
 	[Theory]
@@ -303,6 +304,96 @@ public class HxGrid_Stacked_Tests : BunitTestBase
 			Assert.Equal("", contextMenuCell.InnerHtml);
 			Assert.Null(contextMenuCell.GetAttribute("data-cell"));
 		});
+	}
+
+	[Fact]
+	public async Task HxGrid_Stacked_TitleCellIsTheFirstDataColumn_SkipsMultiSelectAndContextMenuColumns()
+	{
+		// Arrange — the context menu column ordered before the data columns, multi-select enabled
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
+			.Add(p => p.DataProvider, GetDataProvider())
+			.Add(p => p.Stacked, GridStacked.BelowMedium)
+			.Add(p => p.MultiSelectionEnabled, true)
+			.Add<HxContextMenuGridColumn<TestItem>>(p => p.Columns, column => column
+				.Add(c => c.Order, -1)
+				.Add(c => c.ChildContent, item => "menu"))
+			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
+				.Add(c => c.HeaderText, "Name")
+				.Add(c => c.ItemTextSelector, item => item.Name)
+				.Add(c => c.FooterText, "Total"))
+			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
+				.Add(c => c.HeaderText, "Age")
+				.Add(c => c.ItemTextSelector, item => item.Age.ToString())
+				.Add(c => c.FooterText, "66")));
+
+		// Act
+		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
+
+		// Assert — in both the data rows and the footer, the title is the Name cell (not the first cell, not the context menu cell)
+		var rows = cut.FindAll("tbody tr").Concat(cut.FindAll("tfoot tr")).ToList();
+		Assert.Equal(s_items.Count + 1, rows.Count);
+		Assert.All(rows, row =>
+		{
+			var cells = row.QuerySelectorAll("td");
+			Assert.Equal(4, cells.Length);
+			Assert.Contains("hx-grid-multiselect-cell", cells[0].ClassList);
+			Assert.Equal(cells[2], Assert.Single(row.QuerySelectorAll("td.hx-grid-stacked-title")));
+			Assert.Equal("Name", cells[2].GetAttribute("data-cell"));
+		});
+		Assert.All(cut.FindAll("tbody tr"), row => Assert.Contains("hx-context-menu-grid-column", row.QuerySelectorAll("td")[1].ClassList));
+	}
+
+	[Fact]
+	public void HxGrid_Stacked_PlaceholderTitleCellIsTheFirstDataColumn()
+	{
+		// Arrange — the data provider never completes, so the placeholders stay rendered
+		var dataProviderTcs = new TaskCompletionSource<GridDataProviderResult<TestItem>>();
+
+		// Act
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
+			.Add(p => p.DataProvider, request => dataProviderTcs.Task)
+			.Add(p => p.Stacked, GridStacked.Always)
+			.Add(p => p.MultiSelectionEnabled, true)
+			.Add(p => p.PlaceholdersRowCount, 2)
+			.Add<HxContextMenuGridColumn<TestItem>>(p => p.Columns, column => column
+				.Add(c => c.Order, -1)
+				.Add(c => c.ChildContent, item => "menu"))
+			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
+				.Add(c => c.HeaderText, "Name")
+				.Add(c => c.ItemTextSelector, item => item.Name)));
+
+		// Assert
+		var rows = cut.FindAll("tbody tr");
+		Assert.Equal(2, rows.Count);
+		Assert.All(rows, row =>
+		{
+			var titleCell = Assert.Single(row.QuerySelectorAll("td.hx-grid-stacked-title"));
+			Assert.Equal("Name", titleCell.GetAttribute("data-cell"));
+		});
+	}
+
+	[Fact]
+	public async Task HxGrid_Stacked_EmptyValueCellHasNoContent()
+	{
+		// Arrange — the stacked infinite scroll CSS keeps the value line of empty cells (td:empty), the cell must be really empty
+		var cut = RenderGrid(
+			parameters => parameters
+				.Add(p => p.Stacked, GridStacked.BelowMedium)
+				.Add(p => p.ContentNavigationMode, GridContentNavigationMode.InfiniteScroll),
+			ageColumn: column => column
+				.Add(c => c.HeaderText, "Age")
+				.Add(c => c.ItemTextSelector, item => (item.Id == 1) ? null : (item.Id == 2) ? String.Empty : item.Age.ToString()));
+
+		// Act
+		await cut.InvokeAsync(() => cut.Instance.RefreshDataAsync());
+
+		// Assert
+		var ageCells = cut.FindAll("tbody td[data-cell=Age]");
+		Assert.Equal(s_items.Count, ageCells.Count);
+		Assert.Equal("", ageCells[0].InnerHtml);
+		Assert.Equal(0, ageCells[0].ChildNodes.Count(node => node.TextContent.Length > 0));
+		Assert.Equal("", ageCells[1].InnerHtml);
+		Assert.Equal("23", ageCells[2].TextContent);
 	}
 
 	[Fact]
