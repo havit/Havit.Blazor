@@ -27,7 +27,7 @@ public interface IBrowserStorage
 	/// <param name="jsonSerializerOptions">
 	/// The serializer options to use. When <c>null</c>, the options configured during the service registration are used.
 	/// </param>
-	/// <returns><c>true</c> when the key is present; otherwise <c>false</c>.</returns>
+	/// <returns><c>true</c> when the key is present and its value can be deserialized to <typeparamref name="TValue"/>; otherwise <c>false</c>.</returns>
 	/// <exception cref="StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
 	/// <exception cref="InvalidOperationException">Thrown when the IJSInProcessRuntime is not available (not in Interactive WebAssembly mode).</exception>
 	/// <exception cref="ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
@@ -142,8 +142,8 @@ public interface IBrowserStorage
 	/// </param>
 	/// <param name="cancellationToken">The cancellation token.</param>
 	/// <returns>
-	/// A tuple where <c>Success</c> indicates whether the key is present and <c>Value</c> contains the deserialized value
-	/// (or the default value of <typeparamref name="TValue"/> when the key is not present).
+	/// A tuple where <c>Success</c> indicates whether the key is present and its value can be deserialized to <typeparamref name="TValue"/>, and <c>Value</c> contains the deserialized value
+	/// (or the default value of <typeparamref name="TValue"/> otherwise).
 	/// </returns>
 	/// <exception cref="StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
 	/// <exception cref="ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>

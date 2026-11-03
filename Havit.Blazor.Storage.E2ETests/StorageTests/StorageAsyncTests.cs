@@ -113,6 +113,23 @@ public abstract class StorageAsyncTests : StorageTests
 		await Expect(Result).ToHaveTextAsync("False:<null>");
 	}
 
+	[Theory]
+	[InlineData("not json")]
+	[InlineData("{\"Name\":42,\"Age\":\"old\"}")]
+	public async Task TryGetValueAsync_ReturnsFalseWhenStoredValueCannotBeDeserialized(string storedValue)
+	{
+		// Arrange — a value that is not valid JSON or does not match the requested type (e.g. stale data from an older app version)
+		await NavigateAsync();
+		await SetItemDirectlyAsync("person", storedValue);
+		await KeyInput.FillAsync("person");
+
+		// Act
+		await Page.Locator("[data-testid='try-get-value-button']").ClickAsync();
+
+		// Assert — TryGetValueAsync reports the value as missing instead of throwing JsonException
+		await Expect(Result).ToHaveTextAsync("False:<null>");
+	}
+
 	[Fact]
 	public async Task RemoveAsync_RemovesValueFromBrowserStorage()
 	{

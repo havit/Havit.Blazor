@@ -25,9 +25,9 @@ internal sealed class BrowserStorageAccessor(IJSRuntime jsRuntime, IOptions<Stor
 
 	public bool TryGetValue<TValue>(BrowserStorageType storageType, string key, out TValue value, JsonSerializerOptions jsonSerializerOptions)
 	{
-		if (TryGetStringValue(storageType, key, out var json))
+		if (TryGetStringValue(storageType, key, out var json)
+			&& TryDeserialize(json, jsonSerializerOptions, out value))
 		{
-			value = JsonSerializer.Deserialize<TValue>(json, ResolveJsonSerializerOptions(jsonSerializerOptions));
 			return true;
 		}
 
@@ -137,8 +137,8 @@ internal sealed class BrowserStorageAccessor(IJSRuntime jsRuntime, IOptions<Stor
 	public async ValueTask<(bool Success, TValue Value)> TryGetValueAsync<TValue>(BrowserStorageType storageType, string key, JsonSerializerOptions jsonSerializerOptions, CancellationToken cancellationToken)
 	{
 		var (success, json) = await TryGetStringValueAsync(storageType, key, cancellationToken);
-		return success
-			? (true, JsonSerializer.Deserialize<TValue>(json, ResolveJsonSerializerOptions(jsonSerializerOptions)))
+		return success && TryDeserialize(json, jsonSerializerOptions, out TValue value)
+			? (true, value)
 			: (false, default);
 	}
 
@@ -227,6 +227,24 @@ internal sealed class BrowserStorageAccessor(IJSRuntime jsRuntime, IOptions<Stor
 	{
 		var json = await GetStringValueAsync(storageType, key, cancellationToken);
 		return JsonSerializer.Deserialize<TValue>(json, ResolveJsonSerializerOptions(jsonSerializerOptions));
+	}
+
+	/// <summary>
+	/// Deserializes a stored value for the Try* methods: stored data that is not valid JSON or does not match <typeparamref name="TValue"/>
+	/// (stale data from an older application version, data written by other code) is reported as a missing value instead of throwing.
+	/// </summary>
+	private bool TryDeserialize<TValue>(string json, JsonSerializerOptions jsonSerializerOptions, out TValue value)
+	{
+		try
+		{
+			value = JsonSerializer.Deserialize<TValue>(json, ResolveJsonSerializerOptions(jsonSerializerOptions));
+			return true;
+		}
+		catch (JsonException)
+		{
+			value = default;
+			return false;
+		}
 	}
 
 	private string GetByKeyCore(BrowserStorageType storageType, string key)
