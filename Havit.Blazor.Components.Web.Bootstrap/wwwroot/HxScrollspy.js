@@ -223,8 +223,9 @@ function handleSmoothScrollClick(event, navigation, scrollspyElement) {
 	}
 
 	const linkRole = link.getAttribute('role');
-	if (link.hasAttribute('data-bs-toggle') || (linkRole && (linkRole !== 'link'))) {
-		// the link is a widget (e.g. a tab, a menu toggle, role="button"), not a navigation to a section
+	if (link.hasAttribute('data-bs-toggle') || (linkRole && (linkRole !== 'link') && (linkRole !== 'menuitem'))) {
+		// the link is an action widget (e.g. a tab, a menu toggle, role="button"), not a navigation to a section
+		// (role="menuitem" is a navigational menu item)
 		return;
 	}
 
