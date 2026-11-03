@@ -76,6 +76,14 @@ export function navigateToFragment(fragment) {
 	const url = new URL(window.location.href);
 	url.hash = fragment;
 	window.history.replaceState(window.history.state, '', url.href);
+
+	if (element) {
+		// move the focus to the section (keyboard and assistive technology users), the same way Bootstrap smoothScroll does
+		if (!element.hasAttribute('tabindex')) {
+			element.setAttribute('tabindex', '-1');
+		}
+		element.focus({ preventScroll: true });
+	}
 }
 
 function findElementByFragment(fragment) {
@@ -115,7 +123,7 @@ function enableSmoothScroll(element, targetId) {
 	if (!navigation) {
 		return;
 	}
-	const handler = event => handleSmoothScrollClick(event, navigation);
+	const handler = event => handleSmoothScrollClick(event, navigation, element);
 	navigation.addEventListener('click', handler);
 	smoothScrollRegistrations.set(element, { navigation, handler });
 }
@@ -128,7 +136,7 @@ function disableSmoothScroll(element) {
 	}
 }
 
-function handleSmoothScrollClick(event, navigation) {
+function handleSmoothScrollClick(event, navigation, scrollspyElement) {
 	if (event.defaultPrevented || (event.button !== 0) || event.ctrlKey || event.shiftKey || event.altKey || event.metaKey) {
 		return;
 	}
@@ -154,16 +162,11 @@ function handleSmoothScrollClick(event, navigation) {
 		return;
 	}
 	const section = findElementByFragment(fragment);
-	if (!section) {
+	if (!section || !scrollspyElement.contains(section)) {
+		// not a section of this scrollspy (e.g. a link to a page-level heading), leave the link alone
 		return;
 	}
 
 	event.preventDefault(); // otherwise the link would be resolved against <base href>
 	navigateToFragment(fragment);
-
-	// move the focus to the section (keyboard and assistive technology users), the same way Bootstrap smoothScroll does
-	if (!section.hasAttribute('tabindex')) {
-		section.setAttribute('tabindex', '-1');
-	}
-	section.focus({ preventScroll: true });
 }

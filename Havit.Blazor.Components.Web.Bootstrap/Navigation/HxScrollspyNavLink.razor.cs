@@ -4,7 +4,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
 /// Temporary (?) NavLink component to be used with <see cref="HxScrollspy"/> where <c>#id</c> anchors are required and <c>page-route#id</c> cannot be used.<br />
-/// When clicked, it scrolls only the scrollable container of the target element (not the whole page) and updates the URL fragment (without adding a browser history entry).
+/// When clicked, it scrolls only the scrollable container of the target element (not the whole page), updates the URL fragment (without adding a browser history entry) and moves the focus to the target element.
 /// </summary>
 public partial class HxScrollspyNavLink : IAsyncDisposable
 {
