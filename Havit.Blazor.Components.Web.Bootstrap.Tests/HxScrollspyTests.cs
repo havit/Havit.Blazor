@@ -240,6 +240,34 @@ public class HxScrollspyTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxScrollspyNavLink_Render_OptsOutOfEnhancedNavigation()
+	{
+		// Blazor enhanced navigation (static router) handles the click before @onclick:preventDefault applies
+		// and would navigate to the #fragment resolved against <base href> (i.e. another page).
+
+		// Act
+		var cut = Render<HxScrollspyNavLink>(parameters => parameters
+			.Add(l => l.Href, "#section1")
+			.AddChildContent("Section 1"));
+
+		// Assert
+		Assert.Equal("false", cut.Find("a").GetAttribute("data-enhance-nav"));
+	}
+
+	[Fact]
+	public void HxScrollspyNavLink_AdditionalAttributes_CanOverrideEnhancedNavigationOptOut()
+	{
+		// Act
+		var cut = Render<HxScrollspyNavLink>(parameters => parameters
+			.Add(l => l.Href, "#section1")
+			.AddUnmatched("data-enhance-nav", "true")
+			.AddChildContent("Section 1"));
+
+		// Assert
+		Assert.Equal("true", cut.Find("a").GetAttribute("data-enhance-nav"));
+	}
+
+	[Fact]
 	public void HxScrollspyNavLink_Click_InvokesOnClickBeforeNavigation()
 	{
 		// Arrange
