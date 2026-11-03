@@ -127,4 +127,24 @@ public class HxCarousel_Tests : TestAppTestBase
 		int activeIndex = await slides.EvaluateAllAsync<int>("items => items.findIndex(item => item.classList.contains('active'))");
 		await Expect(slides.Nth((activeIndex + 1) % 3)).ToHaveClassAsync(ActiveClassRegex, new() { Timeout = CarouselTransitionTimeout });
 	}
+
+	[Fact]
+	public async Task HxCarousel_ControlsPlacementChangedWhileCyclingViaCycleAsync_KeepsCycling()
+	{
+		// Arrange - carousel without Autoplay, cycling started via CycleAsync()
+		await NavigateToTestAppAsync("/HxCarousel_CycleLayoutChange");
+		var carousel = Page.Locator(".carousel");
+		var slides = Page.Locator(".carousel-item");
+		await Page.GetByTestId("start-cycle").ClickAsync();
+		await Expect(carousel).ToHaveClassAsync(new Regex("\\bcarousel-playing\\b"));
+
+		// Act - moving the controls above the slides re-creates the Bootstrap carousel
+		await Page.GetByTestId("toggle-placement").ClickAsync();
+		await Expect(carousel.Locator("> :first-child [data-bs-slide='prev']")).ToHaveCountAsync(1);
+
+		// Assert - the re-created carousel keeps cycling (advances from whichever slide is active now)
+		await Expect(carousel).ToHaveClassAsync(new Regex("\\bcarousel-playing\\b"), new() { Timeout = CarouselTransitionTimeout });
+		int activeIndex = await slides.EvaluateAllAsync<int>("items => items.findIndex(item => item.classList.contains('active'))");
+		await Expect(slides.Nth((activeIndex + 1) % 3)).ToHaveClassAsync(ActiveClassRegex, new() { Timeout = CarouselTransitionTimeout });
+	}
 }

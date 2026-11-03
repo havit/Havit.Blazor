@@ -1,0 +1,29 @@
+@page "/HxCarousel_CycleLayoutChange"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxButton Text="Start cycling" Color="ThemeColor.Primary" OnClick="() => _carousel.CycleAsync()" data-testid="start-cycle" CssClass="mb-3" />
+<HxButton Text="Toggle placement" Color="ThemeColor.Secondary" OnClick="TogglePlacement" data-testid="toggle-placement" CssClass="mb-3" />
+
+<div data-testid="carousel-wrapper">
+	<HxCarousel @ref="_carousel" Controls="true" Indicators="true" ControlsPlacement="_placement" Interval="1000" Pause="CarouselPause.False">
+		@for (int i = 0; i < 3; i++)
+		{
+			int slideIndex = i;
+			<HxCarouselItem Active="(slideIndex == 0)" @key="slideIndex">
+				<div data-testid="slide-@slideIndex" class="d-flex align-items-center justify-content-center bg-secondary" style="height: 200px;">
+					<span>Slide @(slideIndex + 1)</span>
+				</div>
+			</HxCarouselItem>
+		}
+	</HxCarousel>
+</div>
+
+@code {
+	private HxCarousel _carousel;
+	private CarouselControlsPlacement _placement = CarouselControlsPlacement.Bottom;
+
+	private void TogglePlacement()
+	{
+		_placement = (_placement == CarouselControlsPlacement.Bottom) ? CarouselControlsPlacement.Top : CarouselControlsPlacement.Bottom;
+	}
+}
