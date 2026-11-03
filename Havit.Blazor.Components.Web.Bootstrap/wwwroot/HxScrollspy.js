@@ -39,7 +39,8 @@ export function navigateToFragment(fragment) {
 		if (container) {
 			// scroll only the container (scroll-behavior of the container applies, see .hx-scrollspy-smooth-scroll)
 			const scrollMarginTop = Number.parseFloat(getComputedStyle(element).scrollMarginTop) || 0;
-			const top = element.getBoundingClientRect().top - container.getBoundingClientRect().top + container.scrollTop - scrollMarginTop;
+			// clientTop: the container border (scrollTop is measured inside the border)
+			const top = element.getBoundingClientRect().top - container.getBoundingClientRect().top - container.clientTop + container.scrollTop - scrollMarginTop;
 			container.scrollTo({ top: top });
 		}
 		else {
@@ -72,18 +73,16 @@ function getScrollContainer(element) {
 	// The nearest scrollable ancestor of the target.
 	// The HxScrollspy container is used even when its content currently fits (there is nothing to scroll, the page must not scroll either),
 	// other ancestors only when they really overflow (e.g. .table-responsive has overflow-y: auto computed from overflow-x: auto).
+	// overflow: hidden containers are scrollable programmatically as well (overflow: clip is not).
 	for (let parent = element.parentElement; parent && (parent !== document.body) && (parent !== document.documentElement); parent = parent.parentElement) {
-		if (isScrollableByOverflow(parent)
+		const overflowY = getComputedStyle(parent).overflowY;
+		const isScrollable = (overflowY === 'auto') || (overflowY === 'scroll') || (overflowY === 'hidden');
+		if (isScrollable
 			&& (parent.classList.contains('hx-scrollspy') || (parent.scrollHeight > parent.clientHeight))) {
 			return parent;
 		}
 	}
 	return null;
-}
-
-function isScrollableByOverflow(element) {
-	const overflowY = getComputedStyle(element).overflowY;
-	return (overflowY === 'auto') || (overflowY === 'scroll');
 }
 
 function fixSmoothScrollNavigationUrl(scrollspy) {

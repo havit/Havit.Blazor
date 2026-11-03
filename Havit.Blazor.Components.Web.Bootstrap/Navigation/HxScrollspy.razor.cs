@@ -77,9 +77,11 @@ public partial class HxScrollspy : IAsyncDisposable
 			await _jsModule.InvokeVoidAsync("initialize", _scrollspyElement, TargetId, _lastJsOptions);
 			_initialized = true;
 		}
-		else if (_initialized)
+
+		if (_initialized)
 		{
 			// Bootstrap ScrollSpy reads its configuration only when created, so it has to be recreated when the options change.
+			// Checked right after the initialization as well (options might have changed while the initialize call was pending).
 			var jsOptions = GetJsOptions();
 			if (!AreJsOptionsEqual(jsOptions, _lastJsOptions))
 			{

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
@@ -118,6 +119,29 @@ public class HxScrollspyTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxScrollspy_OptionsChangedWhileInitializing_ReinitializesJavaScriptAfterInitialization()
+	{
+		// Arrange
+		var module = JSInterop.SetupModule(_ => true);
+		var initializeHandler = module.SetupVoid("initialize", _ => true); // pending until SetVoidResult()
+		var cut = Render<HxScrollspy>(parameters => parameters
+			.Add(p => p.TargetId, "scrollspy-nav")
+			.Add(p => p.TopMargin, "12%")
+		);
+
+		// Act
+		cut.Render(parameters => parameters.Add(p => p.TopMargin, "96px")); // rendered while initialize is pending
+		cut.InvokeAsync(() => initializeHandler.SetVoidResult());
+
+		// Assert
+		cut.WaitForAssertion(() =>
+		{
+			var reinitializeInvocation = Assert.Single(module.Invocations, i => i.Identifier == "reinitialize");
+			Assert.Equal("96px", GetJsOptions(reinitializeInvocation)["topMargin"]);
+		});
+	}
+
+	[Fact]
 	public void HxScrollspy_OptionsNotChanged_DoesNotReinitializeJavaScript()
 	{
 		// Arrange
@@ -232,6 +256,44 @@ public class HxScrollspyTests : BunitTestBase
 		// Assert
 		Assert.Equal(["OnClick"], log);
 		Assert.Single(JSInterop.Invocations, i => i.Identifier == "navigateToFragment");
+	}
+
+	[Fact]
+	public void HxScrollspyNavLink_ClicksWhileImportPending_ImportJavaScriptOnce()
+	{
+		// a second import would replace the first JS object reference, which would never be released
+
+		// Arrange
+		var jsRuntime = new PendingImportJSRuntime(); // bUnit JSInterop cannot keep an import pending
+		Services.AddSingleton<IJSRuntime>(jsRuntime);
+		var cut = Render<HxScrollspyNavLink>(parameters => parameters
+			.Add(l => l.Href, "#section1"));
+
+		// Act
+		cut.Find("a").Click();
+		cut.Find("a").Click();
+
+		// Assert
+		Assert.Equal(1, jsRuntime.ImportCount);
+	}
+
+	private class PendingImportJSRuntime : IJSRuntime
+	{
+		public int ImportCount { get; private set; }
+
+		public ValueTask<TValue> InvokeAsync<TValue>(string identifier, object[] args)
+		{
+			return InvokeAsync<TValue>(identifier, CancellationToken.None, args);
+		}
+
+		public ValueTask<TValue> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken, object[] args)
+		{
+			if (identifier == "import")
+			{
+				ImportCount++;
+			}
+			return new ValueTask<TValue>(new TaskCompletionSource<TValue>().Task); // never completes
+		}
 	}
 
 	[Fact]

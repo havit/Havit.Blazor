@@ -37,7 +37,7 @@ public partial class HxScrollspyNavLink : IAsyncDisposable
 
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
-	private IJSObjectReference _jsModule;
+	private Task<IJSObjectReference> _jsModuleTask;
 	private bool _disposed;
 
 	protected override void OnParametersSet()
@@ -57,18 +57,16 @@ public partial class HxScrollspyNavLink : IAsyncDisposable
 			return;
 		}
 
-		if (_jsModule is null)
+		// a single (shared) import, even for clicks while the import is pending
+		_jsModuleTask ??= JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollspy)).AsTask();
+		var jsModule = await _jsModuleTask;
+		if (_disposed)
 		{
-			var jsModule = await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollspy));
-			if (_disposed)
-			{
-				// disposed during the import, the module would not be released by DisposeAsyncCore
-				await DisposeJsModuleAsync(jsModule);
-				return;
-			}
-			_jsModule = jsModule;
+			// disposed during the import, DisposeAsyncCore could not release the module (disposing it repeatedly is a no-op)
+			await DisposeJsModuleAsync(jsModule);
+			return;
 		}
-		await _jsModule.InvokeVoidAsync("navigateToFragment", Href);
+		await jsModule.InvokeVoidAsync("navigateToFragment", Href);
 	}
 
 	public async ValueTask DisposeAsync()
@@ -80,11 +78,11 @@ public partial class HxScrollspyNavLink : IAsyncDisposable
 	{
 		_disposed = true;
 
-		if (_jsModule != null)
+		if (_jsModuleTask is { IsCompletedSuccessfully: true })
 		{
-			await DisposeJsModuleAsync(_jsModule);
-			_jsModule = null;
+			await DisposeJsModuleAsync(await _jsModuleTask); // already completed
 		}
+		// else: a pending import is released by HandleClick once completed
 	}
 
 	private static async Task DisposeJsModuleAsync(IJSObjectReference jsModule)
