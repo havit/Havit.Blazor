@@ -10,7 +10,7 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-	/* HxScrollspyNavLink scrolls the container by JavaScript (scrollTo), which would interrupt the smooth scroll started by Bootstrap. */
+	/* Smooth scrolling (SmoothScroll): the navigation clicks scroll the container by JavaScript (scrollTo), which follows the CSS scroll-behavior. */
 	.hx-scrollspy-smooth-scroll {
 		scroll-behavior: smooth;
 	}

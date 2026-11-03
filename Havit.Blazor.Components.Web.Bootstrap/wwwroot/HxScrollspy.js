@@ -1,17 +1,38 @@
 ﻿export function initialize(element, targetId, options) {
-	const scrollspy = new bootstrap.ScrollSpy(element, {
-		...options,
+	// Bootstrap smoothScroll is not used: its click handler resolves the URL fragment against <base href> (required by Blazor),
+	// replaces the history state with null, runs before HxScrollspyNavLink.OnClick and does not ignore controls (buttons) inside the links.
+	const { smoothScroll, ...bootstrapOptions } = options ?? {};
+	new bootstrap.ScrollSpy(element, {
+		...bootstrapOptions,
 		target: '#' + targetId
 	});
 
-	if (options?.smoothScroll) {
-		fixSmoothScrollNavigationUrl(scrollspy);
+	if (smoothScroll) {
+		enableSmoothScroll(element, targetId);
 	}
 }
 
 export function reinitialize(element, targetId, options) {
-	dispose(element);
-	initialize(element, targetId, options);
+	const scrollspy = bootstrap.ScrollSpy.getInstance(element);
+	if (!scrollspy || (typeof scrollspy._getConfig !== 'function')) {
+		dispose(element);
+		initialize(element, targetId, options);
+		return;
+	}
+
+	// Update the configuration of the existing instance instead of creating a new one:
+	// a new instance does not know the currently active section and highlights the first one until another section crosses the activation line.
+	disableSmoothScroll(element);
+	const { smoothScroll, ...bootstrapOptions } = options ?? {};
+	scrollspy._config = scrollspy._getConfig({
+		...bootstrapOptions,
+		target: '#' + targetId
+	});
+	scrollspy.refresh(); // rebuilds the observer with the new configuration
+
+	if (smoothScroll) {
+		enableSmoothScroll(element, targetId);
+	}
 }
 
 export function refresh(element) {
@@ -24,6 +45,8 @@ export function refresh(element) {
 }
 
 export function dispose(element) {
+	disableSmoothScroll(element);
+
 	const scrollspy = bootstrap.ScrollSpy.getInstance(element);
 	if (scrollspy) {
 		scrollspy.dispose();
@@ -85,23 +108,62 @@ function getScrollContainer(element) {
 	return null;
 }
 
-function fixSmoothScrollNavigationUrl(scrollspy) {
-	// With smoothScroll enabled, Bootstrap updates the URL by history.replaceState(null, '', '#fragment') once the scroll settles.
-	// It also replaces the history state (null), so the original state is restored afterwards.
-	// The relative '#fragment' URL is resolved against <base href> (required by Blazor), which would replace the current page path
-	// (e.g. /components/HxScrollspy#section becomes /#section). Resolve the fragment against the current URL instead.
-	const settleNavigation = scrollspy._settleNavigation;
-	if (typeof settleNavigation !== 'function') {
+const smoothScrollRegistrations = new WeakMap();
+
+function enableSmoothScroll(element, targetId) {
+	const navigation = document.getElementById(targetId);
+	if (!navigation) {
+		return;
+	}
+	const handler = event => handleSmoothScrollClick(event, navigation);
+	navigation.addEventListener('click', handler);
+	smoothScrollRegistrations.set(element, { navigation, handler });
+}
+
+function disableSmoothScroll(element) {
+	const registration = smoothScrollRegistrations.get(element);
+	if (registration) {
+		registration.navigation.removeEventListener('click', registration.handler);
+		smoothScrollRegistrations.delete(element);
+	}
+}
+
+function handleSmoothScrollClick(event, navigation) {
+	if (event.defaultPrevented || (event.button !== 0) || event.ctrlKey || event.shiftKey || event.altKey || event.metaKey) {
 		return;
 	}
 
-	scrollspy._settleNavigation = function (hash, section) {
-		const url = new URL(window.location.href);
-		url.hash = hash;
-		// Bootstrap replaces the history state with null, which would drop the state Blazor keeps there.
-		const state = window.history.state;
-		const result = settleNavigation.call(this, url.href, section);
-		window.history.replaceState(state, '', url.href);
-		return result;
-	};
+	const link = event.target.closest('a[href]');
+	if (!link || !navigation.contains(link)) {
+		return;
+	}
+
+	if (link.hasAttribute('data-hx-scrollspy-nav-link')) {
+		// HxScrollspyNavLink navigates on its own (after its OnClick callback)
+		return;
+	}
+
+	const control = event.target.closest('button, input, select, textarea, label, [role="button"]');
+	if (control && (control !== link) && link.contains(control)) {
+		// a click on a control placed inside the link is not a navigation
+		return;
+	}
+
+	const fragment = link.getAttribute('href');
+	if (!fragment || !fragment.startsWith('#')) {
+		return;
+	}
+	const section = findElementByFragment(fragment);
+	if (!section) {
+		return;
+	}
+
+	event.preventDefault(); // otherwise the link would be resolved against <base href>
+	navigateToFragment(fragment);
+
+	// move the focus to the section (keyboard and assistive technology users), the same way Bootstrap smoothScroll does
+	if (!section.hasAttribute('tabindex')) {
+		section.setAttribute('tabindex', '-1');
+	}
+	section.focus({ preventScroll: true });
 }

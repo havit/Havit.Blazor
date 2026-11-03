@@ -316,6 +316,19 @@ public class HxScrollspyTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxScrollspyNavLink_Render_RendersMarkerAttribute()
+	{
+		// HxScrollspy smooth scrolling (HxScrollspy.js) leaves the clicks on HxScrollspyNavLink to the component (OnClick first)
+
+		// Act
+		var cut = Render<HxScrollspyNavLink>(parameters => parameters
+			.Add(l => l.Href, "#section1"));
+
+		// Assert
+		Assert.True(cut.Find("a").HasAttribute("data-hx-scrollspy-nav-link"));
+	}
+
+	[Fact]
 	public void HxScrollspyNavLink_HrefWithoutHash_Throws()
 	{
 		// Act & Assert

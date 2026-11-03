@@ -19,8 +19,7 @@ public partial class HxScrollspyNavLink : IAsyncDisposable
 	[Parameter] public string CssClass { get; set; }
 
 	/// <summary>
-	/// Raised when the item is clicked (before the link scrolls to <see cref="Href"/> and the URL fragment is changed).<br />
-	/// When <see cref="HxScrollspy.SmoothScroll"/> is enabled, Bootstrap handles the click on its own as well and starts the smooth scroll before the callback is invoked.
+	/// Raised when the item is clicked (before the link scrolls to <see cref="Href"/> and the URL fragment is changed).
 	/// </summary>
 	[Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
 	/// <summary>

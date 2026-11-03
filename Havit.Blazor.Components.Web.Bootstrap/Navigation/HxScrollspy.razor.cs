@@ -46,8 +46,9 @@ public partial class HxScrollspy : IAsyncDisposable
 	[Parameter] public IReadOnlyList<double> Threshold { get; set; }
 
 	/// <summary>
-	/// Enables smooth scrolling when the user clicks a navigation link that refers to a spied section.
-	/// Once the scroll settles, the URL fragment and focus are moved to the target section.<br />
+	/// Enables smooth scrolling of the container when the user clicks a navigation link that refers to a spied section.<br />
+	/// Plain <c>&lt;a href="#id"&gt;</c> links in the navigation are handled as well (only the container scrolls, the URL fragment is updated and the focus is moved to the section);
+	/// clicks on controls (e.g. buttons) placed inside the links are ignored.<br />
 	/// Respects the <c>prefers-reduced-motion</c> user preference.<br />
 	/// Default is <c>false</c>.
 	/// </summary>
