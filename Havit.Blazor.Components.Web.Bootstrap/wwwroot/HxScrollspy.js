@@ -39,6 +39,11 @@ export function refresh(element) {
 }
 
 export function dispose(element) {
+	if (!element) {
+		// the element has already been removed from the DOM (e.g. enhanced navigation replaced the page)
+		return;
+	}
+
 	element.removeEventListener('activate.bs.scrollspy', handleActivate);
 
 	const scrollspy = bootstrap.ScrollSpy.getInstance(element);
@@ -88,13 +93,16 @@ function scrollToElement(element) {
 	// Scroll the containers from the nearest one up to the HxScrollspy container (not the page):
 	// the section in a nested scrollable panel is scrolled to the top of the panel, the panel to the top of the outer container, etc.
 	// The destination does not depend on the current scroll position of the container (works even during a smooth scroll).
+	// As element.scrollIntoView() does, the point to show (the section top minus its scroll-margin-top) is aligned
+	// with the top of the scrollport of each container reduced by its scroll-padding-top (e.g. the space of a sticky header).
 	// offset: the position of the point to show (the section top minus its scroll-margin-top) below the top of the current target,
 	// including the distance a nested container could not scroll (clamped at the end of its content).
 	let target = element;
 	let offset = -(Number.parseFloat(getComputedStyle(element).scrollMarginTop) || 0);
 	while (container) {
+		const scrollPaddingTop = getScrollPaddingTop(container);
 		// the position in the scroll coordinates of the container (clientTop: the container border, scrollTop is measured inside the border)
-		const desiredTop = target.getBoundingClientRect().top - container.getBoundingClientRect().top - container.clientTop + container.scrollTop + offset;
+		const desiredTop = target.getBoundingClientRect().top - container.getBoundingClientRect().top - container.clientTop + container.scrollTop + offset - scrollPaddingTop;
 		const maxTop = Math.max(container.scrollHeight - container.clientHeight, 0);
 		const top = Math.min(Math.max(desiredTop, 0), maxTop);
 		container.scrollTo({ top: top }); // scroll-behavior of the container applies, see .hx-scrollspy-smooth-scroll
@@ -102,11 +110,21 @@ function scrollToElement(element) {
 		if (container.classList.contains('hx-scrollspy') || !container.parentElement?.closest('.hx-scrollspy')) {
 			break;
 		}
-		// after the scroll, the point is (desiredTop - top) below the top of the container content (inside its border)
-		offset = container.clientTop + (desiredTop - top);
+		// after the scroll, the point is (scrollPaddingTop + desiredTop - top) below the top of the container content (inside its border)
+		offset = container.clientTop + scrollPaddingTop + (desiredTop - top);
 		target = container;
 		container = getScrollContainer(container);
 	}
+}
+
+function getScrollPaddingTop(container) {
+	// scroll-padding-top: auto (treated as 0), a length (resolved to px) or a percentage of the scrollport height (kept as a percentage by getComputedStyle)
+	const scrollPaddingTop = getComputedStyle(container).scrollPaddingTop;
+	const value = Number.parseFloat(scrollPaddingTop);
+	if (!Number.isFinite(value)) {
+		return 0;
+	}
+	return scrollPaddingTop.endsWith('%') ? (value * container.clientHeight / 100) : value;
 }
 
 function findElementByFragment(fragment) {
