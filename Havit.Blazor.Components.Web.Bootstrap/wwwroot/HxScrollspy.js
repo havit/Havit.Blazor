@@ -69,14 +69,12 @@ function findElementByFragment(fragment) {
 }
 
 function getScrollContainer(element) {
-	// Prefer the HxScrollspy container (even when its content currently fits and there is nothing to scroll).
-	const scrollspyElement = element.closest('.hx-scrollspy');
-	if (scrollspyElement && isScrollableByOverflow(scrollspyElement)) {
-		return scrollspyElement;
-	}
-
+	// The nearest scrollable ancestor of the target.
+	// The HxScrollspy container is used even when its content currently fits (there is nothing to scroll, the page must not scroll either),
+	// other ancestors only when they really overflow (e.g. .table-responsive has overflow-y: auto computed from overflow-x: auto).
 	for (let parent = element.parentElement; parent && (parent !== document.body) && (parent !== document.documentElement); parent = parent.parentElement) {
-		if (isScrollableByOverflow(parent) && (parent.scrollHeight > parent.clientHeight)) {
+		if (isScrollableByOverflow(parent)
+			&& (parent.classList.contains('hx-scrollspy') || (parent.scrollHeight > parent.clientHeight))) {
 			return parent;
 		}
 	}

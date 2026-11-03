@@ -51,10 +51,22 @@ public partial class HxScrollspyNavLink : IAsyncDisposable
 
 		// NavigationManager.NavigateTo() is not used: for the same page, Blazor scrolls the target element into view by scrollIntoView(),
 		// which scrolls all the scrollable ancestors, including the whole page.
-		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollspy));
 		if (_disposed)
 		{
+			// OnClick might have removed the link
 			return;
+		}
+
+		if (_jsModule is null)
+		{
+			var jsModule = await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollspy));
+			if (_disposed)
+			{
+				// disposed during the import, the module would not be released by DisposeAsyncCore
+				await DisposeJsModuleAsync(jsModule);
+				return;
+			}
+			_jsModule = jsModule;
 		}
 		await _jsModule.InvokeVoidAsync("navigateToFragment", Href);
 	}
@@ -70,18 +82,24 @@ public partial class HxScrollspyNavLink : IAsyncDisposable
 
 		if (_jsModule != null)
 		{
-			try
-			{
-				await _jsModule.DisposeAsync();
-			}
-			catch (JSDisconnectedException)
-			{
-				// NOOP
-			}
-			catch (TaskCanceledException)
-			{
-				// NOOP
-			}
+			await DisposeJsModuleAsync(_jsModule);
+			_jsModule = null;
+		}
+	}
+
+	private static async Task DisposeJsModuleAsync(IJSObjectReference jsModule)
+	{
+		try
+		{
+			await jsModule.DisposeAsync();
+		}
+		catch (JSDisconnectedException)
+		{
+			// NOOP
+		}
+		catch (TaskCanceledException)
+		{
+			// NOOP
 		}
 	}
 }

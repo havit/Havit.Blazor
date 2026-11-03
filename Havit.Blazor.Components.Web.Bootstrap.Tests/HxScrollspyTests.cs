@@ -235,6 +235,25 @@ public class HxScrollspyTests : BunitTestBase
 	}
 
 	[Fact]
+	public async Task HxScrollspyNavLink_ClickAfterDispose_DoesNotImportJavaScript()
+	{
+		// e.g. OnClick removes the link - a module imported after disposal would never be released
+
+		// Arrange
+		var cut = Render<HxScrollspyNavLink>(parameters => parameters
+			.Add(l => l.Href, "#section1"));
+		var link = cut.Find("a");
+		await cut.Instance.DisposeAsync();
+
+		// Act
+		await link.ClickAsync(new Microsoft.AspNetCore.Components.Web.MouseEventArgs());
+
+		// Assert
+		Assert.DoesNotContain(JSInterop.Invocations, i => i.Identifier == "import");
+		Assert.DoesNotContain(JSInterop.Invocations, i => i.Identifier == "navigateToFragment");
+	}
+
+	[Fact]
 	public void HxScrollspyNavLink_HrefWithoutHash_Throws()
 	{
 		// Act & Assert
