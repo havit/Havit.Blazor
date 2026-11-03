@@ -15,12 +15,12 @@
 // HAVIT fix: scoped dark/light theming (e.g. dark menus via a `data-bs-theme="dark"` wrapper).
 // Bootstrap 6 emits its theme tokens (--bg-body, --fg-body, ...) on `:root` only and
 // `[data-bs-theme=dark|light]` only flips `color-scheme` (and `--shadow-strength`).
-// - bootstrap.min.css: lightningcss lowers `light-dark()` for the .browserslistrc targets (Safari/iOS 15.6
-//   lack it) to `var(--lightningcss-light, <light>) var(--lightningcss-dark, <dark>)` space toggles.
-//   `var()` in a custom property is substituted on the element declaring it, so the tokens are resolved
-//   once on `:root` and a nested `[data-bs-theme]` scope inherits the `:root` mode. This applies in every browser.
-// - bootstrap.css (unlowered `light-dark()`): the colors re-tint in nested scopes on their own (verified in
-//   Chromium 152 and WebKit/Safari 27), but the `--box-shadow*` tokens bake in the `:root` `--shadow-strength`.
+// The `light-dark()` colors re-tint in nested scopes on their own (verified in Chromium 152 and WebKit/Safari 27),
+// but the `--box-shadow*` tokens bake in the `:root` `--shadow-strength` (`var()` in a custom property is
+// substituted on the element declaring it).
+// Keep .browserslistrc at Bootstrap's `light-dark()` floor: below it lightningcss lowers `light-dark()` to
+// `var(--lightningcss-light, ...)` space toggles, which resolve once where declared and break every nested scope
+// (e.g. the `.prose` `--heading-color` in a dark HxDialog).
 // Re-emitting the token set on every `[data-bs-theme]` scope recomputes the tokens against the scope.
 // It lives in the (otherwise empty) `root` layer with zero specificity so Bootstrap's layered component
 // token overrides still win on elements that carry `data-bs-theme` themselves.

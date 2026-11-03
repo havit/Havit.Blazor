@@ -3313,7 +3313,6 @@
     font-size: var(--bs-control-font-size);
     line-height: var(--bs-control-line-height);
     color: var(--bs-control-fg);
-    -webkit-appearance: none;
     appearance: none;
     background-color: var(--bs-control-bg);
     background-clip: padding-box;
@@ -3476,7 +3475,6 @@
     padding: 0;
     font: inherit;
     color: inherit;
-    -webkit-appearance: none;
     appearance: none;
     background: transparent;
     border: 0;
@@ -3515,7 +3513,6 @@
     width: var(--bs-check-size);
     height: var(--bs-check-size);
     margin-block: var(--bs-check-margin-block);
-    -webkit-appearance: none;
     appearance: none;
     background-color: var(--bs-theme-bg, var(--bs-check-bg));
     border: 1px solid var(--bs-theme-bg, var(--bs-check-border-color));
@@ -3534,13 +3531,9 @@
     background-color: var(--bs-theme-contrast, var(--bs-primary-contrast));
     opacity: 0;
     transform: scale(0);
-    -webkit-mask-image: var(--bs-check-icon-checked);
     mask-image: var(--bs-check-icon-checked);
-    -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    -webkit-mask-position: center;
     mask-position: center;
-    -webkit-mask-size: contain;
     mask-size: contain;
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -3557,7 +3550,6 @@
     transform: scale(1);
   }
   .check:indeterminate::before {
-    -webkit-mask-image: var(--bs-check-icon-indeterminate);
     mask-image: var(--bs-check-icon-indeterminate);
   }
   .check:focus-visible {
@@ -3604,7 +3596,6 @@
     width: var(--bs-radio-size);
     height: var(--bs-radio-size);
     margin-block: var(--bs-radio-margin-block);
-    -webkit-appearance: none;
     appearance: none;
     background-color: var(--bs-theme-bg, var(--bs-radio-bg));
     border: 1px solid var(--bs-theme-bg, var(--bs-radio-border-color));
@@ -3720,7 +3711,6 @@
   .switch input {
     position: absolute;
     inset: 0;
-    -webkit-appearance: none;
     appearance: none;
     background-color: transparent;
     outline: 0;
@@ -3800,7 +3790,6 @@
     width: 100%;
     height: calc(var(--bs-range-thumb-height) + var(--bs-focus-ring-width) * 2);
     padding: 0;
-    -webkit-appearance: none;
     appearance: none;
     background-color: transparent;
   }
@@ -3829,7 +3818,6 @@
   .form-range-input::-webkit-slider-thumb {
     width: var(--bs-range-thumb-width);
     height: var(--bs-range-thumb-height);
-    -webkit-appearance: none;
     appearance: none;
     background-color: var(--bs-range-thumb-bg);
     background-image: var(--bs-gradient);
@@ -4567,7 +4555,6 @@
   }
   .form-field:has(> .check, > .radio, > .switch) {
     grid-template-columns: auto 1fr;
-    -moz-column-gap: 0.5rem;
     column-gap: 0.5rem;
     align-items: start;
   }
@@ -5530,13 +5517,9 @@
     border: 0;
     border-radius: var(--bs-radius-4);
     opacity: var(--bs-btn-close-opacity);
-    -webkit-mask-image: var(--bs-btn-close-icon);
     mask-image: var(--bs-btn-close-icon);
-    -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    -webkit-mask-position: center;
     mask-position: center;
-    -webkit-mask-size: contain;
     mask-size: contain;
   }
   .btn-close:hover {
@@ -5803,7 +5786,6 @@
   .avatar > .avatar-img {
     width: 100%;
     height: 100%;
-    -o-object-fit: cover;
     object-fit: cover;
   }
   .avatar-subtle {
@@ -5844,7 +5826,6 @@
   .avatar-stack .avatar {
     margin-left: calc(var(--bs-avatar-size) * var(--bs-avatar-stack-spacing));
     border: var(--bs-avatar-border-width) solid var(--bs-avatar-border-color);
-    -webkit-mask-image: none;
     mask-image: none;
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -5980,13 +5961,9 @@
     height: var(--bs-breadcrumb-divider-height);
     content: "";
     background-color: currentcolor;
-    -webkit-mask-image: var(--bs-breadcrumb-divider-icon);
     mask-image: var(--bs-breadcrumb-divider-icon);
-    -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    -webkit-mask-position: center;
     mask-position: center;
-    -webkit-mask-size: contain;
     mask-size: contain;
   }
   .breadcrumb-link {
@@ -6090,7 +6067,6 @@
   .chip-icon > img {
     width: var(--bs-chip-icon-size);
     height: var(--bs-chip-icon-size);
-    -o-object-fit: cover;
     object-fit: cover;
     border-radius: 50%;
   }
@@ -6210,7 +6186,6 @@
   }
   .card-translucent {
     background-color: color-mix(in oklch, var(--bs-card-bg) 80%, transparent);
-    -webkit-backdrop-filter: blur(5px) saturate(180%);
     backdrop-filter: blur(5px) saturate(180%);
   }
   .card-translucent .card-header,
@@ -6425,19 +6400,14 @@
     width: var(--bs-carousel-control-icon-width);
     height: var(--bs-carousel-control-icon-width);
     background-color: currentcolor;
-    -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    -webkit-mask-position: 50%;
     mask-position: 50%;
-    -webkit-mask-size: 100% 100%;
     mask-size: 100% 100%;
   }
   .carousel-icon-prev {
-    -webkit-mask-image: var(--bs-carousel-control-prev-icon);
     mask-image: var(--bs-carousel-control-prev-icon);
   }
   .carousel-icon-next {
-    -webkit-mask-image: var(--bs-carousel-control-next-icon);
     mask-image: var(--bs-carousel-control-next-icon);
   }
   [dir=rtl] .carousel-icon-prev,
@@ -6445,11 +6415,9 @@
     transform: scaleX(-1);
   }
   .carousel-icon-pause {
-    -webkit-mask-image: var(--bs-carousel-control-pause-icon);
     mask-image: var(--bs-carousel-control-pause-icon);
   }
   .carousel-icon-play {
-    -webkit-mask-image: var(--bs-carousel-control-play-icon);
     mask-image: var(--bs-carousel-control-play-icon);
   }
   .carousel-control-play-pause .carousel-icon-play {
@@ -6577,7 +6545,6 @@
   }
   [data-vc=calendar]:not([data-vc-input]) {
     position: relative;
-    width: -moz-fit-content;
     width: fit-content;
     padding: 0;
     border: 0;
@@ -6606,11 +6573,8 @@
     inset: 0.25rem;
     content: "";
     background-color: var(--bs-datepicker-color);
-    -webkit-mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 16c-.3 0-.5-.1-.7-.3l-6-6c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l5.3 5.3 5.3-5.3c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-6 6c-.2.2-.4.3-.7.3'/></svg>");
     mask-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M12 16c-.3 0-.5-.1-.7-.3l-6-6c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l5.3 5.3 5.3-5.3c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-6 6c-.2.2-.4.3-.7.3'/></svg>");
-    -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    -webkit-mask-position: center;
     mask-position: center;
   }
   [data-vc-arrow]:hover {
@@ -6697,7 +6661,6 @@
   [data-vc-years=row] {
     display: grid;
     grid-template-columns: repeat(var(--bs-vc-columns, 4), minmax(0, 1fr));
-    -moz-column-gap: 0.25rem;
     column-gap: 0.25rem;
     align-items: center;
   }
@@ -6936,24 +6899,19 @@
   }
   .dialog:not(.dialog-instant)::backdrop {
     background-color: var(--bs-dialog-backdrop-bg);
-    -webkit-backdrop-filter: blur(var(--bs-dialog-backdrop-blur));
     backdrop-filter: blur(var(--bs-dialog-backdrop-blur));
   }
   @media (prefers-reduced-motion: no-preference) {
     .dialog:not(.dialog-instant)::backdrop {
-      transition: background-color var(--bs-dialog-transition-duration) var(--bs-dialog-transition-timing), display var(--bs-dialog-transition-duration) allow-discrete, overlay var(--bs-dialog-transition-duration) allow-discrete, -webkit-backdrop-filter var(--bs-dialog-transition-duration) var(--bs-dialog-transition-timing);
       transition: background-color var(--bs-dialog-transition-duration) var(--bs-dialog-transition-timing), backdrop-filter var(--bs-dialog-transition-duration) var(--bs-dialog-transition-timing), display var(--bs-dialog-transition-duration) allow-discrete, overlay var(--bs-dialog-transition-duration) allow-discrete;
-      transition: background-color var(--bs-dialog-transition-duration) var(--bs-dialog-transition-timing), backdrop-filter var(--bs-dialog-transition-duration) var(--bs-dialog-transition-timing), display var(--bs-dialog-transition-duration) allow-discrete, overlay var(--bs-dialog-transition-duration) allow-discrete, -webkit-backdrop-filter var(--bs-dialog-transition-duration) var(--bs-dialog-transition-timing);
     }
   }
   .dialog:not(.dialog-instant).hiding::backdrop {
     background-color: transparent;
-    -webkit-backdrop-filter: blur(0);
     backdrop-filter: blur(0);
   }
   .dialog.dialog-instant::backdrop {
     background-color: var(--bs-dialog-backdrop-bg);
-    -webkit-backdrop-filter: blur(var(--bs-dialog-backdrop-blur));
     backdrop-filter: blur(var(--bs-dialog-backdrop-blur));
   }
   .dialog[open]:not(.hiding) {
@@ -6966,7 +6924,6 @@
     position: fixed;
     inset: 0;
     z-index: var(--bs-z-dialog);
-    height: -moz-fit-content;
     height: fit-content;
   }
   .dialog.dialog-scrollable[open] {
@@ -6978,12 +6935,10 @@
   @starting-style {
     .dialog:not(.dialog-instant)::backdrop {
       background-color: transparent;
-      -webkit-backdrop-filter: blur(0);
       backdrop-filter: blur(0);
     }
     .dialog.dialog-swap-in:not(.dialog-instant)::backdrop {
       background-color: var(--bs-dialog-backdrop-bg);
-      -webkit-backdrop-filter: blur(var(--bs-dialog-backdrop-blur));
       backdrop-filter: blur(var(--bs-dialog-backdrop-blur));
     }
   }
@@ -7193,7 +7148,6 @@
     --bs-menu-item-active-bg: light-dark(var(--bs-menu-item-active-bg-light), var(--bs-menu-item-active-bg-dark));
     --bs-menu-item-hover-bg: light-dark(var(--bs-menu-item-hover-bg-light), var(--bs-menu-item-hover-bg-dark));
     background-color: color-mix(in oklch, var(--bs-menu-bg) 80%, transparent);
-    -webkit-backdrop-filter: blur(5px) saturate(180%);
     backdrop-filter: blur(5px) saturate(180%);
   }
   .menu-divider {
@@ -7251,7 +7205,6 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-    min-width: -moz-fit-content;
     min-width: fit-content;
   }
   .menu-item-description {
@@ -7876,13 +7829,9 @@
     width: var(--bs-navbar-toggler-icon-size);
     height: var(--bs-navbar-toggler-icon-size);
     background-color: currentcolor;
-    -webkit-mask-image: var(--bs-navbar-toggler-icon);
     mask-image: var(--bs-navbar-toggler-icon);
-    -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    -webkit-mask-position: center;
     mask-position: center;
-    -webkit-mask-size: contain;
     mask-size: contain;
   }
   .navbar-expand > .container,
@@ -8171,7 +8120,6 @@
     content: "";
     background-color: color-mix(in oklch, var(--bs-navbar-bg, var(--bs-bg-body)) 80%, transparent);
     background-image: none;
-    -webkit-backdrop-filter: blur(5px) saturate(180%);
     backdrop-filter: blur(5px) saturate(180%);
   }
   .navbar[data-bs-theme=dark] {
@@ -8916,105 +8864,81 @@
   }
   .sm\:drawer::backdrop {
     background-color: var(--bs-drawer-backdrop-bg);
-    -webkit-backdrop-filter: blur(var(--bs-drawer-backdrop-blur));
     backdrop-filter: blur(var(--bs-drawer-backdrop-blur));
   }
   @media (prefers-reduced-motion: no-preference) {
     .sm\:drawer::backdrop {
-      transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete, -webkit-backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing);
       transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete;
-      transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete, -webkit-backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing);
     }
   }
   .md\:drawer::backdrop {
     background-color: var(--bs-drawer-backdrop-bg);
-    -webkit-backdrop-filter: blur(var(--bs-drawer-backdrop-blur));
     backdrop-filter: blur(var(--bs-drawer-backdrop-blur));
   }
   @media (prefers-reduced-motion: no-preference) {
     .md\:drawer::backdrop {
-      transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete, -webkit-backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing);
       transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete;
-      transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete, -webkit-backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing);
     }
   }
   .lg\:drawer::backdrop {
     background-color: var(--bs-drawer-backdrop-bg);
-    -webkit-backdrop-filter: blur(var(--bs-drawer-backdrop-blur));
     backdrop-filter: blur(var(--bs-drawer-backdrop-blur));
   }
   @media (prefers-reduced-motion: no-preference) {
     .lg\:drawer::backdrop {
-      transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete, -webkit-backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing);
       transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete;
-      transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete, -webkit-backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing);
     }
   }
   .xl\:drawer::backdrop {
     background-color: var(--bs-drawer-backdrop-bg);
-    -webkit-backdrop-filter: blur(var(--bs-drawer-backdrop-blur));
     backdrop-filter: blur(var(--bs-drawer-backdrop-blur));
   }
   @media (prefers-reduced-motion: no-preference) {
     .xl\:drawer::backdrop {
-      transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete, -webkit-backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing);
       transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete;
-      transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete, -webkit-backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing);
     }
   }
   .\32 xl\:drawer::backdrop {
     background-color: var(--bs-drawer-backdrop-bg);
-    -webkit-backdrop-filter: blur(var(--bs-drawer-backdrop-blur));
     backdrop-filter: blur(var(--bs-drawer-backdrop-blur));
   }
   @media (prefers-reduced-motion: no-preference) {
     .\32 xl\:drawer::backdrop {
-      transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete, -webkit-backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing);
       transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete;
-      transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete, -webkit-backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing);
     }
   }
   .drawer::backdrop {
     background-color: var(--bs-drawer-backdrop-bg);
-    -webkit-backdrop-filter: blur(var(--bs-drawer-backdrop-blur));
     backdrop-filter: blur(var(--bs-drawer-backdrop-blur));
   }
   @media (prefers-reduced-motion: no-preference) {
     .drawer::backdrop {
-      transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete, -webkit-backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing);
       transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete;
-      transition: background-color var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing), display var(--bs-drawer-transition-duration) allow-discrete, overlay var(--bs-drawer-transition-duration) allow-discrete, -webkit-backdrop-filter var(--bs-drawer-transition-duration) var(--bs-drawer-transition-timing);
     }
   }
   @starting-style {
     .sm\:drawer::backdrop {
       background-color: transparent;
-      -webkit-backdrop-filter: blur(0);
       backdrop-filter: blur(0);
     }
     .md\:drawer::backdrop {
       background-color: transparent;
-      -webkit-backdrop-filter: blur(0);
       backdrop-filter: blur(0);
     }
     .lg\:drawer::backdrop {
       background-color: transparent;
-      -webkit-backdrop-filter: blur(0);
       backdrop-filter: blur(0);
     }
     .xl\:drawer::backdrop {
       background-color: transparent;
-      -webkit-backdrop-filter: blur(0);
       backdrop-filter: blur(0);
     }
     .\32 xl\:drawer::backdrop {
       background-color: transparent;
-      -webkit-backdrop-filter: blur(0);
       backdrop-filter: blur(0);
     }
     .drawer::backdrop {
       background-color: transparent;
-      -webkit-backdrop-filter: blur(0);
       backdrop-filter: blur(0);
     }
   }
@@ -9023,7 +8947,6 @@
   }
   .drawer-translucent {
     background-color: color-mix(in oklch, var(--bs-drawer-bg) 80%, transparent);
-    -webkit-backdrop-filter: blur(5px) saturate(180%);
     backdrop-filter: blur(5px) saturate(180%);
   }
   .drawer-sheet {
@@ -9213,26 +9136,20 @@
   .placeholder-wave {
     --bs-placeholder-wave-opacity-max: 1;
     --bs-placeholder-wave-opacity-min: 0.4;
-    -webkit-mask-image: linear-gradient(110deg, rgb(0, 0, 0, var(--bs-placeholder-wave-opacity-min)) 35%, rgb(0, 0, 0, var(--bs-placeholder-wave-opacity-max)) 50%, rgb(0, 0, 0, var(--bs-placeholder-wave-opacity-min)) 65%);
     mask-image: linear-gradient(110deg, rgb(0, 0, 0, var(--bs-placeholder-wave-opacity-min)) 35%, rgb(0, 0, 0, var(--bs-placeholder-wave-opacity-max)) 50%, rgb(0, 0, 0, var(--bs-placeholder-wave-opacity-min)) 65%);
-    -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    -webkit-mask-position: 100% 0%;
     mask-position: 100% 0%;
-    -webkit-mask-size: 250% 100%;
     mask-size: 250% 100%;
     animation: placeholder-wave 1.6s linear infinite;
   }
   @media (prefers-reduced-motion: reduce) {
     .placeholder-wave {
-      -webkit-mask-image: none;
       mask-image: none;
       animation: none;
     }
   }
   @keyframes placeholder-wave {
     100% {
-      -webkit-mask-position: 0% 0%;
       mask-position: 0% 0%;
     }
   }
@@ -9824,7 +9741,6 @@
     color: inherit;
   }
   .toast-translucent {
-    -webkit-backdrop-filter: blur(5px) saturate(180%);
     backdrop-filter: blur(5px) saturate(180%);
   }
   .toast-body {
@@ -9981,7 +9897,6 @@
 }
 .collapse.collapse-horizontal {
   --bs-transition-collapse-property: inline-size, display;
-  inline-size: -moz-fit-content;
   inline-size: fit-content;
   overflow-x: clip;
   overflow-y: visible;
@@ -10445,23 +10360,18 @@
     float: none;
   }
   .object-fit-contain {
-    -o-object-fit: contain;
     object-fit: contain;
   }
   .object-fit-cover {
-    -o-object-fit: cover;
     object-fit: cover;
   }
   .object-fit-fill {
-    -o-object-fit: fill;
     object-fit: fill;
   }
   .object-fit-scale {
-    -o-object-fit: scale-down;
     object-fit: scale-down;
   }
   .object-fit-none {
-    -o-object-fit: none;
     object-fit: none;
   }
   .opacity-0 {
@@ -10941,7 +10851,6 @@
     width: max-content;
   }
   .w-fit {
-    width: -moz-fit-content;
     width: fit-content;
   }
   .max-w-100 {
@@ -10987,7 +10896,6 @@
     height: max-content;
   }
   .h-fit {
-    height: -moz-fit-content;
     height: fit-content;
   }
   .max-h-100 {
@@ -11861,55 +11769,42 @@
     row-gap: 3rem;
   }
   .column-gap-0 {
-    -moz-column-gap: 0;
     column-gap: 0;
   }
   .column-gap-1 {
-    -moz-column-gap: 0.25rem;
     column-gap: 0.25rem;
   }
   .column-gap-2 {
-    -moz-column-gap: 0.375rem;
     column-gap: 0.375rem;
   }
   .column-gap-3 {
-    -moz-column-gap: 0.5rem;
     column-gap: 0.5rem;
   }
   .column-gap-4 {
-    -moz-column-gap: 0.75rem;
     column-gap: 0.75rem;
   }
   .column-gap-5 {
-    -moz-column-gap: 1rem;
     column-gap: 1rem;
   }
   .column-gap-6 {
-    -moz-column-gap: 1.25rem;
     column-gap: 1.25rem;
   }
   .column-gap-7 {
-    -moz-column-gap: 1.5rem;
     column-gap: 1.5rem;
   }
   .column-gap-8 {
-    -moz-column-gap: 1.75rem;
     column-gap: 1.75rem;
   }
   .column-gap-9 {
-    -moz-column-gap: 2rem;
     column-gap: 2rem;
   }
   .column-gap-10 {
-    -moz-column-gap: 2.25rem;
     column-gap: 2.25rem;
   }
   .column-gap-11 {
-    -moz-column-gap: 2.5rem;
     column-gap: 2.5rem;
   }
   .column-gap-12 {
-    -moz-column-gap: 3rem;
     column-gap: 3rem;
   }
   :where(.space-x-0 > :not(:last-child)) {
@@ -13100,23 +12995,18 @@
       float: none;
     }
     .sm\:object-fit-contain {
-      -o-object-fit: contain;
       object-fit: contain;
     }
     .sm\:object-fit-cover {
-      -o-object-fit: cover;
       object-fit: cover;
     }
     .sm\:object-fit-fill {
-      -o-object-fit: fill;
       object-fit: fill;
     }
     .sm\:object-fit-scale {
-      -o-object-fit: scale-down;
       object-fit: scale-down;
     }
     .sm\:object-fit-none {
-      -o-object-fit: none;
       object-fit: none;
     }
     .sm\:d-inline {
@@ -14008,55 +13898,42 @@
       row-gap: 3rem;
     }
     .sm\:column-gap-0 {
-      -moz-column-gap: 0;
       column-gap: 0;
     }
     .sm\:column-gap-1 {
-      -moz-column-gap: 0.25rem;
       column-gap: 0.25rem;
     }
     .sm\:column-gap-2 {
-      -moz-column-gap: 0.375rem;
       column-gap: 0.375rem;
     }
     .sm\:column-gap-3 {
-      -moz-column-gap: 0.5rem;
       column-gap: 0.5rem;
     }
     .sm\:column-gap-4 {
-      -moz-column-gap: 0.75rem;
       column-gap: 0.75rem;
     }
     .sm\:column-gap-5 {
-      -moz-column-gap: 1rem;
       column-gap: 1rem;
     }
     .sm\:column-gap-6 {
-      -moz-column-gap: 1.25rem;
       column-gap: 1.25rem;
     }
     .sm\:column-gap-7 {
-      -moz-column-gap: 1.5rem;
       column-gap: 1.5rem;
     }
     .sm\:column-gap-8 {
-      -moz-column-gap: 1.75rem;
       column-gap: 1.75rem;
     }
     .sm\:column-gap-9 {
-      -moz-column-gap: 2rem;
       column-gap: 2rem;
     }
     .sm\:column-gap-10 {
-      -moz-column-gap: 2.25rem;
       column-gap: 2.25rem;
     }
     .sm\:column-gap-11 {
-      -moz-column-gap: 2.5rem;
       column-gap: 2.5rem;
     }
     .sm\:column-gap-12 {
-      -moz-column-gap: 3rem;
       column-gap: 3rem;
     }
     :where(.sm\:space-x-0 > :not(:last-child)) {
@@ -14170,23 +14047,18 @@
       float: none;
     }
     .md\:object-fit-contain {
-      -o-object-fit: contain;
       object-fit: contain;
     }
     .md\:object-fit-cover {
-      -o-object-fit: cover;
       object-fit: cover;
     }
     .md\:object-fit-fill {
-      -o-object-fit: fill;
       object-fit: fill;
     }
     .md\:object-fit-scale {
-      -o-object-fit: scale-down;
       object-fit: scale-down;
     }
     .md\:object-fit-none {
-      -o-object-fit: none;
       object-fit: none;
     }
     .md\:d-inline {
@@ -15078,55 +14950,42 @@
       row-gap: 3rem;
     }
     .md\:column-gap-0 {
-      -moz-column-gap: 0;
       column-gap: 0;
     }
     .md\:column-gap-1 {
-      -moz-column-gap: 0.25rem;
       column-gap: 0.25rem;
     }
     .md\:column-gap-2 {
-      -moz-column-gap: 0.375rem;
       column-gap: 0.375rem;
     }
     .md\:column-gap-3 {
-      -moz-column-gap: 0.5rem;
       column-gap: 0.5rem;
     }
     .md\:column-gap-4 {
-      -moz-column-gap: 0.75rem;
       column-gap: 0.75rem;
     }
     .md\:column-gap-5 {
-      -moz-column-gap: 1rem;
       column-gap: 1rem;
     }
     .md\:column-gap-6 {
-      -moz-column-gap: 1.25rem;
       column-gap: 1.25rem;
     }
     .md\:column-gap-7 {
-      -moz-column-gap: 1.5rem;
       column-gap: 1.5rem;
     }
     .md\:column-gap-8 {
-      -moz-column-gap: 1.75rem;
       column-gap: 1.75rem;
     }
     .md\:column-gap-9 {
-      -moz-column-gap: 2rem;
       column-gap: 2rem;
     }
     .md\:column-gap-10 {
-      -moz-column-gap: 2.25rem;
       column-gap: 2.25rem;
     }
     .md\:column-gap-11 {
-      -moz-column-gap: 2.5rem;
       column-gap: 2.5rem;
     }
     .md\:column-gap-12 {
-      -moz-column-gap: 3rem;
       column-gap: 3rem;
     }
     :where(.md\:space-x-0 > :not(:last-child)) {
@@ -15240,23 +15099,18 @@
       float: none;
     }
     .lg\:object-fit-contain {
-      -o-object-fit: contain;
       object-fit: contain;
     }
     .lg\:object-fit-cover {
-      -o-object-fit: cover;
       object-fit: cover;
     }
     .lg\:object-fit-fill {
-      -o-object-fit: fill;
       object-fit: fill;
     }
     .lg\:object-fit-scale {
-      -o-object-fit: scale-down;
       object-fit: scale-down;
     }
     .lg\:object-fit-none {
-      -o-object-fit: none;
       object-fit: none;
     }
     .lg\:d-inline {
@@ -16148,55 +16002,42 @@
       row-gap: 3rem;
     }
     .lg\:column-gap-0 {
-      -moz-column-gap: 0;
       column-gap: 0;
     }
     .lg\:column-gap-1 {
-      -moz-column-gap: 0.25rem;
       column-gap: 0.25rem;
     }
     .lg\:column-gap-2 {
-      -moz-column-gap: 0.375rem;
       column-gap: 0.375rem;
     }
     .lg\:column-gap-3 {
-      -moz-column-gap: 0.5rem;
       column-gap: 0.5rem;
     }
     .lg\:column-gap-4 {
-      -moz-column-gap: 0.75rem;
       column-gap: 0.75rem;
     }
     .lg\:column-gap-5 {
-      -moz-column-gap: 1rem;
       column-gap: 1rem;
     }
     .lg\:column-gap-6 {
-      -moz-column-gap: 1.25rem;
       column-gap: 1.25rem;
     }
     .lg\:column-gap-7 {
-      -moz-column-gap: 1.5rem;
       column-gap: 1.5rem;
     }
     .lg\:column-gap-8 {
-      -moz-column-gap: 1.75rem;
       column-gap: 1.75rem;
     }
     .lg\:column-gap-9 {
-      -moz-column-gap: 2rem;
       column-gap: 2rem;
     }
     .lg\:column-gap-10 {
-      -moz-column-gap: 2.25rem;
       column-gap: 2.25rem;
     }
     .lg\:column-gap-11 {
-      -moz-column-gap: 2.5rem;
       column-gap: 2.5rem;
     }
     .lg\:column-gap-12 {
-      -moz-column-gap: 3rem;
       column-gap: 3rem;
     }
     :where(.lg\:space-x-0 > :not(:last-child)) {
@@ -16310,23 +16151,18 @@
       float: none;
     }
     .xl\:object-fit-contain {
-      -o-object-fit: contain;
       object-fit: contain;
     }
     .xl\:object-fit-cover {
-      -o-object-fit: cover;
       object-fit: cover;
     }
     .xl\:object-fit-fill {
-      -o-object-fit: fill;
       object-fit: fill;
     }
     .xl\:object-fit-scale {
-      -o-object-fit: scale-down;
       object-fit: scale-down;
     }
     .xl\:object-fit-none {
-      -o-object-fit: none;
       object-fit: none;
     }
     .xl\:d-inline {
@@ -17218,55 +17054,42 @@
       row-gap: 3rem;
     }
     .xl\:column-gap-0 {
-      -moz-column-gap: 0;
       column-gap: 0;
     }
     .xl\:column-gap-1 {
-      -moz-column-gap: 0.25rem;
       column-gap: 0.25rem;
     }
     .xl\:column-gap-2 {
-      -moz-column-gap: 0.375rem;
       column-gap: 0.375rem;
     }
     .xl\:column-gap-3 {
-      -moz-column-gap: 0.5rem;
       column-gap: 0.5rem;
     }
     .xl\:column-gap-4 {
-      -moz-column-gap: 0.75rem;
       column-gap: 0.75rem;
     }
     .xl\:column-gap-5 {
-      -moz-column-gap: 1rem;
       column-gap: 1rem;
     }
     .xl\:column-gap-6 {
-      -moz-column-gap: 1.25rem;
       column-gap: 1.25rem;
     }
     .xl\:column-gap-7 {
-      -moz-column-gap: 1.5rem;
       column-gap: 1.5rem;
     }
     .xl\:column-gap-8 {
-      -moz-column-gap: 1.75rem;
       column-gap: 1.75rem;
     }
     .xl\:column-gap-9 {
-      -moz-column-gap: 2rem;
       column-gap: 2rem;
     }
     .xl\:column-gap-10 {
-      -moz-column-gap: 2.25rem;
       column-gap: 2.25rem;
     }
     .xl\:column-gap-11 {
-      -moz-column-gap: 2.5rem;
       column-gap: 2.5rem;
     }
     .xl\:column-gap-12 {
-      -moz-column-gap: 3rem;
       column-gap: 3rem;
     }
     :where(.xl\:space-x-0 > :not(:last-child)) {
@@ -17380,23 +17203,18 @@
       float: none;
     }
     .\32 xl\:object-fit-contain {
-      -o-object-fit: contain;
       object-fit: contain;
     }
     .\32 xl\:object-fit-cover {
-      -o-object-fit: cover;
       object-fit: cover;
     }
     .\32 xl\:object-fit-fill {
-      -o-object-fit: fill;
       object-fit: fill;
     }
     .\32 xl\:object-fit-scale {
-      -o-object-fit: scale-down;
       object-fit: scale-down;
     }
     .\32 xl\:object-fit-none {
-      -o-object-fit: none;
       object-fit: none;
     }
     .\32 xl\:d-inline {
@@ -18288,55 +18106,42 @@
       row-gap: 3rem;
     }
     .\32 xl\:column-gap-0 {
-      -moz-column-gap: 0;
       column-gap: 0;
     }
     .\32 xl\:column-gap-1 {
-      -moz-column-gap: 0.25rem;
       column-gap: 0.25rem;
     }
     .\32 xl\:column-gap-2 {
-      -moz-column-gap: 0.375rem;
       column-gap: 0.375rem;
     }
     .\32 xl\:column-gap-3 {
-      -moz-column-gap: 0.5rem;
       column-gap: 0.5rem;
     }
     .\32 xl\:column-gap-4 {
-      -moz-column-gap: 0.75rem;
       column-gap: 0.75rem;
     }
     .\32 xl\:column-gap-5 {
-      -moz-column-gap: 1rem;
       column-gap: 1rem;
     }
     .\32 xl\:column-gap-6 {
-      -moz-column-gap: 1.25rem;
       column-gap: 1.25rem;
     }
     .\32 xl\:column-gap-7 {
-      -moz-column-gap: 1.5rem;
       column-gap: 1.5rem;
     }
     .\32 xl\:column-gap-8 {
-      -moz-column-gap: 1.75rem;
       column-gap: 1.75rem;
     }
     .\32 xl\:column-gap-9 {
-      -moz-column-gap: 2rem;
       column-gap: 2rem;
     }
     .\32 xl\:column-gap-10 {
-      -moz-column-gap: 2.25rem;
       column-gap: 2.25rem;
     }
     .\32 xl\:column-gap-11 {
-      -moz-column-gap: 2.5rem;
       column-gap: 2.5rem;
     }
     .\32 xl\:column-gap-12 {
-      -moz-column-gap: 3rem;
       column-gap: 3rem;
     }
     :where(.\32 xl\:space-x-0 > :not(:last-child)) {
