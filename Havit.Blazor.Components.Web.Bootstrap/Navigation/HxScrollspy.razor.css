@@ -8,3 +8,10 @@
 .hx-scrollspy:focus {
 	outline: none;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+	/* Smooth scrolling (SmoothScroll): the navigation clicks scroll the container by JavaScript (scrollTo), which follows the CSS scroll-behavior. */
+	.hx-scrollspy-smooth-scroll {
+		scroll-behavior: smooth;
+	}
+}
