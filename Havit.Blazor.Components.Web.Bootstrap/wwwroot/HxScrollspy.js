@@ -1,17 +1,13 @@
 ﻿export function initialize(element, targetId, options) {
-	// Bootstrap smoothScroll is not used: its click handler resolves the URL fragment against <base href> (required by Blazor),
-	// replaces the history state with null, runs before HxScrollspyNavLink.OnClick and does not ignore controls (buttons) inside the links.
-	const { smoothScroll, ...bootstrapOptions } = options ?? {};
+	// HxScrollspy.SmoothScroll is not passed to Bootstrap (smoothScroll option): it is the CSS scroll-behavior of the container.
+	// The Bootstrap click handler would resolve the URL fragment against <base href> (required by Blazor).
+	const { smoothScroll, ...bootstrapOptions } = options ?? {}; // never passed to Bootstrap (see above)
 	element.dataset.hxScrollspyTarget = targetId;
 	element.addEventListener('activate.bs.scrollspy', handleActivate);
 	new bootstrap.ScrollSpy(element, {
 		...bootstrapOptions,
 		target: '#' + targetId
 	});
-
-	if (smoothScroll) {
-		enableSmoothScroll(element, targetId);
-	}
 }
 
 export function reinitialize(element, targetId, options) {
@@ -24,18 +20,13 @@ export function reinitialize(element, targetId, options) {
 
 	// Update the configuration of the existing instance instead of creating a new one:
 	// a new instance does not know the currently active section and highlights the first one until another section crosses the activation line.
-	disableSmoothScroll(element);
+	const { smoothScroll, ...bootstrapOptions } = options ?? {}; // never passed to Bootstrap (see initialize)
 	element.dataset.hxScrollspyTarget = targetId;
-	const { smoothScroll, ...bootstrapOptions } = options ?? {};
 	scrollspy._config = scrollspy._getConfig({
 		...bootstrapOptions,
 		target: '#' + targetId
 	});
 	scrollspy.refresh(); // rebuilds the observer with the new configuration
-
-	if (smoothScroll) {
-		enableSmoothScroll(element, targetId);
-	}
 }
 
 export function refresh(element) {
@@ -48,7 +39,6 @@ export function refresh(element) {
 }
 
 export function dispose(element) {
-	disableSmoothScroll(element);
 	element.removeEventListener('activate.bs.scrollspy', handleActivate);
 
 	const scrollspy = bootstrap.ScrollSpy.getInstance(element);
@@ -119,13 +109,6 @@ function scrollToElement(element) {
 	}
 }
 
-function isDisabledLink(link) {
-	// the same rules as Bootstrap ScrollSpy uses to ignore disabled links
-	return link.classList.contains('disabled')
-		|| (link.hasAttribute('disabled') && (link.getAttribute('disabled') !== 'false'))
-		|| (link.getAttribute('aria-disabled') === 'true');
-}
-
 function findElementByFragment(fragment) {
 	if (!fragment || (fragment.length < 2)) {
 		return null;
@@ -174,77 +157,4 @@ function handleActivate(event) {
 			toggle.classList.remove('active');
 		}
 	}
-}
-
-// interactive elements (native and ARIA widgets) - a click on them is not a click on the link they are placed in
-const controlSelector = 'button, input, select, textarea, label, summary, [contenteditable]:not([contenteditable="false"]), [data-bs-toggle], '
-	+ ['button', 'checkbox', 'combobox', 'menuitem', 'menuitemcheckbox', 'menuitemradio', 'option', 'radio', 'slider', 'spinbutton', 'switch', 'tab', 'textbox']
-		.map(role => `[role="${role}"]`).join(', ');
-
-const smoothScrollRegistrations = new WeakMap();
-
-function enableSmoothScroll(element, targetId) {
-	const navigation = document.getElementById(targetId);
-	if (!navigation) {
-		return;
-	}
-	const handler = event => handleSmoothScrollClick(event, navigation, element);
-	navigation.addEventListener('click', handler);
-	smoothScrollRegistrations.set(element, { navigation, handler });
-}
-
-function disableSmoothScroll(element) {
-	const registration = smoothScrollRegistrations.get(element);
-	if (registration) {
-		registration.navigation.removeEventListener('click', registration.handler);
-		smoothScrollRegistrations.delete(element);
-	}
-}
-
-function handleSmoothScrollClick(event, navigation, scrollspyElement) {
-	if (event.defaultPrevented || (event.button !== 0) || event.ctrlKey || event.shiftKey || event.altKey || event.metaKey) {
-		return;
-	}
-
-	const link = event.target.closest('a[href]');
-	if (!link || !navigation.contains(link)) {
-		return;
-	}
-
-	if (isDisabledLink(link)) {
-		// keyboard activation of a disabled link (pointer-events: none blocks the mouse only); the default would navigate via <base href>
-		event.preventDefault();
-		return;
-	}
-
-	if (link.hasAttribute('data-hx-scrollspy-nav-link')) {
-		// HxScrollspyNavLink navigates on its own (after its OnClick callback)
-		return;
-	}
-
-	const linkRole = link.getAttribute('role');
-	if (link.hasAttribute('data-bs-toggle') || (linkRole && (linkRole !== 'link') && (linkRole !== 'menuitem'))) {
-		// the link is an action widget (e.g. a tab, a menu toggle, role="button"), not a navigation to a section
-		// (role="menuitem" is a navigational menu item)
-		return;
-	}
-
-	const control = event.target.closest(controlSelector);
-	if (control && (control !== link) && link.contains(control)) {
-		// a click on a control placed inside the link is not a navigation
-		return;
-	}
-
-	const fragment = link.getAttribute('href');
-	if (!fragment || !fragment.startsWith('#')) {
-		return;
-	}
-	const section = findElementByFragment(fragment);
-	if (!section || !scrollspyElement.contains(section)) {
-		// not a section of this scrollspy (e.g. a link to a page-level heading), leave the link alone
-		return;
-	}
-
-	event.preventDefault(); // otherwise the link would be resolved against <base href>
-	navigateToFragment(fragment);
 }

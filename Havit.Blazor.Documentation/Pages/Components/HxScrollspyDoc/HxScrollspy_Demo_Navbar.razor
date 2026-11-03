@@ -8,10 +8,13 @@
 				<HxMenuToggleElement ElementName="button" type="button">Menu</HxMenuToggleElement>
 			</Toggle>
 			<Content>
-				<a class="menu-item" href="#navbardemo3">Third</a>
-				<a class="menu-item" href="#navbardemo4">Fourth</a>
-				<HxMenuDivider />
-				<a class="menu-item" href="#navbardemo5">Fifth</a>
+				@* HxScrollspyNavLink renders the nav-link class - the wrapper prevents the active pill styling of .nav-pills .show > .nav-link *@
+				<div>
+					<HxScrollspyNavLink Href="#navbardemo3" CssClass="menu-item">Third</HxScrollspyNavLink>
+					<HxScrollspyNavLink Href="#navbardemo4" CssClass="menu-item">Fourth</HxScrollspyNavLink>
+					<HxMenuDivider />
+					<HxScrollspyNavLink Href="#navbardemo5" CssClass="menu-item">Fifth</HxScrollspyNavLink>
+				</div>
 			</Content>
 		</HxMenu>
 	</HxNav>

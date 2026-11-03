@@ -64,7 +64,17 @@ public partial class HxScrollspyNavLink : IAsyncDisposable
 
 		// a single (shared) import, even for clicks while the import is pending
 		_jsModuleTask ??= JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxScrollspy)).AsTask();
-		var jsModule = await _jsModuleTask;
+		IJSObjectReference jsModule;
+		try
+		{
+			jsModule = await _jsModuleTask;
+		}
+		catch
+		{
+			// do not cache a failed import, the next click tries again
+			_jsModuleTask = null;
+			throw;
+		}
 		if (_disposed)
 		{
 			// disposed during the import, DisposeAsyncCore could not release the module (disposing it repeatedly is a no-op)

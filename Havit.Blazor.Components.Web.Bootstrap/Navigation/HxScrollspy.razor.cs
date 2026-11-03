@@ -46,9 +46,7 @@ public partial class HxScrollspy : IAsyncDisposable
 	[Parameter] public IReadOnlyList<double> Threshold { get; set; }
 
 	/// <summary>
-	/// Enables smooth scrolling of the container when the user clicks a navigation link that refers to a spied section.<br />
-	/// Plain <c>&lt;a href="#id"&gt;</c> links in the navigation are handled as well (only the container scrolls, the URL fragment is updated and the focus is moved to the section);
-	/// clicks on controls (e.g. buttons) placed inside the links are ignored.<br />
+	/// Enables smooth scrolling of the container (CSS <c>scroll-behavior: smooth</c>) when the user clicks a <see cref="HxScrollspyNavLink"/>.<br />
 	/// Respects the <c>prefers-reduced-motion</c> user preference.<br />
 	/// Default is <c>false</c>.
 	/// </summary>
@@ -99,10 +97,8 @@ public partial class HxScrollspy : IAsyncDisposable
 
 	private Dictionary<string, object> GetJsOptions()
 	{
-		var options = new Dictionary<string, object>
-		{
-			["smoothScroll"] = SmoothScroll
-		};
+		// SmoothScroll is not passed to JavaScript, it is the CSS class of the container
+		var options = new Dictionary<string, object>();
 		if (!String.IsNullOrWhiteSpace(TopMargin))
 		{
 			options["topMargin"] = TopMargin;

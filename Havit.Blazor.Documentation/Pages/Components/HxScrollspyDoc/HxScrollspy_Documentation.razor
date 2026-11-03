@@ -33,6 +33,7 @@
     <p>
         Scroll the area below the <a href="/components/@nameof(HxNavbar)"><code>@nameof(HxNavbar)</code></a> and watch the active class change.
         Open the menu and watch the menu items being highlighted as well (the menu toggle gets the <code>.active</code> class too).
+        The menu items are <code>@nameof(HxScrollspyNavLink)</code>s with the <code>menu-item</code> CSS class.
         The demo also sets <code>RootMargin="0px 0px -40%"</code> and enables <code>SmoothScroll</code>.
     </p>
     <Demo Type="typeof(HxScrollspy_Demo_Navbar)" />
@@ -52,13 +53,13 @@
 
     <DocHeading Title="Simple anchors" />
     <p>
-        Scrollspy is not limited to navs and list groups, it works with any <code>&lt;a&gt;</code> elements inside the target element.
-        Plain anchors do not have any <code>.active</code> styling, so you have to provide your own CSS.
+        Scrollspy is not limited to navs and list groups, it works with any links inside the target element.
+        Outside of a nav or a list group, the links do not have any <code>.active</code> styling, so you have to provide your own CSS.
     </p>
     <DocAlert Type="DocAlertType.Warning">
-        Blazor resolves plain <code>&lt;a href="#id"&gt;</code> links against <code>&lt;base href&gt;</code>, so a click would navigate away from the current page.
-        Either enable <code>SmoothScroll</code> (<code>HxScrollspy</code> then handles the click and scrolls to the section itself), as in the demo below,
-        or use <code>@nameof(HxScrollspyNavLink)</code>.
+        Plain <code>&lt;a href="#id"&gt;</code> anchors are not supported for the in-page navigation:
+        Blazor resolves them against <code>&lt;base href&gt;</code>, so a click would navigate away from the current page.
+        Use <code>@nameof(HxScrollspyNavLink)</code> (with your own CSS classes) instead, as in the demo below.
     </DocAlert>
     <Demo Type="typeof(HxScrollspy_Demo_SimpleAnchors)" />
 

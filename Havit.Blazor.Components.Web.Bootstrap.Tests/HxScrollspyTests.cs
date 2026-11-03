@@ -38,17 +38,17 @@ public class HxScrollspyTests : BunitTestBase
 	}
 
 	[Fact]
-	public void HxScrollspy_FirstRender_DefaultOptions_PassesOnlySmoothScroll()
+	public void HxScrollspy_FirstRender_DefaultOptions_PassesNoOptions()
 	{
 		// Act
 		Render<HxScrollspy>(parameters => parameters
 			.Add(p => p.TargetId, "scrollspy-nav")
+			.Add(p => p.SmoothScroll, true)
 		);
 
 		// Assert
 		var options = GetJsOptions(JSInterop.Invocations.Single(i => i.Identifier == "initialize"));
-		Assert.False((bool)options["smoothScroll"]);
-		Assert.Single(options); // topMargin, rootMargin and threshold not set => Bootstrap defaults apply
+		Assert.Empty(options); // topMargin, rootMargin and threshold not set => Bootstrap defaults apply; SmoothScroll is CSS only
 	}
 
 	[Fact]
@@ -92,7 +92,6 @@ public class HxScrollspyTests : BunitTestBase
 
 		// Assert
 		var options = GetJsOptions(JSInterop.Invocations.Single(i => i.Identifier == "initialize"));
-		Assert.True((bool)options["smoothScroll"]);
 		Assert.Equal("96px", options["topMargin"]);
 		Assert.Equal("0px 0px -40%", options["rootMargin"]);
 		Assert.Equal(new[] { 0, 0.5, 1 }, (double[])options["threshold"]);
@@ -277,6 +276,50 @@ public class HxScrollspyTests : BunitTestBase
 		Assert.Equal(1, jsRuntime.ImportCount);
 	}
 
+	private class FailingFirstImportJSRuntime : IJSRuntime
+	{
+		public int ImportCount { get; private set; }
+		public int NavigateToFragmentCount { get; private set; }
+
+		public ValueTask<TValue> InvokeAsync<TValue>(string identifier, object[] args)
+		{
+			return InvokeAsync<TValue>(identifier, CancellationToken.None, args);
+		}
+
+		public ValueTask<TValue> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken, object[] args)
+		{
+			if (identifier == "import")
+			{
+				ImportCount++;
+				if (ImportCount == 1)
+				{
+					return ValueTask.FromException<TValue>(new JSException("Import failed."));
+				}
+				return ValueTask.FromResult((TValue)(object)new ModuleReference(this));
+			}
+			return ValueTask.FromResult(default(TValue));
+		}
+
+		private class ModuleReference(FailingFirstImportJSRuntime owner) : IJSObjectReference
+		{
+			public ValueTask<TValue> InvokeAsync<TValue>(string identifier, object[] args)
+			{
+				return InvokeAsync<TValue>(identifier, CancellationToken.None, args);
+			}
+
+			public ValueTask<TValue> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken, object[] args)
+			{
+				if (identifier == "navigateToFragment")
+				{
+					owner.NavigateToFragmentCount++;
+				}
+				return ValueTask.FromResult(default(TValue));
+			}
+
+			public ValueTask DisposeAsync() => ValueTask.CompletedTask;
+		}
+	}
+
 	private class PendingImportJSRuntime : IJSRuntime
 	{
 		public int ImportCount { get; private set; }
@@ -297,6 +340,24 @@ public class HxScrollspyTests : BunitTestBase
 	}
 
 	[Fact]
+	public async Task HxScrollspyNavLink_ImportFailed_NextClickImportsAgain()
+	{
+		// Arrange
+		var jsRuntime = new FailingFirstImportJSRuntime();
+		Services.AddSingleton<IJSRuntime>(jsRuntime);
+		var cut = Render<HxScrollspyNavLink>(parameters => parameters
+			.Add(l => l.Href, "#section1"));
+
+		// Act
+		await Assert.ThrowsAsync<JSException>(() => cut.Find("a").ClickAsync(new Microsoft.AspNetCore.Components.Web.MouseEventArgs()));
+		await cut.Find("a").ClickAsync(new Microsoft.AspNetCore.Components.Web.MouseEventArgs());
+
+		// Assert
+		Assert.Equal(2, jsRuntime.ImportCount);
+		Assert.Equal(1, jsRuntime.NavigateToFragmentCount);
+	}
+
+	[Fact]
 	public async Task HxScrollspyNavLink_ClickAfterDispose_DoesNotImportJavaScript()
 	{
 		// e.g. OnClick removes the link - a module imported after disposal would never be released
@@ -313,19 +374,6 @@ public class HxScrollspyTests : BunitTestBase
 		// Assert
 		Assert.DoesNotContain(JSInterop.Invocations, i => i.Identifier == "import");
 		Assert.DoesNotContain(JSInterop.Invocations, i => i.Identifier == "navigateToFragment");
-	}
-
-	[Fact]
-	public void HxScrollspyNavLink_Render_RendersMarkerAttribute()
-	{
-		// HxScrollspy smooth scrolling (HxScrollspy.js) leaves the clicks on HxScrollspyNavLink to the component (OnClick first)
-
-		// Act
-		var cut = Render<HxScrollspyNavLink>(parameters => parameters
-			.Add(l => l.Href, "#section1"));
-
-		// Assert
-		Assert.True(cut.Find("a").HasAttribute("data-hx-scrollspy-nav-link"));
 	}
 
 	[Theory]
