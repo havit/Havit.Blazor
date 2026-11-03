@@ -2,6 +2,8 @@
 	// Bootstrap smoothScroll is not used: its click handler resolves the URL fragment against <base href> (required by Blazor),
 	// replaces the history state with null, runs before HxScrollspyNavLink.OnClick and does not ignore controls (buttons) inside the links.
 	const { smoothScroll, ...bootstrapOptions } = options ?? {};
+	element.dataset.hxScrollspyTarget = targetId;
+	element.addEventListener('activate.bs.scrollspy', handleActivate);
 	new bootstrap.ScrollSpy(element, {
 		...bootstrapOptions,
 		target: '#' + targetId
@@ -23,6 +25,7 @@ export function reinitialize(element, targetId, options) {
 	// Update the configuration of the existing instance instead of creating a new one:
 	// a new instance does not know the currently active section and highlights the first one until another section crosses the activation line.
 	disableSmoothScroll(element);
+	element.dataset.hxScrollspyTarget = targetId;
 	const { smoothScroll, ...bootstrapOptions } = options ?? {};
 	scrollspy._config = scrollspy._getConfig({
 		...bootstrapOptions,
@@ -46,6 +49,7 @@ export function refresh(element) {
 
 export function dispose(element) {
 	disableSmoothScroll(element);
+	element.removeEventListener('activate.bs.scrollspy', handleActivate);
 
 	const scrollspy = bootstrap.ScrollSpy.getInstance(element);
 	if (scrollspy) {
@@ -58,18 +62,7 @@ export function navigateToFragment(fragment) {
 	// calls element.scrollIntoView() and scrolls all the scrollable ancestors including the page itself.
 	const element = findElementByFragment(fragment);
 	if (element) {
-		const container = getScrollContainer(element);
-		if (container) {
-			// scroll only the container (scroll-behavior of the container applies, see .hx-scrollspy-smooth-scroll)
-			const scrollMarginTop = Number.parseFloat(getComputedStyle(element).scrollMarginTop) || 0;
-			// clientTop: the container border (scrollTop is measured inside the border)
-			const top = element.getBoundingClientRect().top - container.getBoundingClientRect().top - container.clientTop + container.scrollTop - scrollMarginTop;
-			container.scrollTo({ top: top });
-		}
-		else {
-			// the page itself is the scroll container
-			element.scrollIntoView();
-		}
+		scrollToElement(element);
 	}
 
 	// Resolve the fragment against the current URL (a relative '#fragment' would be resolved against <base href>).
@@ -92,6 +85,40 @@ function focusSection(element) {
 		element.addEventListener('blur', () => element.removeAttribute('tabindex'), { once: true });
 		element.focus({ preventScroll: true });
 	}
+}
+
+function scrollToElement(element) {
+	let container = getScrollContainer(element);
+	if (!container) {
+		// the page itself is the scroll container
+		element.scrollIntoView();
+		return;
+	}
+
+	// Scroll the containers from the nearest one up to the HxScrollspy container (not the page):
+	// the section in a nested scrollable panel is scrolled to the top of the panel, the panel to the top of the outer container, etc.
+	// The destination does not depend on the current scroll position of the container (works even during a smooth scroll).
+	let target = element;
+	let scrollMarginTop = Number.parseFloat(getComputedStyle(element).scrollMarginTop) || 0;
+	while (container) {
+		// clientTop: the container border (scrollTop is measured inside the border)
+		const top = target.getBoundingClientRect().top - container.getBoundingClientRect().top - container.clientTop + container.scrollTop - scrollMarginTop;
+		container.scrollTo({ top: top }); // scroll-behavior of the container applies, see .hx-scrollspy-smooth-scroll
+
+		if (container.classList.contains('hx-scrollspy') || !container.parentElement?.closest('.hx-scrollspy')) {
+			break;
+		}
+		target = container;
+		scrollMarginTop = 0;
+		container = getScrollContainer(container);
+	}
+}
+
+function isDisabledLink(link) {
+	// the same rules as Bootstrap ScrollSpy uses to ignore disabled links
+	return link.classList.contains('disabled')
+		|| (link.hasAttribute('disabled') && (link.getAttribute('disabled') !== 'false'))
+		|| (link.getAttribute('aria-disabled') === 'true');
 }
 
 function findElementByFragment(fragment) {
@@ -124,6 +151,22 @@ function getScrollContainer(element) {
 	return null;
 }
 
+function handleActivate(event) {
+	// Bootstrap activates the menu toggle of an active menu item, but clears only [href].active,
+	// so a <button> menu toggle would remain active after another section gets active.
+	const link = event.relatedTarget;
+	const navigation = document.getElementById(event.currentTarget.dataset.hxScrollspyTarget);
+	if (!link || !navigation) {
+		return;
+	}
+	for (const toggle of navigation.querySelectorAll('[data-bs-toggle="menu"].active:not([href])')) {
+		const menu = toggle.nextElementSibling;
+		if (!menu || !menu.contains(link)) {
+			toggle.classList.remove('active');
+		}
+	}
+}
+
 const smoothScrollRegistrations = new WeakMap();
 
 function enableSmoothScroll(element, targetId) {
@@ -151,6 +194,12 @@ function handleSmoothScrollClick(event, navigation, scrollspyElement) {
 
 	const link = event.target.closest('a[href]');
 	if (!link || !navigation.contains(link)) {
+		return;
+	}
+
+	if (isDisabledLink(link)) {
+		// keyboard activation of a disabled link (pointer-events: none blocks the mouse only); the default would navigate via <base href>
+		event.preventDefault();
 		return;
 	}
 

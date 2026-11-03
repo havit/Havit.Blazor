@@ -46,6 +46,12 @@ public partial class HxScrollspyNavLink : IAsyncDisposable
 
 	private async Task HandleClick(MouseEventArgs args)
 	{
+		if (IsDisabled())
+		{
+			// keyboard activation of a disabled link (pointer-events: none of the .disabled class blocks the mouse only)
+			return;
+		}
+
 		await InvokeOnClickAsync(args);
 
 		// NavigationManager.NavigateTo() is not used: for the same page, Blazor scrolls the target element into view by scrollIntoView(),
@@ -66,6 +72,42 @@ public partial class HxScrollspyNavLink : IAsyncDisposable
 			return;
 		}
 		await jsModule.InvokeVoidAsync("navigateToFragment", Href);
+	}
+
+	/// <summary>
+	/// The link is disabled (the same rules as Bootstrap ScrollSpy uses to ignore the link) - <c>disabled</c> CSS class, <c>disabled</c> or <c>aria-disabled="true"</c> attribute.
+	/// </summary>
+	private bool IsDisabled()
+	{
+		if (HasCssClass(CssClass, "disabled"))
+		{
+			return true;
+		}
+
+		if (AdditionalAttributes is null)
+		{
+			return false;
+		}
+
+		return (AdditionalAttributes.TryGetValue("class", out var cssClass) && HasCssClass(cssClass?.ToString(), "disabled"))
+			|| (AdditionalAttributes.TryGetValue("disabled", out var disabled) && IsTrueAttributeValue(disabled))
+			|| (AdditionalAttributes.TryGetValue("aria-disabled", out var ariaDisabled) && String.Equals(ariaDisabled?.ToString(), "true", StringComparison.OrdinalIgnoreCase));
+	}
+
+	private static bool HasCssClass(string cssClass, string className)
+	{
+		return (cssClass is not null) && cssClass.Split(' ', StringSplitOptions.RemoveEmptyEntries).Contains(className);
+	}
+
+	private static bool IsTrueAttributeValue(object value)
+	{
+		// Blazor renders boolean true as an attribute without value and omits false
+		return value switch
+		{
+			bool boolValue => boolValue,
+			null => false,
+			_ => !String.Equals(value.ToString(), "false", StringComparison.OrdinalIgnoreCase)
+		};
 	}
 
 	public async ValueTask DisposeAsync()

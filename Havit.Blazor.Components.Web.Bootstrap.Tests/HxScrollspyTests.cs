@@ -328,6 +328,40 @@ public class HxScrollspyTests : BunitTestBase
 		Assert.True(cut.Find("a").HasAttribute("data-hx-scrollspy-nav-link"));
 	}
 
+	[Theory]
+	[InlineData("CssClass")]
+	[InlineData("class")]
+	[InlineData("disabled")]
+	[InlineData("aria-disabled")]
+	public void HxScrollspyNavLink_DisabledClick_DoesNotNavigateNorInvokeOnClick(string disabledBy)
+	{
+		// e.g. keyboard activation - the .disabled class (pointer-events: none) blocks the mouse only
+
+		// Arrange
+		var onClickInvoked = false;
+		var cut = Render<HxScrollspyNavLink>(parameters =>
+		{
+			parameters
+				.Add(l => l.Href, "#section1")
+				.Add(l => l.OnClick, () => onClickInvoked = true);
+			_ = disabledBy switch
+			{
+				"CssClass" => parameters.Add(l => l.CssClass, "ms-3 disabled"),
+				"class" => parameters.AddUnmatched("class", "list-group-item disabled"),
+				"disabled" => parameters.AddUnmatched("disabled", true),
+				"aria-disabled" => parameters.AddUnmatched("aria-disabled", "true"),
+				_ => throw new ArgumentOutOfRangeException(nameof(disabledBy))
+			};
+		});
+
+		// Act
+		cut.Find("a").Click();
+
+		// Assert
+		Assert.False(onClickInvoked);
+		Assert.DoesNotContain(JSInterop.Invocations, i => i.Identifier == "navigateToFragment");
+	}
+
 	[Fact]
 	public void HxScrollspyNavLink_HrefWithoutHash_Throws()
 	{
