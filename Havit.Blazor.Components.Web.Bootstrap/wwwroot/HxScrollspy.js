@@ -159,6 +159,10 @@ function getScrollContainer(element) {
 function handleActivate(event) {
 	// Bootstrap activates the menu toggle of an active menu item, but clears only [href].active,
 	// so a <button> menu toggle would remain active after another section gets active.
+	if (event.target !== event.currentTarget) {
+		// activate.bs.scrollspy bubbles - ignore the events of a nested scrollspy
+		return;
+	}
 	const link = event.relatedTarget;
 	const navigation = document.getElementById(event.currentTarget.dataset.hxScrollspyTarget);
 	if (!link || !navigation) {
@@ -171,6 +175,11 @@ function handleActivate(event) {
 		}
 	}
 }
+
+// interactive elements (native and ARIA widgets) - a click on them is not a click on the link they are placed in
+const controlSelector = 'button, input, select, textarea, label, summary, [contenteditable]:not([contenteditable="false"]), [data-bs-toggle], '
+	+ ['button', 'checkbox', 'combobox', 'menuitem', 'menuitemcheckbox', 'menuitemradio', 'option', 'radio', 'slider', 'spinbutton', 'switch', 'tab', 'textbox']
+		.map(role => `[role="${role}"]`).join(', ');
 
 const smoothScrollRegistrations = new WeakMap();
 
@@ -213,7 +222,13 @@ function handleSmoothScrollClick(event, navigation, scrollspyElement) {
 		return;
 	}
 
-	const control = event.target.closest('button, input, select, textarea, label, [role="button"]');
+	const linkRole = link.getAttribute('role');
+	if (link.hasAttribute('data-bs-toggle') || (linkRole && (linkRole !== 'link'))) {
+		// the link is a widget (e.g. a tab, a menu toggle, role="button"), not a navigation to a section
+		return;
+	}
+
+	const control = event.target.closest(controlSelector);
 	if (control && (control !== link) && link.contains(control)) {
 		// a click on a control placed inside the link is not a navigation
 		return;
