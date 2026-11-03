@@ -1,0 +1,22 @@
+@page "/HxCarousel_ControlsLayoutChange"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxButton Text="Toggle overlay" Color="ThemeColor.Primary" OnClick="() => _overlay = !_overlay" data-testid="toggle-overlay" CssClass="mb-3" />
+
+<div data-testid="carousel-wrapper">
+	<HxCarousel Controls="true" Indicators="true" ControlsPlacement="CarouselControlsPlacement.Top" Overlay="_overlay" Autoplay="true" Interval="1000" Pause="CarouselPause.False">
+		@for (int i = 0; i < 3; i++)
+		{
+			int slideIndex = i;
+			<HxCarouselItem Active="(slideIndex == 0)" @key="slideIndex">
+				<div data-testid="slide-@slideIndex" class="d-flex align-items-center justify-content-center bg-secondary" style="height: 200px;">
+					<span>Slide @(slideIndex + 1)</span>
+				</div>
+			</HxCarouselItem>
+		}
+	</HxCarousel>
+</div>
+
+@code {
+	private bool _overlay;
+}

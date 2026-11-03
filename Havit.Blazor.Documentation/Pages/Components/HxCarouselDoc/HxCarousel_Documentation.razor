@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxCarousel))]
+﻿@attribute [Route("/components/" + nameof(HxCarousel))]
 
 <ApiDoc Type="typeof(HxCarousel)">
 
@@ -14,6 +14,10 @@
 	<DocHeading Title="Controls" />
 	<p>Add <code>Controls="true"</code> to render previous/next buttons below the slides.</p>
 	<Demo Type="typeof(HxCarousel_Demo_Controls)" />
+
+	<DocHeading Title="Top controls" />
+	<p>Set <code>ControlsPlacement="CarouselControlsPlacement.Top"</code> to render the controls (and indicators) above the slides instead.</p>
+	<Demo Type="typeof(HxCarousel_Demo_ControlsTop)" />
 
 	<DocHeading Title="Indicators" />
 	<Demo Type="typeof(HxCarousel_Demo_Indicators)" />
