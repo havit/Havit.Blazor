@@ -1,50 +1,110 @@
 @attribute [Route("/components/" + nameof(HxTooltip))]
 
 <ApiDoc Type="typeof(HxTooltip)">
+	<MainContent>
+		<DocAlert Type="DocAlertType.Warning">
+			The tooltip wrapper is rendered only if the <code>Text</code> or <code>WrapperCssClass</code> parameter is set.
+			If both are <code>null</code> or empty, only the <code>ChildContent</code> is rendered.
+		</DocAlert>
 
-	<DocAlert Type="DocAlertType.Warning">
-		The tooltip wrapper is rendered only if the <code>Text</code> or <code>WrapperCssClass</code> parameter is set.
-		If both are <code>null</code> or empty, only the <code>ChildContent</code> is rendered.
-	</DocAlert>
+		<DocHeading Title="Basic usage" />
+		<Demo Type="typeof(HxTooltip_Demo_BasicUsage)" Tabs="false" />
 
-    <DocHeading Title="Basic usage" />
-    <Demo Type="typeof(HxTooltip_Demo_BasicUsage)" Tabs="false" />
+		<DocHeading Title="HxButton support" />
+		<p>The tooltip support is also built-in in the <a href="/components/@nameof(HxButton)">@nameof(HxButton)</a> component via the <code>Tooltip</code> parameter.</p>
+		<Demo Type="typeof(HxTooltip_Demo_Button)" Tabs="false" />
+		<p>You can use the <a href="/types/@nameof(TooltipSettings)"><code>@nameof(TooltipSettings)</code></a> parameter to customize the tooltip.</p>
+		<DocAlert Type="DocAlertType.Info">
+			Bootstrap's default tooltip trigger is <code>hover focus</code>, which often keeps the tooltip
+			visible after clicking the button since it remains focused. You can change this behavior
+			by adjusting the <code>Trigger</code> parameter.<br/>
+			To update the default trigger, set <code>HxButton.Defaults.TooltipSettings.Trigger = TooltipTrigger.Hover</code>
+			in your application startup.
+		</DocAlert>
 
-    <DocHeading Title="HxButton support" />
-	<p>The tooltip support is also built-in in the <a href="/components/@nameof(HxButton)">@nameof(HxButton)</a> component via the <code>Tooltip</code> parameter.</p>
-	<Demo Type="typeof(HxTooltip_Demo_Button)" Tabs="false" />
-	<p>You can use the <a href="/types/@nameof(TooltipSettings)"><code>@nameof(TooltipSettings)</code></a> parameter to customize the tooltip.</p>
-	<DocAlert Type="DocAlertType.Info">
-		Bootstrap's default tooltip trigger is <code>hover focus</code>, which often keeps the tooltip
-		visible after clicking the button since it remains focused. You can change this behavior
-		by adjusting the <code>Trigger</code> parameter.<br/>
-		To update the default trigger, set <code>HxButton.Defaults.TooltipSettings.Trigger = TooltipTrigger.Hover</code>
-		in your application startup.
-	</DocAlert>
+		<DocHeading Title="Placement" />
+		<p>You can change the placement of the tooltip with the <code>@nameof(HxTooltip.Placement)</code> parameter:</p>
+		<Demo Type="typeof(HxTooltip_Demo_Placement)" />
 
-    <DocHeading Title="Placement" />
-	<p>You can change the placement of the tooltip with the <code>@nameof(HxTooltip.Placement)</code> parameter:</p>
-	<Demo Type="typeof(HxTooltip_Demo_Placement)" />
+		<DocHeading Title="HTML content" />
+		<p>Use <code>Html="true"</code> to enable HTML in the tooltip.</p>
+		<Demo Type="typeof(HxTooltip_Demo_HtmlContent)" />
 
-    <DocHeading Title="HTML content" />
-	<p>Use <code>Html="true"</code> to enable HTML in the tooltip.</p>
-	<Demo Type="typeof(HxTooltip_Demo_HtmlContent)" />
+		<DocHeading Title="Tooltips on links" />
+		<p>Tooltips work on inline elements such as links as well:</p>
+		<Demo Type="typeof(HxTooltip_Demo_Links)" Tabs="false" />
+		<DocAlert Type="DocAlertType.Info">
+			The tooltip wrapper is an inline-block <code>&lt;span&gt;</code>, so a link wrapped in <code>HxTooltip</code> doesn't break across lines.
+			Keep the tooltip-enabled links short.
+		</DocAlert>
 
-    <DocHeading Title="Disabled elements" />
-	<p>
-		Disabled elements use <code>pointer-events: none</code>, so they can't directly receive the events that trigger a tooltip.
-		<code>HxTooltip</code> wraps its content in a <code>&lt;span&gt;</code> and attaches the trigger to that wrapper, so a <strong>hover</strong>-triggered tooltip works on disabled elements out of the box&mdash;no extra markup required.
-		Focus triggering doesn't apply here, as neither the disabled control nor the wrapper is focusable.
-	</p>
-	<Demo Type="typeof(HxTooltip_Demo_DisabledElements)" Tabs="false" />
+		<DocHeading Title="Custom tooltips" />
+		<p>
+			You can customize the appearance of tooltips using <a href="/components/HxTooltip#HxTooltip-css-variables">CSS variables</a>.
+			Use the <code>@nameof(HxTooltip.CssClass)</code> parameter to add a custom class to the tooltip element and use it to override the local CSS variables.
+			In the example below, the custom class maps the tooltip colors to the Bootstrap <code>theme-*</code> variables, so you can combine it with any <code>theme-*</code> class.
+		</p>
+		<Demo Type="typeof(HxTooltip_Demo_Custom)" />
 
-    <DocHeading Title="Programmability" />
-	<p>
-		You can use the <code>ShowAsync()</code> and <code>HideAsync()</code> methods, as well as the <code>OnShown</code> and <code>OnHidden</code> events,
-		to program your own interaction.
-	</p>
-	<Demo Type="typeof(HxTooltip_Demo_MethodsEvents)" />
-	<p>You can also use the <code>DisableAsync()</code> and <code>EnableAsync()</code> methods to control the tooltip behavior.</p>
-	<Demo Type="typeof(HxTooltip_Demo_EnableDisable)" />
+		<DocHeading Title="Disabled elements" />
+		<p>
+			Disabled elements use <code>pointer-events: none</code>, so they can't directly receive the events that trigger a tooltip.
+			<code>HxTooltip</code> wraps its content in a <code>&lt;span&gt;</code> and attaches the trigger to that wrapper, so a <strong>hover</strong>-triggered tooltip works on disabled elements out of the box&mdash;no extra markup required.
+			Focus triggering doesn't apply here, as neither the disabled control nor the wrapper is focusable.
+		</p>
+		<Demo Type="typeof(HxTooltip_Demo_DisabledElements)" Tabs="false" />
 
+		<DocHeading Title="Programmability" />
+		<p>
+			You can use the <code>ShowAsync()</code> and <code>HideAsync()</code> methods, as well as the <code>OnShown</code> and <code>OnHidden</code> events,
+			to program your own interaction.
+		</p>
+		<Demo Type="typeof(HxTooltip_Demo_MethodsEvents)" />
+		<p>You can also use the <code>DisableAsync()</code> and <code>EnableAsync()</code> methods to control the tooltip behavior.</p>
+		<Demo Type="typeof(HxTooltip_Demo_EnableDisable)" />
+	</MainContent>
+	<CssVariables>
+		<ApiDocCssVariable Name="--bs-tooltip-zindex" Default="var(--bs-z-tooltip)">
+			Z-index of the tooltip.
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--bs-tooltip-max-width" Default="200px">
+			Maximum width of the tooltip.
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--bs-tooltip-padding-x" Default="var(--bs-spacer-3)">
+			Horizontal padding of the tooltip.
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--bs-tooltip-padding-y" Default="calc(var(--bs-spacer) * .375)">
+			Vertical padding of the tooltip.
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--bs-tooltip-font-size" Default="var(--bs-font-size-sm)">
+			Font size of the tooltip.
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--bs-tooltip-color" Default="var(--bs-bg-body)">
+			Text color of the tooltip.
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--bs-tooltip-bg" Default="var(--bs-fg-body)">
+			Background color of the tooltip (and its arrow).
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--bs-tooltip-border-radius" Default="var(--bs-radius-5)">
+			Border radius of the tooltip.
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--bs-tooltip-opacity" Default=".95">
+			Opacity of the shown tooltip.
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--bs-tooltip-arrow-width" Default=".8rem">
+			Width of the tooltip arrow.
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--bs-tooltip-arrow-height" Default=".4rem">
+			Height of the tooltip arrow.
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--bs-tooltip-transition-property" Default="opacity">
+			CSS property animated when the tooltip is shown or hidden.
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--bs-tooltip-transition-duration" Default=".15s">
+			Duration of the show/hide transition.
+		</ApiDocCssVariable>
+		<ApiDocCssVariable Name="--bs-tooltip-transition-timing" Default="linear">
+			Timing function of the show/hide transition.
+		</ApiDocCssVariable>
+	</CssVariables>
 </ApiDoc>
