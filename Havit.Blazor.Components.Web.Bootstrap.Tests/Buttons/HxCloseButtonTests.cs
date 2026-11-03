@@ -15,6 +15,33 @@ public class HxCloseButtonTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxCloseButton_AriaLabelAttribute_OverridesDefault()
+	{
+		// Arrange & Act
+		var cut = Render<HxCloseButton>(parameters => parameters
+			.AddUnmatched("aria-label", "Zavřít")
+		);
+
+		// Assert
+		Assert.Equal("Zavřít", cut.Find("button").GetAttribute("aria-label"));
+	}
+
+	[Fact]
+	public void HxCloseButton_AriaLabelParameterWithAdditionalAttributes_UsesAriaLabelParameter()
+	{
+		// Arrange & Act
+		var cut = Render<HxCloseButton>(parameters => parameters
+			.Add(p => p.AriaLabel, "Zavřít")
+			.AddUnmatched("title", "Dismiss")
+		);
+
+		// Assert
+		var button = cut.Find("button");
+		Assert.Equal("Zavřít", button.GetAttribute("aria-label"));
+		Assert.Equal("Dismiss", button.GetAttribute("title"));
+	}
+
+	[Fact]
 	public async Task HxCloseButton_Click_TriggersOnClick()
 	{
 		// Arrange
