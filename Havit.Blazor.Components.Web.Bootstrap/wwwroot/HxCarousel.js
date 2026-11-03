@@ -21,8 +21,10 @@ export function reinitialize(element, options) {
 	if (c) {
 		// keep the runtime autoplay intent (autoplay stops for good once the user takes control)
 		options = { ...options, autoplay: c._playing ?? options.autoplay };
-		// ...and whether it is cycling right now (pause() via PauseAsync() or hover keeps the intent, only stops the timer)
-		paused = options.autoplay && !element.classList.contains('carousel-playing');
+		// ...and whether it is cycling right now (pause() via PauseAsync() or hover keeps the intent, only stops the timer).
+		// Read it from the live instance (its autoplay timer), not from the .carousel-playing class:
+		// Blazor rewrites the root class attribute when a class-affecting parameter (e.g. Overlay) changes, dropping that class.
+		paused = options.autoplay && !c._interval;
 		c.dispose();
 	}
 	// the active item is preserved, the new instance reads it from the .carousel-item.active element

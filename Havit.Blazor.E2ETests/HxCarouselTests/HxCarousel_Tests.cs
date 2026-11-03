@@ -1,4 +1,4 @@
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace Havit.Blazor.E2ETests.HxCarouselTests;
 
@@ -107,5 +107,24 @@ public class HxCarousel_Tests : TestAppTestBase
 		await Expect(indicators.Nth(2)).ToHaveClassAsync(ActiveClassRegex, new() { Timeout = CarouselTransitionTimeout });
 		await Expect(Page.GetByTestId("last-slid")).ToHaveTextAsync(new Regex("->2$"), new() { Timeout = CarouselTransitionTimeout });
 		await Expect(Page.Locator("[data-bs-slide='next']")).ToBeDisabledAsync(new() { Timeout = CarouselTransitionTimeout });
+	}
+
+	[Fact]
+	public async Task HxCarousel_OverlayToggledDuringAutoplayWithTopControls_KeepsCycling()
+	{
+		// Arrange - autoplaying carousel with top controls
+		await NavigateToTestAppAsync("/HxCarousel_ControlsLayoutChange");
+		var carousel = Page.Locator(".carousel");
+		var slides = Page.Locator(".carousel-item");
+		await Expect(carousel).ToHaveClassAsync(new Regex("\\bcarousel-playing\\b"));
+
+		// Act - Overlay moves the controls below the slides (re-creates the Bootstrap carousel) and rewrites the root class attribute
+		await Page.GetByTestId("toggle-overlay").ClickAsync();
+		await Expect(carousel).ToHaveClassAsync(new Regex("\\bcarousel-overlay\\b"));
+
+		// Assert - the re-created carousel keeps cycling (advances from whichever slide is active now)
+		await Expect(carousel).ToHaveClassAsync(new Regex("\\bcarousel-playing\\b"), new() { Timeout = CarouselTransitionTimeout });
+		int activeIndex = await slides.EvaluateAllAsync<int>("items => items.findIndex(item => item.classList.contains('active'))");
+		await Expect(slides.Nth((activeIndex + 1) % 3)).ToHaveClassAsync(ActiveClassRegex, new() { Timeout = CarouselTransitionTimeout });
 	}
 }
