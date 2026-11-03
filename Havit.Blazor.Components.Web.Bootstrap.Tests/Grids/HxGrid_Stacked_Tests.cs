@@ -272,6 +272,40 @@ public class HxGrid_Stacked_Tests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxGrid_Stacked_ContextMenuPlaceholderCellsHaveContextMenuColumnCssClass()
+	{
+		// Arrange — the data provider never completes, so the placeholders stay rendered.
+		// The stacked layout takes the context menu cell out of the flow (top-end corner of the row) by its CSS class;
+		// without the class, the placeholder rows would be taller than the data rows (skews the infinite scroll item size).
+		var dataProviderTcs = new TaskCompletionSource<GridDataProviderResult<TestItem>>();
+
+		// Act
+		var cut = Render<HxGrid<TestItem>>(parameters => parameters
+			.Add(p => p.DataProvider, request => dataProviderTcs.Task)
+			.Add(p => p.Stacked, GridStacked.Always)
+			.Add(p => p.ContentNavigationMode, GridContentNavigationMode.InfiniteScroll)
+			.Add(p => p.PlaceholdersRowCount, 2)
+			.Add<HxGridColumn<TestItem>>(p => p.Columns, column => column
+				.Add(c => c.HeaderText, "Name")
+				.Add(c => c.ItemTextSelector, item => item.Name))
+			.Add<HxContextMenuGridColumn<TestItem>>(p => p.Columns, column => column
+				.Add(c => c.ItemCssClass, "custom-cell")
+				.Add(c => c.ChildContent, item => "menu")));
+
+		// Assert — the rows with cells (the empty rows are the Virtualize spacers)
+		var rows = cut.FindAll("tbody tr").Where(row => row.QuerySelectorAll("td").Length > 0).ToList();
+		Assert.Equal(2, rows.Count);
+		Assert.All(rows, row =>
+		{
+			var contextMenuCell = row.QuerySelectorAll("td").Last();
+			Assert.Contains("hx-context-menu-grid-column", contextMenuCell.ClassList);
+			Assert.Contains("custom-cell", contextMenuCell.ClassList);
+			Assert.Equal("", contextMenuCell.InnerHtml);
+			Assert.Null(contextMenuCell.GetAttribute("data-cell"));
+		});
+	}
+
+	[Fact]
 	public async Task HxGrid_Stacked_FooterCellsHaveDataCell()
 	{
 		// Arrange
