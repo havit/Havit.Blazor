@@ -173,4 +173,36 @@ public class HxCalendarTests : BunitTestBase
 			Assert.Equal("button", button.GetAttribute("type"));
 		}
 	}
+
+	[Fact]
+	public void HxCalendar_ValueInMinDateMonth_PreviousMonthDisabled()
+	{
+		// Arrange + Act — the value is in the middle of the MinDate month, the previous month is entirely below MinDate
+		var cut = Render<HxCalendar>(parameters => parameters
+			.Add(p => p.Value, new DateTime(2024, 5, 15))
+			.Add(p => p.ValueChanged, (DateTime? _) => { })
+			.Add(p => p.MinDate, new DateTime(2024, 5, 1))
+		);
+
+		// Assert
+		var previousMonthButton = cut.FindAll("button.hx-calendar-navigation-button")[0];
+		Assert.True(previousMonthButton.HasAttribute("disabled"));
+	}
+
+	[Fact]
+	public void HxCalendar_Value_DisplayMonthChangedReportsFirstDayOfMonth()
+	{
+		// Arrange
+		DateTime? reportedMonth = null;
+
+		// Act
+		Render<HxCalendar>(parameters => parameters
+			.Add(p => p.Value, new DateTime(2024, 5, 15))
+			.Add(p => p.ValueChanged, (DateTime? _) => { })
+			.Add(p => p.DisplayMonthChanged, (DateTime newMonth) => { reportedMonth = newMonth; })
+		);
+
+		// Assert
+		Assert.Equal(new DateTime(2024, 5, 1), reportedMonth);
+	}
 }
