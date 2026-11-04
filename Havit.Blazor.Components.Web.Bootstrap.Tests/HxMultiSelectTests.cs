@@ -7,7 +7,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 public class HxMultiSelectTests : BunitTestBase
 {
 	[Fact]
-	public void HxMultiSelect_Render_DisplaysDropdownStructure()
+	public void HxMultiSelect_Render_DisplaysComboboxStructure()
 	{
 		// Arrange
 		var items = new[] { "Apple", "Banana", "Cherry" };
@@ -28,16 +28,17 @@ public class HxMultiSelectTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 
-		// Assert — renders the hx-multi-select container
+		// Assert — renders the hx-multi-select container with the Bootstrap combobox toggle
 		cut.Find(".hx-multi-select");
+		cut.Find("button.combobox-toggle");
 
-		// Assert — renders dropdown menu with items as checkboxes
-		var checkboxes = cut.FindAll("input[type='checkbox']");
-		Assert.Equal(3, checkboxes.Count());
+		// Assert — renders a listbox with one option per item
+		var options = cut.FindAll("[role='option']");
+		Assert.Equal(3, options.Count);
 	}
 
 	[Fact]
-	public void HxMultiSelect_SelectedValues_CheckboxesAreChecked()
+	public void HxMultiSelect_SelectedValues_OptionsAreMarkedSelected()
 	{
 		// Arrange
 		var items = new[] { "Apple", "Banana", "Cherry" };
@@ -58,9 +59,10 @@ public class HxMultiSelectTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 
-		// Assert — exactly one checkbox should be checked
-		var checkedBoxes = cut.FindAll("input[type='checkbox'][checked]");
-		Assert.Single(checkedBoxes);
+		// Assert — exactly one option should be marked as selected
+		var selectedOptions = cut.FindAll("[role='option'][aria-selected='true']");
+		Assert.Single(selectedOptions);
+		Assert.Contains("Banana", selectedOptions[0].TextContent);
 	}
 
 	[Fact]
@@ -112,13 +114,14 @@ public class HxMultiSelectTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 
-		// Assert — renders without checkboxes
-		var checkboxes = cut.FindAll("input[type='checkbox']");
-		Assert.Empty(checkboxes);
+		// Assert — renders the null-data text in the toggle and no options
+		var toggleValue = cut.Find(".combobox-value");
+		Assert.Contains("No data available", toggleValue.TextContent);
+		Assert.Empty(cut.FindAll("[role='option']"));
 	}
 
 	[Fact]
-	public void HxMultiSelect_Enabled_False_DisablesInput()
+	public void HxMultiSelect_Enabled_False_DisablesToggle()
 	{
 		// Arrange
 		var items = new[] { "Apple" };
@@ -140,13 +143,47 @@ public class HxMultiSelectTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 
-		// Assert — the input should be disabled
-		var input = cut.Find("input[type='text']");
-		Assert.NotNull(input.GetAttribute("disabled"));
+		// Assert — the toggle should be disabled
+		var toggle = cut.Find("button.combobox-toggle");
+		Assert.NotNull(toggle.GetAttribute("disabled"));
 	}
 
 	[Fact]
-	public void HxMultiSelect_Render_DoesNotEmitListboxOptionRoles()
+	public void HxMultiSelect_FloatingLabel_LabelPrecedesToggleButtonInDom()
+	{
+		// Arrange — regression: Bootstrap 6 floats the label via ":has(~ .form-control...)", a relational
+		// selector that only matches a *following* sibling, so the label must be the first child of
+		// .form-floating, before the toggle button (not after it, and not after the menu).
+		var items = new[] { "Apple", "Banana" };
+		var selectedValues = new List<string>();
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxMultiSelect<string, string>>(0);
+			builder.AddAttribute(1, "Data", (IEnumerable<string>)items);
+			builder.AddAttribute(2, "TextSelector", (Func<string, string>)(x => x));
+			builder.AddAttribute(3, "ValueSelector", (Func<string, string>)(x => x));
+			builder.AddAttribute(4, "Value", selectedValues);
+			builder.AddAttribute(5, "ValueChanged", EventCallback.Factory.Create<List<string>>(this, v => { }));
+			builder.AddAttribute(6, "ValueExpression", (Expression<Func<List<string>>>)(() => selectedValues));
+			builder.AddAttribute(7, "LabelType", (LabelType?)LabelType.Floating);
+			builder.AddAttribute(8, "Label", "Employees");
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+
+		// Assert
+		var formFloating = cut.Find(".form-floating");
+		var children = formFloating.Children;
+		Assert.Equal("LABEL", children[0].TagName);
+		Assert.Equal("BUTTON", children[1].TagName);
+		Assert.Equal(children[1].GetAttribute("id"), children[0].GetAttribute("for"));
+	}
+
+	[Fact]
+	public void HxMultiSelect_Render_EmitsAccessibleListboxRoles()
 	{
 		// Arrange
 		var items = new[] { "Apple", "Banana", "Cherry" };
@@ -167,9 +204,16 @@ public class HxMultiSelectTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 
-		// Assert
-		Assert.Empty(cut.FindAll("[role='listbox']"));
-		Assert.Empty(cut.FindAll("[role='option']"));
+		// Assert — the menu is an accessible multi-selectable listbox
+		var listbox = cut.Find("[role='listbox']");
+		Assert.Equal("true", listbox.GetAttribute("aria-multiselectable"));
+
+		// Assert — the toggle is wired up to the listbox popup
+		var toggle = cut.Find("button.combobox-toggle");
+		Assert.Equal("listbox", toggle.GetAttribute("aria-haspopup"));
+		Assert.Equal(listbox.Id, toggle.GetAttribute("aria-controls"));
+
+		Assert.Equal(3, cut.FindAll("[role='option']").Count);
 	}
 
 	[Fact]
@@ -196,8 +240,7 @@ public class HxMultiSelectTests : BunitTestBase
 		cut.Find("input[id$='_filter']").Input("an");
 
 		// Assert — only "Banana" matches
-		var checkboxes = cut.FindAll("input[type='checkbox']");
-		var checkbox = Assert.Single(checkboxes);
-		Assert.Contains("Banana", checkbox.ParentElement.TextContent);
+		var option = Assert.Single(cut.FindAll("[role='option']"));
+		Assert.Contains("Banana", option.TextContent);
 	}
 }

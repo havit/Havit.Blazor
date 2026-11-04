@@ -14,10 +14,7 @@ public class HxSwitch : HxCheckboxBase
 
 	static HxSwitch()
 	{
-		Defaults = new SwitchSettings()
-		{
-			Native = false
-		};
+		Defaults = new SwitchSettings();
 	}
 
 	/// <summary>
@@ -37,17 +34,27 @@ public class HxSwitch : HxCheckboxBase
 	protected override SwitchSettings GetSettings() => Settings;
 
 	/// <summary>
-	/// To render switch as a native switch.
+	/// [Obsolete] No effect. Since Bootstrap 6, every switch renders the <c>switch</c> attribute (native haptic feedback in mobile Safari, iOS 17.4+).
 	/// </summary>
+	[Obsolete("No effect. Since Bootstrap 6, every switch renders the switch attribute (native haptic feedback).")]
 	[Parameter] public bool? Native { get; set; }
 
-	private protected bool NativeEffective => Native ?? GetSettings()?.Native ?? GetDefaults().Native ?? throw new InvalidOperationException(nameof(Native) + " default for " + nameof(HxSwitch) + " has to be set.");
+	protected override CheckboxRenderMode RenderModeEffective => CheckboxRenderMode.Switch;
 
-	protected override CheckboxRenderMode RenderModeEffective => NativeEffective ? CheckboxRenderMode.NativeSwitch : CheckboxRenderMode.Switch;
+	/// <summary>
+	/// Theme color of the switch (renders the <c>theme-*</c> class on the <c>.switch</c> wrapper, new in Bootstrap 6).
+	/// </summary>
+	[Parameter] public ThemeColor? Color { get; set; }
+	protected override ThemeColor ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color ?? ThemeColor.None;
 
-	protected override ThemeColor ColorEffective => throw new NotSupportedException();
-
-	protected override bool OutlineEffective => throw new NotSupportedException();
+	protected override ButtonVariant VariantEffective => throw new NotSupportedException();
 
 	protected override ButtonSize ButtonSizeEffective => throw new NotSupportedException();
+
+	/// <summary>
+	/// Size of the switch (<c>switch-sm</c>/<c>switch-lg</c>).<br />
+	/// The default is taken from <see cref="HxSetup.Defaults"/> (<see cref="InputSize.Regular"/> if not customized).
+	/// </summary>
+	[Parameter] public InputSize? InputSize { get; set; }
+	protected override InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 }

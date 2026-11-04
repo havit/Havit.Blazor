@@ -11,8 +11,8 @@ function handleClick(event) {
 		return;
 	}
 
-	// the icon wrapper is a sibling of the dropdown toggle (input) within HxDropdown
-	const triggerElement = iconWrapperElement.parentElement.querySelector(':scope > [data-bs-toggle="dropdown"]');
+	// the icon wrapper is a sibling of the HxMenu containing the menu toggle (input)
+	const triggerElement = iconWrapperElement.parentElement.querySelector('[data-bs-toggle="menu"]');
 	if (triggerElement) {
 		event.stopPropagation();
 		triggerElement.click();

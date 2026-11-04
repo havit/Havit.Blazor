@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Basic calendar building block. Used for <see cref="HxInputDate{TValue}"/> and <see cref="HxInputDateRange"/> implementation.<br />
+/// Standalone month calendar for picking a single date or a date range — the same calendar used inside <see cref="HxInputDate{TValue}"/> and <see cref="HxInputDateRange"/>, available on its own for building custom date pickers.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCalendar">https://havit.blazor.eu/components/HxCalendar</see>
 /// </summary>
 public partial class HxCalendar
