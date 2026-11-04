@@ -130,7 +130,8 @@ Search: `rg -n -- '--bs-(secondary-color|emphasis-color|[a-z]+-text-emphasis|bod
 | `dropdown-header` | `menu-header` |
 | `dropdown-toggle` | — (no caret class; the toggle is any element with `data-bs-toggle="menu"`) |
 | `dropdown-toggle-split` | `menu-toggle-split` |
-| `dropup` / `dropend` / `dropstart`, `dropdown-menu-end` | placement option on the Menu plugin (`MenuPlacement` in Hx components) |
+| `dropup` / `dropend` / `dropstart`, `dropdown-menu-start` / `dropdown-menu-end` | `data-bs-placement` attribute on the toggle (e.g. `top-end`; `MenuPlacement` in Hx components — `MenuPlacementExtensions.ToDataBsPlacement()` returns the value; there is no alignment class, so `DropdownMenuAlignmentExtensions.GetCssClass()` has no replacement) |
+| `dropdown-menu-{bp}-start` / `dropdown-menu-{bp}-end` (responsive alignment) | responsive `data-bs-placement`, e.g. `bottom-start md:bottom-end` (`ResponsivePlacement` in Hx components) |
 | `data-bs-toggle="dropdown"` | `data-bs-toggle="menu"` |
 
 ## 8. Forms
