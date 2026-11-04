@@ -53,3 +53,10 @@
 *.vcxitems text
 
 .github/workflows/*.lock.yml linguist-generated=true merge=ours
+
+# Generated or vendored files (collapsed in GitHub diffs)
+docs/generated/** linguist-generated=true
+Havit.Blazor.Documentation/XmlDoc/*.xml linguist-generated=true
+Havit.Bootstrap/dist/** linguist-generated=true
+Havit.Bootstrap/package-lock.json linguist-generated=true
+Havit.Blazor.Components.Web.Bootstrap/wwwroot/bootstrap.* linguist-generated=true
