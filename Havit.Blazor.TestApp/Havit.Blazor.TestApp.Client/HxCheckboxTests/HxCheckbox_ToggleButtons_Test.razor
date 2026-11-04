@@ -11,21 +11,21 @@
 
 <h3>Toggle buttons in a button group</h3>
 <HxButtonGroup>
-    <HxCheckbox Text="Value 1" @bind-Value="@model.Value1" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Success" Outline="true" />
-    <HxCheckbox Text="Value 2" @bind-Value="@model.Value2" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Info" Outline="true" />
+    <HxCheckbox Text="Value 1" @bind-Value="@model.Value1" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Success" Variant="ButtonVariant.Outline" />
+    <HxCheckbox Text="Value 2" @bind-Value="@model.Value2" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Info" Variant="ButtonVariant.Outline" />
 </HxButtonGroup>
 
 <h3>Toggle buttons with Label</h3>
-<HxCheckbox Label="Toggle button 1" Text="Value 1" @bind-Value="@model.Value1" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Success" Outline="true" />
-<HxCheckbox Label="Toggle button 2" Text="Value 2" @bind-Value="@model.Value2" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Info" Outline="true" />
+<HxCheckbox Label="Toggle button 1" Text="Value 1" @bind-Value="@model.Value1" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Success" Variant="ButtonVariant.Outline" />
+<HxCheckbox Label="Toggle button 2" Text="Value 2" @bind-Value="@model.Value2" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Info" Variant="ButtonVariant.Outline" />
 
 <h3>In edit form</h3>
 <EditForm @bind-Model="@model">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <HxCheckbox Text="Value 1" @bind-Value="@model.Value1" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Success" Outline="true" />
-    <HxCheckbox Text="Value 2" @bind-Value="@model.Value2" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Info" Outline="true" />
+    <HxCheckbox Text="Value 1" @bind-Value="@model.Value1" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Success" Variant="ButtonVariant.Outline" />
+    <HxCheckbox Text="Value 2" @bind-Value="@model.Value2" RenderMode="CheckboxRenderMode.ToggleButton" Color="ThemeColor.Info" Variant="ButtonVariant.Outline" />
 
     <HxSubmit Icon="@BootstrapIcon.Check" Color="ThemeColor.Primary">Submit</HxSubmit>
 </EditForm>

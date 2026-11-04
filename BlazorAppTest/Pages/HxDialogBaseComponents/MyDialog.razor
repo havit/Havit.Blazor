@@ -1,6 +1,6 @@
 ﻿@inherits HxDialogBase<int> 
 
-<HxModal Title="What is on your dice?" @ref="modal">
+<HxDialog Title="What is on your dice?" @ref="dialog">
 	<BodyTemplate>
 		<HxButton Text="1" Color="ThemeColor.Primary" OnClick="async () => await HideAsync(1)" />
 		<HxButton Text="2" Color="ThemeColor.Primary" OnClick="async () => await HideAsync(2)" />
@@ -12,4 +12,4 @@
 	<FooterTemplate>
 		<HxButton Text="Close" Color="ThemeColor.Secondary" OnClick="async () => await HideAsCancelledAsync()" />
 	</FooterTemplate>
-</HxModal>
+</HxDialog>

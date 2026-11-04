@@ -1,0 +1,23 @@
+@page "/HxCollapse_ShowBeforeInit"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<p>ShowAsync() called before the collapse is initialized (from the first OnAfterRenderAsync of the page).</p>
+
+<HxCollapse @ref="_collapseComponent" Id="showBeforeInitCollapse" data-testid="show-before-init-collapse">
+	<div class="card card-body" data-testid="show-before-init-content">
+		This content is shown by ShowAsync() called before the collapse initialization.
+	</div>
+</HxCollapse>
+
+@code {
+	private HxCollapse _collapseComponent;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			// HxCollapse is still importing its JS module at this point, so the request is deferred until its initialization.
+			await _collapseComponent.ShowAsync();
+		}
+	}
+}
