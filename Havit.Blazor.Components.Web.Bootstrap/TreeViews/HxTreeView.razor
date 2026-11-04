@@ -2,7 +2,7 @@
 @using Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
 
-<div class="@CssClassHelper.Combine("hx-tree-view", CssClass)">
+<div class="@CssClassHelper.Combine("hx-tree-view", CssClass)" role="tree" @attributes="AdditionalAttributes">
 	<CascadingValue Value="this" IsFixed="true">
 		@foreach (var item in Items)
 		{

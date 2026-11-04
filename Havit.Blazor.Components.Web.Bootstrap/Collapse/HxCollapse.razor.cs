@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/collapse/">Bootstrap 5 Collapse</see> component.<br />
+/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/collapse/">Bootstrap 6 Collapse</see> for toggling the visibility of content — accordions, expandable panels, collapsible sidebars — with a smooth height animation.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCollapse">https://havit.blazor.eu/components/HxCollapse</see>
 /// </summary>
 public partial class HxCollapse : IAsyncDisposable
@@ -78,7 +78,7 @@ public partial class HxCollapse : IAsyncDisposable
 	private bool _initialized;
 
 	/// <summary>
-	/// Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefore, we will remember the request for Show and initialize the collapse with toggle=true.
+	/// Indicates ShowAsync() was called before OnAfterRenderAsync (DOM not initialized). Therefore, we will remember the request for Show and show the collapse right after its initialization.
 	/// </summary>
 	private bool _shouldToggle;
 
@@ -91,7 +91,7 @@ public partial class HxCollapse : IAsyncDisposable
 	{
 		parameters.SetParameterProperties(this);
 
-		// To be able to use another default value in ancestors (HxNavbarCollapse)
+		// To be able to use another default value in ancestors (HxNavbarDrawer)
 		Id = parameters.GetValueOrDefault(nameof(Id), Id ?? _defaultId);
 
 		return base.SetParametersAsync(ParameterView.Empty);

@@ -1,0 +1,10 @@
+﻿/* Bootstrap 6 makes the .nav-overflow wrapper a size container (container-type: inline-size).
+   Inside a navbar, it would become the nearest container for the responsive navbar container queries
+   (e.g. ".lg:navbar-expand .navbar-nav" switching to the horizontal layout), which would then measure the wrapper instead of the navbar
+   (the nav would stay vertical in an expanded navbar unless the wrapper itself is wider than the breakpoint).
+   Keep the inline-size containment (the wrapper must not grow with its content, the overflowing items are measured against its width),
+   but do not establish a query container. */
+.navbar .nav-overflow {
+	container-type: normal;
+	contain: inline-size;
+}

@@ -21,4 +21,31 @@ public class HxButtonGroupTests : BunitTestBase
 		var buttons = cut.FindAll("button");
 		Assert.Equal(2, buttons.Count());
 	}
+
+	[Theory]
+	[InlineData(ButtonGroupSize.Regular, null)]
+	[InlineData(ButtonGroupSize.ExtraSmall, "btn-group-xs")]
+	[InlineData(ButtonGroupSize.Small, "btn-group-sm")]
+	[InlineData(ButtonGroupSize.Large, "btn-group-lg")]
+	public void HxButtonGroup_Size_RendersSizeClass(ButtonGroupSize size, string expectedCssClass)
+	{
+		// Arrange & Act
+		var cut = Render<HxButtonGroup>(parameters => parameters
+			.Add(p => p.Size, size));
+
+		// Assert
+		var group = cut.Find("div");
+		Assert.Equal(expectedCssClass is null ? ["btn-group"] : ["btn-group", expectedCssClass], group.ClassList);
+	}
+
+	[Fact]
+	public void HxButtonGroup_Divider_RendersDividerClass()
+	{
+		// Arrange & Act
+		var cut = Render<HxButtonGroup>(parameters => parameters
+			.Add(p => p.Divider, true));
+
+		// Assert
+		Assert.Contains("btn-group-divider", cut.Find("div").ClassList);
+	}
 }

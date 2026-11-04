@@ -31,7 +31,7 @@ public class HxCollapseToggleElement : ComponentBase, IHxCollapseToggle
 
 		builder.AddAttribute(1, "class", CssClass);
 		builder.AddAttribute(2, "data-bs-toggle", "collapse");
-		builder.AddAttribute(3, "aria-expanded", false);
+		builder.AddAttribute(3, "aria-expanded", "false"); // string, Blazor drops a false bool attribute (the Bootstrap collapse updates the value on toggle)
 
 		if (!string.IsNullOrWhiteSpace(CollapseTarget))
 		{

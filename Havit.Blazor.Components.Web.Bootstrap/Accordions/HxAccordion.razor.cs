@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/accordion/">Bootstrap accordion</see> component.<br />
+/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/accordion/">Bootstrap accordion</see> component (built on the native <c>&lt;details&gt;</c>/<c>&lt;summary&gt;</c> disclosure elements, no JavaScript needed).<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAccordion">https://havit.blazor.eu/components/HxAccordion</see>
 /// </summary>
 public partial class HxAccordion
@@ -10,6 +10,27 @@ public partial class HxAccordion
 	/// Additional CSS classes for the accordion container.
 	/// </summary>
 	[Parameter] public string CssClass { get; set; }
+
+	/// <summary>
+	/// Theme color of the accordion (renders the <c>theme-*</c> class applied to open items).
+	/// </summary>
+	[Parameter] public ThemeColor? Color { get; set; }
+
+	/// <summary>
+	/// Size of the accordion. The default is <see cref="AccordionSize.Regular"/>.
+	/// </summary>
+	[Parameter] public AccordionSize Size { get; set; }
+
+	/// <summary>
+	/// When <c>true</c>, removes the outer borders and the rounded corners (<c>accordion-flush</c>)
+	/// to render the accordion edge-to-edge with its parent container.
+	/// </summary>
+	[Parameter] public bool Flush { get; set; }
+
+	/// <summary>
+	/// When <c>true</c>, puts space between the accordion items (<c>accordion-gap</c>), each item is rendered as a separate rounded card.
+	/// </summary>
+	[Parameter] public bool Gap { get; set; }
 
 	/// <summary>
 	/// IDs of the expanded items (if <see cref="StayOpen"/> is <code>true</code>, several items can be expanded).
@@ -81,6 +102,27 @@ public partial class HxAccordion
 		}
 	}
 
+	private readonly List<HxAccordionItem> _items = new();
+
+	internal void RegisterItem(HxAccordionItem item) => _items.Add(item);
+
+	/// <summary>
+	/// Called by an expanding <see cref="HxAccordionItem"/>. For exclusive accordions (<see cref="StayOpen"/> is <c>false</c>),
+	/// collapses all other expanded items first (replicates the native <c>name</c>-attribute exclusivity Blazor-side,
+	/// as the open state is managed by Blazor).
+	/// </summary>
+	internal async Task NotifyItemExpandedAsync(HxAccordionItem expandedItem)
+	{
+		if (!StayOpen)
+		{
+			foreach (HxAccordionItem otherItem in _items.Where(i => !ReferenceEquals(i, expandedItem) && i.IsExpanded).ToList())
+			{
+				await otherItem.CollapseCoreAsync(invokeExpandedItemIdChanged: false);
+			}
+		}
+		await SetItemExpandedAsync(expandedItem.Id);
+	}
+
 	internal async Task SetItemExpandedAsync(string itemId)
 	{
 		if (!ExpandedItemIds.Contains(itemId))
@@ -94,12 +136,12 @@ public partial class HxAccordion
 		}
 	}
 
-	internal async Task SetItemCollapsedAsync(string itemId)
+	internal async Task SetItemCollapsedAsync(string itemId, bool invokeExpandedItemIdChanged = true)
 	{
 		if (ExpandedItemIds.Contains(itemId))
 		{
 			ExpandedItemIds.Remove(itemId);
-			if (!StayOpen)
+			if (!StayOpen && invokeExpandedItemIdChanged)
 			{
 				await InvokeExpandedItemIdChangedAsync(null);
 			}

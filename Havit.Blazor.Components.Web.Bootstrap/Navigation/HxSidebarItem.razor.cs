@@ -89,7 +89,7 @@ public partial class HxSidebarItem : IAsyncDisposable
 
 	[CascadingParameter] protected HxSidebar ParentSidebar { get; set; }
 	[CascadingParameter] protected HxSidebarItem ParentSidebarItem { get; set; }
-	[CascadingParameter] protected HxDropdown DropdownContainer { get; set; }
+	[CascadingParameter(Name = "SidebarMenuContainer")] protected bool InSidebarMenu { get; set; }
 
 	[Inject] protected NavigationManager NavigationManager { get; set; }
 

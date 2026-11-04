@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// Provides a unified layout for data presentation components and associated filtering controls.<br/>
 /// This component orchestrates the interaction between filter controls and the data presentation component.
 /// The data list is typically implemented using a <see cref="HxGrid{TItem}"/> component. Filters are displayed
-/// in a <see cref="HxOffcanvas"/> component, while filter values are shown as <see cref="HxChipList"/>.
+/// in a <see cref="HxDrawer"/> component, while filter values are shown as <see cref="HxChipList"/>.
 /// Additionally, it supports predefined named views for quick switching between different filter configurations
 /// and other features such as a title, search box, and commands.
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListLayout">https://havit.blazor.eu/components/HxListLayout</see>
@@ -100,7 +100,13 @@ public partial class HxListLayout<TFilterModel>
 	protected CardSettings CardSettingsEffective => CardSettings ?? GetSettings()?.CardSettings ?? GetDefaults().CardSettings ?? throw new InvalidOperationException(nameof(CardSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
 
 	/// <summary>
-	/// Settings for the <see cref="HxButton"/> opening the filtering offcanvas.
+	/// Text for the button opening the filter drawer.
+	/// When not set, the button renders as an icon-only button (<c>btn-icon</c>).
+	/// </summary>
+	[Parameter] public string FilterButtonText { get; set; }
+
+	/// <summary>
+	/// Settings for the <see cref="HxButton"/> opening the filtering drawer.
 	/// </summary>
 	[Parameter] public ButtonSettings FilterOpenButtonSettings { get; set; }
 	protected ButtonSettings FilterOpenButtonSettingsEffective => FilterOpenButtonSettings ?? GetSettings()?.FilterOpenButtonSettings ?? GetDefaults().FilterOpenButtonSettings ?? throw new InvalidOperationException(nameof(FilterOpenButtonSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
@@ -112,10 +118,10 @@ public partial class HxListLayout<TFilterModel>
 	protected ButtonSettings FilterSubmitButtonSettingsEffective => FilterSubmitButtonSettings ?? GetSettings()?.FilterSubmitButtonSettings ?? GetDefaults().FilterSubmitButtonSettings ?? throw new InvalidOperationException(nameof(FilterSubmitButtonSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
 
 	/// <summary>
-	/// Settings for the <see cref="HxOffcanvas"/> with the filter.
+	/// Settings for the <see cref="HxDrawer"/> with the filter.
 	/// </summary>
-	[Parameter] public OffcanvasSettings FilterOffcanvasSettings { get; set; }
-	protected OffcanvasSettings FilterOffcanvasSettingsEffective => FilterOffcanvasSettings ?? GetSettings()?.FilterOffcanvasSettings ?? GetDefaults().FilterOffcanvasSettings ?? throw new InvalidOperationException(nameof(FilterOffcanvasSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
+	[Parameter] public DrawerSettings FilterDrawerSettings { get; set; }
+	protected DrawerSettings FilterDrawerSettingsEffective => FilterDrawerSettings ?? GetSettings()?.FilterDrawerSettings ?? GetDefaults().FilterDrawerSettings ?? throw new InvalidOperationException(nameof(FilterDrawerSettings) + " default for " + nameof(HxListLayout) + " has to be set.");
 
 	/// <summary>
 	/// Additional CSS classes for the wrapping <c>div</c>.
@@ -128,7 +134,7 @@ public partial class HxListLayout<TFilterModel>
 	private ChipItem[] _chips;
 	private string _filterFormId = "hx" + Guid.NewGuid().ToString("N");
 	private HxFilterForm<TFilterModel> _filterForm;
-	private HxOffcanvas _filterOffcanvasComponent;
+	private HxDrawer _filterDrawerComponent;
 
 	protected override void OnParametersSet()
 	{
@@ -149,8 +155,8 @@ public partial class HxListLayout<TFilterModel>
 
 	private async Task HandleFilterFormModelChanged(TFilterModel newFilterModel)
 	{
-		// We want the offcanvas to close before the filter model is updated (= before the data start reloading).
-		await _filterOffcanvasComponent.HideAsync();
+		// We want the drawer to close before the filter model is updated (= before the data start reloading).
+		await _filterDrawerComponent.HideAsync();
 
 		FilterModel = newFilterModel;
 		await InvokeFilterModelChangedAsync(newFilterModel);
@@ -170,18 +176,18 @@ public partial class HxListLayout<TFilterModel>
 	}
 
 	/// <summary>
-	/// Opens the filter offcanvas.
+	/// Opens the filter drawer.
 	/// </summary>
-	public async Task ShowFilterOffcanvasAsync()
+	public async Task ShowFilterDrawerAsync()
 	{
-		await _filterOffcanvasComponent.ShowAsync();
+		await _filterDrawerComponent.ShowAsync();
 	}
 
 	/// <summary>
-	/// Closes the filter offcanvas.
+	/// Closes the filter drawer.
 	/// </summary>
-	public async Task HideFilterOffcanvasAsync()
+	public async Task HideFilterDrawerAsync()
 	{
-		await _filterOffcanvasComponent.HideAsync();
+		await _filterDrawerComponent.HideAsync();
 	}
 }

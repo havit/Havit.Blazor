@@ -6,7 +6,28 @@ export function initialize(element, hxDotnetObjectReference, options) {
 	element.hxDotnetObjectReference = hxDotnetObjectReference;
 	element.addEventListener('shown.bs.tooltip', handleShown);
 	element.addEventListener('hidden.bs.tooltip', handleHidden);
+	if (element.getAttribute('data-bs-placement') === 'auto') {
+		options = { ...options, placement: getAutoPlacement };
+	}
 	new bootstrap.Tooltip(element, options);
+}
+
+// Bootstrap 6 (Floating UI) has no "auto" placement (it falls back to "top" + flip).
+// Emulate it with a placement function choosing the side with the most available space.
+function getAutoPlacement(tip, trigger) {
+	const rect = trigger.getBoundingClientRect();
+	const space = {
+		top: rect.top,
+		bottom: window.innerHeight - rect.bottom,
+		left: rect.left,
+		right: window.innerWidth - rect.right
+	};
+	const side = Object.keys(space).reduce((best, current) => (space[current] > space[best]) ? current : best);
+	if (document.documentElement.dir === 'rtl') {
+		// Bootstrap maps left/right to start/end
+		return { left: 'right', right: 'left' }[side] ?? side;
+	}
+	return side;
 }
 
 export function show(element) {
