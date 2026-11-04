@@ -1,6 +1,6 @@
 ﻿# HxAvatar_Demo_Image.razor
 
 ```razor
-<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
+<HxAvatar ImageSrc="images/avatars/avatar-1.png" ImageAlt="Emma Wilson" />
 
 ```

@@ -2,9 +2,9 @@
 
 ```razor
 <HxAvatarStack>
-	<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
-	<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
-	<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
+	<HxAvatar ImageSrc="images/avatars/avatar-1.png" ImageAlt="Emma Wilson" />
+	<HxAvatar ImageSrc="images/avatars/avatar-2.png" ImageAlt="Lucas Bennett" />
+	<HxAvatar ImageSrc="images/avatars/avatar-3.png" ImageAlt="Noah Carter" />
 	<HxAvatar Color="ThemeColor.Secondary">+5</HxAvatar>
 </HxAvatarStack>
 
