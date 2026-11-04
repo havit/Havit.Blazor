@@ -3,33 +3,33 @@
 ```razor
 <div class="vstack align-items-start gap-3">
 	<HxAvatarStack Size="AvatarSize.ExtraSmall">
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
+		<HxAvatar ImageSrc="images/avatars/avatar-1.png" ImageAlt="Emma Wilson" />
+		<HxAvatar ImageSrc="images/avatars/avatar-2.png" ImageAlt="Lucas Bennett" />
+		<HxAvatar ImageSrc="images/avatars/avatar-3.png" ImageAlt="Noah Carter" />
 	</HxAvatarStack>
 
 	<HxAvatarStack Size="AvatarSize.Small">
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
+		<HxAvatar ImageSrc="images/avatars/avatar-1.png" ImageAlt="Emma Wilson" />
+		<HxAvatar ImageSrc="images/avatars/avatar-2.png" ImageAlt="Lucas Bennett" />
+		<HxAvatar ImageSrc="images/avatars/avatar-3.png" ImageAlt="Noah Carter" />
 	</HxAvatarStack>
 
 	<HxAvatarStack>
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
+		<HxAvatar ImageSrc="images/avatars/avatar-1.png" ImageAlt="Emma Wilson" />
+		<HxAvatar ImageSrc="images/avatars/avatar-2.png" ImageAlt="Lucas Bennett" />
+		<HxAvatar ImageSrc="images/avatars/avatar-3.png" ImageAlt="Noah Carter" />
 	</HxAvatarStack>
 
 	<HxAvatarStack Size="AvatarSize.Large">
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
+		<HxAvatar ImageSrc="images/avatars/avatar-1.png" ImageAlt="Emma Wilson" />
+		<HxAvatar ImageSrc="images/avatars/avatar-2.png" ImageAlt="Lucas Bennett" />
+		<HxAvatar ImageSrc="images/avatars/avatar-3.png" ImageAlt="Noah Carter" />
 	</HxAvatarStack>
 
 	<HxAvatarStack Size="AvatarSize.ExtraLarge">
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
-		<HxAvatar ImageSrc="HAVIT-Icon_48x48_transparent.png" ImageAlt="HAVIT" />
+		<HxAvatar ImageSrc="images/avatars/avatar-1.png" ImageAlt="Emma Wilson" />
+		<HxAvatar ImageSrc="images/avatars/avatar-2.png" ImageAlt="Lucas Bennett" />
+		<HxAvatar ImageSrc="images/avatars/avatar-3.png" ImageAlt="Noah Carter" />
 	</HxAvatarStack>
 </div>
 
