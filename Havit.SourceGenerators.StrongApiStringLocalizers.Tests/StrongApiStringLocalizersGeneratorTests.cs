@@ -1,4 +1,8 @@
 ﻿using System.Collections.Immutable;
+using System.Globalization;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Testing;
 using Microsoft.CodeAnalysis.Text;
 
@@ -118,5 +122,71 @@ public static class ResourcesServiceCollectionExtensions
 
 		// Act + Assert
 		await test.RunAsync(TestContext.Current.CancellationToken);
+	}
+
+	[Fact]
+	public void StrongApiStringLocalizersGenerator_ServiceRegistrations_OrderDoesNotDependOnCurrentCulture()
+	{
+		// Arrange
+		// Czech sorts "Ch" after "H", ordinal comparison sorts it before.
+		CultureInfo originalCulture = CultureInfo.CurrentCulture;
+		CultureInfo.CurrentCulture = new CultureInfo("cs-CZ");
+		try
+		{
+			string projectDir = Environment.CurrentDirectory;
+			string resx = File.ReadAllText("Global.resx");
+
+			GeneratorDriver driver = CSharpGeneratorDriver.Create(
+				generators: [new StrongApiStringLocalizersGenerator().AsSourceGenerator()],
+				additionalTexts:
+				[
+					new InMemoryAdditionalText(Path.Combine(projectDir, "H", "Global.resx"), resx),
+					new InMemoryAdditionalText(Path.Combine(projectDir, "Ch", "Global.resx"), resx)
+				],
+				optionsProvider: new GlobalOptionsProvider(new Dictionary<string, string>
+				{
+					["build_property.RootNamespace"] = "MyApp.Resources",
+					["build_property.ProjectDir"] = projectDir
+				}));
+
+			// Act
+			driver = driver.RunGenerators(CSharpCompilation.Create("TestProject"), TestContext.Current.CancellationToken);
+
+			// Assert
+			string registrations = driver.GetRunResult().GeneratedTrees
+				.Single(tree => tree.FilePath.EndsWith("ResourcesServiceCollectionExtensions.g.cs", StringComparison.Ordinal))
+				.ToString();
+			int chIndex = registrations.IndexOf("MyApp.Resources.Ch.IGlobalLocalizer", StringComparison.Ordinal);
+			int hIndex = registrations.IndexOf("MyApp.Resources.H.IGlobalLocalizer", StringComparison.Ordinal);
+			Assert.True(chIndex >= 0 && hIndex >= 0);
+			Assert.True(chIndex < hIndex, "Localizers must be registered in ordinal order regardless of the current culture.");
+		}
+		finally
+		{
+			CultureInfo.CurrentCulture = originalCulture;
+		}
+	}
+
+	private class InMemoryAdditionalText(string path, string text) : AdditionalText
+	{
+		public override string Path { get; } = path;
+
+		public override SourceText GetText(CancellationToken cancellationToken = default) => SourceText.From(text);
+	}
+
+	private class GlobalOptionsProvider(Dictionary<string, string> globalOptions) : AnalyzerConfigOptionsProvider
+	{
+		public override AnalyzerConfigOptions GlobalOptions { get; } = new DictionaryOptions(globalOptions);
+
+		public override AnalyzerConfigOptions GetOptions(SyntaxTree tree) => DictionaryOptions.Empty;
+
+		public override AnalyzerConfigOptions GetOptions(AdditionalText textFile) => DictionaryOptions.Empty;
+	}
+
+	private class DictionaryOptions(Dictionary<string, string> options) : AnalyzerConfigOptions
+	{
+		public static DictionaryOptions Empty { get; } = new DictionaryOptions(new Dictionary<string, string>());
+
+		public override bool TryGetValue(string key, out string value) => options.TryGetValue(key, out value);
 	}
 }

@@ -64,7 +64,7 @@ public class StrongApiStringLocalizersGenerator : IIncrementalGenerator
 			.Select(static (item, cancellationToken) => new ServiceCollectionExtensionsData
 			{
 				RootNamespace = item.Right.RootNamespace,
-				Resources = item.Left.OrderBy(item => item.TargetLocalizerNamespace).ThenBy(item => item.ResourceName).ToList()
+				Resources = item.Left.OrderBy(item => item.TargetLocalizerNamespace, StringComparer.Ordinal).ThenBy(item => item.ResourceName, StringComparer.Ordinal).ToList()
 			});
 
 		initializationContext.RegisterSourceOutput(resxDataProvider, static (sourceContext, resxBuildData) =>
