@@ -169,7 +169,10 @@ jobs:
 
     - name: Copy Bootstrap CSS and JS bundle to Havit.Blazor.Components.Web.Bootstrap
       working-directory: s/Havit.Bootstrap
-      run: npm run publish-to-blazor
+      run: |
+        # publish-to-blazor only copies, so remove the committed output first; an obsolete bootstrap.* file then shows up as deleted
+        rm -f ../Havit.Blazor.Components.Web.Bootstrap/wwwroot/bootstrap.*
+        npm run publish-to-blazor
 
     - name: Check Bootstrap files are up to date
       working-directory: s
