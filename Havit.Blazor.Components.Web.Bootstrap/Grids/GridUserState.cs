@@ -81,9 +81,12 @@ public record class GridUserState : IEquatable<GridUserState>
 		var hash = new HashCode();
 		hash.Add(PageIndex);
 		hash.Add(LoadMoreAdditionalItemsCount);
-		foreach (GridUserStateSortingItem item in Sorting)
+		if (Sorting is not null)
 		{
-			hash.Add(item);
+			foreach (GridUserStateSortingItem item in Sorting)
+			{
+				hash.Add(item);
+			}
 		}
 		return hash.ToHashCode();
 	}
