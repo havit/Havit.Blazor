@@ -256,4 +256,19 @@ public class HxTreeViewTests : BunitTestBase
 		Assert.Equal("Root1", selectedTitle.TextContent);
 		Assert.DoesNotContain(JSInterop.Invocations, i => i.Identifier.EndsWith("show"));
 	}
+
+	[Fact]
+	public void HxTreeView_NullItems_RendersEmptyTreeView()
+	{
+		// Arrange & Act
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
+			.Add(p => p.Items, null)
+			.Add(p => p.ItemTitleSelector, item => item.Title)
+			.Add(p => p.ItemChildrenSelector, item => item.Children)
+		);
+
+		// Assert
+		var treeView = cut.Find(".hx-tree-view");
+		Assert.Empty(treeView.Children);
+	}
 }

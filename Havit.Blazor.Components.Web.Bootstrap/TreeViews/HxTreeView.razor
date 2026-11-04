@@ -4,7 +4,7 @@
 
 <div class="@CssClassHelper.Combine("hx-tree-view", CssClass)">
 	<CascadingValue Value="this" IsFixed="true">
-		@foreach (var item in Items)
+		@foreach (var item in Items ?? Enumerable.Empty<TItem>())
 		{
 			<HxTreeViewItemInternal @key="item"
 									TItem="TItem"
