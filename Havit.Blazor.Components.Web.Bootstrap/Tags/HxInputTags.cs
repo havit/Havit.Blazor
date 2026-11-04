@@ -23,7 +23,8 @@ public class HxInputTags : HxInputBase<List<string>>, IInputWithSize, IInputWith
 			SuggestDelay = 300,
 			Delimiters = new() { ',', ';', ' ' },
 			ShowAddButton = false,
-			Color = ThemeColor.None,
+			// Color is intentionally not set so that the legacy Defaults.TagBadgeSettings.Color is still honored
+			// (ColorEffective falls back to ThemeColor.None).
 		};
 	}
 

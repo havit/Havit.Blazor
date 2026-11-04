@@ -18,6 +18,7 @@
 			disabled="@(!EnabledEffective)"
 			aria-haspopup="listbox"
 			aria-expanded="@(_isShown ? "true" : "false")"
+			aria-describedby="@AriaDescribedBy"
 			data-bs-toggle="@(EnabledEffective ? "menu" : null)"
 			@attributes="this.AdditionalAttributes">
 		<span class="@CssClassHelper.Combine("combobox-value", ShowPlaceholderStyle ? "combobox-placeholder" : null)">@GetToggleText()</span>
@@ -33,6 +34,7 @@
 					   id="@($"{InputId}_filter")"
 					   type="text"
 					   class="@CssClassHelper.Combine("form-control", "combobox-search-input", InputSizeEffective.AsFormControlCssClass())"
+					   aria-label="@StringLocalizer["FilterInputAriaLabel"]"
 					   autocomplete="off"
 					   spellcheck="false"
 					   value="@_filterText"
