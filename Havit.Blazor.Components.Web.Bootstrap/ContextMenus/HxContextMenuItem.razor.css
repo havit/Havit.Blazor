@@ -1,8 +1,0 @@
-﻿a {
-    display: flex;
-    align-items: center;
-}
-
-::deep .hx-context-menu-item-icon {
-    margin: var(--hx-context-menu-item-icon-margin);
-}

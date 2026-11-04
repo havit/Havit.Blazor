@@ -1,0 +1,149 @@
+﻿export function show(element, hxDrawerDotnetObjectReference, closeOnEscape, scrollingEnabled, subscribeToHideEvent, subscribeToHidePreventedEvent) {
+	if (window.drawerElement) {
+		const previousDrawer = bootstrap.Drawer.getInstance(window.drawerElement);
+		if (previousDrawer) {
+            // Although opening a new drawer should close the previous one,
+			// we do not set previousDrawer.hidePreventionDisabled = true and force the hide() here (when handling the OnHiding event)
+			// We want the developer to handle such specific scenarios on their own.
+			// This might be subject to change in the future.
+            previousDrawer.hide();
+		}
+	}
+
+	if (!element) {
+		return;
+	}
+
+	// Remove old listeners to prevent duplicates when show() is called multiple times
+	element.removeEventListener('hide.bs.drawer', handleDrawerHide);
+	element.removeEventListener('hidePrevented.bs.drawer', handleDrawerHidePrevented);
+	element.removeEventListener('hidden.bs.drawer', handleDrawerHidden);
+	element.removeEventListener('shown.bs.drawer', handleDrawerShown);
+
+	element.hxDrawerDotnetObjectReference = hxDrawerDotnetObjectReference;
+	if (subscribeToHideEvent) {
+		element.addEventListener('hide.bs.drawer', handleDrawerHide);
+	}
+	if (subscribeToHidePreventedEvent) {
+		element.addEventListener('hidePrevented.bs.drawer', handleDrawerHidePrevented);
+	}
+	element.addEventListener('hidden.bs.drawer', handleDrawerHidden);
+	element.addEventListener('shown.bs.drawer', handleDrawerShown);
+	window.drawerElement = element;
+
+	// Bootstrap reads the configuration (incl. data-bs-backdrop) only in the constructor.
+	// The drawer is closed here, so we always create a fresh instance to apply the current settings.
+	bootstrap.Drawer.getInstance(element)?.dispose();
+	const drawer = new bootstrap.Drawer(element, {
+		keyboard: closeOnEscape,
+		scroll: scrollingEnabled
+	});
+	drawer.show();
+}
+
+export function hide(element) {
+	if (!element) {
+		return;
+	}
+	element.hxDrawerHiding = true;
+	const o = bootstrap.Drawer.getInstance(element);
+	if (o) {
+		o.hide();
+	}
+}
+
+function handleDrawerShown(event) {
+	if (event.target !== event.currentTarget) {
+		return; // bubbled from a nested drawer (rendered in the content of this one)
+	}
+
+	event.target.hxDrawerDotnetObjectReference.invokeMethodAsync('HxDrawer_HandleDrawerShown');
+}
+
+async function handleDrawerHide(event) {
+	if (event.target !== event.currentTarget) {
+		return; // bubbled from a nested drawer (rendered in the content of this one)
+	}
+
+	const o = bootstrap.Drawer.getInstance(event.target);
+
+	if (o.hidePreventionDisabled || event.target.hxDrawerDisposing) {
+		o.hidePreventionDisabled = false;
+		return;
+	}
+
+	event.preventDefault();
+
+	const cancel = await event.target.hxDrawerDotnetObjectReference.invokeMethodAsync('HxDrawer_HandleDrawerHide');
+	if (!cancel) {
+		o.hidePreventionDisabled = true;
+		event.target.hxDrawerHiding = true;
+		o.hide();
+	}
+};
+
+function handleDrawerHidePrevented(event) {
+	if (event.target !== event.currentTarget) {
+		return; // bubbled from a nested drawer (rendered in the content of this one)
+	}
+
+	event.target.hxDrawerDotnetObjectReference.invokeMethodAsync('HxDrawer_HandleDrawerHidePrevented');
+}
+
+function handleDrawerHidden(event) {
+	if (event.target !== event.currentTarget) {
+		return; // bubbled from a nested drawer (rendered in the content of this one)
+	}
+
+	event.target.hxDrawerHiding = false;
+
+	if (event.target === window.drawerElement) {
+		window.drawerElement = null;
+	}
+
+	if (event.target.hxDrawerDisposing) {
+		// fix for #110 where the dispose() gets called while the drawer is still in hiding-transition
+		dispose(event.target, false);
+		return;
+	}
+
+	event.target.hxDrawerDotnetObjectReference.invokeMethodAsync('HxDrawer_HandleDrawerHidden');
+}
+
+export function dispose(element, opened) {
+	if (!element) {
+		return;
+	}
+
+	element.hxDrawerDisposing = true;
+
+	if (element.hxDrawerHiding) {
+		// fix for #110 where the dispose() gets called while the drawer is still in hiding-transition
+		return;
+	}
+
+	if (opened) {
+		// #110 Scrolling not working when drawer is removed (even if disposed is called)
+		// Compensates https://github.com/twbs/bootstrap/issues/36397,
+		// where the o.dispose() does not reset the ScrollBarHelper() and the scrolling remains deactivated.
+		// The dispose() is re-called from hidden.bs.drawer event handler.
+		// Remove when the issue is fixed.
+		hide(element);
+		return;
+	}
+
+	element.removeEventListener('hide.bs.drawer', handleDrawerHide);
+	element.removeEventListener('hidePrevented.bs.drawer', handleDrawerHidePrevented);
+	element.removeEventListener('hidden.bs.drawer', handleDrawerHidden);
+	element.removeEventListener('shown.bs.drawer', handleDrawerShown);
+	element.hxDrawerDotnetObjectReference = null;
+
+	const o = bootstrap.Drawer.getInstance(element);
+	if (o) {
+		o.dispose();
+	}
+
+	if (element === window.drawerElement) { // another drawer might be already open
+		window.drawerElement = null;
+	}
+}

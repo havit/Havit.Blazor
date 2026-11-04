@@ -1,0 +1,27 @@
+@page "/HxDrawer_RapidHideShowHide"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxButton data-testid="show-button" OnClick="HandleShowClick" Color="ThemeColor.Primary">Show Drawer</HxButton>
+
+<HxDrawer @ref="_drawer" Title="Test Drawer">
+	<BodyTemplate>
+		<p>Drawer content</p>
+		<HxButton data-testid="hide-show-hide-button" OnClick="HandleHideShowHideClick" Color="ThemeColor.Danger">Hide → Show → Hide</HxButton>
+	</BodyTemplate>
+</HxDrawer>
+
+@code {
+	private HxDrawer _drawer;
+
+	private async Task HandleShowClick()
+	{
+		await _drawer.ShowAsync();
+	}
+
+	private async Task HandleHideShowHideClick()
+	{
+		await _drawer.HideAsync();
+		await _drawer.ShowAsync();
+		await _drawer.HideAsync();
+	}
+}
