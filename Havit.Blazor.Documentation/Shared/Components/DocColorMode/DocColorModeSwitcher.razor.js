@@ -1,6 +1,7 @@
 export function setColorMode(colorMode) {
-	if (colorMode === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-		document.documentElement.setAttribute('data-bs-theme', 'dark')
+	if (colorMode === 'auto') {
+		// no data-bs-theme = Bootstrap follows the system preference (color-scheme: light dark)
+		document.documentElement.removeAttribute('data-bs-theme')
 	} else {
 		document.documentElement.setAttribute('data-bs-theme', colorMode)
 	}

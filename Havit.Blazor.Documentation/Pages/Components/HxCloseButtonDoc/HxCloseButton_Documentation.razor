@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxCloseButton))]
+﻿@attribute [Route("/components/" + nameof(HxCloseButton))]
 
 <ApiDoc Type="typeof(HxCloseButton)">
     <DocHeading Title="Basic usage" />
@@ -7,6 +7,10 @@
     <DocHeading Title="Disabled state" />
     <Demo Type="typeof(HxCloseButton_Demo_DisabledState)" />
 
-    <DocHeading Title="White variant" />
-    <Demo Type="typeof(HxCloseButton_Demo_White)" DemoCardCssClass="bg-dark p-0" />
+    <DocHeading Title="Dark backgrounds" />
+    <p>
+        The close icon is rendered with a CSS <code>mask-image</code> tinted with <code>currentcolor</code>, so it adapts
+        to the surrounding text color automatically &mdash; the former <code>White</code> parameter no longer exists.
+        Use <code>data-bs-theme="dark"</code> on the button or a parent element to invert it explicitly.
+    </p>
 </ApiDoc>

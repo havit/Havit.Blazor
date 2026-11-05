@@ -1,0 +1,183 @@
+# Bootstrap 5 → 6 class rename tables (Havit.Blazor v4 → v6)
+
+Verification: every NEW class below exists in the compiled v6 bundle shipped with the NuGet package
+(`~/.nuget/packages/havit.blazor.components.web.bootstrap/6.*/.../bootstrap.min.css`); none of the OLD ones do.
+When grepping the minified bundle, escape `:` as `\:` and the leading digit of `2xl` as `\32 ` (with a trailing space), e.g. `.md\:d-flex`, `.\32 xl\:col-4`.
+
+## 1. Responsive syntax: infix → prefix (all utilities + grid)
+
+Rule: `{utility}-{bp}-{value}` → `{bp}:{utility}-{value}`; breakpoint name `xxl` → `2xl`. Values, breakpoints `sm`/`md`/`lg`/`xl` keep their names. Non-responsive classes (`d-flex`, `col-6`, `mt-3`, `btn-sm`, ...) are unchanged.
+
+| v5 (removed) | v6 |
+|---|---|
+| `d-md-flex`, `d-lg-none`, ... | `md:d-flex`, `lg:d-none`, ... |
+| `col-md-6`, `col-lg-auto`, `col-xl` | `md:col-6`, `lg:col-auto`, `xl:col` |
+| `col-xxl-4` | `2xl:col-4` |
+| `row-cols-md-3` | `md:row-cols-3` |
+| `offset-md-2` | `md:offset-2` |
+| `order-lg-1` | `lg:order-1` |
+| `flex-md-row`, `flex-lg-grow-0` | `md:flex-row`, `lg:flex-grow-0` |
+| `justify-content-md-between` | `md:justify-content-between` |
+| `align-items-lg-center` | `lg:align-items-center` |
+| `mt-md-3`, `px-lg-4`, `gap-md-2` (all spacing) | `md:mt-3`, `lg:px-4`, `md:gap-2` |
+| `text-md-start`, `text-lg-end` | `md:text-start`, `lg:text-end` |
+| `float-md-end` | `md:float-end` |
+| `sticky-md-top`, `sticky-lg-bottom` | `md:sticky-top`, `lg:sticky-bottom` |
+| `container-md`, `container-xxl` | `md:container`, `2xl:container` |
+| `navbar-expand-md`, `navbar-expand-xxl` | `md:navbar-expand`, `2xl:navbar-expand` |
+| `offcanvas-md` (responsive offcanvas) | `md:drawer` |
+| `modal-fullscreen-md-down` | `md-down:dialog-fullscreen` |
+
+## 2. Breakpoint values (flag consumer media queries)
+
+| Breakpoint | v5 min-width | v6 min-width |
+|---|---|---|
+| `sm` | 576px | 576px (unchanged) |
+| `md` | 768px | 768px (unchanged) |
+| `lg` | 992px | **1024px** |
+| `xl` | 1200px | **1280px** |
+| `xxl` → `2xl` | 1400px | **1536px** |
+
+## 3. Theme color utilities (token system)
+
+`{color}` ∈ primary, secondary, success, danger, warning, info, accent (new), inverse (new). **`light` and `dark` are removed** — for component colors (buttons, badges, alerts, ...) map `light` → `secondary`, `dark` → `inverse`. The `bg-light`/`bg-dark`/`text-light`/`text-dark` utilities are surfaces, not theme colors — see their rows below.
+
+| v5 (removed) | v6 |
+|---|---|
+| `text-{color}` | `fg-{color}` |
+| `text-{color}-emphasis` | `fg-emphasis-{color}` |
+| `bg-{color}-subtle` | `bg-subtle-{color}` |
+| `border-{color}-subtle` | `border-subtle-{color}` |
+| `text-bg-{color}` | on a `badge`: `theme-{color}` (HAVIT's choice; the badge paints `--bs-theme-bg` + `--bs-theme-contrast`). Everywhere else — plain elements **and regular `card`s**: `bg-{color} fg-contrast-{color}` (upstream's replacement). `theme-{color}` alone only sets `--bs-theme-*` tokens: a plain element paints nothing, a regular `card` only tints its border (its fill stays `--bs-card-bg`), and `alert`/`list-group-item` get the subtle fill, not a solid one |
+| `bg-light` | adaptive `bg-1` / `bg-2` (follows color mode), or `bg-white` for a fixed light surface |
+| `bg-dark` | `bg-black` (pure black, darker than v5's gray), or `data-bs-theme="dark"` + `bg-body` (no exact shade match) |
+| `text-light` / `text-dark` | fixed `fg-white` / `fg-black`, or adaptive `fg-body` inside a `data-bs-theme` scope (upstream has no row for these — by analogy with `bg-light`/`bg-dark`; choose by intent) |
+| `alert-{color}`, `badge` color via `text-bg-*`, `list-group-item-{color}` | component class + `theme-{color}` |
+| `table-{color}` on `<table>`, `<tr>`, `<td>`/`<th>` (e.g. `<tr class="table-danger">`, `<table class="table table-primary">`) | `theme-{color}` on the same element (`<tr class="theme-danger">`, `<table class="table theme-primary">`) — the cells paint `--bs-theme-bg-subtle` + `--bs-theme-fg` |
+| `table-light` / `table-dark` | `theme-secondary` / `theme-inverse` — `theme-secondary` is close to v5's light gray, but `theme-inverse` is a **light**-gray tint in light color mode (dark gray in dark mode), not v5's dark fill. For a genuinely dark table use `data-bs-theme="dark"` on the `<table>` or a wrapping element (the only option for `HxGrid`); it has no effect on a single `<tr>`. Flag for human review |
+| `bg-body-secondary` / `bg-body-tertiary` | `bg-2` / `bg-1` (numbered surfaces — see below) |
+| `text-body-secondary` | `fg-secondary` |
+| `text-muted` | `fg-secondary` (v6 has no muted-specific fg token; nearest match) |
+| `text-white` / `text-black` | `fg-white` / `fg-black` |
+
+`bg-{color}` and `border-{color}` keep their names — **including `bg-white`/`bg-black`/`bg-body`**, which are unaffected. Only the `text-*` family is renamed to `fg-*`; don't assume `text-white`/`text-black` survive just because their `bg-*` counterparts do (verify each one against the bundle, same as any other `text-*` class — this exact assumption caused a real miss in an earlier pass of this sweep).
+
+**Table variants fail silently**: the removed `table-{color}` classes produce no build error — rows and cells just lose their color. `table-active` is unchanged (HxGrid still uses it for the selected row). In Havit.Blazor apps these classes usually live in **C# string literals**, not `class="..."` markup: `HxGrid` `ItemRowCssClass`, `ItemRowCssClassSelector` lambdas (`item => item.IsOverdue ? "table-danger" : null`), `TableCssClass`, column `ItemCssClass`/`ItemCssClassSelector`, and the same properties in `GridSettings`/`HxGrid.Defaults`. Search without a file-type filter so `.cs`/`.razor.cs` hits are included:
+
+```
+rg -n 'table-(primary|secondary|success|danger|warning|info|light|dark)\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
+```
+
+**Numbered surfaces**: v6 replaces the body-surface ladder (`bg-body`, `bg-body-secondary`, `bg-body-tertiary`) with `bg-body`, `bg-1`, `bg-2`, `bg-3`, `bg-4` (increasingly distinct from the page background — `bg-1` subtlest, `bg-4` most). Per the upstream v6.0.0-alpha.1 migration guide, `bg-body-tertiary` maps to `bg-1` and `bg-body-secondary` maps to `bg-2` — in v5 *tertiary* was the lighter of the two, so the order flips. `bg-3`/`bg-4` have no v5 counterpart. Re-check against a real card/surface in the browser, since the numbered scale isn't a strict 1:1 shade match.
+
+**`bg-light` / `bg-dark` have no drop-in**: the v5 grays were fixed (they didn't follow the color mode). Choose by intent — adaptive `bg-1`/`bg-2`, or a fixed `bg-white`/`bg-black`, or scope a color mode with `data-bs-theme` and use `bg-body`. Don't map them to `bg-secondary`/`bg-inverse`: those are solid theme-color backgrounds, not neutral surfaces.
+
+**CSS custom properties** (not just classes — consumer CSS/`<style>` blocks and `.razor.css` files referencing Bootstrap variables directly need the same sweep): the `--bs-{color}-rgb` channel variables are removed (only `--bs-link-color-rgb` remains) — replace `rgba(var(--bs-primary-rgb), .25)` with `color-mix(in srgb, var(--bs-primary) 25%, transparent)` (and `rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity))` similarly becomes `color-mix(in srgb, var(--bs-bg-body) calc(var(--bs-bg-opacity) * 100%), transparent)`). Beyond the RGB drop, several variables were also renamed outright:
+
+| v5 (removed) | v6 |
+|---|---|
+| `--bs-secondary-color` | `--bs-secondary-fg` |
+| `--bs-emphasis-color` | `--bs-fg-body` |
+| `--bs-{color}-text-emphasis` (e.g. `--bs-primary-text-emphasis`) | `--bs-{color}-fg-emphasis` (e.g. `--bs-primary-fg-emphasis`) |
+| `--bs-body-bg` / `--bs-body-color` | `--bs-bg-body` / `--bs-fg-body` |
+
+Search: `rg -n -- '--bs-(secondary-color|emphasis-color|[a-z]+-text-emphasis|body-bg\b|body-color\b)' -g '*.css' -g '*.razor' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'`.
+
+## 4. Buttons
+
+| v5 (removed) | v6 |
+|---|---|
+| `btn-primary`, `btn-success`, ... | `btn-solid theme-primary`, `btn-solid theme-success`, ... |
+| `btn-outline-primary`, ... | `btn-outline theme-primary`, ... |
+| `btn-light` / `btn-dark` | `btn-solid theme-secondary` / `btn-solid theme-inverse` |
+| — | new variants: `btn-subtle`, `btn-text`; new size `btn-xs` |
+| `btn-link` | `btn-link` (unchanged) |
+| `.btn-check` on the `<input>` + sibling `<label class="btn btn-outline-{color}" for=...>` | `.btn-check` classes on the `<label>` (`btn-check btn-outline theme-{color}`) with the `<input>` **nested inside**; no `id`/`for` needed |
+
+## 5. Modal → Dialog (native `<dialog>`)
+
+| v5 (removed) | v6 |
+|---|---|
+| `modal` | `dialog` |
+| `modal-dialog`, `modal-content` | — (gone; native `<dialog>` is the single element) |
+| `modal-header` / `modal-title` / `modal-body` / `modal-footer` | `dialog-header` / `dialog-title` / `dialog-body` / `dialog-footer` |
+| `modal-sm` / `modal-lg` / `modal-xl` | `dialog-sm` / `dialog-lg` / `dialog-xl` |
+| `modal-fullscreen`, `modal-fullscreen-{bp}-down` | `dialog-fullscreen`, `{bp}-down:dialog-fullscreen` |
+| `modal-dialog-scrollable` | `dialog-scrollable` |
+| `modal-dialog-centered` | — (native dialogs are centered) |
+| `data-bs-toggle="modal"`, `data-bs-dismiss="modal"` | `data-bs-toggle="dialog"`, `data-bs-dismiss="dialog"` |
+
+## 6. Offcanvas → Drawer (native `<dialog>`)
+
+| v5 (removed) | v6 |
+|---|---|
+| `offcanvas` | `drawer` |
+| `offcanvas-{sm..xxl}` (responsive) | `{bp}:drawer` (`2xl:drawer` for xxl) |
+| `offcanvas-header` / `offcanvas-title` / `offcanvas-body` | `drawer-header` / `drawer-title` / `drawer-body` |
+| `offcanvas-start` / `-end` / `-top` / `-bottom` | `drawer-start` / `drawer-end` / `drawer-top` / `drawer-bottom` |
+| `data-bs-toggle="offcanvas"`, `data-bs-dismiss="offcanvas"` | `data-bs-toggle="drawer"`, `data-bs-dismiss="drawer"` |
+| — | new: `drawer-sheet` |
+
+## 7. Dropdown → Menu
+
+| v5 (removed) | v6 |
+|---|---|
+| `dropdown` (wrapper) | — (the `menu` element is the component) |
+| `dropdown-menu` | `menu` |
+| `dropdown-item` | `menu-item` |
+| `dropdown-item-text` | `menu-text` |
+| `dropdown-divider` | `menu-divider` |
+| `dropdown-header` | `menu-header` |
+| `dropdown-toggle` | — (no caret class; the toggle is any element with `data-bs-toggle="menu"`) |
+| `dropdown-toggle-split` | `menu-toggle-split` |
+| `dropup` / `dropend` / `dropstart`, `dropdown-menu-start` / `dropdown-menu-end` | `data-bs-placement` attribute on the toggle (e.g. `top-end`; `MenuPlacement` in Hx components — `MenuPlacementExtensions.ToDataBsPlacement()` returns the value; there is no alignment class, so `DropdownMenuAlignmentExtensions.GetCssClass()` has no replacement) |
+| `dropdown-menu-{bp}-start` / `dropdown-menu-{bp}-end` (responsive alignment) | responsive `data-bs-placement`, e.g. `bottom-start md:bottom-end` (`ResponsivePlacement` in Hx components) |
+| `data-bs-toggle="dropdown"` | `data-bs-toggle="menu"` |
+
+## 8. Forms
+
+| v5 (removed) | v6 |
+|---|---|
+| `form-select`, `form-select-sm`, `form-select-lg` | `form-control`, `form-control-sm`, `form-control-lg` (on `<select>` too) |
+| `form-floating` on composite inputs (autosuggest/date/tags/search wrappers) | — (not supported; Regular labels) |
+| input-group glue around composite inputs | `form-adorn` / `form-ghost` wrappers (handled by Hx components internally) |
+
+## 9. Navbar
+
+| v5 (removed) | v6 |
+|---|---|
+| `navbar-collapse` | — (responsive content is a `dialog.drawer`, flattened inline at/above the expand breakpoint) |
+| `navbar-expand-{bp}` | `{bp}:navbar-expand` |
+| `navbar-dark` / `navbar-light` | — (toggler icon uses `mask-image` + `currentcolor`; use `data-bs-theme` / theme classes) |
+
+## 10. Border radius (`rounded-*`)
+
+**The classes are NOT renamed** — this is an additive change, not a breaking one. `rounded-0`…`rounded-5`, `rounded-circle`, `rounded-pill`, and the side-scoped variants (`rounded-top-*`, `rounded-end-*`, `rounded-bottom-*`, `rounded-start-*`, each with their own `-0`…`-5`/`-circle`/`-pill`) all still exist verbatim in v6 — nothing to sweep here. v6 extends the scale with `rounded-6` through `rounded-9` (larger radii) and adds a new `rounded-size-{0-9|circle|pill}` utility family (a standalone radius token not tied to border sides).
+
+**The underlying CSS variable IS renamed**, though — same pattern as `--bs-secondary-color` → `--bs-secondary-fg`. `--bs-border-radius` and its `-sm`/`-lg`/`-xl`/`-xxl`/`-2xl`/`-pill` siblings are replaced by a numbered `--bs-radius-0`…`--bs-radius-9` scale plus `--bs-radius-pill`. Any consumer CSS overriding `--bs-border-radius*` directly (a common BS5 theming technique) needs to target the numbered variable instead. Mapping (verified against this repo's actual pre-migration BS5 defaults vs. the v6 bundle, not the stock Bootstrap 5.3 defaults — re-verify the pre-migration values for any other project before reusing this table):
+
+| v5 (removed) | value | v6 | value |
+|---|---|---|---|
+| `--bs-border-radius-sm` | 0.375rem | `--bs-radius-4` | 0.375rem (exact) |
+| `--bs-border-radius` | 0.5rem | `--bs-radius-5` | 0.5rem (exact) |
+| `--bs-border-radius-lg` | 0.625rem | `--bs-radius-6` | 0.625rem (exact) |
+| `--bs-border-radius-xl` | 1rem | `--bs-radius-8` | 1rem (exact) |
+| `--bs-border-radius-xxl` / `-2xl` | 2rem | `--bs-radius-9` | 1.5rem (**not exact** — v6's largest step tops out lower; flag for human review if the visual size matters) |
+| `--bs-border-radius-pill` | 50rem | `--bs-radius-pill` | 50rem (exact) |
+
+Search: `rg -n -- '--bs-border-radius' -g '*.css' -g '*.razor' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'`.
+
+## 11. Carousel (scroll-snap)
+
+Bootstrap 6 rebuilt the carousel on a native scroll container: `.carousel-inner` scrolls horizontally with `scroll-snap`, and the controls/indicators move out of the slide area. `carousel`, `carousel-inner`, `carousel-item`, `carousel-fade`, `carousel-indicators` keep their names.
+
+| v5 (removed) | v6 |
+|---|---|
+| `carousel-control-prev` / `carousel-control-next` + `carousel-control-prev-icon` / `carousel-control-next-icon` | a button with `data-bs-slide="prev"` / `"next"` (HxCarousel renders `btn-icon btn-sm`) containing `carousel-icon-prev` / `carousel-icon-next` |
+| `carousel-caption` | — (no caption class; put your own markup inside the `carousel-item`) |
+| `carousel-dark` | `data-bs-theme="dark"` on the `.carousel` |
+| `data-bs-ride="carousel"` (autoplay on load) | `data-bs-autoplay="true"` (default is off; there is no "start after the first interaction" mode for `data-bs-ride="true"`) |
+| `data-bs-interval="false"` | remove it — v6 `interval` must be a number (default 5000) and only applies while autoplaying |
+| `data-bs-wrap` | `data-bs-ends="loop"` (default) / `"wrap"` / `"stop"` |
+| `data-bs-touch` | — (swiping is native scrolling) |
+| — | new: `carousel-overlay` (controls over the slides) + `carousel-overlay-controls`, `carousel-center`, `carousel-auto`, `carousel-control-play-pause`; layout via `--bs-carousel-items`, `--bs-carousel-items-gap`, `--bs-carousel-items-peek` |

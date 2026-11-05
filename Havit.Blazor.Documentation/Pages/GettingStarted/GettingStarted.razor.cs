@@ -115,6 +115,33 @@ public partial class GettingStarted(
 		public bool SamplePagesCreated { get; set; } = false;
 	}
 
+	private static readonly TargetFramework[] _targetFrameworks = [TargetFramework.Net10, TargetFramework.Net9, TargetFramework.Net8];
+	private static readonly ProjectSetup[] _projectSetups = [ProjectSetup.BlazorWebApp, ProjectSetup.Server, ProjectSetup.WasmStandalone];
+	private static readonly BwaRenderMode[] _bwaRenderModes = [BwaRenderMode.Auto, BwaRenderMode.Server, BwaRenderMode.Wasm, BwaRenderMode.None];
+	private static readonly bool[] _samplePagesOptions = [false, true];
+	private static readonly BootstrapTheme[] _bootstrapThemes = [BootstrapTheme.HavitBlazor, BootstrapTheme.PlainCdn, BootstrapTheme.PlainProject, BootstrapTheme.Custom];
+
+	private static string GetSetupOptionText<TValue>(TValue value) => value switch
+	{
+		TargetFramework.Net10 => ".NET 10",
+		TargetFramework.Net9 => ".NET 9",
+		TargetFramework.Net8 => ".NET 8",
+		ProjectSetup.BlazorWebApp => "Blazor Web App",
+		ProjectSetup.Server => "Blazor Server App",
+		ProjectSetup.WasmStandalone => "Blazor WebAssembly Standalone App",
+		BwaRenderMode.Auto => "Auto",
+		BwaRenderMode.Server => "Server",
+		BwaRenderMode.Wasm => "WebAssembly",
+		BwaRenderMode.None => "None",
+		BootstrapTheme.HavitBlazor => "Havit.Blazor",
+		BootstrapTheme.PlainCdn => "standard Bootstrap from CDN",
+		BootstrapTheme.PlainProject => "standard Bootstrap from project",
+		BootstrapTheme.Custom => "Custom",
+		false => "Empty project",
+		true => "Sample pages included",
+		_ => value.ToString()
+	};
+
 	private enum TargetFramework { Net8, Net9, Net10 }
 	private enum ProjectSetup { BlazorWebApp, Server, WasmStandalone }
 	private enum BwaRenderMode { Auto, Server, Wasm, None }

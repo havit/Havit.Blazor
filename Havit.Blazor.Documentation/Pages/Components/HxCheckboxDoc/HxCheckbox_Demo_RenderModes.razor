@@ -1,4 +1,4 @@
-<HxCheckbox Text="Checkbox (default)"
+﻿<HxCheckbox Text="Checkbox (default)"
 			RenderMode="CheckboxRenderMode.Checkbox"
 			@bind-Value="isChecked" />
 
@@ -6,15 +6,11 @@
 			RenderMode="CheckboxRenderMode.Switch"
 			@bind-Value="isChecked" />
 
-<HxCheckbox Text="Native switch (haptic feedback on iOS 17.4+)"
-			RenderMode="CheckboxRenderMode.NativeSwitch"
-			@bind-Value="isChecked" />
-
 <HxCheckbox Text="Toggle button"
 			RenderMode="CheckboxRenderMode.ToggleButton"
 			@bind-Value="isChecked"
-			Color="ThemeColor.Light"
-			Outline="true" />
+			Color="ThemeColor.Secondary"
+			Variant="ButtonVariant.Outline" />
 
 @code
 {

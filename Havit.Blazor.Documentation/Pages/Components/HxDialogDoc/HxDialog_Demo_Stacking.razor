@@ -1,0 +1,26 @@
+<HxButton OnClick="() => myDialog.ShowAsync()" Color="ThemeColor.Primary">Open dialog</HxButton>
+
+<HxDialog @ref="myDialog" Title="Edit item">
+	<BodyTemplate>
+		Deleting the item asks for a confirmation, which opens above this dialog.
+	</BodyTemplate>
+	<FooterTemplate>
+		<HxButton OnClick="HandleDeleteClick" Color="ThemeColor.Danger">Delete</HxButton>
+		<HxButton OnClick="() => myDialog.HideAsync()" Color="ThemeColor.Secondary">Close</HxButton>
+	</FooterTemplate>
+</HxDialog>
+
+@code
+{
+	[Inject] protected IHxMessageBoxService MessageBox { get; set; }
+
+	private HxDialog myDialog;
+
+	private async Task HandleDeleteClick()
+	{
+		if (await MessageBox.ConfirmAsync("Delete item", "Do you really want to delete the item?"))
+		{
+			await myDialog.HideAsync();
+		}
+	}
+}

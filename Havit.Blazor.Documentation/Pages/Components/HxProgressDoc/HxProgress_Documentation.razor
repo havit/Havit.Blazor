@@ -1,17 +1,43 @@
-@attribute [Route("/components/" + nameof(HxProgress))]
+﻿@attribute [Route("/components/" + nameof(HxProgress))]
 @attribute [Route("/components/" + nameof(HxProgressBar))]
 
 <ApiDoc Type="typeof(HxProgress)">
     <DocHeading Title="Basic usage" />
     <Demo Type="typeof(HxProgress_Demo)" Tabs="false" />
 
-    <DocHeading Title="Labels" />
-    <Demo Type="typeof(HxProgress_Demo_Labels)" Tabs="false" />
+    <DocHeading Title="Bar sizing" />
 
-    <DocHeading Title="Height" />
+    <DocHeading Title="Width" Level="4" />
+    <p>
+        The width of each progress bar is set by its <code>Value</code> (normalized according to <code>MinValue</code> and <code>MaxValue</code>, see <a href="#scale">Scale</a>).
+        The width of the whole progress (the track) follows its container; use the <code>CssClass</code> parameter
+        with the <a href="https://getbootstrap.com/docs/6.0/utilities/width/">width utilities</a> (e.g. <code>w-50</code>) to change it.
+    </p>
+    <Demo Type="typeof(HxProgress_Demo_Width)" Tabs="false" />
+
+    <DocHeading Title="Height" Level="4" />
+    <p>Use the <code>Height</code> parameter (in pixels) to set the height of the progress; the inner progress bars resize accordingly.</p>
     <Demo Type="typeof(HxProgress_Demo_Height)" Tabs="false" />
 
+    <DocHeading Title="Labels" />
+    <p>Use the <code>Label</code> parameter (or the child content) to place a text label on the progress bar.</p>
+    <Demo Type="typeof(HxProgress_Demo_Labels)" Tabs="false" />
+
+    <DocHeading Title="Long labels" Level="4" />
+    <p>
+        By default, the content of the progress bar is clipped (<code>overflow: hidden</code>), so it does not bleed out of the bar.
+        If the progress bar is shorter than its label, the label is capped and may become unreadable.
+        To change this behavior, add the <code>overflow-visible</code> CSS class (using the <code>CssClass</code> parameter),
+        together with a text color which is readable on both the bar and the track (e.g. <code>fg-body</code>).
+    </p>
+    <Demo Type="typeof(HxProgress_Demo_LongLabels)" Tabs="false" />
+    <DocAlert Type="DocAlertType.Warning">
+        Labels longer than the progress bar may not be fully accessible this way, because the text color needs a sufficient contrast ratio
+        with both the progress bar and the track background colors. If the text can overlap the progress bar, consider displaying the label outside of the progress bar.
+    </DocAlert>
+
     <DocHeading Title="Backgrounds" />
+    <p>The <code>Color</code> parameter renders the <code>theme-*</code> class, which sets both the fill color and a contrasting label color.</p>
     <Demo Type="typeof(HxProgress_Demo_Backgrounds)" />
 
     <DocHeading Title="MultipleBars" />

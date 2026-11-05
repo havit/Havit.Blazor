@@ -1,4 +1,4 @@
-@using Havit.Blazor.Documentation.Pages.Components.HxTabPanelDoc
+﻿@using Havit.Blazor.Documentation.Pages.Components.HxTabPanelDoc
 @attribute [Route("/components/" + nameof(HxCard))]
 @attribute [Route("/components/" + nameof(HxCardText))]
 @attribute [Route("/components/" + nameof(HxCardTitle))]
@@ -36,6 +36,14 @@
     <DocHeading Title="Images" />
     <Demo Type="typeof(HxCard_Demo_ImageTop)" />
     <Demo Type="typeof(HxCard_Demo_ImageBottom)" />
+
+    <DocHeading Title="Horizontal" Level="3" />
+    <p>
+        Set <code>Horizontal="true"</code> to render a horizontal card (Bootstrap <code>card-row</code>) with the image and the body side by side.
+        <code>ImagePlacement="CardImagePlacement.Top"</code> (default) places the image at the (inline) start of the card (<code>card-img-start</code>),
+        <code>CardImagePlacement.Bottom</code> at the end (<code>card-img-end</code>).
+    </p>
+    <Demo Type="typeof(HxCard_Demo_Horizontal)" />
 
     <DocHeading Title="Image overlays" Level="3" />
     <Demo Type="typeof(HxCard_Demo_ImageOverlay)" />

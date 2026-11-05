@@ -1,0 +1,33 @@
+﻿<HxDialog @ref="xlDialog" Size="DialogSize.ExtraLarge" Title="Extra large dialog">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxDialog>
+<HxDialog @ref="lgDialog" Size="DialogSize.Large" Title="Large dialog">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxDialog>
+<HxDialog @ref="dialog" Title="Regular dialog">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxDialog>
+<HxDialog @ref="smDialog" Size="DialogSize.Small" Title="Small dialog">
+	<BodyTemplate>
+		...
+	</BodyTemplate>
+</HxDialog>
+
+<HxButton OnClick="() => xlDialog.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Extra large dialog</HxButton>
+<HxButton OnClick="() => lgDialog.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Large dialog</HxButton>
+<HxButton OnClick="() => dialog.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Regular dialog</HxButton>
+<HxButton OnClick="() => smDialog.ShowAsync()" Color="ThemeColor.Primary" CssClass="me-1 mb-1">Small dialog</HxButton>
+
+@code
+{
+	private HxDialog xlDialog;
+	private HxDialog lgDialog;
+	private HxDialog dialog;
+	private HxDialog smDialog;
+}

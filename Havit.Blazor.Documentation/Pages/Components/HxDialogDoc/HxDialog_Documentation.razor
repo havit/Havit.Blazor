@@ -1,0 +1,67 @@
+﻿@attribute [Route("/components/" + nameof(HxDialog))]
+
+<ApiDoc Type="typeof(HxDialog)">
+
+    <DocHeading Title="Basic usage" />
+	<Demo Type="typeof(HxDialog_Demo)" Tabs="false" />
+
+    <DocHeading Title="Footer" />
+	<p>
+		Use the <code>FooterTemplate</code> to add action buttons or other content to the bottom of the dialog.
+		The footer renders as a Bootstrap <code>dialog-footer</code>, so multiple actions are spaced and aligned to the end automatically.
+	</p>
+	<Demo Type="typeof(HxDialog_Demo_Footer)" />
+
+    <DocHeading Title="Dark dialog" />
+	<p>
+		To make a dialog dark, add <code>data-bs-theme="dark"</code> to the <code>HxDialog</code>.
+		Unmatched attributes are rendered on the underlying <code>&lt;dialog&gt;</code> element, so all nested content uses the dark color mode.
+	</p>
+	<Demo Type="typeof(HxDialog_Demo_Dark)" />
+
+    <DocHeading Title="Static backdrop" />
+	<p>When the backdrop is set to <code>DialogBackdrop.Static</code>, the dialog will not close when clicking outside of it.</p>
+	<Demo Type="typeof(HxDialog_Demo_Backdrop)" />
+
+    <DocHeading Title="Scrolling long content" />
+	<p>
+		The page behind a modal dialog does not scroll. When a dialog becomes too long for the user's viewport or device, the whole dialog scrolls
+		(the header and footer scroll with the content). Shorter dialogs do not clip their content, so dropdowns, autosuggests or date pickers can overflow the dialog.
+		Try the demo below to see what we mean.
+	</p>
+	<Demo Type="typeof(HxDialog_Demo_Scrolling)" />
+
+	<p>
+		You can also create a scrollable dialog by setting the <code>Scrollable</code> parameter: the dialog always fits the viewport,
+		only the dialog body scrolls and the header and footer stay visible. Note that the body clips its content, which affects inline dropdowns near its edges.
+	</p>
+	<Demo Type="typeof(HxDialog_Demo_Scrollable)" />
+
+    <DocHeading Title="Vertical centering" />
+	<p>Dialogs are vertically centered natively, there is no parameter to set. The dialog is built on the native <code>&lt;dialog&gt;</code> element, which the browser centers in the viewport by default.</p>
+
+    <DocHeading Title="Animation" />
+	<p>Use the <code>Animation</code> parameter to choose the open/close animation of the dialog. The default is <code>DialogAnimation.Fade</code>, use <code>DialogAnimation.None</code> to disable the animation.</p>
+	<Demo Type="typeof(HxDialog_Demo_Animation)" />
+
+    <DocHeading Title="Stacked dialogs" />
+	<p>
+		Dialogs stack on top of each other (the browser keeps open modal dialogs in the top layer). When you call <code>ShowAsync()</code> on a dialog while another one is open,
+		the new dialog opens above it and the dialog below stays open (and inert) until the top one closes. This is how a confirmation from <code>IHxMessageBoxService</code> works inside a dialog.
+	</p>
+	<Demo Type="typeof(HxDialog_Demo_Stacking)" />
+
+    <DocHeading Title="Swapping dialogs" />
+	<p>To <strong>swap</strong> dialogs instead, close the current dialog before opening the next one (<code>HideAsync()</code> followed by <code>ShowAsync()</code>) &ndash; the first one fades out as the second one opens, and the backdrop stays visible the whole time without flickering.</p>
+	<Demo Type="typeof(HxDialog_Demo_Swapping)" />
+
+    <DocHeading Title="Non-modal dialogs" />
+	<p>Set <code>NonModal="true"</code> to open the dialog with the browser-native <code>show()</code> instead of <code>showModal()</code>. A non-modal dialog has no backdrop, no focus trap, and does not block the rest of the page.</p>
+	<Demo Type="typeof(HxDialog_Demo_NonModal)" />
+
+    <DocHeading Title="Optional sizes" />
+	<Demo Type="typeof(HxDialog_Demo_Size)" />
+
+    <DocHeading Title="Fullscreen dialog" />
+	<Demo Type="typeof(HxDialog_Demo_Fullscreen)" />
+</ApiDoc>

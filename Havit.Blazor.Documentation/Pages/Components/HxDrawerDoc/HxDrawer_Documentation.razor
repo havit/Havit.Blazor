@@ -1,0 +1,74 @@
+﻿@attribute [Route("/components/" + nameof(HxDrawer))]
+
+<ApiDoc Type="typeof(HxDrawer)">
+    <MainContent>
+        <DocAlert Type="DocAlertType.Warning">
+            Similar to dialogs, only one drawer can be shown at a time.<br />
+            (We hide the current drawer if you show a new one.)
+        </DocAlert>
+
+        <DocHeading Title="Basic usage" />
+        <Demo Type="typeof(HxDrawer_Demo)" Tabs="false" />
+
+        <DocHeading Title="Custom close-button icon" />
+        <Demo Type="typeof(HxDrawer_Demo_CustomCloseButtonIcon)" />
+
+        <DocHeading Title="Placement" />
+        <p>Choose the placement of the Drawer by setting the <code>Placement</code> parameter. <code>DrawerPlacement.Fullscreen</code> makes the drawer cover the whole viewport.</p>
+        <Demo Type="typeof(HxDrawer_Demo_Placement)" />
+
+        <DocHeading Title="Backdrop" />
+        <p>
+            By default, the backdrop is enabled (<code>DrawerBackdrop.True</code>). You can disable it with <code>Backdrop="DrawerBackdrop.False"</code>.
+            The drawer is then still modal (the rest of the page is inert) unless you also set <code>ScrollingEnabled="true"</code> &ndash; with both,
+            the drawer opens as non-modal and users can scroll and interact with the page while the drawer is open.
+        </p>
+        <Demo Type="typeof(HxDrawer_Demo_Backdrop)" />
+
+        <DocHeading Title="Static backdrop" />
+        <p>When the backdrop is set to <code>DrawerBackdrop.Static</code>, the drawer will not close when clicking outside of it.</p>
+        <Demo Type="typeof(HxDrawer_Demo_StaticBackdrop)" />
+
+        <DocHeading Title="Responsive" />
+        <p>When a value is supplied to the <code>ResponsiveBreakpoint</code> parameter, the content is displayed using the drawer when below the selected breakpoint.</p>
+        <Demo Type="typeof(HxDrawer_Demo_Responsive)" />
+
+        <DocHeading Title="Size" />
+        <p>Set the size of the <code>HxDrawer</code> with the <code>Size</code> parameter. The default value is <code>DrawerSize.Regular</code>.</p>
+        <Demo Type="typeof(HxDrawer_Demo_Size)" />
+
+        <DocHeading Title="Footer" />
+        <p>
+            Use the <code>FooterTemplate</code> to add action buttons or other content pinned to the bottom of the drawer.
+            The footer renders as a Bootstrap <code>drawer-footer</code>, so multiple actions are spaced and aligned to the end automatically.
+        </p>
+        <Demo Type="typeof(HxDrawer_Demo_Footer)" />
+
+        <DocHeading Title="Sheet" />
+        <p>Set <code>Sheet="true"</code> to render the drawer as a flush-to-edge sheet (no inset, border radius, or shadow) using the <code>drawer-sheet</code> variant.</p>
+        <Demo Type="typeof(HxDrawer_Demo_Sheet)" />
+
+        <DocHeading Title="Dark drawer" />
+        <p>
+            Add <code>data-bs-theme="dark"</code> to the <code>HxDrawer</code> to better match it to different contexts like dark navbars.
+            Unmatched attributes are rendered on the underlying <code>&lt;dialog class="drawer"&gt;</code> element, so all nested elements use the dark color mode.
+        </p>
+        <Demo Type="typeof(HxDrawer_Demo_Dark)" />
+
+        <DocHeading Title="Translucent and instant" />
+        <p>
+            Set <code>Translucent="true"</code> for a translucent, blurred drawer background (<code>drawer-translucent</code>).
+            Set <code>Instant="true"</code> to open and close the drawer without the slide animation (<code>drawer-instant</code>).
+        </p>
+        <Demo Type="typeof(HxDrawer_Demo_Variants)" />
+    </MainContent>
+    <CssVariables>
+        <ApiDocCssVariable Name="--hx-drawer-horizontal-width-sm" Default="400px">
+            Horizontal width on a small screen size.
+        </ApiDocCssVariable>
+        <ApiDocCssVariable Name="--hx-drawer-horizontal-width-lg" Default="600px">
+            Horizontal width on a large screen size.
+        </ApiDocCssVariable>
+
+    </CssVariables>
+</ApiDoc>

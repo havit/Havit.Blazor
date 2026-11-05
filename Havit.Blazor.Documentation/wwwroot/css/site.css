@@ -1,4 +1,4 @@
-.doc-sidebar {
+﻿.doc-sidebar {
 	--hx-sidebar-width: 					320px;
 	--hx-sidebar-collapsed-width: 			56px;
 	--hx-sidebar-max-height: 				calc(100vh - 56px);
@@ -6,6 +6,26 @@
 	--hx-sidebar-brand-logo-height: 		30px;
 	--hx-sidebar-header-padding: 			.5rem 0;
 	--hx-sidebar-body-padding: 				0 1rem 0 0;
+}
+
+:where(.demo-content) > * + :not(.btn, .btn-group, .badge, .avatar, .avatar-stack, .hx-context-menu, dialog) {
+	margin-top: 1rem;
+}
+
+/* In the tabbed demo variant the tab content is a flex child of the (flex-column) card body;
+   stretch it so the demo fills the full width like the non-tabbed variant. */
+.card-demo > .card-body > .tab-content {
+	align-self: stretch;
+}
+
+/* Center the docs search in the navbar on lg+ (absolute, so the nav stays hard-left and the controls hard-right).
+   In the mobile drawer (< lg) the search stays in normal flow. */
+@media (min-width: 1024px) {
+	.nav-container .navbar-search-center {
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+	}
 }
 
 #blazor-error-ui {
@@ -30,7 +50,17 @@
 code[class*=language-],
 pre[class*=language-] {
 	text-shadow: none;
-	color: var(--bs-secondary-color);
+	color: var(--bs-secondary-fg);
+}
+
+/* Inline code (not the Prism-highlighted source blocks) colored with a pink theme color. */
+.prose code:not([class*="language-"]) {
+	color: var(--bs-pink-500);
+}
+
+/* The active item in the navbar mobile dropdown is shown in medium weight. */
+.nav-container .menu .menu-item.active {
+	font-weight: 500;
 }
 
 
@@ -76,6 +106,13 @@ pre[class*="language-"] {
 	flex-wrap: wrap;
 }
 
+/* Subtle "New" badge marking new pages in the sidebar navigation */
+.doc-sidebar .doc-new-badge {
+	min-height: 0;
+	padding: .125rem .375rem;
+	font-size: .625rem;
+}
+
 @media screen and (min-width: 992px) {
 	.doc-sidebar {
 		top: 56px;
@@ -93,44 +130,96 @@ pre[class*="language-"] {
 	}
 }
 
-/* Syntax highlighting override */
-
+/* Syntax highlighting override for dark mode (the Prism theme, prism-vs, is light only).
+   Dark mode = data-bs-theme="dark", or auto mode (no data-bs-theme) with a dark system preference.
+   No CSS nesting: site.css is not transpiled and nesting is not supported by all the targeted browsers. */
 [data-bs-theme=dark] .language-none {
-	color: var(--bs-secondary-text-emphasis);
+	color: var(--bs-secondary-fg-emphasis);
 }
 
 [data-bs-theme=dark] .token.namespace,
 [data-bs-theme=dark] .token.attr-name,
 [data-bs-theme=dark] .token.csharp.language-csharp,
 [data-bs-theme=dark] .language-csharp {
-	color: var(--bs-primary-text-emphasis);
+	color: var(--bs-primary-fg-emphasis);
 }
 
 [data-bs-theme=dark] .token.punctuation {
-	color: var(--bs-secondary-text-emphasis);
+	color: var(--bs-secondary-fg-emphasis);
 }
 
 [data-bs-theme=dark] .token.keyword,
 [data-bs-theme=dark] .token.string,
 [data-bs-theme=dark] .token.attr-value {
-	color: var(--bs-danger-text-emphasis);
+	color: var(--bs-danger-fg-emphasis);
 }
 
 [data-bs-theme=dark] .token.tag,
 [data-bs-theme=dark] .token.selector,
 [data-bs-theme=dark] .token.class-name {
-	color: var(--bs-success-text-emphasis);
+	color: var(--bs-success-fg-emphasis);
 }
 
 [data-bs-theme=dark] .token.function {
-	color: var(--bs-warning-text-emphasis);
+	color: var(--bs-warning-fg-emphasis);
 }
 
 [data-bs-theme=dark] .token.operator {
-	color: var(--bs-secondary-color);
+	color: var(--bs-secondary-fg);
 	background-color: transparent;
 }
 
+@media (prefers-color-scheme: dark) {
+	:root:not([data-bs-theme]) .language-none {
+		color: var(--bs-secondary-fg-emphasis);
+	}
+
+	:root:not([data-bs-theme]) .token.namespace,
+	:root:not([data-bs-theme]) .token.attr-name,
+	:root:not([data-bs-theme]) .token.csharp.language-csharp,
+	:root:not([data-bs-theme]) .language-csharp {
+		color: var(--bs-primary-fg-emphasis);
+	}
+
+	:root:not([data-bs-theme]) .token.punctuation {
+		color: var(--bs-secondary-fg-emphasis);
+	}
+
+	:root:not([data-bs-theme]) .token.keyword,
+	:root:not([data-bs-theme]) .token.string,
+	:root:not([data-bs-theme]) .token.attr-value {
+		color: var(--bs-danger-fg-emphasis);
+	}
+
+	:root:not([data-bs-theme]) .token.tag,
+	:root:not([data-bs-theme]) .token.selector,
+	:root:not([data-bs-theme]) .token.class-name {
+		color: var(--bs-success-fg-emphasis);
+	}
+
+	:root:not([data-bs-theme]) .token.function {
+		color: var(--bs-warning-fg-emphasis);
+	}
+
+	:root:not([data-bs-theme]) .token.operator {
+		color: var(--bs-secondary-fg);
+		background-color: transparent;
+	}
+}
+
 .hero {
-	background-image: radial-gradient(56.1514% 56.1514% at 49.972% var(--hero-position-y, 38.959%), rgba(var(--bs-primary-rgb), var(--hero-opacity, .3)) 0%, var(--bs-body-bg) 100%);
+	background-image:
+		radial-gradient(56% 56% at 30% var(--hero-position-y, 39%), color-mix(in srgb, var(--bs-blue-500) calc(var(--hero-opacity, .15) * 100%), transparent), transparent 100%),
+		radial-gradient(56% 56% at 70% var(--hero-position-y, 39%), color-mix(in srgb, var(--bs-green-500) calc(var(--hero-opacity, .15) * 100%), transparent), transparent 100%);
+}
+
+/* Full-width heroes (HomeLayout) bleed into the container-fluid padding - the gradients are still visible at the hero edges,
+   so the padding would show as white stripes on both sides. */
+.container-fluid > .hero:not(.container) {
+	margin-inline: calc(var(--bs-gutter-x) * -.5);
+}
+
+/* Sidebar embedded in the navbar drawer: the horizontal (icon rail) collapse makes no sense there. */
+.doc-sidebar-embedded .hx-sidebar-toggler {
+	display: none;
 }

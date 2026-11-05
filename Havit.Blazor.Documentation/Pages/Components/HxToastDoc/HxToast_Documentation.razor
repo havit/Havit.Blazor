@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxToast))]
+﻿@attribute [Route("/components/" + nameof(HxToast))]
 @attribute [Route("/components/" + nameof(HxToastContainer))]
 
 <ApiDoc Type="typeof(HxToast)">
@@ -14,6 +14,33 @@
 			You can use <code>HxToast</code> directly to show a toast. Usually you will use it in combination with <code>HxToastContainer</code>.
 		</p>
 		<Demo Type="typeof(HxToast_Demo)" />
+
+		<DocHeading Title="Placement" />
+		<p>
+			Use the <code>Position</code> parameter of <code>HxToastContainer</code> to place toasts in one of the nine standard positions
+			(<code>TopStart</code>, <code>TopCenter</code>, <code>TopEnd</code>, <code>MiddleStart</code>, <code>MiddleCenter</code>,
+			<code>MiddleEnd</code>, <code>BottomStart</code>, <code>BottomCenter</code>, <code>BottomEnd</code>).
+			The container is fixed to the viewport, so the toast appears relative to the viewport. It also stays above an open modal <code>HxDialog</code> or <code>HxDrawer</code>
+			(the container is moved to the browser top layer when a dialog opens).
+			Multiple toasts placed in the same container stack vertically, spaced by <code>--bs-toast-spacing</code>.
+		</p>
+		<Demo Type="typeof(HxToast_Demo_Placement)" />
+
+		<DocHeading Title="Color" />
+		<p>
+			Use the <code>Color</code> parameter for the Bootstrap 6 toast variants (colored border and subtle header).
+			<code>ThemeColor.Danger</code> and <code>ThemeColor.Warning</code> toasts are announced to screen readers immediately (<code>role="alert"</code>),
+			other toasts politely (<code>role="status"</code>).
+		</p>
+		<Demo Type="typeof(HxToast_Demo_Color)" />
+
+		<DocHeading Title="Dark toasts" />
+		<p>
+			Set a toast to dark mode by adding <code>data-bs-theme="dark"</code> to the <code>HxToast</code> (unmatched attributes are rendered on the <code>.toast</code> element).
+			To render all the toasts in a container in dark mode, add the attribute to the <code>HxToastContainer</code> instead.
+			For <code>HxMessenger</code>, see the <a href="/components/@nameof(HxMessenger)#dark-messages">dark messages</a> section.
+		</p>
+		<Demo Type="typeof(HxToast_Demo_Dark)" />
 
 		<DocAlert Type="DocAlertType.Info">
 			<code>HxToast</code> supports static server rendering.

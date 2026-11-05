@@ -11,7 +11,7 @@
 }
 
 /* Offset headings by Navbar height on desktop */
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 1024px) {
     .doc-content > ::deep h1, 
     .doc-content > ::deep h2, 
     .doc-content > ::deep h3, 

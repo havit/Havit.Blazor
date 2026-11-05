@@ -1,0 +1,30 @@
+﻿@if (_alertVisible)
+{
+	<HxAlert Color="ThemeColor.Warning" Dismissible="true" OnClosed="HandleAlertClosed">
+		<p><strong>Holy guacamole!</strong> Dismiss the alert, the focus moves to the button below.</p>
+	</HxAlert>
+}
+
+<button type="button" class="btn-outline theme-secondary" @ref="_showAlertButton" disabled="@_alertVisible" @onclick="() => _alertVisible = true">Show the alert again</button>
+
+@code
+{
+	private bool _alertVisible = true;
+	private bool _focusShowAlertButton;
+	private ElementReference _showAlertButton;
+
+	private void HandleAlertClosed()
+	{
+		_alertVisible = false;
+		_focusShowAlertButton = true;
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (_focusShowAlertButton)
+		{
+			_focusShowAlertButton = false;
+			await _showAlertButton.FocusAsync();
+		}
+	}
+}

@@ -1,0 +1,34 @@
+﻿@inject IDemoDataService DemoDataService
+
+<HxRadioButtonList Label="Small"
+				   TItem="EmployeeDto"
+				   TValue="int?"
+				   @bind-Value="selectedEmployeeId"
+				   Data="data"
+				   Inline="true"
+				   InputSize="InputSize.Small"
+				   ItemTextSelector="@(employee => employee.Name)"
+				   ItemValueSelector="@(employee => employee.Id)" />
+
+<HxRadioButtonList Label="Large"
+				   TItem="EmployeeDto"
+				   TValue="int?"
+				   @bind-Value="selectedEmployeeId"
+				   Data="data"
+				   Inline="true"
+				   InputSize="InputSize.Large"
+				   ItemTextSelector="@(employee => employee.Name)"
+				   ItemValueSelector="@(employee => employee.Id)"
+				   CssClass="mt-2" />
+
+@code
+{
+	private IEnumerable<EmployeeDto> data;
+	private int? selectedEmployeeId { get; set; }
+
+	protected override async Task OnParametersSetAsync()
+	{
+		data = await DemoDataService.GetPreferredEmployeesAsync(count: 3);
+		selectedEmployeeId = data.First().Id; // preselect first employee
+	}
+}

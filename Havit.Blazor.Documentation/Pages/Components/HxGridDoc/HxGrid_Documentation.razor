@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxGrid))]
+﻿@attribute [Route("/components/" + nameof(HxGrid))]
 @attribute [Route("/components/" + nameof(HxGridColumn<object>))]
 
 <ApiDoc Type="typeof(HxGrid<TItem>)">
@@ -195,6 +195,50 @@
 		<Demo Type="typeof(HxGrid_Demo_Striped)" />
 
 
+		<DocHeading Title="Stacked layout" Id="stacked" />
+		<p>
+			Set the <code>@nameof(HxGrid<TItem>.Stacked)</code> parameter to render the rows as vertical blocks
+			(<a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/content/tables/#stacked-tables">Bootstrap stacked tables</a>):
+			the first cell of each row is displayed as a bold title, the remaining cells as label–value pairs.
+			Use <code>@nameof(GridStacked).@nameof(GridStacked.Always)</code> to always stack the rows,
+			or <code>@nameof(GridStacked.BelowSmall)</code>, <code>@nameof(GridStacked.BelowMedium)</code>, <code>@nameof(GridStacked.BelowLarge)</code>, <code>@nameof(GridStacked.BelowExtraLarge)</code>, or <code>@nameof(GridStacked.BelowXxl)</code>
+			to stack them only when the grid is narrower than the breakpoint.
+			The breakpoint is evaluated against the width of the grid container (CSS container queries), not the viewport &ndash;
+			drag the lower-right corner of the example below to preview the behavior.
+		</p>
+		<Demo Type="typeof(HxGrid_Demo_Stacked)" Resizable="true" />
+		<p>
+			The labels are taken from the <code>@nameof(HxGridColumn<TItem>.HeaderText)</code> of the columns.
+			When the header is defined by a <code>@nameof(HxGridColumn<TItem>.HeaderTemplate)</code> (or when you need a different label),
+			set the <code>@nameof(HxGridColumn<TItem>.StackedLabel)</code> parameter of the column. Set it to an empty string to render the cells without a label.
+		</p>
+		<p>
+			The multi-select checkbox (<code>@nameof(HxGrid<TItem>.MultiSelectionEnabled)</code>) is placed in front of the row title,
+			the context menu (<code>@nameof(HxContextMenuGridColumn<TItem>)</code>) in the top-end corner of the row,
+			and the footer is stacked the same way as the data rows (empty footer cells are hidden).
+			The grid container (the element wrapping the table) is the query container of the container queries;
+			unlike <code>@nameof(HxGrid<TItem>.Responsive)</code>, it does not make the container scrollable.
+		</p>
+		<DocAlert Type="DocAlertType.Info">
+			The header row is visually hidden in the stacked layout (it remains available to assistive technologies and it is revealed while it contains the keyboard focus).
+			Sorting by clicking the column headers, the <code>@nameof(HxGridColumn<TItem>.HeaderFilterTemplate)</code> filters,
+			and the "select all" checkbox are therefore not visible there; provide an alternative UI (e.g. a filter form) if needed.
+		</DocAlert>
+		<p>
+			With <code>@nameof(GridContentNavigationMode.InfiniteScroll)</code>, the virtualization requires a uniform row height.
+			The stacked rows are taller than the <code>@nameof(HxGrid<TItem>.ItemRowHeight)</code> (it serves as the initial estimate),
+			so the cell values are not wrapped in the stacked layout to keep the height of the rows uniform:
+			plain text values (<code>@nameof(HxGridColumn<TItem>.ItemTextSelector)</code>) are truncated with an ellipsis and keep their line when empty.
+			Cells with markup (<code>@nameof(HxGridColumn<TItem>.ItemTemplate)</code>) are not clipped, so that their popups (menus, tooltips) are not cut off;
+			keep such content on a single line in all the rows (e.g. render a placeholder for an empty value).
+		</p>
+		<p>
+			The virtualization uses the <code>@nameof(HxGrid<TItem>.ItemRowHeight)</code> as the initial estimate of the row height and measures the rendered rows while scrolling.
+			With <code>@nameof(GridStacked).@nameof(GridStacked.Always)</code>, set the <code>@nameof(HxGrid<TItem>.ItemRowHeight)</code> to the height of the stacked rows.
+			With the breakpoint values, it should match the table rows; when the grid crosses the breakpoint, the visible rows can shift once until the new row height is measured.
+		</p>
+
+
 		<DocHeading Title="Persisting the state" Id="persisting-state" />
 		<p>
 			Persist the grid state by loading or saving the <code>@nameof(HxGrid<TItem>.CurrentUserState)</code> parameter.
@@ -208,16 +252,16 @@
 	</MainContent>
 
 	<CssVariables>
-		<ApiDocCssVariable Name="--hx-grid-button-hover-background" Default="var(--bs-secondary-bg)">
+		<ApiDocCssVariable Name="--hx-grid-button-hover-background" Default="var(--bs-bg-2)">
 			Grid button background color on hover.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-grid-button-border-radius" Default=".25rem">
+		<ApiDocCssVariable Name="--hx-grid-button-border-radius" Default="var(--bs-radius-4)">
 			Grid button border radius.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-grid-sorted-icon-color" Default="var(--bs-primary)">
+		<ApiDocCssVariable Name="--hx-grid-sorted-icon-color" Default="var(--bs-primary-fg)">
 			Color of the sorted icon.
 		</ApiDocCssVariable>
-		<ApiDocCssVariable Name="--hx-grid-progress-indicator-color" Default="var(--bs-primary)">
+		<ApiDocCssVariable Name="--hx-grid-progress-indicator-color" Default="var(--bs-primary-fg)">
 			Color of the grid progress indicator line.
 		</ApiDocCssVariable>
 	</CssVariables>
