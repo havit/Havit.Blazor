@@ -15,6 +15,78 @@ namespace Havit.Blazor.Documentation.Server;
 
 public class Program
 {
+	/// <summary>
+	/// Doc pages of components and types that were renamed or removed in v6 (Bootstrap 6), redirected to their v6 successors
+	/// so that external links to the v4 documentation keep working. Matched case-insensitively against the request path.
+	/// </summary>
+	private static readonly Dictionary<string, string> s_removedPageRedirects = new(StringComparer.OrdinalIgnoreCase)
+	{
+		// HxModal → HxDialog
+		["/components/HxModal"] = "/components/HxDialog",
+		["/types/HxModal"] = "/components/HxDialog",
+		["/types/ModalSettings"] = "/types/DialogSettings",
+		["/types/Modal Settings"] = "/types/DialogSettings", // v4 search catalog entry
+		["/types/ModalSize"] = "/types/DialogSize",
+		["/types/ModalFullscreen"] = "/types/DialogFullscreen",
+		["/types/ModalBackdrop"] = "/types/DialogBackdrop",
+		["/types/ModalRenderMode"] = "/types/DialogRenderMode",
+		["/types/ModalHidingEventArgs"] = "/types/DialogHidingEventArgs",
+		["/types/CloseButtonSettings"] = "/components/HxCloseButton",
+
+		// HxOffcanvas → HxDrawer
+		["/components/HxOffcanvas"] = "/components/HxDrawer",
+		["/types/HxOffcanvas"] = "/components/HxDrawer",
+		["/types/OffcanvasSettings"] = "/types/DrawerSettings",
+		["/types/OffcanvasPlacement"] = "/types/DrawerPlacement",
+		["/types/OffcanvasSize"] = "/types/DrawerSize",
+		["/types/OffcanvasBackdrop"] = "/types/DrawerBackdrop",
+		["/types/OffcanvasRenderMode"] = "/types/DrawerRenderMode",
+		["/types/OffcanvasResponsiveBreakpoint"] = "/types/DrawerResponsiveBreakpoint",
+		["/types/OffcanvasHidingEventArgs"] = "/types/DrawerHidingEventArgs",
+
+		// HxNavbarCollapse → HxNavbarDrawer
+		["/components/HxNavbarCollapse"] = "/components/HxNavbarDrawer",
+		["/types/HxNavbarCollapse"] = "/components/HxNavbarDrawer",
+
+		// HxDropdown → HxMenu
+		["/components/HxDropdown"] = "/components/HxMenu",
+		["/components/HxDropdownToggle"] = "/components/HxMenuToggleButton",
+		["/components/HxDropdownButtonGroup"] = "/components/HxMenu",
+		["/components/HxDropdownToggleButton"] = "/components/HxMenuToggleButton",
+		["/components/HxDropdownToggleElement"] = "/components/HxMenuToggleElement",
+		["/components/HxDropdownMenu"] = "/components/HxMenu",
+		["/components/HxDropdownContent"] = "/components/HxMenu",
+		["/components/HxDropdownItem"] = "/components/HxMenuItem",
+		["/components/HxDropdownHeader"] = "/components/HxMenuHeader",
+		["/components/HxDropdownDivider"] = "/components/HxMenuDivider",
+		["/types/HxDropdown"] = "/components/HxMenu",
+		["/types/HxDropdownButtonGroup"] = "/components/HxMenu",
+		["/types/HxDropdownToggleButton"] = "/components/HxMenuToggleButton",
+		["/types/HxDropdownToggleElement"] = "/components/HxMenuToggleElement",
+		["/types/HxDropdownMenu"] = "/components/HxMenu",
+		["/types/HxDropdownContent"] = "/components/HxMenu",
+		["/types/HxDropdownItem"] = "/components/HxMenuItem",
+		["/types/HxDropdownItemNavLink"] = "/components/HxMenuItemNavLink",
+		["/types/HxDropdownItemText"] = "/components/HxMenuText",
+		["/types/HxDropdownHeader"] = "/components/HxMenuHeader",
+		["/types/HxDropdownDivider"] = "/components/HxMenuDivider",
+		["/types/DropdownAutoClose"] = "/types/MenuAutoClose",
+		["/types/DropdownDirection"] = "/types/MenuPlacement",
+		["/types/DropdownMenuAlignment"] = "/types/MenuPlacement",
+		["/types/DropdownMenuAlignmentExtensions"] = "/types/MenuPlacementExtensions",
+		["/types/DropdownHidingEventArgs"] = "/types/MenuHidingEventArgs",
+		["/types/IDropdownContainer"] = "/types/IMenuContainer",
+		["/types/PopperStrategy"] = "/types/FloatingStrategy",
+
+		// HxCarousel
+		["/types/HxCarouselCaption"] = "/components/HxCarousel",
+		["/types/CarouselRide"] = "/components/HxCarousel",
+
+		// HxSidebar
+		["/types/SidebarResponsiveBreakpoint"] = "/components/HxSidebar",
+		["/types/SidebarResponsiveBreakpointExtensions"] = "/components/HxSidebar",
+	};
+
 	public static void Main(string[] args)
 	{
 		var builder = WebApplication.CreateBuilder(args);
@@ -90,6 +162,19 @@ public class Program
 			// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 			// app.UseHsts();
 		}
+
+		// v4 doc pages renamed or removed in v6 (see s_removedPageRedirects)
+		app.Use(async (context, next) =>
+		{
+			if (context.Request.Path.HasValue
+				&& s_removedPageRedirects.TryGetValue(context.Request.Path.Value, out var newPath))
+			{
+				context.Response.Redirect(newPath + context.Request.QueryString, permanent: true);
+				return;
+			}
+
+			await next();
+		});
 
 		app.UseHttpsRedirection();
 
