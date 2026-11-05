@@ -166,8 +166,10 @@ public class Program
 		// v4 doc pages renamed or removed in v6 (see s_removedPageRedirects)
 		app.Use(async (context, next) =>
 		{
-			if (context.Request.Path.HasValue
-				&& s_removedPageRedirects.TryGetValue(context.Request.Path.Value, out var newPath))
+			// routing accepts a trailing slash (/components/HxModal/), so the legacy URLs could have one
+			string path = context.Request.Path.Value?.TrimEnd('/');
+			if (!String.IsNullOrEmpty(path)
+				&& s_removedPageRedirects.TryGetValue(path, out var newPath))
 			{
 				context.Response.Redirect(newPath + context.Request.QueryString, permanent: true);
 				return;
