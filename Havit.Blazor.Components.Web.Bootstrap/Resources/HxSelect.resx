@@ -120,4 +120,7 @@
   <data name="FilterEmptyResultDefaultText" xml:space="preserve">
     <value>No results</value>
   </data>
+  <data name="FilterInputAriaLabel" xml:space="preserve">
+    <value>Filter options</value>
+  </data>
 </root>

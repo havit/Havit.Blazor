@@ -14,4 +14,7 @@
 	<data name="FilterEmptyResultDefaultText" xml:space="preserve">
 		<value>Keine Ergebnisse</value>
 	</data>
+	<data name="FilterInputAriaLabel" xml:space="preserve">
+		<value>Optionen filtern</value>
+	</data>
 </root>
