@@ -123,3 +123,63 @@ jobs:
         name: DocumentationMcp
         path: a/DocumentationMcp
         compression-level: 0
+
+    # Havit.Blazor.Documentation/XmlDoc/*.xml is copied there by the library builds above (CopyCustomContent target),
+    # docs/generated is written by Havit.Blazor.Documentation.RepoDumpGenerator. Both are committed, so fail when they are stale.
+    # Kept at the end of the job so that a stale file does not hide test results or artifacts.
+    - name: Generate docs/generated
+      working-directory: s
+      run: dotnet run --project Havit.Blazor.Documentation.RepoDumpGenerator/Havit.Blazor.Documentation.RepoDumpGenerator.csproj --no-build -c Release
+
+    - name: Check generated documentation files are up to date
+      working-directory: s
+      run: |
+        $changes = git status --porcelain --untracked-files=all -- Havit.Blazor.Documentation/XmlDoc docs/generated
+        if ($changes) {
+          $changes
+          Write-Output "::error::Havit.Blazor.Documentation/XmlDoc or docs/generated is out of date. Build the solution, run 'dotnet run --project Havit.Blazor.Documentation.RepoDumpGenerator' and commit the changes."
+          exit 1
+        }
+
+  bootstrap-assets:
+    # Fails when the committed Bootstrap build output (Havit.Bootstrap/dist, Havit.Blazor.Components.Web.Bootstrap/wwwroot/bootstrap.*)
+    # does not match what Havit.Bootstrap builds from its sources.
+    # Runs on Linux: the CSS source maps embed the SCSS sources, so a Windows (CRLF) checkout would produce different maps.
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout sources
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      with:
+        path: s
+
+    - name: Setup Node.js
+      uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
+      with:
+        node-version: 22.x
+        cache: npm
+        cache-dependency-path: s/Havit.Bootstrap/package-lock.json
+
+    - name: Install Havit.Bootstrap dependencies
+      working-directory: s/Havit.Bootstrap
+      run: npm ci
+
+    - name: Build Bootstrap CSS
+      working-directory: s/Havit.Bootstrap
+      run: npm run css
+
+    - name: Copy Bootstrap CSS and JS bundle to Havit.Blazor.Components.Web.Bootstrap
+      working-directory: s/Havit.Bootstrap
+      run: |
+        # publish-to-blazor only copies, so remove the committed output first; an obsolete bootstrap.* file then shows up as deleted
+        rm -f ../Havit.Blazor.Components.Web.Bootstrap/wwwroot/bootstrap.*
+        npm run publish-to-blazor
+
+    - name: Check Bootstrap files are up to date
+      working-directory: s
+      run: |
+        changes=$(git status --porcelain --untracked-files=all -- Havit.Bootstrap/dist 'Havit.Blazor.Components.Web.Bootstrap/wwwroot/bootstrap.*')
+        if [ -n "$changes" ]; then
+          echo "$changes"
+          echo "::error::Bootstrap build output is out of date. In Havit.Bootstrap run 'npm ci', 'npm run css' and 'npm run publish-to-blazor', then commit the changes."
+          exit 1
+        fi
