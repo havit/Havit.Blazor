@@ -319,12 +319,37 @@
 	</Content>
 </HxMenu>
 """)</CodeSnippet>
+<div class="table-responsive">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<td>v4.x</td>
+				<td>v6</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><td><code>HxDropdown</code></td><td><code>HxMenu</code> (the toggle goes to <code>Toggle</code>, the items to <code>Content</code>). <code>HxDropdown.CssClass</code> and additional attributes went on the <code>.dropdown</code> wrapper, which no longer exists &ndash; on <code>HxMenu</code> they go on the <code>.menu</code> element</td></tr>
+			<tr><td><code>HxDropdownToggleButton</code>, <code>HxDropdownToggleElement</code></td><td><code>HxMenuToggleButton</code>, <code>HxMenuToggleElement</code></td></tr>
+			<tr><td><code>HxDropdownItem</code>, <code>HxDropdownItemNavLink</code>, <code>HxDropdownDivider</code></td><td><code>HxMenuItem</code>, <code>HxMenuItemNavLink</code>, <code>HxMenuDivider</code></td></tr>
+			<tr><td><code>HxDropdownHeader</code>, <code>HxDropdownItemText</code></td><td><code>HxMenuHeader</code>, <code>HxMenuText</code></td></tr>
+			<tr><td><code>HxDropdownMenu</code>, <code>HxDropdownContent</code></td><td>no component &ndash; put the items (or any custom content) directly into <code>HxMenu</code> <code>Content</code>, which renders the <code>&lt;div class="menu"&gt;</code>. Their <code>CssClass</code> and additional attributes move to <code>HxMenu.CssClass</code>/<code>AdditionalAttributes</code>, <code>Alignment</code> to <code>HxMenu.Placement</code></td></tr>
+			<tr><td><code>ContainerCssClass</code> (<code>HxDropdownItem</code>, <code>HxDropdownItemNavLink</code>, <code>HxDropdownItemText</code>, <code>HxDropdownDivider</code>)</td><td>removed &ndash; the items have no <code>&lt;li&gt;</code> wrapper; use <code>CssClass</code></td></tr>
+			<tr><td><code>DropdownAutoClose</code></td><td><code>MenuAutoClose</code></td></tr>
+			<tr><td><code>DropdownHidingEventArgs</code></td><td><code>MenuHidingEventArgs</code> (<code>OnHiding</code> of <code>HxMenuToggleButton</code>, <code>HxMenuToggleElement</code>, and <code>HxSearchBox</code>)</td></tr>
+			<tr><td><code>IDropdownContainer</code></td><td><code>IMenuContainer</code> (implemented by <code>HxMenu</code>)</td></tr>
+			<tr><td><code>DropdownOffset</code> (<code>HxDropdownToggleButton</code>, <code>HxDropdownToggleElement</code>, <code>HxSearchBox</code>; protected virtual on <code>HxAutosuggest</code>)</td><td><code>MenuOffset</code> (on the same components &ndash; <code>HxAutosuggest</code> subclasses override <code>MenuOffset</code>)</td></tr>
+			<tr><td><code>DropdownReference</code> (toggles)</td><td><code>MenuReference</code></td></tr>
+			<tr><td><code>DropdownContainer</code>, <code>GetDropdownJsOptions()</code> (protected, toggles)</td><td><code>MenuContainer</code>, <code>GetMenuJsOptions()</code></td></tr>
+			<tr><td><code>DropdownMenuAlignmentExtensions.GetCssClass()</code></td><td>no equivalent &ndash; Bootstrap 6 has no <code>dropdown-menu-start</code>/<code>-end</code> classes; placement is the toggle's <code>data-bs-placement</code> attribute, whose value <code>MenuPlacementExtensions.ToDataBsPlacement()</code> returns</td></tr>
+		</tbody>
+	</table>
+</div>
 <ul>
-	<li><code>DropdownDirection</code> and <code>DropdownMenuAlignment</code> were replaced by <code>MenuPlacement</code> (plus <code>ResponsivePlacement</code>); auto-close via <code>MenuAutoClose</code>.</li>
+	<li><code>DropdownDirection</code> and <code>DropdownMenuAlignment</code> were replaced by <code>MenuPlacement</code> (plus <code>ResponsivePlacement</code>).</li>
 	<li><code>HxDropdownButtonGroup</code> was <strong>dropped</strong> &ndash; build split buttons with <code>HxButtonGroup</code> + <code>HxMenu</code>.</li>
 	<li>The <code>Caret</code> parameter was dropped (Bootstrap 6 has no toggle caret class).</li>
-	<li><code>HxContextMenu</code>: <code>PopperStrategy</code> &rarr; <code>FloatingStrategy</code> (Floating UI replaces Popper.js); new <code>MenuCssClass</code>/<code>MenuPlacement</code>.</li>
-	<li><code>HxMultiSelect.ShowDropdownAsync()</code>/<code>HideDropdownAsync()</code> &rarr; <code>ShowMenuAsync()</code>/<code>HideMenuAsync()</code>.</li>
+	<li><code>HxContextMenu</code>: <code>PopperStrategy</code> &rarr; <code>FloatingStrategy</code> (Floating UI replaces Popper.js); <code>DropdownMenuCssClass</code> &rarr; <code>MenuCssClass</code> and <code>DropdownMenuAlignment</code> &rarr; <code>MenuPlacement</code> (default <code>BottomEnd</code>, matching the old <code>End</code>), on <code>ContextMenuSettings</code> too; <code>DropdownCssClass</code> was removed together with the <code>.dropdown</code> wrapper &ndash; use <code>CssClass</code>.</li>
+	<li><code>HxMultiSelect.ShowDropdownAsync()</code>/<code>HideDropdownAsync()</code> &rarr; <code>ShowMenuAsync()</code>/<code>HideMenuAsync()</code>; <code>HxSearchBox.HideDropdownAsync()</code> &rarr; <code>HideMenuAsync()</code>.</li>
 	<li>CSS/JS: <code>.dropdown-menu</code>/<code>.dropdown-item</code> &rarr; <code>.menu</code>/<code>.menu-item</code>; JS events <code>*.bs.dropdown</code> &rarr; <code>*.bs.menu</code>; <code>--hx-*-dropdown-*</code> CSS variables &rarr; <code>--hx-*-menu-*</code>.</li>
 </ul>
 
@@ -348,6 +373,39 @@
 	The public API is unchanged (<code>ExpandedItemId(s)</code>, <code>StayOpen</code>, <code>OnExpanded</code>/<code>OnCollapsed</code>),
 	but the events now fire immediately on state change (no transition wait). New <code>Color</code> parameter (<code>theme-*</code> variants).
 	<strong>Migration step:</strong> update custom CSS/test selectors targeting the old accordion classes.
+</p>
+
+<DocHeading Title="HxCarousel" Id="hxcarousel" Level="3" />
+<p>
+	Rebuilt on the Bootstrap 6 scroll-snap carousel: the slides sit in a native horizontal scroll container (<code>.carousel-inner</code>),
+	and the controls and indicators render in a bar below the slides instead of over them &ndash; set <code>Overlay="true"</code> to keep the v4.x look.
+</p>
+<div class="table-responsive">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<td>v4.x</td>
+				<td>v6</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr><td><code>Ride</code> (<code>CarouselRide</code>)</td><td><code>Autoplay</code> (<code>bool</code>, default <code>false</code>). <code>CarouselRide.Carousel</code> was the default &ndash; carousels that autoplayed without setting <code>Ride</code> now need <code>Autoplay="true"</code>. <code>CarouselRide.False</code> &rarr; drop it. <code>CarouselRide.True</code> (start after the first manual slide) has no equivalent</td></tr>
+			<tr><td><code>Interval</code> (default <code>3000</code>; <code>null</code> turned autoplay off)</td><td><code>Interval</code> only sets the delay while <code>Autoplay</code> is on; <code>null</code> (default) is Bootstrap's <code>5000</code> ms</td></tr>
+			<tr><td><code>TouchSwiping</code></td><td>removed &ndash; swiping is native scrolling of the slide container and has no switch</td></tr>
+			<tr><td><code>Dark</code></td><td>removed &ndash; add <code>data-bs-theme="dark"</code> (rendered on the <code>.carousel</code> element)</td></tr>
+			<tr><td><code>HxCarouselCaption</code></td><td>removed (Bootstrap 6 has no <code>.carousel-caption</code>) &ndash; put the caption markup into the <code>HxCarouselItem</code> content and style it yourself</td></tr>
+			<tr><td>Wraps from the last slide to the first (Bootstrap 5 default)</td><td><code>Ends</code> (<code>CarouselEnds</code>): <code>Loop</code> (default, scrolls seamlessly past the ends), <code>Wrap</code> (the v4.x behavior), <code>Stop</code></td></tr>
+		</tbody>
+	</table>
+</div>
+<p>
+	New parameters: <code>ControlsPlacement</code> (<code>CarouselControlsPlacement</code>), <code>PlayPauseControl</code>, <code>Overlay</code>, <code>Center</code>,
+	<code>VariableWidth</code>, <code>VisibleItems</code>, <code>ItemsGap</code>, <code>ItemsPeek</code>, <code>Keyboard</code>, and additional attributes on both
+	<code>HxCarousel</code> and <code>HxCarouselItem</code>. <code>Controls</code>, <code>Indicators</code>, <code>Crossfade</code>, <code>Pause</code>,
+	<code>OnSlide</code>/<code>OnSlid</code>, and the methods are unchanged.
+	<strong>Migration step:</strong> <code>HxCarousel</code> now captures unmatched attributes, so a leftover <code>Ride</code>, <code>TouchSwiping</code>, or <code>Dark</code>
+	attribute still compiles and silently does nothing &ndash; search for them. Update custom CSS/selectors targeting <code>.carousel-control-prev</code>/<code>-next</code>,
+	<code>.carousel-caption</code>, or <code>.carousel-dark</code>.
 </p>
 
 <DocHeading Title="Form inputs: form-field layout" Id="form-field-layout" Level="3" />
@@ -422,7 +480,8 @@
 <p>
 	<code>HxSidebar</code> no longer implements mobile navigation &ndash; its only mode is the horizontal (icon rail) collapse.
 	The <code>ResponsiveBreakpoint</code> parameter, the <code>SidebarResponsiveBreakpoint</code> enum, and the built-in hamburger toggler
-	were <strong>removed</strong>. Mobile navigation is the application layout's concern: hide the sidebar below your breakpoint of choice
+	were <strong>removed</strong>, together with <code>SidebarResponsiveBreakpointExtensions.GetCssClass()</code>, which filled the breakpoint into infix
+	class patterns such as <code>d-??-none</code> &ndash; there is no replacement, write prefix classes such as <code>md:d-none</code> directly. Mobile navigation is the application layout's concern: hide the sidebar below your breakpoint of choice
 	with display utilities and provide the mobile navigation via <a href="/components/HxNavbar">HxNavbar</a> with
 	<code>HxNavbarDrawer</code> (the navbar's responsive content opens as a drawer in v6):
 </p>
@@ -469,8 +528,10 @@
 <ul>
 	<li><code>ThemeColor.Light</code>, <code>ThemeColor.Dark</code> (see <a href="#theme-colors">theme colors</a>)</li>
 	<li><code>HxButton.Outline</code> + <code>ToButtonColorCss()</code> (see <a href="#button-variants">button variants</a>)</li>
-	<li><code>HxDropdownButtonGroup</code>, <code>Caret</code>, <code>DropdownDirection</code>, <code>DropdownMenuAlignment</code> (see <a href="#hxdropdown-hxmenu">HxMenu</a>)</li>
+	<li><code>HxDropdownButtonGroup</code>, <code>HxDropdownMenu</code>/<code>HxDropdownContent</code>, <code>Caret</code>, <code>ContainerCssClass</code>, <code>DropdownDirection</code>, <code>DropdownMenuAlignment</code> (+ <code>DropdownMenuAlignmentExtensions</code>), <code>HxContextMenu.DropdownCssClass</code> (see <a href="#hxdropdown-hxmenu">HxMenu</a>)</li>
 	<li><code>HxModal.Centered</code>, <code>Animated</code>, <code>DialogCssClass</code>/<code>ContentCssClass</code>, <code>CloseButtonSettings</code> (see <a href="#hxmodal-hxdialog">HxDialog</a>)</li>
+	<li><code>HxCarouselCaption</code>, <code>CarouselRide</code>, <code>HxCarousel.Ride</code>/<code>TouchSwiping</code>/<code>Dark</code> (see <a href="#hxcarousel">HxCarousel</a>)</li>
+	<li><code>SidebarResponsiveBreakpoint</code> + <code>SidebarResponsiveBreakpointExtensions</code>, <code>HxSidebar.ResponsiveBreakpoint</code> (see <a href="#hxsidebar-mobile-mode">HxSidebar</a>)</li>
 	<li><code>HxCloseButton.White</code>, <code>CloseButtonSettings</code>; <code>HxBadge.TextColor</code>; <code>HxTabPanel</code> card-header pills (see <a href="#other-component-updates">component updates</a>)</li>
 	<li><code>ChipBadgeSettings</code>/<code>TagBadgeSettings</code> are <code>[Obsolete]</code> (see <a href="#chips">chips</a>)</li>
 	<li><code>PlaceholderAnimation.Glow</code> is <code>[Obsolete]</code> &ndash; use <code>PlaceholderAnimation.Pulse</code> (Bootstrap 6 renamed <code>placeholder-glow</code> to <code>placeholder-pulse</code>)</li>

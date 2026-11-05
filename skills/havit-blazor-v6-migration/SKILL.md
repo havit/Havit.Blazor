@@ -153,7 +153,9 @@ Hard rename **with a structure change** — `HxMenu` uses `Toggle`/`Content` ren
 </HxMenu>
 ```
 
-Component map: `HxDropdown`/`HxDropdownButtonGroup`→`HxMenu`, `HxDropdownToggleButton`→`HxMenuToggleButton`, `HxDropdownToggleElement`→`HxMenuToggleElement`, `HxDropdownMenu`→(dissolved into `Content`), `HxDropdownItem`→`HxMenuItem`, `HxDropdownItemNavLink`→`HxMenuItemNavLink`, `HxDropdownItemText`→`HxMenuText`, `HxDropdownDivider`→`HxMenuDivider`, `HxDropdownHeader`→`HxMenuHeader`. Types: `DropdownDirection`+`DropdownMenuAlignment`→`MenuPlacement` (single placement enum on `HxMenu.Placement`, e.g. `BottomStart`), `DropdownAutoClose`→`MenuAutoClose`, `PopperStrategy`→`FloatingStrategy` (Floating UI replaces Popper). Raw HTML: `data-bs-toggle="dropdown"` → `data-bs-toggle="menu"`.
+Component map: `HxDropdown`/`HxDropdownButtonGroup`→`HxMenu`, `HxDropdownToggleButton`→`HxMenuToggleButton`, `HxDropdownToggleElement`→`HxMenuToggleElement`, `HxDropdownMenu`/`HxDropdownContent`→(dissolved into `Content`, which renders the `<div class="menu">`; put custom content there directly, move their `CssClass`/attributes to `HxMenu.CssClass`/`AdditionalAttributes` and `Alignment` to `HxMenu.Placement`), `HxDropdownItem`→`HxMenuItem`, `HxDropdownItemNavLink`→`HxMenuItemNavLink`, `HxDropdownItemText`→`HxMenuText`, `HxDropdownDivider`→`HxMenuDivider`, `HxDropdownHeader`→`HxMenuHeader`. Types: `DropdownDirection`+`DropdownMenuAlignment`→`MenuPlacement` (single placement enum on `HxMenu.Placement`, e.g. `BottomStart`), `DropdownAutoClose`→`MenuAutoClose`, `DropdownHidingEventArgs`→`MenuHidingEventArgs`, `IDropdownContainer`→`IMenuContainer`, `PopperStrategy`→`FloatingStrategy` (Floating UI replaces Popper). `DropdownMenuAlignmentExtensions.GetCssClass()` has no replacement — v6 has no `dropdown-menu-start`/`-end` classes, placement is the toggle's `data-bs-placement` attribute (`MenuPlacementExtensions.ToDataBsPlacement()` returns the value). Raw HTML: `data-bs-toggle="dropdown"` → `data-bs-toggle="menu"`.
+
+Members: `DropdownOffset`→`MenuOffset` (`HxMenuToggleButton`, `HxMenuToggleElement`, `HxSearchBox`; the protected virtual `HxAutosuggest.DropdownOffset` → `MenuOffset`, so subclasses overriding it must rename the override), `DropdownReference`→`MenuReference` (toggles), protected `DropdownContainer`/`GetDropdownJsOptions()`→`MenuContainer`/`GetMenuJsOptions()` (toggle subclasses), `HxMultiSelect.ShowDropdownAsync()`/`HideDropdownAsync()`→`ShowMenuAsync()`/`HideMenuAsync()`, `HxSearchBox.HideDropdownAsync()`→`HideMenuAsync()`. `HxContextMenu` (and `ContextMenuSettings`): `DropdownMenuCssClass`→`MenuCssClass`, `DropdownMenuAlignment`→`MenuPlacement` (default `BottomEnd` = the old `End`), `DropdownCssClass` removed with the `.dropdown` wrapper (use `CssClass`). Removed with the `<li>` wrappers: `ContainerCssClass` on `HxDropdownItem`/`HxDropdownItemNavLink`/`HxDropdownItemText`/`HxDropdownDivider` — move its classes to `CssClass`. A leftover `ContainerCssClass` in markup still compiles: `HxMenuItem`/`HxMenuItemNavLink` render it as an inert HTML attribute, `HxMenuText`/`HxMenuDivider` throw at runtime (Step 5 has a search for it). Watch `CssClass`/additional attributes on the coordinator: on `HxDropdown` they went on the `.dropdown` wrapper, on `HxMenu` they go on the `.menu` element (no wrapper exists) — this compiles unchanged but moves the class/attribute.
 
 ### 4.4 HxButton: Outline removed, Variant added
 
@@ -180,7 +182,7 @@ Bootstrap 6 removed `.navbar-collapse`; responsive navbar content is a **Drawer*
 
 ### 4.7 HxSidebar: mobile navigation dropped — mobile-nav recipe
 
-`HxSidebar` no longer implements mobile navigation: `HxSidebar.ResponsiveBreakpoint`, the `SidebarResponsiveBreakpoint` enum, and the built-in mobile hamburger toggler are **removed**; the sidebar's only mode is the horizontal icon-rail collapse. The application layout must provide mobile navigation itself — hide the sidebar below a breakpoint with display utilities and serve navigation from `HxNavbar` with `HxNavbarDrawer` instead. If the migrated app relied on the sidebar's built-in mobile mode, this recipe is the replacement (apply it; do not look for a renamed parameter):
+`HxSidebar` no longer implements mobile navigation: `HxSidebar.ResponsiveBreakpoint`, the `SidebarResponsiveBreakpoint` enum (with `SidebarResponsiveBreakpointExtensions.GetCssClass()`, which filled the breakpoint into infix patterns like `d-??-none` — no replacement, write prefix classes such as `md:d-none` directly), and the built-in mobile hamburger toggler are **removed**; the sidebar's only mode is the horizontal icon-rail collapse. The application layout must provide mobile navigation itself — hide the sidebar below a breakpoint with display utilities and serve navigation from `HxNavbar` with `HxNavbarDrawer` instead. If the migrated app relied on the sidebar's built-in mobile mode, this recipe is the replacement (apply it; do not look for a renamed parameter):
 
 ```razor
 @* v6 layout recipe (lg = navbar's default expand breakpoint) *@
@@ -234,12 +236,25 @@ Audit `*.razor.css` files for rules setting properties that utility classes on t
 
 The CSS variables ARE renamed, though: `--bs-border-radius` and its `-sm`/`-lg`/`-xl`/`-xxl`/`-2xl`/`-pill` siblings become a numbered `--bs-radius-0`…`--bs-radius-9` scale plus `--bs-radius-pill`. Apply the mapping in `references/class-renames.md` § 10 to any consumer CSS overriding `--bs-border-radius*` directly.
 
+### 4.13 HxCarousel: rebuilt on the scroll-snap carousel
+
+`HxCarousel` renders the Bootstrap 6 scroll-snap carousel (slides in a native horizontal scroll container; controls and indicators in a bar below the slides). Removed: `HxCarouselCaption` (v6 has no `.carousel-caption` — move the caption markup into the `HxCarouselItem` content and style it), the `CarouselRide` enum with `HxCarousel.Ride`, `TouchSwiping` (swiping is native scrolling of `.carousel-inner`; there is no switch to turn it off), and `Dark` (→ `data-bs-theme="dark"` on `HxCarousel`, rendered on the `.carousel` element).
+
+- `Ride` → `Autoplay` (bool, **default `false`**). `CarouselRide.Carousel` was the v4 default, so every v4 carousel that autoplayed without setting `Ride` needs `Autoplay="true"` to keep cycling. `CarouselRide.False` → drop it. `CarouselRide.True` (start after the first manual slide) has no equivalent — choose `Autoplay="true"` or the default and flag it for review.
+- `Interval`: v4 default was 3000 ms and `null` meant "no autoplay"; v6 `Interval` only sets the delay while `Autoplay` is on, and `null` is Bootstrap's 5000 ms. Set `Interval="3000"` on autoplaying carousels to keep the v4 timing.
+- Ends: v4 wrapped from the last slide to the first (Bootstrap 5 default). v6 defaults to `Ends="CarouselEnds.Loop"` (seamless); `CarouselEnds.Wrap` reproduces v4, `CarouselEnds.Stop` hard-stops.
+- Layout: `Overlay="true"` puts the controls and indicators over the slides like v4; `ControlsPlacement` (`CarouselControlsPlacement.Bottom`/`Top`) moves the bar otherwise.
+- New, no migration needed: `PlayPauseControl`, `Center`, `VariableWidth`, `VisibleItems`, `ItemsGap`, `ItemsPeek`, `Keyboard`, additional attributes (also on `HxCarouselItem`). Unchanged: `Controls`, `Indicators`, `Crossfade`, `Pause`, `OnSlide`/`OnSlid`, the methods.
+
+**Leftovers don't fail the build:** `HxCarousel` captures unmatched attributes, so `Ride="..."`, `TouchSwiping="..."`, and `Dark="true"` in markup compile and render as inert HTML attributes. Find them with `rg -n -U '<HxCarousel\b[^>]*\b(Ride|TouchSwiping|Dark)=' -g '*.razor' -g '!{bin,obj}'`. Raw-HTML carousels: see `references/class-renames.md` § 11.
+
 ## Step 5 — Verification loop
 
 1. `dotnet build` — iterate until clean. Compile errors name the removed types from Step 4; do not suppress with `#pragma`/aliases.
 2. Leftover scan — all of these should return nothing (or only deliberate, flagged exceptions):
    ```
-   rg -n 'HxModal|HxOffcanvas|HxDropdown|HxNavbarCollapse' -g '*.razor' -g '*.cs' -g '!{bin,obj}'
+   rg -n 'HxModal|HxOffcanvas|Dropdown|HxNavbarCollapse|HxCarouselCaption|CarouselRide|SidebarResponsiveBreakpoint' -g '*.razor' -g '*.cs' -g '!{bin,obj}'
+   rg -n -U '<HxCarousel\b[^>]*\b(Ride|TouchSwiping|Dark)=|<HxMenu(Item|ItemNavLink|Text|Divider)\b[^>]*\bContainerCssClass=' -g '*.razor' -g '!{bin,obj}'
    rg -n 'form-select|text-bg-|btn-outline-[a-z]+|\b(btn|table)-(primary|secondary|success|danger|warning|info|light|dark)\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
    rg -on '\b[a-z][a-z0-9-]*-(sm|md|lg|xl|xxl)-[a-z0-9-]+\b' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
    rg -n '\btext-(primary|secondary|success|danger|warning|info|light|dark|muted|white|black|body-secondary|body-tertiary)\b|\bbg-body-(secondary|tertiary)\b' -g '*.razor' -g '*.cs' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'
@@ -253,5 +268,6 @@ The CSS variables ARE renamed, though: `--bs-border-radius` and its `-sm`/`-lg`/
    - **Drawers/offcanvas replacements**: open from the correct edge, backdrop dismiss.
    - **Navbar mobile**: narrow the viewport below the expand breakpoint — toggler opens the drawer, links navigate and close it; widen — content flattens inline.
    - **Sidebar**: desktop icon-rail collapse works; below the breakpoint the sidebar hides and the navbar drawer serves navigation.
+   - **Carousels**: those that autoplayed in v4 still cycle (`Autoplay="true"`); controls/indicators sit where intended (`Overlay`/`ControlsPlacement`); captions and dark variants still render.
    - **Theme colors**: badges/alerts/buttons show colors (a colorless gray component usually means a stale `btn-{color}`/`text-bg-*` class); grid/table rows that were highlighted (overdue, error, ...) are still tinted (an uncolored row means a stale `table-{color}`); check dark color mode if used.
 4. Report every spot you flagged-but-did-not-change (media queries, ambiguous classes) for human review, with file:line.

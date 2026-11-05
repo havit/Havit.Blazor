@@ -130,7 +130,8 @@ Search: `rg -n -- '--bs-(secondary-color|emphasis-color|[a-z]+-text-emphasis|bod
 | `dropdown-header` | `menu-header` |
 | `dropdown-toggle` | — (no caret class; the toggle is any element with `data-bs-toggle="menu"`) |
 | `dropdown-toggle-split` | `menu-toggle-split` |
-| `dropup` / `dropend` / `dropstart`, `dropdown-menu-end` | placement option on the Menu plugin (`MenuPlacement` in Hx components) |
+| `dropup` / `dropend` / `dropstart`, `dropdown-menu-start` / `dropdown-menu-end` | `data-bs-placement` attribute on the toggle (e.g. `top-end`; `MenuPlacement` in Hx components — `MenuPlacementExtensions.ToDataBsPlacement()` returns the value; there is no alignment class, so `DropdownMenuAlignmentExtensions.GetCssClass()` has no replacement) |
+| `dropdown-menu-{bp}-start` / `dropdown-menu-{bp}-end` (responsive alignment) | responsive `data-bs-placement`, e.g. `bottom-start md:bottom-end` (`ResponsivePlacement` in Hx components) |
 | `data-bs-toggle="dropdown"` | `data-bs-toggle="menu"` |
 
 ## 8. Forms
@@ -165,3 +166,18 @@ Search: `rg -n -- '--bs-(secondary-color|emphasis-color|[a-z]+-text-emphasis|bod
 | `--bs-border-radius-pill` | 50rem | `--bs-radius-pill` | 50rem (exact) |
 
 Search: `rg -n -- '--bs-border-radius' -g '*.css' -g '*.razor' -g '!{bin,obj}' -g '!**/wwwroot/lib/**'`.
+
+## 11. Carousel (scroll-snap)
+
+Bootstrap 6 rebuilt the carousel on a native scroll container: `.carousel-inner` scrolls horizontally with `scroll-snap`, and the controls/indicators move out of the slide area. `carousel`, `carousel-inner`, `carousel-item`, `carousel-fade`, `carousel-indicators` keep their names.
+
+| v5 (removed) | v6 |
+|---|---|
+| `carousel-control-prev` / `carousel-control-next` + `carousel-control-prev-icon` / `carousel-control-next-icon` | a button with `data-bs-slide="prev"` / `"next"` (HxCarousel renders `btn-icon btn-sm`) containing `carousel-icon-prev` / `carousel-icon-next` |
+| `carousel-caption` | — (no caption class; put your own markup inside the `carousel-item`) |
+| `carousel-dark` | `data-bs-theme="dark"` on the `.carousel` |
+| `data-bs-ride="carousel"` (autoplay on load) | `data-bs-autoplay="true"` (default is off; there is no "start after the first interaction" mode for `data-bs-ride="true"`) |
+| `data-bs-interval="false"` | remove it — v6 `interval` must be a number (default 5000) and only applies while autoplaying |
+| `data-bs-wrap` | `data-bs-ends="loop"` (default) / `"wrap"` / `"stop"` |
+| `data-bs-touch` | — (swiping is native scrolling) |
+| — | new: `carousel-overlay` (controls over the slides) + `carousel-overlay-controls`, `carousel-center`, `carousel-auto`, `carousel-control-play-pause`; layout via `--bs-carousel-items`, `--bs-carousel-items-gap`, `--bs-carousel-items-peek` |
