@@ -11,19 +11,14 @@ public record ContextMenuSettings
 	public string CssClass { get; set; }
 
 	/// <summary>
-	/// Additional CSS class(es) for the context menu dropdown (container).
+	/// Additional CSS class(es) for the context menu <c>.menu</c> element.
 	/// </summary>
-	public string DropdownCssClass { get; set; }
+	public string MenuCssClass { get; set; }
 
 	/// <summary>
-	/// Additional CSS class(es) for the context menu dropdown menu.
+	/// Placement of the context menu.
 	/// </summary>
-	public string DropdownMenuCssClass { get; set; }
-
-	/// <summary>
-	/// Alignment for the context menu dropdown menu.
-	/// </summary>
-	public DropdownMenuAlignment? DropdownMenuAlignment { get; set; }
+	public MenuPlacement? MenuPlacement { get; set; }
 
 	/// <summary>
 	/// Icon that carries the menu (use <see cref="BootstrapIcon" /> or any other <see cref="IconBase"/>).<br />

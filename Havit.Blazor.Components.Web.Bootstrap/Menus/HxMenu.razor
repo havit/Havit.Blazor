@@ -1,0 +1,7 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+<CascadingValue Value="@(this)" IsFixed="true">
+	@Toggle
+	<div class="@CssClassHelper.Combine("menu", ((IMenuContainer)this).IsOpen ? "show" : null, CssClass)" @attributes="@AdditionalAttributes">
+		@Content
+	</div>
+</CascadingValue>

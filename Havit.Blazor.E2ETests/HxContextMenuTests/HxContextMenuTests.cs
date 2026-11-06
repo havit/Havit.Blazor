@@ -9,16 +9,16 @@ public class HxContextMenuTests : TestAppTestBase
 		await NavigateToTestAppAsync("/HxContextMenuTests");
 
 		var trigger = Page.Locator(".hx-context-menu-btn");
-		var dropdownMenu = Page.Locator(".dropdown-menu");
+		var menu = Page.Locator(".menu");
 
 		// Assert - menu is not visible before clicking
-		await Expect(dropdownMenu).Not.ToBeVisibleAsync();
+		await Expect(menu).Not.ToBeVisibleAsync();
 
 		// Act
 		await trigger.ClickAsync();
 
 		// Assert - menu is visible after clicking the trigger
-		await Expect(dropdownMenu).ToBeVisibleAsync(new() { Timeout = 5_000 });
+		await Expect(menu).ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
 	[Fact]
@@ -33,7 +33,7 @@ public class HxContextMenuTests : TestAppTestBase
 
 		// Act - open menu and click the first item
 		await trigger.ClickAsync();
-		await Page.Locator(".dropdown-item:has-text('Action 1')").ClickAsync();
+		await Page.Locator(".menu-item:has-text('Action 1')").ClickAsync();
 
 		// Assert - callback was invoked
 		await Expect(clickCount).ToHaveTextAsync("1");
@@ -47,15 +47,15 @@ public class HxContextMenuTests : TestAppTestBase
 		await NavigateToTestAppAsync("/HxContextMenuTests");
 
 		var trigger = Page.Locator(".hx-context-menu-btn");
-		var dropdownMenu = Page.Locator(".dropdown-menu");
+		var menu = Page.Locator(".menu");
 
 		// Act - open menu and click an item
 		await trigger.ClickAsync();
-		await Expect(dropdownMenu).ToBeVisibleAsync(new() { Timeout = 5_000 });
-		await Page.Locator(".dropdown-item:has-text('Action 1')").ClickAsync();
+		await Expect(menu).ToBeVisibleAsync(new() { Timeout = 5_000 });
+		await Page.Locator(".menu-item:has-text('Action 1')").ClickAsync();
 
 		// Assert - menu is closed after clicking an item
-		await Expect(dropdownMenu).Not.ToBeVisibleAsync(new() { Timeout = 5_000 });
+		await Expect(menu).Not.ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
 	[Fact]
@@ -65,13 +65,13 @@ public class HxContextMenuTests : TestAppTestBase
 		await NavigateToTestAppAsync("/HxContextMenuTests");
 
 		var trigger = Page.Locator(".hx-context-menu-btn");
-		var disabledItem = Page.Locator(".dropdown-item:has-text('Disabled Action')");
+		var disabledItem = Page.Locator(".menu-item:has-text('Disabled Action')");
 		var disabledClickCount = Page.Locator("[data-testid='disabled-click-count']");
 
 		// Act - open menu
 		await trigger.ClickAsync();
 
-		// Assert - item has disabled CSS class (Bootstrap Dropdown style)
+		// Assert - item has disabled CSS class (Bootstrap Menu style)
 		await Expect(disabledItem).ToHaveClassAsync(new System.Text.RegularExpressions.Regex("\\bdisabled\\b"));
 		await Expect(disabledItem).ToHaveCSSAsync("pointer-events", "none");
 
@@ -80,5 +80,31 @@ public class HxContextMenuTests : TestAppTestBase
 
 		// Assert - callback was NOT invoked for the disabled item
 		await Expect(disabledClickCount).ToHaveTextAsync("0");
+	}
+
+	[Fact]
+	public async Task HxContextMenu_Keyboard_OpensMenuAndActivatesItem()
+	{
+		// Arrange
+		await NavigateToTestAppAsync("/HxContextMenuTests");
+
+		var trigger = Page.Locator(".hx-context-menu-btn");
+		var menu = Page.Locator(".menu");
+		var firstItem = Page.Locator(".menu-item:has-text('Action 1')");
+		var clickCount = Page.Locator("[data-testid='click-count']");
+
+		// Act - open the menu from the keyboard
+		await trigger.FocusAsync();
+		await Page.Keyboard.PressAsync("ArrowDown");
+
+		// Assert - the menu is open and the first item is focused
+		await Expect(menu).ToBeVisibleAsync(new() { Timeout = 5_000 });
+		await Expect(firstItem).ToBeFocusedAsync();
+
+		// Act - activate the item
+		await Page.Keyboard.PressAsync("Enter");
+
+		// Assert
+		await Expect(clickCount).ToHaveTextAsync("1");
 	}
 }
