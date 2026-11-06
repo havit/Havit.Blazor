@@ -256,7 +256,10 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	[JSInvokable("HxDropdown_HandleJsShown")]
 	public async Task HandleJsShown()
 	{
-		((IDropdownContainer)DropdownContainer).IsOpen = true;
+		if (DropdownContainer is IDropdownContainer container)
+		{
+			container.IsOpen = true;
+		}
 		await InvokeOnShownAsync();
 	}
 
@@ -277,7 +280,10 @@ public class HxDropdownToggleElement : ComponentBase, IHxDropdownToggle, IAsyncD
 	[JSInvokable("HxDropdown_HandleJsHidden")]
 	public async Task HandleJsHidden()
 	{
-		((IDropdownContainer)DropdownContainer).IsOpen = false;
+		if (DropdownContainer is IDropdownContainer container)
+		{
+			container.IsOpen = false;
+		}
 		await InvokeOnHiddenAsync();
 	}
 
