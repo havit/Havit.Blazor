@@ -1,66 +1,99 @@
 /*!
- * Bootstrap v5.3 (https://getbootstrap.com/)
- * Copyright 2011-2022 The Bootstrap Authors
- * Copyright 2011-2022 Twitter, Inc.
+ * Bootstrap v6.0 (https://getbootstrap.com/)
+ * Copyright 2011-2026 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ * HAVIT customizations (https://github.com/havit/Havit.Blazor)
  */
 
-// scss-docs-start import-stack
-// Configuration
-@import "../node_modules/bootstrap/scss/functions";
+@use "../node_modules/bootstrap/scss/bootstrap" with (
+  // HAVIT brand blue; drives the generated --blue-* scale and the "primary" theme.
+  $blue: #009de0
+);
+@use "sass:map";
+@use "../node_modules/bootstrap/scss/mixins/tokens" as bs-tokens;
 
-$light:     #dee2e6;
-$blue:      #009de0;
-$primary:     $blue;
+// HAVIT fix: scoped dark/light theming (e.g. dark menus via a `data-bs-theme="dark"` wrapper).
+// Bootstrap 6 emits its theme tokens (--bg-body, --fg-body, ...) on `:root` only and
+// `[data-bs-theme=dark|light]` only flips `color-scheme` (and `--shadow-strength`).
+// The `light-dark()` colors re-tint in nested scopes on their own (verified in Chromium 152 and WebKit/Safari 27),
+// but the `--box-shadow*` tokens bake in the `:root` `--shadow-strength` (`var()` in a custom property is
+// substituted on the element declaring it).
+// Keep .browserslistrc at Bootstrap's `light-dark()` floor: below it lightningcss lowers `light-dark()` to
+// `var(--lightningcss-light, ...)` space toggles, which resolve once where declared and break every nested scope
+// (e.g. the `.prose` `--heading-color` in a dark HxDialog).
+// Re-emitting the token set on every `[data-bs-theme]` scope recomputes the tokens against the scope.
+// It lives in the (otherwise empty) `root` layer with zero specificity so Bootstrap's layered component
+// token overrides still win on elements that carry `data-bs-theme` themselves.
+// Known limitation: inside a nested scope it resets consumer `:root` token overrides to the defaults
+// (redeclare such overrides on `:root, [data-bs-theme]`).
+// `--shadow-strength` is left out: it is a plain number Bootstrap itself sets per `[data-bs-theme]`
+// (2.4 for dark), and re-emitting the :root default (1) would weaken the dark mode shadows.
+@layer root {
+  :where([data-bs-theme]) {
+    @include bs-tokens.tokens(map.remove(bootstrap.$root-tokens, "--shadow-strength"));
+  }
+}
 
-@import "../node_modules/bootstrap/scss/variables";
-@import "../node_modules/bootstrap/scss/variables-dark";
-@import "variables";
+// HAVIT fix: select caret in the automatic (system preference) dark mode.
+// Bootstrap 6 switches `select.form-control` / `.form-control-caret` to the light caret SVG only under
+// `[data-bs-theme=dark]`, so a page without `data-bs-theme` on a dark system keeps the black caret.
+// Explicit light scopes (and multi-row selects, which have no caret) are left alone.
+@layer forms {
+  @media (prefers-color-scheme: dark) {
+    // stylelint-disable-next-line selector-no-qualifying-type
+    :is(select.form-control, .form-control-caret):not([data-bs-theme="light"], [data-bs-theme="light"] *, [multiple], [size]:not([size="1"])) {
+      background-image: var(--control-select-bg-dark);
+    }
+  }
+}
 
-@import "../node_modules/bootstrap/scss/maps";
-@import "../node_modules/bootstrap/scss/mixins";
-@import "../node_modules/bootstrap/scss/utilities";
+// HAVIT fix: small grow spinner (HxSpinner Type=Grow, Size=Small).
+// Bootstrap 6 declares `.spinner-sm` before `.spinner-grow` with the same specificity, so the size tokens
+// of `.spinner-grow` win and `.spinner-grow.spinner-sm` renders at full size (`.spinner-border.spinner-sm` works).
+// Same values as Bootstrap's `.spinner-sm`; remove once fixed upstream (still present in twbs/bootstrap main).
+@layer components {
+  .spinner-grow.spinner-sm {
+    --spinner-width: .75em;
+    --spinner-height: .75em;
+  }
+}
 
-// Layout & components
-@import "../node_modules/bootstrap/scss/root";
-@import "../node_modules/bootstrap/scss/reboot";
-@import "../node_modules/bootstrap/scss/type";
-@import "../node_modules/bootstrap/scss/images";
-@import "../node_modules/bootstrap/scss/containers";
-@import "../node_modules/bootstrap/scss/grid";
-@import "../node_modules/bootstrap/scss/tables";
-@import "tables";
-@import "../node_modules/bootstrap/scss/forms";
-@import "forms";
-@import "../node_modules/bootstrap/scss/buttons";
-@import "buttons";
-@import "../node_modules/bootstrap/scss/transitions";
-@import "../node_modules/bootstrap/scss/dropdown";
-@import "dropdown";
-@import "../node_modules/bootstrap/scss/button-group";
-@import "../node_modules/bootstrap/scss/nav";
-@import "../node_modules/bootstrap/scss/navbar";
-@import "../node_modules/bootstrap/scss/card";
-@import "../node_modules/bootstrap/scss/accordion";
-@import "../node_modules/bootstrap/scss/breadcrumb";
-@import "../node_modules/bootstrap/scss/pagination";
-@import "../node_modules/bootstrap/scss/badge";
-@import "../node_modules/bootstrap/scss/alert";
-@import "../node_modules/bootstrap/scss/progress";
-@import "../node_modules/bootstrap/scss/list-group";
-@import "../node_modules/bootstrap/scss/close";
-@import "../node_modules/bootstrap/scss/toasts";
-@import "../node_modules/bootstrap/scss/modal";
-@import "../node_modules/bootstrap/scss/tooltip";
-@import "../node_modules/bootstrap/scss/popover";
-@import "../node_modules/bootstrap/scss/carousel";
-@import "../node_modules/bootstrap/scss/spinners";
-@import "../node_modules/bootstrap/scss/offcanvas";
-@import "../node_modules/bootstrap/scss/placeholders";
+// HAVIT fix: connected OTP input with group separators (HxOtpInput Connected + GroupSize).
+// Bootstrap 6 rounds connected slots only via `.otp-slot:first-child` / `:last-child` and pulls every
+// non-first slot back by the border width, ignoring `.otp-separator` siblings, so the slots next to
+// a separator get square corners (and a -1px start margin). Treat each group as its own connected field.
+@layer components {
+  .otp-connected .otp-separator + .otp-slot {
+    margin-inline-start: 0;
+    border-start-start-radius: var(--otp-slot-border-radius);
+    border-end-start-radius: var(--otp-slot-border-radius);
+  }
 
-// Helpers
-@import "../node_modules/bootstrap/scss/helpers";
+  .otp-connected .otp-slot:has(+ .otp-separator) {
+    border-start-end-radius: var(--otp-slot-border-radius);
+    border-end-end-radius: var(--otp-slot-border-radius);
+  }
+}
 
-// Utilities
-@import "../node_modules/bootstrap/scss/utilities/api";
-// scss-docs-end import-stack
+// HAVIT fix: equal height of the pagination items (HxPager).
+// Bootstrap 6 sizes `.page-link` by `min-height` + padding but does not set its `line-height`, so the text items
+// (page numbers) inherit the surrounding line-height (e.g. 1.625 in `.prose` content) and grow taller than
+// the icon-only items (first/previous/next/last), which stay at the `min-height`.
+// Uses the line-height tokens of the button/input sizes the pagination sizes are aligned with.
+@layer components {
+  .pagination {
+    --pagination-line-height: var(--btn-input-line-height);
+  }
+
+  .pagination-sm {
+    --pagination-line-height: var(--btn-input-sm-line-height);
+  }
+
+  .pagination-lg {
+    --pagination-line-height: var(--btn-input-lg-line-height);
+  }
+
+  .page-link {
+    line-height: var(--pagination-line-height);
+  }
+}

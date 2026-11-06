@@ -12,18 +12,28 @@ public static class HxSetup
 	/// <summary>
 	/// Bootstrap version used by the library.
 	/// </summary>
-	public static string BootstrapVersion = "5.3.8";
+	public static string BootstrapVersion = "6.0.0-alpha1";
 
 	/// <summary>
-	/// Renders the <c>&lt;script&gt;</c> tag that references the corresponding Bootstrap JavaScript bundle with Popper.<br/>
+	/// Renders the <c>&lt;script&gt;</c> tag that references the corresponding Bootstrap JavaScript bundle (with Floating UI).<br/>
 	/// To be used in <c>_Layout.cshtml</c> as <c>@Html.Raw(HxSetup.RenderBootstrapJavaScriptReference())</c>.
 	/// </summary>
 	/// <remarks>
+	/// Bootstrap 6 ships ES modules only — there is no UMD bundle and no implicit <c>window.bootstrap</c> global anymore.
+	/// The bundle is shipped with this library (static web asset) to stay in lock-step with the compiled CSS
+	/// (Bootstrap 6 alpha is not available on public CDNs yet).
+	/// The rendered (external) module script re-exposes <c>window.bootstrap</c> as a compatibility bridge for the Hx* JS modules
+	/// (to be replaced by explicit imports as components are migrated to v6).
+	/// Note: the library's JS initializer (<c>Havit.Blazor.Components.Web.Bootstrap.lib.module.js</c>, <c>beforeWebStart</c>/<c>beforeStart</c>)
+	/// also establishes this bridge before the Blazor runtime starts, which guarantees availability for component JS interop regardless of
+	/// module-script timing; this reference remains recommended so the bundle download starts as early as possible.<br/>
 	/// We do not want to use TagHelper or HTML Helper here as we do not want to introduce a dependency on server-side ASP.NET Core (MVC/Razor) to our library (a separate NuGet package would have to be created).
 	/// </remarks>
 	public static string RenderBootstrapJavaScriptReference()
 	{
-		return "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js\" integrity=\"sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI\" crossorigin=\"anonymous\"></script>";
+		// External module script (HxSetup.js, not an inline script) so a strict Content Security Policy does not need a nonce for it.
+		// HxSetup.js claims the shared window.havitBlazorBootstrapReady promise slot together with the library's JS initializer, see the comments there.
+		return "<script type=\"module\" src=\"_content/Havit.Blazor.Components.Web.Bootstrap/HxSetup.js?v=" + VersionIdentifierHavitBlazorBootstrap + "\"></script>";
 	}
 
 	/// <summary>
@@ -38,7 +48,8 @@ public static class HxSetup
 		return bootstrapFlavor switch
 		{
 			BootstrapFlavor.HavitDefault => "<link href=\"_content/Havit.Blazor.Components.Web.Bootstrap/bootstrap.min.css?v=" + VersionIdentifierHavitBlazorBootstrap + "\" rel=\"stylesheet\" />",
-			BootstrapFlavor.PlainBootstrap => "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB\" crossorigin=\"anonymous\">",
+			// Official Bootstrap 6.0.0-alpha.1 CDN reference (URL and SRI hash from the Bootstrap docs), same version as Havit.Bootstrap is built from.
+			BootstrapFlavor.PlainBootstrap => "<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@6.0.0-alpha.1/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-B/GM4XqrwHnWXNOWMbloTmrYXZg10cakYGmpfsR/bbzQ6JAJI4ihuyADKLnBgrCe\" crossorigin=\"anonymous\">",
 			_ => throw new ArgumentOutOfRangeException($"Unknown {nameof(BootstrapFlavor)} value {bootstrapFlavor}.")
 		};
 	}

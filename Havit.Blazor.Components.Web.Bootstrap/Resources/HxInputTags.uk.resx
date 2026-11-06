@@ -120,4 +120,7 @@
   <data name="Remove" xml:space="preserve">
     <value>Видалити</value>
   </data>
+  <data name="TagSelected" xml:space="preserve">
+    <value>Вибрано {0}. Натисніть Backspace ще раз, щоб видалити.</value>
+  </data>
 </root>
