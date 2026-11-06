@@ -1,4 +1,6 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
+﻿using System.Globalization;
+
+namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
 public class HxInputRangeTests : BunitTestBase
 {
@@ -57,5 +59,51 @@ public class HxInputRangeTests : BunitTestBase
 
 		var input = cut.Find("input[type=range]");
 		Assert.Equal("42", input.GetAttribute("value"));
+	}
+
+	[Theory]
+	[InlineData("cs-CZ")]
+	[InlineData("tr-TR")]
+	public void HxInputRange_CommaDecimalCulture_RendersInvariantMinMaxStep(string cultureName)
+	{
+		// Arrange
+		using var culture = CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo(cultureName));
+		double currentValue = 1.2;
+
+		// Act
+		var cut = Render<HxInputRange<double>>(parameters => parameters
+			.Add(p => p.Min, 0.5)
+			.Add(p => p.Max, 1.5)
+			.Add(p => p.Step, 0.1)
+			.Bind(p => p.Value, currentValue, newValue => currentValue = newValue));
+
+		// Assert
+		var input = cut.Find("input[type=range]");
+		Assert.Equal("0.5", input.GetAttribute("min"));
+		Assert.Equal("1.5", input.GetAttribute("max"));
+		Assert.Equal("0.1", input.GetAttribute("step"));
+		Assert.Equal("1.2", input.GetAttribute("value"));
+	}
+
+	[Theory]
+	[InlineData("cs-CZ")]
+	[InlineData("tr-TR")]
+	public void HxInputRange_CommaDecimalCulture_ParsesInvariantValueFromBrowser(string cultureName)
+	{
+		// Arrange
+		using var culture = CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo(cultureName));
+		double currentValue = 1.2;
+
+		var cut = Render<HxInputRange<double>>(parameters => parameters
+			.Add(p => p.Min, 0.5)
+			.Add(p => p.Max, 1.5)
+			.Add(p => p.Step, 0.1)
+			.Bind(p => p.Value, currentValue, newValue => currentValue = newValue));
+
+		// Act
+		cut.Find("input[type=range]").Change("0.7");
+
+		// Assert
+		Assert.Equal(0.7, currentValue);
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using Havit.Blazor.Components.Web.Bootstrap.Internal;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
@@ -92,16 +93,17 @@ public class HxInputRange<TValue> : HxInputBase<TValue>
 		builder.AddAttribute(2, "class", GetInputCssClassToRender());
 		builder.AddAttribute(3, "type", "range");
 
-		builder.AddAttribute(4, "value", BindConverter.FormatValue(Value));
+		// input[type=range] uses the HTML floating-point number format (e.g. "0.5") regardless of the current culture.
+		builder.AddAttribute(4, "value", BindConverter.FormatValue(Value, CultureInfo.InvariantCulture));
 #pragma warning disable VSTHRD101 // Avoid unsupported async delegates
 		// TODO VSTHRD101 via RuntimeHelpers.CreateInferredBindSetter?
-		builder.AddAttribute(5, BindEventEffective.ToEventName(), EventCallback.Factory.CreateBinder(this, async value => await HandleValueChanged(value), Value));
+		builder.AddAttribute(5, BindEventEffective.ToEventName(), EventCallback.Factory.CreateBinder(this, async value => await HandleValueChanged(value), Value, CultureInfo.InvariantCulture));
 #pragma warning restore VSTHRD101 // Avoid unsupported async delegates
 		builder.SetUpdatesAttributeName("value");
-		builder.AddAttribute(10, "min", Min);
-		builder.AddAttribute(11, "max", Max);
+		builder.AddAttribute(10, "min", BindConverter.FormatValue(Min, CultureInfo.InvariantCulture));
+		builder.AddAttribute(11, "max", BindConverter.FormatValue(Max, CultureInfo.InvariantCulture));
 
-		builder.AddAttribute(15, "step", Step);
+		builder.AddAttribute(15, "step", BindConverter.FormatValue(Step, CultureInfo.InvariantCulture));
 
 		builder.AddAttribute(20, "disabled", !EnabledEffective);
 
