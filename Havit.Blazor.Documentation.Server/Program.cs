@@ -1,11 +1,11 @@
 ﻿using System.Globalization;
 using Havit.Blazor.Documentation.DemoData;
 using Havit.Blazor.Documentation.Pages.Showcase.Data;
+using Havit.Blazor.Documentation.Server.Infrastructure;
 using Havit.Blazor.Documentation.Server.Services;
 using Havit.Blazor.Documentation.Services;
 using Havit.Blazor.Documentation.Shared.Components.DocColorMode;
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using SmartComponents.Inference.OpenAI;
@@ -71,25 +71,12 @@ public class Program
 		{
 			app.UseExceptionHandler("/Error");
 
-			// old domain redirect
-			app.Use(async (context, next) =>
-			{
-
-				if (context.Request.Host.Host.Contains("havit.blazor.cz"))
-				{
-					var uriBuilder = new UriBuilder(UriHelper.GetDisplayUrl(context.Request));
-					uriBuilder.Host = "havit.blazor.eu";
-					context.Response.Redirect(uriBuilder.Uri.ToString(), permanent: true);
-
-					return;
-				}
-
-				await next();
-			});
-
 			// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 			// app.UseHsts();
 		}
+
+		// alternative domains -> primary hostname (production only, opt-in via configuration, see PrimaryHostnameRedirect:Hostname)
+		app.UsePrimaryHostnameRedirect(app.Configuration);
 
 		app.UseHttpsRedirection();
 
