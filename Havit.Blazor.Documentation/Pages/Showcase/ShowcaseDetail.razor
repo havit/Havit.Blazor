@@ -1,18 +1,18 @@
-@page "/showcase/{Id}"
+﻿@page "/showcase/{Id}"
 @layout HomeLayout
 
 <PageTitle>@_showcase.Title Showcase | HAVIT Blazor Bootstrap - Free components for ASP.NET Core Blazor</PageTitle>
 <DocHeadContent CanonicalRelativeUrl="@($"showcase/{_showcase.Id}")" />
 
 
-<div class="showcase-detail-header hero container d-flex justify-content-between align-items-center flex-wrap flex-md-nowrap column-gap-3">
+<div class="showcase-detail-header hero container d-flex justify-content-between align-items-center flex-wrap md:flex-nowrap column-gap-3">
     <ShowcaseNavigationLink Direction="Previous"
                             Title="@_previousShowcase.Title"
                             IconStart="BootstrapIcon.ArrowLeft"
                             Href="@($"showcase/{_previousShowcase.Id}")" />
 
-    <div class="current text-center order-last order-md-0 py-4 py-md-0">
-        <div class="small text-primary">@_showcase.Description</div>
+    <div class="current text-center order-last md:order-0 py-4 md:py-0">
+        <div class="small fg-primary">@_showcase.Description</div>
         <h1 class="fw-bold">@_showcase.Title</h1>
     </div>
 
@@ -23,9 +23,9 @@
                             CssClass="text-end" />
 </div>
 
-<div class="showcase-detail bg-body-tertiary">
+<div class="showcase-detail bg-3">
     <div class="container d-flex gap-3 flex-wrap justify-content-center">
-        <img src="@_showcase.ImageUrl" class="rounded-3 border shadow-lg mw-100" alt="@_showcase.Title" style="max-height: 750px">
+        <img src="@_showcase.ImageUrl" class="rounded-3 border shadow-lg max-w-100" alt="@_showcase.Title" style="max-height: 750px">
     </div>
 </div>
 

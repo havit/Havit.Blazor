@@ -5,7 +5,7 @@
 <DocHeading Title="@_plainTypeName" Id="@_plainTypeName" Level="1" />
 @if (!String.IsNullOrWhiteSpace(_model.Class?.Comments?.Summary))
 {
-	<p class="lead">@((MarkupString)_model.Class.Comments.Summary)</p>
+	<p class="fs-lg fw-light">@((MarkupString)_model.Class.Comments.Summary)</p>
 }
 
 <ResponsiveOnThisPageNavigation />
@@ -69,7 +69,7 @@
 						<td>
 							@if (property.IsStatic)
 							{
-								<HxBadge Color="ThemeColor.Light" TextColor="ThemeColor.Dark">static</HxBadge>
+								<HxBadge Color="ThemeColor.Secondary">static</HxBadge>
 							}
 
 							<strong>@property.PropertyInfo.Name</strong>

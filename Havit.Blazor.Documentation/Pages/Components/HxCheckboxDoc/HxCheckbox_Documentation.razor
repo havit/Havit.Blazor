@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxCheckbox))]
+﻿@attribute [Route("/components/" + nameof(HxCheckbox))]
 @attribute [Route("/components/HxInputCheckbox")]
 @using Havit.Blazor.Documentation.Pages.Components.HxButtonGroupDoc
 
@@ -28,6 +28,10 @@
     <DocHeading Title="Reverse" />
     <p>Put the checkbox on the opposite side by setting the <code>Reverse</code> parameter to <code>true</code>.</p>
     <Demo Type="typeof(HxCheckbox_Demo_Reverse)" />
+
+    <DocHeading Title="Sizes" />
+    <p>Use the <code>InputSize</code> parameter to render a small or large checkbox (Bootstrap <code>check-sm</code>/<code>check-lg</code>).</p>
+    <Demo Type="typeof(HxCheckbox_Demo_Sizes)" />
 
     <DocHeading Title="Render modes" />
     <p>The <code>RenderMode</code> parameter allows you to choose between different visual representations of the checkbox.</p>

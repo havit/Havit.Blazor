@@ -7,21 +7,49 @@
 
 <DocHeading Title="Basic usage" />
 <p>
-	Bootstrap 5.3 introduced the <a href="https://getbootstrap.com/docs/5.3/customize/color/#color-scheme">dark color scheme</a> and we added support for it in all our components.<br />
-	Use the <code>data-bs-theme="dark"</code> attribute on the <code>&lt;html&gt;</code> element to enable it.<br />
-	See the <a href="https://blog.getbootstrap.com/2023/05/30/bootstrap-5-3-0/#dark-mode">Bootstrap Dark mode documentation</a> for more details.
+	Bootstrap 6 builds its <a href="https://getbootstrap.com/docs/6.0/customize/color-modes/">color modes</a> on the native CSS <code>light-dark()</code> function and the <code>color-scheme</code> property, and all our components support both light and dark mode.<br />
+	By default, there is nothing to set: <code>:root</code> declares <code>color-scheme: light dark</code>, so the page follows the user's system preference (and switches when the preference changes while the app is running).
+</p>
+<p>
+	To force a mode for the whole page, use the <code>data-bs-theme="dark"</code> (or <code>"light"</code>) attribute on the <code>&lt;html&gt;</code> element.
 </p>
 <CodeSnippet Language="razor" File="~\Pages\Concepts\DarkColorMode.CodeSnippet.razor" />
 
-<DocHeading Title="Color mode switcher" />
-<DocAlert Type="DocAlertType.Info">
-	Please note, there is no <code>auto</code> color mode built-in in Bootstrap 5.3.<br />
-	You can use the <code>window.matchMedia('(prefers-color-scheme: dark)').matches</code> query to detect the user's preference on startup and set the color mode accordingly.
-</DocAlert>
-<DocHeading Title="JavaScript" Level="3"/>
+<DocHeading Title="Scoped color mode" />
 <p>
-	The color mode switcher has to be implemented with the help of JavaScript.<br />
-	You can use the <a href="https://getbootstrap.com/docs/5.3/customize/color-modes/#javascript">script written by Bootstrap</a> to do the job.<br />
+	The <code>data-bs-theme</code> attribute can be set on any element (or component) to switch the color mode of just that subtree, regardless of the page color mode,
+	e.g. a <a href="/components/@nameof(HxMenu)#dark">dark menu</a> or a <a href="/components/@nameof(HxSidebar)#dark">dark sidebar</a>.
+	<code>HxNavbar</code> offers the <code>ColorMode</code> parameter for this purpose.
+</p>
+<p>
+	The attribute switches the colors of the components inside the subtree. A plain wrapper element does not get its own background and text color, add the <code>bg-body fg-body</code> utilities if you need them.
+</p>
+
+<DocHeading Title="Color scheme utilities" Level="3" />
+<p>
+	The <a href="https://getbootstrap.com/docs/6.0/utilities/color-scheme/"><code>.color-scheme-light</code>, <code>.color-scheme-dark</code> and <code>.color-scheme-auto</code> utilities</a> set only the <code>color-scheme</code> of a single element,
+	e.g. to have a light native date picker or an embedded <code>&lt;iframe&gt;</code> in a dark page.
+	They keep the shadow strength of the parent theme, so use <code>data-bs-theme</code> to switch a whole subtree.
+</p>
+
+<DocHeading Title="Overriding CSS variables" Level="3" />
+<p>
+	Our Bootstrap build adds one fix for scoped color modes: it re-declares the Bootstrap root tokens on every <code>[data-bs-theme]</code> element
+	(in the <code>root</code> cascade layer, with zero specificity, so component tokens still win).
+	The minified <code>bootstrap.min.css</code> replaces <code>light-dark()</code> with a <code>var()</code>-based fallback for older browsers,
+	which resolves the tokens on <code>:root</code>, so without the fix a nested scope would keep the page color mode.
+	It also recomputes the <code>--bs-box-shadow*</code> shadows with the scope's <code>--bs-shadow-strength</code>.
+	Our <code>--hx-*</code> defaults are re-declared on every <code>[data-bs-theme]</code> element for the same reason.
+</p>
+<p>
+	The consequence: if you override CSS variables (Bootstrap <code>--bs-*</code> or our <code>--hx-*</code>) on <code>:root</code> or on an ancestor element,
+	declare the override on <code>:root, [data-bs-theme]</code> (or on the scoped element itself) so that it also applies inside scoped color modes.
+</p>
+
+<DocHeading Title="Color mode switcher" />
+<p>
+	Bootstrap does not ship a color mode switcher. To switch the mode at runtime, set (light/dark) or remove (auto) the <code>data-bs-theme</code> attribute on the <code>&lt;html&gt;</code> element.
+	You can use the <a href="https://getbootstrap.com/docs/6.0/customize/color-modes/#javascript">script from the Bootstrap documentation</a> to do the job.
 </p>
 
 <DocHeading Title="Blazor" Level="3" />
@@ -32,6 +60,6 @@
 <ul>
 	<li>We use a cookie to store the user's choice and have the choice available server-side for server prerendering on the next visit.</li>
 	<li>We use <code>PersistentComponentState</code> to pass the prerendered color mode to the Blazor WebAssembly client.</li>
-	<li>We use two different implementations of <code>IDocColorModeResolver</code> to resolve the color mode on the server and client.</li>
-	<li>We did not implement the color mode switching when the system preference changes and the app is already running. The <code>auto</code> mode only resolves when the application starts.</li>
+	<li><code>IDocColorModeProvider</code> resolves the color mode (from the cookie when prerendering, from the persisted state on the client) and notifies the components when it changes.</li>
+	<li>In the <code>auto</code> mode, the <code>&lt;html&gt;</code> element gets no <code>data-bs-theme</code> attribute, so Bootstrap follows the system preference, including its later changes.</li>
 </ul>

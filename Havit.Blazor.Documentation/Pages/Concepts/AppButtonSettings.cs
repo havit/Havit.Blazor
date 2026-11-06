@@ -11,13 +11,13 @@ public static class AppButtonSettings
 	public static ButtonSettings SecondaryButton { get; } = new()
 	{
 		Color = ThemeColor.Secondary,
-		Outline = true
+		Variant = ButtonVariant.Outline
 	};
 
 	public static ButtonSettings CloseButton { get; } = new()
 	{
 		Color = ThemeColor.Danger,
-		Outline = true,
+		Variant = ButtonVariant.Outline,
 		Icon = BootstrapIcon.XLg
 	};
 }

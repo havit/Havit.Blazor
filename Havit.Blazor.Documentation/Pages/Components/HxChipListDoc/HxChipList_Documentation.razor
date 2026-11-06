@@ -2,6 +2,12 @@
 
 <ApiDoc Type="typeof(HxChipList)">
     <MainContent>
+        <DocAlert Type="DocAlertType.Info">
+            Since Bootstrap 6, chips render as native
+            <a href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/chips/">Chip</a> elements (no longer as badges).
+            Use the <code>Color</code> parameter to apply a Bootstrap theme color (a <code>theme-*</code> class) to the chips.
+        </DocAlert>
+
         <DocHeading Title="Basic usage" />
         <Demo Type="typeof(HxChipList_Demo)" Tabs="false" />
 
@@ -10,14 +16,8 @@
 		<Demo Type="typeof(HxChipList_Demo_Reset)" />
 	</MainContent>
     <CssVariables>
-        <ApiDocCssVariable Name="--hx-chip-list-chip-margin" Default=".25rem">
+        <ApiDocCssVariable Name="--hx-chip-list-gap" Default=".25rem">
             Gap between chips.
-        </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-chip-list-chip-gap" Default=".25rem">
-            Gap between chip content.
-        </ApiDocCssVariable>
-        <ApiDocCssVariable Name="--hx-chip-list-chip-remove-btn-margin" Default=".5">
-            Initial opacity of chip remove button.
         </ApiDocCssVariable>
         <ApiDocCssVariable Name="--hx-chip-list-chip-label-font-weight" Default="400">
             Font weight of chip label.

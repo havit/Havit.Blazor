@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxRadioButtonList<TValue, TItem>))]
+﻿@attribute [Route("/components/" + nameof(HxRadioButtonList<TValue, TItem>))]
 @attribute [Route("/components/" + nameof(HxRadioButtonListBase<TValue, TItem>))]
 
 <ApiDoc Type="typeof(HxRadioButtonList<TValue, TItem>)">
@@ -14,5 +14,12 @@
     <DocHeading Title="Inline" />
     <p>Group radios on the same horizontal row by adding <code>Inline="true"</code>.</p>
     <Demo Type="typeof(HxRadioButtonList_Demo_Inline)" />
+
+    <DocHeading Title="Sizes" />
+    <p>
+        Use the <code>InputSize</code> parameter to render small or large radio buttons (Bootstrap <code>radio-sm</code>/<code>radio-lg</code>).
+        The toggle button render modes use the <code>ButtonSize</code> parameter instead.
+    </p>
+    <Demo Type="typeof(HxRadioButtonList_Demo_Sizes)" />
 
 </ApiDoc>

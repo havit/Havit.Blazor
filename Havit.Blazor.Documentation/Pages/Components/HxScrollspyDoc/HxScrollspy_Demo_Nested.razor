@@ -1,0 +1,60 @@
+﻿<div class="container-fluid">
+	<div class="row">
+		<div class="col-auto">
+			<HxNav Id="nested-example" Variant="NavVariant.Pills" CssClass="bg-transparent" Orientation="NavOrientation.Vertical">
+				<HxScrollspyNavLink Href="#nesteddemo1">Item 1</HxScrollspyNavLink>
+				<HxNav Variant="NavVariant.Pills" CssClass="bg-transparent" Orientation="NavOrientation.Vertical">
+					<HxScrollspyNavLink Href="#nesteddemo1-1" CssClass="ms-3 my-1">Item 1-1</HxScrollspyNavLink>
+					<HxScrollspyNavLink Href="#nesteddemo1-2" CssClass="ms-3 my-1">Item 1-2</HxScrollspyNavLink>
+				</HxNav>
+				<HxScrollspyNavLink Href="#nesteddemo2">Item 2</HxScrollspyNavLink>
+				<HxScrollspyNavLink Href="#nesteddemo3">Item 3</HxScrollspyNavLink>
+				<HxNav Variant="NavVariant.Pills" CssClass="bg-transparent" Orientation="NavOrientation.Vertical">
+					<HxScrollspyNavLink Href="#nesteddemo3-1" CssClass="ms-3 my-1">Item 3-1</HxScrollspyNavLink>
+					<HxScrollspyNavLink Href="#nesteddemo3-2" CssClass="ms-3 my-1">Item 3-2</HxScrollspyNavLink>
+				</HxNav>
+			</HxNav>
+		</div>
+		<div class="col">
+			<div style="height:300px;position:relative;">
+				<HxScrollspy TargetId="nested-example">
+					<div id="nesteddemo1">
+						<h4>Item 1</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas. Praesent efficitur odio sed orci iaculis accumsan.</p>
+						<p>Keep in mind that the scrollspy activates the deepest section whose top has scrolled past the activation line near the top of the container. At the very bottom of the container, the last section gets activated.</p>
+					</div>
+					<div id="nesteddemo1-1">
+						<h5>Item 1-1</h5>
+						<p>Nam id consequat augue. Nunc sit amet nunc id ligula ornare porta quis id nisl. Vestibulum ultricies ex mauris, id viverra nibh congue vitae. Proin varius eget urna ut iaculis. Quisque molestie libero et nisi venenatis tincidunt. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+						<p>Keep in mind that the scrollspy activates the deepest section whose top has scrolled past the activation line near the top of the container. At the very bottom of the container, the last section gets activated.</p>
+					</div>
+					<div id="nesteddemo1-2">
+						<h5>Item 1-2</h5>
+						<p>Sed a aliquet nisi. Pellentesque placerat, turpis sit amet placerat eleifend, tellus turpis consectetur risus, ac scelerisque lectus purus eget turpis. Duis non nunc a lacus sagittis fringilla a quis purus. Ut scelerisque, dolor in pretium mollis, tellus sapien commodo turpis, sed faucibus ante magna et ex.</p>
+						<p>Keep in mind that the scrollspy activates the deepest section whose top has scrolled past the activation line near the top of the container. At the very bottom of the container, the last section gets activated.</p>
+					</div>
+					<div id="nesteddemo2">
+						<h4>Item 2</h4>
+						<p>Nulla eu tempor diam, a ultrices orci. Aenean massa lectus, euismod non fringilla nec, sagittis ut nisl. Aliquam eleifend nulla blandit urna eleifend, a viverra orci sodales. In suscipit scelerisque lectus, a sagittis ex volutpat at. Maecenas quis tortor elementum ex vulputate bibendum.</p>
+						<p>Keep in mind that the scrollspy activates the deepest section whose top has scrolled past the activation line near the top of the container. At the very bottom of the container, the last section gets activated.</p>
+					</div>
+					<div id="nesteddemo3">
+						<h4>Item 3</h4>
+						<p>Proin vitae faucibus ligula, vel blandit erat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla viverra nulla a tristique egestas. Pellentesque vel tristique arcu, a consequat nunc. Etiam massa sem, lacinia id lacinia id, laoreet nec turpis.</p>
+						<p>Keep in mind that the scrollspy activates the deepest section whose top has scrolled past the activation line near the top of the container. At the very bottom of the container, the last section gets activated.</p>
+					</div>
+					<div id="nesteddemo3-1">
+						<h5>Item 3-1</h5>
+						<p>Fusce et ex bibendum, commodo ligula at, volutpat elit. Sed ac est dapibus, molestie odio sed, condimentum ante. Quisque pretium nulla nisi, nec sagittis est vehicula in. Proin malesuada ultrices quam, vel venenatis magna consectetur eu. Praesent consectetur orci ut ligula lacinia finibus.</p>
+						<p>Keep in mind that the scrollspy activates the deepest section whose top has scrolled past the activation line near the top of the container. At the very bottom of the container, the last section gets activated.</p>
+					</div>
+					<div id="nesteddemo3-2">
+						<h5>Item 3-2</h5>
+						<p>Integer congue mi non sem consectetur suscipit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum ut est mi. Ut at dignissim turpis. Pellentesque et magna non massa malesuada consectetur. Morbi in lorem nunc.</p>
+						<p>Keep in mind that the scrollspy activates the deepest section whose top has scrolled past the activation line near the top of the container. At the very bottom of the container, the last section gets activated.</p>
+					</div>
+				</HxScrollspy>
+			</div>
+		</div>
+	</div>
+</div>

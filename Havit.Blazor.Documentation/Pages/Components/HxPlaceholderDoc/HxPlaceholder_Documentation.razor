@@ -4,6 +4,10 @@
 
 <ApiDoc Type="typeof(HxPlaceholder)">
     <DocHeading Title="Basic usage" />
+	<p>
+		<code>HxPlaceholderContainer</code> renders <code>aria-hidden="true"</code> while <code>Active</code>, so assistive technologies skip the placeholders.
+		Swapping the placeholders for the loaded content (and announcing the change, if needed) is up to you.
+	</p>
 	<Demo Type="typeof(HxPlaceholder_Demo_BasicExample)" Tabs="false" />
 
     <DocHeading Title="Width" />
@@ -17,7 +21,11 @@
 	<Demo Type="typeof(HxPlaceholder_Demo_Sizing)" Tabs="false" />
 
     <DocHeading Title="Animation" />
-	<p>Use animations to better convey the perception of something being <i>actively</i> loaded.</p>
+	<p>
+		Use animations to better convey the perception of something being <i>actively</i> loaded.
+		<code>PlaceholderAnimation.Wave</code> is the Bootstrap 6 default loading animation, <code>PlaceholderAnimation.Pulse</code> is an opacity pulse
+		(<code>PlaceholderAnimation.Glow</code> is obsolete, an alias of <code>Pulse</code>).
+	</p>
 	<Demo Type="typeof(HxPlaceholder_Demo_Animation)" Tabs="false" />
 </ApiDoc>
 

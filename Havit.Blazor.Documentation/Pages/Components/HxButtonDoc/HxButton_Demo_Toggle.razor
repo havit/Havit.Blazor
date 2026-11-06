@@ -1,0 +1,10 @@
+﻿<div class="d-flex flex-wrap gap-2">
+	<HxButton Text="Bold" Color="ThemeColor.Primary" Variant="ButtonVariant.Outline" Active="@bold" OnClick="() => bold = !bold" />
+	<HxButton Text="Italic" Color="ThemeColor.Primary" Variant="ButtonVariant.Outline" Active="@italic" OnClick="() => italic = !italic" />
+	<HxButton Text="Disabled toggle" Color="ThemeColor.Primary" Variant="ButtonVariant.Outline" Active="false" Enabled="false" />
+</div>
+
+@code {
+	private bool bold = true;
+	private bool italic;
+}

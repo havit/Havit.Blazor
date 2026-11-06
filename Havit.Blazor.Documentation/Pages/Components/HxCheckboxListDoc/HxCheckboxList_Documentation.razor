@@ -1,4 +1,4 @@
-@attribute [Route("/components/" + nameof(HxCheckboxList<TValue, TItem>))]
+﻿@attribute [Route("/components/" + nameof(HxCheckboxList<TValue, TItem>))]
 
 <ApiDoc Type="typeof(HxCheckboxList<TValue, TItem>)">
 	<DocHeading Title="Basic usage" />
@@ -15,4 +15,10 @@
 		(Toggle buttons do not support the <code>Inline</code> parameter; horizontal orientation can be achieved with proper CSS.)
 	</p>
 	<Demo Type="typeof(HxCheckboxList_Demo_Inline)" />
+
+	<DocHeading Title="Sizes" />
+	<p>
+		Use the <code>InputSize</code> parameter to render small or large checkboxes/switches
+		(see <a href="/components/HxCheckbox#sizes">HxCheckbox</a>). The toggle button render modes use the <code>ButtonSize</code> parameter instead.
+	</p>
 </ApiDoc>
