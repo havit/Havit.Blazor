@@ -11,7 +11,8 @@ public enum PopoverPlacement
 	Right = TooltipPlacement.Right,
 
 	/// <summary>
-	/// When specified, it will dynamically reorient the popover.
+	/// When specified, it will dynamically reorient the popover towards the side with the most available space.
+	/// (Emulated by Havit.Blazor, Bootstrap 6 has no <c>auto</c> placement.)
 	/// </summary>
 	Auto = TooltipPlacement.Auto
 }

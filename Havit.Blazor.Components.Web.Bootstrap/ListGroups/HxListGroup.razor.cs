@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/list-group/">Bootstrap 5 List group</see> component.<br/>
+/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/list-group/">Bootstrap 6 List group</see> component.<br/>
 /// List groups are a flexible and powerful component for displaying a series of content.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxListGroup">https://havit.blazor.eu/components/HxListGroup</see>
 /// </summary>
@@ -23,7 +23,10 @@ public partial class HxListGroup
 	[Parameter] public bool Numbered { get; set; }
 
 	/// <summary>
-	/// Changes the layout of the list group items from vertical to horizontal. Cannot be combined with <see cref="Flush"/>.
+	/// Changes the layout of the list group items from vertical to horizontal, including the responsive breakpoint
+	/// (Bootstrap 6 responsive <c>{breakpoint}:list-group-horizontal</c> classes are container query based,
+	/// the component renders the required <c>contains-inline</c> wrapper automatically).
+	/// Cannot be combined with <see cref="Flush"/>.
 	/// </summary>
 	[Parameter] public ListGroupHorizontal Horizontal { get; set; } = ListGroupHorizontal.Never;
 
@@ -36,6 +39,11 @@ public partial class HxListGroup
 	/// Additional attributes to be splatted onto an underlying <see cref="HxListGroup"/> component.
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+	/// <summary>
+	/// Responsive horizontal list groups use container queries, which require a <c>contains-inline</c> parent element.
+	/// </summary>
+	private bool RenderContainsInlineWrapper => Horizontal is not (ListGroupHorizontal.Never or ListGroupHorizontal.Always);
 
 	protected virtual string GetClasses()
 	{
@@ -53,11 +61,11 @@ public partial class HxListGroup
 		{
 			ListGroupHorizontal.Never => null,
 			ListGroupHorizontal.Always => "list-group-horizontal",
-			ListGroupHorizontal.SmallUp => "list-group-horizontal-sm",
-			ListGroupHorizontal.MediumUp => "list-group-horizontal-md",
-			ListGroupHorizontal.LargeUp => "list-group-horizontal-lg",
-			ListGroupHorizontal.ExtraLargeUp => "list-group-horizontal-xl",
-			ListGroupHorizontal.XxlUp => "list-group-horizontal-xxl",
+			ListGroupHorizontal.SmallUp => "sm:list-group-horizontal",
+			ListGroupHorizontal.MediumUp => "md:list-group-horizontal",
+			ListGroupHorizontal.LargeUp => "lg:list-group-horizontal",
+			ListGroupHorizontal.ExtraLargeUp => "xl:list-group-horizontal",
+			ListGroupHorizontal.XxlUp => "2xl:list-group-horizontal",
 			_ => throw new InvalidOperationException($"Unknown {nameof(ListGroupHorizontal)} value {Horizontal}.")
 		};
 	}

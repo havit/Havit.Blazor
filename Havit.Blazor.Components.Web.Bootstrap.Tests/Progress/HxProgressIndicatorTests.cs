@@ -47,4 +47,19 @@ public class HxProgressIndicatorTests : BunitTestBase
 		var content = cut.Find("#test-content");
 		Assert.NotNull(content);
 	}
+
+	[Fact]
+	public void HxProgressIndicator_Spinner_RendersStatusWithLocalizedText()
+	{
+		// Arrange & Act
+		var cut = Render<HxProgressIndicator>(parameters => parameters
+			.Add(p => p.InProgress, true)
+			.Add(p => p.Delay, 0)
+		);
+
+		// Assert - the status must have an accessible text (HxSpinner's localized HiddenText)
+		var spinner = cut.Find(".hx-progress-indicator .hx-progress-indicator-spinner.spinner-border");
+		Assert.Equal("status", spinner.GetAttribute("role"));
+		Assert.False(String.IsNullOrWhiteSpace(spinner.QuerySelector(".visually-hidden")?.TextContent));
+	}
 }

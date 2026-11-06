@@ -14,18 +14,18 @@ public class HxAlertTests : BunitTestBase
 
 		// Assert
 		var div = cut.Find("div.alert");
-		Assert.True(div.ClassList.Contains("alert-primary"));
+		Assert.True(div.ClassList.Contains("theme-primary"));
 	}
 
 	[Theory]
-	[InlineData(ThemeColor.Primary, "alert-primary")]
-	[InlineData(ThemeColor.Secondary, "alert-secondary")]
-	[InlineData(ThemeColor.Success, "alert-success")]
-	[InlineData(ThemeColor.Danger, "alert-danger")]
-	[InlineData(ThemeColor.Warning, "alert-warning")]
-	[InlineData(ThemeColor.Info, "alert-info")]
-	[InlineData(ThemeColor.Light, "alert-light")]
-	[InlineData(ThemeColor.Dark, "alert-dark")]
+	[InlineData(ThemeColor.Primary, "theme-primary")]
+	[InlineData(ThemeColor.Secondary, "theme-secondary")]
+	[InlineData(ThemeColor.Success, "theme-success")]
+	[InlineData(ThemeColor.Danger, "theme-danger")]
+	[InlineData(ThemeColor.Warning, "theme-warning")]
+	[InlineData(ThemeColor.Info, "theme-info")]
+	[InlineData(ThemeColor.Accent, "theme-accent")]
+	[InlineData(ThemeColor.Inverse, "theme-inverse")]
 	public void HxAlert_Color_AllThemeColors(ThemeColor color, string expectedCss)
 	{
 		// Act
@@ -51,7 +51,7 @@ public class HxAlertTests : BunitTestBase
 
 		// Assert
 		var div = cut.Find("div.alert");
-		Assert.True(div.ClassList.Contains("alert-info"));
+		Assert.True(div.ClassList.Contains("theme-info"));
 	}
 
 	[Fact]
@@ -79,9 +79,10 @@ public class HxAlertTests : BunitTestBase
 
 		// Assert
 		var div = cut.Find("div.alert");
-		Assert.True(div.ClassList.Contains("alert-dismissible"), "Should have alert-dismissible class.");
-		Assert.True(div.ClassList.Contains("fade"), "Should have fade class.");
-		Assert.True(div.ClassList.Contains("show"), "Should have show class.");
+		// Bootstrap 6 removed .alert-dismissible and fades alerts out without .fade/.show
+		Assert.False(div.ClassList.Contains("alert-dismissible"));
+		Assert.False(div.ClassList.Contains("fade"));
+		Assert.False(div.ClassList.Contains("show"));
 
 		var closeButton = cut.Find("button.btn-close");
 		Assert.NotNull(closeButton);
@@ -99,7 +100,6 @@ public class HxAlertTests : BunitTestBase
 
 		// Assert
 		var div = cut.Find("div.alert");
-		Assert.False(div.ClassList.Contains("alert-dismissible"));
 		Assert.Empty(cut.FindAll("button.btn-close"));
 	}
 
@@ -128,5 +128,60 @@ public class HxAlertTests : BunitTestBase
 		// Assert
 		var div = cut.Find("div.alert");
 		Assert.True(div.ClassList.Contains("my-custom-class"));
+	}
+
+	[Fact]
+	public void HxAlert_NoColor_RendersNeutralAlert()
+	{
+		// Act
+		var cut = Render<HxAlert>(p => p
+			.AddChildContent("<p>Neutral alert</p>"));
+
+		// Assert
+		var div = cut.Find("div.alert");
+		Assert.Equal(new[] { "alert" }, div.ClassList.ToArray());
+	}
+
+	[Fact]
+	public void HxAlert_NotDismissible_DoesNotImportJsModule()
+	{
+		// Act
+		Render<HxAlert>(p => p
+			.AddChildContent("<p>Alert</p>"));
+
+		// Assert
+		Assert.DoesNotContain(JSInterop.Invocations, invocation => invocation.Identifier == "import");
+	}
+
+	[Fact]
+	public void HxAlert_Dismissible_InitializesJsModule()
+	{
+		// Act
+		Render<HxAlert>(p => p
+			.Add(a => a.Dismissible, true)
+			.Add(a => a.OnClosed, () => { })
+			.AddChildContent("<p>Alert</p>"));
+
+		// Assert
+		var import = JSInterop.VerifyInvoke("import");
+		Assert.Contains("HxAlert.js", (string)import.Arguments[0]);
+		Assert.Contains(JSInterop.Invocations, invocation => invocation.Identifier == "initialize");
+	}
+
+	[Fact]
+	public async Task HxAlert_HandleJsClosed_InvokesOnClosed()
+	{
+		// Arrange
+		int closedCount = 0;
+		var cut = Render<HxAlert>(p => p
+			.Add(a => a.Dismissible, true)
+			.Add(a => a.OnClosed, () => closedCount++)
+			.AddChildContent("<p>Alert</p>"));
+
+		// Act
+		await cut.InvokeAsync(() => cut.Instance.HandleJsClosed());
+
+		// Assert
+		Assert.Equal(1, closedCount);
 	}
 }

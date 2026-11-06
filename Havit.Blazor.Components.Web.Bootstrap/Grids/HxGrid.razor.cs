@@ -1,4 +1,5 @@
-﻿using Havit.Collections;
+﻿using Havit.Blazor.Components.Web.Bootstrap.Internal;
+using Havit.Collections;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
@@ -267,6 +268,29 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	protected bool ResponsiveEffective => Responsive ?? GetSettings()?.Responsive ?? GetDefaults().Responsive ?? throw new InvalidOperationException(nameof(Responsive) + " default for " + nameof(HxGrid) + " has to be set.");
 
 	/// <summary>
+	/// Stacked layout of the grid (Bootstrap stacked tables).
+	/// When stacked, each row is rendered as a vertical block: the first cell acts as a bold title,
+	/// the remaining cells are displayed as label–value pairs (the labels come from <see cref="HxGridColumn{TItem}.StackedLabel"/>, which defaults to <see cref="HxGridColumn{TItem}.HeaderText"/>).
+	/// Use <see cref="GridStacked.Always"/> to always stack the rows, or one of the <c>Below*</c> values to stack the rows only when the grid container is narrower than the breakpoint.
+	/// Default is <see cref="GridStacked.Never"/>.
+	/// </summary>
+	/// <remarks>
+	/// The breakpoints are evaluated with CSS container queries against the width of the grid container (the <c>div</c> wrapping the <c>table</c> element,
+	/// the grid sets <c>container-type: inline-size</c> on it; unlike <see cref="Responsive"/>, it does not make the container scrollable).
+	/// The header row is visually hidden in the stacked layout (it remains available to assistive technologies and it is revealed while it contains the keyboard focus),
+	/// so sorting by clicking the column headers, <see cref="HxGridColumn{TItem}.HeaderFilterTemplate"/> filters, and the "select all" checkbox of <see cref="MultiSelectionEnabled"/> are not visible there.
+	/// With <see cref="GridContentNavigationMode.InfiniteScroll"/>, the stacked rows keep a uniform height for the virtualization: the cell values are not wrapped,
+	/// plain text values (e.g. <see cref="HxGridColumn{TItem}.ItemTextSelector"/>) are truncated with an ellipsis and keep their line when empty.
+	/// Cells with markup (e.g. <see cref="HxGridColumn{TItem}.ItemTemplate"/>) are not clipped, so that their popups (menus, tooltips) are not cut off;
+	/// keep such content on a single line in all the rows (e.g. render a placeholder for an empty value).
+	/// The virtualization uses <see cref="ItemRowHeight"/> as the initial estimate of the row height and measures the rendered rows while scrolling:
+	/// with <see cref="GridStacked.Always"/>, set <see cref="ItemRowHeight"/> to the height of the stacked rows;
+	/// with the <c>Below*</c> values, it should match the table rows, and when the grid crosses the breakpoint, the visible rows can shift once until the new row height is measured.
+	/// </remarks>
+	[Parameter] public GridStacked? Stacked { get; set; }
+	protected GridStacked StackedEffective => Stacked ?? GetSettings()?.Stacked ?? GetDefaults().Stacked ?? throw new InvalidOperationException(nameof(Stacked) + " default for " + nameof(HxGrid) + " has to be set.");
+
+	/// <summary>
 	/// Enables or disables the hover state on table rows within a <c>&lt;tbody&gt;</c>.
 	/// When not set, the table is hoverable by default if selection is enabled. This property customizes the hover behavior of the grid rows.
 	/// </summary>
@@ -495,8 +519,83 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 		return CssClassHelper.Combine("hx-grid table",
 			hoverable ? "table-hover" : null,
 			StripedEffective ? "table-striped" : null,
+			GetStackedCssClass(),
 			TableCssClassEffective,
 			ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll ? "hx-grid-infinite-scroll" : null);
+	}
+
+	/// <summary>
+	/// Returns the Bootstrap stacked table CSS class for the <c>&lt;table&gt;</c> element (or <c>null</c> when the grid is not stacked).
+	/// </summary>
+	private string GetStackedCssClass()
+	{
+		return StackedEffective switch
+		{
+			GridStacked.Never => null,
+			GridStacked.Always => "table-stacked",
+			GridStacked.BelowSmall => "sm:table-stacked",
+			GridStacked.BelowMedium => "md:table-stacked",
+			GridStacked.BelowLarge => "lg:table-stacked",
+			GridStacked.BelowExtraLarge => "xl:table-stacked",
+			GridStacked.BelowXxl => "2xl:table-stacked",
+			_ => throw new InvalidOperationException($"Unknown {nameof(HxGrid)}.{nameof(Stacked)} value {StackedEffective:g}.")
+		};
+	}
+
+	/// <summary>
+	/// Returns the CSS class making the table container (the <c>div</c> element wrapping the <c>table</c>) a query container for the stacked table container queries
+	/// (or <c>null</c> when the grid is not stacked or is stacked regardless of the width).
+	/// </summary>
+	/// <remarks>
+	/// Bootstrap uses <c>.table-responsive</c> as the query container, but its <c>overflow-x: auto</c> also makes the container a vertical scroll container,
+	/// which would become the scroll root of <see cref="GridContentNavigationMode.InfiniteScroll"/> (and break the virtualization of page-scrolling grids).
+	/// </remarks>
+	private string GetTableContainerStackedCssClass()
+	{
+		return (StackedEffective is GridStacked.Never or GridStacked.Always) ? null : "hx-grid-container-stacked";
+	}
+
+	/// <summary>
+	/// Returns the labels of the cells for the stacked layout (rendered as the <c>data-cell</c> attribute of the cells),
+	/// or <c>null</c> when the grid is not stacked (no <c>data-cell</c> attributes are rendered).
+	/// </summary>
+	private Dictionary<IHxGridColumn<TItem>, string> GetStackedLabels(List<IHxGridColumn<TItem>> columnsToRender)
+	{
+		if (StackedEffective == GridStacked.Never)
+		{
+			return null;
+		}
+
+		return columnsToRender.ToDictionary(column => column, column =>
+		{
+			string label = column.GetStackedLabel();
+			return String.IsNullOrEmpty(label) ? null : label;
+		});
+	}
+
+	/// <summary>
+	/// Returns the column whose cells are the titles of the stacked rows (rendered with the <c>hx-grid-stacked-title</c> CSS class):
+	/// the first column that is neither the multi-select column nor a <see cref="HxContextMenuGridColumn{TItem}"/>,
+	/// regardless of the order of the columns. Returns <c>null</c> when the grid is not stacked.
+	/// </summary>
+	private IHxGridColumn<TItem> GetStackedTitleColumn(List<IHxGridColumn<TItem>> columnsToRender)
+	{
+		if (StackedEffective == GridStacked.Never)
+		{
+			return null;
+		}
+
+		return columnsToRender.FirstOrDefault(column => !((column is HxMultiSelectGridColumnInternal<TItem>) || (column is HxContextMenuGridColumn<TItem>)));
+	}
+
+	/// <summary>
+	/// Returns the CSS class of a cell: the CSS class of the cell template, plus <c>hx-grid-stacked-title</c> for the cells of the stacked title column.
+	/// </summary>
+	private static string GetCellCssClass(GridCellTemplate cellTemplate, IHxGridColumn<TItem> column, IHxGridColumn<TItem> stackedTitleColumn)
+	{
+		return ((stackedTitleColumn != null) && (column == stackedTitleColumn))
+			? CssClassHelper.Combine(cellTemplate.CssClass, "hx-grid-stacked-title")
+			: cellTemplate.CssClass;
 	}
 
 	/// <summary>

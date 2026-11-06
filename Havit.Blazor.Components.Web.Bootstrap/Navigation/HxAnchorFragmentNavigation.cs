@@ -4,8 +4,7 @@ using Microsoft.JSInterop;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Temporarily (?) compensates for a Blazor deficiency in anchor fragments (scrolling to <c>page#id</c> URLs). Supports navigation with the <see cref="HxScrollspy"/> component.
-/// <see href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</see>.<br />
+/// Enables navigation to in-page anchors (<c>page#id</c> URLs) by scrolling to the target element — Blazor routing does not do this on its own (<see href="https://github.com/dotnet/aspnetcore/issues/8393">tracking issue</see>). Pairs with <see cref="HxScrollspy"/>.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxAnchorFragmentNavigation">https://havit.blazor.eu/components/HxAnchorFragmentNavigation</see>
 /// </summary>
 public class HxAnchorFragmentNavigation : ComponentBase, IAsyncDisposable
