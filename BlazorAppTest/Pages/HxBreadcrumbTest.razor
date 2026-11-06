@@ -6,14 +6,22 @@
     <HxBreadcrumbItem Text="Data" Active="true" />
 </HxBreadcrumb>
 
-<HxBreadcrumb Divider=">">
-    <HxBreadcrumbItem Href="#" Text="Home" />
-    <HxBreadcrumbItem Href="#" Text="Library" />
-    <HxBreadcrumbItem Text="Data" Active="true" />
+<HxBreadcrumb>
+    <DividerTemplate>&gt;</DividerTemplate>
+    <ChildContent>
+        <HxBreadcrumbItem Href="#" Text="Home" />
+        <HxBreadcrumbItem Href="#" Text="Library" />
+        <HxBreadcrumbItem Text="Data" Active="true" />
+    </ChildContent>
 </HxBreadcrumb>
 
-<HxBreadcrumb Divider="url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);">
-    <HxBreadcrumbItem Href="#" Text="Home" />
-    <HxBreadcrumbItem Href="#" Text="Library" />
-    <HxBreadcrumbItem Text="Data" Active="true" />
+<HxBreadcrumb>
+    <DividerTemplate>
+        <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="currentColor"><path d="M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z" /></svg>
+    </DividerTemplate>
+    <ChildContent>
+        <HxBreadcrumbItem Href="#" Text="Home" />
+        <HxBreadcrumbItem Href="#" Text="Library" />
+        <HxBreadcrumbItem Text="Data" Active="true" />
+    </ChildContent>
 </HxBreadcrumb>

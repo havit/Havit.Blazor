@@ -1,8 +1,8 @@
-﻿@page "/HxOffcanvasTest"
+﻿@page "/HxDrawerTest"
 
-<h1>HxOffcanvas Regular</h1>
+<h1>HxDrawer Regular</h1>
 
-<HxOffcanvas @ref="offcanvasComponent" Size="OffcanvasSize.Regular" OnClosed="HandleOffcanvasClosed">
+<HxDrawer @ref="drawerComponent" Size="DrawerSize.Regular" OnClosed="HandleDrawerClosed">
 	<HeaderTemplate>Title</HeaderTemplate>
 	<BodyTemplate>
 		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tincidunt blandit mauris. Aliquam sit amet lorem laoreet, laoreet elit ut, placerat tellus. In mollis ultricies elit, volutpat maximus ipsum sodales interdum. Suspendisse eget tellus mollis, rutrum mauris ac, vulputate enim. Cras porta neque vitae lacinia elementum. Nunc sit amet pulvinar nibh. Curabitur interdum eget odio in tempor. Nulla dictum orci quis ligula auctor fermentum. Pellentesque finibus tellus ac massa convallis malesuada. Nam id pharetra velit, sed eleifend mi. Sed sed justo lorem. Quisque et nulla ut dolor feugiat vestibulum. Nunc at porttitor orci, at dignissim metus. Donec vitae metus vitae felis semper placerat.</p>
@@ -13,15 +13,15 @@
 	</BodyTemplate>
 	<FooterTemplate>
 		<HxButton OnClick="HandleHide" Text="Close" Color="ThemeColor.Secondary" />
-		<HxButton OnClick="@(() => secondOffcanvasComponent.ShowAsync())" Text="Second" Color="ThemeColor.Danger" />
+		<HxButton OnClick="@(() => secondDrawerComponent.ShowAsync())" Text="Second" Color="ThemeColor.Danger" />
 	</FooterTemplate>
-</HxOffcanvas>
+</HxDrawer>
 
-<HxOffcanvas @ref="secondOffcanvasComponent" Backdrop="OffcanvasBackdrop.Static">
+<HxDrawer @ref="secondDrawerComponent" Backdrop="DrawerBackdrop.Static">
 	<HeaderTemplate>
 		Second
 	</HeaderTemplate>
-</HxOffcanvas>
+</HxDrawer>
 
 <p>
 	IsOpen: @opened
@@ -32,22 +32,22 @@
 
 @code
 {
-	private HxOffcanvas offcanvasComponent;
-	private HxOffcanvas secondOffcanvasComponent;
+	private HxDrawer drawerComponent;
+	private HxDrawer secondDrawerComponent;
 	private bool opened = false;
 
 	private async Task HandleOpen()
 	{
 		opened = true;
-		await offcanvasComponent.ShowAsync();
+		await drawerComponent.ShowAsync();
 	}
 
 	private async Task HandleHide()
 	{
-		await offcanvasComponent.HideAsync();
+		await drawerComponent.HideAsync();
 	}
 
-	private void HandleOffcanvasClosed()
+	private void HandleDrawerClosed()
 	{
 		opened = false;
 	}
