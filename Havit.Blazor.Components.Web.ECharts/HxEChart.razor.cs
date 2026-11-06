@@ -58,6 +58,13 @@ public partial class HxEChart : IAsyncDisposable
 	/// <summary>
 	/// Invoked when the user moves the axis pointer (e.g., when hovering over a chart).
 	/// </summary>
+	/// <remarks>
+	/// Invoked while the pointer is moving, at most once per animation frame, and only when the axis pointer position changes
+	/// (including leaving the chart, with empty <see cref="EChartAxisPointerUpdatedEventArgs.AxesInfo"/>).
+	/// The same position may be sent again after the options change or after the pointer returns to the chart.
+	/// A new invocation waits until the previous one completes; when that takes longer than 1 second, it is sent anyway, so invocations may overlap.
+	/// The latest position wins.
+	/// </remarks>
 	[Parameter] public EventCallback<EChartAxisPointerUpdatedEventArgs> OnAxisPointerUpdated { get; set; }
 
 	/// <summary>
