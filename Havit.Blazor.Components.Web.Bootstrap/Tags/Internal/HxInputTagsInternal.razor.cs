@@ -59,27 +59,25 @@ public partial class HxInputTagsInternal
 	[Parameter] public string Placeholder { get; set; }
 
 	/// <summary>
-	/// Settings for the <see cref="HxBadge"/> used to render tags.
+	/// CSS class(es) rendered with the individual tag chips (theme color + any additional classes).
 	/// </summary>
-	[Parameter] public BadgeSettings TagBadgeSettingsEffective { get; set; }
+	[Parameter] public string TagCssClass { get; set; }
 
 	[Parameter] public int SuggestDelayEffective { get; set; } = 300;
 
 	/// <summary>
-	/// CSS of the wrapping .form-control container (corresponds to InputCssClass on regular inputs)
+	/// CSS of the inner input element (form-ghost, is-invalid, ...). The chip-input wrapper reflects the states via <c>:has()</c>.
 	/// </summary>
-	[Parameter] public string CoreFormControlCssClass { get; set; }
+	[Parameter] public string InputCssClass { get; set; }
 
 	[Parameter] public string InputId { get; set; }
 
 	[Parameter] public bool EnabledEffective { get; set; } = true;
 
-	[Parameter] public LabelType LabelTypeEffective { get; set; }
-
 	[Parameter] public InputSize InputSizeEffective { get; set; }
 
 	/// <summary>
-	/// Offset between dropdown input and dropdown menu
+	/// Offset between menu input and menu menu
 	/// </summary>
 	[Parameter] public (int X, int Y) InputOffset { get; set; }
 
@@ -125,18 +123,18 @@ public partial class HxInputTagsInternal
 
 	protected bool HasInputGroupsEffective => !String.IsNullOrWhiteSpace(InputGroupStartText) || !String.IsNullOrWhiteSpace(InputGroupEndText) || (InputGroupStartTemplate is not null) || (InputGroupEndTemplate is not null);
 
-	private string _dropdownId = "hx" + Guid.NewGuid().ToString("N");
 	private System.Timers.Timer _timer;
 	private string _userInput = String.Empty;
 	private CancellationTokenSource _cancellationTokenSource;
 	private List<string> _suggestions;
-	private bool _isDropdownOpened = false;
+	private bool _isMenuOpened = false;
 	private bool _currentlyFocused;
 	private bool _mouseDownFocus;
 	private bool _disposed;
 	private IJSObjectReference _jsModule;
 	private HxInputTagsInputInternal _inputComponent;
 	private bool _dataProviderInProgress;
+	private string _selectedTag; // the last tag selected by the first Backspace in the empty input (the second Backspace removes it)
 	private DotNetObjectReference<HxInputTagsInternal> _dotnetObjectReference;
 
 	public HxInputTagsInternal()
@@ -217,9 +215,9 @@ public partial class HxInputTagsInternal
 			}
 			else
 			{
-				// or close a dropdown
+				// or close a menu
 				_suggestions = null;
-				await TryDestroyDropdownAsync();
+				await TryDestroyMenuAsync();
 			}
 		}
 	}
@@ -251,7 +249,7 @@ public partial class HxInputTagsInternal
 
 	private async Task HandleInputClick()
 	{
-		if (_currentlyFocused && (SuggestMinimumLengthEffective == 0) && !_isDropdownOpened)
+		if (_currentlyFocused && (SuggestMinimumLengthEffective == 0) && !_isMenuOpened)
 		{
 			await UpdateSuggestionsAsync();
 		}
@@ -263,19 +261,20 @@ public partial class HxInputTagsInternal
 
 		if (SuggestMinimumLengthEffective == 0)
 		{
-			await UpdateSuggestionsAsync(delayDropdownShow: _mouseDownFocus);
+			await UpdateSuggestionsAsync(delayMenuShow: _mouseDownFocus);
 		}
 		_mouseDownFocus = false;
 	}
 
 	[JSInvokable("HxInputTagsInternal_HandleInputBlur")]
-	public async Task HandleInputBlur(bool isWithinDropdown)
+	public async Task HandleInputBlur(bool isWithinMenu)
 	{
 		_currentlyFocused = false;
+		_selectedTag = null;
 
 		CancelDelayedSuggestionsUpdate();
 
-		if (!isWithinDropdown)
+		if (!isWithinMenu)
 		{
 			await TryProcessCustomTagsAsync();
 		}
@@ -319,7 +318,7 @@ public partial class HxInputTagsInternal
 		StateHasChanged();
 	}
 
-	private async Task UpdateSuggestionsAsync(bool delayDropdownShow = false)
+	private async Task UpdateSuggestionsAsync(bool delayMenuShow = false)
 	{
 		// Cancelation is performed in HandleInputInput method
 		_cancellationTokenSource?.Dispose();
@@ -361,11 +360,11 @@ public partial class HxInputTagsInternal
 
 		if (_suggestions?.Any() ?? false)
 		{
-			await OpenDropdownAsync(delayDropdownShow);
+			await OpenMenuAsync(delayMenuShow);
 		}
 		else
 		{
-			await TryDestroyDropdownAsync();
+			await TryDestroyMenuAsync();
 		}
 
 		StateHasChanged();
@@ -377,9 +376,26 @@ public partial class HxInputTagsInternal
 	[JSInvokable("HxInputTagsInternal_HandleInputKeyDown")]
 	public async Task HandleInputKeyDown(string keyCode)
 	{
+		// Backspace in the empty input selects the last tag first, the second Backspace removes it (Bootstrap chip input keyboard behavior).
+		// Any other key cancels the selection.
 		if ((keyCode == KeyCodes.Backspace) && String.IsNullOrWhiteSpace(_userInput) && ValueEffective.Any())
 		{
-			await RemoveTagWithEventCallbackAsync(ValueEffective.Last());
+			string lastTag = ValueEffective.Last();
+			if (_selectedTag == lastTag)
+			{
+				_selectedTag = null;
+				await RemoveTagWithEventCallbackAsync(lastTag);
+			}
+			else
+			{
+				_selectedTag = lastTag;
+				StateHasChanged();
+			}
+		}
+		else if (_selectedTag is not null)
+		{
+			_selectedTag = null;
+			StateHasChanged();
 		}
 
 		// Confirm selection on the focused item if an item is focused and the enter key is pressed.
@@ -388,7 +404,7 @@ public partial class HxInputTagsInternal
 		if ((keyCode == KeyCodes.Enter) || (keyCode == KeyCodes.NumpadEnter))
 		{
 			CancelDelayedSuggestionsUpdate();
-			await TryDestroyDropdownAsync();
+			await TryDestroyMenuAsync();
 			if ((focusedItem is not null) && (!focusedItem.Equals(default)))
 			{
 				await HandleItemSelected(focusedItem);
@@ -436,9 +452,9 @@ public partial class HxInputTagsInternal
 
 	private async Task HandleItemSelected(string tag)
 	{
-		_isDropdownOpened = false; // dropdown is closed because the user selected an item
+		_isMenuOpened = false; // menu is closed because the user selected an item
 
-		// user clicked on an item in the "dropdown".
+		// user clicked on an item in the "menu".
 		_userInput = String.Empty;
 		await AddTagWithEventCallbackAsync(tag);
 
@@ -470,9 +486,9 @@ public partial class HxInputTagsInternal
 		}
 	}
 
-	private async Task OpenDropdownAsync(bool delayShow = false)
+	private async Task OpenMenuAsync(bool delayShow = false)
 	{
-		if (!_isDropdownOpened)
+		if (!_isMenuOpened)
 		{
 			await EnsureJsModuleAsync();
 			if (_disposed)
@@ -480,24 +496,24 @@ public partial class HxInputTagsInternal
 				return;
 			}
 			await _jsModule.InvokeVoidAsync("open", _inputComponent.InputElement, _dotnetObjectReference, delayShow);
-			_isDropdownOpened = true;
+			_isMenuOpened = true;
 		}
 	}
 
-	private async Task TryDestroyDropdownAsync()
+	private async Task TryDestroyMenuAsync()
 	{
-		if (_isDropdownOpened)
+		if (_isMenuOpened)
 		{
-			await DestroyDropdownAsync();
+			await DestroyMenuAsync();
 		}
 	}
 
-	private async Task DestroyDropdownAsync()
+	private async Task DestroyMenuAsync()
 	{
 		await EnsureJsModuleAsync();
 		await _jsModule.InvokeVoidAsync("destroy", _inputComponent.InputElement);
 
-		_isDropdownOpened = false;
+		_isMenuOpened = false;
 		StateHasChanged();
 	}
 
@@ -506,10 +522,10 @@ public partial class HxInputTagsInternal
 		_jsModule ??= await JSRuntime.ImportHavitBlazorBootstrapModuleAsync(nameof(HxInputTags));
 	}
 
-	[JSInvokable("HxInputTagsInternal_HandleDropdownHidden")]
-	public async Task HandleDropdownHidden()
+	[JSInvokable("HxInputTagsInternal_HandleMenuHidden")]
+	public async Task HandleMenuHidden()
 	{
-		_isDropdownOpened = false;
+		_isMenuOpened = false;
 		if (!_currentlyFocused)
 		{
 			await TryProcessCustomTagsAsync();
@@ -518,22 +534,13 @@ public partial class HxInputTagsInternal
 		}
 		if (SuggestMinimumLengthEffective > 0)
 		{
-			await DestroyDropdownAsync();
+			await DestroyMenuAsync();
 		}
 	}
 
 	protected async Task HandleRemoveClickAsync(string tag)
 	{
 		await RemoveTagWithEventCallbackAsync(tag);
-	}
-
-	protected string GetFormControlCssClasses()
-	{
-		if (Naked)
-		{
-			return null;
-		}
-		return CssClassHelper.Combine(CoreFormControlCssClass, InputSizeEffective.AsFormControlCssClass());
 	}
 
 	protected string GetNakedCssClasses()
