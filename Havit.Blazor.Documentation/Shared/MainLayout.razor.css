@@ -10,13 +10,11 @@
     margin: 0 auto;
 }
 
-/* Offset headings by Navbar height on desktop */
-@media screen and (min-width: 1024px) {
-    .doc-content > ::deep h1, 
-    .doc-content > ::deep h2, 
-    .doc-content > ::deep h3, 
-    .doc-content > ::deep h4,
-    .doc-content > ::deep h5 {
-        padding-top: 56px; margin-top: -56px;
-    }
+/* Keep headings scrolled to by an anchor link below the sticky Navbar (56px + 1px bottom border at every width). */
+.doc-content > ::deep h1,
+.doc-content > ::deep h2,
+.doc-content > ::deep h3,
+.doc-content > ::deep h4,
+.doc-content > ::deep h5 {
+    scroll-margin-top: 57px;
 }

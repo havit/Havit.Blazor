@@ -26,8 +26,8 @@
 		<DocHeading Title="Custom toggle element" Id="custom-toggle" />
 		<p>
 			Use <code>HxMenuToggleElement</code> (with <code>ElementName="..."</code>) to create a menu with a custom toggle.
-			Prefer a focusable element (e.g. <code>ElementName="button" type="button"</code>) so the menu can be opened from the keyboard.
-			For a non-focusable element (<code>div</code>, <code>span</code>) add <code>tabindex="0"</code> and <code>role="button"</code>.
+			Use a native button (<code>ElementName="button" type="button"</code>) so the menu can be opened from the keyboard.
+			A non-focusable element (<code>div</code>, <code>span</code>) with <code>tabindex="0"</code> can get focus, but it does not open the menu on Enter or Space.
 		</p>
 		<Demo Type="typeof(HxMenu_Demo_CustomToggle)" />
 

@@ -11726,8 +11726,8 @@
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleElement.ElementName">
             <summary>
             Gets or sets the name of the element to render. Default is <c>span</c>.<br />
-            Prefer a focusable element (e.g. <c>button</c> with <c>type="button"</c>) to make the menu accessible from the keyboard,
-            or add <c>tabindex="0"</c> (and <c>role="button"</c>) to a non-focusable element.
+            Use a native <c>button</c> (with <c>type="button"</c>) to make the menu accessible from the keyboard.
+            A non-focusable element (e.g. <c>div</c>, <c>span</c>) with <c>tabindex="0"</c> can get focus, but it does not open the menu on Enter or Space.
             </summary>
         </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.HxMenuToggleElement.MenuReference">
