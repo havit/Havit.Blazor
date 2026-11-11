@@ -4197,6 +4197,11 @@
             Receives notification from JavaScript when item is hidden.
             </summary>
         </member>
+        <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSelectInternal`2.AriaDescribedBy">
+            <summary>
+            IDs of the elements describing the input (hint, validation message), rendered as <c>aria-describedby</c> on the toggle.
+            </summary>
+        </member>
         <member name="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSelectInternal`2.SelectedItemIndex">
             <summary>
             Index of the selected item within <see cref="P:Havit.Blazor.Components.Web.Bootstrap.Internal.HxSelectInternal`2.ItemsToRender"/> (<c>-1</c> for no selection or the <c>null</c> item).

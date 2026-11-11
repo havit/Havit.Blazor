@@ -120,4 +120,7 @@
   <data name="FilterEmptyResultDefaultText" xml:space="preserve">
     <value>Результатів не знайдено</value>
   </data>
+  <data name="FilterInputAriaLabel" xml:space="preserve">
+    <value>Фільтрувати варіанти</value>
+  </data>
 </root>

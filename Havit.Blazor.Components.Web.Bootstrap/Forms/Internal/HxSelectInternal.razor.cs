@@ -17,6 +17,11 @@ public partial class HxSelectInternal<TValue, TItem> : IAsyncDisposable
 
 	[Parameter] public IFormValueComponent FormValueComponent { get; set; }
 
+	/// <summary>
+	/// IDs of the elements describing the input (hint, validation message), rendered as <c>aria-describedby</c> on the toggle.
+	/// </summary>
+	[Parameter] public string AriaDescribedBy { get; set; }
+
 	[Parameter] public List<TItem> ItemsToRender { get; set; }
 
 	/// <summary>

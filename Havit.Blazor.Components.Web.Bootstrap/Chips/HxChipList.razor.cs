@@ -20,7 +20,8 @@ public partial class HxChipList
 		Defaults = new ChipListSettings()
 		{
 			ShowResetButton = false,
-			Color = ThemeColor.None,
+			// Color is intentionally not set so that the legacy Defaults.ChipBadgeSettings.Color is still honored
+			// (ColorEffective falls back to ThemeColor.None).
 		};
 	}
 

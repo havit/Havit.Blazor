@@ -329,6 +329,10 @@ public abstract class HxSelectBase<TValue, TItem> : HxInputBaseWithInputGroups<T
 		builder.AddAttribute(119, nameof(HxSelectInternal<TValue, TItem>.FilterSearchIcon), FilterSearchIconEffective);
 		builder.AddAttribute(120, nameof(HxSelectInternal<TValue, TItem>.FilterClearIcon), FilterClearIconEffective);
 
+		// The native <select> gets aria-describedby in BuildRenderInput_AddCommonAttributes; the combobox toggle needs the same.
+		string ariaDescribedBy = String.Join(" ", GetAriaDescribedByIds().Where(id => !String.IsNullOrEmpty(id)));
+		builder.AddAttribute(121, nameof(HxSelectInternal<TValue, TItem>.AriaDescribedBy), String.IsNullOrEmpty(ariaDescribedBy) ? null : ariaDescribedBy);
+
 		builder.AddMultipleAttributes(200, AdditionalAttributes);
 
 		builder.AddComponentReferenceCapture(300, r => _hxSelectInternalComponent = (HxSelectInternal<TValue, TItem>)r);

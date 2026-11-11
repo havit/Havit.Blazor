@@ -1,4 +1,5 @@
-﻿using System.Linq.Expressions;
+﻿using System.Globalization;
+using System.Linq.Expressions;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
@@ -171,6 +172,47 @@ public class HxSelectFilteringTests : BunitTestBase
 		Assert.Equal(2, options.Count); // null item + Cherry
 		Assert.Contains(options, o => o.TextContent.Contains("Cherry"));
 		Assert.DoesNotContain(options, o => o.TextContent.Contains("Banana"));
+	}
+
+	[Fact]
+	public void HxSelect_AllowFiltering_ToggleReferencesHintAndValidationMessageInAriaDescribedBy()
+	{
+		// Arrange — regression: the native <select> gets aria-describedby (hint + validation message IDs)
+		// from BuildRenderInput_AddCommonAttributes, the combobox toggle button must get the same.
+		string selectedValue = null;
+		Expression<Func<string>> valueExpression = () => selectedValue;
+
+		// Act
+		var cut = Render<HxSelect<string, string>>(parameters => parameters
+			.Add(p => p.Data, new List<string> { "Apple", "Banana" })
+			.Add(p => p.Value, selectedValue)
+			.Add(p => p.ValueChanged, value => selectedValue = value)
+			.Add(p => p.ValueExpression, valueExpression)
+			.Add(p => p.AllowFiltering, true)
+			.Add(p => p.Hint, "Pick a fruit")
+		);
+
+		// Assert
+		string hintId = cut.Find(".form-text").GetAttribute("id");
+		string validationMessageId = cut.FindComponent<HxValidationMessage<string>>().Instance.Id;
+		Assert.False(String.IsNullOrEmpty(hintId));
+		Assert.False(String.IsNullOrEmpty(validationMessageId));
+		Assert.Equal($"{hintId} {validationMessageId}", cut.Find("button.combobox-toggle").GetAttribute("aria-describedby"));
+	}
+
+	[Theory]
+	[InlineData("en-US", "Filter options")]
+	[InlineData("cs-CZ", "Filtrovat možnosti")]
+	public void HxSelect_AllowFiltering_FilterInputHasLocalizedAriaLabel(string culture, string expectedAriaLabel)
+	{
+		// Arrange — regression: the filter input (focused when the menu opens) must have an accessible name.
+		using var cultureScope = CultureInfoExt.EnterScope(CultureInfo.GetCultureInfo(culture));
+
+		// Act
+		var cut = RenderSelect(new List<string> { "Apple", "Banana" });
+
+		// Assert
+		Assert.Equal(expectedAriaLabel, cut.Find(".combobox-search-input").GetAttribute("aria-label"));
 	}
 
 	[Fact]

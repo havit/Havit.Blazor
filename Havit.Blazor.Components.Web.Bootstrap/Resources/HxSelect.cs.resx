@@ -120,4 +120,7 @@
   <data name="FilterEmptyResultDefaultText" xml:space="preserve">
     <value>Nic nenalezeno</value>
   </data>
+  <data name="FilterInputAriaLabel" xml:space="preserve">
+    <value>Filtrovat možnosti</value>
+  </data>
 </root>
