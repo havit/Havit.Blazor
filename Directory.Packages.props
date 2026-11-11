@@ -2,9 +2,8 @@
 	<PropertyGroup>
 <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-<AspNetCoreVersion8>8.0.33</AspNetCoreVersion8>
-<AspNetCoreVersion9>9.0.22</AspNetCoreVersion9>
 <AspNetCoreVersion10>10.0.14</AspNetCoreVersion10>
+<AspNetCoreVersion11>11.0.0</AspNetCoreVersion11>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageVersion Include="Azure.Monitor.OpenTelemetry.AspNetCore" Version="1.6.0" />
@@ -15,19 +14,14 @@
 		<PackageVersion Include="Grpc.Net.Client" Version="2.85.0" />
 		<PackageVersion Include="Grpc.Net.Client.Web" Version="2.85.0" />
 		<PackageVersion Include="Havit.Core" Version="2.0.43" />
-		<!-- Havit.AspNetCore 2.0.33+ targets net10.0 only; net8.0/net9.0 stay on the last version that supports them. -->
-		<PackageVersion Include="Havit.AspNetCore" Version="2.0.33" Condition="'$(TargetFramework)' == 'net10.0'" />
-		<PackageVersion Include="Havit.AspNetCore" Version="2.0.32" Condition="'$(TargetFramework)' != 'net10.0'" />
+		<PackageVersion Include="Havit.AspNetCore" Version="2.0.33" />
 		<PackageVersion Include="LoxSmoke.DocXml" Version="3.9.0" />
 		<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' == 'net10.0'" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
+		<PackageVersion Include="Microsoft.AspNetCore.Components.Web" Version="$(AspNetCoreVersion11)" Condition="'$(TargetFramework)' == 'net11.0'" />
 		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' == 'net10.0'" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
+		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="$(AspNetCoreVersion11)" Condition="'$(TargetFramework)' == 'net11.0'" />
 		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' == 'net10.0'" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
-		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
+		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(AspNetCoreVersion11)" Condition="'$(TargetFramework)' == 'net11.0'" />
 		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="$(AspNetCoreVersion10)" />
 		<PackageVersion Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="$(AspNetCoreVersion10)" />
 		<PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="$(AspNetCoreVersion10)" />
@@ -35,21 +29,17 @@
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.9.0" />
 		<PackageVersion Include="Microsoft.CodeAnalysis.CSharp.SourceGenerators.Testing" Version="1.1.4" />
 		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' == 'net10.0'" />
-		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' != 'net10.0'" />
+		<PackageVersion Include="Microsoft.EntityFrameworkCore.SqlServer" Version="$(AspNetCoreVersion11)" Condition="'$(TargetFramework)' == 'net11.0'" />
 		<PackageVersion Include="Microsoft.Extensions.Hosting" Version="$(AspNetCoreVersion10)" />
-		<!-- TFM-conditional so transitive references stay aligned with the target framework's shared assembly version (avoids MSB3277 conflicts on net8.0/net9.0). The non-net8/net9 entry is the default and also applies to net10.0 and netstandard2.0. -->
-		<PackageVersion Include="Microsoft.Extensions.Localization" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net9.0' AND '$(TargetFramework)' != 'net8.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Localization" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Localization" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net9.0' AND '$(TargetFramework)' != 'net8.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="$(AspNetCoreVersion8)" Condition="'$(TargetFramework)' == 'net8.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net9.0' AND '$(TargetFramework)' != 'net8.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.3" Condition="'$(TargetFramework)' == 'net8.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net9.0' AND '$(TargetFramework)' != 'net8.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0'" />
-		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="8.0.1" Condition="'$(TargetFramework)' == 'net8.0'" />
+		<!-- TFM-conditional so references stay aligned with the target framework's shared assembly version (avoids MSB3277 conflicts). The non-net11.0 entry is the default and also applies to net10.0 and netstandard2.0. -->
+		<PackageVersion Include="Microsoft.Extensions.Localization" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net11.0'" />
+		<PackageVersion Include="Microsoft.Extensions.Localization" Version="$(AspNetCoreVersion11)" Condition="'$(TargetFramework)' == 'net11.0'" />
+		<PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net11.0'" />
+		<PackageVersion Include="Microsoft.Extensions.Localization.Abstractions" Version="$(AspNetCoreVersion11)" Condition="'$(TargetFramework)' == 'net11.0'" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net11.0'" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="$(AspNetCoreVersion11)" Condition="'$(TargetFramework)' == 'net11.0'" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net11.0'" />
+		<PackageVersion Include="Microsoft.Extensions.Logging.Configuration" Version="$(AspNetCoreVersion11)" Condition="'$(TargetFramework)' == 'net11.0'" />
 		<PackageVersion Include="Microsoft.Playwright.Xunit.v3" Version="1.64.1" />
 		<PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="2.5.2" />
 		<PackageVersion Include="ModelContextProtocol.AspNetCore" Version="2.3.1" />
@@ -66,8 +56,8 @@
 		<PackageVersion Include="System.Text.Json" Version="$(AspNetCoreVersion10)" />
 		<!-- Transient vulnerabilities -->
 		<PackageVersion Include="System.Formats.Asn1" Version="$(AspNetCoreVersion10)" />
-		<PackageVersion Include="System.Security.Cryptography.Pkcs" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net9.0' AND '$(TargetFramework)' != 'net8.0'" />
-		<PackageVersion Include="System.Security.Cryptography.Pkcs" Version="$(AspNetCoreVersion9)" Condition="'$(TargetFramework)' == 'net9.0' OR '$(TargetFramework)' == 'net8.0'" />
+		<PackageVersion Include="System.Security.Cryptography.Pkcs" Version="$(AspNetCoreVersion10)" Condition="'$(TargetFramework)' != 'net11.0'" />
+		<PackageVersion Include="System.Security.Cryptography.Pkcs" Version="$(AspNetCoreVersion11)" Condition="'$(TargetFramework)' == 'net11.0'" />
 	</ItemGroup>
 	<ItemGroup Condition="'$(ProjectName.EndsWith(`Tests`))' == 'False'">
 		<GlobalPackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="18.12.1">

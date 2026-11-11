@@ -47,7 +47,7 @@
             <param name="jsonSerializerOptions">
             The serializer options to use. When <c>null</c>, the options configured during the service registration are used.
             </param>
-            <returns><c>true</c> when the key is present; otherwise <c>false</c>.</returns>
+            <returns><c>true</c> when the key is present and its value can be deserialized to <typeparamref name="TValue"/>; otherwise <c>false</c>.</returns>
             <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
             <exception cref="T:System.InvalidOperationException">Thrown when the IJSInProcessRuntime is not available (not in Interactive WebAssembly mode).</exception>
             <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
@@ -162,8 +162,8 @@
             </param>
             <param name="cancellationToken">The cancellation token.</param>
             <returns>
-            A tuple where <c>Success</c> indicates whether the key is present and <c>Value</c> contains the deserialized value
-            (or the default value of <typeparamref name="TValue"/> when the key is not present).
+            A tuple where <c>Success</c> indicates whether the key is present and its value can be deserialized to <typeparamref name="TValue"/>, and <c>Value</c> contains the deserialized value
+            (or the default value of <typeparamref name="TValue"/> otherwise).
             </returns>
             <exception cref="T:Havit.Blazor.Storage.Exceptions.StorageNotAvailableException">Thrown when the underlying storage area is not accessible.</exception>
             <exception cref="T:System.ArgumentException">Thrown when the <paramref name="key"/> is <c>null</c> or whitespace.</exception>
@@ -273,6 +273,12 @@
             <see cref="T:Havit.Blazor.Storage.Infrastructure.BrowserStorageType"/> parameter that determines which storage area (<c>localStorage</c> or
             <c>sessionStorage</c>) is accessed. The public <see cref="T:Havit.Blazor.Storage.ILocalStorageService"/> and <see cref="T:Havit.Blazor.Storage.ISessionStorageService"/>
             implementations only delegate to this class passing the correct <see cref="T:Havit.Blazor.Storage.Infrastructure.BrowserStorageType"/>.
+            </summary>
+        </member>
+        <member name="M:Havit.Blazor.Storage.Infrastructure.BrowserStorageAccessor.TryDeserialize``1(System.String,System.Text.Json.JsonSerializerOptions,``0@)">
+            <summary>
+            Deserializes a stored value for the Try* methods: stored data that is not valid JSON or does not match <typeparamref name="TValue"/>
+            (stale data from an older application version, data written by other code) is reported as a missing value instead of throwing.
             </summary>
         </member>
         <member name="T:Havit.Blazor.Storage.Infrastructure.BrowserStorageService">
