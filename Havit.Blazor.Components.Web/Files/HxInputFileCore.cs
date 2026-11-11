@@ -5,6 +5,8 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web;
 
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: JS interop exceptions are intentionally propagated to the caller (public methods) or to the renderer (lifecycle methods); disposal handles JSDisconnectedException separately.
+
 /// <summary>
 /// Raw component extending <see cref="InputFile"/> with direct upload.
 /// </summary>

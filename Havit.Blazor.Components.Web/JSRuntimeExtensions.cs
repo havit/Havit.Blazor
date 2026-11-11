@@ -3,6 +3,8 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web;
 
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: Thin wrapper returning the interop task; error handling belongs to the caller.
+
 public static class JSRuntimeExtensions
 {
 	public static ValueTask<IJSObjectReference> ImportModuleAsync(this IJSRuntime jsRuntime, string modulePath, Assembly assemblyForVersionInfo = null)

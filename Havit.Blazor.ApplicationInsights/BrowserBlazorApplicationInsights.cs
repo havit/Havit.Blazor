@@ -1,8 +1,10 @@
-using Havit.Blazor.ApplicationInsights.Components;
+﻿using Havit.Blazor.ApplicationInsights.Components;
 using Havit.Blazor.ApplicationInsights.Telemetry;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.ApplicationInsights;
+
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: JS interop exceptions are intentionally propagated to the caller; AdaptiveBlazorApplicationInsights relies on them during prerendering.
 
 /// <summary>
 /// Browser implementation of <see cref="IBlazorApplicationInsights"/>.

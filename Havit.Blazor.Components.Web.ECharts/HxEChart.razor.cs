@@ -7,6 +7,8 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.ECharts;
 
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: JS interop exceptions are intentionally propagated to the caller (public methods) or to the renderer (lifecycle methods); disposal handles JSDisconnectedException separately.
+
 /// <summary>
 /// Component for convenient rendering of Apache ECharts.
 /// </summary>

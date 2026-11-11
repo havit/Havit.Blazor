@@ -2,6 +2,8 @@
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: JS interop exceptions are intentionally propagated to the caller (public methods) or to the renderer (lifecycle methods); disposal handles JSDisconnectedException separately.
+
 /// <summary>
 /// Common implementation for <see cref="HxTooltip"/> and <see cref="HxPopover"/>.
 /// </summary>

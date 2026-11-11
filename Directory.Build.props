@@ -13,11 +13,6 @@
 		<LangVersion>latest</LangVersion>
 		<SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-		<!-- New Blazor analyzers introduced with the .NET 11 SDK; suppressed until the findings are addressed in the code:
-			BL0011: Virtualize ItemsProvider usage
-			BL0012: unnecessary StateHasChanged
-			BL0016: JS interop call not guarded with try/catch -->
-		<NoWarn>$(NoWarn);BL0011;BL0012;BL0016</NoWarn>
 
 		<!-- aligned NuGet PackageVersion for package-bundles -->
 		<ComponentsPackagesVersion>4.30.0-pre01</ComponentsPackagesVersion>

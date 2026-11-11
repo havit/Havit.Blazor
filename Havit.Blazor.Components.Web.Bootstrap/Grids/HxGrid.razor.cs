@@ -4,6 +4,8 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: JS interop exceptions are intentionally propagated to the caller (public methods) or to the renderer (lifecycle methods); disposal handles JSDisconnectedException separately.
+
 /// <summary>
 /// Grid to display tabular data from data source. Includes support for client-side and server-side paging &amp; sorting (or virtualized scrolling as needed).<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxGrid">https://havit.blazor.eu/components/HxGrid</see>
@@ -376,6 +378,14 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	private int _previousLoadMoreAdditionalItemsCount;
 
 	private Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem> _infiniteScrollVirtualizeComponent;
+#if NET11_0_OR_GREATER
+	/// <summary>
+	/// Identifies items for <see cref="Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize{TItem}.ItemComparer"/> by <see cref="ItemKeySelector"/>,
+	/// so the prepend detection does not report false positives when the data provider returns new instances of the same items.
+	/// With the default <see cref="ItemKeySelector"/> (the item itself), this equals the default equality of the items.
+	/// </summary>
+	private readonly IEqualityComparer<TItem> _infiniteScrollVirtualizeItemComparer;
+#endif
 	private bool _virtualizeItemsProviderWaitsForStartIndexZero;
 	private ElementReference _hxGridContainer;
 	private IJSObjectReference _jsModule;
@@ -394,6 +404,11 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	{
 		_columnsList = new List<IHxGridColumn<TItem>>();
 		_columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItem>>(_columnsList, async () => await InvokeAsync(StateHasChanged), () => _isDisposed, HandleColumnAdded, HandleColumnRemoved);
+#if NET11_0_OR_GREATER
+		_infiniteScrollVirtualizeItemComparer = EqualityComparer<TItem>.Create(
+			(x, y) => (x is null || y is null) ? (x is null && y is null) : Object.Equals(ItemKeySelector(x), ItemKeySelector(y)),
+			item => (item is null) ? 0 : (ItemKeySelector(item)?.GetHashCode() ?? 0));
+#endif
 	}
 
 	/// <inheritdoc />
