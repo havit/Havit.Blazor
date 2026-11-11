@@ -237,7 +237,8 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// If not set, the @key will be the TItem instance itself.
 	/// </summary>
 	/// <remarks>Inspired by QuickGrid</remarks>
-	[Parameter] public Func<TItem, object> ItemKeySelector { get; set; } = x => x;
+	[Parameter] public Func<TItem, object> ItemKeySelector { get; set; } = s_defaultItemKeySelector;
+	private static readonly Func<TItem, object> s_defaultItemKeySelector = x => x;
 
 	/// <summary>
 	/// A custom CSS class for the footer <c>tr</c> element in the grid. This allows styling of the grid footer independently of other grid elements.
@@ -382,9 +383,8 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// <summary>
 	/// Identifies items for <see cref="Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize{TItem}.ItemComparer"/> by <see cref="ItemKeySelector"/>,
 	/// so the prepend detection does not report false positives when the data provider returns new instances of the same items.
-	/// With the default <see cref="ItemKeySelector"/> (the item itself), this equals the default equality of the items.
 	/// </summary>
-	private readonly IEqualityComparer<TItem> _infiniteScrollVirtualizeItemComparer;
+	private readonly GridItemKeyEqualityComparer<TItem> _infiniteScrollVirtualizeItemComparer;
 #endif
 	private bool _virtualizeItemsProviderWaitsForStartIndexZero;
 	private ElementReference _hxGridContainer;
@@ -405,9 +405,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 		_columnsList = new List<IHxGridColumn<TItem>>();
 		_columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItem>>(_columnsList, async () => await InvokeAsync(StateHasChanged), () => _isDisposed, HandleColumnAdded, HandleColumnRemoved);
 #if NET11_0_OR_GREATER
-		_infiniteScrollVirtualizeItemComparer = EqualityComparer<TItem>.Create(
-			(x, y) => (x is null || y is null) ? (x is null && y is null) : Object.Equals(ItemKeySelector(x), ItemKeySelector(y)),
-			item => (item is null) ? 0 : (ItemKeySelector(item)?.GetHashCode() ?? 0));
+		_infiniteScrollVirtualizeItemComparer = new GridItemKeyEqualityComparer<TItem>(() => ItemKeySelector, s_defaultItemKeySelector);
 #endif
 	}
 
