@@ -1,7 +1,9 @@
-using Havit.Blazor.ApplicationInsights.Telemetry;
+﻿using Havit.Blazor.ApplicationInsights.Telemetry;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.ApplicationInsights.Tests;
+
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: Test fake of IJSRuntime forwarding between its own overloads, not an interop call.
 
 public class AdaptiveBlazorApplicationInsightsTests
 {

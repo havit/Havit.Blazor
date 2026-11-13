@@ -2,6 +2,8 @@
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: JS interop exceptions are intentionally propagated to the caller (public methods) or to the renderer (lifecycle methods); disposal handles JSDisconnectedException separately.
+
 /// <summary>
 /// A slideshow component for cycling through elements—images or slides of text—like a carousel.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCarousel">https://havit.blazor.eu/components/HxCarousel</see>

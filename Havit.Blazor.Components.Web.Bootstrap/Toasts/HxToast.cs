@@ -2,6 +2,8 @@
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: JS interop exceptions are intentionally propagated to the caller (public methods) or to the renderer (lifecycle methods); disposal handles JSDisconnectedException separately.
+
 /// <summary>
 /// <see href="https://getbootstrap.com/docs/5.3/components/toasts/">Bootstrap Toast</see> component. Not intended to be used in user code, use <see cref="HxMessenger"/>.
 /// After the first render, the component never updates.<br />

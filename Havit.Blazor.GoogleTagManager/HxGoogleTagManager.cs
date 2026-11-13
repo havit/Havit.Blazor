@@ -5,6 +5,8 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.GoogleTagManager;
 
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: JS interop exceptions are intentionally propagated to the caller of the public API.
+
 ///<summary>
 /// Adds Google Tag Manager to the application and manages communication with GTM JavaScript (data-layer).<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxGoogleTagManager">https://havit.blazor.eu/components/HxGoogleTagManager</see>

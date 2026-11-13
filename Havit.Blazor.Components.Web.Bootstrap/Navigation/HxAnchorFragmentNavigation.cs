@@ -3,6 +3,8 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: JS interop exceptions are intentionally propagated to the caller (public methods) or to the renderer (lifecycle methods); disposal handles JSDisconnectedException separately.
+
 /// <summary>
 /// Temporarily (?) compensates for a Blazor deficiency in anchor fragments (scrolling to <c>page#id</c> URLs). Supports navigation with the <see cref="HxScrollspy"/> component.
 /// <see href="https://github.com/dotnet/aspnetcore/issues/8393">GitHub Issue: Blazor 0.8.0: hash routing to named element #8393</see>.<br />

@@ -142,7 +142,6 @@ public partial class HxInputFileDropZone : ICascadeEnabledComponent
 	{
 		_fileCount = args.FileCount;
 		_firstFileNames = args.GetMultipleFiles(int.MaxValue).Take(FirstFileNamesMaxCount).Select(f => f.Name).ToList();
-		StateHasChanged();
 
 		return InvokeOnChangeAsync(args);
 	}

@@ -3,6 +3,8 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: JS interop exceptions are intentionally propagated to the caller (public methods) or to the renderer (lifecycle methods); disposal handles JSDisconnectedException separately.
+
 public partial class HxMultiSelectInternal<TValue, TItem> : IAsyncDisposable
 {
 	[Parameter] public string InputId { get; set; }

@@ -258,7 +258,11 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 			finally
 			{
 				clickInProgress = false;
+				// Not redundant (BL0012): ComponentBase does not re-render after a failed or canceled event handler,
+				// the button would stay disabled (#1634).
+#pragma warning disable BL0012 // StateHasChanged is unnecessary
 				StateHasChanged();
+#pragma warning restore BL0012
 			}
 		}
 	}

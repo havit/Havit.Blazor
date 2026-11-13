@@ -1,10 +1,12 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using Havit.Blazor.ApplicationInsights.Options;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
 namespace Havit.Blazor.ApplicationInsights.Components;
+
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: JS interop exceptions are intentionally propagated to the caller (public methods) or to the renderer (lifecycle methods); disposal handles JSDisconnectedException separately.
 
 /// <summary>
 /// Bootstraps the Application Insights JavaScript SDK on the client. The bootstrap itself lives in
