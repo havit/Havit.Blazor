@@ -194,9 +194,9 @@
 
 							@if (ContentNavigationModeEffective == GridContentNavigationMode.InfiniteScroll)
 							{
-								@* ItemComparer (BL0011) is available since .NET 11 *@
+								@* ItemComparer (BL0011) is available since .NET 11. The default item equality is set explicitly (no behavior change); configurable item identity: #1943 *@
 #if NET11_0_OR_GREATER
-								<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="_infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemComparer="_infiniteScrollVirtualizeItemComparer" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective" SpacerElement="tr">
+								<Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize TItem="TItem" @ref="_infiniteScrollVirtualizeComponent" ItemsProvider="VirtualizeItemsProvider" ItemComparer="@(EqualityComparer<TItem>.Default)" ItemSize="@ItemRowHeightEffective" OverscanCount="@OverscanCountEffective" SpacerElement="tr">
 									<ItemContent>
 										@rowTemplate(context)
 									</ItemContent>

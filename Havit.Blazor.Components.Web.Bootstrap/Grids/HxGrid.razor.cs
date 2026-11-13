@@ -237,8 +237,7 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	/// If not set, the @key will be the TItem instance itself.
 	/// </summary>
 	/// <remarks>Inspired by QuickGrid</remarks>
-	[Parameter] public Func<TItem, object> ItemKeySelector { get; set; } = s_defaultItemKeySelector;
-	private static readonly Func<TItem, object> s_defaultItemKeySelector = x => x;
+	[Parameter] public Func<TItem, object> ItemKeySelector { get; set; } = x => x;
 
 	/// <summary>
 	/// A custom CSS class for the footer <c>tr</c> element in the grid. This allows styling of the grid footer independently of other grid elements.
@@ -379,13 +378,6 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	private int _previousLoadMoreAdditionalItemsCount;
 
 	private Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem> _infiniteScrollVirtualizeComponent;
-#if NET11_0_OR_GREATER
-	/// <summary>
-	/// Identifies items for <see cref="Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize{TItem}.ItemComparer"/> by <see cref="ItemKeySelector"/>,
-	/// so the prepend detection does not report false positives when the data provider returns new instances of the same items.
-	/// </summary>
-	private readonly GridItemKeyEqualityComparer<TItem> _infiniteScrollVirtualizeItemComparer;
-#endif
 	private bool _virtualizeItemsProviderWaitsForStartIndexZero;
 	private ElementReference _hxGridContainer;
 	private IJSObjectReference _jsModule;
@@ -404,9 +396,6 @@ public partial class HxGrid<TItem> : ComponentBase, IAsyncDisposable
 	{
 		_columnsList = new List<IHxGridColumn<TItem>>();
 		_columnsListRegistration = new CollectionRegistration<IHxGridColumn<TItem>>(_columnsList, async () => await InvokeAsync(StateHasChanged), () => _isDisposed, HandleColumnAdded, HandleColumnRemoved);
-#if NET11_0_OR_GREATER
-		_infiniteScrollVirtualizeItemComparer = new GridItemKeyEqualityComparer<TItem>(() => ItemKeySelector, s_defaultItemKeySelector);
-#endif
 	}
 
 	/// <inheritdoc />
