@@ -2,7 +2,7 @@
 	<PropertyGroup>
 <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
 <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
-<AspNetCoreVersion10>10.0.14</AspNetCoreVersion10>
+<AspNetCoreVersion10>10.0.15</AspNetCoreVersion10>
 <AspNetCoreVersion11>11.0.0</AspNetCoreVersion11>
 	</PropertyGroup>
 	<ItemGroup>
