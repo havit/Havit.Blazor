@@ -107,7 +107,7 @@ public class HxTabPanelTests : BunitTestBase
 		);
 
 		// Assert - All three tab headers should be rendered as nav-link elements
-		var navLinks = component.FindAll("a.nav-link");
+		var navLinks = component.FindAll("button.nav-link");
 		Assert.Equal(3, navLinks.Count());
 		Assert.Equal("Alpha", navLinks[0].TextContent.Trim());
 		Assert.Equal("Beta", navLinks[1].TextContent.Trim());
@@ -136,7 +136,7 @@ public class HxTabPanelTests : BunitTestBase
 		);
 
 		// Act - Click on the second tab header
-		var navLinks = component.FindAll("a.nav-link");
+		var navLinks = component.FindAll("button.nav-link");
 		navLinks[1].Click();
 
 		// Assert - The second tab's content pane should be active
@@ -163,7 +163,7 @@ public class HxTabPanelTests : BunitTestBase
 		);
 
 		// Assert - Only the second tab header should have the active class
-		var navLinks = component.FindAll("a.nav-link");
+		var navLinks = component.FindAll("button.nav-link");
 		Assert.False(navLinks[0].ClassList.Contains("active"), "First tab should not have active class");
 		Assert.True(navLinks[1].ClassList.Contains("active"), "Second tab should have active class");
 	}
@@ -186,7 +186,7 @@ public class HxTabPanelTests : BunitTestBase
 		);
 
 		// Assert - First tab should be active by default
-		var navLinks = component.FindAll("a.nav-link");
+		var navLinks = component.FindAll("button.nav-link");
 		Assert.True(navLinks[0].ClassList.Contains("active"), "First tab should be active by default");
 		Assert.False(navLinks[1].ClassList.Contains("active"), "Second tab should not be active by default");
 
@@ -213,7 +213,7 @@ public class HxTabPanelTests : BunitTestBase
 			)
 		);
 
-		var navLinks = component.FindAll("a.nav-link");
+		var navLinks = component.FindAll("button.nav-link");
 
 		// Active tab header
 		Assert.Equal("tab", navLinks[0].GetAttribute("role"));
@@ -250,7 +250,7 @@ public class HxTabPanelTests : BunitTestBase
 	}
 
 	[Fact]
-	public void HxTabPanel_AriaAttributes_TablistRoleOnNav()
+	public void HxTabPanel_AriaAttributes_TablistRoleOnDivNotNav()
 	{
 		// Arrange & Act
 		var component = Render<HxTabPanel>(parameters => parameters
@@ -262,8 +262,10 @@ public class HxTabPanelTests : BunitTestBase
 			)
 		);
 
-		var nav = component.Find("nav");
-		Assert.Equal("tablist", nav.GetAttribute("role"));
+		// role="tablist" must not override the navigation landmark role of <nav>
+		Assert.Empty(component.FindAll("nav"));
+		var tabList = component.Find("div.nav[role='tablist']");
+		Assert.Contains("nav-tabs", tabList.ClassList);
 	}
 
 	[Fact]
@@ -285,13 +287,266 @@ public class HxTabPanelTests : BunitTestBase
 			)
 		);
 
-		var navLinks = component.FindAll("a.nav-link");
+		var navLinks = component.FindAll("button.nav-link");
 
 		// Active tab should still have aria-controls (its panel is rendered)
 		Assert.Equal("tab1", navLinks[0].GetAttribute("aria-controls"));
 
 		// Inactive tab should NOT have aria-controls (its panel is not in the DOM)
 		Assert.Null(navLinks[1].GetAttribute("aria-controls"));
+	}
+
+	[Fact]
+	public void HxTabPanel_VerticalOrientation_PillsAreVerticalWithAriaOrientation()
+	{
+		// Arrange & Act
+		var component = Render<HxTabPanel>(parameters => parameters
+			.Add(p => p.Orientation, NavOrientation.Vertical)
+			.Add(p => p.NavVariant, NavVariant.Pills)
+			.Add(p => p.ActiveTabId, "tab1")
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 1"))
+			)
+		);
+
+		var nav = component.Find("[role='tablist']");
+		Assert.Contains("nav-pills", nav.ClassList);
+		Assert.Contains("nav-pills-vertical", nav.ClassList);
+		Assert.Equal("vertical", nav.GetAttribute("aria-orientation"));
+
+		// The nav and the content are wrapped in a flex container so they sit side by side
+		var wrapper = component.Find("div.d-flex");
+		Assert.NotNull(wrapper);
+	}
+
+	[Fact]
+	public void HxTabPanel_HorizontalOrientation_NavHasNoAriaOrientation()
+	{
+		// Arrange & Act
+		var component = Render<HxTabPanel>(parameters => parameters
+			.Add(p => p.ActiveTabId, "tab1")
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 1"))
+			)
+		);
+
+		var nav = component.Find("[role='tablist']");
+		Assert.DoesNotContain("flex-column", nav.ClassList);
+		Assert.DoesNotContain("nav-pills-vertical", nav.ClassList);
+		Assert.Null(nav.GetAttribute("aria-orientation"));
+	}
+
+	[Fact]
+	public void HxTabPanel_PanesHaveNoFadeAndActiveIsMarked()
+	{
+		// Arrange & Act
+		var component = Render<HxTabPanel>(parameters => parameters
+			.Add(p => p.ActiveTabId, "tab1")
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 1"))
+			)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab2")
+				.Add(t => t.Title, "Second")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 2"))
+			)
+		);
+
+		var panes = component.FindAll("div.tab-pane");
+
+		// Bootstrap 6 fades the active pane in by itself (.fade would override the --bs-tab-pane-transition-* tokens)
+		Assert.All(panes, pane => Assert.DoesNotContain("fade", pane.ClassList));
+		Assert.All(panes, pane => Assert.DoesNotContain("show", pane.ClassList));
+
+		Assert.Contains("active", panes[0].ClassList);
+		Assert.DoesNotContain("active", panes[1].ClassList);
+	}
+
+	[Fact]
+	public void HxTabPanel_TabHeaders_RenderAsButtonsWithAria()
+	{
+		// Arrange & Act
+		var component = Render<HxTabPanel>(parameters => parameters
+			.Add(p => p.ActiveTabId, "tab1")
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 1"))
+			)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab2")
+				.Add(t => t.Title, "Second")
+				.Add(t => t.Enabled, false)
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 2"))
+			)
+		);
+
+		// Headers are rendered as <button> elements, not anchors
+		Assert.Empty(component.FindAll("a.nav-link"));
+		var buttons = component.FindAll("button.nav-link");
+		Assert.Equal(2, buttons.Count);
+
+		Assert.Equal("button", buttons[0].GetAttribute("type"));
+		Assert.Equal("tab", buttons[0].GetAttribute("role"));
+		Assert.Equal("true", buttons[0].GetAttribute("aria-selected"));
+		Assert.True(buttons[0].ClassList.Contains("active"));
+
+		// Disabled tab renders a button marked with aria-disabled (it stays focusable)
+		Assert.Equal("true", buttons[1].GetAttribute("aria-disabled"));
+		Assert.True(buttons[1].ClassList.Contains("disabled"));
+	}
+
+	[Fact]
+	public void HxTabPanel_DisabledTab_ClickDoesNotActivate()
+	{
+		// Arrange
+		string activeTabId = "tab1";
+
+		var component = Render<HxTabPanel>(parameters => parameters
+			.Add(p => p.ActiveTabId, activeTabId)
+			.Add(p => p.ActiveTabIdChanged, newId => activeTabId = newId)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "<p>First content</p>"))
+			)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab2")
+				.Add(t => t.Title, "Second")
+				.Add(t => t.Enabled, false)
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "<p>Second content</p>"))
+			)
+		);
+
+		// Act - Click the disabled tab header
+		var buttons = component.FindAll("button.nav-link");
+		buttons[1].Click();
+
+		// Assert - The active tab does not change
+		Assert.Equal("tab1", activeTabId);
+	}
+
+	[Fact]
+	public void HxTabPanel_ListGroupVariant_RendersListGroupTablistWithAria()
+	{
+		// Arrange & Act
+		var component = Render<HxTabPanel>(parameters => parameters
+			.Add(p => p.Variant, TabPanelVariant.ListGroup)
+			.Add(p => p.Orientation, NavOrientation.Vertical)
+			.Add(p => p.ActiveTabId, "tab1")
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 1"))
+			)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab2")
+				.Add(t => t.Title, "Second")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 2"))
+			)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab3")
+				.Add(t => t.Title, "Third")
+				.Add(t => t.Enabled, false)
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 3"))
+			)
+		);
+
+		// Assert - the tab list is a list group (not a nav), side by side with the content
+		var tabList = component.Find("div[role='tablist']");
+		Assert.Contains("list-group", tabList.ClassList);
+		Assert.Contains("hx-tab-panel", tabList.ClassList); // keyboard navigation (HxTabPanel.js)
+		Assert.DoesNotContain("nav", tabList.ClassList);
+		Assert.DoesNotContain("nav-tabs", tabList.ClassList);
+		Assert.DoesNotContain("list-group-horizontal", tabList.ClassList);
+		Assert.Equal("vertical", tabList.GetAttribute("aria-orientation"));
+		Assert.NotNull(component.Find("div.d-flex > div[role='tablist'] + div.tab-content"));
+
+		// Tabs are actionable list group item buttons
+		Assert.Empty(component.FindAll(".nav-link"));
+		var items = component.FindAll("button.list-group-item.list-group-item-action");
+		Assert.Equal(3, items.Count);
+
+		Assert.Equal("tab", items[0].GetAttribute("role"));
+		Assert.Equal("true", items[0].GetAttribute("aria-selected"));
+		Assert.Equal("tab1", items[0].GetAttribute("aria-controls"));
+		Assert.Equal("tab1-header", items[0].GetAttribute("id"));
+		Assert.Equal("0", items[0].GetAttribute("tabindex"));
+		Assert.Contains("active", items[0].ClassList);
+
+		Assert.Equal("false", items[1].GetAttribute("aria-selected"));
+		Assert.Equal("tab2", items[1].GetAttribute("aria-controls"));
+		Assert.Equal("-1", items[1].GetAttribute("tabindex"));
+		Assert.DoesNotContain("active", items[1].ClassList);
+
+		Assert.Equal("true", items[2].GetAttribute("aria-disabled"));
+		Assert.Contains("disabled", items[2].ClassList);
+
+		// Panes are linked back to the list group items
+		var panes = component.FindAll("div.tab-pane[role='tabpanel']");
+		Assert.Equal(3, panes.Count);
+		Assert.Equal("tab1-header", panes[0].GetAttribute("aria-labelledby"));
+	}
+
+	[Fact]
+	public void HxTabPanel_ListGroupVariant_HorizontalOrientation_RendersHorizontalListGroup()
+	{
+		// Arrange & Act
+		var component = Render<HxTabPanel>(parameters => parameters
+			.Add(p => p.Variant, TabPanelVariant.ListGroup)
+			.Add(p => p.NavVariant, NavVariant.Pills) // does not apply to the list group variant
+			.Add(p => p.CssClass, "custom-class")
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "Content 1"))
+			)
+		);
+
+		var tabList = component.Find("[role='tablist']");
+		Assert.Contains("list-group", tabList.ClassList);
+		Assert.Contains("list-group-horizontal", tabList.ClassList);
+		Assert.Contains("custom-class", tabList.ClassList);
+		Assert.DoesNotContain("nav-pills", tabList.ClassList);
+		Assert.Null(tabList.GetAttribute("aria-orientation"));
+		Assert.Empty(component.FindAll("div.d-flex"));
+	}
+
+	[Fact]
+	public void HxTabPanel_ListGroupVariant_ClickItem_SwitchesToItsContent()
+	{
+		// Arrange
+		string activeTabId = "tab1";
+
+		var component = Render<HxTabPanel>(parameters => parameters
+			.Add(p => p.Variant, TabPanelVariant.ListGroup)
+			.Add(p => p.ActiveTabId, activeTabId)
+			.Add(p => p.ActiveTabIdChanged, newId => activeTabId = newId)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab1")
+				.Add(t => t.Title, "First")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "<p>First content</p>"))
+			)
+			.AddChildContent<HxTab>(tab => tab
+				.Add(t => t.Id, "tab2")
+				.Add(t => t.Title, "Second")
+				.Add(t => t.Content, builder => builder.AddMarkupContent(0, "<p>Second content</p>"))
+			)
+		);
+
+		// Act
+		component.FindAll("button.list-group-item")[1].Click();
+
+		// Assert
+		Assert.Equal("tab2", activeTabId);
+		Assert.Contains("Second content", component.Find("div.tab-pane.active").InnerHtml);
+		Assert.Equal("true", component.FindAll("button.list-group-item")[1].GetAttribute("aria-selected"));
 	}
 
 	[Fact]

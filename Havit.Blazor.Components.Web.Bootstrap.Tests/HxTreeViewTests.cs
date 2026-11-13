@@ -184,6 +184,35 @@ public class HxTreeViewTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxTreeView_ExpandOnSelection_KeyboardOnSelectedItem_ExpandsItem()
+	{
+		// Arrange - Child1B is selected (and expanded) by a click.
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
+			.Add(p => p.Items, CreateTestData())
+			.Add(p => p.ItemTitleSelector, item => item.Title)
+			.Add(p => p.ItemChildrenSelector, item => item.Children)
+			.Add(p => p.ExpandOnSelection, true)
+		);
+
+		cut.FindAll(".hx-tree-view-item-title")
+			.Single(e => e.TextContent == "Child1B")
+			.ParentElement!.Click();
+
+		// Act - activate the already selected item with the keyboard (e.g. after the user collapsed it).
+		cut.FindAll(".hx-tree-view-item-title")
+			.Single(e => e.TextContent == "Child1B")
+			.ParentElement!.KeyDown(Key.Enter);
+
+		// Assert - the keyboard activation expands it again, the same as a click does.
+		var collapseElement = cut.FindAll(".collapse")
+			.Single(e => e.TextContent == "GrandChild1B1");
+
+		var invocations = JSInterop.Invocations.Where(i => i.Identifier.EndsWith("show")).ToList();
+		Assert.Equal(2, invocations.Count);
+		invocations[1].Arguments[0].ShouldBeElementReferenceTo(collapseElement);
+	}
+
+	[Fact]
 	public void HxTreeView_ExpandOnSelection_InitialSelection_ExpandsSelectedItem()
 	{
 		// Arrange
@@ -255,5 +284,63 @@ public class HxTreeViewTests : BunitTestBase
 		var selectedTitle = Assert.Single(cut.FindAll(".hx-tree-view-item.selected")).QuerySelector(".hx-tree-view-item-title");
 		Assert.Equal("Root1", selectedTitle.TextContent);
 		Assert.DoesNotContain(JSInterop.Invocations, i => i.Identifier.EndsWith("show"));
+	}
+
+	[Fact]
+	public void HxTreeView_Render_HasTreeAndGroupRolesAndExpanderState()
+	{
+		// Arrange & Act
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
+			.Add(p => p.Items, CreateTestData())
+			.Add(p => p.ItemTitleSelector, item => item.Title)
+			.Add(p => p.ItemChildrenSelector, item => item.Children)
+			.Add(p => p.ItemInitialExpandedSelector, item => item.Title == "Root1")
+		);
+
+		// Assert - every treeitem is owned by a tree or a group
+		var treeView = cut.Find(".hx-tree-view");
+		Assert.Equal("tree", treeView.GetAttribute("role"));
+		var treeItems = cut.FindAll("[role=treeitem]");
+		Assert.Equal(5, treeItems.Count);
+		Assert.All(treeItems, treeItem => Assert.Contains(treeItem.ParentElement.GetAttribute("role"), new[] { "tree", "group" }));
+		Assert.All(cut.FindAll(".collapse"), collapse => Assert.Equal("group", collapse.GetAttribute("role")));
+
+		// Assert - the group (a DOM sibling of its parent treeitem) is owned by the parent treeitem, which exposes the expanded state
+		var parentItems = treeItems.Where(treeItem => treeItem.HasAttribute("aria-owns")).ToList();
+		Assert.Equal(2, parentItems.Count); // Root1, Child1B
+		Assert.All(parentItems, parentItem =>
+		{
+			var group = cut.Find("#" + parentItem.GetAttribute("aria-owns"));
+			Assert.Equal("group", group.GetAttribute("role"));
+			Assert.Equal(group.Id, parentItem.NextElementSibling.Id);
+		});
+		Assert.Equal("true", parentItems[0].GetAttribute("aria-expanded"));
+		Assert.Equal("false", parentItems[1].GetAttribute("aria-expanded"));
+		Assert.All(treeItems.Except(parentItems), leafItem => Assert.False(leafItem.HasAttribute("aria-expanded")));
+
+		// Assert - expander state is driven by aria-expanded (the chevron CSS keys on it), no collapsed class
+		var expanders = cut.FindAll(".hx-tree-view-item-expander");
+		Assert.Equal(2, expanders.Count); // Root1, Child1B
+		Assert.Equal("true", expanders[0].GetAttribute("aria-expanded"));
+		Assert.Equal("Collapse", expanders[0].GetAttribute("aria-label"));
+		Assert.Equal("false", expanders[1].GetAttribute("aria-expanded"));
+		Assert.Equal("Expand", expanders[1].GetAttribute("aria-label"));
+		Assert.All(expanders, expander => Assert.False(expander.ClassList.Contains("collapsed")));
+	}
+
+	[Fact]
+	public void HxTreeView_AdditionalAttributes_AreRenderedOnTreeRoot()
+	{
+		// Act
+		var cut = Render<HxTreeView<TreeItem>>(parameters => parameters
+			.Add(p => p.Items, CreateTestData())
+			.Add(p => p.ItemTitleSelector, item => item.Title)
+			.Add(p => p.ItemChildrenSelector, item => item.Children)
+			.AddUnmatched("aria-label", "File system")
+		);
+
+		// Assert
+		var tree = cut.Find("[role=tree]");
+		Assert.Equal("File system", tree.GetAttribute("aria-label"));
 	}
 }

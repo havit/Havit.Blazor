@@ -8,12 +8,12 @@
 }
 
 ::deep .nav-link:hover {
-	background-color: rgba(var(--hx-sidebar-footer-item-hover-background-color), var(--hx-sidebar-footer-item-hover-background-opacity));
+	background-color: color-mix(in srgb, var(--hx-sidebar-footer-item-hover-background-color) calc(var(--hx-sidebar-footer-item-hover-background-opacity) * 100%), transparent);
 	color: var(--hx-sidebar-footer-item-hover-color);
 }
 
 ::deep .hx-sidebar-footer-item-navlink-content {
 	display: flex;
 	align-items: center;
-	gap: .75rem;
+	gap: var(--hx-sidebar-footer-item-content-gap);
 }

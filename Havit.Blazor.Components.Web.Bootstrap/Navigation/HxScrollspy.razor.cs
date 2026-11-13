@@ -5,7 +5,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 #pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: JS interop exceptions are intentionally propagated to the caller (public methods) or to the renderer (lifecycle methods); disposal handles JSDisconnectedException separately.
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/scrollspy/">Bootstrap Scrollspy</see> component.<br />
+/// <see href="https://getbootstrap.com/docs/6.0/components/scrollspy/">Bootstrap Scrollspy</see> that automatically highlights the navigation link matching the section currently scrolled into view.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxScrollspy">https://havit.blazor.eu/components/HxScrollspy</see>
 /// </summary>
 public partial class HxScrollspy : IAsyncDisposable
@@ -25,12 +25,42 @@ public partial class HxScrollspy : IAsyncDisposable
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
 
+	/// <summary>
+	/// Position of the activation line, measured from the top of the scroll container.
+	/// A section becomes active once its top scrolls above this line.
+	/// Accepts a percentage (e.g. <c>12%</c>) or pixels (e.g. <c>96px</c>, to sit below a sticky header).<br />
+	/// Ignored when <see cref="RootMargin"/> is set.<br />
+	/// Default is <c>null</c> (Bootstrap default <c>12%</c> is used).
+	/// </summary>
+	[Parameter] public string TopMargin { get; set; }
+
+	/// <summary>
+	/// Advanced override for the <c>IntersectionObserver</c> <see href="https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/rootMargin">rootMargin</see> (e.g. <c>0px 0px -40%</c>).
+	/// When set, it takes precedence over <see cref="TopMargin"/> and is passed straight to the observer.<br />
+	/// Default is <c>null</c> (the activation line is derived from <see cref="TopMargin"/>).
+	/// </summary>
+	[Parameter] public string RootMargin { get; set; }
+
+	/// <summary>
+	/// <c>IntersectionObserver</c> <see href="https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver#threshold">threshold</see> values (between <c>0</c> and <c>1</c>) used when calculating the scroll position.<br />
+	/// Default is <c>null</c> (Bootstrap default <c>[0]</c> is used).
+	/// </summary>
+	[Parameter] public IReadOnlyList<double> Threshold { get; set; }
+
+	/// <summary>
+	/// Enables smooth scrolling of the container (CSS <c>scroll-behavior: smooth</c>) when the user clicks a <see cref="HxScrollspyNavLink"/>.<br />
+	/// Respects the <c>prefers-reduced-motion</c> user preference.<br />
+	/// Default is <c>false</c>.
+	/// </summary>
+	[Parameter] public bool SmoothScroll { get; set; }
+
 	[Inject] protected IJSRuntime JSRuntime { get; set; }
 
 	private IJSObjectReference _jsModule;
 	private ElementReference _scrollspyElement;
 	private bool _initialized;
 	private bool _disposed;
+	private Dictionary<string, object> _lastJsOptions;
 
 	/// <inheritdoc />
 	protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -44,9 +74,60 @@ public partial class HxScrollspy : IAsyncDisposable
 			{
 				return;
 			}
-			await _jsModule.InvokeVoidAsync("initialize", _scrollspyElement, TargetId);
+			_lastJsOptions = GetJsOptions();
+			await _jsModule.InvokeVoidAsync("initialize", _scrollspyElement, TargetId, _lastJsOptions);
 			_initialized = true;
 		}
+
+		if (_initialized)
+		{
+			// Bootstrap ScrollSpy reads its configuration only when created, so it has to be recreated when the options change.
+			// Checked right after the initialization as well (options might have changed while the initialize call was pending).
+			var jsOptions = GetJsOptions();
+			if (!AreJsOptionsEqual(jsOptions, _lastJsOptions))
+			{
+				await EnsureJsModuleAsync();
+				if (_disposed)
+				{
+					return;
+				}
+				_lastJsOptions = jsOptions;
+				await _jsModule.InvokeVoidAsync("reinitialize", _scrollspyElement, TargetId, _lastJsOptions);
+			}
+		}
+	}
+
+	private Dictionary<string, object> GetJsOptions()
+	{
+		// SmoothScroll is not passed to JavaScript, it is the CSS class of the container
+		var options = new Dictionary<string, object>();
+		if (!String.IsNullOrWhiteSpace(TopMargin))
+		{
+			options["topMargin"] = TopMargin;
+		}
+		if (!String.IsNullOrWhiteSpace(RootMargin))
+		{
+			options["rootMargin"] = RootMargin;
+		}
+		if (Threshold is not null)
+		{
+			options["threshold"] = Threshold.ToArray();
+		}
+		return options;
+	}
+
+	private static bool AreJsOptionsEqual(Dictionary<string, object> options1, Dictionary<string, object> options2)
+	{
+		if ((options1 is null) || (options2 is null))
+		{
+			return options1 == options2;
+		}
+
+		return (options1.Count == options2.Count)
+			&& options1.All(item => options2.TryGetValue(item.Key, out var value2)
+				&& ((item.Value is double[] array1 && value2 is double[] array2)
+					? array1.SequenceEqual(array2)
+					: Object.Equals(item.Value, value2)));
 	}
 
 	/// <summary>

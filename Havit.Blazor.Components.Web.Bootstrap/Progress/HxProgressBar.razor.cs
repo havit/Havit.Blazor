@@ -1,7 +1,11 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿using System.Globalization;
+
+namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// A progress bar to be placed inside <see cref="HxProgress" />.
+/// A progress bar to be placed inside <see cref="HxProgress" />.<br />
+/// Renders the Bootstrap 6 progress markup — a <c>.progress</c> wrapper carrying <c>role="progressbar"</c> and the <c>aria-*</c> attributes,
+/// with an inner <c>.progress-bar</c> used purely for the visual bar and label.
 /// </summary>
 public partial class HxProgressBar
 {
@@ -31,12 +35,12 @@ public partial class HxProgressBar
 	[Parameter] public float? MaxValue { get; set; }
 
 	/// <summary>
-	/// Text to be displayed on the progress bar.
+	/// Text to be displayed on the progress bar. Also used as the accessible name (<c>aria-label</c>) of the progress bar.
 	/// </summary>
 	[Parameter] public string Label { get; set; }
 
 	/// <summary>
-	/// Fill (background) color of the progress bar.
+	/// Color of the progress bar (renders the <c>theme-*</c> class: the fill color with a contrasting label color).
 	/// </summary>
 	[Parameter] public ThemeColor? Color { get; set; }
 
@@ -72,6 +76,11 @@ public partial class HxProgressBar
 
 		return classes;
 	}
+
+	/// <summary>
+	/// ARIA values are numbers and must not depend on the current culture (<c>0,75</c> under cs-CZ).
+	/// </summary>
+	private static string FormatAriaValue(float value) => value.ToString(CultureInfo.InvariantCulture);
 
 	private int GetNormalizedValue()
 	{

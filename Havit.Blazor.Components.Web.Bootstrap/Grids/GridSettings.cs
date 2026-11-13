@@ -92,6 +92,11 @@ public record GridSettings
 	public bool? Responsive { get; set; }
 
 	/// <summary>
+	/// Stacked layout of the grid (Bootstrap stacked tables) – each row is rendered as a vertical block with label–value pairs.
+	/// </summary>
+	public GridStacked? Stacked { get; set; }
+
+	/// <summary>
 	/// Enables the hover state on table rows within a <c>&lt;tbody&gt;</c> (sets the <c>table-hover</c> class on the table).
 	/// </summary>
 	public bool? Hover { get; set; }

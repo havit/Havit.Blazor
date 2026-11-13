@@ -1,0 +1,41 @@
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap
+
+@{
+	RenderFragment stepperTemplate;
+	if (_hasAnchorItems)
+	{
+		// Anchor items cannot be nested in an ordered list (invalid HTML), the stepper renders as a plain div element (follows the Bootstrap "With anchors" markup).
+		stepperTemplate =
+			@<div class="@GetClasses()" @attributes="AdditionalAttributes">
+				<CascadingValue Value="this" IsFixed="true">
+					@ChildContent
+				</CascadingValue>
+			</div>;
+	}
+	else
+	{
+		stepperTemplate =
+			@<ol class="@GetClasses()" @attributes="AdditionalAttributes">
+				<CascadingValue Value="this" IsFixed="true">
+					@ChildContent
+				</CascadingValue>
+			</ol>;
+	}
+}
+
+@if (OverflowEffective)
+{
+	<div class="stepper-overflow">
+		@stepperTemplate
+	</div>
+}
+else if (RenderContainsInlineWrapper)
+{
+	<div class="contains-inline">
+		@stepperTemplate
+	</div>
+}
+else
+{
+	@stepperTemplate
+}

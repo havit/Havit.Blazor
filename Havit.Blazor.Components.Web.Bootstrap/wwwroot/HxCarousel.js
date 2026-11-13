@@ -8,6 +8,35 @@
 	element.addEventListener('slide.bs.carousel', handleSlide);
 	element.addEventListener('slid.bs.carousel', handleSlid);
 }
+
+// Re-creates the Bootstrap carousel after items were added or removed
+// (the instance observes and manages only the items present at construction).
+export function reinitialize(element, options) {
+	if (!element) {
+		return;
+	}
+
+	let paused = false;
+	const c = bootstrap.Carousel.getInstance(element);
+	if (c) {
+		// Whether it is cycling right now. Read it from the live instance (its autoplay timer), not from the .carousel-playing class:
+		// Blazor rewrites the root class attribute when a class-affecting parameter (e.g. Overlay) changes, dropping that class.
+		const cycling = Boolean(c._interval);
+		// keep the runtime autoplay intent (autoplay stops for good once the user takes control);
+		// cycle() via CycleAsync() starts the timer without setting that intent, so an active timer counts as well
+		options = { ...options, autoplay: (c._playing ?? options.autoplay) || cycling };
+		// ...and pause the new instance if it is not cycling right now (pause() via PauseAsync() or hover keeps the intent, only stops the timer)
+		paused = options.autoplay && !cycling;
+		c.dispose();
+	}
+	// the active item is preserved, the new instance reads it from the .carousel-item.active element
+	const carousel = new bootstrap.Carousel(element, options);
+	if (paused) {
+		// mouseleave or CycleAsync() resumes cycling as before
+		carousel.pause();
+	}
+}
+
 export function slideTo(element, index) {
 	const c = bootstrap.Carousel.getInstance(element);
 	if (c) {
