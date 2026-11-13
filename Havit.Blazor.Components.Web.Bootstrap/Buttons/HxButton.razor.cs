@@ -282,7 +282,11 @@ public partial class HxButton : ComponentBase, ICascadeEnabledComponent
 		{
 			Contract.Requires<InvalidOperationException>(EditContextEffective != null, $"[{this.GetType().Name}] To use {nameof(OnValidClick)}/{nameof(OnInvalidClick)}, {nameof(EditContext)} must be supplied as a cascading value or explicit parameter.");
 
-			var isValid = EditContextEffective.Validate(); // Original .NET comment: This will likely become ValidateAsync later
+#if NET11_0_OR_GREATER
+			var isValid = await EditContextEffective.ValidateAsync();
+#else
+			var isValid = EditContextEffective.Validate();
+#endif
 
 			if (isValid && OnValidClick.HasDelegate)
 			{

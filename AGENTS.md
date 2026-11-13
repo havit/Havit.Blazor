@@ -31,7 +31,7 @@ The `.editorconfig` file in the repository root contains the complete coding sta
 - `Havit.Blazor.Components.Web/` - Core web components (NET)
 - `Havit.Blazor.Documentation/` - Documentation site (NET WebAssembly)
 - `Havit.Blazor.TestApp/` - Current test application (NET)
-- `Havit.Blazor.ApplicationInsights/` - Application Insights JS SDK wrapper for Blazor (NET 9, NET 10)
+- `Havit.Blazor.ApplicationInsights/` - Application Insights JS SDK wrapper for Blazor (NET)
 - `BlazorAppTest/` - Legacy test application (NET) - OBSOLETE, do not add any tests here
 
 ### Test Projects

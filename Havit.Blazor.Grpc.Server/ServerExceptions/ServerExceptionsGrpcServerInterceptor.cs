@@ -35,9 +35,7 @@ public class ServerExceptionsGrpcServerInterceptor : ServerExceptionsInterceptor
 		if (activity?.Status == ActivityStatusCode.Unset)
 		{
 			activity.SetStatus(ActivityStatusCode.Error);
-#if NET9_0_OR_GREATER
 			activity.AddException(exception); // useful when exception is not reported via logging
-#endif
 		}
 
 		if (exception is OperationFailedException)

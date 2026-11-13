@@ -36,9 +36,8 @@ jobs:
       uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6
       with:
         dotnet-version: |
-          8.0.x
-          9.0.x
           10.0.x
+          11.0.x
 
     - name: Cache NuGet packages
       uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6

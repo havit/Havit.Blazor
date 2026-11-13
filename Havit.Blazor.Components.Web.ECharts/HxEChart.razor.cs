@@ -212,11 +212,7 @@ public partial class HxEChart : IAsyncDisposable
 
 	private async Task EnsureJsModuleAsync()
 	{
-#if NET9_0_OR_GREATER
 		_jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", Assets["./_content/Havit.Blazor.Components.Web.ECharts/HxEChart.js"]);
-#else
-		_jsModule ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/Havit.Blazor.Components.Web.ECharts/HxEChart.js");
-#endif
 	}
 
 	[JSInvokable("HandleClick")]

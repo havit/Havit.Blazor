@@ -24,8 +24,6 @@ namespace Havit.Blazor.GoogleTagManager;
 ///     <see cref="NavigationManager.LocationChanged"/>, which covers navigations resolved by the interactive router.
 ///   </description></item>
 /// </list>
-/// The non-interactive render modes are supported on .NET 9 and later; on <c>net8.0</c> the component keeps its
-/// original behavior and tracks page-views in interactive render modes only.
 /// <para>
 /// Initialization and automatic page-views are deduplicated in JavaScript, so rendering the component more
 /// than once (e.g. in <c>App.razor</c> for the earliest possible GTM load and in the layout to cover
@@ -50,18 +48,11 @@ public partial class HxGoogleTagManagerPageViewTracker : IDisposable
 	private LocationChangedEventArgs _locationChangedEventArgsToReportOnAfterRenderAsync;
 	private bool _subscribedToLocationChanged;
 
-	private bool IsInteractiveRendering =>
-#if NET9_0_OR_GREATER
-		this.RendererInfo.IsInteractive;
-#else
-		true; // RendererInfo is .NET 9+, so .NET 8 keeps the original interactive-only behavior
-#endif
-
 	protected override void OnInitialized()
 	{
 		base.OnInitialized();
 
-		if (this.IsInteractiveRendering)
+		if (this.RendererInfo.IsInteractive)
 		{
 			this.NavigationManager.LocationChanged += this.OnLocationChanged;
 			_subscribedToLocationChanged = true;

@@ -76,10 +76,6 @@ public partial class GettingStarted(
 
 	private bool HasStaticFileAssets()
 	{
-		if (_setup.TargetFramework == TargetFramework.Net8)
-		{
-			return false;
-		}
 		if (_setup.ProjectSetup == ProjectSetup.WasmStandalone)
 		{
 			return false;
@@ -98,24 +94,19 @@ public partial class GettingStarted(
 
 	private string GetSampleFilesBootstrapFolder()
 	{
-		if (_setup.TargetFramework == TargetFramework.Net8)
-		{
-			return "wwwroot/bootstrap";
-		}
-
 		return "wwwroot/lib/bootstrap";
 	}
 
 	private record SetupModel
 	{
-		public TargetFramework TargetFramework { get; set; } = TargetFramework.Net10;
+		public TargetFramework TargetFramework { get; set; } = TargetFramework.Net11;
 		public ProjectSetup ProjectSetup { get; set; } = ProjectSetup.BlazorWebApp;
 		public BwaRenderMode BwaRenderMode { get; set; } = BwaRenderMode.Auto;
 		public BootstrapTheme BootstrapTheme { get; set; } = BootstrapTheme.HavitBlazor;
 		public bool SamplePagesCreated { get; set; } = false;
 	}
 
-	private enum TargetFramework { Net8, Net9, Net10 }
+	private enum TargetFramework { Net10, Net11 }
 	private enum ProjectSetup { BlazorWebApp, Server, WasmStandalone }
 	private enum BwaRenderMode { Auto, Server, Wasm, None }
 	private enum BootstrapTheme { HavitBlazor, PlainCdn, PlainProject, Custom }

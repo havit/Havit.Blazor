@@ -9,19 +9,25 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
 public class HxInputNumberTests : BunitTestBase
 {
+	// decimal values cannot be used in attributes (InlineData), and conversion from double is not exact
+	public static TheoryData<string, string, decimal?, string> NullableDecimalValueConversionsData => new()
+	{
+		{ "en-US", "123", 123.0m, "123.00" },
+		{ "en-US", "123,123", 123123.0m, "123123.00" },
+		{ "cs-CZ", "123,123", 123.12m, "123,12" }, // Decimals = 2 (rounding)
+		{ "en-US", "123.123", 123.12m, "123.12" },
+		{ "cs-CZ", "123.123", 123.12m, "123,12" }, // replace . with , (if possible)
+		{ "en-US", "15,81.549", 1581.55m, "1581.55" },
+		{ "cs-CZ", "15 81,549", 1581.55m, "1581,55" },
+		{ "cs-CZ", "1.234", 1.23m, "1,23" }, // Replace . with , (if possible)
+		{ "en-US", "1.237", 1.24m, "1.24" }, // rounding
+		{ "en-US", "abc", null, "abc" }, // invalid input
+		{ "en-US", "", null, null }, // empty input
+	};
+
 	[Theory]
-	[InlineData("en-US", "123", 123.0, "123.00")]
-	[InlineData("en-US", "123,123", 123123.0, "123123.00")]
-	[InlineData("cs-CZ", "123,123", 123.12, "123,12")] // Decimals = 2 (rounding)
-	[InlineData("en-US", "123.123", 123.12, "123.12")]
-	[InlineData("cs-CZ", "123.123", 123.12, "123,12")] // replace . with , (if possible)
-	[InlineData("en-US", "15,81.549", 1581.55, "1581.55")]
-	[InlineData("cs-CZ", "15 81,549", 1581.55, "1581,55")]
-	[InlineData("cs-CZ", "1.234", 1.23, "1,23")] // Replace . with , (if possible)
-	[InlineData("en-US", "1.237", 1.24, "1.24")] // rounding
-	[InlineData("en-US", "abc", null, "abc")] // invalid input
-	[InlineData("en-US", "", null, null)] // empty input
-	public void HxInputNumber_NullableDecimal_ValueConversions(string culture, string input, double? expectedValue, string expectedInputText)
+	[MemberData(nameof(NullableDecimalValueConversionsData))]
+	public void HxInputNumber_NullableDecimal_ValueConversions(string culture, string input, decimal? expectedValue, string expectedInputText)
 	{
 		// Arrange
 		CultureInfo.CurrentCulture = CultureInfo.GetCultureInfo(culture);
@@ -38,7 +44,7 @@ public class HxInputNumberTests : BunitTestBase
 		cut.Find("input").Change(input);
 
 		// assert
-		Assert.Equal((decimal?)expectedValue, cut.Instance.Value);
+		Assert.Equal(expectedValue, cut.Instance.Value);
 		Assert.Equal(expectedInputText, cut.Find("input").GetAttribute("value"));
 	}
 
