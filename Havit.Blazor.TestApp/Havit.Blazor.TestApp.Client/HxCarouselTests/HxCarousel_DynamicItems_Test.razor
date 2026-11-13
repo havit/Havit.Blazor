@@ -1,0 +1,30 @@
+@page "/HxCarousel_DynamicItems"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<HxButton Text="Add slide" Color="ThemeColor.Primary" OnClick="() => _slidesCount++" data-testid="add-slide" CssClass="mb-3" />
+
+<div data-testid="carousel-wrapper">
+	<HxCarousel Indicators="true" Controls="true" Ends="CarouselEnds.Stop" OnSlid="HandleSlid">
+		@for (int i = 0; i < _slidesCount; i++)
+		{
+			int slideIndex = i;
+			<HxCarouselItem Active="(slideIndex == 0)" @key="slideIndex">
+				<div data-testid="slide-@slideIndex" class="d-flex align-items-center justify-content-center bg-secondary" style="height: 200px;">
+					<span>Slide @(slideIndex + 1)</span>
+				</div>
+			</HxCarouselItem>
+		}
+	</HxCarousel>
+</div>
+
+<p data-testid="last-slid">@_lastSlid</p>
+
+@code {
+	private int _slidesCount = 2;
+	private string _lastSlid;
+
+	private void HandleSlid(CarouselSlideEventArgs args)
+	{
+		_lastSlid = $"{args.From}->{args.To}";
+	}
+}

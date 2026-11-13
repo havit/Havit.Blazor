@@ -14,8 +14,8 @@ public class HxSearchBox_E2E_Tests : TestAppTestBase
 		await input.ClickAsync();
 		await input.FillAsync("App");
 
-		// Assert - suggestions dropdown should be visible
-		var suggestion = Page.Locator(".dropdown-item:has-text('Apple')");
+		// Assert - suggestions menu should be visible
+		var suggestion = Page.Locator(".menu-item:has-text('Apple')");
 		await Expect(suggestion).ToBeVisibleAsync(new() { Timeout = 5_000 });
 	}
 
@@ -31,7 +31,7 @@ public class HxSearchBox_E2E_Tests : TestAppTestBase
 		// Act - type to trigger suggestions and click one
 		await input.ClickAsync();
 		await input.FillAsync("Ban");
-		await Page.Locator(".dropdown-item:has-text('Banana')").ClickAsync();
+		await Page.Locator(".menu-item:has-text('Banana')").ClickAsync();
 
 		// Assert - the OnItemSelected callback should have been called with the selected item
 		await Expect(selectedItemDisplay).ToHaveTextAsync("Banana");
