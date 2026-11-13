@@ -798,7 +798,7 @@ public class HxInputDateRangeTests : BunitTestBase
 	}
 
 	[Fact]
-	public async Task HxInputDateRange_CalendarNavigation_IsResetWhenDropdownHidden()
+	public async Task HxInputDateRange_CalendarNavigation_IsResetWhenMenuHidden()
 	{
 		// Arrange
 		var myValue = new DateTimeRange { StartDate = new DateTime(2024, 1, 15) };
@@ -812,9 +812,9 @@ public class HxInputDateRangeTests : BunitTestBase
 		await cut.InvokeAsync(() => cut.FindAll("button.hx-calendar-navigation-button")[3].Click()); // "To" calendar, next month
 
 		// Act
-		var dropdownToggleElements = cut.FindComponents<HxDropdownToggleElement>();
-		await cut.InvokeAsync(dropdownToggleElements[0].Instance.HandleJsHidden);
-		await cut.InvokeAsync(dropdownToggleElements[1].Instance.HandleJsHidden);
+		var menuToggleElements = cut.FindComponents<HxMenuToggleElement>();
+		await cut.InvokeAsync(menuToggleElements[0].Instance.HandleJsHidden);
+		await cut.InvokeAsync(menuToggleElements[1].Instance.HandleJsHidden);
 
 		// Assert
 		var monthSelects = cut.FindAll("select[aria-label='Month']");

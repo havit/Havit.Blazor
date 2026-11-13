@@ -90,12 +90,14 @@ public class HxFormValueComponentRenderer : ComponentBase
 		builder.OpenElement(1, "div");
 		builder.AddAttribute(2, "class", "form-floating");
 
+		// Bootstrap 6 floats the label via ":has(~ .form-control...)", a relational selector that only matches
+		// a *following* sibling, so the label must precede the control in the DOM (unlike Bootstrap 5).
 		builder.OpenRegion(3);
-		BuildRenderValue(builder);
+		BuildRenderLabel(builder);
 		builder.CloseRegion();
 
 		builder.OpenRegion(4);
-		BuildRenderLabel(builder);
+		BuildRenderValue(builder);
 		builder.CloseRegion();
 
 		builder.CloseElement(); // div.form-floating
@@ -146,7 +148,7 @@ public class HxFormValueComponentRenderer : ComponentBase
 		}
 
 		builder.OpenRegion(400);
-		content(builder);
+		BuildRenderAdorn(builder, content);
 		builder.CloseRegion();
 
 		if (shouldRenderInputGroups)
@@ -164,6 +166,82 @@ public class HxFormValueComponentRenderer : ComponentBase
 			}
 
 			builder.CloseElement(); // span.input-group
+		}
+	}
+
+	/// <summary>
+	/// Renders the form-adorn wrapper (with content) when the component has at least one adornment.
+	/// </summary>
+	protected virtual void BuildRenderAdorn(RenderTreeBuilder builder, RenderFragment content)
+	{
+		IFormValueComponentWithAdorns formValueComponentWithAdorns = FormValueComponent as IFormValueComponentWithAdorns;
+		IInputWithSize formValueComponentWithSize = FormValueComponent as IInputWithSize;
+
+		bool shouldRenderAdorn = FormValueComponent.ShouldRenderAdorn();
+
+		// The wrapper looks like the input, so a click on the adornments or the padding is expected to focus the input
+		// (the adornments have pointer-events: none). Bootstrap 6 uses a wrapping <label> for that.
+		// A label must not contain interactive content, which the adorn templates can, so with a template,
+		// the wrapper is a div focusing the input when clicked directly.
+		bool renderAdornAsLabel = (formValueComponentWithAdorns?.AdornStartTemplate is null) && (formValueComponentWithAdorns?.AdornEndTemplate is null);
+
+		if (shouldRenderAdorn)
+		{
+			builder.OpenElement(800, renderAdornAsLabel ? "label" : "div");
+			builder.AddAttribute(801, "class", CssClassHelper.Combine(
+				"form-control",
+				"form-adorn",
+				formValueComponentWithSize is not null ? formValueComponentWithSize.GetInputSizeCssClass() : null,
+				formValueComponentWithAdorns.AdornCssClass));
+			if (!renderAdornAsLabel)
+			{
+				builder.AddAttribute(802, "onclick", "if (event.target === this) { this.querySelector(':scope > .form-ghost')?.focus(); }");
+			}
+
+			if (formValueComponentWithAdorns.AdornStartTemplate is not null)
+			{
+				builder.OpenElement(810, "div");
+				builder.AddAttribute(811, "class", "form-adorn-icon");
+				builder.AddContent(812, formValueComponentWithAdorns.AdornStartTemplate);
+				builder.CloseElement(); // div.form-adorn-icon
+			}
+
+			if (!String.IsNullOrEmpty(formValueComponentWithAdorns.AdornStartText))
+			{
+				builder.OpenElement(820, "span");
+				builder.AddAttribute(821, "class", "form-adorn-text");
+				builder.AddAttribute(822, "id", formValueComponentWithAdorns.AdornStartTextId); // referenced by the input aria-describedby
+				builder.AddAttribute(823, "aria-hidden", "true"); // must not join the accessible name of the input (wrapping label)
+				builder.AddContent(824, formValueComponentWithAdorns.AdornStartText);
+				builder.CloseElement(); // span.form-adorn-text
+			}
+		}
+
+		builder.OpenRegion(830);
+		content(builder);
+		builder.CloseRegion();
+
+		if (shouldRenderAdorn)
+		{
+			if (!String.IsNullOrEmpty(formValueComponentWithAdorns.AdornEndText))
+			{
+				builder.OpenElement(840, "span");
+				builder.AddAttribute(841, "class", "form-adorn-text");
+				builder.AddAttribute(842, "id", formValueComponentWithAdorns.AdornEndTextId); // referenced by the input aria-describedby
+				builder.AddAttribute(843, "aria-hidden", "true"); // must not join the accessible name of the input (wrapping label)
+				builder.AddContent(844, formValueComponentWithAdorns.AdornEndText);
+				builder.CloseElement(); // span.form-adorn-text
+			}
+
+			if (formValueComponentWithAdorns.AdornEndTemplate is not null)
+			{
+				builder.OpenElement(850, "div");
+				builder.AddAttribute(851, "class", "form-adorn-icon");
+				builder.AddContent(852, formValueComponentWithAdorns.AdornEndTemplate);
+				builder.CloseElement(); // div.form-adorn-icon
+			}
+
+			builder.CloseElement(); // label.form-adorn or div.form-adorn
 		}
 	}
 

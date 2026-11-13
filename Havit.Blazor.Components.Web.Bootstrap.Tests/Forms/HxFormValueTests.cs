@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components.Rendering;
+﻿using Microsoft.AspNetCore.Components.Rendering;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
@@ -61,5 +61,20 @@ public class HxFormValueTests : BunitTestBase
 		// Assert
 		var hintElement = cut.Find("div.form-text");
 		Assert.True(hintElement.TextContent.Contains("TestHint", StringComparison.Ordinal));
+	}
+
+	[Fact]
+	public void HxFormValue_Render_FormFieldWithBlockValue()
+	{
+		// Arrange & Act — Bootstrap 6: .form-field spaces the label/value/hint, .form-control is display: flex
+		// (would collapse the whitespace between inline children of the ValueTemplate)
+		var cut = Render<HxFormValue>(parameters => parameters
+			.Add(p => p.Label, "TestLabel")
+			.Add(p => p.Value, "TestValue")
+			.Add(p => p.Hint, "TestHint"));
+
+		// Assert
+		Assert.True(cut.Find("div.hx-form-group").ClassList.Contains("form-field"));
+		Assert.True(cut.Find("div.form-control").ClassList.Contains("d-block"));
 	}
 }

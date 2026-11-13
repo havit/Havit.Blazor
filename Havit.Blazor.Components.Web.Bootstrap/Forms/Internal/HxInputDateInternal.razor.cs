@@ -5,7 +5,7 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Components.Web.Bootstrap.Internal;
 
-public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposable, IInputWithSize, IInputWithLabelType
+public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposable, IInputWithSize
 {
 	[Parameter] public string InputId { get; set; }
 
@@ -37,8 +37,6 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 
 	[Parameter] public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProviderEffective { get; set; }
 
-	[Parameter] public LabelType LabelTypeEffective { get; set; }
-
 	/// <summary>
 	/// Custom CSS class to render with input-group span.
 	/// </summary>
@@ -61,8 +59,6 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
-	[Parameter] public IFormValueComponent FormValueComponent { get; set; }
-
 	[Parameter] public TimeProvider TimeProviderEffective { get; set; }
 
 	[Parameter] public DateTime CalendarDisplayMonth { get; set; }
@@ -83,7 +79,7 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 
 	protected DateTime GetCalendarDisplayMonthEffective => DateHelper.GetDateTimeFromValue(CurrentValue) ?? CalendarDisplayMonth;
 
-	private HxDropdownToggleElement _hxDropdownToggleElement;
+	private HxMenuToggleElement _hxMenuToggleElement;
 	private bool _firstRenderCompleted;
 	private int _calendarKey; // changed to recreate the calendar (resets the month the user navigated to)
 
@@ -107,8 +103,8 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 
 	public async ValueTask FocusAsync()
 	{
-		await _hxDropdownToggleElement.ElementReference.FocusAsync();
-		await _hxDropdownToggleElement.ShowAsync();
+		await _hxMenuToggleElement.ElementReference.FocusAsync();
+		await _hxMenuToggleElement.ShowAsync();
 	}
 
 	private CalendarDateCustomizationResult GetCalendarDateCustomization(CalendarDateCustomizationRequest request)
@@ -119,25 +115,25 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 	private async Task HandleClearClickAsync()
 	{
 		await SetCurrentDateAsync(null);
-		await CloseDropdownAsync();
+		await CloseMenuAsync();
 	}
 
-	private async Task CloseDropdownAsync()
+	private async Task CloseMenuAsync()
 	{
-		Contract.Requires<InvalidOperationException>(_hxDropdownToggleElement != null);
-		await _hxDropdownToggleElement.HideAsync();
+		Contract.Requires<InvalidOperationException>(_hxMenuToggleElement != null);
+		await _hxMenuToggleElement.HideAsync();
 	}
 
 	private async Task HandleCalendarValueChangedAsync(DateTime? date)
 	{
 		await SetCurrentDateAsync(date);
-		await CloseDropdownAsync();
+		await CloseMenuAsync();
 	}
 
 	protected async Task HandleCustomDateClick(DateTime value)
 	{
 		await SetCurrentDateAsync(value);
-		await CloseDropdownAsync();
+		await CloseMenuAsync();
 	}
 
 	protected async Task SetCurrentDateAsync(DateTime? date)
@@ -165,9 +161,9 @@ public partial class HxInputDateInternal<TValue> : ComponentBase, IAsyncDisposab
 		{
 			if (_firstRenderCompleted)
 			{
-				if (_hxDropdownToggleElement is not null)
+				if (_hxMenuToggleElement is not null)
 				{
-					await CloseDropdownAsync();
+					await CloseMenuAsync();
 				}
 			}
 		}
