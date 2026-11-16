@@ -44,8 +44,10 @@ public static class ApiRenderer
 		typeName = typeName.Replace("`1", String.Empty);
 		typeName = typeName.Replace("`2", String.Empty);
 		typeName = typeName.Replace("`3", String.Empty);
+		typeName = typeName.Replace("[]", "{}"); // keep array brackets, only generic arguments use [...]
 		typeName = typeName.Replace('[', '<');
 		typeName = typeName.Replace(']', '>');
+		typeName = typeName.Replace("{}", "[]");
 		typeName = typeName.Replace(",", ", ");
 
 		if (typeName.StartsWith("Nullable<"))
