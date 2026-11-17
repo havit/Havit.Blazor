@@ -23,7 +23,7 @@ public partial class HxToastContainer : ComponentBase
 		return Position switch
 		{
 			ToastContainerPosition.TopStart => "position-fixed top-0 start-0",
-			ToastContainerPosition.TopCenter => "position-fixed start-50 translate-middle-x",
+			ToastContainerPosition.TopCenter => "position-fixed top-0 start-50 translate-middle-x",
 			ToastContainerPosition.TopEnd => "position-fixed top-0 end-0",
 			ToastContainerPosition.MiddleStart => "position-fixed top-50 start-0 translate-middle-y",
 			ToastContainerPosition.MiddleCenter => "position-fixed top-50 start-50 translate-middle",
