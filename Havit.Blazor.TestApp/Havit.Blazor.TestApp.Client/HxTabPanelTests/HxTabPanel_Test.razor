@@ -1,0 +1,25 @@
+﻿@page "/HxTabPanel"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<h4>HxTabPanel E2E Tests</h4>
+
+<HxTabPanel @bind-ActiveTabId="_activeTabId">
+	<HxTab Id="tab1" Title="First">
+		<Content><p>Content 1</p></Content>
+	</HxTab>
+	<HxTab Id="tab2" Title="Second">
+		<Content><p>Content 2</p></Content>
+	</HxTab>
+	<HxTab Id="tab3" Title="Disabled" Enabled="false">
+		<Content><p>Content 3</p></Content>
+	</HxTab>
+	<HxTab Id="tab4" Title="Fourth">
+		<Content><p>Content 4</p></Content>
+	</HxTab>
+</HxTabPanel>
+
+<p>Active tab: <span data-testid="active-tab-id">@_activeTabId</span></p>
+
+@code {
+	private string _activeTabId = "tab1";
+}

@@ -1,4 +1,4 @@
-namespace Havit.Blazor.E2ETests.HxSidebarTests;
+﻿namespace Havit.Blazor.E2ETests.HxSidebarTests;
 
 public class HxSidebar_Tests : TestAppTestBase
 {
@@ -92,26 +92,18 @@ public class HxSidebar_Tests : TestAppTestBase
 	}
 
 	/// <summary>
-	/// Verifies that the Bootstrap JS mobile navbar toggler shows the nav content
-	/// via data-bs-toggle="collapse" below the responsive breakpoint.
+	/// HxSidebar has no mobile/navbar mode (removed in v6 - a sidebar collapses horizontally only;
+	/// mobile navigation is the application layout's concern, typically via the HxNavbar drawer).
+	/// The sidebar content is always rendered and visible regardless of the viewport width.
 	/// </summary>
 	[Fact]
-	public async Task HxSidebar_MobileNavbarToggler_ShowsNavContent()
+	public async Task HxSidebar_NarrowViewport_ContentRemainsVisible()
 	{
-		// Set viewport below the default Medium (768px) responsive breakpoint so the mobile toggler is visible
 		await Page.SetViewportSizeAsync(600, 800);
 
 		await NavigateToTestAppAsync("/HxSidebarTests");
 
-		var navbarToggler = Page.Locator(".hx-sidebar-navbar-toggler");
-		var navContent = Page.Locator(".hx-sidebar-collapse");
-
-		// The nav content is hidden by default on mobile (Bootstrap collapse without .show)
-		await Expect(navbarToggler).ToBeVisibleAsync();
-		await Expect(navContent).Not.ToBeVisibleAsync();
-
-		// Click the Bootstrap JS toggler to show nav content
-		await navbarToggler.ClickAsync();
-		await Expect(navContent).ToBeVisibleAsync(new() { Timeout = 5_000 });
+		var navContent = Page.Locator(".hx-sidebar-content");
+		await Expect(navContent).ToBeVisibleAsync();
 	}
 }

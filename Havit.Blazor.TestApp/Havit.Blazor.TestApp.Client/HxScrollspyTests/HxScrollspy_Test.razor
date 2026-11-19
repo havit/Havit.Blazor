@@ -1,0 +1,114 @@
+﻿@page "/HxScrollspyTests"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+@* The sections must not end up under the sticky headers (scroll-padding-top of the scroll containers). *@
+<style>
+	.scrollspy-test-container {
+		height: 300px;
+		position: relative;
+	}
+
+	.scrollspy-test-padding {
+		scroll-padding-top: 50px;
+	}
+
+	.scrollspy-test-padding-percent {
+		scroll-padding-top: 20%;
+	}
+
+	.scrollspy-test-padding-calc {
+		scroll-padding-top: calc(20% + 10px);
+	}
+
+	.scrollspy-test-sticky-header {
+		position: sticky;
+		top: 0;
+		height: 50px;
+		z-index: 1;
+		background: var(--bs-body-bg);
+	}
+
+	.scrollspy-test-inner {
+		height: 200px;
+		overflow-y: auto;
+		scroll-padding-top: 30px;
+		border: 4px solid gray;
+	}
+</style>
+
+<h2>Sticky header in the HxScrollspy container (scroll-padding-top)</h2>
+<HxNav Id="scrollspy-padding-nav">
+	<HxScrollspyNavLink data-testid="padding-link-3" Href="#padding-section3">Section 3</HxScrollspyNavLink>
+	<HxScrollspyNavLink data-testid="padding-link-1" Href="#padding-section1">Section 1</HxScrollspyNavLink>
+</HxNav>
+<div class="scrollspy-test-container">
+	<HxScrollspy TargetId="scrollspy-padding-nav" CssClass="scrollspy-test-padding">
+		<div class="scrollspy-test-sticky-header" data-testid="padding-header">Sticky header</div>
+		<h4 id="padding-section1">Section 1</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		<h4 id="padding-section2">Section 2</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		<h4 id="padding-section3">Section 3</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		<h4 id="padding-section4">Section 4</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		<h4 id="padding-section5">Section 5</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+	</HxScrollspy>
+</div>
+
+<h2>Percentage scroll-padding-top and scroll-margin-top</h2>
+<HxNav Id="scrollspy-percent-nav">
+	<HxScrollspyNavLink data-testid="percent-link-3" Href="#percent-section3">Section 3</HxScrollspyNavLink>
+</HxNav>
+<div class="scrollspy-test-container">
+	<HxScrollspy TargetId="scrollspy-percent-nav" CssClass="scrollspy-test-padding-percent">
+		<h4 id="percent-section1">Section 1</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		<h4 id="percent-section2">Section 2</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		<h4 id="percent-section3" style="scroll-margin-top: 10px;">Section 3</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		<h4 id="percent-section4">Section 4</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+	</HxScrollspy>
+</div>
+
+<h2>Mixed-unit calc() scroll-padding-top</h2>
+<HxNav Id="scrollspy-calc-nav">
+	<HxScrollspyNavLink data-testid="calc-link-3" Href="#calc-section3">Section 3</HxScrollspyNavLink>
+</HxNav>
+<div class="scrollspy-test-container">
+	<HxScrollspy TargetId="scrollspy-calc-nav" CssClass="scrollspy-test-padding-calc">
+		<h4 id="calc-section1">Section 1</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		<h4 id="calc-section2">Section 2</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		<h4 id="calc-section3">Section 3</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		<h4 id="calc-section4">Section 4</h4>
+		<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+	</HxScrollspy>
+</div>
+
+<h2>Nested scroll container with scroll-padding-top</h2>
+<HxNav Id="scrollspy-nested-nav">
+	<HxScrollspyNavLink data-testid="nested-link-3" Href="#nested-section3">Inner section 3</HxScrollspyNavLink>
+</HxNav>
+<div class="scrollspy-test-container">
+	<HxScrollspy TargetId="scrollspy-nested-nav" CssClass="scrollspy-test-padding">
+		<div class="scrollspy-test-sticky-header">Sticky header</div>
+		<p style="height: 400px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		<div class="scrollspy-test-inner" data-testid="nested-inner">
+			<h4 id="nested-section1">Section 1</h4>
+			<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+			<h4 id="nested-section2">Section 2</h4>
+			<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+			<h4 id="nested-section3">Section 3</h4>
+			<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+			<h4 id="nested-section4">Section 4</h4>
+			<p style="height: 300px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+		</div>
+		<p style="height: 400px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc maximus facilisis lobortis. Sed non nisi mollis, hendrerit augue sed, facilisis leo. Aliquam dapibus malesuada quam quis luctus. Phasellus placerat mi vel aliquam ullamcorper. Sed sit amet erat a mauris viverra egestas.</p>
+	</HxScrollspy>
+</div>
