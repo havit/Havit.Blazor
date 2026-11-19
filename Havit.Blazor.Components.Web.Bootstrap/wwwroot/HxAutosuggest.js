@@ -25,13 +25,13 @@ function handleKeyDown(event) {
 	}
 }
 
-export function scrollToSelectedItem(dropdownId) {
-	const dropdownElement = document.getElementById(dropdownId);
-	if (!dropdownElement) {
+export function scrollToSelectedItem(menuId) {
+	const menuElement = document.getElementById(menuId);
+	if (!menuElement) {
 		return;
 	}
 
-	const selectedItem = dropdownElement.getElementsByClassName("hx-autosuggest-item-focused");
+	const selectedItem = menuElement.getElementsByClassName("hx-autosuggest-item-focused");
 	if (!selectedItem) {
 		return;
 	}
@@ -43,14 +43,14 @@ export function open(inputElement, hxAutosuggestDotnetObjectReference) {
 	if (!inputElement) {
 		return;
 	}
-	inputElement.setAttribute("data-bs-toggle", "dropdown");
+	inputElement.setAttribute("data-bs-toggle", "menu");
 	inputElement.hxAutosuggestDotnetObjectReference = hxAutosuggestDotnetObjectReference;
-	inputElement.addEventListener('hidden.bs.dropdown', handleDropdownHidden);
+	inputElement.addEventListener('hidden.bs.menu', handleMenuHidden);
 
-	const d = new bootstrap.Dropdown(inputElement);
+	const d = new bootstrap.Menu(inputElement);
 	if (d && (inputElement.clickIsComing === false)) {
 		// clickIsComing logic fixes #572 - Initial suggestions disappear when the DataProvider response is quick
-		// If click is coming, we do not want to show the dropdown as it will be toggled by the later click event (if we open it here, onfocus, click will hide it)
+		// If click is coming, we do not want to show the menu as it will be toggled by the later click event (if we open it here, onfocus, click will hide it)
 		d.show();
 	}
 }
@@ -60,11 +60,11 @@ export function destroy(inputElement) {
 		return;
 	}
 
-	inputElement.removeAttribute("data-bs-toggle", "dropdown");
+	inputElement.removeAttribute("data-bs-toggle", "menu");
 
-	const d = bootstrap.Dropdown.getInstance(inputElement);
+	const d = bootstrap.Menu.getInstance(inputElement);
 	if (d) {
-		inputElement.addEventListener('hidden.bs.dropdown', event => {
+		inputElement.addEventListener('hidden.bs.menu', event => {
 			d.dispose()
 		});
 		try {
@@ -87,23 +87,23 @@ function handleMouseUp(event) {
 }
 
 function handleMouseLeave(event) {
-	// Fixes #702: The dropdown is not shown after selecting input content with the mouse
+	// Fixes #702: The menu is not shown after selecting input content with the mouse
 	// (the input does not receive mouseup when the mouse is released outside of the input)
 	event.target.clickIsComing = false;
 }
 
-function handleDropdownHidden(event) {
-	event.target.removeEventListener('hidden.bs.dropdown', handleDropdownHidden);
+function handleMenuHidden(event) {
+	event.target.removeEventListener('hidden.bs.menu', handleMenuHidden);
 
 	// In Blazor, JS interop is faster than DOM events.
-	// As a result, this method (handleDropdownHidden) is called first, and the dropdown item click event (Blazor OnClick Event) is called second.
+	// As a result, this method (handleMenuHidden) is called first, and the menu item click event (Blazor OnClick Event) is called second.
 	// However, we need the item click event to fire first.
 	// Therefore, we delay the JS interop call slightly.
 	window.setTimeout(function (element) {
-		element.hxAutosuggestDotnetObjectReference?.invokeMethodAsync('HxAutosuggestInternal_HandleDropdownHidden');
+		element.hxAutosuggestDotnetObjectReference?.invokeMethodAsync('HxAutosuggestInternal_HandleMenuHidden');
 	}, 1, event.target);
 
-	const d = bootstrap.Dropdown.getInstance(event.target);
+	const d = bootstrap.Menu.getInstance(event.target);
 	if (d) {
 		d.dispose();
 	}

@@ -1,0 +1,32 @@
+﻿.hx-select-filter-input-wrapper {
+	position: relative;
+}
+
+.hx-select-filter-input-icon {
+	display: flex;
+	align-items: center;
+	margin-right: 1rem;
+	position: absolute;
+	top: 50%;
+	right: 0;
+	transform: translateY(-50%);
+	z-index: 5;
+}
+
+.form-control-sm ~ .hx-select-filter-input-icon {
+	font-size: .75rem;
+}
+
+.hx-select-filter-input-icon div[role="button"]:not(:hover) ::deep .hx-icon {
+	opacity: var(--hx-select-filter-input-icon-opacity, .25);
+}
+
+/* A floating label always makes the toggle button match ":not(:placeholder-shown)" (buttons never show a
+   placeholder), so Bootstrap 6 permanently shifts its padding down to clear the shrunk label. That shift is
+   meant for the value text's baseline, not the caret icon, so undo it here to keep the caret centered. */
+.form-floating .combobox-caret {
+	/* Flexbox align-items:center only shifts an item by half of any single-sided margin applied to it
+	   (the other half is absorbed back into the centering split), so the full padding delta is needed here,
+	   not half of it. */
+	margin-top: calc(var(--bs-form-floating-input-padding-b) - var(--bs-form-floating-input-padding-t));
+}

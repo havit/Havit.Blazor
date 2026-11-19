@@ -9,4 +9,14 @@ public record InputRangeSettings : InputSettings
 	/// Determines whether the <code>Value</code> is going to be updated instantly or <code>onchange</code> (usually <code>onmouseup</code>).
 	/// </summary>
 	public BindEvent? BindEvent { get; set; }
+
+	/// <summary>
+	/// Determines whether a value bubble following the thumb is shown.
+	/// </summary>
+	public bool? Bubble { get; set; }
+
+	/// <summary>
+	/// Theme color of the filled track and the thumb.
+	/// </summary>
+	public ThemeColor? Color { get; set; }
 }

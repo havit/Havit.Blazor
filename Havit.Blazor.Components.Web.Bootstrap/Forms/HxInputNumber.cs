@@ -5,14 +5,14 @@ using Microsoft.Extensions.Localization;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Numeric input.<br />
+/// Numeric input field for whole numbers or decimals, with configurable input mode, HTML input type, and select-on-focus behavior.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxInputNumber">https://havit.blazor.eu/components/HxInputNumber</see>
 /// </summary>
 /// <remarks>
 /// Defaults located in separate non-generic type <see cref="HxInputNumber"/>.
 /// </remarks>
 /// <typeparam name="TValue">Supported values: <c>byte (Byte), sbyte (SByte), short (Int16), ushort(UInt16), int (Int32), uint(UInt32), long (Int64), ulong(UInt64), float (Single), double (Double) and decimal (Decimal)</c>.</typeparam>
-public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
+public class HxInputNumber<TValue> : HxInputBaseWithAdorns<TValue>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 {
 	// DO NOT FORGET TO MAINTAIN DOCUMENTATION! (documentation comment of this class)
 	private static HashSet<Type> s_supportedTypes = new HashSet<Type>
@@ -81,6 +81,9 @@ public class HxInputNumber<TValue> : HxInputBaseWithInputGroups<TValue>, IInputW
 	/// Placeholder for the input.
 	/// </summary>
 	[Parameter] public string Placeholder { get; set; }
+
+	/// <inheritdoc />
+	private protected override bool SupportsPlaceholderWithFloatingLabel => true;
 
 	/// <summary>
 	/// Size of the input.

@@ -1,4 +1,5 @@
 using System.Linq.Expressions;
+using Havit.Blazor.Components.Web.Bootstrap.Internal;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
@@ -7,7 +8,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 public class HxInputTagsTests : BunitTestBase
 {
 	[Fact]
-	public void HxInputTags_WithTags_RendersBadges()
+	public void HxInputTags_WithTags_RendersChips()
 	{
 		// Arrange
 		var tags = new List<string> { "red", "blue", "green" };
@@ -24,13 +25,13 @@ public class HxInputTagsTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 
-		// Assert — tags render as badge elements
-		var tagElements = cut.FindAll(".hx-tag");
+		// Assert — tags render as chip elements
+		var tagElements = cut.FindAll(".chip.hx-tag");
 		Assert.Equal(3, tagElements.Count());
 	}
 
 	[Fact]
-	public void HxInputTags_EmptyTags_NoBadges()
+	public void HxInputTags_EmptyTags_NoChips()
 	{
 		// Arrange
 		var tags = new List<string>();
@@ -47,8 +48,8 @@ public class HxInputTagsTests : BunitTestBase
 		// Act
 		var cut = Render(componentRenderer);
 
-		// Assert — no tag badges rendered
-		var tagElements = cut.FindAll(".hx-tag");
+		// Assert — no tag chips rendered
+		var tagElements = cut.FindAll(".chip.hx-tag");
 		Assert.Empty(tagElements);
 	}
 
@@ -101,6 +102,52 @@ public class HxInputTagsTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxInputTags_ChipInputWrapper_Rendered()
+	{
+		// Arrange
+		var tags = new List<string> { "test" };
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputTags>(0);
+			builder.AddAttribute(1, "Value", tags);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<List<string>>(this, v => { }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<List<string>>>)(() => tags));
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+
+		// Assert — the chip-input wrapper carries the visual chrome, the inner input is a form-ghost
+		var wrapper = cut.Find(".chip-input");
+		Assert.NotNull(wrapper.QuerySelector("input.form-ghost"));
+	}
+
+	[Fact]
+	public void HxInputTags_LabelTypeFloating_ThrowsInvalidOperationException()
+	{
+		// LabelType.Floating is not supported in Bootstrap 6 — the chip-input wrapper owns the visual chrome and cannot host a floating label.
+
+		// Arrange
+		var tags = new List<string>();
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputTags>(0);
+			builder.AddAttribute(1, "Value", tags);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<List<string>>(this, v => { }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<List<string>>>)(() => tags));
+			builder.AddAttribute(4, "Label", "Tags");
+			builder.AddAttribute(5, "LabelType", (LabelType?)LabelType.Floating);
+			builder.CloseComponent();
+		};
+
+		// Act + Assert
+		Assert.Throws<InvalidOperationException>(() => Render(componentRenderer));
+	}
+
+	[Fact]
 	public void HxInputTags_Label_RendersLabel()
 	{
 		// Arrange
@@ -122,5 +169,69 @@ public class HxInputTagsTests : BunitTestBase
 		// Assert — label is rendered
 		var label = cut.Find("label");
 		Assert.Contains("Tags", label.TextContent);
+	}
+
+	[Fact]
+	public async Task HxInputTags_BackspaceInEmptyInput_FirstSelectsLastTagSecondRemovesIt()
+	{
+		// Arrange
+		var tags = new List<string> { "red", "blue" };
+		var cut = Render<HxInputTags>(parameters => parameters
+			.Bind(p => p.Value, tags, newValue => tags = newValue));
+		var inputTagsInternal = cut.FindComponent<HxInputTagsInternal>();
+
+		// Act - first Backspace
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("Backspace"));
+
+		// Assert - the last tag is selected, nothing removed
+		Assert.Equal(["red", "blue"], tags);
+		var selectedTag = cut.Find(".chip.hx-tag.active");
+		Assert.Contains("blue", selectedTag.TextContent);
+		Assert.Contains("blue", cut.Find("[role=status]").TextContent); // announced to screen readers (the focus stays in the input)
+
+		// Act - second Backspace
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("Backspace"));
+
+		// Assert - the selected tag is removed, no tag selected
+		Assert.Equal(["red"], tags);
+		Assert.Empty(cut.FindAll(".chip.hx-tag.active"));
+		Assert.Equal(string.Empty, cut.Find("[role=status]").TextContent);
+	}
+
+	[Fact]
+	public async Task HxInputTags_BackspaceInEmptyInput_OtherKeyCancelsSelection()
+	{
+		// Arrange
+		var tags = new List<string> { "red", "blue" };
+		var cut = Render<HxInputTags>(parameters => parameters
+			.Bind(p => p.Value, tags, newValue => tags = newValue));
+		var inputTagsInternal = cut.FindComponent<HxInputTagsInternal>();
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("Backspace"));
+
+		// Act
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("ArrowRight"));
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("Backspace"));
+
+		// Assert - the selection was cancelled, the Backspace selects the last tag again (does not remove it)
+		Assert.Equal(["red", "blue"], tags);
+		Assert.Single(cut.FindAll(".chip.hx-tag.active"));
+	}
+
+	[Fact]
+	public async Task HxInputTags_BackspaceInEmptyInput_BlurCancelsSelection()
+	{
+		// Arrange
+		var tags = new List<string> { "red", "blue" };
+		var cut = Render<HxInputTags>(parameters => parameters
+			.Bind(p => p.Value, tags, newValue => tags = newValue));
+		var inputTagsInternal = cut.FindComponent<HxInputTagsInternal>();
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("Backspace"));
+
+		// Act
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputBlur(isWithinMenu: false));
+		await cut.InvokeAsync(() => inputTagsInternal.Instance.HandleInputKeyDown("Backspace"));
+
+		// Assert
+		Assert.Equal(["red", "blue"], tags);
 	}
 }

@@ -156,6 +156,40 @@ public class HxInputTextTests : BunitTestBase
 	}
 
 	[Fact]
+	public void HxInputText_ValidationState_RendersAriaInvalid()
+	{
+		// Arrange
+		var model = new RequiredFormData { Name = "initial" };
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<EditForm>(0);
+			builder.AddAttribute(1, "Model", model);
+			builder.AddAttribute(2, "ChildContent", (RenderFragment<EditContext>)((context) => (builder2) =>
+			{
+				builder2.OpenComponent<DataAnnotationsValidator>(0);
+				builder2.CloseComponent();
+
+				builder2.OpenComponent<HxInputText>(1);
+				builder2.AddAttribute(2, "Value", model.Name);
+				builder2.AddAttribute(3, "ValueChanged", EventCallback.Factory.Create<string>(this, (value) => { model.Name = value; }));
+				builder2.AddAttribute(4, "ValueExpression", (Expression<Func<string>>)(() => model.Name));
+				builder2.CloseComponent();
+			}));
+			builder.CloseComponent();
+		};
+
+		var cut = Render(componentRenderer);
+		Assert.False(cut.Find("input").HasAttribute("aria-invalid"));
+
+		// Act
+		cut.Find("input").Change("");
+
+		// Assert
+		Assert.Equal("true", cut.Find("input").GetAttribute("aria-invalid"));
+	}
+
+	[Fact]
 	public void HxInputText_ClearInput_ResetsValue()
 	{
 		// Arrange
@@ -200,6 +234,90 @@ public class HxInputTextTests : BunitTestBase
 
 		// Assert
 		Assert.Equal("Enter your name", cut.Find("input").GetAttribute("placeholder"));
+	}
+
+	[Fact]
+	public void HxInputText_FloatingLabel_LabelPrecedesInputInDom()
+	{
+		// Arrange — regression: Bootstrap 6 floats the label via ":has(~ .form-control...)", a relational
+		// selector that only matches a *following* sibling, so the label must be the first child of
+		// .form-floating, immediately before the control (the reverse of Bootstrap 5's control-then-label order).
+		string currentValue = "";
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputText>(0);
+			builder.AddAttribute(1, "Value", currentValue);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<string>(this, (value) => { currentValue = value; }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<string>>)(() => currentValue));
+			builder.AddAttribute(4, "LabelType", (LabelType?)LabelType.Floating);
+			builder.AddAttribute(5, "Label", "Your name");
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+
+		// Assert
+		var formFloating = cut.Find(".form-floating");
+		var children = formFloating.Children;
+		Assert.Equal(2, children.Length);
+		Assert.Equal("LABEL", children[0].TagName);
+		Assert.Equal("INPUT", children[1].TagName);
+		Assert.Equal(children[1].GetAttribute("id"), children[0].GetAttribute("for"));
+	}
+
+	[Fact]
+	public void HxInputText_FloatingLabel_PlaceholderIsWhitespaceOnly()
+	{
+		// Arrange — regression: Bootstrap 6 shows the placeholder of a focused floating input,
+		// so the (required, nonempty) placeholder must not contain any visible text.
+		string currentValue = "";
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputText>(0);
+			builder.AddAttribute(1, "Value", currentValue);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<string>(this, (value) => { currentValue = value; }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<string>>)(() => currentValue));
+			builder.AddAttribute(4, "LabelType", (LabelType?)LabelType.Floating);
+			builder.AddAttribute(5, "Label", "Your name");
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+
+		// Assert
+		var placeholder = cut.Find(".form-floating > input").GetAttribute("placeholder");
+		Assert.False(String.IsNullOrEmpty(placeholder));
+		Assert.True(String.IsNullOrWhiteSpace(placeholder));
+	}
+
+	[Fact]
+	public void HxInputText_FloatingLabel_RendersPlaceholderWhenSet()
+	{
+		// Arrange — Bootstrap 6 keeps the placeholder of a floating input transparent until the input is focused,
+		// so the Placeholder can be combined with a floating label.
+		string currentValue = "";
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<HxInputText>(0);
+			builder.AddAttribute(1, "Value", currentValue);
+			builder.AddAttribute(2, "ValueChanged", EventCallback.Factory.Create<string>(this, (value) => { currentValue = value; }));
+			builder.AddAttribute(3, "ValueExpression", (Expression<Func<string>>)(() => currentValue));
+			builder.AddAttribute(4, "LabelType", (LabelType?)LabelType.Floating);
+			builder.AddAttribute(5, "Label", "Your name");
+			builder.AddAttribute(6, "Placeholder", "John Doe");
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+
+		// Assert
+		Assert.Equal("John Doe", cut.Find(".form-floating > input").GetAttribute("placeholder"));
 	}
 
 	private record FormData

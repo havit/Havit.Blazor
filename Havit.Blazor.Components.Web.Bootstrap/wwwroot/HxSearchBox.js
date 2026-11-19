@@ -41,14 +41,14 @@ function handleMouseUp(event) {
 }
 
 function handleMouseLeave(event) {
-	// fixes #702 where the dropdown is not shown after selecting input content with mouse
+	// fixes #702 where the menu is not shown after selecting input content with mouse
 	// (the input does not receive mouseup when the mouse is released outside of the input)
 	event.target.hxSearchBoxDotnetObjectReference.invokeMethodAsync("HxSearchBox_HandleInputMouseLeave");
 	event.target.clickIsComing = false;
 }
 
 export function scrollToFocusedItem() {
-	const focusedElements = document.getElementsByClassName("hx-dropdown-item-focused");
+	const focusedElements = document.getElementsByClassName("hx-menu-item-focused");
 	if (focusedElements && focusedElements[0]) {
 		focusedElements[0].scrollIntoView({ behavior: 'instant', block: 'nearest', inline: 'start' });
 	}

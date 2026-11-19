@@ -16,4 +16,16 @@ public static class FormValueComponentExtensions
 				|| !String.IsNullOrEmpty(formValueComponentWithInputGroups.InputGroupEndText)
 				|| (formValueComponentWithInputGroups.InputGroupEndTemplate != null));
 	}
+
+	/// <summary>
+	/// Returns <c>true</c> if <see cref="IFormValueComponent" /> should render the <c>form-adorn</c> wrapper (at least one adornment).
+	/// </summary>
+	public static bool ShouldRenderAdorn(this IFormValueComponent formValueComponent)
+	{
+		return (formValueComponent is IFormValueComponentWithAdorns formValueComponentWithAdorns)
+			&& (!String.IsNullOrEmpty(formValueComponentWithAdorns.AdornStartText)
+				|| (formValueComponentWithAdorns.AdornStartTemplate != null)
+				|| !String.IsNullOrEmpty(formValueComponentWithAdorns.AdornEndText)
+				|| (formValueComponentWithAdorns.AdornEndTemplate != null));
+	}
 }

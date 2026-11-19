@@ -15,4 +15,23 @@ public record SelectSettings : InputSettings
 	/// </summary>
 	public LabelType? LabelType { get; set; }
 
+	/// <summary>
+	/// Enables filtering capabilities.
+	/// </summary>
+	public bool AllowFiltering { get; set; }
+
+	/// <summary>
+	/// When enabled, the filter will be cleared when the menu is closed.
+	/// </summary>
+	public bool ClearFilterOnHide { get; set; }
+
+	/// <summary>
+	/// Icon displayed in the filter input for searching the filter.
+	/// </summary>
+	public IconBase FilterSearchIcon { get; set; } = BootstrapIcon.Search;
+
+	/// <summary>
+	/// Icon displayed in the filter input for clearing the filter.
+	/// </summary>
+	public IconBase FilterClearIcon { get; set; } = BootstrapIcon.XLg;
 }

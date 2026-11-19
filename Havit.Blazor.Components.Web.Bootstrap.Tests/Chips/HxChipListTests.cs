@@ -1,9 +1,9 @@
-namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Chips;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Chips;
 
 public class HxChipListTests : BunitTestBase
 {
 	[Fact]
-	public void HxChipList_Render_DisplaysChipBadges()
+	public void HxChipList_Render_DisplaysChips()
 	{
 		// Arrange
 		var chips = new[]
@@ -17,8 +17,8 @@ public class HxChipListTests : BunitTestBase
 		var cut = Render<HxChipList>(parameters => parameters
 			.Add(p => p.Chips, chips));
 
-		// Assert – three badge elements are rendered
-		Assert.Equal(3, cut.FindAll(".badge").Count());
+		// Assert – three chip elements are rendered
+		Assert.Equal(3, cut.FindAll(".chip").Count());
 	}
 
 	[Fact]
@@ -37,7 +37,7 @@ public class HxChipListTests : BunitTestBase
 			.Add(p => p.Chips, chips)
 			.Add(p => p.OnChipRemoveClick, (ChipItem chip) => { removedChip = chip; }));
 
-		Assert.Equal(3, cut.FindAll(".badge").Count());
+		Assert.Equal(3, cut.FindAll(".chip").Count());
 		Assert.Equal(2, cut.FindAll(".hx-chip-list-remove-btn").Count());
 
 		// Act – click the first remove button (the "Name: Peter" chip)
@@ -50,8 +50,8 @@ public class HxChipListTests : BunitTestBase
 		chips.Remove(removedChip);
 		cut.Render(p => p.Add(x => x.Chips, chips));
 
-		// Assert – one chip badge disappeared
-		Assert.Equal(2, cut.FindAll(".badge").Count());
+		// Assert – one chip disappeared
+		Assert.Equal(2, cut.FindAll(".chip").Count());
 	}
 
 	[Fact]
@@ -81,14 +81,43 @@ public class HxChipListTests : BunitTestBase
 		chips.Remove(removedChip);
 		cut.Render(p => p.Add(x => x.Chips, chips));
 
-		// Assert – remaining badges contain the expected content; "Name: Peter" is gone
-		var badgeTexts = cut.FindAll(".badge")
+		// Assert – remaining chips contain the expected content; "Name: Peter" is gone
+		var chipTexts = cut.FindAll(".chip")
 			.Select(b => b.TextContent.Trim())
 			.ToList();
 
-		Assert.Equal(2, badgeTexts.Count());
-		Assert.Contains(badgeTexts, t => t.Contains("State: Active"));
-		Assert.Contains(badgeTexts, t => t.Contains("Company: HAVIT"));
-		Assert.DoesNotContain(badgeTexts, t => t.Contains("Name: Peter"));
+		Assert.Equal(2, chipTexts.Count());
+		Assert.Contains(chipTexts, t => t.Contains("State: Active"));
+		Assert.Contains(chipTexts, t => t.Contains("Company: HAVIT"));
+		Assert.DoesNotContain(chipTexts, t => t.Contains("Name: Peter"));
+	}
+
+	[Fact]
+	public async Task HxChipList_ShowResetButton_RendersResetButtonElementWhichRaisesOnResetClick()
+	{
+		// Arrange
+		var chips = new[]
+		{
+			new ChipItem { ChipTemplate = b => b.AddMarkupContent(0, "State: Active"), Removable = true },
+		};
+		bool resetClicked = false;
+
+		var cut = Render<HxChipList>(parameters => parameters
+			.Add(p => p.Chips, chips)
+			.Add(p => p.ShowResetButton, true)
+			.Add(p => p.ResetButtonText, "Reset")
+			.Add(p => p.OnResetClick, (ChipItem _) => { resetClicked = true; }));
+
+		// Assert - a native button (focusable, keyboard-operable)
+		var resetButton = cut.Find(".hx-chip-list-reset-btn");
+		Assert.Equal("BUTTON", resetButton.TagName);
+		Assert.Equal("button", resetButton.GetAttribute("type"));
+		Assert.Contains("Reset", resetButton.TextContent);
+
+		// Act
+		await cut.InvokeAsync(() => resetButton.Click());
+
+		// Assert
+		Assert.True(resetClicked);
 	}
 }

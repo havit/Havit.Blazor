@@ -28,22 +28,22 @@ public record InputDateRangeSettings : InputSettings
 	public IconBase CalendarIcon { get; set; }
 
 	/// <summary>
-	/// Indicates whether the <i>Clear</i> button in the dropdown calendar should be visible.<br/>
+	/// Indicates whether the <i>Clear</i> button in the menu calendar should be visible.<br/>
 	/// </summary>
 	public bool? ShowClearButton { get; set; }
 
 	/// <summary>
-	/// The first date selectable from the dropdown calendar.
+	/// The first date selectable from the menu calendar.
 	/// </summary>
 	public DateTime? MinDate { get; set; }
 
 	/// <summary>
-	/// The last date selectable from the dropdown calendar.
+	/// The last date selectable from the menu calendar.
 	/// </summary>
 	public DateTime? MaxDate { get; set; }
 
 	/// <summary>
-	/// Allows customization of the dates in the dropdown calendars.
+	/// Allows customization of the dates in the menu calendars.
 	/// </summary>
 	public CalendarDateCustomizationProviderDelegate CalendarDateCustomizationProvider { get; set; }
 

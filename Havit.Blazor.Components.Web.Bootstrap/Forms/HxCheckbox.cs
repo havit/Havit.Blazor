@@ -17,7 +17,7 @@ public class HxCheckbox : HxCheckboxBase
 		Defaults = new CheckboxSettings()
 		{
 			Color = ThemeColor.None,
-			Outline = false,
+			Variant = ButtonVariant.Solid,
 			RenderMode = CheckboxRenderMode.Checkbox,
 			ButtonSize = global::Havit.Blazor.Components.Web.Bootstrap.ButtonSize.Regular
 		};
@@ -57,8 +57,8 @@ public class HxCheckbox : HxCheckboxBase
 	/// <see href="https://getbootstrap.com/docs/5.3/components/buttons/#outline-buttons">Bootstrap "outline" button</see> style.
 	/// For <see cref="CheckboxRenderMode.ToggleButton"/>.
 	/// </summary>
-	[Parameter] public bool? Outline { get; set; }
-	protected override bool OutlineEffective => Outline ?? GetSettings()?.Outline ?? GetDefaults().Outline ?? throw new InvalidOperationException(nameof(Outline) + " default for " + nameof(HxCheckbox) + " has to be set.");
+	[Parameter] public ButtonVariant? Variant { get; set; }
+	protected override ButtonVariant VariantEffective => Variant ?? GetSettings()?.Variant ?? GetDefaults().Variant ?? throw new InvalidOperationException(nameof(Variant) + " default for " + nameof(HxCheckbox) + " has to be set.");
 
 	/// <summary>
 	/// Size of the button for <see cref="CheckboxRenderMode.ToggleButton"/>.
@@ -67,4 +67,10 @@ public class HxCheckbox : HxCheckboxBase
 	[Parameter] public ButtonSize? ButtonSize { get; set; }
 	protected override ButtonSize ButtonSizeEffective => ButtonSize ?? GetSettings()?.ButtonSize ?? GetDefaults().ButtonSize ?? throw new InvalidOperationException(nameof(ButtonSize) + " default for " + nameof(HxCheckbox) + " has to be set.");
 
+	/// <summary>
+	/// Size of the checkbox (<c>check-sm</c>/<c>check-lg</c>). Not used for <see cref="CheckboxRenderMode.ToggleButton"/>, use <see cref="ButtonSize"/> instead.<br />
+	/// The default is taken from <see cref="HxSetup.Defaults"/> (<see cref="InputSize.Regular"/> if not customized).
+	/// </summary>
+	[Parameter] public InputSize? InputSize { get; set; }
+	protected override InputSize InputSizeEffective => InputSize ?? GetSettings()?.InputSize ?? GetDefaults()?.InputSize ?? HxSetup.Defaults.InputSize;
 }

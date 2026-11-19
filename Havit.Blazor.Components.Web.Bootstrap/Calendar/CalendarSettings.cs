@@ -16,7 +16,7 @@ public record CalendarSettings
 	public DateTime? MaxDate { get; set; }
 
 	/// <summary>
-	/// Allows customization of the dates in the dropdown calendars.
+	/// Allows customization of the dates in the menu calendars.
 	/// </summary>
 	public CalendarDateCustomizationProviderDelegate DateCustomizationProvider { get; set; }
 
