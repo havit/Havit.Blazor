@@ -73,12 +73,12 @@ jobs:
     - name: Install Playwright browsers
       if: steps.playwright-cache.outputs.cache-hit != 'true'
       working-directory: s
-      run: pwsh Havit.Blazor.E2ETests/bin/Release/net10.0/playwright.ps1 install --with-deps
+      run: pwsh Havit.Blazor.E2ETests/bin/Release/net11.0/playwright.ps1 install --with-deps
 
     - name: Install Playwright system dependencies
       if: steps.playwright-cache.outputs.cache-hit == 'true'
       working-directory: s
-      run: pwsh Havit.Blazor.E2ETests/bin/Release/net10.0/playwright.ps1 install-deps
+      run: pwsh Havit.Blazor.E2ETests/bin/Release/net11.0/playwright.ps1 install-deps
 
     - name: Run unit tests
       id: run-unit-tests

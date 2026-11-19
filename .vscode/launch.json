@@ -1,0 +1,42 @@
+{
+    // Mirrors Havit.Blazor.slnLaunch (Visual Studio multi-project launch profiles).
+    // IIS Express is not available in VS Code, so the web projects use their Kestrel ("Project") profiles from launchSettings.json.
+    // Requires the C# Dev Kit extension (debugger type "dotnet").
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Doc",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Havit.Blazor.Documentation.Server/Havit.Blazor.Documentation.Server.csproj",
+            "launchConfigurationId": "TargetFramework=;Havit.Blazor.Documentation.Server"
+        },
+        {
+            "name": "BlazorAppTest",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/BlazorAppTest/BlazorAppTest.csproj",
+            "launchConfigurationId": "TargetFramework=;BlazorAppTest"
+        },
+        {
+            "name": "TestApp",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Havit.Blazor.TestApp/Havit.Blazor.TestApp/Havit.Blazor.TestApp.csproj",
+            "launchConfigurationId": "TargetFramework=;https"
+        },
+        {
+            "name": "Mcp",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Havit.Blazor.Documentation.Mcp/Havit.Blazor.Documentation.Mcp.csproj",
+            "launchConfigurationId": "TargetFramework=;https"
+        },
+        {
+            "name": "RepoDumpGenerator",
+            "type": "dotnet",
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/Havit.Blazor.Documentation.RepoDumpGenerator/Havit.Blazor.Documentation.RepoDumpGenerator.csproj"
+        }
+    ]
+}

@@ -2,6 +2,8 @@
 
 namespace Havit.Blazor.Documentation.Shared.Components.DocColorMode;
 
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: Documentation/test app code; JS interop exceptions are intentionally propagated to the caller or to the renderer.
+
 /// <summary>
 /// Provides switcher for color mode (theme).
 /// </summary>

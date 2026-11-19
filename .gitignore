@@ -263,7 +263,8 @@ paket-files/
 # Local PR worktrees (e.g. pr-1374) must never be tracked.
 /pr-[0-9]*/
 Web/.vscode/launch.json
-.vscode
+.vscode/*
+!.vscode/launch.json
 /WebAPI/App_Data
 
 /Sandcastle/doc

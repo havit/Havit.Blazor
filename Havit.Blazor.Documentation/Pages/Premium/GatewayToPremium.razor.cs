@@ -3,6 +3,8 @@ using Microsoft.JSInterop;
 
 namespace Havit.Blazor.Documentation.Pages.Premium;
 
+#pragma warning disable BL0016 // JS interop call is not guarded with a try/catch block: Documentation/test app code; JS interop exceptions are intentionally propagated to the caller or to the renderer.
+
 public partial class GatewayToPremium(
 	IHttpContextProxy httpContextProxy,
 	NavigationManager navigationManager,

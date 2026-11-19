@@ -2659,7 +2659,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.ImageRegex">
             <remarks>
             Pattern:<br/>
-            <code>!\\[([^\\]]*)\\]\\(([^\\s\\)]+)(?:\\s+"([^"]*)")?\\)</code><br/>
+            <code>!\[([^\]]*)\]\(([^\s\)]+)(?:\s+"([^"]*)")?\)</code><br/>
             Explanation:<br/>
             <code>
             ○ Match the string "![".<br/>
@@ -2681,7 +2681,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.LinkRegex">
             <remarks>
             Pattern:<br/>
-            <code>\\[([^\\]]+)\\]\\(([^\\s\\)]+)(?:\\s+"([^"]*)")?\\)</code><br/>
+            <code>\[([^\]]+)\]\(([^\s\)]+)(?:\s+"([^"]*)")?\)</code><br/>
             Explanation:<br/>
             <code>
             ○ Match '['.<br/>
@@ -2703,7 +2703,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.BoldAsteriskRegex">
             <remarks>
             Pattern:<br/>
-            <code>\\*\\*(.+?)\\*\\*</code><br/>
+            <code>\*\*(.+?)\*\*</code><br/>
             Explanation:<br/>
             <code>
             ○ Match the string "**".<br/>
@@ -2729,7 +2729,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.ItalicAsteriskRegex">
             <remarks>
             Pattern:<br/>
-            <code>\\*(.+?)\\*</code><br/>
+            <code>\*(.+?)\*</code><br/>
             Explanation:<br/>
             <code>
             ○ Match '*'.<br/>
@@ -2742,7 +2742,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.ItalicUnderscoreRegex">
             <remarks>
             Pattern:<br/>
-            <code>(?&lt;!\\w)_(.+?)_(?!\\w)</code><br/>
+            <code>(?&lt;!\w)_(.+?)_(?!\w)</code><br/>
             Explanation:<br/>
             <code>
             ○ Zero-width negative lookbehind.<br/>
@@ -2772,7 +2772,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.LineBreakRegex">
             <remarks>
             Pattern:<br/>
-            <code>  \\n</code><br/>
+            <code>  \n</code><br/>
             Explanation:<br/>
             <code>
             ○ Match the string "  \n".<br/>
@@ -2782,7 +2782,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.NakedUrlRegex">
             <remarks>
             Pattern:<br/>
-            <code>(?&lt;!["'=\\w])(?:https?|ftps?)://[^\\s\\x00&lt;&gt;"']+</code><br/>
+            <code>(?&lt;!["'=\w])(?:https?|ftps?)://[^\s\x00&lt;&gt;"']+</code><br/>
             Options:<br/>
             <code>RegexOptions.IgnoreCase</code><br/>
             Explanation:<br/>
@@ -2839,7 +2839,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownParser.OrderedListItemRegex">
             <remarks>
             Pattern:<br/>
-            <code>^\\d+\\.\\s</code><br/>
+            <code>^\d+\.\s</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -2852,7 +2852,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownParser.OrderedListItemContentRegex">
             <remarks>
             Pattern:<br/>
-            <code>^\\d+\\.\\s(.*)$</code><br/>
+            <code>^\d+\.\s(.*)$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -6187,7 +6187,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_DayMonthYear_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;day&gt;\\d{2})(?&lt;month&gt;\\d{2})(?&lt;year&gt;\\d{2}|\\d{4})$</code><br/>
+            <code>^(?&lt;day&gt;\d{2})(?&lt;month&gt;\d{2})(?&lt;year&gt;\d{2}|\d{4})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -6206,7 +6206,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_MonthDayYear_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;month&gt;\\d{2})(?&lt;day&gt;\\d{2})(?&lt;year&gt;\\d{2}|\\d{4})$</code><br/>
+            <code>^(?&lt;month&gt;\d{2})(?&lt;day&gt;\d{2})(?&lt;year&gt;\d{2}|\d{4})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -6225,7 +6225,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_YearMonthDay_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;year&gt;\\d{2}|\\d{4})(?&lt;month&gt;\\d{2})(?&lt;day&gt;\\d{2})$</code><br/>
+            <code>^(?&lt;year&gt;\d{2}|\d{4})(?&lt;month&gt;\d{2})(?&lt;day&gt;\d{2})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -6244,7 +6244,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_YearDayMonth_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;year&gt;\\d{2}|\\d{4})(?&lt;day&gt;\\d{2})(?&lt;month&gt;\\d{2})$</code><br/>
+            <code>^(?&lt;year&gt;\d{2}|\d{4})(?&lt;day&gt;\d{2})(?&lt;month&gt;\d{2})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -6263,7 +6263,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_DayMonthYear_Relaxed">
             <remarks>
             Pattern:<br/>
-            <code>^\\W*(?&lt;day&gt;\\d{1,2})\\W+(?&lt;month&gt;\\d{1,2})\\W+(?&lt;year&gt;\\d{2}|\\d{4})\\W*$</code><br/>
+            <code>^\W*(?&lt;day&gt;\d{1,2})\W+(?&lt;month&gt;\d{1,2})\W+(?&lt;year&gt;\d{2}|\d{4})\W*$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -6286,7 +6286,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_MonthDayYear_Relaxed">
             <remarks>
             Pattern:<br/>
-            <code>^\\W*(?&lt;month&gt;\\d{1,2})\\W+(?&lt;day&gt;\\d{1,2})\\W+(?&lt;year&gt;\\d{2}|\\d{4})\\W*$</code><br/>
+            <code>^\W*(?&lt;month&gt;\d{1,2})\W+(?&lt;day&gt;\d{1,2})\W+(?&lt;year&gt;\d{2}|\d{4})\W*$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -6309,7 +6309,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_YearMonthDay_Relaxed">
             <remarks>
             Pattern:<br/>
-            <code>^\\W*(?&lt;year&gt;\\d{2}|\\d{4})\\W+(?&lt;month&gt;\\d{1,2})\\W+(?&lt;day&gt;\\d{1,2})\\W*$</code><br/>
+            <code>^\W*(?&lt;year&gt;\d{2}|\d{4})\W+(?&lt;month&gt;\d{1,2})\W+(?&lt;day&gt;\d{1,2})\W*$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -6332,7 +6332,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_YearDayMonth_Relaxed">
             <remarks>
             Pattern:<br/>
-            <code>^\\W*(?&lt;year&gt;\\d{2}|\\d{4})\\W+(?&lt;day&gt;\\d{1,2})\\W+(?&lt;month&gt;\\d{1,2})\\W*$</code><br/>
+            <code>^\W*(?&lt;year&gt;\d{2}|\d{4})\W+(?&lt;day&gt;\d{1,2})\W+(?&lt;month&gt;\d{1,2})\W*$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -6355,7 +6355,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_DayMonth_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;day&gt;\\d{2})(?&lt;month&gt;\\d{2})$</code><br/>
+            <code>^(?&lt;day&gt;\d{2})(?&lt;month&gt;\d{2})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -6370,7 +6370,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_MonthDay_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;month&gt;\\d{2})(?&lt;day&gt;\\d{2})$</code><br/>
+            <code>^(?&lt;month&gt;\d{2})(?&lt;day&gt;\d{2})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -6385,7 +6385,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_DayMonth_Relaxed">
             <remarks>
             Pattern:<br/>
-            <code>^\\W*(?&lt;day&gt;\\d{1,2})\\W+(?&lt;month&gt;\\d{1,2})\\W*?$</code><br/>
+            <code>^\W*(?&lt;day&gt;\d{1,2})\W+(?&lt;month&gt;\d{1,2})\W*?$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -6403,7 +6403,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_MonthDay_Relaxed">
             <remarks>
             Pattern:<br/>
-            <code>^\\W*(?&lt;month&gt;\\d{1,2})\\W+(?&lt;day&gt;\\d{1,2})\\W*?$</code><br/>
+            <code>^\W*(?&lt;month&gt;\d{1,2})\W+(?&lt;day&gt;\d{1,2})\W*?$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -6421,7 +6421,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_Day_Strict">
             <remarks>
             Pattern:<br/>
-            <code>^(?&lt;day&gt;\\d{1,2})$</code><br/>
+            <code>^(?&lt;day&gt;\d{1,2})$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
@@ -6434,7 +6434,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Forms.Internal.DateHelper.GetRegex_Day_Relaxed">
             <remarks>
             Pattern:<br/>
-            <code>^\\W*(?&lt;day&gt;\\d{1,2})\\W+$</code><br/>
+            <code>^\W*(?&lt;day&gt;\d{1,2})\W+$</code><br/>
             Explanation:<br/>
             <code>
             ○ Match if at the beginning of the string.<br/>
