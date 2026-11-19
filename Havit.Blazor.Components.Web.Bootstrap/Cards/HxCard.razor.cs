@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/card/">Bootstrap card</see> component.<br />
+/// Flexible content container — a <see href="https://getbootstrap.com/docs/5.3/components/card/">Bootstrap card</see> — for grouping a title, text, image, and actions into a single bordered panel.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCard">https://havit.blazor.eu/components/HxCard</see>
 /// </summary>
 public partial class HxCard
@@ -43,6 +43,8 @@ public partial class HxCard
 
 	/// <summary>
 	/// Placement of the image. The default is <see cref="CardImagePlacement.Top"/>.
+	/// In a horizontal card (<see cref="Horizontal"/>), <see cref="CardImagePlacement.Top"/> places the image at the start
+	/// and <see cref="CardImagePlacement.Bottom"/> at the end of the card.
 	/// </summary>
 	[Parameter] public CardImagePlacement ImagePlacement { get; set; }
 
@@ -88,6 +90,25 @@ public partial class HxCard
 	protected string CssClassEffective => CssClass ?? GetSettings()?.CssClass ?? GetDefaults().CssClass;
 
 	/// <summary>
+	/// Visual <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/card/">variant</see> of the card. The default is <see cref="CardVariant.Regular"/>.
+	/// </summary>
+	[Parameter] public CardVariant? Variant { get; set; }
+	protected CardVariant VariantEffective => Variant ?? GetSettings()?.Variant ?? GetDefaults().Variant ?? CardVariant.Regular;
+
+	/// <summary>
+	/// Theme color of the card (renders the <c>theme-*</c> class, typically combined with <see cref="CardVariant.Subtle"/>).
+	/// </summary>
+	[Parameter] public ThemeColor? Color { get; set; }
+	protected ThemeColor? ColorEffective => Color ?? GetSettings()?.Color ?? GetDefaults().Color;
+
+	/// <summary>
+	/// When <c>true</c>, renders a horizontal card (<c>card-row</c>, new in Bootstrap 6) - image and body side by side.
+	/// Default is <c>false</c>.
+	/// </summary>
+	[Parameter] public bool? Horizontal { get; set; }
+	protected bool HorizontalEffective => Horizontal ?? GetSettings()?.Horizontal ?? GetDefaults().Horizontal ?? false;
+
+	/// <summary>
 	/// Additional CSS class for the header.
 	/// </summary>
 	[Parameter] public string HeaderCssClass { get; set; }
@@ -114,4 +135,26 @@ public partial class HxCard
 	/// Additional attributes to be splatted onto an underlying HTML element.
 	/// </summary>
 	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
+
+	private string GetVariantCssClass()
+	{
+		return VariantEffective switch
+		{
+			CardVariant.Regular => null,
+			CardVariant.Subtle => "card-subtle",
+			CardVariant.Translucent => "card-translucent",
+			_ => throw new InvalidOperationException($"Unknown {nameof(CardVariant)} value {VariantEffective}.")
+		};
+	}
+
+	private string GetImageCssClass()
+	{
+		return ImagePlacement switch
+		{
+			CardImagePlacement.Top => HorizontalEffective ? "card-img-start" : "card-img-top",
+			CardImagePlacement.Bottom => HorizontalEffective ? "card-img-end" : "card-img-bottom",
+			CardImagePlacement.Overlay => "card-img",
+			_ => throw new InvalidOperationException($"Unknown {nameof(CardImagePlacement)} value {ImagePlacement}.")
+		};
+	}
 }

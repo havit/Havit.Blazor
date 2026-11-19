@@ -24,4 +24,6 @@ public partial class HxBreadcrumbItem
 	/// Item content.
 	/// </summary>
 	[Parameter] public RenderFragment ChildContent { get; set; }
+
+	[CascadingParameter] protected HxBreadcrumb BreadcrumbContainer { get; set; }
 }

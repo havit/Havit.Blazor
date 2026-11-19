@@ -24,19 +24,19 @@ public interface ILayoutColumnComponent
 	string ColumnsMediumUp { get; set; }
 
 	/// <summary>
-	/// Number of template columns to span for viewports above the "large" breakpoint (<c>992px</c>).<br/>
+	/// Number of template columns to span for viewports above the "large" breakpoint (<c>1024px</c>).<br/>
 	/// The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c>, or <c>true</c>.
 	/// </summary>
 	string ColumnsLargeUp { get; set; }
 
 	/// <summary>
-	/// Number of template columns to span for viewports above the "extra-large" breakpoint (<c>1200px</c>).<br/>
+	/// Number of template columns to span for viewports above the "extra-large" breakpoint (<c>1280px</c>).<br/>
 	/// The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c>, or <c>true</c>.
 	/// </summary>
 	string ColumnsExtraLargeUp { get; set; }
 
 	/// <summary>
-	/// Number of template columns to span for viewports above the "XXL" breakpoint (<c>1400px</c>).<br/>
+	/// Number of template columns to span for viewports above the "2xl" breakpoint (<c>1536px</c>).<br/>
 	/// The value can be any integer number between <c>1</c> and <c>12</c>, <c>auto</c>, or <c>true</c>.
 	/// </summary>
 	string ColumnsXxlUp { get; set; }

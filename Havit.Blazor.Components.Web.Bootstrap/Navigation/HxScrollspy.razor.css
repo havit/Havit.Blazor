@@ -9,7 +9,9 @@
 	outline: none;
 }
 
-/* Last direct div in Scrollspy container needs to have minimal height of 100% of its parent */
-.hx-scrollspy ::deep > div:last-child {
-	min-height: 100%;
+@media (prefers-reduced-motion: no-preference) {
+	/* Smooth scrolling (SmoothScroll): the navigation clicks scroll the container by JavaScript (scrollTo), which follows the CSS scroll-behavior. */
+	.hx-scrollspy-smooth-scroll {
+		scroll-behavior: smooth;
+	}
 }

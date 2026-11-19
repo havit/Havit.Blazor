@@ -3,7 +3,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/spinners/">Spinner</see> (usually indicates an operation in progress).<br />
+/// Bootstrap <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/spinner/">Spinner</see> (usually indicates an operation in progress).<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxSpinner">https://havit.blazor.eu/components/HxSpinner</see>
 /// </summary>
 public partial class HxSpinner
@@ -45,7 +45,7 @@ public partial class HxSpinner
 		return Size switch
 		{
 			SpinnerSize.Regular => null,
-			SpinnerSize.Small => GetSpinnerTypeCssClass() + "-sm",
+			SpinnerSize.Small => "spinner-sm",
 			_ => throw new InvalidOperationException($"Unknown {nameof(SpinnerSize)}: {Size}.")
 		};
 	}

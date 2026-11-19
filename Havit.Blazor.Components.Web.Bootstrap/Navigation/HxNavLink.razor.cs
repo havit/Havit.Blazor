@@ -4,13 +4,23 @@ using Microsoft.AspNetCore.Components.Routing;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/navs-tabs/">Bootstrap nav-link</see> component.<br />
+/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/nav/">Bootstrap nav-link</see> component.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxNavLink#HxNavLink">https://havit.blazor.eu/components/HxNavLink#HxNavLink</see>
 /// </summary>
 public partial class HxNavLink : ICascadeEnabledComponent
 {
 	[CascadingParameter] protected FormState FormState { get; set; }
 	FormState ICascadeEnabledComponent.FormState { get => FormState; set => FormState = value; }
+
+	/// <summary>
+	/// Set when the nav link is rendered inside the <see cref="HxNavOverflow"/> overflow menu (the link renders as a menu item).
+	/// </summary>
+	[CascadingParameter] internal Internal.NavOverflowMenuRenderContext NavOverflowMenuRenderContext { get; set; }
+
+	/// <summary>
+	/// Core CSS class of the link (<c>menu-item</c> inside the <see cref="HxNavOverflow"/> overflow menu, <c>nav-link</c> otherwise).
+	/// </summary>
+	private string CoreCssClass => (NavOverflowMenuRenderContext is null) ? "nav-link" : "menu-item";
 
 	/// <summary>
 	/// Navigation target.

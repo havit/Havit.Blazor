@@ -61,7 +61,13 @@ public class HxContextMenuGridColumn<TItem> : HxGridColumnBase<TItem>
 	}
 
 	/// <inheritdoc />
-	protected override GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context) => GridCellTemplate.Empty;
+	protected override GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context)
+	{
+		// No content, but the same CSS class as the data cells: the stacked layout takes the cell out of the flow
+		// (top-end corner of the row), so the placeholder rows have the same height as the data rows (infinite scroll).
+		// ItemCssClassSelector is not used, there is no item (same as HxGridColumn).
+		return new GridCellTemplate { CssClass = CssClassHelper.Combine("hx-context-menu-grid-column", ItemCssClass) };
+	}
 
 	/// <inheritdoc />
 	protected override GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context) => GridCellTemplate.Empty;

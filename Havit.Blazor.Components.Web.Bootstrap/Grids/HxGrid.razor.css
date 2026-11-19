@@ -96,6 +96,779 @@ th.hx-grid-sorted.text-end .hx-grid-header-cell-template {
     animation-iteration-count: infinite;
 }
 
+/* ===== Stacked layout (HxGrid.Stacked => Bootstrap .table-stacked / .{bp}:table-stacked) =====
+   Bootstrap stacks the thead (visually hidden) and the tbody rows only. The rules below complete
+   the stacked layout for the grid-specific parts:
+   - the row title is the cell of the first data column (hx-grid-stacked-title, rendered by the grid; the multi-select
+     and context menu columns are skipped regardless of their order),
+   - the multi-select checkbox is placed in front of the row title,
+   - the context menu is placed to the top-end corner of the row,
+   - the footer row is stacked the same way as the data rows (empty footer cells are hidden),
+   - the visually hidden header row is revealed while it contains the keyboard focus (sortable headers, filters, "select all"),
+     otherwise it stays hidden also with .sticky-top and while the progress indicator is shown (the indicator is then
+     shown at the top of the rows),
+   - infinite scroll: the rows keep a uniform height for the virtualization (the row height attribute is overridden,
+     the values do not wrap; plain text values are truncated and keep their line when empty, cells with markup are
+     rendered as they are), the Virtualize spacer rows get no padding and separators.
+   Bootstrap applies .{bp}:table-stacked below the container breakpoint (the .hx-grid-container-stacked
+   wrapper is the query container), so the rules are repeated for each breakpoint. The blocks are identical
+   except for the selector and the container condition (keep them in sync, the breakpoints must match
+   the Bootstrap $breakpoints). */
+
+/* The query container of the .{bp}:table-stacked container queries (instead of .table-responsive, whose overflow
+   would make the container the scroll root of the infinite scroll virtualization). */
+.hx-grid-container-stacked {
+	container-type: inline-size;
+}
+
+/* These rules have an effect only in the stacked layout (no ::before content and an inherited
+   font-weight are the defaults of the regular table layout), so they are not repeated per breakpoint. */
+.hx-grid > tbody > tr > td.hx-grid-stacked-title::before {
+	content: none; /* the row title has no label (even when it is not the first cell, e.g. after the multi-select checkbox) */
+}
+
+.hx-grid > tbody > tr.hx-grid-empty-data-row > td,
+.hx-grid > tbody > tr.hx-grid-loading-data-row > td {
+	font-weight: inherit; /* not a row title */
+}
+
+/* .table-stacked (always) */
+.hx-grid[class~="table-stacked"] > thead:not(:focus-within) {
+	position: absolute; /* keeps the header visually hidden (Bootstrap) also with .sticky-top and while the progress indicator is shown */
+}
+
+.hx-grid-progress-indicator .hx-grid[class~="table-stacked"] > tbody {
+	position: relative;
+}
+
+.hx-grid-progress-indicator .hx-grid[class~="table-stacked"] > thead:not(:focus-within) + tbody::before {
+	content: ""; /* the progress indicator of the hidden header is shown at the top of the rows */
+	position: absolute;
+	z-index: 1000;
+	display: block;
+	top: 0;
+	height: 1px;
+	background-color: var(--hx-grid-progress-indicator-color);
+	animation: 1.5s ease-in-out 0s 1 slideRight;
+	animation-iteration-count: infinite;
+}
+
+[class~="table-stacked"] > thead:focus-within {
+	position: static;
+	display: block;
+	width: auto;
+	height: auto;
+	margin: 0;
+	overflow: visible;
+	clip: auto;
+	white-space: inherit;
+}
+
+[class~="table-stacked"] > thead:focus-within > tr {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+[class~="table-stacked"] > tbody > tr {
+	height: auto; /* infinite scroll: overrides the row height attribute */
+}
+
+[class~="table-stacked"].hx-grid-infinite-scroll {
+	table-layout: fixed; /* the nowrap values must not widen the table */
+}
+
+[class~="table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*)),
+[class~="table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td:not(:has(*)) {
+	/* plain text cells only: the cells with markup (templates) are not clipped, so that their popups (menus, tooltips) are not cut off */
+	overflow: hidden;
+	overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
+	text-overflow: ellipsis;
+}
+
+[class~="table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*), .hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+	content: "\a0"; /* a plain text cell always has its value line, also for an empty or white-space value (uniform row height) */
+}
+
+[class~="table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
+	float: inline-start;
+	height: auto;
+}
+
+[class~="table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell ::deep .hx-grid-multiselect-checkbox {
+	padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+}
+
+[class~="table-stacked"] > tbody > tr > td.hx-grid-stacked-title,
+[class~="table-stacked"] > tfoot > tr > td.hx-grid-stacked-title {
+	font-weight: var(--bs-font-weight-bold);
+}
+
+[class~="table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) {
+	position: relative;
+}
+
+[class~="table-stacked"] > tbody > tr > td.hx-context-menu-grid-column {
+	position: absolute;
+	inset-block-start: calc(var(--bs-table-cell-padding-y) * 1.25);
+	inset-inline-end: var(--bs-table-cell-padding-x);
+	padding: 0;
+}
+
+[class~="table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-stacked-title {
+	padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
+}
+
+/* infinite scroll: the (empty) Virtualize spacer rows */
+[class~="table-stacked"] > tbody ::deep > tr:empty {
+	padding-block: 0;
+	border-block-start: 0;
+}
+
+[class~="table-stacked"] > tbody ::deep > tr:empty + tr {
+	border-block-start: 0;
+}
+
+[class~="table-stacked"] > tfoot > tr {
+	display: block;
+	padding-block: var(--bs-table-cell-padding-y);
+	border-block-start: var(--bs-table-border-width) solid var(--bs-table-border-color);
+}
+
+[class~="table-stacked"] > tfoot > tr > td {
+	display: block;
+	padding: calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+	border: 0;
+}
+
+[class~="table-stacked"] > tfoot > tr > td:empty {
+	display: none;
+}
+
+[class~="table-stacked"] > tfoot > tr > td[data-cell]:not(.hx-grid-stacked-title)::before {
+	display: block;
+	font-weight: var(--bs-font-weight-semibold);
+	content: attr(data-cell);
+}
+
+[class~="table-stacked"] > tfoot > tr > td:not(:first-child) + td::before {
+	margin-block-start: .25rem;
+}
+
+@container (width < 576px) {
+	.hx-grid[class~="sm:table-stacked"] > thead:not(:focus-within) {
+		position: absolute; /* keeps the header visually hidden (Bootstrap) also with .sticky-top and while the progress indicator is shown */
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="sm:table-stacked"] > tbody {
+		position: relative;
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="sm:table-stacked"] > thead:not(:focus-within) + tbody::before {
+		content: ""; /* the progress indicator of the hidden header is shown at the top of the rows */
+		position: absolute;
+		z-index: 1000;
+		display: block;
+		top: 0;
+		height: 1px;
+		background-color: var(--hx-grid-progress-indicator-color);
+		animation: 1.5s ease-in-out 0s 1 slideRight;
+		animation-iteration-count: infinite;
+	}
+
+	[class~="sm:table-stacked"] > thead:focus-within {
+		position: static;
+		display: block;
+		width: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		clip: auto;
+		white-space: inherit;
+	}
+
+	[class~="sm:table-stacked"] > thead:focus-within > tr {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	[class~="sm:table-stacked"] > tbody > tr {
+		height: auto; /* infinite scroll: overrides the row height attribute */
+	}
+
+	[class~="sm:table-stacked"].hx-grid-infinite-scroll {
+		table-layout: fixed; /* the nowrap values must not widen the table */
+	}
+
+	[class~="sm:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*)),
+	[class~="sm:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td:not(:has(*)) {
+		/* plain text cells only: the cells with markup (templates) are not clipped, so that their popups (menus, tooltips) are not cut off */
+		overflow: hidden;
+		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
+		text-overflow: ellipsis;
+	}
+
+	[class~="sm:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*), .hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* a plain text cell always has its value line, also for an empty or white-space value (uniform row height) */
+	}
+
+	[class~="sm:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
+		float: inline-start;
+		height: auto;
+	}
+
+	[class~="sm:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell ::deep .hx-grid-multiselect-checkbox {
+		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+	}
+
+	[class~="sm:table-stacked"] > tbody > tr > td.hx-grid-stacked-title,
+	[class~="sm:table-stacked"] > tfoot > tr > td.hx-grid-stacked-title {
+		font-weight: var(--bs-font-weight-bold);
+	}
+
+	[class~="sm:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) {
+		position: relative;
+	}
+
+	[class~="sm:table-stacked"] > tbody > tr > td.hx-context-menu-grid-column {
+		position: absolute;
+		inset-block-start: calc(var(--bs-table-cell-padding-y) * 1.25);
+		inset-inline-end: var(--bs-table-cell-padding-x);
+		padding: 0;
+	}
+
+	[class~="sm:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-stacked-title {
+		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
+	}
+
+	/* infinite scroll: the (empty) Virtualize spacer rows */
+	[class~="sm:table-stacked"] > tbody ::deep > tr:empty {
+		padding-block: 0;
+		border-block-start: 0;
+	}
+
+	[class~="sm:table-stacked"] > tbody ::deep > tr:empty + tr {
+		border-block-start: 0;
+	}
+
+	[class~="sm:table-stacked"] > tfoot > tr {
+		display: block;
+		padding-block: var(--bs-table-cell-padding-y);
+		border-block-start: var(--bs-table-border-width) solid var(--bs-table-border-color);
+	}
+
+	[class~="sm:table-stacked"] > tfoot > tr > td {
+		display: block;
+		padding: calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+		border: 0;
+	}
+
+	[class~="sm:table-stacked"] > tfoot > tr > td:empty {
+		display: none;
+	}
+
+	[class~="sm:table-stacked"] > tfoot > tr > td[data-cell]:not(.hx-grid-stacked-title)::before {
+		display: block;
+		font-weight: var(--bs-font-weight-semibold);
+		content: attr(data-cell);
+	}
+
+	[class~="sm:table-stacked"] > tfoot > tr > td:not(:first-child) + td::before {
+		margin-block-start: .25rem;
+	}
+}
+
+@container (width < 768px) {
+	.hx-grid[class~="md:table-stacked"] > thead:not(:focus-within) {
+		position: absolute; /* keeps the header visually hidden (Bootstrap) also with .sticky-top and while the progress indicator is shown */
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="md:table-stacked"] > tbody {
+		position: relative;
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="md:table-stacked"] > thead:not(:focus-within) + tbody::before {
+		content: ""; /* the progress indicator of the hidden header is shown at the top of the rows */
+		position: absolute;
+		z-index: 1000;
+		display: block;
+		top: 0;
+		height: 1px;
+		background-color: var(--hx-grid-progress-indicator-color);
+		animation: 1.5s ease-in-out 0s 1 slideRight;
+		animation-iteration-count: infinite;
+	}
+
+	[class~="md:table-stacked"] > thead:focus-within {
+		position: static;
+		display: block;
+		width: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		clip: auto;
+		white-space: inherit;
+	}
+
+	[class~="md:table-stacked"] > thead:focus-within > tr {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	[class~="md:table-stacked"] > tbody > tr {
+		height: auto; /* infinite scroll: overrides the row height attribute */
+	}
+
+	[class~="md:table-stacked"].hx-grid-infinite-scroll {
+		table-layout: fixed; /* the nowrap values must not widen the table */
+	}
+
+	[class~="md:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*)),
+	[class~="md:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td:not(:has(*)) {
+		/* plain text cells only: the cells with markup (templates) are not clipped, so that their popups (menus, tooltips) are not cut off */
+		overflow: hidden;
+		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
+		text-overflow: ellipsis;
+	}
+
+	[class~="md:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*), .hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* a plain text cell always has its value line, also for an empty or white-space value (uniform row height) */
+	}
+
+	[class~="md:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
+		float: inline-start;
+		height: auto;
+	}
+
+	[class~="md:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell ::deep .hx-grid-multiselect-checkbox {
+		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+	}
+
+	[class~="md:table-stacked"] > tbody > tr > td.hx-grid-stacked-title,
+	[class~="md:table-stacked"] > tfoot > tr > td.hx-grid-stacked-title {
+		font-weight: var(--bs-font-weight-bold);
+	}
+
+	[class~="md:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) {
+		position: relative;
+	}
+
+	[class~="md:table-stacked"] > tbody > tr > td.hx-context-menu-grid-column {
+		position: absolute;
+		inset-block-start: calc(var(--bs-table-cell-padding-y) * 1.25);
+		inset-inline-end: var(--bs-table-cell-padding-x);
+		padding: 0;
+	}
+
+	[class~="md:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-stacked-title {
+		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
+	}
+
+	/* infinite scroll: the (empty) Virtualize spacer rows */
+	[class~="md:table-stacked"] > tbody ::deep > tr:empty {
+		padding-block: 0;
+		border-block-start: 0;
+	}
+
+	[class~="md:table-stacked"] > tbody ::deep > tr:empty + tr {
+		border-block-start: 0;
+	}
+
+	[class~="md:table-stacked"] > tfoot > tr {
+		display: block;
+		padding-block: var(--bs-table-cell-padding-y);
+		border-block-start: var(--bs-table-border-width) solid var(--bs-table-border-color);
+	}
+
+	[class~="md:table-stacked"] > tfoot > tr > td {
+		display: block;
+		padding: calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+		border: 0;
+	}
+
+	[class~="md:table-stacked"] > tfoot > tr > td:empty {
+		display: none;
+	}
+
+	[class~="md:table-stacked"] > tfoot > tr > td[data-cell]:not(.hx-grid-stacked-title)::before {
+		display: block;
+		font-weight: var(--bs-font-weight-semibold);
+		content: attr(data-cell);
+	}
+
+	[class~="md:table-stacked"] > tfoot > tr > td:not(:first-child) + td::before {
+		margin-block-start: .25rem;
+	}
+}
+
+@container (width < 1024px) {
+	.hx-grid[class~="lg:table-stacked"] > thead:not(:focus-within) {
+		position: absolute; /* keeps the header visually hidden (Bootstrap) also with .sticky-top and while the progress indicator is shown */
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="lg:table-stacked"] > tbody {
+		position: relative;
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="lg:table-stacked"] > thead:not(:focus-within) + tbody::before {
+		content: ""; /* the progress indicator of the hidden header is shown at the top of the rows */
+		position: absolute;
+		z-index: 1000;
+		display: block;
+		top: 0;
+		height: 1px;
+		background-color: var(--hx-grid-progress-indicator-color);
+		animation: 1.5s ease-in-out 0s 1 slideRight;
+		animation-iteration-count: infinite;
+	}
+
+	[class~="lg:table-stacked"] > thead:focus-within {
+		position: static;
+		display: block;
+		width: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		clip: auto;
+		white-space: inherit;
+	}
+
+	[class~="lg:table-stacked"] > thead:focus-within > tr {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	[class~="lg:table-stacked"] > tbody > tr {
+		height: auto; /* infinite scroll: overrides the row height attribute */
+	}
+
+	[class~="lg:table-stacked"].hx-grid-infinite-scroll {
+		table-layout: fixed; /* the nowrap values must not widen the table */
+	}
+
+	[class~="lg:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*)),
+	[class~="lg:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td:not(:has(*)) {
+		/* plain text cells only: the cells with markup (templates) are not clipped, so that their popups (menus, tooltips) are not cut off */
+		overflow: hidden;
+		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
+		text-overflow: ellipsis;
+	}
+
+	[class~="lg:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*), .hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* a plain text cell always has its value line, also for an empty or white-space value (uniform row height) */
+	}
+
+	[class~="lg:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
+		float: inline-start;
+		height: auto;
+	}
+
+	[class~="lg:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell ::deep .hx-grid-multiselect-checkbox {
+		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+	}
+
+	[class~="lg:table-stacked"] > tbody > tr > td.hx-grid-stacked-title,
+	[class~="lg:table-stacked"] > tfoot > tr > td.hx-grid-stacked-title {
+		font-weight: var(--bs-font-weight-bold);
+	}
+
+	[class~="lg:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) {
+		position: relative;
+	}
+
+	[class~="lg:table-stacked"] > tbody > tr > td.hx-context-menu-grid-column {
+		position: absolute;
+		inset-block-start: calc(var(--bs-table-cell-padding-y) * 1.25);
+		inset-inline-end: var(--bs-table-cell-padding-x);
+		padding: 0;
+	}
+
+	[class~="lg:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-stacked-title {
+		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
+	}
+
+	/* infinite scroll: the (empty) Virtualize spacer rows */
+	[class~="lg:table-stacked"] > tbody ::deep > tr:empty {
+		padding-block: 0;
+		border-block-start: 0;
+	}
+
+	[class~="lg:table-stacked"] > tbody ::deep > tr:empty + tr {
+		border-block-start: 0;
+	}
+
+	[class~="lg:table-stacked"] > tfoot > tr {
+		display: block;
+		padding-block: var(--bs-table-cell-padding-y);
+		border-block-start: var(--bs-table-border-width) solid var(--bs-table-border-color);
+	}
+
+	[class~="lg:table-stacked"] > tfoot > tr > td {
+		display: block;
+		padding: calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+		border: 0;
+	}
+
+	[class~="lg:table-stacked"] > tfoot > tr > td:empty {
+		display: none;
+	}
+
+	[class~="lg:table-stacked"] > tfoot > tr > td[data-cell]:not(.hx-grid-stacked-title)::before {
+		display: block;
+		font-weight: var(--bs-font-weight-semibold);
+		content: attr(data-cell);
+	}
+
+	[class~="lg:table-stacked"] > tfoot > tr > td:not(:first-child) + td::before {
+		margin-block-start: .25rem;
+	}
+}
+
+@container (width < 1280px) {
+	.hx-grid[class~="xl:table-stacked"] > thead:not(:focus-within) {
+		position: absolute; /* keeps the header visually hidden (Bootstrap) also with .sticky-top and while the progress indicator is shown */
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="xl:table-stacked"] > tbody {
+		position: relative;
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="xl:table-stacked"] > thead:not(:focus-within) + tbody::before {
+		content: ""; /* the progress indicator of the hidden header is shown at the top of the rows */
+		position: absolute;
+		z-index: 1000;
+		display: block;
+		top: 0;
+		height: 1px;
+		background-color: var(--hx-grid-progress-indicator-color);
+		animation: 1.5s ease-in-out 0s 1 slideRight;
+		animation-iteration-count: infinite;
+	}
+
+	[class~="xl:table-stacked"] > thead:focus-within {
+		position: static;
+		display: block;
+		width: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		clip: auto;
+		white-space: inherit;
+	}
+
+	[class~="xl:table-stacked"] > thead:focus-within > tr {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	[class~="xl:table-stacked"] > tbody > tr {
+		height: auto; /* infinite scroll: overrides the row height attribute */
+	}
+
+	[class~="xl:table-stacked"].hx-grid-infinite-scroll {
+		table-layout: fixed; /* the nowrap values must not widen the table */
+	}
+
+	[class~="xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*)),
+	[class~="xl:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td:not(:has(*)) {
+		/* plain text cells only: the cells with markup (templates) are not clipped, so that their popups (menus, tooltips) are not cut off */
+		overflow: hidden;
+		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
+		text-overflow: ellipsis;
+	}
+
+	[class~="xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*), .hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* a plain text cell always has its value line, also for an empty or white-space value (uniform row height) */
+	}
+
+	[class~="xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
+		float: inline-start;
+		height: auto;
+	}
+
+	[class~="xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell ::deep .hx-grid-multiselect-checkbox {
+		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+	}
+
+	[class~="xl:table-stacked"] > tbody > tr > td.hx-grid-stacked-title,
+	[class~="xl:table-stacked"] > tfoot > tr > td.hx-grid-stacked-title {
+		font-weight: var(--bs-font-weight-bold);
+	}
+
+	[class~="xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) {
+		position: relative;
+	}
+
+	[class~="xl:table-stacked"] > tbody > tr > td.hx-context-menu-grid-column {
+		position: absolute;
+		inset-block-start: calc(var(--bs-table-cell-padding-y) * 1.25);
+		inset-inline-end: var(--bs-table-cell-padding-x);
+		padding: 0;
+	}
+
+	[class~="xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-stacked-title {
+		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
+	}
+
+	/* infinite scroll: the (empty) Virtualize spacer rows */
+	[class~="xl:table-stacked"] > tbody ::deep > tr:empty {
+		padding-block: 0;
+		border-block-start: 0;
+	}
+
+	[class~="xl:table-stacked"] > tbody ::deep > tr:empty + tr {
+		border-block-start: 0;
+	}
+
+	[class~="xl:table-stacked"] > tfoot > tr {
+		display: block;
+		padding-block: var(--bs-table-cell-padding-y);
+		border-block-start: var(--bs-table-border-width) solid var(--bs-table-border-color);
+	}
+
+	[class~="xl:table-stacked"] > tfoot > tr > td {
+		display: block;
+		padding: calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+		border: 0;
+	}
+
+	[class~="xl:table-stacked"] > tfoot > tr > td:empty {
+		display: none;
+	}
+
+	[class~="xl:table-stacked"] > tfoot > tr > td[data-cell]:not(.hx-grid-stacked-title)::before {
+		display: block;
+		font-weight: var(--bs-font-weight-semibold);
+		content: attr(data-cell);
+	}
+
+	[class~="xl:table-stacked"] > tfoot > tr > td:not(:first-child) + td::before {
+		margin-block-start: .25rem;
+	}
+}
+
+@container (width < 1536px) {
+	.hx-grid[class~="2xl:table-stacked"] > thead:not(:focus-within) {
+		position: absolute; /* keeps the header visually hidden (Bootstrap) also with .sticky-top and while the progress indicator is shown */
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="2xl:table-stacked"] > tbody {
+		position: relative;
+	}
+
+	.hx-grid-progress-indicator .hx-grid[class~="2xl:table-stacked"] > thead:not(:focus-within) + tbody::before {
+		content: ""; /* the progress indicator of the hidden header is shown at the top of the rows */
+		position: absolute;
+		z-index: 1000;
+		display: block;
+		top: 0;
+		height: 1px;
+		background-color: var(--hx-grid-progress-indicator-color);
+		animation: 1.5s ease-in-out 0s 1 slideRight;
+		animation-iteration-count: infinite;
+	}
+
+	[class~="2xl:table-stacked"] > thead:focus-within {
+		position: static;
+		display: block;
+		width: auto;
+		height: auto;
+		margin: 0;
+		overflow: visible;
+		clip: auto;
+		white-space: inherit;
+	}
+
+	[class~="2xl:table-stacked"] > thead:focus-within > tr {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	[class~="2xl:table-stacked"] > tbody > tr {
+		height: auto; /* infinite scroll: overrides the row height attribute */
+	}
+
+	[class~="2xl:table-stacked"].hx-grid-infinite-scroll {
+		table-layout: fixed; /* the nowrap values must not widen the table */
+	}
+
+	[class~="2xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*)),
+	[class~="2xl:table-stacked"].hx-grid-infinite-scroll > tfoot > tr > td:not(:has(*)) {
+		/* plain text cells only: the cells with markup (templates) are not clipped, so that their popups (menus, tooltips) are not cut off */
+		overflow: hidden;
+		overflow: clip; /* unlike hidden, does not make the title a BFC next to the multi-select float (no extra gap) */
+		text-overflow: ellipsis;
+	}
+
+	[class~="2xl:table-stacked"].hx-grid-infinite-scroll > tbody > tr > td:not(:has(*), .hx-grid-multiselect-cell, .hx-context-menu-grid-column)::after {
+		content: "\a0"; /* a plain text cell always has its value line, also for an empty or white-space value (uniform row height) */
+	}
+
+	[class~="2xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell {
+		float: inline-start;
+		height: auto;
+	}
+
+	[class~="2xl:table-stacked"] > tbody > tr > td.hx-grid-multiselect-cell ::deep .hx-grid-multiselect-checkbox {
+		padding: calc(var(--bs-table-cell-padding-y) * .25) .5rem calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+	}
+
+	[class~="2xl:table-stacked"] > tbody > tr > td.hx-grid-stacked-title,
+	[class~="2xl:table-stacked"] > tfoot > tr > td.hx-grid-stacked-title {
+		font-weight: var(--bs-font-weight-bold);
+	}
+
+	[class~="2xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) {
+		position: relative;
+	}
+
+	[class~="2xl:table-stacked"] > tbody > tr > td.hx-context-menu-grid-column {
+		position: absolute;
+		inset-block-start: calc(var(--bs-table-cell-padding-y) * 1.25);
+		inset-inline-end: var(--bs-table-cell-padding-x);
+		padding: 0;
+	}
+
+	[class~="2xl:table-stacked"] > tbody > tr:has(> td.hx-context-menu-grid-column) > td.hx-grid-stacked-title {
+		padding-inline-end: 3rem; /* keeps the row title clear of the context menu */
+	}
+
+	/* infinite scroll: the (empty) Virtualize spacer rows */
+	[class~="2xl:table-stacked"] > tbody ::deep > tr:empty {
+		padding-block: 0;
+		border-block-start: 0;
+	}
+
+	[class~="2xl:table-stacked"] > tbody ::deep > tr:empty + tr {
+		border-block-start: 0;
+	}
+
+	[class~="2xl:table-stacked"] > tfoot > tr {
+		display: block;
+		padding-block: var(--bs-table-cell-padding-y);
+		border-block-start: var(--bs-table-border-width) solid var(--bs-table-border-color);
+	}
+
+	[class~="2xl:table-stacked"] > tfoot > tr > td {
+		display: block;
+		padding: calc(var(--bs-table-cell-padding-y) * .25) calc(var(--bs-table-cell-padding-x) * 2);
+		border: 0;
+	}
+
+	[class~="2xl:table-stacked"] > tfoot > tr > td:empty {
+		display: none;
+	}
+
+	[class~="2xl:table-stacked"] > tfoot > tr > td[data-cell]:not(.hx-grid-stacked-title)::before {
+		display: block;
+		font-weight: var(--bs-font-weight-semibold);
+		content: attr(data-cell);
+	}
+
+	[class~="2xl:table-stacked"] > tfoot > tr > td:not(:first-child) + td::before {
+		margin-block-start: .25rem;
+	}
+}
+
 @keyframes slideRight {
 	0% {
 		right: 100%;

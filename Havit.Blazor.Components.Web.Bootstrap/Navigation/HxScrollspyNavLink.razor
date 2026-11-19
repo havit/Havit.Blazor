@@ -1,3 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<a href="@Href" class="@CssClassHelper.Combine("nav-link", CssClass)" @onclick="HandleClick" @onclick:stopPropagation @onclick:preventDefault @attributes="this.AdditionalAttributes">@ChildContent</a>
+@* data-enhance-nav="false": Blazor enhanced navigation (static router) intercepts the click before @onclick:preventDefault applies
+   and would navigate to the fragment resolved against <base href> (another page). *@
+
+<a href="@Href" class="@CssClassHelper.Combine("nav-link", CssClass)" @onclick="HandleClick" @onclick:stopPropagation @onclick:preventDefault data-enhance-nav="false" @attributes="this.AdditionalAttributes">@ChildContent</a>

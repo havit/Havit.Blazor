@@ -29,6 +29,7 @@ public sealed class HxGrid
 			PlaceholdersRowCount = 5,
 			ShowFooterWhenEmptyData = false,
 			Responsive = false,
+			Stacked = GridStacked.Never,
 			Striped = false,
 			LoadMoreButtonSettings = new ButtonSettings()
 			{

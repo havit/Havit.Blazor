@@ -8,12 +8,12 @@ export function register() {
 
 function handleMouseEnter(event) {
 	if (event.target.hasAttribute?.('data-hx-sidebar-item-hover-dropdown')) {
-		bootstrap.Dropdown.getOrCreateInstance(event.target).show();
+		bootstrap.Menu.getOrCreateInstance(event.target).show();
 	}
 }
 
 function handleMouseLeave(event) {
 	if (event.target.hasAttribute?.('data-hx-sidebar-item-hover-dropdown')) {
-		bootstrap.Dropdown.getInstance(event.target)?.hide();
+		bootstrap.Menu.getInstance(event.target)?.hide();
 	}
 }

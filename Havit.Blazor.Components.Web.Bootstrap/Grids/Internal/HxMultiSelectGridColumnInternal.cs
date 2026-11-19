@@ -35,7 +35,7 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 
 					builder.OpenElement(103, "input");
 					builder.AddAttribute(104, "type", "checkbox");
-					builder.AddAttribute(105, "class", "form-check-input");
+					builder.AddAttribute(105, "class", "check");
 
 					builder.AddAttribute(106, "checked", AllDataItemsSelected);
 					builder.AddAttribute(107, "onchange", EventCallback.Factory.Create<ChangeEventArgs>(this, HandleSelectAllOrNoneClick));
@@ -76,7 +76,7 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 
 				builder.OpenElement(103, "input");
 				builder.AddAttribute(104, "type", "checkbox");
-				builder.AddAttribute(105, "class", "form-check-input");
+				builder.AddAttribute(105, "class", "check");
 
 				bool selected = SelectedDataItems?.Contains(item) ?? false;
 				builder.AddAttribute(106, "checked", selected);
@@ -94,14 +94,18 @@ public class HxMultiSelectGridColumnInternal<TItem> : HxGridColumnBase<TItem>
 	/// <inheritdoc />
 	protected override GridCellTemplate GetItemPlaceholderCellTemplate(GridPlaceholderCellContext context)
 	{
-		return GridCellTemplate.Empty;
+		// No content, the CSS class marks the cell (the stacked layout renders the next cell as the row title).
+		return s_emptyCellTemplate;
 	}
 
 	/// <inheritdoc />
 	protected override GridCellTemplate GetFooterCellTemplate(GridFooterCellContext context)
 	{
-		return GridCellTemplate.Empty;
+		// No content, the CSS class marks the cell (the stacked layout renders the next cell as the row title).
+		// The template remains null so the cell alone does not make the grid render the footer.
+		return s_emptyCellTemplate;
 	}
+	private static readonly GridCellTemplate s_emptyCellTemplate = new GridCellTemplate { CssClass = "hx-grid-multiselect-cell" };
 
 	/// <inheritdoc />
 	protected override IEnumerable<SortingItem<TItem>> GetSorting() => Enumerable.Empty<SortingItem<TItem>>();
