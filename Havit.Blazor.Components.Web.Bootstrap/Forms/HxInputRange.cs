@@ -141,16 +141,17 @@ public class HxInputRange<TValue> : HxInputBase<TValue>, IAsyncDisposable
 		builder.AddAttribute(12, "class", GetInputCssClassToRender());
 		builder.AddAttribute(13, "type", "range");
 
-		builder.AddAttribute(14, "value", BindConverter.FormatValue(Value));
+		// input[type=range] uses the HTML floating-point number format (e.g. "0.5") regardless of the current culture.
+		builder.AddAttribute(14, "value", FormatValueInvariant(Value));
 #pragma warning disable VSTHRD101 // Avoid unsupported async delegates
 		// TODO VSTHRD101 via RuntimeHelpers.CreateInferredBindSetter?
-		builder.AddAttribute(15, BindEventEffective.ToEventName(), EventCallback.Factory.CreateBinder(this, async value => await HandleValueChanged(value), Value));
+		builder.AddAttribute(15, BindEventEffective.ToEventName(), EventCallback.Factory.CreateBinder(this, async value => await HandleValueChanged(value), Value, CultureInfo.InvariantCulture));
 #pragma warning restore VSTHRD101 // Avoid unsupported async delegates
 		builder.SetUpdatesAttributeName("value");
 
-		builder.AddAttribute(16, "min", BindConverter.FormatValue(Min));
-		builder.AddAttribute(17, "max", BindConverter.FormatValue(Max));
-		builder.AddAttribute(18, "step", BindConverter.FormatValue(Step));
+		builder.AddAttribute(16, "min", FormatValueInvariant(Min));
+		builder.AddAttribute(17, "max", FormatValueInvariant(Max));
+		builder.AddAttribute(18, "step", FormatValueInvariant(Step));
 
 		builder.AddAttribute(20, "disabled", !EnabledEffective);
 
@@ -240,7 +241,7 @@ public class HxInputRange<TValue> : HxInputBase<TValue>, IAsyncDisposable
 		}
 	}
 
-	private static string FormatValueInvariant(TValue value) => BindConverter.FormatValue(value)?.ToString();
+	private static string FormatValueInvariant(TValue value) => BindConverter.FormatValue(value, CultureInfo.InvariantCulture)?.ToString();
 
 	private string GetJsInitConfigToken()
 	{
