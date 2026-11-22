@@ -144,4 +144,24 @@ public class HxDropdownTests : BunitTestBase
 		var div = cut.Find("div");
 		Assert.True(div.ClassList.Contains("btn-group"), "HxDropdownButtonGroup should have 'btn-group' CSS class.");
 	}
+
+	[Fact]
+	public async Task HxDropdownToggleElement_WithoutDropdownContainer_HandlesJsShownAndHidden()
+	{
+		// Arrange
+		var shownCount = 0;
+		var hiddenCount = 0;
+		var cut = Render<HxDropdownToggleElement>(parameters => parameters
+			.Add(p => p.OnShown, () => shownCount++)
+			.Add(p => p.OnHidden, () => hiddenCount++)
+			.AddChildContent("Toggle"));
+
+		// Act
+		await cut.InvokeAsync(cut.Instance.HandleJsShown);
+		await cut.InvokeAsync(cut.Instance.HandleJsHidden);
+
+		// Assert
+		Assert.Equal(1, shownCount);
+		Assert.Equal(1, hiddenCount);
+	}
 }
