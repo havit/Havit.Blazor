@@ -53,10 +53,17 @@ export function setupChart(id, dotnetReference, options, autoResize, subscribeOn
 		element.echart = chart;
 	}
 
-	if (element.echart.__axisPointerUpdate) {
+	const axisPointerUpdate = element.echart.__axisPointerUpdate;
+	if (axisPointerUpdate) {
 		// the consumer may reset its state together with the new options - send the next update even when the axis pointer has not moved
 		// (ECharts does not fire updateAxisPointer after setOption, the next one comes with the next pointer move)
-		element.echart.__axisPointerUpdate.sentKey = null;
+		if (axisPointerUpdate.pendingKey === axisPointerUpdate.sentKey) {
+			// the pending position has already been sent - do not replay it (with params from the old options) when the call in flight completes
+			// (a newer position not sent yet is kept, the pointer may have stopped there)
+			axisPointerUpdate.pendingKey = null;
+			axisPointerUpdate.pendingParams = null;
+		}
+		axisPointerUpdate.sentKey = null;
 	}
 
 	element.echart.setOption(optionsObject, { notMerge: true });
