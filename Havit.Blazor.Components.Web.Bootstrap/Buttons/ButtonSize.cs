@@ -7,5 +7,9 @@ public enum ButtonSize
 {
 	Regular = 0,
 	Small,
-	Large
+	Large,
+	/// <summary>
+	/// Extra small button (new in Bootstrap 6).
+	/// </summary>
+	ExtraSmall
 }

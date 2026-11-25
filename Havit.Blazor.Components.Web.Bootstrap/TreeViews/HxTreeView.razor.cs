@@ -1,7 +1,7 @@
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Component to display a hierarchy data structure.<br />
+/// Tree component for displaying and navigating hierarchical data, with expandable/collapsible items, single-item selection, per-item icons and custom content, and full keyboard accessibility.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxTreeView">https://havit.blazor.eu/components/HxTreeView</see>
 /// </summary>
 /// <typeparam name="TItem">Type of tree data item.</typeparam>
@@ -82,6 +82,12 @@ public partial class HxTreeView<TItem> : ComponentBase
 	/// Selection only expands the item, it never collapses it. Default is <c>false</c>.
 	/// </summary>
 	[Parameter] public bool ExpandOnSelection { get; set; }
+
+	/// <summary>
+	/// Additional attributes to be splatted onto the root element (<c>role="tree"</c>),
+	/// e.g. <c>aria-label</c> or <c>aria-labelledby</c> to give the tree an accessible name.
+	/// </summary>
+	[Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object> AdditionalAttributes { get; set; }
 
 	private async Task HandleItemSelected(TItem newSelectedItem)
 	{

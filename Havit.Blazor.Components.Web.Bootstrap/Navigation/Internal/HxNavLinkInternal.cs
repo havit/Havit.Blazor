@@ -33,17 +33,33 @@ public class HxNavLinkInternal : NavLink
 
 		builder.AddMultipleAttributes(1, AdditionalAttributes);
 		builder.AddAttribute(2, "class", CssClass);
+		if (IsActive())
+		{
+			// The base NavLink.BuildRenderTree renders aria-current="page" for the active link, keep it.
+			builder.AddAttribute(3, "aria-current", "page");
+		}
 
 		if (OnClick.HasDelegate)
 		{
-			builder.AddAttribute(3, "onclick", OnClick);
-			builder.AddEventPreventDefaultAttribute(4, "onclick", this.OnClickPreventDefault ?? true);
-			builder.AddEventStopPropagationAttribute(5, "onclick", this.OnClickStopPropagation ?? true);
+			builder.AddAttribute(4, "onclick", OnClick);
+			builder.AddEventPreventDefaultAttribute(5, "onclick", this.OnClickPreventDefault ?? true);
+			builder.AddEventStopPropagationAttribute(6, "onclick", this.OnClickStopPropagation ?? true);
 		}
 
-		builder.AddContent(6, Text);
-		builder.AddContent(7, ChildContent);
+		builder.AddContent(7, Text);
+		builder.AddContent(8, ChildContent);
 
 		builder.CloseElement();
+	}
+
+	/// <summary>
+	/// The active state of the base <see cref="NavLink"/> is private, it is reflected only by the active class in <see cref="NavLink.CssClass"/>.
+	/// An empty <see cref="NavLink.ActiveClass"/> means the active state is not rendered at all.
+	/// </summary>
+	private bool IsActive()
+	{
+		string activeClass = ActiveClass ?? "active";
+		return !String.IsNullOrWhiteSpace(activeClass)
+			&& (CssClass?.Split(' ', StringSplitOptions.RemoveEmptyEntries).Contains(activeClass) ?? false);
 	}
 }

@@ -1,42 +1,34 @@
-﻿namespace Havit.Blazor.Components.Web.Bootstrap;
+﻿using Microsoft.Extensions.Localization;
+
+namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// Bootstrap <see href="https://getbootstrap.com/docs/5.3/components/close-button/">close-button</see> component.<br />
-/// A simple close button for dismissing content such as modals and alerts.<br />
+/// Bootstrap <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/close-button/">close-button</see> component.<br />
+/// A simple close button for dismissing content such as dialogs and alerts.
+/// The icon is rendered with a CSS <c>mask-image</c> tinted with <c>currentcolor</c>, so it adapts to the surrounding
+/// text color and color mode automatically (the former <c>White</c> parameter/<c>btn-close-white</c> class no longer exist;
+/// use <c>data-bs-theme="dark"</c> on the button or a parent element to invert it explicitly).<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxCloseButton">https://havit.blazor.eu/components/HxCloseButton</see>
 /// </summary>
 public class HxCloseButton : HxButton
 {
-	/// <summary>
-	/// Application-wide defaults for <see cref="HxCloseButton"/> and derived components.
-	/// </summary>
-	public static new CloseButtonSettings Defaults { get; set; }
+	[Inject] protected IStringLocalizer<HxCloseButton> Localizer { get; set; }
 
 	/// <summary>
-	/// Toggles between the light and dark version of the button.
-	/// The default value is <c>false</c>.
+	/// The close button is a standalone <c>.btn-close</c> element (no <c>.btn</c>): the <c>.btn</c> hover/disabled backgrounds would paint over the masked icon.
 	/// </summary>
-	[Parameter] public bool? White { get; set; }
-	protected bool WhiteEffective => White ?? GetDefaults().White ?? throw new InvalidOperationException(nameof(White) + " default for " + nameof(HxCloseButton) + " has to be set.");
-
-	protected override string CoreCssClass => $"{base.CoreCssClass} btn-close " + (WhiteEffective ? "btn-close-white" : string.Empty);
+	protected override string CoreCssClass => "btn-close";
 
 	/// <summary>
-	/// Returns application-wide defaults for the component.
-	/// Enables overriding defaults in descendants (use a separate set of defaults).
+	/// Renders only <see cref="CoreCssClass"/> and <see cref="HxButton.CssClass"/>; the button variant, color and size classes do not apply to the close button.
 	/// </summary>
-	protected new virtual CloseButtonSettings GetDefaults() => Defaults;
-
-	public HxCloseButton()
+	protected override string GetButtonCssClass()
 	{
-		AriaLabel = "Close"; // Default aria-label for accessibility.
+		return CssClassHelper.Combine(CoreCssClass, CssClassEffective);
 	}
 
-	static HxCloseButton()
-	{
-		Defaults = new CloseButtonSettings()
-		{
-			White = false
-		};
-	}
+	/// <summary>
+	/// Returns <see cref="HxButton.AriaLabel"/> or a localized "Close" text when not set.
+	/// </summary>
+	protected override string GetAriaLabel() => AriaLabel ?? Localizer["Close"];
 }

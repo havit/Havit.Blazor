@@ -1,4 +1,4 @@
-namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
+﻿namespace Havit.Blazor.Components.Web.Bootstrap.Tests;
 
 public class HxBadgeTests : BunitTestBase
 {
@@ -24,7 +24,7 @@ public class HxBadgeTests : BunitTestBase
 		);
 
 		// Assert
-		Assert.NotNull(cut.Find("span.badge.text-bg-primary"));
+		Assert.NotNull(cut.Find("span.badge.theme-primary"));
 	}
 
 	[Fact]

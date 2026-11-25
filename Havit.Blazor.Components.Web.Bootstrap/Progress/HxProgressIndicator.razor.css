@@ -19,6 +19,9 @@
     box-shadow: var(--hx-progress-indicator-box-shadow);
 }
 
-.hx-progress-indicator-spinner {
+.hx-progress-indicator ::deep .hx-progress-indicator-spinner {
+    /* Bootstrap 6 spinners default to 1em, too small for the 50px circle */
+    --bs-spinner-width: 2rem;
+    --bs-spinner-height: 2rem;
     color: var(--hx-progress-indicator-spinner-color);
 }

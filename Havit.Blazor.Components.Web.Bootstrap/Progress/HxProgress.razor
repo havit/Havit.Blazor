@@ -1,6 +1,6 @@
 ﻿@namespace Havit.Blazor.Components.Web.Bootstrap
 
-<div class="@CssClassHelper.Combine("progress", CssClass)" style="height: @($"{Height}px;")">
+<div class="@CssClassHelper.Combine("progress-stacked", CssClass)" style="height: @($"{Height}px;")">
     <CascadingValue TValue="HxProgress" Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>

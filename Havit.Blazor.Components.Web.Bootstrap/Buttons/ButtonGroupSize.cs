@@ -7,5 +7,6 @@ public enum ButtonGroupSize
 {
 	Regular = 0,
 	Small = 1,
-	Large = 2
+	Large = 2,
+	ExtraSmall = 3
 }

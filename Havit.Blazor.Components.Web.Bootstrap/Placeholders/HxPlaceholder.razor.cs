@@ -1,7 +1,7 @@
 ﻿namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/placeholders/">Bootstrap 5 Placeholder</see> component, also known as Skeleton.<br/>
+/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/placeholder/">Bootstrap Placeholder</see> component, also known as Skeleton.<br/>
 /// Use loading placeholders for your components or pages to indicate that something may still be loading.<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPlaceholder">https://havit.blazor.eu/components/HxPlaceholder</see>
 /// </summary>

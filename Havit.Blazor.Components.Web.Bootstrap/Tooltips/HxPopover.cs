@@ -4,8 +4,8 @@ using Havit.Blazor.Components.Web.Bootstrap.Internal;
 namespace Havit.Blazor.Components.Web.Bootstrap;
 
 /// <summary>
-/// <see href="https://getbootstrap.com/docs/5.3/components/popovers/">Bootstrap Popover</see> component.<br />
-/// Rendered as a <c>span</c> wrapper to fully support popovers on disabled elements (see example in <see href="https://getbootstrap.com/docs/5.3/components/popovers/#disabled-elements">Disabled elements</see> in the Bootstrap popover documentation).<br />
+/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/popover/">Bootstrap Popover</see> component.<br />
+/// Rendered as a <c>span</c> wrapper to fully support popovers on disabled elements (see example in <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/components/popover/#disabled-elements">Disabled elements</see> in the Bootstrap popover documentation).<br />
 /// Full documentation and demos: <see href="https://havit.blazor.eu/components/HxPopover">https://havit.blazor.eu/components/HxPopover</see>
 /// </summary>
 public class HxPopover : HxTooltipInternalBase

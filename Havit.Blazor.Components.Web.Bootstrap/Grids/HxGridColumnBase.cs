@@ -48,6 +48,9 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	/// <inheritdoc />
 	int? IHxGridColumn<TItem>.GetDefaultSortingOrder() => GetDefaultSortingOrder();
 
+	/// <inheritdoc />
+	string IHxGridColumn<TItem>.GetStackedLabel() => GetStackedLabel();
+
 	/// <summary>
 	/// Returns the unique column identifier.
 	/// </summary>
@@ -110,6 +113,13 @@ public abstract class HxGridColumnBase<TItem> : ComponentBase, IHxGridColumn<TIt
 	/// To set default sorting by LastName, then FirstName, use value 1 for LastName and value 2 for FirstName).
 	/// </example>
 	protected abstract int? GetDefaultSortingOrder();
+
+	/// <summary>
+	/// Returns the plain-text label of the column's cells for the stacked layout of the grid (see <see cref="HxGrid{TItem}.Stacked"/>),
+	/// rendered as the <c>data-cell</c> attribute of the cells. Returns <c>null</c> (or an empty string) for no label.
+	/// Defaults to <c>null</c>; override to provide a label.
+	/// </summary>
+	protected virtual string GetStackedLabel() => null;
 
 	/// <inheritdoc />
 	public async ValueTask DisposeAsync()
