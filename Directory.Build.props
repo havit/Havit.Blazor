@@ -15,7 +15,7 @@
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 
 		<!-- aligned NuGet PackageVersion for package-bundles -->
-		<ComponentsPackagesVersion>4.31.0</ComponentsPackagesVersion>
+		<ComponentsPackagesVersion>4.32.0</ComponentsPackagesVersion>
 		<GrpcPackagesVersion>1.9.0</GrpcPackagesVersion>
 		<ApplicationInsightsPackageVersion>1.2.0</ApplicationInsightsPackageVersion>
 		<StoragePackagesVersion>1.1.0</StoragePackagesVersion>
