@@ -37,7 +37,8 @@ internal static partial class MarkdownInlineParser
 	[GeneratedRegex(@"[ \t]*\n")]
 	private static partial Regex AnyLineBreakRegex();
 
-	[GeneratedRegex(@"<(?:!--.*?-->|/?[A-Za-z][^<>]*>)", RegexOptions.Singleline)]
+	// Quoted attribute values are matched as units so that '<' or '>' inside them does not end the tag.
+	[GeneratedRegex(@"<(?:!--.*?-->|/?[A-Za-z](?:[^<>""']|""[^""]*""|'[^']*')*>)", RegexOptions.Singleline)]
 	private static partial Regex RawHtmlTagRegex();
 
 	[GeneratedRegex(@"(?<![""'=\w])(?:https?|ftps?)://[^\s\x00<>""']+", RegexOptions.IgnoreCase)]

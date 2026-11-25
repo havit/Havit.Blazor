@@ -2793,7 +2793,7 @@
         <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.RawHtmlTagRegex">
             <remarks>
             Pattern:<br/>
-            <code>&lt;(?:!--.*?--&gt;|/?[A-Za-z][^&lt;&gt;]*&gt;)</code><br/>
+            <code>&lt;(?:!--.*?--&gt;|/?[A-Za-z](?:[^&lt;&gt;"']|"[^"]*"|'[^']*')*&gt;)</code><br/>
             Options:<br/>
             <code>RegexOptions.Singleline</code><br/>
             Explanation:<br/>
@@ -2807,7 +2807,17 @@
                 ○ Match a sequence of expressions.<br/>
                     ○ Match '/' atomically, optionally.<br/>
                     ○ Match an ASCII letter.<br/>
-                    ○ Match a character in the set [^&lt;&gt;] atomically any number of times.<br/>
+                    ○ Loop greedily any number of times.<br/>
+                        ○ Match with 3 alternative expressions.<br/>
+                            ○ Match a character in the set [^"'&lt;&gt;].<br/>
+                            ○ Match a sequence of expressions.<br/>
+                                ○ Match '"'.<br/>
+                                ○ Match a character other than '"' atomically any number of times.<br/>
+                                ○ Match '"'.<br/>
+                            ○ Match a sequence of expressions.<br/>
+                                ○ Match '\''.<br/>
+                                ○ Match a character other than '\'' atomically any number of times.<br/>
+                                ○ Match '\''.<br/>
                     ○ Match '&gt;'.<br/>
             </code>
             </remarks>
@@ -13180,6 +13190,9 @@
         </member>
         <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsWordChar(System.Char)">
             <summary>Determines whether the character is part of the [\w] set.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32)">
+            <summary>Pushes 1 value onto the backtracking stack.</summary>
         </member>
         <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32,System.Int32)">
             <summary>Pushes 2 values onto the backtracking stack.</summary>

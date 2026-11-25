@@ -316,6 +316,15 @@ public class MarkdownParserTests
 	}
 
 	[Fact]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_RawHtmlTag_AngleBracketInQuotedAttribute_NewlineInsideTagPreserved()
+	{
+		var options = HardBreakOptions;
+		options.SanitizeHtml = false;
+		var result = MarkdownParser.ToHtml("<span title=\"a > b\"\nclass='c > d'>text</span>\nnext line", options);
+		Assert.Equal("<p><span title=\"a > b\" class='c > d'>text</span><br />next line</p>", result);
+	}
+
+	[Fact]
 	public void MarkdownParser_SoftLineBreaksAsHardBreaks_RawHtmlComment_NewlineInsideCommentPreserved()
 	{
 		var options = HardBreakOptions;
