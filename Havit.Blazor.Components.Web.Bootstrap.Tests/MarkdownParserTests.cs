@@ -300,6 +300,31 @@ public class MarkdownParserTests
 	}
 
 	[Fact]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_LinkLabel_RendersBr()
+	{
+		var result = MarkdownParser.ToHtml("[first\nsecond](https://example.com)", HardBreakOptions);
+		Assert.Equal("<p><a href=\"https://example.com\">first<br />second</a></p>", result);
+	}
+
+	[Fact]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_RawHtmlTag_NewlineInsideTagPreserved()
+	{
+		var options = HardBreakOptions;
+		options.SanitizeHtml = false;
+		var result = MarkdownParser.ToHtml("<span\nclass='x'>text</span>\nnext line", options);
+		Assert.Equal("<p><span class='x'>text</span><br />next line</p>", result);
+	}
+
+	[Fact]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_RawHtmlComment_NewlineInsideCommentPreserved()
+	{
+		var options = HardBreakOptions;
+		options.SanitizeHtml = false;
+		var result = MarkdownParser.ToHtml("before<!-- a\nb -->\nafter", options);
+		Assert.Equal("<p>before<!-- a b --><br />after</p>", result);
+	}
+
+	[Fact]
 	public void MarkdownParser_SoftLineBreaksAsHardBreaks_ListItems_Unaffected()
 	{
 		var markdown = "- Item one\n- Item two";

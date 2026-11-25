@@ -37,6 +37,9 @@ internal static partial class MarkdownInlineParser
 	[GeneratedRegex(@"[ \t]*\n")]
 	private static partial Regex AnyLineBreakRegex();
 
+	[GeneratedRegex(@"<(?:!--.*?-->|/?[A-Za-z][^<>]*>)", RegexOptions.Singleline)]
+	private static partial Regex RawHtmlTagRegex();
+
 	[GeneratedRegex(@"(?<![""'=\w])(?:https?|ftps?)://[^\s\x00<>""']+", RegexOptions.IgnoreCase)]
 	private static partial Regex NakedUrlRegex();
 
@@ -89,14 +92,14 @@ internal static partial class MarkdownInlineParser
 		// Step 3: Process images and links first. Generated HTML tags are replaced with
 		// placeholders so bold/italic/strikethrough cannot corrupt URLs or attributes.
 		text = ProcessImages(text, options, placeholders);
-		text = ProcessLinks(text, options, placeholders);
+		text = ProcessLinks(text, options, placeholders, softLineBreaksAsHardBreaks);
 		text = ProcessNakedUrls(text, options, placeholders);
 
 		// Step 4: Emphasis and other inline elements (safe — HTML tags are placeholdered).
 		text = ProcessBold(text);
 		text = ProcessItalic(text);
 		text = ProcessStrikethrough(text);
-		text = ProcessLineBreaks(text, softLineBreaksAsHardBreaks);
+		text = ProcessLineBreaks(text, softLineBreaksAsHardBreaks, options.SanitizeHtml);
 
 		// Step 5: Restore all placeholders.
 		for (int i = 0; i < placeholders.Count; i++)
@@ -151,11 +154,16 @@ internal static partial class MarkdownInlineParser
 		});
 	}
 
-	private static string ProcessLinks(string text, MarkdownRenderOptions options, List<string> placeholders)
+	private static string ProcessLinks(string text, MarkdownRenderOptions options, List<string> placeholders, bool softLineBreaksAsHardBreaks)
 	{
 		return LinkRegex().Replace(text, match =>
 		{
 			var linkText = match.Groups[1].Value;
+			if (softLineBreaksAsHardBreaks)
+			{
+				// The link is placeholdered before the paragraph-level line-break pass, so convert newlines in the label here.
+				linkText = ProcessLineBreaks(linkText, softLineBreaksAsHardBreaks: true, options.SanitizeHtml);
+			}
 			var url = match.Groups[2].Value;
 			var title = match.Groups[3].Value;
 
@@ -330,14 +338,20 @@ internal static partial class MarkdownInlineParser
 		return StrikethroughRegex().Replace(text, "<s>$1</s>");
 	}
 
-	private static string ProcessLineBreaks(string text, bool softLineBreaksAsHardBreaks)
+	private static string ProcessLineBreaks(string text, bool softLineBreaksAsHardBreaks, bool sanitizeHtml)
 	{
 		if (softLineBreaksAsHardBreaks)
 		{
+			if (!sanitizeHtml && text.Contains('<'))
+			{
+				// Raw HTML pass-through: a newline inside a tag (or comment) is just whitespace of the markup,
+				// not a line break of the text. Turn it into a space so the tag is not corrupted by <br />.
+				text = RawHtmlTagRegex().Replace(text, match => match.Value.Replace('\n', ' '));
+			}
+
 			// Every newline (including the "  \n" hard-break syntax) becomes a single <br />; trailing whitespace is dropped.
 			return AnyLineBreakRegex().Replace(text, "<br />");
 		}
-
 
 		text = LineBreakRegex().Replace(text, "<br />");
 		text = text.Replace("\n", " ");
