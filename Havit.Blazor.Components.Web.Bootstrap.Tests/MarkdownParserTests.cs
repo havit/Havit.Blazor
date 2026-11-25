@@ -221,6 +221,93 @@ public class MarkdownParserTests
 
 	#endregion
 
+	#region Soft Line Breaks As Hard Breaks
+
+	private static MarkdownRenderOptions HardBreakOptions => new MarkdownRenderOptions
+	{
+		SanitizeHtml = true,
+		SoftLineBreaksAsHardBreaks = true,
+		TableCssClass = "table",
+		BlockquoteCssClass = "blockquote",
+		ImageCssClass = "img-fluid"
+	};
+
+	[Fact]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_Paragraph_RendersBr()
+	{
+		var result = MarkdownParser.ToHtml("Line one\nLine two\nLine three", HardBreakOptions);
+		Assert.Equal("<p>Line one<br />Line two<br />Line three</p>", result);
+	}
+
+	[Fact]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_Disabled_JoinsWithSpace()
+	{
+		var result = MarkdownParser.ToHtml("Line one\nLine two", DefaultOptions);
+		Assert.Equal("<p>Line one Line two</p>", result);
+	}
+
+	[Fact]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_Blockquote_RendersBr()
+	{
+		var markdown = "Closing this one:\n\n> John Doe:\n> Budgets are being cut\n> We are trying to keep the team size";
+		var result = MarkdownParser.ToHtml(markdown, HardBreakOptions);
+		Assert.Equal("<p>Closing this one:</p><blockquote class=\"blockquote\"><p>John Doe:<br />Budgets are being cut<br />We are trying to keep the team size</p></blockquote>", result);
+	}
+
+	[Fact]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_BlockquoteInterruptingParagraph_RendersBr()
+	{
+		// typical textarea input – no blank line between the paragraph and the quote
+		var markdown = "Closing this one:\n> John Doe:\n> Budgets are being cut\n> We are trying to keep the team size";
+		var result = MarkdownParser.ToHtml(markdown, HardBreakOptions);
+		Assert.Equal("<p>Closing this one:</p><blockquote class=\"blockquote\"><p>John Doe:<br />Budgets are being cut<br />We are trying to keep the team size</p></blockquote>", result);
+	}
+
+	[Fact]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_NestedBlockquote_RendersBr()
+	{
+		var result = MarkdownParser.ToHtml(">> Line one\n>> Line two", HardBreakOptions);
+		Assert.Equal("<blockquote class=\"blockquote\"><blockquote class=\"blockquote\"><p>Line one<br />Line two</p></blockquote></blockquote>", result);
+	}
+
+	[Fact]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_BlankLine_StillSeparatesParagraphs()
+	{
+		var result = MarkdownParser.ToHtml("First\nstill first\n\nSecond", HardBreakOptions);
+		Assert.Equal("<p>First<br />still first</p><p>Second</p>", result);
+	}
+
+	[Fact]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_FencedCode_Unaffected()
+	{
+		var result = MarkdownParser.ToHtml("```\nline one\nline two\n```", HardBreakOptions);
+		Assert.DoesNotContain("<br />", result);
+		Assert.Contains("line one\nline two", result);
+	}
+
+	[Fact]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_ExistingHardBreak_NotDoubled()
+	{
+		var result = MarkdownParser.ToHtml("Line one  \nLine two", HardBreakOptions);
+		Assert.Equal("<p>Line one<br />Line two</p>", result);
+	}
+
+	[Fact]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_CrLfLineEndings_RendersBr()
+	{
+		var result = MarkdownParser.ToHtml("Line one\r\nLine two", HardBreakOptions);
+		Assert.Equal("<p>Line one<br />Line two</p>", result);
+	}
+
+	[Fact]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_ListItems_Unaffected()
+	{
+		var markdown = "- Item one\n- Item two";
+		Assert.Equal(MarkdownParser.ToHtml(markdown, DefaultOptions), MarkdownParser.ToHtml(markdown, HardBreakOptions));
+	}
+
+	#endregion
+
 	#region Horizontal Rules
 
 	[Theory]

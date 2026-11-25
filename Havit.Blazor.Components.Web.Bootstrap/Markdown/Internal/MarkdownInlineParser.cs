@@ -34,13 +34,19 @@ internal static partial class MarkdownInlineParser
 	[GeneratedRegex(@"  \n")]
 	private static partial Regex LineBreakRegex();
 
+	[GeneratedRegex(@"[ \t]*\n")]
+	private static partial Regex AnyLineBreakRegex();
+
 	[GeneratedRegex(@"(?<![""'=\w])(?:https?|ftps?)://[^\s\x00<>""']+", RegexOptions.IgnoreCase)]
 	private static partial Regex NakedUrlRegex();
 
 	/// <summary>
 	/// Converts inline markdown syntax to HTML within a text block.
 	/// </summary>
-	internal static string ProcessInlineElements(string text, MarkdownRenderOptions options)
+	/// <param name="text">Inline text (lines joined with <c>\n</c>).</param>
+	/// <param name="options">Rendering options.</param>
+	/// <param name="softLineBreaksAsHardBreaks">When <c>true</c>, every newline is rendered as <c>&lt;br /&gt;</c> (used for paragraphs when <see cref="MarkdownRenderOptions.SoftLineBreaksAsHardBreaks"/> is enabled).</param>
+	internal static string ProcessInlineElements(string text, MarkdownRenderOptions options, bool softLineBreaksAsHardBreaks = false)
 	{
 		if (string.IsNullOrEmpty(text))
 		{
@@ -90,7 +96,7 @@ internal static partial class MarkdownInlineParser
 		text = ProcessBold(text);
 		text = ProcessItalic(text);
 		text = ProcessStrikethrough(text);
-		text = ProcessLineBreaks(text);
+		text = ProcessLineBreaks(text, softLineBreaksAsHardBreaks);
 
 		// Step 5: Restore all placeholders.
 		for (int i = 0; i < placeholders.Count; i++)
@@ -324,8 +330,15 @@ internal static partial class MarkdownInlineParser
 		return StrikethroughRegex().Replace(text, "<s>$1</s>");
 	}
 
-	private static string ProcessLineBreaks(string text)
+	private static string ProcessLineBreaks(string text, bool softLineBreaksAsHardBreaks)
 	{
+		if (softLineBreaksAsHardBreaks)
+		{
+			// Every newline (including the "  \n" hard-break syntax) becomes a single <br />; trailing whitespace is dropped.
+			return AnyLineBreakRegex().Replace(text, "<br />");
+		}
+
+
 		text = LineBreakRegex().Replace(text, "<br />");
 		text = text.Replace("\n", " ");
 		return text;

@@ -657,7 +657,7 @@ internal static partial class MarkdownParser
 
 	private static void RenderParagraph(StringBuilder sb, MarkdownBlock block, MarkdownRenderOptions options)
 	{
-		var content = MarkdownInlineParser.ProcessInlineElements(JoinLines(block.Lines), options);
+		var content = MarkdownInlineParser.ProcessInlineElements(JoinLines(block.Lines), options, softLineBreaksAsHardBreaks: options.SoftLineBreaksAsHardBreaks);
 		sb.Append($"<p>{content}</p>");
 	}
 

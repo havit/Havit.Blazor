@@ -21,6 +21,16 @@
 	<p>By default, HTML tags in the input are escaped. Set <code>SanitizeHtml="false"</code> to allow raw HTML pass-through (use only with trusted content).</p>
 	<Demo Type="typeof(HxMarkdown_Demo_Sanitization)" />
 
+	<DocHeading Title="Line breaks" />
+	<p>
+		By default, line breaks follow CommonMark: a single newline inside a paragraph is rendered as a space and a hard break requires two trailing spaces.
+		For user-generated content typed into a plain <code>&lt;textarea&gt;</code> (comments, notes, ...), set <code>SoftLineBreaksAsHardBreaks="true"</code>
+		to render every newline inside a paragraph (including paragraphs in blockquotes) as <code>&lt;br /&gt;</code> – the way GitHub comments, Teams or Slack behave.
+		Blank lines still separate paragraphs; code blocks, lists, tables and headings are not affected.
+		To enable it application-wide, use <code>HxMarkdown.Defaults.SoftLineBreaksAsHardBreaks = true</code>.
+	</p>
+	<Demo Type="typeof(HxMarkdown_Demo_SoftLineBreaks)" />
+
 	<DocHeading Title="Custom CSS classes" />
 	<p>Override the Bootstrap CSS classes applied to tables, blockquotes, and images via parameters or <code>HxMarkdown.Defaults</code>.</p>
 	<Demo Type="typeof(HxMarkdown_Demo_CustomCss)" />
