@@ -37,9 +37,13 @@ internal static partial class MarkdownInlineParser
 	[GeneratedRegex(@"[ \t]*\n")]
 	private static partial Regex AnyLineBreakRegex();
 
+	// Hard-break conversion with raw HTML pass-through (SanitizeHtml=false), alternatives in priority order:
+	// - "element": a raw-text element (script, style, pre, textarea) including its body – kept untouched,
+	// - "tag": an HTML comment or a tag – newlines inside are markup whitespace,
+	// - "newline": a line break of the text (with trailing whitespace).
 	// Quoted attribute values are matched as units so that '<' or '>' inside them does not end the tag.
-	[GeneratedRegex(@"<(?:!--.*?-->|/?[A-Za-z](?:[^<>""']|""[^""]*""|'[^']*')*>)", RegexOptions.Singleline)]
-	private static partial Regex RawHtmlTagRegex();
+	[GeneratedRegex(@"(?<element><(?<name>script|style|pre|textarea)\b(?:[^<>""']|""[^""]*""|'[^']*')*>.*?</\k<name>\s*>)|(?<tag><(?:!--.*?-->|/?[A-Za-z](?:[^<>""']|""[^""]*""|'[^']*')*>))|(?<newline>[ \t]*\n)", RegexOptions.Singleline | RegexOptions.IgnoreCase)]
+	private static partial Regex RawHtmlAwareLineBreakRegex();
 
 	[GeneratedRegex(@"(?<![""'=\w])(?:https?|ftps?)://[^\s\x00<>""']+", RegexOptions.IgnoreCase)]
 	private static partial Regex NakedUrlRegex();
@@ -345,9 +349,21 @@ internal static partial class MarkdownInlineParser
 		{
 			if (!sanitizeHtml && text.Contains('<'))
 			{
-				// Raw HTML pass-through: a newline inside a tag (or comment) is just whitespace of the markup,
-				// not a line break of the text. Turn it into a space so the tag is not corrupted by <br />.
-				text = RawHtmlTagRegex().Replace(text, match => match.Value.Replace('\n', ' '));
+				// Raw HTML pass-through: only line breaks of the text become <br />.
+				// A newline inside a tag (or comment) is markup whitespace (turned into a space so the tag is not corrupted),
+				// bodies of raw-text elements (script, style, pre, textarea) are kept untouched.
+				return RawHtmlAwareLineBreakRegex().Replace(text, match =>
+				{
+					if (match.Groups["element"].Success)
+					{
+						return match.Value;
+					}
+					if (match.Groups["tag"].Success)
+					{
+						return match.Value.Replace('\n', ' ');
+					}
+					return "<br />";
+				});
 			}
 
 			// Every newline (including the "  \n" hard-break syntax) becomes a single <br />; trailing whitespace is dropped.

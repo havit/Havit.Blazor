@@ -324,6 +324,19 @@ public class MarkdownParserTests
 		Assert.Equal("<p><span title=\"a > b\" class='c > d'>text</span><br />next line</p>", result);
 	}
 
+	[Theory]
+	[InlineData("<style>.note {\ncolor: red; }</style>\nafter", "<p><style>.note {\ncolor: red; }</style><br />after</p>")]
+	[InlineData("<script type=\"text/javascript\">var a = 1;\nvar b = 2;</script>\nafter", "<p><script type=\"text/javascript\">var a = 1;\nvar b = 2;</script><br />after</p>")]
+	[InlineData("<PRE>line one\nline two</PRE>\nafter", "<p><PRE>line one\nline two</PRE><br />after</p>")]
+	[InlineData("<textarea>line one\nline two</textarea>\nafter", "<p><textarea>line one\nline two</textarea><br />after</p>")]
+	public void MarkdownParser_SoftLineBreaksAsHardBreaks_RawTextElementBody_Preserved(string markdown, string expected)
+	{
+		var options = HardBreakOptions;
+		options.SanitizeHtml = false;
+		var result = MarkdownParser.ToHtml(markdown, options);
+		Assert.Equal(expected, result);
+	}
+
 	[Fact]
 	public void MarkdownParser_SoftLineBreaksAsHardBreaks_RawHtmlComment_NewlineInsideCommentPreserved()
 	{

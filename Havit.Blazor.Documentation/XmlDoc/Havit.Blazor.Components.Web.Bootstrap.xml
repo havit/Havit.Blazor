@@ -2790,23 +2790,47 @@
             </code>
             </remarks>
         </member>
-        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.RawHtmlTagRegex">
+        <member name="M:Havit.Blazor.Components.Web.Bootstrap.Internal.MarkdownInlineParser.RawHtmlAwareLineBreakRegex">
             <remarks>
             Pattern:<br/>
-            <code>&lt;(?:!--.*?--&gt;|/?[A-Za-z](?:[^&lt;&gt;"']|"[^"]*"|'[^']*')*&gt;)</code><br/>
+            <code>(?&lt;element&gt;&lt;(?&lt;name&gt;script|style|pre|textarea)\b(?:[^&lt;&gt;"']|"[^"]*"|'[^']*')*&gt;.*?&lt;/\k&lt;name&gt;\s*&gt;)|(?&lt;tag&gt;&lt;(?:!--.*?--&gt;|/?[A-Za-z](?:[^&lt;&gt;"']|"[^"]*"|'[^']*')*&gt;))|(?&lt;newline&gt;[ \t]*\n)</code><br/>
             Options:<br/>
-            <code>RegexOptions.Singleline</code><br/>
+            <code>RegexOptions.IgnoreCase | RegexOptions.Singleline</code><br/>
             Explanation:<br/>
             <code>
-            ○ Match '&lt;'.<br/>
-            ○ Match with 2 alternative expressions, atomically.<br/>
-                ○ Match a sequence of expressions.<br/>
-                    ○ Match the string "!--".<br/>
-                    ○ Match any character lazily any number of times.<br/>
-                    ○ Match the string "--&gt;".<br/>
-                ○ Match a sequence of expressions.<br/>
-                    ○ Match '/' atomically, optionally.<br/>
-                    ○ Match an ASCII letter.<br/>
+            ○ Match with 3 alternative expressions, atomically.<br/>
+                ○ "element" capture group.<br/>
+                    ○ Match '&lt;'.<br/>
+                    ○ "name" capture group.<br/>
+                        ○ Match with 3 alternative expressions.<br/>
+                            ○ Match a sequence of expressions.<br/>
+                                ○ Match a character in the set [Ss].<br/>
+                                ○ Match with 2 alternative expressions.<br/>
+                                    ○ Match a sequence of expressions.<br/>
+                                        ○ Match a character in the set [Cc].<br/>
+                                        ○ Match a character in the set [Rr].<br/>
+                                        ○ Match a character in the set [Ii].<br/>
+                                        ○ Match a character in the set [Pp].<br/>
+                                        ○ Match a character in the set [Tt].<br/>
+                                    ○ Match a sequence of expressions.<br/>
+                                        ○ Match a character in the set [Tt].<br/>
+                                        ○ Match a character in the set [Yy].<br/>
+                                        ○ Match a character in the set [Ll].<br/>
+                                        ○ Match a character in the set [Ee].<br/>
+                            ○ Match a sequence of expressions.<br/>
+                                ○ Match a character in the set [Pp].<br/>
+                                ○ Match a character in the set [Rr].<br/>
+                                ○ Match a character in the set [Ee].<br/>
+                            ○ Match a sequence of expressions.<br/>
+                                ○ Match a character in the set [Tt].<br/>
+                                ○ Match a character in the set [Ee].<br/>
+                                ○ Match a character in the set [Xx].<br/>
+                                ○ Match a character in the set [Tt].<br/>
+                                ○ Match a character in the set [Aa].<br/>
+                                ○ Match a character in the set [Rr].<br/>
+                                ○ Match a character in the set [Ee].<br/>
+                                ○ Match a character in the set [Aa].<br/>
+                    ○ Match if at a word boundary.<br/>
                     ○ Loop greedily any number of times.<br/>
                         ○ Match with 3 alternative expressions.<br/>
                             ○ Match a character in the set [^"'&lt;&gt;].<br/>
@@ -2819,6 +2843,36 @@
                                 ○ Match a character other than '\'' atomically any number of times.<br/>
                                 ○ Match '\''.<br/>
                     ○ Match '&gt;'.<br/>
+                    ○ Match any character lazily any number of times.<br/>
+                    ○ Match the string "&lt;/".<br/>
+                    ○ Match the same text as matched by the "name" capture group.<br/>
+                    ○ Match a whitespace character atomically any number of times.<br/>
+                    ○ Match '&gt;'.<br/>
+                ○ "tag" capture group.<br/>
+                    ○ Match '&lt;'.<br/>
+                    ○ Match with 2 alternative expressions, atomically.<br/>
+                        ○ Match a sequence of expressions.<br/>
+                            ○ Match the string "!--".<br/>
+                            ○ Match any character lazily any number of times.<br/>
+                            ○ Match the string "--&gt;".<br/>
+                        ○ Match a sequence of expressions.<br/>
+                            ○ Match '/' atomically, optionally.<br/>
+                            ○ Match a character in the set [A-Za-z\u212A].<br/>
+                            ○ Loop greedily any number of times.<br/>
+                                ○ Match with 3 alternative expressions.<br/>
+                                    ○ Match a character in the set [^"'&lt;&gt;].<br/>
+                                    ○ Match a sequence of expressions.<br/>
+                                        ○ Match '"'.<br/>
+                                        ○ Match a character other than '"' atomically any number of times.<br/>
+                                        ○ Match '"'.<br/>
+                                    ○ Match a sequence of expressions.<br/>
+                                        ○ Match '\''.<br/>
+                                        ○ Match a character other than '\'' atomically any number of times.<br/>
+                                        ○ Match '\''.<br/>
+                            ○ Match '&gt;'.<br/>
+                ○ "newline" capture group.<br/>
+                    ○ Match a character in the set [\t ] atomically any number of times.<br/>
+                    ○ Match '\n'.<br/>
             </code>
             </remarks>
         </member>
@@ -13019,37 +13073,12 @@
             <param name="inputSpan">The text being scanned by the regular expression.</param>
             <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
         </member>
-        <member name="T:System.Text.RegularExpressions.Generated.RawHtmlTagRegex_25">
-            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the RawHtmlTagRegex method.</summary>
+        <member name="T:System.Text.RegularExpressions.Generated.RawHtmlAwareLineBreakRegex_25">
+            <summary>Caches a <see cref="T:System.Text.RegularExpressions.Regex"/> instance for the RawHtmlAwareLineBreakRegex method.</summary>
+            <remarks>A custom Regex-derived type could not be generated because the expression contains case-insensitive backreferences which are not supported by the source generator.</remarks>
         </member>
-        <member name="F:System.Text.RegularExpressions.Generated.RawHtmlTagRegex_25.Instance">
+        <member name="F:System.Text.RegularExpressions.Generated.RawHtmlAwareLineBreakRegex_25.Instance">
             <summary>Cached, thread-safe singleton instance.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.RawHtmlTagRegex_25.#ctor">
-            <summary>Initializes the instance.</summary>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.RawHtmlTagRegex_25.RunnerFactory">
-            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.RawHtmlTagRegex_25.RunnerFactory.CreateInstance">
-            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
-        </member>
-        <member name="T:System.Text.RegularExpressions.Generated.RawHtmlTagRegex_25.RunnerFactory.Runner">
-            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.RawHtmlTagRegex_25.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
-            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.RawHtmlTagRegex_25.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
-            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-            <returns>true if a possible match was found; false if no more matches are possible.</returns>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.RawHtmlTagRegex_25.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
-            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
-            <param name="inputSpan">The text being scanned by the regular expression.</param>
-            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
         </member>
         <member name="T:System.Text.RegularExpressions.Generated.NakedUrlRegex_26">
             <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the NakedUrlRegex method.</summary>
@@ -13190,9 +13219,6 @@
         </member>
         <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsWordChar(System.Char)">
             <summary>Determines whether the character is part of the [\w] set.</summary>
-        </member>
-        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32)">
-            <summary>Pushes 1 value onto the backtracking stack.</summary>
         </member>
         <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32,System.Int32)">
             <summary>Pushes 2 values onto the backtracking stack.</summary>
