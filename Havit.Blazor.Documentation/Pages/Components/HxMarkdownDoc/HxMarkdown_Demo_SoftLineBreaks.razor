@@ -1,0 +1,16 @@
+﻿<p><strong>Default (CommonMark – a single newline is rendered as a space):</strong></p>
+<HxMarkdown Content="@_userComment" />
+
+<p class="mt-3"><strong>With <code>SoftLineBreaksAsHardBreaks="true"</code>:</strong></p>
+<HxMarkdown Content="@_userComment" SoftLineBreaksAsHardBreaks="true" />
+
+@code {
+	private readonly string _userComment = """
+		Closing this one:
+		> John Doe:
+		> Budgets are being cut
+		> We are trying to keep the team size
+
+		Thanks everyone!
+		""";
+}

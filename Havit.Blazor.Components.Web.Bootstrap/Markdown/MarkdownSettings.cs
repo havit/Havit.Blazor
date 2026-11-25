@@ -12,6 +12,14 @@ public record MarkdownSettings
 	public bool? SanitizeHtml { get; set; }
 
 	/// <summary>
+	/// When <c>true</c>, every line break inside a paragraph (including paragraphs inside blockquotes)
+	/// is rendered as a hard break (<c>&lt;br /&gt;</c>) instead of a space
+	/// (like GitHub comments, Teams or Slack – suitable for user-generated content typed into a plain textarea).
+	/// Default is <c>false</c> (CommonMark behavior – a single newline is rendered as a space, a hard break requires two trailing spaces).
+	/// </summary>
+	public bool? SoftLineBreaksAsHardBreaks { get; set; }
+
+	/// <summary>
 	/// CSS class for the wrapper <c>&lt;div&gt;</c> element.
 	/// </summary>
 	public string CssClass { get; set; }

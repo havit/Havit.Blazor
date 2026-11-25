@@ -18,6 +18,7 @@ public partial class HxMarkdown : ComponentBase
 		Defaults = new MarkdownSettings()
 		{
 			SanitizeHtml = true,
+			SoftLineBreaksAsHardBreaks = false,
 			CssClass = null,
 			TableCssClass = "table",
 			BlockquoteCssClass = "blockquote",
@@ -55,6 +56,15 @@ public partial class HxMarkdown : ComponentBase
 	/// </summary>
 	[Parameter] public bool? SanitizeHtml { get; set; }
 	protected bool SanitizeHtmlEffective => SanitizeHtml ?? GetSettings()?.SanitizeHtml ?? GetDefaults().SanitizeHtml ?? true;
+
+	/// <summary>
+	/// When <c>true</c>, every line break inside a paragraph (including paragraphs inside blockquotes)
+	/// is rendered as a hard break (<c>&lt;br /&gt;</c>) instead of a space
+	/// (like GitHub comments, Teams or Slack – suitable for user-generated content typed into a plain textarea).
+	/// Default is <c>false</c> (CommonMark behavior – a single newline is rendered as a space, a hard break requires two trailing spaces).
+	/// </summary>
+	[Parameter] public bool? SoftLineBreaksAsHardBreaks { get; set; }
+	protected bool SoftLineBreaksAsHardBreaksEffective => SoftLineBreaksAsHardBreaks ?? GetSettings()?.SoftLineBreaksAsHardBreaks ?? GetDefaults().SoftLineBreaksAsHardBreaks ?? false;
 
 	/// <summary>
 	/// CSS class for <c>&lt;table&gt;</c> elements rendered from markdown tables.
@@ -95,6 +105,7 @@ public partial class HxMarkdown : ComponentBase
 	private string _renderedHtml;
 	private string _previousContent;
 	private bool _previousSanitizeHtml;
+	private bool _previousSoftLineBreaksAsHardBreaks;
 	private string _previousTableCssClass;
 	private string _previousBlockquoteCssClass;
 	private string _previousImageCssClass;
@@ -104,12 +115,14 @@ public partial class HxMarkdown : ComponentBase
 		base.OnParametersSet();
 
 		var sanitize = SanitizeHtmlEffective;
+		var softLineBreaksAsHardBreaks = SoftLineBreaksAsHardBreaksEffective;
 		var tableCss = TableCssClassEffective;
 		var blockquoteCss = BlockquoteCssClassEffective;
 		var imageCss = ImageCssClassEffective;
 
 		if (Content == _previousContent
 			&& sanitize == _previousSanitizeHtml
+			&& softLineBreaksAsHardBreaks == _previousSoftLineBreaksAsHardBreaks
 			&& tableCss == _previousTableCssClass
 			&& blockquoteCss == _previousBlockquoteCssClass
 			&& imageCss == _previousImageCssClass)
@@ -119,6 +132,7 @@ public partial class HxMarkdown : ComponentBase
 
 		_previousContent = Content;
 		_previousSanitizeHtml = sanitize;
+		_previousSoftLineBreaksAsHardBreaks = softLineBreaksAsHardBreaks;
 		_previousTableCssClass = tableCss;
 		_previousBlockquoteCssClass = blockquoteCss;
 		_previousImageCssClass = imageCss;
@@ -126,6 +140,7 @@ public partial class HxMarkdown : ComponentBase
 		var options = new MarkdownRenderOptions
 		{
 			SanitizeHtml = sanitize,
+			SoftLineBreaksAsHardBreaks = softLineBreaksAsHardBreaks,
 			TableCssClass = tableCss,
 			BlockquoteCssClass = blockquoteCss,
 			ImageCssClass = imageCss

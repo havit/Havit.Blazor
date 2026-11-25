@@ -9,4 +9,5 @@ internal class MarkdownRenderOptions
 	public string TableCssClass { get; set; }
 	public string BlockquoteCssClass { get; set; }
 	public string ImageCssClass { get; set; }
+	public bool SoftLineBreaksAsHardBreaks { get; set; }
 }

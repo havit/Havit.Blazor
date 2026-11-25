@@ -130,6 +130,81 @@ public class HxMarkdownTests : BunitTestBase
 
 	#endregion
 
+	#region SoftLineBreaksAsHardBreaks Parameter
+
+	[Fact]
+	public void HxMarkdown_SoftLineBreaksAsHardBreaks_DefaultFalse_JoinsWithSpace()
+	{
+		// Act
+		var cut = Render<HxMarkdown>(parameters => parameters
+			.Add(p => p.Content, "Line one\nLine two")
+		);
+
+		// Assert
+		Assert.Empty(cut.FindAll("br"));
+		Assert.Equal("Line one Line two", cut.Find("p").TextContent);
+	}
+
+	[Fact]
+	public void HxMarkdown_SoftLineBreaksAsHardBreaks_True_RendersBr()
+	{
+		// Act
+		var cut = Render<HxMarkdown>(parameters => parameters
+			.Add(p => p.Content, "Line one\nLine two")
+			.Add(p => p.SoftLineBreaksAsHardBreaks, true)
+		);
+
+		// Assert
+		Assert.Single(cut.FindAll("p br"));
+	}
+
+	[Fact]
+	public void HxMarkdown_SoftLineBreaksAsHardBreaks_FromSettings_RendersBr()
+	{
+		// Act
+		var cut = Render<HxMarkdown>(parameters => parameters
+			.Add(p => p.Content, "Line one\nLine two")
+			.Add(p => p.Settings, new MarkdownSettings { SoftLineBreaksAsHardBreaks = true })
+		);
+
+		// Assert
+		Assert.Single(cut.FindAll("p br"));
+	}
+
+	[Fact]
+	public void HxMarkdown_SoftLineBreaksAsHardBreaks_ParameterOverridesSettings()
+	{
+		// Act
+		var cut = Render<HxMarkdown>(parameters => parameters
+			.Add(p => p.Content, "Line one\nLine two")
+			.Add(p => p.Settings, new MarkdownSettings { SoftLineBreaksAsHardBreaks = true })
+			.Add(p => p.SoftLineBreaksAsHardBreaks, false)
+		);
+
+		// Assert
+		Assert.Empty(cut.FindAll("br"));
+	}
+
+	[Fact]
+	public void HxMarkdown_SoftLineBreaksAsHardBreaks_ParameterChange_Rerenders()
+	{
+		// Arrange
+		var cut = Render<HxMarkdown>(parameters => parameters
+			.Add(p => p.Content, "Line one\nLine two")
+		);
+		Assert.Empty(cut.FindAll("br"));
+
+		// Act
+		cut.Render(parameters => parameters
+			.Add(p => p.SoftLineBreaksAsHardBreaks, true)
+		);
+
+		// Assert
+		Assert.Single(cut.FindAll("p br"));
+	}
+
+	#endregion
+
 	#region Settings / Defaults
 
 	[Fact]
