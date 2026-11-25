@@ -103,15 +103,20 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	protected bool? SpellcheckEffective => Spellcheck ?? GetSettings()?.Spellcheck ?? GetDefaults()?.Spellcheck;
 
 	/// <inheritdoc cref="Bootstrap.LabelType" />
+	/// <remarks>
+	/// <see cref="Bootstrap.LabelType.Floating"/> is not supported since Bootstrap 6. The component renders with the
+	/// <see href="https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/forms/form-adorn/">form-adorn</see> pattern,
+	/// where the wrapper owns the visual chrome, while Bootstrap 6 floating labels require the input itself to be the <c>.form-control</c>.
+	/// </remarks>
 	[Parameter] public LabelType? LabelType { get; set; }
 	protected LabelType LabelTypeEffective => LabelType ?? GetSettings()?.LabelType ?? GetDefaults()?.LabelType ?? HxSetup.Defaults.LabelType;
 	LabelType IInputWithLabelType.LabelTypeEffective => LabelTypeEffective;
 
 	/// <summary>
-	/// The offset between the dropdown and the input.
-	/// <see href="https://popper.js.org/docs/v2/modifiers/offset/#options"/>
+	/// The offset between the menu and the input.
+	/// <see href="https://floating-ui.com/docs/offset#options"/>
 	/// </summary>
-	protected virtual (int Skidding, int Distance) DropdownOffset { get; set; } = (0, 4);
+	protected virtual (int Skidding, int Distance) MenuOffset { get; set; } = (0, 4);
 
 	/// <summary>
 	/// Returns the corresponding item for the (selected) value.
@@ -120,8 +125,6 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	/// We do not have a full list of possible items to be able to select one by value.
 	/// </remarks>
 	[Parameter] public Func<TValue, Task<TItem>> ItemFromValueResolver { get; set; }
-
-	protected override LabelValueRenderOrder RenderOrder => (LabelTypeEffective == Bootstrap.LabelType.Floating) ? LabelValueRenderOrder.ValueOnly /* Label rendered by HxAutosuggestInternal */ : LabelValueRenderOrder.LabelValue;
 
 	/// <summary>
 	/// The input-group at the beginning of the input.
@@ -145,16 +148,33 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 	/// </summary>
 	[Parameter] public RenderFragment InputGroupEndTemplate { get; set; }
 
-	private protected override string CoreInputCssClass => "form-control";
+	private protected override string CoreInputCssClass => "form-ghost";
 	private protected override string CoreCssClass => "hx-autosuggest position-relative";
 
 	private HxAutosuggestInternal<TItem, TValue> _hxAutosuggestInternalComponent;
 
+	/// <inheritdoc />
+	protected override void OnParametersSet()
+	{
+		if (LabelTypeEffective == Bootstrap.LabelType.Floating)
+		{
+			throw new InvalidOperationException("LabelType.Floating is not supported on HxAutosuggest in Bootstrap 6 — the form-adorn wrapper owns the visual chrome and cannot host a floating label. Use LabelType.Regular.");
+		}
+
+		base.OnParametersSet();
+	}
+
+	/// <inheritdoc />
+	protected override string GetInputCssClassToRender()
+	{
+		// The input size CSS class (form-control-sm/form-control-lg) is rendered on the form-adorn wrapper (in HxAutosuggestInternal), not on the inner form-ghost input.
+		string validationCssClass = IsValueInvalid() ? InvalidCssClass : null;
+		return CssClassHelper.Combine(CoreInputCssClass, InputCssClass, validationCssClass);
+	}
+
 	/// <inheritdoc cref="ComponentBase.BuildRenderTree(RenderTreeBuilder)" />
 	protected override void BuildRenderInput(RenderTreeBuilder builder)
 	{
-		LabelType labelTypeEffective = (this as IInputWithLabelType).LabelTypeEffective;
-
 		builder.OpenComponent<HxAutosuggestInternal<TItem, TValue>>(1);
 
 		builder.AddAttribute(1000, nameof(HxAutosuggestInternal<TItem, TValue>.Value), Value);
@@ -169,13 +189,11 @@ public class HxAutosuggest<TItem, TValue> : HxInputBase<TValue>, IInputWithSize,
 		builder.AddAttribute(1009, nameof(HxAutosuggestInternal<TItem, TValue>.InputCssClass), GetInputCssClassToRender()); // we may render "is-invalid" which has no sense here (there is no invalid-feedback following the element).
 		builder.AddAttribute(1010, nameof(HxAutosuggestInternal<TItem, TValue>.EnabledEffective), EnabledEffective);
 		builder.AddAttribute(1011, nameof(HxAutosuggestInternal<TItem, TValue>.ItemFromValueResolver), ItemFromValueResolver);
-		builder.AddAttribute(1012, nameof(HxAutosuggestInternal<TItem, TValue>.Placeholder), (labelTypeEffective == Havit.Blazor.Components.Web.Bootstrap.LabelType.Floating) ? "placeholder" : Placeholder);
-		builder.AddAttribute(1013, nameof(HxAutosuggestInternal<TItem, TValue>.LabelTypeEffective), labelTypeEffective);
-		builder.AddAttribute(1014, nameof(HxAutosuggestInternal<TItem, TValue>.FormValueComponent), this);
+		builder.AddAttribute(1012, nameof(HxAutosuggestInternal<TItem, TValue>.Placeholder), Placeholder);
 		builder.AddAttribute(1015, nameof(HxAutosuggestInternal<TItem, TValue>.EmptyTemplate), EmptyTemplate);
 		builder.AddAttribute(1016, nameof(HxAutosuggestInternal<TItem, TValue>.SearchIconEffective), SearchIconEffective);
 		builder.AddAttribute(1017, nameof(HxAutosuggestInternal<TItem, TValue>.ClearIconEffective), ClearIconEffective);
-		builder.AddAttribute(1018, nameof(HxAutosuggestInternal<TItem, TValue>.DropdownOffset), DropdownOffset);
+		builder.AddAttribute(1018, nameof(HxAutosuggestInternal<TItem, TValue>.MenuOffset), MenuOffset);
 		builder.AddAttribute(1021, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupStartText), InputGroupStartText);
 		builder.AddAttribute(1023, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupStartTemplate), InputGroupStartTemplate);
 		builder.AddAttribute(1024, nameof(HxAutosuggestInternal<TItem, TValue>.InputGroupEndText), InputGroupEndText);

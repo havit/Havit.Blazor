@@ -103,6 +103,37 @@ public class HxValidationMessageTests : BunitTestBase
 		Assert.Equal(2, spans.Count());
 	}
 
+	[Fact]
+	public void HxValidationMessage_ModeTooltip_RendersBootstrapTooltipClasses()
+	{
+		// Arrange — Bootstrap 6 styles the validation tooltip only as ".tooltip.invalid-tooltip"
+		var model = new TestModel();
+		var editContext = new EditContext(model);
+		var messageStore = new ValidationMessageStore(editContext);
+		messageStore.Add(editContext.Field(nameof(TestModel.Name)), "Name is required.");
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<CascadingValue<EditContext>>(0);
+			builder.AddAttribute(1, "Value", editContext);
+			builder.AddAttribute(2, "ChildContent", (RenderFragment)((builder2) =>
+			{
+				builder2.OpenComponent<HxValidationMessage<string>>(0);
+				builder2.AddAttribute(1, "For", (Expression<Func<string>>)(() => model.Name));
+				builder2.AddAttribute(2, "Mode", ValidationMessageMode.Tooltip);
+				builder2.CloseComponent();
+			}));
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+
+		// Assert
+		var tooltip = cut.Find(".tooltip.invalid-tooltip");
+		Assert.Contains("Name is required.", tooltip.TextContent);
+	}
+
 	private class TestModel
 	{
 		public string Name { get; set; }

@@ -10,7 +10,7 @@ public static class ValidationMessageModeExtensions
 		return mode switch
 		{
 			ValidationMessageMode.Regular => "invalid-feedback",
-			ValidationMessageMode.Tooltip => "invalid-tooltip text-truncate",
+			ValidationMessageMode.Tooltip => "tooltip invalid-tooltip text-truncate", // Bootstrap 6 styles only .tooltip.invalid-tooltip
 			ValidationMessageMode.Floating => "invalid-feedback feedback-floating text-truncate",
 			ValidationMessageMode.VisuallyHidden => "visually-hidden",
 			ValidationMessageMode.None => throw new InvalidOperationException($"{nameof(ValidationMessageMode.None)} cannot be used."),

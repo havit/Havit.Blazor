@@ -6,7 +6,7 @@ namespace Havit.Blazor.Components.Web.Bootstrap;
 /// <summary>
 /// Text-based (string) input base class.
 /// </summary>
-public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
+public abstract class HxInputTextBase : HxInputBaseWithAdorns<string>, IInputWithSize, IInputWithPlaceholder, IInputWithLabelType
 {
 	/// <summary>
 	/// Return <see cref="HxInputText"/> defaults.
@@ -51,6 +51,9 @@ public abstract class HxInputTextBase : HxInputBaseWithInputGroups<string>, IInp
 	/// Placeholder for the input.
 	/// </summary>
 	[Parameter] public string Placeholder { get; set; }
+
+	/// <inheritdoc />
+	private protected override bool SupportsPlaceholderWithFloatingLabel => true;
 
 	/// <summary>
 	/// Size of the input.

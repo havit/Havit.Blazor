@@ -3,14 +3,16 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	margin: var(--hx-input-file-drop-zone-mgargin);
+	margin: var(--hx-input-file-drop-zone-margin);
     padding: var(--hx-input-file-drop-zone-padding);
 	border: var(--hx-input-file-drop-zone-border-width) dashed var(--hx-input-file-drop-zone-border-color);
     border-radius: var(--hx-input-file-drop-zone-border-radius);
     background-color: var(--hx-input-file-drop-zone-background-color);
+	box-shadow: var(--hx-input-file-drop-zone-box-shadow);
 }
 
 .hx-input-file-drop-zone.disabled {
+	color: var(--hx-input-file-drop-zone-disabled-color);
 	background-color: var(--hx-input-file-drop-zone-disabled-background-color);
 }
 

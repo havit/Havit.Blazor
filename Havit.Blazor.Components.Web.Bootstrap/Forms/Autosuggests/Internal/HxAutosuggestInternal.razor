@@ -1,8 +1,8 @@
-@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
+﻿@namespace Havit.Blazor.Components.Web.Bootstrap.Internal
 @typeparam TItem
 @typeparam TValue
 
-<div id="@_dropdownId" class="@CssClassHelper.Combine("dropdown",
+<div id="@_menuId" class="@CssClassHelper.Combine(
 											HasInputGroupsEffective ? "input-group" : null,
 											HasInputGroupsEffective ? InputSizeEffective.AsInputGroupCssClass() : null,
 											InputGroupCssClass)">
@@ -14,7 +14,7 @@
 
 	@InputGroupStartTemplate
 
-	<div class="@CssClassHelper.Combine("hx-autosuggest-input-wrapper", (LabelTypeEffective == LabelType.Floating) ? "form-floating" : null)">
+	<div class="@CssClassHelper.Combine("form-control", "form-adorn", "hx-autosuggest-input-wrapper", InputSizeEffective.AsFormControlCssClass())">
 		<HxAutosuggestInputInternal @ref="_autosuggestInput"
 							InputId="@InputId"
 							NameAttributeValue="@NameAttributeValue"
@@ -27,18 +27,14 @@
 							OnClick="HandleInputClick"
 							Placeholder="@Placeholder"
 							CssClass="@InputCssClass"
-							DropdownOffset="@DropdownOffset"
+							MenuOffset="@MenuOffset"
 							AdditionalAttributes="AdditionalAttributes" />
 
-		@if (LabelTypeEffective == LabelType.Floating)
-		{
-			<HxFormValueComponentRenderer_Label FormValueComponent="@FormValueComponent" />
-		}
 		@if (EnabledEffective)
 		{
 			if (_dataProviderInProgress)
 			{
-				<div class="hx-autosuggest-input-icon">
+				<div class="form-adorn-icon hx-autosuggest-input-icon">
 					<HxSpinner Size="SpinnerSize.Small" Type="SpinnerType.Border" />
 				</div>
 			}
@@ -46,14 +42,14 @@
 			{
 				if (ClearIconEffective is not null)
 				{
-					<button type="button" class="hx-autosuggest-input-button" @onclick="ClearInputAsync" tabindex="0" aria-label="@HxAutosuggestLocalizer["Clear"]" @onclick:stopPropagation>
+					<button type="button" class="form-adorn-icon hx-autosuggest-input-button" @onclick="ClearInputAsync" tabindex="0" aria-label="@HxAutosuggestLocalizer["Clear"]" @onclick:stopPropagation>
 						<HxIcon CssClass="hx-autosuggest-input-icon-clear" Icon="ClearIconEffective" />
 					</button>
 				}
 			}
 			else if (SearchIconEffective is not null)
 			{
-				<div class="hx-autosuggest-input-icon">
+				<div class="form-adorn-icon hx-autosuggest-input-icon">
 					<HxIcon CssClass="hx-autosuggest-input-icon-search" Icon="@SearchIconEffective" />
 				</div>
 			}

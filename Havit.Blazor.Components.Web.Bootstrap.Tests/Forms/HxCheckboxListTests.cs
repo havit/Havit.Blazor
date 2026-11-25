@@ -1,3 +1,8 @@
+﻿using System.Linq.Expressions;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Rendering;
+
 namespace Havit.Blazor.Components.Web.Bootstrap.Tests.Forms;
 
 public class HxCheckboxListTests : BunitTestBase
@@ -112,5 +117,90 @@ public class HxCheckboxListTests : BunitTestBase
 		Assert.Equal(2, cut.Instance.Value.Count());
 		Assert.Contains("Alpha", cut.Instance.Value);
 		Assert.Contains("Gamma", cut.Instance.Value);
+	}
+
+	[Fact]
+	public void HxCheckboxList_InputSize_RendersCheckSizeClass()
+	{
+		// Arrange
+		var data = new List<string> { "Alpha", "Beta" };
+		List<string> selectedValues = new();
+
+		// Act
+		var cut = Render<HxCheckboxList<string, string>>(parameters => parameters
+			.Add(p => p.Data, data)
+			.Add(p => p.InputSize, InputSize.Small)
+			.Bind(p => p.Value, selectedValues, newValue => selectedValues = newValue));
+
+		// Assert
+		var inputs = cut.FindAll("input[type='checkbox']");
+		Assert.Equal(2, inputs.Count);
+		Assert.All(inputs, input => Assert.True(input.ClassList.Contains("check-sm")));
+	}
+
+	[Fact]
+	public void HxCheckboxList_Label_NamesTheGroup()
+	{
+		// Arrange
+		var data = new List<string> { "Alpha", "Beta" };
+		List<string> selectedValues = new();
+
+		// Act
+		var cut = Render<HxCheckboxList<string, string>>(parameters => parameters
+			.Add(p => p.Data, data)
+			.Add(p => p.Label, "Letters")
+			.Bind(p => p.Value, selectedValues, newValue => selectedValues = newValue));
+
+		// Assert
+		var label = cut.Find("label.form-label");
+		var group = cut.Find("[role=group]");
+		Assert.False(String.IsNullOrEmpty(label.Id));
+		Assert.Equal(label.Id, group.GetAttribute("aria-labelledby"));
+		Assert.False(label.HasAttribute("for"));
+		Assert.True(group.ClassList.Contains("form-group"));
+	}
+
+	[Fact]
+	public void HxCheckboxList_Invalid_ItemsRenderInvalidState()
+	{
+		// Arrange
+		var model = new ValuesModel();
+		var editContext = new EditContext(model);
+		var messageStore = new ValidationMessageStore(editContext);
+		messageStore.Add(editContext.Field(nameof(ValuesModel.Values)), "Select a letter.");
+
+		RenderFragment componentRenderer = (RenderTreeBuilder builder) =>
+		{
+			builder.OpenComponent<CascadingValue<EditContext>>(0);
+			builder.AddAttribute(1, "Value", editContext);
+			builder.AddAttribute(2, "ChildContent", (RenderFragment)((builder2) =>
+			{
+				builder2.OpenComponent<HxCheckboxList<string, string>>(0);
+				builder2.AddAttribute(1, "Data", new List<string> { "Alpha", "Beta" });
+				builder2.AddAttribute(2, "Value", model.Values);
+				builder2.AddAttribute(3, "ValueChanged", EventCallback.Factory.Create<List<string>>(this, v => model.Values = v));
+				builder2.AddAttribute(4, "ValueExpression", (Expression<Func<List<string>>>)(() => model.Values));
+				builder2.CloseComponent();
+			}));
+			builder.CloseComponent();
+		};
+
+		// Act
+		var cut = Render(componentRenderer);
+
+		// Assert
+		string validationMessageId = cut.Find(".hx-validation-message").Id;
+		var inputs = cut.FindAll("input[type='checkbox']");
+		Assert.Equal(2, inputs.Count);
+		Assert.All(inputs, input =>
+		{
+			Assert.True(input.ClassList.Contains("is-invalid"));
+			Assert.Contains(validationMessageId, input.GetAttribute("aria-describedby"));
+		});
+	}
+
+	private class ValuesModel
+	{
+		public List<string> Values { get; set; } = new();
 	}
 }
