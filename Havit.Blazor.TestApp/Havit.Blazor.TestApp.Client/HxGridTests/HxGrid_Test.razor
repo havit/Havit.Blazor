@@ -10,7 +10,7 @@
 		<HxGridColumn Order="3" TItem="CultureInfo" HeaderText="Link">
 			<ItemTemplate>
 				<a href="https://www.havit.cz" @onclick:stopPropagation>link to a page</a>
-				<HxButton Text="Go" Color="ThemeColor.Secondary" Outline="true" />
+				<HxButton Text="Go" Color="ThemeColor.Secondary" Variant="ButtonVariant.Outline" />
 			</ItemTemplate>
 		</HxGridColumn>
 		<HxGridColumn Id="Name" Order="2" TItem="CultureInfo" HeaderText="Name" ItemTextSelector="@(item => item.Name)" SortKeySelector="@(item => item.Name)" ItemCssClassSelector="@(item => item.Name.Contains('Z') ? "text-end" : null)" />

@@ -1,0 +1,38 @@
+﻿@page "/HxGrid_Stacked_InfiniteScroll"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<h4>HxGrid stacked layout + infinite scroll (scrollable container) E2E tests</h4>
+
+<style>
+	.stacked-infinite-scroll-container {
+		height: 400px;
+		overflow: auto;
+	}
+</style>
+
+@* The test changes the width of the wrapper to switch between the stacked (< 768px) and the table layout. *@
+<div data-testid="grid-wrapper" style="width: 400px;">
+	<HxGrid TItem="HxGrid_Stacked_InfiniteScroll_Item"
+			DataProvider="GetDataAsync"
+			Stacked="GridStacked.BelowMedium"
+			ContentNavigationMode="GridContentNavigationMode.InfiniteScroll"
+			TableContainerCssClass="stacked-infinite-scroll-container">
+		<Columns>
+			<HxGridColumn HeaderText="Name" ItemTextSelector="item => item.Name" />
+			<HxGridColumn HeaderText="Email" ItemTextSelector="item => item.Email" />
+			<HxGridColumn HeaderText="City" ItemTextSelector="item => item.City" />
+			<HxContextMenuGridColumn Context="item">
+				<HxContextMenu>
+					<HxContextMenuItem Text="Delete" />
+				</HxContextMenu>
+			</HxContextMenuGridColumn>
+		</Columns>
+	</HxGrid>
+</div>
+
+@code {
+	private Task<GridDataProviderResult<HxGrid_Stacked_InfiniteScroll_Item>> GetDataAsync(GridDataProviderRequest<HxGrid_Stacked_InfiniteScroll_Item> request)
+	{
+		return Task.FromResult(request.ApplyTo(HxGrid_Stacked_InfiniteScroll_Item.Items));
+	}
+}

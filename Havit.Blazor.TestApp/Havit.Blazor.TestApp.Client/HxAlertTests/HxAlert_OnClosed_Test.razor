@@ -1,0 +1,23 @@
+@page "/HxAlert_OnClosed"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<div data-testid="alert-onclosed-container">
+	@if (_alertVisible)
+	{
+		<HxAlert Color="ThemeColor.Warning" Dismissible="true" OnClosed="HandleAlertClosed"><p>Dismissible alert content</p></HxAlert>
+	}
+</div>
+
+<p data-testid="closed-count">@_closedCount</p>
+<HxButton Text="Show alert" Color="ThemeColor.Primary" OnClick="() => _alertVisible = true" data-testid="show-alert" />
+
+@code {
+	private bool _alertVisible = true;
+	private int _closedCount;
+
+	private void HandleAlertClosed()
+	{
+		_closedCount++;
+		_alertVisible = false;
+	}
+}
