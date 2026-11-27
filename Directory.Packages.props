@@ -43,7 +43,7 @@
 		<PackageVersion Include="ModelContextProtocol.AspNetCore" Version="2.4.0" />
 		<PackageVersion Include="Moq" Version="4.21.0" />
 		<PackageVersion Include="xunit.v3.mtp-v2" Version="4.0.3" />
-		<PackageVersion Include="protobuf-net" Version="3.4.40" />
+		<PackageVersion Include="protobuf-net" Version="3.4.51" />
 		<PackageVersion Include="protobuf-net.Grpc" Version="1.3.14" />
 		<PackageVersion Include="protobuf-net.Grpc.AspNetCore" Version="1.3.14" />
 		<PackageVersion Include="protobuf-net.Grpc.ClientFactory" Version="1.3.14" />
